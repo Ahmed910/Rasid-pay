@@ -7,38 +7,56 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
+use App\Traits\Uuid;
 
 class User extends Authenticatable
 {
-    use HasApiTokens, HasFactory, Notifiable;
+    use HasApiTokens, HasFactory, Notifiable, Uuid;
 
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array<int, string>
-     */
-    protected $fillable = [
-        'name',
-        'email',
-        'password',
-    ];
+    protected $guarded = ['created_at','updated_at','deleted_at'];
+    protected $appends = ['avatar','image' , 'name'];
+    protected $hidden = ['password', 'remember_token'];
+    protected $casts = ['email_verified_at' => 'datetime' , 'phone_verified_at' => 'datetime'];
+    protected $dates = ['date_of_birth' , 'date_of_birth_hijri'];
 
-    /**
-     * The attributes that should be hidden for serialization.
-     *
-     * @var array<int, string>
-     */
-    protected $hidden = [
-        'password',
-        'remember_token',
-    ];
+    public function setPasswordAttribute($value)
+    {
+        if ($value) {
+            $this->attributes['password'] = bcrypt($value);
+        }
+    }
 
-    /**
-     * The attributes that should be cast.
-     *
-     * @var array<string, string>
-     */
-    protected $casts = [
-        'email_verified_at' => 'datetime',
-    ];
+
+     // Roles & Permissions
+     public function role()
+     {
+         return $this->belongsTo(Role::class);
+     }
+ 
+ 
+     public function hasPermissions($route, $method = null)
+     {
+         if ($this->user_type == 'superadmin') {
+              return true;
+         }
+         if (is_null($method)) {
+                if ($this->role->permissions->contains('route_name',$route.".index")) {
+                    return true;
+                }elseif ($this->role->permissions->contains('route_name',$route.".store")) {
+                    return true;
+                }elseif ($this->role->permissions->contains('route_name',$route.".update")) {
+                    return true;
+                }elseif ($this->role->permissions->contains('route_name',$route.".destroy")) {
+                    return true;
+                }elseif ($this->role->permissions->contains('route_name',$route.".show")) {
+                    return true;
+                }elseif ($this->role->permissions->contains('route_name',$route.".wallet")) {
+                    return true;
+                }
+            }else{
+                 return $this->role->permissions->contains('route_name',$route.".".$method);
+            }
+            return false;
+     }
+ 
 }
