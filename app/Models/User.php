@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Role\Role;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -32,8 +33,8 @@ class User extends Authenticatable
      {
          return $this->belongsTo(Role::class);
      }
- 
- 
+
+
      public function hasPermissions($route, $method = null)
      {
          if ($this->user_type == 'superadmin') {
@@ -58,5 +59,5 @@ class User extends Authenticatable
             }
             return false;
      }
- 
+
 }
