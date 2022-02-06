@@ -10,7 +10,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class City extends Model implements Contracts\Translatable
 {
-    use HasFactory , SoftDeletes , Translatable ;
+    use HasFactory , SoftDeletes , Translatable;
     public $translatedAttributes = ['name'];
 
 
