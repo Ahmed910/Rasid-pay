@@ -9,14 +9,6 @@ class CountryTranslation extends Model
 {
     use HasFactory;
 
-
-
-        protected $table = 'country_translations';
-        public $timestamps = false;
-        protected $fillable = ['name','nationality','currency','phone_code'];
-
-
-
-
-
+    public $timestamps = false;
+    protected $fillable = ['name', 'nationality', 'currency', 'phone_code'];
 }

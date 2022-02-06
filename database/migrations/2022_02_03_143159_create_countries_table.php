@@ -20,9 +20,9 @@ class CreateCountriesTable extends Migration
             $table->timestamps();
         });
 
-        Schema::create('country_translations', function(Blueprint $table) {
+        Schema::create('country_translations', function (Blueprint $table) {
             $table->uuid('id')->primary();
-           
+
             $table->string('locale')->index();
             $table->string('name');
             $table->string('nationality');
@@ -31,7 +31,6 @@ class CreateCountriesTable extends Migration
             $table->unique(['country_id', 'locale']);
             $table->foreignUuid('country_id')->constrained("countries");
         });
-
     }
 
     /**
