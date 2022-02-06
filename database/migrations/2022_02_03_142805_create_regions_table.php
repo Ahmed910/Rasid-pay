@@ -25,7 +25,6 @@ class CreateRegionsTable extends Migration
             $table->uuid('id')->primary();
             $table->foreignUuid('region_id');
             $table->string('name');
-            $table->timestamps();
         });
 
     }
