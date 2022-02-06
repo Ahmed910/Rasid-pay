@@ -15,16 +15,22 @@ class CreateCitiesTable extends Migration
     {
         Schema::create('cities', function (Blueprint $table) {
             $table->uuid("id")->primary();
-//            $table
-            $table->string("name")  ;
-            $table->foreignUuid("region_id") ;
-            $table->foreignUuid("country_id") ;
-            $table ->string ("region") ;
-            $table ->string("postal_code")  ;
-            $table->softDeletes() ;
+            $table->string("name");
+            $table->foreignUuid("region_id");
+            $table ->string("postal_code");
+            $table->softDeletes();
             $table->timestamps();
-
         });
+
+        Schema::create('city_translations', function (Blueprint $table) {
+            $table->uuid("id")->primary();
+            $table->foreignUuid('city_id')->constrained("cities")->onDelete("cascade") ;
+            $table->string('name');
+            $table->string('locale')->index();
+            $table->unique(['city_id', 'locale']);
+            $table->timestamps();
+        });
+
     }
 
     /**

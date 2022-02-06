@@ -16,14 +16,14 @@ class CreateActivityLogsTable extends Migration
         Schema::create('activity_logs', function (Blueprint $table) {
             $table->uuid("id")->primary();
             $table->foreignUuid('user_id')->constrained('users');
+            $table->uuidMorphs("auditable");
             $table->string("action_type") ;
-            $table->string("olddata") ;
-            $table->string("newdata") ;
-            $table->ipAddress("ip address") ;
+            $table->string("old_data") ;
+            $table->string("new_data") ;
+            $table->ipAddress("ip_address") ;
             $table->string("agent") ;
             $table->softDeletes() ;
             $table->timestamps();
-            $table->index(["action_type" , "olddata" , "newdata" , "ip address" , "agent" ]) ;
         });
     }
 

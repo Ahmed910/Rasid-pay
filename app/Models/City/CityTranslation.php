@@ -24,9 +24,7 @@ class CityTranslation extends Model
 
     #region custom Methods
     #endregion custom Methods
-
     public $timestamps = false;
     protected $guarded = ['created_at','updated_at','deleted_at'];
-
 
 }
