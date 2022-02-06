@@ -9,9 +9,11 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class ActivityLog extends Model
 {
-    use HasFactory, Uuid , SoftDeletes;
+    use HasFactory, Uuid, SoftDeletes;
 
     #region properties
+    protected $guarded = ['created_at', 'updated_at', 'deleted_at'];
+
     #endregion properties
 
     #region mutators
@@ -25,6 +27,5 @@ class ActivityLog extends Model
 
     #region custom Methods
     #endregion custom Methods
-    protected $guarded = ['created_at','updated_at','deleted_at'];
 
 }

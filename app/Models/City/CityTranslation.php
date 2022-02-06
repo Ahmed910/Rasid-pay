@@ -11,7 +11,7 @@ class CityTranslation extends Model
     use HasFactory, Uuid;
 
     #region properties
-    protected $guarded = ['created_at','updated_at','deleted_at'];
+    protected $guarded = ['created_at', 'updated_at', 'deleted_at'];
     #endregion properties
 
     #region mutators

@@ -17,12 +17,12 @@ class CreateActivityLogsTable extends Migration
             $table->uuid("id")->primary();
             $table->foreignUuid('user_id')->constrained('users');
             $table->uuidMorphs("auditable");
-            $table->string("action_type") ;
-            $table->string("old_data") ;
-            $table->string("new_data") ;
-            $table->ipAddress("ip_address") ;
-            $table->string("agent") ;
-            $table->softDeletes() ;
+            $table->string("action_type");
+            $table->string("old_data");
+            $table->string("new_data");
+            $table->ipAddress("ip_address");
+            $table->string("agent");
+            $table->softDeletes();
             $table->timestamps();
         });
     }
