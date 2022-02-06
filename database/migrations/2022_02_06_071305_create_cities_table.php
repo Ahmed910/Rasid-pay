@@ -15,10 +15,13 @@ class CreateCitiesTable extends Migration
     {
         Schema::create('cities', function (Blueprint $table) {
             $table->uuid("id")->primary();
+//            $table
             $table->string("name")  ;
+            $table->foreignUuid("region_id") ;
+            $table->foreignUuid("country_id") ;
             $table ->string ("region") ;
-            $table ->string("code")  ;
-            
+            $table ->string("postal_code")  ;
+            $table->softDeletes() ;
             $table->timestamps();
 
         });
