@@ -9,11 +9,11 @@ class AppMedia extends Model
 {
     use HasFactory;
     protected $guarded = ['created_at','updated_at','deleted_at'];
-    protected $fillable = ['media','option'];
 
-    public function media()
+
+    public function mediable()
     {
 
-        return $this->morphOne(Media::class, 'mediable');
+        return $this->morphTo();
     }
 }
