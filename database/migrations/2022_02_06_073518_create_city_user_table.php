@@ -14,11 +14,10 @@ class CreateCityUserTable extends Migration
     public function up()
     {
         Schema::create('city_user', function (Blueprint $table) {
-            $table->uuid("id") ->primary();
-//            $table->string("user_id") ;
-            $table->foreignUuid('user_id')->constrained("users")  ;
-//            $table->string("city_id") ;
-            $table->foreignUuid('city_id')->constrained("cities") ;
+            $table->foreignUuid('user_id')->constrained("users")->onDelete("cascade")  ;
+            $table->foreignUuid('city_id')->constrained("cities")->onDelete("cascade")  ;
+            $table->primary(["user_id" , "city_id"]) ;
+            $table->softDeletes() ;
             $table->timestamps();
         });
     }

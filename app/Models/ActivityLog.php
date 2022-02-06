@@ -5,10 +5,11 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Traits\Uuid;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Test extends Model
+class ActivityLog extends Model
 {
-    use HasFactory, Uuid;
+    use HasFactory, Uuid , SoftDeletes;
 
     #region properties
     #endregion properties
