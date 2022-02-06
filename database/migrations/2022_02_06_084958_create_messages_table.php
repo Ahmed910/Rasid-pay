@@ -18,8 +18,10 @@ class CreateMessagesTable extends Migration
             $table->foreignUuid('sender_id')->constrained('users');
             $table->foreignUuid('reciever_id')->constrained('users');
             $table->text('last_message');
+            $table->text('message_type');
             $table->timestamp('read_at')->nullable();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 
