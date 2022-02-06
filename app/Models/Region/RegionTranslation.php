@@ -11,7 +11,6 @@ class RegionTranslation extends Model
 {
     use HasFactory, Uuid;
 
-    protected $table = 'country_translations';
     public $timestamps = false;
     protected $guarded = [];
 }

@@ -15,7 +15,7 @@ class CreateRegionsTable extends Migration
     {
         Schema::create('regions', function (Blueprint $table) {
             $table->uuid('id')->primary();
-            $table->foreignUuid('country_id')->constrained();
+            $table->foreignUuid('country_id')->constrained('countries');
             $table->string('name');
             $table->softDeletes();
             $table->timestamps();
