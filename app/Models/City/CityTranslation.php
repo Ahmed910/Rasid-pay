@@ -11,6 +11,7 @@ class CityTranslation extends Model
     use HasFactory, Uuid;
 
     #region properties
+    protected $guarded = ['created_at','updated_at','deleted_at'];
     #endregion properties
 
     #region mutators
@@ -25,6 +26,6 @@ class CityTranslation extends Model
     #region custom Methods
     #endregion custom Methods
     public $timestamps = false;
-    protected $guarded = ['created_at','updated_at','deleted_at'];
+
 
 }
