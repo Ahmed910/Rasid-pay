@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Api\Dashboard\V1;
 
 use App\Http\Controllers\Controller;
 use App\Http\Resources\Dashboard\CurrencyResource;
-use App\Models\Currency;
+use App\Models\Currency\Currency;
 use Illuminate\Http\Request;
 
 class CurrencyController extends Controller
@@ -16,9 +16,9 @@ class CurrencyController extends Controller
      */
     public function index(Request $request)
     {
-        $currecies = Currency::translatedIn('ar')->latest();
-        return CurrencyResource::collection($currecies->paginate($request->perPage ?? 10))
-            ->additional(['msg' => 'success', 'status' => true]);
+        $currencies = Currency::withTranslation()->latest()->paginate((int)($request->perPage ?? 10));
+        return CurrencyResource::collection($currencies)
+            ->additional(['message' => 'success', 'status' => true]);
     }
 
     /**
