@@ -11,7 +11,6 @@ use Astrotomic\Translatable\Contracts\Translatable as TranslatableContract;
 use Astrotomic\Translatable\Translatable;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
-use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class Role extends Model implements TranslatableContract
 {
@@ -29,9 +28,9 @@ class Role extends Model implements TranslatableContract
     #endregion scopes
 
     #region relationships
-    public function user(): HasOne
+    public function user(): BelongsTo
     {
-        return $this->hasOne(User::class);
+        return $this->belongsTo(User::class);
     }
 
     public function permissions(): BelongsToMany
