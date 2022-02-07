@@ -15,21 +15,20 @@ class CreateCountriesTable extends Migration
     {
         Schema::create('countries', function (Blueprint $table) {
             $table->uuid('id')->primary();
-            $table->softDeletes();
+            $table->foreignUuid('currency_id')->constrained("currencies");
             $table->string('phone_code');
+            $table->softDeletes();
             $table->timestamps();
         });
 
         Schema::create('country_translations', function (Blueprint $table) {
             $table->uuid('id')->primary();
-
-            $table->string('locale')->index();
+            $table->foreignUuid('country_id')->constrained("countries");
             $table->string('name');
             $table->string('nationality');
-            $table->string('currency');
+            $table->string('locale')->index();
 
             $table->unique(['country_id', 'locale']);
-            $table->foreignUuid('country_id')->constrained("countries");
         });
     }
 
@@ -40,6 +39,7 @@ class CreateCountriesTable extends Migration
      */
     public function down()
     {
+        Schema::dropIfExists('country_translations');
         Schema::dropIfExists('countries');
     }
 }

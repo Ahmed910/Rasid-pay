@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateCountriesTable extends Migration
+class CreateCurrenciesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,23 +13,20 @@ class CreateCountriesTable extends Migration
      */
     public function up()
     {
-        Schema::create('countries', function (Blueprint $table) {
-            $table->uuid('id')->primary();
+        Schema::create('currencies', function (Blueprint $table) {
+            $table->uuid("id")->primary();
+            $table->float('value', 8, 2);
             $table->softDeletes();
-            $table->string('phone_code');
             $table->timestamps();
         });
 
-        Schema::create('country_translations', function (Blueprint $table) {
+        Schema::create('currency_translations', function (Blueprint $table) {
             $table->uuid('id')->primary();
-
+            $table->foreignUuid('currency_id')->constrained('currencies')->onDelete('cascade');
             $table->string('locale')->index();
             $table->string('name');
-            $table->string('nationality');
-            $table->string('currency');
 
-            $table->unique(['country_id', 'locale']);
-            $table->foreignUuid('country_id')->constrained("countries");
+            $table->unique(['currency_id', 'locale']);
         });
     }
 
@@ -40,6 +37,7 @@ class CreateCountriesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('countries');
+        Schema::dropIfExists('currency_translations');
+        Schema::dropIfExists('currencies');
     }
 }
