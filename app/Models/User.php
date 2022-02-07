@@ -16,7 +16,7 @@ class User extends Authenticatable
     use HasApiTokens, HasFactory, Notifiable, Uuid;
 
     protected $guarded = ['created_at','updated_at','deleted_at'];
-    protected $appends = ['avatar','image' , 'name'];
+    // protected $appends = ['avatar','image' , 'name'];
     protected $hidden = ['password', 'remember_token'];
     protected $casts = ['email_verified_at' => 'datetime' , 'phone_verified_at' => 'datetime'];
     protected $dates = ['date_of_birth' , 'date_of_birth_hijri'];
@@ -34,7 +34,7 @@ class User extends Authenticatable
      {
          return $this->hasOne(Role::class);
      }
-     
+
      public function hasPermissions($route, $method = null)
      {
          if ($this->user_type == 'superadmin') {
