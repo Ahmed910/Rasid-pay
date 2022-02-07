@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Http\Controllers\Api\Dashboard;
+namespace App\Http\Controllers\Api\Dashboard\v1;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Dashboard\Cities\StoreCityRequest;
+use App\Http\Requests\V1\Dashboad\Cities\CityRequest;
 use App\Models\City\City;
 use Illuminate\Http\Request;
 
@@ -26,7 +26,7 @@ class CityController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreCityRequest $request)
+    public function store(CityRequest $request)
     {
         //
     }
