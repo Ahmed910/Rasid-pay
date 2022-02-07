@@ -11,6 +11,8 @@ class Currency extends Model
     use HasFactory, Uuid;
 
     #region properties
+    protected $guarded = ['created_at', 'updated_at', 'deleted_at'];
+    public $translatedAttributes = ['name'];
     #endregion properties
 
     #region mutators

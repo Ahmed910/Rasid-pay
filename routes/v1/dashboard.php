@@ -2,7 +2,8 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Api\Dashboard\v1\CountryController;
+use App\Http\Controllers\Api\Dashboard\V1\CountryController;
+use App\Http\Controllers\Api\Dashboard\V1\CurrencyController;
 
 /*
 |--------------------------------------------------------------------------
@@ -22,4 +23,6 @@ use App\Http\Controllers\Api\Dashboard\v1\CountryController;
 
 Route::apiResources([
     'countries' => CountryController::class,
+    'currencies' => CurrencyController::class,
 ]);
+
