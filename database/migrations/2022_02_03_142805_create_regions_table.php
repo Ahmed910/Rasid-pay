@@ -16,6 +16,7 @@ class CreateRegionsTable extends Migration
         Schema::create('regions', function (Blueprint $table) {
             $table->uuid('id')->primary();
             $table->foreignUuid('country_id')->constrained('countries');
+            $table->string('name');
             $table->softDeletes();
             $table->timestamps();
         });
@@ -23,8 +24,8 @@ class CreateRegionsTable extends Migration
         Schema::create('region_translations', function (Blueprint $table) {
             $table->uuid('id')->primary();
             $table->foreignUuid('region_id')->constrained()->cascadeOnDelete();
-            $table->string('name');
             $table->string('locale')->index();
+            $table->string('name');
 
             $table->unique(['region_id', 'locale']);
 
@@ -39,6 +40,7 @@ class CreateRegionsTable extends Migration
      */
     public function down()
     {
+        Schema::dropIfExists('region_translations');
         Schema::dropIfExists('regions');
     }
 }
