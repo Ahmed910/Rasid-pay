@@ -9,6 +9,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use App\Traits\Uuid;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class User extends Authenticatable
 {
@@ -29,9 +30,9 @@ class User extends Authenticatable
 
 
      // Roles & Permissions
-     public function role()
+     public function role(): HasOne
      {
-         return $this->belongsTo(Role::class);
+         return $this->hasOne(Role::class);
      }
 
 
