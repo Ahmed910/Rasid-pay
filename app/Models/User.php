@@ -34,8 +34,7 @@ class User extends Authenticatable
      {
          return $this->hasOne(Role::class);
      }
-
-
+     
      public function hasPermissions($route, $method = null)
      {
          if ($this->user_type == 'superadmin') {
