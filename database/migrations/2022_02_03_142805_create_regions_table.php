@@ -23,7 +23,7 @@ class CreateRegionsTable extends Migration
 
         Schema::create('region_translations', function (Blueprint $table) {
             $table->uuid('id')->primary();
-            $table->foreignUuid('region_id');
+            $table->foreignUuid('region_id')->constrained()->cascadeOnDelete();
             $table->string('locale')->index();
             $table->string('name');
 

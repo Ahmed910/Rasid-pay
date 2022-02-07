@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateMediasTable extends Migration
+class CreateAppMediaTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,15 +13,12 @@ class CreateMediasTable extends Migration
      */
     public function up()
     {
-        Schema::create('medias', function (Blueprint $table) {
-            $table->uuid('id')->unique();
-            $table->string('url');
-
-            $table->foreignUuid('mediable_id')->constrained("appmedias");
-            $table->string('mediable_type');
+        Schema::create('app_media', function (Blueprint $table) {
+            $table->uuid("id")->primary();
+            $table->string('media');
+            $table->uuidMorphs("mediable");
+            $table->string('option')->nullable();
             $table->softDeletes();
-
-
             $table->timestamps();
         });
     }
@@ -33,6 +30,6 @@ class CreateMediasTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('medias');
+        Schema::dropIfExists('app_media');
     }
 }
