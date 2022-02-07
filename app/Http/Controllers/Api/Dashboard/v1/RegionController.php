@@ -17,7 +17,7 @@ class RegionController extends Controller
     public function index()
     {
         $region = Region::all()->paginate($request->page ?? 15);
-        return RegionResource::collection($region)->additional(['status' => true , 'message' => "" ]);
+        return RegionResource::collection($region)->additional(['status' => true, 'message' => ""]);
     }
 
     /**
@@ -29,7 +29,7 @@ class RegionController extends Controller
     public function store(RegionRequest $regionRequest)
     {
         $region = Region::create($regionRequest->all());
-        return new (RegionResource($region))->additional(['status' => true , 'message' => "" ]);
+        return new (RegionResource($region))->additional(['status' => true, 'message' => ""]);
     }
 
     /**
@@ -40,7 +40,7 @@ class RegionController extends Controller
      */
     public function show(Region $region)
     {
-        return new (RegionResource($region))->additional(['status' => true , 'message' => "" ]);
+        return new (RegionResource($region))->additional(['status' => true, 'message' => ""]);
     }
 
     /**
@@ -53,7 +53,7 @@ class RegionController extends Controller
     public function update(RegionRequest $regionRequest, Region $region)
     {
         $region->update($regionRequest->all());
-        return new (RegionResource($region))->additional(['status' => true , 'message' => "" ]);
+        return new (RegionResource($region))->additional(['status' => true, 'message' => ""]);
     }
 
     /**
@@ -65,6 +65,6 @@ class RegionController extends Controller
     public function destroy(Region $region)
     {
         $region->delete();
-      return  response()->ajax(['status' => true , 'message' => "" , 'data' => null]);
+        return response()->ajax(['status' => true, 'message' => "", 'data' => null]);
     }
 }
