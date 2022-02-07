@@ -20,8 +20,8 @@ class CreateMessagesTable extends Migration
             $table->text('last_message');
             $table->text('message_type');
             $table->timestamp('read_at')->nullable();
-            $table->timestamps();
             $table->softDeletes();
+            $table->timestamps();
         });
     }
 
