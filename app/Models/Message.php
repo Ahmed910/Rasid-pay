@@ -9,20 +9,12 @@ use App\Traits\Uuid;
 class Message extends Model
 {
     use HasFactory, Uuid;
-
+    #region properties
     protected $guarded = ['created_at', 'updated_at', 'deleted_at'];
     protected $casts = ['last_messgae' => 'datetime', 'read_at' => 'datetime'];
+    #endregion properties
 
 
-    public function sender()
-    {
-        return $this->belongsTo(User::class, 'sender_id', 'id');
-    }
-
-    public function reciever()
-    {
-        return $this->belongsTo(User::class, 'reciever_id', 'id');
-    }
     #region properties
     #endregion properties
 
@@ -33,6 +25,15 @@ class Message extends Model
     #endregion scopes
 
     #region relationships
+    public function sender()
+    {
+        return $this->belongsTo(User::class, 'sender_id', 'id');
+    }
+
+    public function reciever()
+    {
+        return $this->belongsTo(User::class, 'reciever_id', 'id');
+    }
     #endregion relationships
 
     #region custom Methods

@@ -4,7 +4,7 @@ namespace App\Http\Resources\Dashboard;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class RoleResource extends JsonResource
+class CurrencyResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -14,16 +14,14 @@ class RoleResource extends JsonResource
      */
     public function toArray($request)
     {
-       // return parent::toArray($request);
+        return
+        [
+
+            'value'=>$this->value,
+            'name'=>$this->name
+        ]
 
 
-
-       return [
-'name'=>$this->name,
-'user_name'=>$this->username
-
-
-       ];
-
+        ;
     }
 }

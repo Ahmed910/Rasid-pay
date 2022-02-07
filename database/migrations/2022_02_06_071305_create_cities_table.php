@@ -15,7 +15,6 @@ class CreateCitiesTable extends Migration
     {
         Schema::create('cities', function (Blueprint $table) {
             $table->uuid("id")->primary();
-            $table->string("name");
             $table->foreignUuid("region_id");
             $table->string("postal_code");
             $table->softDeletes();
@@ -40,6 +39,7 @@ class CreateCitiesTable extends Migration
      */
     public function down()
     {
+        Schema::dropIfExists('city_translations');
         Schema::dropIfExists('cities');
     }
 }

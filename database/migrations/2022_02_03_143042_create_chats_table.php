@@ -19,7 +19,7 @@ class CreateChatsTable extends Migration
             $table->foreignUuid('receiver_id')->constrained('users');
             $table->string('message_type');
             $table->string('last_message');
-            $table->timestamp('read_at', $precision = 0);
+            $table->timestamp('read_at');
             $table->softDeletes();
             $table->timestamps();
         });

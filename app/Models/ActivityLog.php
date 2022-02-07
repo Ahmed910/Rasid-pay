@@ -13,7 +13,6 @@ class ActivityLog extends Model
 
     #region properties
     protected $guarded = ['created_at', 'updated_at', 'deleted_at'];
-
     #endregion properties
 
     #region mutators
@@ -23,6 +22,10 @@ class ActivityLog extends Model
     #endregion scopes
 
     #region relationships
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'user_id', 'id');
+    }
     #endregion relationships
 
     #region custom Methods

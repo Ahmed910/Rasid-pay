@@ -10,6 +10,5 @@ class DepartmentTranslation extends Model
     use HasFactory;
 
     public $timestamps = false;
-    protected $fillable = ['name', 'description'];
-
+    protected $guarded = ['created_at', 'updated_at'];
 }

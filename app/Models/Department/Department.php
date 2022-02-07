@@ -14,10 +14,20 @@ class Department extends Model implements TranslatableContract
     use HasFactory, Uuid;
     use Translatable;
     use SoftDeletes;
+    #region properties
 
     protected $guarded = ['created_at', 'updated_at', 'deleted_at'];
     public $translatedAttributes = ['name', 'description'];
+    #endregion properties
 
+
+    #region mutators
+    #endregion mutators
+
+    #region scopes
+    #endregion scopes
+
+    #region relationships
     public function parent()
     {
         return $this->belongsTo(Department::class, 'parent_id');
@@ -27,17 +37,6 @@ class Department extends Model implements TranslatableContract
     {
         return $this->hasMany(Department::class, 'parent_id');
     }
-
-    #region properties
-    #endregion properties
-
-    #region mutators
-    #endregion mutators
-
-    #region scopes
-    #endregion scopes
-
-    #region relationships
     #endregion relationships
 
     #region custom Methods

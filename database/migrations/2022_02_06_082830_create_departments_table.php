@@ -16,8 +16,8 @@ class CreateDepartmentsTable extends Migration
         Schema::create('departments', function (Blueprint $table) {
             $table->uuid('id')->primary();
             $table->uuid('parent_id')->nullable();
-            $table->timestamps();
             $table->softDeletes();
+            $table->timestamps();
         });
 
         Schema::create('department_translations', function (Blueprint $table) {
@@ -38,6 +38,7 @@ class CreateDepartmentsTable extends Migration
      */
     public function down()
     {
+        Schema::dropIfExists('department_translations');
         Schema::dropIfExists('departments');
     }
 }
