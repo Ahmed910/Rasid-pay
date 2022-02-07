@@ -3,11 +3,11 @@
 namespace App\Http\Controllers\Api\Dashboard\v1;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Dashboad\Region\RegionRequest;
+use App\Http\Requests\V1\Dashboad\Region\RegionRequest;
 use App\Http\Resources\Dashboard\RegionResource;
 use App\Models\Region\Region;
 
-class RegionController extends Controller
+class regionController extends Controller
 {
     /**
      * Display a listing of the resource.
