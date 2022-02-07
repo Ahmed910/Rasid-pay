@@ -23,8 +23,8 @@ class CreateCurrenciesTable extends Migration
         Schema::create('currency_translations', function (Blueprint $table) {
             $table->uuid('id')->primary();
             $table->foreignUuid('currency_id')->constrained('currencies')->onDelete('cascade');
-            $table->string('locale')->index();
             $table->string('name');
+            $table->string('locale')->index();
 
             $table->unique(['currency_id', 'locale']);
         });
