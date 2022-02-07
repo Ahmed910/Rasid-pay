@@ -19,7 +19,7 @@ class RoleController extends Controller
 
         $route=[];
             foreach (app()->routes->getRoutes() as $value) {
-                    if(Str::afterLast('App\Http\Controllers\Controller', '\\');$value->getPrefix() == "dashboard"){
+                    if(Str::afterLast($value->getPrefix(), '\\') == "dashboard"){
                         if($value->getName() != 'dashboard.' && !is_null($value->getName())){
                             $route[]= str_before(str_after($value->getName(),'.'),'.') ;
                         }elseif (is_null($value->getName())) {
