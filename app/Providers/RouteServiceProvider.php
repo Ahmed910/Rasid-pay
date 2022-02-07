@@ -26,7 +26,9 @@ class RouteServiceProvider extends ServiceProvider
      *
      * @var string|null
      */
-    // protected $namespace = 'App\\Http\\Controllers';
+    protected $namespace = 'App\\Http\\Controllers';
+    protected $dashboard_v1_namespace = 'App\\Http\\Controllers\\Api\\Dashboard\\V1';
+    protected $mobile_v1_namespace = 'App\\Http\\Controllers\\Api\\Mobile\\V1';
 
     /**
      * Define your route model bindings, pattern filters, etc.
@@ -38,6 +40,16 @@ class RouteServiceProvider extends ServiceProvider
         $this->configureRateLimiting();
 
         $this->routes(function () {
+            Route::prefix('api')
+                ->middleware('api')
+                ->namespace($this->dashboard_v1_namespace)
+                ->group(base_path('routes/v1/dashboard.php'));
+            
+            Route::prefix('api')
+                ->middleware('api')
+                ->namespace($this->mobile_v1_namespace)
+                ->group(base_path('routes/v1/mobile.php'));
+
             Route::prefix('api')
                 ->middleware('api')
                 ->namespace($this->namespace)
