@@ -19,7 +19,7 @@ class CreateAppmediasTable extends Migration
             $table->string('media');
             $table->uuidMorphs("mediable");
             $table->string('option')->nullable();
-            
+
 
             $table->softDeletes();
             $table->timestamps();
