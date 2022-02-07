@@ -12,12 +12,7 @@ class Country extends Model implements TranslatableContract
 {
     use HasFactory;
     use Translatable;
-    protected $guarded = ['created_at','updated_at','deleted_at'];
 
-public $translatedAttributes=['name','nationality','currency','phone_code'];
-
-
-
-
-
+    protected $guarded = ['created_at', 'updated_at', 'deleted_at'];
+    public $translatedAttributes = ['name', 'nationality', 'currency', 'phone_code'];
 }
