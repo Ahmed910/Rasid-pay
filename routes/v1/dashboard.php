@@ -22,5 +22,10 @@ use Illuminate\Support\Facades\Route;
 Route::apiResources([
     'countries' => 'CountryController',
     'currencies' => 'CurrencyController',
-    "departments" => "DepartmentController"
+    "departments" => "DepartmentController",
+    "cities" => "CityController"
+]);
+
+Route::resources([
+    'roles' => 'RoleController',
 ]);
