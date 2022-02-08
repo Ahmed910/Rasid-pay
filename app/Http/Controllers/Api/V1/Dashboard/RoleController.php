@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Api\Dashboard\V1;
+namespace App\Http\Controllers\Api\V1\Dashboard;
 
 use App\Http\Controllers\Controller;
 use App\Http\Resources\Dashboard\RoleResource;
@@ -27,7 +27,7 @@ class RoleController extends Controller
     {
         $route=[];
         foreach (app()->routes->getRoutes() as $value) {
-            // dump(Str::beforeLast($value->getName(),'.')); 
+            // dump(Str::beforeLast($value->getName(),'.'));
             if(Str::afterLast($value->getPrefix(), '/') == "dashboard"){
                         if($value->getName() != 'dashboard.' && !is_null($value->getName())){
                             $uri =  Str::beforeLast($value->getName(),'.');

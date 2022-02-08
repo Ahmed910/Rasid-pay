@@ -1,14 +1,10 @@
 <?php
 
-namespace App\Http\Requests\Dashboad\V1;
+namespace App\Http\Requests\V1\Dashboad;
 
 use App\Http\Requests\ApiMasterRequest;
 
-<<<<<<< HEAD
 class CountryRequest extends ApiMasterRequest
-=======
-class CurrencyRequest extends FormRequest
->>>>>>> ad0e0016097d5390d00dff4864ea3da2edad354a
 {
     /**
      * Determine if the user is authorized to make this request.

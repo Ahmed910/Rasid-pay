@@ -1,7 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Api\Dashboard\V1;
-
+namespace App\Http\Controllers\Api\V1\Dashboard;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Dashboad\Region\RegionRequest;
 use App\Http\Resources\Dashboard\RegionResource;
@@ -31,12 +30,8 @@ class RegionController extends Controller
     public function store(RegionRequest $regionRequest)
     {
         $region = Region::create($regionRequest->all());
-<<<<<<< HEAD:app/Http/Controllers/Api/Dashboard/V1/RegionController.php
-        return (new RegionResource($region))->additional(['status' => true, 'message' => ""]);
-=======
 
         return (new RegionResource($region))->additional(['status' => true, 'message' => 'done']);
->>>>>>> ad0e0016097d5390d00dff4864ea3da2edad354a:app/Http/Controllers/Api/Dashboard/v1/RegionController.php
     }
 
     /**

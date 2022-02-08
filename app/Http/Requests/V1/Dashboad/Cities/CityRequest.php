@@ -38,3 +38,4 @@ class CityRequest extends ApiMasterRequest
         return $rules;
     }
 }
+

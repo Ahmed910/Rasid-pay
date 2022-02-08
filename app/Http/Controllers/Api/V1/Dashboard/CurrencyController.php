@@ -1,8 +1,9 @@
 <?php
 
-namespace App\Http\Controllers\Api\Dashboard\V1;
+namespace App\Http\Controllers\Api\V1\Dashboard;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\V1\Dashboad\CurrencyRequest;
 use App\Http\Resources\Dashboard\CurrencyResource;
 use App\Models\Currency\Currency;
 use Illuminate\Http\Request;
@@ -19,10 +20,13 @@ class CurrencyController extends Controller
      */
     public function index(Request $request)
     {
+        $currencies = Currency::with(['translations' => fn ($q) => $q->Where('locale', 'ar')])->latest()->paginate((int)($request->perPage ?? 10));
 
-        $currencies = Currency::withTranslation()->latest()->paginate((int)($request->perPage ?? 10));
         return CurrencyResource::collection($currencies)
-            ->additional(['message' => 'success', 'status' => true]);
+            ->additional([
+                'message' => 'success',
+                'status' => true
+            ]);
     }
 
     /**
@@ -31,12 +35,16 @@ class CurrencyController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(CurrencyRequest $request, Currency $currency)
     {
-        //
-        $currency = Currency::create($request->all());
-        return response()->json(['data' => new CurrencyResource($currency)]);
 
+        $currency->fill($request->validated())->save();
+
+        return CurrencyResource::make($currency)
+            ->additional([
+                'status' => true,
+                'message' => "sucess"
+            ]);
     }
 
     /**
@@ -65,10 +73,16 @@ class CurrencyController extends Controller
      * @param  \App\Models\Currency  $currency
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Currency $currency)
+    public function update(CurrencyRequest $request, Currency $currency)
     {
-        //
 
+        $currency->fill($request->validated())->save();
+
+        return CurrencyResource::make($currency)
+            ->additional([
+                'status' => true,
+                'message' => "sucess"
+            ]);;
     }
 
     /**
