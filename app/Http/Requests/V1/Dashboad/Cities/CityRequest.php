@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests\V1\Dashboad;
+namespace App\Http\Requests\V1\Dashboad\Cities;
 
 use App\Http\Requests\ApiMasterRequest;
 
-class DepartmentRequest extends ApiMasterRequest
+class CityRequest extends ApiMasterRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,16 +24,18 @@ class DepartmentRequest extends ApiMasterRequest
     public function rules()
     {
         $rules = [
-            "image"     => "required|image|max:2048",
-            "parent_id" => "nullable|exists:departments,id",
+            "country_id" => "nullable|exists:countries,id",
+            "region_id" => "nullable|exists:regions,id",
+            "postal_code" => "required|string|min:2|max:8",
 
         ];
+
         foreach (config('translatable.locales') as $locale) {
-            $rules["$locale"]               = "array";
-            $rules["$locale.name"]          = "required|max:255|string|unique:department_translations,name," . $this->department?->id  . ",department_id";
-            $rules["$locale.description"]   = "required|string";
+            $rules[$locale] = "array";
+            $rules["$locale.name"] = "required|max:255|string|unique:city_translations,name," . @$this->city->id. ",city_id";
         }
 
         return $rules;
     }
 }
+

@@ -25,5 +25,9 @@ Route::apiResources([
     'countries' => 'CountryController',
     'currencies' => 'CurrencyController',
     "departments" => "DepartmentController",
-    "regions" =>   "RegionController"
+    "regions" => "RegionController"
+]);
+
+Route::resources([
+    'roles' => 'RoleController',
 ]);

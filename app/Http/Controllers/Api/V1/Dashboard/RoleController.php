@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Api\Dashboard\V1;
+namespace App\Http\Controllers\Api\V1\Dashboard;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
@@ -16,23 +16,23 @@ class RoleController extends Controller
      */
     public function index(Request $request)
     {
-
         $route=[];
-            foreach (app()->routes->getRoutes() as $value) {
-                    if(Str::afterLast($value->getPrefix(), '\\') == "dashboard"){
+        foreach (app()->routes->getRoutes() as $value) {
+            // dump(Str::beforeLast($value->getName(),'.'));
+            if(Str::afterLast($value->getPrefix(), '/') == "dashboard"){
                         if($value->getName() != 'dashboard.' && !is_null($value->getName())){
-                            $route[]= str_before(str_after($value->getName(),'.'),'.') ;
+                            $route[]= Str::singular(Str::beforeLast($value->getName(),'.'));
                         }elseif (is_null($value->getName())) {
                             $route[]= 'home' ;
 
                         }
                     }
-                   }
+                }
 
         $public_routes = ['login' , 'post_login' , 'post_login' , 'seenNotify' , 'logout' , 'notification' , 'profile'];
         $routes = array_except(array_values(array_unique($route)),$public_routes);
-
-        return RoleResource::collection($routes)->additional(['status' => true, 'message' => ""]);
+        dd($routes);
+        // return RoleResource::collection($routes)->additional(['status' => true, 'message' => ""]);
     }
 
     /**

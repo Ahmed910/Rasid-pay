@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Api\Dashboard\V1;
+namespace App\Http\Controllers\Api\V1\Dashboard;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ApiMasterRequest;
@@ -8,6 +8,7 @@ use App\Http\Requests\V1\Dashboad\RegionRequest;
 use App\Http\Resources\Dashboard\RegionResource;
 use App\Models\Region\Region;
 use Illuminate\Http\Request;
+
 
 class RegionController extends Controller
 {
@@ -35,6 +36,7 @@ class RegionController extends Controller
         $region = Region::create($regionRequest->all());
         return (new RegionResource($region))->additional([
             'status' => true, 'message' => trans("dashboard.general.success_add")]);
+
     }
 
     /**

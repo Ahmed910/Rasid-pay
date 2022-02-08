@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Requests\Dashboad\V1;
+namespace App\Http\Requests\V1\Dashboad;
 
 use App\Http\Requests\ApiMasterRequest;
 
@@ -13,7 +13,7 @@ class CountryRequest extends ApiMasterRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -23,8 +23,18 @@ class CountryRequest extends ApiMasterRequest
      */
     public function rules()
     {
-        return [
-            //
+        $rules =
+         [
+          'value'=> 'required|numeric',
         ];
+        foreach (config('translatable.locales') as $locale) {
+            $rules[$locale]               = "array";
+            $rules["$locale.name"]        = "required|max:255|string|unique:currency_translations,name," . $this->id;
+
+        }
+
+        return $rules;
+
+
     }
 }

@@ -1,0 +1,24 @@
+<?php
+
+return [
+    'general' => [
+        "success_add" => "تم الأنشاء بنجاح",
+        "success_delete" => "تم الحذف بنجاح",
+        "success_update" => "تم التعديل بنجاح",
+        "success_archive" => "تم الأرشفة بنجاح",
+        "has_relationship_cannot_delete" => "لا يمكن حذف هذا العنصر ،بسبب احتواءه علي علاقات",
+        "save" => "حفظ",
+        "edit" => "تعديل",
+        "show" => "عرض",
+        "archive" => "",
+        "restore" => "",
+        "force_delete" => "",
+    ],
+    "country" => [
+        "country" => "",
+        "countries" => "",
+        "add_country" => "",
+        "edit_country" => "",
+        "country_count" => "",
+    ],
+];

@@ -1,24 +1,25 @@
 <?php
 
-namespace App\Http\Controllers\Api\Dashboard\V1;
+namespace App\Http\Controllers\Api\V1\Dashboard;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\V1\Dashboad\DepartmentRequest;
 use App\Http\Resources\Dashboard\DepartmentResource;
 use App\Models\Department\Department;
 use Illuminate\Http\Request;
+use Symfony\Component\HttpFoundation\Response;
 
 class DepartmentController extends Controller
 {
     public function index(Request $request)
     {
         $departments = Department::with("children")->whereNull("parent_id")
-            ->paginate($request->page ?? 15);
+            ->paginate((int)($request->page ?? 15));
 
         return DepartmentResource::collection($departments)
             ->additional([
                 'status' => true,
-                'message' => "Get All Departments"
+                'message' => ""
             ]);
     }
 
@@ -29,7 +30,7 @@ class DepartmentController extends Controller
         return DepartmentResource::make($department)
             ->additional([
                 'status' => true,
-                'message' => "Created Successfully"
+                'message' => trans("dashboard.general.success_add")
             ]);
     }
 
@@ -39,7 +40,7 @@ class DepartmentController extends Controller
         return DepartmentResource::make($department)
             ->additional([
                 'status' => true,
-                'message' => "Created Successfully"
+                'message' => ""
             ]);;
     }
 
@@ -51,7 +52,7 @@ class DepartmentController extends Controller
         return DepartmentResource::make($department)
             ->additional([
                 'status' => true,
-                'message' => "Updated Successfully"
+                'message' => trans("dashboard.general.success_update")
             ]);;
     }
 
@@ -61,9 +62,9 @@ class DepartmentController extends Controller
         if ($department->children()->exists()) {
             return response()->json([
                 'status' => false,
-                'message' => "This item has relationships,so you cannot delete it ",
+                'message' => trans("dashboard.general.has_relationship_cannot_delete"),
                 'data' => null
-            ], 401);
+            ], Response::HTTP_UNPROCESSABLE_ENTITY);
         }
 
         $department->delete();
@@ -71,7 +72,7 @@ class DepartmentController extends Controller
         return DepartmentResource::make($department)
             ->additional([
                 'status' => true,
-                'message' => "Deleted Successfully"
+                'message' => trans("dashboard.general.success_delete")
             ]);
     }
 }
