@@ -1,8 +1,10 @@
 <?php
 
 namespace App\Http\Controllers\Api\V1\Dashboard;
+
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Dashboad\Region\RegionRequest;
+use App\Http\Requests\ApiMasterRequest;
+use App\Http\Requests\V1\Dashboad\RegionRequest;
 use App\Http\Resources\Dashboard\RegionResource;
 use App\Models\Region\Region;
 use Illuminate\Http\Request;
@@ -17,8 +19,10 @@ class RegionController extends Controller
      */
     public function index(Request $request)
     {
-        $region = Region::all()->paginate($request->page ?? 15);
-        return RegionResource::collection($region)->additional(['status' => true, 'message' => ""]);
+        $region = Region::paginate($request->page ?? 15);
+        return RegionResource::collection($region)->additional([
+            'status' => true,
+            'message' => ""]);
     }
 
     /**
@@ -30,8 +34,9 @@ class RegionController extends Controller
     public function store(RegionRequest $regionRequest)
     {
         $region = Region::create($regionRequest->all());
+        return (new RegionResource($region))->additional([
+            'status' => true, 'message' => trans("dashboard.general.success_add")]);
 
-        return (new RegionResource($region))->additional(['status' => true, 'message' => 'done']);
     }
 
     /**
@@ -42,7 +47,7 @@ class RegionController extends Controller
      */
     public function show(Region $region)
     {
-        return (new RegionResource($region))->additional(['status' => true, 'message' => 'done']);
+        return (new RegionResource($region))->additional(['status' => true, 'message' => ""]);
     }
 
     /**
@@ -55,18 +60,19 @@ class RegionController extends Controller
     public function update(RegionRequest $regionRequest, Region $region)
     {
         $region->update($regionRequest->all());
-        return (new RegionResource($region))->additional(['status' => true, 'message' => 'done']);
+        return (new RegionResource ($region))->additional([
+            'status' => true, 'message' => trans("dashboard.general.success_update")]);
     }
 
     /**
      * Remove the specified resource from storage.
      *
      * @param int $id
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
     public function destroy(Region $region)
     {
         $region->delete();
-        return response()->ajax(['status' => true, 'message' => "", 'data' => null]);
+        return response()->json(['status' => true, 'message' => trans("dashboard.general.success_delete"), 'data' => null]);
     }
 }
