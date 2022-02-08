@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\V1\Dashboad\Region\RegionRequest;
 use App\Http\Resources\Dashboard\RegionResource;
 use App\Models\Region\Region;
+use Illuminate\Http\Request;
 
 class regionController extends Controller
 {
@@ -14,7 +15,7 @@ class regionController extends Controller
      *
      * @return RegionResource|\Illuminate\Http\Resources\Json\AnonymousResourceCollection
      */
-    public function index()
+    public function index(Request $request)
     {
         $region = Region::all()->paginate($request->page ?? 15);
         return RegionResource::collection($region)->additional(['status' => true, 'message' => ""]);
@@ -29,7 +30,7 @@ class regionController extends Controller
     public function store(RegionRequest $regionRequest)
     {
         $region = Region::create($regionRequest->all());
-        return new (RegionResource($region))->additional(['status' => true, 'message' => ""]);
+        return (new RegionResource($region))->additional(['status' => true, 'message' => ""]);
     }
 
     /**
@@ -40,7 +41,7 @@ class regionController extends Controller
      */
     public function show(Region $region)
     {
-        return new (RegionResource($region))->additional(['status' => true, 'message' => ""]);
+        return (new RegionResource($region))->additional(['status' => true, 'message' => ""]);
     }
 
     /**
@@ -53,7 +54,7 @@ class regionController extends Controller
     public function update(RegionRequest $regionRequest, Region $region)
     {
         $region->update($regionRequest->all());
-        return new (RegionResource($region))->additional(['status' => true, 'message' => ""]);
+        return (new RegionResource ($region))->additional(['status' => true, 'message' => ""]);
     }
 
     /**
