@@ -18,7 +18,7 @@ class CityController extends Controller
         return CityResource::collection($city)
             ->additional([
                 'status' => true,
-                'message' => "Data returned successfully"
+                'message' => ''
             ]);
     }
 
@@ -30,7 +30,7 @@ class CityController extends Controller
         return CityResource::make($city)
             ->additional([
                 'status' => true,
-                'message' => "Data Created Successfully"
+                'message' =>  __('dashboard.general.success_add')
             ]);
     }
 
@@ -40,7 +40,7 @@ class CityController extends Controller
         return CityResource::make($city)
             ->additional([
                 'status' => true,
-                'message' => "Data returned successfully"
+                'message' => ''
             ]);
     }
 
@@ -52,7 +52,7 @@ class CityController extends Controller
         return CityResource::make($city)
             ->additional([
                 'status' => true,
-                'message' => "Data Updated Successfully"
+                'message' => __('dashboard.general.success_update')
             ]);
     }
 
@@ -65,7 +65,7 @@ class CityController extends Controller
         return CityResource::make($city)
             ->additional([
                 'status' => true,
-                'message' => "Data Deleted Successfully"
+                'message' =>  __('dashboard.general.success_delete')
             ]);
     }
 }
