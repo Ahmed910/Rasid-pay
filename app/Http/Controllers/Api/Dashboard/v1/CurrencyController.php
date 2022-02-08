@@ -5,10 +5,14 @@ namespace App\Http\Controllers\Api\Dashboard\V1;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\Dashboard\CurrencyResource;
 use App\Models\Currency\Currency;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Http\Request;
+
 
 class CurrencyController extends Controller
 {
+
+    use SoftDeletes;
     /**
      * Display a listing of the resource.
      *
@@ -16,6 +20,7 @@ class CurrencyController extends Controller
      */
     public function index(Request $request)
     {
+
         $currencies = Currency::translatedIn('ar')->latest();
         return CurrencyResource::collection($currencies->paginate($request->perPage ?? 10))
             ->additional(['msg' => 'success', 'status' => true]);
@@ -41,9 +46,13 @@ class CurrencyController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Currency $currency)
     {
         //
+        return response()->json(['data'=> new CurrencyResource($currency),'status'=>true,'message'=>'Currency data'],200);
+
+
+
     }
 
     /**
@@ -56,30 +65,24 @@ class CurrencyController extends Controller
     public function update(Request $request, Currency $currency)
     {
         //
-        if(!$currency)
-        {
-            return $this->notFound();
-        }
 
-        $currency->update($request->all());
-        return response()->json(['data'=> new CurrencyResource($currency), 'status' => true,'message' => 'Currency is updated'],200);
     }
 
     public function destroy(Currency $currency)
     {
         //
-        if(!$currency){
+        $currency->delete();
+        return response()->ajax(['status' => true, 'message' => "data deleted", 'data' => null]);
 
-            return $this->notFound();
-        }
-       if($currency->delete()){
 
-        return response()->json(['data'=> new CurrencyResource($currency), 'status' => 200 ,'message' => 'currency is deleted'],200);
 
-       }else{
+}
+public function restore(Currency $currency){
 
-        return response()->errorRespone();
-       }
+if($currency->softDeletes()){
+
+
+}
 
 }
 }
