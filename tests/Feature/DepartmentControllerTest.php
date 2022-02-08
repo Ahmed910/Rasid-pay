@@ -31,6 +31,40 @@ class DepartmentControllerTest extends TestCase
         $response->assertStatus(201)
             ->assertJsonCount(2, "data.translations");
     }
+
+    public function test_update_departments()
+    {
+        $department = Department::create([
+            "en" => [
+                "name"        => "test department",
+                "description" => "Description"
+            ],
+            "ar" => [
+                "name"        => "test dDepartment ar",
+                "description" => "Description"
+            ],
+            "image" => UploadedFile::fake()->image("image.png")
+        ]);
+
+        $response = $this->putJson("/api/v1/dashboard/departments/$department->id", [
+            "en" => [
+                "name"        => "test Department Updated",
+                "description" => "Description"
+            ],
+            "ar" => [
+                "name"        => "test Department Updated",
+                "description" => "Description"
+            ],
+            "image" => UploadedFile::fake()->image("image.png")
+        ], [
+            "Accept" => "Application/json",
+        ]);
+
+        $response->assertOk()
+            ->assertSeeText("Updated Successfully")
+            ->assertJsonCount(2, "data.translations");
+    }
+
     public function test_validate_on_ar_departments()
     {
         $response = $this->post("/api/v1/dashboard/departments", [
@@ -135,6 +169,7 @@ class DepartmentControllerTest extends TestCase
             "api/v1/dashboard/departments/$parent->id"
         );
 
+        $this->assertSoftDeleted($parent);
         $response->assertStatus(200)
             ->assertSee("Deleted Successfully");
     }
