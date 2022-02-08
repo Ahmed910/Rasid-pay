@@ -3,13 +3,13 @@
 namespace App\Models\Region;
 
 use App\Models\City\City;
+use App\Models\Country\Country;
 use App\Traits\Uuid;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Astrotomic\Translatable\Contracts\Translatable as TranslatableContract;
 use Astrotomic\Translatable\Translatable;
-use PHPUnit\Framework\Constraint\Count;
 
 class Region  extends Model implements TranslatableContract
 {
@@ -29,7 +29,7 @@ class Region  extends Model implements TranslatableContract
     #region relationships
     public function country()
     {
-        return $this->belongsTo(country::class, 'country_id', 'id');
+        return $this->belongsTo(Country::class, 'country_id', 'id');
     }
     public function cities()
     {

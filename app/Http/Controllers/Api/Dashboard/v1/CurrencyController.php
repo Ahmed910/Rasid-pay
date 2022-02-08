@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Http\Controllers\Api\Dashboard\v1;
-namespace App\Http\Resources\Dashboard;
+namespace App\Http\Controllers\Api\Dashboard\V1;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\Dashboard\CurrencyResource;
 use App\Models\Currency\Currency;
 use Illuminate\Http\Request;
 
@@ -16,12 +16,9 @@ class CurrencyController extends Controller
      */
     public function index(Request $request)
     {
-        //
-        $currencies = Currency::with("children")->whereNull("parent_id")->paginate($request->page ?? 15);
-
-        return CurrencyResource::collection($currencies);
-
-
+        $currencies = Currency::translatedIn('ar')->latest();
+        return CurrencyResource::collection($currencies->paginate($request->perPage ?? 10))
+            ->additional(['msg' => 'success', 'status' => true]);
     }
 
     /**
@@ -41,24 +38,19 @@ class CurrencyController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Country  $country
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Currency $currency)
+    public function show($id)
     {
         //
-        if(!$currency)
-        {
-            return $this->notFound();
-        }
-        return response()->json(['data'=> new CurrencyResource($currency), 'status' => 200 ,'message' => 'Currency Data'],200);
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Country  $country
+     * @param  \App\Models\Currency  $currency
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, Currency $currency)
@@ -70,15 +62,9 @@ class CurrencyController extends Controller
         }
 
         $currency->update($request->all());
-        return response()->json(['data'=> new CurrencyResource($currency), 'status' => 200 ,'message' => 'Currency is updated'],200);
+        return response()->json(['data'=> new CurrencyResource($currency), 'status' => true,'message' => 'Currency is updated'],200);
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Country  $country
-     * @return \Illuminate\Http\Response
-     */
     public function destroy(Currency $currency)
     {
         //
@@ -94,5 +80,6 @@ class CurrencyController extends Controller
 
         return response()->errorRespone();
        }
-    }
+
+}
 }
