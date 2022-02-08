@@ -30,10 +30,10 @@ class CityRequest extends ApiMasterRequest
 
         ];
 
-//        foreach (config('translatable.locales') as $locale) {
-//            $rules[$locale] = "array";
-//            $rules["$locale.name"] = "required|max:255|string|unique:city_translations,name," . $this->id;
-//        }
+        foreach (config('translatable.locales') as $locale) {
+            $rules[$locale] = "array";
+            $rules["$locale.name"] = "required|max:255|string|unique:city_translations,name," . @$this->city->id. ",city_id";
+        }
 
         return $rules;
     }
