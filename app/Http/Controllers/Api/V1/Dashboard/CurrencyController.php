@@ -37,7 +37,6 @@ class CurrencyController extends Controller
      */
     public function store(CurrencyRequest $request, Currency $currency)
     {
-
         $currency->fill($request->validated())->save();
 
         return CurrencyResource::make($currency)
@@ -55,7 +54,6 @@ class CurrencyController extends Controller
      */
     public function show(Currency $currency)
     {
-        //
         return CurrencyResource::make($currency)
             ->additional([
                 'status' => true,
@@ -75,7 +73,6 @@ class CurrencyController extends Controller
      */
     public function update(CurrencyRequest $request, Currency $currency)
     {
-
         $currency->fill($request->validated())->save();
 
         return CurrencyResource::make($currency)
@@ -93,11 +90,12 @@ class CurrencyController extends Controller
      */
     public function destroy(Currency $currency)
     {
-        //
         $currency->delete();
 
-    response()->json(['status' => true , 'message' => 'currency has deleted' , 'data' => null]);
-
-
+        response()->json([
+            'status' => true,
+            'message' => 'sucess',
+            'data' => null
+        ]);
     }
 }
