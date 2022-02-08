@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Api\Dashboard\V1;
+namespace App\Http\Controllers\Api\V1\Dashboard;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\V1\Dashboad\DepartmentRequest;
@@ -65,7 +65,7 @@ class DepartmentController extends Controller
                 'data' => null
             ], 422);
         }
-        
+
         $department->delete();
 
         return DepartmentResource::make($department)

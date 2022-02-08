@@ -1,7 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Api\Dashboard\V1;
-
+namespace App\Http\Controllers\Api\V1\Dashboard;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Dashboad\Region\RegionRequest;
 use App\Http\Resources\Dashboard\RegionResource;
