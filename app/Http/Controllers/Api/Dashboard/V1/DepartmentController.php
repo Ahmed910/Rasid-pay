@@ -13,12 +13,12 @@ class DepartmentController extends Controller
     public function index(Request $request)
     {
         $departments = Department::with("children")->whereNull("parent_id")
-            ->paginate($request->page ?? 15);
+            ->paginate((int)($request->page ?? 15));
 
         return DepartmentResource::collection($departments)
             ->additional([
                 'status' => true,
-                'message' => "Get All Departments"
+                'message' => "" //department
             ]);
     }
 
@@ -63,9 +63,9 @@ class DepartmentController extends Controller
                 'status' => false,
                 'message' => "This item has relationships,so you cannot delete it ",
                 'data' => null
-            ], 401);
+            ], 422);
         }
-
+        
         $department->delete();
 
         return DepartmentResource::make($department)
