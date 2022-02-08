@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Requests\Dashboad\V1;
+namespace App\Http\Requests\V1\Dashboad;
 
 use App\Http\Requests\ApiMasterRequest;
 

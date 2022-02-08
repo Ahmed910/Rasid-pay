@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Api\Dashboard\V1;
+namespace App\Http\Controllers\Api\V1\Dashboard;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
@@ -18,7 +18,7 @@ class RoleController extends Controller
     {
         $route=[];
         foreach (app()->routes->getRoutes() as $value) {
-            // dump(Str::beforeLast($value->getName(),'.')); 
+            // dump(Str::beforeLast($value->getName(),'.'));
             if(Str::afterLast($value->getPrefix(), '/') == "dashboard"){
                         if($value->getName() != 'dashboard.' && !is_null($value->getName())){
                             $route[]= Str::singular(Str::beforeLast($value->getName(),'.'));
