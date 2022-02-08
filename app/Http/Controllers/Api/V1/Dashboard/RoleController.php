@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api\V1\Dashboard;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\Dashboard\RoleResource;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use App\Model\Role\Role;
@@ -16,23 +17,31 @@ class RoleController extends Controller
      */
     public function index(Request $request)
     {
+        $roles = Role::latest()->paginate((int)($request->page ?? 15));
+
+        return RoleResource::collection($roles)->additional(['status' => true, 'message' => ""]);
+    }
+    
+    
+    public function create(Request $request)
+    {
         $route=[];
         foreach (app()->routes->getRoutes() as $value) {
             // dump(Str::beforeLast($value->getName(),'.'));
             if(Str::afterLast($value->getPrefix(), '/') == "dashboard"){
                         if($value->getName() != 'dashboard.' && !is_null($value->getName())){
-                            $route[]= Str::singular(Str::beforeLast($value->getName(),'.'));
+                            $uri =  Str::beforeLast($value->getName(),'.');
+                            $route[]= ["uri" => $uri, 'trans' => trans('dashboard.' . Str::singular($uri) . ".{$uri}")];
                         }elseif (is_null($value->getName())) {
-                            $route[]= 'home' ;
+                            $route[]= ["uri" => "home", 'trans' => trans('dashboard.home')] ;
 
                         }
                     }
                 }
-
         $public_routes = ['login' , 'post_login' , 'post_login' , 'seenNotify' , 'logout' , 'notification' , 'profile'];
-        $routes = array_except(array_values(array_unique($route)),$public_routes);
-        dd($routes);
-        // return RoleResource::collection($routes)->additional(['status' => true, 'message' => ""]);
+        $uris = array_map("unserialize", array_unique(array_map("serialize", $route)));
+        $routes = array_values($uris);
+        return RoleResource::collection($routes)->additional(['status' => true, 'message' => ""]);
     }
 
     /**
