@@ -19,7 +19,9 @@ class RegionController extends Controller
     public function index(Request $request)
     {
         $region = Region::paginate($request->page ?? 15);
-        return RegionResource::collection($region)->additional(['status' => true, 'message' => ""]);
+        return RegionResource::collection($region)->additional([
+            'status' => true,
+            'message' => ""]);
     }
 
     /**
@@ -31,7 +33,8 @@ class RegionController extends Controller
     public function store(RegionRequest $regionRequest)
     {
         $region = Region::create($regionRequest->all());
-        return (new RegionResource($region))->additional(['status' => true, 'message' => ""]);
+        return (new RegionResource($region))->additional([
+            'status' => true, 'message' => trans("dashboard.general.success_add")]);
     }
 
     /**
@@ -55,7 +58,8 @@ class RegionController extends Controller
     public function update(RegionRequest $regionRequest, Region $region)
     {
         $region->update($regionRequest->all());
-        return (new RegionResource ($region))->additional(['status' => true, 'message' => ""]);
+        return (new RegionResource ($region))->additional([
+            'status' => true, 'message' => trans("dashboard.general.success_update")]);
     }
 
     /**
@@ -67,6 +71,6 @@ class RegionController extends Controller
     public function destroy(Region $region)
     {
         $region->delete();
-        return response()->json(['status' => true, 'message' => "", 'data' => null]);
+        return response()->json(['status' => true, 'message' => trans("dashboard.general.success_delete"), 'data' => null]);
     }
 }
