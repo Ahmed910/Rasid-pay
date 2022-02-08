@@ -147,7 +147,7 @@ class DepartmentControllerTest extends TestCase
             "api/v1/dashboard/departments/$parent->id"
         );
 
-        $response->assertStatus(401)
+        $response->assertStatus(422)
             ->assertSee("This item has relationships,so you cannot delete it");
     }
 
