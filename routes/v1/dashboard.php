@@ -26,3 +26,6 @@ Route::apiResources([
     "cities" => "CityController"
 ]);
 
+Route::resources([
+    'roles' => 'RoleController',
+]);
