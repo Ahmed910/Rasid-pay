@@ -7,6 +7,7 @@ use App\Http\Requests\V1\Dashboad\DepartmentRequest;
 use App\Http\Resources\Dashboard\DepartmentResource;
 use App\Models\Department\Department;
 use Illuminate\Http\Request;
+use Symfony\Component\HttpFoundation\Response;
 
 class DepartmentController extends Controller
 {
@@ -18,7 +19,7 @@ class DepartmentController extends Controller
         return DepartmentResource::collection($departments)
             ->additional([
                 'status' => true,
-                'message' => "" //department
+                'message' => ""
             ]);
     }
 
@@ -29,7 +30,7 @@ class DepartmentController extends Controller
         return DepartmentResource::make($department)
             ->additional([
                 'status' => true,
-                'message' => "Created Successfully"
+                'message' => trans("dashboard.general.success_add")
             ]);
     }
 
@@ -39,7 +40,7 @@ class DepartmentController extends Controller
         return DepartmentResource::make($department)
             ->additional([
                 'status' => true,
-                'message' => "Created Successfully"
+                'message' => ""
             ]);;
     }
 
@@ -51,7 +52,7 @@ class DepartmentController extends Controller
         return DepartmentResource::make($department)
             ->additional([
                 'status' => true,
-                'message' => "Updated Successfully"
+                'message' => trans("dashboard.general.success_update")
             ]);;
     }
 
@@ -61,17 +62,17 @@ class DepartmentController extends Controller
         if ($department->children()->exists()) {
             return response()->json([
                 'status' => false,
-                'message' => "This item has relationships,so you cannot delete it ",
+                'message' => trans("dashboard.general.has_relationship_cannot_delete"),
                 'data' => null
-            ], 422);
+            ], Response::HTTP_UNPROCESSABLE_ENTITY);
         }
-        
+
         $department->delete();
 
         return DepartmentResource::make($department)
             ->additional([
                 'status' => true,
-                'message' => "Deleted Successfully"
+                'message' => trans("dashboard.general.success_delete")
             ]);
     }
 }
