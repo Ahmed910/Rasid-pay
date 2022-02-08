@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Api\Dashboard\V1;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\V1\Dashboad\Cities\CityRequest;
+use App\Http\Requests\V1\Dashboad\CityRequest;
 use App\Http\Resources\Dashboard\CityResource;
 use App\Models\City\City;
 use Illuminate\Http\Request;
