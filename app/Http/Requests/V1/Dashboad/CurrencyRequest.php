@@ -23,12 +23,14 @@ class CurrencyRequest extends ApiMasterRequest
      */
     public function rules()
     {
-        $rules=[
-            'value' => 'required|max:9|regex:/^(([0-9]*)(\.([0-9]{0,2}+))?)$/'
+
+
+        $rules = [
+            'value' => 'required|max:9|regex:/^\d*(\.\d{2})?$/'
         ];
 
         foreach (config('translatable.locales') as $locale) {
-            $rules[$locale.'.name'] = 'required|max:255|unique:currency_translations,name,' . ($this->id ?? 0);
+            $rules[$locale . '.name'] = 'required|max:255|unique:currency_translations,name,' . @$this->currency->id . ",currency_id";
         }
         return $rules;
     }

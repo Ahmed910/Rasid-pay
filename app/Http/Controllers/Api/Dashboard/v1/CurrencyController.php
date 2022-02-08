@@ -17,18 +17,26 @@ class CurrencyController extends Controller
      */
     public function index(Request $request)
     {
-        $currencies = Currency::withTranslation()->latest()->paginate((int)($request->perPage ?? 10));
+        $currencies = Currency::with(['translations' => fn ($q) => $q->Where('locale', 'ar')])->latest()->paginate((int)($request->perPage ?? 10));
+
         return CurrencyResource::collection($currencies)
-            ->additional(['message' => 'success', 'status' => true]);
+            ->additional([
+                'message' => 'success',
+                'status' => true
+            ]);
     }
 
 
-    public function store(CurrencyRequest $request){
+    public function store(CurrencyRequest $request, Currency $currency)
+    {
 
-        $validated = $request->validated();
+        $currency->fill($request->validated())->save();
 
-        dd($validated);
-
+        return CurrencyResource::make($currency)
+            ->additional([
+                'status' => true,
+                'message' => "sucess"
+            ]);
     }
 
     public function show($id)
@@ -37,9 +45,16 @@ class CurrencyController extends Controller
     }
 
 
-    public function update(Request $request, $id)
+    public function update(CurrencyRequest $request, Currency $currency)
     {
-        //
+
+        $currency->fill($request->validated())->save();
+
+        return CurrencyResource::make($currency)
+            ->additional([
+                'status' => true,
+                'message' => "sucess"
+            ]);;
     }
 
 
