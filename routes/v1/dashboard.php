@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\Dashboard\v1\CountryController;
+use App\Http\Controllers\Api\Dashboard\v1\RegionController;
 
 /*
 |--------------------------------------------------------------------------
@@ -22,4 +23,5 @@ use App\Http\Controllers\Api\Dashboard\v1\CountryController;
 
 Route::apiResources([
     'countries' => CountryController::class,
+    'Regions' => RegionController::class,
 ]);

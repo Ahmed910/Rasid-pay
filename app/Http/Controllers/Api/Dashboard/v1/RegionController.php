@@ -8,7 +8,7 @@ use App\Http\Resources\Dashboard\RegionResource;
 use App\Models\Region\Region;
 use Illuminate\Http\Request;
 
-class regionController extends Controller
+class RegionController extends Controller
 {
     /**
      * Display a listing of the resource.
