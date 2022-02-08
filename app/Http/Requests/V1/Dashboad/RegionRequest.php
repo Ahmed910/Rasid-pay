@@ -31,17 +31,10 @@ class RegionRequest extends ApiMasterRequest
         ];
         foreach (config('translatable.locales') as $locale) {
             $rules["$locale"] = "array";
-            $rules["$locale.name"] = "required|max:255|string|unique:department_translations,name," . ($this->id ?? 0);
+            $rules["$locale.name"] = "required|max:255|string|unique:region_translations,name," . ($this->id ?? 0);
             $rules["$locale.description"] = "required|string";
         }
         return $rules;
     }
 
-//    public function messages()
-//    {
-//        return [
-//            "name" => _(),
-//            "country_id" => _(),
-//        ];
-//    }
 }
