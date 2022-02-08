@@ -2,9 +2,9 @@
 
 namespace App\Http\Requests\V1\Dashboad\Cities;
 
-use Illuminate\Foundation\Http\FormRequest;
+use App\Http\Requests\ApiMasterRequest;
 
-class CityRequest extends FormRequest
+class CityRequest extends ApiMasterRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -31,8 +31,8 @@ class CityRequest extends FormRequest
         ];
 
         foreach (config('translatable.locales') as $locale) {
-            $rules[$locale]               = "array";
-            $rules["$locale.name"]        = "required|max:255|string|unique:city_translations,name," . $this->id;
+            $rules[$locale] = "array";
+            $rules["$locale.name"] = "required|max:255|string|unique:city_translations,name," . $this->id;
         }
 
         return $rules;

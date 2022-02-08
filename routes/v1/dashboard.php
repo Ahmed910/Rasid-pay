@@ -2,10 +2,6 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Api\Dashboard\v1\CountryController;
-use App\Http\Controllers\Api\Dashboard\v1\CityController;
-=======
->>>>>>> 690101040a80ecbdacf8d8ce90f53cd2158ca683
 
 /*
 |--------------------------------------------------------------------------
@@ -24,14 +20,9 @@ use App\Http\Controllers\Api\Dashboard\v1\CityController;
 
 
 Route::apiResources([
-<<<<<<< HEAD
-    'countries' => CountryController::class,
-    'cities' => CityController::class,
-
-=======
     'countries' => 'CountryController',
     'currencies' => 'CurrencyController',
-    "departments" => "DepartmentController"
->>>>>>> 690101040a80ecbdacf8d8ce90f53cd2158ca683
+    "departments" => "DepartmentController",
+    "cities" => "CityController"
 ]);
 
