@@ -27,7 +27,7 @@ class RegionRequest extends ApiMasterRequest
 
         $rules = [
             "name" => ["required"],
-            "country_id" => ["required", "exist:countries"]
+            "country_id" => ["required", "exists:countries,id"]
         ];
         foreach (config('translatable.locales') as $locale) {
             $rules["$locale"] = "array";
