@@ -36,6 +36,8 @@ class Country extends Model implements TranslatableContract
     public function cities()
     {
         return $this->hasMany(City::class, 'city_id', 'id');
+        // return $this->hasManyThrough(City::class, Region::class, 'region_id', 'city_id', 'id', 'id');
+
     }
 
     public function currency()

@@ -16,10 +16,10 @@ class Department extends Model implements TranslatableContract
     use SoftDeletes;
     #region properties
 
+    #region properties
     protected $guarded = ['created_at', 'updated_at', 'deleted_at'];
     public $translatedAttributes = ['name', 'description'];
     #endregion properties
-
 
     #region mutators
     #endregion mutators
@@ -35,7 +35,7 @@ class Department extends Model implements TranslatableContract
 
     public function children()
     {
-        return $this->hasMany(Department::class, 'parent_id');
+        return $this->hasMany(Department::class, 'parent_id')->with("children");
     }
     #endregion relationships
 

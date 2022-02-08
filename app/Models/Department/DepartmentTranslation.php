@@ -2,13 +2,14 @@
 
 namespace App\Models\Department;
 
+use App\Traits\Uuid;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class DepartmentTranslation extends Model
 {
-    use HasFactory;
+    use HasFactory, Uuid;
 
     public $timestamps = false;
-    protected $guarded = ['created_at', 'updated_at'];
+    protected $fillable = ['name', 'description'];
 }

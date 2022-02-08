@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Requests\V1\Dashboad\Region;
+namespace App\Http\Requests\V1\Dashboad;
 
 use Illuminate\Foundation\Http\FormRequest;
 
