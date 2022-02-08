@@ -4,7 +4,7 @@ namespace App\Http\Requests\Dashboad\V1;
 
 use App\Http\Requests\ApiMasterRequest;
 
-class CountryRequest extends ApiMasterRequest
+class CurrencyRequest extends ApiMasterRequest
 {
     /**
      * Determine if the user is authorized to make this request.

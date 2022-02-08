@@ -3,6 +3,7 @@
 namespace App\Models\Region;
 
 use App\Models\City\City;
+use App\Models\Country\Country;
 use App\Traits\Uuid;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -28,7 +29,7 @@ class Region  extends Model implements TranslatableContract
     #region relationships
     public function country()
     {
-        return $this->belongsTo(country::class, 'country_id', 'id');
+        return $this->belongsTo(Country::class, 'country_id', 'id');
     }
     public function cities()
     {

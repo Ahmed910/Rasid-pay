@@ -19,6 +19,7 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
+<<<<<<< HEAD
 
 //Route::group(["prefix" => "dashboard"], function () {
 //    Route::apiResources([
@@ -34,3 +35,5 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 //Route::apiResources([
 //    'countries' => CountryController::class,
 //]);
+=======
+>>>>>>> 690101040a80ecbdacf8d8ce90f53cd2158ca683

@@ -34,6 +34,8 @@ class City extends Model implements Contracts\Translatable
     public function country()
     {
         return $this->belongsTo(Country::class, 'country_id', 'id');
+        // return $this->hasOneThrough(Country::class, Region::class, 'id', 'id', 'region_id', 'country_id');
+
     }
     #endregion relationships
 
