@@ -77,7 +77,7 @@ class DepartmentControllerTest extends TestCase
         ]);
 
         $response->assertStatus(422)
-            ->assertSeeText("fail");
+            ->assertSeeText(false);
     }
 
     public function test_show_department()
@@ -148,7 +148,7 @@ class DepartmentControllerTest extends TestCase
         );
 
         $response->assertStatus(422)
-            ->assertSee("This item has relationships,so you cannot delete it");
+            ->assertSee("cannot delete it");
     }
 
     public function test_if_departments_doesnot_has_children_can_delete()
