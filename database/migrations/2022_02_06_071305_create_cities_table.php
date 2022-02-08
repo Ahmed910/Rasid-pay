@@ -17,7 +17,6 @@ class CreateCitiesTable extends Migration
             $table->uuid("id")->primary();
             $table->foreignUuid('country_id')->constrained('countries');
             $table->foreignUuid("region_id");
-            $table->string("name");
             $table->string("postal_code");
             $table->softDeletes();
             $table->timestamps();

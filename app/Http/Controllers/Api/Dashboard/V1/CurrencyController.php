@@ -4,21 +4,25 @@ namespace App\Http\Controllers\Api\Dashboard\V1;
 
 use App\Http\Controllers\Controller;
 use App\Http\Resources\Dashboard\CurrencyResource;
-use App\Models\Currency;
+use App\Models\Currency\Currency;
 use Illuminate\Http\Request;
+
 
 class CurrencyController extends Controller
 {
-    /**
+
+
+    /**cc
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
     public function index(Request $request)
     {
-        $currecies = Currency::translatedIn('ar')->latest();
-        return CurrencyResource::collection($currecies->paginate($request->perPage ?? 10))
-            ->additional(['msg' => 'success', 'status' => true]);
+
+        $currencies = Currency::withTranslation()->latest()->paginate((int)($request->perPage ?? 10));
+        return CurrencyResource::collection($currencies)
+            ->additional(['message' => 'success', 'status' => true]);
     }
 
     /**
@@ -30,6 +34,9 @@ class CurrencyController extends Controller
     public function store(Request $request)
     {
         //
+        $currency = Currency::create($request->all());
+        return response()->json(['data' => new CurrencyResource($currency)]);
+
     }
 
     /**
@@ -38,21 +45,30 @@ class CurrencyController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Currency $currency)
     {
         //
+        return CurrencyResource::make($currency)
+            ->additional([
+                'status' => true,
+                'message' => "Currency data"
+            ]);
     }
+
+
+
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  \App\Models\Currency  $currency
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Currency $currency)
     {
         //
+
     }
 
     /**
@@ -61,8 +77,13 @@ class CurrencyController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Currency $currency)
     {
         //
+        $currency->delete();
+
+    response()->ajax(['status' => true , 'message' => 'currency has deleted' , 'data' => null]);
+
+
     }
 }

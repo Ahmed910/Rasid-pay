@@ -1,14 +1,10 @@
 <?php
 
-namespace App\Http\Requests\Dashboad\V1;
+namespace App\Http\Requests\V1\Dashboad;
 
 use App\Http\Requests\ApiMasterRequest;
 
-<<<<<<< HEAD
-class CountryRequest extends ApiMasterRequest
-=======
-class CurrencyRequest extends FormRequest
->>>>>>> ad0e0016097d5390d00dff4864ea3da2edad354a
+class DepartmentRequest extends ApiMasterRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -27,18 +23,17 @@ class CurrencyRequest extends FormRequest
      */
     public function rules()
     {
-        $rules =
-         [
-          'value'=> 'required|numeric',
+        $rules = [
+            "image"     => "required|image|max:2048",
+            "parent_id" => "nullable|exists:departments,id",
+
         ];
         foreach (config('translatable.locales') as $locale) {
-            $rules[$locale]               = "array";
-            $rules["$locale.name"]        = "required|max:255|string|unique:currency_translations,name," . $this->id;
-
+            $rules["$locale"]               = "array";
+            $rules["$locale.name"]          = "required|max:255|string|unique:department_translations,name," . ($this->id ?? 0);
+            $rules["$locale.description"]   = "required|string";
         }
 
         return $rules;
-
-
     }
 }
