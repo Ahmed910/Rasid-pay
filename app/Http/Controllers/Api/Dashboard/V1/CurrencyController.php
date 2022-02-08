@@ -5,14 +5,13 @@ namespace App\Http\Controllers\Api\Dashboard\V1;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\Dashboard\CurrencyResource;
 use App\Models\Currency\Currency;
-use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Http\Request;
 
 
 class CurrencyController extends Controller
 {
 
-    use SoftDeletes;
+
     /**cc
      * Display a listing of the resource.
      *
