@@ -82,7 +82,7 @@ class CurrencyController extends Controller
         //
         $currency->delete();
 
-    response()->ajax(['status' => true , 'message' => 'currency has deleted' , 'data' => null]);
+    response()->json(['status' => true , 'message' => 'currency has deleted' , 'data' => null]);
 
 
     }
