@@ -4,6 +4,7 @@ namespace App\Models\City;
 
 use App\Models\Country\Country;
 use App\Models\Region\Region;
+use App\Traits\Uuid;
 use Astrotomic\Translatable\Translatable;
 use Astrotomic\Translatable\Contracts;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -12,7 +13,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class City extends Model implements Contracts\Translatable
 {
-    use HasFactory, SoftDeletes, Translatable;
+    use HasFactory, SoftDeletes, Translatable,Uuid;
 
     #region properties
     protected $guarded = ['created_at', 'updated_at', 'deleted_at'];
