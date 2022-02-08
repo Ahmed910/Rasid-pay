@@ -2,9 +2,9 @@
 
 namespace App\Http\Requests\Dashboad\V1;
 
-use Illuminate\Foundation\Http\FormRequest;
+use App\Http\Requests\ApiMasterRequest;
 
-class CurrencyRequest extends FormRequest
+class CurrencyRequest extends ApiMasterRequest
 {
     /**
      * Determine if the user is authorized to make this request.

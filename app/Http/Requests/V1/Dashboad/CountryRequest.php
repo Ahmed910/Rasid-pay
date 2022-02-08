@@ -2,9 +2,9 @@
 
 namespace App\Http\Requests\Dashboad\V1;
 
-use Illuminate\Foundation\Http\FormRequest;
+use App\Http\Requests\ApiMasterRequest;
 
-class CountryRequest extends FormRequest
+class CountryRequest extends ApiMasterRequest
 {
     /**
      * Determine if the user is authorized to make this request.
