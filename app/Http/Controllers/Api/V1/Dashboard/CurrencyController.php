@@ -20,7 +20,7 @@ class CurrencyController extends Controller
      */
     public function index(Request $request)
     {
-        $currencies = Currency::with(['translations' => fn ($q) => $q->Where('locale', 'ar')])->latest()->paginate((int)($request->perPage ?? 10));
+        $currencies = Currency::with('translations')->latest()->paginate((int)($request->perPage ?? 10));
 
         return CurrencyResource::collection($currencies)
             ->additional([
@@ -37,7 +37,6 @@ class CurrencyController extends Controller
      */
     public function store(CurrencyRequest $request, Currency $currency)
     {
-
         $currency->fill($request->validated())->save();
 
         return CurrencyResource::make($currency)
@@ -55,11 +54,10 @@ class CurrencyController extends Controller
      */
     public function show(Currency $currency)
     {
-        //
         return CurrencyResource::make($currency)
             ->additional([
                 'status' => true,
-                'message' => "Currency data"
+                'message' => 'sucess'
             ]);
     }
 
@@ -75,7 +73,6 @@ class CurrencyController extends Controller
      */
     public function update(CurrencyRequest $request, Currency $currency)
     {
-
         $currency->fill($request->validated())->save();
 
         return CurrencyResource::make($currency)
@@ -93,11 +90,8 @@ class CurrencyController extends Controller
      */
     public function destroy(Currency $currency)
     {
-        //
         $currency->delete();
 
-    response()->json(['status' => true , 'message' => trans("dashboard.general.has_relationship_cannot_delete") , 'data' => null]);
-
-
+        response()->json(['status' => true, 'message' => trans("dashboard.general.has_relationship_cannot_delete"), 'data' => null]);
     }
 }
