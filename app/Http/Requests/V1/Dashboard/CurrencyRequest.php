@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests\V1\Dashboad;
+namespace App\Http\Requests\V1\Dashboard;
 
 use App\Http\Requests\ApiMasterRequest;
 
-class DepartmentRequest extends ApiMasterRequest
+class CurrencyRequest extends ApiMasterRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,16 +24,12 @@ class DepartmentRequest extends ApiMasterRequest
     public function rules()
     {
         $rules = [
-            "image"     => "required|image|max:2048",
-            "parent_id" => "nullable|exists:departments,id",
-
+            'value' => 'required|max:9|regex:/^\d*(\.\d{2})?$/',
         ];
-        foreach (config('translatable.locales') as $locale) {
-            $rules["$locale"]               = "array";
-            $rules["$locale.name"]          = "required|max:255|string|unique:department_translations,name," . $this->department?->id  . ",department_id";
-            $rules["$locale.description"]   = "required|string";
-        }
 
+        foreach (config('translatable.locales') as $locale) {
+            $rules[$locale . '.name'] = 'required|max:255|unique:currency_translations,name,' . @$this->currency->id . ',currency_id';
+        }
         return $rules;
     }
 }
