@@ -14,6 +14,13 @@ class CurrencyResource extends JsonResource
      */
     public function toArray($request)
     {
-        return parent::toArray($request);
+        return [
+            'id' => $this->id,
+            'translations' =>  GlobalTransResource::collection($this->whenLoaded('translations')),
+            'name' => $this->name,
+            'value' => $this->value,
+            'created_at'=>$this->created_at,
+        ];
+
     }
 }

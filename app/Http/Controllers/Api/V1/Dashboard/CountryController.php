@@ -19,7 +19,7 @@ class CountryController extends Controller
      */
     public function index(Request $request)
     {
-        $countries = Country::with('translations')->latest()->paginate((int)($request->perPage ?? 10));
+        $countries = Country::with(['translations' => fn ($q) => $q->where('locale', app()->getLocale())])->latest()->paginate((int)($request->perPage ?? 10));
 
         return CountryResource::collection($countries)
             ->additional([
