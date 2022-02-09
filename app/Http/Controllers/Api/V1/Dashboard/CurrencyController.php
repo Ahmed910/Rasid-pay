@@ -87,9 +87,9 @@ class CurrencyController extends Controller
     public function restore($id)
     {
 
-        $currency = Currency::withTrashed()->findOrFail($id);
+        $currency = Currency::findOrFail($id)->restore();
 
-        $currency->restore();
+        // $currency->restore();
 
         return CurrencyResource::make($currency)
             ->additional([
