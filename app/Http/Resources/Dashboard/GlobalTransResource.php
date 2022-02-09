@@ -4,7 +4,7 @@ namespace App\Http\Resources\Dashboard;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class CityResource extends JsonResource
+class GlobalTransResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -16,10 +16,10 @@ class CityResource extends JsonResource
     {
         return [
             'id' => $this->id,
+            'locale' => $this->locale,
             'name' => $this->name,
-            'created_at' => $this->created_at,
-            'country' => CountryResource::make($this->whenLoaded('country')),
-            'translations' => GlobalTransResource::make($this->whenLoaded('translations')),
+            'desc' => $this->when($this->desc,$this->desc),
+            'nationality' => $this->when($this->nationality,$this->nationality)
         ];
     }
 }
