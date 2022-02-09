@@ -57,7 +57,7 @@ class CountryController extends Controller
         return CountryResource::make($country)
             ->additional([
                 'status' => true,
-                'message' =>  trans('dashboard.general.success_add'),
+                'message' =>  '',
             ]);;
     }
 

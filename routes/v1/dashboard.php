@@ -19,6 +19,14 @@ use Illuminate\Support\Facades\Route;
 //     return $request->user();
 // });
 
+
+
+Route::controller('CountryController')->name('countries.')->prefix('countries')->group(function () {
+    Route::get('archive', 'archive')->name('archive');
+    Route::post('restore/{id}', 'restore')->name('restore');
+    Route::delete('delete/{id}', 'delete')->name('delete');
+});
+
 Route::resources([
     'countries' => 'CountryController',
     'currencies' => 'CurrencyController',
@@ -27,9 +35,3 @@ Route::resources([
     "regions" => "RegionController",
     'roles' => 'RoleController',
 ]);
-
-Route::controller('CountryController')->prefix('countries')->group(function () {
-    Route::get('archive', 'archive');
-    Route::post('restore', 'delete');
-    Route::delete('delete', 'restore');
-});
