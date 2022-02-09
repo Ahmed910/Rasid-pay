@@ -52,8 +52,9 @@ class CountryController extends Controller
 
 
 
-    public function show(Country $country)
+    public function show($id)
     {
+        $country = Country::withTrashed()->findOrFail($id);
         return CountryResource::make($country)
             ->additional([
                 'status' => true,
@@ -111,7 +112,7 @@ class CountryController extends Controller
     }
 
     //force delete data from archive
-    public function delete($id)
+    public function forceDelete($id)
     {
         $country = Country::onlyTrashed()->findOrFail($id);
         $country->forceDelete();

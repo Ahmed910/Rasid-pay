@@ -27,12 +27,12 @@ class Message extends Model
     #region relationships
     public function sender()
     {
-        return $this->belongsTo(User::class, 'sender_id', 'id');
+        return $this->belongsTo(User::class);
     }
 
     public function reciever()
     {
-        return $this->belongsTo(User::class, 'reciever_id', 'id');
+        return $this->belongsTo(User::class);
     }
     #endregion relationships
 
