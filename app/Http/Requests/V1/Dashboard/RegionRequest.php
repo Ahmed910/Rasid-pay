@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests\V1\Dashboad;
+namespace App\Http\Requests\V1\Dashboard;
 
 use App\Http\Requests\ApiMasterRequest;
 
-class CurrencyRequest extends ApiMasterRequest
+class RegionRequest extends ApiMasterRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -23,13 +23,14 @@ class CurrencyRequest extends ApiMasterRequest
      */
     public function rules()
     {
-        $rules = [
-            'value' => 'required|max:9|regex:/^\d*(\.\d{2})?$/',
-        ];
 
+        $rules = [
+            "country_id" => ["required", "exists:countries,id"]
+        ];
         foreach (config('translatable.locales') as $locale) {
-            $rules[$locale . '.name'] = 'required|max:255|unique:currency_translations,name,' . @$this->currency->id . ',currency_id';
+            $rules["$locale.name"] = "required|max:255|string|unique:region_translations,name," . @$this->region->id . ',region_id';
         }
         return $rules;
     }
+
 }

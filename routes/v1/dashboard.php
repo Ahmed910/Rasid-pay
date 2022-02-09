@@ -32,10 +32,11 @@ Route::controller('CurrencyController')->prefix('currencies')->group(function ()
     Route::post('restore', 'restore');
     Route::delete('forceDelete', 'forceDelete');
 });
+
 Route::controller('CityController')->name('cities.')->prefix('cities')->group(function () {
     Route::get('archive', 'archive')->name('archive');
-    Route::post('restore/{city}', 'restore')->name('restore');
-    Route::delete('forceDelete/{city}', 'forceDelete')->name('forceDelete');
+    Route::post('restore/{id}', 'restore')->name('restore');
+    Route::delete('forceDelete/{id}', 'forceDelete')->name('forceDelete');
 });
 
 
@@ -53,4 +54,3 @@ Route::resources([
     "regions" => "RegionController",
     'roles' => 'RoleController',
 ]);
-

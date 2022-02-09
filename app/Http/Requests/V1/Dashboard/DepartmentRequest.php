@@ -1,11 +1,10 @@
 <?php
 
-namespace App\Http\Requests\V1\Dashboad;
+namespace App\Http\Requests\V1\Dashboard;
 
 use App\Http\Requests\ApiMasterRequest;
-use Illuminate\Foundation\Http\FormRequest;
 
-class RegionRequest extends ApiMasterRequest
+class DepartmentRequest extends ApiMasterRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,14 +23,17 @@ class RegionRequest extends ApiMasterRequest
      */
     public function rules()
     {
-
         $rules = [
-            "country_id" => ["required", "exists:countries,id"]
+            "image"     => "required|image|max:2048",
+            "parent_id" => "nullable|exists:departments,id",
+
         ];
         foreach (config('translatable.locales') as $locale) {
-            $rules["$locale.name"] = "required|max:255|string|unique:region_translations,name," . @$this->region->id . ',region_id';
+            $rules["$locale"]               = "array";
+            $rules["$locale.name"]          = "required|max:255|string|unique:department_translations,name," . $this->department?->id  . ",department_id";
+            $rules["$locale.description"]   = "required|string";
         }
+
         return $rules;
     }
-
 }
