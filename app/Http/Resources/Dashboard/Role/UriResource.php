@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Resources\Dashboard;
+namespace App\Http\Resources\Dashboard\Role;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class RoleResource extends JsonResource
+class UriResource extends JsonResource
 {
     /**
      * Transform the resource into an array.

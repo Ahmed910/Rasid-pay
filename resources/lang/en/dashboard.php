@@ -1,5 +1,12 @@
 <?php
-
+$permissions = [
+    'read' => 'قراءه',
+    'save' => 'حفظ',
+    'edit' => 'تعديل',
+    'archive' => 'أرشفة',
+    'restore' => 'استعادة',
+    'force_delete' => 'مسح نهائي',
+];
 return [
     'general' => [
         "success_add" => "Created Successfully",
@@ -15,10 +22,11 @@ return [
         "force_delete" => "",
     ],
     "country" => [
-        "country" => "",
-        "countries" => "",
+        "country" => "Country",
+        "countries" => "Countries",
         "add_country" => "",
         "edit_country" => "",
         "country_count" => "",
+        'permissions' => $permissions
     ],
 ];
