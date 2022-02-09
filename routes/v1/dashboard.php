@@ -19,24 +19,17 @@ use Illuminate\Support\Facades\Route;
 //     return $request->user();
 // });
 
-
-Route::apiResources([
+Route::resources([
     'countries' => 'CountryController',
     'currencies' => 'CurrencyController',
     "departments" => "DepartmentController",
     "cities" => "CityController",
-    "regions" => "RegionController"
-]);
-
-Route::resources([
+    "regions" => "RegionController",
     'roles' => 'RoleController',
 ]);
 
-Route::group(['prefix' => 'cities', 'as' => 'cities.'], function(){
-
-    Route::post('/restore/{city}', 'CityController@restore')->name('restore');
-    Route::delete('/force-delete/{city}', 'CityController@forceDelete')->name('force_delete');
-
-});  // End of the /cities Route Group
-
-
+Route::controller('CountryController')->prefix('countries')->group(function () {
+    Route::get('archive', 'archive');
+    Route::post('restore', 'delete');
+    Route::delete('delete', 'restore');
+});

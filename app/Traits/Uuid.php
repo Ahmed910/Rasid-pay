@@ -2,6 +2,7 @@
 
 namespace App\Traits;
 
+use Carbon\Carbon;
 use Illuminate\Support\Str;
 
 trait Uuid
@@ -27,5 +28,20 @@ trait Uuid
     public function getKeyType()
     {
         return 'string';
+    }
+
+    public function getCreatedAtAttribute($date)
+    {
+        return date('Y-m-d h:i a', strtotime($date));
+    }
+
+    public function getUpdatedAtAttribute($date)
+    {
+        return date('Y-m-d h:i a', strtotime($date));
+    }
+
+    public function getDeletedAtAttribute($date)
+    {
+        return date('Y-m-d h:i a', strtotime($date));
     }
 }

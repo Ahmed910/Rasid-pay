@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Api\V1\Dashboard;
 
 use App\Http\Controllers\Controller;
-use App\Http\Resources\Dashboard\RoleResource;
+use App\Http\Resources\Dashboard\Role\RoleResource;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use App\Models\Role\Role;
@@ -82,6 +82,10 @@ class RoleController extends Controller
         //
     }
 
+    public function edit($id)
+    {
+        //
+    }
     /**
      * Update the specified resource in storage.
      *
