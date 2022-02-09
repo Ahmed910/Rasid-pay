@@ -18,6 +18,7 @@ class CityResource extends JsonResource
             'id' => $this->id,
             'translations' => GlobalTransResource::collection($this->whenLoaded('translations')),
             'name' => $this->name,
+            'postal_code' => $this->postal_code,
             'created_at' => $this->created_at,
             'country' => CountryResource::make($this->whenLoaded('country')),
         ];
