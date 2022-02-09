@@ -60,7 +60,7 @@ class CurrencyController extends Controller
         return CurrencyResource::make($currency->load('translations'))
             ->additional([
                 'status' => true,
-                'message' => 'sucess'
+                'message' => trans("dashboard.general.show")
             ]);
     }
 
