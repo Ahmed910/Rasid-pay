@@ -1,11 +1,10 @@
 <?php
 
-namespace App\Http\Requests\V1\Dashboad;
+namespace App\Http\Requests\V1\Dashboard;
 
 use App\Http\Requests\ApiMasterRequest;
-use function config;
 
-class CityRequest extends ApiMasterRequest
+class RegionRequest extends ApiMasterRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,18 +23,14 @@ class CityRequest extends ApiMasterRequest
      */
     public function rules()
     {
+
         $rules = [
-            "country_id" => "nullable|exists:countries,id",
-            "region_id" => "nullable|exists:regions,id",
-            "postal_code" => "required|string|min:2|max:8",
-
+            "country_id" => ["required", "exists:countries,id"]
         ];
-
         foreach (config('translatable.locales') as $locale) {
-            $rules["$locale.name"] = "required|max:255|string|unique:city_translations,name," . @$this->city->id. ",city_id";
+            $rules["$locale.name"] = "required|max:255|string|unique:region_translations,name," . @$this->region->id . ',region_id';
         }
-
         return $rules;
     }
-}
 
+}

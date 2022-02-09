@@ -29,11 +29,11 @@ class Region  extends Model implements TranslatableContract
     #region relationships
     public function country()
     {
-        return $this->belongsTo(Country::class, 'country_id', 'id');
+        return $this->belongsTo(Country::class);
     }
     public function cities()
     {
-        return $this->hasMany(City::class, 'region_id', 'id');
+        return $this->hasMany(City::class);
     }
     #endregion relationships
 
