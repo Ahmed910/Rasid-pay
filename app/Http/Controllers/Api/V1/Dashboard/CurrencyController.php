@@ -39,12 +39,21 @@ class CurrencyController extends Controller
             ]);
     }
 
-    public function show(Currency $currency)
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function show($id)
+
     {
+        $currency = Currency::withTrashed()->findOrFail($id);
+
         return CurrencyResource::make($currency->load('translations'))
             ->additional([
                 'status' => true,
-                'message' => 'sucess'
+                'message' => trans("dashboard.general.show")
             ]);
     }
 
@@ -68,6 +77,39 @@ class CurrencyController extends Controller
     {
         $currency->delete();
 
-        response()->json(['status' => true, 'message' => trans("dashboard.general.has_relationship_cannot_delete"), 'data' => null]);
+        response()->json([
+            'status' => true,
+            'message' => trans("dashboard.general.has_relationship_cannot_delete"), 'data' => null
+        ]);
+    }
+
+
+    public function restore($id)
+    {
+
+        $currency = Currency::withTrashed()->findOrFail($id);
+
+        $currency->restore();
+
+        return CurrencyResource::make($currency)
+            ->additional([
+                'status' => true,
+                'message' => trans('dashboard.general.restore')
+
+            ]);
+    }
+
+
+    public function forceDelete(Currency $currency)
+    {
+
+
+        $currency->forceDelete();
+
+        return CurrencyResource::make($currency)
+            ->additional([
+                'status' => true,
+                'message' => trans('dashboard.general.success_delete')
+            ]);
     }
 }
