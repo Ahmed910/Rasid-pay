@@ -7,9 +7,9 @@ use App\Models\Currency;
 use App\Models\Region\Region;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-
 use Astrotomic\Translatable\Contracts\Translatable as TranslatableContract;
 use Astrotomic\Translatable\Translatable;
+use Carbon\Carbon;
 
 class Country extends Model implements TranslatableContract
 {
@@ -47,6 +47,11 @@ class Country extends Model implements TranslatableContract
     #endregion relationships
 
     #region custom Methods
+
+    public function getCreatedAtAttribute($date)
+    {
+        return Carbon::createFromFormat('Y-m-d H:i:s', $date)->format('Y-m-d h:i a');
+    }
     #endregion custom Methods
 
 }

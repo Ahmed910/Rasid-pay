@@ -22,6 +22,8 @@ return [
         "archive" => "",
         "restore" => "",
         "force_delete" => "",
+        'not_found' => 'لم يتم العثور على بيانات',
+
     ],
 
     "country" => [
