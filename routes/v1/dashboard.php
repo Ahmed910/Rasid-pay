@@ -30,6 +30,13 @@ Route::resources([
 
 Route::controller('CountryController')->prefix('countries')->group(function () {
     Route::get('archive', 'archive');
-    Route::post('restore', 'delete');
-    Route::delete('delete', 'restore');
+    Route::post('restore', 'restore');
+    Route::delete('delete', 'delete');
+});
+
+
+Route::controller('CurrencyController')->prefix('currencies')->group(function () {
+    Route::get('archive', 'archive');
+    Route::post('restore', 'restore');
+    Route::delete('delete', 'delete');
 });
