@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Resources\Dashboard\RoleResource;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
-use App\Model\Role\Role;
+use App\Models\Role\Role;
 
 class RoleController extends Controller
 {
@@ -21,8 +21,8 @@ class RoleController extends Controller
 
         return RoleResource::collection($roles)->additional(['status' => true, 'message' => ""]);
     }
-    
-    
+
+
     public function create(Request $request)
     {
         $route=[];

@@ -1,8 +1,9 @@
 <?php
 
-namespace App\Http\Requests\V1\Dashboad\Cities;
+namespace App\Http\Requests\V1\Dashboad;
 
 use App\Http\Requests\ApiMasterRequest;
+use function config;
 
 class CityRequest extends ApiMasterRequest
 {

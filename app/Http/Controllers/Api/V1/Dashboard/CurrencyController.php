@@ -43,7 +43,7 @@ class CurrencyController extends Controller
         return CurrencyResource::make($currency)
             ->additional([
                 'status' => true,
-                'message' => "sucess"
+                'message' => trans("dashboard.general.success_add")
             ]);
     }
 
@@ -81,7 +81,7 @@ class CurrencyController extends Controller
         return CurrencyResource::make($currency)
             ->additional([
                 'status' => true,
-                'message' => "sucess"
+                'message' => trans("dashboard.general.success_update")
             ]);;
     }
 
@@ -96,7 +96,7 @@ class CurrencyController extends Controller
         //
         $currency->delete();
 
-    response()->json(['status' => true , 'message' => 'currency has deleted' , 'data' => null]);
+    response()->json(['status' => true , 'message' => trans("dashboard.general.has_relationship_cannot_delete") , 'data' => null]);
 
 
     }
