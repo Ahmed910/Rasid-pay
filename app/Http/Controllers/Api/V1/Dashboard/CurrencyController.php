@@ -12,12 +12,6 @@ use Illuminate\Http\Request;
 class CurrencyController extends Controller
 {
 
-
-    /**cc
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index(Request $request)
     {
         $currencies = Currency::latest()->paginate((int)($request->perPage ?? 10));
@@ -29,12 +23,11 @@ class CurrencyController extends Controller
             ]);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
+    public function create()
+    {
+        //
+    }
+
     public function store(CurrencyRequest $request, Currency $currency)
     {
         $currency->fill($request->validated())->save();
@@ -46,12 +39,6 @@ class CurrencyController extends Controller
             ]);
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function show(Currency $currency)
     {
         return CurrencyResource::make($currency->load('translations'))
@@ -61,16 +48,11 @@ class CurrencyController extends Controller
             ]);
     }
 
+    public function edit($id)
+    {
+        //
+    }
 
-
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Currency  $currency
-     * @return \Illuminate\Http\Response
-     */
     public function update(CurrencyRequest $request, Currency $currency)
     {
         $currency->fill($request->validated())->save();
@@ -82,12 +64,6 @@ class CurrencyController extends Controller
             ]);;
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function destroy(Currency $currency)
     {
         $currency->delete();

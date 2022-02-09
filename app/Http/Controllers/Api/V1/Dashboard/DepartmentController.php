@@ -23,6 +23,11 @@ class DepartmentController extends Controller
             ]);
     }
 
+    public function create()
+    {
+        //
+    }
+
     public function store(DepartmentRequest $request, Department $department)
     {
         $department->fill($request->validated())->save();
@@ -42,6 +47,11 @@ class DepartmentController extends Controller
                 'status' => true,
                 'message' => ""
             ]);;
+    }
+
+    public function edit($id)
+    {
+        //
     }
 
 
