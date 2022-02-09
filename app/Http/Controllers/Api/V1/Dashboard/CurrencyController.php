@@ -20,7 +20,7 @@ class CurrencyController extends Controller
      */
     public function index(Request $request)
     {
-        $currencies = Currency::with(['translations' => fn ($q) => $q->Where('locale', 'ar')])->latest()->paginate((int)($request->perPage ?? 10));
+        $currencies = Currency::with('translations')->latest()->paginate((int)($request->perPage ?? 10));
 
         return CurrencyResource::collection($currencies)
             ->additional([
@@ -42,7 +42,7 @@ class CurrencyController extends Controller
         return CurrencyResource::make($currency)
             ->additional([
                 'status' => true,
-                'message' => "sucess"
+                'message' => 'sucess'
             ]);
     }
 
@@ -57,7 +57,7 @@ class CurrencyController extends Controller
         return CurrencyResource::make($currency)
             ->additional([
                 'status' => true,
-                'message' => "Currency data"
+                'message' => 'sucess'
             ]);
     }
 
@@ -78,8 +78,8 @@ class CurrencyController extends Controller
         return CurrencyResource::make($currency)
             ->additional([
                 'status' => true,
-                'message' => "sucess"
-            ]);;
+                'message' => 'sucess'
+            ]);
     }
 
     /**
