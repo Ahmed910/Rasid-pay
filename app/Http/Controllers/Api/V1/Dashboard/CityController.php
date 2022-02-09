@@ -65,7 +65,33 @@ class CityController extends Controller
         return CityResource::make($city)
             ->additional([
                 'status' => true,
+                'message' =>  __('dashboard.general.archive')
+            ]);
+    }
+
+
+    public function restore($id)
+    {
+        $city = City::withTrashed()->find($id);
+        $city->restore();
+
+        return CityResource::make($city)
+            ->additional([
+                'status' => true,
+                'message' =>  __('dashboard.general.restore')
+            ]);
+    }
+
+    public function forceDelete(City $city)
+    {
+        $city->forceDelete();
+
+        return CityResource::make($city)
+            ->additional([
+                'status' => true,
                 'message' =>  __('dashboard.general.success_delete')
             ]);
     }
+
+
 }
