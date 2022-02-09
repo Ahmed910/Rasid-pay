@@ -25,7 +25,14 @@ class RegionController extends Controller
             'message' => ""
         ]);
     }
-
+    public function archive(Request $request)
+    {
+        $region = Region::onlyTrashed()->latest()->paginate((int)($request->page ?? 15));
+        return RegionResource::collection($region)->additional([
+            'status' => true,
+            'message' => ""
+        ]);
+    }
     public function create()
     {
         //
@@ -53,7 +60,7 @@ class RegionController extends Controller
      */
     public function show($id)
     {
-        $region = Region::withtrashed()->findorfail($id);
+        $region = Region::withTrashed()->findorfail($id);
         return (new RegionResource($region))->additional(['status' => true, 'message' => ""]);
     }
 
