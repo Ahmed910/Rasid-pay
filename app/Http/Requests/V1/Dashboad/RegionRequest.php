@@ -26,13 +26,10 @@ class RegionRequest extends ApiMasterRequest
     {
 
         $rules = [
-            "name" => ["required" ,"max:255"],
             "country_id" => ["required", "exists:countries,id"]
         ];
         foreach (config('translatable.locales') as $locale) {
-            $rules["$locale"] = "array";
-            $rules["$locale.name"] = "required|max:255|string|unique:region_translations,name," . ($this->id ?? 0);
-            $rules["$locale.description"] = "required|string";
+            $rules["$locale.name"] = "required|max:255|string|unique:region_translations,name," . @$this->region->id . ',region_id';
         }
         return $rules;
     }
