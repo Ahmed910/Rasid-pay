@@ -12,12 +12,6 @@ use Illuminate\Http\Request;
 class CurrencyController extends Controller
 {
 
-
-    /**cc
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index(Request $request)
     {
         $currencies = Currency::latest()->paginate((int)($request->perPage ?? 10));
@@ -29,12 +23,11 @@ class CurrencyController extends Controller
             ]);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
+    public function create()
+    {
+        //
+    }
+
     public function store(CurrencyRequest $request, Currency $currency)
     {
         $currency->fill($request->validated())->save();
@@ -55,7 +48,7 @@ class CurrencyController extends Controller
     public function show($id)
 
     {
-        $currency =Currency::withTrashed()->findOrFail($id);
+        $currency = Currency::withTrashed()->findOrFail($id);
 
         return CurrencyResource::make($currency->load('translations'))
             ->additional([
@@ -64,16 +57,11 @@ class CurrencyController extends Controller
             ]);
     }
 
+    public function edit($id)
+    {
+        //
+    }
 
-
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Currency  $currency
-     * @return \Illuminate\Http\Response
-     */
     public function update(CurrencyRequest $request, Currency $currency)
     {
         $currency->fill($request->validated())->save();
@@ -85,39 +73,35 @@ class CurrencyController extends Controller
             ]);;
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function destroy(Currency $currency)
     {
         $currency->delete();
 
-        response()->json(['status' => true,
-         'message' => trans("dashboard.general.has_relationship_cannot_delete"), 'data' => null]);
+        response()->json([
+            'status' => true,
+            'message' => trans("dashboard.general.has_relationship_cannot_delete"), 'data' => null
+        ]);
     }
 
 
-    public function restore($id){
+    public function restore($id)
+    {
 
-        $currency=Currency::withTrashed()->findOrFail($id);
+        $currency = Currency::withTrashed()->findOrFail($id);
 
         $currency->restore();
 
         return CurrencyResource::make($currency)
-        ->additional([
-            'status' => true,
-            'message' => trans('dashboard.general.restore')
+            ->additional([
+                'status' => true,
+                'message' => trans('dashboard.general.restore')
 
-        ]);
-
-
-      }
+            ]);
+    }
 
 
-      public function forceDelete(Currency $currency){
+    public function forceDelete(Currency $currency)
+    {
 
 
         $currency->forceDelete();
@@ -125,7 +109,7 @@ class CurrencyController extends Controller
         return CurrencyResource::make($currency)
             ->additional([
                 'status' => true,
-                'message' =>trans('dashboard.general.success_delete')
+                'message' => trans('dashboard.general.success_delete')
             ]);
-      }
+    }
 }

@@ -22,6 +22,10 @@ class CityController extends Controller
             ]);
     }
 
+    public function create()
+    {
+        //
+    }
 
     public function store(CityRequest $request, City $city)
     {
@@ -44,6 +48,10 @@ class CityController extends Controller
             ]);
     }
 
+    public function edit($id)
+    {
+        //
+    }
 
     public function update(CityRequest $request, City $city)
     {

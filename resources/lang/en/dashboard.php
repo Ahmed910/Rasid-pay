@@ -13,6 +13,7 @@ return [
         "success_delete" => "Deleted Successfully",
         "success_update" => "Updated Successfully",
         "success_archive" => "Archived Successfully",
+        "success_restore" => "Restored Successfully",
         "has_relationship_cannot_delete" => "This item has relationships ,so you cannot delete it",
         "save" => "Save",
         "edit" => "Edit",

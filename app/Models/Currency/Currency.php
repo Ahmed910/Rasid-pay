@@ -30,9 +30,5 @@ class Currency extends Model implements TranslatableContract
     #endregion relationships
 
     #region custom Methods
-    public function getCreatedAtAttribute($date)
-    {
-        return Carbon::createFromFormat('Y-m-d H:i:s', $date)->format('Y-m-d h:i a');
-    }
     #endregion custom Methods
 }
