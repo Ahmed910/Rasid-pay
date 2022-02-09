@@ -15,8 +15,8 @@ class CreateMessagesTable extends Migration
     {
         Schema::create('messages', function (Blueprint $table) {
             $table->uuid("id")->primary();
-            $table->foreignUuid('sender_id')->constrained('users');
-            $table->foreignUuid('reciever_id')->constrained('users');
+            $table->foreignUuid('sender_id')->constrained('users')->onDelete('set null');
+            $table->foreignUuid('reciever_id')->constrained('users')->onDelete('set null');
             $table->text('last_message');
             $table->text('message_type');
             $table->timestamp('read_at')->nullable();

@@ -14,7 +14,7 @@ class CountryController extends Controller
 {
     public function index(Request $request)
     {
-        $countries = Country::latest()->paginate((int)($request->perPage ?? 10));
+        $countries = Country::with('currency')->latest()->paginate((int)($request->perPage ?? 10));
 
         return CountryResource::collection($countries)
             ->additional([
@@ -83,7 +83,7 @@ class CountryController extends Controller
         if ($country->regions()->exists()) {
             return response()->json([
                 'status' => false,
-                'message' =>  trans('dashboard.general.success_archive'),
+                'message' =>  trans('dashboard.general.has_relationship_cannot_delete'),
                 'data' => null
             ], Response::HTTP_UNPROCESSABLE_ENTITY);
         }
@@ -93,13 +93,14 @@ class CountryController extends Controller
         return CountryResource::make($country)
             ->additional([
                 'status' => true,
-                'message' =>  trans('dashboard.general.success_add'),
+                'message' =>  trans('dashboard.general.success_archive'),
             ]);
     }
 
     //restore data from archive
-    public function restore(Country $country)
+    public function restore($id)
     {
+        $country = Country::onlyTrashed()->findOrFail($id);
         $country->restore();
 
         return CountryResource::make($country)
@@ -110,8 +111,9 @@ class CountryController extends Controller
     }
 
     //force delete data from archive
-    public function delete(Country $country)
+    public function delete($id)
     {
+        $country = Country::onlyTrashed()->findOrFail($id);
         $country->forceDelete();
 
         return CountryResource::make($country)

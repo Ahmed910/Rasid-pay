@@ -26,10 +26,16 @@ return [
         'not_found' => 'لم يتم العثور على بيانات',
 
     ],
+    'home' => [
+        'home' => '',
+        'permissions' => [
+            "show" => "عرض",
+        ],
+    ],
 
     "country" => [
-        "country" => "",
-        "countries" => "",
+        "country" => "الدولة",
+        "countries" => "الدول",
         "add_country" => "",
         "edit_country" => "",
         "country_count" => "",

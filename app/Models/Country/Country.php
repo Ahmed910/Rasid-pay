@@ -3,7 +3,7 @@
 namespace App\Models\Country;
 
 use App\Models\City\City;
-use App\Models\Currency;
+use App\Models\Currency\Currency;
 use App\Models\Region\Region;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -31,12 +31,12 @@ class Country extends Model implements TranslatableContract
     #region relationships
     public function regions()
     {
-        return $this->hasMany(Region::class, 'region_id', 'id');
+        return $this->hasMany(Region::class);
     }
 
     public function cities()
     {
-        return $this->hasMany(City::class, 'city_id', 'id');
+        return $this->hasMany(City::class);
         // return $this->hasManyThrough(City::class, Region::class, 'region_id', 'city_id', 'id', 'id');
 
     }
