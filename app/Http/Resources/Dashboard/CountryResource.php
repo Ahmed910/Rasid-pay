@@ -14,6 +14,12 @@ class CountryResource extends JsonResource
      */
     public function toArray($request)
     {
-        return parent::toArray($request);
+        return [
+            'id' => $this->id,
+            'translations' => GlobalTransResource::collection($this->whenLoaded('translations')),
+            'name' => $this->name,
+            'created_at' => $this->created_at,
+            'country' => CountryResource::make($this->whenLoaded('country')),
+        ];
     }
 }

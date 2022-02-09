@@ -22,7 +22,13 @@ class RegionController extends Controller
         $region = Region::latest()->paginate((int)($request->page ?? 15));
         return RegionResource::collection($region)->additional([
             'status' => true,
-            'message' => ""]);
+            'message' => ""
+        ]);
+    }
+
+    public function create()
+    {
+        //
     }
 
     /**
@@ -35,8 +41,8 @@ class RegionController extends Controller
     {
         $region = Region::create($regionRequest->all());
         return (new RegionResource($region))->additional([
-            'status' => true, 'message' => trans("dashboard.general.success_add")]);
-
+            'status' => true, 'message' => trans("dashboard.general.success_add")
+        ]);
     }
 
     /**
@@ -51,6 +57,11 @@ class RegionController extends Controller
         return (new RegionResource($region))->additional(['status' => true, 'message' => ""]);
     }
 
+    public function edit($id)
+    {
+        //
+    }
+
     /**
      * Update the specified resource in storage.
      *
@@ -63,6 +74,7 @@ class RegionController extends Controller
         $region->update($regionRequest->validated());
         return (new RegionResource ($region))->additional([
             'status' => true, 'message' => trans("dashboard.general.success_update")]);
+
     }
 
     /**

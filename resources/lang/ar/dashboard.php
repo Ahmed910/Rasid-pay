@@ -15,6 +15,7 @@ return [
         "success_delete" => "تم الحذف بنجاح",
         "success_update" => "تم التعديل بنجاح",
         "success_archive" => "تم الأرشفة بنجاح",
+        "success_restore" => "تم الاستعادة بنجاح",
         "has_relationship_cannot_delete" => "لا يمكن حذف هذا العنصر ،بسبب احتواءه علي علاقات",
         "save" => "حفظ",
         "edit" => "تعديل",

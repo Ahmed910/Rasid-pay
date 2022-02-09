@@ -9,16 +9,17 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Astrotomic\Translatable\Contracts\Translatable as TranslatableContract;
 use Astrotomic\Translatable\Translatable;
-use Carbon\Carbon;
+use App\Traits\Uuid;
+use Illuminate\Database\Eloquent\SoftDeletes;
+
 
 class Country extends Model implements TranslatableContract
 {
-    use HasFactory;
-    use Translatable;
+    use HasFactory, Uuid, Translatable, SoftDeletes;
 
     #region properties
     protected $guarded = ['created_at', 'updated_at', 'deleted_at'];
-    public $translatedAttributes = ['name', 'nationality', 'phone_code'];
+    public $translatedAttributes = ['name', 'nationality'];
     #endregion properties
 
     #region mutators
@@ -47,11 +48,6 @@ class Country extends Model implements TranslatableContract
     #endregion relationships
 
     #region custom Methods
-
-    public function getCreatedAtAttribute($date)
-    {
-        return Carbon::createFromFormat('Y-m-d H:i:s', $date)->format('Y-m-d h:i a');
-    }
     #endregion custom Methods
 
 }

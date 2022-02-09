@@ -12,28 +12,33 @@ use Symfony\Component\HttpFoundation\Response;
 
 class CountryController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index(Request $request)
     {
-        $countries = Country::with(['translations' => fn ($q) => $q->where('locale', app()->getLocale())])->latest()->paginate((int)($request->perPage ?? 10));
+        $countries = Country::latest()->paginate((int)($request->perPage ?? 10));
 
         return CountryResource::collection($countries)
             ->additional([
-                'message' => 'success',
-                'status' => true
+                'status' => true,
+                'message' =>  trans('dashboard.general.success_add'),
             ]);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
+    public function archive(Request $request)
+    {
+        $countries = Country::onlyTrashed()->latest()->paginate((int)($request->perPage ?? 10));
+
+        return CountryResource::collection($countries)
+            ->additional([
+                'status' => true,
+                'message' =>  trans('dashboard.general.success_add'),
+            ]);
+    }
+
+    public function create()
+    {
+        //
+    }
+
     public function store(CountryRequest $request, Country $country)
     {
         $country->fill($request->validated())->save();
@@ -41,32 +46,26 @@ class CountryController extends Controller
         return CountryResource::make($country)
             ->additional([
                 'status' => true,
-                'message' => 'sucess'
+                'message' =>  trans('dashboard.general.success_add'),
             ]);
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+
+
     public function show(Country $country)
     {
         return CountryResource::make($country)
             ->additional([
                 'status' => true,
-                'message' => ''
+                'message' =>  trans('dashboard.general.success_add'),
             ]);;
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+    public function edit($id)
+    {
+        //
+    }
+
     public function update(CountryRequest $request, Country $country)
     {
         $country->fill($request->validated())->save();
@@ -74,22 +73,17 @@ class CountryController extends Controller
         return CountryResource::make($country)
             ->additional([
                 'status' => true,
-                'message' => 'success'
+                'message' =>  trans('dashboard.general.success_update'),
             ]);
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+    //archive data
     public function destroy(Country $country)
     {
         if ($country->regions()->exists()) {
             return response()->json([
                 'status' => false,
-                'message' => 'fail',
+                'message' =>  trans('dashboard.general.success_archive'),
                 'data' => null
             ], Response::HTTP_UNPROCESSABLE_ENTITY);
         }
@@ -99,7 +93,31 @@ class CountryController extends Controller
         return CountryResource::make($country)
             ->additional([
                 'status' => true,
-                'message' => 'sucess'
+                'message' =>  trans('dashboard.general.success_add'),
+            ]);
+    }
+
+    //restore data from archive
+    public function restore(Country $country)
+    {
+        $country->restore();
+
+        return CountryResource::make($country)
+            ->additional([
+                'status' => true,
+                'message' =>  trans('dashboard.general.success_restore'),
+            ]);
+    }
+
+    //force delete data from archive
+    public function delete(Country $country)
+    {
+        $country->forceDelete();
+
+        return CountryResource::make($country)
+            ->additional([
+                'status' => true,
+                'message' =>  trans('dashboard.general.success_delete'),
             ]);
     }
 }
