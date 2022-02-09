@@ -26,6 +26,12 @@ return [
         'not_found' => 'لم يتم العثور على بيانات',
 
     ],
+    'home' => [
+        'home' => '',
+        'permissions' => [
+            "show" => "عرض",
+        ],
+    ],
 
     "country" => [
         "country" => "",
