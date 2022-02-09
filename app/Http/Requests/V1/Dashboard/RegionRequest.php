@@ -1,9 +1,8 @@
 <?php
 
-namespace App\Http\Requests\V1\Dashboad;
+namespace App\Http\Requests\V1\Dashboard;
 
 use App\Http\Requests\ApiMasterRequest;
-use Illuminate\Foundation\Http\FormRequest;
 
 class RegionRequest extends ApiMasterRequest
 {
