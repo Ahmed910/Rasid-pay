@@ -45,8 +45,10 @@ class CityController extends Controller
     }
 
 
-    public function show(City $city)
+    public function show($id)
     {
+        $city = City::withTrashed()->findOrFail($id);
+
         return CityResource::make($city)
             ->additional([
                 'status' => true,
@@ -94,7 +96,7 @@ class CityController extends Controller
             ]);
     }
 
-    public function delete($id)
+    public function forceDelete($id)
     {
         $city = City::onlyTrashed()->findOrFail($id);
         $city->forceDelete();
