@@ -39,4 +39,3 @@ Route::group(['prefix' => 'cities', 'as' => 'cities.'], function(){
 
 });  // End of the /cities Route Group
 
-

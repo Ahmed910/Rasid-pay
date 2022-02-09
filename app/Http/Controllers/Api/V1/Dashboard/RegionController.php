@@ -19,7 +19,7 @@ class RegionController extends Controller
      */
     public function index(Request $request)
     {
-        $region = Region::paginate($request->page ?? 15);
+        $region = Region::latest()->paginate((int)($request->page ?? 15));
         return RegionResource::collection($region)->additional([
             'status' => true,
             'message' => ""]);
@@ -45,8 +45,9 @@ class RegionController extends Controller
      * @param int $id
      * @return RegionResource
      */
-    public function show(Region $region)
+    public function show($id)
     {
+        $region = Region::withtrashed()->findorfail($id);
         return (new RegionResource($region))->additional(['status' => true, 'message' => ""]);
     }
 
@@ -59,7 +60,7 @@ class RegionController extends Controller
      */
     public function update(RegionRequest $regionRequest, Region $region)
     {
-        $region->update($regionRequest->all());
+        $region->update($regionRequest->validated());
         return (new RegionResource ($region))->additional([
             'status' => true, 'message' => trans("dashboard.general.success_update")]);
     }
@@ -75,4 +76,21 @@ class RegionController extends Controller
         $region->delete();
         return response()->json(['status' => true, 'message' => trans("dashboard.general.success_delete"), 'data' => null]);
     }
+
+    public function forceDelete($id)
+    {
+        $region = Region::withTrashed()->findorfail($id);
+
+        $region->forceDelete();
+        return response()->json(['status' => true, 'message' => trans("dashboard.general.force_delete"), 'data' => null]);
+
+    }
+
+    public function restore(Region $region)
+    {
+        $region->restore();
+        return response()->json(['status' => true, 'message' => trans("dashboard.general.restore"), 'data' => null]);
+
+    }
+
 }

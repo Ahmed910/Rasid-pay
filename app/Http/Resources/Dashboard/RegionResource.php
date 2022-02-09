@@ -14,6 +14,15 @@ class RegionResource extends JsonResource
      */
     public function toArray($request)
     {
-        return parent::toArray($request);
+        //return parent::toArray($request);
+
+        return [
+            'id' => $this->id,
+            'country_id'=>$this->country_id,
+            'translations' => GlobalTransResource::collection($this->whenLoaded('translations')),
+            'name' => $this->name,
+            'created_at' => $this->created_at,
+            "updated_at" => $this->updated_at,
+        ];
     }
 }
