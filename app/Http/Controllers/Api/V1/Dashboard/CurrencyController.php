@@ -20,7 +20,7 @@ class CurrencyController extends Controller
      */
     public function index(Request $request)
     {
-        $currencies = Currency::with('translations')->latest()->paginate((int)($request->perPage ?? 10));
+        $currencies = Currency::latest()->paginate((int)($request->perPage ?? 10));
 
         return CurrencyResource::collection($currencies)
             ->additional([
@@ -54,7 +54,7 @@ class CurrencyController extends Controller
      */
     public function show(Currency $currency)
     {
-        return CurrencyResource::make($currency)
+        return CurrencyResource::make($currency->load('translations'))
             ->additional([
                 'status' => true,
                 'message' => 'sucess'
