@@ -24,9 +24,19 @@ Route::apiResources([
     'countries' => 'CountryController',
     'currencies' => 'CurrencyController',
     "departments" => "DepartmentController",
-    "regions" => "RegionController"
+    "regions" => "RegionController",
+    "cities" => "CityController",
 ]);
 
 Route::resources([
     'roles' => 'RoleController',
 ]);
+
+Route::group(['prefix' => 'cities', 'as' => 'cities.'], function(){
+
+    Route::post('/restore/{city}', 'CityController@restore')->name('restore');
+    Route::delete('/force-delete/{city}', 'CityController@forceDelete')->name('force_delete');
+
+});  // End of the /cities Route Group
+
+
