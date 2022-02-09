@@ -20,6 +20,7 @@ return [
         "archive" => "",
         "restore" => "",
         "force_delete" => "",
+        'not_found' => 'Not Found',
     ],
     "country" => [
         "country" => "Country",

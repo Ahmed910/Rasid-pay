@@ -46,7 +46,7 @@ class Handler extends ExceptionHandler
         if ($throwable instanceof ModelNotFoundException && $request->wantsJson()) {
             return response()->json([
                 'status' => false,
-                'message' => "Not Found",
+                'message' => trans('dashboard.general.not_found',[],$request->header('accept-language')),
                 'data' => null
             ], Response::HTTP_NOT_FOUND);
         }
