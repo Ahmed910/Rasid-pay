@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Http\Controllers\Api\V1\Dashboard;
+namespace App\Http\Controllers\Api\Dashboard\V1;
 
 use App\Http\Controllers\Controller;
-use App\Http\Resources\Dashboard\RoleResource;
+use App\Http\Resources\Dashboard\Role\{RoleResource, UriResource};
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use App\Models\Role\Role;
@@ -21,17 +21,16 @@ class RoleController extends Controller
 
         return RoleResource::collection($roles)->additional(['status' => true, 'message' => ""]);
     }
-
-
+    
+    
     public function create(Request $request)
     {
         $route=[];
         foreach (app()->routes->getRoutes() as $value) {
-            // dump(Str::beforeLast($value->getName(),'.'));
             if(Str::afterLast($value->getPrefix(), '/') == "dashboard"){
                         if($value->getName() != 'dashboard.' && !is_null($value->getName())){
                             $uri =  Str::beforeLast($value->getName(),'.');
-                            $route[]= ["uri" => $uri, 'trans' => trans('dashboard.' . Str::singular($uri) . ".{$uri}")];
+                            $route[]= ["uri" => $uri, 'trans' => trans('dashboard.' . Str::singular($uri) . ".{$uri}"), 'permissions' => trans('dashboard.' . Str::singular($uri) . ".permissions")];
                         }elseif (is_null($value->getName())) {
                             $route[]= ["uri" => "home", 'trans' => trans('dashboard.home')] ;
 
@@ -41,7 +40,7 @@ class RoleController extends Controller
         $public_routes = ['login' , 'post_login' , 'post_login' , 'seenNotify' , 'logout' , 'notification' , 'profile'];
         $uris = array_map("unserialize", array_unique(array_map("serialize", $route)));
         $routes = array_values($uris);
-        return RoleResource::collection($routes)->additional(['status' => true, 'message' => ""]);
+        return UriResource::collection($routes)->additional(['status' => true, 'message' => ""]);
     }
 
     /**
