@@ -15,7 +15,7 @@ class CreateActivityLogsTable extends Migration
     {
         Schema::create('activity_logs', function (Blueprint $table) {
             $table->uuid("id")->primary();
-            $table->foreignUuid('user_id')->constrained('users');
+            $table->foreignUuid('user_id')->constrained('users')->onDelete('set null');
             $table->uuidMorphs("auditable");
             $table->string("action_type");
             $table->string("old_data");
