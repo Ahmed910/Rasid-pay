@@ -23,7 +23,7 @@ class CreateCountriesTable extends Migration
 
         Schema::create('country_translations', function (Blueprint $table) {
             $table->uuid('id')->primary();
-            $table->foreignUuid('country_id')->constrained("countries");
+            $table->foreignUuid('country_id')->constrained("countries")->onDelete('cascade');
             $table->string('name');
             $table->string('nationality');
             $table->string('locale')->index();
