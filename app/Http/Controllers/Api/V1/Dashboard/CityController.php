@@ -96,7 +96,7 @@ class CityController extends Controller
 
     public function delete($id)
     {
-        $city = City::withTrashed()->findOrFail($id);
+        $city = City::onlyTrashed()->findOrFail($id);
         $city->forceDelete();
 
         return CityResource::make($city)
