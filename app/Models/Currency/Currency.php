@@ -2,6 +2,7 @@
 
 namespace App\Models\Currency;
 
+use App\Models\Country\Country;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Traits\Uuid;
@@ -27,6 +28,10 @@ class Currency extends Model implements TranslatableContract
     #endregion scopes
 
     #region relationships
+    public function countries()
+    {
+        return $this->hasMany(Country::class);
+    }
     #endregion relationships
 
     #region custom Methods

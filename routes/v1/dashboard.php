@@ -28,9 +28,9 @@ Route::controller('CountryController')->name('countries.')->prefix('countries')-
 });
 
 Route::controller('CurrencyController')->prefix('currencies')->group(function () {
-    Route::get('archive', 'archive');
-    Route::post('restore', 'restore');
-    Route::delete('delete', 'delete');
+    Route::get('archive', 'archive')->name('archive');
+    Route::post('restore/{id}', 'restore')->name('restore');
+    Route::delete('forceDelete/{id}', 'forceDelete')->name('forceDelete');
 });
 Route::controller('CityController')->name('cities.')->prefix('cities')->group(function () {
     Route::get('archive', 'archive')->name('archive');
