@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Api\V1\Dashboard;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\V1\Dashboad\DepartmentRequest;
+use App\Http\Requests\V1\Dashboard\DepartmentRequest;
 use App\Http\Resources\Dashboard\DepartmentResource;
 use App\Models\Department\Department;
 use Illuminate\Http\Request;
