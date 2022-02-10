@@ -41,4 +41,12 @@ return [
         "country_count" => "",
         'permissions' => $permissions
     ],
+    "role" => [
+        "role" => "المستوى الاداري",
+        "roles" => "المستويات الادارية",
+        "add_role" => "",
+        "edit_role" => "",
+        "role_count" => "",
+        'permissions' => $permissions
+    ],
 ];

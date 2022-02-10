@@ -15,7 +15,7 @@ class CreateCitiesTable extends Migration
     {
         Schema::create('cities', function (Blueprint $table) {
             $table->uuid("id")->primary();
-            $table->foreignUuid('country_id')->constrained('countries');
+            $table->foreignUuid('country_id')->constrained('countries')->onDelete("cascade");
             $table->foreignUuid("region_id");
             $table->string("postal_code");
             $table->softDeletes();

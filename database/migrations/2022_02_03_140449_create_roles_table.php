@@ -10,18 +10,15 @@ class CreateRolesTable extends Migration
     {
         Schema::create('roles', function (Blueprint $table) {
             $table->uuid("id")->primary();
-            $table->foreignUuid("user_id")->constrained();
-
             $table->timestamps();
         });
 
         Schema::create('role_translations', function (Blueprint $table) {
             $table->uuid("id")->primary();
-            $table->string("name")->unique();
+            $table->string("name");
             $table->string("locale")->index();
             $table->foreignUuid("role_id")->constrained()->onDelete('cascade');
-
-            $table->unique(["name", "locale"]);
+            $table->unique(["role_id", "locale"]);
         });
     }
 

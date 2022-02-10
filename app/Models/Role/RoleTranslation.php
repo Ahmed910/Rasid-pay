@@ -14,16 +14,4 @@ class RoleTranslation extends Model
     public $timestamps = false;
     protected $fillable = ['name'];
     #endregion properties
-
-    #region mutators
-    #endregion mutators
-
-    #region scopes
-    #endregion scopes
-
-    #region relationships
-    #endregion relationships
-
-    #region custom Methods
-    #endregion custom Methods
 }
