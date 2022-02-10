@@ -14,7 +14,7 @@ class CountryController extends Controller
 {
     public function index(Request $request)
     {
-        $countries = Country::with('currency')->latest()->paginate((int)($request->perPage ?? 10));
+        $countries = Country::with('activity')->latest()->paginate((int)($request->perPage ?? 10));
 
         return CountryResource::collection($countries)
             ->additional([

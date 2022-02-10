@@ -4,12 +4,12 @@ namespace App\Models\Region;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use App\Traits\Uuid;
+use App\Traits\Loggable;
 
 
 class RegionTranslation extends Model
 {
-    use HasFactory, Uuid;
+    use HasFactory, Loggable;
 
     public $timestamps = false;
     protected $guarded = ['created_at', 'updated_at'];
