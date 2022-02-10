@@ -1,11 +1,10 @@
 <?php
 
-namespace App\Http\Requests\V1\Dashboad;
+namespace App\Http\Requests\V1\Dashboard;
 
 use App\Http\Requests\ApiMasterRequest;
-use function config;
 
-class RoleRequest extends ApiMasterRequest
+class RegionRequest extends ApiMasterRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,18 +23,14 @@ class RoleRequest extends ApiMasterRequest
      */
     public function rules()
     {
-        $rules =  [
-            'permissions'=>'required|array',
-            'permissions.*'=>'required|array',
-            'permissions.*.*'=>'required|array'
-        ];
 
+        $rules = [
+            "country_id" => ["required", "exists:countries,id"]
+        ];
         foreach (config('translatable.locales') as $locale) {
-            $rules[$locale.".name"] = 'required|string|between:2,250';
-            $rules[$locale.'.desc'] = 'nullable|string|between:3,100000';
+            $rules["$locale.name"] = "required|max:255|string|unique:region_translations,name," . @$this->region->id . ',region_id';
         }
         return $rules;
-
     }
-}
 
+}

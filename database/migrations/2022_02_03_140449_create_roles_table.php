@@ -19,7 +19,7 @@ class CreateRolesTable extends Migration
             $table->uuid("id")->primary();
             $table->string("name")->unique();
             $table->string("locale")->index();
-            $table->foreignUuid("role_id")->constrained();
+            $table->foreignUuid("role_id")->constrained()->onDelete('cascade');
 
             $table->unique(["name", "locale"]);
         });

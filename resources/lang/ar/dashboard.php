@@ -34,8 +34,8 @@ return [
     ],
 
     "country" => [
-        "country" => "",
-        "countries" => "",
+        "country" => "الدولة",
+        "countries" => "الدول",
         "add_country" => "",
         "edit_country" => "",
         "country_count" => "",

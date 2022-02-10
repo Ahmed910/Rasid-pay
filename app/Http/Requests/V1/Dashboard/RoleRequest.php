@@ -3,8 +3,9 @@
 namespace App\Http\Requests\V1\Dashboad;
 
 use App\Http\Requests\ApiMasterRequest;
+use function config;
 
-class DepartmentRequest extends ApiMasterRequest
+class RoleRequest extends ApiMasterRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -23,17 +24,17 @@ class DepartmentRequest extends ApiMasterRequest
      */
     public function rules()
     {
-        $rules = [
-            "image"     => "required|image|max:2048",
-            "parent_id" => "nullable|exists:departments,id",
-
+        $rules =  [
+            'permissions'=>'required|array',
+            'permissions.*'=>'required|array',
+            'permissions.*.*'=>'required|array'
         ];
-        foreach (config('translatable.locales') as $locale) {
-            $rules["$locale"]               = "array";
-            $rules["$locale.name"]          = "required|max:255|string|unique:department_translations,name," . $this->department?->id  . ",department_id";
-            $rules["$locale.description"]   = "required|string";
-        }
 
+        foreach (config('translatable.locales') as $locale) {
+            $rules[$locale.".name"] = 'required|string|between:2,250';
+            $rules[$locale.'.desc'] = 'nullable|string|between:3,100000';
+        }
         return $rules;
     }
 }
+

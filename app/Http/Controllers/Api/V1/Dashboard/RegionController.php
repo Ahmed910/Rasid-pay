@@ -4,10 +4,13 @@ namespace App\Http\Controllers\Api\V1\Dashboard;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ApiMasterRequest;
-use App\Http\Requests\V1\Dashboad\RegionRequest;
+use App\Http\Requests\V1\Dashboard\RegionRequest;
+use App\Http\Resources\Dashboard\CountryResource;
 use App\Http\Resources\Dashboard\RegionResource;
+use App\Models\Country\Country;
 use App\Models\Region\Region;
 use Illuminate\Http\Request;
+use Symfony\Component\HttpFoundation\Response;
 
 
 class RegionController extends Controller
@@ -19,13 +22,20 @@ class RegionController extends Controller
      */
     public function index(Request $request)
     {
-        $region = Region::paginate($request->page ?? 15);
+        $region = Region::latest()->paginate((int)($request->page ?? 15));
         return RegionResource::collection($region)->additional([
             'status' => true,
             'message' => ""
         ]);
     }
-
+    public function archive(Request $request)
+    {
+        $region = Region::onlyTrashed()->latest()->paginate((int)($request->page ?? 15));
+        return RegionResource::collection($region)->additional([
+            'status' => true,
+            'message' => ""
+        ]);
+    }
     public function create()
     {
         //
@@ -37,9 +47,9 @@ class RegionController extends Controller
      * @param \Illuminate\Http\Request $request
      * @return RegionResource
      */
-    public function store(RegionRequest $regionRequest)
+    public function store(RegionRequest $request,Region $region)
     {
-        $region = Region::create($regionRequest->all());
+        $region->fill($request->validated())->save();
         return (new RegionResource($region))->additional([
             'status' => true, 'message' => trans("dashboard.general.success_add")
         ]);
@@ -51,8 +61,9 @@ class RegionController extends Controller
      * @param int $id
      * @return RegionResource
      */
-    public function show(Region $region)
+    public function show($id)
     {
+        $region = Region::withTrashed()->findorfail($id);
         return (new RegionResource($region))->additional(['status' => true, 'message' => ""]);
     }
 
@@ -68,12 +79,13 @@ class RegionController extends Controller
      * @param int $id
      * @return RegionResource
      */
-    public function update(RegionRequest $regionRequest, Region $region)
+    public function update(RegionRequest $request, Region $region)
     {
-        $region->update($regionRequest->all());
-        return (new RegionResource($region))->additional([
-            'status' => true, 'message' => trans("dashboard.general.success_update")
-        ]);
+        $region->fill($request->validated())->save();
+
+        return (new RegionResource ($region))->additional([
+            'status' => true, 'message' => trans("dashboard.general.success_update")]);
+
     }
 
     /**
@@ -84,7 +96,49 @@ class RegionController extends Controller
      */
     public function destroy(Region $region)
     {
+
+        if ($region->cities()->exists()) {
+            return response()->json([
+                'status' => false,
+                'message' =>  trans('dashboard.general.has_relationship_cannot_delete'),
+                'data' => null
+            ], Response::HTTP_UNPROCESSABLE_ENTITY);
+        }
+
         $region->delete();
-        return response()->json(['status' => true, 'message' => trans("dashboard.general.success_delete"), 'data' => null]);
+
+        return RegionResource::make($region)
+            ->additional([
+                'status' => true,
+                'message' =>  trans('dashboard.general.success_archive'),
+            ]);
     }
+
+    public function forceDelete($id)
+    {
+        $region = Region::onlyTrashed()->findorfail($id);
+
+        $region->forceDelete();
+
+        return RegionResource::make($region)
+            ->additional([
+                'status' => true,
+                'message' =>  trans('dashboard.general.success_delete'),
+            ]);
+
+    }
+
+    public function restore($id)
+    {
+        $region = Region::onlyTrashed()->findOrFail($id);
+        $region->restore();
+
+        return CountryResource::make($region)
+            ->additional([
+                'status' => true,
+                'message' =>  trans('dashboard.general.success_restore'),
+            ]);
+
+    }
+
 }

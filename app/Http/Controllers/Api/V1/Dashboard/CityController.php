@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Api\V1\Dashboard;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\V1\Dashboad\CityRequest;
+use App\Http\Requests\V1\Dashboard\CityRequest;
 use App\Http\Resources\Dashboard\CityResource;
 use App\Models\City\City;
 use Illuminate\Http\Request;
@@ -13,7 +13,7 @@ class CityController extends Controller
 
     public function index(Request $request)
     {
-        $city = City::paginate($request->page ?? 15);
+        $city = City::latest()->paginate($request->page ?? 15);
 
         return CityResource::collection($city)
             ->additional([
@@ -22,9 +22,15 @@ class CityController extends Controller
             ]);
     }
 
-    public function create()
+    public function archive(Request $request)
     {
-        //
+        $cities = City::onlyTrashed()->latest()->paginate((int)($request->perPage ?? 10));
+
+        return CityResource::collection($cities)
+            ->additional([
+                'status' => true,
+                'message' => ''
+            ]);
     }
 
     public function store(CityRequest $request, City $city)
@@ -39,8 +45,10 @@ class CityController extends Controller
     }
 
 
-    public function show(City $city)
+    public function show($id)
     {
+        $city = City::withTrashed()->findOrFail($id);
+
         return CityResource::make($city)
             ->additional([
                 'status' => true,
@@ -48,10 +56,7 @@ class CityController extends Controller
             ]);
     }
 
-    public function edit($id)
-    {
-        //
-    }
+
 
     public function update(CityRequest $request, City $city)
     {
@@ -65,6 +70,7 @@ class CityController extends Controller
     }
 
 
+    //soft delete (archive)
     public function destroy(City $city)
     {
 
@@ -73,14 +79,14 @@ class CityController extends Controller
         return CityResource::make($city)
             ->additional([
                 'status' => true,
-                'message' =>  __('dashboard.general.archive')
+                'message' =>  __('dashboard.general.success_archive')
             ]);
     }
 
 
     public function restore($id)
     {
-        $city = City::withTrashed()->find($id);
+        $city = City::onlyTrashed()->findOrFail($id);
         $city->restore();
 
         return CityResource::make($city)
@@ -90,8 +96,10 @@ class CityController extends Controller
             ]);
     }
 
-    public function forceDelete(City $city)
+    public function forceDelete($id)
     {
+        
+        $city = City::onlyTrashed()->findOrFail($id);
         $city->forceDelete();
 
         return CityResource::make($city)
