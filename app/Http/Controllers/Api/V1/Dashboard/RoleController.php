@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\Api\V1\Dashboard;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\V1\Dashboard\RoleRequest;
 use App\Http\Resources\Dashboard\Role\{RoleResource , UriResource};
-use App\Http\Requests\V1\Dashboad\RoleRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use App\Models\{Role\Role , Permission};
@@ -19,7 +19,6 @@ class RoleController extends Controller
     public function index(Request $request)
     {
         $roles = Role::latest()->paginate((int)($request->page ?? 15));
-
         return RoleResource::collection($roles)->additional(['status' => true, 'message' => ""]);
     }
 
@@ -28,19 +27,25 @@ class RoleController extends Controller
     {
         $route=[];
         foreach (app()->routes->getRoutes() as $value) {
-            // dump(Str::beforeLast($value->getName(),'.'));
             if(Str::afterLast($value->getPrefix(), '/') == "dashboard"){
                 if($value->getName() != 'dashboard.' && !is_null($value->getName())){
                     $uri =  Str::beforeLast($value->getName(),'.');
-                    $route[]= ["uri" => $uri, 'trans' => trans('dashboard.' . Str::singular($uri) . ".{$uri}"), 'permissons' => trans('dashboard.' . Str::singular($uri) . ".permissions")];
+                    $route[] = $this->getPermissions($uri);
                 }elseif (is_null($value->getName())) {
-                    $route[]= ["uri" => "home", 'trans' => trans('dashboard.home.home') ,'permissons' => trans('dashboard.home.permissions')];
+                    $route[]= ["uri" => "home", 'trans' => trans('dashboard.home.home') ,'permissons' => ["home.read" => trans('dashboard.home.permissions.read')]];
                 }
             }
         }
         $uris = array_map("unserialize", array_unique(array_map("serialize", $route)));
         $routes = array_values($uris);
-        return UriResource::collection($routes)->additional(['status' => true, 'message' => ""]);
+        return response()->json([
+            'status' => true, 
+            'message' => "",
+            'data' => [
+                'role' => null,
+                'routes' => UriResource::collection($routes),
+            ]
+        ]);
     }
 
     /**
@@ -55,29 +60,36 @@ class RoleController extends Controller
         $role = Role::create(array_only($request->validated(),config('translatable.locales')));
         $permission_list = [];
         foreach ($permission_inputs as $permission) {
-            foreach ($permission as $singlePermission) {
-                $permission_obj= Permission::updateOrCreate(['route_name' => $singlePermission['route_name']],$singlePermission);
-                $permission_list[] =$permission_obj->id;
-            }
+            $permission_obj= Permission::updateOrCreate(['name' => $permission['name']],$permission);
+            $permission_list[] =$permission_obj->id;
         }
         $role->permissions()->sync($permission_list);
         return RoleResource::make($role)->additional(['status' => true, 'message' => trans('dashboard.general.success_add')]);
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
+    public function show(Role $role)
     {
-        //
-    }
-
-    public function edit($id)
-    {
-        //
+        $route=[];
+        foreach (app()->routes->getRoutes() as $value) {
+            if(Str::afterLast($value->getPrefix(), '/') == "dashboard"){
+                if($value->getName() != 'dashboard.' && !is_null($value->getName())){
+                    $uri =  Str::beforeLast($value->getName(),'.');
+                    $route[] = $this->getPermissions($uri,$role);
+                }elseif (is_null($value->getName())) {
+                    $route[]= ["uri" => "home", 'trans' => trans('dashboard.home.home') ,'permissons' => ["home.read" => trans('dashboard.home.permissions.read')]];
+                }
+            }
+        }
+        $uris = array_map("unserialize", array_unique(array_map("serialize", $route)));
+        $routes = array_values($uris);
+        return response()->json([
+            'status' => true, 
+            'message' => "",
+            'data' => [
+                'role' => RoleResource::make($role->load('translations')),
+                'routes' => UriResource::collection($routes),
+            ]
+        ]);
     }
     /**
      * Update the specified resource in storage.
@@ -86,9 +98,18 @@ class RoleController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(RoleRequest $request, Role $role)
     {
-        //
+        $permission_inputs =$request->validated()['permissions'];
+        $role_inputs = array_only($request->validated(),config('translatable.locales'));
+        $role->update($role_inputs);
+        $permission_list = [];
+        foreach ($permission_inputs as $permission) {
+            $permission_obj= Permission::updateOrCreate(['name' => $permission['name']],$permission);
+            $permission_list[] =$permission_obj->id;
+        }
+        $role->permissions()->sync($permission_list);
+        return RoleResource::make($role)->additional(['status' => true, 'message' => trans('dashboard.general.success_update')]);
     }
 
     /**
@@ -97,8 +118,22 @@ class RoleController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Role $role)
     {
-        //
+        $role->delete();
+        return RoleResource::make($role)->additional(['status' => true, 'message' => trans('dashboard.general.success_delete')]);
+    }
+
+    private function getPermissions($uri , $role = null)
+    {
+        $flip_permissions = is_array(trans('dashboard.'.Str::singular($uri).'.permissions')) ? array_flip(trans('dashboard.'.Str::singular($uri).'.permissions')) : [];
+        $permissions = array_flip(substr_replace($flip_permissions, $uri . '.', 0, 0));
+        $permissions_col = collect($permissions)->transform(function($item,$key) use($role){
+             $data['permission']  = $key;
+             $data['trans']  = $item;
+             $data['is_checked']  = isset($role) && @$role->permissions->contains('name',$key);
+             return $data;
+        })->values()->toArray();
+        return ["uri" => $uri, 'trans' => trans('dashboard.' . Str::singular($uri) . ".{$uri}"), 'permissons' => $permissions_col];
     }
 }
