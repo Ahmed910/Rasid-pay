@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Api\V1\Dashboard;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\V1\Dashboad\CountryRequest;
+use App\Http\Requests\V1\Dashboard\CountryRequest;
 use App\Http\Resources\Dashboard\CountryResource;
 use App\Models\Country\Country;
 use Illuminate\Http\Request;

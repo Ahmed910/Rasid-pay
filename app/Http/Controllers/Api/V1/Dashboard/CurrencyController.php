@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Api\V1\Dashboard;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\V1\Dashboad\CurrencyRequest;
+use App\Http\Requests\V1\Dashboard\CurrencyRequest;
 use App\Http\Resources\Dashboard\CurrencyResource;
 use App\Models\Currency\Currency;
 use Illuminate\Http\Request;
