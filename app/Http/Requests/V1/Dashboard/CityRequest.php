@@ -3,7 +3,6 @@
 namespace App\Http\Requests\V1\Dashboard;
 
 use App\Http\Requests\ApiMasterRequest;
-use function config;
 
 class CityRequest extends ApiMasterRequest
 {

@@ -98,6 +98,7 @@ class CityController extends Controller
 
     public function forceDelete($id)
     {
+        
         $city = City::onlyTrashed()->findOrFail($id);
         $city->forceDelete();
 
