@@ -3,7 +3,6 @@
 namespace App\Http\Middleware;
 
 use Closure;
-use Carbon\Carbon;
 class UserLocale
 {
     /**
@@ -15,7 +14,13 @@ class UserLocale
      */
     public function handle($request, Closure $next)
     {
-        $request->header('Accept-Language') ? app()->setLocale($request->header('Accept-Language')) : app()->setLocale('ar');
+        $locale = $request->header('Accept-Language');
+        if (auth()->check() && auth()->user()->user_locale != $locale) {
+             app()->setLocale($locale);
+             auth('api')->user()->update(['user_locale' => $locale]);
+        }elseif($locale != app()->getLocale() && in_array($locale,config('translatable.locales'))){
+            app()->setLocale($locale);
+        }
         return $next($request);
     }
 }
