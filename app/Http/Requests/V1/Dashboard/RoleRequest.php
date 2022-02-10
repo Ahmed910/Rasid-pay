@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Requests\V1\Dashboad;
+namespace App\Http\Requests\V1\Dashboard;
 
 use App\Http\Requests\ApiMasterRequest;
 use function config;
@@ -27,11 +27,11 @@ class RoleRequest extends ApiMasterRequest
         $rules =  [
             'permissions'=>'required|array',
             'permissions.*'=>'required|array',
-            'permissions.*.*'=>'required|array'
+            'permissions.*.name'=>'required|string'
         ];
 
         foreach (config('translatable.locales') as $locale) {
-            $rules[$locale.".name"] = 'required|string|between:2,250';
+            $rules[$locale.".name"] = 'required|string|between:2,250|unique:role_translations,name,' . @$this->role->id . ',role_id';
             $rules[$locale.'.desc'] = 'nullable|string|between:3,100000';
         }
         return $rules;

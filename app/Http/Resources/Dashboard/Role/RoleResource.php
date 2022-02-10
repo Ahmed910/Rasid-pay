@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources\Dashboard\Role;
 
+use App\Http\Resources\Dashboard\GlobalTransResource;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class RoleResource extends JsonResource
@@ -14,6 +15,11 @@ class RoleResource extends JsonResource
      */
     public function toArray($request)
     {
-        return parent::toArray($request);
+        return [
+            'id' => $this->id,
+            'translations' => GlobalTransResource::collection($this->whenLoaded('translations')),
+            'name' => $this->name,
+            'created_at' => $this->created_at,
+        ];
     }
 }

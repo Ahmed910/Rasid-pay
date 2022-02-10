@@ -15,7 +15,7 @@ class CreateCountriesTable extends Migration
     {
         Schema::create('countries', function (Blueprint $table) {
             $table->uuid('id')->primary();
-            $table->foreignUuid('currency_id')->constrained("currencies");
+            $table->foreignUuid('currency_id')->nullable()->constrained("currencies")->onDelete('set null');
             $table->string('phone_code');
             $table->softDeletes();
             $table->timestamps();

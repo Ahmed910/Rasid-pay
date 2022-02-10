@@ -15,8 +15,8 @@ class CreateChatsTable extends Migration
     {
         Schema::create('chats', function (Blueprint $table) {
             $table->uuid('id')->primary();
-            $table->foreignUuid('sender_id')->constrained('users')->onDelete('set null');
-            $table->foreignUuid('receiver_id')->constrained('users')->onDelete('set null');
+            $table->foreignUuid('sender_id')->nullable()->constrained('users')->onDelete('set null');
+            $table->foreignUuid('receiver_id')->nullable()->constrained('users')->onDelete('set null');
             $table->string('message_type');
             $table->string('last_message');
             $table->timestamp('read_at');
