@@ -4,23 +4,24 @@ namespace App\Http\Resources\Dashboard;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class UserProfileResource extends JsonResource
+class UserResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @return array
+     * @return array|\Illuminate\Contracts\Support\Arrayable|\JsonSerializable
      */
     public function toArray($request)
     {
         return [
             'id' => $this->id,
-            'fullname' => $this->fullname,
-            'phone' => $this->phone,
+            'fullname' => $this->name,
             'email' => $this->email,
-            'image' => $this->avatar,
-            'user_type' => $this->user_type,           
+            'whatsapp' => $this->whatsapp,
+            'gender' => $this->gender,
+            'is_active' => $this->is_active,
+            'created_at' => $this->created_at,
             'token' => $this->when($this->token,$this->token),
         ];
     }
