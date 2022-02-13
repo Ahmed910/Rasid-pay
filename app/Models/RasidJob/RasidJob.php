@@ -14,10 +14,6 @@ class RasidJob extends Model implements TranslatableContract
     use HasFactory, Uuid, Translatable, SoftDeletes;
 
     #region properties
-    const VACANT   = "vacant";
-    const OCCUPIED = "occupied";
-    const TYPES    = [self::VACANT, self::OCCUPIED];
-
     protected $guarded = ['created_at', 'updated_at', 'deleted_at'];
     public $translatedAttributes = ['name', 'description'];
     #endregion properties
