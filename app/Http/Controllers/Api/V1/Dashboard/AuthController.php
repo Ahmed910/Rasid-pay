@@ -20,7 +20,7 @@ class AuthController extends Controller
         $token =  $user->createToken('RaseedJakDashboard')->plainTextToken;
         $user->devices()->firstOrCreate($request->only(['device_token','device_type']));
         data_set($user,'token' , $token);
-        return UserResource::make($user)->additional(['status' => false , 'message' => trans('auth.success_login')]);
+        return UserResource::make($user)->additional(['status' => true , 'message' => trans('auth.success_login')]);
     }
 
     // public function sendCode(SendCodeRequest $request)
