@@ -57,4 +57,6 @@ Route::resources([
     "cities" => "CityController",
     "regions" => "RegionController",
     'roles' => 'RoleController',
+    'customers' => 'CustomerController',
+
 ]);
