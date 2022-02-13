@@ -7,6 +7,7 @@ use App\Models\RasidJob\RasidJob;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\Dashboard\RasidJobResource;
 use App\Http\Requests\V1\Dashboard\RasidJobRequest;
+use Symfony\Component\HttpFoundation\Response;
 
 class RasidJobController extends Controller
 {
@@ -72,8 +73,51 @@ class RasidJobController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+
+    public function archive(Request $request)
     {
-        //
+        $rasidJobs = RasidJob::onlyTrashed()->latest()->paginate((int)($request->perPage ?? 10));
+
+        return RasidJobResource::collection($rasidJobs)
+            ->additional([
+                'message' => 'success',
+                'status' => true
+            ]);
     }
+
+
+
+
+    public function restore($id)
+    {
+
+        $rasidJob = RasidJob::onlyTrashed()->findOrFail($id);
+
+        $rasidJob->restore();
+
+        return RasidJobResource::make($rasidJob)
+            ->additional([
+                'status' => true,
+                'message' => trans('dashboard.general.restore')
+
+            ]);
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }
