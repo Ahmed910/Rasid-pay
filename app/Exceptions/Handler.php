@@ -2,6 +2,7 @@
 
 namespace App\Exceptions;
 
+use Illuminate\Auth\AuthenticationException;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Symfony\Component\HttpFoundation\Response;
@@ -43,14 +44,23 @@ class Handler extends ExceptionHandler
 
     public function render($request, Throwable $throwable)
     {
-        if ($throwable instanceof ModelNotFoundException && $request->wantsJson()) {
-            return response()->json([
-                'status' => false,
-                'message' => trans('dashboard.general.not_found',[],$request->header('accept-language')),
-                'data' => null
-            ], Response::HTTP_NOT_FOUND);
-        }
+        if ($request->wantsJson()) {
+            switch ($throwable) {
+                case $throwable instanceof ModelNotFoundException:
+                    return response()->json([
+                        'status' => false,
+                        'message' => trans('dashboard.general.not_found',[],$request->header('accept-language')),
+                        'data' => null
+                    ], Response::HTTP_NOT_FOUND);
 
+                case $throwable instanceof AuthenticationException:
+                    return response()->json([
+                        'status' => false ,
+                        'message' => trans('auth.unauth',[],$request->header('accept-language')) , 
+                        'data' => null
+                    ],Response::HTTP_UNAUTHORIZED);
+            }
+        }
         return parent::render($request, $throwable);
     }
 }
