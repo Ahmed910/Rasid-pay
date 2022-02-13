@@ -56,5 +56,6 @@ Route::middleware('auth:sanctum', 'adminPermission')->group(function () {
         "regions" => "RegionController",
         'roles' => 'RoleController',
         'users' => 'UserController',
+        'customers' => 'CustomerController',
     ]);
 });
