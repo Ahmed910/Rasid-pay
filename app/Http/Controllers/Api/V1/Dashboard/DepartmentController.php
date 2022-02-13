@@ -85,4 +85,23 @@ class DepartmentController extends Controller
                 'message' => trans("dashboard.general.success_delete")
             ]);
     }
+
+    public function forceDestroy(Department $department)
+    {
+        if ($department->children()->exists()) {
+            return response()->json([
+                'status' => false,
+                'message' => trans("dashboard.general.has_relationship_cannot_delete"),
+                'data' => null
+            ], Response::HTTP_UNPROCESSABLE_ENTITY);
+        }
+
+        $department->forceDelete();
+
+        return DepartmentResource::make($department)
+            ->additional([
+                'status' => true,
+                'message' => trans("dashboard.general.success_delete")
+            ]);
+    }
 }
