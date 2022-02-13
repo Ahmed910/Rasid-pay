@@ -17,5 +17,6 @@ return [
     'password' => 'The provided password is incorrect.',
     'throttle' => 'Too many login attempts. Please try again in :seconds seconds.',
     'success_login' => 'تم تسجيل الدخول بنجاح',
+    'unauth' => 'قم بتسجيل الدخول أولا',
 
 ];
