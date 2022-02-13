@@ -19,6 +19,10 @@ use Illuminate\Support\Facades\Route;
 //     return $request->user();
 // });
 
+Route::post('login', "AuthController@login");
+
+
+
 
 
 Route::controller('CountryController')->name('countries.')->prefix('countries')->group(function () {

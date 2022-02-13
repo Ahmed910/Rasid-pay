@@ -10,6 +10,7 @@ use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use App\Traits\Uuid;
 use Illuminate\Database\Eloquent\Relations\HasOne;
+use Laravel\Sanctum\Sanctum;
 
 class User extends Authenticatable
 {
@@ -28,6 +29,10 @@ class User extends Authenticatable
         }
     }
 
+    public function devices()
+    {
+        return $this->hasMany(Device::class);
+    }
 
      // Roles & Permissions
      public function role(): HasOne
