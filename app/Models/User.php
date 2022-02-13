@@ -60,4 +60,8 @@ class User extends Authenticatable
             return false;
      }
 
+     public function media()
+     {
+         return $this->morphOne(AppMedia::class,'mediable');
+     }
 }

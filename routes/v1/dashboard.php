@@ -46,6 +46,12 @@ Route::controller('RegionController')->name('regions.')->prefix('regions')->grou
     Route::delete('forceDelete/{id}', 'forceDelete')->name('forceDelete');
 });
 
+Route::controller('UserController')->name('users.')->prefix('users')->group(function () {
+    Route::get('archive/get', 'archive')->name('archive');
+    Route::post('restore/{id}', 'restore')->name('restore');
+    Route::delete('forceDelete/{id}', 'forceDelete')->name('forceDelete');
+});
+
 Route::resources([
     'countries' => 'CountryController',
     'currencies' => 'CurrencyController',
@@ -53,4 +59,5 @@ Route::resources([
     "cities" => "CityController",
     "regions" => "RegionController",
     'roles' => 'RoleController',
+    'users' => 'UserController',
 ]);
