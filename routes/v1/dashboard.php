@@ -16,7 +16,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::post('login', "AuthController@login");
-Route::middleware('auth:sanctum','adminPermission')->group(function(){
+Route::middleware('auth:sanctum', 'adminPermission')->group(function () {
 
     Route::controller('CountryController')->name('countries.')->prefix('countries')->group(function () {
         Route::get('archive', 'archive')->name('archive');
@@ -42,6 +42,11 @@ Route::middleware('auth:sanctum','adminPermission')->group(function(){
         Route::post('restore/{id}', 'restore')->name('restore');
         Route::delete('forceDelete/{id}', 'forceDelete')->name('forceDelete');
     });
+    Route::controller('UserController')->name('users.')->prefix('users')->group(function () {
+        Route::get('archive/get', 'archive')->name('archive');
+        Route::post('restore/{id}', 'restore')->name('restore');
+        Route::delete('forceDelete/{id}', 'forceDelete')->name('forceDelete');
+    });
 
     Route::resources([
         'countries' => 'CountryController',
@@ -50,6 +55,6 @@ Route::middleware('auth:sanctum','adminPermission')->group(function(){
         "cities" => "CityController",
         "regions" => "RegionController",
         'roles' => 'RoleController',
+        'users' => 'UserController',
     ]);
-
 });
