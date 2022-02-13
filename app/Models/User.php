@@ -10,11 +10,11 @@ use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use App\Traits\Uuid;
 use Illuminate\Database\Eloquent\Relations\HasOne;
-use Laravel\Sanctum\Sanctum;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class User extends Authenticatable
 {
-    use HasApiTokens, HasFactory, Notifiable, Uuid;
+    use HasApiTokens, HasFactory, Notifiable, Uuid , SoftDeletes;
 
     protected $guarded = ['created_at','updated_at','deleted_at'];
     // protected $appends = ['avatar','image' , 'name'];
