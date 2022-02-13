@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Api\V1\Dashboard;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\V1\Dashboard\Auth\LoginRequest;
+use App\Http\Requests\V1\Dashboard\Auth\{LoginRequest,SendCodeRequest};
 use App\Http\Resources\Dashboard\UserResource;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -34,7 +34,7 @@ class AuthController extends Controller
           if ($user->phone_verified_at || $user->email_verified_at) {
               $code = 1111;
               if (setting('use_sms_service') == 'enable') {
-                  $code = generate_unique_code(4,'\\App\\Models\\User','reset_code');
+                  $code = generate_unique_code('\\App\\Models\\User','reset_code', 4);
                   $message = trans('auth.reset_code_is',['code' => $code]);
                 //   $response = send_sms($user->phone, $message);
               }
@@ -43,7 +43,7 @@ class AuthController extends Controller
           }else {
               $code = 1111;
               if (setting('use_sms_service') == 'enable') {
-                  $code = generate_unique_code(4,'\\App\\Models\\User','verified_code');
+                  $code = generate_unique_code('\\App\\Models\\User','verified_code',4);
                   $message = trans('auth.verified_code_is',['code' => $code]);
                 //   $response = send_sms($user->phone, $message);
               }

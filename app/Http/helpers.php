@@ -47,3 +47,32 @@ function filter_mobile_number($mob_num)
     $real_mob_number = $val . $mob_number;
     return $real_mob_number;
 }
+
+function generate_unique_code($model , $col = 'code' , $length = 4 , $letter_type = null)
+{
+    $characters ='';
+    switch ($letter_type) {
+            case 'lower':
+                $characters = '0123456789abcdefghijklmnopqrstuvwxyz';
+                break;
+            case 'upper':
+                $characters = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+                break;
+            case 'numbers':
+                $characters = '0123456789';
+                break;
+
+            default:
+                $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+                break;
+        }
+    $generate_random_code = '';
+    $charactersLength = strlen($characters);
+    for ($i = 0; $i < $length; $i++) {
+        $generate_random_code .= $characters[rand(0, $charactersLength - 1)];
+    }
+    if ($model::where($col, $generate_random_code)->exists()) {
+        generate_unique_code($model, $col, $length, $letter_type);
+    }
+    return $generate_random_code;
+}
