@@ -21,13 +21,6 @@ class RasidJobController extends Controller
             ]);
     }
 
-
-
-
-
-
-
-
     /**
      * Store a newly created resource in storage.
      *
