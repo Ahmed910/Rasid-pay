@@ -24,12 +24,12 @@ class RasidJobController extends Controller
 
 
 
-    public function store(RasidJobRequest $request, RasidJob $rasid_job)
+    public function store(RasidJobRequest $request, RasidJob $rasidJob)
     {
 
-        $rasid_job->fill($request->validated())->save();
+        $rasidJob->fill($request->validated())->save();
 
-        return RasidJobResource::make($rasid_job)
+        return RasidJobResource::make($rasidJob)
             ->additional([
                 'status' => true,
                 'message' =>  __('dashboard.general.success_add')
@@ -55,11 +55,11 @@ class RasidJobController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(RasidJobRequest $request, RasidJob $rasid_job)
+    public function update(RasidJobRequest $request, RasidJob $rasidJob)
     {
-        $rasid_job->fill($request->validated())->save();
+        $rasidJob->fill($request->validated())->save();
 
-        return RasidJobResource::make($rasid_job)
+        return RasidJobResource::make($rasidJob)
             ->additional([
                 'status' => true,
                 'message' => __('dashboard.general.success_update')
