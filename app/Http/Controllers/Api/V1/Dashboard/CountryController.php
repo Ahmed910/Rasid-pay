@@ -19,7 +19,7 @@ class CountryController extends Controller
         return CountryResource::collection($countries)
             ->additional([
                 'status' => true,
-                'message' =>  trans('dashboard.general.success_add'),
+                'message' =>  '',
             ]);
     }
 
@@ -30,7 +30,7 @@ class CountryController extends Controller
         return CountryResource::collection($countries)
             ->additional([
                 'status' => true,
-                'message' =>  trans('dashboard.general.success_add'),
+                'message' =>  ''
             ]);
     }
 
@@ -59,7 +59,7 @@ class CountryController extends Controller
             ->additional([
                 'status' => true,
                 'message' =>  '',
-            ]);;
+            ]);
     }
 
     public function edit($id)
