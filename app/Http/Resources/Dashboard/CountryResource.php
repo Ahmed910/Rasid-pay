@@ -21,6 +21,7 @@ class CountryResource extends JsonResource
             'phone_code' => $this->phone_code,
             'nationality' => $this->nationality,
             'currency' => CurrencyResource::make($this->whenLoaded('currency')),
+            'activity' => ActivityLogResource::collection($this->whenLoaded('activity')),
             'created_at' => $this->created_at,
         ];
     }

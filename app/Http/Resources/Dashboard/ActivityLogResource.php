@@ -4,7 +4,7 @@ namespace App\Http\Resources\Dashboard;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class GlobalTransResource extends JsonResource
+class ActivityLogResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -16,10 +16,12 @@ class GlobalTransResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'locale' => $this->locale,
-            'name' => $this->name,
-            'desc' => $this->when($this->desc,$this->desc),
-            'nationality' => $this->when($this->nationality,$this->nationality),
+            'type' => $this->action_type,
+            'url' => $this->url,
+            'ip' => $this->ip_address,
+            'agent' => $this->agent,
+            'created_at' => $this->created_at,
+            'reason' => trans('dashboard.activity_log.reason',['user'=>$this->id,'action'=>$this->action_type])
         ];
     }
 }

@@ -18,10 +18,11 @@ class CreateActivityLogsTable extends Migration
             $table->foreignUuid('user_id')->nullable()->constrained('users')->onDelete('set null');
             $table->uuidMorphs("auditable");
             $table->string("action_type");
-            $table->string("old_data");
-            $table->string("new_data");
+            $table->text("old_data")->nullable();
+            $table->text("new_data")->nullable();
             $table->ipAddress("ip_address");
             $table->string("agent");
+            $table->string("url");
             $table->softDeletes();
             $table->timestamps();
         });

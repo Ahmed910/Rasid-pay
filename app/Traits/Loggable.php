@@ -3,9 +3,8 @@
 namespace App\Traits;
 
 use Illuminate\Support\Str;
-use App\Models\ActivityLog;
 
-trait Uuid
+trait Loggable
 {
     /**
      * Boot function from Laravel.
@@ -14,24 +13,24 @@ trait Uuid
     {
         parent::boot();
 
-        static::created(function ($item) {
-            ActivityLog::addUserActivity($item);
-        });
-
-        static::updated(function ($item) {
-            ActivityLog::addUserActivity($item);
-        });
-
-        static::deleted(function ($item) {
-            ActivityLog::addUserActivity($item);
-        });
-
         static::creating(function ($model) {
             if (empty($model->{$model->getKeyName()})) {
                 $model->{$model->getKeyName()} = (string) Str::uuid();
             }
         });
+        static::created(function () {
+            return false;
+        });
+
+        static::updated(function () {
+            return false;
+        });
+
+        static::deleted(function () {
+            return false;
+        });
     }
+
 
     public function getIncrementing()
     {
@@ -57,11 +56,4 @@ trait Uuid
     {
         return date('Y-m-d h:i a', strtotime($date));
     }
-
-    public function activity()
-    {
-        return $this->morphMany(ActivityLog::class, 'auditable');
-    }
-
-
 }

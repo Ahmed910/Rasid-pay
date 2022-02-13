@@ -23,6 +23,9 @@ return [
         "force_delete" => "",
         'not_found' => 'Not Found',
     ],
+    'activity_log' => [
+        "reason" => ":user did :action",
+    ],
     "country" => [
         "country" => "Country",
         "countries" => "Countries",

@@ -26,6 +26,9 @@ return [
         'not_found' => 'لم يتم العثور على بيانات',
 
     ],
+    'activity_log' => [
+        "reason" => ":user قام :action",
+    ],
     'home' => [
         'home' => '',
         'permissions' => [
