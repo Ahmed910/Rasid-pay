@@ -48,6 +48,10 @@ Route::middleware('auth:sanctum', 'adminPermission')->group(function () {
         Route::delete('forceDelete/{id}', 'forceDelete')->name('forceDelete');
     });
 
+    Route::controller('DepartmentController')->name('departments.')->prefix('departments')->group(function () {
+        Route::delete('forceDelete/{department}', 'forceDestroy')->name('forceDelete');
+    });
+
     Route::resources([
         'countries' => 'CountryController',
         'currencies' => 'CurrencyController',
