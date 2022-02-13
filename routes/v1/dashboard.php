@@ -61,5 +61,6 @@ Route::middleware('auth:sanctum', 'adminPermission')->group(function () {
         'roles' => 'RoleController',
         'users' => 'UserController',
         'customers' => 'CustomerController',
+        'rasid_jobs'=>'RasidJobController'
     ]);
 });
