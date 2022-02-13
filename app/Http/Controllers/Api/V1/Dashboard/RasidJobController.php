@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers\Api\V1\Dashboard;
 
-use App\Http\Controllers\Controller;
-use App\Models\RasidJob\RasidJob;
-use App\Http\Resources\Dashboard\RasidJobResource;
 use Illuminate\Http\Request;
+use App\Models\RasidJob\RasidJob;
+use App\Http\Controllers\Controller;
+use App\Http\Resources\Dashboard\RasidJobResource;
+use App\Http\Requests\V1\Dashboard\RasidJobRequest;
 
 class RasidJobController extends Controller
 {
@@ -21,16 +22,20 @@ class RasidJobController extends Controller
             ]);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
+
+
+    public function store(RasidJobRequest $request, RasidJob $rasid_job)
     {
-        //
+
+        $rasid_job->fill($request->validated())->save();
+
+        return RasidJobResource::make($rasid_job)
+            ->additional([
+                'status' => true,
+                'message' =>  __('dashboard.general.success_add')
+            ]);
     }
+
 
     public function show($id)
     {
@@ -50,9 +55,15 @@ class RasidJobController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(RasidJobRequest $request, RasidJob $rasid_job)
     {
-        //
+        $rasid_job->fill($request->validated())->save();
+
+        return RasidJobResource::make($rasid_job)
+            ->additional([
+                'status' => true,
+                'message' => __('dashboard.general.success_update')
+            ]);
     }
 
     /**

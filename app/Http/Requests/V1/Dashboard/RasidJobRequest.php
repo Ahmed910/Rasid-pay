@@ -30,8 +30,8 @@ class RasidJobRequest extends ApiMasterRequest
         ];
 
         foreach (config('translatable.locales') as $locale) {
-            $rules["$locale.name"] = "required|max:255|string|unique:rasid_job_translations,name," . @$this->rasid_job->id. ",rasid_jobs_id";
-            $rules["$locale.description"]   = "required|string";
+            $rules["$locale.name"] = "required|max:255|string|unique:rasid_job_translations,name," . @$this->rasid_job->id. ",rasid_job_id";
+            $rules["$locale.description"]   = "nullable|string";
         }
 
         return $rules;
