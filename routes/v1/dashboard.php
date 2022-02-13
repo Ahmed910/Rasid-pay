@@ -15,49 +15,46 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-// Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-//     return $request->user();
-// });
+Route::post('login', "AuthController@login");
+Route::middleware('auth:sanctum', 'adminPermission')->group(function () {
+
+    Route::controller('CountryController')->name('countries.')->prefix('countries')->group(function () {
+        Route::get('archive', 'archive')->name('archive');
+        Route::post('restore/{id}', 'restore')->name('restore');
+        Route::delete('forceDelete/{id}', 'forceDelete')->name('forceDelete');
+    });
+
+    Route::controller('CurrencyController')->prefix('currencies')->group(function () {
+        Route::get('archive', 'archive')->name('archive');
+        Route::post('restore/{id}', 'restore')->name('restore');
+        Route::delete('forceDelete/{id}', 'forceDelete')->name('forceDelete');
+    });
+
+    Route::controller('CityController')->name('cities.')->prefix('cities')->group(function () {
+        Route::get('archive', 'archive')->name('archive');
+        Route::post('restore/{id}', 'restore')->name('restore');
+        Route::delete('forceDelete/{id}', 'forceDelete')->name('forceDelete');
+    });
 
 
+    Route::controller('RegionController')->name('regions.')->prefix('regions')->group(function () {
+        Route::get('archive/get', 'archive')->name('archive');
+        Route::post('restore/{id}', 'restore')->name('restore');
+        Route::delete('forceDelete/{id}', 'forceDelete')->name('forceDelete');
+    });
+    Route::controller('UserController')->name('users.')->prefix('users')->group(function () {
+        Route::get('archive/get', 'archive')->name('archive');
+        Route::post('restore/{id}', 'restore')->name('restore');
+        Route::delete('forceDelete/{id}', 'forceDelete')->name('forceDelete');
+    });
 
-Route::controller('CountryController')->name('countries.')->prefix('countries')->group(function () {
-    Route::get('archive', 'archive')->name('archive');
-    Route::post('restore/{id}', 'restore')->name('restore');
-    Route::delete('forceDelete/{id}', 'forceDelete')->name('forceDelete');
+    Route::resources([
+        'countries' => 'CountryController',
+        'currencies' => 'CurrencyController',
+        "departments" => "DepartmentController",
+        "cities" => "CityController",
+        "regions" => "RegionController",
+        'roles' => 'RoleController',
+        'users' => 'UserController',
+    ]);
 });
-
-Route::controller('CurrencyController')->prefix('currencies')->group(function () {
-    Route::get('archive', 'archive')->name('archive');
-    Route::post('restore/{id}', 'restore')->name('restore');
-    Route::delete('forceDelete/{id}', 'forceDelete')->name('forceDelete');
-});
-
-Route::controller('CityController')->name('cities.')->prefix('cities')->group(function () {
-    Route::get('archive', 'archive')->name('archive');
-    Route::post('restore/{id}', 'restore')->name('restore');
-    Route::delete('forceDelete/{id}', 'forceDelete')->name('forceDelete');
-});
-
-
-Route::controller('RegionController')->name('regions.')->prefix('regions')->group(function () {
-    Route::get('archive/get', 'archive')->name('archive');
-    Route::post('restore/{id}', 'restore')->name('restore');
-    Route::delete('forceDelete/{id}', 'forceDelete')->name('forceDelete');
-});
-
-Route::controller('UserController')->name('users.')->prefix('users')->group(function () {
-    Route::get('archive/get', 'archive')->name('archive');
-    Route::post('restore/{id}', 'restore')->name('restore');
-    Route::delete('forceDelete/{id}', 'forceDelete')->name('forceDelete');
-});
-
-Route::resources([
-    'countries' => 'CountryController',
-    'currencies' => 'CurrencyController',
-    "departments" => "DepartmentController",
-    "cities" => "CityController",
-    "regions" => "RegionController",
-    'roles' => 'RoleController',
-    'users' => 'UserController',
-]);

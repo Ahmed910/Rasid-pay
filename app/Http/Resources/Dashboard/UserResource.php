@@ -22,7 +22,7 @@ class UserResource extends JsonResource
             'gender' => $this->gender,
             'is_active' => $this->is_active,
             'created_at' => $this->created_at,
-            // 'created_at' => $this->when(),
+            'token' => $this->when($this->token,$this->token),
         ];
     }
 }
