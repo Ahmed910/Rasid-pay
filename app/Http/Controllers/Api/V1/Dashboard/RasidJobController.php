@@ -12,7 +12,7 @@ class RasidJobController extends Controller
 
     public function index(Request $request)
     {
-        $rasidJobs = RasidJob::latest()->paginate((int)($request->perPage ?? 10));
+        $rasidJobs = RasidJob::search($request)->latest()->paginate((int)($request->perPage ?? 10));
 
         return RasidJobResource::collection($rasidJobs)
             ->additional([
@@ -20,6 +20,13 @@ class RasidJobController extends Controller
                 'status' => true
             ]);
     }
+
+
+
+
+
+
+
 
     /**
      * Store a newly created resource in storage.
