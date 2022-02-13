@@ -104,19 +104,30 @@ class RasidJobController extends Controller
     }
 
 
+    public function destroy(RasidJob $rasidJob)
+    {
 
+        $rasidJob->delete();
 
+        return CityResource::make($rasidJob)
+            ->additional([
+                'status' => true,
+                'message' =>  __('dashboard.general.success_archive')
+            ]);
+    }
 
+    public function forceDelete($id)
+    {
 
+        $rasidJob = RasidJob::onlyTrashed()->findOrFail($id);
+        $rasidJob->forceDelete();
 
-
-
-
-
-
-
-
-
+        return RasidJobResource::make($rasidJob)
+            ->additional([
+                'status' => true,
+                'message' =>  __('dashboard.general.success_delete')
+            ]);
+    }
 
 
 
