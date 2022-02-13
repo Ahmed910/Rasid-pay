@@ -16,12 +16,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::post('login', "AuthController@login");
-<<<<<<< HEAD
-
-Route::middleware('auth:sanctum','adminPermission')->group(function(){
-=======
 Route::middleware('auth:sanctum', 'adminPermission')->group(function () {
->>>>>>> 68e8bd62eb318c105907d5850952144969a2e26e
 
     Route::controller('CountryController')->name('countries.')->prefix('countries')->group(function () {
         Route::get('archive', 'archive')->name('archive');
