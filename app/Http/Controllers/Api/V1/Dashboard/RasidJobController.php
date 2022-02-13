@@ -109,7 +109,7 @@ class RasidJobController extends Controller
 
         $rasidJob->delete();
 
-        return CityResource::make($rasidJob)
+        return RasidJobResource::make($rasidJob)
             ->additional([
                 'status' => true,
                 'message' =>  __('dashboard.general.success_archive')
