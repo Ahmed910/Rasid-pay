@@ -27,12 +27,12 @@ class CreateRasidJobsTable extends Migration
 
         Schema::create('rasid_job_translations', function (Blueprint $table) {
             $table->uuid('id')->primary();
-            $table->foreignUuid('rasid_jobs_id')->constrained('rasid_jobs')->onDelete('cascade');
+            $table->foreignUuid('rasid_job_id')->constrained('rasid_jobs')->cascadeOnDelete();
             $table->string('locale')->index();
             $table->string('name');
-            $table->text('description');
+            $table->text('description')->nullable();
 
-            $table->unique(['rasid_jobs_id', 'locale']);
+            $table->unique(['rasid_job_id', 'locale']);
         });
     }
 
