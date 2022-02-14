@@ -4,11 +4,7 @@ namespace App\Http\Controllers\Api\V1\Dashboard;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\V1\Dashboard\CustomerRequest;
-use App\Http\Resources\Dashboard\CountryResource;
 use App\Http\Resources\Dashboard\CustomerResource;
-use App\Http\Resources\Dashboard\RegionResource;
-use App\Models\Department\Department;
-use App\Models\Region\Region;
 use App\Models\User;
 use Illuminate\Http\Request;
 
@@ -21,8 +17,8 @@ class CustomerController extends Controller
      */
     public function index()
     {
-        $types = ['company', 'Institution', 'member', 'freelance_doc', 'famous', 'other'];
-        $user = User::whereIn("client_type", $types)->latest()->paginate((int)($request->page ?? 15));
+
+        $user = User::where("user_type", 'client')->latest()->paginate((int)($request->page ?? 15));
         return CustomerResource::collection($user)->additional([
             'status' => true,
             'message' => ""
@@ -41,8 +37,7 @@ class CustomerController extends Controller
 
     public function archive(Request $request)
     {
-        $types = ['company', 'Institution', 'member', 'freelance_doc', 'famous', 'other'];
-        $users = User::whereIn('client_type', $types)->onlyTrashed()->latest()->paginate((int)($request->perPage ?? 10));
+        $users = User::where("user_type", 'client')->onlyTrashed()->latest()->paginate((int)($request->perPage ?? 10));
         return CustomerResource::collection($users)
             ->additional([
                 'status' => true,
@@ -96,8 +91,8 @@ class CustomerController extends Controller
      */
     public function update(CustomerRequest $request, User $customer): \Illuminate\Http\Response
     {
-        $user->fill($request->validated())->save();
-        return (new CustomerRequest($user))->additional([
+        $customer->fill($request->validated())->save();
+        return (new CustomerRequest($customer))->additional([
             'status' => true, 'message' => trans("dashboard.general.success_update")]);
     }
 

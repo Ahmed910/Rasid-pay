@@ -17,7 +17,7 @@ class SimpleUserResource extends JsonResource
         return [
             'id' => $this->id,
             'fullname' => $this->fullname,
-            'user_type' => $this->when(request()->is('*/admins/*'), $this->user_type),
+            'user_type' => $this->user_type,
             'created_at' => $this->created_at,
         ];
     }
