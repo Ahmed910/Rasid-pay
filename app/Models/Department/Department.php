@@ -2,6 +2,8 @@
 
 namespace App\Models\Department;
 
+use App\Contracts\HasAssetsInterface;
+use App\Traits\HasAssetsTrait;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Traits\Uuid;
@@ -11,9 +13,10 @@ use Astrotomic\Translatable\Translatable;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
-class Department extends Model implements TranslatableContract
+
+class Department extends Model implements TranslatableContract, HasAssetsInterface
 {
-    use HasFactory, Uuid;
+    use HasFactory, Uuid, HasAssetsTrait;
     use Translatable;
     use SoftDeletes;
     #region properties
@@ -21,8 +24,17 @@ class Department extends Model implements TranslatableContract
     #region properties
     protected $guarded = ['created_at', 'updated_at', 'deleted_at'];
     public $translatedAttributes = ['name', 'description'];
+    public $assets = ["image"];
     #endregion properties
 
+    public static function boot()
+    {
+        parent::boot();
+        static::saved(function ($model) {
+            $request = app(\Illuminate\Http\Request::class);
+            $model->saveAssets($model, $request);
+        });
+    }
     #region mutators
     #endregion mutators
 
@@ -39,6 +51,15 @@ class Department extends Model implements TranslatableContract
     {
         return $this->hasMany(Department::class, 'parent_id')->with("children");
     }
+
+   public function rasidJobs(){
+
+
+    return $this->hasMany(RasidJob::class,'department_id');
+   }
+
+
+
     #endregion relationships
 
     #region custom Methods
