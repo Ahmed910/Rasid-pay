@@ -12,6 +12,7 @@ use Astrotomic\Translatable\Contracts\Translatable as TranslatableContract;
 use Astrotomic\Translatable\Translatable;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Builder;
 
 
 class Department extends Model implements TranslatableContract, HasAssetsInterface
@@ -39,6 +40,28 @@ class Department extends Model implements TranslatableContract, HasAssetsInterfa
     #endregion mutators
 
     #region scopes
+    public function scopeSearch(Builder $query, $request)
+    {
+
+        $query->whereHas("translations", function ($q) use ($request) {
+            $q->where('name', 'LIKE', "%$request->name%");
+        });
+
+        if (isset($request->created_at)) {
+
+            $query->whereDate('created_at', $request->created_at);
+        }
+
+        if (isset($request->parent_id)) {
+            $query->where("parent_id",$request->parent_id);
+         }
+
+        if (isset($request->is_active)) {
+
+            $query->where('is_active', $request->is_active);
+        }
+
+    }
     #endregion scopes
 
     #region relationships
