@@ -22,6 +22,7 @@ return [
         "restore" => "",
         "force_delete" => "",
         'not_found' => 'Not Found',
+        'sent_successfully' => 'Sent Successfully',
     ],
     'activity_log' => [
         "reason" => ":user did :action",
