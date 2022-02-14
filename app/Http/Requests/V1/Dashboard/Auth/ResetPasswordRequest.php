@@ -4,7 +4,7 @@ namespace App\Http\Requests\V1\Dashboard\Auth;
 
 use App\Http\Requests\ApiMasterRequest;
 
-class LoginRequest extends ApiMasterRequest
+class ResetPasswordRequest extends ApiMasterRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -23,11 +23,17 @@ class LoginRequest extends ApiMasterRequest
      */
     public function rules()
     {
+        $user = User::where(['phone'=>$this->phone])->first();
+        if ($user && ($user->phone_verified_at || $user->email_verified_at)) {
+            $code = 'required|exists:users,reset_code';
+        }else{
+            $code = 'required|exists:users,verified_code';
+        }
+
         return [
-          'username' => 'required',
-          'password' => 'required',
-          'device_token' => 'required|string|between:2,10000',
-          'device_type' => 'required|in:ios,android',
+            'phone' => 'required|exists:users,phone',
+            'code' => $code,
+            'password' => 'required|min:6'
         ];
     }
 
@@ -36,7 +42,7 @@ class LoginRequest extends ApiMasterRequest
         $data = $this->all();
 
         $this->merge([
-            'username' => @$data['username'] ? convert_arabic_number($data['username']) : null
+            'phone' => @$data['phone'] ? convert_arabic_number($data['phone']) : null
         ]);
     }
 
