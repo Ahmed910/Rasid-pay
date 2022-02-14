@@ -68,7 +68,6 @@ Route::middleware('auth:sanctum', 'adminPermission')->group(function () {
 
     });
 
-
     Route::resources([
         'countries' => 'CountryController',
         'currencies' => 'CurrencyController',
@@ -80,5 +79,6 @@ Route::middleware('auth:sanctum', 'adminPermission')->group(function () {
         'customers' => 'CustomerController',
         'rasid_jobs'=>'RasidJobController',
         'notifications'=>'NotificationController',
+        'profiles' =>'ProfileController',
     ]);
 });
