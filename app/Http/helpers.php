@@ -76,3 +76,31 @@ function generate_unique_code($model , $col = 'code' , $length = 4 , $letter_typ
     }
     return $generate_random_code;
 }
+
+function setting($attr)
+{
+  if (\Schema::hasTable('settings')) {
+      $phone = $attr;
+      if ($attr == 'phone') {
+          $attr = 'phones';
+      }
+    $setting=\App\Models\Setting::where('key',$attr)->first() ??[];
+    if ($attr == 'project_name') {       
+      return ! empty($setting) ? $setting->value : 'Non Stop';
+    }
+    if ($attr == 'logo') {
+      return ! empty($setting) ? asset('storage/images/setting')."/".$setting->value : asset('dashboardAsset/global/images/cover/cover_sm.png');
+    }
+    if ($phone == 'phone') {
+      return ! empty($setting) && $setting->value ? json_decode($setting->value)[0] : null;
+      }elseif ($phone == 'phones') {
+          return ! empty($setting) && $setting->value ? implode(",",json_decode($setting->value)) : null;
+      }
+    if (! empty($setting)) {
+      return $setting->value;
+
+    }
+    return false;
+  }
+  return false;
+}
