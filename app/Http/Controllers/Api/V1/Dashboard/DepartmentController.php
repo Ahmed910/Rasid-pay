@@ -67,6 +67,12 @@ class DepartmentController extends Controller
     }
 
 
+
+
+
+
+
+
     public function destroy(Department $department)
     {
         if ($department->children()->exists()) {
@@ -86,8 +92,40 @@ class DepartmentController extends Controller
             ]);
     }
 
-    public function forceDestroy(Department $department)
+    public function archive(Request $request)
     {
+        $departments = Department::onlyTrashed()->latest()->paginate((int)($request->perPage ?? 10));
+
+        return DepartmentResource::collection($departments)
+            ->additional([
+                'message' => 'success',
+                'status' => true
+            ]);
+    }
+
+
+    public function restore($id)
+    {
+
+        $department = Department::onlyTrashed()->findOrFail($id);
+
+        $department->restore();
+
+        return DepartmentResource::make($department)
+            ->additional([
+                'status' => true,
+                'message' => trans('dashboard.general.restore')
+
+            ]);
+    }
+
+
+
+
+    public function forceDelete($id)
+    {
+        $department = Department::onlyTrashed()->findOrFail($id);
+
         if ($department->children()->exists()) {
             return response()->json([
                 'status' => false,
