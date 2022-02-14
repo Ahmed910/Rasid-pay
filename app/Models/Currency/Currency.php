@@ -10,6 +10,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Astrotomic\Translatable\Contracts\Translatable as TranslatableContract;
 use Astrotomic\Translatable\Translatable;
 use Carbon\Carbon;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Currency extends Model implements TranslatableContract
 
@@ -28,7 +29,7 @@ class Currency extends Model implements TranslatableContract
     #endregion scopes
 
     #region relationships
-    public function countries()
+    public function countries(): HasMany
     {
         return $this->hasMany(Country::class);
     }

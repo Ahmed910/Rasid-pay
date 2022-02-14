@@ -11,13 +11,13 @@ use Illuminate\Support\Facades\Auth;
 use Symfony\Component\HttpFoundation\Response;
 
 class AuthController extends Controller
-{    
+{
     public function login(LoginRequest $request)
     {
-        if (!$token = Auth::attempt($this->getCredentials($request))) {
+        if (!Auth::attempt($this->getCredentials($request))) {
             return response()->json(['status' => false, 'data' => null , 'message' => trans('auth.failed')],Response::HTTP_UNAUTHORIZED);
-        } 
-        $user = Auth::user(); 
+        }
+        $user = Auth::user();
         $token =  $user->createToken('RaseedJakDashboard')->plainTextToken;
         $user->devices()->firstOrCreate($request->only(['device_token','device_type']));
         data_set($user,'token' , $token);
