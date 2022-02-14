@@ -3,8 +3,9 @@
 namespace App\Http\Controllers\Api\V1\Dashboard;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\V1\Dashboard\Auth\{LoginRequest, SendCodeRequest};
+use App\Http\Requests\V1\Dashboard\Auth\{LoginRequest, SendCodeRequest, LogoutRequest, ResetPasswordRequest};
 use App\Http\Resources\Dashboard\UserResource;
+use App\Models\Device;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -12,6 +13,10 @@ use Symfony\Component\HttpFoundation\Response;
 
 class AuthController extends Controller
 {
+    public function __construct() {
+        $this->middleware('auth:sanctum',['only' => ['logout','resetPassword']]);
+    }
+
     public function login(LoginRequest $request)
     {
         if (!$token = Auth::attempt($this->getCredentials($request))) {
@@ -26,7 +31,7 @@ class AuthController extends Controller
 
     public function sendCode(SendCodeRequest $request)
     {
-        $user = User::where('phone', $request->phone)->first();
+        $user = User::firstWhere('phone', $request->phone);
         if (!$user) {
             return response()->json(['status' => false, 'data' => null, 'message' => trans('auth.phone_not_exists')], 422);
         }
@@ -78,4 +83,38 @@ class AuthController extends Controller
         // $credentials['is_active'] = 1;
         return $credentials;
     }
+
+    public function resetPassword(ResetPasswordRequest $request)
+      {
+          $user = User::firstWhere(['phone' => $request->phone]);
+
+          $user_data = [];
+          if (! $user) {
+              return response()->json(['status' => false ,'data'=> null ,'message'=> trans('auth.phone_not_true_or_account_deactive')],422);
+          }elseif (!$user->phone_verified_at && $user->verified_code == $request->code) {
+              $user_data += ['password' => $request->password ,'verified_code' => null ,'is_active' => true , 'phone_verified_at' => now()];
+          }elseif ($user->phone_verified_at && $user->reset_code == $request->code) {
+              $user_data += ['password' => $request->password, 'reset_code' => null];
+          }
+          $user->update($user_data);
+
+          return response()->json(['status' => true ,'data'=> null ,'message'=> trans('auth.success_change_password')]);
+      }
+
+
+
+    public function logout(LogoutRequest $request)
+     {
+        if (auth()->check()) {
+            $user = Auth::user();
+            $device = Device::where(['user_id'=> $user->id,'device_token' => $request->device_token , 'device_type' => $request->device_type ])->first();
+            if ($device) {
+                $device->delete();
+            }
+            $user->currentAccessToken()->delete();
+            return response()->json(['status' => true ,'data'=> null ,'message'=> trans('auth.logout_waiting_u_another_time')]);
+        }
+
+     }
+
 }
