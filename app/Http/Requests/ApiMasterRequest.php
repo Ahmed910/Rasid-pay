@@ -22,7 +22,7 @@ class ApiMasterRequest extends FormRequest
     {
         throw new HttpResponseException(response()->json([
             'status' => false,
-            'message' => $validator->errors()->first(),
+            'message' => request()->is("*/dashboard/*") ? $validator->errors()->toArray() : $validator->errors()->first(),
             'data' => null,
         ], 422));
     }

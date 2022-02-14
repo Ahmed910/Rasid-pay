@@ -20,8 +20,8 @@ class RasidJobResource extends JsonResource
         'translations' => GlobalTransResource::collection($this->whenLoaded('translations')),
         'name' => $this->name,
         'description' => $this->description,
-        'status' => $this->status,
-        'type' => $this->type,
+        'is_active' => $this->is_active,
+        'is_vacant' => $this->is_vacant,
         'created_at' => $this->created_at,
         'department' => DepartmentResource::make($this->whenLoaded('department')),
         ];

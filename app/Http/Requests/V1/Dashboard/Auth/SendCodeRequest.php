@@ -4,7 +4,7 @@ namespace App\Http\Requests\V1\Dashboard\Auth;
 
 use App\Http\Requests\ApiMasterRequest;
 
-class LoginRequest extends ApiMasterRequest
+class SendCodeRequest extends ApiMasterRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,11 +24,9 @@ class LoginRequest extends ApiMasterRequest
     public function rules()
     {
         return [
-          'username' => 'required',
-          'password' => 'required',
-          'device_token' => 'required|string|between:2,10000',
-          'device_type' => 'required|in:ios,android',
+            'phone' => 'required|numeric|max:20|exists:users,phone,deleted_at,NULL',
         ];
+  
     }
 
     protected function prepareForValidation()
@@ -36,7 +34,7 @@ class LoginRequest extends ApiMasterRequest
         $data = $this->all();
 
         $this->merge([
-            'username' => @$data['username'] ? convert_arabic_number($data['username']) : null
+            'phone' => @$data['phone'] ? convert_arabic_number($data['phone']) : null
         ]);
     }
 

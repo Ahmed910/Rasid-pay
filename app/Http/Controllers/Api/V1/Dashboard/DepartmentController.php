@@ -13,7 +13,10 @@ class DepartmentController extends Controller
 {
     public function index(Request $request)
     {
-        $departments = Department::with("children")->whereNull("parent_id")
+        $departments = Department::search($request)
+            ->with(["parent", "translations"])
+            ->whereNotNull("parent_id")
+            ->latest()
             ->paginate((int)($request->page ?? 15));
 
         return DepartmentResource::collection($departments)
@@ -67,12 +70,6 @@ class DepartmentController extends Controller
     }
 
 
-
-
-
-
-
-
     public function destroy(Department $department)
     {
         if ($department->children()->exists()) {
@@ -106,7 +103,6 @@ class DepartmentController extends Controller
 
     public function restore($id)
     {
-
         $department = Department::onlyTrashed()->findOrFail($id);
 
         $department->restore();
@@ -118,8 +114,6 @@ class DepartmentController extends Controller
 
             ]);
     }
-
-
 
 
     public function forceDelete($id)

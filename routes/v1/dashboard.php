@@ -16,6 +16,9 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::post('login', "AuthController@login");
+Route::post('send', "AuthController@sendCode");
+Route::post('logout', "AuthController@logout");
+
 Route::middleware('auth:sanctum', 'adminPermission')->group(function () {
 
     Route::controller('CountryController')->name('countries.')->prefix('countries')->group(function () {

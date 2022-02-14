@@ -14,6 +14,12 @@ class DepartmentResource extends JsonResource
      */
     public function toArray($request)
     {
-        return parent::toArray($request);
+        return [
+            'id' => $this->id,
+            'translations' => GlobalTransResource::collection($this->whenLoaded('translations')),
+            'is_active' => $this->is_active,
+            'created_at' => $this->created_at,
+            "images"    => ImagesResource::collection($this->whenLoaded("images"))
+        ];
     }
 }
