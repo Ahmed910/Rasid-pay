@@ -61,20 +61,6 @@ class Department extends Model implements TranslatableContract, HasAssetsInterfa
             $query->where('is_active', $request->is_active);
         }
 
-
-
-
-
-        // if (isset($request->is_active)) {
-
-        //     $query->where('is_active', $request->is_active);
-        // }
-
-        // if (isset($request->is_vacant)) {
-
-        //     $query->where('is_vacant', $request->is_vacant);
-        // }
-
     }
     #endregion scopes
 
