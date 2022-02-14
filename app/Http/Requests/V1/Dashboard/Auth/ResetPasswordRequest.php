@@ -3,6 +3,7 @@
 namespace App\Http\Requests\V1\Dashboard\Auth;
 
 use App\Http\Requests\ApiMasterRequest;
+use App\Models\User;
 
 class ResetPasswordRequest extends ApiMasterRequest
 {
@@ -25,15 +26,15 @@ class ResetPasswordRequest extends ApiMasterRequest
     {
         $user = User::where(['phone'=>$this->phone])->first();
         if ($user && ($user->phone_verified_at || $user->email_verified_at)) {
-            $code = 'required|exists:users,reset_code';
+            $code = 'required|exists:users,reset_code,deleted_at,NULL';
         }else{
-            $code = 'required|exists:users,verified_code';
+            $code = 'required|exists:users,verified_code,deleted_at,NULL';
         }
 
         return [
             'phone' => 'required|exists:users,phone',
             'code' => $code,
-            'password' => 'required|min:6'
+            'password' => 'required|between:6,100'
         ];
     }
 
