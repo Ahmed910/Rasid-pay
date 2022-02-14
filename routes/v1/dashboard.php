@@ -38,12 +38,12 @@ Route::middleware('auth:sanctum', 'adminPermission')->group(function () {
 
 
     Route::controller('RegionController')->name('regions.')->prefix('regions')->group(function () {
-        Route::get('archive/get', 'archive')->name('archive');
+        Route::get('archive', 'archive')->name('archive');
         Route::post('restore/{id}', 'restore')->name('restore');
         Route::delete('forceDelete/{id}', 'forceDelete')->name('forceDelete');
     });
-    Route::controller('UserController')->name('users.')->prefix('users')->group(function () {
-        Route::get('archive/get', 'archive')->name('archive');
+    Route::controller('AdminController')->name('admins.')->prefix('admins')->group(function () {
+        Route::get('archive', 'archive')->name('archive');
         Route::post('restore/{id}', 'restore')->name('restore');
         Route::delete('forceDelete/{id}', 'forceDelete')->name('forceDelete');
     });
@@ -55,6 +55,6 @@ Route::middleware('auth:sanctum', 'adminPermission')->group(function () {
         "cities" => "CityController",
         "regions" => "RegionController",
         'roles' => 'RoleController',
-        'users' => 'UserController',
+        'admins' => 'AdminController',
     ]);
 });

@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Traits\Uuid;
+use Illuminate\Database\Eloquent\Relations\MorphTo;
 
 class AppMedia extends Model
 {
@@ -21,7 +22,7 @@ class AppMedia extends Model
     #endregion scopes
 
     #region relationships
-    public function mediable()
+    public function mediable(): MorphTo
     {
         return $this->morphTo();
     }
