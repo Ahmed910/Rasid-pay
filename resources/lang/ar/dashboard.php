@@ -24,6 +24,7 @@ return [
         "restore" => "",
         "force_delete" => "",
         'not_found' => 'لم يتم العثور على بيانات',
+        'sent_successfully' => 'تم الارسال بنجاح',
 
     ],
     'activity_log' => [
