@@ -17,8 +17,8 @@ class CreateRasidJobsTable extends Migration
         Schema::create('rasid_jobs', function (Blueprint $table) {
             $table->uuid("id")->primary();
             $table->foreignUuid('department_id')->nullable()->constrained('departments')->nullOnDelete();
-            $table->boolean('is_active')->default(1);
-            $table->boolean('is_vacant')->default(1);
+            $table->boolean('is_active')->default(false);
+            $table->boolean('is_vacant')->default(true);
             $table->softDeletes();
 
             $table->timestamps();
