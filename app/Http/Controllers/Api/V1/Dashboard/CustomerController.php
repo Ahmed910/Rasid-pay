@@ -5,8 +5,6 @@ namespace App\Http\Controllers\Api\V1\Dashboard;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\V1\Dashboard\CustomerRequest;
 use App\Http\Resources\Dashboard\CustomerResource;
-use App\Http\Resources\Dashboard\RegionResource;
-use App\Models\Region\Region;
 use App\Models\User;
 use Illuminate\Http\Request;
 
@@ -19,8 +17,8 @@ class CustomerController extends Controller
      */
     public function index()
     {
-        $types = ['company' , 'Institution' , 'member' , 'freelance_doc' , 'famous' , 'other'] ;
-        $user = User::whereIn("client_type"  , $types)->latest()->paginate((int)($request->page ?? 15));
+
+        $user = User::where("user_type", 'client')->latest()->paginate((int)($request->page ?? 15));
         return CustomerResource::collection($user)->additional([
             'status' => true,
             'message' => ""
@@ -37,13 +35,23 @@ class CustomerController extends Controller
         //
     }
 
+    public function archive(Request $request)
+    {
+        $users = User::where("user_type", 'client')->onlyTrashed()->latest()->paginate((int)($request->perPage ?? 10));
+        return CustomerResource::collection($users)
+            ->additional([
+                'status' => true,
+                'message' => ''
+            ]);
+    }
+
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
-    public function store(CustomerRequest $request , User $user)
+    public function store(CustomerRequest $request, User $user)
     {
         $user->fill($request->validated())->save();
         return (new CustomerResource($user))->additional([
@@ -54,19 +62,19 @@ class CustomerController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function show($id)
     {
         $user = User::withTrashed()->findorfail($id);
-        return (new CustomerRequest($user))->additional(['status' => true, 'message' => ""]);
+        return (new CustomerResource($user))->additional(['status' => true, 'message' => ""]);
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
@@ -77,23 +85,58 @@ class CustomerController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param \Illuminate\Http\Request $request
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(CustomerRequest $request, User $customer): \Illuminate\Http\Response
     {
-        //
+        $customer->fill($request->validated())->save();
+        return (new CustomerRequest($customer))->additional([
+            'status' => true, 'message' => trans("dashboard.general.success_update")]);
+    }
+
+    public function forceDestroy($id)
+    {
+        $user = User::onlyTrashed()->findorfail($id);
+
+        $user->forceDelete();
+
+        return CustomerResource::make($user)
+            ->additional([
+                'status' => true,
+                'message' => trans('dashboard.general.success_delete'),
+            ]);
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param int $id
+     * @return CustomerResource
      */
-    public function destroy($id)
+    public function destroy(User $user)
     {
-        //
+
+        $user->delete();
+
+        return CustomerResource::make($user)
+            ->additional([
+                'status' => true,
+                'message' => trans('dashboard.general.success_archive'),
+            ]);
+    }
+
+    public function restore($id)
+    {
+        $user = User::onlyTrashed()->findOrFail($id);
+        $user->restore();
+
+        return CustomerResource::make($user)
+            ->additional([
+                'status' => true,
+                'message' => trans('dashboard.general.success_restore'),
+            ]);
+
     }
 }

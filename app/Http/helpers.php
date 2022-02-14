@@ -1,5 +1,7 @@
 <?php
 
+use Illuminate\Support\Facades\Schema;
+
 function convert_arabic_number($number)
 {
     $arabic_array = ['۰' => '0', '۱' => '1', '۲' => '2', '۳' => '3', '۴' => '4', '۵' => '5', '۶' => '6', '۷' => '7', '۸' => '8', '۹' => '9', '٠' => '0', '١' => '1', '٢' => '2', '٣' => '3', '٤' => '4', '٥' => '5', '٦' => '6', '٧' => '7', '٨' => '8', '٩' => '9'];
@@ -46,4 +48,61 @@ function filter_mobile_number($mob_num)
 
     $real_mob_number = $val . $mob_number;
     return $real_mob_number;
+}
+
+function generate_unique_code($model , $col = 'code' , $length = 4 , $letter_type = null)
+{
+    $characters ='';
+    switch ($letter_type) {
+            case 'lower':
+                $characters = '0123456789abcdefghijklmnopqrstuvwxyz';
+                break;
+            case 'upper':
+                $characters = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+                break;
+            case 'numbers':
+                $characters = '0123456789';
+                break;
+
+            default:
+                $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+                break;
+        }
+    $generate_random_code = '';
+    $charactersLength = strlen($characters);
+    for ($i = 0; $i < $length; $i++) {
+        $generate_random_code .= $characters[rand(0, $charactersLength - 1)];
+    }
+    if ($model::where($col, $generate_random_code)->exists()) {
+        generate_unique_code($model, $col, $length, $letter_type);
+    }
+    return $generate_random_code;
+}
+
+function setting($attr)
+{
+  if (Schema::hasTable('settings')) {
+      $phone = $attr;
+      if ($attr == 'phone') {
+          $attr = 'phones';
+      }
+    $setting=\App\Models\Setting::where('key',$attr)->first() ??[];
+    if ($attr == 'project_name') {       
+      return ! empty($setting) ? $setting->value : 'Non Stop';
+    }
+    if ($attr == 'logo') {
+      return ! empty($setting) ? asset('storage/images/setting')."/".$setting->value : asset('dashboardAsset/global/images/cover/cover_sm.png');
+    }
+    if ($phone == 'phone') {
+      return ! empty($setting) && $setting->value ? json_decode($setting->value)[0] : null;
+      }elseif ($phone == 'phones') {
+          return ! empty($setting) && $setting->value ? implode(",",json_decode($setting->value)) : null;
+      }
+    if (! empty($setting)) {
+      return $setting->value;
+
+    }
+    return false;
+  }
+  return false;
 }

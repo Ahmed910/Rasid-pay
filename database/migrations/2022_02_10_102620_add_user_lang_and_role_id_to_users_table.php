@@ -16,6 +16,7 @@ class AddUserLangAndRoleIdToUsersTable extends Migration
         Schema::table('users', function (Blueprint $table) {
             $table->foreignUuid("role_id")->nullable()->constrained()->onDelete('set null');
             $table->foreignUuid("added_by_id")->nullable()->constrained('users')->onDelete('set null');
+            $table->foreignUuid("country_id")->nullable()->constrained()->onDelete('set null');
             $table->char("user_locale",3)->default('ar');
         });
     }
