@@ -57,6 +57,14 @@ Route::middleware('auth:sanctum', 'adminPermission')->group(function () {
         Route::post('restore/{id}', 'restore')->name('restore');
     });
 
+    Route::controller('RasidJobController')->name('rasidjobs.')->prefix('rasid_jobs')->group(function () {
+        Route::get('archive', 'archive')->name('archive');
+        Route::post('restore/{id}', 'restore')->name('restore');
+        Route::delete('forceDelete/{id}', 'forceDelete')->name('forceDelete');
+
+
+    });
+
     Route::resources([
         'countries' => 'CountryController',
         'currencies' => 'CurrencyController',
@@ -66,5 +74,6 @@ Route::middleware('auth:sanctum', 'adminPermission')->group(function () {
         'roles' => 'RoleController',
         'users' => 'UserController',
         'customers' => 'CustomerController',
+        'rasid_jobs'=>'RasidJobController'
     ]);
 });

@@ -49,6 +49,15 @@ class Department extends Model implements TranslatableContract, HasAssetsInterfa
     {
         return $this->hasMany(Department::class, 'parent_id')->with("children");
     }
+
+   public function rasidJobs(){
+
+
+    return $this->hasMany(RasidJob::class,'department_id');
+   }
+
+
+
     #endregion relationships
 
     #region custom Methods
