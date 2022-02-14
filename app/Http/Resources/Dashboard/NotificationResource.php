@@ -4,7 +4,7 @@ namespace App\Http\Resources\Dashboard;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class GlobalTransResource extends JsonResource
+class NotificationResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -16,11 +16,10 @@ class GlobalTransResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'locale' => $this->locale,
-            'name' => $this->name,
-            'desc' => $this->when($this->desc,$this->desc),
-            'description' => $this->when($this->description,$this->description),
-            'nationality' => $this->when($this->nationality,$this->nationality),
+            'type' => $this->notifiable_type,
+            'data' => $this->data,
+            'read_at' => $this->read_at,
+            'created_at' => $this->created_at,
         ];
     }
 }

@@ -84,36 +84,34 @@ class AuthController extends Controller
     }
 
     public function resetPassword(ResetPasswordRequest $request)
-      {
-          $user = User::firstWhere(['phone' => $request->phone]);
+    {
+        $user = User::firstWhere(['phone' => $request->phone]);
 
-          $user_data = [];
-          if (! $user) {
-              return response()->json(['status' => false ,'data'=> null ,'message'=> trans('auth.phone_not_true_or_account_deactive')],422);
-          }elseif (!$user->phone_verified_at && $user->verified_code == $request->code) {
-              $user_data += ['password' => $request->password ,'verified_code' => null ,'is_active' => true , 'phone_verified_at' => now()];
-          }elseif ($user->phone_verified_at && $user->reset_code == $request->code) {
-              $user_data += ['password' => $request->password, 'reset_code' => null];
-          }
-          $user->update($user_data);
+        $user_data = [];
+        if (!$user) {
+            return response()->json(['status' => false, 'data' => null, 'message' => trans('auth.phone_not_true_or_account_deactive')], 422);
+        } elseif (!$user->phone_verified_at && $user->verified_code == $request->code) {
+            $user_data += ['password' => $request->password, 'verified_code' => null, 'is_active' => true, 'phone_verified_at' => now()];
+        } elseif ($user->phone_verified_at && $user->reset_code == $request->code) {
+            $user_data += ['password' => $request->password, 'reset_code' => null];
+        }
+        $user->update($user_data);
 
-          return response()->json(['status' => true ,'data'=> null ,'message'=> trans('auth.success_change_password')]);
-      }
+        return response()->json(['status' => true, 'data' => null, 'message' => trans('auth.success_change_password')]);
+    }
 
 
 
     public function logout(LogoutRequest $request)
-     {
+    {
         if (auth()->check()) {
             $user = Auth::user();
-            $device = Device::where(['user_id'=> $user->id,'device_token' => $request->device_token , 'device_type' => $request->device_type ])->first();
+            $device = Device::where(['user_id' => $user->id, 'device_token' => $request->device_token, 'device_type' => $request->device_type])->first();
             if ($device) {
                 $device->delete();
             }
             $user->currentAccessToken()->delete();
-            return response()->json(['status' => true ,'data'=> null ,'message'=> trans('auth.logout_waiting_u_another_time')]);
+            return response()->json(['status' => true, 'data' => null, 'message' => trans('auth.logout_waiting_u_another_time')]);
         }
-
-     }
-
+    }
 }
