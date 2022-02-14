@@ -9,11 +9,12 @@ use Astrotomic\Translatable\Translatable;
 use Astrotomic\Translatable\Contracts;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class City extends Model implements Contracts\Translatable
 {
-    use HasFactory, SoftDeletes, Translatable,Uuid;
+    use HasFactory, SoftDeletes, Translatable, Uuid;
 
     #region properties
     protected $guarded = ['created_at', 'updated_at', 'deleted_at'];
@@ -27,12 +28,12 @@ class City extends Model implements Contracts\Translatable
     #endregion scopes
 
     #region relationships
-    public function region()
+    public function region(): BelongsTo
     {
         return $this->belongsTo(Region::class);
     }
 
-    public function country()
+    public function country(): BelongsTo
     {
         return $this->belongsTo(Country::class);
         // return $this->hasOneThrough(Country::class, Region::class, 'id', 'id', 'region_id', 'country_id');

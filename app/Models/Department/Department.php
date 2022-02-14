@@ -10,6 +10,8 @@ use App\Traits\Uuid;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Astrotomic\Translatable\Contracts\Translatable as TranslatableContract;
 use Astrotomic\Translatable\Translatable;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 
 class Department extends Model implements TranslatableContract, HasAssetsInterface
@@ -40,15 +42,24 @@ class Department extends Model implements TranslatableContract, HasAssetsInterfa
     #endregion scopes
 
     #region relationships
-    public function parent()
+    public function parent(): BelongsTo
     {
         return $this->belongsTo(Department::class, 'parent_id');
     }
 
-    public function children()
+    public function children(): HasMany
     {
         return $this->hasMany(Department::class, 'parent_id')->with("children");
     }
+
+   public function rasidJobs(){
+
+
+    return $this->hasMany(RasidJob::class,'department_id');
+   }
+
+
+
     #endregion relationships
 
     #region custom Methods

@@ -56,7 +56,7 @@ class Handler extends ExceptionHandler
                 case $throwable instanceof AuthenticationException:
                     return response()->json([
                         'status' => false ,
-                        'message' => trans('auth.unauth',[],$request->header('accept-language')) , 
+                        'message' => trans('auth.unauth',[],$request->header('accept-language')) ,
                         'data' => null
                     ],Response::HTTP_UNAUTHORIZED);
             }

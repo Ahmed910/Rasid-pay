@@ -10,6 +10,8 @@ use Illuminate\Database\Eloquent\Model;
 use Astrotomic\Translatable\Contracts\Translatable as TranslatableContract;
 use Astrotomic\Translatable\Translatable;
 use App\Traits\Uuid;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 
@@ -29,19 +31,19 @@ class Country extends Model implements TranslatableContract
     #endregion scopes
 
     #region relationships
-    public function regions()
+    public function regions(): HasMany
     {
         return $this->hasMany(Region::class);
     }
 
-    public function cities()
+    public function cities(): HasMany
     {
         return $this->hasMany(City::class);
         // return $this->hasManyThrough(City::class, Region::class, 'region_id', 'city_id', 'id', 'id');
 
     }
 
-    public function currency()
+    public function currency(): BelongsTo
     {
         return $this->belongsTo(Currency::class);
     }
