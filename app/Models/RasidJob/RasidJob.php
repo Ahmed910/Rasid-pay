@@ -18,6 +18,7 @@ class RasidJob extends Model implements TranslatableContract
     #region properties
     protected $guarded = ['created_at', 'updated_at', 'deleted_at'];
     public $translatedAttributes = ['name', 'description'];
+    public $attributes = ['is_active' => false, 'is_vacant' =>  true];
     #endregion properties
 
     #region mutators
@@ -26,14 +27,11 @@ class RasidJob extends Model implements TranslatableContract
     #region scopes
     public function scopeSearch(Builder $query, $request)
     {
+
         $query->whereHas("translations", function ($q) use ($request) {
             $q->where('name', 'LIKE', "%$request->name%");
         });
 
-        if (isset($request->status)) {
-
-            $query->where('status',$request->status);
-        }
 
         if (isset($request->department_id)) {
             $query->whereHas("department", function ($q) use ($request) {
@@ -41,10 +39,17 @@ class RasidJob extends Model implements TranslatableContract
             });
         }
 
-        if (isset($request->type)) {
 
-            $query->where('type',$request->type);
+        if (isset($request->is_active)) {
+
+            $query->where('is_active', $request->is_active);
         }
+
+        if (isset($request->is_vacant)) {
+
+            $query->where('is_vacant', $request->is_vacant);
+        }
+
     }
     #endregion scopes
 
