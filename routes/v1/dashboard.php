@@ -62,6 +62,11 @@ Route::middleware('auth:sanctum', 'adminPermission')->group(function () {
 
 
     });
+    Route::controller('CustomerController')->name('customers.')->prefix('customers')->group(function () {
+        Route::delete('forceDelete/{id}', 'forceDestroy')->name('forceDelete');
+        Route::get('archive/get', 'archive')->name('archive');
+        Route::post('restore/{id}', 'restore')->name('restore');
+    });
 
     Route::resources([
         'countries' => 'CountryController',
