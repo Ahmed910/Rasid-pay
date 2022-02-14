@@ -24,7 +24,7 @@ class SendCodeRequest extends ApiMasterRequest
     public function rules()
     {
         return [
-            'phone' => 'required|numeric|max:20|exists:users,phone,deleted_at,NULL',
+            'phone' => 'required|numeric|digits_between:5,20|exists:users,phone,deleted_at,NULL',
         ];
   
     }
