@@ -43,4 +43,27 @@ return [
         "currency_count" => "",
         'permissions' => $permissions
     ],
+    "department" => [
+        "department" => "Department",
+        "departments" => "Departments",
+        "add_department" => "",
+        "edit_department" => "",
+        "department_count" => "",
+        'permissions' => $permissions
+    ],
+    "job"=>[
+        "job" => "Job",
+        "jobs" => "Jobs",
+        "add_job" => "",
+        "edit_job" => "",
+        "job_count" => "",
+        'permissions' => $permissions
+    ],
+    "setting"=>[
+        "setting" => "Setting",
+        "settings" => "Settings",
+        "add_setting" => "",
+        "setting_count" => "",
+        'permissions' => $permissions
+    ],
 ];
