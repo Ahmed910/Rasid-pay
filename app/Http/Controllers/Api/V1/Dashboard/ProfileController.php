@@ -3,40 +3,14 @@
 namespace App\Http\Controllers\Api\V1\Dashboard;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\V1\Dashboard\ChangePasswordRequest;
 use App\Http\Resources\Dashboard\ProfileResource;
-use Illuminate\Http\Request;
-use App\Models\User;
+use App\Http\Requests\V1\Dashboard\ProfileRequest;
 
 class ProfileController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        //
-    }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show(User $user)
+    public function show()
     {
         $user = auth()->user();
 
@@ -47,22 +21,29 @@ class ProfileController extends Controller
             ]);
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
+
+    public function update(ProfileRequest $request)
     {
-        //
+        $user = auth()->user();
+        $user->fill($request->validated())->save();
+
+        return ProfileResource::make($user)
+            ->additional([
+                'status' => true,
+                'message' => __('dashboard.general.success_update')
+            ]);
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+
+    public function changePassword(ChangePasswordRequest $request)
+    {
+        $user = auth()->user();
+        $user->fill($request->validated())->save();
+
+        return ProfileResource::make($user)
+            ->additional([
+                'status' => true,
+                'message' => __('dashboard.general.success_update')
+            ]);
+    }
 }

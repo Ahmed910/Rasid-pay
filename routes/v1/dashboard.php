@@ -69,6 +69,13 @@ Route::middleware('auth:sanctum', 'adminPermission')->group(function () {
 
     });
 
+  Route::controller('ProfileController')->name('profile.')->prefix('profile')->group(function () {
+        Route::get('show', 'show')->name('show');
+        Route::post('update', 'update')->name('update');
+        Route::post('change-password', 'changePassword')->name('changePassword');
+    });
+
+
     Route::resources([
         'countries' => 'CountryController',
         'currencies' => 'CurrencyController',
