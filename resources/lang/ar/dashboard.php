@@ -77,6 +77,13 @@ return [
         "job_count" => "",
         'permissions' => $permissions
     ],
+    "setting"=>[
+        "setting" =>"الاعدادات",
+        "settings" => "الاعدادات",
+        "add_setting" => "",
+        "setting_count" => "",
+        'permissions' => $permissions
+    ],
 
 
 

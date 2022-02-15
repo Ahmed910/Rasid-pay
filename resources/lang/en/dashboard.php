@@ -59,4 +59,11 @@ return [
         "job_count" => "",
         'permissions' => $permissions
     ],
+    "setting"=>[
+        "setting" => "Setting",
+        "settings" => "Settings",
+        "add_setting" => "",
+        "setting_count" => "",
+        'permissions' => $permissions
+    ],
 ];
