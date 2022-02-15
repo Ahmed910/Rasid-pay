@@ -35,4 +35,12 @@ return [
         "country_count" => "",
         'permissions' => $permissions
     ],
+    "currency" => [
+        "currency" => "Currency",
+        "countries" => "Currencies",
+        "add_currency" => "",
+        "edit_currency" => "",
+        "currency_count" => "",
+        'permissions' => $permissions
+    ],
 ];

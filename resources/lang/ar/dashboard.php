@@ -53,4 +53,17 @@ return [
         "role_count" => "",
         'permissions' => $permissions
     ],
+     "currency"=>[
+        "currency" => "العملة ",
+        "currencies" => "العملات",
+        "add_currency" => "",
+        "edit_currency" => "",
+        "currency_count" => "",
+        'permissions' => $permissions
+    ],
+    
+
+
+
+
 ];
