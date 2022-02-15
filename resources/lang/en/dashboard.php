@@ -1,11 +1,11 @@
 <?php
 $permissions = [
-    'read' => 'قراءه',
-    'save' => 'حفظ',
-    'edit' => 'تعديل',
-    'archive' => 'أرشفة',
-    'restore' => 'استعادة',
-    'force_delete' => 'مسح نهائي',
+    'read' => 'Read',
+    'save' => 'Save',
+    'edit' => 'Update',
+    'archive' => 'Archive',
+    'restore' => 'Restore',
+    'force_delete' => 'Permanent Delete',
 ];
 return [
     'general' => [
