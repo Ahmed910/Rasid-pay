@@ -2,28 +2,40 @@
 
 namespace App\Models;
 
-use App\Models\Country\Country;
-use App\Models\Role\Role;
-use Illuminate\Contracts\Auth\MustVerifyEmail;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Notifications\Notifiable;
-use Laravel\Sanctum\HasApiTokens;
 use App\Traits\Uuid;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use App\Models\Role\Role;
+use App\Traits\HasAssetsTrait;
+use App\Models\Country\Country;
+use Laravel\Sanctum\HasApiTokens;
+use App\Contracts\HasAssetsInterface;
+use Illuminate\Notifications\Notifiable;
+use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\MorphOne;
-use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Foundation\Auth\User as Authenticatable;
 
-class User extends Authenticatable
+class User extends Authenticatable implements HasAssetsInterface
 {
-    use HasApiTokens, HasFactory, Notifiable, Uuid, SoftDeletes;
+    use HasApiTokens, HasFactory, Notifiable, Uuid, SoftDeletes,HasAssetsTrait;
 
     protected $guarded = ['created_at', 'updated_at', 'deleted_at'];
     // protected $appends = ['avatar','image' , 'name'];
     protected $hidden = ['password', 'remember_token'];
     protected $casts = ['email_verified_at' => 'datetime', 'phone_verified_at' => 'datetime'];
     protected $dates = ['date_of_birth', 'date_of_birth_hijri'];
+    public $assets = ['image'];
+    protected $with = ["images"];
+
+    public static function boot()
+    {
+        parent::boot();
+        static::saved(function ($model) {
+            $model->saveAssets($model, request());
+        });
+    }
 
     public function setPasswordAttribute($value)
     {

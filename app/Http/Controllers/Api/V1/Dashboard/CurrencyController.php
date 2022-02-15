@@ -7,8 +7,6 @@ use App\Http\Requests\V1\Dashboard\CurrencyRequest;
 use App\Http\Resources\Dashboard\CurrencyResource;
 use App\Models\Currency\Currency;
 use Illuminate\Http\Request;
-use Symfony\Component\HttpFoundation\Response;
-
 
 class CurrencyController extends Controller
 {
@@ -19,7 +17,7 @@ class CurrencyController extends Controller
 
         return CurrencyResource::collection($currencies)
             ->additional([
-                'message' => 'success',
+                'message' => '',
                 'status' => true
             ]);
     }
@@ -30,7 +28,7 @@ class CurrencyController extends Controller
 
         return CurrencyResource::collection($currencies)
             ->additional([
-                'message' => 'success',
+                'message' => '',
                 'status' => true
             ]);
     }
@@ -92,15 +90,15 @@ class CurrencyController extends Controller
                 'status' => false,
                 'message' =>  trans('dashboard.general.has_relationship_cannot_delete'),
                 'data' => null
-            ], Response::HTTP_UNPROCESSABLE_ENTITY);
+            ], 422);
         }
         $currency->delete();
 
         return CurrencyResource::make($currency)
-        ->additional([
-            'status' => true,
-            'message' =>  trans('dashboard.general.success_archive'),
-        ]);
+            ->additional([
+                'status' => true,
+                'message' =>  trans('dashboard.general.success_archive'),
+            ]);
     }
 
 

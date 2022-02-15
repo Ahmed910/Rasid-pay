@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api\V1\Dashboard;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\V1\Dashboard\Auth\{LoginRequest, SendCodeRequest, LogoutRequest, ResetPasswordRequest};
 use App\Http\Resources\Dashboard\UserResource;
+use App\Jobs\ExpireCodeJob;
 use App\Models\{Device, User};
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -12,8 +13,9 @@ use Symfony\Component\HttpFoundation\Response;
 
 class AuthController extends Controller
 {
-    public function __construct() {
-        $this->middleware('auth:sanctum',['only' => ['logout']]);
+    public function __construct()
+    {
+        $this->middleware('auth:sanctum', ['only' => ['logout']]);
     }
 
     public function login(LoginRequest $request)
@@ -25,7 +27,7 @@ class AuthController extends Controller
         $token =  $user->createToken('RaseedJakDashboard')->plainTextToken;
         $user->devices()->firstOrCreate($request->only(['device_token', 'device_type']));
         data_set($user, 'token', $token);
-        return UserResource::make($user)->additional(['status' => true, 'message' => trans('auth.success_login')]);
+        return UserResource::make($user)->additional(['status' => true, 'message' => trans('auth.success_login', ['user' => $user->phone])]);
     }
 
     public function sendCode(SendCodeRequest $request)
@@ -41,6 +43,7 @@ class AuthController extends Controller
                     $code = generate_unique_code('\\App\\Models\\User', 'reset_code', 4);
                     $message = trans('auth.reset_code_is', ['code' => $code]);
                     //   $response = send_sms($user->phone, $message);
+                    ExpireCodeJob::dispatch($user, 'reset_code')->delay((int)setting('code_ttl'));
                 }
                 $user->update(['reset_code' => $code]);
                 return response()->json(['status' => true, 'data' => null, 'message' => trans('dashboard.general.success_send'), 'dev_message' => $code]);
@@ -50,6 +53,7 @@ class AuthController extends Controller
                     $code = generate_unique_code('\\App\\Models\\User', 'verified_code', 4);
                     $message = trans('auth.verified_code_is', ['code' => $code]);
                     //   $response = send_sms($user->phone, $message);
+                    ExpireCodeJob::dispatch($user, 'verified_code')->delay((int)setting('code_ttl'));
                 }
                 $user->update(['verified_code' => $code, 'is_active' => 0]);
 

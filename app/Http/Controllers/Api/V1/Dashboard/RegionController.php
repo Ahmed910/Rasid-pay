@@ -50,7 +50,7 @@ class RegionController extends Controller
     public function store(RegionRequest $request,Region $region)
     {
         $region->fill($request->validated())->save();
-        return (new RegionResource($region))->additional([
+        return RegionResource::make($region)->additional([
             'status' => true, 'message' => trans("dashboard.general.success_add")
         ]);
     }
@@ -64,7 +64,7 @@ class RegionController extends Controller
     public function show($id)
     {
         $region = Region::withTrashed()->findorfail($id);
-        return (new RegionResource($region))->additional(['status' => true, 'message' => ""]);
+        return RegionResource::make($region)->additional(['status' => true, 'message' => ""]);
     }
 
     public function edit($id)
@@ -83,7 +83,7 @@ class RegionController extends Controller
     {
         $region->fill($request->validated())->save();
 
-        return (new RegionResource ($region))->additional([
+        return RegionResource::make($region)->additional([
             'status' => true, 'message' => trans("dashboard.general.success_update")]);
 
     }
@@ -96,17 +96,14 @@ class RegionController extends Controller
      */
     public function destroy(Region $region)
     {
-
         if ($region->cities()->exists()) {
             return response()->json([
                 'status' => false,
                 'message' =>  trans('dashboard.general.has_relationship_cannot_delete'),
                 'data' => null
-            ], Response::HTTP_UNPROCESSABLE_ENTITY);
+            ], 422);
         }
-
         $region->delete();
-
         return RegionResource::make($region)
             ->additional([
                 'status' => true,

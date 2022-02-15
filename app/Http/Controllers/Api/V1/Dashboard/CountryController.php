@@ -7,7 +7,6 @@ use App\Http\Requests\V1\Dashboard\CountryRequest;
 use App\Http\Resources\Dashboard\CountryResource;
 use App\Models\Country\Country;
 use Illuminate\Http\Request;
-use Symfony\Component\HttpFoundation\Response;
 
 
 class CountryController extends Controller
@@ -86,7 +85,7 @@ class CountryController extends Controller
                 'status' => false,
                 'message' =>  trans('dashboard.general.has_relationship_cannot_delete'),
                 'data' => null
-            ], Response::HTTP_UNPROCESSABLE_ENTITY);
+            ], 422);
         }
 
         $country->delete();

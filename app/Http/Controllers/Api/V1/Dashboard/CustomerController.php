@@ -15,9 +15,8 @@ class CustomerController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-
         $user = User::where("user_type", 'client')->latest()->paginate((int)($request->page ?? 15));
         return CustomerResource::collection($user)->additional([
             'status' => true,
@@ -54,7 +53,7 @@ class CustomerController extends Controller
     public function store(CustomerRequest $request, User $user)
     {
         $user->fill($request->validated())->save();
-        return (new CustomerResource($user))->additional([
+        return CustomerResource::make($user)->additional([
             'status' => true, 'message' => trans("dashboard.general.success_add")
         ]);
     }
@@ -68,7 +67,7 @@ class CustomerController extends Controller
     public function show($id)
     {
         $user = User::withTrashed()->findorfail($id);
-        return (new CustomerResource($user))->additional(['status' => true, 'message' => ""]);
+        return CustomerResource::make($user)->additional(['status' => true, 'message' => ""]);
     }
 
     /**
@@ -89,17 +88,17 @@ class CustomerController extends Controller
      * @param int $id
      * @return \Illuminate\Http\Response
      */
-    public function update(CustomerRequest $request, User $customer): \Illuminate\Http\Response
+    public function update(CustomerRequest $request, User $customer)
     {
         $customer->fill($request->validated())->save();
-        return (new CustomerRequest($customer))->additional([
-            'status' => true, 'message' => trans("dashboard.general.success_update")]);
+        return CustomerResource::make($customer)->additional([
+            'status' => true, 'message' => trans("dashboard.general.success_update")
+        ]);
     }
 
     public function forceDestroy($id)
     {
         $user = User::onlyTrashed()->findorfail($id);
-
         $user->forceDelete();
 
         return CustomerResource::make($user)
@@ -137,6 +136,5 @@ class CustomerController extends Controller
                 'status' => true,
                 'message' => trans('dashboard.general.success_restore'),
             ]);
-
     }
 }
