@@ -72,6 +72,6 @@ return [
         "show_profile" => "",
         "edit_profile" => "",
         "profile_count" => "",
-        'permissions' => $permissions
+        
     ],
 ];
