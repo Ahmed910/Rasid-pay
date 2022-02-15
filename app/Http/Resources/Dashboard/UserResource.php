@@ -22,7 +22,7 @@ class UserResource extends JsonResource
             'phone' => $this->phone,
             'whatsapp' => $this->whatsapp,
             'gender' => $this->gender,
-            'is_active' => $this->is_active,
+            'is_active' => (bool)$this->is_active,
             'added_by_id' => SimpleUserResource::make($this->whenLoaded('addedBy')),
             'role' => RoleResource::make($this->whenLoaded('role')),
             'country' => CountryResource::make($this->whenLoaded('country')),
