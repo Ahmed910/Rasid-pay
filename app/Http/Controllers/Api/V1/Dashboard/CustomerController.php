@@ -92,13 +92,13 @@ class CustomerController extends Controller
     {
         $customer->fill($request->validated())->save();
         return CustomerResource::make($customer)->additional([
-            'status' => true, 'message' => trans("dashboard.general.success_update")]);
+            'status' => true, 'message' => trans("dashboard.general.success_update")
+        ]);
     }
 
     public function forceDestroy($id)
     {
         $user = User::onlyTrashed()->findorfail($id);
-
         $user->forceDelete();
 
         return CustomerResource::make($user)
@@ -136,6 +136,5 @@ class CustomerController extends Controller
                 'status' => true,
                 'message' => trans('dashboard.general.success_restore'),
             ]);
-
     }
 }
