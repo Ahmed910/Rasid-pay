@@ -30,7 +30,7 @@ class UserRequest extends ApiMasterRequest
 
     public function rules()
     {
-        $rules =  [
+        return [
             'fullname' => 'required|string|max:225',
             'email' => 'required|email|max:225|unique:users,email,' . @$this->admin->id,
             'phone' => 'required|numeric|min:20|unique:users,phone,' . @$this->admin->id,
@@ -42,7 +42,5 @@ class UserRequest extends ApiMasterRequest
             'date_of_birth' => 'required|date',
             'date_of_birth_hijri' => 'required|date',
         ];
-
-        return $rules;
     }
 }

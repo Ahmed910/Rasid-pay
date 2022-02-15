@@ -95,10 +95,10 @@ class CurrencyController extends Controller
         $currency->delete();
 
         return CurrencyResource::make($currency)
-        ->additional([
-            'status' => true,
-            'message' =>  trans('dashboard.general.success_archive'),
-        ]);
+            ->additional([
+                'status' => true,
+                'message' =>  trans('dashboard.general.success_archive'),
+            ]);
     }
 
 
