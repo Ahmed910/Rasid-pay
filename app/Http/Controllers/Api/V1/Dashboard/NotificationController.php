@@ -26,6 +26,7 @@ class NotificationController extends Controller
                 'status' => true,
                 'message' =>  '',
             ]);
+            // auth()->user()->unreadNotifications->markAsRead();
     }
 
     /**
@@ -46,19 +47,16 @@ class NotificationController extends Controller
      */
     public function store(Request $request)
     {
-
         $user = User::when($request->user_list, function ($q) use ($request) {
             $q->whereIn('id', $request->user_list);
         })->where('user_type', $request->type)->get();
-
-
 
         $notificationData = [
             'title' => $request->title,
             'body' => $request->body,
         ];
 
-        Notification::send($user, (new generalNotification($notificationData, ['database']))->onQueue('notifications')->delay(now()->addSeconds(5)));
+        Notification::send($user, (new generalNotification($notificationData, ['database']))->onQueue('notifications'));
 
         return response()->json([
             'status' => true,

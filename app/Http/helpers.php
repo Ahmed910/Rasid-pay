@@ -5,7 +5,7 @@ use Illuminate\Support\Facades\Schema;
 function convert_arabic_number($number)
 {
     $arabic_array = ['۰' => '0', '۱' => '1', '۲' => '2', '۳' => '3', '۴' => '4', '۵' => '5', '۶' => '6', '۷' => '7', '۸' => '8', '۹' => '9', '٠' => '0', '١' => '1', '٢' => '2', '٣' => '3', '٤' => '4', '٥' => '5', '٦' => '6', '٧' => '7', '٨' => '8', '٩' => '9'];
-    return strtr($number,$arabic_array);
+    return strtr($number, $arabic_array);
 }
 
 function filter_mobile_number($mob_num)
@@ -29,7 +29,7 @@ function filter_mobile_number($mob_num)
     } elseif ($first_4_val == "9660") {
         $val = "966";
         $mob_number = substr($mob_num, 4);
-    }elseif ($first_3_val == "966") {
+    } elseif ($first_3_val == "966") {
         $val = null;
         $mob_number = $mob_num;
     } elseif ($first_val == "5") {
@@ -50,24 +50,24 @@ function filter_mobile_number($mob_num)
     return $real_mob_number;
 }
 
-function generate_unique_code($model , $col = 'code' , $length = 4 , $letter_type = null)
+function generate_unique_code($model, $col = 'code', $length = 4, $letter_type = null)
 {
-    $characters ='';
+    $characters = '';
     switch ($letter_type) {
-            case 'lower':
-                $characters = '0123456789abcdefghijklmnopqrstuvwxyz';
-                break;
-            case 'upper':
-                $characters = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ';
-                break;
-            case 'numbers':
-                $characters = '0123456789';
-                break;
+        case 'lower':
+            $characters = '0123456789abcdefghijklmnopqrstuvwxyz';
+            break;
+        case 'upper':
+            $characters = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+            break;
+        case 'numbers':
+            $characters = '0123456789';
+            break;
 
-            default:
-                $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
-                break;
-        }
+        default:
+            $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+            break;
+    }
     $generate_random_code = '';
     $charactersLength = strlen($characters);
     for ($i = 0; $i < $length; $i++) {
@@ -81,28 +81,27 @@ function generate_unique_code($model , $col = 'code' , $length = 4 , $letter_typ
 
 function setting($attr)
 {
-  if (Schema::hasTable('settings')) {
-      $phone = $attr;
-      if ($attr == 'phone') {
-          $attr = 'phones';
-      }
-    $setting=\App\Models\Setting::where('key',$attr)->first() ??[];
-    if ($attr == 'project_name') {       
-      return ! empty($setting) ? $setting->value : 'Non Stop';
-    }
-    if ($attr == 'logo') {
-      return ! empty($setting) ? asset('storage/images/setting')."/".$setting->value : asset('dashboardAsset/global/images/cover/cover_sm.png');
-    }
-    if ($phone == 'phone') {
-      return ! empty($setting) && $setting->value ? json_decode($setting->value)[0] : null;
-      }elseif ($phone == 'phones') {
-          return ! empty($setting) && $setting->value ? implode(",",json_decode($setting->value)) : null;
-      }
-    if (! empty($setting)) {
-      return $setting->value;
-
+    if (Schema::hasTable('settings')) {
+        $phone = $attr;
+        if ($attr == 'phone') {
+            $attr = 'phones';
+        }
+        $setting = \App\Models\Setting::where('key', $attr)->first() ?? [];
+        if ($attr == 'project_name') {
+            return !empty($setting) ? $setting->value : 'Non Stop';
+        }
+        if ($attr == 'logo') {
+            return !empty($setting) ? asset('storage/images/setting') . "/" . $setting->value : asset('dashboardAsset/global/images/cover/cover_sm.png');
+        }
+        if ($phone == 'phone') {
+            return !empty($setting) && $setting->value ? json_decode($setting->value)[0] : null;
+        } elseif ($phone == 'phones') {
+            return !empty($setting) && $setting->value ? implode(",", json_decode($setting->value)) : null;
+        }
+        if (!empty($setting)) {
+            return $setting->value;
+        }
+        return false;
     }
     return false;
-  }
-  return false;
 }
