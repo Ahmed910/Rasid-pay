@@ -69,6 +69,15 @@ return [
         "department_count" => "",
         'permissions' => $permissions
     ],
+    "job"=>[
+        "job" => "الوظيفة ",
+        "jobs" => "الوظائف",
+        "add_job" => "",
+        "edit_job" => "",
+        "job_count" => "",
+        'permissions' => $permissions
+    ],
+
 
 
 

@@ -51,4 +51,12 @@ return [
         "department_count" => "",
         'permissions' => $permissions
     ],
+    "job"=>[
+        "job" => "Job",
+        "jobs" => "Jobs",
+        "add_job" => "",
+        "edit_job" => "",
+        "job_count" => "",
+        'permissions' => $permissions
+    ],
 ];
