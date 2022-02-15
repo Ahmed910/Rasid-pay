@@ -45,17 +45,17 @@ trait Uuid
 
     public function getCreatedAtAttribute($date)
     {
-        return date('Y-m-d h:i a', strtotime($date));
+        return date('Y-m-d h:i A', strtotime($date));
     }
 
     public function getUpdatedAtAttribute($date)
     {
-        return date('Y-m-d h:i a', strtotime($date));
+        return date('Y-m-d h:i A', strtotime($date));
     }
 
     public function getDeletedAtAttribute($date)
     {
-        return date('Y-m-d h:i a', strtotime($date));
+        return date('Y-m-d h:i A', strtotime($date));
     }
 
     public function activity()
