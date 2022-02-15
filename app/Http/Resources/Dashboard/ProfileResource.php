@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources\Dashboard;
 
+use App\Http\Resources\Dashboard\ImagesResource;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class ProfileResource extends JsonResource
@@ -23,7 +24,8 @@ class ProfileResource extends JsonResource
             'identity_number' => $this->identity_number,
             'gender' => $this->gender,
             'date_of_birth' => $this->date_of_birth,
-            'image' => $this->image,
+            'date_of_birth_hijri' => $this->date_of_birth_hijri,
+            'images' => ImagesResource::collection($this->images),
         ];
     }
 }

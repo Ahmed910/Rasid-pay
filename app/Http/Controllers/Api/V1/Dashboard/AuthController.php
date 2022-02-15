@@ -12,9 +12,8 @@ use Symfony\Component\HttpFoundation\Response;
 
 class AuthController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware('auth:sanctum', ['only' => ['logout', 'resetPassword']]);
+    public function __construct() {
+        $this->middleware('auth:sanctum',['only' => ['logout']]);
     }
 
     public function login(LoginRequest $request)
