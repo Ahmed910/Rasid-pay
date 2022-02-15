@@ -40,7 +40,6 @@ Route::middleware('auth:sanctum', 'adminPermission')->group(function () {
         Route::delete('forceDelete/{id}', 'forceDelete')->name('forceDelete');
     });
 
-
     Route::controller('RegionController')->name('regions.')->prefix('regions')->group(function () {
         Route::get('archive', 'archive')->name('archive');
         Route::post('restore/{id}', 'restore')->name('restore');
@@ -65,16 +64,17 @@ Route::middleware('auth:sanctum', 'adminPermission')->group(function () {
         Route::get('archive', 'archive')->name('archive');
         Route::post('restore/{id}', 'restore')->name('restore');
         Route::delete('forceDelete/{id}', 'forceDelete')->name('forceDelete');
-
-
     });
 
-  Route::controller('ProfileController')->name('profile.')->prefix('profile')->group(function () {
+    Route::controller('ProfileController')->name('profile.')->prefix('profile')->group(function () {
         Route::get('show', 'show')->name('show');
         Route::post('update', 'update')->name('update');
         Route::post('change-password', 'changePassword')->name('changePassword');
     });
 
+    Route::controller('NotificationController')->name('notifications.')->prefix('notifications')->group(function () {
+        Route::post('updateNotification', 'updateNotification')->name('updateNotification');
+    });
 
     Route::resources([
         'countries' => 'CountryController',
@@ -85,9 +85,9 @@ Route::middleware('auth:sanctum', 'adminPermission')->group(function () {
         'roles' => 'RoleController',
         'admins' => 'AdminController',
         'customers' => 'CustomerController',
-        'rasid_jobs'=>'RasidJobController',
-        'notifications'=>'NotificationController',
-        'profiles' =>'ProfileController',
-        'settings' =>'SettingController',
+        'rasid_jobs' => 'RasidJobController',
+        'notifications' => 'NotificationController',
+        'profiles' => 'ProfileController',
+        'settings' => 'SettingController',
     ]);
 });
