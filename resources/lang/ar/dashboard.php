@@ -84,6 +84,14 @@ return [
         "setting_count" => "",
         'permissions' => $permissions
     ],
+    "profile"=>[
+          "profile" =>"الملف الشخصي",
+          "profiles" => "الملفات الشخصية",
+          "show_profile" => "",
+          "edit_profile" => "",
+          "profile_count" => "",
+          
+    ],
 
 
 
