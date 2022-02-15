@@ -40,7 +40,7 @@ class AdminController extends Controller
 
     public function store(AdminRequest $request, User $user)
     {
-        $user->fill($request->validated())->save();
+        $user->fill($request->validated() + ['added_by_id' => auth()->id()])->save();
 
         return UserResource::make($user)
             ->additional([
