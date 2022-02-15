@@ -19,8 +19,7 @@ class NotificationController extends Controller
      */
     public function index(Request $request)
     {
-        $notifications = notificationModel::where('notifiable_id',auth()->user())->latest()->paginate((int)($request->perPage ?? 10));
-
+        $notifications = auth()->user()->notifications()->latest()->paginate((int)($request->perPage ?? 10));
         return NotificationResource::collection($notifications)
             ->additional([
                 'count' => auth()->user()->unreadNotifications()->count(),
@@ -59,7 +58,7 @@ class NotificationController extends Controller
             'body' => $request->body,
         ];
 
-        Notification::send($user, new generalNotification($notificationData));
+        Notification::send($user, (new generalNotification($notificationData, ['database']))->onQueue('notifications')->delay(now()->addSeconds(5)));
 
         return response()->json([
             'status' => true,

@@ -4,7 +4,7 @@ namespace App\Http\Resources\Dashboard;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class NotificationResource extends JsonResource
+class SettingResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -14,12 +14,13 @@ class NotificationResource extends JsonResource
      */
     public function toArray($request)
     {
-        return [
+        return
+           [
             'id' => $this->id,
-            'type' => $this->notifiable_type,
-            'data' => $this->data,
-            'read_at' => optional($this->read_at)->format('Y-m-d h:i a'),
-            'created_at' =>   $this->created_at->format('Y-m-d h:i a'),
+            'key' => $this->key,
+            'value' => $this->value,
+            'input_type' => $this->input_type,
+
         ];
     }
 }

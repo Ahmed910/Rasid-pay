@@ -14,7 +14,7 @@ return [
     */
 
     'failed' => 'محاولة غير صالحة لتسجيل الدخول',
-    'password' => 'The provided password is incorrect.',
+    'password' => 'كلمة المرور  غير صحيحة',
     'throttle' => 'Too many login attempts. Please try again in :seconds seconds.',
     'success_login' => 'تسجيل الدخول الى النظام برقم مستخدم :user',
     'unauth' => 'قم بتسجيل الدخول أولا',
