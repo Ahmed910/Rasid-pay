@@ -77,7 +77,7 @@ class DepartmentController extends Controller
                 'status' => false,
                 'message' => trans("dashboard.general.has_relationship_cannot_delete"),
                 'data' => null
-            ], Response::HTTP_UNPROCESSABLE_ENTITY);
+            ], 422);
         }
 
         $department->delete();
@@ -111,7 +111,6 @@ class DepartmentController extends Controller
             ->additional([
                 'status' => true,
                 'message' => trans('dashboard.general.restore')
-
             ]);
     }
 
@@ -125,7 +124,7 @@ class DepartmentController extends Controller
                 'status' => false,
                 'message' => trans("dashboard.general.has_relationship_cannot_delete"),
                 'data' => null
-            ], Response::HTTP_UNPROCESSABLE_ENTITY);
+            ], 422);
         }
 
         $department->forceDelete();
