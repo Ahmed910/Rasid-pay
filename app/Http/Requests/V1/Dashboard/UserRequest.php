@@ -37,6 +37,7 @@ class UserRequest extends ApiMasterRequest
             'identity_number' => 'required|numeric|min:20|unique:users,identity_number,' . @$this->admin->id,
             'whatsapp' => 'required|max:20|unique:users,whatsapp,' . @$this->admin->id,
             'user_type' => 'required|in:admin,client',
+            'role_id' => 'required!exists:roles',
             "client_type" => 'required_if:user_type,client|in:admin,client',
             'gender' => 'required|in:male,female',
             'date_of_birth' => 'required|date',
