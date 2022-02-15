@@ -35,4 +35,35 @@ return [
         "country_count" => "",
         'permissions' => $permissions
     ],
+    "currency" => [
+        "currency" => "Currency",
+        "countries" => "Currencies",
+        "add_currency" => "",
+        "edit_currency" => "",
+        "currency_count" => "",
+        'permissions' => $permissions
+    ],
+    "department" => [
+        "department" => "Department",
+        "departments" => "Departments",
+        "add_department" => "",
+        "edit_department" => "",
+        "department_count" => "",
+        'permissions' => $permissions
+    ],
+    "job"=>[
+        "job" => "Job",
+        "jobs" => "Jobs",
+        "add_job" => "",
+        "edit_job" => "",
+        "job_count" => "",
+        'permissions' => $permissions
+    ],
+    "setting"=>[
+        "setting" => "Setting",
+        "settings" => "Settings",
+        "add_setting" => "",
+        "setting_count" => "",
+        'permissions' => $permissions
+    ],
 ];

@@ -53,4 +53,41 @@ return [
         "role_count" => "",
         'permissions' => $permissions
     ],
+     "currency"=>[
+        "currency" => "العملة ",
+        "currencies" => "العملات",
+        "add_currency" => "",
+        "edit_currency" => "",
+        "currency_count" => "",
+        'permissions' => $permissions
+    ],
+    "department"=>[
+        "department" => "القسم ",
+        "departments" => "الاقسام",
+        "add_department" => "",
+        "edit_department" => "",
+        "department_count" => "",
+        'permissions' => $permissions
+    ],
+    "job"=>[
+        "job" => "الوظيفة ",
+        "jobs" => "الوظائف",
+        "add_job" => "",
+        "edit_job" => "",
+        "job_count" => "",
+        'permissions' => $permissions
+    ],
+    "setting"=>[
+        "setting" =>"الاعدادات",
+        "settings" => "الاعدادات",
+        "add_setting" => "",
+        "setting_count" => "",
+        'permissions' => $permissions
+    ],
+
+
+
+
+
+
 ];
