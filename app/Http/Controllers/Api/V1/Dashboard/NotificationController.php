@@ -4,11 +4,9 @@ namespace App\Http\Controllers\Api\V1\Dashboard;
 
 use App\Http\Controllers\Controller;
 use App\Http\Resources\Dashboard\NotificationResource;
-use App\Models\Notification as notificationModel;
 use App\Models\User;
 use App\Notifications\generalNotification;
 use Illuminate\Http\Request;
-use Notification;
 
 class NotificationController extends Controller
 {
@@ -26,6 +24,7 @@ class NotificationController extends Controller
                 'status' => true,
                 'message' =>  '',
             ]);
+            // auth()->user()->unreadNotifications->markAsRead();
     }
 
     /**
@@ -44,26 +43,17 @@ class NotificationController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(NotificationRequest $request)
     {
-
         $user = User::when($request->user_list, function ($q) use ($request) {
             $q->whereIn('id', $request->user_list);
         })->where('user_type', $request->type)->get();
-
-
-
-        $notificationData = [
-            'title' => $request->title,
-            'body' => $request->body,
-        ];
-
-        Notification::send($user, (new generalNotification($notificationData, ['database']))->onQueue('notifications')->delay(now()->addSeconds(5)));
+       \Notification::send($user, (new generalNotification($request->only(['title' , 'body']), ['database']))->onQueue('notifications')->delay(now()->addSeconds(5)));
 
         return response()->json([
             'status' => true,
             'message' =>  trans('dashboard.general.sent_successfully'),
-            'data' => ''
+            'data' => null
         ]);
     }
 
