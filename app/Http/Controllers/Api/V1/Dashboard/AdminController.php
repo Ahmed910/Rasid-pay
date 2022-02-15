@@ -3,11 +3,10 @@
 namespace App\Http\Controllers\Api\V1\Dashboard;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\V1\Dashboard\UserRequest;
+use App\Http\Requests\V1\Dashboard\AdminRequest;
 use App\Http\Resources\Dashboard\UserResource;
 use App\Models\User;
 use Illuminate\Http\Request;
-use Symfony\Component\HttpFoundation\Response;
 
 class AdminController extends Controller
 {
@@ -39,7 +38,7 @@ class AdminController extends Controller
     }
 
 
-    public function store(UserRequest $request, User $user)
+    public function store(AdminRequest $request, User $user)
     {
         $user->fill($request->validated())->save();
 
@@ -69,7 +68,7 @@ class AdminController extends Controller
     }
 
 
-    public function update(UserRequest $request, User $admin)
+    public function update(AdminRequest $request, User $admin)
     {
         $admin->fill($request->validated())->save();
 
