@@ -2,8 +2,8 @@
 
 $permissions = [
     'read' => 'قراءه',
-    'save' => 'حفظ',
-    'edit' => 'تعديل',
+    'store' => 'حفظ',
+    'update' => 'تعديل',
     'archive' => 'أرشفة',
     'restore' => 'استعادة',
     'force_delete' => 'مسح نهائي',

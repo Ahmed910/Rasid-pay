@@ -26,15 +26,21 @@ class Role extends Model implements TranslatableContract
     #endregion mutators
 
     #region scopes
+    public function scopeSearch($q, $request)
+    {
+        $q->when($request->name, function($q) use ($request){
+            $q->whereTranslationLike('name', "%$request->name%");
+        });
+    }
     #endregion scopes
 
     #region relationships
-    public function user(): HasOne
+    public function user()
     {
         return $this->hasOne(User::class);
     }
 
-    public function permissions(): BelongsToMany
+    public function permissions()
     {
         return $this->belongsToMany(Permission::class);
     }

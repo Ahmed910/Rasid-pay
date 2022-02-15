@@ -77,11 +77,15 @@ class User extends Authenticatable implements HasAssetsInterface
                 return true;
             } elseif ($this->role->permissions->contains('route_name', $route . ".update")) {
                 return true;
-            } elseif ($this->role->permissions->contains('route_name', $route . ".destroy")) {
+            } elseif ($this->role->permissions->contains('route_name', $route . ".read")) {
                 return true;
             } elseif ($this->role->permissions->contains('route_name', $route . ".show")) {
                 return true;
-            } elseif ($this->role->permissions->contains('route_name', $route . ".wallet")) {
+            } elseif ($this->role->permissions->contains('route_name', $route . ".archive")) {
+                return true;
+            } elseif ($this->role->permissions->contains('route_name', $route . ".restore")) {
+                return true;
+            }elseif ($this->role->permissions->contains('route_name', $route . ".force_delete")) {
                 return true;
             }
         } else {
