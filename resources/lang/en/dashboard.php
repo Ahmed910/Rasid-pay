@@ -66,4 +66,12 @@ return [
         "setting_count" => "",
         'permissions' => $permissions
     ],
+    "profile"=>[
+        "profile" =>"Profile",
+        "profiles" => "Profiles",
+        "show_profile" => "",
+        "edit_profile" => "",
+        "profile_count" => "",
+        'permissions' => $permissions
+    ],
 ];
