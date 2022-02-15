@@ -14,9 +14,9 @@ class RegionFactory extends Factory
     public function definition()
     {
         return [
-            'id'=>$this->faker->uuid() ,
+            'id' => $this->faker->uuid(),
             'name' => $this->faker->city(),
-             "country_id" =>1  ,
+            "country_id" => 1,
         ];
     }
 }
