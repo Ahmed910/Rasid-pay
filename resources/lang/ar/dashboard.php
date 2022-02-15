@@ -61,7 +61,15 @@ return [
         "currency_count" => "",
         'permissions' => $permissions
     ],
-    
+    "department"=>[
+        "department" => "القسم ",
+        "departments" => "الاقسام",
+        "add_department" => "",
+        "edit_department" => "",
+        "department_count" => "",
+        'permissions' => $permissions
+    ],
+
 
 
 

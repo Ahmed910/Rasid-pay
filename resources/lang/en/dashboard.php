@@ -43,4 +43,12 @@ return [
         "currency_count" => "",
         'permissions' => $permissions
     ],
+    "department" => [
+        "department" => "Department",
+        "departments" => "Departments",
+        "add_department" => "",
+        "edit_department" => "",
+        "department_count" => "",
+        'permissions' => $permissions
+    ],
 ];
