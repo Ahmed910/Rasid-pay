@@ -31,7 +31,7 @@ class ExpireCodeJob implements ShouldQueue
      */
     public function handle()
     {
-        $code = generate_unique_code('\\App\\Models\\User', $this->code_col , 4);
-        $this->user->update([$this->code_col => $code]);
+        //$code = generate_unique_code('\\App\\Models\\User', $this->code_col , 4);
+        $this->user->update([$this->code_col => null]);
     }
 }

@@ -49,16 +49,16 @@ class Handler extends ExceptionHandler
                 case $throwable instanceof ModelNotFoundException:
                     return response()->json([
                         'status' => false,
-                        'message' => trans('dashboard.general.not_found',[],$request->header('accept-language')),
+                        'message' => trans('dashboard.general.not_found', [], $request->header('accept-language')),
                         'data' => null
-                    ], Response::HTTP_NOT_FOUND);
+                    ], 404);
 
                 case $throwable instanceof AuthenticationException:
                     return response()->json([
-                        'status' => false ,
-                        'message' => trans('auth.unauth',[],$request->header('accept-language')) ,
+                        'status' => false,
+                        'message' => trans('auth.unauth', [], $request->header('accept-language')),
                         'data' => null
-                    ],Response::HTTP_UNAUTHORIZED);
+                    ], 401);
             }
         }
         return parent::render($request, $throwable);
