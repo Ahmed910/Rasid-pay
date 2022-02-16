@@ -5,7 +5,6 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Traits\Uuid;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Message extends Model
 {
@@ -26,12 +25,12 @@ class Message extends Model
     #endregion scopes
 
     #region relationships
-    public function sender(): BelongsTo
+    public function sender()
     {
         return $this->belongsTo(User::class);
     }
 
-    public function reciever(): BelongsTo
+    public function reciever()
     {
         return $this->belongsTo(User::class);
     }
