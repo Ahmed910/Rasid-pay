@@ -20,7 +20,7 @@ use HasAssetsTrait;
 in your model you should use `$assets` property that include every image key in your model 
 
 ```php
-protected $assets = ["image"];
+public $assets = ["image"];
 ```
 
 ### Notice : 
