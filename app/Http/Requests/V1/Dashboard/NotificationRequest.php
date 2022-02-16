@@ -28,7 +28,7 @@ class NotificationRequest extends ApiMasterRequest
             'body' => 'required|string|min:2|max:255',
             'type' => 'required|in:admin,client',
             'user_list' => 'nullable|array',
-            'user_list.*' => 'nullable|exists:users',
+            'user_list.*' => 'nullable|exists:users,id',
         ];
     }
 }
