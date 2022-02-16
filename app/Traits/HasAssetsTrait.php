@@ -47,7 +47,7 @@ trait HasAssetsTrait
                 $model->images()->whereOption($key)->delete();
 
             if ($model->forceDeleting) {
-                $media = $model->images()->whereOption($key)->first()?->media;
+                $media = $model->images()->onlyTrashed()->whereOption($key)->first()?->media;
 
                 if (property_exists($model, $propertyName))
                     $path = Str::replace($pathName, "", $media);
