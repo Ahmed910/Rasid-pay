@@ -52,7 +52,10 @@ Route::middleware('auth:sanctum', 'adminPermission')->group(function () {
     });
 
     Route::controller('DepartmentController')->name('departments.')->prefix('departments')->group(function () {
-        Route::delete('forceDelete/{department}', 'forceDestroy')->name('forceDelete');
+        Route::get('archive', 'archive')->name('archive');
+        Route::post('restore/{id}', 'restore')->name('restore');
+        Route::delete('forceDelete/{department}', 'forceDelete')->name('forceDelete');
+
     });
     Route::controller('CustomerController')->name('customers.')->prefix('customers')->group(function () {
         Route::delete('forceDelete/{id}', 'forceDestroy')->name('forceDelete');
@@ -87,7 +90,6 @@ Route::middleware('auth:sanctum', 'adminPermission')->group(function () {
         'customers' => 'CustomerController',
         'rasid_jobs' => 'RasidJobController',
         'notifications' => 'NotificationController',
-        'profiles' => 'ProfileController',
         'settings' => 'SettingController',
     ]);
 });
