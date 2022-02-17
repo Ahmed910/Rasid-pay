@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api\V1\Dashboard;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\V1\Dashboard\CountryRequest;
 use App\Http\Resources\Dashboard\CountryResource;
+use App\Models\ActivityLog;
 use App\Models\Country\Country;
 use Illuminate\Http\Request;
 
@@ -13,7 +14,13 @@ class CountryController extends Controller
 {
     public function index(Request $request)
     {
-        $countries = Country::with('activity')->latest()->paginate((int)($request->perPage ?? 10));
+        // $data = ActivityLog::get()->groupBy('updated_at')->toArray();
+        // dd($data);
+        $countries = Country::with(['activity' => function ($q) {
+            $q->groupBy('user_id');
+        }])->get();
+
+        // dd($countries);
 
         return CountryResource::collection($countries)
             ->additional([
