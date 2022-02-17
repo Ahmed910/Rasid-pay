@@ -2,58 +2,65 @@
 
 namespace App\Traits;
 
-use Illuminate\Support\Str;
+use App\Models\ActivityLog;
+use Illuminate\Support\Facades\Request;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 trait Loggable
 {
-    /**
-     * Boot function from Laravel.
-     */
-    protected static function booted()
+    protected static function bootLoggable()
     {
-        parent::boot();
+        static::created(function (self $self) {
+            $self->addUserActivity($self, "Created");
+        });
 
-        static::creating(function ($model) {
-            if (empty($model->{$model->getKeyName()})) {
-                $model->{$model->getKeyName()} = (string) Str::uuid();
+        static::updated(function (self $self) {
+            $self->addUserActivity($self, "Updated");
+        });
+
+        static::deleted(function (self $self) {
+            if ($self->forceDeleting) {
+                $self->addUserActivity($self, "Permanent Delete");
+            }
+
+            if (!$self->forceDeleting) {
+                $self->addUserActivity($self, "Delete");
             }
         });
-        static::created(function () {
-            return false;
-        });
 
-        static::updated(function () {
-            return false;
-        });
-
-        static::deleted(function () {
-            return false;
-        });
+        if (in_array(SoftDeletes::class, class_uses(static::class))) {
+            static::restored(function (self $self) {
+                $self->addUserActivity($self, "Restored");
+            });
+        }
     }
 
-
-    public function getIncrementing()
+    public function activity()
     {
-        return false;
+        return $this->morphMany(ActivityLog::class, 'auditable');
     }
 
-    public function getKeyType()
+    /**
+     * Add new Record in Activity Log
+     *
+     * @param Illuminate\Database\Eloquent\Model $item
+     * @param string $event
+     *
+     * @return void
+     */
+    private function addUserActivity($item, string $event)
     {
-        return 'string';
-    }
+        $activity = [];
+        $activity['auditable_id'] = $item->id;
+        $activity['auditable_type'] = get_class($item);
+        $activity['url'] = Request::fullUrl();
+        $activity['old_data'] = $item->getOriginal() ? array_except($item->getOriginal(), ['created_at', 'updated_at', 'deleted_at']) : $item;
+        $activity['new_data'] = array_except($item->getChanges(), ['created_at', 'updated_at', 'deleted_at']) ?? null;
+        $activity['action_type'] = $event;
+        $activity['ip_address'] = Request::ip();
+        $activity['agent'] = Request::header('user-agent');
+        $activity['user_id'] = auth()->check() ? auth()->user()->id : null;
 
-    public function getCreatedAtAttribute($date)
-    {
-        return date('Y-m-d h:i a', strtotime($date));
-    }
-
-    public function getUpdatedAtAttribute($date)
-    {
-        return date('Y-m-d h:i a', strtotime($date));
-    }
-
-    public function getDeletedAtAttribute($date)
-    {
-        return date('Y-m-d h:i a', strtotime($date));
+        ActivityLog::create($activity);
     }
 }
