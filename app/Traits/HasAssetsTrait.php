@@ -35,7 +35,7 @@ trait HasAssetsTrait
         }
 
         if ($new && is_file($new)) {
-            $path = $request->file("$key")->storePublicly($uploadPath);
+            $path = $request->file("$key")->storePublicly($uploadPath, "public");
 
             $image =  "/storage/" . $path;
             $model->images()->create([
