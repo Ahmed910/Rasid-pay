@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers\Api\V1\Dashboard;
 
-use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
 use App\Models\Setting;
+use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 use App\Http\Resources\Dashboard\SettingResource;
+use App\Http\Requests\V1\Dashboard\SettingRequest;
 
 class SettingController extends Controller
 {
@@ -17,7 +18,7 @@ class SettingController extends Controller
 
     public function index(Request $request)
     {
-        $settings = Setting::latest()->paginate((int)($request->perPage ?? 10));
+        $settings = Setting::select('key','value')->latest()->paginate((int)($request->perPage ?? 10));
 
         return SettingResource::collection($settings)
             ->additional([
@@ -32,9 +33,20 @@ class SettingController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(SettingRequest $request)
     {
-        //
+        foreach ($request->all() as $key => $value) {
+            Setting::updateOrCreate(['key' =>$key],['value'=> $value]);
+        }
+
+        $settings = Setting::select('key','value')->latest()->paginate((int)($request->perPage ?? 10));
+
+        return SettingResource::collection($settings)
+        ->additional([
+            'message' => 'success',
+            'status' => true
+        ]);
+
     }
 
     /**
