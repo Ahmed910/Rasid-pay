@@ -23,12 +23,15 @@ class SettingRequest extends ApiMasterRequest
      */
     public function rules()
     {
-        $rules = [
-            "k1" => "nullable|string",
-            "k2" => "nullable|string",
+        $rules =  [
+            "settings"      => 'required|array',
+            "settings.*"    => 'required|array',
         ];
+
+        foreach (config('translatable.locales') as $locale) {
+            $rules["settings.*.$locale"] = "required";
+        }
 
         return $rules;
     }
 }
-

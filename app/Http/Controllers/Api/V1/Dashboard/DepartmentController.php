@@ -12,10 +12,10 @@ class DepartmentController extends Controller
 {
     public function index(Request $request)
     {
-        $language = app()->getLocate();
-        $allDepartments = Department::with(['translations' => function ($q) use ($language) {
+        $language = app()->getLocale();
+        $allDepartments = Department::with('translations', function ($q) use ($language) {
             $q->select('name')->where('locale', $language);
-        }])->where(function ($q) {
+        })->where(function ($q) {
             $q->doesntHave('children')->orWhereNotNull('parent_id');
         })->select('id')->get();
 
@@ -131,7 +131,7 @@ class DepartmentController extends Controller
         if ($department->children()->exists()) {
             return response()->json([
                 'status' => false,
-                'message' => trans("dashboard.general.has_relationship_cannot_delete"),
+                'message' => ['error' => trans("dashboard.general.has_relationship_cannot_delete")],
                 'data' => null
             ], 422);
         }

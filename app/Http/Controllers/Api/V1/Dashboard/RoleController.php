@@ -22,6 +22,11 @@ class RoleController extends Controller
         return RoleResource::collection($roles)->additional(['status' => true, 'message' => ""]);
     }
 
+    /**
+     *
+     * 10 => "ahmed",
+     *
+     */
 
     public function create(Request $request)
     {
@@ -39,7 +44,7 @@ class RoleController extends Controller
         $uris = array_map("unserialize", array_unique(array_map("serialize", $route)));
         $routes = array_values($uris);
         return response()->json([
-            'status' => true, 
+            'status' => true,
             'message' => "",
             'data' => [
                 'role' => null,
@@ -83,7 +88,7 @@ class RoleController extends Controller
         $uris = array_map("unserialize", array_unique(array_map("serialize", $route)));
         $routes = array_values($uris);
         return response()->json([
-            'status' => true, 
+            'status' => true,
             'message' => "",
             'data' => [
                 'role' => RoleResource::make($role->load('translations')),

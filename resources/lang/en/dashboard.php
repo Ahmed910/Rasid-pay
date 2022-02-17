@@ -30,9 +30,9 @@ return [
     "country" => [
         "country" => "Country",
         "countries" => "Countries",
-        "add_country" => "",
-        "edit_country" => "",
-        "country_count" => "",
+        "add_country" => "Add Country",
+        "edit_country" => "Edit Country",
+        "country_count" => "Countries Count",
         'permissions' => $permissions
     ],
     "currency" => [
@@ -51,7 +51,7 @@ return [
         "department_count" => "",
         'permissions' => $permissions
     ],
-    "job"=>[
+    "job" => [
         "job" => "Job",
         "jobs" => "Jobs",
         "add_job" => "",
@@ -59,19 +59,26 @@ return [
         "job_count" => "",
         'permissions' => $permissions
     ],
-    "setting"=>[
+    "setting" => [
         "setting" => "Setting",
         "settings" => "Settings",
         "add_setting" => "",
         "setting_count" => "",
         'permissions' => $permissions
     ],
-    "profile"=>[
-        "profile" =>"Profile",
+    "profile" => [
+        "profile" => "Profile",
         "profiles" => "Profiles",
         "show_profile" => "",
         "edit_profile" => "",
         "profile_count" => "",
-        
+    ],
+    "admin" => [
+        "admin" => "Admin",
+        "admins" => "Admins",
+        "add_admin" => "Add Admin",
+        "edit_admin" => "Edit Admin",
+        "admin_count" => "Admins Count",
+        'permissions' => array_except($permissions, ['archive', 'restore', 'force_delete']) + ['hold' => 'Hold']
     ],
 ];
