@@ -23,12 +23,11 @@ class SettingRequest extends ApiMasterRequest
      */
     public function rules()
     {
-        $rules = [
-            "k1" => "nullable|string",
-            "k2" => "nullable|string",
+        return [
+            "settings"      => 'required|array',
+            "settings.*"    => 'required|array',
+            "settings.*.en" => "required",
+            "settings.*.ar" => "nullable",
         ];
-
-        return $rules;
     }
 }
-
