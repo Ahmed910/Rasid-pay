@@ -4,6 +4,7 @@ namespace App\Models\Department;
 
 use App\Contracts\HasAssetsInterface;
 use App\Traits\HasAssetsTrait;
+use App\Traits\Loggable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Traits\Uuid;
@@ -17,9 +18,8 @@ use Illuminate\Database\Eloquent\Builder;
 
 class Department extends Model implements TranslatableContract, HasAssetsInterface
 {
-    use HasFactory, Uuid, HasAssetsTrait;
-    use Translatable;
-    use SoftDeletes;
+    use HasFactory, Uuid, HasAssetsTrait, Translatable, SoftDeletes, Loggable;
+
     #region properties
 
     #region properties
@@ -53,14 +53,13 @@ class Department extends Model implements TranslatableContract, HasAssetsInterfa
         }
 
         if (isset($request->parent_id)) {
-            $query->where("parent_id",$request->parent_id);
-         }
+            $query->where("parent_id", $request->parent_id);
+        }
 
         if (isset($request->is_active)) {
 
             $query->where('is_active', $request->is_active);
         }
-
     }
     #endregion scopes
 
@@ -75,10 +74,11 @@ class Department extends Model implements TranslatableContract, HasAssetsInterfa
         return $this->hasMany(Department::class, 'parent_id')->with("children");
     }
 
-    public function rasidJobs(){
+    public function rasidJobs()
+    {
 
 
-        return $this->hasMany(RasidJob::class,'department_id');
+        return $this->hasMany(RasidJob::class, 'department_id');
     }
 
 

@@ -3,6 +3,7 @@
 namespace App\Models\Currency;
 
 use App\Models\Country\Country;
+use App\Traits\Loggable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Traits\Uuid;
@@ -15,7 +16,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 class Currency extends Model implements TranslatableContract
 
 {
-    use HasFactory, Uuid, Translatable, SoftDeletes;
+    use HasFactory, Uuid, Translatable, SoftDeletes, Loggable;
 
     #region properties
     protected $guarded = ['created_at', 'updated_at', 'deleted_at'];
