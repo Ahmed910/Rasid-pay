@@ -8,6 +8,7 @@ use App\Traits\HasAssetsTrait;
 use App\Models\Country\Country;
 use Laravel\Sanctum\HasApiTokens;
 use App\Contracts\HasAssetsInterface;
+use App\Traits\Loggable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
@@ -16,7 +17,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class User extends Authenticatable implements HasAssetsInterface
 {
-    use HasApiTokens, HasFactory, Notifiable, Uuid, SoftDeletes, HasAssetsTrait;
+    use HasApiTokens, HasFactory, Notifiable, Uuid, SoftDeletes, HasAssetsTrait, Loggable;
 
     protected $guarded = ['created_at', 'updated_at', 'deleted_at'];
     // protected $appends = ['avatar','image' , 'name'];
