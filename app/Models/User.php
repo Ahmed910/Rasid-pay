@@ -71,25 +71,30 @@ class User extends Authenticatable implements HasAssetsInterface
             return true;
         }
         if (is_null($method)) {
-            if ($this->role->permissions->contains('route_name', $route . ".index")) {
+            if ($this->role->permissions->contains('name', $route . ".index")) {
                 return true;
-            } elseif ($this->role->permissions->contains('route_name', $route . ".store")) {
+            } elseif ($this->role->permissions->contains('name', $route . ".store")) {
                 return true;
-            } elseif ($this->role->permissions->contains('route_name', $route . ".update")) {
+            } elseif ($this->role->permissions->contains('name', $route . ".update")) {
                 return true;
-            } elseif ($this->role->permissions->contains('route_name', $route . ".read")) {
+            } elseif ($this->role->permissions->contains('name', $route . ".read")) {
                 return true;
-            } elseif ($this->role->permissions->contains('route_name', $route . ".show")) {
+            } elseif ($this->role->permissions->contains('name', $route . ".show")) {
                 return true;
-            } elseif ($this->role->permissions->contains('route_name', $route . ".archive")) {
+            } elseif ($this->role->permissions->contains('name', $route . ".archive")) {
                 return true;
-            } elseif ($this->role->permissions->contains('route_name', $route . ".restore")) {
+            } elseif ($this->role->permissions->contains('name', $route . ".restore")) {
                 return true;
-            }elseif ($this->role->permissions->contains('route_name', $route . ".force_delete")) {
+            }elseif ($this->role->permissions->contains('name', $route . ".force_delete")) {
                 return true;
             }
-        } else {
-            return $this->role->permissions->contains('route_name', $route . "." . $method);
+        } elseif(is_array($method)){
+            $arr = substr_replace($method, $route . '.', 0, 0);
+            return $this->role->permissions->search(function($item) use($arr){
+                return in_array(@$item->name,$arr);
+            });
+        }else {
+            return $this->role->permissions->contains('name', $route . "." . $method);
         }
         return false;
     }

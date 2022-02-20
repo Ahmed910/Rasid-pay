@@ -23,7 +23,7 @@ Route::post('logout', "AuthController@logout");
 Route::middleware('auth:sanctum')->group(function () {
     // Public Routes
     Route::resource('notifications','NotificationController')->except('store');
-    Route::get('uris','UriController@index');
+    Route::resource('menus','MenuController');
     Route::resources([      
         'profiles' => 'ProfileController',
     ]);

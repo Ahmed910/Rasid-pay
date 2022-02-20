@@ -48,7 +48,7 @@ return [
     "role" => [
         "role" => "المستوى الاداري",
         "roles" => "المستويات الادارية",
-        "add_role" => "",
+        "add_role" => "اضافة وظيفة",
         "edit_role" => "",
         "role_count" => "",
         'permissions' => $permissions
