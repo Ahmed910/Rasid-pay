@@ -52,13 +52,16 @@ class DepartmentController extends Controller
     }
 
 
-    public function show(Department $department)
+    public function show($id)
+
     {
-        return DepartmentResource::make($department)
+        $department =   Department::withTrashed()->findOrFail($id);
+
+        return DepartmentResource::make($department->load('translations'))
             ->additional([
                 'status' => true,
-                'message' => ""
-            ]);;
+                'message' => trans("dashboard.general.show")
+            ]);
     }
 
     public function edit($id)
