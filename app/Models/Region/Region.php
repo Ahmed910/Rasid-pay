@@ -14,7 +14,7 @@ use Astrotomic\Translatable\Translatable;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
-class Region  extends Model implements TranslatableContract
+class Region extends Model implements TranslatableContract
 {
     use HasFactory, SoftDeletes, Uuid, Translatable, Loggable;
 
@@ -27,6 +27,14 @@ class Region  extends Model implements TranslatableContract
     #endregion mutators
 
     #region scopes
+    public function scopeSearch(Builder $query, $request)
+    {
+        $query->when($request->name, function ($q) use ($request) {
+            $q->whereTranslationLike('name', "%$request->name%");
+        })->when($request->created_at, function ($q) use ($request) {
+            $q->whereDate('created_at', $request->created_at);
+        });
+    }
     #endregion scopes
 
     #region relationships
@@ -34,6 +42,7 @@ class Region  extends Model implements TranslatableContract
     {
         return $this->belongsTo(Country::class);
     }
+
     public function cities(): HasMany
     {
         return $this->hasMany(City::class);
