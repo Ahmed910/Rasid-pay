@@ -2,15 +2,15 @@
 
 namespace App\Models;
 
+use App\Traits\Loggable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use App\Traits\Uuid;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Chat extends Model
 {
-    use HasFactory, SoftDeletes, Uuid;
+    use HasFactory, SoftDeletes, Uuid, Loggable;
 
     #region properties
     protected $guarded = ['created_at', 'updated_at', 'deleted_at'];
@@ -28,12 +28,12 @@ class Chat extends Model
     #endregion scopes
 
     #region relationships
-    public function sender(): BelongsTo
+    public function sender()
     {
         return $this->belongsTo(User::class, 'sender_id', 'id');
     }
 
-    public function reciever(): BelongsTo
+    public function reciever()
     {
         return $this->belongsTo(User::class, 'reciever_id', 'id');
     }

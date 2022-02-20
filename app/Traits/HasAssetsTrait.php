@@ -17,6 +17,10 @@ trait HasAssetsTrait
         static::deleted(function (self $self) {
             $self->deleteAssets($self);
         });
+
+        static::restored(function (self $self) {
+            $self->restoreAssets($self);
+        });
     }
 
     private function saveAsset($model, Request $request, string $key, string $uploadPath)
@@ -25,12 +29,13 @@ trait HasAssetsTrait
         $old = $model->images()->whereOption($key)?->first();
 
         if (!empty($old) && $request->hasFile("$key")) {
-            $path = Str::replace($uploadPath, "", $old->media);
+            $old->forceDelete();
+            $path = Str::replace("/storage", "", $old->media);
             Storage::delete($path);
         }
 
         if ($new && is_file($new)) {
-            $path = $request->file("$key")->storePublicly($uploadPath);
+            $path = $request->file("$key")->storePublicly($uploadPath, "public");
 
             $image =  "/storage/" . $path;
             $model->images()->create([
@@ -47,7 +52,7 @@ trait HasAssetsTrait
                 $model->images()->whereOption($key)->delete();
 
             if ($model->forceDeleting) {
-                $media = $model->images()->whereOption($key)->first()?->media;
+                $media = $model->images()->onlyTrashed()->whereOption($key)->first()?->media;
 
                 if (property_exists($model, $propertyName))
                     $path = Str::replace($pathName, "", $media);
@@ -84,6 +89,11 @@ trait HasAssetsTrait
         if (property_exists($model, "files")) {
             $this->deleteAsset($model, "files", "/storage/");
         }
+    }
+
+    public function restoreAssets($model)
+    {
+        $model->images()->onlyTrashed()->restore();
     }
 
     public function images(): MorphMany

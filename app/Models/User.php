@@ -8,18 +8,16 @@ use App\Traits\HasAssetsTrait;
 use App\Models\Country\Country;
 use Laravel\Sanctum\HasApiTokens;
 use App\Contracts\HasAssetsInterface;
+use App\Traits\Loggable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
-use Illuminate\Database\Eloquent\Relations\HasMany;
-use Illuminate\Database\Eloquent\Relations\MorphOne;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class User extends Authenticatable implements HasAssetsInterface
 {
-    use HasApiTokens, HasFactory, Notifiable, Uuid, SoftDeletes,HasAssetsTrait;
+    use HasApiTokens, HasFactory, Notifiable, Uuid, SoftDeletes, HasAssetsTrait, Loggable;
 
     protected $guarded = ['created_at', 'updated_at', 'deleted_at'];
     // protected $appends = ['avatar','image' , 'name'];
@@ -27,7 +25,7 @@ class User extends Authenticatable implements HasAssetsInterface
     protected $casts = ['email_verified_at' => 'datetime', 'phone_verified_at' => 'datetime'];
     protected $dates = ['date_of_birth', 'date_of_birth_hijri'];
     public $assets = ['image'];
-    protected $with = ["images"];
+    protected $with = ['images'];
 
     public static function boot()
     {
@@ -55,7 +53,7 @@ class User extends Authenticatable implements HasAssetsInterface
     }
 
     // Roles & Permissions
-    public function devices(): HasMany
+    public function devices()
     {
         return $this->hasMany(Device::class);
     }
@@ -99,17 +97,17 @@ class User extends Authenticatable implements HasAssetsInterface
         return false;
     }
 
-    public function media(): MorphOne
+    public function media()
     {
         return $this->morphOne(AppMedia::class, 'mediable');
     }
 
-    public function addedBy(): BelongsTo
+    public function addedBy()
     {
         return $this->belongsTo(User::class);
     }
 
-    public function country(): BelongsTo
+    public function country()
     {
         return $this->belongsTo(Country::class);
     }

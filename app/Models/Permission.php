@@ -3,14 +3,14 @@
 namespace App\Models;
 
 use App\Models\Role\Role;
+use App\Traits\Loggable;
 use App\Traits\Uuid;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class Permission extends Model
 {
-    use HasFactory, Uuid;
+    use HasFactory, Uuid, Loggable;
 
     #region properties
     protected $guarded = ["created_at", "updated_at"];
@@ -23,7 +23,7 @@ class Permission extends Model
     #endregion scopes
 
     #region relationships
-    public function roles(): BelongsToMany
+    public function roles()
     {
         return $this->belongsToMany(Role::class);
     }

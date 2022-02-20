@@ -7,22 +7,31 @@ use App\Http\Requests\V1\Dashboard\DepartmentRequest;
 use App\Http\Resources\Dashboard\DepartmentResource;
 use App\Models\Department\Department;
 use Illuminate\Http\Request;
-use Symfony\Component\HttpFoundation\Response;
 
 class DepartmentController extends Controller
 {
     public function index(Request $request)
     {
+        $language = app()->getLocale();
+        $allDepartments = Department::with('translations', function ($q) use ($language) {
+            $q->select('name')->where('locale', $language);
+        })->where(function ($q) {
+            $q->doesntHave('children')->orWhereNotNull('parent_id');
+        })->select('id')->get();
+
         $departments = Department::search($request)
             ->with(["parent", "translations"])
-            ->whereNotNull("parent_id")
             ->latest()
+            ->where(function ($q) {
+                $q->has('children')->orWhereNull('parent_id');
+            })
             ->paginate((int)($request->page ?? 15));
 
         return DepartmentResource::collection($departments)
             ->additional([
                 'status' => true,
-                'message' => ""
+                'message' => "",
+                'allDepartments' => $allDepartments,
             ]);
     }
 
@@ -122,7 +131,7 @@ class DepartmentController extends Controller
         if ($department->children()->exists()) {
             return response()->json([
                 'status' => false,
-                'message' => trans("dashboard.general.has_relationship_cannot_delete"),
+                'message' => ['error' => trans("dashboard.general.has_relationship_cannot_delete")],
                 'data' => null
             ], 422);
         }

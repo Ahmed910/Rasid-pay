@@ -2,14 +2,14 @@
 
 namespace App\Models;
 
+use App\Traits\Loggable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Traits\Uuid;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Message extends Model
 {
-    use HasFactory, Uuid;
+    use HasFactory, Uuid, Loggable;
     #region properties
     protected $guarded = ['created_at', 'updated_at', 'deleted_at'];
     protected $casts = ['last_messgae' => 'datetime', 'read_at' => 'datetime'];
@@ -26,12 +26,12 @@ class Message extends Model
     #endregion scopes
 
     #region relationships
-    public function sender(): BelongsTo
+    public function sender()
     {
         return $this->belongsTo(User::class);
     }
 
-    public function reciever(): BelongsTo
+    public function reciever()
     {
         return $this->belongsTo(User::class);
     }

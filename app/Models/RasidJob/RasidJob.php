@@ -3,6 +3,7 @@
 namespace App\Models\RasidJob;
 
 use App\Models\Department\Department;
+use App\Traits\Loggable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Traits\Uuid;
@@ -13,7 +14,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class RasidJob extends Model implements TranslatableContract
 {
-    use HasFactory, Uuid, Translatable, SoftDeletes;
+    use HasFactory, Uuid, Translatable, SoftDeletes, Loggable;
 
     #region properties
     protected $guarded = ['created_at', 'updated_at', 'deleted_at'];
@@ -35,7 +36,7 @@ class RasidJob extends Model implements TranslatableContract
 
         if (isset($request->department_id)) {
             $query->whereHas("department", function ($q) use ($request) {
-                $q->where("id",$request->department_id);
+                $q->where("id", $request->department_id);
             });
         }
 
@@ -49,7 +50,6 @@ class RasidJob extends Model implements TranslatableContract
 
             $query->where('is_vacant', $request->is_vacant);
         }
-
     }
     #endregion scopes
 

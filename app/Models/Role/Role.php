@@ -4,18 +4,16 @@ namespace App\Models\Role;
 
 use App\Models\Permission;
 use App\Models\User;
+use App\Traits\Loggable;
 use App\Traits\Uuid;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Astrotomic\Translatable\Contracts\Translatable as TranslatableContract;
 use Astrotomic\Translatable\Translatable;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\Relations\BelongsToMany;
-use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class Role extends Model implements TranslatableContract
 {
-    use HasFactory, Translatable, Uuid;
+    use HasFactory, Translatable, Uuid, Loggable;
 
     #region properties
     protected $guarded = ["created_at", "updated_at"];

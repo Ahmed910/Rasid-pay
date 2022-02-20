@@ -4,7 +4,7 @@ namespace App\Http\Requests\V1\Dashboard;
 
 use App\Http\Requests\ApiMasterRequest;
 
-class NotificationRequest extends ApiMasterRequest
+class SettingRequest extends ApiMasterRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -23,12 +23,15 @@ class NotificationRequest extends ApiMasterRequest
      */
     public function rules()
     {
-        return [
-            'title' => 'required|string|min:2|max:255',
-            'body' => 'required|string|min:2|max:255',
-            'type' => 'required|in:admin,client',
-            'user_list' => 'nullable|array',
-            'user_list.*' => 'nullable|exists:users,id',
+        $rules =  [
+            "settings"      => 'required|array',
+            "settings.*"    => 'required|array',
         ];
+
+        foreach (config('translatable.locales') as $locale) {
+            $rules["settings.*.$locale"] = "required";
+        }
+
+        return $rules;
     }
 }

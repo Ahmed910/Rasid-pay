@@ -6,7 +6,7 @@ $permissions = [
     'update' => 'تعديل',
     'archive' => 'أرشفة',
     'restore' => 'استعادة',
-    'force_delete' => 'مسح نهائي',
+    'force_delete' => 'حذف نهائي',
 ];
 
 return [
@@ -20,9 +20,9 @@ return [
         "save" => "حفظ",
         "edit" => "تعديل",
         "show" => "عرض",
-        "archive" => "",
-        "restore" => "",
-        "force_delete" => "",
+        "archive" => "أرشفة",
+        "restore" => "استعادة",
+        "force_delete" => "حذف نهائي",
         'not_found' => 'لم يتم العثور على بيانات',
         'sent_successfully' => 'تم الارسال بنجاح',
 
@@ -40,9 +40,9 @@ return [
     "country" => [
         "country" => "الدولة",
         "countries" => "الدول",
-        "add_country" => "",
-        "edit_country" => "",
-        "country_count" => "",
+        "add_country" => "اضافة دولة",
+        "edit_country" => "تعديل دولة",
+        "country_count" => "عدد الدول",
         'permissions' => $permissions
     ],
     "role" => [
@@ -53,7 +53,7 @@ return [
         "role_count" => "",
         'permissions' => $permissions
     ],
-     "currency"=>[
+    "currency" => [
         "currency" => "العملة ",
         "currencies" => "العملات",
         "add_currency" => "",
@@ -61,7 +61,7 @@ return [
         "currency_count" => "",
         'permissions' => $permissions
     ],
-    "department"=>[
+    "department" => [
         "department" => "القسم ",
         "departments" => "الاقسام",
         "add_department" => "",
@@ -69,7 +69,7 @@ return [
         "department_count" => "",
         'permissions' => $permissions
     ],
-    "job"=>[
+    "job" => [
         "job" => "الوظيفة ",
         "jobs" => "الوظائف",
         "add_job" => "",
@@ -77,25 +77,35 @@ return [
         "job_count" => "",
         'permissions' => $permissions
     ],
-    "setting"=>[
-        "setting" =>"الاعدادات",
+    "setting" => [
+        "setting" => "الاعدادات",
         "settings" => "الاعدادات",
         "add_setting" => "",
         "setting_count" => "",
         'permissions' => $permissions
     ],
-    "profile"=>[
-          "profile" =>"الملف الشخصي",
-          "profiles" => "الملفات الشخصية",
-          "show_profile" => "",
-          "edit_profile" => "",
-          "profile_count" => "",
-          
+    "profile" => [
+        "profile" => "الملف الشخصي",
+        "profiles" => "الملفات الشخصية",
+        "show_profile" => "",
+        "edit_profile" => "",
+        "profile_count" => "",
     ],
-
-
-
-
-
+    "admin" => [
+        "admin" => "مستخدم نظام",
+        "admins" => "مستخدمى النظام",
+        "add_admin" => "اضافة مستخدم",
+        "edit_admin" => "تعديل مستخدم",
+        "admin_count" => "عدد المستخدمين",
+        'permissions' => array_except($permissions, ['archive', 'restore', 'force_delete']) + ['hold' => 'تعطيل']
+    ],
+    "region" => [
+        "region" => "المنطقة ",
+        "regions" => "المناطق",
+        "add_region" => "",
+        "edit_region" => "",
+        "region_count" => "",
+        'permissions' => $permissions
+    ],
 
 ];
