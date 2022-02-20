@@ -42,15 +42,22 @@ class Department extends Model implements TranslatableContract, HasAssetsInterfa
     #region scopes
     public function scopeSearch(Builder $query, $request)
     {
-        $query->when($request->name,function($q) use($request){
-            $q->whereTranslationLike('name',"%$request->name%");
-        })->when($request->created_at,function($q) use($request){
-            $q->whereDate('created_at', $request->created_at);
-        })->when($request->parent_id,function($q) use($request){
-            $q->where("parent_id", $request->parent_id);
-        })->when($request->is_active,function($q) use($request){
-            $q->where('is_active', $request->is_active);
-        });
+        if ($request->name) {
+            $query->whereTranslationLike('name',"%$request->name%");
+        }
+
+        if (isset($request->created_at)) {
+
+            $query->whereDate('created_at', $request->created_at);
+        }
+
+        if (isset($request->parent_id)) {
+            $query->where("parent_id", $request->parent_id);
+        }
+
+        if (isset($request->is_active)) {
+            $query->where('is_active', $request->is_active);
+        }
     }
     #endregion scopes
 
