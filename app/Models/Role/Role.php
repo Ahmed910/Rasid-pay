@@ -18,24 +18,34 @@ class Role extends Model implements TranslatableContract
     #region properties
     protected $guarded = ["created_at", "updated_at"];
     public $translatedAttributes = ['name'];
+    public $attributes = ['is_active' => false];
     #endregion properties
 
     #region mutators
     #endregion mutators
 
     #region scopes
-    public function scopeSearch($q, $request)
+    public function scopeSearch($query, $request)
     {
-        $q->when($request->name, function($q) use ($request){
-            $q->whereTranslationLike('name', "%$request->name%");
-        });
+        if ($request->name) {
+            $query->whereTranslationLike('name',"%$request->name%");
+        }
+
+        if ($request->created_at) {
+
+            $query->whereDate('created_at', $request->created_at);
+        }
+
+        if ($request->is_active) {
+            $query->where('is_active', $request->is_active);
+        }
     }
     #endregion scopes
 
     #region relationships
-    public function user()
+    public function admins()
     {
-        return $this->hasOne(User::class);
+        return $this->hasMany(User::class);
     }
 
     public function permissions()
