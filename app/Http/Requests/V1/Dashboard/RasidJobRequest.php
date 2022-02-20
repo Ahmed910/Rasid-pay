@@ -24,14 +24,14 @@ class RasidJobRequest extends ApiMasterRequest
     public function rules()
     {
         $rules = [
-            "department_id" => "nullable|exists:departments,id",
+            "department_id" => "required|exists:departments,id",
             "is_active" => "boolean",
             "is_vacant" => "boolean",
         ];
 
         foreach (config('translatable.locales') as $locale) {
-            $rules["$locale.name"] = "required|max:255|string|unique:rasid_job_translations,name," . @$this->rasid_job->id. ",rasid_job_id";
-            $rules["$locale.description"]   = "nullable|string";
+            $rules["$locale.name"] = "required|between:2,100|string|unique:rasid_job_translations,name," . @$this->rasid_job->id. ",rasid_job_id";
+            $rules["$locale.description"]   = "nullable|string|max:300";
         }
 
         return $rules;

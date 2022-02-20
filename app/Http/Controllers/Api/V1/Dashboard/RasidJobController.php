@@ -14,7 +14,7 @@ class RasidJobController extends Controller
 
     public function index(Request $request)
     {
-        $rasidJobs = RasidJob::search($request)->latest()->paginate((int)($request->perPage ?? 10));
+        $rasidJobs = RasidJob::with('translations','department')->search($request)->latest()->paginate((int)($request->perPage ?? 10));
 
         return RasidJobResource::collection($rasidJobs)
             ->additional([
@@ -30,7 +30,7 @@ class RasidJobController extends Controller
 
         $rasidJob->fill($request->validated())->save();
 
-        return RasidJobResource::make($rasidJob)
+        return RasidJobResource::make($rasidJob->load('translations','department'))
             ->additional([
                 'status' => true,
                 'message' =>  __('dashboard.general.success_add')
@@ -42,45 +42,35 @@ class RasidJobController extends Controller
     {
         $rasidJob  = RasidJob::withTrashed()->findOrFail($id);
 
-        return RasidJobResource::make($rasidJob->load('translations'))
+        return RasidJobResource::make($rasidJob->load('translations','department'))
             ->additional([
                 'status' => true,
                 'message' => trans("dashboard.general.show")
             ]);
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+
     public function update(RasidJobRequest $request, RasidJob $rasidJob)
     {
         $rasidJob->fill($request->validated())->save();
 
-        return RasidJobResource::make($rasidJob)
+        return RasidJobResource::make($rasidJob->load('translations','department'))
             ->additional([
                 'status' => true,
                 'message' => __('dashboard.general.success_update')
             ]);
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+
 
     public function archive(Request $request)
     {
-        $rasidJobs = RasidJob::onlyTrashed()->latest()->paginate((int)($request->perPage ?? 10));
+        $rasidJobs = RasidJob::onlyTrashed()->latest()->with('translations','department')
+            ->latest()->paginate((int)($request->perPage ?? 10));
 
         return RasidJobResource::collection($rasidJobs)
             ->additional([
-                'message' => 'success',
+                'message' => '',
                 'status' => true
             ]);
     }
@@ -95,7 +85,7 @@ class RasidJobController extends Controller
 
         $rasidJob->restore();
 
-        return RasidJobResource::make($rasidJob)
+        return RasidJobResource::make($rasidJob->load('translations','department'))
             ->additional([
                 'status' => true,
                 'message' => trans('dashboard.general.restore')
@@ -109,7 +99,7 @@ class RasidJobController extends Controller
 
         $rasidJob->delete();
 
-        return RasidJobResource::make($rasidJob)
+        return RasidJobResource::make($rasidJob->load('translations','department'))
             ->additional([
                 'status' => true,
                 'message' =>  __('dashboard.general.success_archive')
@@ -122,7 +112,7 @@ class RasidJobController extends Controller
         $rasidJob = RasidJob::onlyTrashed()->findOrFail($id);
         $rasidJob->forceDelete();
 
-        return RasidJobResource::make($rasidJob)
+        return RasidJobResource::make($rasidJob->load('translations','department'))
             ->additional([
                 'status' => true,
                 'message' =>  __('dashboard.general.success_delete')
