@@ -24,7 +24,7 @@ Route::middleware('auth:sanctum')->group(function () {
     // Public Routes
     Route::resource('notifications','NotificationController')->except('store');
     Route::resource('menus','MenuController');
-    Route::resources([      
+    Route::resources([
         'profiles' => 'ProfileController',
     ]);
 
@@ -59,7 +59,9 @@ Route::middleware('auth:sanctum')->group(function () {
         });
 
         Route::controller('DepartmentController')->name('departments.')->prefix('departments')->group(function () {
-            Route::delete('forceDelete/{department}', 'forceDestroy')->name('forceDelete');
+            Route::get('archive', 'archive')->name('archive');
+            Route::post('restore/{id}', 'restore')->name('restore');
+            Route::delete('forceDelete/{id}', 'forceDelete')->name('forceDelete');
         });
         Route::controller('CustomerController')->name('customers.')->prefix('customers')->group(function () {
             Route::delete('forceDelete/{id}', 'forceDestroy')->name('forceDelete');

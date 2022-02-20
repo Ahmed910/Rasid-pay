@@ -17,7 +17,7 @@ class CreateRasidJobsTable extends Migration
         Schema::create('rasid_jobs', function (Blueprint $table) {
             $table->uuid("id")->primary();
             $table->foreignUuid('department_id')->nullable()->constrained('departments')->nullOnDelete();
-            $table->boolean('is_active')->default(false);
+            $table->boolean('is_active')->default(true);
             $table->boolean('is_vacant')->default(true);
             $table->softDeletes();
 
@@ -29,7 +29,7 @@ class CreateRasidJobsTable extends Migration
             $table->uuid('id')->primary();
             $table->foreignUuid('rasid_job_id')->constrained('rasid_jobs')->cascadeOnDelete();
             $table->string('locale')->index();
-            $table->string('name');
+            $table->string('name',100);
             $table->text('description')->nullable();
 
             $table->unique(['rasid_job_id', 'locale']);
