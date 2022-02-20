@@ -14,16 +14,7 @@ class CountryController extends Controller
 {
     public function index(Request $request)
     {
-        // $data = ActivityLog::get()->groupBy('updated_at')->toArray();
-        // dd($data);
-
-
-
-        $countries = Country::with(['activity' => function ($q) {
-            $q->groupBy('user_id');
-        }])->get();
-
-        // dd($countries);
+        $countries = Country::latest()->paginate((int)($request->perPage ?? 10));
 
         return CountryResource::collection($countries)
             ->additional([
@@ -64,19 +55,17 @@ class CountryController extends Controller
     public function show($id)
     {
 
-
         $country = Country::withTrashed()->findOrFail($id);
 
         $test = $country->translations->pluck('id');
 
-        // $allCountries = Country::with('translations')->pluck('id');
-        $Activity = ActivityLog::whereIn('auditable_id',$test)->where('auditable_type','App\Models\CountryTranslation')->get();
-        dd($Activity);
+        $Activity = ActivityLog::whereIn('auditable_id', $test)->where('auditable_type', 'App\Models\CountryTranslation')->get();
 
         return CountryResource::make($country)
             ->additional([
                 'status' => true,
                 'message' =>  '',
+                'Activity' => $Activity
             ]);
     }
 
