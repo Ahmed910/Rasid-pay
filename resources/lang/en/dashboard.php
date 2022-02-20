@@ -1,8 +1,8 @@
 <?php
 $permissions = [
     'read' => 'Read',
-    'save' => 'Save',
-    'edit' => 'Update',
+    'store' => 'Save',
+    'update' => 'Update',
     'archive' => 'Archive',
     'restore' => 'Restore',
     'force_delete' => 'Permanent Delete',

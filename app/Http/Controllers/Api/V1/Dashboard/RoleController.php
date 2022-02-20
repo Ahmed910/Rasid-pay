@@ -18,7 +18,7 @@ class RoleController extends Controller
      */
     public function index(Request $request)
     {
-        $roles = Role::latest()->paginate((int)($request->page ?? 15));
+        $roles = Role::search($request)->latest()->paginate((int)($request->page ?? 15));
         return RoleResource::collection($roles)->additional(['status' => true, 'message' => ""]);
     }
 

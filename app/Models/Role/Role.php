@@ -24,6 +24,12 @@ class Role extends Model implements TranslatableContract
     #endregion mutators
 
     #region scopes
+    public function scopeSearch($q, $request)
+    {
+        $q->when($request->name, function($q) use ($request){
+            $q->whereTranslationLike('name', "%$request->name%");
+        });
+    }
     #endregion scopes
 
     #region relationships

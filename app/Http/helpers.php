@@ -101,7 +101,7 @@ function setting($attr)
         if (!empty($setting)) {
             return $setting->value;
         }
-        return false;
+        return;
     }
-    return false;
+    return;
 }
