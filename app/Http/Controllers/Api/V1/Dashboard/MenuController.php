@@ -3,9 +3,9 @@
 namespace App\Http\Controllers\Api\V1\Dashboard;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\V1\Dashboard\Menu\MenuRequest;
+use App\Http\Requests\V1\Dashboard\MenuRequest;
 use App\Http\Resources\Dashboard\Menu\MenuCollection;
-use App\Http\Resources\Dashboard\MenuResource;
+use App\Http\Resources\Dashboard\Menu\MenuResource;
 use Illuminate\Http\Request;
 use App\Models\Menu\Menu;
 
