@@ -99,10 +99,13 @@ return [
         "admin_count" => "عدد المستخدمين",
         'permissions' => array_except($permissions, ['archive', 'restore', 'force_delete']) + ['hold' => 'تعطيل']
     ],
-
-
-
-
-
+    "region" => [
+        "region" => "المنطقة ",
+        "regions" => "المناطق",
+        "add_region" => "",
+        "edit_region" => "",
+        "region_count" => "",
+        'permissions' => $permissions
+    ],
 
 ];

@@ -81,4 +81,12 @@ return [
         "admin_count" => "Admins Count",
         'permissions' => array_except($permissions, ['archive', 'restore', 'force_delete']) + ['hold' => 'Hold']
     ],
+    "region" => [
+        "region" => "Region",
+        "regions" => "Regions",
+        "add_region" => "",
+        "edit_region" => "",
+        "region_count" => "",
+        'permissions' => $permissions
+    ],
 ];
