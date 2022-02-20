@@ -23,9 +23,13 @@ class SendCodeRequest extends ApiMasterRequest
      */
     public function rules()
     {
-        return [
-            'phone' => 'required|numeric|digits_between:5,20|exists:users,phone,deleted_at,NULL',
-        ];
+        $rules = ['send_type' => 'required|in:email,phone'];
+        if($this->send_type == 'email'){
+            $rules['username'] = 'required|email|exists:users,email,deleted_at,NULL';
+        }elseif($this->send_type == 'phone'){
+            $rules['username'] = 'required|numeric|digits_between:5,20|exists:users,phone,deleted_at,NULL';
+        }
+        return $rules;
   
     }
 
@@ -34,7 +38,7 @@ class SendCodeRequest extends ApiMasterRequest
         $data = $this->all();
 
         $this->merge([
-            'phone' => @$data['phone'] ? convert_arabic_number($data['phone']) : null
+            'username' => @$data['username'] && is_numeric($data['username']) ? convert_arabic_number($data['username']) : @$data['username']
         ]);
     }
 

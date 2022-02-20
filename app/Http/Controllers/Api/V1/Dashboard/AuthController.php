@@ -35,39 +35,24 @@ class AuthController extends Controller
 
     public function sendCode(SendCodeRequest $request)
     {
-        $user = User::firstWhere('phone', $request->phone);
+        $user = User::firstWhere($request->send_type, $request->username);
         if (!$user) {
             return response()->json(['status' => false, 'data' => null, 'message' => trans('auth.phone_not_exists')], 422);
         }
         try {
             if ($user->phone_verified_at || $user->email_verified_at) {
-                $code = 1111;
-                if (setting('use_sms_service') == 'enable') {
-                    $code = generate_unique_code('\\App\\Models\\User', 'reset_code', 4);
-                    $message = trans('auth.reset_code_is', ['code' => $code]);
-                    //   $response = send_sms($user->phone, $message);
-                    ExpireCodeJob::dispatch($user, 'reset_code')->delay((int)setting('code_ttl'));
-                }
+                $code = $this->generateCode($request, $user,'reset_code');
                 $user->update(['reset_code' => $code]);
                 return response()->json(['status' => true, 'data' => null, 'message' => trans('dashboard.general.success_send'), 'dev_message' => $code]);
             } else {
-                $code = 1111;
-                if (setting('use_sms_service') == 'enable') {
-                    $code = generate_unique_code('\\App\\Models\\User', 'verified_code', 4);
-                    $message = trans('auth.verified_code_is', ['code' => $code]);
-                    //   $response = send_sms($user->phone, $message);
-                    ExpireCodeJob::dispatch($user, 'verified_code')->delay((int)setting('code_ttl'));
-                }
+                $code = $this->generateCode($request, $user,'verified_code');  
                 $user->update(['verified_code' => $code, 'is_active' => 0]);
-
                 return response()->json(['status' => true, 'data' => null, 'message' => trans('dashboard.general.success_send'), 'dev_message' => $code]);
             }
         } catch (\Exception $e) {
             return response()->json(['status' => false, 'data' => null, 'message' => trans('auth.fail_send')], 422);
         }
     }
-
-
 
     protected function getCredentials(Request $request)
     {
@@ -120,5 +105,19 @@ class AuthController extends Controller
             $user->currentAccessToken()->delete();
             return response()->json(['status' => true, 'data' => null, 'message' => trans('auth.logout_waiting_u_another_time')]);
         }
+    }
+
+    private function generateCode($request, $user, $col)
+    {
+        $code = 1111;
+        if ($request->send_type == 'phone' && setting('use_sms_service') == 'enable') {
+            $code = generate_unique_code('\\App\\Models\\User', $col, 4);
+            $message = trans("auth.{$col}_is", ['code' => $code]);
+            //   $response = send_sms($user->phone, $message);
+        }elseif ($request->send_type == 'email' && setting('use_email_service') == 'enable') {
+            // send email
+        }
+        ExpireCodeJob::dispatch($user, $col)->delay((int)setting('code_ttl'));
+        return $code;
     }
 }
