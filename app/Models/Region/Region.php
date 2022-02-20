@@ -4,6 +4,7 @@ namespace App\Models\Region;
 
 use App\Models\City\City;
 use App\Models\Country\Country;
+use App\Traits\Loggable;
 use App\Traits\Uuid;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -15,7 +16,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Region  extends Model implements TranslatableContract
 {
-    use HasFactory, SoftDeletes, Uuid, Translatable;
+    use HasFactory, SoftDeletes, Uuid, Translatable, Loggable;
 
     #region properties
     public $translatedAttributes = ['name'];

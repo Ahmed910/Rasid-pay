@@ -2,13 +2,13 @@
 
 namespace App\Models\Role;
 
-use App\Traits\Loggable;
+use App\Traits\Uuid;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class RoleTranslation extends Model
 {
-    use HasFactory, Loggable;
+    use HasFactory, Uuid;
 
     #region properties
     public $timestamps = false;
