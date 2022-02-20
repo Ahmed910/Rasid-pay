@@ -18,9 +18,9 @@ class GlobalTransResource extends JsonResource
             'id' => $this->id,
             'locale' => $this->locale,
             'name' => $this->name,
-            'desc' => $this->when($this->desc,$this->desc),
-            'description' => $this->when($this->description,$this->description),
-            'nationality' => $this->when($this->nationality,$this->nationality),
+            'desc' => $this->when($this->desc,$this->desc,null),
+            'description' => $this->when($this->description,$this->description,null),
+            'nationality' => $this->when($this->nationality,$this->nationality,null),
         ];
     }
 }
