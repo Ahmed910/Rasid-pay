@@ -23,7 +23,7 @@ class UserResource extends JsonResource
             'whatsapp' => $this->whatsapp,
             'gender' => $this->gender,
             'is_active' => (bool)$this->is_active,
-            'is_ban' => (bool)$this->is_ban,
+            'is_ban' => $this->is_ban,
             'department' => DepartmentResource::make($this->whenLoaded('department')),
             'added_by_id' => SimpleUserResource::make($this->whenLoaded('addedBy')),
             'role' => RoleResource::make($this->whenLoaded('role')),
