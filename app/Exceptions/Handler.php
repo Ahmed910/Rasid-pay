@@ -47,7 +47,6 @@ class Handler extends ExceptionHandler
 
     public function render($request, Throwable $throwable)
     {
-        // dd($throwable);
         if ($request->wantsJson()) {
             switch ($throwable) {
                 case $throwable instanceof ModelNotFoundException || $throwable instanceof NotFoundHttpException:

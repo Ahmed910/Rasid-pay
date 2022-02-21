@@ -21,7 +21,7 @@ class RegionController extends Controller
     {
         $regions = Region::Search($request)
             ->with(['translations' => function ($q) {
-                    $q->select('name')->where('locale', app()->getLocale());
+                    $q->where('locale', app()->getLocale());
                 }])
             ->latest()
             ->paginate((int)($request->page ?? 15));
