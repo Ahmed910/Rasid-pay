@@ -17,10 +17,10 @@ class RoleResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'translations' => GlobalTransResource::collection($this->whenLoaded('translations')),
             'name' => $this->name,
             'is_active' => (bool)$this->is_active,
             'admins_count' => $this->admins->count(),
+            'translations' => $this->when(!in_array($request->route()->getActionMethod(),['index','archive']),GlobalTransResource::collection($this->whenLoaded('translations'))),
             'created_at' => $this->created_at,
         ];
     }

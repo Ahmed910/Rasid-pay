@@ -8,7 +8,6 @@ use App\Http\Resources\Dashboard\CountryResource;
 use App\Http\Resources\Dashboard\RegionResource;
 use App\Models\Region\Region;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\App;
 
 
 class RegionController extends Controller
@@ -20,14 +19,14 @@ class RegionController extends Controller
      */
     public function index(Request $request)
     {
-
-        $allregions = Region::with("translations")->latest()->paginate((int)($request->page ?? 15));
-        $region = Region::Search($request)
-            ->with(["translations"])
+        $regions = Region::Search($request)
+            ->with(['translations' => function ($q) {
+                    $q->select('name')->where('locale', app()->getLocale());
+                }])
             ->latest()
             ->paginate((int)($request->page ?? 15));
 
-        return RegionResource::collection($region)->additional([
+        return RegionResource::collection($regions)->additional([
             'status' => true,
             'message' => "",
         ]);
@@ -35,8 +34,8 @@ class RegionController extends Controller
 
     public function archive(Request $request)
     {
-        $region = Region::onlyTrashed()->latest()->paginate((int)($request->page ?? 15));
-        return RegionResource::collection($region)->additional([
+        $regions = Region::onlyTrashed()->latest()->paginate((int)($request->page ?? 15));
+        return RegionResource::collection($regions)->additional([
             'status' => true,
             'message' => ""
         ]);
@@ -69,7 +68,7 @@ class RegionController extends Controller
      */
     public function show($id)
     {
-        $region = Region::withTrashed()->findorfail($id);
+        $region = Region::withTrashed()->findOrFail($id);
         return RegionResource::make($region)->additional(['status' => true, 'message' => ""]);
     }
 
@@ -119,7 +118,7 @@ class RegionController extends Controller
 
     public function forceDelete($id)
     {
-        $region = Region::onlyTrashed()->findorfail($id);
+        $region = Region::onlyTrashed()->findOrFail($id);
 
         $region->forceDelete();
 
