@@ -3,8 +3,11 @@
 namespace App\Exceptions;
 
 use Illuminate\Auth\AuthenticationException;
+use Illuminate\Cache\RateLimiting\Limit;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
+use Illuminate\Http\Exceptions\ThrottleRequestsException;
+use Illuminate\Support\Facades\RateLimiter;
 use Symfony\Component\HttpFoundation\Response;
 use Throwable;
 
@@ -59,8 +62,15 @@ class Handler extends ExceptionHandler
                         'message' => trans('auth.unauth', [], $request->header('accept-language')),
                         'data' => null
                     ], 401);
+                case $throwable instanceof ThrottleRequestsException:
+                    return response()->json([
+                        'status' => false,
+                        'message' => trans('auth.throttle', ['seconds' => 60], $request->header('accept-language')),
+                        'data' => null
+                    ], 401);
             }
         }
+        
         return parent::render($request, $throwable);
     }
 }
