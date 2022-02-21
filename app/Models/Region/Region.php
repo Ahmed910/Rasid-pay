@@ -6,6 +6,7 @@ use App\Models\City\City;
 use App\Models\Country\Country;
 use App\Traits\Loggable;
 use App\Traits\Uuid;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -29,11 +30,16 @@ class Region extends Model implements TranslatableContract
     #region scopes
     public function scopeSearch(Builder $query, $request)
     {
-        $query->when($request->name, function ($q) use ($request) {
-            $q->whereTranslationLike('name', "%$request->name%");
-        })->when($request->created_at, function ($q) use ($request) {
-            $q->whereDate('created_at', $request->created_at);
-        });
+
+        if ($request->name) {
+            $query->whereTranslationLike('name', "%$request->name%");
+        }
+
+        if (isset($request->created_at)) {
+
+            $query->whereDate('created_at', $request->created_at);
+        }
+
     }
     #endregion scopes
 
