@@ -21,9 +21,12 @@ class AuthController extends Controller
     public function login(LoginRequest $request)
     {
         if (!Auth::attempt($this->getCredentials($request))) {
-            return response()->json(['status' => false, 'data' => null, 'message' => trans('auth.failed')], Response::HTTP_UNAUTHORIZED);
+            return response()->json(['status' => false, 'data' => null, 'message' => trans('auth.failed')], 401);
         }
         $user = Auth::user();
+        $user->devices()->where('device_token',"<>",$request->device_token)->delete();
+        $user->tokens()->delete();
+        \Config::set('sanctum.expiration',setting('expiration_ttl') ?? 1);
         $token =  $user->createToken('RaseedJakDashboard')->plainTextToken;
         $user->devices()->firstOrCreate($request->only(['device_token', 'device_type']));
         data_set($user, 'token', $token);

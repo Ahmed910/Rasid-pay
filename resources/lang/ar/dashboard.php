@@ -2,8 +2,8 @@
 
 $permissions = [
     'read' => 'قراءه',
-    'save' => 'حفظ',
-    'edit' => 'تعديل',
+    'store' => 'حفظ',
+    'update' => 'تعديل',
     'archive' => 'أرشفة',
     'restore' => 'استعادة',
     'force_delete' => 'حذف نهائي',
@@ -48,7 +48,7 @@ return [
     "role" => [
         "role" => "المستوى الاداري",
         "roles" => "المستويات الادارية",
-        "add_role" => "",
+        "add_role" => "اضافة وظيفة",
         "edit_role" => "",
         "role_count" => "",
         'permissions' => $permissions

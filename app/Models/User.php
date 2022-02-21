@@ -8,6 +8,7 @@ use App\Traits\HasAssetsTrait;
 use App\Models\Country\Country;
 use Laravel\Sanctum\HasApiTokens;
 use App\Contracts\HasAssetsInterface;
+use App\Models\Department\Department;
 use App\Traits\Loggable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -69,21 +70,30 @@ class User extends Authenticatable implements HasAssetsInterface
             return true;
         }
         if (is_null($method)) {
-            if ($this->role->permissions->contains('route_name', $route . ".index")) {
+            if ($this->role->permissions->contains('name', $route . ".index")) {
                 return true;
-            } elseif ($this->role->permissions->contains('route_name', $route . ".store")) {
+            } elseif ($this->role->permissions->contains('name', $route . ".store")) {
                 return true;
-            } elseif ($this->role->permissions->contains('route_name', $route . ".update")) {
+            } elseif ($this->role->permissions->contains('name', $route . ".update")) {
                 return true;
-            } elseif ($this->role->permissions->contains('route_name', $route . ".destroy")) {
+            } elseif ($this->role->permissions->contains('name', $route . ".read")) {
                 return true;
-            } elseif ($this->role->permissions->contains('route_name', $route . ".show")) {
+            } elseif ($this->role->permissions->contains('name', $route . ".show")) {
                 return true;
-            } elseif ($this->role->permissions->contains('route_name', $route . ".wallet")) {
+            } elseif ($this->role->permissions->contains('name', $route . ".archive")) {
+                return true;
+            } elseif ($this->role->permissions->contains('name', $route . ".restore")) {
+                return true;
+            } elseif ($this->role->permissions->contains('name', $route . ".force_delete")) {
                 return true;
             }
+        } elseif (is_array($method)) {
+            $arr = substr_replace($method, $route . '.', 0, 0);
+            return $this->role->permissions->search(function ($item) use ($arr) {
+                return in_array(@$item->name, $arr);
+            });
         } else {
-            return $this->role->permissions->contains('route_name', $route . "." . $method);
+            return $this->role->permissions->contains('name', $route . "." . $method);
         }
         return false;
     }
@@ -101,5 +111,29 @@ class User extends Authenticatable implements HasAssetsInterface
     public function country()
     {
         return $this->belongsTo(Country::class);
+    }
+    public function department()
+    {
+        return $this->belongsTo(Department::class);
+    }
+
+    public function setIsBanAttribute($value)
+    {
+        $this->attributes['is_ban'] = $value;
+        if ($value == 0) {
+            $this->attributes['ban_reason'] = null;
+            $this->attributes['is_ban_always'] = null;
+            $this->attributes['ban_from'] = null;
+            $this->attributes['ban_to'] = null;
+            $this->attributes['is_ban'] = null;
+        }
+    }
+
+    public function setIsBanAlwaysAttribute($value)
+    {
+        if ($value == 1) {
+            $this->attributes['ban_from'] = null;
+            $this->attributes['ban_to'] = null;
+        }
     }
 }
