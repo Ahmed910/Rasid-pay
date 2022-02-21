@@ -6,6 +6,7 @@ use App\Traits\Uuid;
 use App\Models\Role\Role;
 use App\Traits\HasAssetsTrait;
 use App\Models\Country\Country;
+use Illuminate\Database\Eloquent\Builder;
 use Laravel\Sanctum\HasApiTokens;
 use App\Contracts\HasAssetsInterface;
 use App\Models\Department\Department;
@@ -136,4 +137,38 @@ class User extends Authenticatable implements HasAssetsInterface
             $this->attributes['ban_to'] = null;
         }
     }
+
+    public function scopeSearch(Builder $query, $request)
+    {
+        if (isset($request->fullname)) {
+            $query->where("fullname", "like", "%$request->fullname%");
+        }
+
+        if (isset($request->created_at)) {
+
+            $query->whereDate('created_at', $request->created_at);
+        }
+
+        if (isset($request->client_type)) {
+            $query->where("client_type", $request->client_type);
+        }
+
+        if (isset($request->country_id)) {
+            $query->where('country_id', $request->country);
+        }
+        if (isset($request->is_ban)) {
+            $query->where('is_ban', $request->is_ban);
+        }
+        if (isset($request->register_status)) {
+            $query->where('register_status', $request->register_status);
+        }
+        if (isset($request->gender)) {
+            $query->where('gender', $request->gender);
+        }
+        if (isset($request->is_active)) {
+            $query->where('is_active', $request->is_active);
+        }
+    }
+
+
 }

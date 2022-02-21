@@ -18,15 +18,18 @@ use Illuminate\Support\Facades\Route;
 Route::post('login', "AuthController@login");
 Route::post('send', "AuthController@sendCode");
 Route::post('reset_password', "AuthController@resetPassword");
-Route::post('logout', "AuthController@logout");
 
 Route::middleware('auth:sanctum')->group(function () {
     // Public Routes
+    Route::post('logout', "AuthController@logout");
     Route::resource('notifications', 'NotificationController')->except('store');
     Route::resource('menus', 'MenuController');
-    Route::resources([
-        'profiles' => 'ProfileController',
-    ]);
+
+    Route::controller('ProfileController')->name('profile.')->prefix('profile')->group(function () {
+        Route::get('show', 'show')->name('show');
+        Route::post('update', 'update')->name('update');
+        Route::post('change_password', 'changePassword')->name('change_password');
+    });
 
     Route::middleware('adminPermission')->group(function () {
         Route::controller('CountryController')->name('countries.')->prefix('countries')->group(function () {
@@ -59,7 +62,9 @@ Route::middleware('auth:sanctum')->group(function () {
         });
 
         Route::controller('DepartmentController')->name('departments.')->prefix('departments')->group(function () {
-            Route::delete('forceDelete/{department}', 'forceDestroy')->name('forceDelete');
+            Route::get('archive', 'archive')->name('archive');
+            Route::post('restore/{id}', 'restore')->name('restore');
+            Route::delete('forceDelete/{id}', 'forceDelete')->name('forceDelete');
         });
         Route::controller('CustomerController')->name('customers.')->prefix('customers')->group(function () {
             Route::delete('forceDelete/{id}', 'forceDestroy')->name('forceDelete');
@@ -71,12 +76,6 @@ Route::middleware('auth:sanctum')->group(function () {
             Route::get('archive', 'archive')->name('archive');
             Route::post('restore/{id}', 'restore')->name('restore');
             Route::delete('forceDelete/{id}', 'forceDelete')->name('forceDelete');
-        });
-
-        Route::controller('ProfileController')->name('profile.')->prefix('profile')->group(function () {
-            Route::get('show', 'show')->name('show');
-            Route::post('update', 'update')->name('update');
-            Route::post('change-password', 'changePassword')->name('changePassword');
         });
 
         Route::controller('NotificationController')->name('notifications.')->prefix('notifications')->group(function () {

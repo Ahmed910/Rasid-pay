@@ -42,10 +42,9 @@ class Department extends Model implements TranslatableContract, HasAssetsInterfa
     #region scopes
     public function scopeSearch(Builder $query, $request)
     {
-
-        $query->whereHas("translations", function ($q) use ($request) {
-            $q->where('name', 'LIKE', "%$request->name%");
-        });
+        if ($request->name) {
+            $query->whereTranslationLike('name',"%$request->name%");
+        }
 
         if (isset($request->created_at)) {
 
@@ -57,7 +56,6 @@ class Department extends Model implements TranslatableContract, HasAssetsInterfa
         }
 
         if (isset($request->is_active)) {
-
             $query->where('is_active', $request->is_active);
         }
     }

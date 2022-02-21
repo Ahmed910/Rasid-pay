@@ -18,7 +18,10 @@ class RoleController extends Controller
      */
     public function index(Request $request)
     {
-        $roles = Role::search($request)->latest()->paginate((int)($request->page ?? 15));
+        $roles = Role::search($request)->with(['translations' => function ($q) {
+            $q->where('locale', app()->getLocale());
+        }])->latest()->paginate((int)($request->page ?? 15));
+
         return RoleResource::collection($roles)->additional(['status' => true, 'message' => ""]);
     }
 
@@ -69,6 +72,7 @@ class RoleController extends Controller
             $permission_list[] =$permission_obj->id;
         }
         $role->permissions()->sync($permission_list);
+        
         return RoleResource::make($role)->additional(['status' => true, 'message' => trans('dashboard.general.success_add')]);
     }
 

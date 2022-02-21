@@ -31,7 +31,7 @@ class RoleRequest extends ApiMasterRequest
         ];
 
         foreach (config('translatable.locales') as $locale) {
-            $rules[$locale.".name"] = 'required|string|between:2,250|unique:role_translations,name,' . @$this->role->id . ',role_id';
+            $rules[$locale.".name"] = 'required|string|between:2,100|unique:role_translations,name,' . @$this->role->id . ',role_id';
             $rules[$locale.'.desc'] = 'nullable|string|between:3,100000';
         }
         return $rules;
