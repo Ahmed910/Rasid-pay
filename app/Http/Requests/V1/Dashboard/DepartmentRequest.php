@@ -30,8 +30,8 @@ class DepartmentRequest extends ApiMasterRequest
         ];
         foreach (config('translatable.locales') as $locale) {
             $rules["$locale"]               = "array";
-            $rules["$locale.name"]          = "required|between:2,100|string|unique:department_translations,name," . $this->department?->id  . ",department_id";
-            $rules["$locale.description"]   = "nullable|max:300|string";
+            $rules["$locale.name"]          = "required|between:2,100|string|alpha_dash|unique:department_translations,name," . $this->department?->id  . ",department_id";
+            $rules["$locale.description"]   = "nullable|max:300|string|alpha_dash";
         }
 
         return $rules;
