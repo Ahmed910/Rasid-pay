@@ -20,6 +20,7 @@ class DepartmentController extends Controller
                 $q->has('children')
                 ->orWhereNull('parent_id');
             })
+            ->sortBy($request)
             ->paginate((int)($request->page ?? 15));
 
         return DepartmentResource::collection($departments)
