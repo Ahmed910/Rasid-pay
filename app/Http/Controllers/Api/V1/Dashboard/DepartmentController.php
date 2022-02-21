@@ -13,9 +13,9 @@ class DepartmentController extends Controller
     public function index(Request $request)
     {
         $language = app()->getLocale();
-        $allDepartments = Department::with('translations', function ($q) use ($language) {
+        $allDepartments = Department::with(['translations' => function ($q) use ($language) {
             $q->select('name')->where('locale', $language);
-        })->where(function ($q) {
+        }])->where(function ($q) {
             $q->doesntHave('children')->orWhereNotNull('parent_id');
         })->select('id')->get();
 
@@ -52,13 +52,16 @@ class DepartmentController extends Controller
     }
 
 
-    public function show(Department $department)
+    public function show($id)
+
     {
-        return DepartmentResource::make($department)
+        $department =   Department::withTrashed()->findOrFail($id);
+
+        return DepartmentResource::make($department->load('translations'))
             ->additional([
                 'status' => true,
-                'message' => ""
-            ]);;
+                'message' => trans("dashboard.general.show")
+            ]);
     }
 
     public function edit($id)
