@@ -23,9 +23,13 @@ return [
         "archive" => "أرشفة",
         "restore" => "استعادة",
         "force_delete" => "حذف نهائي",
-        'not_found' => 'لم يتم العثور على بيانات',
         'sent_successfully' => 'تم الارسال بنجاح',
 
+    ],
+    'error' => [
+        'method_not_allow' => 'طريقة الطلب (:method) غير صحيحة',
+        'not_found' => 'لم يتم العثور على بيانات',
+        'page_not_found' => '404, الصفحة غير موجودة',
     ],
     'activity_log' => [
         "reason" => ":user قام :action",

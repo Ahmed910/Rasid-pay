@@ -20,9 +20,13 @@ return [
         "show" => "Show",
         "archive" => "",
         "restore" => "",
-        "force_delete" => "",
-        'not_found' => 'Not Found',
+        "force_delete" => "",        
         'sent_successfully' => 'Sent Successfully',
+    ],
+    'error' => [
+        'method_not_allow' => 'Http method (:method) not allowed',
+        'not_found' => 'Model Not Found!',
+        'page_not_found' => '404, Page not found!',
     ],
     'activity_log' => [
         "reason" => ":user did :action",
