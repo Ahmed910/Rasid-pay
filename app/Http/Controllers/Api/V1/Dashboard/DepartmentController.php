@@ -4,7 +4,8 @@ namespace App\Http\Controllers\Api\V1\Dashboard;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\V1\Dashboard\DepartmentRequest;
-use App\Http\Resources\Dashboard\DepartmentResource;
+use App\Http\Resources\Dashboard\Departments\DepartmentResource;
+use App\Http\Resources\Dashboard\Departments\ParentResource;
 use App\Models\Department\Department;
 use Illuminate\Http\Request;
 
@@ -12,18 +13,12 @@ class DepartmentController extends Controller
 {
     public function index(Request $request)
     {
-        $language = app()->getLocale();
-        $allDepartments = Department::with(['translations' => function ($q) use ($language) {
-            $q->select('name', 'department_id')->where('locale', $language);
-        }])->where(function ($q) {
-            $q->doesntHave('children')->orWhereNotNull('parent_id')->where('is_active', 1);
-        })->select('id')->get();
-
+        //TODO : check this query is not correct
         $departments = Department::search($request)
             ->with(["parent", "translations"])
-            ->latest()
             ->where(function ($q) {
-                $q->has('children')->orWhereNull('parent_id');
+                $q->has('children')
+                ->orWhereNull('parent_id');
             })
             ->paginate((int)($request->page ?? 15));
 
@@ -31,7 +26,26 @@ class DepartmentController extends Controller
             ->additional([
                 'status' => true,
                 'message' => "",
-                'allDepartments' => $allDepartments,
+            ]);
+    }
+
+    public function getAllParents()
+    {
+        $parents = Department::where('is_active', 1)
+            ->whereHas("children")
+            ->orWhere(function ($q) {
+                $q->doesntHave('children')
+                    ->WhereNull('parent_id');
+            })
+            ->without("images")
+            ->select("id")
+            ->ListsTranslations("name")
+            ->get();
+
+        return ParentResource::collection($parents)
+            ->additional([
+                'status' => true,
+                'message' => "",
             ]);
     }
 
