@@ -11,6 +11,20 @@ use App\Models\{Role\Role , Permission};
 
 class RoleController extends Controller
 {
+    private $public_routes = [
+        'notifications.index' ,
+        'notifications.show' ,
+        'notifications.destroy' ,
+        'notifications.update' ,
+        'profiles.show',
+        'profiles.update',
+        'profiles.change_password',
+        'menus.index',
+        'menus.store',
+        'menus.update',
+        'menus.show',
+        'menus.destroy',
+    ];
     /**
      * Display a listing of the resource.
      *
@@ -25,25 +39,22 @@ class RoleController extends Controller
         return RoleResource::collection($roles)->additional(['status' => true, 'message' => ""]);
     }
 
-    /**
-     *
-     * 10 => "ahmed",
-     *
-     */
 
     public function create(Request $request)
     {
         $route=[];
         foreach (app()->routes->getRoutes() as $value) {
             if(Str::afterLast($value->getPrefix(), '/') == "dashboard"){
-                if($value->getName() != 'dashboard.' && !is_null($value->getName())){
+                if (in_array($value->getName(),$this->public_routes)) {
+                    continue;
+                }
+                if($value->getName() != '' && !is_null($value->getName())){
                     $uri =  Str::beforeLast($value->getName(),'.');
                     $route[] = $this->getPermissions($uri);
-                }elseif (is_null($value->getName())) {
-                    $route[]= ["uri" => "home", 'trans' => trans('dashboard.home.home') ,'permissons' => ["home.read" => trans('dashboard.home.permissions.read')]];
                 }
             }
         }
+
         $uris = array_map("unserialize", array_unique(array_map("serialize", $route)));
         $routes = array_values($uris);
         return response()->json([
@@ -72,8 +83,8 @@ class RoleController extends Controller
             $permission_list[] =$permission_obj->id;
         }
         $role->permissions()->sync($permission_list);
-        
-        return RoleResource::make($role)->additional(['status' => true, 'message' => trans('dashboard.general.success_add')]);
+
+        return RoleResource::make($role)->additional(['status' => true, 'message' => trans('general.success_add')]);
     }
 
     public function show(Role $role)
@@ -81,11 +92,12 @@ class RoleController extends Controller
         $route=[];
         foreach (app()->routes->getRoutes() as $value) {
             if(Str::afterLast($value->getPrefix(), '/') == "dashboard"){
-                if($value->getName() != 'dashboard.' && !is_null($value->getName())){
+                if($value->getName() != '' && !is_null($value->getName())){
+                    if (in_array($value->getName(),$this->public_routes)) {
+                        continue;
+                    }   
                     $uri =  Str::beforeLast($value->getName(),'.');
                     $route[] = $this->getPermissions($uri,$role);
-                }elseif (is_null($value->getName())) {
-                    $route[]= ["uri" => "home", 'trans' => trans('dashboard.home.home') ,'permissons' => ["home.read" => trans('dashboard.home.permissions.read')]];
                 }
             }
         }
@@ -118,7 +130,7 @@ class RoleController extends Controller
             $permission_list[] =$permission_obj->id;
         }
         $role->permissions()->sync($permission_list);
-        return RoleResource::make($role)->additional(['status' => true, 'message' => trans('dashboard.general.success_update')]);
+        return RoleResource::make($role)->additional(['status' => true, 'message' => trans('general.success_update')]);
     }
 
     /**
@@ -130,7 +142,7 @@ class RoleController extends Controller
     public function destroy(Role $role)
     {
         $role->delete();
-        return RoleResource::make($role)->additional(['status' => true, 'message' => trans('dashboard.general.success_delete')]);
+        return RoleResource::make($role)->additional(['status' => true, 'message' => trans('general.success_delete')]);
     }
 
     private function getPermissions($uri , $role = null)

@@ -69,31 +69,32 @@ class User extends Authenticatable implements HasAssetsInterface
         if ($this->user_type == 'superadmin') {
             return true;
         }
-        if (is_null($method)) {
-            if ($this->role->permissions->contains('name', $route . ".index")) {
+        $permissions = @$this->role->permissions;
+        if (is_null($method) && $permissions) {
+            if ($permissions->contains('name', $route . ".index")) {
                 return true;
-            } elseif ($this->role->permissions->contains('name', $route . ".store")) {
+            } elseif ($permissions->contains('name', $route . ".store")) {
                 return true;
-            } elseif ($this->role->permissions->contains('name', $route . ".update")) {
+            } elseif ($permissions->contains('name', $route . ".update")) {
                 return true;
-            } elseif ($this->role->permissions->contains('name', $route . ".read")) {
+            } elseif ($permissions->contains('name', $route . ".read")) {
                 return true;
-            } elseif ($this->role->permissions->contains('name', $route . ".show")) {
+            } elseif ($permissions->contains('name', $route . ".show")) {
                 return true;
-            } elseif ($this->role->permissions->contains('name', $route . ".archive")) {
+            } elseif ($permissions->contains('name', $route . ".archive")) {
                 return true;
-            } elseif ($this->role->permissions->contains('name', $route . ".restore")) {
+            } elseif ($permissions->contains('name', $route . ".restore")) {
                 return true;
-            } elseif ($this->role->permissions->contains('name', $route . ".force_delete")) {
+            } elseif ($permissions->contains('name', $route . ".force_delete")) {
                 return true;
             }
-        } elseif (is_array($method)) {
+        } elseif (is_array($method) && $permissions) {                        
             $arr = substr_replace($method, $route . '.', 0, 0);
-            return $this->role->permissions->search(function ($item) use ($arr) {
+            return $permissions->search(function ($item) use ($arr) {
                 return in_array(@$item->name, $arr);
             });
         } else {
-            return $this->role->permissions->contains('name', $route . "." . $method);
+            return $permissions->contains('name', $route . "." . $method);
         }
         return false;
     }
@@ -118,7 +119,7 @@ class User extends Authenticatable implements HasAssetsInterface
         if (isset($request->fullname)) {
             $query->where("fullname", "like", "%$request->fullname%");
         }
-        
+
         if (isset($request->created_at)) {
 
             $query->whereDate('created_at', $request->created_at);

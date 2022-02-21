@@ -22,8 +22,8 @@ Route::post('reset_password', "AuthController@resetPassword");
 Route::middleware('auth:sanctum')->group(function () {
     // Public Routes
     Route::post('logout', "AuthController@logout");
-    Route::resource('notifications','NotificationController')->except('store');
-    Route::resource('menus','MenuController');
+    Route::apiResource('notifications','NotificationController')->except('store');
+    Route::apiResource('menus','MenuController');
 
     Route::controller('ProfileController')->name('profile.')->prefix('profile')->group(function () {
         Route::get('show', 'show')->name('show');
