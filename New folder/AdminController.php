@@ -13,7 +13,7 @@ class AdminController extends Controller
 
     public function index(Request $request)
     {
-        $users = User::with(['department', 'role'])->where('user_type', 'admin')->select('id', 'fullname', 'email', 'whatsapp', 'gender', 'is_active', 'created_at')->latest()->paginate((int)($request->perPage ?? 10));
+        $users = User::with('department')->where('user_type', 'admin')->select('id', 'fullname', 'email', 'whatsapp', 'gender', 'is_active', 'created_at')->latest()->paginate((int)($request->perPage ?? 10));
 
         return UserResource::collection($users)
             ->additional([
@@ -32,25 +32,17 @@ class AdminController extends Controller
             ]);
     }
 
-    public function create(Request $request)
+    public function create()
     {
-        $users = User::with(['department', 'role'])->where('user_type', 'employee')->select('id', 'fullname', 'email', 'whatsapp', 'gender', 'is_active', 'created_at')->latest();
-
-        return UserResource::collection($users)
-            ->additional([
-                'status' => true,
-                'message' =>  '',
-            ]);
+        //
     }
 
 
-    public function store(AdminRequest $request)
+    public function store(AdminRequest $request, User $user)
     {
-        $codeStatus = ($request->has('is_login_code') ? 1 : 0);
-        $admin = User::updateOrCreate(['id' => $request->employee_id], ['user_type' => 'admin', 'role_id' => $request->role_id, 'password' => $request->password, 'added_by_id' => auth()->id(), 'is_login_code' => $codeStatus]);
-        //TODO::send sms with password
+        $user->fill($request->validated() + ['added_by_id' => auth()->id()])->save();
 
-        return UserResource::make($admin)
+        return UserResource::make($user)
             ->additional([
                 'status' => true,
                 'message' =>  trans('dashboard.general.success_add'),
@@ -79,9 +71,6 @@ class AdminController extends Controller
     public function update(AdminRequest $request, User $admin)
     {
         $admin->fill($request->validated())->save();
-
-        //TODO::send sms with password
-        // if($request->('password_change'))
 
         return UserResource::make($admin)
             ->additional([

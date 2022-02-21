@@ -76,10 +76,14 @@ Route::middleware('auth:sanctum')->group(function () {
             Route::get('archive', 'archive')->name('archive');
             Route::post('restore/{id}', 'restore')->name('restore');
             Route::delete('forceDelete/{id}', 'forceDelete')->name('forceDelete');
-        });        
+        });
 
         Route::controller('NotificationController')->name('notifications.')->prefix('notifications')->group(function () {
             Route::post('store', 'store')->name('store');
+        });
+
+        Route::controller('EmployeeController')->name('employees.')->prefix('employees')->group(function () {
+            Route::put('ban/{employee}', 'ban')->name('ban');
         });
 
         Route::resources([
@@ -90,10 +94,10 @@ Route::middleware('auth:sanctum')->group(function () {
             "regions" => "RegionController",
             'roles' => 'RoleController',
             'admins' => 'AdminController',
+            'employees' => 'EmployeeController',
             'customers' => 'CustomerController',
             'rasid_jobs' => 'RasidJobController',
             'settings' => 'SettingController',
         ]);
     });
-
 });

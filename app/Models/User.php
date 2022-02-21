@@ -9,6 +9,7 @@ use App\Models\Country\Country;
 use Illuminate\Database\Eloquent\Builder;
 use Laravel\Sanctum\HasApiTokens;
 use App\Contracts\HasAssetsInterface;
+use App\Models\Department\Department;
 use App\Traits\Loggable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -112,6 +113,30 @@ class User extends Authenticatable implements HasAssetsInterface
     public function country()
     {
         return $this->belongsTo(Country::class);
+    }
+    public function department()
+    {
+        return $this->belongsTo(Department::class);
+    }
+
+    public function setIsBanAttribute($value)
+    {
+        $this->attributes['is_ban'] = $value;
+        if ($value == 0) {
+            $this->attributes['ban_reason'] = null;
+            $this->attributes['is_ban_always'] = null;
+            $this->attributes['ban_from'] = null;
+            $this->attributes['ban_to'] = null;
+            $this->attributes['is_ban'] = null;
+        }
+    }
+
+    public function setIsBanAlwaysAttribute($value)
+    {
+        if ($value == 1) {
+            $this->attributes['ban_from'] = null;
+            $this->attributes['ban_to'] = null;
+        }
     }
 
     public function scopeSearch(Builder $query, $request)

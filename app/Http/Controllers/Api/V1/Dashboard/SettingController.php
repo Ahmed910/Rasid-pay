@@ -26,16 +26,16 @@ class SettingController extends Controller
     public function store(SettingRequest $request)
     {
         $defaultLocale = "en";
-        $restLocales = array_filter(config('translatable.locales'), fn ($locale) => $locale == $defaultLocale ?: $locale);
+        $restLocales   = array_filter(config('translatable.locales'), fn ($locale) => $locale == $defaultLocale ? null : $locale);
         $path          =  "images/setting";
 
         foreach ($request->validated()['settings'] as $key => $value) {
 
-            array_map(function ($locale) use ($value, $path) {
+            foreach ($restLocales as $locale) {
                 if (isset($value[$locale]) && $value[$locale] instanceof UploadedFile) {
                     $value[$locale] =  $value[$locale]->storePublicly($path, "public");
                 }
-            }, $restLocales);
+            }
 
 
             Setting::where("dashboard", Setting::ERP)
