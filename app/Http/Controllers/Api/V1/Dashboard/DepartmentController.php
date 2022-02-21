@@ -14,9 +14,9 @@ class DepartmentController extends Controller
     {
         $language = app()->getLocale();
         $allDepartments = Department::with(['translations' => function ($q) use ($language) {
-            $q->select('name')->where('locale', $language);
+            $q->select('name', 'department_id')->where('locale', $language);
         }])->where(function ($q) {
-            $q->doesntHave('children')->orWhereNotNull('parent_id');
+            $q->doesntHave('children')->orWhereNotNull('parent_id')->where('is_active', 1);
         })->select('id')->get();
 
         $departments = Department::search($request)

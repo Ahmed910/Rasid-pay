@@ -30,7 +30,7 @@ class SettingRequest extends ApiMasterRequest
             "settings.*.en" => 'required'
         ];
 
-        foreach (array_filter(config('translatable.locales'),fn ($locale) => $locale == "en" ?: $locale) as $locale) {
+        foreach (array_filter(config('translatable.locales'),fn ($locale) => $locale == "en" ? null : $locale) as $locale) {
             $rules["settings.*.$locale"] = "nullable";
         }
 
