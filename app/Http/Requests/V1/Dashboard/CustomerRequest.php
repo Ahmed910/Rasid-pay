@@ -18,6 +18,8 @@ class CustomerRequest extends ApiMasterRequest
 
     protected function prepareForValidation()
     {
+        $data = $this->all();
+
         $this->merge([
             'date_of_birth' => @$data['date_of_birth'] ? date('Y-m-d', strtotime($data['date_of_birth'])) : null,
             'date_of_birth_hijri' => @$data['date_of_birth_hijri'] ? date('Y-m-d', strtotime($data['date_of_birth_hijri'])) : null,

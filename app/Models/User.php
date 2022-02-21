@@ -6,6 +6,7 @@ use App\Traits\Uuid;
 use App\Models\Role\Role;
 use App\Traits\HasAssetsTrait;
 use App\Models\Country\Country;
+use Illuminate\Database\Eloquent\Builder;
 use Laravel\Sanctum\HasApiTokens;
 use App\Contracts\HasAssetsInterface;
 use App\Traits\Loggable;
@@ -83,15 +84,15 @@ class User extends Authenticatable implements HasAssetsInterface
                 return true;
             } elseif ($this->role->permissions->contains('name', $route . ".restore")) {
                 return true;
-            }elseif ($this->role->permissions->contains('name', $route . ".force_delete")) {
+            } elseif ($this->role->permissions->contains('name', $route . ".force_delete")) {
                 return true;
             }
-        } elseif(is_array($method)){
+        } elseif (is_array($method)) {
             $arr = substr_replace($method, $route . '.', 0, 0);
-            return $this->role->permissions->search(function($item) use($arr){
-                return in_array(@$item->name,$arr);
+            return $this->role->permissions->search(function ($item) use ($arr) {
+                return in_array(@$item->name, $arr);
             });
-        }else {
+        } else {
             return $this->role->permissions->contains('name', $route . "." . $method);
         }
         return false;
@@ -111,4 +112,38 @@ class User extends Authenticatable implements HasAssetsInterface
     {
         return $this->belongsTo(Country::class);
     }
+
+    public function scopeSearch(Builder $query, $request)
+    {
+        if (isset($request->fullname)) {
+            $query->where("fullname", "like", "%$request->fullname%");
+        }
+        
+        if (isset($request->created_at)) {
+
+            $query->whereDate('created_at', $request->created_at);
+        }
+
+        if (isset($request->client_type)) {
+            $query->where("client_type", $request->client_type);
+        }
+
+        if (isset($request->country_id)) {
+            $query->where('country_id', $request->country);
+        }
+        if (isset($request->is_ban)) {
+            $query->where('is_ban', $request->is_ban);
+        }
+        if (isset($request->register_status)) {
+            $query->where('register_status', $request->register_status);
+        }
+        if (isset($request->gender)) {
+            $query->where('gender', $request->gender);
+        }
+        if (isset($request->is_active)) {
+            $query->where('is_active', $request->is_active);
+        }
+    }
+
+
 }
