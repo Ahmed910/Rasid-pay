@@ -7,6 +7,7 @@ use App\Http\Requests\V1\Dashboard\CustomerRequest;
 use App\Http\Resources\Dashboard\CustomerResource;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class CustomerController extends Controller
 {
@@ -17,11 +18,12 @@ class CustomerController extends Controller
      */
     public function index(Request $request)
     {
-        $user = User::where("user_type", 'client')->latest()->paginate((int)($request->page ?? 15));
+        $user = User::where("user_type", 'client')->search($request)->latest()->paginate((int)($request->page ?? 15));
         return CustomerResource::collection($user)->additional([
             'status' => true,
             'message' => ""
         ]);
+
     }
 
     /**

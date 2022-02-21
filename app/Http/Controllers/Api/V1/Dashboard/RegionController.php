@@ -21,7 +21,6 @@ class RegionController extends Controller
     public function index(Request $request)
     {
 
-        $allregions = Region::with("translations")->latest()->paginate((int)($request->page ?? 15));
         $region = Region::Search($request)
             ->with(["translations"])
             ->latest()
