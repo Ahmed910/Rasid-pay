@@ -135,7 +135,7 @@ class RegionController extends Controller
         $region = Region::onlyTrashed()->findOrFail($id);
         $region->restore();
 
-        return CountryResource::make($region)
+        return RegionResource::make($region)
             ->additional([
                 'status' => true,
                 'message' => trans('dashboard.general.success_restore'),

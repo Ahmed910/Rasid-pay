@@ -89,7 +89,7 @@ class User extends Authenticatable implements HasAssetsInterface
             } elseif ($permissions->contains('name', $route . ".force_delete")) {
                 return true;
             }
-        } elseif (is_array($method) && $permissions) {                        
+        } elseif (is_array($method) && $permissions) {
             $arr = substr_replace($method, $route . '.', 0, 0);
             return $permissions->search(function ($item) use ($arr) {
                 return in_array(@$item->name, $arr);
@@ -168,6 +168,9 @@ class User extends Authenticatable implements HasAssetsInterface
         }
         if (isset($request->is_active)) {
             $query->where('is_active', $request->is_active);
+        }
+        if (isset($request->is_admin_active_user)) {
+            $query->where('is_admin_active_user', $request->is_admin_active_user);
         }
     }
 
