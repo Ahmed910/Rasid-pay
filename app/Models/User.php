@@ -172,6 +172,4 @@ class User extends Authenticatable implements HasAssetsInterface
             $query->where('is_admin_active_user', $request->is_admin_active_user);
         }
     }
-
-
 }

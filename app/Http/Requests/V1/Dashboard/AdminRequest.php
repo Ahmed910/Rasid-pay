@@ -46,17 +46,22 @@ class AdminRequest extends ApiMasterRequest
 
     public function rules()
     {
-        $rule = 'required|exists:users,id';
         if ($this->admin) {
-            $rule = 'nullable|exists:users,id';
+            $ruleEmployee = 'nullable|exists:users,id';
+            $rulePassChanged = 'required|boolean';
+            $ruleBan = 'required|boolean';
+        } else {
+            $ruleEmployee = 'required|exists:users,id';
+            $rulePassChanged = 'nullable';
+            $ruleBan = 'nullable';
         }
         return [
-            'employee_id' => $rule,
+            'employee_id' => $ruleEmployee,
             'role_id' => 'required|exists:roles,id',
-            'password_change' => 'required|boolean',
+            'password_change' => $rulePassChanged,
             'password' => 'nullable|required_if:password_change,true|confirmed|min:6|max:225',
             'is_login_code' => 'required|boolean',
-            'is_ban' => 'required|boolean',
+            'is_ban' => $ruleBan,
             'ban_reason' => 'nullable|required_if:is_ban,true|string|max:225',
             'is_ban_always' => 'nullable|required_if:is_ban,true|boolean',
             'ban_from' => 'nullable|required_if:is_ban_always,false|date',
