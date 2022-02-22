@@ -24,6 +24,7 @@ return [
         "restore" => "استعادة",
         "force_delete" => "حذف نهائي",
         'sent_successfully' => 'تم الارسال بنجاح',
+        'success_suspend' => 'تم التعطيل بنجاح',
 
     ],
     'error' => [
@@ -49,13 +50,29 @@ return [
         "country_count" => "عدد الدول",
         'permissions' => $permissions
     ],
+    "region" => [
+        "region" => "المنطقة ",
+        "regions" => "المناطق",
+        "add_region" => "",
+        "edit_region" => "",
+        "region_count" => "",
+        'permissions' => $permissions
+    ],
+    "city" => [
+        "city" => "المدينة",
+        "cities" => "المدن",
+        "add_city" => "",
+        "edit_city" => "",
+        "city_count" => "",
+        'permissions' => $permissions
+    ],
     "role" => [
         "role" => "المستوى الاداري",
         "roles" => "المستويات الادارية",
         "add_role" => "اضافة وظيفة",
         "edit_role" => "",
         "role_count" => "",
-        'permissions' => $permissions
+        'permissions' => array_except($permissions, ['archive', 'restore', 'force_delete']) + ['hold' => 'تعطيل']
     ],
     "currency" => [
         "currency" => "العملة ",
@@ -103,13 +120,6 @@ return [
         "admin_count" => "عدد المستخدمين",
         'permissions' => array_except($permissions, ['archive', 'restore', 'force_delete']) + ['hold' => 'تعطيل']
     ],
-    "region" => [
-        "region" => "المنطقة ",
-        "regions" => "المناطق",
-        "add_region" => "",
-        "edit_region" => "",
-        "region_count" => "",
-        'permissions' => $permissions
-    ],
+
 
 ];

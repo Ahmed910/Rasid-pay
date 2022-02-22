@@ -16,12 +16,12 @@ class AdminMiddleware
     public function handle($request, Closure $next)
     {
         $public_routes = [
-            'dashboard.notification.index' ,
-            'dashboard.notification.show' ,
-            'dashboard.notification.delete' ,
-            'dashboard.profile.show',
-            'dashboard.profile.update',
-            'dashboard.profile.change_password',
+            'dashboard.notifications.index' ,
+            'dashboard.notifications.show' ,
+            'dashboard.notifications.delete' ,
+            'dashboard.profiles.show',
+            'dashboard.profiles.update',
+            'dashboard.profiles.change_password',
             'dashboard.menus.index',
             'dashboard.menus.store',
             'dashboard.menus.show',

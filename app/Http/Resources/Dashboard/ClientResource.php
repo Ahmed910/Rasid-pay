@@ -5,7 +5,7 @@ namespace App\Http\Resources\Dashboard;
 use App\Http\Resources\Dashboard\Role\RoleResource;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class CustomerResource extends JsonResource
+class ClientResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -27,7 +27,7 @@ class CustomerResource extends JsonResource
             'added_by_id' => SimpleUserResource::make($this->whenLoaded('addedBy')),
             'role' => RoleResource::make($this->whenLoaded('role')),
             'country' => CountryResource::make($this->whenLoaded('country')),
-            'user_type' => $this->when(request()->is('*/customers/*'), $this->user_type),
+            'user_type' => $this->when(request()->is('*/clients/*'), $this->user_type),
             'client_type' => $this->client_type,
             'ban_reason' => $this->when($request->is('*/customers/*'), $this->ban_reason),
             'identity_number' => $this->when($request->is('*/customers/*'), $this->identity_number),

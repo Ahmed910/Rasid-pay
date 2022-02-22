@@ -24,14 +24,14 @@ class DepartmentRequest extends ApiMasterRequest
     public function rules()
     {
         $rules = [
-            "image"         => "image|max:2048",
+            "image"         => "nullable|image|max:2048|mimes:dwg,jpg,png,jpeg",
             "parent_id"     => "nullable|exists:departments,id",
             "is_active"     => "boolean"
         ];
         foreach (config('translatable.locales') as $locale) {
             $rules["$locale"]               = "array";
-            $rules["$locale.name"]          = "required|max:255|string|unique:department_translations,name," . $this->department?->id  . ",department_id";
-            $rules["$locale.description"]   = "required|string";
+            $rules["$locale.name"]          = "required|between:2,100|string|unique:department_translations,name," . $this->department?->id  . ",department_id";
+            $rules["$locale.description"]   = "nullable|string||max:300";
         }
 
         return $rules;

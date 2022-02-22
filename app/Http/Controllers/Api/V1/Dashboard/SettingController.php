@@ -26,7 +26,7 @@ class SettingController extends Controller
     public function store(SettingRequest $request)
     {
         $defaultLocale = "en";
-        $restLocales   = array_filter(config('translatable.locales'), fn ($locale) => $locale == $defaultLocale ?: $locale);
+        $restLocales   = array_filter(config('translatable.locales'), fn ($locale) => $locale == $defaultLocale ? null : $locale);
         $path          =  "images/setting";
 
         foreach ($request->validated()['settings'] as $key => $value) {
