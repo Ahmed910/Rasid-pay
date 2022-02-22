@@ -13,13 +13,11 @@ class DepartmentController extends Controller
 {
     public function index(Request $request)
     {
-        //TODO : check this query is not correct
         $departments = Department::search($request)
-            ->with(["parent", "translations"])
-            ->where(function ($q) {
-                $q->has('children')
-                ->orWhereNull('parent_id');
-            })
+            ->with('parent.translations')
+            ->has('parent')
+            ->ListsTranslations('name')
+            ->addSelect('created_at', 'is_active', 'parent_id')
             ->sortBy($request)
             ->paginate((int)($request->page ?? 15));
 
@@ -33,7 +31,7 @@ class DepartmentController extends Controller
     public function getAllParents()
     {
         $parents = Department::where('is_active', 1)
-            ->whereHas("children")
+            ->has("children")
             ->orWhere(function ($q) {
                 $q->doesntHave('children')
                     ->WhereNull('parent_id');
