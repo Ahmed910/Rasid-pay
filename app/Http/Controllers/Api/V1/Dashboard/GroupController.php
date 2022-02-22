@@ -32,7 +32,7 @@ class GroupController extends Controller
      */
     public function index(Request $request)
     {
-        $groups = Group::search($request)->with(['translations' => function ($q) {
+        $groups = Group::active()->search($request)->with(['translations' => function ($q) {
             $q->where('locale', app()->getLocale());
         }])->latest()->paginate((int)($request->page ?? 15));
 
@@ -42,27 +42,22 @@ class GroupController extends Controller
 
     public function create(Request $request)
     {
-        $route=[];
-        foreach (app()->routes->getRoutes() as $value) {
-            if(Str::afterLast($value->getPrefix(), '/') == "dashboard"){
-                if (in_array($value->getName(),$this->public_routes)) {
-                    continue;
-                }
-                if($value->getName() != '' && !is_null($value->getName())){
-                    $uri =  Str::beforeLast($value->getName(),'.');
-                    $route[] = $this->getPermissions($uri);
-                }
-            }
-        }
-
-        $uris = array_map("unserialize", array_unique(array_map("serialize", $route)));
-        $routes = array_values($uris);
+        $saved_permissions = $this->savedPermissions()->groupBy('uri')->map(function($item,$key){
+            $data['uri'] = $key;
+            $data['trans'] = trans('dashboard.' . str_singular($key) . '.' . $key);
+            $data['permissions'] = $item->transform(function($item){
+                unset($item->uri);
+                $item->is_checked = false;
+                return $item;
+            })->toArray();
+            return $data;
+        });
         return response()->json([
             'status' => true,
             'message' => "",
             'data' => [
                 'group' => null,
-                'routes' => UriResource::collection($routes),
+                'routes' => UriResource::collection($saved_permissions),
             ]
         ]);
     }
@@ -73,36 +68,29 @@ class GroupController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(GroupRequest $request)
+    public function store(GroupRequest $request , Group $group)
     {
-        $permission_inputs =$request->validated()['permissions'];
-        $group = Group::create(array_only($request->validated(),config('translatable.locales')));
-        $permission_list = [];
-        foreach ($permission_inputs as $permission) {
-            $permission_obj= Permission::updateOrCreate(['name' => $permission['name']],$permission);
-            $permission_list[] =$permission_obj->id;
-        }
-        $group->permissions()->sync($permission_list);
+        $permission_inputs =$request->validated()['permission_list'];
+        $group->fill($request->validated())->save();
+        $group->permissions()->sync($request->permission_list);
 
         return GroupResource::make($group)->additional(['status' => true, 'message' => trans('dashboard.general.success_add')]);
     }
 
     public function show(Group $group)
     {
-        $route=[];
-        foreach (app()->routes->getRoutes() as $value) {
-            if(Str::afterLast($value->getPrefix(), '/') == "dashboard"){
-                if($value->getName() != '' && !is_null($value->getName())){
-                    if (in_array($value->getName(),$this->public_routes)) {
-                        continue;
-                    }
-                    $uri =  Str::beforeLast($value->getName(),'.');
-                    $route[] = $this->getPermissions($uri,$group);
-                }
-            }
-        }
-        $uris = array_map("unserialize", array_unique(array_map("serialize", $route)));
-        $routes = array_values($uris);
+        $group_permissions = $group->permissions->pluck('id')->toArray();
+        $saved_permissions = $this->savedPermissions()->groupBy('uri')->map(function($item,$key) use($group_permissions){
+            $data['uri'] = $key;
+            $data['trans'] = trans('dashboard.' . str_singular($key) . '.' . $key);
+            $data['permissions'] = $item->transform(function($item) use($group_permissions){
+                unset($item->uri);
+                $item->is_checked = in_array($item->id , $group_permissions);
+                return $item;
+            })->toArray();
+            return $data;
+        });
+
         return response()->json([
             'status' => true,
             'message' => "",
@@ -147,7 +135,7 @@ class GroupController extends Controller
 
     private function getPermissions($uri , $group = null)
     {
-        $flip_permissions = is_array(trans('dashboard.'.Str::singular($uri).'.permissions')) ? array_flip(trans('dashboard.'.Str::singular($uri).'.permissions')) : [];
+        $flip_permissions = is_array(trans('dashboard.'.str_singular($uri).'.permissions')) ? array_flip(trans('dashboard.'.Str::singular($uri).'.permissions')) : [];
         $permissions = array_flip(substr_replace($flip_permissions, $uri . '.', 0, 0));
         $permissions_col = collect($permissions)->transform(function($item,$key) use($group){
              $data['permission']  = $key;
@@ -160,10 +148,7 @@ class GroupController extends Controller
 
     public function permissions()
     {
-        $saved_permissions = Permission::select('id','name')->get()->transform(function($item){
-            $item['trans'] = trans('dashboard.' . str_singular(str_before($item->name,'.')) . '.' . str_after($item->name,'.'));
-            return $item;
-        })->toArray();
+        $saved_permissions = $this->savedPermissions()->except('uri')->toArray();
         $saved_names = array_column($saved_permissions,'name');
         foreach (app()->routes->getRoutes() as $value) {
             $name = $value->getName();
@@ -177,4 +162,16 @@ class GroupController extends Controller
         }
         return UriResource::collection($saved_permissions)->additional(['status' => true, 'message' => '']);
     }
+
+
+    private function savedPermissions()
+    {
+        return Permission::select('id','name')->get()->transform(function($item){
+            $item['uri'] = str_before($item->name,'.');
+            $item['trans'] = trans('dashboard.' . str_singular(str_before($item->name,'.')) . '.' . str_after($item->name,'.'));
+            return $item;
+        });
+    }
+
+
 }
