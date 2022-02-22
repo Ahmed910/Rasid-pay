@@ -22,8 +22,8 @@ Route::post('reset_password', "AuthController@resetPassword");
 Route::middleware('auth:sanctum')->group(function () {
     // Public Routes
     Route::post('logout', "AuthController@logout");
-    Route::apiResource('notifications','NotificationController')->except('store');
-    Route::apiResource('menus','MenuController');
+    Route::apiResource('notifications', 'NotificationController')->except('store');
+    Route::apiResource('menus', 'MenuController');
 
     Route::controller('ProfileController')->name('profile.')->prefix('profile')->group(function () {
         Route::get('show', 'show')->name('show');
@@ -67,9 +67,7 @@ Route::middleware('auth:sanctum')->group(function () {
             Route::delete('forceDelete/{id}', 'forceDelete')->name('forceDelete');
         });
         Route::controller('ClientController')->name('clients.')->prefix('clients')->group(function () {
-//            Route::delete('forceDelete/{id}', 'forceDestroy')->name('forceDelete');
-            Route::get('suspendedclients', 'suspendedclients')->name('suspendedclients');
-            Route::post('suspend/{id}', 'suspend')->name('suspend');
+
         });
 
         Route::controller('RasidJobController')->name('rasidjobs.')->prefix('rasid_jobs')->group(function () {

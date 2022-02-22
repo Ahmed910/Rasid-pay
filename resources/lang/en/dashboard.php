@@ -22,7 +22,6 @@ return [
         "restore" => "",
         "force_delete" => "",
         'sent_successfully' => 'Sent Successfully',
-        'success_suspend' => 'Suspended Successfully',
 
     ],
     'error' => [
