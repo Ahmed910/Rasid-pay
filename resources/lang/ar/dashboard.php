@@ -1,7 +1,8 @@
 <?php
 
 $permissions = [
-    'read' => 'قراءه',
+    'index' => 'السجل',
+    'show' => 'عرض',
     'store' => 'حفظ',
     'update' => 'تعديل',
     'archive' => 'أرشفة',
@@ -66,13 +67,13 @@ return [
         "city_count" => "",
         'permissions' => $permissions
     ],
-    "role" => [
-        "role" => "المستوى الاداري",
-        "roles" => "المستويات الادارية",
-        "add_role" => "اضافة وظيفة",
-        "edit_role" => "",
-        "role_count" => "",
-        'permissions' => array_except($permissions, ['archive', 'restore', 'force_delete']) + ['hold' => 'تعطيل']
+    "group" => [
+        "group" => "المجموعة الادارية",
+        "groups" => "المجموعات الادارية",
+        "add_group" => "اضافة مجموعه",
+        "edit_group" => "",
+        "group_count" => "",
+        'permissions' => array_except($permissions,['archive','restore','force_delete']) + ['hold' => 'تعطيل']
     ],
     "currency" => [
         "currency" => "العملة ",

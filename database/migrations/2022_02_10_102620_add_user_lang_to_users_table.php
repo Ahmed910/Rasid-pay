@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddUserLangAndRoleIdToUsersTable extends Migration
+class AddUserLangToUsersTable extends Migration
 {
     /**
      * Run the migrations.
@@ -14,7 +14,6 @@ class AddUserLangAndRoleIdToUsersTable extends Migration
     public function up()
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->foreignUuid("role_id")->nullable()->constrained()->onDelete('set null');
             $table->foreignUuid("added_by_id")->nullable()->constrained('users')->onDelete('set null');
             $table->foreignUuid("country_id")->nullable()->constrained()->onDelete('set null');
             $table->char("user_locale",3)->default('ar');
@@ -29,8 +28,9 @@ class AddUserLangAndRoleIdToUsersTable extends Migration
     public function down()
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->dropForeign('users_role_id_foreign');
-            $table->dropColumn('role_id','user_locale'.'added_by_id');
+            $table->dropForeign('users_country_id_foreign');
+            $table->dropForeign('users_added_by_id_foreign');
+            $table->dropColumn('user_locale','added_by_id','country_id');
         });
     }
 }

@@ -26,7 +26,8 @@ class AddDepartmentIdToUsersTable extends Migration
     public function down()
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->dropForeign('department_id');
+            $table->dropForeign('users_department_id_foreign');
+            $table->dropColumn('department_id');
         });
     }
 }
