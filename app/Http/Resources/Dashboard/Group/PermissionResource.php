@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Resources\Dashboard\Permission;
+namespace App\Http\Resources\Dashboard\Group;
 
 use App\Http\Resources\Dashboard\GlobalTransResource;
 use Illuminate\Http\Resources\Json\JsonResource;
