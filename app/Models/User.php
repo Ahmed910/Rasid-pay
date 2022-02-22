@@ -127,7 +127,6 @@ class User extends Authenticatable implements HasAssetsInterface
             $this->attributes['is_ban_always'] = null;
             $this->attributes['ban_from'] = null;
             $this->attributes['ban_to'] = null;
-            $this->attributes['is_ban'] = null;
         }
     }
 

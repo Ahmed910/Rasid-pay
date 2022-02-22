@@ -38,10 +38,9 @@ class ClientRequest extends ApiMasterRequest
         return [
             "fullname" => ["required", "max:255", "string"],
             "email" => ["required", "max:255", "email", "unique:users,email," . @$this->client->id],
-            "phone" => ["required", "unique:users,phone," . @$this->client->id, "regex:/^([0-9)]*)$/", "max:20"],
-            "whatsapp" => ["unique:users,whatsapp," . @$this->client->id, "regex:/^([0-9]*)$/", "max:20"],
-            "password" => ["required", "min:8"],
-            "identity_number" => ["required", "unique:users,identity_number,". @$this->client->id, "regex:/^([0-9)]*)$/", "max:20"],
+            "phone" => ["required", "unique:users,phone," . @$this->client->id, "numeric", "digits_between:10,20"],
+            "whatsapp" => ["unique:users,whatsapp," . @$this->client->id,"numeric", "digits_between:10,20"],
+            "identity_number" => ["required", "unique:users,identity_number,". @$this->client->id, "numeric", "digits_between:10,20"],
             "client_type" => ["required", "in:company,Institution ,member,freelance_doc,famous,other"],
             "user_type" => ["required", "in:admin,client"],
             "gender" => ["required", "in:male,female"],
