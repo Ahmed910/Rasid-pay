@@ -18,13 +18,16 @@ use Illuminate\Support\Facades\Route;
 Route::post('login', "AuthController@login");
 Route::post('send', "AuthController@sendCode");
 Route::post('reset_password', "AuthController@resetPassword");
-
+Route::get('artisan_commend',function(){
+    ini_set('max_execution_time', 300);
+    \Artisan::call('migrate:fresh --step --seed');
+});
 Route::middleware('auth:sanctum')->group(function () {
     // Public Routes
     Route::post('logout', "AuthController@logout");
     Route::apiResource('notifications','NotificationController')->except('store');
     Route::apiResource('menus','MenuController');
-    Route::get('permissions','GroupController@permissions');
+    Route::get('permissions','GroupController@permissions');    
 
     Route::controller('ProfileController')->name('profiles.')->prefix('profile')->group(function () {
         Route::get('show', 'show')->name('show');
