@@ -46,8 +46,7 @@ class AdminController extends Controller
 
     public function store(AdminRequest $request)
     {
-        $codeStatus = ($request->has('is_login_code') ? 1 : 0);
-        $admin = User::updateOrCreate(['id' => $request->employee_id], ['user_type' => 'admin', 'role_id' => $request->role_id, 'password' => $request->password, 'added_by_id' => auth()->id(), 'is_login_code' => $codeStatus]);
+        $admin = User::updateOrCreate(['id' => $request->employee_id], ['user_type' => 'admin', 'role_id' => $request->role_id, 'password' => $request->password, 'added_by_id' => auth()->id(), 'is_login_code' => $request->is_login_code]);
         //TODO::send sms with password
 
         return UserResource::make($admin)

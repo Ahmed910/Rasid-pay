@@ -29,7 +29,6 @@ class CustomerResource extends JsonResource
             'country' => CountryResource::make($this->whenLoaded('country')),
             'user_type' => $this->when(request()->is('*/customers/*'), $this->user_type),
             'client_type' => $this->client_type,
-            'is_admin_active_user' => $this->when($request->is('*/customers/*'), $this->is_admin_active_user),
             'ban_reason' => $this->when($request->is('*/customers/*'), $this->ban_reason),
             'identity_number' => $this->when($request->is('*/customers/*'), $this->identity_number),
             'register_status' => $this->when(request()->is('*/customers/*'), $this->register_status),
