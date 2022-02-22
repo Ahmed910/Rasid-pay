@@ -3,13 +3,13 @@
 namespace App\Http\Controllers\Api\V1\Dashboard;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\V1\Dashboard\RoleRequest;
-use App\Http\Resources\Dashboard\Role\{RoleResource , UriResource};
+use App\Http\Requests\V1\Dashboard\GroupRequest;
+use App\Http\Resources\Dashboard\Group\{GroupResource , UriResource};
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
-use App\Models\{Role\Role , Permission};
+use App\Models\{Group\Group , Permission};
 
-class RoleController extends Controller
+class GroupController extends Controller
 {
     private $public_routes = [
         'notifications.index' ,
@@ -32,11 +32,11 @@ class RoleController extends Controller
      */
     public function index(Request $request)
     {
-        $roles = Role::search($request)->with(['translations' => function ($q) {
+        $groups = Group::search($request)->with(['translations' => function ($q) {
             $q->where('locale', app()->getLocale());
         }])->latest()->paginate((int)($request->page ?? 15));
 
-        return RoleResource::collection($roles)->additional(['status' => true, 'message' => ""]);
+        return GroupResource::collection($groups)->additional(['status' => true, 'message' => ""]);
     }
 
 
@@ -61,7 +61,7 @@ class RoleController extends Controller
             'status' => true,
             'message' => "",
             'data' => [
-                'role' => null,
+                'group' => null,
                 'routes' => UriResource::collection($routes),
             ]
         ]);
@@ -73,21 +73,21 @@ class RoleController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(RoleRequest $request)
+    public function store(GroupRequest $request)
     {
         $permission_inputs =$request->validated()['permissions'];
-        $role = Role::create(array_only($request->validated(),config('translatable.locales')));
+        $group = Group::create(array_only($request->validated(),config('translatable.locales')));
         $permission_list = [];
         foreach ($permission_inputs as $permission) {
             $permission_obj= Permission::updateOrCreate(['name' => $permission['name']],$permission);
             $permission_list[] =$permission_obj->id;
         }
-        $role->permissions()->sync($permission_list);
+        $group->permissions()->sync($permission_list);
 
-        return RoleResource::make($role)->additional(['status' => true, 'message' => trans('general.success_add')]);
+        return GroupResource::make($group)->additional(['status' => true, 'message' => trans('dashboard.general.success_add')]);
     }
 
-    public function show(Role $role)
+    public function show(Group $group)
     {
         $route=[];
         foreach (app()->routes->getRoutes() as $value) {
@@ -95,9 +95,9 @@ class RoleController extends Controller
                 if($value->getName() != '' && !is_null($value->getName())){
                     if (in_array($value->getName(),$this->public_routes)) {
                         continue;
-                    }   
+                    }
                     $uri =  Str::beforeLast($value->getName(),'.');
-                    $route[] = $this->getPermissions($uri,$role);
+                    $route[] = $this->getPermissions($uri,$group);
                 }
             }
         }
@@ -107,7 +107,7 @@ class RoleController extends Controller
             'status' => true,
             'message' => "",
             'data' => [
-                'role' => RoleResource::make($role->load('translations')),
+                'group' => GroupResource::make($group->load('translations')),
                 'routes' => UriResource::collection($routes),
             ]
         ]);
@@ -119,18 +119,18 @@ class RoleController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(RoleRequest $request, Role $role)
+    public function update(GroupRequest $request, Group $group)
     {
         $permission_inputs =$request->validated()['permissions'];
-        $role_inputs = array_only($request->validated(),config('translatable.locales'));
-        $role->update($role_inputs);
+        $group_inputs = array_only($request->validated(),config('translatable.locales'));
+        $group->update($group_inputs);
         $permission_list = [];
         foreach ($permission_inputs as $permission) {
             $permission_obj= Permission::updateOrCreate(['name' => $permission['name']],$permission);
             $permission_list[] =$permission_obj->id;
         }
-        $role->permissions()->sync($permission_list);
-        return RoleResource::make($role)->additional(['status' => true, 'message' => trans('general.success_update')]);
+        $group->permissions()->sync($permission_list);
+        return GroupResource::make($group)->additional(['status' => true, 'message' => trans('dashboard.general.success_update')]);
     }
 
     /**
@@ -139,22 +139,42 @@ class RoleController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Role $role)
+    public function destroy(Group $group)
     {
-        $role->delete();
-        return RoleResource::make($role)->additional(['status' => true, 'message' => trans('general.success_delete')]);
+        $group->delete();
+        return GroupResource::make($group)->additional(['status' => true, 'message' => trans('dashboard.general.success_delete')]);
     }
 
-    private function getPermissions($uri , $role = null)
+    private function getPermissions($uri , $group = null)
     {
         $flip_permissions = is_array(trans('dashboard.'.Str::singular($uri).'.permissions')) ? array_flip(trans('dashboard.'.Str::singular($uri).'.permissions')) : [];
         $permissions = array_flip(substr_replace($flip_permissions, $uri . '.', 0, 0));
-        $permissions_col = collect($permissions)->transform(function($item,$key) use($role){
+        $permissions_col = collect($permissions)->transform(function($item,$key) use($group){
              $data['permission']  = $key;
              $data['trans']  = $item;
-             $data['is_checked']  = isset($role) && @$role->permissions->contains('name',$key);
+             $data['is_checked']  = isset($group) && @$group->permissions->contains('name',$key);
              return $data;
         })->values()->toArray();
         return ["uri" => $uri, 'trans' => trans('dashboard.' . Str::singular($uri) . ".{$uri}"), 'permissons' => $permissions_col];
+    }
+
+    public function permissions()
+    {
+        $saved_permissions = Permission::select('id','name')->get()->transform(function($item){
+            $item['trans'] = trans('dashboard.' . str_singular(str_before($item->name,'.')) . '.' . str_after($item->name,'.'));
+            return $item;
+        })->toArray();
+        $saved_names = array_column($saved_permissions,'name');
+        foreach (app()->routes->getRoutes() as $value) {
+            $name = $value->getName();
+            if (in_array($name,$this->public_routes) || is_null($name) || str_before($name,'.') == 'ignition') {
+                continue;
+            }
+            if(!in_array($name,$saved_names)){
+                $route = Permission::create(['name' => $name]);
+                $saved_permissions[] = ['id' => $route->id,'name' => $name , 'trans' => trans('dashboard.' . str_singular(str_before($name,'.')) . '.' . str_after($name,'.'))];
+            }
+        }
+        return UriResource::collection($saved_permissions)->additional(['status' => true, 'message' => '']);
     }
 }

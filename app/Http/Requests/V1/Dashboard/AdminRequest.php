@@ -36,7 +36,7 @@ class AdminRequest extends ApiMasterRequest
     //         'identity_number' => 'required|numeric|min:20|unique:users,identity_number,' . @$this->admin->id,
     //         'whatsapp' => 'required|max:20|unique:users,whatsapp,' . @$this->admin->id,
     //         'user_type' => 'required|in:admin,client',
-    //         'role_id' => 'required|exists:roles,id',
+    //         'group_id' => 'required|exists:roles,id',
     //         "client_type" => 'required_if:user_type,client|in:admin,client',
     //         'gender' => 'required|in:male,female',
     //         'date_of_birth' => 'required|date',
@@ -52,7 +52,6 @@ class AdminRequest extends ApiMasterRequest
         }
         return [
             'employee_id' => $rule,
-            'role_id' => 'required|exists:roles,id',
             'password_change' => 'required|boolean',
             'password' => 'nullable|required_if:password_change,true|confirmed|min:6|max:225',
             'is_login_code' => 'required|boolean',
@@ -61,6 +60,10 @@ class AdminRequest extends ApiMasterRequest
             'is_ban_always' => 'nullable|required_if:is_ban,true|boolean',
             'ban_from' => 'nullable|required_if:is_ban_always,false|date',
             'ban_to' => 'nullable|required_if:is_ban_always,false|date',
+            'group_list' => 'required_without:permission_list|array|min:1',
+            'group_list.*' => 'required_without:permission_list|exists:groups,id,is_active,1',
+            'permission_list' => 'required_without:group_list|array|min:1',
+            'permission_list.*' => 'required_without:group_list|exists:permissions,id',
         ];
     }
 }

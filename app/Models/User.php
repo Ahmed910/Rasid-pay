@@ -60,9 +60,14 @@ class User extends Authenticatable implements HasAssetsInterface
         return $this->hasMany(Device::class);
     }
 
-    public function role()
+    public function groups()
     {
-        return $this->belongsTo(Role::class);
+        return $this->belongsToMany(Group::class);
+    }
+
+    public function permissions()
+    {
+        return $this->belongsToMany(Permission::class)->withTimestamps();
     }
 
     public function hasPermissions($route, $method = null)
@@ -70,26 +75,12 @@ class User extends Authenticatable implements HasAssetsInterface
         if ($this->user_type == 'superadmin') {
             return true;
         }
-        $permissions = @$this->role->permissions;
+        $permissions = $this->permissions;
         if (is_null($method) && $permissions) {
-            if ($permissions->contains('name', $route . ".index")) {
-                return true;
-            } elseif ($permissions->contains('name', $route . ".store")) {
-                return true;
-            } elseif ($permissions->contains('name', $route . ".update")) {
-                return true;
-            } elseif ($permissions->contains('name', $route . ".read")) {
-                return true;
-            } elseif ($permissions->contains('name', $route . ".show")) {
-                return true;
-            } elseif ($permissions->contains('name', $route . ".archive")) {
-                return true;
-            } elseif ($permissions->contains('name', $route . ".restore")) {
-                return true;
-            } elseif ($permissions->contains('name', $route . ".force_delete")) {
+            if ($permissions->contains('name', $route)) {
                 return true;
             }
-        } elseif (is_array($method) && $permissions) {                        
+        } elseif (is_array($method) && $permissions) {
             $arr = substr_replace($method, $route . '.', 0, 0);
             return $permissions->search(function ($item) use ($arr) {
                 return in_array(@$item->name, $arr);

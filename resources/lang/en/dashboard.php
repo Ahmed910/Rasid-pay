@@ -20,7 +20,7 @@ return [
         "show" => "Show",
         "archive" => "",
         "restore" => "",
-        "force_delete" => "",        
+        "force_delete" => "",
         'sent_successfully' => 'Sent Successfully',
     ],
     'error' => [
@@ -38,6 +38,14 @@ return [
         "edit_country" => "Edit Country",
         "country_count" => "Countries Count",
         'permissions' => $permissions
+    ],
+    "group" => [
+        "group" => "Admin group",
+        "groups" => "Admin groups",
+        "add_group" => "Add a group",
+        "edit_group" => "",
+        "group_count" => "",
+        'permissions' => array_except($permissions,['archive','restore','force_delete']) + ['hold' => 'Hold']
     ],
     "currency" => [
         "currency" => "Currency",

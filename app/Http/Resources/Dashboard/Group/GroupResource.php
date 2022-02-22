@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Http\Resources\Dashboard\Role;
+namespace App\Http\Resources\Dashboard\Group;
 
 use App\Http\Resources\Dashboard\GlobalTransResource;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class RoleResource extends JsonResource
+class GroupResource extends JsonResource
 {
     /**
      * Transform the resource into an array.

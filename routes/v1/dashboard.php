@@ -24,8 +24,9 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('logout', "AuthController@logout");
     Route::apiResource('notifications','NotificationController')->except('store');
     Route::apiResource('menus','MenuController');
+    Route::get('permissions','GroupController@permissions');
 
-    Route::controller('ProfileController')->name('profile.')->prefix('profile')->group(function () {
+    Route::controller('ProfileController')->name('profiles.')->prefix('profile')->group(function () {
         Route::get('show', 'show')->name('show');
         Route::post('update', 'update')->name('update');
         Route::post('change_password', 'changePassword')->name('change_password');
@@ -35,47 +36,47 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::controller('CountryController')->name('countries.')->prefix('countries')->group(function () {
             Route::get('archive', 'archive')->name('archive');
             Route::post('restore/{id}', 'restore')->name('restore');
-            Route::delete('forceDelete/{id}', 'forceDelete')->name('forceDelete');
+            Route::delete('forceDelete/{id}', 'forceDelete')->name('force_delete');
         });
 
-        Route::controller('CurrencyController')->prefix('currencies')->group(function () {
+        Route::controller('CurrencyController')->name('currencies.')->prefix('currencies')->group(function () {
             Route::get('archive', 'archive')->name('archive');
             Route::post('restore/{id}', 'restore')->name('restore');
-            Route::delete('forceDelete/{id}', 'forceDelete')->name('forceDelete');
+            Route::delete('forceDelete/{id}', 'forceDelete')->name('force_delete');
         });
 
         Route::controller('CityController')->name('cities.')->prefix('cities')->group(function () {
             Route::get('archive', 'archive')->name('archive');
             Route::post('restore/{id}', 'restore')->name('restore');
-            Route::delete('forceDelete/{id}', 'forceDelete')->name('forceDelete');
+            Route::delete('forceDelete/{id}', 'forceDelete')->name('force_delete');
         });
 
         Route::controller('RegionController')->name('regions.')->prefix('regions')->group(function () {
             Route::get('archive', 'archive')->name('archive');
             Route::post('restore/{id}', 'restore')->name('restore');
-            Route::delete('forceDelete/{id}', 'forceDelete')->name('forceDelete');
+            Route::delete('forceDelete/{id}', 'forceDelete')->name('force_delete');
         });
         Route::controller('AdminController')->name('admins.')->prefix('admins')->group(function () {
             Route::get('archive', 'archive')->name('archive');
             Route::post('restore/{id}', 'restore')->name('restore');
-            Route::delete('forceDelete/{id}', 'forceDelete')->name('forceDelete');
+            Route::delete('forceDelete/{id}', 'forceDelete')->name('force_delete');
         });
 
         Route::controller('DepartmentController')->name('departments.')->prefix('departments')->group(function () {
             Route::get('archive', 'archive')->name('archive');
             Route::post('restore/{id}', 'restore')->name('restore');
-            Route::delete('forceDelete/{id}', 'forceDelete')->name('forceDelete');
+            Route::delete('forceDelete/{id}', 'forceDelete')->name('force_delete');
         });
         Route::controller('CustomerController')->name('customers.')->prefix('customers')->group(function () {
-            Route::delete('forceDelete/{id}', 'forceDestroy')->name('forceDelete');
+            Route::delete('forceDelete/{id}', 'forceDestroy')->name('force_delete');
             Route::get('archive/get', 'archive')->name('archive');
             Route::post('restore/{id}', 'restore')->name('restore');
         });
 
-        Route::controller('RasidJobController')->name('rasidjobs.')->prefix('rasid_jobs')->group(function () {
+        Route::controller('RasidJobController')->name('rasid_jobs.')->prefix('rasid_jobs')->group(function () {
             Route::get('archive', 'archive')->name('archive');
             Route::post('restore/{id}', 'restore')->name('restore');
-            Route::delete('forceDelete/{id}', 'forceDelete')->name('forceDelete');
+            Route::delete('forceDelete/{id}', 'forceDelete')->name('force_delete');
         });
 
         Route::controller('NotificationController')->name('notifications.')->prefix('notifications')->group(function () {
@@ -86,18 +87,19 @@ Route::middleware('auth:sanctum')->group(function () {
             Route::put('ban/{employee}', 'ban')->name('ban');
         });
 
-        Route::resources([
+        Route::apiResources([
             'countries' => 'CountryController',
             'currencies' => 'CurrencyController',
             "departments" => "DepartmentController",
             "cities" => "CityController",
             "regions" => "RegionController",
-            'roles' => 'RoleController',
             'admins' => 'AdminController',
             'employees' => 'EmployeeController',
             'customers' => 'CustomerController',
             'rasid_jobs' => 'RasidJobController',
             'settings' => 'SettingController',
         ]);
+
+        Route::resource('groups' , 'GroupController')->except('edit');
     });
 });
