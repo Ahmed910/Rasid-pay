@@ -90,10 +90,10 @@ class ClientController extends Controller
      * @param int $id
      * @return \Illuminate\Http\Response
      */
-    public function update(ClientRequest $request, User $customer)
+    public function update(ClientRequest $request, User $client)
     {
-        $customer->fill($request->validated())->save();
-        return ClientResource::make($customer)->additional([
+        $client->fill($request->validated())->save();
+        return ClientResource::make($client)->additional([
             'status' => true, 'message' => trans("dashboard.general.success_update")
         ]);
     }
@@ -128,17 +128,7 @@ class ClientController extends Controller
             ]);
     }
 
-    public function suspend($id)
-    {
-        $user = User::findorfail($id);
-        $user->update(["is_admin_active_user" => 0]);
 
-        return ClientResource::make($user)
-            ->additional([
-                'status' => true,
-                'message' => trans('dashboard.general.success_suspend'),
-            ]);
-    }
 
     public function restore($id)
     {
