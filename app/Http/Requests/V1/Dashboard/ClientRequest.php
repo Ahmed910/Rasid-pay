@@ -4,7 +4,7 @@ namespace App\Http\Requests\V1\Dashboard;
 
 use App\Http\Requests\ApiMasterRequest;
 
-class CustomerRequest extends ApiMasterRequest
+class ClientRequest extends ApiMasterRequest
 {
     /**
      * Determine if the user is authorized to make this request.
