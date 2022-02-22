@@ -28,8 +28,8 @@ class CreateDepartmentsTable extends Migration
             $table->uuid('id')->primary();
             $table->foreignUuid('department_id')->constrained('departments')->onDelete('cascade');
             $table->string('locale')->index();
-            $table->string('name');
-            $table->text('description');
+            $table->string('name',100);
+            $table->text('description')->nullable();
 
             $table->unique(['department_id', 'locale']);
         });
