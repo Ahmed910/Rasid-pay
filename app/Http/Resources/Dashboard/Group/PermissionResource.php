@@ -17,7 +17,7 @@ class PermissionResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'name' => trans('dashboard.'.str_before($this->name,'.') . '.permissions.'.str_after($this->name,'.'),
+            'name' => trans('dashboard.'.str_before($this->name,'.') . '.permissions.'.str_after($this->name,'.')),
             'uri' => $this->name,
             'created_at' => $this->created_at,
         ];

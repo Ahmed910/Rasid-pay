@@ -8,7 +8,7 @@ class CreatePermissionGroupTable extends Migration
 {
     public function up()
     {
-        Schema::create('permission_group', function (Blueprint $table) {
+        Schema::create('group_permission', function (Blueprint $table) {
             $table->foreignUuid("group_id")->constrained()->onDelete('cascade');
             $table->foreignUuid("permission_id")->constrained()->onDelete('cascade');
             $table->primary(['group_id', 'permission_id']);
@@ -17,6 +17,6 @@ class CreatePermissionGroupTable extends Migration
 
     public function down()
     {
-        Schema::dropIfExists('permission_group');
+        Schema::dropIfExists('group_permission');
     }
 }
