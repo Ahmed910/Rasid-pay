@@ -30,7 +30,6 @@ class UserResource extends JsonResource
             'country' => CountryResource::make($this->whenLoaded('country')),
             'user_type' => $this->when(request()->is('*/admins/*') && !request()->is('*/admins/archive'), $this->user_type),
             'client_type' => $this->when(request()->is('*/admins/*') && !request()->is('*/admins/archive'), $this->client_type),
-            'is_admin_active_user' => $this->when(request()->is('*/admins/*') && !request()->is('*/admins/archive'), $this->is_admin_active_user),
             'ban_reason' => $this->when(request()->is('*/admins/*') && !request()->is('*/admins/archive'), $this->ban_reason),
             'identity_number' => $this->when(request()->is('*/admins/*') && !request()->is('*/admins/archive'), $this->identity_number),
             'register_status' => $this->when(request()->is('*/admins/*') && !request()->is('*/admins/archive'), $this->register_status),

@@ -25,8 +25,7 @@ class CreateUsersTable extends Migration
             $table->boolean('is_password_changed')->default(false)->comment('check if user changed password for first time');
             $table->boolean('is_login_code')->default(false)->comment('send verification code every time login');
             $table->boolean('is_active')->default(false)->comment('check phone first time');
-            $table->boolean('is_admin_active_user')->default(false)->comment('delete user');
-            $table->boolean('is_ban')->default(false)->nullable()->comment('change status to ban');
+            $table->boolean('is_ban')->default(false)->comment('change status to ban');
             $table->text('ban_reason')->nullable();
             $table->boolean('is_ban_always')->nullable()->comment('1=always,0=period');
             $table->date('ban_from')->nullable();
@@ -35,13 +34,13 @@ class CreateUsersTable extends Migration
             $table->string('verified_code')->nullable();
             $table->string('identity_number')->nullable();
             $table->enum('register_status', ['pending', 'inprogress', 'completed'])->default('pending');
-            $table->enum('user_type', ['employee', 'admin', 'superadmin', 'client'])->nullable();
+            $table->enum('user_type', ['employee', 'admin', 'superadmin', 'client']);
             $table->enum('client_type', ['company', 'Institution', 'member', 'freelance_doc', 'famous', 'other'])->nullable();
             $table->enum('gender', ['male', 'female'])->nullable();
             $table->float('rate_avg', 5, 2)->default(0);
             $table->date('date_of_birth')->nullable();
             $table->date('date_of_birth_hijri')->nullable();
-            $table->boolean('is_date_hijri')->default(false);
+            $table->boolean('is_date_hijri')->default(false)->comment('1 if user want to show hijri date');
             $table->rememberToken();
             $table->softDeletes();
             $table->timestamps();
