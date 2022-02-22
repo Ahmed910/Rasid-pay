@@ -14,7 +14,7 @@ class MenuCollection extends ResourceCollection
      */
     public function toArray($request)
     {
-        $permissions = @auth()->user()->role->permissions->map(function($item){
+        $permissions = @auth()->user()->permissions->map(function($item){
             $action = explode('.',$item->name);
             $data['uri'] = $action[0];
             $data['action'] = $action[1];

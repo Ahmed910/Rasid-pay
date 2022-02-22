@@ -4,7 +4,7 @@ namespace App\Http\Middleware;
 use Closure;
 use Illuminate\Support\Str;
 
-class AdminMiddleware 
+class AdminMiddleware
 {
     /**
      * Handle an incoming request.
@@ -27,29 +27,15 @@ class AdminMiddleware
             'dashboard.menus.show',
             'dashboard.menus.destroy',
         ];
-        if (auth()->check() && auth()->user()->user_type == 'superadmin')
-        {
+        if (auth()->check() && auth()->user()->user_type == 'superadmin'){
             return $next($request);
-        }elseif (auth()->check() && auth()->user()->role()->exists() && auth()->user()->user_type == 'admin'){
-            if (auth()->user()->hasPermissions(Str::beforeLast($request->route()->getName(),'.') , $request->route()->getActionMethod()) || in_array($request->route()->getName(),$public_routes)){
-                return $next($request);
-            }elseif (auth()->user()->hasPermissions(Str::beforeLast($request->route()->getName(),'.') , 'update') && ($request->route()->getActionMethod() == 'index' || $request->route()->getActionMethod() == 'edit')){
-                return $next($request);
-            }elseif (auth()->user()->hasPermissions(Str::beforeLast($request->route()->getName(),'.') , 'destroy') && ($request->route()->getActionMethod() == 'destroy' || $request->route()->getActionMethod() == 'index')){
-                return $next($request);
-            }elseif (auth()->user()->hasPermissions(Str::beforeLast($request->route()->getName(),'.') , 'index') && $request->route()->getActionMethod() == 'show'){
-                return $next($request);
-            }elseif (auth()->user()->hasPermissions(Str::beforeLast($request->route()->getName(),'.') , 'store') && $request->route()->getActionMethod() == 'create'){
-                return $next($request);
-            }elseif (auth()->user()->hasPermissions(Str::beforeLast($request->route()->getName(),'.') , 'archive') && $request->route()->getActionMethod() == 'archive'){
-                return $next($request);
-            }elseif ($request->is(app()->getLocale() . "/dashboard/search")){
+        }elseif (auth()->check() && auth()->user()->permissions()->exists() && auth()->user()->user_type == 'admin'){
+            if (auth()->user()->hasPermissions(Str::after($request->route()->getName(),'.')) || in_array($request->route()->getName(),$public_routes)){
                 return $next($request);
             }else{
-               return response()->json(['status' => false , 'message' => trans('dashboard.error.403_msg'), 'data' => null]);
+               return response()->json(['status' => false , 'message' => trans('dashboard.error.403_msg'), 'data' => null],403);
             }
-            return $next($request);
         }
-        return response()->json(['status' => false , 'message' => trans('dashboard.messages.login_firstly'), 'data' => null]);
+        return response()->json(['status' => false , 'message' => trans('dashboard.messages.login_firstly'), 'data' => null],401);
     }
 }

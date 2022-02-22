@@ -5,7 +5,7 @@ namespace App\Http\Requests\V1\Dashboard;
 use App\Http\Requests\ApiMasterRequest;
 use function config;
 
-class RoleRequest extends ApiMasterRequest
+class GroupRequest extends ApiMasterRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -31,10 +31,9 @@ class RoleRequest extends ApiMasterRequest
         ];
 
         foreach (config('translatable.locales') as $locale) {
-            $rules[$locale.".name"] = 'required|string|between:2,100|unique:role_translations,name,' . @$this->role->id . ',role_id';
+            $rules[$locale.".name"] = 'required|string|between:2,100|unique:group_translations,name,' . @$this->group->id . ',group_id';
             $rules[$locale.'.desc'] = 'nullable|string|between:3,100000';
         }
         return $rules;
     }
 }
-

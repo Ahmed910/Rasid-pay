@@ -2,7 +2,7 @@
 
 namespace App\Http\Resources\Dashboard;
 
-use App\Http\Resources\Dashboard\Role\RoleResource;
+use App\Http\Resources\Dashboard\Group\GroupResource;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class UserResource extends JsonResource
@@ -30,7 +30,7 @@ class UserResource extends JsonResource
             'is_date_hijri' => (bool)$this->is_date_hijri,
             'department' => DepartmentResource::make($this->whenLoaded('department')),
             'added_by_id' => SimpleUserResource::make($this->whenLoaded('addedBy')),
-            'role' => RoleResource::make($this->whenLoaded('role')),
+            'groups' => GroupResource::collection($this->whenLoaded('groups')),
             'country' => CountryResource::make($this->whenLoaded('country')),
             'user_type' => $this->when(request()->is('*/admins/*') && !request()->is('*/admins/archive'), $this->user_type),
             'client_type' => $this->when(request()->is('*/admins/*') && !request()->is('*/admins/archive'), $this->client_type),

@@ -1,11 +1,12 @@
 <?php
 
-namespace App\Http\Resources\Dashboard\Role;
+namespace App\Http\Resources\Dashboard\Departments;
 
 use App\Http\Resources\Dashboard\GlobalTransResource;
+use App\Http\Resources\Dashboard\ImagesResource;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class RoleResource extends JsonResource
+class DepartmentResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -18,10 +19,10 @@ class RoleResource extends JsonResource
         return [
             'id' => $this->id,
             'name' => $this->name,
-            'is_active' => (bool)$this->is_active,
-            'admins_count' => $this->admins->count(),
-            'translations' => $this->when(!in_array($request->route()->getActionMethod(),['index','archive']),GlobalTransResource::collection($this->whenLoaded('translations'))),
+            'parent' => $this->parent->translations()->where('locale', app()->getLocale())->first()->name,
+            'is_active' => $this->is_active,
             'created_at' => $this->created_at,
+            "images"    => ImagesResource::collection($this->whenLoaded("images"))
         ];
     }
 }

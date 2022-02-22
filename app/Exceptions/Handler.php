@@ -2,7 +2,6 @@
 
 namespace App\Exceptions;
 
-use Error;
 use Illuminate\Auth\AuthenticationException;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
@@ -69,7 +68,7 @@ class Handler extends ExceptionHandler
                         'message' => trans('auth.throttle', ['seconds' => @$throwable->getHeaders()['Retry-After']], $request->header('accept-language')),
                         'data' => null
                     ], 429);
-               
+
                 case $throwable instanceof MethodNotAllowedHttpException:
                     return response()->json([
                         'status' => false,
@@ -77,16 +76,16 @@ class Handler extends ExceptionHandler
                         'data' => null
                     ], 405);
 
-                case $throwable instanceof Error:
+                case $throwable instanceof \Error || $throwable instanceof \ErrorException || $throwable instanceof \BadMethodCallException:
                     return response()->json([
                         'status' => false,
                         'message' => $throwable->getMessage() . " in " . $throwable->getFile(). " at line " .$throwable->getLine(),
                         'data' => null
                     ], 500);
-                
+
             }
         }
-        
+
         return parent::render($request, $throwable);
     }
 }

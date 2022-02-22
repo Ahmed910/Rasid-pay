@@ -1,10 +1,11 @@
 <?php
 
-namespace App\Http\Resources\Dashboard;
+namespace App\Http\Resources\Dashboard\Permission;
 
+use App\Http\Resources\Dashboard\GlobalTransResource;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class DepartmentResource extends JsonResource
+class PermissionResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -16,10 +17,9 @@ class DepartmentResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'translations' => GlobalTransResource::collection($this->whenLoaded('translations')),
-            'is_active' => $this->is_active,
+            'name' => trans('dashboard.'.str_before($this->name,'.') . '.permissions.'.str_after($this->name,'.'),
+            'uri' => $this->name,
             'created_at' => $this->created_at,
-            "images"    => ImagesResource::collection($this->whenLoaded("images"))
         ];
     }
 }
