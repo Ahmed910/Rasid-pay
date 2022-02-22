@@ -22,6 +22,8 @@ return [
         "restore" => "",
         "force_delete" => "",
         'sent_successfully' => 'Sent Successfully',
+        'success_suspend' => 'Suspended Successfully',
+
     ],
     'error' => [
         'method_not_allow' => 'Http method (:method) not allowed',

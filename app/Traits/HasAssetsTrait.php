@@ -31,7 +31,7 @@ trait HasAssetsTrait
         if (!empty($old) && $request->hasFile("$key")) {
             $old->forceDelete();
             $path = Str::replace("/storage", "", $old->media);
-            Storage::delete($path);
+            Storage::disk('public')->delete($path);
         }
 
         if ($new && is_file($new)) {
@@ -57,7 +57,7 @@ trait HasAssetsTrait
                 if (property_exists($model, $propertyName))
                     $path = Str::replace($pathName, "", $media);
 
-                Storage::delete($path);
+                Storage::disk('public')->delete($path);
 
                 $model->images()->whereOption($key)->forceDelete();
             }
