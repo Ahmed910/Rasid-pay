@@ -24,7 +24,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('logout', "AuthController@logout");
     Route::apiResource('notifications', 'NotificationController')->except('store');
     Route::apiResource('menus', 'MenuController');
-    Route::get('permissions','GroupController@permissions');
+    Route::get('permissions', 'GroupController@permissions');
 
     Route::controller('ProfileController')->name('profiles.')->prefix('profile')->group(function () {
         Route::get('show', 'show')->name('show');
@@ -98,6 +98,6 @@ Route::middleware('auth:sanctum')->group(function () {
             'settings' => 'SettingController',
         ]);
 
-        Route::resource('groups' , 'GroupController')->except('edit');
+        Route::resource('groups', 'GroupController')->except('edit');
     });
 });
