@@ -126,7 +126,6 @@ class User extends Authenticatable implements HasAssetsInterface
             $this->attributes['is_ban_always'] = null;
             $this->attributes['ban_from'] = null;
             $this->attributes['ban_to'] = null;
-            $this->attributes['is_ban'] = null;
         }
     }
 
@@ -169,6 +168,4 @@ class User extends Authenticatable implements HasAssetsInterface
             $query->where('is_active', $request->is_active);
         }
     }
-
-
 }
