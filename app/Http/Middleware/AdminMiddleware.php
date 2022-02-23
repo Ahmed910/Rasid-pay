@@ -16,17 +16,18 @@ class AdminMiddleware
     public function handle($request, Closure $next)
     {
         $public_routes = [
-            'dashboard.notifications.index' ,
-            'dashboard.notifications.show' ,
-            'dashboard.notifications.delete' ,
-            'dashboard.profiles.show',
-            'dashboard.profiles.update',
-            'dashboard.profiles.change_password',
-            'dashboard.menus.index',
-            'dashboard.menus.store',
-            'dashboard.menus.show',
-            'dashboard.menus.destroy',
+            'notifications.index',
+            'notifications.show',
+            'notifications.delete',
+            'profiles.show',
+            'profiles.update',
+            'profiles.change_password',
+            'menus.index',
+            'menus.store',
+            'menus.show',
+            'menus.destroy',
         ];
+
         if (auth()->check() && auth()->user()->user_type == 'superadmin'){
             return $next($request);
         }elseif (auth()->check() && auth()->user()->permissions()->exists() && auth()->user()->user_type == 'admin'){
