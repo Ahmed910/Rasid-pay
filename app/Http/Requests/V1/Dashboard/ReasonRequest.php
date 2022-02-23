@@ -4,7 +4,7 @@ namespace App\Http\Requests\V1\Dashboard;
 
 use App\Http\Requests\ApiMasterRequest;
 
-class RegionRequest extends ApiMasterRequest
+class ReasonRequest extends ApiMasterRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -23,14 +23,8 @@ class RegionRequest extends ApiMasterRequest
      */
     public function rules()
     {
-
-        $rules = [
-            "country_id" => ["required", "exists:countries,id"],
+        return [
+            "reason" =>["required","string" ,"max:255" ,"min:10"]
         ];
-        foreach (config('translatable.locales') as $locale) {
-            $rules["$locale.name"] = "required|max:255|string|unique:region_translations,name," . @$this->region->id . ',region_id';
-        }
-        return $rules;
     }
-
 }
