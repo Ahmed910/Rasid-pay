@@ -57,7 +57,6 @@ class AdminRequest extends ApiMasterRequest
         }
         return [
             'employee_id' => $ruleEmployee,
-            'role_id' => 'required|exists:roles,id',
             'password_change' => $rulePassChanged,
             'password' => 'nullable|required_if:password_change,true|confirmed|min:6|max:225',
             'is_login_code' => 'required|boolean',

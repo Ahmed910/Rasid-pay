@@ -25,9 +25,8 @@ class GroupRequest extends ApiMasterRequest
     public function rules()
     {
         $rules =  [
-            'permissions'=>'required|array',
-            'permissions.*'=>'required|array',
-            'permissions.*.name'=>'required|string'
+            'permission_list'=>'required|array',
+            'permission_list.*'=>'required|string|exists:permissions,id'
         ];
 
         foreach (config('translatable.locales') as $locale) {

@@ -46,7 +46,7 @@ class AdminController extends Controller
 
     public function store(AdminRequest $request)
     {
-        $admin = User::updateOrCreate(['id' => $request->employee_id], ['user_type' => 'admin', 'role_id' => $request->role_id, 'password' => $request->password, 'added_by_id' => auth()->id(), 'is_login_code' => $request->is_login_code]);
+        $admin = User::updateOrCreate(['id' => $request->employee_id], ['user_type' => 'admin', 'password' => $request->password, 'added_by_id' => auth()->id(), 'is_login_code' => $request->is_login_code]);
         //TODO::send sms with password
         $permissions = $request->permission_list;
         if($request->group_list){
@@ -85,6 +85,11 @@ class AdminController extends Controller
 
         //TODO::send sms with password
         // if($request->('password_change'))
+        $permissions = $request->permission_list;
+        if($request->group_list){
+            $permissions[] = Group::find($request->group_list)->pluck('permissions')->pluck('id')->unique()->toArray();
+        }
+        $admin->permissions()->sync($permissions);
 
         return UserResource::make($admin)
             ->additional([
