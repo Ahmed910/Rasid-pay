@@ -18,8 +18,8 @@ class RegionResource extends JsonResource
             'id' => $this->id,
             'translations' => GlobalTransResource::collection($this->whenLoaded('translations')),
             'name' => $this->name,
-            'country'=> CurrencyResource::make($this->whenLoaded('country')),
-            'cities'=> CurrencyResource::make($this->whenLoaded('cities')),
+            'country' => CountryResource::make($this->whenLoaded('country')),
+            'cities' => CityResource::collection($this->whenLoaded('cities')),
             'created_at' => $this->created_at,
         ];
     }
