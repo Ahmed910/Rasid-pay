@@ -25,7 +25,6 @@ class ClientResource extends JsonResource
             'is_active' => $this->is_active,
             'is_ban' => $this->is_ban,
             'added_by_id' => SimpleUserResource::make($this->whenLoaded('addedBy')),
-            'role' => RoleResource::make($this->whenLoaded('role')),
             'country' => CountryResource::make($this->whenLoaded('country')),
             'user_type' => $this->when(request()->is('*/clients/*'), $this->user_type),
             'client_type' => $this->client_type,

@@ -7,6 +7,8 @@ use App\Http\Requests\V1\Dashboard\CurrencyRequest;
 use App\Http\Resources\Dashboard\CurrencyResource;
 use App\Models\Currency\Currency;
 use Illuminate\Http\Request;
+use App\Http\Requests\V1\Dashboard\ReasonRequest;
+
 
 class CurrencyController extends Controller
 {
@@ -56,7 +58,6 @@ class CurrencyController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function show($id)
-
     {
         $currency = Currency::withTrashed()->findOrFail($id);
 
@@ -83,9 +84,8 @@ class CurrencyController extends Controller
             ]);;
     }
 
-    public function destroy(Request $request,Currency $currency)
+    public function destroy(ReasonRequest $request, Currency $currency)
     {
-        dd($currency);
         if ($currency->countries()->exists()) {
             return response()->json([
                 'status' => false,
@@ -103,7 +103,7 @@ class CurrencyController extends Controller
     }
 
 
-    public function restore($id)
+    public function restore(ReasonRequest $request, $id)
     {
 
         $currency = Currency::onlyTrashed()->findOrFail($id);
@@ -119,9 +119,10 @@ class CurrencyController extends Controller
     }
 
 
-    public function forceDelete($id)
+    public function forceDelete(ReasonRequest $request, $id)
     {
         $currency = Currency::onlyTrashed()->findOrFail($id);
+
         $currency->forceDelete();
 
         return CurrencyResource::make($currency)

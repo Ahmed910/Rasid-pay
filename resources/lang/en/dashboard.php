@@ -18,11 +18,10 @@ return [
         "save" => "Save",
         "edit" => "Edit",
         "show" => "Show",
-        "archive" => "",
-        "restore" => "",
-        "force_delete" => "",
+        "archive" => "Archive",
+        "restore" => "Restore",
+        "force_delete" => "Permanent Delete",
         'sent_successfully' => 'Sent Successfully',
-        'success_suspend' => 'Suspended Successfully',
 
     ],
     'error' => [
