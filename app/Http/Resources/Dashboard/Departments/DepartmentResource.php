@@ -1,7 +1,9 @@
 <?php
 
-namespace App\Http\Resources\Dashboard;
+namespace App\Http\Resources\Dashboard\Departments;
 
+use App\Http\Resources\Dashboard\GlobalTransResource;
+use App\Http\Resources\Dashboard\ImagesResource;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class DepartmentResource extends JsonResource
@@ -16,9 +18,11 @@ class DepartmentResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'translations' => GlobalTransResource::collection($this->whenLoaded('translations')),
+            'name' => $this->name,
+            'parent' => $this->parent?->translations()->where('locale', app()->getLocale())->first()->name,
             'is_active' => $this->is_active,
             'created_at' => $this->created_at,
+            'translations' => GlobalTransResource::collection($this->whenLoaded('translations')),
             "images"    => ImagesResource::collection($this->whenLoaded("images"))
         ];
     }

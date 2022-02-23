@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources\Dashboard;
 
+use App\Http\Resources\Dashboard\Departments\DepartmentResource;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class RasidJobResource extends JsonResource

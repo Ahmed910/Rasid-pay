@@ -18,10 +18,11 @@ return [
         "save" => "Save",
         "edit" => "Edit",
         "show" => "Show",
-        "archive" => "",
-        "restore" => "",
-        "force_delete" => "",        
+        "archive" => "Archive",
+        "restore" => "Restore",
+        "force_delete" => "Permanent Delete",
         'sent_successfully' => 'Sent Successfully',
+
     ],
     'error' => [
         'method_not_allow' => 'Http method (:method) not allowed',
@@ -38,6 +39,14 @@ return [
         "edit_country" => "Edit Country",
         "country_count" => "Countries Count",
         'permissions' => $permissions
+    ],
+    "group" => [
+        "group" => "Admin group",
+        "groups" => "Admin groups",
+        "add_group" => "Add a group",
+        "edit_group" => "",
+        "group_count" => "",
+        'permissions' => array_except($permissions,['archive','restore','force_delete']) + ['hold' => 'Hold']
     ],
     "currency" => [
         "currency" => "Currency",

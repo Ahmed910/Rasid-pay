@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\Api\V1\Dashboard;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\V1\Dashboard\ReasonRequest;
 use App\Http\Requests\V1\Dashboard\RegionRequest;
-use App\Http\Resources\Dashboard\CountryResource;
 use App\Http\Resources\Dashboard\RegionResource;
 use App\Models\Region\Region;
 use Illuminate\Http\Request;
@@ -66,10 +66,11 @@ class RegionController extends Controller
      * @param int $id
      * @return RegionResource
      */
-    public function show($id)
+    public function show( $id)
     {
         $region = Region::withTrashed()->findOrFail($id);
-        return RegionResource::make($region)->additional(['status' => true, 'message' => ""]);
+        $relations  = ['translations'];
+     return RegionResource::make($region->load($relations))->additional(['status' => true, 'message' => ""]);
     }
 
     public function edit($id)
@@ -99,8 +100,9 @@ class RegionController extends Controller
      * @param int $id
      * @return \Illuminate\Http\JsonResponse
      */
-    public function destroy(Region $region)
+    public function destroy(ReasonRequest $request,Region $region)
     {
+
         if ($region->cities()->exists()) {
             return response()->json([
                 'status' => false,
@@ -116,7 +118,7 @@ class RegionController extends Controller
             ]);
     }
 
-    public function forceDelete($id)
+    public function forceDelete(ReasonRequest $request , $id)
     {
         $region = Region::onlyTrashed()->findOrFail($id);
 
@@ -130,12 +132,12 @@ class RegionController extends Controller
 
     }
 
-    public function restore($id)
+    public function restore(ReasonRequest  $reasonRequest , $id)
     {
         $region = Region::onlyTrashed()->findOrFail($id);
         $region->restore();
 
-        return CountryResource::make($region)
+        return RegionResource::make($region)
             ->additional([
                 'status' => true,
                 'message' => trans('dashboard.general.success_restore'),

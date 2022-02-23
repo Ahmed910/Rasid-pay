@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Models\Role;
+namespace App\Models\Group;
 
 use App\Traits\Uuid;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class RoleTranslation extends Model
+class GroupTranslation extends Model
 {
     use HasFactory, Uuid;
 

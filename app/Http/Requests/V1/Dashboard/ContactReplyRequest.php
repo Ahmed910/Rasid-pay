@@ -4,7 +4,7 @@ namespace App\Http\Requests\V1\Dashboard;
 
 use App\Http\Requests\ApiMasterRequest;
 
-class RegionRequest extends ApiMasterRequest
+class ContactReplyRequest extends ApiMasterRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -16,6 +16,7 @@ class RegionRequest extends ApiMasterRequest
         return true;
     }
 
+
     /**
      * Get the validation rules that apply to the request.
      *
@@ -23,14 +24,10 @@ class RegionRequest extends ApiMasterRequest
      */
     public function rules()
     {
-
-        $rules = [
-            "country_id" => ["required", "exists:countries,id"],
+        return [
+            "contact_id" => ["required", "exists:contacts,id"],
+            "admin_id" => ["required", "exists:users,id"],
+            "reply" => ["required", "string"],
         ];
-        foreach (config('translatable.locales') as $locale) {
-            $rules["$locale.name"] = "required|max:255|string|unique:region_translations,name," . @$this->region->id . ',region_id';
-        }
-        return $rules;
     }
-
 }

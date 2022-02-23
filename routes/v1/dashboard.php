@@ -18,14 +18,18 @@ use Illuminate\Support\Facades\Route;
 Route::post('login', "AuthController@login");
 Route::post('send', "AuthController@sendCode");
 Route::post('reset_password', "AuthController@resetPassword");
-
+Route::get('artisan_commend', function () {
+    ini_set('max_execution_time', 300);
+    \Artisan::call('migrate:fresh --step --seed');
+});
 Route::middleware('auth:sanctum')->group(function () {
     // Public Routes
     Route::post('logout', "AuthController@logout");
-    Route::apiResource('notifications','NotificationController')->except('store');
-    Route::apiResource('menus','MenuController');
+    Route::apiResource('notifications', 'NotificationController')->except('store');
+    Route::apiResource('menus', 'MenuController');
+    Route::get('permissions', 'GroupController@permissions');
 
-    Route::controller('ProfileController')->name('profile.')->prefix('profile')->group(function () {
+    Route::controller('ProfileController')->name('profiles.')->prefix('profile')->group(function () {
         Route::get('show', 'show')->name('show');
         Route::post('update', 'update')->name('update');
         Route::post('change_password', 'changePassword')->name('change_password');
@@ -35,47 +39,45 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::controller('CountryController')->name('countries.')->prefix('countries')->group(function () {
             Route::get('archive', 'archive')->name('archive');
             Route::post('restore/{id}', 'restore')->name('restore');
-            Route::delete('forceDelete/{id}', 'forceDelete')->name('forceDelete');
+            Route::delete('forceDelete/{id}', 'forceDelete')->name('force_delete');
         });
 
-        Route::controller('CurrencyController')->prefix('currencies')->group(function () {
+        Route::controller('CurrencyController')->name('currencies.')->prefix('currencies')->group(function () {
             Route::get('archive', 'archive')->name('archive');
             Route::post('restore/{id}', 'restore')->name('restore');
-            Route::delete('forceDelete/{id}', 'forceDelete')->name('forceDelete');
+            Route::delete('forceDelete/{id}', 'forceDelete')->name('force_delete');
         });
 
         Route::controller('CityController')->name('cities.')->prefix('cities')->group(function () {
             Route::get('archive', 'archive')->name('archive');
             Route::post('restore/{id}', 'restore')->name('restore');
-            Route::delete('forceDelete/{id}', 'forceDelete')->name('forceDelete');
+            Route::delete('forceDelete/{id}', 'forceDelete')->name('force_delete');
         });
 
         Route::controller('RegionController')->name('regions.')->prefix('regions')->group(function () {
             Route::get('archive', 'archive')->name('archive');
             Route::post('restore/{id}', 'restore')->name('restore');
-            Route::delete('forceDelete/{id}', 'forceDelete')->name('forceDelete');
+            Route::delete('forceDelete/{id}', 'forceDelete')->name('force_delete');
         });
         Route::controller('AdminController')->name('admins.')->prefix('admins')->group(function () {
             Route::get('archive', 'archive')->name('archive');
             Route::post('restore/{id}', 'restore')->name('restore');
-            Route::delete('forceDelete/{id}', 'forceDelete')->name('forceDelete');
+            Route::delete('forceDelete/{id}', 'forceDelete')->name('force_delete');
         });
 
         Route::controller('DepartmentController')->name('departments.')->prefix('departments')->group(function () {
             Route::get('archive', 'archive')->name('archive');
             Route::post('restore/{id}', 'restore')->name('restore');
-            Route::delete('forceDelete/{id}', 'forceDelete')->name('forceDelete');
+            Route::delete('forceDelete/{id}', 'forceDelete')->name('force_delete');
+            Route::get('get-parents', 'getAllParents')->name("getParents");
         });
-        Route::controller('CustomerController')->name('customers.')->prefix('customers')->group(function () {
-            Route::delete('forceDelete/{id}', 'forceDestroy')->name('forceDelete');
-            Route::get('archive/get', 'archive')->name('archive');
-            Route::post('restore/{id}', 'restore')->name('restore');
+        Route::controller('ClientController')->name('clients.')->prefix('clients')->group(function () {
         });
 
-        Route::controller('RasidJobController')->name('rasidjobs.')->prefix('rasid_jobs')->group(function () {
+        Route::controller('RasidJobController')->name('rasid_jobs.')->prefix('rasid_jobs')->group(function () {
             Route::get('archive', 'archive')->name('archive');
             Route::post('restore/{id}', 'restore')->name('restore');
-            Route::delete('forceDelete/{id}', 'forceDelete')->name('forceDelete');
+            Route::delete('forceDelete/{id}', 'forceDelete')->name('force_delete');
         });
 
         Route::controller('NotificationController')->name('notifications.')->prefix('notifications')->group(function () {
@@ -86,18 +88,26 @@ Route::middleware('auth:sanctum')->group(function () {
             Route::put('ban/{employee}', 'ban')->name('ban');
         });
 
-        Route::resources([
+        Route::controller('ContactController')->name('contacts.')->prefix('contacts')->group(function () {
+            Route::get('/', 'index')->name('index');
+            Route::post('reply', 'reply')->name('reply');
+            Route::delete('delete-contact/{id}','deleteContact')->name('deleteContact');
+            Route::delete('delete-reply/{id}','deleteReply')->name('deleteReply');
+        });
+
+        Route::apiResources([
             'countries' => 'CountryController',
             'currencies' => 'CurrencyController',
             "departments" => "DepartmentController",
             "cities" => "CityController",
             "regions" => "RegionController",
-            'roles' => 'RoleController',
             'admins' => 'AdminController',
             'employees' => 'EmployeeController',
-            'customers' => 'CustomerController',
+            'clients' => 'ClientController',
             'rasid_jobs' => 'RasidJobController',
             'settings' => 'SettingController',
         ]);
+
+        Route::resource('groups', 'GroupController')->except('edit');
     });
 });

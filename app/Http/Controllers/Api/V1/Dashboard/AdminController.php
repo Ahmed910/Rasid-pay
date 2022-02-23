@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Api\V1\Dashboard;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\V1\Dashboard\AdminRequest;
 use App\Http\Resources\Dashboard\UserResource;
-use App\Models\User;
+use App\Models\{User , Group};
 use Illuminate\Http\Request;
 
 class AdminController extends Controller
@@ -13,7 +13,7 @@ class AdminController extends Controller
 
     public function index(Request $request)
     {
-        $users = User::with(['department', 'role'])->where('user_type', 'admin')->select('id', 'fullname', 'email', 'whatsapp', 'gender', 'is_active', 'created_at')->latest()->paginate((int)($request->perPage ?? 10));
+        $users = User::with(['department', 'group'])->where('user_type', 'admin')->select('id', 'fullname', 'email', 'whatsapp', 'gender', 'is_active', 'created_at')->latest()->paginate((int)($request->perPage ?? 10));
 
         return UserResource::collection($users)
             ->additional([
@@ -34,7 +34,7 @@ class AdminController extends Controller
 
     public function create(Request $request)
     {
-        $users = User::with(['department', 'role'])->where('user_type', 'employee')->select('id', 'fullname', 'email', 'whatsapp', 'gender', 'is_active', 'created_at')->latest();
+        $users = User::with(['department', 'group'])->where('user_type', 'employee')->select('id', 'fullname', 'email', 'whatsapp', 'gender', 'is_active', 'created_at')->latest();
 
         return UserResource::collection($users)
             ->additional([
@@ -46,10 +46,13 @@ class AdminController extends Controller
 
     public function store(AdminRequest $request)
     {
-        $codeStatus = ($request->has('is_login_code') ? 1 : 0);
-        $admin = User::updateOrCreate(['id' => $request->employee_id], ['user_type' => 'admin', 'role_id' => $request->role_id, 'password' => $request->password, 'added_by_id' => auth()->id(), 'is_login_code' => $codeStatus]);
+        $admin = User::updateOrCreate(['id' => $request->employee_id], ['user_type' => 'admin', 'password' => $request->password, 'added_by_id' => auth()->id(), 'is_login_code' => $request->is_login_code]);
         //TODO::send sms with password
-
+        $permissions = $request->permission_list;
+        if($request->group_list){
+            $permissions[] = Group::find($request->group_list)->pluck('permissions')->pluck('id')->unique()->toArray();
+        }
+        $admin->permissions()->sync($permissions);
         return UserResource::make($admin)
             ->additional([
                 'status' => true,
@@ -60,7 +63,7 @@ class AdminController extends Controller
 
     public function show($id)
     {
-        $user = User::withTrashed()->with(['addedBy', 'country', 'role'])->findOrFail($id);
+        $user = User::withTrashed()->with(['addedBy', 'country', 'group'])->findOrFail($id);
 
         return UserResource::make($user)
             ->additional([
@@ -82,6 +85,11 @@ class AdminController extends Controller
 
         //TODO::send sms with password
         // if($request->('password_change'))
+        $permissions = $request->permission_list;
+        if($request->group_list){
+            $permissions[] = Group::find($request->group_list)->pluck('permissions')->pluck('id')->unique()->toArray();
+        }
+        $admin->permissions()->sync($permissions);
 
         return UserResource::make($admin)
             ->additional([
