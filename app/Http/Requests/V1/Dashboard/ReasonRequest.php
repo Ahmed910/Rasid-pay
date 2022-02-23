@@ -24,7 +24,7 @@ class ReasonRequest extends ApiMasterRequest
     public function rules()
     {
         return [
-            "reason" => ["required", "string", "max:255", "min:10"]
+            "reasonAction" => ["required", "string", "max:255", "min:10"]
         ];
     }
 }
