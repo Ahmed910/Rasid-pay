@@ -83,8 +83,9 @@ class CurrencyController extends Controller
             ]);;
     }
 
-    public function destroy(Currency $currency)
+    public function destroy(Request $request,Currency $currency)
     {
+        dd($currency);
         if ($currency->countries()->exists()) {
             return response()->json([
                 'status' => false,

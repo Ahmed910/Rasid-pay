@@ -60,6 +60,7 @@ trait Loggable
         $activity['ip_address'] = Request::ip();
         $activity['agent'] = Request::header('user-agent');
         $activity['user_id'] = auth()->check() ? auth()->user()->id : null;
+        $activity['reason'] = $item->reason;
 
         ActivityLog::create($activity);
     }
