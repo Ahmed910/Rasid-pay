@@ -25,7 +25,6 @@ return [
         "restore" => "استعادة",
         "force_delete" => "حذف نهائي",
         'sent_successfully' => 'تم الارسال بنجاح',
-        'success_suspend' => 'تم التعطيل بنجاح',
 
     ],
     'error' => [

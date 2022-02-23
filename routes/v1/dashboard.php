@@ -18,16 +18,16 @@ use Illuminate\Support\Facades\Route;
 Route::post('login', "AuthController@login");
 Route::post('send', "AuthController@sendCode");
 Route::post('reset_password', "AuthController@resetPassword");
-Route::get('artisan_commend',function(){
+Route::get('artisan_commend', function () {
     ini_set('max_execution_time', 300);
     \Artisan::call('migrate:fresh --step --seed');
 });
 Route::middleware('auth:sanctum')->group(function () {
     // Public Routes
     Route::post('logout', "AuthController@logout");
-    Route::apiResource('notifications','NotificationController')->except('store');
-    Route::apiResource('menus','MenuController');
-    Route::get('permissions','GroupController@permissions');    
+    Route::apiResource('notifications', 'NotificationController')->except('store');
+    Route::apiResource('menus', 'MenuController');
+    Route::get('permissions', 'GroupController@permissions');
 
     Route::controller('ProfileController')->name('profiles.')->prefix('profile')->group(function () {
         Route::get('show', 'show')->name('show');
@@ -72,9 +72,6 @@ Route::middleware('auth:sanctum')->group(function () {
             Route::get('get-parents', 'getAllParents')->name("getParents");
         });
         Route::controller('ClientController')->name('clients.')->prefix('clients')->group(function () {
-//            Route::delete('forceDelete/{id}', 'forceDestroy')->name('force_delete');
-            Route::get('suspendedclients', 'suspendedclients')->name('suspendedclients');
-            Route::post('suspend/{id}', 'suspend')->name('suspend');
         });
 
         Route::controller('RasidJobController')->name('rasid_jobs.')->prefix('rasid_jobs')->group(function () {
@@ -104,6 +101,6 @@ Route::middleware('auth:sanctum')->group(function () {
             'settings' => 'SettingController',
         ]);
 
-        Route::resource('groups' , 'GroupController')->except('edit');
+        Route::resource('groups', 'GroupController')->except('edit');
     });
 });

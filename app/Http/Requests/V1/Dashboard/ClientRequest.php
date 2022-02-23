@@ -38,10 +38,9 @@ class ClientRequest extends ApiMasterRequest
         return [
             "fullname" => ["required", "max:255", "string"],
             "email" => ["required", "max:255", "email", "unique:users,email," . @$this->client->id],
-            "phone" => ["required", "unique:users,phone," . @$this->client->id, "regex:/^([0-9)]*)$/", "max:20"],
-            "whatsapp" => ["unique:users,whatsapp," . @$this->client->id, "regex:/^([0-9]*)$/", "max:20"],
-            "password" => ["required", "min:8"],
-            "identity_number" => ["required", "unique:users,identity_number,". @$this->client->id, "regex:/^([0-9)]*)$/", "max:20"],
+            "phone" => ["required", "numeric", "digits_between:10,20", "unique:users,phone," . @$this->client->id],
+            "whatsapp" => ["numeric", "digits_between:10,20", "unique:users,whatsapp," . @$this->client->id],
+            "identity_number" => ["required", "numeric", "digits_between:10,20", "unique:users,identity_number," . @$this->client->id],
             "client_type" => ["required", "in:company,Institution ,member,freelance_doc,famous,other"],
             "user_type" => ["required", "in:admin,client"],
             "gender" => ["required", "in:male,female"],
@@ -52,7 +51,7 @@ class ClientRequest extends ApiMasterRequest
             'is_ban_always' => 'nullable|required_if:is_ban,true|boolean',
             'ban_from' => 'nullable|required_if:is_ban_always,false|date',
             'ban_to' => 'nullable|required_if:is_ban_always,false|date',
-            "is_admin_active_user"=>'required|boolean',
+            "is_admin_active_user" => 'required|boolean',
         ];
     }
 }

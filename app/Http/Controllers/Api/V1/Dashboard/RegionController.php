@@ -3,11 +3,13 @@
 namespace App\Http\Controllers\Api\V1\Dashboard;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\V1\Dashboard\ReasonRequest;
 use App\Http\Requests\V1\Dashboard\RegionRequest;
 use App\Http\Resources\Dashboard\CountryResource;
 use App\Http\Resources\Dashboard\RegionResource;
 use App\Models\Region\Region;
 use Illuminate\Http\Request;
+use phpDocumentor\Reflection\Types\Mixed_;
 
 
 class RegionController extends Controller
@@ -63,13 +65,17 @@ class RegionController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param int $id
+//     * @param int $id
      * @return RegionResource
      */
-    public function show($id)
+    public function show( $id)
     {
         $region = Region::withTrashed()->findOrFail($id);
-        return RegionResource::make($region)->additional(['status' => true, 'message' => ""]);
+        $relations  = ['translations'];
+        $parameters = request()->all();
+     if (array_key_exists( "country" , $parameters)) array_push($relations , "country") ;
+     if (array_key_exists( "cities" , $parameters)) array_push($relations , "cities") ;
+     return RegionResource::make($region->load($relations))->additional(['status' => true, 'message' => ""]);
     }
 
     public function edit($id)
@@ -99,8 +105,9 @@ class RegionController extends Controller
      * @param int $id
      * @return \Illuminate\Http\JsonResponse
      */
-    public function destroy(Region $region)
+    public function destroy(ReasonRequest $request,Region $region)
     {
+
         if ($region->cities()->exists()) {
             return response()->json([
                 'status' => false,
