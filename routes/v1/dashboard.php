@@ -90,6 +90,7 @@ Route::middleware('auth:sanctum')->group(function () {
 
         Route::controller('ContactController')->name('contacts.')->prefix('contacts')->group(function () {
             Route::get('/', 'index')->name('index');
+            Route::get('/{id}', 'show')->name('show');
             Route::post('reply', 'reply')->name('reply');
             Route::delete('delete-contact/{id}','deleteContact')->name('deleteContact');
             Route::delete('delete-reply/{id}','deleteReply')->name('deleteReply');
