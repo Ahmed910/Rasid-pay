@@ -14,11 +14,10 @@ class CreateClientManagerTable extends Migration
     public function up()
     {
         Schema::create('client_manager', function (Blueprint $table) {
-            Schema::create('manager_user', function (Blueprint $table) {
-                $table->foreignUuid("manager_id")->constrained()->onDelete('cascade');
-                $table->foreignUuid("user_id")->constrained()->onDelete('cascade');
-                $table->primary(['manager_id', 'manager_id']);
-            });
+            $table->foreignUuid("manager_id")->constrained()->onDelete('cascade');
+            $table->foreignUuid("client_id")->constrained()->onDelete('cascade');
+            $table->primary(['manager_id', 'client_id']);
+
         });
     }
 
