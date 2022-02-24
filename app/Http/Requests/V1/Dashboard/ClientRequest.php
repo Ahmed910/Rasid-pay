@@ -35,23 +35,36 @@ class ClientRequest extends ApiMasterRequest
      */
     public function rules()
     {
-        return [
-            "fullname" => ["required", "max:255", "string"],
-            "email" => ["required", "max:255", "email", "unique:users,email," . @$this->client->id],
-            "phone" => ["required", "numeric", "digits_between:10,20", "unique:users,phone," . @$this->client->id],
-            "whatsapp" => ["numeric", "digits_between:10,20", "unique:users,whatsapp," . @$this->client->id],
-            "identity_number" => ["required", "numeric", "digits_between:10,20", "unique:users,identity_number," . @$this->client->id],
+        return [ //all unique tables checks needs to be handled
+            "client_name" => ["required", "max:100", "string", "unique:users,fullname"],
+//            "email" => ["required", "max:255", "email", "unique:users,email," . @$this->client->id],
+            "phone" => ["nullable","starts_with:9665,05", "numeric", "digits_between:10,20", "unique:users,phone," . @$this->client->id],
+//            "whatsapp" => ["starts_with:9665","numeric", "digits_between:10,20", "unique:users,whatsapp," . @$this->client->id],
+//            "identity_number" => ["required", "numeric", "digits_between:10,20", "unique:users,identity_number," . @$this->client->id],
             "client_type" => ["required", "in:company,Institution ,member,freelance_doc,famous,other"],
-            "user_type" => ["required", "in:admin,client"],
-            "gender" => ["required", "in:male,female"],
-            "date_of_birth" => ["required", "date"],
-            "date_of_birth_hijri" => ["required", "date"],
-            'is_ban' => 'required|boolean',
-            'ban_reason' => 'nullable|required_if:is_ban,true|string|max:225',
-            'is_ban_always' => 'nullable|required_if:is_ban,true|boolean',
-            'ban_from' => 'nullable|required_if:is_ban_always,false|date',
-            'ban_to' => 'nullable|required_if:is_ban_always,false|date',
-            "is_admin_active_user" => 'required|boolean',
+//            "user_type" => ["required", "in:admin,client"],
+            "gender" => ["nullable", "in:male,female"],
+//            "date_of_birth" => ["required", "date"],
+//            "date_of_birth_hijri" => ["required", "date"],
+//            'is_ban' => 'required|boolean',
+//            'ban_reason' => 'nullable|required_if:is_ban,true|string|max:225',
+//            'is_ban_always' => 'nullable|required_if:is_ban,true|boolean',
+//            'ban_from' => 'nullable|required_if:is_ban_always,false|date',
+//            'ban_to' => 'nullable|required_if:is_ban_always,false|date',
+//            "is_admin_active_user" => 'required|boolean',
+            "commercial_number" => "nullable|required_if:client_type,company,Institution,|string|max:10|unique",
+            "tax_number" => ["required", "max:15", "string" , "unique"],
+            "register_type" =>["required" ,"in:delegate,direct"],
+            "activity_type" => ["nullable" ,"string" , "max:100"] ,
+            "total_operations" =>["nullable","numeric","digits_between:1,15"] ,
+            "bank_id" => ["required","exists:banks,id"] ,
+            "bank_account_number" =>["required", "string", "min:6","max:24","unique"],
+            "address" => ["nullable","string" , "max:255"  ],
+            "nationality" => ["nullable","string" , "max:255"  ],
+            "married"=>["nullable","bool"],
+            "files.*" => ["file" ,"required_if:register_type,delegate"]
+
+
         ];
     }
 }
