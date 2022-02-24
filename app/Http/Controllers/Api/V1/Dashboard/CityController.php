@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api\V1\Dashboard;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\V1\Dashboard\CityRequest;
+use App\Http\Requests\V1\Dashboard\ReasonRequest;
 use App\Http\Resources\Dashboard\CityResource;
 use App\Models\City\City;
 use Illuminate\Http\Request;
@@ -71,7 +72,7 @@ class CityController extends Controller
 
 
     //soft delete (archive)
-    public function destroy(City $city)
+    public function destroy(ReasonRequest $request,City $city)
     {
 
         $city->delete();
@@ -84,7 +85,7 @@ class CityController extends Controller
     }
 
 
-    public function restore($id)
+    public function restore(ReasonRequest $request,$id)
     {
         $city = City::onlyTrashed()->findOrFail($id);
         $city->restore();
@@ -96,9 +97,9 @@ class CityController extends Controller
             ]);
     }
 
-    public function forceDelete($id)
+    public function forceDelete(ReasonRequest $request,$id)
     {
-        
+
         $city = City::onlyTrashed()->findOrFail($id);
         $city->forceDelete();
 

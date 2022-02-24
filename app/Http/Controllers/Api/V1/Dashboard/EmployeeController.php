@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api\V1\Dashboard;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\V1\Dashboard\EmployeeRequest;
+use App\Http\Requests\V1\Dashboard\ReasonRequest;
 use App\Http\Resources\Dashboard\EmployeeResource;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -80,7 +81,7 @@ class EmployeeController extends Controller
     }
 
     //archive data
-    public function destroy(User $employee)
+    public function destroy(ReasonRequest $request,User $employee)
     {
         $employee->delete();
         return EmployeeResource::make($employee)
@@ -91,7 +92,7 @@ class EmployeeController extends Controller
     }
 
     //restore data from archive
-    public function restore($id)
+    public function restore(ReasonRequest $request,$id)
     {
         $employee = User::onlyTrashed()->findOrFail($id);
         $employee->restore();
@@ -104,7 +105,7 @@ class EmployeeController extends Controller
     }
 
     //force delete data from archive
-    public function forceDelete($id)
+    public function forceDelete(ReasonRequest $request,$id)
     {
         $employee = User::onlyTrashed()->findOrFail($id);
         $employee->forceDelete();
