@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api\V1\Dashboard;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\V1\Dashboard\AdminRequest;
+use App\Http\Requests\V1\Dashboard\ReasonRequest;
 use App\Http\Resources\Dashboard\UserResource;
 use App\Models\{User , Group};
 use Illuminate\Http\Request;
@@ -99,7 +100,7 @@ class AdminController extends Controller
     }
 
     //archive data
-    public function destroy(User $admin)
+    public function destroy(ReasonRequest $request, User $admin)
     {
         $admin->delete();
         return UserResource::make($admin)
@@ -110,7 +111,7 @@ class AdminController extends Controller
     }
 
     //restore data from archive
-    public function restore($id)
+    public function restore(ReasonRequest $request, $id)
     {
         $admin = User::onlyTrashed()->findOrFail($id);
         $admin->restore();
@@ -123,7 +124,7 @@ class AdminController extends Controller
     }
 
     //force delete data from archive
-    public function forceDelete($id)
+    public function forceDelete(ReasonRequest $request, $id)
     {
         $admin = User::onlyTrashed()->findOrFail($id);
         $admin->forceDelete();
