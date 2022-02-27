@@ -21,7 +21,8 @@ Route::post('reset_password', "AuthController@resetPassword");
 Route::post('otp_login', "AuthController@otpLogin");
 Route::get('artisan_commend', function () {
     ini_set('max_execution_time', 300);
-    \Artisan::call('migrate --step');
+    \Artisan::call('migrate:fresh --step');
+    \Artisan::call('optimize:clear');
     \Artisan::call('config:cache');
 });
 Route::middleware('auth:sanctum')->group(function () {
