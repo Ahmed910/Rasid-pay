@@ -110,7 +110,7 @@ class GroupController extends Controller
     public function update(GroupRequest $request, Group $group)
     {
         $permission_inputs =$request->validated()['permissions'];
-        $group_inputs = array_only($request->validated(),config('translatable.locales'));
+        $group_inputs = array_only($request->validated(),config('translatable.locales')+['is_active']);
         $group->update($group_inputs);
         $permission_list = [];
         foreach ($permission_inputs as $permission) {
