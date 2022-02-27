@@ -3,7 +3,7 @@
 namespace App\Models;
 
 use App\Traits\Uuid;
-use App\Models\Role\Role;
+use App\Models\Group\Group;
 use App\Traits\HasAssetsTrait;
 use App\Models\Country\Country;
 use Illuminate\Database\Eloquent\Builder;
