@@ -148,11 +148,12 @@ class GroupController extends Controller
 
     public function permissions()
     {
+        Permission::truncate();
         $saved_permissions = $this->savedPermissions()->except('uri')->toArray();
         $saved_names = array_column($saved_permissions,'name');
         foreach (app()->routes->getRoutes() as $value) {
             $name = $value->getName();
-            if (in_array($name,$this->public_routes) || is_null($name) || str_before($name,'.') == 'ignition') {
+            if (in_array($name,$this->public_routes) || is_null($name) || in_array(str_before($name,'.'),['ignition','debugbar'])) {
                 continue;
             }
             if(!in_array($name,$saved_names)){
