@@ -31,7 +31,7 @@ class AuthController extends Controller
         }
         $user->devices()->where('device_token',"<>",$request->device_token)->delete();
         $user->tokens()->delete();
-        \Config::set('sanctum.expiration',setting('expiration_ttl') ?? (1*(60*24*365)));
+        // \Config::set('sanctum.expiration',setting('expiration_ttl') ?? (1*(60*24*365)));
         $token =  $user->createToken('RaseedJakDashboard')->plainTextToken;
         if ($request->only(['device_token', 'device_type'])) {
             $user->devices()->firstOrCreate($request->only(['device_token', 'device_type']));
