@@ -21,7 +21,7 @@ class CreateClientsTable extends Migration
             $table->string("Commercial_number")->unique();
             $table->string("tax_number")->unique();
             $table->string("activity_type");
-            $table->integer("daily_expect_trans ");
+            $table->integer("daily_expect_trans");
             $table->string("nationality")->nullable();
             $table->string("address")->nullable();
             $table->enum('marital_status', ['married', 'single'])->nullable();
