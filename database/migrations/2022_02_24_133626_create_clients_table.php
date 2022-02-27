@@ -17,7 +17,7 @@ class CreateClientsTable extends Migration
             $table->uuid("id")->primary();
             $table->foreignUuid("user_id")->constrained("users")->onDelete("cascade");
             $table->foreignUuid("manager_id")->constrained("managers")->onDelete("null");
-            $table->enum('client_type', ['company', 'Institution', 'member', 'freelance_doc', 'famous', 'other'])->default("company");
+            $table->enum('client_type', ['company', 'institution', 'member', 'freelance_doc', 'famous', 'other'])->default("company");
             $table->string("Commercial_number")->unique();
             $table->string("tax_number")->unique();
             $table->string("activity_type");
