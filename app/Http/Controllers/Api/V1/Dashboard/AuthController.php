@@ -72,11 +72,11 @@ class AuthController extends Controller
             case filter_var($username, FILTER_VALIDATE_EMAIL):
                 $username = 'email';
                 break;
-            case is_numeric($username):
+            case is_numeric($username) && strlen($username) > 6:
                 $username = 'phone';
                 break;
             default:
-                $username = 'email';
+                $username = 'login_id';
                 break;
         }
         $credentials[$username] = $request->username;
