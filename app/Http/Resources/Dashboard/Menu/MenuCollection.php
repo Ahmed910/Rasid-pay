@@ -22,7 +22,7 @@ class MenuCollection extends ResourceCollection
         })->groupBy('uri')->values();
         return[
             'menu' => MenuResource::collection($this->collection),
-            'permissions' => AdminPermissionResource::collection($permissions),
+            'permissions' => auth()->user()->user_type == 'superadmin' ? ['*'] : AdminPermissionResource::collection($permissions),
         ];
     }
 }

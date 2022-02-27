@@ -22,6 +22,10 @@ class GroupResource extends JsonResource
             'admins_count' => $this->admins->count(),
             'translations' => $this->when(!in_array($request->route()->getActionMethod(),['index','archive']),GlobalTransResource::collection($this->whenLoaded('translations'))),
             'created_at' => $this->created_at,
+            'actions' => [
+                'update' => auth()->user()->hasPermissions('groups.update'),
+                'show' => auth()->user()->hasPermissions('groups.show')
+            ]
         ];
     }
 }
