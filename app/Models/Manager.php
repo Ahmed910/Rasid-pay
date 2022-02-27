@@ -22,9 +22,9 @@ class Manager extends Model
     #endregion scopes
 
     #region relationships
-    public function managers()
+    public function clients()
     {
-        return $this->belongsToMany(Client::class);
+        return $this->hasMany(Client::class);
     }
     #endregion relationships
 

@@ -109,7 +109,10 @@ class User extends Authenticatable implements HasAssetsInterface
     {
         return $this->belongsTo(Department::class);
     }
-
+    public function client()
+    {
+        return $this->belongsTo(Client::class);
+    }
     public function setIsBanAttribute($value)
     {
         $this->attributes['is_ban'] = $value;

@@ -24,7 +24,7 @@ class CreateManagersTable extends Migration
             $table->enum('gender', ['male', 'female'])->nullable();
             $table->enum('marital_status', ['married', 'single'])->nullable();
             $table->date('date_of_birth');
-            $table->date('date_of_birth_hijri');
+            $table->text("elm_reply")->nullable() ;
             $table->timestamps();
         });
     }
