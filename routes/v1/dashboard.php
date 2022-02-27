@@ -73,7 +73,7 @@ Route::middleware('auth:sanctum')->group(function () {
             Route::get('archive', 'archive')->name('archive');
             Route::post('restore/{id}', 'restore')->name('restore');
             Route::delete('forceDelete/{id}', 'forceDelete')->name('force_delete');
-            Route::get('get-parents', 'getAllParents')->name("getParents");
+            Route::get('get-parents', 'getAllParents')->name("get_parents");
         });
         Route::controller('ClientController')->name('clients.')->prefix('clients')->group(function () {
         });
@@ -96,8 +96,8 @@ Route::middleware('auth:sanctum')->group(function () {
             Route::get('/', 'index')->name('index');
             Route::get('/{id}', 'show')->name('show');
             Route::post('reply', 'reply')->name('reply');
-            Route::delete('delete-contact/{id}','deleteContact')->name('deleteContact');
-            Route::delete('delete-reply/{id}','deleteReply')->name('deleteReply');
+            Route::delete('delete-contact/{id}', 'deleteContact')->name('delete_contact');
+            Route::delete('delete-reply/{id}', 'deleteReply')->name('delete_reply');
         });
 
         Route::apiResources([
@@ -110,8 +110,8 @@ Route::middleware('auth:sanctum')->group(function () {
             'employees' => 'EmployeeController',
             'clients' => 'ClientController',
             'rasid_jobs' => 'RasidJobController',
-            'settings' => 'SettingController',
         ]);
+        Route::apiResource('settings', 'SettingController')->only(['index', 'store']);
 
         Route::resource('groups', 'GroupController')->except('edit');
     });

@@ -60,6 +60,7 @@ class AdminRequest extends ApiMasterRequest
             'password_change' => $rulePassChanged,
             'password' => 'nullable|required_if:password_change,true|confirmed|min:6|max:225',
             'is_login_code' => 'required|boolean',
+            'login_id' => 'required|max:6|numeric|unique:users,login_id,'.$this->admin->id.'id,user_type,admin',
             'is_ban' => $ruleBan,
             'ban_reason' => 'nullable|required_if:is_ban,true|string|max:225',
             'is_ban_always' => 'nullable|required_if:is_ban,true|boolean',

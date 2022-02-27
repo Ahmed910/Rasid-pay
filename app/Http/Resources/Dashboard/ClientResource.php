@@ -47,6 +47,13 @@ class ClientResource extends JsonResource
             'date_of_birth_hijri' => $this->when(request()->is('*/customers/*'), $this->date_of_birth_hijri),
             'created_at' => $this->created_at,
             'token' => $this->when($this->token, $this->token),
+            'actions' => [
+                'show' => auth()->user()->hasPermissions('clients.show'),
+                'create' => auth()->user()->hasPermissions('clients.create'),
+                'update' => auth()->user()->hasPermissions('clients.update'),
+                'restore' => auth()->user()->hasPermissions('clients.restore'),
+                'destroy' => auth()->user()->hasPermissions('clients.destroy'),
+            ]
         ];
     }
 }

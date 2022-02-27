@@ -28,6 +28,7 @@ class UserResource extends JsonResource
             'is_ban_always' => (bool)$this->is_ban_always,
             'ban_from' => $this->ban_from,
             'ban_to' => $this->ban_to,
+            'login_id' => $this->login_id,
             'is_date_hijri' => (bool)$this->is_date_hijri,
             'department' => DepartmentResource::make($this->whenLoaded('department')),
             'added_by_id' => SimpleUserResource::make($this->whenLoaded('addedBy')),

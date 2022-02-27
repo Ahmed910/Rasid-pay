@@ -59,15 +59,23 @@ class CountryController extends Controller
         $country = Country::withTrashed()->findOrFail($id);
 
         $test = $country->translations->pluck('id');
-
-        $Activity = ActivityLog::whereIn('auditable_id', $test)->where('auditable_type', 'App\Models\CountryTranslation')->get();
+        $activity = ActivityLog::whereIn('auditable_id', $test)->where('auditable_type', CountryTranslation::class)->get();
 
         return CountryResource::make($country)
             ->additional([
                 'status' => true,
                 'message' =>  '',
-                'Activity' => $Activity
+                'Activity' => $activity
             ]);
+
+            // $data['country'] =  CountryResource::make($country);
+            // $data['activity'] =  ActivityLogResource::collection($Activity);
+
+            // return response()->json([
+            //     'data' => $data,
+            //     'status' => true,
+            //     'message' =>  '',
+            // ], 400);
     }
 
     public function edit($id)
