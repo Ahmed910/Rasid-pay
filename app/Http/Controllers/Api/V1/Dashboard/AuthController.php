@@ -45,7 +45,7 @@ class AuthController extends Controller
                 $user->update(['reset_code' => $code]);
                 return response()->json(['status' => true, 'data' => null, 'message' => trans('dashboard.general.success_send'), 'dev_message' => $code]);
             } else {
-                $code = $this->generateCode($request, $user,'verified_code');  
+                $code = $this->generateCode($request, $user,'verified_code');
                 $user->update(['verified_code' => $code, 'is_active' => 0]);
                 return response()->json(['status' => true, 'data' => null, 'message' => trans('dashboard.general.success_send'), 'dev_message' => $code]);
             }
@@ -71,7 +71,7 @@ class AuthController extends Controller
         }
         $credentials[$username] = $request->username;
         $credentials['password'] = $request->password;
-        // $credentials['is_active'] = 1;
+        // $credentials['is_blacklist'] = 1;
         return $credentials;
     }
 
