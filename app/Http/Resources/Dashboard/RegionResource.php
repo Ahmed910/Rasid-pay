@@ -21,6 +21,15 @@ class RegionResource extends JsonResource
             'country' => CountryResource::make($this->whenLoaded('country')),
             'cities' => CityResource::collection($this->whenLoaded('cities')),
             'created_at' => $this->created_at,
+            'actions' => [
+                'show' => auth()->user()->hasPermissions('regions.show'),
+                'create' => auth()->user()->hasPermissions('regions.store'),
+                'update' => auth()->user()->hasPermissions('regions.update'),
+                'archive' => auth()->user()->hasPermissions('regions.archive'),
+                'destroy' => auth()->user()->hasPermissions('regions.destroy'),
+                'restore' => auth()->user()->hasPermissions('regions.restore'),
+                'forceDelete' => auth()->user()->hasPermissions('regions.force_delete'),
+            ]
         ];
     }
 }

@@ -24,13 +24,14 @@ class SettingRequest extends ApiMasterRequest
      */
     public function rules()
     {
+        $defaultLocale = config('app.locale', 'ar');
         $rules =  [
             "settings"      => 'required|array',
             "settings.*"    => 'required|array',
-            "settings.*.en" => 'required'
+            "settings.*.$defaultLocale" => 'required'
         ];
 
-        foreach (array_filter(config('translatable.locales'),fn ($locale) => $locale == "en" ? null : $locale) as $locale) {
+        foreach (array_filter(config('translatable.locales'), fn ($locale) => $locale == $defaultLocale ? null : $locale) as $locale) {
             $rules["settings.*.$locale"] = "nullable";
         }
 

@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\V1\Dashboard\AdminRequest;
 use App\Http\Requests\V1\Dashboard\ReasonRequest;
 use App\Http\Resources\Dashboard\UserResource;
-use App\Models\{User , Group};
+use App\Models\{User, Group\Group};
 use Illuminate\Http\Request;
 
 class AdminController extends Controller
@@ -47,10 +47,10 @@ class AdminController extends Controller
 
     public function store(AdminRequest $request)
     {
-        $admin = User::updateOrCreate(['id' => $request->employee_id], ['user_type' => 'admin', 'password' => $request->password, 'added_by_id' => auth()->id(), 'is_login_code' => $request->is_login_code]);
+        $admin = User::updateOrCreate(['id' => $request->employee_id], ['user_type' => 'admin', 'password' => $request->password, 'added_by_id' => auth()->id(), 'is_login_code' => $request->is_login_code, 'login_id' => $request->login_id]);
         //TODO::send sms with password
         $permissions = $request->permission_list;
-        if($request->group_list){
+        if ($request->group_list) {
             $admin->groups()->sync($request->group_list);
             $permissions[] = Group::find($request->group_list)->pluck('permissions')->pluck('id')->unique()->toArray();
         }
@@ -88,7 +88,7 @@ class AdminController extends Controller
         //TODO::send sms with password
         // if($request->('password_change'))
         $permissions = $request->permission_list;
-        if($request->group_list){
+        if ($request->group_list) {
             $admin->groups()->sync($request->group_list);
             $permissions[] = Group::find($request->group_list)->pluck('permissions')->pluck('id')->unique()->toArray();
         }
