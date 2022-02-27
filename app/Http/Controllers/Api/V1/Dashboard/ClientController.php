@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\V1\Dashboard\ClientRequest;
 use App\Http\Requests\V1\Dashboard\ReasonRequest;
 use App\Http\Resources\Dashboard\ClientResource;
+use App\Http\Resources\Dashboard\UserResource;
+use App\Models\Client;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -19,7 +21,7 @@ class ClientController extends Controller
      */
     public function index(Request $request)
     {
-        $user = User::where("user_type", 'client')->search($request)->latest()->paginate((int)($request->page ?? 15));
+        $user = Client::search($request)->latest()->paginate((int)($request->page ?? 15));
         return ClientResource::collection($user)->additional([
             'status' => true,
             'message' => ""
@@ -56,9 +58,10 @@ class ClientController extends Controller
     public function store(ClientRequest $request, User $user)
     {
         $user->fill($request->validated())->save();
-        return ClientResource::make($user)->additional([
-            'status' => true, 'message' => trans("dashboard.general.success_add")
-        ]);
+        Client::create($request->validated()+['user_id'=>$user->id])->save();
+//        return ClientResource::make($client)->additional([
+//            'status' => true, 'message' => trans("dashboard.general.success_add")
+//        ]);
     }
 
     /**
