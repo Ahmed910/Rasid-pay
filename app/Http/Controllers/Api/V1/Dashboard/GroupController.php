@@ -32,9 +32,9 @@ class GroupController extends Controller
      */
     public function index(Request $request)
     {
-        $groups = Group::active()->search($request)->with(['translations' => function ($q) {
+        $groups = Group::with(['translations' => function ($q) {
             $q->where('locale', app()->getLocale());
-        }])->latest()->paginate((int)($request->page ?? 15));
+        }])->search($request)->latest()->paginate((int)($request->page ?? 15));
 
         return GroupResource::collection($groups)->additional(['status' => true, 'message' => ""]);
     }
