@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\V1\Dashboard\AdminRequest;
 use App\Http\Requests\V1\Dashboard\ReasonRequest;
 use App\Http\Resources\Dashboard\UserResource;
-use App\Models\{User, Group};
+use App\Models\{User, Group\Group};
 use Illuminate\Http\Request;
 
 class AdminController extends Controller
