@@ -35,7 +35,6 @@ class CreateUsersTable extends Migration
             $table->string('identity_number')->nullable();
             $table->enum('register_status', ['pending', 'inprogress', 'completed'])->default('pending');
             $table->enum('user_type', ['employee', 'admin', 'superadmin', 'client']);
-            $table->enum('client_type', ['company', 'Institution', 'member', 'freelance_doc', 'famous', 'other'])->nullable();
             $table->enum('gender', ['male', 'female'])->nullable();
             $table->float('rate_avg', 5, 2)->default(0);
             $table->date('date_of_birth')->nullable();

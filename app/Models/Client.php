@@ -12,7 +12,7 @@ class Client extends Model
 
     #region properties
     protected $guarded = ['created_at', 'updated_at'];
-    protected $dates = ['date_of_birth', 'date_of_birth_hijri'];
+    protected $dates = ['date_of_birth'];
     #endregion properties
 
     #region mutators
@@ -22,9 +22,9 @@ class Client extends Model
     #endregion scopes
 
     #region relationships
-    public function clients()
+    public function manager()
     {
-        return $this->belongsToMany(Manager::class);
+        return $this->belongsTo(Manager::class);
     }
     #endregion relationships
 
