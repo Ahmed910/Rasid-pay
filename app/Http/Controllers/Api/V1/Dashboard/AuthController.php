@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Api\V1\Dashboard;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\V1\Dashboard\Auth\{LoginRequest, SendCodeRequest, LogoutRequest, ResetPasswordRequest};
+use App\Http\Requests\V1\Dashboard\Auth\{LoginRequest, SendCodeRequest, LogoutRequest, ResetPasswordRequest, OTPLoginRequest};
 use App\Http\Resources\Dashboard\UserResource;
 use App\Jobs\ExpireCodeJob;
 use App\Models\{Device, User};
@@ -88,7 +88,7 @@ class AuthController extends Controller
 
         $user_data = [];
         if (!$user) {
-            return response()->json(['status' => false, 'data' => null, 'message' => trans('auth.phone_not_true_or_account_deactive')], 422);
+            return response()->json(['status' => false, 'data' => null, 'message' => trans('auth.phone_not_true_or_account_deactive'),'errors' => []], 422);
         } elseif (!$user->phone_verified_at && $user->verified_code == $request->code) {
             $user_data += ['password' => $request->password, 'verified_code' => null, 'is_active' => true, 'phone_verified_at' => now()];
         } elseif ($user->phone_verified_at && $user->reset_code == $request->code) {
@@ -97,6 +97,18 @@ class AuthController extends Controller
         $user->update($user_data);
 
         return response()->json(['status' => true, 'data' => null, 'message' => trans('auth.success_change_password')]);
+    }
+
+    public function otpLogin(OTPLoginRequest $request)
+    {
+        $user = User::where(['phone' => $request->phone , 'login_code' => $request->code]);
+        if (!$user) {
+            return response()->json(['status' => false, 'data' => null, 'message' => trans('auth.failed')], 401);
+        }
+        $user->update(['login_code' => null]);
+        $token =  $user->createToken('RaseedJakDashboard')->plainTextToken;
+        data_set($user, 'token', $token);
+        return UserResource::make($user)->additional(['status' => true, 'message' => trans('auth.success_login', ['user' => $user->phone]) , 'login_code_required' => true]);
     }
 
 
