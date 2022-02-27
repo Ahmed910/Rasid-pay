@@ -30,7 +30,10 @@ class AuthController extends Controller
             return response()->json(['status' => true, 'data' => null, 'message' => trans('dashboard.general.success_send_login_code'), 'dev_message' => $code , 'login_code_required' => true]);
         }
         $user->devices()->where('device_token',"<>",$request->device_token)->delete();
-        $user->tokens()->delete();
+        // if (app()->environment('')) {
+        //     // code...
+        // }
+        // $user->tokens()->delete();
         // \Config::set('sanctum.expiration',setting('expiration_ttl') ?? (1*(60*24*365)));
         $token =  $user->createToken('RaseedJakDashboard')->plainTextToken;
         if ($request->only(['device_token', 'device_type'])) {
