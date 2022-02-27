@@ -7,6 +7,7 @@ use App\Models\RasidJob\RasidJob;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\Dashboard\RasidJobResource;
 use App\Http\Requests\V1\Dashboard\RasidJobRequest;
+use App\Http\Requests\V1\Dashboard\ReasonRequest;
 use Symfony\Component\HttpFoundation\Response;
 
 class RasidJobController extends Controller
@@ -78,7 +79,7 @@ class RasidJobController extends Controller
 
 
 
-    public function restore($id)
+    public function restore(ReasonRequest $request,$id)
     {
 
         $rasidJob = RasidJob::onlyTrashed()->findOrFail($id);
@@ -94,7 +95,7 @@ class RasidJobController extends Controller
     }
 
 
-    public function destroy(RasidJob $rasidJob)
+    public function destroy(ReasonRequest $request,RasidJob $rasidJob)
     {
 
         $rasidJob->delete();
@@ -106,7 +107,7 @@ class RasidJobController extends Controller
             ]);
     }
 
-    public function forceDelete($id)
+    public function forceDelete(ReasonRequest $request,$id)
     {
 
         $rasidJob = RasidJob::onlyTrashed()->findOrFail($id);

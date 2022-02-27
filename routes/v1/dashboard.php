@@ -88,6 +88,14 @@ Route::middleware('auth:sanctum')->group(function () {
             Route::put('ban/{employee}', 'ban')->name('ban');
         });
 
+        Route::controller('ContactController')->name('contacts.')->prefix('contacts')->group(function () {
+            Route::get('/', 'index')->name('index');
+            Route::get('/{id}', 'show')->name('show');
+            Route::post('reply', 'reply')->name('reply');
+            Route::delete('delete-contact/{id}','deleteContact')->name('deleteContact');
+            Route::delete('delete-reply/{id}','deleteReply')->name('deleteReply');
+        });
+
         Route::apiResources([
             'countries' => 'CountryController',
             'currencies' => 'CurrencyController',

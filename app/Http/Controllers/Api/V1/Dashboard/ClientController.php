@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api\V1\Dashboard;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\V1\Dashboard\ClientRequest;
+use App\Http\Requests\V1\Dashboard\ReasonRequest;
 use App\Http\Resources\Dashboard\ClientResource;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -98,7 +99,7 @@ class ClientController extends Controller
         ]);
     }
 
-    public function forceDestroy($id)
+    public function forceDestroy(ReasonRequest $request, $id)
     {
         $user = User::onlyTrashed()->findorfail($id);
         $user->forceDelete();
@@ -116,7 +117,7 @@ class ClientController extends Controller
      * @param int $id
      * @return ClientResource
      */
-    public function destroy(User $user)
+    public function destroy(ReasonRequest $request, User $user)
     {
 
         $user->delete();
@@ -130,7 +131,7 @@ class ClientController extends Controller
 
 
 
-    public function restore($id)
+    public function restore(ReasonRequest $request, $id)
     {
         $user = User::onlyTrashed()->findOrFail($id);
         $user->restore();

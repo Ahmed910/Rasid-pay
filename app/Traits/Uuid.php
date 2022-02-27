@@ -2,6 +2,7 @@
 
 namespace App\Traits;
 
+use GeniusTS\HijriDate\{Date, Hijri, Translations\Arabic};
 use Illuminate\Support\Str;
 
 trait Uuid
@@ -30,16 +31,25 @@ trait Uuid
 
     public function getCreatedAtAttribute($date)
     {
+        if (auth()->check() && auth()->user()->is_date_hijri) {
+            return Hijri::convertToHijri($date)->format('d F o  h:i A');
+        }
         return date('Y-m-d h:i A', strtotime($date));
     }
 
     public function getUpdatedAtAttribute($date)
     {
+        if (auth()->check() && auth()->user()->is_date_hijri) {
+            return Hijri::convertToHijri($date)->format('d F o   h:i A');
+        }
         return date('Y-m-d h:i A', strtotime($date));
     }
 
     public function getDeletedAtAttribute($date)
     {
+        if (auth()->check() && auth()->user()->is_date_hijri) {
+            return Hijri::convertToHijri($date)->format('d F o   h:i A');
+        }
         return date('Y-m-d h:i A', strtotime($date));
     }
 }

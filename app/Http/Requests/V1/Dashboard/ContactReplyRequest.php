@@ -4,7 +4,7 @@ namespace App\Http\Requests\V1\Dashboard;
 
 use App\Http\Requests\ApiMasterRequest;
 
-class ReasonRequest extends ApiMasterRequest
+class ContactReplyRequest extends ApiMasterRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -16,6 +16,7 @@ class ReasonRequest extends ApiMasterRequest
         return true;
     }
 
+
     /**
      * Get the validation rules that apply to the request.
      *
@@ -24,7 +25,9 @@ class ReasonRequest extends ApiMasterRequest
     public function rules()
     {
         return [
-            "reasonAction" => ["required", "string", "max:255", "min:10"]
+            "contact_id" => ["required", "exists:contacts,id"],
+            "admin_id" => ["required", "exists:users,id"],
+            "reply" => ["required", "string"],
         ];
     }
 }

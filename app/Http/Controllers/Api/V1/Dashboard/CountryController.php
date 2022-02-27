@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api\V1\Dashboard;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\V1\Dashboard\CountryRequest;
+use App\Http\Requests\V1\Dashboard\ReasonRequest;
 use App\Http\Resources\Dashboard\CountryResource;
 use App\Models\ActivityLog;
 use App\Models\Country\Country;
@@ -86,7 +87,7 @@ class CountryController extends Controller
     }
 
     //archive data
-    public function destroy(Country $country)
+    public function destroy(ReasonRequest $request, Country $country)
     {
         if ($country->regions()->exists()) {
             return response()->json([
@@ -106,7 +107,7 @@ class CountryController extends Controller
     }
 
     //restore data from archive
-    public function restore($id)
+    public function restore(ReasonRequest $request, $id)
     {
         $country = Country::onlyTrashed()->findOrFail($id);
         $country->restore();
@@ -119,7 +120,7 @@ class CountryController extends Controller
     }
 
     //force delete data from archive
-    public function forceDelete($id)
+    public function forceDelete(ReasonRequest $request, $id)
     {
         $country = Country::onlyTrashed()->findOrFail($id);
         $country->forceDelete();
