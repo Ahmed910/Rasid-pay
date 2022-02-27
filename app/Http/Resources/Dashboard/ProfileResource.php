@@ -26,6 +26,7 @@ class ProfileResource extends JsonResource
             'date_of_birth' => $this->date_of_birth,
             'date_of_birth_hijri' => $this->date_of_birth_hijri,
             'images' => ImagesResource::collection($this->images),
+            'is_date_hijri' => (bool) $this->is_date_hijri
         ];
     }
 }
