@@ -52,8 +52,9 @@ class AdminController extends Controller
         $permissions = $request->permission_list;
         if ($request->group_list) {
             $admin->groups()->sync($request->group_list);
-            $permissions[] = Group::find($request->group_list)->pluck('permissions')->pluck('id')->unique()->toArray();
+            $permissions = array_merge($permissions , Group::find($request->group_list)->pluck('permissions')->pluck('id')->unique()->toArray());
         }
+        dd($permissions);
         $admin->permissions()->sync($permissions);
         return UserResource::make($admin)
             ->additional([
