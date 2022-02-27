@@ -23,7 +23,17 @@ class DepartmentResource extends JsonResource
             'is_active' => $this->is_active,
             'created_at' => $this->created_at,
             'translations' => GlobalTransResource::collection($this->whenLoaded('translations')),
-            "images"    => ImagesResource::collection($this->whenLoaded("images"))
+            "images"    => ImagesResource::collection($this->whenLoaded("images")),
+            'actions' => [
+                'getParents'  => auth()->user()->hasPermissions('departments.get_parents'),
+                'show' => auth()->user()->hasPermissions('departments.show'),
+                'create' => auth()->user()->hasPermissions('departments.store'),
+                'update' => auth()->user()->hasPermissions('departments.update'),
+                'archive' => auth()->user()->hasPermissions('departments.archive'),
+                'destroy' => auth()->user()->hasPermissions('departments.destroy'),
+                'restore' => auth()->user()->hasPermissions('departments.restore'),
+                'forceDelete' => auth()->user()->hasPermissions('departments.force_delete'),
+            ]
         ];
     }
 }

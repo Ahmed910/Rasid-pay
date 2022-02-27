@@ -23,6 +23,15 @@ class CountryResource extends JsonResource
             'currency' => CurrencyResource::make($this->whenLoaded('currency')),
             'activity' => ActivityLogResource::collection($this->whenLoaded('activity')),
             'created_at' => $this->created_at,
+            'actions' => [
+                'show' => auth()->user()->hasPermissions('countries.show'),
+                'create' => auth()->user()->hasPermissions('countries.store'),
+                'update' => auth()->user()->hasPermissions('countries.update'),
+                'archive' => auth()->user()->hasPermissions('countries.archive'),
+                'destroy' => auth()->user()->hasPermissions('countries.destroy'),
+                'restore' => auth()->user()->hasPermissions('countries.restore'),
+                'forceDelete' => auth()->user()->hasPermissions('countries.force_delete'),
+            ]
         ];
     }
 }

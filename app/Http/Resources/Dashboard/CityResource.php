@@ -21,6 +21,16 @@ class CityResource extends JsonResource
             'postal_code' => $this->postal_code,
             'created_at' => $this->created_at,
             'country' => CountryResource::make($this->whenLoaded('country')),
+            'actions' => [
+                'show' => auth()->user()->hasPermissions('cities.show'),
+                'create' => auth()->user()->hasPermissions('cities.store'),
+                'update' => auth()->user()->hasPermissions('cities.update'),
+                'archive' => auth()->user()->hasPermissions('cities.archive'),
+                'destroy' => auth()->user()->hasPermissions('cities.destroy'),
+                'restore' => auth()->user()->hasPermissions('cities.restore'),
+                'forceDelete' => auth()->user()->hasPermissions('cities.force_delete'),
+            ]
+
         ];
     }
 }
