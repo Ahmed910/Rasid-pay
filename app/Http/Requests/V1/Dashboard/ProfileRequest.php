@@ -29,7 +29,8 @@ class ProfileRequest extends ApiMasterRequest
             'gender' => 'required|in:male,female',
             'date_of_birth' => 'required|date',
             'date_of_birth_hijri' => 'required|date',
-            "image" =>  'image|max:2048'
+            "image" =>  'image|max:2048',
+            'is_date_hijri' => 'boolean'
         ];
     }
 }
