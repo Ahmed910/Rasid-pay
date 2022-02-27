@@ -148,7 +148,6 @@ class GroupController extends Controller
 
     public function permissions()
     {
-        Permission::whereNotNull('name')->delete();
         $saved_permissions = $this->savedPermissions()->except('uri')->toArray();
         $saved_names = array_column($saved_permissions,'name');
         foreach (app()->routes->getRoutes() as $value) {
