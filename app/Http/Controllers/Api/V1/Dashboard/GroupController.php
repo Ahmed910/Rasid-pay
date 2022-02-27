@@ -32,9 +32,9 @@ class GroupController extends Controller
      */
     public function index(Request $request)
     {
-        $groups = Group::active()->search($request)->with(['translations' => function ($q) {
+        $groups = Group::with(['translations' => function ($q) {
             $q->where('locale', app()->getLocale());
-        }])->latest()->paginate((int)($request->page ?? 15));
+        }])->search($request)->latest()->paginate((int)($request->page ?? 15));
 
         return GroupResource::collection($groups)->additional(['status' => true, 'message' => ""]);
     }
@@ -110,7 +110,7 @@ class GroupController extends Controller
     public function update(GroupRequest $request, Group $group)
     {
         $permission_inputs =$request->validated()['permissions'];
-        $group_inputs = array_only($request->validated(),config('translatable.locales'));
+        $group_inputs = array_only($request->validated(),config('translatable.locales')+['is_active']);
         $group->update($group_inputs);
         $permission_list = [];
         foreach ($permission_inputs as $permission) {
@@ -152,7 +152,7 @@ class GroupController extends Controller
         $saved_names = array_column($saved_permissions,'name');
         foreach (app()->routes->getRoutes() as $value) {
             $name = $value->getName();
-            if (in_array($name,$this->public_routes) || is_null($name) || str_before($name,'.') == 'ignition') {
+            if (in_array($name,$this->public_routes) || is_null($name) || in_array(str_before($name,'.'),['ignition','debugbar'])) {
                 continue;
             }
             if(!in_array($name,$saved_names)){

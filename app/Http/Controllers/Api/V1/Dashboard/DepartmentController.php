@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api\V1\Dashboard;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\V1\Dashboard\DepartmentRequest;
+use App\Http\Requests\V1\Dashboard\ReasonRequest;
 use App\Http\Resources\Dashboard\Departments\DepartmentResource;
 use App\Http\Resources\Dashboard\Departments\ParentResource;
 use App\Models\Department\Department;
@@ -95,7 +96,7 @@ class DepartmentController extends Controller
     }
 
 
-    public function destroy(Department $department)
+    public function destroy(ReasonRequest $request,Department $department)
     {
         if ($department->children()->exists()) {
             return response()->json([
@@ -116,7 +117,7 @@ class DepartmentController extends Controller
 
     public function archive(Request $request)
     {
-        $departments = Department::onlyTrashed()->latest()->paginate((int)($request->perPage ?? 10));
+        $departments = Department::onlyTrashed()->search($request)->latest()->paginate((int)($request->perPage ?? 10));
 
         return DepartmentResource::collection($departments)
             ->additional([
@@ -126,7 +127,7 @@ class DepartmentController extends Controller
     }
 
 
-    public function restore($id)
+    public function restore(ReasonRequest $request,$id)
     {
         $department = Department::onlyTrashed()->findOrFail($id);
 
@@ -140,7 +141,7 @@ class DepartmentController extends Controller
     }
 
 
-    public function forceDelete($id)
+    public function forceDelete(ReasonRequest $request,$id)
     {
         $department = Department::onlyTrashed()->findOrFail($id);
 

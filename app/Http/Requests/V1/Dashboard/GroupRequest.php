@@ -25,6 +25,7 @@ class GroupRequest extends ApiMasterRequest
     public function rules()
     {
         $rules =  [
+            'is_active'=>'required|in:1,0',
             'permission_list'=>'required|array',
             'permission_list.*'=>'required|string|exists:permissions,id'
         ];

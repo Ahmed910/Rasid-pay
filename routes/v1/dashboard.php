@@ -18,9 +18,12 @@ use Illuminate\Support\Facades\Route;
 Route::post('login', "AuthController@login");
 Route::post('send', "AuthController@sendCode");
 Route::post('reset_password', "AuthController@resetPassword");
+Route::post('otp_login', "AuthController@otpLogin");
 Route::get('artisan_commend', function () {
-    ini_set('max_execution_time', 300);
-    \Artisan::call('migrate:fresh --step --seed');
+    // ini_set('max_execution_time', 300);
+    // \Artisan::call('migrate:fresh --step --seed');
+    // \Artisan::call('optimize:clear');
+    \Artisan::call('config:cache');
 });
 Route::middleware('auth:sanctum')->group(function () {
     // Public Routes
@@ -86,6 +89,14 @@ Route::middleware('auth:sanctum')->group(function () {
 
         Route::controller('EmployeeController')->name('employees.')->prefix('employees')->group(function () {
             Route::put('ban/{employee}', 'ban')->name('ban');
+        });
+
+        Route::controller('ContactController')->name('contacts.')->prefix('contacts')->group(function () {
+            Route::get('/', 'index')->name('index');
+            Route::get('/{id}', 'show')->name('show');
+            Route::post('reply', 'reply')->name('reply');
+            Route::delete('delete-contact/{id}','deleteContact')->name('deleteContact');
+            Route::delete('delete-reply/{id}','deleteReply')->name('deleteReply');
         });
 
         Route::apiResources([

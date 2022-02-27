@@ -25,13 +25,11 @@ class SettingController extends Controller
 
     public function store(SettingRequest $request)
     {
-        $defaultLocale = "en";
-        $restLocales   = array_filter(config('translatable.locales'), fn ($locale) => $locale == $defaultLocale ? null : $locale);
-        $path          =  "images/setting";
+        $path =  "images/setting";
 
         foreach ($request->validated()['settings'] as $key => $value) {
 
-            foreach ($restLocales as $locale) {
+            foreach (config('translatable.locales') as $locale) {
                 if (isset($value[$locale]) && $value[$locale] instanceof UploadedFile) {
                     $value[$locale] =  $value[$locale]->storePublicly($path, "public");
                 }

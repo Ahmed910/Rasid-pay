@@ -22,6 +22,7 @@ class Region extends Model implements TranslatableContract
     #region properties
     public $translatedAttributes = ['name'];
     protected $guarded = ['created_at', 'updated_at', 'deleted_at'];
+    private $sortableColumns = ["name", "created_at"];
     #endregion properties
 
     #region mutators
@@ -40,6 +41,26 @@ class Region extends Model implements TranslatableContract
             $query->whereDate('created_at', $request->created_at);
         }
 
+    }
+
+    public function scopeSortBy(Builder $query, $request)
+    {
+
+        if (!isset($request->sort["column"]) || !isset($request->sort["dir"])) return;
+
+        if (
+            !in_array(Str::lower($request->sort["column"]), $this->sortableColumns) ||
+            !in_array(Str::lower($request->sort["dir"]), ["asc", "desc"])
+        ) {
+            return;
+        }
+
+        $query->when($request->sort, function ($q) use ($request) {
+            if ($request->sort["column"] == "name")
+                return $q->orderByTranslation($request->sort["column"], @$request->sort["dir"]);
+
+            $q->orderBy($request->sort["column"], @$request->sort["dir"]);
+        });
     }
     #endregion scopes
 
