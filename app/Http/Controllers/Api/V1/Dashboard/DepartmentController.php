@@ -117,7 +117,7 @@ class DepartmentController extends Controller
 
     public function archive(Request $request)
     {
-        $departments = Department::onlyTrashed()->latest()->paginate((int)($request->perPage ?? 10));
+        $departments = Department::onlyTrashed()->search($request)->latest()->paginate((int)($request->perPage ?? 10));
 
         return DepartmentResource::collection($departments)
             ->additional([
