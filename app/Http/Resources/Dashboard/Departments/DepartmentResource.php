@@ -20,7 +20,7 @@ class DepartmentResource extends JsonResource
             'id' => $this->id,
             'name' => $this->name,
             'parent' => $this->parent?->translations()->where('locale', app()->getLocale())->first()->name,
-            'is_active' => $this->is_active,
+            'is_active' => (bool)$this->is_active,
             'created_at' => $this->created_at,
             'translations' => GlobalTransResource::collection($this->whenLoaded('translations')),
             "images"    => ImagesResource::collection($this->whenLoaded("images")),
