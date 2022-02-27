@@ -24,13 +24,20 @@ class AuthController extends Controller
             return response()->json(['status' => false, 'data' => null, 'message' => trans('auth.failed')], 401);
         }
         $user = Auth::user();
+        if ($user->is_login_code) {
+            $code = $this->generateCode(['send_type' => 'phone'], $user,'login_code');
+            $user->update(['login_code' => $code]);
+            return response()->json(['status' => true, 'data' => null, 'message' => trans('dashboard.general.success_send_login_code'), 'dev_message' => $code , 'login_code_required' => true]);
+        }
         $user->devices()->where('device_token',"<>",$request->device_token)->delete();
         $user->tokens()->delete();
         \Config::set('sanctum.expiration',setting('expiration_ttl') ?? 1);
         $token =  $user->createToken('RaseedJakDashboard')->plainTextToken;
-        $user->devices()->firstOrCreate($request->only(['device_token', 'device_type']));
+        if ($request->only(['device_token', 'device_type'])) {
+            $user->devices()->firstOrCreate($request->only(['device_token', 'device_type']));
+        }
         data_set($user, 'token', $token);
-        return UserResource::make($user)->additional(['status' => true, 'message' => trans('auth.success_login', ['user' => $user->phone])]);
+        return UserResource::make($user)->additional(['status' => true, 'message' => trans('auth.success_login', ['user' => $user->phone]) , 'login_code_required' => false]);
     }
 
     public function sendCode(SendCodeRequest $request)
@@ -110,11 +117,13 @@ class AuthController extends Controller
     private function generateCode($request, $user, $col)
     {
         $code = 1111;
-        if ($request->send_type == 'phone' && setting('use_sms_service') == 'enable') {
+        if ($request['send_type'] == 'phone' && setting('use_sms_service') == 'enable') {
             $code = generate_unique_code('\\App\\Models\\User', $col, 4);
             $message = trans("auth.{$col}_is", ['code' => $code]);
             //   $response = send_sms($user->phone, $message);
         }elseif ($request->send_type == 'email' && setting('use_email_service') == 'enable') {
+            $code = generate_unique_code('\\App\\Models\\User', $col, 4);
+            $message = trans("auth.{$col}_is", ['code' => $code]);
             // send email
         }
         ExpireCodeJob::dispatch($user, $col)->delay((int)setting('code_ttl'));

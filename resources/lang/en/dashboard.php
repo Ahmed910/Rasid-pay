@@ -28,6 +28,7 @@ return [
         'method_not_allow' => 'Http method (:method) not allowed',
         'not_found' => 'Model Not Found!',
         'page_not_found' => '404, Page not found!',
+        'something_went_wrog' => 'The data entered is incorrect'
     ],
     'activity_log' => [
         "reason" => ":user did :action",

@@ -26,8 +26,8 @@ class LoginRequest extends ApiMasterRequest
         return [
           'username' => 'required',
           'password' => 'required',
-          'device_token' => 'required|string|between:2,10000',
-          'device_type' => 'required|in:ios,android',
+          'device_token' => 'nullable|string|between:2,10000',
+          'device_type' => 'nullable|in:ios,android',
         ];
     }
 
