@@ -50,12 +50,12 @@ class AdminRequest extends ApiMasterRequest
             $ruleEmployee = 'nullable|exists:users,id';
             $rulePassChanged = 'required|boolean';
             $ruleBan = 'required|boolean';
-            $password = 'nullable|required_if:password_change,true|confirmed|min:6|max:225';
+            $password = 'nullable|required_if:password_change,true|confirmed|min:6|max:100';
         } else {
             $ruleEmployee = 'required|exists:users,id';
             $rulePassChanged = 'nullable';
             $ruleBan = 'nullable';
-            $password = 'nullable|required_if:password_change,true|min:6|max:225';
+            $password = 'nullable|required_if:password_change,true|min:6|max:100';
         }
         return [
             'employee_id' => $ruleEmployee,
