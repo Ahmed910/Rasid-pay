@@ -31,18 +31,21 @@ class EmployeeRequest extends ApiMasterRequest
     {
         return [
             'fullname' => 'required|string|max:225|min:2',
-            'email' => 'required|email|max:225|unique:users,email,' . $this->employee,
-            'phone' => 'required|numeric|digits_between:10,20|unique:users,phone,' . $this->employee,
-            'identity_number' => 'required|numeric|digits_between:10,20|unique:users,identity_number,' . $this->employee,
-            'whatsapp' => 'required|numeric|digits_between:10,20|unique:users,whatsapp,' . $this->employee,
+            'email' => 'required|email|max:225|unique:users,email,' . @$this->employee,
+            'phone' => 'required|numeric|digits_between:10,20|unique:users,phone,' . @$this->employee,
+            'identity_number' => 'required|numeric|digits_between:10,20|unique:users,identity_number,' . @$this->employee,
+            'whatsapp' => 'required|numeric|digits_between:10,20|unique:users,whatsapp,' . @$this->employee,
             'gender' => 'required|in:male,female',
+            "contract_type" => 'required|in:salary,salary_with_percent,percent',
+            'salary' => 'required|numeric|digits_between:1,10',
+            'qr_path' => 'required',
+            'qr_code' => 'required',
             'is_ban' => 'in:1,0',
             "ban_reason" => 'required_if:is_ban,true|string|max:225|min:2',
             "is_ban_always" => 'required_if:is_ban,1|in:1,0',
             "ban_from" => 'required_if:is_ban_always,0|date',
             "ban_to" => 'required_if:is_ban_always,0|date',
             'date_of_birth' => 'required|date',
-            'date_of_birth_hijri' => 'required|date',
             'image' => 'mimes:jpg,jpeg,png,webp|max:2048',
         ];
     }
