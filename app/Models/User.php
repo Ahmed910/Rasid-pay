@@ -118,6 +118,10 @@ class User extends Authenticatable implements HasAssetsInterface
     {
         return $this->hasOne(Client::class);
     }
+    public function bankAccount()
+    {
+        return $this->hasOne(BankAccount::class);
+    }
     public function setIsBanAttribute($value)
     {
         $this->attributes['is_ban'] = $value;
