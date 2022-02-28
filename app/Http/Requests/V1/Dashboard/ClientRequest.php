@@ -33,22 +33,21 @@ class ClientRequest extends ApiMasterRequest
      */
     public function rules()
     {
-//        dd($this->client->user->identity_number);
-        return [ //all unique tables checks needs to be handled
-            "fullname" => ["required", "max:100", "string" ],
+        return [
+            "fullname" => ["required", "max:100", "string"],
             "email" => ["required", "max:255", "email", "unique:users,email," . @$this->client->user->id],
             "phone" => ["nullable", "starts_with:9665,05", "numeric", "digits_between:10,20", "unique:users,phone," . @$this->client->user->id],
             "identity_number" => ["required", "numeric", "digits_between:10,20", "unique:users,identity_number," . @$this->client->user->id],
             "client_type" => ["required", "in:company,Institution ,member,freelance_doc,famous,other"],
             "gender" => ["nullable", "in:male,female"],
             "date_of_birth" => ["required", "date"],
-            "commercial_number" => ["nullable","required_if:client_type,company,Institution","string","max:10","unique:clients,commercial_number,".@$this->client->id],
-            "tax_number" => "required|max:15|string|unique:clients,tax_number,".@$this->client->id,
+            "commercial_number" => ["nullable", "required_if:client_type,company,Institution", "string", "max:10", "unique:clients,commercial_number," . @$this->client->id],
+            "tax_number" => "required|max:15|string|unique:clients,tax_number," . @$this->client->id,
             "register_type" => ["required", "in:delegate,direct"],
             "activity_type" => ["nullable", "string", "max:100"],
             "daily_expect_trans" => ["required", "numeric", "digits_between:1,15"],
             "address" => ["nullable", "string", "max:255"],
-            "nationality" => ["nullable", "string", "max:255" , "min:2"],
+            "nationality" => ["nullable", "string", "max:255", "min:2"],
             "marital_status" => ["nullable", "in:married,single"],
 
 

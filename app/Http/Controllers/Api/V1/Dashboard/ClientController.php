@@ -19,11 +19,8 @@ class ClientController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index(Request $request)
-    {DB::enableQueryLog();
-
-        $client = Client::search($request)->with("user")->latest()->paginate((int)($request->perPage ?? 15));
-
-//        dd(DB::getQueryLog());
+    {
+        $client = Client::with("user")->search($request)->latest()->paginate((int)($request->perPage ?? 15));
 
         return ClientResource::collection($client)->additional([
             'status' => true,
@@ -60,7 +57,7 @@ class ClientController extends Controller
      */
     public function store(ClientRequest $request, User $user)
     {
-        $user->fill($request->validated()+["user_type" =>"client"])->save();
+        $user->fill($request->validated() + ["user_type" => "client"])->save();
         $client = Client::create($request->validated() + ['user_id' => $user->id]);
         $client->load('user');
         return ClientResource::make($client)->additional([
@@ -76,9 +73,8 @@ class ClientController extends Controller
      */
     public function show(Client $client)
     {
-        $client->load("user") ;
-//        dd($client) ;
-//        $client = Client::findorfail($id)->load("user");
+        $client->load("user");
+
         return ClientResource::make($client)->additional(['status' => true, 'message' => ""]);
     }
 
@@ -102,9 +98,7 @@ class ClientController extends Controller
      */
     public function update(ClientRequest $request, Client $client)
     {
-//        $user->fill($request->validated())->save();
         $client->update($request->validated());
-//        $client = Client::create($request->validated() + ['user_id' => $user->id]);
         $client->load('user');
         return ClientResource::make($client)->additional([
             'status' => true, 'message' => trans("dashboard.general.success_update")
