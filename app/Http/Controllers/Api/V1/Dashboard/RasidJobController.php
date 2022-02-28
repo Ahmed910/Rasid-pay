@@ -8,14 +8,13 @@ use App\Http\Controllers\Controller;
 use App\Http\Resources\Dashboard\RasidJobResource;
 use App\Http\Requests\V1\Dashboard\RasidJobRequest;
 use App\Http\Requests\V1\Dashboard\ReasonRequest;
-use Symfony\Component\HttpFoundation\Response;
 
 class RasidJobController extends Controller
 {
 
     public function index(Request $request)
     {
-        $rasidJobs = RasidJob::with('translations','department')->search($request)->latest()->paginate((int)($request->perPage ?? 10));
+        $rasidJobs = RasidJob::search($request)->latest()->paginate((int)($request->perPage ?? 10));
 
         return RasidJobResource::collection($rasidJobs)
             ->additional([
@@ -29,9 +28,10 @@ class RasidJobController extends Controller
     public function store(RasidJobRequest $request, RasidJob $rasidJob)
     {
 
-        $rasidJob->fill($request->validated())->save();
+        $rasidJob->fill($request->validated() + ['added_by_id' => auth()->id()])->save();
 
-        return RasidJobResource::make($rasidJob->load('translations','department'))
+        
+        return RasidJobResource::make($rasidJob)
             ->additional([
                 'status' => true,
                 'message' =>  __('dashboard.general.success_add')
@@ -43,7 +43,7 @@ class RasidJobController extends Controller
     {
         $rasidJob  = RasidJob::withTrashed()->findOrFail($id);
 
-        return RasidJobResource::make($rasidJob->load('translations','department'))
+        return RasidJobResource::make($rasidJob)
             ->additional([
                 'status' => true,
                 'message' => trans("dashboard.general.show")
@@ -55,7 +55,7 @@ class RasidJobController extends Controller
     {
         $rasidJob->fill($request->validated())->save();
 
-        return RasidJobResource::make($rasidJob->load('translations','department'))
+        return RasidJobResource::make($rasidJob)
             ->additional([
                 'status' => true,
                 'message' => __('dashboard.general.success_update')
@@ -66,8 +66,8 @@ class RasidJobController extends Controller
 
     public function archive(Request $request)
     {
-        $rasidJobs = RasidJob::onlyTrashed()->latest()->with('translations','department')
-            ->latest()->paginate((int)($request->perPage ?? 10));
+        $rasidJobs = RasidJob::onlyTrashed()->latest()
+            ->paginate((int)($request->perPage ?? 10));
 
         return RasidJobResource::collection($rasidJobs)
             ->additional([
@@ -86,7 +86,7 @@ class RasidJobController extends Controller
 
         $rasidJob->restore();
 
-        return RasidJobResource::make($rasidJob->load('translations','department'))
+        return RasidJobResource::make($rasidJob)
             ->additional([
                 'status' => true,
                 'message' => trans('dashboard.general.restore')
@@ -100,7 +100,7 @@ class RasidJobController extends Controller
 
         $rasidJob->delete();
 
-        return RasidJobResource::make($rasidJob->load('translations','department'))
+        return RasidJobResource::make($rasidJob)
             ->additional([
                 'status' => true,
                 'message' =>  __('dashboard.general.success_archive')
@@ -113,7 +113,7 @@ class RasidJobController extends Controller
         $rasidJob = RasidJob::onlyTrashed()->findOrFail($id);
         $rasidJob->forceDelete();
 
-        return RasidJobResource::make($rasidJob->load('translations','department'))
+        return RasidJobResource::make($rasidJob)
             ->additional([
                 'status' => true,
                 'message' =>  __('dashboard.general.success_delete')

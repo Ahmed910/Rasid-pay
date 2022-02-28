@@ -23,6 +23,7 @@ class CountryResource extends JsonResource
             'currency' => CurrencyResource::make($this->whenLoaded('currency')),
             'activity' => ActivityLogResource::collection($this->whenLoaded('activity')),
             'created_at' => $this->created_at,
+            'added_by ' => SimpleUserResource::make($this->whenLoaded('addedBy')),
             'actions' => [
                 'show' => auth()->user()->hasPermissions('countries.show'),
                 'create' => auth()->user()->hasPermissions('countries.store'),
