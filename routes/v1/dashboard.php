@@ -102,6 +102,12 @@ Route::middleware('auth:sanctum')->group(function () {
             Route::delete('delete-contact/{id}', 'deleteContact')->name('delete_contact');
             Route::delete('delete-reply/{id}', 'deleteReply')->name('delete_reply');
         });
+        Route::controller('BankController')->name('banks.')->prefix('banks')->group(function () {
+            Route::get('archive', 'archive')->name('archive');
+            Route::post('restore/{id}', 'restore')->name('restore');
+            Route::delete('forceDelete/{id}', 'forceDelete')->name('force_delete');
+        });
+
 
         Route::apiResources([
             'countries' => 'CountryController',
@@ -113,9 +119,10 @@ Route::middleware('auth:sanctum')->group(function () {
             'employees' => 'EmployeeController',
             'clients' => 'ClientController',
             'rasid_jobs' => 'RasidJobController',
+            'banks' => 'BankController',
         ]);
 
-        Route::post('settings/create-setting','SettingController@createSetting')->name('settings_create');
+        Route::post('settings/create-setting', 'SettingController@createSetting')->name('settings_create');
         Route::apiResource('settings', 'SettingController')->only(['index', 'store']);
 
         Route::resource('groups', 'GroupController')->except('edit');
