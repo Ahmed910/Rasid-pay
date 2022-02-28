@@ -42,7 +42,7 @@ class CurrencyController extends Controller
 
     public function store(CurrencyRequest $request, Currency $currency)
     {
-        $currency->fill($request->validated())->save();
+        $currency->fill($request->validated() + ['added_by_id' => auth()->id()])->save();
 
         return CurrencyResource::make($currency)
             ->additional([

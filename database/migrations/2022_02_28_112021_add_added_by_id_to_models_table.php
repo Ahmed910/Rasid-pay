@@ -28,6 +28,10 @@ class AddAddedByIdToModelsTable extends Migration
         Schema::table('countries', function (Blueprint $table) {
             $table->foreignUuid("added_by_id")->nullable()->constrained('users')->nullOnDelete();
         });
+
+        Schema::table('currencies', function (Blueprint $table) {
+            $table->foreignUuid("added_by_id")->nullable()->constrained('users')->nullOnDelete();
+        });
     }
 
     /**
@@ -54,6 +58,11 @@ class AddAddedByIdToModelsTable extends Migration
 
         Schema::table('countries', function (Blueprint $table) {
             $table->dropForeign('countries_added_by_id_foreign');
+            $table->dropColumn('added_by_id');
+        });
+
+        Schema::table('currencies', function (Blueprint $table) {
+            $table->dropForeign('currencies_added_by_id_foreign');
             $table->dropColumn('added_by_id');
         });
 
