@@ -21,7 +21,7 @@ class PermissionResource extends JsonResource
             'id' => $this->id,
             'uri' => $this->name,
             'name' => trans('dashboard.' . $single_uri . '.' . $uri) . ' (' . trans('dashboard.' . $single_uri . '.permissions.' . str_after($this->name,'.')) . ')',
-            'created_at' => $this->created_at,
+            'created_at' => $this->created_at
         ];
     }
 }
