@@ -42,15 +42,15 @@ class AddAddedByIdToModelsTable extends Migration
         //     $table->dropColumn('added_by_id');
         // });
 
-        Schema::table('departments', function (Blueprint $table) {
-            $table->dropForeign('departments_added_by_id_foreign');
-            $table->dropColumn('added_by_id');
-        });
+        // Schema::table('departments', function (Blueprint $table) {
+        //     $table->dropForeign('departments_added_by_id_foreign');
+        //     $table->dropColumn('added_by_id');
+        // });
 
-        Schema::table('rasid_jobs', function (Blueprint $table) {
-            $table->dropForeign('rasid_jobs_added_by_id_foreign');
-            $table->dropColumn('added_by_id');
-        });
+        // Schema::table('rasid_jobs', function (Blueprint $table) {
+        //     $table->dropForeign('rasid_jobs_added_by_id_foreign');
+        //     $table->dropColumn('added_by_id');
+        // });
 
         // Schema::table('countries', function (Blueprint $table) {
         //     $table->dropForeign('countries_added_by_id_foreign');
