@@ -29,14 +29,12 @@ class EmployeeRequest extends ApiMasterRequest
 
     public function rules()
     {
-        dd($this->employee);
         return [
             'fullname' => 'required|string|max:225|min:2',
-            'email' => 'required|email|max:225|unique:users,email,' . @$this->employee->id,
-            'phone' => 'required|numeric|digits_between:10,20|unique:users,phone,' . @$this->employee->id,
-            'identity_number' => 'required|numeric|digits_between:10,20|unique:users,identity_number,' . @$this->employee->id,
-            'whatsapp' => 'required|numeric|digits_between:10,20|unique:users,whatsapp,' . @$this->employee->id,
-            // 'user_type' => 'required|in:employee',
+            'email' => 'required|email|max:225|unique:users,email,' . $this->employee,
+            'phone' => 'required|numeric|digits_between:10,20|unique:users,phone,' . $this->employee,
+            'identity_number' => 'required|numeric|digits_between:10,20|unique:users,identity_number,' . $this->employee,
+            'whatsapp' => 'required|numeric|digits_between:10,20|unique:users,whatsapp,' . $this->employee,
             'gender' => 'required|in:male,female',
             'is_ban' => 'in:1,0',
             "ban_reason" => 'required_if:is_ban,true|string|max:225|min:2',
