@@ -16,7 +16,6 @@ class DepartmentController extends Controller
     {
         $departments = Department::search($request)
             ->with('parent.translations')
-            ->has('parent')
             ->ListsTranslations('name')
             ->addSelect('created_at', 'is_active', 'parent_id')
             ->sortBy($request)
