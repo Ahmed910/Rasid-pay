@@ -21,6 +21,7 @@ class RegionResource extends JsonResource
             'country' => CountryResource::make($this->whenLoaded('country')),
             'cities' => CityResource::collection($this->whenLoaded('cities')),
             'created_at' => $this->created_at,
+            'added_by ' => SimpleUserResource::make($this->whenLoaded('addedBy')),
             'actions' => [
                 'show' => auth()->user()->hasPermissions('regions.show'),
                 'create' => auth()->user()->hasPermissions('regions.store'),
