@@ -20,6 +20,7 @@ class CityResource extends JsonResource
             'name' => $this->name,
             'postal_code' => $this->postal_code,
             'created_at' => $this->created_at,
+            'added_by ' => SimpleUserResource::make($this->whenLoaded('addedBy')),
             'country' => CountryResource::make($this->whenLoaded('country')),
             'actions' => [
                 'show' => auth()->user()->hasPermissions('cities.show'),
