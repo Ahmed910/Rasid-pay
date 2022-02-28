@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use App\Models\Department\Department;
+use App\Models\RasidJob\RasidJob;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Traits\Uuid;
@@ -12,9 +14,6 @@ class Employee extends Model
 
     protected $guarded = ['created_at', 'updated_at'];
 
-    public function user(){
-        return $this->belongsTo(User::class);
-    }
 
     #region properties
     #endregion properties
@@ -27,6 +26,24 @@ class Employee extends Model
 
     #region relationships
     #endregion relationships
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+
+    public function department()
+    {
+        return $this->belongsTo(Department::class);
+    }
+
+    public function job()
+    {
+        return $this->belongsTo(RasidJob::class);
+    }
+
+
+
 
     #region custom Methods
     #endregion custom Methods
