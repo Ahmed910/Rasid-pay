@@ -39,15 +39,15 @@ class ClientController extends Controller
         //
     }
 
-    public function suspendedclients(Request $request)
-    {
-        $users = User::where(["user_type" => 'client', "is_admin_active_user" => 0])->latest()->paginate((int)($request->perPage ?? 10));
-        return ClientResource::collection($users)
-            ->additional([
-                'status' => true,
-                'message' => ''
-            ]);
-    }
+//    public function suspendedclients(Request $request)
+//    {
+//        $users = User::where(["user_type" => 'client', "is_admin_active_user" => 0])->latest()->paginate((int)($request->perPage ?? 10));
+//        return ClientResource::collection($users)
+//            ->additional([
+//                'status' => true,
+//                'message' => ''
+//            ]);
+//    }
 
     /**
      * Store a newly created resource in storage.
@@ -57,8 +57,9 @@ class ClientController extends Controller
      */
     public function store(ClientRequest $request, User $user)
     {
-        $user->fill($request->validated() + ["user_type" => "client"])->save();
-        $client = Client::create($request->validated() + ['user_id' => $user->id]);
+        $except = ["tax_number" , "commercial_number","activity_type","daily_expect_trans","register_type","client_type" , "nationality" ,"address" ,"marital_status"];
+        $user->fill($request->safe()->except($except) + ["user_type" => "client"])->save();
+        $client = Client::create($request->safe()->only($except) + ['user_id' => $user->id]);
         $client->load('user');
         return ClientResource::make($client)->additional([
             'status' => true, 'message' => trans("dashboard.general.success_add")
@@ -71,10 +72,10 @@ class ClientController extends Controller
      * @param int $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Client $client)
+    public function show( $id)
     {
+        $client = Client::where('user_id', $id)->firstOrFail();
         $client->load("user");
-
         return ClientResource::make($client)->additional(['status' => true, 'message' => ""]);
     }
 
@@ -96,11 +97,12 @@ class ClientController extends Controller
      * @param int $id
      * @return \Illuminate\Http\Response
      */
-    public function update(ClientRequest $request, Client $client )
+    public function update(ClientRequest $request, $id )
     {
-        $user = User::findorfail($client->user_id);
-        $user->fill($request->validated())->save();
-        $client->update($request->validated());
+        $client = Client::where('user_id', $id)->firstOrFail();
+        $except = ["tax_number" , "commercial_number","activity_type","daily_expect_trans","register_type","client_type" , "nationality" ,"address" ,"marital_status"];
+        $client->user()->update($request->safe()->except($except));
+        $client->update($request->safe()->only($except));
         $client->load('user');
         return ClientResource::make($client)->additional([
             'status' => true, 'message' => trans("dashboard.general.success_update")
