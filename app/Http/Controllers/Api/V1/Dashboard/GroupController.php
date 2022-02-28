@@ -70,10 +70,8 @@ class GroupController extends Controller
      */
     public function store(GroupRequest $request , Group $group)
     {
-        $permission_inputs =$request->validated()['permission_list'];
-        $group->fill($request->validated())->save();
+        $group->fill($request->validated()+['added_by_id' => auth()->id()])->save();
         $group->permissions()->sync($request->permission_list);
-
         return GroupResource::make($group)->additional(['status' => true, 'message' => trans('dashboard.general.success_add')]);
     }
 
@@ -109,15 +107,8 @@ class GroupController extends Controller
      */
     public function update(GroupRequest $request, Group $group)
     {
-        $permission_inputs =$request->validated()['permissions'];
-        $group_inputs = array_only($request->validated(),config('translatable.locales')+['is_active']);
-        $group->update($group_inputs);
-        $permission_list = [];
-        foreach ($permission_inputs as $permission) {
-            $permission_obj= Permission::updateOrCreate(['name' => $permission['name']],$permission);
-            $permission_list[] =$permission_obj->id;
-        }
-        $group->permissions()->sync($permission_list);
+        $group->update(array_only($request->validated(),config('translatable.locales')+['is_active']));
+        $group->permissions()->sync($request->permission_list);
         return GroupResource::make($group)->additional(['status' => true, 'message' => trans('dashboard.general.success_update')]);
     }
 
