@@ -20,6 +20,10 @@ class AddAddedByIdToModelsTable extends Migration
         Schema::table('departments', function (Blueprint $table) {
             $table->foreignUuid("added_by_id")->nullable()->constrained('users')->nullOnDelete();
         });
+
+        Schema::table('rasid_jobs', function (Blueprint $table) {
+            $table->foreignUuid("added_by_id")->nullable()->constrained('users')->nullOnDelete();
+        });
     }
 
     /**
@@ -38,5 +42,11 @@ class AddAddedByIdToModelsTable extends Migration
             $table->dropForeign('departments_added_by_id_foreign');
             $table->dropColumn('added_by_id');
         });
+
+        Schema::table('rasid_jobs', function (Blueprint $table) {
+            $table->dropForeign('rasid_jobs_added_by_id_foreign');
+            $table->dropColumn('added_by_id');
+        });
+
     }
 }
