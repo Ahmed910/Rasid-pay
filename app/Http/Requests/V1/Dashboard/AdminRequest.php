@@ -50,14 +50,14 @@ class AdminRequest extends ApiMasterRequest
             $data = [
                 'password_change' => 'required|in:1,0',
                 'is_ban' => 'required|in:1,0',
-                'password' => 'nullable|required_if:password_change,1|confirmed|size:6'
+                'password' => 'nullable|required_if:password_change,1|min:6|max:100|confirmed'
             ];
         } else {
             $data = [
                 'employee_id' =>  'required|exists:users,id,user_type,employee',
                 'password_change' => 'required|in:1,0',
                 'is_ban' => 'required|in:1,0',
-                'password' => 'nullable|required_if:password_change,1|size:6'
+                'password' => 'required|min:6|max:100'
             ];
 
         }
