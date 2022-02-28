@@ -36,7 +36,7 @@ class CityController extends Controller
 
     public function store(CityRequest $request, City $city)
     {
-        $city->fill($request->validated())->save();
+        $city->fill($request->validated() + ['added_by_id' => auth()->id()])->save();
 
         return CityResource::make($city)
             ->additional([

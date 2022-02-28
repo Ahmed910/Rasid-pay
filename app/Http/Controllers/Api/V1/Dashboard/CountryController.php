@@ -42,7 +42,9 @@ class CountryController extends Controller
 
     public function store(CountryRequest $request, Country $country)
     {
-        $country->fill($request->validated())->save();
+        
+
+        $country->fill($request->validated() + ['added_by_id' => auth()->id()])->save();
 
         return CountryResource::make($country)
             ->additional([
@@ -68,14 +70,14 @@ class CountryController extends Controller
                 'Activity' => $activity
             ]);
 
-            // $data['country'] =  CountryResource::make($country);
-            // $data['activity'] =  ActivityLogResource::collection($Activity);
+        // $data['country'] =  CountryResource::make($country);
+        // $data['activity'] =  ActivityLogResource::collection($Activity);
 
-            // return response()->json([
-            //     'data' => $data,
-            //     'status' => true,
-            //     'message' =>  '',
-            // ], 400);
+        // return response()->json([
+        //     'data' => $data,
+        //     'status' => true,
+        //     'message' =>  '',
+        // ], 400);
     }
 
     public function edit($id)

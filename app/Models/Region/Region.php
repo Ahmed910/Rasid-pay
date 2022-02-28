@@ -23,6 +23,7 @@ class Region extends Model implements TranslatableContract
     public $translatedAttributes = ['name'];
     protected $guarded = ['created_at', 'updated_at', 'deleted_at'];
     private $sortableColumns = ["name", "created_at"];
+    protected $with = ['addedBy'];
     #endregion properties
 
     #region mutators
@@ -73,6 +74,11 @@ class Region extends Model implements TranslatableContract
     public function cities(): HasMany
     {
         return $this->hasMany(City::class);
+    }
+
+    public function addedBy(): BelongsTo
+    {
+        return $this->belongsTo(User::class, 'added_by_id');
     }
     #endregion relationships
 

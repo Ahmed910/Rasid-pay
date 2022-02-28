@@ -40,6 +40,7 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::post('update', 'update')->name('update');
         Route::post('change_password', 'changePassword')->name('change_password');
     });
+    Route::post('settings/create-setting','SettingController@createSetting');
 
     Route::middleware('adminPermission')->group(function () {
         Route::controller('CountryController')->name('countries.')->prefix('countries')->group(function () {

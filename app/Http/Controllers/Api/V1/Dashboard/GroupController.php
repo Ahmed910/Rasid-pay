@@ -32,7 +32,7 @@ class GroupController extends Controller
      */
     public function index(Request $request)
     {
-        $groups = Group::with(['translations' => function ($q) {
+        $groups = Group::with(['permissions','translations' => function ($q) {
             $q->where('locale', app()->getLocale());
         }])->search($request)->latest()->paginate((int)($request->page ?? 15));
 
@@ -44,7 +44,7 @@ class GroupController extends Controller
     {
         $saved_permissions = $this->savedPermissions()->groupBy('uri')->map(function($item,$key){
             $data['uri'] = $key;
-            $data['trans'] = trans('dashboard.' . str_singular($key) . '.' . $key);
+            $data['name'] = trans('dashboard.' . str_singular($key) . '.' . $key);
             $data['permissions'] = $item->transform(function($item){
                 unset($item->uri);
                 $item->is_checked = false;
@@ -70,10 +70,8 @@ class GroupController extends Controller
      */
     public function store(GroupRequest $request , Group $group)
     {
-        $permission_inputs =$request->validated()['permission_list'];
-        $group->fill($request->validated())->save();
+        $group->fill($request->validated()+['added_by_id' => auth()->id()])->save();
         $group->permissions()->sync($request->permission_list);
-
         return GroupResource::make($group)->additional(['status' => true, 'message' => trans('dashboard.general.success_add')]);
     }
 
@@ -82,7 +80,7 @@ class GroupController extends Controller
         $group_permissions = $group->permissions->pluck('id')->toArray();
         $saved_permissions = $this->savedPermissions()->groupBy('uri')->map(function($item,$key) use($group_permissions){
             $data['uri'] = $key;
-            $data['trans'] = trans('dashboard.' . str_singular($key) . '.' . $key);
+            $data['name'] = trans('dashboard.' . str_singular($key) . '.' . $key);
             $data['permissions'] = $item->transform(function($item) use($group_permissions){
                 unset($item->uri);
                 $item->is_checked = in_array($item->id , $group_permissions);
@@ -95,7 +93,7 @@ class GroupController extends Controller
             'status' => true,
             'message' => "",
             'data' => [
-                'group' => GroupResource::make($group->load('translations')),
+                'group' => GroupResource::make($group->load('translations','permissions')),
                 'routes' => UriResource::collection($routes),
             ]
         ]);
@@ -109,15 +107,8 @@ class GroupController extends Controller
      */
     public function update(GroupRequest $request, Group $group)
     {
-        $permission_inputs =$request->validated()['permissions'];
-        $group_inputs = array_only($request->validated(),config('translatable.locales')+['is_active']);
-        $group->update($group_inputs);
-        $permission_list = [];
-        foreach ($permission_inputs as $permission) {
-            $permission_obj= Permission::updateOrCreate(['name' => $permission['name']],$permission);
-            $permission_list[] =$permission_obj->id;
-        }
-        $group->permissions()->sync($permission_list);
+        $group->update(array_only($request->validated(),config('translatable.locales')+['is_active']));
+        $group->permissions()->sync($request->permission_list);
         return GroupResource::make($group)->additional(['status' => true, 'message' => trans('dashboard.general.success_update')]);
     }
 
@@ -149,7 +140,7 @@ class GroupController extends Controller
     public function permissions()
     {
         $saved_permissions = $this->savedPermissions()->except('uri')->toArray();
-        $saved_names = array_column($saved_permissions,'name');
+        $saved_names = array_column($saved_permissions,'named_uri');
         foreach (app()->routes->getRoutes() as $value) {
             $name = $value->getName();
             if (in_array($name,$this->public_routes) || is_null($name) || in_array(str_before($name,'.'),['ignition','debugbar'])) {
@@ -157,7 +148,7 @@ class GroupController extends Controller
             }
             if(!in_array($name,$saved_names)){
                 $route = Permission::create(['name' => $name]);
-                $saved_permissions[] = ['id' => $route->id,'name' => $name , 'trans' => trans('dashboard.' . str_singular(str_before($name,'.')) . '.' . str_after($name,'.'))];
+                $saved_permissions[] = ['id' => $route->id,'named_uri' => $name , 'name' => trans('dashboard.' . str_singular(str_before($name,'.')) . '.' . str_after($name,'.'))];
             }
         }
         return UriResource::collection($saved_permissions)->additional(['status' => true, 'message' => '']);
@@ -170,7 +161,8 @@ class GroupController extends Controller
             $uri = str_before($item->name,'.');
             $single_uri = str_singular($uri);
             $item['uri'] = $uri;
-            $item['trans'] = trans('dashboard.' . $single_uri . '.permissions.' . str_after($item->name,'.')) . ' (' . trans('dashboard.' . $single_uri . '.' . $uri) . ')';
+            $item['named_uri'] = $item->name;
+            $item['name'] = trans('dashboard.' . $single_uri . '.' . $uri) . ' (' . trans('dashboard.' . $single_uri . '.permissions.' . str_after($item->name,'.')) . ')';
             return $item;
         });
     }

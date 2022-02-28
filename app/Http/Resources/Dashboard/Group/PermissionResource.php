@@ -15,11 +15,13 @@ class PermissionResource extends JsonResource
      */
     public function toArray($request)
     {
+        $uri = str_before($this->name,'.');
+        $single_uri = str_singular($uri);
         return [
             'id' => $this->id,
-            'name' => trans('dashboard.'.str_before($this->name,'.') . '.permissions.'.str_after($this->name,'.')),
             'uri' => $this->name,
-            'created_at' => $this->created_at,
+            'name' => trans('dashboard.' . $single_uri . '.' . $uri) . ' (' . trans('dashboard.' . $single_uri . '.permissions.' . str_after($this->name,'.')) . ')',
+            'created_at' => $this->created_at
         ];
     }
 }

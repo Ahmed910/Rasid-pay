@@ -2,10 +2,8 @@
 
 namespace App\Models\Group;
 
-use App\Models\Permission;
-use App\Models\User;
-use App\Traits\Loggable;
-use App\Traits\Uuid;
+use App\Models\{Permission, User};
+use App\Traits\{Loggable, Uuid};
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Astrotomic\Translatable\Contracts\Translatable as TranslatableContract;
@@ -51,6 +49,11 @@ class Group extends Model implements TranslatableContract
     public function admins()
     {
         return $this->belongsToMany(User::class);
+    }
+
+    public function addedBy()
+    {
+        return $this->belongsTo(User::class,'added_by_id');
     }
 
     public function permissions()

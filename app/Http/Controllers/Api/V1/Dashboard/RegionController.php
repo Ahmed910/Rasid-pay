@@ -54,7 +54,7 @@ class RegionController extends Controller
      */
     public function store(RegionRequest $request, Region $region)
     {
-        $region->fill($request->validated())->save();
+        $region->fill($request->validated() + ['added_by_id' => auth()->id()])->save();
         return RegionResource::make($region)->additional([
             'status' => true, 'message' => trans("dashboard.general.success_add")
         ]);

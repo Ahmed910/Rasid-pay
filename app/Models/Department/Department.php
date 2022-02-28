@@ -3,6 +3,7 @@
 namespace App\Models\Department;
 
 use App\Contracts\HasAssetsInterface;
+use App\Models\User;
 use App\Traits\HasAssetsTrait;
 use App\Traits\Loggable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -25,7 +26,7 @@ class Department extends Model implements TranslatableContract, HasAssetsInterfa
     protected $guarded = ['created_at', 'updated_at', 'deleted_at'];
     public $translatedAttributes = ['name', 'description'];
     public $assets = ["image"];
-    public $with   = ["images"];
+    public $with   = ["images", "addedBy"];
     private $sortableColumns = ["name", "parent_id", "created_at", "status"];
     #endregion properties
 
@@ -106,7 +107,10 @@ class Department extends Model implements TranslatableContract, HasAssetsInterfa
         return $this->hasMany(RasidJob::class, 'department_id');
     }
 
-
+    public function addedBy(): BelongsTo
+    {
+        return $this->belongsTo(User::class, 'added_by_id');
+    }
 
     #endregion relationships
 
