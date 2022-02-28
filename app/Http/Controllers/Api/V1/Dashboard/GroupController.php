@@ -161,7 +161,7 @@ class GroupController extends Controller
             $uri = str_before($item->name,'.');
             $single_uri = str_singular($uri);
             $item['uri'] = $uri;
-            $item['trans'] = trans('dashboard.' . $single_uri . '.permissions.' . str_after($item->name,'.')) . ' (' . trans('dashboard.' . $single_uri . '.' . $uri) . ')';
+            $item['trans'] = trans('dashboard.' . $single_uri . '.' . $uri) . ' (' . trans('dashboard.' . $single_uri . '.permissions.' . str_after($item->name,'.')) . ')';
             return $item;
         });
     }
