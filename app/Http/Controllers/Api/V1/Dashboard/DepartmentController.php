@@ -16,9 +16,8 @@ class DepartmentController extends Controller
     {
         $departments = Department::search($request)
             ->with('parent.translations')
-            ->has('parent')
             ->ListsTranslations('name')
-            ->addSelect('created_at', 'is_active', 'parent_id')
+            ->addSelect('created_at', 'is_active', 'parent_id', 'added_by_id')
             ->sortBy($request)
             ->paginate((int)($request->page ?? 15));
 
@@ -37,7 +36,7 @@ class DepartmentController extends Controller
                 $q->doesntHave('children')
                     ->WhereNull('parent_id');
             })
-            ->without("images")
+            ->without("images",'addedBy')
             ->select("id")
             ->ListsTranslations("name")
             ->get();
@@ -56,7 +55,7 @@ class DepartmentController extends Controller
 
     public function store(DepartmentRequest $request, Department $department)
     {
-        $department->fill($request->validated())->save();
+        $department->fill($request->validated() + ['added_by_id' => auth()->id()])->save();
 
         return DepartmentResource::make($department)
             ->additional([
@@ -67,7 +66,6 @@ class DepartmentController extends Controller
 
 
     public function show($id)
-
     {
         $department =   Department::withTrashed()->findOrFail($id);
 
@@ -96,7 +94,7 @@ class DepartmentController extends Controller
     }
 
 
-    public function destroy(ReasonRequest $request,Department $department)
+    public function destroy(ReasonRequest $request, Department $department)
     {
         if ($department->children()->exists()) {
             return response()->json([
@@ -127,7 +125,7 @@ class DepartmentController extends Controller
     }
 
 
-    public function restore(ReasonRequest $request,$id)
+    public function restore(ReasonRequest $request, $id)
     {
         $department = Department::onlyTrashed()->findOrFail($id);
 
@@ -141,7 +139,7 @@ class DepartmentController extends Controller
     }
 
 
-    public function forceDelete(ReasonRequest $request,$id)
+    public function forceDelete(ReasonRequest $request, $id)
     {
         $department = Department::onlyTrashed()->findOrFail($id);
 
