@@ -20,6 +20,7 @@ class CurrencyResource extends JsonResource
             'name' => $this->name,
             'value' => $this->value,
             'created_at'=>$this->created_at,
+            'added_by_id' => SimpleUserResource::make($this->whenloaded('addedBy')),
             'actions' => [
                 'index'  => auth()->user()->hasPermissions('currencies.index'),
                 'show' => auth()->user()->hasPermissions('currencies.show'),

@@ -25,6 +25,7 @@ class CurrencyRequest extends ApiMasterRequest
     {
         $rules = [
             'value' => 'required|max:9|regex:/^\d*(\.\d{2})?$/',
+            'added_by_id' =>'nullable|exists:users,id',
         ];
 
         foreach (config('translatable.locales') as $locale) {
