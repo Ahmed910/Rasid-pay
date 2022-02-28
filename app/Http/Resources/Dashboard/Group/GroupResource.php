@@ -21,6 +21,7 @@ class GroupResource extends JsonResource
             'is_active' => (bool)$this->is_active,
             'added_by' => SimpleUserResource::make($this->addedBy),
             'admins_count' => $this->admins->count(),
+            'permissions' => PermissionResource::collection($this->whenLoaded('permissions')),
             'translations' => $this->when(!in_array($request->route()->getActionMethod(),['index','archive']),GlobalTransResource::collection($this->whenLoaded('translations'))),
             'created_at' => $this->created_at,
             'actions' => [

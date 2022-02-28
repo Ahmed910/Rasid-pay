@@ -32,7 +32,7 @@ class GroupController extends Controller
      */
     public function index(Request $request)
     {
-        $groups = Group::with(['translations' => function ($q) {
+        $groups = Group::with(['permissions','translations' => function ($q) {
             $q->where('locale', app()->getLocale());
         }])->search($request)->latest()->paginate((int)($request->page ?? 15));
 
@@ -93,7 +93,7 @@ class GroupController extends Controller
             'status' => true,
             'message' => "",
             'data' => [
-                'group' => GroupResource::make($group->load('translations')),
+                'group' => GroupResource::make($group->load('translations','permissions')),
                 'routes' => UriResource::collection($routes),
             ]
         ]);
