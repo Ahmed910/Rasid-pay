@@ -41,7 +41,7 @@ class EmployeeController extends Controller
 
     public function store(EmployeeRequest $request, User $user)
     {
-        $user->fill($request->validated() + ['added_by_id' => auth()->id(),'user_type' => 'employee'])->save();
+        $user->fill($request->validated() + ['added_by_id' => auth()->id(), 'user_type' => 'employee'])->save();
 
         return EmployeeResource::make($user)
             ->additional([
@@ -96,7 +96,7 @@ class EmployeeController extends Controller
     //restore data from archive
     public function restore(ReasonRequest $request, $employee)
     {
-        $employee = User::onlyTrashed()->where('user_type', 'employee')->findOrFail($id);
+        $employee = User::onlyTrashed()->where('user_type', 'employee')->findOrFail($employee);
         $employee->restore();
 
         return EmployeeResource::make($employee)
@@ -109,7 +109,7 @@ class EmployeeController extends Controller
     //force delete data from archive
     public function forceDelete(ReasonRequest $request, $employee)
     {
-        $employee = User::onlyTrashed()->where('user_type', 'employee')->findOrFail($id);
+        $employee = User::onlyTrashed()->where('user_type', 'employee')->findOrFail($employee);
         $employee->forceDelete();
 
         return EmployeeResource::make($employee)
