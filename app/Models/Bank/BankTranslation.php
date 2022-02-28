@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Traits\Uuid;
 
-class CityTranslation extends Model
+class BankTranslation extends Model
 {
     use HasFactory, Uuid;
 
