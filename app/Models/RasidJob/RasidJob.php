@@ -2,15 +2,17 @@
 
 namespace App\Models\RasidJob;
 
-use App\Models\Department\Department;
-use App\Traits\Loggable;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
+use App\Models\User;
 use App\Traits\Uuid;
-use Astrotomic\Translatable\Contracts\Translatable as TranslatableContract;
+use App\Traits\Loggable;
+use App\Models\Department\Department;
+use Illuminate\Database\Eloquent\Model;
 use Astrotomic\Translatable\Translatable;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Astrotomic\Translatable\Contracts\Translatable as TranslatableContract;
 
 class RasidJob extends Model implements TranslatableContract
 {
@@ -20,6 +22,7 @@ class RasidJob extends Model implements TranslatableContract
     protected $guarded = ['created_at', 'updated_at', 'deleted_at'];
     public $translatedAttributes = ['name', 'description'];
     public $attributes = ['is_active' => false, 'is_vacant' =>  true];
+    protected $with = ['translations','addedBy','department'];
     #endregion properties
 
     #region mutators
@@ -57,6 +60,12 @@ class RasidJob extends Model implements TranslatableContract
     public function department()
     {
         return $this->belongsTo(Department::class);
+    }
+
+
+    public function addedBy(): BelongsTo
+    {
+        return $this->belongsTo(User::class, 'added_by_id');
     }
     #endregion relationships
 
