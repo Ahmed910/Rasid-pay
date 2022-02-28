@@ -47,23 +47,23 @@ class AdminRequest extends ApiMasterRequest
     public function rules()
     {
         if ($this->admin) {
-            $ruleEmployee = 'nullable|exists:users,id';
-            $rulePassChanged = 'required|in:1,0';
-            $ruleBan = 'required|in:1,0';
-            $password = 'nullable|required_if:password_change,1|confirmed|min:6|max:100';
+            $data = [
+                'password_change' => 'required|in:1,0',
+                'is_ban' => 'required|in:1,0',
+                'password' => 'nullable|required_if:password_change,1|confirmed|size:6'
+            ];
         } else {
-            $ruleEmployee = 'required|exists:users,id,user_type,employee';
-            $rulePassChanged = 'nullable|in:1,0';
-            $ruleBan = 'nullable|in:1,0';
-            $password = 'nullable|required_if:password_change,1|min:6|max:100';
+            $data = [
+                'employee_id' =>  'required|exists:users,id,user_type,employee',
+                'password_change' => 'required|in:1,0',
+                'is_ban' => 'required|in:1,0',
+                'password' => 'nullable|required_if:password_change,1|size:6'
+            ];
+
         }
         return [
-            'employee_id' => $ruleEmployee,
-            'password_change' => $rulePassChanged,
-            'password' => $password,
             'is_login_code' => 'required|in:1,0',
             'login_id' => 'required|digits:6|numeric|unique:users,login_id,'.@$this->admin->id.',id,user_type,admin',
-            'is_ban' => $ruleBan,
             'ban_reason' => 'nullable|required_if:is_ban,1|string|max:225',
             'is_ban_always' => 'nullable|required_if:is_ban,1|in:1,0',
             'ban_from' => 'nullable|required_if:is_ban,1|required_if:is_ban_always,0|date',
@@ -72,6 +72,6 @@ class AdminRequest extends ApiMasterRequest
             'group_list.*' => 'required_without:permission_list|exists:groups,id,is_active,1',
             'permission_list' => 'required_without:group_list|array|min:1',
             'permission_list.*' => 'required_without:group_list|exists:permissions,id',
-        ];
+        ] + $data;
     }
 }
