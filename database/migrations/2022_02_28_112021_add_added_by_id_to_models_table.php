@@ -52,10 +52,10 @@ class AddAddedByIdToModelsTable extends Migration
             $table->dropColumn('added_by_id');
         });
 
-        Schema::table('countries', function (Blueprint $table) {
-            $table->dropForeign('countries_added_by_id_foreign');
-            $table->dropColumn('added_by_id');
-        });
+        // Schema::table('countries', function (Blueprint $table) {
+        //     $table->dropForeign('countries_added_by_id_foreign');
+        //     $table->dropColumn('added_by_id');
+        // });
 
     }
 }
