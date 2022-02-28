@@ -14,7 +14,7 @@ class AdminController extends Controller
 
     public function index(Request $request)
     {
-        $users = User::with(['department', 'group'])->where('user_type', 'admin')->select('id', 'fullname', 'email', 'whatsapp', 'gender', 'is_active', 'created_at')->latest()->paginate((int)($request->perPage ?? 10));
+        $users = User::with(['department', 'groups'])->where('user_type', 'admin')->select('id', 'fullname', 'email', 'whatsapp', 'gender', 'is_active', 'created_at')->latest()->paginate((int)($request->perPage ?? 10));
 
         return UserResource::collection($users)
             ->additional([
@@ -35,7 +35,7 @@ class AdminController extends Controller
 
     public function create(Request $request)
     {
-        $users = User::with(['department', 'group'])->where('user_type', 'employee')->select('id', 'fullname', 'email', 'whatsapp', 'gender', 'is_active', 'created_at')->latest();
+        $users = User::with(['department', 'groups'])->where('user_type', 'employee')->select('id', 'fullname', 'email', 'whatsapp', 'gender', 'is_active', 'created_at')->latest();
 
         return UserResource::collection($users)
             ->additional([
@@ -52,7 +52,7 @@ class AdminController extends Controller
         $permissions = $request->permission_list;
         if ($request->group_list) {
             $admin->groups()->sync($request->group_list);
-            $permissions[] = Group::find($request->group_list)->pluck('permissions')->pluck('id')->unique()->toArray();
+            $permissions = array_filter(array_merge($permissions , Group::find($request->group_list)->pluck('permissions')->pluck('id')->unique()->toArray()));
         }
         $admin->permissions()->sync($permissions);
         return UserResource::make($admin)
@@ -65,7 +65,7 @@ class AdminController extends Controller
 
     public function show($id)
     {
-        $user = User::withTrashed()->with(['addedBy', 'country', 'group'])->findOrFail($id);
+        $user = User::withTrashed()->with(['addedBy', 'country', 'groups'])->findOrFail($id);
 
         return UserResource::make($user)
             ->additional([
@@ -90,7 +90,7 @@ class AdminController extends Controller
         $permissions = $request->permission_list;
         if ($request->group_list) {
             $admin->groups()->sync($request->group_list);
-            $permissions[] = Group::find($request->group_list)->pluck('permissions')->pluck('id')->unique()->toArray();
+            $permissions = array_filter(array_merge($permissions , Group::find($request->group_list)->pluck('permissions')->pluck('id')->unique()->toArray()));
         }
         $admin->permissions()->sync($permissions);
 
