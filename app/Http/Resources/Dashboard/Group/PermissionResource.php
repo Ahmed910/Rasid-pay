@@ -20,7 +20,7 @@ class PermissionResource extends JsonResource
         return [
             'id' => $this->id,
             'name' => $this->name,
-            'trans' => trans('dashboard.' . $single_uri . '.' . $uri) . ' (' . trans('dashboard.' . $single_uri . '.permissions.' . str_after($item->name,'.')) . ')',
+            'trans' => trans('dashboard.' . $single_uri . '.' . $uri) . ' (' . trans('dashboard.' . $single_uri . '.permissions.' . str_after($this->name,'.')) . ')',
             'created_at' => $this->created_at,
         ];
     }
