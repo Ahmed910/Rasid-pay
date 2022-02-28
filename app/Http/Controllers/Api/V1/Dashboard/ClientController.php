@@ -96,8 +96,10 @@ class ClientController extends Controller
      * @param int $id
      * @return \Illuminate\Http\Response
      */
-    public function update(ClientRequest $request, Client $client)
+    public function update(ClientRequest $request, Client $client )
     {
+        $user = User::findorfail($client->user_id);
+        $user->fill($request->validated())->save();
         $client->update($request->validated());
         $client->load('user');
         return ClientResource::make($client)->additional([
