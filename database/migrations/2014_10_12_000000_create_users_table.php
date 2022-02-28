@@ -24,7 +24,7 @@ class CreateUsersTable extends Migration
             $table->string('whatsapp')->nullable();
             $table->boolean('is_password_changed')->default(false)->comment('check if user changed password for first time');
             $table->boolean('is_login_code')->default(false)->comment('send verification code every time login');
-            $table->boolean('is_active')->default(false)->comment('check phone first time');
+            $table->boolean('is_active')->default(false)->comment('check phone is verified');
             $table->boolean('is_ban')->default(false)->comment('change status to ban');
             $table->text('ban_reason')->nullable();
             $table->boolean('is_ban_always')->nullable()->comment('1=always,0=period');
