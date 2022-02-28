@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Http\Requests\V1\Dashboard;
+namespace App\Http\Requests\V1\Dashboard\Settings;
 
 use App\Http\Requests\ApiMasterRequest;
-use Illuminate\Support\Arr;
+
 
 class SettingRequest extends ApiMasterRequest
 {

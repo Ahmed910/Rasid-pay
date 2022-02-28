@@ -1,6 +1,6 @@
 <?php
 
-use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Route;
 
 
@@ -22,7 +22,7 @@ Route::post('otp_login', "AuthController@otpLogin");
 Route::get('artisan_commend/{command}', function ($command) {
     ini_set('max_execution_time', 300);
     if ($command) {
-        \Artisan::call($command);
+        Artisan::call($command);
     }
     // \Artisan::call('migrate');
     // \Artisan::call('optimize:clear');
@@ -66,9 +66,10 @@ Route::middleware('auth:sanctum')->group(function () {
             Route::delete('forceDelete/{id}', 'forceDelete')->name('force_delete');
         });
         Route::controller('AdminController')->name('admins.')->prefix('admins')->group(function () {
-            Route::get('archive', 'archive')->name('archive');
-            Route::post('restore/{id}', 'restore')->name('restore');
-            Route::delete('forceDelete/{id}', 'forceDelete')->name('force_delete');
+            Route::get('create', 'create')->name('create');
+            // Route::get('archive', 'archive')->name('archive');
+            // Route::post('restore/{id}', 'restore')->name('restore');
+            // Route::delete('forceDelete/{id}', 'forceDelete')->name('force_delete');
         });
 
         Route::controller('DepartmentController')->name('departments.')->prefix('departments')->group(function () {
@@ -113,6 +114,8 @@ Route::middleware('auth:sanctum')->group(function () {
             'clients' => 'ClientController',
             'rasid_jobs' => 'RasidJobController',
         ]);
+
+        Route::post('settings/create-setting','SettingController@createSetting')->name('settings_create');
         Route::apiResource('settings', 'SettingController')->only(['index', 'store']);
 
         Route::resource('groups', 'GroupController')->except('edit');

@@ -22,6 +22,7 @@ class EmployeeResource extends JsonResource
             'phone' => $this->phone,
             'whatsapp' => $this->whatsapp,
             'gender' => $this->gender,
+            'login_id' => $this->login_id,
             'is_active' => (bool)$this->is_active,
             'is_ban' => (bool)$this->is_ban,
             'department' => DepartmentResource::make($this->whenLoaded('department')),

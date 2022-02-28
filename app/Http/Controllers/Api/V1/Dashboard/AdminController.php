@@ -14,7 +14,7 @@ class AdminController extends Controller
 
     public function index(Request $request)
     {
-        $users = User::with(['department', 'group'])->where('user_type', 'admin')->select('id', 'fullname', 'email', 'whatsapp', 'gender', 'is_active', 'created_at')->latest()->paginate((int)($request->perPage ?? 10));
+        $users = User::with(['department', 'groups' , 'permissions'])->where('user_type', 'admin')->latest()->paginate((int)($request->perPage ?? 10));
 
         return UserResource::collection($users)
             ->additional([
@@ -25,7 +25,7 @@ class AdminController extends Controller
 
     public function archive(Request $request)
     {
-        $users = User::onlyTrashed()->where('user_type', 'admin')->select('id', 'fullname', 'email', 'whatsapp', 'gender', 'is_active', 'created_at')->latest()->paginate((int)($request->perPage ?? 10));
+        $users = User::onlyTrashed()->where('user_type', 'admin')->latest()->paginate((int)($request->perPage ?? 10));
         return UserResource::collection($users)
             ->additional([
                 'status' => true,
@@ -35,7 +35,7 @@ class AdminController extends Controller
 
     public function create(Request $request)
     {
-        $users = User::with(['department', 'group'])->where('user_type', 'employee')->select('id', 'fullname', 'email', 'whatsapp', 'gender', 'is_active', 'created_at')->latest();
+        $users = User::with(['department', 'groups' , 'permissions'])->where('user_type', 'employee')->latest()->get();
 
         return UserResource::collection($users)
             ->additional([
@@ -47,12 +47,13 @@ class AdminController extends Controller
 
     public function store(AdminRequest $request)
     {
-        $admin = User::updateOrCreate(['id' => $request->employee_id], ['user_type' => 'admin', 'password' => $request->password, 'added_by_id' => auth()->id(), 'is_login_code' => $request->is_login_code, 'login_id' => $request->login_id]);
+        $admin = User::where('user_type', 'employee')->findOrFail($request->employee_id);
+        $admin->update(['user_type' => 'admin', 'password' => $request->password, 'added_by_id' => auth()->id(), 'is_login_code' => $request->is_login_code, 'login_id' => $request->login_id]);
         //TODO::send sms with password
         $permissions = $request->permission_list;
         if ($request->group_list) {
             $admin->groups()->sync($request->group_list);
-            $permissions[] = Group::find($request->group_list)->pluck('permissions')->pluck('id')->unique()->toArray();
+            $permissions = array_filter(array_merge($permissions , Group::find($request->group_list)->pluck('permissions')->pluck('id')->unique()->toArray()));
         }
         $admin->permissions()->sync($permissions);
         return UserResource::make($admin)
@@ -65,7 +66,7 @@ class AdminController extends Controller
 
     public function show($id)
     {
-        $user = User::withTrashed()->with(['addedBy', 'country', 'group'])->findOrFail($id);
+        $user = User::withTrashed()->with(['addedBy', 'country', 'groups' , 'permissions'])->findOrFail($id);
 
         return UserResource::make($user)
             ->additional([
@@ -90,7 +91,7 @@ class AdminController extends Controller
         $permissions = $request->permission_list;
         if ($request->group_list) {
             $admin->groups()->sync($request->group_list);
-            $permissions[] = Group::find($request->group_list)->pluck('permissions')->pluck('id')->unique()->toArray();
+            $permissions = array_filter(array_merge($permissions , Group::find($request->group_list)->pluck('permissions')->pluck('id')->unique()->toArray()));
         }
         $admin->permissions()->sync($permissions);
 
