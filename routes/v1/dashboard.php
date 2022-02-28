@@ -66,9 +66,10 @@ Route::middleware('auth:sanctum')->group(function () {
             Route::delete('forceDelete/{id}', 'forceDelete')->name('force_delete');
         });
         Route::controller('AdminController')->name('admins.')->prefix('admins')->group(function () {
-            Route::get('archive', 'archive')->name('archive');
-            Route::post('restore/{id}', 'restore')->name('restore');
-            Route::delete('forceDelete/{id}', 'forceDelete')->name('force_delete');
+            Route::get('create', 'create')->name('create');
+            // Route::get('archive', 'archive')->name('archive');
+            // Route::post('restore/{id}', 'restore')->name('restore');
+            // Route::delete('forceDelete/{id}', 'forceDelete')->name('force_delete');
         });
 
         Route::controller('DepartmentController')->name('departments.')->prefix('departments')->group(function () {
