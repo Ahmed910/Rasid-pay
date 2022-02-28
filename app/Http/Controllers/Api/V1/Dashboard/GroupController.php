@@ -44,7 +44,7 @@ class GroupController extends Controller
     {
         $saved_permissions = $this->savedPermissions()->groupBy('uri')->map(function($item,$key){
             $data['uri'] = $key;
-            $data['trans'] = trans('dashboard.' . str_singular($key) . '.' . $key);
+            $data['name'] = trans('dashboard.' . str_singular($key) . '.' . $key);
             $data['permissions'] = $item->transform(function($item){
                 unset($item->uri);
                 $item->is_checked = false;
@@ -80,7 +80,7 @@ class GroupController extends Controller
         $group_permissions = $group->permissions->pluck('id')->toArray();
         $saved_permissions = $this->savedPermissions()->groupBy('uri')->map(function($item,$key) use($group_permissions){
             $data['uri'] = $key;
-            $data['trans'] = trans('dashboard.' . str_singular($key) . '.' . $key);
+            $data['name'] = trans('dashboard.' . str_singular($key) . '.' . $key);
             $data['permissions'] = $item->transform(function($item) use($group_permissions){
                 unset($item->uri);
                 $item->is_checked = in_array($item->id , $group_permissions);
@@ -140,7 +140,7 @@ class GroupController extends Controller
     public function permissions()
     {
         $saved_permissions = $this->savedPermissions()->except('uri')->toArray();
-        $saved_names = array_column($saved_permissions,'name');
+        $saved_names = array_column($saved_permissions,'named_uri');
         foreach (app()->routes->getRoutes() as $value) {
             $name = $value->getName();
             if (in_array($name,$this->public_routes) || is_null($name) || in_array(str_before($name,'.'),['ignition','debugbar'])) {
@@ -148,7 +148,7 @@ class GroupController extends Controller
             }
             if(!in_array($name,$saved_names)){
                 $route = Permission::create(['name' => $name]);
-                $saved_permissions[] = ['id' => $route->id,'name' => $name , 'trans' => trans('dashboard.' . str_singular(str_before($name,'.')) . '.' . str_after($name,'.'))];
+                $saved_permissions[] = ['id' => $route->id,'named_uri' => $name , 'name' => trans('dashboard.' . str_singular(str_before($name,'.')) . '.' . str_after($name,'.'))];
             }
         }
         return UriResource::collection($saved_permissions)->additional(['status' => true, 'message' => '']);
@@ -161,7 +161,8 @@ class GroupController extends Controller
             $uri = str_before($item->name,'.');
             $single_uri = str_singular($uri);
             $item['uri'] = $uri;
-            $item['trans'] = trans('dashboard.' . $single_uri . '.' . $uri) . ' (' . trans('dashboard.' . $single_uri . '.permissions.' . str_after($item->name,'.')) . ')';
+            $item['named_uri'] = $item->name;
+            $item['name'] = trans('dashboard.' . $single_uri . '.' . $uri) . ' (' . trans('dashboard.' . $single_uri . '.permissions.' . str_after($item->name,'.')) . ')';
             return $item;
         });
     }

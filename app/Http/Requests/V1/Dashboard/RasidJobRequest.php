@@ -27,7 +27,6 @@ class RasidJobRequest extends ApiMasterRequest
             "department_id" => "required|exists:departments,id",
             "is_active" => "boolean",
             "is_vacant" => "boolean",
-            "added_by_id " => "nullable|exists:users,id",
         ];
 
         foreach (config('translatable.locales') as $locale) {
