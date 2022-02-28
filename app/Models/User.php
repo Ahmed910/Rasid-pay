@@ -60,6 +60,11 @@ class User extends Authenticatable implements HasAssetsInterface
         return $this->hasMany(Device::class);
     }
 
+    public function employee()
+    {
+        return $this->hasOne(Employee::class);
+    }
+
     public function groups()
     {
         return $this->belongsToMany(Group::class);
