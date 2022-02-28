@@ -3,7 +3,7 @@
 namespace App\Http\Resources\Dashboard;
 
 use App\Http\Resources\Dashboard\Departments\DepartmentResource;
-use App\Http\Resources\Dashboard\Group\GroupResource;
+use App\Http\Resources\Dashboard\Group\{GroupResource , PermissionResource};
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class UserResource extends JsonResource
@@ -35,6 +35,7 @@ class UserResource extends JsonResource
             'department' => DepartmentResource::make($this->whenLoaded('department')),
             'added_by_id' => SimpleUserResource::make($this->whenLoaded('addedBy')),
             'groups' => GroupResource::collection($this->whenLoaded('groups')),
+            'permissions' => PermissionResource::collection($this->whenLoaded('permissions')),
             'country' => CountryResource::make($this->whenLoaded('country')),
             'user_type' => $this->when(request()->is('*/admins/*'), $this->user_type),
             'client_type' => $this->when(request()->is('*/admins/*'), $this->client_type),

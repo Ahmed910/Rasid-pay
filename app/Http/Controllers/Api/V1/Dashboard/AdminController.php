@@ -14,7 +14,7 @@ class AdminController extends Controller
 
     public function index(Request $request)
     {
-        $users = User::with(['department', 'groups'])->where('user_type', 'admin')->select('id', 'fullname', 'email', 'whatsapp', 'gender', 'is_active', 'created_at')->latest()->paginate((int)($request->perPage ?? 10));
+        $users = User::with(['department', 'groups' , 'permissions'])->where('user_type', 'admin')->select('id', 'fullname', 'email', 'whatsapp', 'gender', 'is_active', 'created_at')->latest()->paginate((int)($request->perPage ?? 10));
 
         return UserResource::collection($users)
             ->additional([
@@ -35,7 +35,7 @@ class AdminController extends Controller
 
     public function create(Request $request)
     {
-        $users = User::with(['department', 'groups'])->where('user_type', 'employee')->select('id', 'fullname', 'email', 'whatsapp', 'gender', 'is_active', 'created_at')->latest();
+        $users = User::with(['department', 'groups' , 'permissions'])->where('user_type', 'employee')->select('id', 'fullname', 'email', 'whatsapp', 'gender', 'is_active', 'created_at')->latest();
 
         return UserResource::collection($users)
             ->additional([
@@ -65,7 +65,7 @@ class AdminController extends Controller
 
     public function show($id)
     {
-        $user = User::withTrashed()->with(['addedBy', 'country', 'groups'])->findOrFail($id);
+        $user = User::withTrashed()->with(['addedBy', 'country', 'groups' , 'permissions'])->findOrFail($id);
 
         return UserResource::make($user)
             ->additional([
