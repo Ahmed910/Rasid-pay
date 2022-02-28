@@ -6,7 +6,6 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\V1\Dashboard\ClientRequest;
 use App\Http\Requests\V1\Dashboard\ReasonRequest;
 use App\Http\Resources\Dashboard\ClientResource;
-use App\Http\Resources\Dashboard\UserResource;
 use App\Models\Client;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -20,9 +19,13 @@ class ClientController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index(Request $request)
-    {
-        $user = Client::search($request)->latest()->paginate((int)($request->page ?? 15));
-        return ClientResource::collection($user)->additional([
+    {DB::enableQueryLog();
+
+        $client = Client::search($request)->with("user")->latest()->paginate((int)($request->perPage ?? 15));
+
+//        dd(DB::getQueryLog());
+
+        return ClientResource::collection($client)->additional([
             'status' => true,
             'message' => ""
         ]);
@@ -41,7 +44,7 @@ class ClientController extends Controller
 
     public function suspendedclients(Request $request)
     {
-        $users = User::where(["user_type"=>'client',"is_admin_active_user"=> 0])->latest()->paginate((int)($request->perPage ?? 10));
+        $users = User::where(["user_type" => 'client', "is_admin_active_user" => 0])->latest()->paginate((int)($request->perPage ?? 10));
         return ClientResource::collection($users)
             ->additional([
                 'status' => true,
@@ -57,11 +60,12 @@ class ClientController extends Controller
      */
     public function store(ClientRequest $request, User $user)
     {
-        $user->fill($request->validated())->save();
-        Client::create($request->validated()+['user_id'=>$user->id])->save();
-//        return ClientResource::make($client)->additional([
-//            'status' => true, 'message' => trans("dashboard.general.success_add")
-//        ]);
+        $user->fill($request->validated()+["user_type" =>"client"])->save();
+        $client = Client::create($request->validated() + ['user_id' => $user->id]);
+        $client->load('user');
+        return ClientResource::make($client)->additional([
+            'status' => true, 'message' => trans("dashboard.general.success_add")
+        ]);
     }
 
     /**
@@ -70,10 +74,12 @@ class ClientController extends Controller
      * @param int $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Client $client)
     {
-        $user = User::withTrashed()->findorfail($id);
-        return ClientResource::make($user)->additional(['status' => true, 'message' => ""]);
+        $client->load("user") ;
+//        dd($client) ;
+//        $client = Client::findorfail($id)->load("user");
+        return ClientResource::make($client)->additional(['status' => true, 'message' => ""]);
     }
 
     /**
@@ -94,9 +100,12 @@ class ClientController extends Controller
      * @param int $id
      * @return \Illuminate\Http\Response
      */
-    public function update(ClientRequest $request, User $client)
+    public function update(ClientRequest $request, Client $client)
     {
-        $client->fill($request->validated())->save();
+//        $user->fill($request->validated())->save();
+        $client->update($request->validated());
+//        $client = Client::create($request->validated() + ['user_id' => $user->id]);
+        $client->load('user');
         return ClientResource::make($client)->additional([
             'status' => true, 'message' => trans("dashboard.general.success_update")
         ]);
@@ -131,7 +140,6 @@ class ClientController extends Controller
                 'message' => trans('dashboard.general.success_archive'),
             ]);
     }
-
 
 
     public function restore(ReasonRequest $request, $id)
