@@ -41,7 +41,7 @@ class EmployeeController extends Controller
 
     public function store(EmployeeRequest $request, User $user)
     {
-        $user->fill($request->validated() + ['added_by_id' => auth()->id()])->save();
+        $user->fill($request->validated() + ['added_by_id' => auth()->id(),'user_type' => 'employee'])->save();
 
         return EmployeeResource::make($user)
             ->additional([
@@ -53,7 +53,7 @@ class EmployeeController extends Controller
 
     public function show($id)
     {
-        $user = User::withTrashed()->with(['addedBy', 'country', 'role'])->findOrFail($id);
+        $user = User::withTrashed()->where('user_type', 'employee')->with(['addedBy', 'country', 'role'])->findOrFail($id);
 
         return EmployeeResource::make($user)
             ->additional([
@@ -69,8 +69,9 @@ class EmployeeController extends Controller
     }
 
 
-    public function update(EmployeeRequest $request, User $employee)
+    public function update(EmployeeRequest $request, $employee)
     {
+        $employee = User::where('user_type', 'employee')->findOrFail($employee);
         $employee->update($request->validated());
 
         return EmployeeResource::make($employee)
@@ -81,8 +82,9 @@ class EmployeeController extends Controller
     }
 
     //archive data
-    public function destroy(ReasonRequest $request,User $employee)
+    public function destroy(ReasonRequest $request, $employee)
     {
+        $employee = User::where('user_type', 'employee')->findOrFail($employee);
         $employee->delete();
         return EmployeeResource::make($employee)
             ->additional([
@@ -92,9 +94,9 @@ class EmployeeController extends Controller
     }
 
     //restore data from archive
-    public function restore(ReasonRequest $request,$id)
+    public function restore(ReasonRequest $request, $employee)
     {
-        $employee = User::onlyTrashed()->findOrFail($id);
+        $employee = User::onlyTrashed()->where('user_type', 'employee')->findOrFail($id);
         $employee->restore();
 
         return EmployeeResource::make($employee)
@@ -105,9 +107,9 @@ class EmployeeController extends Controller
     }
 
     //force delete data from archive
-    public function forceDelete(ReasonRequest $request,$id)
+    public function forceDelete(ReasonRequest $request, $employee)
     {
-        $employee = User::onlyTrashed()->findOrFail($id);
+        $employee = User::onlyTrashed()->where('user_type', 'employee')->findOrFail($id);
         $employee->forceDelete();
 
         return EmployeeResource::make($employee)
