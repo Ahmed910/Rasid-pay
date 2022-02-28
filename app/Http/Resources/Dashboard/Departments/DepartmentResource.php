@@ -19,7 +19,7 @@ class DepartmentResource extends JsonResource
         return [
             'id' => $this->id,
             'name' => $this->name,
-            'parent' => $this->parent?->translations()->where('locale', app()->getLocale())->first()->name,
+            'parent' => $this->parent?->translations()->where('locale', app()->getLocale())->value('name'),
             'is_active' => (bool)$this->is_active,
             'created_at' => $this->created_at,
             'translations' => GlobalTransResource::collection($this->whenLoaded('translations')),
