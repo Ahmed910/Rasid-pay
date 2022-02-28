@@ -4,6 +4,7 @@ namespace App\Http\Resources\Dashboard\Departments;
 
 use App\Http\Resources\Dashboard\GlobalTransResource;
 use App\Http\Resources\Dashboard\ImagesResource;
+use App\Http\Resources\Dashboard\SimpleUserResource;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class DepartmentResource extends JsonResource
@@ -24,6 +25,7 @@ class DepartmentResource extends JsonResource
             'created_at' => $this->created_at,
             'translations' => GlobalTransResource::collection($this->whenLoaded('translations')),
             "images"    => ImagesResource::collection($this->whenLoaded("images")),
+            'added_by'   => SimpleUserResource::make($this->whenLoaded('addedBy')),
             'actions' => [
                 'getParents'  => auth()->user()->hasPermissions('departments.get_parents'),
                 'show' => auth()->user()->hasPermissions('departments.show'),

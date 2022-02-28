@@ -48,6 +48,11 @@ class Country extends Model implements TranslatableContract
     {
         return $this->belongsTo(Currency::class);
     }
+
+    public function addedBy(): BelongsTo
+    {
+        return $this->belongsTo(User::class, 'added_by_id');
+    }
     #endregion relationships
 
     #region custom Methods
