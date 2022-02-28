@@ -14,7 +14,11 @@ class AddAddedByIdToModelsTable extends Migration
     public function up()
     {
         Schema::table('groups', function (Blueprint $table) {
-            $table->foreignUuid("added_by_id")->nullable()->constrained('users')->onDelete('set null');
+            $table->foreignUuid("added_by_id")->nullable()->constrained('users')->nullOnDelete();
+        });
+
+        Schema::table('departments', function (Blueprint $table) {
+            $table->foreignUuid("added_by_id")->nullable()->constrained('users')->nullOnDelete();
         });
     }
 
@@ -27,6 +31,11 @@ class AddAddedByIdToModelsTable extends Migration
     {
         Schema::table('groups', function (Blueprint $table) {
             $table->dropForeign('groups_added_by_id_foreign');
+            $table->dropColumn('added_by_id');
+        });
+
+        Schema::table('departments', function (Blueprint $table) {
+            $table->dropForeign('departments_added_by_id_foreign');
             $table->dropColumn('added_by_id');
         });
     }
