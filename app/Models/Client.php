@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Traits\Uuid;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Query\Builder;
 
 class Client extends Model
@@ -20,11 +21,16 @@ class Client extends Model
     #endregion mutators
 
     #region scopes
-    public function scopeSearch(\Illuminate\Database\Eloquent\Builder $builder , $query)
+    public function scopeSearch(\Illuminate\Database\Eloquent\Builder $query, $request)
     {
-        if (isset($request->fullname)) {
-            $query->where("fullname", "like", "%$request->fullname%");
-        }
+        $query->whereHas('user', function ($q) use ($request) {
+            if (isset($request->fullname)) $q->where('fullname', "like", "%$request->fullname%");
+            if (isset($request->is_ban)) $q->where('is_ban', $request->is_ban);
+            if (isset($request->gender)) $q->where('gender', $request->is_ban);
+            if (isset($request->register_status)) $q->where('register_status', $request->register_status);
+            if (isset($request->is_active)) $q->where('is_active', $request->is_active);
+
+        });
 
         if (isset($request->created_at)) {
 
@@ -35,23 +41,8 @@ class Client extends Model
             $query->where("client_type", $request->client_type);
         }
 
-        if (isset($request->country_id)) {
-            $query->where('country_id', $request->country);
-        }
-        if (isset($request->is_ban)) {
-            $query->where('is_ban', $request->is_ban);
-        }
-        if (isset($request->register_status)) {
-            $query->where('register_status', $request->register_status);
-        }
-        if (isset($request->gender)) {
-            $query->where('gender', $request->gender);
-        }
-        if (isset($request->is_active)) {
-            $query->where('is_active', $request->is_active);
-        }
-        if (isset($request->is_admin_active_user)) {
-            $query->where('is_admin_active_user', $request->is_admin_active_user);
+        if (isset($request->nationality)) {
+            $query->where("nationality", $request->nationality);
         }
     }
     #endregion scopes
@@ -60,6 +51,11 @@ class Client extends Model
     public function manager()
     {
         return $this->belongsTo(Manager::class);
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(user::class);
     }
     #endregion relationships
 

@@ -9,7 +9,7 @@ class SimpleUserResource extends JsonResource
     /**
      * Transform the resource into an array.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
      * @return array|\Illuminate\Contracts\Support\Arrayable|\JsonSerializable
      */
     public function toArray($request)
@@ -18,6 +18,7 @@ class SimpleUserResource extends JsonResource
             'id' => $this->id,
             'fullname' => $this->fullname,
             'user_type' => $this->user_type,
+            'date_of_birth' => $this->date_of_birth,
             'created_at' => $this->created_at,
         ];
     }
