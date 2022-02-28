@@ -38,6 +38,8 @@ class EmployeeRequest extends ApiMasterRequest
             'gender' => 'required|in:male,female',
             "contract_type" => 'required|in:salary,salary_with_percent,percent',
             'salary' => 'required|numeric|digits_between:1,10',
+            'department_id' => 'required|exists:departments,id,deleted_at,NULL',
+            'rasid_job_id' => 'required|exists:rasid_jobs,id,deleted_at,NULL',
             'qr_path' => 'required',
             'qr_code' => 'required',
             'is_ban' => 'in:1,0',

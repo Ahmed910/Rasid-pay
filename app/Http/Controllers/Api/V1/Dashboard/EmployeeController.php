@@ -45,8 +45,8 @@ class EmployeeController extends Controller
 
     public function store(EmployeeRequest $request, User $user)
     {
-        $user->fill($request->safe()->except(['contract_type', 'salary', 'qr_path', 'qr_code'])  + ['user_type' => 'employee', 'added_by_id' => auth()->id()])->save();
-        $employee = Employee::create($request->safe()->only(['contract_type', 'salary', 'qr_path', 'qr_code']) + ['user_id' => $user->id]);
+        $user->fill($request->safe()->except(['contract_type', 'salary', 'qr_path', 'qr_code', 'department_id', 'rasid_job_id'])  + ['user_type' => 'employee', 'added_by_id' => auth()->id()])->save();
+        $employee = Employee::create($request->safe()->only(['contract_type', 'salary', 'qr_path', 'qr_code', 'department_id', 'rasid_job_id']) + ['user_id' => $user->id]);
         $employee->load('user');
         return EmployeeResource::make($employee)
             ->additional([
@@ -78,8 +78,8 @@ class EmployeeController extends Controller
     public function update(EmployeeRequest $request, $id)
     {
         $employee = Employee::where('user_id', $id)->firstOrFail();
-        $employee->update($request->safe()->only(['contract_type', 'salary', 'qr_path', 'qr_code']));
-        $employee->user()->update($request->safe()->except(['contract_type', 'salary', 'qr_path', 'qr_code']));
+        $employee->update($request->safe()->only(['contract_type', 'salary', 'qr_path', 'qr_code', 'department_id', 'rasid_job_id']));
+        $employee->user()->update($request->safe()->except(['contract_type', 'salary', 'qr_path', 'qr_code', 'department_id', 'rasid_job_id']));
         $employee->load('user');
         return EmployeeResource::make($employee)
             ->additional([
