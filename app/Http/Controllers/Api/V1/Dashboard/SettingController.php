@@ -5,8 +5,9 @@ namespace App\Http\Controllers\Api\V1\Dashboard;
 use App\Models\Setting;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\V1\Dashboard\Settings\CreateSetting;
+use App\Http\Requests\V1\Dashboard\Settings\SettingRequest;
 use App\Http\Resources\Dashboard\SettingResource;
-use App\Http\Requests\V1\Dashboard\SettingRequest;
 use Illuminate\Http\UploadedFile;
 
 class SettingController extends Controller
@@ -40,6 +41,35 @@ class SettingController extends Controller
                 ->where("key", $key)->update([
                     "value" =>  $value,
                 ]);
+        }
+
+        return [
+            'data'    => "",
+            'message' => 'success',
+            'status'  => true
+        ];
+    }
+
+    /**
+     * For Developers
+     */
+    public function createSetting(CreateSetting $data)
+    {
+        $path =  "images/setting";
+
+        foreach ($data['settings'] as $setting) {
+            foreach (config('translatable.locales') as $locale) {
+                if (isset($setting['value'][$locale]) && $setting['value'][$locale] instanceof UploadedFile) {
+                    $setting['value'][$locale] =  $setting['value'][$locale]->storePublicly($path, "public");
+                }
+            }
+
+
+            Setting::where("dashboard", Setting::ERP)
+                ->updateOrCreate(
+                    ['key'   => $setting['key']],
+                    ['value' =>  $setting['value'], 'input_type' => $setting['input_type']],
+                );
         }
 
         return [
