@@ -14,7 +14,7 @@ class CityController extends Controller
 
     public function index(Request $request)
     {
-        $city = City::latest()->paginate($request->page ?? 15);
+        $city = City::latest()->paginate((int)($request->per_page ?? 15));
 
         return CityResource::collection($city)
             ->additional([
@@ -25,7 +25,7 @@ class CityController extends Controller
 
     public function archive(Request $request)
     {
-        $cities = City::onlyTrashed()->latest()->paginate((int)($request->perPage ?? 10));
+        $cities = City::onlyTrashed()->latest()->paginate((int)($request->per_page ?? 10));
 
         return CityResource::collection($cities)
             ->additional([

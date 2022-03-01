@@ -13,7 +13,7 @@ class BankController extends Controller
 {
     public function index(Request $request)
     {
-        $bank = Bank::with('translations')->latest()->paginate($request->page ?? 15);
+        $bank = Bank::with('translations')->latest()->paginate((int)($request->per_page ?? 15));
 
         return BankResource::collection($bank)
             ->additional([
@@ -24,8 +24,7 @@ class BankController extends Controller
 
     public function archive(Request $request)
     {
-        $banks = Bank::onlyTrashed()->latest()->paginate((int)($request->perPage ?? 15));
-
+        $banks = Bank::onlyTrashed()->latest()->paginate((int)($request->per_page ?? 15));
         return BankResource::collection($banks)
             ->additional([
                 'status' => true,
@@ -35,7 +34,7 @@ class BankController extends Controller
 
     public function store(BankRequest $request, Bank $bank)
     {
-        $bank->fill($request->validated())->save();
+        $bank->fill($request->validated()+['added_by_id' => auth()->id()])->save();
 
         return BankResource::make($bank)
             ->additional([
@@ -73,9 +72,7 @@ class BankController extends Controller
     //soft delete (archive)
     public function destroy(ReasonRequest $request, Bank $bank)
     {
-
         $bank->delete();
-
         return BankResource::make($bank)
             ->additional([
                 'status' => true,

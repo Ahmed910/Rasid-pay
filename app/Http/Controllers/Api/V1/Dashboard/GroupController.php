@@ -34,7 +34,7 @@ class GroupController extends Controller
     {
         $groups = Group::with(['permissions','translations' => function ($q) {
             $q->where('locale', app()->getLocale());
-        }])->search($request)->latest()->paginate((int)($request->page ?? 15));
+        }])->search($request)->latest()->paginate((int)($request->per_page ?? 15));
 
         return GroupResource::collection($groups)->additional(['status' => true, 'message' => ""]);
     }
@@ -70,7 +70,7 @@ class GroupController extends Controller
      */
     public function store(GroupRequest $request , Group $group)
     {
-        $group->fill($request->validated()+['added_by_id' => auth()->id()])->save();
+        $group->fill($request->validated() + ['added_by_id' => auth()->id()])->save();
         $group->permissions()->sync($request->permission_list);
         return GroupResource::make($group)->additional(['status' => true, 'message' => trans('dashboard.general.success_add')]);
     }

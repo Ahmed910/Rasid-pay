@@ -20,7 +20,7 @@ class ClientController extends Controller
      */
     public function index(Request $request)
     {
-        $client = Client::with("user")->search($request)->latest()->paginate((int)($request->perPage ?? 15));
+        $client = Client::with("user")->search($request)->latest()->paginate((int)($request->per_page ?? 15));
 
         return ClientResource::collection($client)->additional([
             'status' => true,
@@ -41,7 +41,7 @@ class ClientController extends Controller
 
 //    public function suspendedclients(Request $request)
 //    {
-//        $users = User::where(["user_type" => 'client', "is_admin_active_user" => 0])->latest()->paginate((int)($request->perPage ?? 10));
+//        $users = User::where(["user_type" => 'client', "is_admin_active_user" => 0])->latest()->paginate((int)($request->per_page ?? 10));
 //        return ClientResource::collection($users)
 //            ->additional([
 //                'status' => true,
@@ -58,7 +58,7 @@ class ClientController extends Controller
     public function store(ClientRequest $request, User $user)
     {
         $except = ["tax_number" , "commercial_number","activity_type","daily_expect_trans","register_type","client_type" , "nationality" ,"address" ,"marital_status"];
-        $user->fill($request->safe()->except($except) + ["user_type" => "client"])->save();
+        $user->fill($request->safe()->except($except) + ["user_type" => "client",'added_by_id' => auth()->id()])->save();
         $client = Client::create($request->safe()->only($except) + ['user_id' => $user->id]);
         $client->load('user');
         return ClientResource::make($client)->additional([

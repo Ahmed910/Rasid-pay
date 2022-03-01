@@ -15,7 +15,7 @@ class ContactController extends Controller
 
     public function index(Request $request)
     {
-        $contact = Contact::with('replies', 'user')->latest()->paginate((int)($request->page ?? 15));
+        $contact = Contact::with('replies', 'user')->latest()->paginate((int)($request->per_page ?? 15));
 
         return ContactResource::collection($contact)
             ->additional([

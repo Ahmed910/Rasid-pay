@@ -14,7 +14,7 @@ class AdminController extends Controller
 
     public function index(Request $request)
     {
-        $users = User::with(['department', 'groups' , 'permissions'])->where('user_type', 'admin')->latest()->paginate((int)($request->perPage ?? 10));
+        $users = User::with(['department', 'groups' , 'permissions'])->where('user_type', 'admin')->latest()->paginate((int)($request->per_page ?? 10));
 
         return UserResource::collection($users)
             ->additional([
@@ -25,7 +25,7 @@ class AdminController extends Controller
 
     public function archive(Request $request)
     {
-        $users = User::onlyTrashed()->where('user_type', 'admin')->latest()->paginate((int)($request->perPage ?? 10));
+        $users = User::onlyTrashed()->where('user_type', 'admin')->latest()->paginate((int)($request->per_page ?? 10));
         return UserResource::collection($users)
             ->additional([
                 'status' => true,
@@ -59,14 +59,14 @@ class AdminController extends Controller
         return UserResource::make($admin)
             ->additional([
                 'status' => true,
-                'message' =>  trans('dashboard.general.success_add'),
+                'message' =>  __('dashboard.general.success_add'),
             ]);
     }
 
 
     public function show($id)
     {
-        $user = User::withTrashed()->with(['addedBy', 'country', 'groups' , 'permissions'])->findOrFail($id);
+        $user = User::withTrashed()->where('user_type', 'admin')->with(['addedBy', 'country', 'groups' , 'permissions'])->findOrFail($id);
 
         return UserResource::make($user)
             ->additional([
@@ -82,8 +82,9 @@ class AdminController extends Controller
     }
 
 
-    public function update(AdminRequest $request, User $admin)
+    public function update(AdminRequest $request, $admin)
     {
+        $admin = User::where('user_type', 'admin')->findOrFail($admin);
         $admin->fill($request->validated())->save();
 
         //TODO::send sms with password
@@ -98,44 +99,45 @@ class AdminController extends Controller
         return UserResource::make($admin)
             ->additional([
                 'status' => true,
-                'message' =>  trans('dashboard.general.success_update'),
+                'message' =>  __('dashboard.general.success_update'),
             ]);
     }
 
     //archive data
-    public function destroy(ReasonRequest $request, User $admin)
+    public function destroy(ReasonRequest $request, $admin)
     {
+        $admin = User::where('user_type', 'admin')->findOrFail($admin);
         $admin->delete();
         return UserResource::make($admin)
             ->additional([
                 'status' => true,
-                'message' =>  trans('dashboard.general.success_archive'),
+                'message' =>  __('dashboard.general.success_archive'),
             ]);
     }
 
     //restore data from archive
     public function restore(ReasonRequest $request, $id)
     {
-        $admin = User::onlyTrashed()->findOrFail($id);
+        $admin = User::onlyTrashed()->where('user_type', 'admin')->findOrFail($id);
         $admin->restore();
 
         return UserResource::make($admin)
             ->additional([
                 'status' => true,
-                'message' =>  trans('dashboard.general.success_restore'),
+                'message' =>  __('dashboard.general.success_restore'),
             ]);
     }
 
     //force delete data from archive
     public function forceDelete(ReasonRequest $request, $id)
     {
-        $admin = User::onlyTrashed()->findOrFail($id);
+        $admin = User::onlyTrashed()->where('user_type', 'admin')->findOrFail($id);
         $admin->forceDelete();
 
         return UserResource::make($admin)
             ->additional([
                 'status' => true,
-                'message' =>  trans('dashboard.general.success_delete'),
+                'message' =>  __('dashboard.general.success_delete'),
             ]);
     }
 }

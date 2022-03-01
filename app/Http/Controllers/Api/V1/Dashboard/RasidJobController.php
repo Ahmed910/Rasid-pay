@@ -14,7 +14,7 @@ class RasidJobController extends Controller
 
     public function index(Request $request)
     {
-        $rasidJobs = RasidJob::search($request)->latest()->paginate((int)($request->perPage ?? 10));
+        $rasidJobs = RasidJob::search($request)->latest()->paginate((int)($request->per_page ?? 10));
 
         return RasidJobResource::collection($rasidJobs)
             ->additional([
@@ -30,7 +30,7 @@ class RasidJobController extends Controller
 
         $rasidJob->fill($request->validated() + ['added_by_id' => auth()->id()])->save();
 
-        
+
         return RasidJobResource::make($rasidJob)
             ->additional([
                 'status' => true,
@@ -67,7 +67,7 @@ class RasidJobController extends Controller
     public function archive(Request $request)
     {
         $rasidJobs = RasidJob::onlyTrashed()->latest()
-            ->paginate((int)($request->perPage ?? 10));
+            ->paginate((int)($request->per_page ?? 10));
 
         return RasidJobResource::collection($rasidJobs)
             ->additional([
