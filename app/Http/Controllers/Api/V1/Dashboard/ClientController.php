@@ -20,7 +20,7 @@ class ClientController extends Controller
      */
     public function index(Request $request)
     {
-        $client = Client::with("user")->search($request)->latest()->paginate((int)($request->perPage ?? 15));
+        $client = Client::with("user")->search($request)->latest()->paginate((int)($request->per_page ?? 15));
 
         return ClientResource::collection($client)->additional([
             'status' => true,
@@ -41,7 +41,7 @@ class ClientController extends Controller
 
 //    public function suspendedclients(Request $request)
 //    {
-//        $users = User::where(["user_type" => 'client', "is_admin_active_user" => 0])->latest()->paginate((int)($request->perPage ?? 10));
+//        $users = User::where(["user_type" => 'client', "is_admin_active_user" => 0])->latest()->paginate((int)($request->per_page ?? 10));
 //        return ClientResource::collection($users)
 //            ->additional([
 //                'status' => true,

@@ -15,7 +15,7 @@ class CountryController extends Controller
 {
     public function index(Request $request)
     {
-        $countries = Country::latest()->paginate((int)($request->perPage ?? 10));
+        $countries = Country::latest()->paginate((int)($request->per_page ?? 10));
 
         return CountryResource::collection($countries)
             ->additional([
@@ -26,7 +26,7 @@ class CountryController extends Controller
 
     public function archive(Request $request)
     {
-        $countries = Country::onlyTrashed()->latest()->paginate((int)($request->perPage ?? 10));
+        $countries = Country::onlyTrashed()->latest()->paginate((int)($request->per_page ?? 10));
 
         return CountryResource::collection($countries)
             ->additional([
