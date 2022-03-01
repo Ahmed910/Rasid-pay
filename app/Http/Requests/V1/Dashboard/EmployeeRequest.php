@@ -43,7 +43,6 @@ class EmployeeRequest extends ApiMasterRequest
             'qr_path' => 'required',
             'qr_code' => 'required',
             'is_ban' => 'in:1,0',
-            "ban_reason" => 'required_if:is_ban,true|string|max:225|min:2',
             "is_ban_always" => 'required_if:is_ban,1|in:1,0',
             "ban_from" => 'required_if:is_ban_always,0|date',
             "ban_to" => 'required_if:is_ban_always,0|date',
