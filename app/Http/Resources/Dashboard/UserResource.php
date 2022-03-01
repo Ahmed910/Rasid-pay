@@ -3,7 +3,7 @@
 namespace App\Http\Resources\Dashboard;
 
 use App\Http\Resources\Dashboard\Departments\DepartmentResource;
-use App\Http\Resources\Dashboard\Group\{GroupResource , PermissionResource};
+use App\Http\Resources\Dashboard\Group\{GroupResource, PermissionResource};
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class UserResource extends JsonResource
@@ -24,8 +24,7 @@ class UserResource extends JsonResource
             'whatsapp' => $this->whatsapp,
             'gender' => $this->gender,
             'is_phone_verified' => (bool)$this->is_active,
-            'is_ban' => (bool)$this->is_ban,
-            'is_ban_always' => (bool)$this->is_ban_always,
+            'ban_status' => $this->ban_status,
             'ban_from' => $this->ban_from,
             'ban_to' => $this->ban_to,
             'login_id' => $this->login_id,

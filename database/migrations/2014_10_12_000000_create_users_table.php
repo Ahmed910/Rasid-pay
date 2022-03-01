@@ -25,9 +25,6 @@ class CreateUsersTable extends Migration
             $table->boolean('is_password_changed')->default(false)->comment('check if user changed password for first time');
             $table->boolean('is_login_code')->default(false)->comment('send verification code every time login');
             $table->boolean('is_active')->default(false)->comment('check phone is verified');
-            $table->boolean('is_ban')->default(false)->comment('change status to ban');
-            $table->text('ban_reason')->nullable();
-            $table->boolean('is_ban_always')->nullable()->comment('1=always,0=period');
             $table->date('ban_from')->nullable();
             $table->date('ban_to')->nullable();
             $table->string('reset_code')->nullable();
