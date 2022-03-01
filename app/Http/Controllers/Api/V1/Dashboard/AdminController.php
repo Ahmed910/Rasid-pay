@@ -14,7 +14,9 @@ class AdminController extends Controller
 
     public function index(Request $request)
     {
-        $users = User::with(['department', 'groups' , 'permissions'])->where('user_type', 'admin')->latest()->paginate((int)($request->per_page ?? 10));
+        $users = User::with(['department', 'permissions' , 'groups' => function($q){
+            $q->with('permissions');
+        }])->where('user_type', 'admin')->latest()->paginate((int)($request->per_page ?? 10));
 
         return UserResource::collection($users)
             ->additional([
@@ -35,7 +37,9 @@ class AdminController extends Controller
 
     public function create(Request $request)
     {
-        $users = User::with(['department', 'groups' , 'permissions'])->where('user_type', 'employee')->latest()->get();
+        $users = User::with(['department', 'permissions' , 'groups' => function($q){
+            $q->with('permissions');
+        }])->where('user_type', 'employee')->latest()->get();
 
         return UserResource::collection($users)
             ->additional([
@@ -66,7 +70,9 @@ class AdminController extends Controller
 
     public function show($id)
     {
-        $user = User::withTrashed()->where('user_type', 'admin')->with(['addedBy', 'country', 'groups' , 'permissions'])->findOrFail($id);
+        $user = User::withTrashed()->where('user_type', 'admin')->with(['addedBy', 'country', 'permissions' , 'groups' => function($q){
+            $q->with('permissions');
+        }])->findOrFail($id);
 
         return UserResource::make($user)
             ->additional([
