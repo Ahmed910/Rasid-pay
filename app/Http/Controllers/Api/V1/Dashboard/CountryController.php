@@ -42,7 +42,7 @@ class CountryController extends Controller
 
     public function store(CountryRequest $request, Country $country)
     {
-        
+
 
         $country->fill($request->validated() + ['added_by_id' => auth()->id()])->save();
 
