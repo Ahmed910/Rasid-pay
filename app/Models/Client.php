@@ -21,21 +21,11 @@ class Client extends Model
     #endregion mutators
 
     #region scopes
-    public function scopeSearch(\Illuminate\Database\Eloquent\Builder $query, $request)
+    public function scopeSearch($query, $request)
     {
         $query->whereHas('user', function ($q) use ($request) {
-            if (isset($request->fullname)) $q->where('fullname', "like", "%$request->fullname%");
-            if (isset($request->ban_status)) $q->where('ban_status', $request->ban_status);
-            if (isset($request->gender)) $q->where('gender', $request->gender);
-            if (isset($request->register_status)) $q->where('register_status', $request->register_status);
-            if (isset($request->is_active)) $q->where('is_active', $request->is_active);
-
+            $q->search($request);
         });
-
-        if (isset($request->created_at)) {
-
-            $query->whereDate('created_at', $request->created_at);
-        }
 
         if (isset($request->client_type)) {
             $query->where("client_type", $request->client_type);
