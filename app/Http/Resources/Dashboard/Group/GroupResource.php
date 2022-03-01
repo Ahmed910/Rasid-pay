@@ -15,6 +15,12 @@ class GroupResource extends JsonResource
      */
     public function toArray($request)
     {
+        $locales = [];
+        if ($this->relationLoaded('translations') && !in_array($request->route()->getActionMethod(),['index','archive'])) {
+            foreach (config('translatable.locales') as $locale) {
+                $locales['translations'][$locale] = GlobalTransResource::make($this->translations->firstWhere('locale',$locale));
+            }
+        }
         return [
             'id' => $this->id,
             'name' => $this->name,
@@ -22,12 +28,12 @@ class GroupResource extends JsonResource
             'added_by' => SimpleUserResource::make($this->addedBy),
             'admins_count' => $this->admins->count(),
             'permissions' => PermissionResource::collection($this->whenLoaded('permissions')),
-            'translations' => $this->when(!in_array($request->route()->getActionMethod(),['index','archive']),GlobalTransResource::collection($this->whenLoaded('translations'))),
+             $this->mergeWhen(!in_array($request->route()->getActionMethod(),['index','archive']), $locales),
             'created_at' => $this->created_at,
             'actions' => [
                 'update' => auth()->user()->hasPermissions('groups.update'),
                 'show' => auth()->user()->hasPermissions('groups.show')
             ]
-        ];
+        ] + $locales;
     }
 }
