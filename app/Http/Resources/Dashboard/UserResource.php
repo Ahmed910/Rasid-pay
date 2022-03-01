@@ -38,7 +38,7 @@ class UserResource extends JsonResource
             'country' => CountryResource::make($this->whenLoaded('country')),
             'user_type' => $this->when(request()->is('*/admins/*'), $this->user_type),
             'client_type' => $this->when(request()->is('*/admins/*'), $this->client_type),
-            'ban_reason' => $this->when(request()->is('*/admins/*'), $this->ban_reason),
+            // 'ban_reason' => $this->when(request()->is('*/admins/*'), $this->ban_reason),
             'identity_number' => $this->when(request()->is('*/admins/*'), $this->identity_number),
             'register_status' => $this->when(request()->is('*/admins/*'), $this->register_status),
             'rate_avg' => $this->when(request()->is('*/admins/*'), $this->rate_avg),
