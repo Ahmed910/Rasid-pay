@@ -3,6 +3,7 @@
 namespace App\Http\Requests\V1\Dashboard;
 
 use App\Http\Requests\ApiMasterRequest;
+use Illuminate\Validation\Rule;
 
 class RasidJobRequest extends ApiMasterRequest
 {
@@ -30,11 +31,10 @@ class RasidJobRequest extends ApiMasterRequest
         ];
 
         foreach (config('translatable.locales') as $locale) {
-            $rules["$locale.name"] = "required|between:2,100|string|unique:rasid_job_translations,name," . @$this->rasid_job->id. ",rasid_job_id";
+            $rules["$locale.name"] = "required|between:2,100|string|unique:rasid_job_translations,name," . @$this->rasid_job->id. ",rasid_job_id|unique:rasid_jobs,epartment_id,".$this->department_id;
             $rules["$locale.description"]   = "nullable|string|max:300";
         }
 
         return $rules;
     }
 }
-
