@@ -82,9 +82,7 @@ class User extends Authenticatable implements HasAssetsInterface
         }
         $permissions = $this->permissions;
         if (is_null($method) && $permissions) {
-            if ($permissions->contains('name', $route)) {
-                return true;
-            }
+            return $permissions->contains('name', $route);
         } elseif (is_array($method) && $permissions) {
             $arr = substr_replace($method, $route . '.', 0, 0);
             return $permissions->search(function ($item) use ($arr) {
