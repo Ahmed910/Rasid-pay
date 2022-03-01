@@ -89,7 +89,8 @@ return [
         "add_department" => "اضافة قسم",
         "edit_department" => "تعديل القسم",
         "department_count" => "عدد الاقسام",
-        'permissions' => $permissions
+        'permissions' => $permissions,
+        "has_jobs_cannot_delete" => "لا يمكن أرشفة قسم مرتبط بوظائف"
     ],
     "job" => [
         "job" => "الوظيفة",

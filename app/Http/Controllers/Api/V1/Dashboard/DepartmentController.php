@@ -96,6 +96,14 @@ class DepartmentController extends Controller
 
     public function destroy(ReasonRequest $request, Department $department)
     {
+        if ($department->rasidJobs()->exists()) {
+            return response()->json([
+                'status' => false,
+                'message' => trans("dashboard.department.has_jobs_cannot_delete"),
+                'data' => null
+            ], 422);
+        }
+
         if ($department->children()->exists()) {
             return response()->json([
                 'status' => false,
@@ -142,6 +150,14 @@ class DepartmentController extends Controller
     public function forceDelete(ReasonRequest $request, $id)
     {
         $department = Department::onlyTrashed()->findOrFail($id);
+
+        if ($department->rasidJobs()->exists()) {
+            return response()->json([
+                'status' => false,
+                'message' => trans("dashboard.department.has_jobs_cannot_delete"),
+                'data' => null
+            ], 422);
+        }
 
         if ($department->children()->exists()) {
             return response()->json([
