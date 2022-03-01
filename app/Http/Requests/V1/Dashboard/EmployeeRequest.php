@@ -42,10 +42,9 @@ class EmployeeRequest extends ApiMasterRequest
             'rasid_job_id' => 'required|exists:rasid_jobs,id,deleted_at,NULL',
             'qr_path' => 'required',
             'qr_code' => 'required',
-            'is_ban' => 'in:1,0',
-            "is_ban_always" => 'required_if:is_ban,1|in:1,0',
-            "ban_from" => 'required_if:is_ban_always,0|date',
-            "ban_to" => 'required_if:is_ban_always,0|date',
+            'ban_status' => 'required|in:active,permanent,temporary',
+            "ban_from" => 'required_if:ban_status,temporary|date',
+            "ban_to" => 'required_if:ban_status,temporary|date',
             'date_of_birth' => 'required|date',
             'image' => 'mimes:jpg,jpeg,png,webp|max:2048',
         ];

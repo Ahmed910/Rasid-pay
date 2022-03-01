@@ -19,7 +19,7 @@ class DatabaseSeeder extends Seeder
             'phone' => "123456789",
             'email' => "admin@info.com",
             'is_active' => 1,
-            'is_ban' => 0,
+            'ban_status' => 'active',
             'email_verified_at' => now()->addDay(rand(1, 6)),
             'phone_verified_at' => now()->addDay(rand(1, 6)),
             'password' => '123456789', // secret
