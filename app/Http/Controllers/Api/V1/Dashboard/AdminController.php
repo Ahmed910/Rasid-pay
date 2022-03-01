@@ -14,7 +14,7 @@ class AdminController extends Controller
 
     public function index(Request $request)
     {
-        $users = User::with(['department', 'groups' , 'permissions'])->where('user_type', 'admin')->latest()->paginate((int)($request->perPage ?? 10));
+        $users = User::with(['department', 'groups' , 'permissions'])->where('user_type', 'admin')->latest()->paginate((int)($request->per_page ?? 10));
 
         return UserResource::collection($users)
             ->additional([
@@ -25,7 +25,7 @@ class AdminController extends Controller
 
     public function archive(Request $request)
     {
-        $users = User::onlyTrashed()->where('user_type', 'admin')->latest()->paginate((int)($request->perPage ?? 10));
+        $users = User::onlyTrashed()->where('user_type', 'admin')->latest()->paginate((int)($request->per_page ?? 10));
         return UserResource::collection($users)
             ->additional([
                 'status' => true,

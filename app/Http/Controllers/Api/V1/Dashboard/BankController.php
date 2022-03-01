@@ -13,7 +13,7 @@ class BankController extends Controller
 {
     public function index(Request $request)
     {
-        $bank = Bank::with('translations')->latest()->paginate((int)($request->perPage ?? 15));
+        $bank = Bank::with('translations')->latest()->paginate((int)($request->per_page ?? 15));
 
         return BankResource::collection($bank)
             ->additional([
@@ -24,7 +24,7 @@ class BankController extends Controller
 
     public function archive(Request $request)
     {
-        $banks = Bank::onlyTrashed()->latest()->paginate((int)($request->perPage ?? 15));
+        $banks = Bank::onlyTrashed()->latest()->paginate((int)($request->per_page ?? 15));
         return BankResource::collection($banks)
             ->additional([
                 'status' => true,

@@ -14,7 +14,7 @@ class NotificationController extends Controller
 
     public function index(Request $request)
     {
-        $notifications = auth()->user()->notifications()->latest()->paginate((int)($request->perPage ?? 10));
+        $notifications = auth()->user()->notifications()->latest()->paginate((int)($request->per_page ?? 10));
         return NotificationResource::collection($notifications)
             ->additional([
                 'count' => auth()->user()->unreadNotifications()->count(),

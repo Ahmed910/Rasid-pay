@@ -19,7 +19,7 @@ class DepartmentController extends Controller
             ->ListsTranslations('name')
             ->addSelect('created_at', 'is_active', 'parent_id', 'added_by_id')
             ->sortBy($request)
-            ->paginate((int)($request->page ?? 15));
+            ->paginate((int)($request->per_page ?? 15));
 
         return DepartmentResource::collection($departments)
             ->additional([
