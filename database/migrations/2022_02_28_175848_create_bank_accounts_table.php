@@ -16,11 +16,11 @@ class CreateBankAccountsTable extends Migration
         Schema::create('bank_accounts', function (Blueprint $table) {
             $table->uuid("id")->primary();
             $table->foreignUuid('user_id')->constrained('users')->onDelete('cascade');
-            $table->foreignUuid('bank_id')->constrained('banks')->onDelete('set null');
+            $table->foreignUuid('bank_id')->nullable()->constrained('banks')->onDelete('set null');
             $table->string('account_name')->nullable();
             $table->string('account_number')->nullable();
             $table->string('iban_number')->nullable();
-            $table->status('contract_type', ['pending', 'before_review', 'reviewed'])->default('pending');
+            $table->enum('contract_type', ['pending', 'before_review', 'reviewed'])->default('pending');
 
             $table->timestamps();
         });
