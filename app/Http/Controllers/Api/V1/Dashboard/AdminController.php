@@ -66,7 +66,7 @@ class AdminController extends Controller
 
     public function show($id)
     {
-        $user = User::withTrashed()->with(['addedBy', 'country', 'groups' , 'permissions'])->findOrFail($id);
+        $user = User::withTrashed()->where('user_type', 'admin')->with(['addedBy', 'country', 'groups' , 'permissions'])->findOrFail($id);
 
         return UserResource::make($user)
             ->additional([
@@ -82,8 +82,9 @@ class AdminController extends Controller
     }
 
 
-    public function update(AdminRequest $request, User $admin)
+    public function update(AdminRequest $request, $admin)
     {
+        $admin = User::where('user_type', 'admin')->findOrFail($admin);
         $admin->fill($request->validated())->save();
 
         //TODO::send sms with password
@@ -103,8 +104,9 @@ class AdminController extends Controller
     }
 
     //archive data
-    public function destroy(ReasonRequest $request, User $admin)
+    public function destroy(ReasonRequest $request, $admin)
     {
+        $admin = User::where('user_type', 'admin')->findOrFail($admin);
         $admin->delete();
         return UserResource::make($admin)
             ->additional([
@@ -116,7 +118,7 @@ class AdminController extends Controller
     //restore data from archive
     public function restore(ReasonRequest $request, $id)
     {
-        $admin = User::onlyTrashed()->findOrFail($id);
+        $admin = User::onlyTrashed()->where('user_type', 'admin')->findOrFail($id);
         $admin->restore();
 
         return UserResource::make($admin)
@@ -129,7 +131,7 @@ class AdminController extends Controller
     //force delete data from archive
     public function forceDelete(ReasonRequest $request, $id)
     {
-        $admin = User::onlyTrashed()->findOrFail($id);
+        $admin = User::onlyTrashed()->where('user_type', 'admin')->findOrFail($id);
         $admin->forceDelete();
 
         return UserResource::make($admin)

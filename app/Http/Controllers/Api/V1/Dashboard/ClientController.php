@@ -58,7 +58,7 @@ class ClientController extends Controller
     public function store(ClientRequest $request, User $user)
     {
         $except = ["tax_number" , "commercial_number","activity_type","daily_expect_trans","register_type","client_type" , "nationality" ,"address" ,"marital_status"];
-        $user->fill($request->safe()->except($except) + ["user_type" => "client"])->save();
+        $user->fill($request->safe()->except($except) + ["user_type" => "client",'added_by_id' => auth()->id()])->save();
         $client = Client::create($request->safe()->only($except) + ['user_id' => $user->id]);
         $client->load('user');
         return ClientResource::make($client)->additional([

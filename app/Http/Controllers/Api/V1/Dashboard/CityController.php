@@ -14,7 +14,7 @@ class CityController extends Controller
 
     public function index(Request $request)
     {
-        $city = City::latest()->paginate($request->page ?? 15);
+        $city = City::latest()->paginate((int)($request->perPage ?? 15));
 
         return CityResource::collection($city)
             ->additional([
