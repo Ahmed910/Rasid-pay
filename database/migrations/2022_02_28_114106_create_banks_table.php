@@ -20,7 +20,7 @@ class CreateBanksTable extends Migration
             $table->softDeletes();
             $table->timestamps();
         });
-        Schema::create('banks_translations', function (Blueprint $table) {
+        Schema::create('bank_translations', function (Blueprint $table) {
             $table->uuid('id')->primary();
             $table->foreignUuid('bank_id')->constrained("banks")->onDelete('cascade');
             $table->string('name');

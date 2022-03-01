@@ -4,7 +4,7 @@ namespace App\Http\Requests\V1\Dashboard;
 
 use App\Http\Requests\ApiMasterRequest;
 
-class RasidJobRequest extends ApiMasterRequest
+class BankRequest extends ApiMasterRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,14 +24,11 @@ class RasidJobRequest extends ApiMasterRequest
     public function rules()
     {
         $rules = [
-            "department_id" => "required|exists:departments,id",
-            "is_active" => "boolean",
-            "is_vacant" => "boolean",
+            "is_active" => "nullable|in:0,1",
         ];
 
         foreach (config('translatable.locales') as $locale) {
-            $rules["$locale.name"] = "required|between:2,100|string|unique:rasid_job_translations,name," . @$this->rasid_job->id. ",rasid_job_id";
-            $rules["$locale.description"]   = "nullable|string|max:300";
+            $rules[$locale . '.name'] = 'required|max:255|unique:bank_translations,name,' . @$this->bank->id . ',bank_id';
         }
 
         return $rules;

@@ -32,7 +32,8 @@ class ManagerRequest extends ApiMasterRequest
             "date_of_birth" => ["required", "date"],
             "address" => ["nullable","string" , "max:255"  ],
             "nationality" => ["nullable","string" , "max:255"  ],
-            "married"=>["nullable","bool"],
+            "marital_status" => ["nullable", "in:married,single"],
+
 
         ];
     }

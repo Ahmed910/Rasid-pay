@@ -18,7 +18,7 @@ class CreateClientsTable extends Migration
             $table->foreignUuid("user_id")->constrained("users")->onDelete("cascade");
             $table->foreignUuid("manager_id")->nullable()->constrained("managers")->nullOnDelete();
             $table->enum('client_type', ['company', 'institution', 'member', 'freelance_doc', 'famous', 'other'])->default("company");
-            $table->string("Commercial_number")->nullable();
+            $table->string("commercial_number")->nullable();
             $table->string("tax_number")->unique();
             $table->string("activity_type");
             $table->integer("daily_expect_trans");
