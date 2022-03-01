@@ -59,7 +59,7 @@ class AdminController extends Controller
         return UserResource::make($admin)
             ->additional([
                 'status' => true,
-                'message' =>  trans('dashboard.general.success_add'),
+                'message' =>  __('dashboard.general.success_add'),
             ]);
     }
 
@@ -98,7 +98,7 @@ class AdminController extends Controller
         return UserResource::make($admin)
             ->additional([
                 'status' => true,
-                'message' =>  trans('dashboard.general.success_update'),
+                'message' =>  __('dashboard.general.success_update'),
             ]);
     }
 
@@ -109,7 +109,7 @@ class AdminController extends Controller
         return UserResource::make($admin)
             ->additional([
                 'status' => true,
-                'message' =>  trans('dashboard.general.success_archive'),
+                'message' =>  __('dashboard.general.success_archive'),
             ]);
     }
 
@@ -122,7 +122,7 @@ class AdminController extends Controller
         return UserResource::make($admin)
             ->additional([
                 'status' => true,
-                'message' =>  trans('dashboard.general.success_restore'),
+                'message' =>  __('dashboard.general.success_restore'),
             ]);
     }
 
@@ -135,7 +135,7 @@ class AdminController extends Controller
         return UserResource::make($admin)
             ->additional([
                 'status' => true,
-                'message' =>  trans('dashboard.general.success_delete'),
+                'message' =>  __('dashboard.general.success_delete'),
             ]);
     }
 }
