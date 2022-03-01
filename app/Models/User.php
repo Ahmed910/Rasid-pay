@@ -123,6 +123,14 @@ class User extends Authenticatable implements HasAssetsInterface
         return $this->hasOne(BankAccount::class);
     }
 
+    public function setBanStatusAttribute($value)
+    {
+        if ($value != 'temporary') {
+            $this->attributes['ban_from'] = null;
+            $this->attributes['ban_to'] = null;
+        }
+    }
+
     public function scopeSearch(Builder $query, $request)
     {
         if (isset($request->fullname)) {
@@ -155,14 +163,6 @@ class User extends Authenticatable implements HasAssetsInterface
         }
         if (isset($request->is_admin_active_user)) {
             $query->where('is_admin_active_user', $request->is_admin_active_user);
-        }
-
-        if ($request->ban_from && $request->ban_to ) {
-            $query->whereDate('ban_from', ">=" , $request->ban_from)->whereDate('ban_to', "<=" , $request->ban_to);
-        }elseif ($request->ban_from) {
-            $query->whereDate('ban_from', ">=" , $request->ban_from);
-        }elseif ($request->ban_to) {
-            $query->whereDate('ban_to', "<=" , $request->ban_to);
         }
     }
 }
