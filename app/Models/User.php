@@ -122,20 +122,10 @@ class User extends Authenticatable implements HasAssetsInterface
     {
         return $this->hasOne(BankAccount::class);
     }
-    public function setIsBanAttribute($value)
-    {
-        $this->attributes['is_ban'] = $value;
-        if ($value == 0) {
-            $this->attributes['ban_reason'] = null;
-            $this->attributes['is_ban_always'] = null;
-            $this->attributes['ban_from'] = null;
-            $this->attributes['ban_to'] = null;
-        }
-    }
 
-    public function setIsBanAlwaysAttribute($value)
+    public function setBanStatusAttribute($value)
     {
-        if ($value == 1) {
+        if ($value != 'temporary') {
             $this->attributes['ban_from'] = null;
             $this->attributes['ban_to'] = null;
         }
@@ -159,8 +149,8 @@ class User extends Authenticatable implements HasAssetsInterface
         if (isset($request->country_id)) {
             $query->where('country_id', $request->country);
         }
-        if (isset($request->is_ban)) {
-            $query->where('is_ban', $request->is_ban);
+        if (isset($request->ban_status)) {
+            $query->where('ban_status', $request->ban_status);
         }
         if (isset($request->register_status)) {
             $query->where('register_status', $request->register_status);
@@ -173,14 +163,6 @@ class User extends Authenticatable implements HasAssetsInterface
         }
         if (isset($request->is_admin_active_user)) {
             $query->where('is_admin_active_user', $request->is_admin_active_user);
-        }
-
-        if ($request->ban_from && $request->ban_to ) {
-            $query->whereDate('ban_from', ">=" , $request->ban_from)->whereDate('ban_to', "<=" , $request->ban_to);
-        }elseif ($request->ban_from) {
-            $query->whereDate('ban_from', ">=" , $request->ban_from);
-        }elseif ($request->ban_to) {
-            $query->whereDate('ban_to', "<=" , $request->ban_to);
         }
     }
 }
