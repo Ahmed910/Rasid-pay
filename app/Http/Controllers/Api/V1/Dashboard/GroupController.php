@@ -94,7 +94,7 @@ class GroupController extends Controller
             'message' => "",
             'data' => [
                 'group' => GroupResource::make($group->load('translations','permissions')),
-                'routes' => UriResource::collection($routes),
+                'routes' => UriResource::collection($saved_permissions),
             ]
         ]);
     }

@@ -14,9 +14,14 @@ class BankResource extends JsonResource
      */
     public function toArray($request)
     {
+        $locales = [];
+        if ($this->relationLoaded('translations') && !in_array($request->route()->getActionMethod(),['index','archive'])) {
+            foreach (config('translatable.locales') as $locale) {
+                $locales['translations'][$locale] = GlobalTransResource::make($this->translations->firstWhere('locale',$locale));
+            }
+        }
         return [
             'id' => $this->id,
-            'translations' => GlobalTransResource::collection($this->whenLoaded('translations')),
             'created_at' => $this->created_at,
             'actions' => [
                 'show' => auth()->user()->hasPermissions('banks.show'),
@@ -28,6 +33,6 @@ class BankResource extends JsonResource
                 'forceDelete' => auth()->user()->hasPermissions('banks.force_delete'),
             ]
 
-        ];
+        ] + $locales;
     }
 }

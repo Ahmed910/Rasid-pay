@@ -14,9 +14,14 @@ class CountryResource extends JsonResource
      */
     public function toArray($request)
     {
+        $locales = [];
+        if ($this->relationLoaded('translations') && !in_array($request->route()->getActionMethod(),['index','archive'])) {
+            foreach (config('translatable.locales') as $locale) {
+                $locales['translations'][$locale] = GlobalTransResource::make($this->translations->firstWhere('locale',$locale));
+            }
+        }
         return [
             'id' => $this->id,
-            'translations' => GlobalTransResource::collection($this->whenLoaded('translations')),
             'name' => $this->name,
             'phone_code' => $this->phone_code,
             'nationality' => $this->nationality,
@@ -33,6 +38,6 @@ class CountryResource extends JsonResource
                 'restore' => auth()->user()->hasPermissions('countries.restore'),
                 'forceDelete' => auth()->user()->hasPermissions('countries.force_delete'),
             ]
-        ];
+        ] + $locales;
     }
 }

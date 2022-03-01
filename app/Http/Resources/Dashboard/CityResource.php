@@ -14,9 +14,14 @@ class CityResource extends JsonResource
      */
     public function toArray($request)
     {
+        $locales = [];
+        if ($this->relationLoaded('translations') && !in_array($request->route()->getActionMethod(),['index','archive'])) {
+            foreach (config('translatable.locales') as $locale) {
+                $locales['translations'][$locale] = GlobalTransResource::make($this->translations->firstWhere('locale',$locale));
+            }
+        }
         return [
             'id' => $this->id,
-            'translations' => GlobalTransResource::collection($this->whenLoaded('translations')),
             'name' => $this->name,
             'postal_code' => $this->postal_code,
             'created_at' => $this->created_at,
@@ -32,6 +37,6 @@ class CityResource extends JsonResource
                 'forceDelete' => auth()->user()->hasPermissions('cities.force_delete'),
             ]
 
-        ];
+        ] + $locales;
     }
 }

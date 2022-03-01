@@ -15,6 +15,12 @@ class RasidJobResource extends JsonResource
      */
     public function toArray($request)
     {
+        $locales = [];
+        if ($this->relationLoaded('translations') && !in_array($request->route()->getActionMethod(),['index','archive'])) {
+            foreach (config('translatable.locales') as $locale) {
+                $locales['translations'][$locale] = GlobalTransResource::make($this->translations->firstWhere('locale',$locale));
+            }
+        }
         return [
             'id' => $this->id,
             'translations' => GlobalTransResource::collection($this->whenLoaded('translations')),
@@ -33,6 +39,6 @@ class RasidJobResource extends JsonResource
                 'restore' => auth()->user()->hasPermissions('rasid_jobs.restore'),
                 'forceDelete' => auth()->user()->hasPermissions('rasid_jobs.force_delete'),
             ]
-        ];
+        ] + $locales;
     }
 }

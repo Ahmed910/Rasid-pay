@@ -17,6 +17,12 @@ class DepartmentResource extends JsonResource
      */
     public function toArray($request)
     {
+        $locales = [];
+        if ($this->relationLoaded('translations') && !in_array($request->route()->getActionMethod(),['index','archive'])) {
+            foreach (config('translatable.locales') as $locale) {
+                $locales['translations'][$locale] = GlobalTransResource::make($this->translations->firstWhere('locale',$locale));
+            }
+        }
         return [
             'id' => $this->id,
             'name' => $this->name,
@@ -24,7 +30,6 @@ class DepartmentResource extends JsonResource
             'parent_id' => $this->parent_id,
             'is_active' => (bool)$this->is_active,
             'created_at' => $this->created_at,
-            'translations' => GlobalTransResource::collection($this->whenLoaded('translations')),
             "images"    => ImagesResource::collection($this->whenLoaded("images")),
             'added_by'   => SimpleUserResource::make($this->whenLoaded('addedBy')),
             'actions' => [
@@ -37,6 +42,6 @@ class DepartmentResource extends JsonResource
                 'restore' => auth()->user()->hasPermissions('departments.restore'),
                 'forceDelete' => auth()->user()->hasPermissions('departments.force_delete'),
             ]
-        ];
+        ] + $locales;
     }
 }
