@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources\Dashboard;
 
+use App\Http\Resources\Dashboard\ActivityLogResource;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class CurrencyResource extends JsonResource
@@ -26,6 +27,7 @@ class CurrencyResource extends JsonResource
             'value' => $this->value,
             'created_at'=>$this->created_at,
             'added_by_id' => SimpleUserResource::make($this->whenloaded('addedBy')),
+            'activity'  => ActivityLogResource::collection($this->whenLoaded('activity')),
             'actions' => [
                 'index'  => auth()->user()->hasPermissions('currencies.index'),
                 'show' => auth()->user()->hasPermissions('currencies.show'),
