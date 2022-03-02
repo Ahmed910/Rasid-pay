@@ -14,12 +14,17 @@ class SimpleUserResource extends JsonResource
      */
     public function toArray($request)
     {
+        $relations = [];
+        if ($this->relationLoaded("attachments"))
+            $relations['attachments'] = AttachmentResource::collection($this->whenLoaded('attachments'));
+
         return [
-            'id' => $this->id,
-            'fullname' => $this->fullname,
-            'user_type' => $this->user_type,
-            'date_of_birth' => $this->date_of_birth,
-            'created_at' => $this->created_at,
-        ];
+                'id' => $this->id,
+                'fullname' => $this->fullname,
+                'user_type' => $this->user_type,
+                'date_of_birth' => $this->date_of_birth,
+                'created_at' => $this->created_at,
+
+            ] + $relations;
     }
 }

@@ -47,6 +47,7 @@ class Client extends Model
     {
         return $this->belongsTo(user::class);
     }
+
     #endregion relationships
 
     #region custom Methods
