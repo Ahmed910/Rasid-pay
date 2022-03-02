@@ -48,7 +48,7 @@ class CityController extends Controller
 
     public function show($id)
     {
-        $city = City::withTrashed()->findOrFail($id);
+        $city = City::with('activity')->withTrashed()->findOrFail($id);
 
         return CityResource::make($city)
             ->additional([
@@ -62,6 +62,9 @@ class CityController extends Controller
     public function update(CityRequest $request, City $city)
     {
         $city->fill($request->validated())->save();
+        $city->updated_at = now();
+        $city->save();
+
 
         return CityResource::make($city)
             ->additional([
