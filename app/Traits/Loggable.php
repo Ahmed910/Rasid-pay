@@ -54,8 +54,8 @@ trait Loggable
         $activity['auditable_id'] = $item->id;
         $activity['auditable_type'] = get_class($item);
         $activity['url'] = Request::fullUrl();
-        $activity['old_data'] = [];
-        $activity['new_data'] = [];
+        $activity['old_data'] = $this->oldData($item);
+        $activity['new_data'] = $this->newData($item);
         $activity['action_type'] = $event;
         $activity['ip_address'] = Request::ip();
         $activity['agent'] = Request::header('user-agent');
