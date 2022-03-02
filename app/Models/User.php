@@ -132,14 +132,71 @@ class User extends Authenticatable implements HasAssetsInterface
 
     public function scopeSearch(Builder $query, $request)
     {
-        if ($request->fullname) $query->where("fullname", "like", "%$request->fullname%");
-        if ($request->created_at) $query->where("created_at", "like", "%$request->created_at%");
-        if ($request->client_type) $query->where("client_type", "like", "%$request->client_type%");
-        if ($request->country_id) $query->where("country_id", "like", "%$request->country_id%");
-        if ($request->ban_status) $query->where("ban_status", "like", "%$request->ban_status%");
-        if ($request->register_status) $query->where("register_status", "like", "%$request->register_status%");
-        if ($request->gender) $query->where("gender", "like", "%$request->gender%");
-        if ($request->is_active) $query->where("is_active", "like", "%$request->is_active%");
-        if ($request->is_admin_active_user) $query->where("is_admin_active_user", "like", "%$request->is_admin_active_user%");
+        if (isset($request->fullname)) {
+            $query->where("fullname", "like", "%$request->fullname%");
+        }
+
+        if (isset($request->created_at)) {
+            $query->whereDate('created_at', $request->created_at);
+        }
+
+        if (isset($request->client_type)) {
+            $query->where("client_type", $request->client_type);
+        }
+
+        if (isset($request->country_id)) {
+            $query->where('country_id', $request->country);
+        }
+        if (isset($request->ban_status)) {
+            $query->where('ban_status', $request->ban_status);
+        }
+        if (isset($request->register_status)) {
+            $query->where('register_status', $request->register_status);
+        }
+        if (isset($request->gender)) {
+            $query->where('gender', $request->gender);
+        }
+        if (isset($request->is_active)) {
+            $query->where('is_active', $request->is_active);
+        }
+        if (isset($request->is_admin_active_user)) {
+            $query->where('is_admin_active_user', $request->is_admin_active_user);
+        }
+
+        if ($request->ban_from && $request->ban_to) {
+            if ($this->is_date_hijri) {
+                $ban_to = Hijri::convertToGregorian($request->ban_to)->format('d F o  h:i A');
+                $ban_from = Hijri::convertToGregorian($request->ban_from)->format('d F o  h:i A');
+            }
+           $query->whereDate('ban_from', ">=" , $ban_from)->whereDate('ban_to', "<=" , $ban_to);
+       }elseif ($request->ban_from) {
+           if ($this->is_date_hijri) {
+               $ban_from = Hijri::convertToGregorian($request->ban_from)->format('d F o  h:i A');
+           }
+           $query->whereDate('ban_from', ">=" , $ban_from);
+       }elseif ($request->ban_to) {
+           if ($this->is_date_hijri) {
+               $ban_to = Hijri::convertToGregorian($request->ban_to)->format('d F o  h:i A');
+           }
+           $query->whereDate('ban_to', "<=" , $ban_to);
+       }
+
+       if ($request->created_from && $request->created_to) {
+           if ($this->is_date_hijri) {
+               $created_to = Hijri::convertToGregorian($request->created_to)->format('d F o  h:i A');
+               $created_from = Hijri::convertToGregorian($request->created_from)->format('d F o  h:i A');
+           }
+          $query->whereDate('created_at', ">=" , $created_from)->whereDate('createat', "<=" , $created_to);
+      }elseif ($request->created_from) {
+          if ($this->is_date_hijri) {
+              $created_from = Hijri::convertToGregorian($request->created_from)->format('d F o  h:i A');
+          }
+          $query->whereDate('created_at', ">=" , $created_from);
+      }elseif ($request->created_to) {
+          if ($this->is_date_hijri) {
+              $created_to = Hijri::convertToGregorian($request->created_to)->format('d F o  h:i A');
+          }
+          $query->whereDate('createat', "<=" , $created_to);
+      }
     }
 }
