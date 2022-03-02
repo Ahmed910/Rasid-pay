@@ -20,27 +20,45 @@ class AuthController extends Controller
 
     public function login(LoginRequest $request)
     {
-        if(array_key_exists('login_id' , $this->getCredentials($request))){
-            $user = User::where(['user_type' => 'admin' , 'login_id' => $request->login_id])->first();
-            if ($user && \Hash::check($request->password , $user->password) && $user->is_login_code) {
-                $code = $this->generateCode(['send_type' => 'phone'], $user,'login_code');
-                $user->update(['login_code' => $code]);
-                return response()->json(['status' => true, 'data' => ['phone' => $user->phone], 'message' => trans('dashboard.general.success_send_login_code'), 'dev_message' => $code , 'login_code_required' => true]);
-            }
-            return response()->json(['status' => false, 'data' => null, 'message' => trans('auth.failed')], 401);
+        $credentials = $this->getCredentials($request);
+        $user = User::whereIn('user_type' , ['admin' , 'superadmin'])->when(array_key_exists('login_id' , $credentials),function ($q) use($request) {
+            $q->where('login_id' , $request->username);
+        })->when(array_key_exists('phone' , $credentials),function ($q) use($request) {
+            $q->where('phone' , $request->username);
+        })->first();
+
+        if ($user && $user->is_login_code && \Hash::check($request->password , $user->password)) {
+            $code = $this->generateCode(['send_type' => 'phone'], $user,'login_code');
+            $user->update(['login_code' => $code]);
+            return response()->json(['status' => true, 'data' => ['phone' => $user->phone], 'message' => trans('dashboard.general.success_send_login_code'), 'dev_message' => $code , 'login_code_required' => true]);
         }
 
-        return $this->makeLogin($this->getCredentials($request), $request, false);
+        return $this->makeLogin($request);
     }
 
     public function otpLogin(OTPLoginRequest $request)
     {
-        return $this->makeLogin(['phone' => $request->phone , 'login_code' => $request->code], $request);
+        $user = User::whereIn('user_type' , ['admin' , 'superadmin'])->where(['login_code' => $request->code , 'phone' => $request->phone])->first();
+        
+        if (! $user) {
+            return response()->json(['status' => false, 'data' => null, 'message' => trans('auth.failed')], 401);
+        }
+        Auth::login($user);
+        $user->devices()->where('device_token',"<>",$request->device_token)->delete();
+
+        // $user->tokens()->delete();
+        // \Config::set('sanctum.expiration',setting('expiration_ttl') ?? (1*(60*24*365)));
+        $token =  $user->createToken('RaseedJakDashboard')->plainTextToken;
+        if ($request->only(['device_token', 'device_type'])) {
+            $user->devices()->firstOrCreate($request->only(['device_token', 'device_type']));
+        }
+        data_set($user, 'token', $token);
+        return UserResource::make($user)->additional(['status' => true, 'message' => trans('auth.success_login', ['user' => $user->phone]) , 'login_code_required' => true]);
     }
 
-    public function makeLogin($attempt_data, $request, bool $login_code_required = true)
+    public function makeLogin($request)
     {
-        if (!Auth::attempt($attempt_data)) {
+        if (!Auth::attempt($this->getCredentials($request))) {
             return response()->json(['status' => false, 'data' => null, 'message' => trans('auth.failed')], 401);
         }
         $user = Auth::user();
@@ -53,7 +71,7 @@ class AuthController extends Controller
             $user->devices()->firstOrCreate($request->only(['device_token', 'device_type']));
         }
         data_set($user, 'token', $token);
-        return UserResource::make($user)->additional(['status' => true, 'message' => trans('auth.success_login', ['user' => $user->phone]) , 'login_code_required' => $login_code_required]);
+        return UserResource::make($user)->additional(['status' => true, 'message' => trans('auth.success_login', ['user' => $user->phone]) , 'login_code_required' => false]);
     }
 
     public function sendCode(SendCodeRequest $request)
