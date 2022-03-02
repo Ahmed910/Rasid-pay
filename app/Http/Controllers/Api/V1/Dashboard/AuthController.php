@@ -21,7 +21,7 @@ class AuthController extends Controller
     public function login(LoginRequest $request)
     {
         if(array_key_exists('login_id' , $this->getCredentials($request))){
-            $user = User::where(['user_type' => 'admin' , 'login_id' => $request->user_name])->first();
+            $user = User::where(['user_type' => 'admin' , 'login_id' => $request->login_id])->first();
             if ($user && \Hash::check($request->password , $user->password) && $user->is_login_code) {
                 $code = $this->generateCode(['send_type' => 'phone'], $user,'login_code');
                 $user->update(['login_code' => $code]);
