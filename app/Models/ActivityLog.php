@@ -14,7 +14,7 @@ class ActivityLog extends Model
     #region properties
     protected $guarded = ['created_at', 'updated_at', 'deleted_at'];
     protected $table = 'activity_logs';
-    protected $with = ['user'];
+    protected $with = ['user','auditable'];
     protected $casts = ["new_data" => "array", "old_data" => "array"];
     #endregion properties
 
