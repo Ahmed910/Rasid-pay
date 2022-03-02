@@ -53,8 +53,9 @@ class RasidJobController extends Controller
 
     public function update(RasidJobRequest $request, RasidJob $rasidJob)
     {
-        $rasidJob->touch();
-        $rasidJob->fill($request->validated())->save();
+        $rasidJob->fill($request->validated());
+        $rasidJob->updated_at = now();
+        $rasidJob->save();
 
         return RasidJobResource::make($rasidJob)
             ->additional([

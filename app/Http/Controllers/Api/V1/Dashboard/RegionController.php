@@ -87,8 +87,10 @@ class RegionController extends Controller
      */
     public function update(RegionRequest $request, Region $region)
     {
-        $region->touch();
-        $region->fill($request->validated())->save();
+
+        $region->fill($request->validated());
+        $region->updated_at = now();
+        $region->save();
 
         return RegionResource::make($region)->additional([
             'status' => true, 'message' => trans("dashboard.general.success_update")]);
