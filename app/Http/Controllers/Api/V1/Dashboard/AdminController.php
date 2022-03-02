@@ -14,7 +14,7 @@ class AdminController extends Controller
 
     public function index(Request $request)
     {
-        $users = User::with(['department', 'permissions', 'groups' => function ($q) {
+        $users = User::search($request)->with(['department', 'permissions', 'groups' => function ($q) {
             $q->with('permissions');
         }])->where('user_type', 'admin')->latest()->paginate((int)($request->per_page ?? 10));
 
@@ -110,40 +110,40 @@ class AdminController extends Controller
     }
 
     //archive data
-    public function destroy(ReasonRequest $request, $admin)
-    {
-        $admin = User::where('user_type', 'admin')->findOrFail($admin);
-        $admin->delete();
-        return UserResource::make($admin)
-            ->additional([
-                'status' => true,
-                'message' =>  __('dashboard.general.success_archive'),
-            ]);
-    }
+    // public function destroy(ReasonRequest $request, $admin)
+    // {
+    //     $admin = User::where('user_type', 'admin')->findOrFail($admin);
+    //     $admin->delete();
+    //     return UserResource::make($admin)
+    //         ->additional([
+    //             'status' => true,
+    //             'message' =>  __('dashboard.general.success_archive'),
+    //         ]);
+    // }
 
     //restore data from archive
-    public function restore(ReasonRequest $request, $id)
-    {
-        $admin = User::onlyTrashed()->where('user_type', 'admin')->findOrFail($id);
-        $admin->restore();
+    // public function restore(ReasonRequest $request, $id)
+    // {
+    //     $admin = User::onlyTrashed()->where('user_type', 'admin')->findOrFail($id);
+    //     $admin->restore();
 
-        return UserResource::make($admin)
-            ->additional([
-                'status' => true,
-                'message' =>  __('dashboard.general.success_restore'),
-            ]);
-    }
+    //     return UserResource::make($admin)
+    //         ->additional([
+    //             'status' => true,
+    //             'message' =>  __('dashboard.general.success_restore'),
+    //         ]);
+    // }
 
     //force delete data from archive
-    public function forceDelete(ReasonRequest $request, $id)
-    {
-        $admin = User::onlyTrashed()->where('user_type', 'admin')->findOrFail($id);
-        $admin->forceDelete();
+    // public function forceDelete(ReasonRequest $request, $id)
+    // {
+    //     $admin = User::onlyTrashed()->where('user_type', 'admin')->findOrFail($id);
+    //     $admin->forceDelete();
 
-        return UserResource::make($admin)
-            ->additional([
-                'status' => true,
-                'message' =>  __('dashboard.general.success_delete'),
-            ]);
-    }
+    //     return UserResource::make($admin)
+    //         ->additional([
+    //             'status' => true,
+    //             'message' =>  __('dashboard.general.success_delete'),
+    //         ]);
+    // }
 }
