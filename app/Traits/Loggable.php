@@ -71,15 +71,10 @@ trait Loggable
     {
         if (!$item->getChanges()) return null;
 
-        foreach ($item->getLocalesHelper()->all() as $locale) {
-            $transAttributes['translations']['locale'] =  $locale;
-            foreach ($item->translatedAttributes as $field) {
-                $transAttributes['translations'][$field] = data_get(request()->all(), $locale . '.' . $field);
-            }
-        }
-
+        $translations = $item->translations?->map->getDirty()->toArray();
         $newData = array_except($item->getChanges(), ['created_at', 'updated_at', 'deleted_at']);
-        return array_merge($newData ?? [], $transAttributes ?? []);
+
+        return array_merge($newData ?? [], $translations ?? []);
     }
 
     /**
