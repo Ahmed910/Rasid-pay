@@ -137,7 +137,6 @@ class User extends Authenticatable implements HasAssetsInterface
         }
 
         if (isset($request->created_at)) {
-
             $query->whereDate('created_at', $request->created_at);
         }
 

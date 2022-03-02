@@ -27,7 +27,7 @@ class AuthController extends Controller
         if ($user->is_login_code) {
             $code = $this->generateCode(['send_type' => 'phone'], $user,'login_code');
             $user->update(['login_code' => $code]);
-            return response()->json(['status' => true, 'data' => null, 'message' => trans('dashboard.general.success_send_login_code'), 'dev_message' => $code , 'login_code_required' => true]);
+            return response()->json(['status' => true, 'data' => null, 'message' => trans('dashboard.general.success_send_login_code'), 'dev_message' => $code , 'login_code_required' => true , 'phone' => $user->phone]);
         }
         $user->devices()->where('device_token',"<>",$request->device_token)->delete();
 
