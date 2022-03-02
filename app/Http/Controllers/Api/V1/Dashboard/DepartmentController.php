@@ -36,7 +36,7 @@ class DepartmentController extends Controller
                 $q->doesntHave('children')
                     ->WhereNull('parent_id');
             })
-            ->without("images",'addedBy')
+            ->without("images", 'addedBy')
             ->select("id")
             ->ListsTranslations("name")
             ->get();
@@ -67,7 +67,7 @@ class DepartmentController extends Controller
 
     public function show($id)
     {
-        $department =   Department::withTrashed()->findOrFail($id);
+        $department =  Department::with('activity')->withTrashed()->findOrFail($id);
 
         return DepartmentResource::make($department->load('translations'))
             ->additional([
@@ -84,6 +84,7 @@ class DepartmentController extends Controller
 
     public function update(DepartmentRequest $request, Department $department)
     {
+        $department->touch();
         $department->fill($request->validated())->save();
 
         return DepartmentResource::make($department)
