@@ -1,11 +1,12 @@
 <?php
 $permissions = [
-    'read' => 'Read',
+    'index' => 'Record',
+    'show' => 'Show',
     'store' => 'Save',
-    'update' => 'Update',
+    'update' => 'Modify',
     'archive' => 'Archive',
     'restore' => 'Restore',
-    'force_delete' => 'Permanent Delete',
+    'force_delete' => 'Permanently delete',
 ];
 return [
     'general' => [
