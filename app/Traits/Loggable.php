@@ -89,7 +89,7 @@ trait Loggable
     {
         if (!$item->getOriginal()) return $item;
 
-        $translations = $item->translations->map->getOriginal()->toArray();
+        $translations = $item->translations?->map->getOriginal()->toArray();
         $originalData =  $item->getOriginal();
 
         return array_merge($originalData ?? [], $translations ?? []);
