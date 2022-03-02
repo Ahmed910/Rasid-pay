@@ -31,6 +31,7 @@ class DepartmentResource extends JsonResource
             'parent_id' => $this->parent_id,
             'is_active' => (bool)$this->is_active,
             'created_at' => $this->created_at,
+            'has_children' => $this->children()->exists(),
             "images"    => ImagesResource::collection($this->whenLoaded("images")),
             'added_by'   => SimpleUserResource::make($this->whenLoaded('addedBy')),
             'activity'  => ActivityLogResource::collection($this->whenLoaded('activity')),
