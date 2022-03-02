@@ -30,12 +30,12 @@ class AuthController extends Controller
             return response()->json(['status' => false, 'data' => null, 'message' => trans('auth.failed')], 401);
         }
 
-        $this->makeLogin($this->getCredentials($request), $request, false);
+        return $this->makeLogin($this->getCredentials($request), $request, false);
     }
 
     public function otpLogin(OTPLoginRequest $request)
     {
-        $this->makeLogin(['phone' => $request->phone , 'login_code' => $request->code], $request);
+        return $this->makeLogin(['phone' => $request->phone , 'login_code' => $request->code], $request);
     }
 
     public function makeLogin($attempt_data, $request, bool $login_code_required = true)
