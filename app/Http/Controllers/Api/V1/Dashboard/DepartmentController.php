@@ -84,8 +84,9 @@ class DepartmentController extends Controller
 
     public function update(DepartmentRequest $request, Department $department)
     {
-        $department->touch();
-        $department->fill($request->validated())->save();
+        $department->fill($request->validated());
+        $department->updated_at = now();
+        $department->save();
 
         return DepartmentResource::make($department)
             ->additional([
