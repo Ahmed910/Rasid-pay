@@ -4,6 +4,7 @@ namespace App\Models\Region;
 
 use App\Models\City\City;
 use App\Models\Country\Country;
+use App\Models\User;
 use App\Traits\Loggable;
 use App\Traits\Uuid;
 use Illuminate\Database\Eloquent\Builder;
