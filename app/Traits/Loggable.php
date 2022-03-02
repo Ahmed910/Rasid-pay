@@ -54,8 +54,8 @@ trait Loggable
         $activity['auditable_id'] = $item->id;
         $activity['auditable_type'] = get_class($item);
         $activity['url'] = Request::fullUrl();
-        $activity['old_data'] = $this->oldData($item);
-        $activity['new_data'] = $this->newData($item);
+        $activity['old_data'] = [];
+        $activity['new_data'] = [];
         $activity['action_type'] = $event;
         $activity['ip_address'] = Request::ip();
         $activity['agent'] = Request::header('user-agent');
@@ -71,15 +71,10 @@ trait Loggable
     {
         if (!$item->getChanges()) return null;
 
-        foreach ($item->getLocalesHelper()->all() as $locale) {
-            $transAttributes['translations']['locale'] =  $locale;
-            foreach ($item->translatedAttributes as $field) {
-                $transAttributes['translations'][$field] = data_get(request()->all(), $locale . '.' . $field);
-            }
-        }
-
+        $translations = $item->translations?->map->getDirty()->toArray();
         $newData = array_except($item->getChanges(), ['created_at', 'updated_at', 'deleted_at']);
-        return array_merge($newData ?? [], $transAttributes ?? []);
+
+        return array_merge($newData ?? [], $translations ?? []);
     }
 
     /**
