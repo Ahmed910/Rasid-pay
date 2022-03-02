@@ -1,5 +1,7 @@
 <?php
 
+use App\Models\Setting;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Schema;
 
 function convert_arabic_number($number)
@@ -79,29 +81,23 @@ function generate_unique_code($model, $col = 'code', $length = 4, $letter_type =
     return $generate_random_code;
 }
 
-function setting($attr)
+function setting(string $attr, string $dashboard = Setting::ERP)
 {
     if (Schema::hasTable('settings')) {
-        $phone = $attr;
-        if ($attr == 'phone') {
-            $attr = 'phones';
+        $settings =  (Cache::has('settings')) ? Cache::get('settings') : Cache::rememberForever('settings', function () use ($dashboard) {
+            return Setting::where('dashboard', $dashboard)->get();
+        });
+
+        $setting = $settings->firstWhere('key', $attr)?->value;
+
+        if (is_string($setting)) {
+            (array) json_decode($setting);
         }
-        $setting = \App\Models\Setting::where('key', $attr)->first() ?? [];
-        if ($attr == 'project_name') {
-            return !empty($setting) ? $setting->value : 'Non Stop';
-        }
-        if ($attr == 'logo') {
-            return !empty($setting) ? asset('storage/images/setting') . "/" . $setting->value : asset('dashboardAsset/global/images/cover/cover_sm.png');
-        }
-        if ($phone == 'phone') {
-            return !empty($setting) && $setting->value ? json_decode($setting->value)[0] : null;
-        } elseif ($phone == 'phones') {
-            return !empty($setting) && $setting->value ? implode(",", json_decode($setting->value)) : null;
-        }
-        if (!empty($setting)) {
-            return $setting->value;
-        }
-        return;
+
+        if ($attr == 'erp_logo')
+            $setting =  isset($setting[app()->getLocale()]) ? asset('storage/images/setting') . "/" . $setting[app()->getLocale()] : asset('dashboardAsset/global/images/logo/cover_sm.png');
+
+        return $setting[app()->getLocale()] ?? null;
     }
     return;
 }
