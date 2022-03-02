@@ -107,9 +107,10 @@ class AuthController extends Controller
             return response()->json(['status' => false, 'data' => null, 'message' => trans('auth.failed')], 401);
         }
         $user->update(['login_code' => null]);
+        $user = Auth::login($user);
         // $user->tokens()->delete();
         // \Config::set('sanctum.expiration',setting('expiration_ttl') ?? (1*(60*24*365)));
-        $token =  $user->createToken('RaseedJakDashboard')->plainTextToken;
+        $token = $user->createToken('RaseedJakDashboard')->plainTextToken;
         if ($request->only(['device_token', 'device_type'])) {
             $user->devices()->firstOrCreate($request->only(['device_token', 'device_type']));
         }
