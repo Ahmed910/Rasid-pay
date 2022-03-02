@@ -99,7 +99,7 @@ return [
         "edit_rasid_job" => "تعديل الوظيفة",
         "rasid_job_count" => "عدد الوظائف",
         "validation" => [
-            'name_must_be_unique_on_department' => 'تم اختيار اسم الوظيفة من قبللنفس القسم'
+            'name_must_be_unique_on_department' => 'تم اختيار اسم الوظيفة من قبل لنفس القسم'
         ],
         'permissions' => $permissions
     ],

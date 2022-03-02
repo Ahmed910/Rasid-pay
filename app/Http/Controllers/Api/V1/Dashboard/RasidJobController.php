@@ -27,9 +27,7 @@ class RasidJobController extends Controller
 
     public function store(RasidJobRequest $request, RasidJob $rasidJob)
     {
-
         $rasidJob->fill($request->validated() + ['added_by_id' => auth()->id()])->save();
-
 
         return RasidJobResource::make($rasidJob)
             ->additional([
