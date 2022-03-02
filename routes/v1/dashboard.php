@@ -24,9 +24,6 @@ Route::get('artisan_commend/{command}', function ($command) {
     if ($command) {
         Artisan::call($command);
     }
-    // \Artisan::call('migrate');
-    // \Artisan::call('optimize:clear');
-    // \Artisan::call('config:cache');
 });
 Route::middleware('auth:sanctum')->group(function () {
     // Public Routes

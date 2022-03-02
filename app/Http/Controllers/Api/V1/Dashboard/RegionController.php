@@ -68,7 +68,7 @@ class RegionController extends Controller
      */
     public function show( $id)
     {
-        $region = Region::withTrashed()->findOrFail($id);
+        $region = Region::with('activity')->withTrashed()->findOrFail($id);
         $relations  = ['translations'];
      return RegionResource::make($region->load($relations))->additional(['status' => true, 'message' => ""]);
     }
@@ -87,7 +87,10 @@ class RegionController extends Controller
      */
     public function update(RegionRequest $request, Region $region)
     {
-        $region->fill($request->validated())->save();
+
+        $region->fill($request->validated());
+        $region->updated_at = now();
+        $region->save();
 
         return RegionResource::make($region)->additional([
             'status' => true, 'message' => trans("dashboard.general.success_update")]);

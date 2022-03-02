@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources\Dashboard;
 
+use App\Http\Resources\Dashboard\ActivityLogResource;
 use App\Http\Resources\Dashboard\Departments\DepartmentResource;
 use Illuminate\Http\Resources\Json\JsonResource;
 
@@ -30,6 +31,7 @@ class RasidJobResource extends JsonResource
             'created_at' => $this->created_at,
             'added_by ' => SimpleUserResource::make($this->whenLoaded('addedBy')),
             'department' => DepartmentResource::make($this->whenLoaded('department')),
+            'activity'  => ActivityLogResource::collection($this->whenLoaded('activity')),
             'actions' => [
                 'show' => auth()->user()->hasPermissions('rasid_jobs.show'),
                 'create' => auth()->user()->hasPermissions('rasid_jobs.store'),

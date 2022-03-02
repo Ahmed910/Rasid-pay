@@ -91,6 +91,7 @@ class AdminController extends Controller
     public function update(AdminRequest $request, $id)
     {
         $admin = User::where('user_type', 'admin')->findOrFail($id);
+
         $admin->update($request->validated());
 
         //TODO::send sms with password

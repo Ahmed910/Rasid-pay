@@ -3,6 +3,7 @@
 namespace App\Models\Department;
 
 use App\Contracts\HasAssetsInterface;
+use App\Models\RasidJob\RasidJob;
 use App\Models\User;
 use App\Traits\HasAssetsTrait;
 use App\Traits\Loggable;
@@ -102,8 +103,6 @@ class Department extends Model implements TranslatableContract, HasAssetsInterfa
 
     public function rasidJobs()
     {
-
-
         return $this->hasMany(RasidJob::class, 'department_id');
     }
 

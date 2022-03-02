@@ -36,7 +36,7 @@ class DepartmentController extends Controller
                 $q->doesntHave('children')
                     ->WhereNull('parent_id');
             })
-            ->without("images",'addedBy')
+            ->without("images", 'addedBy')
             ->select("id")
             ->ListsTranslations("name")
             ->get();
@@ -67,7 +67,7 @@ class DepartmentController extends Controller
 
     public function show($id)
     {
-        $department =   Department::withTrashed()->findOrFail($id);
+        $department =  Department::with('activity')->withTrashed()->findOrFail($id);
 
         return DepartmentResource::make($department->load('translations'))
             ->additional([
@@ -84,7 +84,9 @@ class DepartmentController extends Controller
 
     public function update(DepartmentRequest $request, Department $department)
     {
-        $department->fill($request->validated())->save();
+        $department->fill($request->validated());
+        $department->updated_at = now();
+        $department->save();
 
         return DepartmentResource::make($department)
             ->additional([
@@ -96,6 +98,14 @@ class DepartmentController extends Controller
 
     public function destroy(ReasonRequest $request, Department $department)
     {
+        if ($department->rasidJobs()->exists()) {
+            return response()->json([
+                'status' => false,
+                'message' => trans("dashboard.department.has_jobs_cannot_delete"),
+                'data' => null
+            ], 422);
+        }
+
         if ($department->children()->exists()) {
             return response()->json([
                 'status' => false,
@@ -142,6 +152,14 @@ class DepartmentController extends Controller
     public function forceDelete(ReasonRequest $request, $id)
     {
         $department = Department::onlyTrashed()->findOrFail($id);
+
+        if ($department->rasidJobs()->exists()) {
+            return response()->json([
+                'status' => false,
+                'message' => trans("dashboard.department.has_jobs_cannot_delete"),
+                'data' => null
+            ], 422);
+        }
 
         if ($department->children()->exists()) {
             return response()->json([
