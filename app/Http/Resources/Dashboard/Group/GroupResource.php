@@ -2,7 +2,7 @@
 
 namespace App\Http\Resources\Dashboard\Group;
 
-use App\Http\Resources\Dashboard\{GlobalTransResource , SimpleUserResource};
+use App\Http\Resources\Dashboard\{ActivityLogResource, GlobalTransResource , SimpleUserResource};
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class GroupResource extends JsonResource
