@@ -5,6 +5,7 @@ namespace App\Models\Country;
 use App\Models\City\City;
 use App\Models\Currency\Currency;
 use App\Models\Region\Region;
+use App\Models\User;
 use App\Traits\Loggable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
