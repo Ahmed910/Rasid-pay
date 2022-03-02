@@ -1,11 +1,12 @@
 <?php
 $permissions = [
-    'read' => 'Read',
+    'index' => 'Record',
+    'show' => 'Show',
     'store' => 'Save',
-    'update' => 'Update',
+    'update' => 'Modify',
     'archive' => 'Archive',
     'restore' => 'Restore',
-    'force_delete' => 'Permanent Delete',
+    'force_delete' => 'Permanently delete',
 ];
 return [
     'general' => [
@@ -65,12 +66,15 @@ return [
         "department_count" => "",
         'permissions' => $permissions
     ],
-    "job" => [
-        "job" => "Job",
-        "jobs" => "Jobs",
-        "add_job" => "",
-        "edit_job" => "",
-        "job_count" => "",
+    "rasid_job" => [
+        "rasid_job" => "Job",
+        "rasid_jobs" => "Jobs",
+        "add_rasid_job" => "",
+        "edit_rasid_job" => "",
+        "rasid_job_count" => "",
+        "validation" => [
+            'name_must_be_unique_on_department' => 'The job title was previously selected for the same department'
+        ],
         'permissions' => $permissions
     ],
     "setting" => [

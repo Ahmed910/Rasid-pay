@@ -3,6 +3,7 @@
 namespace App\Http\Requests\V1\Dashboard;
 
 use App\Http\Requests\ApiMasterRequest;
+use App\Models\RasidJob\RasidJob;
 
 class RasidJobRequest extends ApiMasterRequest
 {
@@ -30,11 +31,18 @@ class RasidJobRequest extends ApiMasterRequest
         ];
 
         foreach (config('translatable.locales') as $locale) {
-            $rules["$locale.name"] = "required|between:2,100|string|unique:rasid_job_translations,name," . @$this->rasid_job->id. ",rasid_job_id";
+            $rules["$locale.name"] = ["required","string","between:2,100",function ($attribute, $value, $fail) use($locale){
+                $job = RasidJob::whereTranslation('name',$value,$locale)->where('department_id',$this->department_id)->when($this->rasid_job,function ($q) {
+                    $q->where('rasid_jobs.id',"<>",$this->rasid_job->id);
+                })->count();
+                if ($job) {
+                    $fail(trans('dashboard.error.name_must_be_unique_on_department'));
+                }
+
+            }];
             $rules["$locale.description"]   = "nullable|string|max:300";
         }
 
         return $rules;
     }
 }
-

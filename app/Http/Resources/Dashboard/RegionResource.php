@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources\Dashboard;
 
+use App\Http\Resources\Dashboard\ActivityLogResource;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class RegionResource extends JsonResource
@@ -27,6 +28,7 @@ class RegionResource extends JsonResource
             'cities' => CityResource::collection($this->whenLoaded('cities')),
             'created_at' => $this->created_at,
             'added_by ' => SimpleUserResource::make($this->whenLoaded('addedBy')),
+            'activity'  => ActivityLogResource::collection($this->whenLoaded('activity')),
             'actions' => [
                 'show' => auth()->user()->hasPermissions('regions.show'),
                 'create' => auth()->user()->hasPermissions('regions.store'),

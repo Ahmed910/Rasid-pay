@@ -14,7 +14,7 @@ class AdminController extends Controller
 
     public function index(Request $request)
     {
-        $users = User::with(['department', 'permissions' , 'groups' => function($q){
+        $users = User::search($request)->with(['department', 'permissions', 'groups' => function ($q) {
             $q->with('permissions');
         }])->where('user_type', 'admin')->latest()->paginate((int)($request->per_page ?? 10));
 
@@ -37,7 +37,7 @@ class AdminController extends Controller
 
     public function create(Request $request)
     {
-        $users = User::with(['department', 'permissions' , 'groups' => function($q){
+        $users = User::with(['department', 'permissions', 'groups' => function ($q) {
             $q->with('permissions');
         }])->where('user_type', 'employee')->latest()->get();
 
@@ -57,7 +57,7 @@ class AdminController extends Controller
         $permissions = $request->permission_list;
         if ($request->group_list) {
             $admin->groups()->sync($request->group_list);
-            $permissions = array_filter(array_merge($permissions , Group::find($request->group_list)->pluck('permissions')->pluck('id')->unique()->toArray()));
+            $permissions = array_filter(array_merge($permissions, Group::find($request->group_list)->pluck('permissions')->pluck('id')->unique()->toArray()));
         }
         $admin->permissions()->sync($permissions);
         return UserResource::make($admin)
@@ -70,7 +70,7 @@ class AdminController extends Controller
 
     public function show($id)
     {
-        $user = User::withTrashed()->where('user_type', 'admin')->with(['addedBy', 'country', 'permissions' , 'groups' => function($q){
+        $user = User::withTrashed()->where('user_type', 'admin')->with(['addedBy', 'country', 'permissions', 'groups' => function ($q) {
             $q->with('permissions');
         }])->findOrFail($id);
 
@@ -88,17 +88,18 @@ class AdminController extends Controller
     }
 
 
-    public function update(AdminRequest $request, $admin)
+    public function update(AdminRequest $request, $id)
     {
-        $admin = User::where('user_type', 'admin')->findOrFail($admin);
-        $admin->fill($request->validated())->save();
+        $admin = User::where('user_type', 'admin')->findOrFail($id);
+
+        $admin->update($request->validated());
 
         //TODO::send sms with password
         // if($request->('password_change'))
         $permissions = $request->permission_list;
         if ($request->group_list) {
             $admin->groups()->sync($request->group_list);
-            $permissions = array_filter(array_merge($permissions , Group::find($request->group_list)->pluck('permissions')->pluck('id')->unique()->toArray()));
+            $permissions = array_filter(array_merge($permissions, Group::find($request->group_list)->pluck('permissions')->pluck('id')->unique()->toArray()));
         }
         $admin->permissions()->sync($permissions);
 
@@ -110,40 +111,40 @@ class AdminController extends Controller
     }
 
     //archive data
-    public function destroy(ReasonRequest $request, $admin)
-    {
-        $admin = User::where('user_type', 'admin')->findOrFail($admin);
-        $admin->delete();
-        return UserResource::make($admin)
-            ->additional([
-                'status' => true,
-                'message' =>  __('dashboard.general.success_archive'),
-            ]);
-    }
+    // public function destroy(ReasonRequest $request, $admin)
+    // {
+    //     $admin = User::where('user_type', 'admin')->findOrFail($admin);
+    //     $admin->delete();
+    //     return UserResource::make($admin)
+    //         ->additional([
+    //             'status' => true,
+    //             'message' =>  __('dashboard.general.success_archive'),
+    //         ]);
+    // }
 
     //restore data from archive
-    public function restore(ReasonRequest $request, $id)
-    {
-        $admin = User::onlyTrashed()->where('user_type', 'admin')->findOrFail($id);
-        $admin->restore();
+    // public function restore(ReasonRequest $request, $id)
+    // {
+    //     $admin = User::onlyTrashed()->where('user_type', 'admin')->findOrFail($id);
+    //     $admin->restore();
 
-        return UserResource::make($admin)
-            ->additional([
-                'status' => true,
-                'message' =>  __('dashboard.general.success_restore'),
-            ]);
-    }
+    //     return UserResource::make($admin)
+    //         ->additional([
+    //             'status' => true,
+    //             'message' =>  __('dashboard.general.success_restore'),
+    //         ]);
+    // }
 
     //force delete data from archive
-    public function forceDelete(ReasonRequest $request, $id)
-    {
-        $admin = User::onlyTrashed()->where('user_type', 'admin')->findOrFail($id);
-        $admin->forceDelete();
+    // public function forceDelete(ReasonRequest $request, $id)
+    // {
+    //     $admin = User::onlyTrashed()->where('user_type', 'admin')->findOrFail($id);
+    //     $admin->forceDelete();
 
-        return UserResource::make($admin)
-            ->additional([
-                'status' => true,
-                'message' =>  __('dashboard.general.success_delete'),
-            ]);
-    }
+    //     return UserResource::make($admin)
+    //         ->additional([
+    //             'status' => true,
+    //             'message' =>  __('dashboard.general.success_delete'),
+    //         ]);
+    // }
 }

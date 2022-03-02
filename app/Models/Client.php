@@ -27,13 +27,8 @@ class Client extends Model
             $q->search($request);
         });
 
-        if (isset($request->client_type)) {
-            $query->where("client_type", $request->client_type);
-        }
-
-        if (isset($request->nationality)) {
-            $query->where("nationality", $request->nationality);
-        }
+        if ($request->client_type) $query->where("client_type", $request->client_type);
+        if ($request->nationality) $query->where("nationality", $request->nationality);
     }
     #endregion scopes
 

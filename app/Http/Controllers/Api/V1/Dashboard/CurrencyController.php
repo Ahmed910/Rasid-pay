@@ -59,7 +59,7 @@ class CurrencyController extends Controller
      */
     public function show($id)
     {
-        $currency = Currency::withTrashed()->findOrFail($id);
+        $currency = Currency::with('activity')->withTrashed()->findOrFail($id);
 
         return CurrencyResource::make($currency->load('translations'))
             ->additional([
@@ -75,7 +75,10 @@ class CurrencyController extends Controller
 
     public function update(CurrencyRequest $request, Currency $currency)
     {
-        $currency->fill($request->validated())->save();
+        $currency->fill($request->validated());
+        $currency->updated_at=now();
+        $currency->save();
+
 
         return CurrencyResource::make($currency)
             ->additional([

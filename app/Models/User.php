@@ -82,9 +82,7 @@ class User extends Authenticatable implements HasAssetsInterface
         }
         $permissions = $this->permissions;
         if (is_null($method) && $permissions) {
-            if ($permissions->contains('name', $route)) {
-                return true;
-            }
+            return $permissions->contains('name', $route);
         } elseif (is_array($method) && $permissions) {
             $arr = substr_replace($method, $route . '.', 0, 0);
             return $permissions->search(function ($item) use ($arr) {
@@ -122,23 +120,11 @@ class User extends Authenticatable implements HasAssetsInterface
     {
         return $this->hasOne(BankAccount::class);
     }
-    public function attachments (){
-        return $this->hasMany(Attachment::class);
-    }
-    public function setIsBanAttribute($value)
-    {
-        $this->attributes['is_ban'] = $value;
-        if ($value == 0) {
-            $this->attributes['ban_reason'] = null;
-            $this->attributes['is_ban_always'] = null;
-            $this->attributes['ban_from'] = null;
-            $this->attributes['ban_to'] = null;
-        }
-    }
 
-    public function setIsBanAlwaysAttribute($value)
+    public function setBanStatusAttribute($value)
     {
-        if ($value == 1) {
+        $this->attributes['ban_status'] = $value;
+        if ($value != 'temporary') {
             $this->attributes['ban_from'] = null;
             $this->attributes['ban_to'] = null;
         }
@@ -151,7 +137,6 @@ class User extends Authenticatable implements HasAssetsInterface
         }
 
         if (isset($request->created_at)) {
-
             $query->whereDate('created_at', $request->created_at);
         }
 
@@ -162,8 +147,8 @@ class User extends Authenticatable implements HasAssetsInterface
         if (isset($request->country_id)) {
             $query->where('country_id', $request->country);
         }
-        if (isset($request->is_ban)) {
-            $query->where('is_ban', $request->is_ban);
+        if (isset($request->ban_status)) {
+            $query->where('ban_status', $request->ban_status);
         }
         if (isset($request->register_status)) {
             $query->where('register_status', $request->register_status);
@@ -177,5 +162,41 @@ class User extends Authenticatable implements HasAssetsInterface
         if (isset($request->is_admin_active_user)) {
             $query->where('is_admin_active_user', $request->is_admin_active_user);
         }
+
+        if ($request->ban_from && $request->ban_to) {
+            if ($this->is_date_hijri) {
+                $ban_to = Hijri::convertToGregorian($request->ban_to)->format('d F o  h:i A');
+                $ban_from = Hijri::convertToGregorian($request->ban_from)->format('d F o  h:i A');
+            }
+           $query->whereDate('ban_from', ">=" , $ban_from)->whereDate('ban_to', "<=" , $ban_to);
+       }elseif ($request->ban_from) {
+           if ($this->is_date_hijri) {
+               $ban_from = Hijri::convertToGregorian($request->ban_from)->format('d F o  h:i A');
+           }
+           $query->whereDate('ban_from', ">=" , $ban_from);
+       }elseif ($request->ban_to) {
+           if ($this->is_date_hijri) {
+               $ban_to = Hijri::convertToGregorian($request->ban_to)->format('d F o  h:i A');
+           }
+           $query->whereDate('ban_to', "<=" , $ban_to);
+       }
+
+       if ($request->created_from && $request->created_to) {
+           if ($this->is_date_hijri) {
+               $created_to = Hijri::convertToGregorian($request->created_to)->format('d F o  h:i A');
+               $created_from = Hijri::convertToGregorian($request->created_from)->format('d F o  h:i A');
+           }
+          $query->whereDate('created_at', ">=" , $created_from)->whereDate('createat', "<=" , $created_to);
+      }elseif ($request->created_from) {
+          if ($this->is_date_hijri) {
+              $created_from = Hijri::convertToGregorian($request->created_from)->format('d F o  h:i A');
+          }
+          $query->whereDate('created_at', ">=" , $created_from);
+      }elseif ($request->created_to) {
+          if ($this->is_date_hijri) {
+              $created_to = Hijri::convertToGregorian($request->created_to)->format('d F o  h:i A');
+          }
+          $query->whereDate('createat', "<=" , $created_to);
+      }
     }
 }

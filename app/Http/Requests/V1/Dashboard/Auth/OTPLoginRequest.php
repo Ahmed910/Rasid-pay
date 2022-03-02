@@ -25,7 +25,9 @@ class OTPLoginRequest extends ApiMasterRequest
     {
         return [
             'phone' => 'required',
-            'code' => 'required|exists:users,login_code,deleted_at,NULL'
+            'code' => 'required|exists:users,login_code,deleted_at,NULL',
+            'device_token' => 'nullable|string|between:2,10000',
+            'device_type' => 'nullable|in:ios,android',
         ];
     }
 
