@@ -28,6 +28,7 @@ class GroupResource extends JsonResource
             'added_by' => SimpleUserResource::make($this->addedBy),
             'admins_count' => $this->admins->count(),
             'permissions' => PermissionResource::collection($this->whenLoaded('permissions')),
+            'activity'  => ActivityLogResource::collection($this->whenLoaded('activity')),
              $this->mergeWhen(!in_array($request->route()->getActionMethod(),['index','archive']), $locales),
             'created_at' => $this->created_at,
             'actions' => [
