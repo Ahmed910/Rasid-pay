@@ -41,7 +41,7 @@ class RasidJobController extends Controller
 
     public function show($id)
     {
-        $rasidJob  = RasidJob::withTrashed()->findOrFail($id);
+        $rasidJob  = RasidJob::with('activity')->withTrashed()->findOrFail($id);
 
         return RasidJobResource::make($rasidJob)
             ->additional([
@@ -53,6 +53,7 @@ class RasidJobController extends Controller
 
     public function update(RasidJobRequest $request, RasidJob $rasidJob)
     {
+        $rasidJob->touch();
         $rasidJob->fill($request->validated())->save();
 
         return RasidJobResource::make($rasidJob)
