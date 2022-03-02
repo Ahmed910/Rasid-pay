@@ -32,7 +32,9 @@ class RasidJobRequest extends ApiMasterRequest
 
         foreach (config('translatable.locales') as $locale) {
             $rules["$locale.name"] = ["required","string","between:2,100",function ($attribute, $value, $fail) use($locale){
-                $job = RasidJob::whereTranslation('name',$value,$locale)->where('department_id',$this->department_id)->count();
+                $job = RasidJob::whereTranslation('name',$value,$locale)->where('department_id',$this->department_id)->when($this->rasid_job,function ($q) {
+                    $q->where('rasid_jobs.id',"<>",$this->rasid_job->id);
+                })->count();
                 if ($job) {
                     $fail(trans('dashboard.error.name_must_be_unique_on_department'));
                 }
