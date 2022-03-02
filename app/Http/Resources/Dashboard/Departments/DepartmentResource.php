@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources\Dashboard\Departments;
 
+use App\Http\Resources\Dashboard\ActivityLogResource;
 use App\Http\Resources\Dashboard\GlobalTransResource;
 use App\Http\Resources\Dashboard\ImagesResource;
 use App\Http\Resources\Dashboard\SimpleUserResource;
@@ -32,6 +33,7 @@ class DepartmentResource extends JsonResource
             'created_at' => $this->created_at,
             "images"    => ImagesResource::collection($this->whenLoaded("images")),
             'added_by'   => SimpleUserResource::make($this->whenLoaded('addedBy')),
+            'activity'  => ActivityLogResource::collection($this->whenLoaded('activity')),
             'actions' => [
                 'getParents'  => auth()->user()->hasPermissions('departments.get_parents'),
                 'show' => auth()->user()->hasPermissions('departments.show'),

@@ -54,13 +54,44 @@ trait Loggable
         $activity['auditable_id'] = $item->id;
         $activity['auditable_type'] = get_class($item);
         $activity['url'] = Request::fullUrl();
-        $activity['old_data'] = $item->getOriginal() ? array_except($item->getOriginal(), ['created_at', 'updated_at', 'deleted_at']) : $item;
-        $activity['new_data'] = array_except($item->getChanges(), ['created_at', 'updated_at', 'deleted_at']) ?? null;
+        $activity['old_data'] = $this->oldData($item);
+        $activity['new_data'] = $this->newData($item);
         $activity['action_type'] = $event;
         $activity['ip_address'] = Request::ip();
         $activity['agent'] = Request::header('user-agent');
         $activity['user_id'] = auth()->check() ? auth()->user()->id : null;
-        $activity['reason'] = request()->reasonAction ;
+        $activity['reason'] = request()->reasonAction;
         ActivityLog::create($activity);
+    }
+
+    /**
+     * get new Data
+     */
+    private function newData($item)
+    {
+        if (!$item->getChanges()) return null;
+
+        foreach ($item->getLocalesHelper()->all() as $locale) {
+            $transAttributes['translations']['locale'] =  $locale;
+            foreach ($item->translatedAttributes as $field) {
+                $transAttributes['translations'][$field] = data_get(request()->all(), $locale . '.' . $field);
+            }
+        }
+
+        $newData = array_except($item->getChanges(), ['created_at', 'updated_at', 'deleted_at']);
+        return array_merge($newData ?? [], $transAttributes ?? []);
+    }
+
+    /**
+     * get old Data
+     */
+    private function oldData($item)
+    {
+        if (!$item->getOriginal()) return $item;
+
+        $translations = $item->translations->map->getOriginal()->toArray();
+        $originalData =  $item->getOriginal();
+
+        return array_merge($originalData ?? [], $translations ?? []);
     }
 }
