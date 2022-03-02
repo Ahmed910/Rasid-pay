@@ -125,6 +125,7 @@ class User extends Authenticatable implements HasAssetsInterface
 
     public function setBanStatusAttribute($value)
     {
+        $this->attributes['ban_status'] = $value;
         if ($value != 'temporary') {
             $this->attributes['ban_from'] = null;
             $this->attributes['ban_to'] = null;
