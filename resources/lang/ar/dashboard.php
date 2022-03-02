@@ -92,12 +92,15 @@ return [
         'permissions' => $permissions,
         "has_jobs_cannot_delete" => "لا يمكن أرشفة قسم مرتبط بوظائف"
     ],
-    "job" => [
-        "job" => "الوظيفة",
-        "jobs" => "الوظائف",
-        "add_job" => "اضافة وظيفة",
-        "edit_job" => "تعديل الوظيفة",
-        "job_count" => "عدد الوظائف",
+    "rasid_job" => [
+        "rasid_job" => "الوظيفة",
+        "rasid_jobs" => "الوظائف",
+        "add_rasid_job" => "اضافة وظيفة",
+        "edit_rasid_job" => "تعديل الوظيفة",
+        "rasid_job_count" => "عدد الوظائف",
+        "validation" => [
+            'name_must_be_unique_on_department' => 'تم اختيار اسم الوظيفة من قبللنفس القسم'
+        ],
         'permissions' => $permissions
     ],
     "setting" => [
