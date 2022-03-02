@@ -85,7 +85,7 @@ trait Loggable
         if (!$item->getOriginal()) return $item;
 
         $translations = $item->translations?->map->getOriginal()->toArray();
-        $originalData =  $item->getOriginal();
+        $originalData = array_except($item->getOriginal(), ['created_at', 'updated_at', 'deleted_at']);
 
         return array_merge($originalData ?? [], $translations ?? []);
     }
