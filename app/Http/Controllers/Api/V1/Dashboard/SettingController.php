@@ -9,6 +9,7 @@ use App\Http\Requests\V1\Dashboard\Settings\CreateSetting;
 use App\Http\Requests\V1\Dashboard\Settings\SettingRequest;
 use App\Http\Resources\Dashboard\SettingResource;
 use Illuminate\Http\UploadedFile;
+use Illuminate\Support\Facades\Cache;
 
 class SettingController extends Controller
 {
@@ -27,6 +28,7 @@ class SettingController extends Controller
     public function store(SettingRequest $request)
     {
         $path =  "images/setting";
+        Cache::forget('settings');
 
         foreach ($request->validated()['settings'] as $key => $value) {
 
@@ -56,6 +58,7 @@ class SettingController extends Controller
     public function createSetting(CreateSetting $data)
     {
         $path =  "images/setting";
+        Cache::forget('settings');
 
         foreach ($data['settings'] as $setting) {
             foreach (config('translatable.locales') as $locale) {

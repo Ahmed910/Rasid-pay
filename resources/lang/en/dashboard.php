@@ -4,7 +4,8 @@ $permissions = [
     'show' => 'Show',
     'store' => 'Save',
     'update' => 'Modify',
-    'archive' => 'Archive',
+    'destroy' => 'Archive',
+    'archive' => 'Show archive',
     'restore' => 'Restore',
     'force_delete' => 'Permanently delete',
 ];
@@ -23,7 +24,7 @@ return [
         "restore" => "Restore",
         "force_delete" => "Permanent Delete",
         'sent_successfully' => 'Sent Successfully',
-
+        'success_send_login_code' => 'The verification code has been sent to the mobile number',
     ],
     'error' => [
         'method_not_allow' => 'Http method (:method) not allowed',
@@ -48,7 +49,7 @@ return [
         "add_group" => "Add a group",
         "edit_group" => "",
         "group_count" => "",
-        'permissions' => array_except($permissions, ['archive', 'restore', 'force_delete']) + ['hold' => 'Hold']
+        'permissions' => array_except($permissions, ['archive', 'restore', 'force_delete']) + ['create' => 'Show side menu']
     ],
     "currency" => [
         "currency" => "Currency",
@@ -64,7 +65,7 @@ return [
         "add_department" => "",
         "edit_department" => "",
         "department_count" => "",
-        'permissions' => $permissions
+        'permissions' => $permissions + ['get_parents' => 'Show main departments']
     ],
     "rasid_job" => [
         "rasid_job" => "Job",
@@ -97,7 +98,7 @@ return [
         "add_admin" => "Add Admin",
         "edit_admin" => "Edit Admin",
         "admin_count" => "Admins Count",
-        'permissions' => array_except($permissions, ['archive', 'restore', 'force_delete']) + ['hold' => 'Hold']
+        'permissions' => array_except($permissions, ['archive', 'restore', 'force_delete']) + ['hold' => 'Hold', 'create' => 'Show Employees']
     ],
     "region" => [
         "region" => "Region",
@@ -128,5 +129,14 @@ return [
         "notifications" => "Notifications",
         "notification_count" => "Notifications Count",
         'permissions' => ['store' => 'Notification']
+    ],
+    'contact' => [
+        'contact'        => 'Support',
+        'contacts'       => 'Support',
+        'index'          => 'Support Messages',
+        'show'           => 'Show Support Message',
+        'reply'          => 'Reply On Support Message',
+        'delete_contact' => 'Delete Support Message',
+        'delete_reply'   => 'Delete Support Reply',
     ],
 ];

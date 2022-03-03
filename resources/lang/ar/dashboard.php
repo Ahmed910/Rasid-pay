@@ -5,7 +5,8 @@ $permissions = [
     'show' => 'عرض',
     'store' => 'حفظ',
     'update' => 'تعديل',
-    'archive' => 'أرشفة',
+    'destroy' => 'أرشفة',
+    'archive' => 'عرض الارشيف',
     'restore' => 'استعادة',
     'force_delete' => 'حذف نهائي',
 ];
@@ -25,7 +26,7 @@ return [
         "restore" => "استعادة",
         "force_delete" => "حذف نهائي",
         'sent_successfully' => 'تم الارسال بنجاح',
-
+        'success_send_login_code' => 'تم ارسال كود التحقق الى رقم الجوال',
     ],
     'error' => [
         'method_not_allow' => 'طريقة الطلب (:method) غير صحيحة',
@@ -73,7 +74,7 @@ return [
         "add_group" => "اضافة مجموعه",
         "edit_group" => "تعديل المجموعه",
         "group_count" => "عدد المجموعات",
-        'permissions' => array_except($permissions, ['archive', 'restore', 'force_delete']) + ['hold' => 'تعطيل']
+        'permissions' => array_except($permissions, ['archive', 'restore', 'force_delete']) + ['create' => 'عرض القائمة']
     ],
     "currency" => [
         "currency" => "العملة ",
@@ -89,7 +90,7 @@ return [
         "add_department" => "اضافة قسم",
         "edit_department" => "تعديل القسم",
         "department_count" => "عدد الاقسام",
-        'permissions' => $permissions,
+        'permissions' => $permissions + ['get_parents' => 'عرض الاقسام الرئيسية'],
         "has_jobs_cannot_delete" => "لا يمكن أرشفة قسم مرتبط بوظائف"
     ],
     "rasid_job" => [
@@ -122,7 +123,16 @@ return [
         "add_admin" => "اضافة مستخدم",
         "edit_admin" => "تعديل المستخدم",
         "admin_count" => "عدد المستخدمين",
-        'permissions' => array_except($permissions, ['archive', 'restore', 'force_delete']) + ['hold' => 'تعطيل']
+        'permissions' => array_except($permissions, ['archive', 'restore', 'force_delete']) + ['hold' => 'تعطيل', 'create' => 'عرض الموظفين']
+    ],
+    'contact' => [
+        'contact'        => 'الدعم الفني',
+        'contacts'       => 'الدعم الفني',
+        'index'          => 'رسائل الدعم الفني',
+        'show'           => 'عرض رسالة الدعم الفني',
+        'reply'          => 'الرد علي رسالة دعم فني',
+        'delete_contact' => 'حذف رسالة دعم فني',
+        'delete_reply'   => 'حذف الرد علي رسالة دعم فني',
     ],
     "employee" => [
         "employee" => "الموظف",
