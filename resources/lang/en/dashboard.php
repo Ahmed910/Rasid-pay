@@ -30,6 +30,7 @@ return [
         'method_not_allow' => 'Http method (:method) not allowed',
         'not_found' => 'Model Not Found!',
         'page_not_found' => '404, Page not found!',
+        '403_msg' => 'Oops! You don\'t have access to it',
         'something_went_wrog' => 'The data entered is incorrect'
     ],
     'activity_log' => [

@@ -143,7 +143,7 @@ class GroupController extends Controller
         $saved_names = array_column($saved_permissions,'named_uri');
         foreach (app()->routes->getRoutes() as $value) {
             $name = $value->getName();
-            if (in_array($name,$this->public_routes) || is_null($name) || in_array(str_before($name,'.'),['ignition','debugbar'])) {
+            if (in_array($name,Permission::PUBLIC_ROUTES) || is_null($name) || in_array(str_before($name,'.'),['ignition','debugbar'])) {
                 continue;
             }
             if(!in_array($name,$saved_names)){

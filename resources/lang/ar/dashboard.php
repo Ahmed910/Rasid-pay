@@ -32,6 +32,7 @@ return [
         'method_not_allow' => 'طريقة الطلب (:method) غير صحيحة',
         'not_found' => 'لم يتم العثور على بيانات',
         'page_not_found' => '404, الصفحة غير موجودة',
+        '403_msg' => '403, ليس لديك صلاحية الدخول',
         'something_went_wrog' => 'البيانات المدخلة غير صحيحة'
     ],
     'activity_log' => [
