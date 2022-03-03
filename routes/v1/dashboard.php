@@ -121,6 +121,8 @@ Route::middleware('auth:sanctum')->group(function () {
         ]);
 
         Route::apiResource('settings', 'SettingController')->only(['index', 'store']);
+        Route::apiResource('activaty_logs', 'ActivityController')->only(['index', 'show']);
+
 
         Route::resource('groups', 'GroupController')->except('edit');
     });
