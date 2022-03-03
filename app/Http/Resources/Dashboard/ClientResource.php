@@ -15,6 +15,7 @@ class ClientResource extends JsonResource
      */
     public function toArray($request)
     {
+
         return [
             'user' => SimpleUserResource::make($this->whenLoaded('user')),
             "tax_number" => $this->tax_number,
@@ -29,6 +30,7 @@ class ClientResource extends JsonResource
             'created_at' => $this->created_at,
             'token' => $this->when($this->token, $this->token),
             'managers' => ManagerResource::make($this->whenLoaded('manager')),
+
             'actions' => [
                 'show' => auth()->user()->hasPermissions('clients.show'),
                 'create' => auth()->user()->hasPermissions('clients.create'),

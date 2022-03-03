@@ -20,6 +20,8 @@ class SimpleUserResource extends JsonResource
             'user_type' => $this->user_type,
             'date_of_birth' => $this->date_of_birth,
             'created_at' => $this->created_at,
+            'attachments' => AttachmentResource::collection($this->whenLoaded('attachments')),
+
         ];
     }
 }
