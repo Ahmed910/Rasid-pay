@@ -31,11 +31,11 @@ class RasidJob extends Model implements TranslatableContract
     #region scopes
     public function scopeSearch(Builder $query, $request)
     {
-
-        $query->whereHas("translations", function ($q) use ($request) {
-            $q->where('name', 'LIKE', "%$request->name%");
-        });
-
+        if ($request->name) {
+            $query->where(function ($q) use($requst) {
+                $q->whereTranslationLike('name', "%$request->name%")->orWhereTranslationLike('description', "%$request->name%");
+            });
+        }
 
         if (isset($request->department_id)) {
             $query->whereHas("department", function ($q) use ($request) {
