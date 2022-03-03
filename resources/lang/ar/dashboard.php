@@ -156,6 +156,13 @@ return [
         "notification_count" => "عدد التنبيهات",
         'permissions' => ['store' => 'ارسال تنبيه']
     ],
-
+    "client" => [
+        "client" =>  "العميل",
+        "clients" => "العملاء",
+        "add_client" => "اضافة عميل",
+        "edit_client" => "تعديل عميل",
+        "admin_client" => "عدد العملاء",
+        'permissions' => array_except($permissions, ['archive', 'restore', 'force_delete']) + ['hold' => 'تعطيل' , 'create' => 'عرض العملاء']
+    ],
 
 ];

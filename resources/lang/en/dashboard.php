@@ -139,4 +139,12 @@ return [
         'delete_contact' => 'Delete Support Message',
         'delete_reply'   => 'Delete Support Reply',
     ],
+    "client" => [
+        "client" =>  "client",
+        "clients" => "clients",
+        "add_client" => "add_client",
+        "edit_client" => "edit_client",
+        "admin_client" => "admin_client",
+        'permissions' => array_except($permissions, ['archive', 'restore', 'force_delete']) + ['hold' => 'hold' , 'create' => 'create']
+    ],
 ];
