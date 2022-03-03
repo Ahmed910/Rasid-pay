@@ -73,7 +73,7 @@ return [
         "add_group" => "اضافة مجموعه",
         "edit_group" => "تعديل المجموعه",
         "group_count" => "عدد المجموعات",
-        'permissions' => array_except($permissions,['archive','restore','force_delete']) + ['hold' => 'تعطيل']
+        'permissions' => array_except($permissions, ['archive', 'restore', 'force_delete']) + ['hold' => 'تعطيل']
     ],
     "currency" => [
         "currency" => "العملة ",
@@ -123,6 +123,28 @@ return [
         "edit_admin" => "تعديل المستخدم",
         "admin_count" => "عدد المستخدمين",
         'permissions' => array_except($permissions, ['archive', 'restore', 'force_delete']) + ['hold' => 'تعطيل']
+    ],
+    "employee" => [
+        "employee" => "الموظف",
+        "employees" => "الموظفين",
+        "add_employee" => "اضافة موظف",
+        "edit_employee" => "تعديل موظف",
+        "employee_count" => "عدد الموظفين",
+        'permissions' => array_except($permissions, ['archive', 'restore', 'force_delete']) + ['hold' => 'تعطيل']
+    ],
+    "bank" => [
+        "bank" => "البنك",
+        "banks" => "البنوك",
+        "add_bank" => "اضافة بنك",
+        "edit_bank" => "تعديل بنك",
+        "bank_count" => "عدد البنوك",
+        'permissions' => $permissions
+    ],
+    "notification" => [
+        "notification" => "تنبيه",
+        "notificationS" => "التنبيهات",
+        "notification_count" => "عدد التنبيهات",
+        'permissions' => ['store' => 'ارسال تنبيه']
     ],
 
 

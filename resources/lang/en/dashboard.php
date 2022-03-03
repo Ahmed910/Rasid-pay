@@ -48,7 +48,7 @@ return [
         "add_group" => "Add a group",
         "edit_group" => "",
         "group_count" => "",
-        'permissions' => array_except($permissions,['archive','restore','force_delete']) + ['hold' => 'Hold']
+        'permissions' => array_except($permissions, ['archive', 'restore', 'force_delete']) + ['hold' => 'Hold']
     ],
     "currency" => [
         "currency" => "Currency",
@@ -106,5 +106,27 @@ return [
         "edit_region" => "",
         "region_count" => "",
         'permissions' => $permissions
+    ],
+    "employee" => [
+        "employee" => "Emplyee",
+        "employees" => "Employees",
+        "add_employee" => "Add Employee",
+        "edit_employee" => "Edit Employee",
+        "employee_count" => "Employees Count",
+        'permissions' => array_except($permissions, ['archive', 'restore', 'force_delete']) + ['hold' => 'تعطيل']
+    ],
+    "bank" => [
+        "bank" => "Bank",
+        "banks" => "Banks",
+        "add_bank" => "Add Bank",
+        "edit_bank" => "Edit Bank",
+        "bank_count" => "Banks Count",
+        'permissions' => $permissions
+    ],
+    "notification" => [
+        "notification" => "Notification",
+        "notifications" => "Notifications",
+        "notification_count" => "Notifications Count",
+        'permissions' => ['store' => 'Notification']
     ],
 ];
