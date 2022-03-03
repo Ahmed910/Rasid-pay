@@ -123,7 +123,7 @@ return [
         "add_admin" => "اضافة مستخدم",
         "edit_admin" => "تعديل المستخدم",
         "admin_count" => "عدد المستخدمين",
-        'permissions' => array_except($permissions, ['archive', 'restore', 'force_delete']) + ['hold' => 'تعطيل']
+        'permissions' => array_except($permissions, ['archive', 'restore', 'force_delete']) + ['hold' => 'تعطيل' , 'create' => 'عرض الموظفين']
     ],
 
 

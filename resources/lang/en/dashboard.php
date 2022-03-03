@@ -49,7 +49,7 @@ return [
         "add_group" => "Add a group",
         "edit_group" => "",
         "group_count" => "",
-        'permissions' => array_except($permissions,['archive','restore','force_delete']) + ['hold' => 'Hold']
+        'permissions' => array_except($permissions,['archive','restore','force_delete']) + ['hold' => 'Hold', 'create' => 'Show Employees']
     ],
     "currency" => [
         "currency" => "Currency",
