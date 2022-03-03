@@ -131,13 +131,13 @@ return [
         'permissions' => ['store' => 'Notification']
     ],
     'contact' => [
-        'contact'        => 'Support',
-        'contacts'       => 'Support',
-        'permissions' => array_only($permissions, [
-            'index',
-            'show',
-        ]) + [
-            'reply'          => 'Reply On Support Message',
+        'contact' => 'Support',
+        'contacts' => 'Support',
+        'permissions' =>
+        [
+            'index' => 'Record',
+            'show' => 'Show',
+            'reply' => 'Reply On Support Message',
             'delete_contact' => 'Delete Support Message',
             'delete_reply'   => 'Delete Support Reply',
         ]
