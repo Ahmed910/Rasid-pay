@@ -20,7 +20,7 @@ class ClientController extends Controller
      */
     public function index(Request $request)
     {
-        $client = Client::with("user")->search($request)->latest()->paginate((int)($request->per_page ?? 15));
+        $client = Client::CustomDateFromTo($request)->with("user")->search($request)->latest()->paginate((int)($request->per_page ?? 15));
 
         return ClientResource::collection($client)->additional([
             'status' => true,
