@@ -49,7 +49,7 @@ return [
         "add_group" => "Add a group",
         "edit_group" => "",
         "group_count" => "",
-        'permissions' => array_except($permissions,['archive','restore','force_delete'])
+        'permissions' => array_except($permissions,['archive','restore','force_delete']) + ['create' => 'Show side menu']
     ],
     "currency" => [
         "currency" => "Currency",
@@ -65,7 +65,7 @@ return [
         "add_department" => "",
         "edit_department" => "",
         "department_count" => "",
-        'permissions' => $permissions
+        'permissions' => $permissions + ['get_parents' => 'Show main departments']
     ],
     "rasid_job" => [
         "rasid_job" => "Job",

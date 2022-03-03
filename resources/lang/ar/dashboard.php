@@ -90,7 +90,7 @@ return [
         "add_department" => "اضافة قسم",
         "edit_department" => "تعديل القسم",
         "department_count" => "عدد الاقسام",
-        'permissions' => $permissions,
+        'permissions' => $permissions + ['get_parents' => 'عرض الاقسام الرئيسية'],
         "has_jobs_cannot_delete" => "لا يمكن أرشفة قسم مرتبط بوظائف"
     ],
     "rasid_job" => [
