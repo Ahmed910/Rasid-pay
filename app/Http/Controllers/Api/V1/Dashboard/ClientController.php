@@ -21,8 +21,10 @@ class ClientController extends Controller
      */
     public function index(Request $request)
     {
-        $client = Client::search($request)->latest()->paginate((int)($request->per_page ?? 15));
-        $client->load('user');
+        $client = Client::CustomDateFromTo($request)->with("user")->search($request)->latest()->paginate((int)($request->per_page ?? 15));
+//        $client = Client::search($request)->with(['user'=>function($q){
+//            $q->with('attachments');
+//        }])->latest()->paginate((int)($request->per_page ?? 15));
 
         return ClientResource::collection($client)->additional([
             'status' => true,
@@ -74,7 +76,10 @@ class ClientController extends Controller
                 $attachment->save();
 
             }
-            $client->load('user');
+            $client->load(['user'=>function($q){
+                $q->with('attachments');
+            }]);
+//            $client->user->load("attachments") ;
             return ClientResource::make($client)->additional([
                 'status' => true, 'message' => trans("dashboard.general.success_add")
             ]);
@@ -90,7 +95,9 @@ class ClientController extends Controller
     public function show($id)
     {
         $client = Client::where('user_id', $id)->firstOrFail();
-        $client->load("user");
+        $client->load(["user"=>function ($q) {
+            $q->with("attachments") ;
+        }]);
         return ClientResource::make($client)->additional(['status' => true, 'message' => ""]);
     }
 

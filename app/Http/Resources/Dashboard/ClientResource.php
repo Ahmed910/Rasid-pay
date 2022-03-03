@@ -15,7 +15,6 @@ class ClientResource extends JsonResource
      */
     public function toArray($request)
     {
-        $this->user->load("attachments");
 
         return [
             'user' => SimpleUserResource::make($this->whenLoaded('user')),
