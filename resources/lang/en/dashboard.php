@@ -30,6 +30,7 @@ return [
         'method_not_allow' => 'Http method (:method) not allowed',
         'not_found' => 'Model Not Found!',
         'page_not_found' => '404, Page not found!',
+        '403_msg' => 'Oops! You don\'t have access to it',
         'something_went_wrog' => 'The data entered is incorrect'
     ],
     'activity_log' => [
@@ -83,7 +84,7 @@ return [
         "settings" => "Settings",
         "add_setting" => "",
         "setting_count" => "",
-        'permissions' => $permissions
+        'permissions' => array_only($permissions, ['index', 'store'])
     ],
     "profile" => [
         "profile" => "Profile",
@@ -131,12 +132,15 @@ return [
         'permissions' => ['store' => 'Notification']
     ],
     'contact' => [
-        'contact'        => 'Support',
-        'contacts'       => 'Support',
-        'index'          => 'Support Messages',
-        'show'           => 'Show Support Message',
-        'reply'          => 'Reply On Support Message',
-        'delete_contact' => 'Delete Support Message',
-        'delete_reply'   => 'Delete Support Reply',
+        'contact' => 'Support',
+        'contacts' => 'Support',
+        'permissions' =>
+        [
+            'index' => 'Record',
+            'show' => 'Show',
+            'reply' => 'Reply On Support Message',
+            'delete_contact' => 'Delete Support Message',
+            'delete_reply'   => 'Delete Support Reply',
+        ]
     ],
 ];
