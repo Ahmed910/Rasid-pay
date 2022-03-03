@@ -3,9 +3,6 @@
 namespace App\Http\Controllers\Api\V1\Dashboard;
 use App\Models\ActivityLog;
 use App\Http\Resources\Dashboard\ActivityLogResource;
-
-
-
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
@@ -22,8 +19,15 @@ class ActivityController extends Controller
             ]);
     }
 
-    public function show()
+
+    public function show(ActivityLog $activityLog)
     {
+
+        return ActivityLogResource::make($activityLog)
+            ->additional([
+                'status' => true,
+                'message' => trans("dashboard.general.show")
+            ]);
 
     }
 
