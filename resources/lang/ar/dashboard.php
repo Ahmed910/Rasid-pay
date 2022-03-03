@@ -74,7 +74,7 @@ return [
         "add_group" => "اضافة مجموعه",
         "edit_group" => "تعديل المجموعه",
         "group_count" => "عدد المجموعات",
-        'permissions' => array_except($permissions,['archive','restore','force_delete']) + ['hold' => 'تعطيل']
+        'permissions' => array_except($permissions,['archive','restore','force_delete']) + ['create' => 'عرض القائمة']
     ],
     "currency" => [
         "currency" => "العملة ",
