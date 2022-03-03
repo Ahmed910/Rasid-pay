@@ -11,26 +11,26 @@ trait Loggable
     protected static function bootLoggable()
     {
         static::created(function (self $self) {
-            $self->addUserActivity($self, "Created");
+            $self->addUserActivity($self, "created");
         });
 
         static::updated(function (self $self) {
-            $self->addUserActivity($self, "Updated");
+            $self->addUserActivity($self, "updated");
         });
 
         static::deleted(function (self $self) {
             if ($self->forceDeleting) {
-                $self->addUserActivity($self, "Permanent Delete");
+                $self->addUserActivity($self, "permanent_delete");
             }
 
             if (!$self->forceDeleting) {
-                $self->addUserActivity($self, "Delete");
+                $self->addUserActivity($self, "destroy");
             }
         });
 
         if (in_array(SoftDeletes::class, class_uses(static::class))) {
             static::restored(function (self $self) {
-                $self->addUserActivity($self, "Restored");
+                $self->addUserActivity($self, "restored");
             });
         }
     }
