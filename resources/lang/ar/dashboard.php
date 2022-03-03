@@ -123,7 +123,7 @@ return [
         "add_admin" => "اضافة مستخدم",
         "edit_admin" => "تعديل المستخدم",
         "admin_count" => "عدد المستخدمين",
-        'permissions' => array_except($permissions, ['archive', 'restore', 'force_delete']) + ['hold' => 'تعطيل', 'create' => 'عرض الموظفين']
+        'permissions' => array_except($permissions, ['archive', 'restore', 'force_delete']) + ['create' => 'عرض المستخدمين']
     ],
     'contact' => [
         'contact'        => 'الدعم الفني',
@@ -140,7 +140,7 @@ return [
         "add_employee" => "اضافة موظف",
         "edit_employee" => "تعديل موظف",
         "employee_count" => "عدد الموظفين",
-        'permissions' => array_except($permissions, ['archive', 'restore', 'force_delete']) + ['hold' => 'تعطيل']
+        'permissions' => array_except($permissions, ['archive', 'restore', 'force_delete']) + ['create' => 'عرض الموظفين']
     ],
     "bank" => [
         "bank" => "البنك",

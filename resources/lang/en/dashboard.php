@@ -98,7 +98,7 @@ return [
         "add_admin" => "Add Admin",
         "edit_admin" => "Edit Admin",
         "admin_count" => "Admins Count",
-        'permissions' => array_except($permissions, ['archive', 'restore', 'force_delete']) + ['hold' => 'Hold', 'create' => 'Show Employees']
+        'permissions' => array_except($permissions, ['archive', 'restore', 'force_delete']) + ['create' => 'Show Admins']
     ],
     "region" => [
         "region" => "Region",
@@ -114,7 +114,7 @@ return [
         "add_employee" => "Add Employee",
         "edit_employee" => "Edit Employee",
         "employee_count" => "Employees Count",
-        'permissions' => array_except($permissions, ['archive', 'restore', 'force_delete']) + ['hold' => 'تعطيل']
+        'permissions' => array_except($permissions, ['archive', 'restore', 'force_delete']) + ['create' => 'Show Employees']
     ],
     "bank" => [
         "bank" => "Bank",
