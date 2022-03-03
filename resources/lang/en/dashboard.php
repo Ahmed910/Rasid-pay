@@ -108,4 +108,13 @@ return [
         "region_count" => "",
         'permissions' => $permissions
     ],
+    'contact' => [
+        'contact'        => 'Support',
+        'contacts'       => 'Support',
+        'index'          => 'Support Messages',
+        'show'           => 'Show Support Message',
+        'reply'          => 'Reply On Support Message',
+        'delete_contact' => 'Delete Support Message',
+        'delete_reply'   => 'Delete Support Reply',
+    ],
 ];

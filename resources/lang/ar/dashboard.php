@@ -125,6 +125,13 @@ return [
         "admin_count" => "عدد المستخدمين",
         'permissions' => array_except($permissions, ['archive', 'restore', 'force_delete']) + ['hold' => 'تعطيل' , 'create' => 'عرض الموظفين']
     ],
-
-
+    'contact' => [
+        'contact'        => 'الدعم الفني',
+        'contacts'       => 'الدعم الفني',
+        'index'          => 'رسائل الدعم الفني',
+        'show'           => 'عرض رسالة الدعم الفني',
+        'reply'          => 'الرد علي رسالة دعم فني',
+        'delete_contact' => 'حذف رسالة دعم فني',
+        'delete_reply'   => 'حذف الرد علي رسالة دعم فني',
+    ],
 ];
