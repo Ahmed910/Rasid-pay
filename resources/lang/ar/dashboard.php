@@ -5,7 +5,8 @@ $permissions = [
     'show' => 'عرض',
     'store' => 'حفظ',
     'update' => 'تعديل',
-    'archive' => 'أرشفة',
+    'destroy' => 'أرشفة',
+    'archive' => 'عرض الارشيف',
     'restore' => 'استعادة',
     'force_delete' => 'حذف نهائي',
 ];
@@ -25,7 +26,7 @@ return [
         "restore" => "استعادة",
         "force_delete" => "حذف نهائي",
         'sent_successfully' => 'تم الارسال بنجاح',
-
+        'success_send_login_code' => 'تم ارسال كود التحقق الى رقم الجوال',
     ],
     'error' => [
         'method_not_allow' => 'طريقة الطلب (:method) غير صحيحة',
@@ -122,7 +123,7 @@ return [
         "add_admin" => "اضافة مستخدم",
         "edit_admin" => "تعديل المستخدم",
         "admin_count" => "عدد المستخدمين",
-        'permissions' => array_except($permissions, ['archive', 'restore', 'force_delete']) + ['hold' => 'تعطيل']
+        'permissions' => array_except($permissions, ['archive', 'restore', 'force_delete']) + ['hold' => 'تعطيل' , 'create' => 'عرض الموظفين']
     ],
 
 

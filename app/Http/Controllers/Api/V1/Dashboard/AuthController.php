@@ -20,17 +20,40 @@ class AuthController extends Controller
 
     public function login(LoginRequest $request)
     {
-        if (!Auth::attempt($this->getCredentials($request))) {
-            return response()->json(['status' => false, 'data' => null, 'message' => trans('auth.failed')], 401);
-        }
-        $user = Auth::user();
-        if ($user->is_login_code) {
+        $credentials = $this->getCredentials($request);
+        $user = User::whereIn('user_type' , ['admin' , 'superadmin'])->when(array_key_exists('login_id' , $credentials),function ($q) use($request) {
+            $q->where('login_id' , $request->username);
+        })->when(array_key_exists('phone' , $credentials),function ($q) use($request) {
+            $q->where('phone' , $request->username);
+        })->first();
+
+        if ($user && $user->is_login_code && \Hash::check($request->password , $user->password)) {
             $code = $this->generateCode(['send_type' => 'phone'], $user,'login_code');
             $user->update(['login_code' => $code]);
             return response()->json(['status' => true, 'data' => ['phone' => $user->phone], 'message' => trans('dashboard.general.success_send_login_code'), 'dev_message' => $code , 'login_code_required' => true]);
         }
-        $user->devices()->where('device_token',"<>",$request->device_token)->delete();
 
+        if (!Auth::attempt($credentials)) {
+            return response()->json(['status' => false, 'data' => null, 'message' => trans('auth.failed')], 401);
+        }
+        $user = Auth::user();
+        return $this->makeLogin($request ,$user , false);
+    }
+
+    public function otpLogin(OTPLoginRequest $request)
+    {
+        $user = User::whereIn('user_type' , ['admin' , 'superadmin'])->where(['login_code' => $request->code , 'phone' => $request->phone])->first();
+
+        if (! $user) {
+            return response()->json(['status' => false, 'data' => null, 'message' => trans('auth.failed')], 401);
+        }
+        Auth::login($user);
+        return $this->makeLogin($request ,$user);
+    }
+
+    private function makeLogin($request, $user, $login_code_required = true)
+    {
+        $user->devices()->where('device_token',"<>",$request->device_token)->delete();
         // $user->tokens()->delete();
         // \Config::set('sanctum.expiration',setting('expiration_ttl') ?? (1*(60*24*365)));
         $token =  $user->createToken('RaseedJakDashboard')->plainTextToken;
@@ -38,7 +61,7 @@ class AuthController extends Controller
             $user->devices()->firstOrCreate($request->only(['device_token', 'device_type']));
         }
         data_set($user, 'token', $token);
-        return UserResource::make($user)->additional(['status' => true, 'message' => trans('auth.success_login', ['user' => $user->phone]) , 'login_code_required' => false]);
+        return UserResource::make($user)->additional(['status' => true, 'message' => trans('auth.success_login', ['user' => $user->phone]) , 'login_code_required' => $login_code_required]);
     }
 
     public function sendCode(SendCodeRequest $request)
@@ -62,27 +85,6 @@ class AuthController extends Controller
         }
     }
 
-    protected function getCredentials(Request $request)
-    {
-        $username = $request->username;
-        $credentials = [];
-        switch ($username) {
-            case filter_var($username, FILTER_VALIDATE_EMAIL):
-                $username = 'email';
-                break;
-            case is_numeric($username) && strlen($username) > 6:
-                $username = 'phone';
-                break;
-            default:
-                $username = 'login_id';
-                break;
-        }
-        $credentials[$username] = $request->username;
-        $credentials['password'] = $request->password;
-        // $credentials['is_blacklist'] = 1;
-        return $credentials;
-    }
-
     public function resetPassword(ResetPasswordRequest $request)
     {
         $user = User::firstWhere(['phone' => $request->phone]);
@@ -99,25 +101,6 @@ class AuthController extends Controller
 
         return response()->json(['status' => true, 'data' => null, 'message' => trans('auth.success_change_password')]);
     }
-
-    public function otpLogin(OTPLoginRequest $request)
-    {
-        $user = User::where(['phone' => $request->phone , 'login_code' => $request->code]);
-        if (!$user) {
-            return response()->json(['status' => false, 'data' => null, 'message' => trans('auth.failed')], 401);
-        }
-        $user->update(['login_code' => null]);
-        // $user->tokens()->delete();
-        // \Config::set('sanctum.expiration',setting('expiration_ttl') ?? (1*(60*24*365)));
-        $token =  $user->createToken('RaseedJakDashboard')->plainTextToken;
-        if ($request->only(['device_token', 'device_type'])) {
-            $user->devices()->firstOrCreate($request->only(['device_token', 'device_type']));
-        }
-        data_set($user, 'token', $token);
-        return UserResource::make($user)->additional(['status' => true, 'message' => trans('auth.success_login', ['user' => $user->phone]) , 'login_code_required' => true]);
-    }
-
-
 
     public function logout(LogoutRequest $request)
     {
@@ -144,7 +127,28 @@ class AuthController extends Controller
             $message = trans("auth.{$col}_is", ['code' => $code]);
             // send email
         }
-        ExpireCodeJob::dispatch($user, $col)->delay((int)setting('code_ttl'));
+        // ExpireCodeJob::dispatch($user, $col)->delay((int)setting('erp_code_ttl') ?? 1);
         return $code;
+    }
+
+    private function getCredentials(Request $request)
+    {
+        $username = $request->username;
+        $credentials = [];
+        switch ($username) {
+            case filter_var($username, FILTER_VALIDATE_EMAIL):
+                $username = 'email';
+                break;
+            case is_numeric($username) && strlen($username) > 6:
+                $username = 'phone';
+                break;
+            default:
+                $username = 'login_id';
+                break;
+        }
+        $credentials[$username] = $request->username;
+        $credentials['password'] = $request->password;
+        // $credentials['is_blacklist'] = 1;
+        return $credentials;
     }
 }

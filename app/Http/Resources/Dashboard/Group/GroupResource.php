@@ -2,7 +2,7 @@
 
 namespace App\Http\Resources\Dashboard\Group;
 
-use App\Http\Resources\Dashboard\{GlobalTransResource , SimpleUserResource};
+use App\Http\Resources\Dashboard\{ActivityLogResource, GlobalTransResource , SimpleUserResource};
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class GroupResource extends JsonResource
@@ -28,6 +28,7 @@ class GroupResource extends JsonResource
             'added_by' => SimpleUserResource::make($this->addedBy),
             'admins_count' => $this->admins->count(),
             'permissions' => PermissionResource::collection($this->whenLoaded('permissions')),
+            'activity'  => ActivityLogResource::collection($this->whenLoaded('activity')),
              $this->mergeWhen(!in_array($request->route()->getActionMethod(),['index','archive']), $locales),
             'created_at' => $this->created_at,
             'actions' => [
