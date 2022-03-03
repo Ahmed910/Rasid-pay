@@ -4,7 +4,8 @@ $permissions = [
     'show' => 'Show',
     'store' => 'Save',
     'update' => 'Modify',
-    'archive' => 'Archive',
+    'destroy' => 'Archive',
+    'archive' => 'Show archive',
     'restore' => 'Restore',
     'force_delete' => 'Permanently delete',
 ];
