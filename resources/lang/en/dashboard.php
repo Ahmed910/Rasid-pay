@@ -49,7 +49,7 @@ return [
         "add_group" => "Add a group",
         "edit_group" => "",
         "group_count" => "",
-        'permissions' => array_except($permissions,['archive','restore','force_delete']) + ['hold' => 'Hold', 'create' => 'Show Employees']
+        'permissions' => array_except($permissions, ['archive', 'restore', 'force_delete']) + ['create' => 'Show side menu']
     ],
     "currency" => [
         "currency" => "Currency",
@@ -65,7 +65,7 @@ return [
         "add_department" => "",
         "edit_department" => "",
         "department_count" => "",
-        'permissions' => $permissions
+        'permissions' => $permissions + ['get_parents' => 'Show main departments']
     ],
     "rasid_job" => [
         "rasid_job" => "Job",
@@ -98,7 +98,7 @@ return [
         "add_admin" => "Add Admin",
         "edit_admin" => "Edit Admin",
         "admin_count" => "Admins Count",
-        'permissions' => array_except($permissions, ['archive', 'restore', 'force_delete']) + ['hold' => 'Hold']
+        'permissions' => array_except($permissions, ['archive', 'restore', 'force_delete']) + ['hold' => 'Hold', 'create' => 'Show Employees']
     ],
     "region" => [
         "region" => "Region",
@@ -108,12 +108,35 @@ return [
         "region_count" => "",
         'permissions' => $permissions
     ],
-    "client" => [
-        "client" =>  "client",
-        "clients" => "clients",
-        "add_client" => "add_client",
-        "edit_client" => "edit_client",
-        "admin_client" => "admin_client",
-        'permissions' => array_except($permissions, ['archive', 'restore', 'force_delete']) + ['hold' => 'hold' , 'create' => 'create']
+    "employee" => [
+        "employee" => "Emplyee",
+        "employees" => "Employees",
+        "add_employee" => "Add Employee",
+        "edit_employee" => "Edit Employee",
+        "employee_count" => "Employees Count",
+        'permissions' => array_except($permissions, ['archive', 'restore', 'force_delete']) + ['hold' => 'تعطيل']
+    ],
+    "bank" => [
+        "bank" => "Bank",
+        "banks" => "Banks",
+        "add_bank" => "Add Bank",
+        "edit_bank" => "Edit Bank",
+        "bank_count" => "Banks Count",
+        'permissions' => $permissions
+    ],
+    "notification" => [
+        "notification" => "Notification",
+        "notifications" => "Notifications",
+        "notification_count" => "Notifications Count",
+        'permissions' => ['store' => 'Notification']
+    ],
+    'contact' => [
+        'contact'        => 'Support',
+        'contacts'       => 'Support',
+        'index'          => 'Support Messages',
+        'show'           => 'Show Support Message',
+        'reply'          => 'Reply On Support Message',
+        'delete_contact' => 'Delete Support Message',
+        'delete_reply'   => 'Delete Support Reply',
     ],
 ];

@@ -32,7 +32,6 @@ return [
         'method_not_allow' => 'طريقة الطلب (:method) غير صحيحة',
         'not_found' => 'لم يتم العثور على بيانات',
         'page_not_found' => '404, الصفحة غير موجودة',
-        '403_msg' => '403, ليس لديك صلاحية الدخول',
         'something_went_wrog' => 'البيانات المدخلة غير صحيحة'
     ],
     'activity_log' => [
@@ -75,7 +74,7 @@ return [
         "add_group" => "اضافة مجموعه",
         "edit_group" => "تعديل المجموعه",
         "group_count" => "عدد المجموعات",
-        'permissions' => array_except($permissions, ['archive', 'restore', 'force_delete']) + ['create' => 'عرض القائمة الجانبية']
+        'permissions' => array_except($permissions, ['archive', 'restore', 'force_delete']) + ['create' => 'عرض القائمة']
     ],
     "currency" => [
         "currency" => "العملة ",
@@ -110,7 +109,7 @@ return [
         "settings" => "الاعدادات",
         "add_setting" => "",
         "setting_count" => "",
-        'permissions' => array_only($permissions, ['index', 'store'])
+        'permissions' => $permissions
     ],
     "profile" => [
         "profile" => "الملف الشخصي",
@@ -119,24 +118,21 @@ return [
         "edit_profile" => "تعديل الملف الشخصي",
     ],
     "admin" => [
-        "admin" => "المستخدم",
-        "admins" => "المستخدمين",
+        "admin" => "مستخدم النظام",
+        "admins" => "مستخدمى النظام",
         "add_admin" => "اضافة مستخدم",
         "edit_admin" => "تعديل المستخدم",
         "admin_count" => "عدد المستخدمين",
         'permissions' => array_except($permissions, ['archive', 'restore', 'force_delete']) + ['hold' => 'تعطيل', 'create' => 'عرض الموظفين']
     ],
     'contact' => [
-        'contact' => 'الدعم الفني',
-        'contacts' => 'الدعم الفني',
-        'permissions' =>
-        [
-            'index' => 'السجل',
-            'show' => 'عرض',
-            'reply' => 'الرد علي رسالة دعم فني',
-            'delete_contact' => 'حذف رسالة دعم فني',
-            'delete_reply' => 'حذف الرد علي رسالة دعم فني',
-        ]
+        'contact'        => 'الدعم الفني',
+        'contacts'       => 'الدعم الفني',
+        'index'          => 'رسائل الدعم الفني',
+        'show'           => 'عرض رسالة الدعم الفني',
+        'reply'          => 'الرد علي رسالة دعم فني',
+        'delete_contact' => 'حذف رسالة دعم فني',
+        'delete_reply'   => 'حذف الرد علي رسالة دعم فني',
     ],
     "employee" => [
         "employee" => "الموظف",
@@ -159,14 +155,6 @@ return [
         "notificationS" => "التنبيهات",
         "notification_count" => "عدد التنبيهات",
         'permissions' => ['store' => 'ارسال تنبيه']
-    ],
-    "client" => [
-        "client" =>  "العميل",
-        "clients" => "العملاء",
-        "add_client" => "اضافة عميل",
-        "edit_client" => "تعديل عميل",
-        "admin_client" => "عدد العملاء",
-        'permissions' => array_except($permissions, ['archive', 'restore', 'force_delete']) + ['hold' => 'تعطيل' , 'create' => 'عرض العملاء']
     ],
 
 
