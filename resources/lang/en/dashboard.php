@@ -83,7 +83,7 @@ return [
         "settings" => "Settings",
         "add_setting" => "",
         "setting_count" => "",
-        'permissions' => $permissions
+        'permissions' => array_only($permissions, ['index', 'store'])
     ],
     "profile" => [
         "profile" => "Profile",
@@ -133,10 +133,13 @@ return [
     'contact' => [
         'contact'        => 'Support',
         'contacts'       => 'Support',
-        'index'          => 'Support Messages',
-        'show'           => 'Show Support Message',
-        'reply'          => 'Reply On Support Message',
-        'delete_contact' => 'Delete Support Message',
-        'delete_reply'   => 'Delete Support Reply',
+        'permissions' => array_only($permissions, [
+            'index',
+            'show',
+        ]) + [
+            'reply'          => 'Reply On Support Message',
+            'delete_contact' => 'Delete Support Message',
+            'delete_reply'   => 'Delete Support Reply',
+        ]
     ],
 ];

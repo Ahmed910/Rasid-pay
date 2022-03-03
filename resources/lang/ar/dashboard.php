@@ -109,7 +109,7 @@ return [
         "settings" => "الاعدادات",
         "add_setting" => "",
         "setting_count" => "",
-        'permissions' => $permissions
+        'permissions' => array_only($permissions, ['index', 'store'])
     ],
     "profile" => [
         "profile" => "الملف الشخصي",
@@ -128,11 +128,14 @@ return [
     'contact' => [
         'contact'        => 'الدعم الفني',
         'contacts'       => 'الدعم الفني',
-        'index'          => 'رسائل الدعم الفني',
-        'show'           => 'عرض رسالة الدعم الفني',
-        'reply'          => 'الرد علي رسالة دعم فني',
-        'delete_contact' => 'حذف رسالة دعم فني',
-        'delete_reply'   => 'حذف الرد علي رسالة دعم فني',
+        'permissions' => array_only($permissions, [
+            'index',
+            'show',
+        ]) + [
+            'reply'          => 'الرد علي رسالة دعم فني',
+            'delete_contact' => 'حذف رسالة دعم فني',
+            'delete_reply'   => 'حذف الرد علي رسالة دعم فني',
+        ]
     ],
     "employee" => [
         "employee" => "الموظف",
