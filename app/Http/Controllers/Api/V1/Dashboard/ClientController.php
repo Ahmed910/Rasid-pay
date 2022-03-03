@@ -20,13 +20,9 @@ class ClientController extends Controller
      */
     public function index(Request $request)
     {
-        DB::enableQueryLog();
-        $vart = Client::CustomSearch($request)->where('tax_number','01599488204')->latest()->paginate((int)($request->per_page ?? 15));
-//         dd($vart);
-       dd(DB::getQueryLog()) ;
-        // $client = Client::with("user")->search($request)->latest()->paginate((int)($request->per_page ?? 15));
+        $client = Client::CustomDateFromTo($request)->with("user")->search($request)->latest()->paginate((int)($request->per_page ?? 15));
 
-        return ClientResource::collection($vart)->additional([
+        return ClientResource::collection($client)->additional([
             'status' => true,
             'message' => ""
         ]);
