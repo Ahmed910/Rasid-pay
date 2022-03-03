@@ -2,16 +2,14 @@
 
 namespace App\Models;
 
-use App\Models\Role\Role;
-use App\Traits\Loggable;
-use App\Traits\Uuid;
+use App\Models\Group\Group;
+use App\Traits\{Loggable, Uuid};
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Permission extends Model
 {
     use HasFactory, Uuid, Loggable;
-
     #region properties
     protected $guarded = ["created_at", "updated_at"];
     const PUBLIC_ROUTES = [
@@ -37,9 +35,9 @@ class Permission extends Model
     #endregion scopes
 
     #region relationships
-    public function roles()
+    public function groups()
     {
-        return $this->belongsToMany(Role::class);
+        return $this->belongsToMany(Group::class);
     }
     #endregion relationships
 
