@@ -140,7 +140,9 @@ return [
         "add_employee" => "اضافة موظف",
         "edit_employee" => "تعديل موظف",
         "employee_count" => "عدد الموظفين",
+
         'permissions' => array_except($permissions, ['archive', 'restore', 'force_delete'])+ ['create' => 'عرض الموظفين']
+
     ],
     "bank" => [
         "bank" => "البنك",
