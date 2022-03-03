@@ -74,7 +74,7 @@ return [
         "add_group" => "اضافة مجموعه",
         "edit_group" => "تعديل المجموعه",
         "group_count" => "عدد المجموعات",
-        'permissions' => array_except($permissions,['archive','restore','force_delete']) + ['create' => 'عرض القائمة']
+        'permissions' => array_except($permissions, ['archive', 'restore', 'force_delete']) + ['create' => 'عرض القائمة']
     ],
     "currency" => [
         "currency" => "العملة ",
@@ -109,7 +109,7 @@ return [
         "settings" => "الاعدادات",
         "add_setting" => "",
         "setting_count" => "",
-        'permissions' => $permissions
+        'permissions' => array_only($permissions, ['index', 'store'])
     ],
     "profile" => [
         "profile" => "الملف الشخصي",
@@ -123,15 +123,18 @@ return [
         "add_admin" => "اضافة مستخدم",
         "edit_admin" => "تعديل المستخدم",
         "admin_count" => "عدد المستخدمين",
-        'permissions' => array_except($permissions, ['archive', 'restore', 'force_delete']) + ['hold' => 'تعطيل' , 'create' => 'عرض الموظفين']
+        'permissions' => array_except($permissions, ['archive', 'restore', 'force_delete']) + ['hold' => 'تعطيل', 'create' => 'عرض الموظفين']
     ],
     'contact' => [
         'contact'        => 'الدعم الفني',
         'contacts'       => 'الدعم الفني',
-        'index'          => 'رسائل الدعم الفني',
-        'show'           => 'عرض رسالة الدعم الفني',
-        'reply'          => 'الرد علي رسالة دعم فني',
-        'delete_contact' => 'حذف رسالة دعم فني',
-        'delete_reply'   => 'حذف الرد علي رسالة دعم فني',
+        'permissions' => array_only($permissions, [
+            'index',
+            'show',
+        ]) + [
+            'reply'          => 'الرد علي رسالة دعم فني',
+            'delete_contact' => 'حذف رسالة دعم فني',
+            'delete_reply'   => 'حذف الرد علي رسالة دعم فني',
+        ]
     ],
 ];
