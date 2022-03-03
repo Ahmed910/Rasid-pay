@@ -23,7 +23,7 @@ return [
         "restore" => "Restore",
         "force_delete" => "Permanent Delete",
         'sent_successfully' => 'Sent Successfully',
-
+        'success_send_login_code' => 'The verification code has been sent to the mobile number',
     ],
     'error' => [
         'method_not_allow' => 'Http method (:method) not allowed',

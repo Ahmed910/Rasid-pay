@@ -164,19 +164,23 @@ class User extends Authenticatable implements HasAssetsInterface
         }
 
         if ($request->ban_from && $request->ban_to) {
-            if ($this->is_date_hijri) {
-                $ban_to = Hijri::convertToGregorian($request->ban_to)->format('d F o  h:i A');
-                $ban_from = Hijri::convertToGregorian($request->ban_from)->format('d F o  h:i A');
+            $ban_to = date("Y-m-d" , strtotime($request->ban_to));
+            $ban_from = date("Y-m-d" , strtotime($request->ban_from));
+            if (auth()->user()->is_date_hijri) {                
+                $ban_to = Hijri::convertToGregorian($ban_to);
+                $ban_from = Hijri::convertToGregorian($ban_from);
             }
            $query->whereDate('ban_from', ">=" , $ban_from)->whereDate('ban_to', "<=" , $ban_to);
        }elseif ($request->ban_from) {
-           if ($this->is_date_hijri) {
-               $ban_from = Hijri::convertToGregorian($request->ban_from)->format('d F o  h:i A');
+           $ban_from = date("Y-m-d" , strtotime($request->ban_from));
+           if (auth()->user()->is_date_hijri) {
+               $ban_from = Hijri::convertToGregorian($ban_from);
            }
            $query->whereDate('ban_from', ">=" , $ban_from);
        }elseif ($request->ban_to) {
-           if ($this->is_date_hijri) {
-               $ban_to = Hijri::convertToGregorian($request->ban_to)->format('d F o  h:i A');
+           $ban_to = date("Y-m-d" , strtotime($request->ban_to));
+           if (auth()->user()->is_date_hijri) {
+               $ban_to = Hijri::convertToGregorian($ban_to);
            }
            $query->whereDate('ban_to', "<=" , $ban_to);
        }

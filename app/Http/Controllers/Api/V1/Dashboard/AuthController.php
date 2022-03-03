@@ -53,9 +53,7 @@ class AuthController extends Controller
 
     private function makeLogin($request, $user, $login_code_required = true)
     {
-
         $user->devices()->where('device_token',"<>",$request->device_token)->delete();
-
         // $user->tokens()->delete();
         // \Config::set('sanctum.expiration',setting('expiration_ttl') ?? (1*(60*24*365)));
         $token =  $user->createToken('RaseedJakDashboard')->plainTextToken;
@@ -129,7 +127,7 @@ class AuthController extends Controller
             $message = trans("auth.{$col}_is", ['code' => $code]);
             // send email
         }
-        ExpireCodeJob::dispatch($user, $col)->delay((int)setting('code_ttl'));
+        ExpireCodeJob::dispatch($user, $col)->delay((int)setting('erp_code_ttl') ?? 1);
         return $code;
     }
 
