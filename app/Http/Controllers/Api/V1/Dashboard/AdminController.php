@@ -14,9 +14,12 @@ class AdminController extends Controller
 
     public function index(Request $request)
     {
-        $users = User::search($request)->with(['department', 'permissions', 'groups' => function ($q) {
+
+        $users = User::CustomDateFromTo($request)->search($request)->with(['department', 'permissions', 'groups' => function ($q) {
             $q->with('permissions');
         }])->where('user_type', 'admin')->latest()->paginate((int)($request->per_page ?? 10));
+
+        // $users = User::CustomSearch($request)->latest()->paginate((int)($request->per_page ?? 10));
 
         return UserResource::collection($users)
             ->additional([

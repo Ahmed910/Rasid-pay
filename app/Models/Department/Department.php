@@ -45,7 +45,9 @@ class Department extends Model implements TranslatableContract, HasAssetsInterfa
     public function scopeSearch(Builder $query, $request)
     {
         if ($request->name) {
-            $query->whereTranslationLike('name', "%$request->name%");
+            $query->where(function ($q) use($requst) {
+                $q->whereTranslationLike('name', "%$request->name%")->orWhereTranslationLike('description', "%$request->name%");
+            });
         }
 
         if (isset($request->created_at)) {

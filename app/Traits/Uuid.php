@@ -2,6 +2,7 @@
 
 namespace App\Traits;
 
+use App\Scopes\GlobalSearchScope;
 use GeniusTS\HijriDate\{Date, Hijri, Translations\Arabic};
 use Illuminate\Support\Str;
 

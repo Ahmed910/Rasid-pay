@@ -14,6 +14,20 @@ class Permission extends Model
 
     #region properties
     protected $guarded = ["created_at", "updated_at"];
+    const PUBLIC_ROUTES = [
+        'notifications.index' ,
+        'notifications.show' ,
+        'notifications.destroy' ,
+        'notifications.update' ,
+        'profiles.show',
+        'profiles.update',
+        'profiles.change_password',
+        'menus.index',
+        'menus.store',
+        'menus.update',
+        'menus.show',
+        'menus.destroy',
+    ];
     #endregion properties
 
     #region mutators

@@ -11,6 +11,7 @@ use Laravel\Sanctum\HasApiTokens;
 use App\Contracts\HasAssetsInterface;
 use App\Models\Department\Department;
 use App\Traits\Loggable;
+use GeniusTS\HijriDate\Hijri;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
@@ -120,10 +121,7 @@ class User extends Authenticatable implements HasAssetsInterface
     {
         return $this->hasOne(BankAccount::class);
     }
-    public function attachments()
-    {
-        return $this->hasMany(Attachment::class);
-    }
+
     public function setBanStatusAttribute($value)
     {
         $this->attributes['ban_status'] = $value;
@@ -135,75 +133,36 @@ class User extends Authenticatable implements HasAssetsInterface
 
     public function scopeSearch(Builder $query, $request)
     {
-        if (isset($request->fullname)) {
-            $query->where("fullname", "like", "%$request->fullname%");
-        }
+        !$request->keySearch ?: $query->where(function ($q) use ($request) {
+            $q->where("fullname", "like", "%$request->keySearch%")
+                ->orWhere("email", "like", "%$request->keySearch%")
+                ->orWhere("whatsapp", "like", "%$request->keySearch%")
+                ->orWhere("phone", "like", "%$request->keySearch%");
+        });
+        !$request->client_type ?: $query->where("client_type", $request->client_type);
+        !$request->country_id ?: $query->where("country_id", $request->country_id);
+        !$request->is_active ?: $query->where("is_active",  $request->is_active);
+        !$request->ban_status ?: $query->where("ban_status", $request->ban_status);
+        !$request->register_status ?: $query->where("register_status", $request->register_status);
+        !$request->gender ?: $query->where("gender",  $request->gender);
+        !$request->is_admin_active_user ?: $query->where("is_admin_active_user", $request->is_admin_active_user);
 
-        if (isset($request->created_at)) {
-            $query->whereDate('created_at', $request->created_at);
-        }
-
-        if (isset($request->client_type)) {
-            $query->where("client_type", $request->client_type);
-        }
-
-        if (isset($request->country_id)) {
-            $query->where('country_id', $request->country);
-        }
-        if (isset($request->ban_status)) {
-            $query->where('ban_status', $request->ban_status);
-        }
-        if (isset($request->register_status)) {
-            $query->where('register_status', $request->register_status);
-        }
-        if (isset($request->gender)) {
-            $query->where('gender', $request->gender);
-        }
-        if (isset($request->is_active)) {
-            $query->where('is_active', $request->is_active);
-        }
-        if (isset($request->is_admin_active_user)) {
-            $query->where('is_admin_active_user', $request->is_admin_active_user);
-        }
-
-        if ($request->ban_from && $request->ban_to) {
-            $ban_to = date("Y-m-d" , strtotime($request->ban_to));
-            $ban_from = date("Y-m-d" , strtotime($request->ban_from));
-            if (auth()->user()->is_date_hijri) {
-                $ban_to = Hijri::convertToGregorian($ban_to);
-                $ban_from = Hijri::convertToGregorian($ban_from);
+        if ($request->ban_from) {
+            $ban_from = date('Y-m-d', strtotime($request->ban_from));
+            if (auth()->user()->is_date_hijri == 1) {
+                $date = explode("-", $ban_from);
+                $ban_from = Hijri::convertToGregorian($date[2], $date[1], $date[0])->format('Y-m-d');
             }
-           $query->whereDate('ban_from', ">=" , $ban_from)->whereDate('ban_to', "<=" , $ban_to);
-       }elseif ($request->ban_from) {
-           $ban_from = date("Y-m-d" , strtotime($request->ban_from));
-           if (auth()->user()->is_date_hijri) {
-               $ban_from = Hijri::convertToGregorian($ban_from);
-           }
-           $query->whereDate('ban_from', ">=" , $ban_from);
-       }elseif ($request->ban_to) {
-           $ban_to = date("Y-m-d" , strtotime($request->ban_to));
-           if (auth()->user()->is_date_hijri) {
-               $ban_to = Hijri::convertToGregorian($ban_to);
-           }
-           $query->whereDate('ban_to', "<=" , $ban_to);
-       }
+            $query->whereDate('ban_from', ">=", $ban_from);
+        }
 
-       if ($request->created_from && $request->created_to) {
-           if ($this->is_date_hijri) {
-               $created_to = Hijri::convertToGregorian($request->created_to)->format('d F o  h:i A');
-               $created_from = Hijri::convertToGregorian($request->created_from)->format('d F o  h:i A');
-           }
-          $query->whereDate('created_at', ">=" , $created_from)->whereDate('createat', "<=" , $created_to);
-      }elseif ($request->created_from) {
-          if ($this->is_date_hijri) {
-              $created_from = Hijri::convertToGregorian($request->created_from)->format('d F o  h:i A');
-          }
-          $query->whereDate('created_at', ">=" , $created_from);
-      }elseif ($request->created_to) {
-          if ($this->is_date_hijri) {
-              $created_to = Hijri::convertToGregorian($request->created_to)->format('d F o  h:i A');
-          }
-          $query->whereDate('createat', "<=" , $created_to);
-      }
+        if ($request->ban_to) {
+            $ban_to = date('Y-m-d', strtotime($request->ban_to));
+            if (auth()->user()->is_date_hijri == 1) {
+                $date = explode("-", $ban_to);
+                $ban_to = Hijri::convertToGregorian($date[2], $date[1], $date[0])->format('Y-m-d');
+            }
+            $query->whereDate('ban_to', "<=", $ban_to);
+        }
     }
 }

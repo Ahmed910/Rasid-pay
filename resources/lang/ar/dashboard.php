@@ -32,6 +32,7 @@ return [
         'method_not_allow' => 'طريقة الطلب (:method) غير صحيحة',
         'not_found' => 'لم يتم العثور على بيانات',
         'page_not_found' => '404, الصفحة غير موجودة',
+        '403_msg' => '403, ليس لديك صلاحية الدخول',
         'something_went_wrog' => 'البيانات المدخلة غير صحيحة'
     ],
     'activity_log' => [
@@ -74,7 +75,7 @@ return [
         "add_group" => "اضافة مجموعه",
         "edit_group" => "تعديل المجموعه",
         "group_count" => "عدد المجموعات",
-        'permissions' => array_except($permissions,['archive','restore','force_delete']) + ['hold' => 'تعطيل']
+        'permissions' => array_except($permissions, ['archive', 'restore', 'force_delete']) + ['create' => 'عرض القائمة الجانبية']
     ],
     "currency" => [
         "currency" => "العملة ",
@@ -90,7 +91,7 @@ return [
         "add_department" => "اضافة قسم",
         "edit_department" => "تعديل القسم",
         "department_count" => "عدد الاقسام",
-        'permissions' => $permissions,
+        'permissions' => $permissions + ['get_parents' => 'عرض الاقسام الرئيسية'],
         "has_jobs_cannot_delete" => "لا يمكن أرشفة قسم مرتبط بوظائف"
     ],
     "rasid_job" => [
@@ -109,7 +110,7 @@ return [
         "settings" => "الاعدادات",
         "add_setting" => "",
         "setting_count" => "",
-        'permissions' => $permissions
+        'permissions' => array_only($permissions, ['index', 'store'])
     ],
     "profile" => [
         "profile" => "الملف الشخصي",
@@ -118,12 +119,46 @@ return [
         "edit_profile" => "تعديل الملف الشخصي",
     ],
     "admin" => [
-        "admin" => "مستخدم النظام",
-        "admins" => "مستخدمى النظام",
+        "admin" => "المستخدم",
+        "admins" => "المستخدمين",
         "add_admin" => "اضافة مستخدم",
         "edit_admin" => "تعديل المستخدم",
         "admin_count" => "عدد المستخدمين",
-        'permissions' => array_except($permissions, ['archive', 'restore', 'force_delete']) + ['hold' => 'تعطيل' , 'create' => 'عرض الموظفين']
+        'permissions' => array_except($permissions, ['archive', 'restore', 'force_delete']) + ['hold' => 'تعطيل', 'create' => 'عرض الموظفين']
+    ],
+    'contact' => [
+        'contact' => 'الدعم الفني',
+        'contacts' => 'الدعم الفني',
+        'permissions' =>
+        [
+            'index' => 'السجل',
+            'show' => 'عرض',
+            'reply' => 'الرد علي رسالة دعم فني',
+            'delete_contact' => 'حذف رسالة دعم فني',
+            'delete_reply' => 'حذف الرد علي رسالة دعم فني',
+        ]
+    ],
+    "employee" => [
+        "employee" => "الموظف",
+        "employees" => "الموظفين",
+        "add_employee" => "اضافة موظف",
+        "edit_employee" => "تعديل موظف",
+        "employee_count" => "عدد الموظفين",
+        'permissions' => array_except($permissions, ['archive', 'restore', 'force_delete']) + ['hold' => 'تعطيل']
+    ],
+    "bank" => [
+        "bank" => "البنك",
+        "banks" => "البنوك",
+        "add_bank" => "اضافة بنك",
+        "edit_bank" => "تعديل بنك",
+        "bank_count" => "عدد البنوك",
+        'permissions' => $permissions
+    ],
+    "notification" => [
+        "notification" => "تنبيه",
+        "notificationS" => "التنبيهات",
+        "notification_count" => "عدد التنبيهات",
+        'permissions' => ['store' => 'ارسال تنبيه']
     ],
     "client" => [
         "client" =>  "العميل",

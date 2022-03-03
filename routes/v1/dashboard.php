@@ -120,7 +120,6 @@ Route::middleware('auth:sanctum')->group(function () {
             'banks' => 'BankController',
         ]);
 
-        Route::post('settings/create-setting', 'SettingController@createSetting')->name('settings_create');
         Route::apiResource('settings', 'SettingController')->only(['index', 'store']);
 
         Route::resource('groups', 'GroupController')->except('edit');
