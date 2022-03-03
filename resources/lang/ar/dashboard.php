@@ -126,15 +126,15 @@ return [
         'permissions' => array_except($permissions, ['archive', 'restore', 'force_delete']) + ['hold' => 'تعطيل', 'create' => 'عرض الموظفين']
     ],
     'contact' => [
-        'contact'        => 'الدعم الفني',
-        'contacts'       => 'الدعم الفني',
-        'permissions' => array_only($permissions, [
-            'index',
-            'show',
-        ]) + [
-            'reply'          => 'الرد علي رسالة دعم فني',
+        'contact' => 'الدعم الفني',
+        'contacts' => 'الدعم الفني',
+        'permissions' =>
+        [
+            'index' => 'السجل',
+            'show' => 'عرض',
+            'reply' => 'الرد علي رسالة دعم فني',
             'delete_contact' => 'حذف رسالة دعم فني',
-            'delete_reply'   => 'حذف الرد علي رسالة دعم فني',
+            'delete_reply' => 'حذف الرد علي رسالة دعم فني',
         ]
     ],
     "employee" => [
