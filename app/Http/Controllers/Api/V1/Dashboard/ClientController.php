@@ -6,13 +6,11 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\V1\Dashboard\AttachmentRequest;
 use App\Http\Requests\V1\Dashboard\ClientRequest;
 use App\Http\Requests\V1\Dashboard\ReasonRequest;
-use App\Http\Resources\Dashboard\AttachmentResource;
 use App\Http\Resources\Dashboard\ClientResource;
 use App\Models\Attachment;
 use App\Models\Client;
 use App\Models\User;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 
 class ClientController extends Controller
 {
@@ -23,7 +21,8 @@ class ClientController extends Controller
      */
     public function index(Request $request)
     {
-        $client = Client::with("user")->search($request)->latest()->paginate((int)($request->per_page ?? 15));
+        $client = Client::search($request)->latest()->paginate((int)($request->per_page ?? 15));
+        $client->load('user');
 
         return ClientResource::collection($client)->additional([
             'status' => true,
@@ -80,11 +79,6 @@ class ClientController extends Controller
                 'status' => true, 'message' => trans("dashboard.general.success_add")
             ]);
         }
-//        dd($paths) ;
-
-//        return ClientResource::make($client)->additional([
-//            'status' => true, 'message' => trans("dashboard.general.success_add")
-//        ]);
     }
 
     /**

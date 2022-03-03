@@ -108,4 +108,12 @@ return [
         "region_count" => "",
         'permissions' => $permissions
     ],
+    "client" => [
+        "client" =>  "client",
+        "clients" => "clients",
+        "add_client" => "add_client",
+        "edit_client" => "edit_client",
+        "admin_client" => "admin_client",
+        'permissions' => array_except($permissions, ['archive', 'restore', 'force_delete']) + ['hold' => 'hold' , 'create' => 'create']
+    ],
 ];

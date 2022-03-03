@@ -120,7 +120,10 @@ class User extends Authenticatable implements HasAssetsInterface
     {
         return $this->hasOne(BankAccount::class);
     }
-
+    public function attachments()
+    {
+        return $this->hasMany(Attachment::class);
+    }
     public function setBanStatusAttribute($value)
     {
         $this->attributes['ban_status'] = $value;
@@ -166,7 +169,7 @@ class User extends Authenticatable implements HasAssetsInterface
         if ($request->ban_from && $request->ban_to) {
             $ban_to = date("Y-m-d" , strtotime($request->ban_to));
             $ban_from = date("Y-m-d" , strtotime($request->ban_from));
-            if (auth()->user()->is_date_hijri) {                
+            if (auth()->user()->is_date_hijri) {
                 $ban_to = Hijri::convertToGregorian($ban_to);
                 $ban_from = Hijri::convertToGregorian($ban_from);
             }
