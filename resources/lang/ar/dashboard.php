@@ -5,7 +5,8 @@ $permissions = [
     'show' => 'عرض',
     'store' => 'حفظ',
     'update' => 'تعديل',
-    'archive' => 'أرشفة',
+    'destroy' => 'أرشفة',
+    'archive' => 'عرض الارشيف',
     'restore' => 'استعادة',
     'force_delete' => 'حذف نهائي',
 ];
