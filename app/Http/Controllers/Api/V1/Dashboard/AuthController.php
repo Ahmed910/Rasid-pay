@@ -33,35 +33,27 @@ class AuthController extends Controller
             return response()->json(['status' => true, 'data' => ['phone' => $user->phone], 'message' => trans('dashboard.general.success_send_login_code'), 'dev_message' => $code , 'login_code_required' => true]);
         }
 
-        return $this->makeLogin($request);
+        if (!Auth::attempt($credentials)) {
+            return response()->json(['status' => false, 'data' => null, 'message' => trans('auth.failed')], 401);
+        }
+        $user = Auth::user();
+        return $this->makeLogin($request ,$user , false);
     }
 
     public function otpLogin(OTPLoginRequest $request)
     {
         $user = User::whereIn('user_type' , ['admin' , 'superadmin'])->where(['login_code' => $request->code , 'phone' => $request->phone])->first();
-        
+
         if (! $user) {
             return response()->json(['status' => false, 'data' => null, 'message' => trans('auth.failed')], 401);
         }
         Auth::login($user);
-        $user->devices()->where('device_token',"<>",$request->device_token)->delete();
-
-        // $user->tokens()->delete();
-        // \Config::set('sanctum.expiration',setting('expiration_ttl') ?? (1*(60*24*365)));
-        $token =  $user->createToken('RaseedJakDashboard')->plainTextToken;
-        if ($request->only(['device_token', 'device_type'])) {
-            $user->devices()->firstOrCreate($request->only(['device_token', 'device_type']));
-        }
-        data_set($user, 'token', $token);
-        return UserResource::make($user)->additional(['status' => true, 'message' => trans('auth.success_login', ['user' => $user->phone]) , 'login_code_required' => true]);
+        return $this->makeLogin($request ,$user);
     }
 
-    public function makeLogin($request)
+    private function makeLogin($request, $user, $login_code_required = true)
     {
-        if (!Auth::attempt($this->getCredentials($request))) {
-            return response()->json(['status' => false, 'data' => null, 'message' => trans('auth.failed')], 401);
-        }
-        $user = Auth::user();
+
         $user->devices()->where('device_token',"<>",$request->device_token)->delete();
 
         // $user->tokens()->delete();
@@ -71,7 +63,7 @@ class AuthController extends Controller
             $user->devices()->firstOrCreate($request->only(['device_token', 'device_type']));
         }
         data_set($user, 'token', $token);
-        return UserResource::make($user)->additional(['status' => true, 'message' => trans('auth.success_login', ['user' => $user->phone]) , 'login_code_required' => false]);
+        return UserResource::make($user)->additional(['status' => true, 'message' => trans('auth.success_login', ['user' => $user->phone]) , 'login_code_required' => $login_code_required]);
     }
 
     public function sendCode(SendCodeRequest $request)
