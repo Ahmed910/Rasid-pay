@@ -5,7 +5,7 @@ namespace App\Http\Requests\V1\Dashboard\Auth;
 use App\Http\Requests\ApiMasterRequest;
 use App\Models\User;
 
-class ResetPasswordRequest extends ApiMasterRequest
+class CheckResetCodeRequest extends ApiMasterRequest
 {
     /**
      * Determine if the user is authorized to make this request.

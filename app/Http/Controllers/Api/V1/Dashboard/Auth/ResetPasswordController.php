@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Api\V1\Dashboard;
+namespace App\Http\Controllers\Api\V1\Dashboard\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\V1\Dashboard\Auth\{LoginRequest, SendCodeRequest, LogoutRequest, ResetPasswordRequest, OTPLoginRequest};
@@ -11,7 +11,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Symfony\Component\HttpFoundation\Response;
 
-class AuthController extends Controller
+class ResetPasswordController extends Controller
 {
     public function __construct()
     {
@@ -103,6 +103,16 @@ class AuthController extends Controller
         $user->update($user_data);
 
         return response()->json(['status' => true, 'data' => null, 'message' => trans('auth.success_change_password')]);
+    }
+
+    public function CheckResetCode(CheckResetCodeRequest $request)
+    {
+        $user = User::firstWhere(['reset_token' => $request->_token]);
+        if (!$user) {
+            return response()->json(['status' => false, 'data' => null, 'message' => trans('auth.account_not_true_or_account_deactive'),'errors' => []], 422);
+        }
+
+        return response()->json(['status' => true, 'data' => ['_token' => $user->reset_token], 'message' => trans('auth.success_change_password')]);
     }
 
     public function logout(LogoutRequest $request)
