@@ -33,7 +33,7 @@ class CheckResetCodeRequest extends ApiMasterRequest
 
         return [
             '_token' => 'required|exists:users,reset_token,ban_status,active',
-            'password' => 'required|between:6,100'
+            'code' => $code
         ];
     }
 }
