@@ -122,6 +122,6 @@ Route::middleware('auth:sanctum')->group(function () {
 
         Route::apiResource('settings', 'SettingController')->only(['index', 'store']);
 
-        Route::resource('groups', 'GroupController')->except('edit');
+        Route::resource('groups', 'GroupController')->except('edit','destroy');
     });
 });
