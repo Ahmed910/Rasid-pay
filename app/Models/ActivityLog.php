@@ -32,7 +32,7 @@ class ActivityLog extends Model
 
     public function auditable()
     {
-        return $this->morphTo();
+        return $this->morphTo()->without('addedBy');
     }
     #endregion relationships
 
