@@ -7,6 +7,7 @@ use App\Http\Requests\V1\Dashboard\AdminRequest;
 use App\Http\Requests\V1\Dashboard\ReasonRequest;
 use App\Http\Resources\Dashboard\UserResource;
 use App\Models\{User, Group\Group};
+use App\Models\Department\Department;
 use Illuminate\Http\Request;
 
 class AdminController extends Controller
@@ -25,6 +26,7 @@ class AdminController extends Controller
             ->additional([
                 'status' => true,
                 'message' =>  '',
+                'departments' => Department::ListsTranslations('name')->without(['images', 'addedBy'])->get()
             ]);
     }
 
