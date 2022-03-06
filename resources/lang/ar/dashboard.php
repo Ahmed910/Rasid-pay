@@ -146,7 +146,7 @@ return [
         "edit_employee" => "تعديل موظف",
         "employee_count" => "عدد الموظفين",
 
-        'permissions' => array_except($permissions, ['archive', 'restore', 'force_delete'])+ ['create' => 'عرض الموظفين']
+        'permissions' => array_except($permissions, ['archive', 'restore', 'force_delete']) + ['create' => 'عرض الموظفين']
 
     ],
     "bank" => [
@@ -169,7 +169,21 @@ return [
         "add_client" => "اضافة عميل",
         "edit_client" => "تعديل عميل",
         "admin_client" => "عدد العملاء",
-        'permissions' => array_except($permissions, ['archive', 'restore', 'force_delete']) + [ 'create' => 'عرض العملاء']
+        'permissions' => array_except($permissions, ['archive', 'restore', 'force_delete']) + ['create' => 'عرض العملاء']
     ],
-
+    'user' => [
+        'users' => 'المستخدمين'
+    ],
+    'chat' => [
+        'chats' => 'الدردشات'
+    ],
+    'device' => [
+        'devices' => 'الأجهزة'
+    ],
+    'message' => [
+        'messages' => 'الرسائل'
+    ],
+    'permission' => [
+        'permissions' => 'الصلاحيات'
+    ]
 ];

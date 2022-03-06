@@ -152,4 +152,19 @@ return [
         "admin_client" => "admin_client",
         'permissions' => array_except($permissions, ['archive', 'restore', 'force_delete']) + [ 'create' => 'Show Client']
     ],
+    'user' => [
+        'users' => 'Users'
+    ],
+    'chat' => [
+        'chats' => 'Chats'
+    ],
+    'device' => [
+        'devices' => 'Devices'
+    ],
+    'message' => [
+        'messages' => 'Messages'
+    ],
+    'permission' => [
+        'permissions' => 'Permissions'
+    ]
 ];
