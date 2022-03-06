@@ -10,6 +10,11 @@ $permissions = [
     'force_delete' => 'Permanently delete',
 ];
 return [
+    'attributes' => [
+         'name' => 'Name in Arabic',
+         'description' => 'Description in Arabic',
+    ],
+
     'general' => [
         "success_add" => "Created Successfully",
         "success_delete" => "Deleted Successfully",
