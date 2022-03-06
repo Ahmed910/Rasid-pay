@@ -1,14 +1,17 @@
 <?php
 
 namespace App\Http\Controllers\Api\V1\Dashboard;
+
 use App\Models\User;
 use App\Models\ActivityLog;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Department\Department;
 use App\Http\Resources\Dashboard\ActivityLogResource;
+use App\Http\Resources\Dashboard\Departments\ParentResource;
 use App\Http\Resources\Dashboard\SimpleEmployeeResource;
-use App\Http\Resources\Dashboard\Departments\SimpleDepartmentResource;
+use App\Providers\AppServiceProvider;
+use Illuminate\Support\Str;
 
 class ActivityController extends Controller
 {
@@ -32,14 +35,16 @@ class ActivityController extends Controller
                 'status' => true,
                 'message' => trans("dashboard.general.show")
             ]);
-
     }
 
     public function getDepartments()
     {
-        $departments = Department::get();
+        $departments = Department::without("images", 'addedBy')
+            ->select("id")
+            ->ListsTranslations("name")
+            ->get();
 
-        return SimpleDepartmentResource::collection($departments)
+        return ParentResource::collection($departments)
             ->additional([
                 'status' => true,
                 'message' => "",
@@ -48,12 +53,12 @@ class ActivityController extends Controller
 
     public function getEmployees()
     {
-        $employees = User::whereIn('user_type',['admin','superadmin'])
-                         ->when(request('department_id'), function($employees){
-                             $employees->whereHas('employee',function($employees){
-                                 $employees->where('department_id', request('department_id'));
-                        });
-                    })->get();
+        $employees = User::whereIn('user_type', ['admin', 'superadmin'])
+            ->when(request('department_id'), function ($employees) {
+                $employees->whereHas('employee', function ($employees) {
+                    $employees->where('department_id', request('department_id'));
+                });
+            })->get();
 
         return SimpleEmployeeResource::collection($employees)
             ->additional([
@@ -62,4 +67,15 @@ class ActivityController extends Controller
             ]);
     }
 
+    public function getMainPrograms()
+    {
+        $mainPrograms = collect(AppServiceProvider::MORPH_MAP)->transform(function ($class, $model) {
+            $data['name'] = $model;
+            $data['trans'] = trans("dashboard." . Str::snake($model) . "." . str_plural(Str::snake($model)));
+
+            return $data;
+        })->values();
+
+        return ParentResource::collection($mainPrograms);
+    }
 }
