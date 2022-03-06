@@ -158,8 +158,7 @@ foreach (config('translatable.locales') as $locale) {
 }
 
 return [
-
-    'accepted'             => 'يجب قبول :attribute.',
+      'accepted'             => 'يجب قبول :attribute.',
       'accepted_if'          => 'يجب قبول :attribute في حالة :other يساوي :value.',
       'active_url'           => ' :attribute لا يُمثّل رابطًا صحيحًا.',
       'after'                => 'يجب على  :attribute أن يكون تاريخًا لاحقًا للتاريخ :date.',
