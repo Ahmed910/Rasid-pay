@@ -29,8 +29,10 @@ class AuthController extends Controller
 
         if ($user && $user->is_login_code && \Hash::check($request->password , $user->password)) {
             $code = $this->generateCode(['send_type' => 'phone'], $user,'login_code');
-            $user->update(['login_code' => $code]);
-            return response()->json(['status' => true, 'data' => ['phone' => $user->phone], 'message' => trans('dashboard.general.success_send_login_code'), 'dev_message' => $code , 'login_code_required' => true]);
+            $reset_token = generate_unique_code(User::class, 'reset_token', 100);
+            $user->update(['login_code' => $code, 'reset_token' => $reset_token]);
+            // Send SMS CODE
+            return response()->json(['status' => true, 'data' => ['_token' => $user->reset_token], 'message' => trans('dashboard.general.success_send_login_code'), 'dev_message' => $code , 'login_code_required' => true]);
         }
 
         if (!Auth::attempt($credentials)) {
@@ -42,11 +44,12 @@ class AuthController extends Controller
 
     public function otpLogin(OTPLoginRequest $request)
     {
-        $user = User::whereIn('user_type' , ['admin' , 'superadmin'])->where(['login_code' => $request->code , 'phone' => $request->phone])->first();
+        $user = User::whereIn('user_type' , ['admin' , 'superadmin'])->where(['login_code' => $request->code , 'reset_token' => $request->_token])->first();
 
         if (! $user) {
             return response()->json(['status' => false, 'data' => null, 'message' => trans('auth.failed')], 401);
         }
+        $user->update(['reset_token' => null, 'login_code' => null]);
         Auth::login($user);
         return $this->makeLogin($request ,$user);
     }
@@ -71,14 +74,15 @@ class AuthController extends Controller
             return response()->json(['status' => false, 'data' => null, 'message' => trans('auth.phone_not_exists')], 422);
         }
         try {
+            $reset_token = generate_unique_code(User::class, 'reset_token', 100);
             if ($user->phone_verified_at || $user->email_verified_at) {
                 $code = $this->generateCode($request, $user,'reset_code');
-                $user->update(['reset_code' => $code]);
-                return response()->json(['status' => true, 'data' => null, 'message' => trans('dashboard.general.success_send'), 'dev_message' => $code]);
+                $user->update(['reset_code' => $code, 'reset_token' => $reset_token]);
+                return response()->json(['status' => true, 'data' => ['_token' => $user->reset_token], 'message' => trans('dashboard.general.success_send'), 'dev_message' => $code]);
             } else {
                 $code = $this->generateCode($request, $user,'verified_code');
-                $user->update(['verified_code' => $code, 'is_active' => 0]);
-                return response()->json(['status' => true, 'data' => null, 'message' => trans('dashboard.general.success_send'), 'dev_message' => $code]);
+                $user->update(['verified_code' => $code, 'is_active' => false, 'reset_token' => $reset_token]);
+                return response()->json(['status' => true, 'data' => ['_token' => $user->reset_token], 'message' => trans('dashboard.general.success_send'), 'dev_message' => $code]);
             }
         } catch (\Exception $e) {
             return response()->json(['status' => false, 'data' => null, 'message' => trans('auth.fail_send')], 422);
@@ -87,9 +91,8 @@ class AuthController extends Controller
 
     public function resetPassword(ResetPasswordRequest $request)
     {
-        $user = User::firstWhere(['phone' => $request->phone]);
-
-        $user_data = [];
+        $user = User::firstWhere(['reset_token' => $request->_token]);
+        $user_data = ['reset_token' => null];
         if (!$user) {
             return response()->json(['status' => false, 'data' => null, 'message' => trans('auth.phone_not_true_or_account_deactive'),'errors' => []], 422);
         } elseif (!$user->phone_verified_at && $user->verified_code == $request->code) {
@@ -118,12 +121,12 @@ class AuthController extends Controller
     private function generateCode($request, $user, $col)
     {
         $code = 1111;
-        if ($request['send_type'] == 'phone' && setting('use_sms_service') == 'enable') {
-            $code = generate_unique_code('\\App\\Models\\User', $col, 4);
+        if ($request['send_type'] == 'phone') {
+            $code = generate_unique_code(User::class, $col, 4, 'numbers');
             $message = trans("auth.{$col}_is", ['code' => $code]);
             //   $response = send_sms($user->phone, $message);
-        }elseif ($request['send_type'] == 'email' && setting('use_email_service') == 'enable') {
-            $code = generate_unique_code('\\App\\Models\\User', $col, 4);
+        }elseif ($request['send_type'] == 'email') {
+            $code = generate_unique_code(User::class, $col, 4, 'numbers');
             $message = trans("auth.{$col}_is", ['code' => $code]);
             // send email
         }

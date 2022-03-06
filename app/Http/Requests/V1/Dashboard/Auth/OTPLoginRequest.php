@@ -24,20 +24,10 @@ class OTPLoginRequest extends ApiMasterRequest
     public function rules()
     {
         return [
-            'phone' => 'required',
+            '_token' => 'required|exists:users,reset_token,ban_status,active',
             'code' => 'required|exists:users,login_code,ban_status,active',
             'device_token' => 'nullable|string|between:2,10000',
             'device_type' => 'nullable|in:ios,android',
         ];
     }
-
-    protected function prepareForValidation()
-    {
-        $data = $this->all();
-
-        $this->merge([
-            'phone' => @$data['phone'] ? convert_arabic_number($data['phone']) : null
-        ]);
-    }
-
 }

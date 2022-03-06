@@ -24,7 +24,7 @@ class ResetPasswordRequest extends ApiMasterRequest
      */
     public function rules()
     {
-        $user = User::where(['phone'=>$this->phone])->first();
+        $user = User::where(['reset_token'=>$this->_token])->first();
         if ($user && ($user->phone_verified_at || $user->email_verified_at)) {
             $code = 'required|exists:users,reset_code,deleted_at,NULL';
         }else{
@@ -32,19 +32,9 @@ class ResetPasswordRequest extends ApiMasterRequest
         }
 
         return [
-            'phone' => 'required|exists:users,phone',
+            '_token' => 'required|exists:users,reset_token,ban_status,active',
             'code' => $code,
             'password' => 'required|between:6,100'
         ];
     }
-
-    protected function prepareForValidation()
-    {
-        $data = $this->all();
-
-        $this->merge([
-            'phone' => @$data['phone'] ? convert_arabic_number($data['phone']) : null
-        ]);
-    }
-
 }
