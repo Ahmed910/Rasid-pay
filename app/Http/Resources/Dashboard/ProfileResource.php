@@ -4,6 +4,7 @@ namespace App\Http\Resources\Dashboard;
 
 use App\Http\Resources\Dashboard\ImagesResource;
 use Illuminate\Http\Resources\Json\JsonResource;
+use App\Http\Resources\Dashboard\Group\PermissionResource;
 
 class ProfileResource extends JsonResource
 {
@@ -26,6 +27,7 @@ class ProfileResource extends JsonResource
             'date_of_birth' => $this->date_of_birth,
             'date_of_birth_hijri' => $this->date_of_birth_hijri,
             'images' => ImagesResource::collection($this->images),
+            'permissions' => $this->user_type == 'superadmin' ? ['*'] : PermissionResource::collection($this->permissions),
             'is_date_hijri' => (bool) $this->is_date_hijri
         ];
     }
