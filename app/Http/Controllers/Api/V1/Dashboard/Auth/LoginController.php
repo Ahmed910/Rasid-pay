@@ -89,22 +89,6 @@ class LoginController extends Controller
         }
     }
 
-    public function resetPassword(ResetPasswordRequest $request)
-    {
-        $user = User::firstWhere(['reset_token' => $request->_token]);
-        $user_data = ['reset_token' => null];
-        if (!$user) {
-            return response()->json(['status' => false, 'data' => null, 'message' => trans('auth.phone_not_true_or_account_deactive'),'errors' => []], 422);
-        } elseif (!$user->phone_verified_at && $user->verified_code == $request->code) {
-            $user_data += ['password' => $request->password, 'verified_code' => null, 'is_active' => true, 'phone_verified_at' => now()];
-        } elseif ($user->phone_verified_at && $user->reset_code == $request->code) {
-            $user_data += ['password' => $request->password, 'reset_code' => null];
-        }
-        $user->update($user_data);
-
-        return response()->json(['status' => true, 'data' => null, 'message' => trans('auth.success_change_password')]);
-    }
-
     public function CheckResetCode(CheckResetCodeRequest $request)
     {
         $user = User::firstWhere(['reset_token' => $request->_token]);
@@ -113,6 +97,22 @@ class LoginController extends Controller
         }
 
         return response()->json(['status' => true, 'data' => ['_token' => $user->reset_token], 'message' => trans('auth.success_change_password')]);
+    }
+
+    public function resetPassword(ResetPasswordRequest $request)
+    {
+        $user = User::firstWhere(['reset_token' => $request->_token]);
+        $user_data = ['reset_token' => null];
+        if (!$user) {
+            return response()->json(['status' => false, 'data' => null, 'message' => trans('auth.phone_not_true_or_account_deactive'),'errors' => []], 422);
+        } elseif (!$user->phone_verified_at) {
+            $user_data += ['password' => $request->password, 'verified_code' => null, 'is_active' => true, 'phone_verified_at' => now()];
+        } elseif ($user->phone_verified_at) {
+            $user_data += ['password' => $request->password, 'reset_code' => null];
+        }
+        $user->update($user_data);
+
+        return response()->json(['status' => true, 'data' => null, 'message' => trans('auth.success_change_password')]);
     }
 
     public function logout(LogoutRequest $request)
