@@ -39,29 +39,6 @@ class GroupController extends Controller
         return GroupResource::collection($groups)->additional(['status' => true, 'message' => ""]);
     }
 
-
-    public function create(Request $request)
-    {
-        $saved_permissions = $this->savedPermissions()->groupBy('uri')->map(function($item,$key){
-            $data['uri'] = $key;
-            $data['name'] = trans('dashboard.' . str_singular($key) . '.' . $key);
-            $data['permissions'] = $item->transform(function($item){
-                unset($item->uri);
-                $item->is_checked = false;
-                return $item;
-            })->toArray();
-            return $data;
-        });
-        return response()->json([
-            'status' => true,
-            'message' => "",
-            'data' => [
-                'group' => null,
-                'routes' => UriResource::collection($saved_permissions),
-            ]
-        ]);
-    }
-
     /**
      * Store a newly created resource in storage.
      *
@@ -77,26 +54,7 @@ class GroupController extends Controller
 
     public function show(Group $group)
     {
-        $group_permissions = $group->permissions->pluck('id')->toArray();
-        $saved_permissions = $this->savedPermissions()->groupBy('uri')->map(function($item,$key) use($group_permissions){
-            $data['uri'] = $key;
-            $data['name'] = trans('dashboard.' . str_singular($key) . '.' . $key);
-            $data['permissions'] = $item->transform(function($item) use($group_permissions){
-                unset($item->uri);
-                $item->is_checked = in_array($item->id , $group_permissions);
-                return $item;
-            })->toArray();
-            return $data;
-        });
-
-        return response()->json([
-            'status' => true,
-            'message' => "",
-            'data' => [
-                'group' => GroupResource::make($group->load('translations','permissions','activity')),
-                'routes' => UriResource::collection($saved_permissions),
-            ]
-        ]);
+        return GroupResource::make($group->load('translations','permissions','activity'))->additional(['status' => true, 'message' => '']);
     }
     /**
      * Update the specified resource in storage.
@@ -151,7 +109,7 @@ class GroupController extends Controller
                 $saved_permissions[] = ['id' => $route->id,'named_uri' => $name , 'name' => trans('dashboard.' . str_singular(str_before($name,'.')) . '.' . str_after($name,'.'))];
             }
         }
-        return UriResource::collection($saved_permissions)->additional(['status' => true, 'message' => '']);
+        return UriResource::collection(array_except($saved_permissions,['name', 'named_uri']))->additional(['status' => true, 'message' => '']);
     }
 
 
@@ -160,9 +118,11 @@ class GroupController extends Controller
         return Permission::select('id','name')->get()->transform(function($item){
             $uri = str_before($item->name,'.');
             $single_uri = str_singular($uri);
+            $action = trans('dashboard.' . $single_uri . '.permissions.' . str_after($item->name,'.'));
             $item['uri'] = $uri;
             $item['named_uri'] = $item->name;
-            $item['name'] = trans('dashboard.' . $single_uri . '.' . $uri) . ' (' . trans('dashboard.' . $single_uri . '.permissions.' . str_after($item->name,'.')) . ')';
+            $item['name'] = trans('dashboard.' . $single_uri . '.' . $uri) . ' (' . $action . ')';
+            $item['action'] = $action;
             return $item;
         });
     }

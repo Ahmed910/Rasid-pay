@@ -130,6 +130,6 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::apiResource('activity_logs', 'ActivityController')->only(['index', 'show']);
 
 
-        Route::resource('groups', 'GroupController')->except('edit','destroy');
+        Route::resource('groups', 'GroupController')->except('create','edit','destroy');
     });
 });
