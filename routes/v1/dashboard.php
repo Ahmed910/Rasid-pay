@@ -113,6 +113,7 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::controller('ActivityController')->name('activity_logs.')->prefix('activity_logs')->group(function () {
             Route::get('departments', 'getDepartments')->name('departments');
             Route::get('employees', 'getEmployees')->name('employees');
+            Route::get('main-programs','ActivityController@getMainPrograms')->name('main_programs');
         });
 
 
