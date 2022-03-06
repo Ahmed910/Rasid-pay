@@ -27,7 +27,7 @@ class ActivityLog extends Model
     #region relationships
     public function user()
     {
-        return $this->belongsTo(User::class, 'user_id', 'id');
+        return $this->belongsTo(User::class);
     }
 
     public function auditable()
