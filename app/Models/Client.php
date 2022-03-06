@@ -2,11 +2,10 @@
 
 namespace App\Models;
 
+use App\Traits\Uuid;
+use Astrotomic\Translatable\Translatable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use App\Traits\Uuid;
-use Illuminate\Database\Eloquent\SoftDeletes;
-use Illuminate\Database\Query\Builder;
 
 class Client extends Model
 {
@@ -15,6 +14,8 @@ class Client extends Model
     #region properties
     protected $guarded = ['created_at', 'updated_at'];
     protected $dates = ['date_of_birth'];
+    public $translatedAttributes = ["client_type", "marital_status","nationality" ,"address","activity_type"];
+
     #endregion properties
 
     #region mutators
@@ -42,6 +43,7 @@ class Client extends Model
     {
         return $this->belongsTo(user::class);
     }
+
     #endregion relationships
 
     #region custom Methods

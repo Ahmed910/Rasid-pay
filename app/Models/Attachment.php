@@ -2,17 +2,16 @@
 
 namespace App\Models;
 
-use App\Traits\Uuid;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Traits\Uuid;
 
-class Manager extends Model
+class Attachment extends Model
 {
     use HasFactory, Uuid;
 
     #region properties
     protected $guarded = ['created_at', 'updated_at'];
-    protected $dates = ['date_of_birth'];
     #endregion properties
 
     #region mutators
@@ -22,9 +21,8 @@ class Manager extends Model
     #endregion scopes
 
     #region relationships
-    public function clients()
-    {
-        return $this->hasMany(Client::class);
+    public function user (){
+        return $this->belongsTo(User::class);
     }
     #endregion relationships
 

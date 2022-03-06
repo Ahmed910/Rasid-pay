@@ -106,6 +106,10 @@ Route::middleware('auth:sanctum')->group(function () {
             Route::delete('forceDelete/{id}', 'forceDelete')->name('force_delete');
         });
 
+        Route::controller('ActivityController')->name('activity_logs.')->prefix('activity_logs')->group(function () {
+            Route::get('departments', 'getDepartments')->name('departments');
+        });
+
 
         Route::apiResources([
             'countries' => 'CountryController',
@@ -121,6 +125,8 @@ Route::middleware('auth:sanctum')->group(function () {
         ]);
 
         Route::apiResource('settings', 'SettingController')->only(['index', 'store']);
+        Route::apiResource('activity_logs', 'ActivityController')->only(['index', 'show']);
+
 
         Route::resource('groups', 'GroupController')->except('edit','destroy');
     });

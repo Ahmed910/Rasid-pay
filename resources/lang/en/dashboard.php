@@ -30,7 +30,6 @@ return [
         'method_not_allow' => 'Http method (:method) not allowed',
         'not_found' => 'Model Not Found!',
         'page_not_found' => '404, Page not found!',
-        '403_msg' => 'Oops! You don\'t have access to it',
         'something_went_wrog' => 'The data entered is incorrect'
     ],
     'activity_log' => [
@@ -84,7 +83,7 @@ return [
         "settings" => "Settings",
         "add_setting" => "",
         "setting_count" => "",
-        'permissions' => array_only($permissions, ['index', 'store'])
+        'permissions' => $permissions
     ],
     "profile" => [
         "profile" => "Profile",
@@ -99,7 +98,7 @@ return [
         "add_admin" => "Add Admin",
         "edit_admin" => "Edit Admin",
         "admin_count" => "Admins Count",
-        'permissions' => array_except($permissions, ['archive', 'restore', 'force_delete']) + ['hold' => 'Hold', 'create' => 'Show Employees']
+        'permissions' => array_except($permissions, ['archive', 'restore', 'force_delete']) + ['create' => 'Show Admins']
     ],
     "region" => [
         "region" => "Region",
@@ -115,7 +114,7 @@ return [
         "add_employee" => "Add Employee",
         "edit_employee" => "Edit Employee",
         "employee_count" => "Employees Count",
-        'permissions' => array_except($permissions, ['archive', 'restore', 'force_delete']) + ['hold' => 'تعطيل']
+        'permissions' => array_except($permissions, ['archive', 'restore', 'force_delete'])+ ['create' => 'Show Employees']
     ],
     "bank" => [
         "bank" => "Bank",
@@ -132,15 +131,20 @@ return [
         'permissions' => ['store' => 'Notification']
     ],
     'contact' => [
-        'contact' => 'Support',
-        'contacts' => 'Support',
-        'permissions' =>
-        [
-            'index' => 'Record',
-            'show' => 'Show',
-            'reply' => 'Reply On Support Message',
-            'delete_contact' => 'Delete Support Message',
-            'delete_reply'   => 'Delete Support Reply',
-        ]
+        'contact'        => 'Support',
+        'contacts'       => 'Support',
+        'index'          => 'Support Messages',
+        'show'           => 'Show Support Message',
+        'reply'          => 'Reply On Support Message',
+        'delete_contact' => 'Delete Support Message',
+        'delete_reply'   => 'Delete Support Reply',
+    ],
+    "client" => [
+        "client" =>  "client",
+        "clients" => "clients",
+        "add_client" => "add_client",
+        "edit_client" => "edit_client",
+        "admin_client" => "admin_client",
+        'permissions' => array_except($permissions, ['archive', 'restore', 'force_delete']) + [ 'create' => 'Show Client']
     ],
 ];
