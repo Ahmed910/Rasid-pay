@@ -62,7 +62,7 @@ class AdminController extends Controller
         $permissions = $request->permission_list;
         if ($request->group_list) {
             $admin->groups()->sync($request->group_list);
-            $permissions = array_filter(array_merge($permissions, Group::find($request->group_list)->pluck('permissions')->pluck('id')->unique()->toArray()));
+            $permissions = array_filter(array_merge($permissions, Group::find($request->group_list)->pluck('permissions')->flatten()->pluck('id')->toArray()));
         }
         $admin->permissions()->sync($permissions);
         return UserResource::make($admin)
@@ -80,7 +80,7 @@ class AdminController extends Controller
         }])->findOrFail($id);
 
         $user->load(['permissions' => function($q) use($user){
-            $q->whereNotIn('permissions.id',$user->groups->pluck('permissions')->flatten()->pluck('id')->values()->toArray());
+            $q->whereNotIn('permissions.id',$user->groups->pluck('permissions')->flatten()->pluck('id')->toArray());
         }]);
         return UserResource::make($user)
             ->additional([
@@ -100,7 +100,7 @@ class AdminController extends Controller
         $permissions = $request->permission_list;
         if ($request->group_list) {
             $admin->groups()->sync($request->group_list);
-            $permissions = array_filter(array_merge($permissions, Group::find($request->group_list)->pluck('permissions')->pluck('id')->unique()->toArray()));
+            $permissions = array_filter(array_merge($permissions, Group::find($request->group_list)->pluck('permissions')->flatten()->pluck('id')->toArray()));
         }
         $admin->permissions()->sync($permissions);
 
