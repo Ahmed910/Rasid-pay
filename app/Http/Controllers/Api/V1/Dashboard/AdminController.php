@@ -75,12 +75,13 @@ class AdminController extends Controller
 
     public function show($id)
     {
-        $user = User::withTrashed()->where('user_type', 'admin')->with(['addedBy', 'country', 'permissions', 'groups' => function ($q) {
-            $q->with(['permissions' => function($q) use($user){
-                $q->whereNotIn('id',$user->groups->pluck('permissions')->pluck('id')->toArray());
-            }]);
+        $user = User::withTrashed()->where('user_type', 'admin')->with(['addedBy', 'country', 'groups' => function ($q) {
+            $q->with('permissions');
         }])->findOrFail($id);
 
+        $user->load(['permissions' => function($q) use($user){
+            $q->whereNotIn('id',$user->groups->pluck('permissions')->pluck('id')->toArray());
+        }]);
         return UserResource::make($user)
             ->additional([
                 'status' => true,
