@@ -48,6 +48,15 @@ class DepartmentController extends Controller
             ]);
     }
 
+    public function getAllDepartments()
+    {
+        return response()->json([
+                'data' => Department::ListsTranslations('name')->without(['images', 'addedBy'])->get(),
+                'status' => true,
+                'message' =>  '',
+            ]);
+    }
+
     public function create()
     {
         //
