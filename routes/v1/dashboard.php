@@ -17,6 +17,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::post('login', "Auth\LoginController@login");
 Route::post('send', "Auth\LoginController@sendCode");
+Route::post('resend_code', "Auth\LoginController@resendCode");
 Route::post('check_code', "Auth\LoginController@CheckResetCode");
 Route::post('reset_password', "Auth\LoginController@resetPassword");
 Route::post('otp_login', "Auth\LoginController@otpLogin");

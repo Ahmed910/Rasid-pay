@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Api\V1\Dashboard\Auth;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\V1\Dashboard\Auth\{LoginRequest, SendCodeRequest, LogoutRequest, ResetPasswordRequest, OTPLoginRequest, CheckResetCodeRequest};
+use App\Http\Requests\V1\Dashboard\Auth\{LoginRequest, SendCodeRequest, LogoutRequest, ResetPasswordRequest, OTPLoginRequest, CheckResetCodeRequest, ResendCodeRequest};
 use App\Http\Resources\Dashboard\UserResource;
 use App\Jobs\ExpireCodeJob;
 use App\Models\{Device, User};
@@ -65,6 +65,31 @@ class LoginController extends Controller
         }
         data_set($user, 'token', $token);
         return UserResource::make($user)->additional(['status' => true, 'message' => trans('auth.success_login', ['user' => $user->phone]) , 'login_code_required' => $login_code_required]);
+    }
+
+    public function resendCode(ResendCodeRequest $request)
+    {
+        $user = User::firstWhere('reset_token', $request->_token);
+        if (!$user) {
+            return response()->json(['status' => false, 'data' => null, 'message' => trans('auth.account_not_exists')], 422);
+        }
+        try {
+            if ($request->code_type == 'reset_code') {
+                $code = $this->generateCode($request, $user,'reset_code');
+                $user->update(['reset_code' => $code]);
+                return response()->json(['status' => true, 'data' => ['_token' => $user->reset_token], 'message' => trans('dashboard.general.success_send'), 'dev_message' => $code]);
+            } elseif($request->code_type == 'verified_code') {
+                $code = $this->generateCode($request, $user,'verified_code');
+                $user->update(['verified_code' => $code, 'is_active' => false]);
+                return response()->json(['status' => true, 'data' => ['_token' => $user->reset_token], 'message' => trans('dashboard.general.success_send'), 'dev_message' => $code]);
+            }else {
+                $code = $this->generateCode($request, $user,'verified_code');
+                $user->update(['verified_code' => $code, 'is_active' => false]);
+                return response()->json(['status' => true, 'data' => ['_token' => $user->reset_token], 'message' => trans('dashboard.general.success_send'), 'dev_message' => $code]);
+            }
+        } catch (\Exception $e) {
+            return response()->json(['status' => false, 'data' => null, 'message' => trans('auth.fail_send')], 422);
+        }
     }
 
     public function sendCode(SendCodeRequest $request)
