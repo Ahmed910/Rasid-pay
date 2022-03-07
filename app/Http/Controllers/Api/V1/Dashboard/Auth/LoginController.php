@@ -171,19 +171,21 @@ class LoginController extends Controller
 
     private function getCredentials(Request $request)
     {
-        $username = $request->username;
+        // $username = $request->username;
         $credentials = [];
-        switch ($username) {
-            case filter_var($username, FILTER_VALIDATE_EMAIL):
-                $username = 'email';
-                break;
-            case is_numeric($username) && strlen($username) > 6:
-                $username = 'phone';
-                break;
-            default:
-                $username = 'login_id';
-                break;
-        }
+        // switch ($username) {
+        //     case filter_var($username, FILTER_VALIDATE_EMAIL):
+        //         $username = 'email';
+        //         break;
+        //     case is_numeric($username) && strlen($username) > 6:
+        //         $username = 'phone';
+        //         break;
+        //     default:
+        //         $username = 'login_id';
+        //         break;
+        // }
+
+        $username = 'login_id';
         $credentials[$username] = $request->username;
         $credentials['password'] = $request->password;
         // $credentials['is_blacklist'] = 1;
