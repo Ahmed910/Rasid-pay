@@ -80,7 +80,7 @@ class AdminController extends Controller
         }])->findOrFail($id);
 
         $user->load(['permissions' => function($q) use($user){
-            $q->whereNotIn('permissions.id',$user->groups->pluck('permissions')->pluck('id')->toArray());
+            $q->whereNotIn('permissions.id',$user->groups->pluck('permissions')->flatten()->pluck('id')->values()->toArray());
         }]);
         return UserResource::make($user)
             ->additional([
