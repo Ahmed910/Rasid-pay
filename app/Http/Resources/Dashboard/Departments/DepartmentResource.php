@@ -24,6 +24,7 @@ class DepartmentResource extends JsonResource
                 $locales['translations'][$locale] = GlobalTransResource::make($this->translations->firstWhere('locale',$locale));
             }
         }
+        // dd($this->children_list);
         return [
             'id' => $this->id,
             'name' => $this->name,

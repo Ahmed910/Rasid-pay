@@ -113,7 +113,6 @@ class Department extends Model implements TranslatableContract, HasAssetsInterfa
     {
         return $this->belongsTo(User::class, 'added_by_id');
     }
-
     #endregion relationships
 
     #region custom Methods
