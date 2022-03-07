@@ -36,7 +36,7 @@ class AdminRequest extends ApiMasterRequest
             'ban_from' => 'nullable|required_if:ban_status,temporary|date',
             'ban_to' => 'nullable|required_if:ban_status,temporary|date',
             'group_list' => 'required_without:permission_list|array|min:1',
-            'group_list.*' => 'required_without:permission_list|exists:groups,id,is_active,1',
+            'group_list.*' => 'required_without:permission_list|exists:groups,id',
             'permission_list' => 'required_without:group_list|array|min:1',
             'permission_list.*' => 'required_without:group_list|exists:permissions,id',
         ] + $data;
