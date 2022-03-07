@@ -54,7 +54,11 @@ class GroupController extends Controller
 
     public function show(Group $group)
     {
-        return GroupResource::make($group->load('translations','permissions','activity'))->additional(['status' => true, 'message' => '']);
+        $group->load('translations','activity',['permissions' => function($q) use($group){
+            $q->whereNotIn('permissions.id',$group->pluck('permissions')->pluck('id')->toArray());
+        }]);
+
+        return GroupResource::make($group)->additional(['status' => true, 'message' => '']);
     }
     /**
      * Update the specified resource in storage.
