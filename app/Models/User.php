@@ -111,8 +111,9 @@ class User extends Authenticatable implements HasAssetsInterface
     }
     public function department()
     {
-        return $this->belongsTo(Department::class);
+        return $this->hasOneThrough(Department::class,Employee::class,'user_id','id','id','department_id');
     }
+
     public function client()
     {
         return $this->hasOne(Client::class);
