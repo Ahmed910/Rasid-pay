@@ -74,6 +74,7 @@ trait Loggable
      */
     public function addGlobalActivity($item, array $logs, string $event)
     {
+        if (!count($logs)) return;
         $activity = [];
         $activity['auditable_type'] = class_basename($item);
         $activity['url'] = Request::fullUrl();
