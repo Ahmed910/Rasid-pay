@@ -18,7 +18,7 @@ class DepartmentController extends Controller
             ->ListsTranslations('name')
             ->addSelect('created_at', 'is_active', 'parent_id', 'added_by_id')
             ->sortBy($request)
-            ->paginate((int)($request->per_page ?? 15));
+            ->paginate((int)($request->per_page ?? config("globals.per_page")));
 
         return DepartmentResource::collection($departments)
             ->additional([
@@ -93,9 +93,8 @@ class DepartmentController extends Controller
 
     public function update(DepartmentRequest $request, Department $department)
     {
-        $department->fill($request->validated());
-        $department->updated_at = now();
-        $department->save();
+        $department->fill($request->validated() + ['updated_at' => now()])->save();
+
 
         return DepartmentResource::make($department)
             ->additional([

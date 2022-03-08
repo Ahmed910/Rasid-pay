@@ -25,7 +25,7 @@ class ProfileController extends Controller
     public function update(ProfileRequest $request)
     {
         $user = auth()->user();
-        $user->fill($request->validated())->save();
+        $user->fill($request->validated()+['updated_at'=>now()])->save();
 
         return ProfileResource::make($user)
             ->additional([
@@ -38,7 +38,7 @@ class ProfileController extends Controller
     public function changePassword(ChangePasswordRequest $request)
     {
         $user = auth()->user();
-        $user->fill($request->validated())->save();
+        $user->fill($request->validated()+['updated_at'=>now()])->save();
 
         return ProfileResource::make($user)
             ->additional([

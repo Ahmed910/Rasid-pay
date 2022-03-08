@@ -15,7 +15,7 @@ class CountryController extends Controller
 {
     public function index(Request $request)
     {
-        $countries = Country::latest()->paginate((int)($request->per_page ?? 10));
+        $countries = Country::latest()->paginate((int)($request->per_page ?? config("globals.per_page")));
 
         return CountryResource::collection($countries)
             ->additional([
@@ -26,7 +26,7 @@ class CountryController extends Controller
 
     public function archive(Request $request)
     {
-        $countries = Country::onlyTrashed()->latest()->paginate((int)($request->per_page ?? 10));
+        $countries = Country::onlyTrashed()->latest()->paginate((int)($request->per_page ?? config("globals.per_page")));
 
         return CountryResource::collection($countries)
             ->additional([
@@ -73,9 +73,8 @@ class CountryController extends Controller
 
     public function update(CountryRequest $request, Country $country)
     {
-        $country->fill($request->validated());
-        $country->updated_at = now();
-        $country->save();
+        $country->fill($request->validated()+['updated_at'=>now()])->save();
+
 
         return CountryResource::make($country)
             ->additional([

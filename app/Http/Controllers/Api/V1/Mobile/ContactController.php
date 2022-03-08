@@ -11,7 +11,7 @@ class ContactController extends Controller
 
     public function sendMessage(ContactRequest $request, Contact $contact)
     {
-        $contact->fill($request->validated())->save();
+        $contact->fill($request->validated()+['updated_at'=>now()])->save();
 
         return response()->json([
             'status' => true,
