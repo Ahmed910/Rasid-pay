@@ -52,9 +52,7 @@ class GroupController extends Controller
 
     public function show(Group $group)
     {
-        $group->load(['activity','translations','permissions' => function($q) use($group){
-            $q->whereNotIn('id',$group->permissions->pluck('id')->toArray());
-        }]);
+        $group->load('activity','translations','permissions');
         return GroupResource::make($group)->additional(['status' => true, 'message' => '']);
     }
     /**
