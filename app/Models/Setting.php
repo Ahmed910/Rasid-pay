@@ -11,7 +11,7 @@ class Setting extends Model
 {
     use HasFactory, Uuid, Loggable;
 
-    protected $guarded = ['created_at', 'updated_at', 'deleted_at'];
+    protected $guarded = ['created_at','deleted_at'];
     protected $casts   = ['value' => 'array'];
 
     const TEXT_AREA = "textarea";

@@ -20,7 +20,7 @@ class Currency extends Model implements TranslatableContract
     use HasFactory, Uuid, Translatable, SoftDeletes, Loggable;
 
     #region properties
-    protected $guarded = ['created_at', 'updated_at', 'deleted_at'];
+    protected $guarded = ['created_at','deleted_at'];
     public $translatedAttributes = ['name'];
     #endregion properties
 

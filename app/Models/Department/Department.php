@@ -24,7 +24,7 @@ class Department extends Model implements TranslatableContract, HasAssetsInterfa
 
 
     #region properties
-    protected $guarded = ['created_at', 'updated_at', 'deleted_at'];
+    protected $guarded = ['created_at','deleted_at'];
     public $translatedAttributes = ['name', 'description'];
     public $assets = ["image"];
     public $with   = ["images", "addedBy"];
