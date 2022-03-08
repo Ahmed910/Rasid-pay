@@ -14,6 +14,7 @@ class SimpleUserResource extends JsonResource
      */
     public function toArray($request)
     {
+        // dd($this->department);
         return [
             'id' => $this->id,
             'fullname' => $this->fullname,
@@ -21,6 +22,10 @@ class SimpleUserResource extends JsonResource
             'date_of_birth' => $this->date_of_birth,
             'created_at' => $this->created_at,
             'attachments' => AttachmentResource::collection($this->whenLoaded('attachments')),
+            'department' => $this->department ? [
+                'id' => $this->department->id,
+                'name' => $this->department->name
+            ] : null,
 
         ];
     }
