@@ -28,6 +28,8 @@ class GroupRequest extends ApiMasterRequest
             'is_active'=>'required|in:1,0',
             'permission_list'=>'required|array',
             'permission_list.*'=>'required|string|exists:permissions,id'
+            'group_list'=>'required|array',
+            'group_list.*'=>'required|string|exists:groups,id'
         ];
 
         foreach (config('translatable.locales') as $locale) {

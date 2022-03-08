@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Api\V1\Dashboard;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\V1\Dashboard\AdminRequest;
 use App\Http\Requests\V1\Dashboard\ReasonRequest;
-use App\Http\Resources\Dashboard\UserResource;
+use App\Http\Resources\Dashboard\{UserResource, Admin\AdminCollection};
 use App\Models\{User, Group\Group};
 use App\Models\Department\Department;
 use Illuminate\Http\Request;
@@ -72,20 +72,23 @@ class AdminController extends Controller
             ]);
     }
 
-
-    public function show($id)
+    public function show(Request $request, $id)
     {
-        $user = User::withTrashed()->where('user_type', 'admin')->with(['addedBy', 'country', 'groups' => function ($q) {
+        $admin = User::withTrashed()->where('user_type', 'admin')->with(['addedBy', 'country', 'groups' => function ($q) {
             $q->with('permissions');
         }])->findOrFail($id);
 
-        $user->load(['permissions' => function($q) use($user){
-            $q->whereNotIn('permissions.id',$user->groups->pluck('permissions')->flatten()->pluck('id')->toArray());
+        $admin->load(['permissions' => function($q) use($admin){
+            $q->whereNotIn('permissions.id',$admin->groups->pluck('permissions')->flatten()->pluck('id')->toArray());
         }]);
-        return UserResource::make($user)
+
+        $activities  = $admin->activity()->paginate((int)($request->per_page ?? 15));
+        data_set($activities,'admin',$admin);
+
+        return AdminCollection::make($activities)
             ->additional([
                 'status' => true,
-                'message' =>  '',
+                'message' => ''
             ]);
     }
 
