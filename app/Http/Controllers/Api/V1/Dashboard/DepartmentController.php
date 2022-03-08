@@ -14,6 +14,7 @@ class DepartmentController extends Controller
     public function index(Request $request)
     {
         $departments = Department::search($request)
+            ->CustomDateFromTo($request)
             ->with('parent.translations')
             ->ListsTranslations('name')
             ->addSelect('created_at', 'is_active', 'parent_id', 'added_by_id')
@@ -50,10 +51,10 @@ class DepartmentController extends Controller
     public function getAllDepartments()
     {
         return response()->json([
-                'data' => Department::ListsTranslations('name')->without(['images', 'addedBy'])->get(),
-                'status' => true,
-                'message' =>  '',
-            ]);
+            'data' => Department::ListsTranslations('name')->without(['images', 'addedBy'])->get(),
+            'status' => true,
+            'message' =>  '',
+        ]);
     }
 
     public function create()
@@ -76,7 +77,7 @@ class DepartmentController extends Controller
     {
         $department = Department::withTrashed()->with('translations')->findOrFail($id);
         $activities  = $department->activity()->paginate((int)($request->per_page ?? 15));
-        data_set($activities,'department',$department);
+        data_set($activities, 'department', $department);
 
         return DepartmentCollection::make($activities)
             ->additional([
