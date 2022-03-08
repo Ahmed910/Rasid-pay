@@ -8,8 +8,8 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Department\Department;
 use App\Http\Resources\Dashboard\ActivityLogResource;
-use App\Http\Resources\Dashboard\Departments\ParentResource;
 use App\Http\Resources\Dashboard\SimpleEmployeeResource;
+use App\Http\Resources\Dashboard\OnlyResource;
 use App\Providers\AppServiceProvider;
 use Illuminate\Support\Str;
 
@@ -44,7 +44,7 @@ class ActivityController extends Controller
             ->ListsTranslations("name")
             ->get();
 
-        return ParentResource::collection($departments)
+        return OnlyResource::collection($departments)
             ->additional([
                 'status' => true,
                 'message' => "",
@@ -76,6 +76,6 @@ class ActivityController extends Controller
             return $data;
         })->values();
 
-        return ParentResource::collection($mainPrograms);
+        return OnlyResource::collection($mainPrograms);
     }
 }
