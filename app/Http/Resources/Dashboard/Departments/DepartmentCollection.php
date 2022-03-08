@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Resources\Dashboard\RasidJob;
+namespace App\Http\Resources\Dashboard\Departments;
 
 use App\Http\Resources\Dashboard\ActivityLogResource;
 use Illuminate\Http\Resources\Json\ResourceCollection;
@@ -16,7 +16,7 @@ class RasidJobCollection extends ResourceCollection
     public function toArray($request)
     {
         return [
-            'job' => RasidJobResource::make($this->collection['job']),
+            'department' => DepartmentResource::make($this->collection['department']),
             'activity' => ActivityLogResource::collection($this->collection->except('job'))
         ];
     }

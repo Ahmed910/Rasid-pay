@@ -5,8 +5,7 @@ namespace App\Http\Controllers\Api\V1\Dashboard;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\V1\Dashboard\DepartmentRequest;
 use App\Http\Requests\V1\Dashboard\ReasonRequest;
-use App\Http\Resources\Dashboard\Departments\DepartmentResource;
-use App\Http\Resources\Dashboard\Departments\ParentResource;
+use App\Http\Resources\Dashboard\Departments\{DepartmentResource, DepartmentCollection, ParentResource};
 use App\Models\Department\Department;
 use Illuminate\Http\Request;
 
@@ -76,12 +75,24 @@ class DepartmentController extends Controller
 
     public function show($id)
     {
-        $department =  Department::with('activity')->withTrashed()->findOrFail($id);
 
         return DepartmentResource::make($department->load('translations'))
             ->additional([
                 'status' => true,
                 'message' => trans("dashboard.general.show")
+            ]);
+    }
+
+    public function show(Request $request, $id)
+    {
+        $department = Department::withTrashed()->with('translations')->findOrFail($id);
+        $activities  = $department->activity()->paginate((int)($request->per_page ?? 15));
+        data_set($activities,'department',$department);
+
+        return DepartmentCollection::make($activities)
+            ->additional([
+                'status' => true,
+                'message' => ''
             ]);
     }
 
