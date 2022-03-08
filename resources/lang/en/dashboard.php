@@ -82,6 +82,9 @@ return [
         "validation" => [
             'name_must_be_unique_on_department' => 'The job title was previously selected for the same department'
         ],
+
+       "jobs_hired_deleted" => " can't delete this job ",
+       "jobs_hired_archived" => " can't archive this job ",
         'permissions' => $permissions
     ],
     "setting" => [
