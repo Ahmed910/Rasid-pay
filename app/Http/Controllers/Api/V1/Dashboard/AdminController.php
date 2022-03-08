@@ -59,11 +59,11 @@ class AdminController extends Controller
         $admin = User::where('user_type', 'employee')->findOrFail($request->employee_id);
         $admin->update(['user_type' => 'admin', 'password' => $request->password, 'added_by_id' => auth()->id(), 'is_login_code' => $request->is_login_code, 'login_id' => $request->login_id]);
         //TODO::send sms with password
-        $permissions = $request->permission_list;
+        $permissions = $request->permission_list ?? [];
         if ($request->group_list) {
             $admin->groups()->sync($request->group_list);
             $permissions = array_filter(array_merge($permissions, Group::find($request->group_list)->pluck('permissions')->flatten()->pluck('id')->toArray()));
-        }
+        }        
         $admin->permissions()->sync($permissions);
         return UserResource::make($admin)
             ->additional([
@@ -100,7 +100,7 @@ class AdminController extends Controller
 
         //TODO::send sms with password
         // if($request->('password_change'))
-        $permissions = $request->permission_list;
+        $permissions = $request->permission_list ?? [];
         if ($request->group_list) {
             $admin->groups()->sync($request->group_list);
             $permissions = array_filter(array_merge($permissions, Group::find($request->group_list)->pluck('permissions')->flatten()->pluck('id')->toArray()));
