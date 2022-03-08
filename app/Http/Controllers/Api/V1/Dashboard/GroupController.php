@@ -32,7 +32,7 @@ class GroupController extends Controller
      */
     public function index(Request $request)
     {
-        $groups = Group::with('permissions')->withTranslation()->search($request)->latest()->paginate((int)($request->per_page ?? 15));
+        $groups = Group::with('groups','permissions')->withTranslation()->search($request)->latest()->paginate((int)($request->per_page ?? 15));
 
         return GroupResource::collection($groups)->additional(['status' => true, 'message' => ""]);
     }
@@ -46,13 +46,21 @@ class GroupController extends Controller
     public function store(GroupRequest $request , Group $group)
     {
         $group->fill($request->validated() + ['added_by_id' => auth()->id()])->save();
-        $group->permissions()->sync($request->permission_list);
+        $permissions = $request->permission_list ?? [];
+        if ($request->group_list) {
+            $group->groups()->sync($request->group_list);
+            $permissions = array_filter(array_merge($permissions, Group::find($request->group_list)->pluck('permissions')->flatten()->pluck('id')->toArray()));
+        }
+        $group->permissions()->sync($permissions);
         return GroupResource::make($group)->additional(['status' => true, 'message' => trans('dashboard.general.success_add')]);
     }
 
     public function show(Group $group)
     {
-        $group->load('activity','translations','permissions');
+        $group->load(['activity','translations','groups','permissions' => function ($q) use($group) {
+            $q->whereNotIn('permissions.id',$group->permissions->pluck('id')->toArray());
+        }]);
+
         return GroupResource::make($group)->additional(['status' => true, 'message' => '']);
     }
     /**
@@ -65,7 +73,12 @@ class GroupController extends Controller
     public function update(GroupRequest $request, Group $group)
     {
         $group->fill($request->validated())->save();
-        $group->permissions()->sync($request->permission_list);
+        $permissions = $request->permission_list ?? [];
+        if ($request->group_list) {
+            $group->groups()->sync($request->group_list);
+            $permissions = array_filter(array_merge($permissions, Group::find($request->group_list)->pluck('permissions')->flatten()->pluck('id')->toArray()));
+        }
+        $group->permissions()->sync($permissions);
         return GroupResource::make($group)->additional(['status' => true, 'message' => trans('dashboard.general.success_update')]);
     }
 
@@ -125,6 +138,16 @@ class GroupController extends Controller
             return $item;
         });
     }
+
+    public function getGroups()
+    {
+        return response()->json([
+                'data' => Group::ListsTranslations('name')->without(['addedBy'])->get(),
+                'status' => true,
+                'message' =>  '',
+            ]);
+    }
+
 
 
 }

@@ -41,6 +41,7 @@ Route::middleware('auth:sanctum')->group(function () {
     });
     Route::post('settings/create-setting','SettingController@createSetting');
     Route::get('all-departments', 'DepartmentController@getAllDepartments');
+    Route::get('all-groups', 'GroupController@getGroups');
     Route::get('all-jobs/{department}', 'RasidJobController@getVacantJobs');
 
     Route::middleware('adminPermission')->group(function () {
