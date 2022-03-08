@@ -62,8 +62,4 @@ class ActivityController extends Controller
             ]);
     }
 
-
-
-
-
 }

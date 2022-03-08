@@ -5,7 +5,8 @@ namespace App\Http\Controllers\Api\V1\Dashboard;
 use Illuminate\Http\Request;
 use App\Models\RasidJob\RasidJob;
 use App\Http\Controllers\Controller;
-use App\Http\Resources\Dashboard\RasidJobResource;
+use App\Http\Resources\Dashboard\RasidJob\{RasidJobResource, RasidJobCollection};
+use App\Http\Resources\Dashboard\ActivityLogResource;
 use App\Http\Requests\V1\Dashboard\RasidJobRequest;
 use App\Http\Requests\V1\Dashboard\ReasonRequest;
 
@@ -39,7 +40,9 @@ class RasidJobController extends Controller
 
     public function show($id)
     {
-        $rasidJob  = RasidJob::with('activity')->withTrashed()->findOrFail($id);
+        $rasidJob  = RasidJob::withTrashed()->findOrFail($id);
+        $activities  = $rasidJob->activity()->paginate();
+        $rasidJob->extra = ActivityLogResource::collection($activities);
 
         return RasidJobResource::make($rasidJob)
             ->additional([
