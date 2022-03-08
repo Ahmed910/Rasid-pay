@@ -32,7 +32,7 @@ class GroupController extends Controller
      */
     public function index(Request $request)
     {
-        $groups = Group::with('permissions')->withTranslation()->translatedIn(app()->getLocale())->search($request)->latest()->paginate((int)($request->per_page ?? 15));
+        $groups = Group::with('permissions')->withTranslation()->search($request)->latest()->paginate((int)($request->per_page ?? 15));
 
         return GroupResource::collection($groups)->additional(['status' => true, 'message' => ""]);
     }
@@ -50,12 +50,11 @@ class GroupController extends Controller
         return GroupResource::make($group)->additional(['status' => true, 'message' => trans('dashboard.general.success_add')]);
     }
 
-    public function show($id)
+    public function show(Group $group)
     {
-        $group = Group::with('activity',['permissions' => function($q) use($group){
-            $q->whereNotIn('permissions.id',$group->pluck('permissions')->pluck('id')->toArray());
-        }])->withTranslation()->findOrFail($id);
-
+        $group->load(['activity','translations','permissions' => function($q) use($group){
+            $q->whereNotIn('id',$group->permissions->pluck('id')->toArray());
+        }]);
         return GroupResource::make($group)->additional(['status' => true, 'message' => '']);
     }
     /**
