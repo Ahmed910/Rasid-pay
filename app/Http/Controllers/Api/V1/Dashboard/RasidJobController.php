@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Api\V1\Dashboard;
 use Illuminate\Http\Request;
 use App\Models\RasidJob\RasidJob;
 use App\Http\Controllers\Controller;
-use App\Http\Resources\Dashboard\RasidJobResource;
+use App\Http\Resources\Dashboard\RasidJob\{RasidJobResource, RasidJobCollection};
 use App\Http\Requests\V1\Dashboard\RasidJobRequest;
 use App\Http\Requests\V1\Dashboard\ReasonRequest;
 
@@ -14,7 +14,7 @@ class RasidJobController extends Controller
 
     public function index(Request $request)
     {
-        $rasidJobs = RasidJob::search($request)->latest()->paginate((int)($request->per_page ?? 10));
+        $rasidJobs = RasidJob::search($request)->latest()->paginate((int)($request->per_page ?? config("globals.per_page")));
 
         return RasidJobResource::collection($rasidJobs)
             ->additional([
@@ -37,11 +37,12 @@ class RasidJobController extends Controller
     }
 
 
-    public function show($id)
+    public function show(Request $request, $id)
     {
-        $rasidJob  = RasidJob::with('activity')->withTrashed()->findOrFail($id);
-
-        return RasidJobResource::make($rasidJob)
+        $rasidJob  = RasidJob::withTrashed()->with('translations')->findOrFail($id);
+        $activities  = $rasidJob->activity()->paginate((int)($request->per_page ?? 15));
+        data_set($activities,'job',$rasidJob);
+        return RasidJobCollection::make($activities)
             ->additional([
                 'status' => true,
                 'message' => trans("dashboard.general.show")
@@ -51,9 +52,8 @@ class RasidJobController extends Controller
 
     public function update(RasidJobRequest $request, RasidJob $rasidJob)
     {
-        $rasidJob->fill($request->validated());
-        $rasidJob->updated_at = now();
-        $rasidJob->save();
+        $rasidJob->fill($request->validated() + ['updated_at' => now()])->save();
+
 
         return RasidJobResource::make($rasidJob)
             ->additional([
@@ -67,7 +67,7 @@ class RasidJobController extends Controller
     public function archive(Request $request)
     {
         $rasidJobs = RasidJob::onlyTrashed()->latest()
-            ->paginate((int)($request->per_page ?? 10));
+            ->paginate((int)($request->per_page ?? config("globals.per_page")));
 
         return RasidJobResource::collection($rasidJobs)
             ->additional([
@@ -79,7 +79,7 @@ class RasidJobController extends Controller
 
 
 
-    public function restore(ReasonRequest $request,$id)
+    public function restore(ReasonRequest $request, $id)
     {
 
         $rasidJob = RasidJob::onlyTrashed()->findOrFail($id);
@@ -95,10 +95,23 @@ class RasidJobController extends Controller
     }
 
 
-    public function destroy(ReasonRequest $request,RasidJob $rasidJob)
+    public function destroy( RasidJob $rasidJob)
     {
 
+        if(!$rasidJob->is_vacant){
+
+            return response()->json([
+                'status' => false,
+                'message' => trans("dashboard.rasid_job.jobs_hired_archived"),
+                'data' => null
+            ], 422);
+
+
+        }
+
         $rasidJob->delete();
+
+
 
         return RasidJobResource::make($rasidJob)
             ->additional([
@@ -107,10 +120,22 @@ class RasidJobController extends Controller
             ]);
     }
 
-    public function forceDelete(ReasonRequest $request,$id)
+    public function forceDelete($id)
     {
 
         $rasidJob = RasidJob::onlyTrashed()->findOrFail($id);
+
+        if(!$rasidJob->is_vacant){
+
+            return response()->json([
+                'status' => false,
+                'message' => trans("dashboard.rasid_job.jobs_hired_deleted"),
+                'data' => null
+            ], 422);
+
+
+        }
+
         $rasidJob->forceDelete();
 
         return RasidJobResource::make($rasidJob)
@@ -121,5 +146,13 @@ class RasidJobController extends Controller
     }
 
 
-
+    public function getVacantJobs($id)
+    {
+        return response()->json([
+                'data' => RasidJob::where(['department_id' => $id , 'is_vacant' => true])->ListsTranslations('name')
+                        ->without(['images', 'addedBy'])->get(),
+                'status' => true,
+                'message' =>  '',
+            ]);
+    }
 }

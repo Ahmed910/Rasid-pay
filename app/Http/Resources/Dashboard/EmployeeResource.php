@@ -4,6 +4,7 @@ namespace App\Http\Resources\Dashboard;
 
 use App\Http\Resources\Dashboard\AdditionalEmployeeResource;
 use App\Http\Resources\Dashboard\Departments\DepartmentResource;
+use App\Http\Resources\Dashboard\RasidJob\RasidJobResource;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class EmployeeResource extends JsonResource

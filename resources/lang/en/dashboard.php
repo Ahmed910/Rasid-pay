@@ -70,6 +70,7 @@ return [
         "add_department" => "",
         "edit_department" => "",
         "department_count" => "",
+        "department_has_relationship_cannot_delete" => "This department has sub department ,so you cannot delete it",
         'permissions' => $permissions + ['get_parents' => 'Show main departments']
     ],
     "rasid_job" => [
@@ -81,6 +82,9 @@ return [
         "validation" => [
             'name_must_be_unique_on_department' => 'The job title was previously selected for the same department'
         ],
+
+       "jobs_hired_deleted" => " can't delete this job ",
+       "jobs_hired_archived" => " can't archive this job ",
         'permissions' => $permissions
     ],
     "setting" => [
@@ -152,4 +156,19 @@ return [
         "admin_client" => "admin_client",
         'permissions' => array_except($permissions, ['archive', 'restore', 'force_delete']) + [ 'create' => 'Show Client']
     ],
+    'user' => [
+        'users' => 'Users'
+    ],
+    'chat' => [
+        'chats' => 'Chats'
+    ],
+    'device' => [
+        'devices' => 'Devices'
+    ],
+    'message' => [
+        'messages' => 'Messages'
+    ],
+    'permission' => [
+        'permissions' => 'Permissions'
+    ]
 ];

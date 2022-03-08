@@ -14,7 +14,7 @@ class CityController extends Controller
 
     public function index(Request $request)
     {
-        $city = City::latest()->paginate((int)($request->per_page ?? 15));
+        $city = City::latest()->paginate((int)($request->per_page ?? config("globals.per_page")));
 
         return CityResource::collection($city)
             ->additional([
@@ -25,7 +25,7 @@ class CityController extends Controller
 
     public function archive(Request $request)
     {
-        $cities = City::onlyTrashed()->latest()->paginate((int)($request->per_page ?? 10));
+        $cities = City::onlyTrashed()->latest()->paginate((int)($request->per_page ?? config("globals.per_page")));
 
         return CityResource::collection($cities)
             ->additional([
@@ -61,9 +61,7 @@ class CityController extends Controller
 
     public function update(CityRequest $request, City $city)
     {
-        $city->fill($request->validated())->save();
-        $city->updated_at = now();
-        $city->save();
+        $city->fill($request->validated() + ['updated_at' => now()])->save();
 
 
         return CityResource::make($city)
@@ -75,7 +73,7 @@ class CityController extends Controller
 
 
     //soft delete (archive)
-    public function destroy(ReasonRequest $request,City $city)
+    public function destroy(ReasonRequest $request, City $city)
     {
 
         $city->delete();
@@ -88,7 +86,7 @@ class CityController extends Controller
     }
 
 
-    public function restore(ReasonRequest $request,$id)
+    public function restore(ReasonRequest $request, $id)
     {
         $city = City::onlyTrashed()->findOrFail($id);
         $city->restore();
@@ -100,7 +98,7 @@ class CityController extends Controller
             ]);
     }
 
-    public function forceDelete(ReasonRequest $request,$id)
+    public function forceDelete(ReasonRequest $request, $id)
     {
 
         $city = City::onlyTrashed()->findOrFail($id);
@@ -112,6 +110,4 @@ class CityController extends Controller
                 'message' =>  __('dashboard.general.success_delete')
             ]);
     }
-
-
 }

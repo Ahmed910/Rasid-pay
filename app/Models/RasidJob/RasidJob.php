@@ -19,10 +19,10 @@ class RasidJob extends Model implements TranslatableContract
     use HasFactory, Uuid, Translatable, SoftDeletes, Loggable;
 
     #region properties
-    protected $guarded = ['created_at', 'updated_at', 'deleted_at'];
+    protected $guarded = ['created_at','deleted_at'];
     public $translatedAttributes = ['name', 'description'];
     public $attributes = ['is_active' => false, 'is_vacant' =>  true];
-    protected $with = ['translations','addedBy','department'];
+    protected $with = ['translations', 'addedBy', 'department'];
     #endregion properties
 
     #region mutators
@@ -31,9 +31,12 @@ class RasidJob extends Model implements TranslatableContract
     #region scopes
     public function scopeSearch(Builder $query, $request)
     {
+        $this->addGlobalActivity($this, $request->query(), 'Searched');
+
         if ($request->name) {
-            $query->where(function ($q) use($requst) {
-                $q->whereTranslationLike('name', "%$request->name%")->orWhereTranslationLike('description', "%$request->name%");
+            $query->where(function ($q) use ($request) {
+                $q->whereTranslationLike('name', "%$request->name%")
+                    ->orWhereTranslationLike('description', "%$request->name%");
             });
         }
 

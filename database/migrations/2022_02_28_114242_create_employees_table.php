@@ -17,7 +17,7 @@ class CreateEmployeesTable extends Migration
             $table->uuid("id")->primary();
             $table->foreignUuid('user_id')->constrained('users')->onDelete('cascade');
             $table->foreignUuid('department_id')->nullable()->constrained('departments')->onDelete('set null');
-            $table->foreignUuid('rasid_jobs_id')->nullable()->constrained('rasid_jobs')->onDelete('set null');
+            $table->foreignUuid('rasid_job_id')->nullable()->constrained('rasid_jobs')->onDelete('set null');
             $table->enum('contract_type', ['salary', 'salary_with_percent', 'percent'])->default('salary');
             $table->float('salary', 10, 2)->nullable();
             $table->string('qr_path')->nullable();

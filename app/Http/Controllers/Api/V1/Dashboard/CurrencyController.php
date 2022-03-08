@@ -15,7 +15,7 @@ class CurrencyController extends Controller
 
     public function index(Request $request)
     {
-        $currencies = Currency::latest()->paginate((int)($request->per_page ?? 10));
+        $currencies = Currency::latest()->paginate((int)($request->per_page ?? config("globals.per_page")));
 
         return CurrencyResource::collection($currencies)
             ->additional([
@@ -26,7 +26,7 @@ class CurrencyController extends Controller
 
     public function archive(Request $request)
     {
-        $currencies = Currency::onlyTrashed()->latest()->paginate((int)($request->per_page ?? 10));
+        $currencies = Currency::onlyTrashed()->latest()->paginate((int)($request->per_page ?? config("globals.per_page")));
 
         return CurrencyResource::collection($currencies)
             ->additional([
@@ -75,7 +75,7 @@ class CurrencyController extends Controller
 
     public function update(CurrencyRequest $request, Currency $currency)
     {
-        $currency->fill($request->validated());
+        $currency->fill($request->validated()+['updated_at'=>now()])->save();
         $currency->updated_at=now();
         $currency->save();
 

@@ -20,7 +20,7 @@ class MenuController extends Controller
     {
         $menus = Menu::with('children')->parent()->oldest('order')->get();
         $filtered = $menus->filter(function($item){
-            return auth()->user()->hasPermissions($item->uri) && $item->children->count();            
+            return auth()->user()->hasPermissions($item->uri) && $item->children->count();
         });
 
         return MenuCollection::make($filtered)->additional([
@@ -31,7 +31,7 @@ class MenuController extends Controller
 
     public function store(MenuRequest $request,Menu $menu)
     {
-        $menu->fill($request->validated())->save();
+        $menu->fill($request->validated()+['updated_at'=>now()])->save();
 
         return MenuResource::make($menu)->additional([
             'status' => true,

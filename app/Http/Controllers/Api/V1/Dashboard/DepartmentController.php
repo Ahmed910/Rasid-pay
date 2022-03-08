@@ -5,8 +5,7 @@ namespace App\Http\Controllers\Api\V1\Dashboard;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\V1\Dashboard\DepartmentRequest;
 use App\Http\Requests\V1\Dashboard\ReasonRequest;
-use App\Http\Resources\Dashboard\Departments\DepartmentResource;
-use App\Http\Resources\Dashboard\Departments\ParentResource;
+use App\Http\Resources\Dashboard\Departments\{DepartmentResource, DepartmentCollection, ParentResource};
 use App\Models\Department\Department;
 use Illuminate\Http\Request;
 
@@ -19,7 +18,7 @@ class DepartmentController extends Controller
             ->ListsTranslations('name')
             ->addSelect('created_at', 'is_active', 'parent_id', 'added_by_id')
             ->sortBy($request)
-            ->paginate((int)($request->per_page ?? 15));
+            ->paginate((int)($request->per_page ?? config("globals.per_page")));
 
         return DepartmentResource::collection($departments)
             ->additional([
@@ -73,15 +72,16 @@ class DepartmentController extends Controller
             ]);
     }
 
-
-    public function show($id)
+    public function show(Request $request, $id)
     {
-        $department =  Department::with('activity')->withTrashed()->findOrFail($id);
+        $department = Department::withTrashed()->with('translations')->findOrFail($id);
+        $activities  = $department->activity()->paginate((int)($request->per_page ?? 15));
+        data_set($activities,'department',$department);
 
-        return DepartmentResource::make($department->load('translations'))
+        return DepartmentCollection::make($activities)
             ->additional([
                 'status' => true,
-                'message' => trans("dashboard.general.show")
+                'message' => ''
             ]);
     }
 
@@ -93,9 +93,8 @@ class DepartmentController extends Controller
 
     public function update(DepartmentRequest $request, Department $department)
     {
-        $department->fill($request->validated());
-        $department->updated_at = now();
-        $department->save();
+        $department->fill($request->validated() + ['updated_at' => now()])->save();
+
 
         return DepartmentResource::make($department)
             ->additional([
@@ -118,7 +117,7 @@ class DepartmentController extends Controller
         if ($department->children()->exists()) {
             return response()->json([
                 'status' => false,
-                'message' => trans("dashboard.general.has_relationship_cannot_delete"),
+                'message' => trans("dashboard.department.department_has_relationship_cannot_delete"),
                 'data' => null
             ], 422);
         }
@@ -173,7 +172,7 @@ class DepartmentController extends Controller
         if ($department->children()->exists()) {
             return response()->json([
                 'status' => false,
-                'message' => ['error' => trans("dashboard.general.has_relationship_cannot_delete")],
+                'message' => ['error' => trans("dashboard.department.department_has_relationship_cannot_delete")],
                 'data' => null
             ], 422);
         }

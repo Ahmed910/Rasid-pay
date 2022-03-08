@@ -50,17 +50,41 @@ trait Loggable
      */
     private function addUserActivity($item, string $event)
     {
+        $item->activity()->create([
+            'url'         => Request::fullUrl(),
+            'old_data'    => $this->oldData($item),
+            'new_data'    => $this->newData($item),
+            'action_type' => $event,
+            'ip_address'  => Request::ip(),
+            'agent'       => Request::header('user-agent'),
+            'user_id'     => auth()->check() ? auth()->user()->id : null,
+            'reason'      => request()->reasonAction
+        ]);
+    }
+
+
+    /**
+     * Add New Record Global in Activity Log
+     *
+     * @param $this
+     * @param array $logs
+     * @param string $event
+     *
+     * @return void
+     */
+    public function addGlobalActivity($item, array $logs, string $event)
+    {
+        $logs = array_except($logs,['per_page','page']);
+        if (!count($logs)) return;
         $activity = [];
-        $activity['auditable_id'] = $item->id;
-        $activity['auditable_type'] = get_class($item);
+        $activity['auditable_type'] = class_basename($item);
         $activity['url'] = Request::fullUrl();
-        $activity['old_data'] = $this->oldData($item);
-        $activity['new_data'] = $this->newData($item);
         $activity['action_type'] = $event;
         $activity['ip_address'] = Request::ip();
         $activity['agent'] = Request::header('user-agent');
         $activity['user_id'] = auth()->check() ? auth()->user()->id : null;
-        $activity['reason'] = request()->reasonAction;
+        $activity['search_params'] = $logs;
+
         ActivityLog::create($activity);
     }
 

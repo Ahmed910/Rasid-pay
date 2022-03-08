@@ -18,7 +18,7 @@ class EmployeeController extends Controller
         $employees = Employee::with(['user' => function ($q) {
             $q->with('addedBy');
         }])
-            ->latest()->paginate((int)($request->per_page ?? 15));
+            ->latest()->paginate((int)($request->per_page ?? config("globals.per_page")));
 
         return EmployeeResource::collection($employees)
             ->additional([
@@ -29,7 +29,7 @@ class EmployeeController extends Controller
 
     // public function archive(Request $request)
     // {
-    //     $users = User::onlyTrashed()->where('user_type', 'employee')->select('id', 'fullname', 'email', 'whatsapp', 'gender', 'is_active', 'created_at')->latest()->paginate((int)($request->per_page ?? 10));
+    //     $users = User::onlyTrashed()->where('user_type', 'employee')->select('id', 'fullname', 'email', 'whatsapp', 'gender', 'is_active', 'created_at')->latest()->paginate((int)($request->per_page ?? config("globals.per_page")));
     //     return EmployeeResource::collection($users)
     //         ->additional([
     //             'status' => true,
@@ -47,6 +47,7 @@ class EmployeeController extends Controller
     {
         $user->fill($request->safe()->except(['contract_type', 'salary', 'qr_path', 'qr_code', 'department_id', 'rasid_job_id'])  + ['user_type' => 'employee', 'added_by_id' => auth()->id()])->save();
         $employee = Employee::create($request->safe()->only(['contract_type', 'salary', 'qr_path', 'qr_code', 'department_id', 'rasid_job_id']) + ['user_id' => $user->id]);
+        $employee->job()->update(['is_vacant' => false]);
         $employee->load('user');
         return EmployeeResource::make($employee)
             ->additional([
@@ -78,8 +79,15 @@ class EmployeeController extends Controller
     public function update(EmployeeRequest $request, $id)
     {
         $employee = Employee::where('user_id', $id)->firstOrFail();
+        $old_job = $employee->job;
         $employee->update($request->safe()->only(['contract_type', 'salary', 'qr_path', 'qr_code', 'department_id', 'rasid_job_id']));
         $employee->user()->update($request->safe()->except(['contract_type', 'salary', 'qr_path', 'qr_code', 'department_id', 'rasid_job_id']));
+
+        if ($old_job->id != $request->rasid_job_id) {
+            $employee->job()->update(['is_vacant' => false]);
+            $old_job->update(['is_vacant' => true]);
+        }
+
         $employee->load('user');
         return EmployeeResource::make($employee)
             ->additional([

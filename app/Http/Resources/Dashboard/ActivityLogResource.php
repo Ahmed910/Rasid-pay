@@ -16,14 +16,14 @@ class ActivityLogResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'user' => SimpleUserResource::make($this->whenLoaded('user')),
-            'auditable' => [
-                'id' => $this->auditable->id,
-                'name' => $this->auditable->name,
-                'type' => get_class($this->auditable)
-            ],
+            'user' => $this->user ? SimpleUserResource::make($this->user) : null,
+            'auditable' => $this->auditable_id ? [
+                'id' => $this->auditable?->id,
+                'name' => $this->auditable?->name,
+                'type' => ($this->auditable) ? get_class($this->auditable) : null
+            ] : null,
             'created_at' => $this->created_at,
-            'type' => $this->action_type,
+            'type' => strtolower($this->action_type),
             'reason' => trans('dashboard.activity_log.reason',['user'=>$this->id,'action'=>$this->action_type]),
             'url' => $this->url,
             'ip' => $this->ip_address,

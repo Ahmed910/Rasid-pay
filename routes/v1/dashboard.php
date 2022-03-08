@@ -39,7 +39,7 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::post('update', 'update')->name('update');
         Route::post('change_password', 'changePassword')->name('change_password');
     });
-    Route::post('settings/create-setting', 'SettingController@createSetting');
+    Route::post('settings/create-setting','SettingController@createSetting');
     Route::get('all-departments', 'DepartmentController@getAllDepartments');
     Route::get("/files/client/{file}", [\App\Http\Controllers\Api\V1\Dashboard\PrivateController::class, "downloadfile"]);
     Route::middleware('adminPermission')->group(function () {
@@ -132,7 +132,6 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::apiResource('activity_logs', 'ActivityController')->only(['index', 'show']);
 
 
-        Route::resource('groups', 'GroupController')->except('create', 'edit', 'destroy');
+        Route::resource('groups', 'GroupController')->except('create','edit','destroy');
     });
 });
-

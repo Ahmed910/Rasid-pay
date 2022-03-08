@@ -22,7 +22,7 @@ class User extends Authenticatable implements HasAssetsInterface
 {
     use HasApiTokens, HasFactory, Notifiable, Uuid, SoftDeletes, HasAssetsTrait, Loggable;
 
-    protected $guarded = ['created_at', 'updated_at', 'deleted_at'];
+    protected $guarded = ['created_at','deleted_at'];
     // protected $appends = ['avatar','image' , 'name'];
     protected $hidden = ['password', 'remember_token'];
     protected $casts = ['email_verified_at' => 'datetime', 'phone_verified_at' => 'datetime'];
@@ -137,6 +137,8 @@ class User extends Authenticatable implements HasAssetsInterface
 
     public function scopeSearch(Builder $query, $request)
     {
+        $this->addGlobalActivity($this, $request->query(), 'Searched');
+
         !$request->keySearch ?: $query->where(function ($q) use ($request) {
             $q->where("fullname", "like", "%$request->keySearch%")
                 ->orWhere("email", "like", "%$request->keySearch%")

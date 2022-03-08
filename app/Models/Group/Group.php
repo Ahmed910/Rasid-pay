@@ -25,6 +25,8 @@ class Group extends Model implements TranslatableContract
     #region scopes
     public function scopeSearch($query, $request)
     {
+        $this->addGlobalActivity($this, $request->query(), 'Searched');
+
         if ($request->name) {
             $query->whereTranslationLike('name',"%$request->name%");
         }
@@ -36,6 +38,14 @@ class Group extends Model implements TranslatableContract
 
         if ($request->is_active) {
             $query->where('is_active', $request->is_active);
+        }
+
+        if ($request->admins_from) {
+            $query->withCount('admins as admins_from')->having('admins_from',">=" , $request->admins_from);
+        }
+
+        if ($request->admins_to) {
+            $query->withCount('admins as admins_to')->having('admins_to',"<=" , $request->admins_to);
         }
     }
 
@@ -59,6 +69,11 @@ class Group extends Model implements TranslatableContract
     public function permissions()
     {
         return $this->belongsToMany(Permission::class);
+    }
+
+    public function groups()
+    {
+        return $this->belongsToMany(self::class, 'pivot_group', 'first_group_id', 'second_group_id');
     }
     #endregion relationships
 
