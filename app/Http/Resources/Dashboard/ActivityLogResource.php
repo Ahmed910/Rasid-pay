@@ -18,9 +18,9 @@ class ActivityLogResource extends JsonResource
             'id' => $this->id,
             'user' => SimpleUserResource::make($this->whenLoaded('user')),
             'auditable' => [
-                'id' => $this->auditable->id,
-                'name' => $this->auditable->name,
-                'type' => get_class($this->auditable)
+                'id' => $this->auditable?->id,
+                'name' => $this->auditable?->name,
+                'type' => ($this->auditable) ? get_class($this->auditable) : null
             ],
             'created_at' => $this->created_at,
             'type' => $this->action_type,
