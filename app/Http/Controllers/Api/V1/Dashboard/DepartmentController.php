@@ -117,7 +117,7 @@ class DepartmentController extends Controller
         if ($department->children()->exists()) {
             return response()->json([
                 'status' => false,
-                'message' => trans("dashboard.general.has_relationship_cannot_delete"),
+                'message' => trans("dashboard.department.department_has_relationship_cannot_delete"),
                 'data' => null
             ], 422);
         }
@@ -172,7 +172,7 @@ class DepartmentController extends Controller
         if ($department->children()->exists()) {
             return response()->json([
                 'status' => false,
-                'message' => ['error' => trans("dashboard.general.has_relationship_cannot_delete")],
+                'message' => ['error' => trans("dashboard.department.department_has_relationship_cannot_delete")],
                 'data' => null
             ], 422);
         }

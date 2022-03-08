@@ -70,6 +70,7 @@ return [
         "add_department" => "",
         "edit_department" => "",
         "department_count" => "",
+        "department_has_relationship_cannot_delete" => "This department has sub department ,so you cannot delete it",
         'permissions' => $permissions + ['get_parents' => 'Show main departments']
     ],
     "rasid_job" => [
