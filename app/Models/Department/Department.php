@@ -121,6 +121,7 @@ class Department extends Model implements TranslatableContract, HasAssetsInterfa
 
      public static function flattenChildren($parent)
     {
+        self::$result[] = $parent->id;
         foreach ($parent->children as $child) {
             self::$result[] = $child->id;
             static::flattenChildren($child);
