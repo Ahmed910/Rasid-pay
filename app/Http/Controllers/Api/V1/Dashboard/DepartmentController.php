@@ -72,17 +72,6 @@ class DepartmentController extends Controller
             ]);
     }
 
-
-    public function show($id)
-    {
-
-        return DepartmentResource::make($department->load('translations'))
-            ->additional([
-                'status' => true,
-                'message' => trans("dashboard.general.show")
-            ]);
-    }
-
     public function show(Request $request, $id)
     {
         $department = Department::withTrashed()->with('translations')->findOrFail($id);

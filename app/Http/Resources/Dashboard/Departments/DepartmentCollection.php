@@ -5,7 +5,7 @@ namespace App\Http\Resources\Dashboard\Departments;
 use App\Http\Resources\Dashboard\ActivityLogResource;
 use Illuminate\Http\Resources\Json\ResourceCollection;
 
-class RasidJobCollection extends ResourceCollection
+class DepartmentCollection extends ResourceCollection
 {
     /**
      * Transform the resource into an array.
@@ -17,7 +17,7 @@ class RasidJobCollection extends ResourceCollection
     {
         return [
             'department' => DepartmentResource::make($this->collection['department']),
-            'activity' => ActivityLogResource::collection($this->collection->except('job'))
+            'activity' => ActivityLogResource::collection($this->collection->except('department'))
         ];
     }
 }
