@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Http\Requests\V1\Dashboard\AttachmentRequest;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Traits\Uuid;
@@ -21,11 +22,22 @@ class Attachment extends Model
     #endregion scopes
 
     #region relationships
-    public function user (){
+    public function user()
+    {
         return $this->belongsTo(User::class);
     }
     #endregion relationships
 
     #region custom Methods
+    public static function storeImage(AttachmentRequest $attachmentRequest, $user)
+    {
+        foreach ($attachmentRequest->file('files') as $file) {
+            $user->attachments()->create([
+                'file'      => $file->store('/files/client', ['disk' => 'local']),
+                'file_type' => $file->getClientMimeType(),
+                'title'     => $attachmentRequest->title
+            ]);
+        }
+    }
     #endregion custom Methods
 }

@@ -70,6 +70,11 @@ class Group extends Model implements TranslatableContract
     {
         return $this->belongsToMany(Permission::class);
     }
+
+    public function groups()
+    {
+        return $this->belongsToMany(self::class, 'pivot_group', 'first_group_id', 'second_group_id');
+    }
     #endregion relationships
 
     #region custom Methods

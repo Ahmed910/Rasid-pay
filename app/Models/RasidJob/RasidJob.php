@@ -6,6 +6,7 @@ use App\Models\User;
 use App\Traits\Uuid;
 use App\Traits\Loggable;
 use App\Models\Department\Department;
+use App\Models\Employee;
 use Illuminate\Database\Eloquent\Model;
 use Astrotomic\Translatable\Translatable;
 use Illuminate\Database\Eloquent\Builder;
@@ -22,7 +23,7 @@ class RasidJob extends Model implements TranslatableContract
     protected $guarded = ['created_at','deleted_at'];
     public $translatedAttributes = ['name', 'description'];
     public $attributes = ['is_active' => false, 'is_vacant' =>  true];
-    protected $with = ['translations', 'addedBy', 'department'];
+    protected $with = ['translations', 'addedBy', 'department','employee'];
     #endregion properties
 
     #region mutators
@@ -70,6 +71,12 @@ class RasidJob extends Model implements TranslatableContract
     {
         return $this->belongsTo(User::class, 'added_by_id');
     }
+
+    public function employee()
+    {
+        return $this->hasOne(Employee::class);
+    }
+
     #endregion relationships
 
     #region custom Methods

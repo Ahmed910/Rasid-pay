@@ -35,7 +35,8 @@ return [
         'method_not_allow' => 'Http method (:method) not allowed',
         'not_found' => 'Model Not Found!',
         'page_not_found' => '404, Page not found!',
-        'something_went_wrog' => 'The data entered is incorrect'
+        'something_went_wrog' => 'The data entered is incorrect',
+        'name_must_be_unique_on_department' => 'This job already exists for this department'
     ],
     'activity_log' => [
         "reason" => ":user did :action",
@@ -82,6 +83,9 @@ return [
         "validation" => [
             'name_must_be_unique_on_department' => 'The job title was previously selected for the same department'
         ],
+
+       "jobs_hired_deleted" => " can't delete this job ",
+       "jobs_hired_archived" => " can't archive this job ",
         'permissions' => $permissions
     ],
     "setting" => [
