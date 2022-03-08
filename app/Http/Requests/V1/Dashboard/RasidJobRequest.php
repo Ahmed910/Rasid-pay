@@ -25,7 +25,7 @@ class RasidJobRequest extends ApiMasterRequest
     public function rules()
     {
         $rules = [
-            "department_id" => "required|exists:departments,id",
+            "department_id" => "required|exists:departments,id,deleted_at,NULL",
             "is_active" => "boolean",
             "is_vacant" => "boolean",
         ];
