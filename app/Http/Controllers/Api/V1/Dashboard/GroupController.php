@@ -32,9 +32,7 @@ class GroupController extends Controller
      */
     public function index(Request $request)
     {
-        $groups = Group::with(['permissions','translations' => function ($q) {
-            $q->where('locale', app()->getLocale());
-        }])->search($request)->latest()->paginate((int)($request->per_page ?? config("globals.per_page")));
+        $groups = Group::with('permissions')->withTranslation()->search($request)->latest()->paginate((int)($request->per_page ?? 15));
 
         return GroupResource::collection($groups)->additional(['status' => true, 'message' => ""]);
     }
@@ -54,10 +52,7 @@ class GroupController extends Controller
 
     public function show(Group $group)
     {
-        $group->load('translations','activity',['permissions' => function($q) use($group){
-            $q->whereNotIn('permissions.id',$group->pluck('permissions')->pluck('id')->toArray());
-        }]);
-
+        $group->load('activity','translations','permissions');
         return GroupResource::make($group)->additional(['status' => true, 'message' => '']);
     }
     /**
@@ -69,7 +64,7 @@ class GroupController extends Controller
      */
     public function update(GroupRequest $request, Group $group)
     {
-        $group->update(array_only($request->validated(),config('translatable.locales')+['is_active']));
+        $group->fill($request->validated())->save();
         $group->permissions()->sync($request->permission_list);
         return GroupResource::make($group)->additional(['status' => true, 'message' => trans('dashboard.general.success_update')]);
     }

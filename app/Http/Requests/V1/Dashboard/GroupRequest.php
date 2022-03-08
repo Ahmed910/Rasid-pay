@@ -31,7 +31,7 @@ class GroupRequest extends ApiMasterRequest
         ];
 
         foreach (config('translatable.locales') as $locale) {
-            $rules[$locale.".name"] = 'required|string|between:2,100|unique:group_translations,name,' . @$this->group->id . ',group_id';
+            $rules[$locale.".name"] = 'required|string|between:2,100|regex:/^[\pL\pN\s\-\_]+$/u|unique:group_translations,name,' . @$this->group->id . ',group_id';
             $rules[$locale.'.desc'] = 'nullable|string|between:3,100000';
         }
         return $rules;
