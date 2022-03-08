@@ -14,111 +14,59 @@ use Illuminate\Http\Request;
 
 class ClientController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+
     public function index(Request $request)
     {
         $client = Client::CustomDateFromTo($request)->with("user")->search($request)->latest()->paginate((int)($request->per_page ?? config("globals.per_page")));
-//        $client = Client::search($request)->with(['user'=>function($q){
-//            $q->with('attachments');
-//        }])->latest()->paginate((int)($request->per_page ?? config("globals.per_page")));
+        //        $client = Client::search($request)->with(['user'=>function($q){
+        //            $q->with('attachments');
+        //        }])->latest()->paginate((int)($request->per_page ?? config("globals.per_page")));
 
         return ClientResource::collection($client)->additional([
             'status' => true,
             'message' => ""
         ]);
-
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+
     public function create()
     {
         //
     }
 
-//    public function suspendedclients(Request $request)
-//    {
-//        $users = User::where(["user_type" => 'client', "is_admin_active_user" => 0])->latest()->paginate((int)($request->per_page ?? config("globals.per_page")));
-//        return ClientResource::collection($users)
-//            ->additional([
-//                'status' => true,
-//                'message' => ''
-//            ]);
-//    }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param \Illuminate\Http\Request $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(ClientRequest $request, AttachmentRequest $attachmentRequest, User $user)
+    public function store(ClientRequest $request, AttachmentRequest $attachmentRequest, Client $client)
     {
         $except = ["tax_number", "commercial_number", "activity_type", "daily_expect_trans", "register_type", "client_type", "nationality", "address", "marital_status"];
-        $user->fill($request->safe()->except($except) + ["user_type" => "client", 'added_by_id' => auth()->id()])->save();
-        $client = Client::create($request->safe()->only($except) + ['user_id' => $user->id]);
+        $userData = $request->safe()->except($except) + ["user_type" => "client", 'added_by_id' => auth()->id()];
+        $clientData = $request->safe()->only($except);
 
-        if ($attachmentRequest->has("files")) {
-            foreach ($attachmentRequest->file('files') as $file) {
-                $attachment = new Attachment();
-                $path = $file->store('/public/files/client');
-                $attachment->user_id = $user->id;
-                $attachment->file = $path;
-                $attachment->file_type = $file->getClientMimeType();
-                $attachment->title = "title";
-                $attachment->save();
+        $user   = user::create($userData);
+        $client->fill($clientData)->user()->associate($user)->save();
+        if ($attachmentRequest->has("files"))
+            Attachment::storeImage($attachmentRequest, $user);
 
-            }
-            $client->load(['user'=>function($q){
-                $q->with('attachments');
-            }]);
-//            $client->user->load("attachments") ;
-            return ClientResource::make($client)->additional([
-                'status' => true, 'message' => trans("dashboard.general.success_add")
-            ]);
-        }
+        $client->load(['user', 'user.attachments']);
+
+        return ClientResource::make($client)->additional([
+            'status' => true, 'message' => trans("dashboard.general.success_add")
+        ]);
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param int $id
-     * @return \Illuminate\Http\Response
-     */
     public function show($id)
     {
         $client = Client::where('user_id', $id)->firstOrFail();
-        $client->load(["user"=>function ($q) {
-            $q->with("attachments") ;
-        }]);
+        $client->load(['user', 'user.attachments']);
+
         return ClientResource::make($client)->additional(['status' => true, 'message' => ""]);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param int $id
-     * @return \Illuminate\Http\Response
-     */
     public function edit($id)
     {
         //
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param \Illuminate\Http\Request $request
-     * @param int $id
-     * @return \Illuminate\Http\Response
-     */
+
     public function update(ClientRequest $request, $id)
     {
         $client = Client::where('user_id', $id)->firstOrFail();
@@ -143,12 +91,7 @@ class ClientController extends Controller
             ]);
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param int $id
-     * @return ClientResource
-     */
+
     public function destroy(ReasonRequest $request, User $user)
     {
 

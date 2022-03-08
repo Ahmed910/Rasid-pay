@@ -22,7 +22,7 @@ class User extends Authenticatable implements HasAssetsInterface
 {
     use HasApiTokens, HasFactory, Notifiable, Uuid, SoftDeletes, HasAssetsTrait, Loggable;
 
-    protected $guarded = ['created_at','deleted_at'];
+    protected $guarded = ['created_at', 'deleted_at'];
     // protected $appends = ['avatar','image' , 'name'];
     protected $hidden = ['password', 'remember_token'];
     protected $casts = ['email_verified_at' => 'datetime', 'phone_verified_at' => 'datetime'];
@@ -111,7 +111,7 @@ class User extends Authenticatable implements HasAssetsInterface
     }
     public function department()
     {
-        return $this->hasOneThrough(Department::class,Employee::class,'user_id','id','id','department_id');
+        return $this->hasOneThrough(Department::class, Employee::class, 'user_id', 'id', 'id', 'department_id');
     }
 
     public function client()
@@ -139,11 +139,11 @@ class User extends Authenticatable implements HasAssetsInterface
     {
         $this->addGlobalActivity($this, $request->query(), 'Searched');
 
-        !$request->keySearch ?: $query->where(function ($q) use ($request) {
-            $q->where("fullname", "like", "%$request->keySearch%")
-                ->orWhere("email", "like", "%$request->keySearch%")
-                ->orWhere("whatsapp", "like", "%$request->keySearch%")
-                ->orWhere("phone", "like", "%$request->keySearch%");
+        !$request->fullname ?: $query->where(function ($q) use ($request) {
+            $q->where("fullname", "like", "%$request->fullname%");
+                // ->orWhere("email", "like", "%$request->keySearch%")
+                // ->orWhere("whatsapp", "like", "%$request->keySearch%")
+                // ->orWhere("phone", "like", "%$request->keySearch%");
         });
         !$request->client_type ?: $query->where("client_type", $request->client_type);
         !$request->country_id ?: $query->where("country_id", $request->country_id);
@@ -152,6 +152,13 @@ class User extends Authenticatable implements HasAssetsInterface
         !$request->register_status ?: $query->where("register_status", $request->register_status);
         !$request->gender ?: $query->where("gender",  $request->gender);
         !$request->is_admin_active_user ?: $query->where("is_admin_active_user", $request->is_admin_active_user);
+        !$request->login_id ?: $query->where("login_id", $request->login_id);
+
+        if ($request->department_id) {
+            $query->whereHas('department', function ($query) use ($request) {
+                $query->where('departments.id', $request->department_id);
+            });
+        }
 
         if ($request->ban_from) {
             $ban_from = date('Y-m-d', strtotime($request->ban_from));
