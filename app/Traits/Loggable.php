@@ -74,6 +74,7 @@ trait Loggable
      */
     public function addGlobalActivity($item, array $logs, string $event)
     {
+        $logs = array_except($logs,['per_page','page']);
         if (!count($logs)) return;
         $activity = [];
         $activity['auditable_type'] = class_basename($item);
