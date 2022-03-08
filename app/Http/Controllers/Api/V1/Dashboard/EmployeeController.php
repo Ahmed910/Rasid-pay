@@ -79,7 +79,7 @@ class EmployeeController extends Controller
     public function update(EmployeeRequest $request, $id)
     {
         $employee = Employee::where('user_id', $id)->firstOrFail();
-        $old_job = $employee->job
+        $old_job = $employee->job;
         $employee->update($request->safe()->only(['contract_type', 'salary', 'qr_path', 'qr_code', 'department_id', 'rasid_job_id']));
         $employee->user()->update($request->safe()->except(['contract_type', 'salary', 'qr_path', 'qr_code', 'department_id', 'rasid_job_id']));
 
@@ -87,7 +87,7 @@ class EmployeeController extends Controller
             $employee->job()->update(['is_vacant' => false]);
             $old_job->update(['is_vacant' => true]);
         }
-        
+
         $employee->load('user');
         return EmployeeResource::make($employee)
             ->additional([
