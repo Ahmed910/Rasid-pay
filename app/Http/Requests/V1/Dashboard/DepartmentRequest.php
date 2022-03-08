@@ -26,13 +26,13 @@ class DepartmentRequest extends ApiMasterRequest
     {
         $igonredDepartment = $this->department ?  implode(',', Department::flattenChildren($this->department)) : "";
         $rules = [
-            "image"         => "nullable|image|max:2048|mimes:dwg,jpg,png,jpeg",
+            "image"         => "nullable|max:2048|mimes:dwg,jpg,png,jpeg",
             "parent_id"     => "nullable|exists:departments,id|not_in:$igonredDepartment",
             "is_active"     => "in:0,1"
         ];
         foreach (config('translatable.locales') as $locale) {
             $rules["$locale"]               = "array";
-            $rules["$locale.name"]          = "required|between:2,100|string|unique:department_translations,name," . $this->department?->id  . ",department_id";
+            $rules["$locale.name"]          = "required|between:2,100|regex:/^[\pL\pN\s\-\_]+$/u|unique:department_translations,name," . $this->department?->id  . ",department_id";
             $rules["$locale.description"]   = "nullable|string||max:300";
         }
 
