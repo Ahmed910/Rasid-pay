@@ -35,7 +35,8 @@ return [
         'method_not_allow' => 'Http method (:method) not allowed',
         'not_found' => 'Model Not Found!',
         'page_not_found' => '404, Page not found!',
-        'something_went_wrog' => 'The data entered is incorrect'
+        'something_went_wrog' => 'The data entered is incorrect',
+        'name_must_be_unique_on_department' => 'This job already exists for this department'
     ],
     'activity_log' => [
         "reason" => ":user did :action",
