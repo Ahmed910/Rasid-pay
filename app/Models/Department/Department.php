@@ -29,6 +29,7 @@ class Department extends Model implements TranslatableContract, HasAssetsInterfa
     public $assets = ["image"];
     public $with   = ["images", "addedBy"];
     private $sortableColumns = ["name", "parent_id", "created_at", "status"];
+    private static $result = [];
     #endregion properties
 
     public static function boot()
@@ -44,6 +45,8 @@ class Department extends Model implements TranslatableContract, HasAssetsInterfa
     #region scopes
     public function scopeSearch(Builder $query, $request)
     {
+        $this->addGlobalActivity($this, $request->query(), 'Searched');
+
         if ($request->name) {
             $query->where(function ($q) use ($request) {
                 $q->whereTranslationLike('name', "%$request->name%")
@@ -104,6 +107,7 @@ class Department extends Model implements TranslatableContract, HasAssetsInterfa
         return $this->hasMany(Department::class, 'parent_id')->with("children");
     }
 
+
     public function rasidJobs()
     {
         return $this->hasMany(RasidJob::class, 'department_id');
@@ -113,6 +117,17 @@ class Department extends Model implements TranslatableContract, HasAssetsInterfa
     {
         return $this->belongsTo(User::class, 'added_by_id');
     }
+
+
+     public static function flattenChildren($parent)
+    {
+        foreach ($parent->children as $child) {
+            self::$result[] = $child->id;
+            static::flattenChildren($child);
+        }
+        return self::$result;
+    }
+
     #endregion relationships
 
     #region custom Methods

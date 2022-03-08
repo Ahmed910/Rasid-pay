@@ -2,13 +2,13 @@
 
 namespace App\Models\Group;
 
-use App\Traits\{Loggable, Uuid};
+use App\Traits\Uuid;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class GroupTranslation extends Model
 {
-    use HasFactory, Uuid , Loggable;
+    use HasFactory, Uuid;
 
     #region properties
     public $timestamps = false;

@@ -3,6 +3,7 @@
 namespace App\Http\Requests\V1\Dashboard;
 
 use App\Http\Requests\ApiMasterRequest;
+use App\Models\Department\Department;
 
 class DepartmentRequest extends ApiMasterRequest
 {
@@ -23,9 +24,10 @@ class DepartmentRequest extends ApiMasterRequest
      */
     public function rules()
     {
+        $igonredDepartment = $this->department ?  implode(',', Department::flattenChildren($this->department)) : "";
         $rules = [
             "image"         => "nullable|image|max:2048|mimes:dwg,jpg,png,jpeg",
-            "parent_id"     => "nullable|exists:departments,id",
+            "parent_id"     => "nullable|exists:departments,id|not_in:$igonredDepartment",
             "is_active"     => "in:0,1"
         ];
         foreach (config('translatable.locales') as $locale) {
