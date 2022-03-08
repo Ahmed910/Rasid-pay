@@ -45,7 +45,7 @@ class Department extends Model implements TranslatableContract, HasAssetsInterfa
     public function scopeSearch(Builder $query, $request)
     {
         if ($request->name) {
-            $query->where(function ($q) use($requst) {
+            $query->where(function ($q) use ($request) {
                 $q->whereTranslationLike('name', "%$request->name%")->orWhereTranslationLike('description', "%$request->name%");
             });
         }
@@ -102,6 +102,7 @@ class Department extends Model implements TranslatableContract, HasAssetsInterfa
     {
         return $this->hasMany(Department::class, 'parent_id')->with("children");
     }
+
 
     public function rasidJobs()
     {
