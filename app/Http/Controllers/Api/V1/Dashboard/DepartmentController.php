@@ -127,7 +127,7 @@ class DepartmentController extends Controller
         return DepartmentResource::make($department)
             ->additional([
                 'status' => true,
-                'message' => trans("dashboard.general.success_delete")
+                'message' => trans("dashboard.general.success_archive")
             ]);
     }
 
