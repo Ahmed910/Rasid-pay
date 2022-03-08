@@ -99,7 +99,20 @@ class RasidJobController extends Controller
     public function destroy(ReasonRequest $request, RasidJob $rasidJob)
     {
 
+        if(!$rasidJob->is_vacant){
+
+            return response()->json([
+                'status' => false,
+                'message' => trans("dashboard.rasid_job.jobs_hired"),
+                'data' => null
+            ], 422);
+
+
+        }
+
         $rasidJob->delete();
+
+
 
         return RasidJobResource::make($rasidJob)
             ->additional([
@@ -112,6 +125,18 @@ class RasidJobController extends Controller
     {
 
         $rasidJob = RasidJob::onlyTrashed()->findOrFail($id);
+        
+        if(!$rasidJob->is_vacant){
+
+            return response()->json([
+                'status' => false,
+                'message' => trans("dashboard.rasid_job.jobs_hired"),
+                'data' => null
+            ], 422);
+
+
+        }
+
         $rasidJob->forceDelete();
 
         return RasidJobResource::make($rasidJob)

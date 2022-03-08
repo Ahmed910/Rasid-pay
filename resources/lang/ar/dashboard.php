@@ -109,6 +109,7 @@ return [
         "validation" => [
             'name_must_be_unique_on_department' => 'تم اختيار اسم الوظيفة من قبل لنفس القسم'
         ],
+       "jobs_hired" => " لا يمكن حذف هذه الوظيفة لانها مشغولة ",
         'permissions' => $permissions
     ],
     "setting" => [
