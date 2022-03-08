@@ -97,7 +97,9 @@ return [
         "edit_department" => "تعديل القسم",
         "department_count" => "عدد الاقسام",
         'permissions' => $permissions + ['get_parents' => 'عرض الاقسام الرئيسية'],
-        "has_jobs_cannot_delete" => "لا يمكن أرشفة قسم مرتبط بوظائف"
+        "has_jobs_cannot_delete" => "لا يمكن أرشفة قسم مرتبط بوظائف",
+        "department_has_relationship_cannot_delete" => "لا يمكن حذف هذا القسم لأنه يحتوي علي أقسام فرعية   ",
+
     ],
     "rasid_job" => [
         "rasid_job" => "الوظيفة",
@@ -108,6 +110,9 @@ return [
         "validation" => [
             'name_must_be_unique_on_department' => 'تم اختيار اسم الوظيفة من قبل لنفس القسم'
         ],
+       "jobs_hired_deleted" => " لا يمكن حذف هذه الوظيفة لانها مشغولة ",
+       "jobs_hired_archived" => " لا يمكن أرشفة هذه الوظيفة لانها مشغولة ",
+
         'permissions' => $permissions
     ],
     "setting" => [
