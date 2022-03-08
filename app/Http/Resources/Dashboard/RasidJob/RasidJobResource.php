@@ -31,7 +31,6 @@ class RasidJobResource extends JsonResource
             'created_at' => $this->created_at,
             'added_by ' => SimpleUserResource::make($this->whenLoaded('addedBy')),
             'department' => DepartmentResource::make($this->whenLoaded('department')),
-            'activity'  => $this->extra,
             'actions' => [
                 'show' => auth()->user()->hasPermissions('rasid_jobs.show'),
                 'create' => auth()->user()->hasPermissions('rasid_jobs.store'),

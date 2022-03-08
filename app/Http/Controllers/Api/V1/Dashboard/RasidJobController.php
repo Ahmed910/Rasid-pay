@@ -38,13 +38,12 @@ class RasidJobController extends Controller
     }
 
 
-    public function show($id)
+    public function show(Request $request, $id)
     {
-        $rasidJob  = RasidJob::withTrashed()->findOrFail($id);
-        $activities  = $rasidJob->activity()->paginate();
-        $rasidJob->extra = ActivityLogResource::collection($activities);
-
-        return RasidJobResource::make($rasidJob)
+        $rasidJob  = RasidJob::withTrashed()->with('translations')->findOrFail($id);
+        $activities  = $rasidJob->activity()->paginate((int)($request->per_page ?? 15));
+        data_set($activities,'job',$rasidJob);
+        return RasidJobCollection::make($activities)
             ->additional([
                 'status' => true,
                 'message' => trans("dashboard.general.show")
