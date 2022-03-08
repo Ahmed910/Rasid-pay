@@ -25,7 +25,7 @@ class SimpleUserResource extends JsonResource
             'attachments' => AttachmentResource::collection($this->whenLoaded('attachments')),
             'department' => $this->department ? [
                 'id' => $this->department->id,
-                'name' => $this->department->name
+                'name' => $this->department->name,
                 'images' => ImagesResource::collection($this->department->whenLoaded('images')),
             ] : null,
 
