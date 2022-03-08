@@ -39,7 +39,7 @@ class EmployeeRequest extends ApiMasterRequest
             "contract_type" => 'required|in:salary,salary_with_percent,percent',
             'salary' => 'required|numeric|digits_between:1,10',
             'department_id' => 'required|exists:departments,id,deleted_at,NULL',
-            'rasid_job_id' => 'required|exists:rasid_jobs,id,deleted_at,NULL',
+            'rasid_job_id' => 'required|exists:rasid_jobs,id,deleted_at,NULL,is_vacant,1,department_id,'.$this->department_id,
             'qr_path' => 'required',
             'qr_code' => 'required',
             'ban_status' => 'required|in:active,permanent,temporary',

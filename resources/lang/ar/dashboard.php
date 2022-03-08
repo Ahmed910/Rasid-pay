@@ -12,6 +12,11 @@ $permissions = [
 ];
 
 return [
+    'attributes' => [
+         'name' => 'الاسم باللغة العربية',
+         'description' => 'الوصف باللغة العربية',
+         'nationality' => 'الجنسية باللغة العربية',
+    ],
     'general' => [
         "success_add" => "تم الأنشاء بنجاح",
         "success_delete" => "تم الحذف بنجاح",

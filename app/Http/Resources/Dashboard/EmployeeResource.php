@@ -3,6 +3,8 @@
 namespace App\Http\Resources\Dashboard;
 
 use App\Http\Resources\Dashboard\AdditionalEmployeeResource;
+use App\Http\Resources\Dashboard\Departments\DepartmentResource;
+use App\Http\Resources\Dashboard\RasidJob\RasidJobResource;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class EmployeeResource extends JsonResource
@@ -21,7 +23,7 @@ class EmployeeResource extends JsonResource
             'salary' => $this->salary,
             'qr_path' => $this->qr_path,
             'qr_code' => $this->qr_code,
-            'department' => UserResource::make($this->whenLoaded('department')),
+            'department' => DepartmentResource::make($this->whenLoaded('department')),
             'job' => RasidJobResource::make($this->whenLoaded('job')),
         ];
     }

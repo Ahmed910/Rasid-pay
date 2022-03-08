@@ -15,10 +15,12 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::post('login', "AuthController@login");
-Route::post('send', "AuthController@sendCode");
-Route::post('reset_password', "AuthController@resetPassword");
-Route::post('otp_login', "AuthController@otpLogin");
+Route::post('login', "Auth\LoginController@login");
+Route::post('send', "Auth\LoginController@sendCode");
+Route::post('resend_code', "Auth\LoginController@resendCode");
+Route::post('check_code', "Auth\LoginController@CheckResetCode");
+Route::post('reset_password', "Auth\LoginController@resetPassword");
+Route::post('otp_login', "Auth\LoginController@otpLogin");
 Route::get('artisan_commend/{command}', function ($command) {
     ini_set('max_execution_time', 300);
     if ($command) {
@@ -27,7 +29,7 @@ Route::get('artisan_commend/{command}', function ($command) {
 });
 Route::middleware('auth:sanctum')->group(function () {
     // Public Routes
-    Route::post('logout', "AuthController@logout");
+    Route::post('logout', "Auth\LoginController@logout");
     Route::apiResource('notifications', 'NotificationController')->except('store');
     Route::apiResource('menus', 'MenuController');
     Route::get('permissions', 'GroupController@permissions');
@@ -38,6 +40,8 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::post('change_password', 'changePassword')->name('change_password');
     });
     Route::post('settings/create-setting','SettingController@createSetting');
+    Route::get('all-departments', 'DepartmentController@getAllDepartments');
+    Route::get('all-jobs/{department}', 'RasidJobController@getVacantJobs');
 
     Route::middleware('adminPermission')->group(function () {
         Route::controller('CountryController')->name('countries.')->prefix('countries')->group(function () {
@@ -106,6 +110,11 @@ Route::middleware('auth:sanctum')->group(function () {
             Route::delete('forceDelete/{id}', 'forceDelete')->name('force_delete');
         });
 
+        Route::controller('ActivityController')->name('activity_logs.')->prefix('activity_logs')->group(function () {
+            Route::get('departments', 'getDepartments')->name('departments');
+            Route::get('employees', 'getEmployees')->name('employees');
+        });
+
 
         Route::apiResources([
             'countries' => 'CountryController',
@@ -121,7 +130,9 @@ Route::middleware('auth:sanctum')->group(function () {
         ]);
 
         Route::apiResource('settings', 'SettingController')->only(['index', 'store']);
+        Route::apiResource('activity_logs', 'ActivityController')->only(['index', 'show']);
 
-        Route::resource('groups', 'GroupController')->except('edit');
+
+        Route::resource('groups', 'GroupController')->except('create','edit','destroy');
     });
 });

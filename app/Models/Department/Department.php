@@ -29,6 +29,7 @@ class Department extends Model implements TranslatableContract, HasAssetsInterfa
     public $assets = ["image"];
     public $with   = ["images", "addedBy"];
     private $sortableColumns = ["name", "parent_id", "created_at", "status"];
+    private static $result = [];
     #endregion properties
 
     public static function boot()
@@ -46,7 +47,8 @@ class Department extends Model implements TranslatableContract, HasAssetsInterfa
     {
         if ($request->name) {
             $query->where(function ($q) use ($request) {
-                $q->whereTranslationLike('name', "%$request->name%")->orWhereTranslationLike('description', "%$request->name%");
+                $q->whereTranslationLike('name', "%$request->name%")
+                    ->orWhereTranslationLike('description', "%$request->name%");
             });
         }
 
@@ -112,6 +114,16 @@ class Department extends Model implements TranslatableContract, HasAssetsInterfa
     public function addedBy(): BelongsTo
     {
         return $this->belongsTo(User::class, 'added_by_id');
+    }
+
+
+     public static function flattenChildren($parent)
+    {
+        foreach ($parent->children as $child) {
+            self::$result[] = $child->id;
+            static::flattenChildren($child);
+        }
+        return self::$result;
     }
 
     #endregion relationships

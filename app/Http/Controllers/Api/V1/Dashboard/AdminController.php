@@ -18,7 +18,7 @@ class AdminController extends Controller
 
         $users = User::CustomDateFromTo($request)->search($request)->with(['department', 'permissions', 'groups' => function ($q) {
             $q->with('permissions');
-        }])->where('user_type', 'admin')->latest()->paginate((int)($request->per_page ?? 10));
+        }])->where('user_type', 'admin')->latest()->paginate((int)($request->per_page ?? 15));
 
         // $users = User::CustomSearch($request)->latest()->paginate((int)($request->per_page ?? 10));
 
@@ -32,7 +32,7 @@ class AdminController extends Controller
 
     public function archive(Request $request)
     {
-        $users = User::onlyTrashed()->where('user_type', 'admin')->latest()->paginate((int)($request->per_page ?? 10));
+        $users = User::onlyTrashed()->where('user_type', 'admin')->latest()->paginate((int)($request->per_page ?? 15));
         return UserResource::collection($users)
             ->additional([
                 'status' => true,
@@ -62,7 +62,7 @@ class AdminController extends Controller
         $permissions = $request->permission_list;
         if ($request->group_list) {
             $admin->groups()->sync($request->group_list);
-            $permissions = array_filter(array_merge($permissions, Group::find($request->group_list)->pluck('permissions')->pluck('id')->unique()->toArray()));
+            $permissions = array_filter(array_merge($permissions, Group::find($request->group_list)->pluck('permissions')->flatten()->pluck('id')->toArray()));
         }
         $admin->permissions()->sync($permissions);
         return UserResource::make($admin)
@@ -75,23 +75,19 @@ class AdminController extends Controller
 
     public function show($id)
     {
-        $user = User::withTrashed()->where('user_type', 'admin')->with(['addedBy', 'country', 'permissions', 'groups' => function ($q) {
+        $user = User::withTrashed()->where('user_type', 'admin')->with(['addedBy', 'country', 'groups' => function ($q) {
             $q->with('permissions');
         }])->findOrFail($id);
 
+        $user->load(['permissions' => function($q) use($user){
+            $q->whereNotIn('permissions.id',$user->groups->pluck('permissions')->flatten()->pluck('id')->toArray());
+        }]);
         return UserResource::make($user)
             ->additional([
                 'status' => true,
                 'message' =>  '',
             ]);
     }
-
-
-    public function edit($id)
-    {
-        //
-    }
-
 
     public function update(AdminRequest $request, $id)
     {
@@ -104,7 +100,7 @@ class AdminController extends Controller
         $permissions = $request->permission_list;
         if ($request->group_list) {
             $admin->groups()->sync($request->group_list);
-            $permissions = array_filter(array_merge($permissions, Group::find($request->group_list)->pluck('permissions')->pluck('id')->unique()->toArray()));
+            $permissions = array_filter(array_merge($permissions, Group::find($request->group_list)->pluck('permissions')->flatten()->pluck('id')->toArray()));
         }
         $admin->permissions()->sync($permissions);
 
