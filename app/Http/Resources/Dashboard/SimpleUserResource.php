@@ -20,11 +20,13 @@ class SimpleUserResource extends JsonResource
             'fullname' => $this->fullname,
             'user_type' => $this->user_type,
             'date_of_birth' => $this->date_of_birth,
+            'images' => ImagesResource::collection($this->whenLoaded('images')),
             'created_at' => $this->created_at,
             'attachments' => AttachmentResource::collection($this->whenLoaded('attachments')),
             'department' => $this->department ? [
                 'id' => $this->department->id,
                 'name' => $this->department->name
+                'images' => ImagesResource::collection($this->department->whenLoaded('images')),
             ] : null,
 
         ];
