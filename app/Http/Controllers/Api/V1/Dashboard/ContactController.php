@@ -15,7 +15,7 @@ class ContactController extends Controller
 
     public function index(Request $request)
     {
-        $contact = Contact::with('replies', 'user')->latest()->paginate((int)($request->per_page ?? 15));
+        $contact = Contact::with('replies', 'user')->latest()->paginate((int)($request->per_page ?? config("globals.per_page")));
 
         return ContactResource::collection($contact)
             ->additional([
@@ -27,7 +27,7 @@ class ContactController extends Controller
 
     public function reply(ContactReplyRequest $request, ContactReply $contactReply)
     {
-        $contactReply->fill($request->validated())->save();
+        $contactReply->fill($request->validated()+['updated_at'=>now()])->save();
 
         return ContactReplyResource::make($contactReply->load('contact'))
             ->additional([

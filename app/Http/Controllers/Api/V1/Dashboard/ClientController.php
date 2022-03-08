@@ -21,10 +21,10 @@ class ClientController extends Controller
      */
     public function index(Request $request)
     {
-        $client = Client::CustomDateFromTo($request)->with("user")->search($request)->latest()->paginate((int)($request->per_page ?? 15));
+        $client = Client::CustomDateFromTo($request)->with("user")->search($request)->latest()->paginate((int)($request->per_page ?? config("globals.per_page")));
 //        $client = Client::search($request)->with(['user'=>function($q){
 //            $q->with('attachments');
-//        }])->latest()->paginate((int)($request->per_page ?? 15));
+//        }])->latest()->paginate((int)($request->per_page ?? config("globals.per_page")));
 
         return ClientResource::collection($client)->additional([
             'status' => true,
@@ -45,7 +45,7 @@ class ClientController extends Controller
 
 //    public function suspendedclients(Request $request)
 //    {
-//        $users = User::where(["user_type" => 'client', "is_admin_active_user" => 0])->latest()->paginate((int)($request->per_page ?? 10));
+//        $users = User::where(["user_type" => 'client', "is_admin_active_user" => 0])->latest()->paginate((int)($request->per_page ?? config("globals.per_page")));
 //        return ClientResource::collection($users)
 //            ->additional([
 //                'status' => true,

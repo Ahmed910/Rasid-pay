@@ -18,9 +18,9 @@ class AdminController extends Controller
 
         $users = User::CustomDateFromTo($request)->search($request)->with(['department', 'permissions', 'groups' => function ($q) {
             $q->with('permissions');
-        }])->where('user_type', 'admin')->latest()->paginate((int)($request->per_page ?? 15));
+        }])->where('user_type', 'admin')->latest()->paginate((int)($request->per_page ?? config("globals.per_page")));
 
-        // $users = User::CustomSearch($request)->latest()->paginate((int)($request->per_page ?? 10));
+        // $users = User::CustomSearch($request)->latest()->paginate((int)($request->per_page ?? config("globals.per_page")));
 
         return UserResource::collection($users)
             ->additional([
@@ -32,7 +32,7 @@ class AdminController extends Controller
 
     public function archive(Request $request)
     {
-        $users = User::onlyTrashed()->where('user_type', 'admin')->latest()->paginate((int)($request->per_page ?? 15));
+        $users = User::onlyTrashed()->where('user_type', 'admin')->latest()->paginate((int)($request->per_page ?? config("globals.per_page")));
         return UserResource::collection($users)
             ->additional([
                 'status' => true,
