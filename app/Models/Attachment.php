@@ -6,7 +6,6 @@ use App\Http\Requests\V1\Dashboard\AttachmentRequest;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Traits\Uuid;
-use Illuminate\Support\Facades\Request;
 
 class Attachment extends Model
 {
