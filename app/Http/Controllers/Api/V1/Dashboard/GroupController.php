@@ -52,7 +52,7 @@ class GroupController extends Controller
 
     public function show($id)
     {
-        $group = Group::withTrashed()->with('activity',['permissions' => function($q) use($group){
+        $group = Group::with('activity',['permissions' => function($q) use($group){
             $q->whereNotIn('permissions.id',$group->pluck('permissions')->pluck('id')->toArray());
         }])->withTranslation()->findOrFail($id);
 
