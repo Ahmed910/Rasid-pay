@@ -54,11 +54,6 @@ class Department extends Model implements TranslatableContract, HasAssetsInterfa
             });
         }
 
-        if (isset($request->created_at)) {
-
-            $query->whereDate('created_at', $request->created_at);
-        }
-
         if (isset($request->parent_id)) {
             $query->where("parent_id", $request->parent_id);
         }
