@@ -32,7 +32,7 @@ class UserResource extends JsonResource
             'is_date_hijri' => (bool)$this->is_date_hijri,
             'is_password_changed' => (bool)$this->is_password_changed,
             'is_login_code' => (bool)$this->is_login_code,
-            'added_by_id' => SimpleUserResource::make($this->whenLoaded('addedBy')),
+            'addedBy' => SimpleUserResource::make($this->addedBy),
             'groups' => GroupResource::collection($this->whenLoaded('groups')),
             'permissions' => PermissionResource::collection($this->whenLoaded('permissions')),
             'user_type' => $this->user_type,
