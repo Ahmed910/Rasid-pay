@@ -15,8 +15,7 @@ class AdminController extends Controller
 
     public function index(Request $request)
     {
-
-        $users = User::CustomDateFromTo($request)->search($request)->with(['department', 'permissions', 'groups' => function ($q) {
+        $users = User::CustomDateFromTo($request)->search($request)->with(['department','permissions', 'employee', 'groups' => function ($q) {
             $q->with('permissions');
         }])->where('user_type', 'admin')->latest()->paginate((int)($request->per_page ?? config("globals.per_page")));
 
@@ -79,8 +78,8 @@ class AdminController extends Controller
             $q->with('permissions');
         }])->findOrFail($id);
 
-        $user->load(['permissions' => function($q) use($user){
-            $q->whereNotIn('permissions.id',$user->groups->pluck('permissions')->flatten()->pluck('id')->toArray());
+        $user->load(['permissions' => function ($q) use ($user) {
+            $q->whereNotIn('permissions.id', $user->groups->pluck('permissions')->flatten()->pluck('id')->toArray());
         }]);
         return UserResource::make($user)
             ->additional([
