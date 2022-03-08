@@ -44,7 +44,7 @@ class EmployeeRequest extends ApiMasterRequest
             'qr_code' => 'required',
             'ban_status' => 'required|in:active,permanent,temporary',
             "ban_from" => 'required_if:ban_status,temporary|date',
-            "ban_to" => 'required_if:ban_status,temporary|date',
+            "ban_to" => 'required_if:ban_status,temporary|date|after_or_equal:ban_from',
             'date_of_birth' => 'required|date',
             'image' => 'mimes:jpg,jpeg,png,webp|max:2048',
         ];
