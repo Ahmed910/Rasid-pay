@@ -15,7 +15,6 @@ class AdminController extends Controller
 
     public function index(Request $request)
     {
-
         $users = User::CustomDateFromTo($request)->search($request)->with(['department', 'permissions', 'groups' => function ($q) {
             $q->with('permissions');
         }])->where('user_type', 'admin')->latest()->paginate((int)($request->per_page ?? config("globals.per_page")));
@@ -63,7 +62,7 @@ class AdminController extends Controller
         if ($request->group_list) {
             $admin->groups()->sync($request->group_list);
             $permissions = array_filter(array_merge($permissions, Group::find($request->group_list)->pluck('permissions')->flatten()->pluck('id')->toArray()));
-        }        
+        }
         $admin->permissions()->sync($permissions);
         return UserResource::make($admin)
             ->additional([
@@ -78,12 +77,12 @@ class AdminController extends Controller
             $q->with('permissions');
         }])->findOrFail($id);
 
-        $admin->load(['permissions' => function($q) use($admin){
-            $q->whereNotIn('permissions.id',$admin->groups->pluck('permissions')->flatten()->pluck('id')->toArray());
+        $admin->load(['permissions' => function ($q) use ($admin) {
+            $q->whereNotIn('permissions.id', $admin->groups->pluck('permissions')->flatten()->pluck('id')->toArray());
         }]);
 
         $activities  = $admin->activity()->paginate((int)($request->per_page ?? 15));
-        data_set($activities,'admin',$admin);
+        data_set($activities, 'admin', $admin);
 
         return AdminCollection::make($activities)
             ->additional([
