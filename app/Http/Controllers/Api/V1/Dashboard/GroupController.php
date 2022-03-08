@@ -32,13 +32,7 @@ class GroupController extends Controller
      */
     public function index(Request $request)
     {
-<<<<<<< HEAD
         $groups = Group::with('permissions')->withTranslation()->translatedIn(app()->getLocale())->search($request)->latest()->paginate((int)($request->per_page ?? 15));
-=======
-        $groups = Group::with(['permissions','translations' => function ($q) {
-            $q->where('locale', app()->getLocale());
-        }])->search($request)->latest()->paginate((int)($request->per_page ?? config("globals.per_page")));
->>>>>>> 49b3a40df5f3d543c2ca32723a185625b83c95b7
 
         return GroupResource::collection($groups)->additional(['status' => true, 'message' => ""]);
     }
