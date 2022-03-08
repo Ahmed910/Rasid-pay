@@ -66,7 +66,7 @@ class GroupController extends Controller
      */
     public function update(GroupRequest $request, Group $group)
     {
-        $group->update(array_only($request->validated(),config('translatable.locales')+['is_active']));
+        $group->fill($request->validated())->save();
         $group->permissions()->sync($request->permission_list);
         return GroupResource::make($group)->additional(['status' => true, 'message' => trans('dashboard.general.success_update')]);
     }
