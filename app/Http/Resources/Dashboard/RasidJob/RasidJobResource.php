@@ -2,7 +2,7 @@
 
 namespace App\Http\Resources\Dashboard\RasidJob;
 
-use App\Http\Resources\Dashboard\{ActivityLogResource, GlobalTransResource, SimpleUserResource};
+use App\Http\Resources\Dashboard\{ActivityLogResource, GlobalTransResource, SimpleEmployeeResource, SimpleUserResource};
 use App\Http\Resources\Dashboard\Departments\DepartmentResource;
 use Illuminate\Http\Resources\Json\JsonResource;
 
@@ -30,6 +30,7 @@ class RasidJobResource extends JsonResource
             'is_vacant' => $this->is_vacant,
             'created_at' => $this->created_at,
             'added_by ' => SimpleUserResource::make($this->whenLoaded('addedBy')),
+            'employee ' => SimpleEmployeeResource::make($this->whenLoaded('employee')),
             'department' => DepartmentResource::make($this->whenLoaded('department')),
             'actions' => [
                 'show' => auth()->user()->hasPermissions('rasid_jobs.show'),
