@@ -25,8 +25,10 @@ class Group extends Model implements TranslatableContract
     #region scopes
     public function scopeSearch($query, $request)
     {
-        if ($request->search) {
-            $query->whereTranslationLike('name',"%$request->search%");
+        $this->addGlobalActivity($this, $request->query(), 'Searched');
+
+        if ($request->name) {
+            $query->whereTranslationLike('name',"%$request->name%");
         }
 
         if ($request->created_at) {

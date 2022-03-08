@@ -33,6 +33,7 @@ class Region extends Model implements TranslatableContract
     #region scopes
     public function scopeSearch(Builder $query, $request)
     {
+        $this->addGlobalActivity($this, $request->query(), 'Searched');
 
         if ($request->name) {
             $query->whereTranslationLike('name', "%$request->name%");
