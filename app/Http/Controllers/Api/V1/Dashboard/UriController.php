@@ -30,7 +30,7 @@ class UriController extends Controller
 
     public function store(MenuRequest $request,Menu $menu)
     {
-        $menu->fill($request->validated())->save();
+        $menu->fill($request->validated()+['updated_at'=>now()])->save();
 
         return MenuResource::make($menu)->additional([
             'status' => true,

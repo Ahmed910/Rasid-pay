@@ -15,7 +15,7 @@ class RasidJobController extends Controller
 
     public function index(Request $request)
     {
-        $rasidJobs = RasidJob::search($request)->latest()->paginate((int)($request->per_page ?? 10));
+        $rasidJobs = RasidJob::search($request)->latest()->paginate((int)($request->per_page ?? config("globals.per_page")));
 
         return RasidJobResource::collection($rasidJobs)
             ->additional([
@@ -53,9 +53,8 @@ class RasidJobController extends Controller
 
     public function update(RasidJobRequest $request, RasidJob $rasidJob)
     {
-        $rasidJob->fill($request->validated());
-        $rasidJob->updated_at = now();
-        $rasidJob->save();
+        $rasidJob->fill($request->validated() + ['updated_at' => now()])->save();
+
 
         return RasidJobResource::make($rasidJob)
             ->additional([
@@ -69,7 +68,7 @@ class RasidJobController extends Controller
     public function archive(Request $request)
     {
         $rasidJobs = RasidJob::onlyTrashed()->latest()
-            ->paginate((int)($request->per_page ?? 10));
+            ->paginate((int)($request->per_page ?? config("globals.per_page")));
 
         return RasidJobResource::collection($rasidJobs)
             ->additional([
@@ -81,7 +80,7 @@ class RasidJobController extends Controller
 
 
 
-    public function restore(ReasonRequest $request,$id)
+    public function restore(ReasonRequest $request, $id)
     {
 
         $rasidJob = RasidJob::onlyTrashed()->findOrFail($id);
@@ -97,7 +96,7 @@ class RasidJobController extends Controller
     }
 
 
-    public function destroy(ReasonRequest $request,RasidJob $rasidJob)
+    public function destroy(ReasonRequest $request, RasidJob $rasidJob)
     {
 
         $rasidJob->delete();
@@ -109,7 +108,7 @@ class RasidJobController extends Controller
             ]);
     }
 
-    public function forceDelete(ReasonRequest $request,$id)
+    public function forceDelete(ReasonRequest $request, $id)
     {
 
         $rasidJob = RasidJob::onlyTrashed()->findOrFail($id);
@@ -132,7 +131,4 @@ class RasidJobController extends Controller
                 'message' =>  '',
             ]);
     }
-
-
-
 }

@@ -22,7 +22,7 @@ class Region extends Model implements TranslatableContract
 
     #region properties
     public $translatedAttributes = ['name'];
-    protected $guarded = ['created_at', 'updated_at', 'deleted_at'];
+    protected $guarded = ['created_at','deleted_at'];
     private $sortableColumns = ["name", "created_at"];
     protected $with = ['addedBy'];
     #endregion properties

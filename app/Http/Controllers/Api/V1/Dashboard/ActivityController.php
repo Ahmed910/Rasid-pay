@@ -17,7 +17,7 @@ class ActivityController extends Controller
 {
     public function index(Request $request)
     {
-        $activatyLogs = ActivityLog::latest()->paginate((int)($request->per_page ?? 15));
+        $activatyLogs = ActivityLog::latest()->paginate((int)($request->per_page ?? config("globals.per_page")));
 
         return ActivityLogResource::collection($activatyLogs)
             ->additional([

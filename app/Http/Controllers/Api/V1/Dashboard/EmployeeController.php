@@ -18,7 +18,7 @@ class EmployeeController extends Controller
         $employees = Employee::with(['user' => function ($q) {
             $q->with('addedBy');
         }])
-            ->latest()->paginate((int)($request->per_page ?? 15));
+            ->latest()->paginate((int)($request->per_page ?? config("globals.per_page")));
 
         return EmployeeResource::collection($employees)
             ->additional([
@@ -29,7 +29,7 @@ class EmployeeController extends Controller
 
     // public function archive(Request $request)
     // {
-    //     $users = User::onlyTrashed()->where('user_type', 'employee')->select('id', 'fullname', 'email', 'whatsapp', 'gender', 'is_active', 'created_at')->latest()->paginate((int)($request->per_page ?? 10));
+    //     $users = User::onlyTrashed()->where('user_type', 'employee')->select('id', 'fullname', 'email', 'whatsapp', 'gender', 'is_active', 'created_at')->latest()->paginate((int)($request->per_page ?? config("globals.per_page")));
     //     return EmployeeResource::collection($users)
     //         ->additional([
     //             'status' => true,

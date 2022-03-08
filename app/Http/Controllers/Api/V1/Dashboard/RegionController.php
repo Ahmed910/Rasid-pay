@@ -24,7 +24,7 @@ class RegionController extends Controller
                     $q->where('locale', app()->getLocale());
                 }])->sortby($request)
             ->latest()
-            ->paginate((int)($request->per_page ?? 15));
+            ->paginate((int)($request->per_page ?? config("globals.per_page")));
 
         return RegionResource::collection($regions)->additional([
             'status' => true,
@@ -34,7 +34,7 @@ class RegionController extends Controller
 
     public function archive(Request $request)
     {
-        $regions = Region::onlyTrashed()->sortby($request)->latest()->paginate((int)($request->per_page ?? 15));
+        $regions = Region::onlyTrashed()->sortby($request)->latest()->paginate((int)($request->per_page ?? config("globals.per_page")));
         return RegionResource::collection($regions)->additional([
             'status' => true,
             'message' => ""
@@ -88,9 +88,8 @@ class RegionController extends Controller
     public function update(RegionRequest $request, Region $region)
     {
 
-        $region->fill($request->validated());
-        $region->updated_at = now();
-        $region->save();
+        $region->fill($request->validated()+['updated_at'=>now()])->save();
+
 
         return RegionResource::make($region)->additional([
             'status' => true, 'message' => trans("dashboard.general.success_update")]);
