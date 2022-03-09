@@ -17,16 +17,15 @@ class ClientController extends Controller
 
     public function index(Request $request)
     {
-        $client = Client::CustomDateFromTo($request)->with("user")->search($request)->latest()->paginate((int)($request->per_page ?? 15));
-//        $client = Client::search($request)->with(['user'=>function($q){
-//            $q->with('attachments');
-//        }])->latest()->paginate((int)($request->per_page ?? 15));
+        $client = Client::CustomDateFromTo($request)->with("user")->search($request)->latest()->paginate((int)($request->per_page ?? config("globals.per_page")));
+        //        $client = Client::search($request)->with(['user'=>function($q){
+        //            $q->with('attachments');
+        //        }])->latest()->paginate((int)($request->per_page ?? config("globals.per_page")));
 
         return ClientResource::collection($client)->additional([
             'status' => true,
             'message' => ""
         ]);
-
     }
 
 
@@ -36,14 +35,19 @@ class ClientController extends Controller
     }
 
 
-    public function store(ClientRequest $request, AttachmentRequest $attachmentRequest, User $user, Client $client)
+    public function store(ClientRequest $request, AttachmentRequest $attachmentRequest, Client $client)
     {
-
         $except = ["tax_number", "commercial_number", "activity_type", "daily_expect_trans", "register_type", "client_type", "nationality", "address", "marital_status"];
-        $user->fill($request->safe()->except($except) + ["user_type" => "client", 'added_by_id' => auth()->id()])->save();
-        $client->fill($request->safe()->only($except))->user()->associate($user);
-        Attachment::storeImage($attachmentRequest, $user->id);
+        $userData = $request->safe()->except($except) + ["user_type" => "client", 'added_by_id' => auth()->id()];
+        $clientData = $request->safe()->only($except);
+
+        $user   = user::create($userData);
+        $client->fill($clientData)->user()->associate($user)->save();
+        if ($attachmentRequest->has("files"))
+            Attachment::storeImage($attachmentRequest, $user);
+
         $client->load(['user', 'user.attachments']);
+
         return ClientResource::make($client)->additional([
             'status' => true, 'message' => trans("dashboard.general.success_add")
         ]);
@@ -52,9 +56,8 @@ class ClientController extends Controller
     public function show($id)
     {
         $client = Client::where('user_id', $id)->firstOrFail();
-        $client->load(["user" => function ($q) {
-            $q->with("attachments");
-        }]);
+        $client->load(['user', 'user.attachments']);
+
         return ClientResource::make($client)->additional(['status' => true, 'message' => ""]);
     }
 

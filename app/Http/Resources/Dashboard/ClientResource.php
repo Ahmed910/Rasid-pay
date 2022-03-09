@@ -31,13 +31,13 @@ class ClientResource extends JsonResource
             'token' => $this->when($this->token, $this->token),
             'managers' => ManagerResource::make($this->whenLoaded('manager')),
 
-            'actions' => [
+            'actions' => $this->when(in_array($request->route()->getActionMethod(),['index','archive']), [
                 'show' => auth()->user()->hasPermissions('clients.show'),
-                'create' => auth()->user()->hasPermissions('clients.create'),
-                'update' => auth()->user()->hasPermissions('clients.update'),
-                'restore' => auth()->user()->hasPermissions('clients.restore'),
-                'destroy' => auth()->user()->hasPermissions('clients.destroy'),
-            ]
+                $this->mergeWhen($request->route()->getActionMethod() == 'index', [
+                    'create' => auth()->user()->hasPermissions('clients.store'),
+                    'update' => auth()->user()->hasPermissions('clients.update')
+                ])
+            ])
         ];
     }
 }

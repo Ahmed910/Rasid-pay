@@ -25,13 +25,13 @@ class RasidJobRequest extends ApiMasterRequest
     public function rules()
     {
         $rules = [
-            "department_id" => "required|exists:departments,id",
+            "department_id" => "required|exists:departments,id,deleted_at,NULL,is_active,1",
             "is_active" => "boolean",
             "is_vacant" => "boolean",
         ];
 
         foreach (config('translatable.locales') as $locale) {
-            $rules["$locale.name"] = ["required","string","between:2,100",function ($attribute, $value, $fail) use($locale){
+            $rules["$locale.name"] = ["required","regex:/^[\pL\pN\s\-\_]+$/u","between:2,100",function ($attribute, $value, $fail) use($locale){
                 $job = RasidJob::whereTranslation('name',$value,$locale)->where('department_id',$this->department_id)->when($this->rasid_job,function ($q) {
                     $q->where('rasid_jobs.id',"<>",$this->rasid_job->id);
                 })->count();

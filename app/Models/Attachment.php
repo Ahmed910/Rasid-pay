@@ -29,23 +29,15 @@ class Attachment extends Model
     #endregion relationships
 
     #region custom Methods
-    public static function storeImage(AttachmentRequest $attachmentRequest, $user_id)
+    public static function storeImage(AttachmentRequest $attachmentRequest, $user)
     {
-
-
-        if ($attachmentRequest->has("files")) {
-            foreach ($attachmentRequest->file('files') as $file) {
-                $attachment = new Attachment();
-                $path = $file->store('/files/client', ['disk' => 'local']);
-                $attachment->user_id = $user_id;
-                $attachment->file = $path;
-                $attachment->file_type = $file->getClientMimeType();
-                $attachment->title = $attachmentRequest->title;
-                $attachment->save();
-            }
+        foreach ($attachmentRequest->file('files') as $file) {
+            $user->attachments()->create([
+                'file'      => $file->store('/files/client', ['disk' => 'local']),
+                'file_type' => $file->getClientMimeType(),
+                'title'     => $attachmentRequest->title
+            ]);
         }
-
-
     }
     #endregion custom Methods
 }

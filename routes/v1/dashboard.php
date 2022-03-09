@@ -39,8 +39,11 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::post('update', 'update')->name('update');
         Route::post('change_password', 'changePassword')->name('change_password');
     });
-    Route::post('settings/create-setting','SettingController@createSetting');
+    Route::post('settings/create-setting', 'SettingController@createSetting');
     Route::get('all-departments', 'DepartmentController@getAllDepartments');
+    Route::get('all-groups', 'GroupController@getGroups');
+    Route::get('all-jobs/{department}', 'RasidJobController@getVacantJobs');
+
     Route::get("/files/client/{file}", [\App\Http\Controllers\Api\V1\Dashboard\PrivateController::class, "downloadfile"]);
     Route::middleware('adminPermission')->group(function () {
         Route::controller('CountryController')->name('countries.')->prefix('countries')->group(function () {
@@ -77,7 +80,7 @@ Route::middleware('auth:sanctum')->group(function () {
             Route::get('archive', 'archive')->name('archive');
             Route::post('restore/{id}', 'restore')->name('restore');
             Route::delete('forceDelete/{id}', 'forceDelete')->name('force_delete');
-            Route::get('get-parents', 'getAllParents')->name("get_parents");
+            // Route::get('get-parents', 'getAllParents')->name("get_parents");
         });
         Route::controller('ClientController')->name('clients.')->prefix('clients')->group(function () {
         });
@@ -112,6 +115,7 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::controller('ActivityController')->name('activity_logs.')->prefix('activity_logs')->group(function () {
             Route::get('departments', 'getDepartments')->name('departments');
             Route::get('employees', 'getEmployees')->name('employees');
+            Route::get('main-programs','ActivityController@getMainPrograms')->name('main_programs');
         });
 
 
@@ -132,6 +136,6 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::apiResource('activity_logs', 'ActivityController')->only(['index', 'show']);
 
 
-        Route::resource('groups', 'GroupController')->except('create','edit','destroy');
+        Route::resource('groups', 'GroupController')->except('create', 'edit', 'destroy');
     });
 });

@@ -64,7 +64,7 @@ class LoginController extends Controller
             $user->devices()->firstOrCreate($request->only(['device_token', 'device_type']));
         }
         data_set($user, 'token', $token);
-        return UserResource::make($user)->additional(['status' => true, 'message' => trans('auth.success_login', ['user' => $user->phone]) , 'login_code_required' => $login_code_required]);
+        return UserResource::make($user)->additional(['status' => true, 'message' => trans('auth.success_login', ['user' => $user->login_id]) , 'login_code_required' => $login_code_required]);
     }
 
     public function resendCode(ResendCodeRequest $request)
