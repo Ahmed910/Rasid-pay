@@ -15,8 +15,8 @@ class SimpleEmployeeResource extends JsonResource
     public function toArray($request)
     {
         return [
-            'id' => $this->id,
-            'fullname' => $this->fullname,
+            'id' => $this->user_id,
+            'fullname' => $this->user->fullname,
         ];
     }
 }
