@@ -7,7 +7,7 @@ use App\Models\Country\Country;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\V1\Dashboard\ReasonRequest;
 use App\Http\Requests\V1\Dashboard\CountryRequest;
-use App\Http\Resources\Dashboard\Countries\{CountryResource, CountryCollection};
+use App\Http\Resources\Dashboard\Country\{CountryResource, CountryCollection};
 
 
 
