@@ -18,7 +18,7 @@ class EmployeeController extends Controller
         $employees = Employee::with(['user' => function ($q) {
             $q->with('addedBy');
         }])
-            ->latest()->paginate((int)($request->per_page ?? config("globals.per_page")));
+        ->latest()->paginate((int)($request->per_page ?? config("globals.per_page")));
 
         return EmployeeResource::collection($employees)
             ->additional([

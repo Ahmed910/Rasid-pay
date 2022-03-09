@@ -65,6 +65,7 @@ class GroupController extends Controller
 
         $activities  = $group->activity()->paginate((int)($request->per_page ?? 15));
         data_set($activities, 'group', $group);
+        data_set($activities, 'permissons', $group->permissions);
 
         return GroupCollection::make($activities)
             ->additional([
