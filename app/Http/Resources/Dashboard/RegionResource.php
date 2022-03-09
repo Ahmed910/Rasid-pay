@@ -3,6 +3,7 @@
 namespace App\Http\Resources\Dashboard;
 
 use App\Http\Resources\Dashboard\ActivityLogResource;
+use App\Http\Resources\Dashboard\City\CityResource;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class RegionResource extends JsonResource
