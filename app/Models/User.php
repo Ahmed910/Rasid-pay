@@ -139,7 +139,7 @@ class User extends Authenticatable implements HasAssetsInterface
     {
         $this->addGlobalActivity($this, $request->query(), 'Searched');
 
-        !$request->fullname ?: $query->where(function ($q) use ($request) {
+        !$request->name ?: $query->where(function ($q) use ($request) {
             $q->where("fullname", "like", "%$request->name%");
                 // ->orWhere("email", "like", "%$request->keySearch%")
                 // ->orWhere("whatsapp", "like", "%$request->keySearch%")
