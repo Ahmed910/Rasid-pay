@@ -23,15 +23,18 @@ class BankResource extends JsonResource
         return [
             'id' => $this->id,
             'created_at' => $this->created_at,
-            'actions' => [
+            'actions' => $this->when(in_array($request->route()->getActionMethod(),['index','archive']), [
                 'show' => auth()->user()->hasPermissions('banks.show'),
-                'create' => auth()->user()->hasPermissions('banks.store'),
-                'update' => auth()->user()->hasPermissions('banks.update'),
-                'archive' => auth()->user()->hasPermissions('banks.archive'),
-                'destroy' => auth()->user()->hasPermissions('banks.destroy'),
-                'restore' => auth()->user()->hasPermissions('banks.restore'),
-                'forceDelete' => auth()->user()->hasPermissions('banks.force_delete'),
-            ]
+                $this->mergeWhen($request->route()->getActionMethod() == 'index', [
+                    'create' => auth()->user()->hasPermissions('banks.store'),
+                    'update' => auth()->user()->hasPermissions('banks.update'),
+                    'destroy' => auth()->user()->hasPermissions('banks.destroy'),
+                ]),
+                $this->mergeWhen($request->route()->getActionMethod() == 'archive', [
+                    'restore' => auth()->user()->hasPermissions('banks.restore'),
+                    'forceDelete' => auth()->user()->hasPermissions('banks.force_delete')
+                ]),
+            ])
 
         ] + $locales;
     }
