@@ -18,7 +18,7 @@ class EmployeeController extends Controller
         $employees = Employee::with(['user' => function ($q) {
             $q->with('addedBy');
         }])
-        ->latest()->paginate((int)($request->per_page ?? config("globals.per_page")));
+            ->latest()->paginate((int)($request->per_page ?? config("globals.per_page")));
 
         return EmployeeResource::collection($employees)
             ->additional([
@@ -93,6 +93,19 @@ class EmployeeController extends Controller
             ->additional([
                 'status' => true,
                 'message' =>  trans('dashboard.general.success_update'),
+            ]);
+    }
+
+    public function getEmployeesByDepartment($id)
+    {
+        $employees = Employee::where('department_id', $id)->with(['user' => function ($q) {
+            $q->where('user_type', 'employee');
+        }])->get();
+
+        return EmployeeResource::collection($employees)
+            ->additional([
+                'status' => true,
+                'message' =>  '',
             ]);
     }
 
