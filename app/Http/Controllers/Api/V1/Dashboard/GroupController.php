@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Api\V1\Dashboard;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\V1\Dashboard\GroupRequest;
-use App\Http\Resources\Dashboard\Group\{GroupResource , UriResource};
+use App\Http\Resources\Dashboard\Group\{GroupResource, GroupCollection, UriResource};
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use App\Models\{Group\Group , Permission};
@@ -73,7 +73,7 @@ class GroupController extends Controller
         $activities  = $group->activity()->paginate((int)($request->per_page ?? 15));
         data_set($activities, 'group', $group);
 
-        return DepartmentCollection::make($activities)
+        return GroupCollection::make($activities)
             ->additional([
                 'status' => true,
                 'message' => ''
