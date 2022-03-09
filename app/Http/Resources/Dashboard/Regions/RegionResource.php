@@ -1,9 +1,12 @@
 <?php
 
-namespace App\Http\Resources\Dashboard;
+namespace App\Http\Resources\Dashboard\Regions;
 
 use App\Http\Resources\Dashboard\ActivityLogResource;
 use App\Http\Resources\Dashboard\City\CityResource;
+use App\Http\Resources\Dashboard\CountryResource;
+use App\Http\Resources\Dashboard\GlobalTransResource;
+use App\Http\Resources\Dashboard\SimpleUserResource;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class RegionResource extends JsonResource
