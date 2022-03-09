@@ -57,15 +57,16 @@ class GroupController extends Controller
 
     public function show(Request $request, Group $group)
     {
+        $activities  = $group->activity()->paginate((int)($request->per_page ?? 15));
+        data_set($activities, 'permissions', $group->permissions);
+
         $group->load(['translations','groups' => function ($q) {
             $q->with('permissions');
         },'permissions' => function ($q) use($group) {
             $q->whereNotIn('permissions.id',$group->permissions->pluck('id')->toArray());
         }]);
 
-        $activities  = $group->activity()->paginate((int)($request->per_page ?? 15));
         data_set($activities, 'group', $group);
-        data_set($activities, 'permissons', $group->permissions);
 
         return GroupCollection::make($activities)
             ->additional([

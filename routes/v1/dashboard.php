@@ -16,11 +16,11 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::post('login', "Auth\LoginController@login");
+Route::post('otp_login', "Auth\LoginController@otpLogin");
 Route::post('send', "Auth\LoginController@sendCode");
 Route::post('resend_code', "Auth\LoginController@resendCode");
-Route::post('check_code', "Auth\LoginController@CheckResetCode");
-Route::post('reset_password', "Auth\LoginController@resetPassword");
-Route::post('otp_login', "Auth\LoginController@otpLogin");
+Route::post('check_code', "Auth\ResetPasswordController@CheckResetCode");
+Route::post('reset_password', "Auth\ResetPasswordController@resetPassword");
 Route::get('artisan_commend/{command}', function ($command) {
     ini_set('max_execution_time', 300);
     if ($command) {
