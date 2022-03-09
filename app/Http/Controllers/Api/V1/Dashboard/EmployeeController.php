@@ -98,9 +98,12 @@ class EmployeeController extends Controller
 
     public function getEmployeesByDepartment($id)
     {
-        $employees = Employee::where('department_id', $id)->with(['user' => function ($q) {
+
+
+        $employees = Employee::where('department_id', $id)->with('user')->whereHas('user', function ($q) {
             $q->where('user_type', 'employee');
-        }])->get();
+        })->get();
+
 
         return EmployeeResource::collection($employees)
             ->additional([

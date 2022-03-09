@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Http\Resources\Dashboard\Countries;
+namespace App\Http\Resources\Dashboard\Country;
 
 use Illuminate\Http\Resources\Json\JsonResource;
-use App\Http\Resources\Dashboard\CurrencyResource;
 use App\Http\Resources\Dashboard\SimpleUserResource;
 use App\Http\Resources\Dashboard\ActivityLogResource;
+use App\Http\Resources\Dashboard\Currency\CurrencyResource;
 use App\Http\Resources\Dashboard\GlobalTransResource;
 
 class CountryResource extends JsonResource

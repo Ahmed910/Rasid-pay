@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Resources\Dashboard\Departments;
+namespace App\Http\Resources\Dashboard\Department;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 

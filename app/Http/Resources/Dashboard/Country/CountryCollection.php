@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Http\Resources\Dashboard\Countries;
+namespace App\Http\Resources\Dashboard\Country;
 
-use App\Http\Resources\Dashboard\Countries\CountryResource;
+use App\Http\Resources\Dashboard\Country\CountryResource;
 use App\Http\Resources\Dashboard\ActivityLogResource;
 use Illuminate\Http\Resources\Json\ResourceCollection;
 
