@@ -16,6 +16,17 @@ class AdminRequest extends ApiMasterRequest
         return true;
     }
 
+
+    protected function prepareForValidation()
+    {
+        $data = $this->all();
+
+        $this->merge([
+            'ban_from' =>  @$data['ban_from'] ? date('Y-m-d', strtotime($data['ban_from'])) : null,
+            'ban_to' =>  @$data['ban_to'] ? date('Y-m-d', strtotime($data['ban_to'])) : null,
+        ]);
+    }
+
     public function rules()
     {
         if ($this->admin) {
@@ -33,7 +44,7 @@ class AdminRequest extends ApiMasterRequest
         return [
             'is_login_code' => 'required|in:1,0',
             'login_id' => 'required|digits:6|numeric|unique:users,login_id,' . @$this->admin . ',id,user_type,admin',
-            'ban_from' => 'nullable|required_if:ban_status,temporary|date|after:01-01-1900',
+            'ban_from' => 'nullable|required_if:ban_status,temporary|date|after:1900-01-01',
             'ban_to' => 'nullable|required_if:ban_status,temporary|date|after_or_equal:ban_from',
             'group_list' => 'required_without:permission_list|array|min:1',
             'group_list.*' => 'required_without:permission_list|exists:groups,id',
