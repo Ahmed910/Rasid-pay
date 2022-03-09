@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\Api\V1\Dashboard;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\Dashboard\Currency\{CurrencyResource, CurrencyCollection};
 use App\Http\Requests\V1\Dashboard\CurrencyRequest;
-use App\Http\Resources\Dashboard\CurrencyResource;
 use App\Models\Currency\Currency;
 use Illuminate\Http\Request;
 use App\Http\Requests\V1\Dashboard\ReasonRequest;
@@ -57,14 +57,16 @@ class CurrencyController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Request $request ,$id)
     {
-        $currency = Currency::with('activity')->withTrashed()->findOrFail($id);
+        $currency = Currency::withTrashed()->with('translations')->findOrFail($id);
+        $activities  = $currency->activity()->paginate((int)($request->per_page ?? 15));
+        data_set($activities, 'currency', $currency);
 
-        return CurrencyResource::make($currency->load('translations'))
+        return CurrencyCollection::make($activities)
             ->additional([
                 'status' => true,
-                'message' => trans("dashboard.general.show")
+                'message' => ''
             ]);
     }
 
