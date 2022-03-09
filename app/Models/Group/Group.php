@@ -35,17 +35,17 @@ class Group extends Model implements TranslatableContract
 
             $query->whereDate('created_at', $request->created_at);
         }
-        if (in_array($request->is_active,[0,1])) {
+        if (in_array($request->is_active,['0','1'])) {
             $query->where('is_active', $request->is_active);
         }
 
-        // if ($request->admins_from) {
-        //     $query->withCount('admins as admins_from')->having('admins_from',">=" , $request->admins_from);
-        // }
-        //
-        // if ($request->admins_to) {
-        //     $query->withCount('admins as admins_to')->having('admins_to',"<=" , $request->admins_to);
-        // }
+        if ($request->admins_from) {
+            $query->withCount('admins as admins_from')->having('admins_from',">=" , $request->admins_from);
+        }
+
+        if ($request->admins_to) {
+            $query->withCount('admins as admins_to')->having('admins_to',"<=" , $request->admins_to);
+        }
     }
 
     public function scopeActive($query)
