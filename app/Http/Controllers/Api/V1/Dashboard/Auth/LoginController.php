@@ -3,20 +3,15 @@
 namespace App\Http\Controllers\Api\V1\Dashboard\Auth;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\V1\Dashboard\Auth\{LoginRequest, SendCodeRequest, LogoutRequest, ResetPasswordRequest, OTPLoginRequest, CheckResetCodeRequest, ResendCodeRequest};
+use App\Http\Requests\V1\Dashboard\Auth\{LoginRequest, SendCodeRequest, LogoutRequest, OTPLoginRequest, ResendCodeRequest};
 use App\Http\Resources\Dashboard\UserResource;
 use App\Jobs\ExpireCodeJob;
 use App\Models\{Device, User};
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Symfony\Component\HttpFoundation\Response;
 
 class LoginController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware('auth:sanctum', ['only' => ['logout']]);
-    }
 
     public function login(LoginRequest $request)
     {
@@ -128,32 +123,6 @@ class LoginController extends Controller
         } catch (\Exception $e) {
             return response()->json(['status' => false, 'data' => null, 'message' => trans('auth.fail_send')], 422);
         }
-    }
-
-    public function CheckResetCode(CheckResetCodeRequest $request)
-    {
-        $user = User::firstWhere(['reset_token' => $request->_token]);
-        if (!$user) {
-            return response()->json(['status' => false, 'data' => null, 'message' => trans('auth.account_not_true_or_account_deactive'),'errors' => []], 422);
-        }
-
-        return response()->json(['status' => true, 'data' => ['_token' => $user->reset_token], 'message' => trans('auth.success_change_password')]);
-    }
-
-    public function resetPassword(ResetPasswordRequest $request)
-    {
-        $user = User::firstWhere(['reset_token' => $request->_token]);
-        $user_data = ['reset_token' => null];
-        if (!$user) {
-            return response()->json(['status' => false, 'data' => null, 'message' => trans('auth.phone_not_true_or_account_deactive'),'errors' => []], 422);
-        } elseif (!$user->phone_verified_at) {
-            $user_data += ['password' => $request->password, 'verified_code' => null, 'is_active' => true, 'phone_verified_at' => now()];
-        } elseif ($user->phone_verified_at) {
-            $user_data += ['password' => $request->password, 'reset_code' => null];
-        }
-        $user->update($user_data);
-
-        return response()->json(['status' => true, 'data' => null, 'message' => trans('auth.success_change_password')]);
     }
 
     public function logout(LogoutRequest $request)
