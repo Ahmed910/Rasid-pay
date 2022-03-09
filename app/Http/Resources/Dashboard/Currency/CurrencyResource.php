@@ -1,9 +1,11 @@
 <?php
 
-namespace App\Http\Resources\Dashboard;
+namespace App\Http\Resources\Dashboard\Currency;
 
 use App\Http\Resources\Dashboard\ActivityLogResource;
 use Illuminate\Http\Resources\Json\JsonResource;
+use App\Http\Resources\Dashboard\GlobalTransResource;
+use App\Http\Resources\Dashboard\SimpleUserResource;
 
 class CurrencyResource extends JsonResource
 {
