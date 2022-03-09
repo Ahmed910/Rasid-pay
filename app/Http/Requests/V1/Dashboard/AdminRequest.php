@@ -38,7 +38,7 @@ class AdminRequest extends ApiMasterRequest
         } else {
             $data = [
                 'employee_id' =>  'required|exists:users,id,user_type,employee',
-                'password' => 'required|min:6|max:100'
+                'password' => 'required|numeric|digits_between:6,10'
             ];
         }
         return [
