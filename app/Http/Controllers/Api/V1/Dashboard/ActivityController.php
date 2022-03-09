@@ -78,4 +78,13 @@ class ActivityController extends Controller
 
         return OnlyResource::collection($mainPrograms);
     }
+
+    public function getSubPrograms($main_progs)
+    {
+        return response()->json([
+            'data' => ['sub_progs' => trans('dashboard.' . mb_strtolower($main_progs) . '.sub_progs')],
+            'message' => '',
+            'status' => true
+        ])
+    }
 }

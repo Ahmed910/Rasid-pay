@@ -44,6 +44,12 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('all-groups', 'GroupController@getGroups');
     Route::get('all-jobs/{department}', 'RasidJobController@getVacantJobs');
 
+    Route::controller('ActivityController')->name('activity_logs.')->prefix('activity_logs')->group(function () {
+        Route::get('employees', 'getEmployees')->name('employees');
+        Route::get('main-programs','ActivityController@getMainPrograms')->name('main_programs');
+        Route::get('sub-programs/{main}','ActivityController@getSubPrograms')->name('sub_programs');
+    });
+
     Route::get("/files/client/{file}", [\App\Http\Controllers\Api\V1\Dashboard\PrivateController::class, "downloadfile"]);
     Route::middleware('adminPermission')->group(function () {
         Route::controller('CountryController')->name('countries.')->prefix('countries')->group(function () {
@@ -111,13 +117,6 @@ Route::middleware('auth:sanctum')->group(function () {
             Route::post('restore/{id}', 'restore')->name('restore');
             Route::delete('forceDelete/{id}', 'forceDelete')->name('force_delete');
         });
-
-        Route::controller('ActivityController')->name('activity_logs.')->prefix('activity_logs')->group(function () {
-            Route::get('departments', 'getDepartments')->name('departments');
-            Route::get('employees', 'getEmployees')->name('employees');
-            Route::get('main-programs','ActivityController@getMainPrograms')->name('main_programs');
-        });
-
 
         Route::apiResources([
             'countries' => 'CountryController',
