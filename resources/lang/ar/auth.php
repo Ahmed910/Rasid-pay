@@ -19,4 +19,6 @@ return [
     'success_login' => 'تسجيل الدخول الى النظام برقم مستخدم :user',
     'unauth' => 'قم بتسجيل الدخول أولا',
     'logout_waiting_u_another_time' => 'تم تسجيل الخروج بنجاح, في انتظارك مرة أخرى',
+    'ban_permanent' => 'هذا الحساب معطل دائما',
+    'ban_temporary' => 'هذا الحساب معطل لفترة من :ban_from  إلي :ban_to'
 ];
