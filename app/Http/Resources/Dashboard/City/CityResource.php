@@ -7,6 +7,7 @@ use App\Http\Resources\Dashboard\GlobalTransResource;
 use App\Http\Resources\Dashboard\SimpleUserResource;
 use App\Http\Resources\Dashboard\CountryResource;
 use App\Http\Resources\Dashboard\ActivityLogResource;
+use App\Http\Resources\Dashboard\Countries\CountryResource;
 
 class CityResource extends JsonResource
 {
