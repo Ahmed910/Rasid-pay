@@ -18,13 +18,13 @@ class PermissionResource extends JsonResource
         $permission = explode('.',$this->name);
         $single_uri = str_singular($permission[0]);
         $main_prog = trans('dashboard.' . $single_uri . '.' . $permission[0]);
-        $action = trans('dashboard.' . $single_uri . '.permissions.' . $permission[1]);
+        $action = trans('dashboard.' . $single_uri . '.permissions.' . @$permission[1]);
         $sub_prog = '---';
         switch ($permission) {
-            case in_array($permission[1],['update','show','destroy']):
+            case in_array(@$permission[1],['update','show','destroy']):
                 $sub_prog = trans('dashboard.'.$single_uri.'.sub_progs.index');
                 break;
-            case in_array($permission[1],['restore','force_delete']):
+            case in_array(@$permission[1],['restore','force_delete']):
                 $sub_prog = trans('dashboard.'.$single_uri.'.sub_progs.archive');
                 break;
         }
