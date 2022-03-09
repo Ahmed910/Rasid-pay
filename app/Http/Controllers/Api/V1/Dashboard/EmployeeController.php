@@ -96,6 +96,22 @@ class EmployeeController extends Controller
             ]);
     }
 
+    public function getEmployeesByDepartment($id)
+    {
+
+
+        $employees = Employee::where('department_id', $id)->with('user')->whereHas('user', function ($q) {
+            $q->where('user_type', 'employee');
+        })->get();
+
+
+        return EmployeeResource::collection($employees)
+            ->additional([
+                'status' => true,
+                'message' =>  '',
+            ]);
+    }
+
     //archive data
     // public function destroy(ReasonRequest $request, $id)
     // {

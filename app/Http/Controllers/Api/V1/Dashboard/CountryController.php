@@ -2,13 +2,13 @@
 
 namespace App\Http\Controllers\Api\V1\Dashboard;
 
-use App\Http\Controllers\Controller;
-use App\Http\Requests\V1\Dashboard\CountryRequest;
-use App\Http\Requests\V1\Dashboard\ReasonRequest;
-use App\Http\Resources\Dashboard\CountryResource;
-use App\Models\ActivityLog;
-use App\Models\Country\Country;
 use Illuminate\Http\Request;
+use App\Models\Country\Country;
+use App\Http\Controllers\Controller;
+use App\Http\Requests\V1\Dashboard\ReasonRequest;
+use App\Http\Requests\V1\Dashboard\CountryRequest;
+use App\Http\Resources\Dashboard\Country\{CountryResource, CountryCollection};
+
 
 
 class CountryController extends Controller
@@ -35,10 +35,7 @@ class CountryController extends Controller
             ]);
     }
 
-    public function create()
-    {
-        //
-    }
+
 
     public function store(CountryRequest $request, Country $country)
     {
@@ -55,25 +52,24 @@ class CountryController extends Controller
 
 
 
-    public function show($id)
+    public function show(Request $request, $id)
     {
-        $country = Country::with('activity')->withTrashed()->findOrFail($id);
+        $country = Country::withTrashed()->with('translations')->findOrFail($id);
+        $activities  = $country->activity()->paginate((int)($request->per_page ?? 15));
+        data_set($activities, 'country', $country);
 
-        return CountryResource::make($country)
+
+        return CountryCollection::make($activities)
             ->additional([
                 'status' => true,
                 'message' =>  '',
             ]);
     }
 
-    public function edit($id)
-    {
-        //
-    }
 
     public function update(CountryRequest $request, Country $country)
     {
-        $country->fill($request->validated()+['updated_at'=>now()])->save();
+        $country->fill($request->validated() + ['updated_at' => now()])->save();
 
 
         return CountryResource::make($country)

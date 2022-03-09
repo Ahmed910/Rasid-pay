@@ -16,11 +16,11 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::post('login', "Auth\LoginController@login");
+Route::post('otp_login', "Auth\LoginController@otpLogin");
 Route::post('send', "Auth\LoginController@sendCode");
 Route::post('resend_code', "Auth\LoginController@resendCode");
-Route::post('check_code', "Auth\LoginController@CheckResetCode");
-Route::post('reset_password', "Auth\LoginController@resetPassword");
-Route::post('otp_login', "Auth\LoginController@otpLogin");
+Route::post('check_code', "Auth\ResetPasswordController@CheckResetCode");
+Route::post('reset_password', "Auth\ResetPasswordController@resetPassword");
 Route::get('artisan_commend/{command}', function ($command) {
     ini_set('max_execution_time', 300);
     if ($command) {
@@ -41,6 +41,7 @@ Route::middleware('auth:sanctum')->group(function () {
     });
     Route::post('settings/create-setting', 'SettingController@createSetting');
     Route::get('all-departments', 'DepartmentController@getAllDepartments');
+    Route::get('all-employees/{department}', 'EmployeeController@getEmployeesByDepartment');
     Route::get('all-groups/{except_id?}', 'GroupController@getGroups');
     Route::get('all-jobs/{department}', 'RasidJobController@getVacantJobs');
 

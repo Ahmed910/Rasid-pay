@@ -1,11 +1,13 @@
 <?php
 
-namespace App\Http\Resources\Dashboard;
+namespace App\Http\Resources\Dashboard\Currency;
 
-use Illuminate\Http\Resources\Json\JsonResource;
 use App\Http\Resources\Dashboard\ActivityLogResource;
+use Illuminate\Http\Resources\Json\JsonResource;
+use App\Http\Resources\Dashboard\GlobalTransResource;
+use App\Http\Resources\Dashboard\SimpleUserResource;
 
-class CountryResource extends JsonResource
+class CurrencyResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -24,25 +26,23 @@ class CountryResource extends JsonResource
         return [
             'id' => $this->id,
             'name' => $this->name,
-            'phone_code' => $this->phone_code,
-            'nationality' => $this->nationality,
-            'currency' => CurrencyResource::make($this->whenLoaded('currency')),
-            'activity' => ActivityLogResource::collection($this->whenLoaded('activity')),
-            'created_at' => $this->created_at,
-            'added_by ' => SimpleUserResource::make($this->whenLoaded('addedBy')),
+            'value' => $this->value,
+            'created_at'=>$this->created_at,
+            'added_by_id' => SimpleUserResource::make($this->whenloaded('addedBy')),
             'activity'  => ActivityLogResource::collection($this->whenLoaded('activity')),
             'actions' => $this->when(in_array($request->route()->getActionMethod(),['index','archive']), [
-                'show' => auth()->user()->hasPermissions('countries.show'),
+                'show' => auth()->user()->hasPermissions('currencies.show'),
                 $this->mergeWhen($request->route()->getActionMethod() == 'index', [
-                    'create' => auth()->user()->hasPermissions('countries.store'),
-                    'update' => auth()->user()->hasPermissions('countries.update'),
-                    'destroy' => auth()->user()->hasPermissions('countries.destroy'),
+                    'create' => auth()->user()->hasPermissions('currencies.store'),
+                    'update' => auth()->user()->hasPermissions('currencies.update'),
+                    'destroy' => auth()->user()->hasPermissions('currencies.destroy'),
                 ]),
                 $this->mergeWhen($request->route()->getActionMethod() == 'archive', [
-                    'restore' => auth()->user()->hasPermissions('countries.restore'),
-                    'forceDelete' => auth()->user()->hasPermissions('countries.force_delete')
+                    'restore' => auth()->user()->hasPermissions('currencies.restore'),
+                    'forceDelete' => auth()->user()->hasPermissions('currencies.force_delete')
                 ]),
             ])
         ] + $locales;
+
     }
 }

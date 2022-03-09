@@ -1,11 +1,12 @@
 <?php
 
-namespace App\Http\Resources\Dashboard\Group;
+namespace App\Http\Resources\Dashboard\Country;
 
+use App\Http\Resources\Dashboard\Country\CountryResource;
 use App\Http\Resources\Dashboard\ActivityLogResource;
 use Illuminate\Http\Resources\Json\ResourceCollection;
 
-class GroupCollection extends ResourceCollection
+class CountryCollection extends ResourceCollection
 {
     /**
      * Transform the resource into an array.
@@ -16,9 +17,8 @@ class GroupCollection extends ResourceCollection
     public function toArray($request)
     {
         return [
-            'group' => GroupResource::make($this->collection['group']),
-            'activity' => ActivityLogResource::collection($this->collection->except(['group','permissions'])),
-            'permissions' => PermissionResource::collection($this->collection['permissions'])
+            'country' => CountryResource::make($this->collection['country']),
+            'activity' => ActivityLogResource::collection($this->collection->except('country'))
         ];
     }
 }
