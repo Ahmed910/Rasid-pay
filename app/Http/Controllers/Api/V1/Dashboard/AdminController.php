@@ -95,7 +95,9 @@ class AdminController extends Controller
     {
         $admin = User::where('user_type', 'admin')->findOrFail($id);
 
-        $admin->update($request->validated());
+        if ($request->password_change && $request->password_change == 1) $admin->update($request->validated());
+
+        else $admin->update($request->safe()->except(['password']));
 
         //TODO::send sms with password
         // if($request->('password_change'))
