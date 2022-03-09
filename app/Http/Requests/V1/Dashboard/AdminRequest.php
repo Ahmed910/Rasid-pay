@@ -33,7 +33,7 @@ class AdminRequest extends ApiMasterRequest
         return [
             'is_login_code' => 'required|in:1,0',
             'login_id' => 'required|digits:6|numeric|unique:users,login_id,' . @$this->admin . ',id,user_type,admin',
-            'ban_from' => 'nullable|required_if:ban_status,temporary|date',
+            'ban_from' => 'nullable|required_if:ban_status,temporary|date|after:01-01-1900',
             'ban_to' => 'nullable|required_if:ban_status,temporary|date|after_or_equal:ban_from',
             'group_list' => 'required_without:permission_list|array|min:1',
             'group_list.*' => 'required_without:permission_list|exists:groups,id',
