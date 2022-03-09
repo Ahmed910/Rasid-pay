@@ -2,12 +2,12 @@
 
 namespace App\Http\Resources\Dashboard\Regions;
 
-use App\Http\Resources\Dashboard\ActivityLogResource;
-use App\Http\Resources\Dashboard\City\CityResource;
-use App\Http\Resources\Dashboard\CountryResource;
-use App\Http\Resources\Dashboard\GlobalTransResource;
-use App\Http\Resources\Dashboard\SimpleUserResource;
 use Illuminate\Http\Resources\Json\JsonResource;
+use App\Http\Resources\Dashboard\City\CityResource;
+use App\Http\Resources\Dashboard\SimpleUserResource;
+use App\Http\Resources\Dashboard\ActivityLogResource;
+use App\Http\Resources\Dashboard\GlobalTransResource;
+use App\Http\Resources\Dashboard\Countries\CountryResource;
 
 class RegionResource extends JsonResource
 {
