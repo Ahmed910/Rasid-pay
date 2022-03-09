@@ -63,6 +63,22 @@ class GroupController extends Controller
 
         return GroupResource::make($group)->additional(['status' => true, 'message' => '']);
     }
+
+    public function show(Request $request, Group $group)
+    {
+        $group->load(['translations','groups','permissions' => function ($q) use($group) {
+            $q->whereNotIn('permissions.id',$group->permissions->pluck('id')->toArray());
+        }]);
+
+        $activities  = $group->activity()->paginate((int)($request->per_page ?? 15));
+        data_set($activities, 'group', $group);
+
+        return DepartmentCollection::make($activities)
+            ->additional([
+                'status' => true,
+                'message' => ''
+            ]);
+    }
     /**
      * Update the specified resource in storage.
      *
@@ -139,10 +155,12 @@ class GroupController extends Controller
         });
     }
 
-    public function getGroups()
+    public function getGroups($group_id = null)
     {
         return response()->json([
-                'data' => Group::ListsTranslations('name')->without(['addedBy'])->get(),
+                'data' => Group::when($group_id, function ($q) use($group_id) {
+                    $q->where('id',"<>",$group_id);
+                } )->ListsTranslations('name')->without(['addedBy'])->get(),
                 'status' => true,
                 'message' =>  '',
             ]);

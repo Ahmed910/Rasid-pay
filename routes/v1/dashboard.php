@@ -41,7 +41,7 @@ Route::middleware('auth:sanctum')->group(function () {
     });
     Route::post('settings/create-setting', 'SettingController@createSetting');
     Route::get('all-departments', 'DepartmentController@getAllDepartments');
-    Route::get('all-groups', 'GroupController@getGroups');
+    Route::get('all-groups/{except_id?}', 'GroupController@getGroups');
     Route::get('all-jobs/{department}', 'RasidJobController@getVacantJobs');
 
     Route::controller('ActivityController')->name('activity_logs.')->prefix('activity_logs')->group(function () {

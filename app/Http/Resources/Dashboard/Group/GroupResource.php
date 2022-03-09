@@ -29,7 +29,6 @@ class GroupResource extends JsonResource
             'admins_count' => $this->admins->count(),
             'permissions' => PermissionResource::collection($this->whenLoaded('permissions')),
             'groups' => self::collection($this->whenLoaded('groups')),
-            'activity'  => ActivityLogResource::collection($this->whenLoaded('activity')),
             'created_at' => $this->created_at,
             'actions' => $this->when($request->route()->getActionMethod() == 'index', [
                 'update' => auth()->user()->hasPermissions('groups.update'),
