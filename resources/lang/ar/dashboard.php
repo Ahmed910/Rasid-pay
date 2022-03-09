@@ -56,7 +56,12 @@ return [
         "add_country" => "اضافة دولة",
         "edit_country" => "تعديل دولة",
         "country_count" => "عدد الدول",
-        'permissions' => $permissions
+        'permissions' => $permissions,
+        'sub_progs' => [
+            'index' => 'سجل الدول',
+            'archive' => 'ارشيف الدول',
+            'index' => 'اضافة دولة',
+        ],
     ],
     "region" => [
         "region" => "المنطقة ",
@@ -64,7 +69,12 @@ return [
         "add_region" => "اضافة منطقة",
         "edit_region" => "تعديل المنطقه",
         "region_count" => "عدد المناطق",
-        'permissions' => $permissions
+        'permissions' => $permissions,
+        'sub_progs' => [
+            'index' => 'سجل الدول',
+            'archive' => 'ارشيف الدول',
+            'index' => 'اضافة دولة',
+        ],
     ],
     "city" => [
         "city" => "المدينة",
@@ -72,6 +82,11 @@ return [
         "add_city" => "اضافة مدينة",
         "edit_city" => "تعديل المدينة",
         "city_count" => "عدد المدن",
+        'sub_progs' => [
+            'index' => 'سجل الدول',
+            'archive' => 'ارشيف الدول',
+            'index' => 'اضافة دولة',
+        ],
         'permissions' => $permissions
     ],
     "group" => [
@@ -80,6 +95,11 @@ return [
         "add_group" => "اضافة مجموعه",
         "edit_group" => "تعديل المجموعه",
         "group_count" => "عدد المجموعات",
+        'sub_progs' => [
+            'index' => 'سجل الصلاحيات',
+            'archive' => 'ارشيف الصلاحيات',
+            'index' => 'اضافة مجموعة',
+        ],
         'permissions' => array_except($permissions, ['archive', 'restore', 'force_delete']) + ['create' => 'عرض القائمة']
     ],
     "currency" => [
@@ -88,6 +108,11 @@ return [
         "add_currency" => "اضافة عملة",
         "edit_currency" => "تعديل العملة",
         "currency_count" => "عدد العملات",
+        'sub_progs' => [
+            'index' => 'سجل الدول',
+            'archive' => 'ارشيف الدول',
+            'index' => 'اضافة دولة',
+        ],
         'permissions' => $permissions
     ],
     "department" => [
@@ -96,6 +121,11 @@ return [
         "add_department" => "اضافة قسم",
         "edit_department" => "تعديل القسم",
         "department_count" => "عدد الاقسام",
+        'sub_progs' => [
+            'index' => 'سجل الدول',
+            'archive' => 'ارشيف الدول',
+            'index' => 'اضافة دولة',
+        ],
         'permissions' => $permissions + ['get_parents' => 'عرض الاقسام الرئيسية'],
         "has_jobs_cannot_delete" => "لا يمكن أرشفة قسم مرتبط بوظائف",
         "department_has_relationship_cannot_delete" => "لا يمكن حذف هذا القسم لأنه يحتوي علي أقسام فرعية   ",
@@ -112,7 +142,11 @@ return [
         ],
        "jobs_hired_deleted" => " لا يمكن حذف هذه الوظيفة لانها مشغولة ",
        "jobs_hired_archived" => " لا يمكن أرشفة هذه الوظيفة لانها مشغولة ",
-
+       'sub_progs' => [
+           'index' => 'سجل الدول',
+           'archive' => 'ارشيف الدول',
+           'index' => 'اضافة دولة',
+       ],
         'permissions' => $permissions
     ],
     "setting" => [
@@ -120,6 +154,11 @@ return [
         "settings" => "الاعدادات",
         "add_setting" => "",
         "setting_count" => "",
+        'sub_progs' => [
+            'index' => 'سجل الدول',
+            'archive' => 'ارشيف الدول',
+            'index' => 'اضافة دولة',
+        ],
         'permissions' => $permissions
     ],
     "profile" => [
@@ -134,6 +173,11 @@ return [
         "add_admin" => "اضافة مستخدم",
         "edit_admin" => "تعديل المستخدم",
         "admin_count" => "عدد المستخدمين",
+        'sub_progs' => [
+            'index' => 'سجل الدول',
+            'archive' => 'ارشيف الدول',
+            'index' => 'اضافة دولة',
+        ],
         'permissions' => array_except($permissions, ['archive', 'restore', 'force_delete']) + ['create' => 'عرض المستخدمين']
     ],
     'contact' => [
@@ -151,7 +195,11 @@ return [
         "add_employee" => "اضافة موظف",
         "edit_employee" => "تعديل موظف",
         "employee_count" => "عدد الموظفين",
-
+        'sub_progs' => [
+            'index' => 'سجل الدول',
+            'archive' => 'ارشيف الدول',
+            'index' => 'اضافة دولة',
+        ],
         'permissions' => array_except($permissions, ['archive', 'restore', 'force_delete']) + ['create' => 'عرض الموظفين']
 
     ],
@@ -161,6 +209,11 @@ return [
         "add_bank" => "اضافة بنك",
         "edit_bank" => "تعديل بنك",
         "bank_count" => "عدد البنوك",
+        'sub_progs' => [
+            'index' => 'سجل الدول',
+            'archive' => 'ارشيف الدول',
+            'index' => 'اضافة دولة',
+        ],
         'permissions' => $permissions
     ],
     "notification" => [
@@ -175,6 +228,11 @@ return [
         "add_client" => "اضافة عميل",
         "edit_client" => "تعديل عميل",
         "admin_client" => "عدد العملاء",
+        'sub_progs' => [
+            'index' => 'سجل الدول',
+            'archive' => 'ارشيف الدول',
+            'index' => 'اضافة دولة',
+        ],
         'permissions' => array_except($permissions, ['archive', 'restore', 'force_delete']) + ['create' => 'عرض العملاء']
     ],
     'user' => [
