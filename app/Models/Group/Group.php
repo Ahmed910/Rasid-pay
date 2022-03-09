@@ -35,7 +35,6 @@ class Group extends Model implements TranslatableContract
 
             $query->whereDate('created_at', $request->created_at);
         }
-
         if (in_array($request->is_active,[0,1])) {
             $query->where('is_active', $request->is_active);
         }
