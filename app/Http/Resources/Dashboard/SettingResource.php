@@ -12,10 +12,9 @@ class SettingResource extends JsonResource
             'key'   => $this->key,
             'value' => $this->value,
             'input' => $this->input_type,
-            'actions' => [
-                'index' => auth()->user()->hasPermissions('settings.index'),
-                'update' => auth()->user()->hasPermissions('settings.store')
-            ]
+            'actions' => $this->when($request->route()->getActionMethod() == 'index', [
+                'update' => auth()->user()->hasPermissions('countries.update')
+            ])
         ];
     }
 }

@@ -32,15 +32,18 @@ class RasidJobResource extends JsonResource
             'added_by ' => SimpleUserResource::make($this->whenLoaded('addedBy')),
             'employee ' => SimpleEmployeeResource::make($this->whenLoaded('employee')),
             'department' => DepartmentResource::make($this->whenLoaded('department')),
-            'actions' => [
+            'actions' => $this->when(in_array($request->route()->getActionMethod(),['index','archive']), [
                 'show' => auth()->user()->hasPermissions('rasid_jobs.show'),
-                'create' => auth()->user()->hasPermissions('rasid_jobs.store'),
-                'update' => auth()->user()->hasPermissions('rasid_jobs.update'),
-                'archive' => auth()->user()->hasPermissions('rasid_jobs.archive'),
-                'destroy' => auth()->user()->hasPermissions('rasid_jobs.destroy'),
-                'restore' => auth()->user()->hasPermissions('rasid_jobs.restore'),
-                'forceDelete' => auth()->user()->hasPermissions('rasid_jobs.force_delete'),
-            ]
+                $this->mergeWhen($request->route()->getActionMethod() == 'index', [
+                    'create' => auth()->user()->hasPermissions('rasid_jobs.store'),
+                    'update' => auth()->user()->hasPermissions('rasid_jobs.update'),
+                    'destroy' => auth()->user()->hasPermissions('rasid_jobs.destroy'),
+                ]),
+                $this->mergeWhen($request->route()->getActionMethod() == 'archive', [
+                    'restore' => auth()->user()->hasPermissions('rasid_jobs.restore'),
+                    'forceDelete' => auth()->user()->hasPermissions('rasid_jobs.force_delete')
+                ]),
+            ])
         ] + $locales;
     }
 }

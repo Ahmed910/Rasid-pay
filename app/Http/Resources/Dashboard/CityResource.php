@@ -29,15 +29,18 @@ class CityResource extends JsonResource
             'added_by ' => SimpleUserResource::make($this->whenLoaded('addedBy')),
             'country' => CountryResource::make($this->whenLoaded('country')),
             'activity'  => ActivityLogResource::collection($this->whenLoaded('activity')),
-            'actions' => [
+            'actions' => $this->when(in_array($request->route()->getActionMethod(),['index','archive']), [
                 'show' => auth()->user()->hasPermissions('cities.show'),
-                'create' => auth()->user()->hasPermissions('cities.store'),
-                'update' => auth()->user()->hasPermissions('cities.update'),
-                'archive' => auth()->user()->hasPermissions('cities.archive'),
-                'destroy' => auth()->user()->hasPermissions('cities.destroy'),
-                'restore' => auth()->user()->hasPermissions('cities.restore'),
-                'forceDelete' => auth()->user()->hasPermissions('cities.force_delete'),
-            ]
+                $this->mergeWhen($request->route()->getActionMethod() == 'index', [
+                    'create' => auth()->user()->hasPermissions('cities.store'),
+                    'update' => auth()->user()->hasPermissions('cities.update'),
+                    'destroy' => auth()->user()->hasPermissions('cities.destroy'),
+                ]),
+                $this->mergeWhen($request->route()->getActionMethod() == 'archive', [
+                    'restore' => auth()->user()->hasPermissions('cities.restore'),
+                    'forceDelete' => auth()->user()->hasPermissions('cities.force_delete')
+                ]),
+            ])
 
         ] + $locales;
     }

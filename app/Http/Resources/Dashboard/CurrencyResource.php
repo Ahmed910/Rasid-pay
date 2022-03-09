@@ -28,16 +28,18 @@ class CurrencyResource extends JsonResource
             'created_at'=>$this->created_at,
             'added_by_id' => SimpleUserResource::make($this->whenloaded('addedBy')),
             'activity'  => ActivityLogResource::collection($this->whenLoaded('activity')),
-            'actions' => [
-                'index'  => auth()->user()->hasPermissions('currencies.index'),
+            'actions' => $this->when(in_array($request->route()->getActionMethod(),['index','archive']), [
                 'show' => auth()->user()->hasPermissions('currencies.show'),
-                'create' => auth()->user()->hasPermissions('currencies.store'),
-                'update' => auth()->user()->hasPermissions('currencies.update'),
-                'archive' => auth()->user()->hasPermissions('currencies.archive'),
-                'destroy' => auth()->user()->hasPermissions('currencies.destroy'),
-                'restore' => auth()->user()->hasPermissions('currencies.restore'),
-                'forceDelete' => auth()->user()->hasPermissions('currencies.force_delete'),
-            ]
+                $this->mergeWhen($request->route()->getActionMethod() == 'index', [
+                    'create' => auth()->user()->hasPermissions('currencies.store'),
+                    'update' => auth()->user()->hasPermissions('currencies.update'),
+                    'destroy' => auth()->user()->hasPermissions('currencies.destroy'),
+                ]),
+                $this->mergeWhen($request->route()->getActionMethod() == 'archive', [
+                    'restore' => auth()->user()->hasPermissions('currencies.restore'),
+                    'forceDelete' => auth()->user()->hasPermissions('currencies.force_delete')
+                ]),
+            ])
         ] + $locales;
 
     }
