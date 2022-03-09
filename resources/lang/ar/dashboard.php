@@ -154,6 +154,11 @@ return [
         "settings" => "الاعدادات",
         "add_setting" => "",
         "setting_count" => "",
+        'sub_progs' => [
+            'index' => 'سجل الدول',
+            'archive' => 'ارشيف الدول',
+            'index' => 'اضافة دولة',
+        ],
         'permissions' => $permissions
     ],
     "profile" => [
