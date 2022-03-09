@@ -55,15 +55,6 @@ class GroupController extends Controller
         return GroupResource::make($group)->additional(['status' => true, 'message' => trans('dashboard.general.success_add')]);
     }
 
-    public function show(Group $group)
-    {
-        $group->load(['activity','translations','groups','permissions' => function ($q) use($group) {
-            $q->whereNotIn('permissions.id',$group->permissions->pluck('id')->toArray());
-        }]);
-
-        return GroupResource::make($group)->additional(['status' => true, 'message' => '']);
-    }
-
     public function show(Request $request, Group $group)
     {
         $group->load(['translations','groups','permissions' => function ($q) use($group) {
