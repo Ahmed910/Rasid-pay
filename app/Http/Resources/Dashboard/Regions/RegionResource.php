@@ -1,16 +1,20 @@
 <?php
 
-namespace App\Http\Resources\Dashboard;
+namespace App\Http\Resources\Dashboard\Regions;
 
-use Illuminate\Http\Resources\Json\JsonResource;
 use App\Http\Resources\Dashboard\ActivityLogResource;
+use App\Http\Resources\Dashboard\City\CityResource;
+use App\Http\Resources\Dashboard\CountryResource;
+use App\Http\Resources\Dashboard\GlobalTransResource;
+use App\Http\Resources\Dashboard\SimpleUserResource;
+use Illuminate\Http\Resources\Json\JsonResource;
 
-class CityResource extends JsonResource
+class RegionResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
      * @return array|\Illuminate\Contracts\Support\Arrayable|\JsonSerializable
      */
     public function toArray($request)
@@ -24,24 +28,23 @@ class CityResource extends JsonResource
         return [
             'id' => $this->id,
             'name' => $this->name,
-            'postal_code' => $this->postal_code,
+            'country' => CountryResource::make($this->whenLoaded('country')),
+            'cities' => CityResource::collection($this->whenLoaded('cities')),
             'created_at' => $this->created_at,
             'added_by ' => SimpleUserResource::make($this->whenLoaded('addedBy')),
-            'country' => CountryResource::make($this->whenLoaded('country')),
             'activity'  => ActivityLogResource::collection($this->whenLoaded('activity')),
             'actions' => $this->when(in_array($request->route()->getActionMethod(),['index','archive']), [
-                'show' => auth()->user()->hasPermissions('cities.show'),
+                'show' => auth()->user()->hasPermissions('regions.show'),
                 $this->mergeWhen($request->route()->getActionMethod() == 'index', [
-                    'create' => auth()->user()->hasPermissions('cities.store'),
-                    'update' => auth()->user()->hasPermissions('cities.update'),
-                    'destroy' => auth()->user()->hasPermissions('cities.destroy'),
+                    'create' => auth()->user()->hasPermissions('regions.store'),
+                    'update' => auth()->user()->hasPermissions('regions.update'),
+                    'destroy' => auth()->user()->hasPermissions('regions.destroy'),
                 ]),
                 $this->mergeWhen($request->route()->getActionMethod() == 'archive', [
-                    'restore' => auth()->user()->hasPermissions('cities.restore'),
-                    'forceDelete' => auth()->user()->hasPermissions('cities.force_delete')
+                    'restore' => auth()->user()->hasPermissions('regions.restore'),
+                    'forceDelete' => auth()->user()->hasPermissions('regions.force_delete')
                 ]),
             ])
-
         ] + $locales;
     }
 }

@@ -3,9 +3,9 @@
 namespace App\Http\Controllers\Api\V1\Dashboard;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\Dashboard\City\{CityResource, CityCollection};
 use App\Http\Requests\V1\Dashboard\CityRequest;
 use App\Http\Requests\V1\Dashboard\ReasonRequest;
-use App\Http\Resources\Dashboard\CityResource;
 use App\Models\City\City;
 use Illuminate\Http\Request;
 
@@ -46,11 +46,13 @@ class CityController extends Controller
     }
 
 
-    public function show($id)
+    public function show(Request $request ,$id)
     {
-        $city = City::with('activity')->withTrashed()->findOrFail($id);
+        $city = City::withTrashed()->with('translations')->findOrFail($id);
+        $activities  = $city->activity()->paginate((int)($request->per_page ?? 15));
+        data_set($activities, 'city', $city);
 
-        return CityResource::make($city)
+        return CityCollection::make($activities)
             ->additional([
                 'status' => true,
                 'message' => ''
