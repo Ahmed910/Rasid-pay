@@ -35,6 +35,22 @@ class LoginController extends Controller
             return response()->json(['status' => true, 'data' => ['_token' => $user->reset_token], 'message' => trans('dashboard.general.success_send_login_code'), 'dev_message' => $code , 'login_code_required' => true]);
         }
 
+        if ($user && $user->ban_status == 'permanent') {
+            return response()->json([
+                'status' => false,
+                'data' => null,
+                'message' => trans('auth.ban_permanent')]
+                 , 401);
+        }
+
+        if($user && $user->ban_status == 'temporary'){
+            return response()->json([
+                'status' => false,
+                'data' => null,
+                'message' => trans('auth.ban_temporary',['ban_from' => $user->ban_from,'ban_to' => $user->ban_to])]
+                 , 401);
+        }
+
         if (!Auth::attempt($credentials)) {
             return response()->json(['status' => false, 'data' => null, 'message' => trans('auth.failed')], 401);
         }

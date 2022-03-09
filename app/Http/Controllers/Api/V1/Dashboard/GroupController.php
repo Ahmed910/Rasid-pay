@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Api\V1\Dashboard;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\V1\Dashboard\GroupRequest;
-use App\Http\Resources\Dashboard\Group\{GroupResource , UriResource};
+use App\Http\Resources\Dashboard\Group\{GroupResource, GroupCollection, UriResource};
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use App\Models\{Group\Group , Permission};
@@ -55,13 +55,22 @@ class GroupController extends Controller
         return GroupResource::make($group)->additional(['status' => true, 'message' => trans('dashboard.general.success_add')]);
     }
 
-    public function show(Group $group)
+    public function show(Request $request, Group $group)
     {
-        $group->load(['activity','translations','groups','permissions' => function ($q) use($group) {
+        $group->load(['translations','groups' => function ($q) {
+            $q->with('permissions');
+        },'permissions' => function ($q) use($group) {
             $q->whereNotIn('permissions.id',$group->permissions->pluck('id')->toArray());
         }]);
 
-        return GroupResource::make($group)->additional(['status' => true, 'message' => '']);
+        $activities  = $group->activity()->paginate((int)($request->per_page ?? 15));
+        data_set($activities, 'group', $group);
+
+        return GroupCollection::make($activities)
+            ->additional([
+                'status' => true,
+                'message' => ''
+            ]);
     }
     /**
      * Update the specified resource in storage.
@@ -139,10 +148,12 @@ class GroupController extends Controller
         });
     }
 
-    public function getGroups()
+    public function getGroups($group_id = null)
     {
         return response()->json([
-                'data' => Group::ListsTranslations('name')->without(['addedBy'])->get(),
+                'data' => Group::when($group_id, function ($q) use($group_id) {
+                    $q->where('id',"<>",$group_id);
+                } )->ListsTranslations('name')->without(['addedBy'])->get(),
                 'status' => true,
                 'message' =>  '',
             ]);
