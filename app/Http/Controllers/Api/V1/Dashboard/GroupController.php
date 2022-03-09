@@ -57,7 +57,9 @@ class GroupController extends Controller
 
     public function show(Request $request, Group $group)
     {
-        $group->load(['translations','groups','permissions' => function ($q) use($group) {
+        $group->load(['translations','groups' => function ($q) {
+            $q->with('permissions');
+        },'permissions' => function ($q) use($group) {
             $q->whereNotIn('permissions.id',$group->permissions->pluck('id')->toArray());
         }]);
 
