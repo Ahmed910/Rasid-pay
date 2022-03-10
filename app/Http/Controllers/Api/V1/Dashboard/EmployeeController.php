@@ -83,7 +83,7 @@ class EmployeeController extends Controller
         $employee->update($request->safe()->only(['contract_type', 'salary', 'qr_path', 'qr_code', 'department_id', 'rasid_job_id']));
         $employee->user()->update($request->safe()->except(['contract_type', 'salary', 'qr_path', 'qr_code', 'department_id', 'rasid_job_id']));
 
-        if ($old_job->id != $request->rasid_job_id) {
+        if ($old_job && $old_job->id != $request->rasid_job_id) {
             $employee->job()->update(['is_vacant' => false]);
             $old_job->update(['is_vacant' => true]);
         }
