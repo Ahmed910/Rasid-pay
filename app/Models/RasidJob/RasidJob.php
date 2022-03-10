@@ -2,6 +2,7 @@
 
 namespace App\Models\RasidJob;
 
+use App\Models\ActivityLog;
 use App\Models\User;
 use App\Traits\Uuid;
 use App\Traits\Loggable;
@@ -32,7 +33,7 @@ class RasidJob extends Model implements TranslatableContract
     #region scopes
     public function scopeSearch(Builder $query, $request)
     {
-        $this->addGlobalActivity($this, $request->query(), 'Searched');
+        $this->addGlobalActivity($this, $request->query(), ActivityLog::SEARCH,'index');
 
         if ($request->name) {
             $query->where(function ($q) use ($request) {

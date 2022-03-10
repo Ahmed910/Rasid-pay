@@ -49,6 +49,7 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::get('employees', 'getEmployees')->name('employees');
         Route::get('main-programs','ActivityController@getMainPrograms')->name('main_programs');
         Route::get('sub-programs/{main}','ActivityController@getSubPrograms')->name('sub_programs');
+        Route::get('events','ActivityController@getEvents')->name('events');
     });
 
     Route::get("/files/client/{file}", [\App\Http\Controllers\Api\V1\Dashboard\PrivateController::class, "downloadfile"]);
