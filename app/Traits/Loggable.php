@@ -11,26 +11,26 @@ trait Loggable
     protected static function bootLoggable()
     {
         static::created(function (self $self) {
-            $self->addUserActivity($self, "created");
+            $self->addUserActivity($self, ActivityLog::CREATE, 'create');
         });
 
         static::updated(function (self $self) {
-            $self->addUserActivity($self, "updated");
+            $self->addUserActivity($self, ActivityLog::UPDATE, 'index');
         });
 
         static::deleted(function (self $self) {
             if ($self->forceDeleting) {
-                $self->addUserActivity($self, "permanent_delete");
+                $self->addUserActivity($self, ActivityLog::PERMANENT_DELETE, 'archive');
             }
 
             if (!$self->forceDeleting) {
-                $self->addUserActivity($self, "destroy");
+                $self->addUserActivity($self, ActivityLog::DESTROY, 'index');
             }
         });
 
         if (in_array(SoftDeletes::class, class_uses(static::class))) {
             static::restored(function (self $self) {
-                $self->addUserActivity($self, "restored");
+                $self->addUserActivity($self, ActivityLog::RESTORE, 'archive');
             });
         }
     }
@@ -48,7 +48,7 @@ trait Loggable
      *
      * @return void
      */
-    private function addUserActivity($item, string $event)
+    public function addUserActivity($item, string $event, string $subProgram)
     {
         $item->activity()->create([
             'url'         => Request::fullUrl(),
@@ -72,9 +72,9 @@ trait Loggable
      *
      * @return void
      */
-    public function addGlobalActivity($item, array $logs, string $event)
+    public function addGlobalActivity($item, array $logs, string $event, string $subProgram)
     {
-        $logs = array_except($logs,['per_page','page']);
+        $logs = array_except($logs, ['per_page', 'page']);
         if (!count($logs)) return;
         $activity = [];
         $activity['auditable_type'] = class_basename($item);

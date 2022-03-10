@@ -2,6 +2,7 @@
 
 namespace App\Models\Region;
 
+use App\Models\ActivityLog;
 use App\Models\City\City;
 use App\Models\Country\Country;
 use App\Models\User;
@@ -33,7 +34,7 @@ class Region extends Model implements TranslatableContract
     #region scopes
     public function scopeSearch(Builder $query, $request)
     {
-        $this->addGlobalActivity($this, $request->query(), 'Searched');
+        $this->addGlobalActivity($this, $request->query(), ActivityLog::SEARCH,'index');
 
         if ($request->name) {
             $query->whereTranslationLike('name', "%$request->name%");

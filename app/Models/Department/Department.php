@@ -3,6 +3,7 @@
 namespace App\Models\Department;
 
 use App\Contracts\HasAssetsInterface;
+use App\Models\ActivityLog;
 use App\Models\RasidJob\RasidJob;
 use App\Models\User;
 use App\Traits\HasAssetsTrait;
@@ -45,7 +46,7 @@ class Department extends Model implements TranslatableContract, HasAssetsInterfa
     #region scopes
     public function scopeSearch(Builder $query, $request)
     {
-        $this->addGlobalActivity($this, $request->query(), 'Searched');
+        $this->addGlobalActivity($this, $request->query(),ActivityLog::SEARCH,'index');
 
         if ($request->name) {
             $query->where(function ($q) use ($request) {
