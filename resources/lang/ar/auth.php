@@ -15,10 +15,14 @@ return [
 
     'failed' => 'محاولة غير صالحة لتسجيل الدخول',
     'password' => 'كلمة المرور  غير صحيحة',
-    'throttle' => 'Too many login attempts. Please try again in :seconds seconds.',
+    'throttle' => 'تخطي عدد مرات الارسال رجاء الانتظار :seconds ثواني.',
     'success_login' => 'تسجيل الدخول الى النظام برقم مستخدم :user',
     'unauth' => 'قم بتسجيل الدخول أولا',
     'logout_waiting_u_another_time' => 'تم تسجيل الخروج بنجاح, في انتظارك مرة أخرى',
     'ban_permanent' => 'هذا الحساب معطل دائما',
-    'ban_temporary' => 'هذا الحساب معطل لفترة من :ban_from  إلي :ban_to'
+    'ban_temporary' => 'هذا الحساب معطل لفترة من :ban_from  إلي :ban_to',
+    'success_send_login_code' => 'تم ارسال كود التحقق الى رقم الجوال',
+    'account_not_exists' => 'الحساب غير موجود',
+    'success_change_password' => 'تم تغيير كلمة المرور بنجاح',
+    'account_is_true' => 'البيانات المدخلة صحيحة',
 ];

@@ -13,10 +13,10 @@ class ResetPasswordController extends Controller
     {
         $user = User::firstWhere(['reset_token' => $request->_token]);
         if (!$user) {
-            return response()->json(['status' => false, 'data' => null, 'message' => trans('auth.account_not_true_or_account_deactive'),'errors' => []], 422);
+            return response()->json(['status' => false, 'data' => null, 'message' => trans('auth.account_not_exists'),'errors' => []], 422);
         }
 
-        return response()->json(['status' => true, 'data' => ['_token' => $user->reset_token], 'message' => trans('auth.success_change_password')]);
+        return response()->json(['status' => true, 'data' => ['_token' => $user->reset_token], 'message' => trans('auth.account_is_true')]);
     }
 
     public function resetPassword(ResetPasswordRequest $request)
@@ -24,7 +24,7 @@ class ResetPasswordController extends Controller
         $user = User::firstWhere(['reset_token' => $request->_token]);
         $user_data = ['reset_token' => null];
         if (!$user) {
-            return response()->json(['status' => false, 'data' => null, 'message' => trans('auth.phone_not_true_or_account_deactive'),'errors' => []], 422);
+            return response()->json(['status' => false, 'data' => null, 'message' => trans('auth.account_not_exists'),'errors' => []], 422);
         } elseif (!$user->phone_verified_at) {
             $user_data += ['password' => $request->password, 'verified_code' => null, 'is_active' => true, 'phone_verified_at' => now()];
         } elseif ($user->phone_verified_at) {
