@@ -2,7 +2,7 @@
 
 namespace App\Models\Group;
 
-use App\Models\{Permission, User};
+use App\Models\{ActivityLog, Permission, User};
 use App\Traits\{Loggable, Uuid};
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -25,7 +25,7 @@ class Group extends Model implements TranslatableContract
     #region scopes
     public function scopeSearch($query, $request)
     {
-        $this->addGlobalActivity($this, $request->query(), 'Searched');
+        $this->addGlobalActivity($this, $request->query(), ActivityLog::SEARCH,'index');
 
         if ($request->name) {
             $query->whereTranslationLike('name',"%$request->name%");
