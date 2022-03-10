@@ -83,8 +83,18 @@ class ActivityController extends Controller
     {
         return response()->json([
             'data' => ['sub_progs' => trans('dashboard.' . mb_strtolower($main_progs) . '.sub_progs')],
-            'message' => '',
-            'status' => true
-        ])
+            'status' => true,
+            'message' => ''
+        ]);
+    }
+
+    public function getEvents()
+    {
+        $data['events'] = ActivityLog::EVENTS;
+
+        return OnlyResource::make($data)->additional([
+            'status' => true,
+            'message' => "",
+        ]);
     }
 }
