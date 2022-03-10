@@ -33,7 +33,6 @@ class ClientRequest extends ApiMasterRequest
      */
     public function rules()
     {
-//        dd($this->client) ;
         return [
             "fullname" => ["required", "max:100", "string"],
             "email" => ["required", "max:255", "email", "unique:users,email," . @$this->client],
