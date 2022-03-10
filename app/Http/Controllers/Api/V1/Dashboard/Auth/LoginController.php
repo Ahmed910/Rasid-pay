@@ -27,7 +27,7 @@ class LoginController extends Controller
             $reset_token = generate_unique_code(User::class, 'reset_token', 100);
             $user->update(['login_code' => $code, 'reset_token' => $reset_token]);
             // Send SMS CODE
-            return response()->json(['status' => true, 'data' => ['_token' => $user->reset_token], 'message' => trans('dashboard.general.success_send_login_code'), 'dev_message' => $code , 'login_code_required' => true]);
+            return response()->json(['status' => true, 'data' => ['_token' => $user->reset_token], 'message' => trans('auth.success_send_login_code'), 'dev_message' => $code , 'login_code_required' => true]);
         }
 
         if ($user && $user->ban_status == 'permanent') {
@@ -99,7 +99,7 @@ class LoginController extends Controller
                 return response()->json(['status' => true, 'data' => ['_token' => $user->reset_token], 'message' => trans('dashboard.general.success_send'), 'dev_message' => $code]);
             }
         } catch (\Exception $e) {
-            return response()->json(['status' => false, 'data' => null, 'message' => trans('auth.fail_send')], 422);
+            return response()->json(['status' => false, 'data' => null, 'message' => trans('dashboard.general.fail_send')], 422);
         }
     }
 
@@ -107,7 +107,7 @@ class LoginController extends Controller
     {
         $user = User::firstWhere($request->send_type, $request->username);
         if (!$user) {
-            return response()->json(['status' => false, 'data' => null, 'message' => trans('auth.phone_not_exists')], 422);
+            return response()->json(['status' => false, 'data' => null, 'message' => trans('auth.account_not_exists')], 422);
         }
         try {
             $reset_token = generate_unique_code(User::class, 'reset_token', 100);
@@ -121,7 +121,7 @@ class LoginController extends Controller
                 return response()->json(['status' => true, 'data' => ['_token' => $user->reset_token], 'message' => trans('dashboard.general.success_send'), 'dev_message' => $code]);
             }
         } catch (\Exception $e) {
-            return response()->json(['status' => false, 'data' => null, 'message' => trans('auth.fail_send')], 422);
+            return response()->json(['status' => false, 'data' => null, 'message' => trans('dashboard.general.fail_send')], 422);
         }
     }
 
