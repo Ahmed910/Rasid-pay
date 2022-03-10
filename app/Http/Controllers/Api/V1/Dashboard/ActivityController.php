@@ -17,7 +17,10 @@ class ActivityController extends Controller
 {
     public function index(Request $request)
     {
-        $activatyLogs = ActivityLog::latest()->paginate((int)($request->per_page ?? config("globals.per_page")));
+        $activatyLogs = ActivityLog::search($request)
+            ->CustomDateFromTo($request)
+            ->latest()
+            ->paginate((int)($request->per_page ?? config("globals.per_page")));
 
         return ActivityLogResource::collection($activatyLogs)
             ->additional([
@@ -81,8 +84,15 @@ class ActivityController extends Controller
 
     public function getSubPrograms($main_progs)
     {
+        $subPrograms = collect(trans('dashboard.' . mb_strtolower($main_progs) . '.sub_progs'))->transform(function ($trans, $key) {
+            $data['name'] = $key;
+            $data['trans'] = $trans;
+
+            return $data;
+        })->values();
+
         return response()->json([
-            'data' => ['sub_progs' => trans('dashboard.' . mb_strtolower($main_progs) . '.sub_progs')],
+            'data' => $subPrograms,
             'status' => true,
             'message' => ''
         ]);
