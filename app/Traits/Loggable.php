@@ -11,26 +11,26 @@ trait Loggable
     protected static function bootLoggable()
     {
         static::created(function (self $self) {
-            $self->addUserActivity($self, "created");
+            $self->addUserActivity($self, ActivityLog::CREATE);
         });
 
         static::updated(function (self $self) {
-            $self->addUserActivity($self, "updated");
+            $self->addUserActivity($self, ActivityLog::UPDATE);
         });
 
         static::deleted(function (self $self) {
             if ($self->forceDeleting) {
-                $self->addUserActivity($self, "permanent_delete");
+                $self->addUserActivity($self, ActivityLog::PERMANENT_DELETE);
             }
 
             if (!$self->forceDeleting) {
-                $self->addUserActivity($self, "destroy");
+                $self->addUserActivity($self, ActivityLog::DESTROY);
             }
         });
 
         if (in_array(SoftDeletes::class, class_uses(static::class))) {
             static::restored(function (self $self) {
-                $self->addUserActivity($self, "restored");
+                $self->addUserActivity($self, ActivityLog::RESTORE);
             });
         }
     }
@@ -48,7 +48,7 @@ trait Loggable
      *
      * @return void
      */
-    private function addUserActivity($item, string $event)
+    public function addUserActivity($item, string $event)
     {
         $item->activity()->create([
             'url'         => Request::fullUrl(),

@@ -17,13 +17,20 @@ class ActivityLog extends Model
     protected $with = ['user', 'auditable'];
     protected $casts = ["new_data" => "array", "old_data" => "array", 'search_params' => 'array'];
 
+    const CREATE           = 'created';
+    const UPDATE           = 'updated';
+    const DESTROY          = 'destroy';
+    const RESTORE          = 'restored';
+    const PERMANENT_DELETE = 'permanent_delete';
+    const SEARCH           = 'searched';
+
     const EVENTS = [
-        'created',
-        'updated',
-        'permanent_delete',
-        'destroy',
-        'restored',
-        'searched'
+        self::CREATE,
+        self::UPDATE,
+        self::DESTROY,
+        self::RESTORE,
+        self::PERMANENT_DELETE,
+        self::SEARCH
     ];
     #endregion properties
 
