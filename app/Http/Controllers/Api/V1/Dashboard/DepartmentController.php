@@ -51,7 +51,7 @@ class DepartmentController extends Controller
     public function getAllDepartments()
     {
         return response()->json([
-            'data' => Department::ListsTranslations('name')->without(['images', 'addedBy'])->get(),
+            'data' => Department::select('id')->ListsTranslations('name')->without(['images', 'addedBy','translations'])->get(),
             'status' => true,
             'message' =>  '',
         ]);
