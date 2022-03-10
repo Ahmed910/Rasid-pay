@@ -31,7 +31,8 @@ return [
         "restore" => "استعادة",
         "force_delete" => "حذف نهائي",
         'sent_successfully' => 'تم الارسال بنجاح',
-        'success_send_login_code' => 'تم ارسال كود التحقق الى رقم الجوال',
+        'fail_send' => 'فشل عملية الارسال',
+
     ],
     'error' => [
         'method_not_allow' => 'طريقة الطلب (:method) غير صحيحة',
