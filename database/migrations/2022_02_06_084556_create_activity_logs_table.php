@@ -23,7 +23,7 @@ class CreateActivityLogsTable extends Migration
             $table->text('search_params')->nullable();
             $table->ipAddress("ip_address");
             $table->string("agent");
-            $table->string("url");
+            $table->text("url");
             $table->string("reason")->nullable();
             $table->softDeletes();
             $table->timestamps();
