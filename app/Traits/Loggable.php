@@ -140,14 +140,11 @@ trait Loggable
         $hasData = count(array_flatten(array_except($this->newData($self), [$column])));
 
         if (!$hasData) {
-            dd('hello1');
             $this->checkStatus($self, $column);
         } elseif ($hasData && in_array($column, array_keys($this->newData($self)))) {
-            dd('hello2');
             $self->addUserActivity($self, ActivityLog::UPDATE, 'index');
             $this->checkStatus($self, $column);
         } else {
-            dd('hello3');
             $self->addUserActivity($self, ActivityLog::UPDATE, 'index');
         }
     }
