@@ -11,20 +11,6 @@ use App\Models\{Group\Group , Permission};
 
 class GroupController extends Controller
 {
-    private $public_routes = [
-        'notifications.index' ,
-        'notifications.show' ,
-        'notifications.destroy' ,
-        'notifications.update' ,
-        'profiles.show',
-        'profiles.update',
-        'profiles.change_password',
-        'menus.index',
-        'menus.store',
-        'menus.update',
-        'menus.show',
-        'menus.destroy',
-    ];
     /**
      * Display a listing of the resource.
      *
