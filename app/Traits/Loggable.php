@@ -3,8 +3,10 @@
 namespace App\Traits;
 
 use App\Models\ActivityLog;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Request;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Facades\Schema;
 
 trait Loggable
 {
@@ -15,7 +17,8 @@ trait Loggable
         });
 
         static::updated(function (self $self) {
-            $self->addUserActivity($self, ActivityLog::UPDATE, 'index');
+
+            $self->checkIfHasIsActiveOnly($self, 'is_active');
         });
 
         static::deleted(function (self $self) {
@@ -48,13 +51,14 @@ trait Loggable
      *
      * @return void
      */
-    public function addUserActivity($item, string $event, string $subProgram)
+    public function addUserActivity($item, string $event, string $subProgram, array $newData = [])
     {
         $item->activity()->create([
             'url'         => Request::fullUrl(),
             'old_data'    => $this->oldData($item),
-            'new_data'    => $this->newData($item),
+            'new_data'    => $newData ? $newData : $this->newData($item),
             'action_type' => $event,
+            'sub_program' => $subProgram,
             'ip_address'  => Request::ip(),
             'agent'       => Request::header('user-agent'),
             'user_id'     => auth()->check() ? auth()->user()->id : null,
@@ -80,6 +84,7 @@ trait Loggable
         $activity['auditable_type'] = class_basename($item);
         $activity['url'] = Request::fullUrl();
         $activity['action_type'] = $event;
+        $activity['sub_program'] = $subProgram;
         $activity['ip_address'] = Request::ip();
         $activity['agent'] = Request::header('user-agent');
         $activity['user_id'] = auth()->check() ? auth()->user()->id : null;
@@ -112,5 +117,35 @@ trait Loggable
         $originalData = array_except($item->getOriginal(), ['created_at', 'updated_at', 'deleted_at']);
 
         return array_merge($originalData ?? [], $translations ?? []);
+    }
+
+    private function checkStatus(self $model, string $column)
+    {
+        $table = $model->getTable();
+
+        if (Schema::hasColumn($table, $column) && request()->has($column)) {
+            if (request($column) != $model->getOriginal()[$column]) {
+                $newData = array_only($this->newData($model), ['is_active']);
+                if (request($column)) {
+                    $model->addUserActivity($model, ActivityLog::ACTIVE, 'index', $newData);
+                } else {
+                    $model->addUserActivity($model, ActivityLog::DEACTIVE, 'index', $newData);
+                }
+            }
+        }
+    }
+
+    private function checkIfHasIsActiveOnly($self, string $column)
+    {
+        $hasData = count(array_flatten(array_except($this->newData($self), [$column])));
+
+        if (!$hasData) {
+            $this->checkStatus($self, $column);
+        } elseif ($hasData && in_array($column, array_keys($this->newData($self)))) {
+            $self->addUserActivity($self, ActivityLog::UPDATE, 'index');
+            $this->checkStatus($self, $column);
+        } else {
+            $self->addUserActivity($self, ActivityLog::UPDATE, 'index');
+        }
     }
 }
