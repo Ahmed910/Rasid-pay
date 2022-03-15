@@ -13,6 +13,10 @@ Route::group(
 	Route::post('login', "Auth\LoginController@login")->name("post_login");
     Route::middleware('auth')->group(function () {
         Route::get('/', "HomeController@index")->name("home.index");
+		// Resources
+        Route::resources([
+			'department' => 'DepartmentController',
+		]);
 
     });
 });
