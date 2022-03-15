@@ -30,7 +30,7 @@
                             class="mdi mdi-view-dashboard-outline"></i><span class="side-menu__label">الأقسام</span><i
                             class="angle fe fe-chevron-right"></i></a>
                     <ul class="slide-menu">
-                        <li class="side-menu-label1">
+                        {{--  <li class="side-menu-label1">
                             <a href="{{ route('departments.index') }}">الأقسام</a>
                         </li>
                         <li>
@@ -41,7 +41,7 @@
                         <li>
                             <a href="{{ route('departments.create') }}" class="slide-item px-6"><i
                                     class="mdi mdi-plus-circle-outline"></i> إضافة</a>
-                        </li>
+                        </li>  --}}
                     </ul>
                 </li>
                 <li class="slide">
