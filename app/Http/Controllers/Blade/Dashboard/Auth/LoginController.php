@@ -90,9 +90,7 @@ class LoginController extends Controller
      */
     public function showLoginForm()
     {
-        if (request()->is("dashboard/*") || request()->is("dashboard")){
-            return view("dashboard.auth.login");
-        }
+        return view("dashboard.auth.login");
     }
 
     //To Confirmation Email
