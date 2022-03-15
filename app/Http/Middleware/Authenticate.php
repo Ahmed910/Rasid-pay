@@ -16,7 +16,7 @@ class Authenticate extends Middleware
     {
         if (! $request->expectsJson()) {
             $locale = app()->getLocale();
-            if ($request->is("$locale/dashboard") || $request->is('dashboard') || $request->is('dashboard/*') |||| $request->is("$locale/dashboard/*")) {
+            if ($request->is("$locale/dashboard") || $request->is("$locale/dashboard/*")) {
                 return route('dashboard.login');
             }
         }

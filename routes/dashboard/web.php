@@ -9,14 +9,10 @@ Route::group(
 	'middleware' => [ 'localeSessionRedirect', 'localizationRedirect', 'localeViewPath']
 ], function(){
     // Dashboard Login
-    Route::get('login', "Auth\LoginController@showLoginForm")->name("login");
-	Route::post('login', "Auth\LoginController@login")->name("post_login");
-    Route::middleware('auth')->group(function () {
+    Route::get('dashboard/login', "Auth\LoginController@showLoginForm")->name("login");
+	Route::post('dashboard/login', "Auth\LoginController@login")->name("post_login");
+    Route::middleware('auth')->prefix('dashboard')->group(function () {
         Route::get('/', "HomeController@index")->name("home.index");
-		// Resources
-        Route::resources([
-			'department' => 'DepartmentController',
-		]);
 
     });
 });
