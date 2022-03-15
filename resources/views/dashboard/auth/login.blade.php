@@ -17,7 +17,7 @@
 
         <form
           method="post"
-          action=""
+          action="{{ route('dashboard.post_login') }}"
           class="needs-validation"
           novalidate
         >
@@ -27,6 +27,7 @@
               type="text"
               class="form-control"
               id="userID"
+              name="username"
               placeholder="رقم المستخدم"
               required
             />
@@ -39,6 +40,7 @@
               <input
                 class="form-control border-end-0"
                 placeholder="كلمة المرور"
+                name="password"
                 type="password"
               />
               <div class="input-group-text bg-white border-start-0">
