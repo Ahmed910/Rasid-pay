@@ -375,7 +375,7 @@ $(document).ready(function () {
       .getElementById("style")
       .setAttribute(
         "href",
-        "../assets/plugins/bootstrap/css/bootstrap.rtl.min.css"
+        "../dashboardAssets/plugins/bootstrap/css/bootstrap.rtl.min.css"
       );
     var carousel = $(".owl-carousel");
     $.each(carousel, function (index, element) {
