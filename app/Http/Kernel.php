@@ -67,5 +67,11 @@ class Kernel extends HttpKernel
         'setLocale'   => \App\Http\Middleware\UserLocale::class,
         'adminPermission'   => \App\Http\Middleware\AdminMiddleware::class,
         'clientCheck'   => \App\Http\Middleware\ClientMiddleware::class,
+            // MCAMARA MIDDLEWARES
+        'localize'                => \Mcamara\LaravelLocalization\Middleware\LaravelLocalizationRoutes::class,
+        'localizationRedirect'    => \Mcamara\LaravelLocalization\Middleware\LaravelLocalizationRedirectFilter::class,
+        'localeSessionRedirect'   => \Mcamara\LaravelLocalization\Middleware\LocaleSessionRedirect::class,
+        'localeCookieRedirect'    => \Mcamara\LaravelLocalization\Middleware\LocaleCookieRedirect::class,
+        'localeViewPath'          => \Mcamara\LaravelLocalization\Middleware\LaravelLocalizationViewPath::class
     ];
 }
