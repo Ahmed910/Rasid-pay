@@ -57,7 +57,7 @@ class LoginController extends Controller
                 $username = 'phone';
                 break;
           default:
-               $username = 'email';
+               $username = 'login_id';
             break;
         }
         return $username;
@@ -65,7 +65,7 @@ class LoginController extends Controller
 
     protected function validateLogin(Request $request)
     {
-       $username = $this->username() == 'phone' ? ['username' => 'required|numeric'] : ['username' => 'required|email'];
+       $username = $this->username() == 'login_id' ? ['username' => 'required|numeric'] : ['username' => 'required|email'];
         $request->validate([
            'password' => 'required|string'
         ]+$username);
