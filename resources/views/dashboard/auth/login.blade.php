@@ -4,7 +4,7 @@
     <div class="col-12 col-md-7 d-flex align-center">
       <div class="card m-auto w-60 p-9">
         <img
-          src="assets/images/brand/Rasid-Jack-Logo-V.svg"
+          src="/dashboardAssets/images/brand/Rasid-Jack-Logo-V.svg"
           width="150"
           alt=""
           class="mb-5"
