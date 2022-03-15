@@ -28,6 +28,7 @@ class RouteServiceProvider extends ServiceProvider
      */
     protected $namespace = 'App\\Http\\Controllers';
     protected $dashboard_v1_namespace = 'App\\Http\\Controllers\\Api\\V1\\Dashboard';
+    protected $blade_dashboard_v1_namespace = 'App\\Http\\Controllers\\Blade\\V1\\Dashboard';
     protected $mobile_v1_namespace = 'App\\Http\\Controllers\\Api\\V1\\Mobile';
 
     /**
@@ -44,7 +45,12 @@ class RouteServiceProvider extends ServiceProvider
                 ->middleware('api','setLocale') //adminPermission
                 ->namespace($this->dashboard_v1_namespace)
                 ->group(base_path('routes/v1/dashboard.php'));
-            
+
+            Route::prefix('v1/dashboard')
+                ->middleware('web') //adminPermission
+                ->namespace($this->blade_dashboard_v1_namespace)
+                ->group(base_path('routes/v1/web.php'));
+
             Route::prefix('api/v1/mobile')
                 ->middleware('api','setLocale') //
                 ->namespace($this->mobile_v1_namespace)

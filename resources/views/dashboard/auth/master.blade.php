@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <!-- META DATA -->
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, user-scalable=0"
+    />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="description" content="Rasid Jack Dashboard" />
+    <meta name="author" content="Spruko Technologies Private Limited" />
+    <meta
+      name="keywords"
+      content="admin,admin dashboard,admin panel,admin template,bootstrap,clean,dashboard,flat,jquery,modern,responsive,premium admin templates,responsive admin,ui,ui kit."
+    />
+
+    <!-- FAVICON -->
+    <link
+      rel="shortcut icon"
+      type="image/x-icon"
+      href="{{ asset('dashboardAssets') }}/images/brand/favicon.ico"
+    />
+
+    <!-- TITLE -->
+    <title>Rasid Jack Dashboard</title>
+
+    <!-- BOOTSTRAP CSS -->
+    <link
+      id="style"
+      href="{{ asset('dashboardAssets') }}/plugins/bootstrap/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+
+    <!-- STYLE CSS -->
+    <link href="{{ asset('dashboardAssets') }}/css/style.css" rel="stylesheet" />
+    <!--- FONT-ICONS CSS -->
+    <link href="{{ asset('dashboardAssets') }}/css/icons.css" rel="stylesheet" />
+
+    <!-- COLOR SKIN CSS -->
+    <link
+      id="theme"
+      rel="stylesheet"
+      type="text/css"
+      media="all"
+      href="{{ asset('dashboardAssets') }}/colors/color1.css"
+    />
+  </head>
+
+  <body class="app sidebar-mini rtl">
+    <!-- BACKGROUND-IMAGE -->
+    <div class="login-img">
+      <!-- GLOABAL LOADER -->
+      <div id="global-loader">
+        <img
+          src="{{ asset('dashboardAssets') }}/images/loader.gif"
+          class="loader-img"
+          alt="Loader"
+        />
+      </div>
+      <!-- /GLOABAL LOADER -->
+
+      <!-- PAGE -->
+      <div class="page">
+          <!-- CONTAINER OPEN -->
+          <div class="row no-gutters">
+            <div class="col-12 col-md-5">
+              <div class="auth_vector d-flex align-center">
+                <lottie-player
+                  autoplay
+                  loop
+                  mode="normal"
+                  src="{{ asset('dashboardAssets') }}/images/lottie/login.json"
+                  style="display: block; margin: auto"
+                >
+                </lottie-player>
+              </div>
+            </div>
+            @yield('content')
+        </div>
+
+        <!-- CONTAINER CLOSED -->
+    </div>
+    <!-- End PAGE -->
+  </div>
+  <!-- BACKGROUND-IMAGE CLOSED -->
+
+  <!-- JQUERY JS -->
+  <script src="{{ asset('dashboardAssets') }}/js/jquery.min.js"></script>
+
+  <!-- BOOTSTRAP JS -->
+  <script src="{{ asset('dashboardAssets') }}/plugins/bootstrap/js/popper.min.js"></script>
+  <script src="{{ asset('dashboardAssets') }}/plugins/bootstrap/js/bootstrap.min.js"></script>
+
+  <!-- FORMVALIDATION JS -->
+  <script src="{{ asset('dashboardAssets') }}/js/forform-validation.js"></script>
+
+  <!-- lottie-player js -->
+  <script src="https://unpkg.com/@lottiefiles/lottie-player@0.4.0/dist/tgs-player.js"></script>
+
+  <!-- CUSTOM JS -->
+  <script src="{{ asset('dashboardAssets') }}/js/custom.js"></script>
+  <script>
+    $(document).ready(function () {
+      $("#show_hide_password a").on("click", function (event) {
+        event.preventDefault();
+        if ($("#show_hide_password input").attr("type") == "text") {
+          $("#show_hide_password input").attr("type", "password");
+          $("#show_hide_password i").addClass("mdi-eye-off-outline");
+          $("#show_hide_password i").removeClass("mdi-eye-outline");
+        } else if (
+          $("#show_hide_password input").attr("type") == "password"
+        ) {
+          $("#show_hide_password input").attr("type", "text");
+          $("#show_hide_password i").removeClass("mdi-eye-off-outline");
+          $("#show_hide_password i").addClass("mdi-eye-outline");
+        }
+      });
+    });
+  </script>
+</body>
+</html>
