@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" dir="ltr">
+<html lang="en" dir="{{ LaravelLocalization::getCurrentLocaleDirection() }}">
   <head>
     <!-- META DATA -->
     <meta charset="UTF-8" />
@@ -23,7 +23,7 @@
     />
 
     <!-- TITLE -->
-    <title>Rasid Jack Dashboard</title>
+    <title>{!! trans('dashboard.general.dashboard',['title' => $title ?? '']) !!}</title>
 
     <!-- BOOTSTRAP CSS -->
     <link
@@ -47,7 +47,7 @@
     />
   </head>
 
-  <body class="app sidebar-mini rtl">
+  <body class="app sidebar-mini {{ LaravelLocalization::getCurrentLocaleDirection() }}">
     <!-- BACKGROUND-IMAGE -->
     <div class="login-img">
       <!-- GLOABAL LOADER -->

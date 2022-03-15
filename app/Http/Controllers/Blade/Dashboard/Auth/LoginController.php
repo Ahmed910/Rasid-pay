@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Auth;
+namespace App\Http\Controllers\Blade\Dashboard\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
@@ -93,7 +93,6 @@ class LoginController extends Controller
         if (request()->is("dashboard/*") || request()->is("dashboard")){
             return view("dashboard.auth.login");
         }
-
     }
 
     //To Confirmation Email

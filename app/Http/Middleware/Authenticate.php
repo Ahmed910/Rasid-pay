@@ -18,7 +18,6 @@ class Authenticate extends Middleware
             if ($request->is('dashboard') || $request->is('dashboard/*')) {
                 return route('dashboard.login');
             }
-            return route('login');
         }
     }
 }
