@@ -25,21 +25,21 @@
                     <a class="side-menu__item" data-bs-toggle="slide" href="../index.html"><i
                             class="mdi mdi-home-variant-outline"></i><span class="side-menu__label">الرئيسية</span></a>
                 </li>
-                <li class="slide">
+                <li class="slide {{ strpos(URL::current(), 'departments') !== false ? 'is-expanded' : '' }} ">
                     <a class="side-menu__item" data-bs-toggle="slide" href="javascript:void(0)"><i
                             class="mdi mdi-view-dashboard-outline"></i><span class="side-menu__label">الأقسام</span><i
                             class="angle fe fe-chevron-right"></i></a>
                     <ul class="slide-menu">
                         <li class="side-menu-label1">
-                            <a href="javascript:void(0)">الأقسام</a>
+                            <a href="{{ route('departments.index') }}">الأقسام</a>
                         </li>
                         <li>
-                            <a href="../departments/departments-record.html" class="slide-item px-6"><i
+                            <a href="{{ route('departments.index') }}" class="slide-item px-6"><i
                                     class="mdi mdi-file-document-multiple-outline"></i>
                                 سجل الأقسام</a>
                         </li>
                         <li>
-                            <a href="../departments/department-add.html" class="slide-item px-6"><i
+                            <a href="{{ route('departments.create') }}" class="slide-item px-6"><i
                                     class="mdi mdi-plus-circle-outline"></i> إضافة</a>
                         </li>
                     </ul>
