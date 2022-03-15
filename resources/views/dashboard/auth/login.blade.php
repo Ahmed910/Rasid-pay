@@ -61,9 +61,8 @@
               <a href="reset.html">استعادة كلمة المرور؟</a>
             </div>
           </div>
-            <a href="index.html" class="btn btn-primary d-block mt-5" type="submit"
-              >تسجيل دخول</a
-            >
+          {!! Form::submit('تسجيل دخول',['class' => "btn btn-primary d-block mt-5"]) !!}
+
         </form>
         <!-- FORM CLOSED -->
       </div>
