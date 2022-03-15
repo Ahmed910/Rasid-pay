@@ -96,6 +96,8 @@
 
     <!-- SELECT2 JS -->
     <script src="{{ asset('dashboardAssets/plugins/select2/select2.full.min.js') }}"></script>
+    <script src="{{ asset('dashboardAssets/js/select2.js') }}"></script>
+
 
     <script src="{{ asset('dashboardAssets/plugins/bootstrap-hijri-datepicker/js/bootstrap-hijri-datetimepicker.js') }}"></script>
 
