@@ -67,28 +67,28 @@ class Department extends Model implements TranslatableContract, HasAssetsInterfa
     public function scopeSortBy(Builder $query, $request)
     {
 
-        if (!isset($request->sort["column"]) || !isset($request->sort["dir"])) return;
+        if (!isset($request->sort["column"]) || !isset($request->sort["dir"])) return $query->latest();
 
         if (
             !in_array(Str::lower($request->sort["column"]), $this->sortableColumns) ||
             !in_array(Str::lower($request->sort["dir"]), ["asc", "desc"])
         ) {
-            return;
+            return $query->latest();
         }
 
-        if ($request->sort) {
+
+        $query->when($request->sort, function ($q) use ($request) {
             if ($request->sort["column"]  == "name")
-            return $query->orderByTranslation($request->sort["column"], @$request->sort["dir"]);
+                return $q->orderByTranslation($request->sort["column"], @$request->sort["dir"]);
 
             if ($request->sort["column"] == "parent_id") {
-                return $query->whereHas("parent", function ($q) use ($request) {
-                    $query->orderByTranslation("name", $request->sort["dir"]);
+                return $q->whereHas("parent", function ($q) use ($request) {
+                    $q->orderByTranslation("name", $request->sort["dir"]);
                 });
             }
 
-            // return $query->orderBy($request->sort["column"], @$request->sort["dir"]);
-        }
-        return $query->orderBy('created_at');
+            $q->orderBy($request->sort["column"], @$request->sort["dir"]);
+        });
     }
     #endregion scopes
 
