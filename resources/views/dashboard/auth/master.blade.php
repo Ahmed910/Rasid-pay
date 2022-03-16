@@ -23,7 +23,7 @@
     />
 
     <!-- TITLE -->
-    <title>{!! trans('dashboard.general.dashboard',['title' => $title ?? '']) !!}</title>
+    <title>@yield('title' , trans('dashboard.general.dashboard',['title' => $title ?? '']))</title>
 
     <!-- BOOTSTRAP CSS -->
     <link
