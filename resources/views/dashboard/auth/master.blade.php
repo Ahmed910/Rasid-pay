@@ -48,8 +48,6 @@
   </head>
 
   <body class="app sidebar-mini {{ LaravelLocalization::getCurrentLocaleDirection() }}">
-    <!-- BACKGROUND-IMAGE -->
-    <div class="login-img">
       <!-- GLOABAL LOADER -->
       <div id="global-loader">
         <img
@@ -92,8 +90,6 @@
         <!-- CONTAINER CLOSED -->
     </div>
     <!-- End PAGE -->
-  </div>
-  <!-- BACKGROUND-IMAGE CLOSED -->
 
   <!-- JQUERY JS -->
   <script src="{{ asset('dashboardAssets/js/jquery.min.js') }}"></script>

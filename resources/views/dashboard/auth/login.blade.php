@@ -54,8 +54,7 @@
               <a href="{!! route('dashboard.reset') !!}">استعادة كلمة المرور؟</a>
             </div>
           </div>
-          {!! Form::submit('تسجيل دخول',['class' => "btn btn-primary d-block mt-5"]) !!}
-
+          {!! Form::submit('تسجيل دخول',['class' => "btn btn-primary w-100 mt-5"]) !!}
         </form>
         <!-- FORM CLOSED -->
 @endsection
