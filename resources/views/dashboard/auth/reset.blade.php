@@ -61,7 +61,7 @@
                         إرسال
                       </a>
                       <a
-                        href="login.html"
+                        href="{!! route('dashboard.login') !!}"
                         class="btn btn-outline-primary"
                       >
                         عودة
