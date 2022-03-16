@@ -86,7 +86,7 @@ class Department extends Model implements TranslatableContract, HasAssetsInterfa
                 });
             }
 
-            return $query->orderBy($request->sort["column"], @$request->sort["dir"]);
+            // return $query->orderBy($request->sort["column"], @$request->sort["dir"]);
         }
         return $query->orderBy('created_at');
     }
