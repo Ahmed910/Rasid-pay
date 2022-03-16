@@ -1,14 +1,7 @@
 @extends('dashboard.auth.master')
 
 @section('content')
-    <div class="col-12 col-md-7 d-flex align-center">
-      <div class="card m-auto w-60 p-9">
-        <img
-          src="assets/images/brand/Rasid-Jack-Logo-V.svg"
-          width="150"
-          alt=""
-          class="mb-5"
-        />
+
         {{-- <form class="login100-form validate-form"> --}}
           <h3 class="text-center mt-5">إستعادة كلمةالمرور</h3>
           <p class="text-center">
@@ -49,6 +42,7 @@
                         type="email"
                         class="form-control"
                         id="email"
+                        name="email"
                         placeholder="البريد الإلكتروني"
                         required
                       />
@@ -72,7 +66,6 @@
                 </div>
                 <div class="tab-pane" id="tab6">
                   <!-- FORM OPEN -->
-
                   <form
                     action="{!! route('dashboard.post_reset') !!}"
                     method="post"
@@ -87,6 +80,7 @@
                         type="number"
                         class="form-control"
                         id="mobile"
+                        name="phone"
                         placeholder="رقم الجوال"
                         required
                       />
@@ -99,7 +93,7 @@
                         إرسال
                       </a>
                       <a
-                        href="login.html"
+                        href="{!! route('dashboard.login') !!}"
                         class="btn btn-outline-primary"
                       >
                         عودة
@@ -111,7 +105,4 @@
               </div>
             </div>
           </div>
-        {{-- </form> --}}
-      </div>
-    </div>
 @endsection

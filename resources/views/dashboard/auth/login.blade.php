@@ -1,14 +1,6 @@
 @extends('dashboard.auth.master')
 
 @section('content')
-    <div class="col-12 col-md-7 d-flex align-center">
-      <div class="card m-auto w-60 p-9">
-        <img
-          src="{{ asset('dashboardAssets') }}/images/brand/Rasid-Jack-Logo-V.svg"
-          width="150"
-          alt=""
-          class="mb-5"
-        />
         <h3 class="text-center mt-5">تسجيل دخول</h3>
         <p class="text-center">
           من فضلك قم بإدخال بريدك الإلكتروني وكلمة المرور
@@ -66,6 +58,4 @@
 
         </form>
         <!-- FORM CLOSED -->
-      </div>
-    </div>
 @endsection

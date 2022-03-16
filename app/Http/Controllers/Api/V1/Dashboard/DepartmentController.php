@@ -48,10 +48,14 @@ class DepartmentController extends Controller
             ]);
     }
 
-    public function getAllDepartments()
+    public function getAllDepartments(Request $request)
     {
         return response()->json([
-            'data' => Department::select('id')->ListsTranslations('name')->without(['images', 'addedBy','translations'])->get(),
+            'data' => Department::select('id')->when($request->department_id,function ($q) use($request){
+                $q->where('departments.id',"<>",$request->department_id);
+            })->when($request->department_type == 'children',function ($q){
+                $q->has('children');
+            })->ListsTranslations('name')->without(['images', 'addedBy','translations'])->get(),
             'status' => true,
             'message' =>  '',
         ]);
