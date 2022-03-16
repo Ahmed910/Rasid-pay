@@ -67,7 +67,7 @@ class Department extends Model implements TranslatableContract, HasAssetsInterfa
     public function scopeSortBy(Builder $query, $request)
     {
 
-        if (!isset($request->sort["column"]) || !isset($request->sort["dir"])) return $query->latest();
+        if (!$request->sort || !isset($request->sort["column"]) || !isset($request->sort["dir"])) return $query->latest();
 
         if (
             !in_array(Str::lower($request->sort["column"]), $this->sortableColumns) ||
