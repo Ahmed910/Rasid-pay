@@ -81,7 +81,7 @@ class Department extends Model implements TranslatableContract, HasAssetsInterfa
             if ($request->sort["column"]  == "name")
                 return $q->orderByTranslation($request->sort["column"], @$request->sort["dir"]);
 
-            if ($request->sort["column"] == "parent_id") {
+            if ($request->sort["column"] == "parent") {
                 return $q->whereHas("parent", function ($q) use ($request) {
                     $q->orderByTranslation("name", $request->sort["dir"]);
                 });
