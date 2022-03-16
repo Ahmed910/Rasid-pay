@@ -454,18 +454,18 @@ a.text-primary {
     border-color: $primary-1 !important;
 }
 
-// .login-img {
-//     position: relative;
-//     background-image: url(../images/media/bg2.jpg);
-// }
+.login-img {
+    position: relative;
+    background-image: url(../images/media/bg2.jpg);
+}
 
-// .login-img::before {
-//     content: '';
-//     background: linear-gradient(to right, $primary-01 0%, $primary-02 100%);
-//     height: 100%;
-//     width: 100%;
-//     position: absolute;
-// }
+.login-img::before {
+    content: '';
+    background: linear-gradient(to right, $primary-01 0%, $primary-02 100%);
+    height: 100%;
+    width: 100%;
+    position: absolute;
+}
 
 .avatar {
     background: #e3e1f5 no-repeat center/cover;
