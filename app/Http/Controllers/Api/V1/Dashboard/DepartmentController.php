@@ -14,11 +14,11 @@ class DepartmentController extends Controller
     public function index(Request $request)
     {
         $departments = Department::search($request)
-            ->CustomDateFromTo($request)
             ->with('parent.translations')
             ->ListsTranslations('name')
             ->addSelect('created_at', 'is_active', 'parent_id', 'added_by_id')
             ->sortBy($request)
+            ->CustomDateFromTo($request)
             ->paginate((int)($request->per_page ?? config("globals.per_page")));
 
         return DepartmentResource::collection($departments)
