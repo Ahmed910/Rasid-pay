@@ -48,19 +48,20 @@ class LoginController extends Controller
 
     public function username()
     {
-        $username = request()->username;
-        switch ($username) {
-          case filter_var($username, FILTER_VALIDATE_EMAIL):
-              $username = 'email';
-            break;
-          case is_numeric($username):
-                $username = 'phone';
-                break;
-          default:
-               $username = 'login_id';
-            break;
-        }
-        return $username;
+        // $username = request()->username;
+        // switch ($username) {
+        //   case filter_var($username, FILTER_VALIDATE_EMAIL):
+        //       $username = 'email';
+        //     break;
+        //   case is_numeric($username):
+        //         $username = 'phone';
+        //         break;
+        //   default:
+        //        $username = 'login_id';
+        //     break;
+        // }
+        // return $username;
+        return 'login_id';
     }
 
     protected function validateLogin(Request $request)
