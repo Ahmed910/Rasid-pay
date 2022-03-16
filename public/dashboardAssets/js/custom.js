@@ -412,7 +412,9 @@ $(document).ready(function () {
   });
 
   /******* Calendar *******/
-  $("#from-hijri-picker, #to-hijri-picker").hijriDatePicker({
+  $(
+    "#from-hijri-picker, #to-hijri-picker, #from-hijri-unactive-picker ,#to-hijri-unactive-picker"
+  ).hijriDatePicker({
     hijri: true,
     showSwitcher: false,
   });

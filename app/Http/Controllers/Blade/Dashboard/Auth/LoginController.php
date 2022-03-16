@@ -96,8 +96,7 @@ class LoginController extends Controller
     //To Confirmation Email
     public function confirm($code)
     {
-        if( ! $code)
-        {
+        if( ! $code){
             return redirect('/')->with('false', trans('dashboard.auth.code_not_match'));
         }else{
           // return redirect()->route('getPassword',$code);
