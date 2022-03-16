@@ -88,7 +88,7 @@ class Department extends Model implements TranslatableContract, HasAssetsInterfa
 
             return $query->orderBy($request->sort["column"], @$request->sort["dir"]);
         }
-        return $query->latest();
+        return $query->orderBy('created_at');
     }
     #endregion scopes
 
