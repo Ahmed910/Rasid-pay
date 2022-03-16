@@ -67,13 +67,13 @@ class Department extends Model implements TranslatableContract, HasAssetsInterfa
     public function scopeSortBy(Builder $query, $request)
     {
 
-        if (!isset($request->sort["column"]) || !isset($request->sort["dir"])) return $query->latest();
+        if (!isset($request->sort["column"]) || !isset($request->sort["dir"])) return $query->latest('departments.created_at');
 
         if (
             !in_array(Str::lower($request->sort["column"]), $this->sortableColumns) ||
             !in_array(Str::lower($request->sort["dir"]), ["asc", "desc"])
         ) {
-            return $query->latest();
+            return $query->latest('departments.created_at');
         }
 
 
