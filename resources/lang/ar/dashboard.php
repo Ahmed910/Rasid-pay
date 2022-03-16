@@ -13,9 +13,9 @@ $permissions = [
 
 return [
     'attributes' => [
-         'name' => 'الاسم باللغة العربية',
-         'description' => 'الوصف باللغة العربية',
-         'nationality' => 'الجنسية باللغة العربية',
+        'name' => 'الاسم باللغة العربية',
+        'description' => 'الوصف باللغة العربية',
+        'nationality' => 'الجنسية باللغة العربية',
     ],
     'general' => [
         "success_add" => "تم الإضافة بنجاح",
@@ -26,6 +26,7 @@ return [
         "has_relationship_cannot_delete" => "لا يمكن حذف هذا العنصر ،بسبب احتواءه علي علاقات",
         "save" => "حفظ",
         "edit" => "تعديل",
+        'add'=>'إضافة',
         "show" => "عرض",
         "archive" => "أرشفة",
         "restore" => "استعادة",
@@ -141,13 +142,13 @@ return [
         "validation" => [
             'name_must_be_unique_on_department' => 'تم اختيار اسم الوظيفة من قبل لنفس القسم'
         ],
-       "jobs_hired_deleted" => " لا يمكن حذف هذه الوظيفة لانها مشغولة ",
-       "jobs_hired_archived" => " لا يمكن أرشفة هذه الوظيفة لانها مشغولة ",
-       'sub_progs' => [
-           'index' => 'سجل الوظائف',
-           'archive' => 'ارشيف الوظائف',
-           'create' => 'اضافة وظيفة',
-       ],
+        "jobs_hired_deleted" => " لا يمكن حذف هذه الوظيفة لانها مشغولة ",
+        "jobs_hired_archived" => " لا يمكن أرشفة هذه الوظيفة لانها مشغولة ",
+        'sub_progs' => [
+            'index' => 'سجل الوظائف',
+            'archive' => 'ارشيف الوظائف',
+            'create' => 'اضافة وظيفة',
+        ],
         'permissions' => $permissions
     ],
     "setting" => [
@@ -203,6 +204,35 @@ return [
         ],
         'permissions' => array_except($permissions, ['archive', 'restore', 'force_delete']) + ['create' => 'عرض الموظفين']
 
+    ],
+    'job' => [
+        "job" => "الوظيفة",
+        "jobs" => "الوظائف",
+        "add_job" => "اضافة وظيفة",
+        "edit_job" => "تعديل وظيفة",
+        "job_count" => "عدد الوظائف",
+        "job_name" => "اسم الوظيفة",
+        "department" => "القسم",
+        "select_department" => "اختر القسم",
+        "status" => "الحالة",
+        "select_status" => "اختر الحالة",
+        "type" => "النوع",
+        "employee_name" => "اسم الموظف",
+
+        "job_description" => "وصف الوظيفة",
+        'is_active'=>[
+            'active'=>'مفعلة',
+            'disactive'=>'معطلة',
+        ],
+        'is_vacant'=>[
+            'true'=>'مشغولة',
+            'false'=>'غير مشغولة',
+        ],
+        'sub_progs' => [
+            'index' => 'سجل الوظائف',
+            'archive' => 'ارشيف الوظائف',
+            'create' => 'اضافة وظيفة',
+        ],
     ],
     "bank" => [
         "bank" => "البنك",

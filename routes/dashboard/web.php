@@ -25,4 +25,5 @@ Route::group(
 
     });
     Route::resource('departments',"DepartmentController");
+    Route::resource('jobs',"JobController");
 });
