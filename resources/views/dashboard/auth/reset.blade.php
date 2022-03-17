@@ -51,9 +51,7 @@
                       </div>
                     </div>
                     <div class="col-12 mt-5 text-center">
-                      <a href="verifyCode.html" class="btn btn-primary">
-                        إرسال
-                      </a>
+                      {!! Form::submit('إرسال', ['class' => "btn btn-primary"]) !!}
                       <a
                         href="{!! route('dashboard.login') !!}"
                         class="btn btn-outline-primary"
@@ -89,9 +87,7 @@
                       </div>
                     </div>
                     <div class="col-12 mt-5 text-center">
-                      <a href="verifyCode.html" class="btn btn-primary">
-                        إرسال
-                      </a>
+                      {!! Form::submit('إرسال', ['class' => "btn btn-primary"]) !!}
                       <a
                         href="{!! route('dashboard.login') !!}"
                         class="btn btn-outline-primary"
