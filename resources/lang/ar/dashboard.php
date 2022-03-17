@@ -13,9 +13,9 @@ $permissions = [
 
 return [
     'attributes' => [
-         'name' => 'الاسم باللغة العربية',
-         'description' => 'الوصف باللغة العربية',
-         'nationality' => 'الجنسية باللغة العربية',
+        'name' => 'الاسم باللغة العربية',
+        'description' => 'الوصف باللغة العربية',
+        'nationality' => 'الجنسية باللغة العربية',
     ],
     'general' => [
         "success_add" => "تم الإضافة بنجاح",
@@ -141,13 +141,13 @@ return [
         "validation" => [
             'name_must_be_unique_on_department' => 'تم اختيار اسم الوظيفة من قبل لنفس القسم'
         ],
-       "jobs_hired_deleted" => " لا يمكن حذف هذه الوظيفة لانها مشغولة ",
-       "jobs_hired_archived" => " لا يمكن أرشفة هذه الوظيفة لانها مشغولة ",
-       'sub_progs' => [
-           'index' => 'سجل الوظائف',
-           'archive' => 'ارشيف الوظائف',
-           'create' => 'اضافة وظيفة',
-       ],
+        "jobs_hired_deleted" => " لا يمكن حذف هذه الوظيفة لانها مشغولة ",
+        "jobs_hired_archived" => " لا يمكن أرشفة هذه الوظيفة لانها مشغولة ",
+        'sub_progs' => [
+            'index' => 'سجل الوظائف',
+            'archive' => 'ارشيف الوظائف',
+            'create' => 'اضافة وظيفة',
+        ],
         'permissions' => $permissions
     ],
     "setting" => [
@@ -237,18 +237,41 @@ return [
         'permissions' => array_except($permissions, ['archive', 'restore', 'force_delete']) + ['create' => 'عرض العملاء']
     ],
     'user' => [
-        'users' => 'المستخدمين'
+        'users' => 'المستخدمين',
+        'sub_progs' => [
+            'index' => 'سجل المستخدمين',
+            'archive' => 'ارشيف المستخدمين',
+            'create' => 'اضافة مستخدم',
+        ],
     ],
     'chat' => [
-        'chats' => 'الدردشات'
+        'chats' => 'الدردشات',
+        'sub_progs' => [
+            'index' => 'سجل الدردشات',
+            'archive' => 'ارشيف الدردشات',
+        ],
     ],
     'device' => [
-        'devices' => 'الأجهزة'
+        'devices' => 'الأجهزة',
+        'sub_progs' => [
+            'index' => 'سجل الأجهزة',
+            'archive' => 'ارشيف الأجهزة',
+        ],
     ],
     'message' => [
-        'messages' => 'الرسائل'
+        'messages' => 'الرسائل',
+        'sub_progs' => [
+            'index' => 'سجل الرسائل',
+            'archive' => 'ارشيف الرسائل',
+            'create' => 'اضافة رسالة',
+        ],
     ],
     'permission' => [
-        'permissions' => 'الصلاحيات'
+        'permissions' => 'الصلاحيات',
+        'sub_progs' => [
+            'index' => 'سجل الصلاحيات',
+            'archive' => 'ارشيف الصلاحيات',
+            'create' => 'اضافة صلاحية',
+        ],
     ]
 ];
