@@ -30,6 +30,7 @@ class GroupResource extends JsonResource
             'permissions' => PermissionResource::collection($this->whenLoaded('permissions')),
             'groups' => self::collection($this->whenLoaded('groups')),
             'created_at' => $this->created_at,
+            'is_selected' => auth()->user()->groups()->where('groups.id',$this->id)->exists(),
             'actions' => $this->when($request->route()->getActionMethod() == 'index', [
                 'update' => auth()->user()->hasPermissions('groups.update'),
                 'show' => auth()->user()->hasPermissions('groups.show')
