@@ -21,7 +21,8 @@ class ClientController extends Controller
 
     public function index(Request $request)
     {
-        $client = Client::CustomDateFromTo($request)->with("user.attachments")->search($request)->latest()->paginate((int)($request->per_page ?? config("globals.per_page")));
+        $client = Client::CustomDateFromTo($request)->with("user.attachments")->search($request)->sortby($request)
+            ->latest()->paginate((int)($request->per_page ?? config("globals.per_page")));
 
         return ClientResource::collection($client)->additional([
             'status' => true,
@@ -76,8 +77,8 @@ class ClientController extends Controller
     }
 
 
-    public function update($id,ClientRequest $request,  AttachmentRequest $attachmentRequest,  BankAccountRequest $bankAccountRequest,
-                       ManagerRequest $managerRequest)
+    public function update($id, ClientRequest $request, AttachmentRequest $attachmentRequest, BankAccountRequest $bankAccountRequest,
+                           ManagerRequest $managerRequest)
     {
         $client = Client::where('user_id', $id)->firstOrFail();
         $except = ["tax_number", "commercial_number", "activity_type", "daily_expect_trans", "register_type", "client_type", "nationality", "address", "marital_status"];

@@ -16,6 +16,7 @@ use Astrotomic\Translatable\Contracts\Translatable as TranslatableContract;
 use Astrotomic\Translatable\Translatable;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Support\Str;
 
 class Region extends Model implements TranslatableContract
 {
@@ -50,18 +51,22 @@ class Region extends Model implements TranslatableContract
     public function scopeSortBy(Builder $query, $request)
     {
 
-        if (!isset($request->sort["column"]) || !isset($request->sort["dir"])) return;
+        if (!isset($request->sort["column"]) || !isset($request->sort["dir"])) return $query->latest('regions.created_at');
 
         if (
             !in_array(Str::lower($request->sort["column"]), $this->sortableColumns) ||
             !in_array(Str::lower($request->sort["dir"]), ["asc", "desc"])
         ) {
-            return;
+            return $query->latest('regions.created_at');
         }
 
+
         $query->when($request->sort, function ($q) use ($request) {
-            if ($request->sort["column"] == "name")
-                return $q->orderByTranslation($request->sort["column"], @$request->sort["dir"]);
+            if ($request->sort["column"] == "name") {
+                return $q->has('translations')
+                    ->orderBy($request->sort["column"], @$request->sort["dir"]);
+            }
+
 
             $q->orderBy($request->sort["column"], @$request->sort["dir"]);
         });
