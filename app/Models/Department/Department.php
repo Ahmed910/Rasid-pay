@@ -29,7 +29,7 @@ class Department extends Model implements TranslatableContract, HasAssetsInterfa
     public $translatedAttributes = ['name', 'description'];
     public $assets = ["image"];
     public $with   = ["images", "addedBy"];
-    private $sortableColumns = ["name", "parent_id", "created_at", "status"];
+    private $sortableColumns = ["name", "parent", "created_at", "status"];
     private static $result = [];
     #endregion properties
 
@@ -84,9 +84,9 @@ class Department extends Model implements TranslatableContract, HasAssetsInterfa
             }
 
             if ($request->sort["column"] == "parent") {
-                return $q->whereHas("parent", function ($q) use ($request) {
-                    $q->orderByTranslation("name", $request->sort["dir"]);
-                });
+                return $q->join('departments as parent', 'departments.id', '=', 'parent.parent_id')
+                    ->leftJoin('department_translations as parent_trans', 'parent.id', '=', 'parent_trans.department_id')
+                    ->orderBy('parent_trans.name', @$request->sort["dir"]);
             }
 
             $q->orderBy($request->sort["column"], @$request->sort["dir"]);
