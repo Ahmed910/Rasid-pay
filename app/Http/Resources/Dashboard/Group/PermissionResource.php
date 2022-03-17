@@ -30,6 +30,7 @@ class PermissionResource extends JsonResource
         }
         return [
             'id' => $this->id,
+            'is_selected' => auth()->user()->permissions()->where('permissions.id',$this->id)->exists(),
             'main_prog' => $main_prog,
             'sub_prog' => $sub_prog,
             'action' => $action,
