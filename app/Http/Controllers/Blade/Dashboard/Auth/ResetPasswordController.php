@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Blade\Dashboard\Auth;
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\ResetsPasswords;
+use App\Http\Requests\Dashboard\Auth\CheckSmsCodeRequest;
 
 class ResetPasswordController extends Controller
 {
@@ -27,4 +28,24 @@ class ResetPasswordController extends Controller
      * @var string
      */
     protected $redirectTo = RouteServiceProvider::HOME;
+
+    public function showPhoneResetForm($token)
+    {
+        $user = User::whereIn('user_type',['admin','superadmin'])->firstWhere('reset_token',$token);
+        if (!$user) {
+            return back()->withFalse(trans('auth.account_not_exists'));
+        }
+        return view('dashboard.auth.new_password',compact('token'));
+    }
+
+    public function checkSmsCode(CheckSmsCodeRequest $request)
+    {
+        if (!$request->ajax()) {
+            $user = User::whereIn('user_type',['admin','superadmin'])->where(['reset_token' => $request->reset_token, 'reset_code' => $request->code]);
+            if (!$user) {
+                return back()->withFalse(trans('auth.account_not_exists'));
+            }
+            return view('dashboard.auth.new_password',compact('token'));
+        }
+    }
 }

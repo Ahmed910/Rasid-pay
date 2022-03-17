@@ -138,13 +138,12 @@ class GroupController extends Controller
 
     public function getGroups($group_id = null)
     {
-        return response()->json([
-                'data' => Group::when($group_id, function ($q) use($group_id) {
-                    $q->where('id',"<>",$group_id);
-                } )->ListsTranslations('name')->without(['addedBy'])->get(),
-                'status' => true,
-                'message' =>  '',
-            ]);
+        $groups = Group::when($group_id, function ($q) use($group_id) {
+                    $q->where('groups.id',"<>",$group_id);
+                })->with('permissions')->ListsTranslations('name')->without(['addedBy'])->get();
+
+        return GroupResource::collection($groups)->additional(['status' => true, 'message' => ""]);
+
     }
 
 
