@@ -127,15 +127,11 @@ class LoginController extends Controller
 
     public function logout(Request $request)
     {
-        $redirect='login';
-        if (auth()->check()) {
-          if ((auth()->user()->user_type == 'superadmin' && !auth()->user()->role()->exists()) || (auth()->user()->role()->exists() && auth()->user()->user_type == 'admin')) {
-            $redirect='dashboard.login';
-         }
+        if (auth()->check() && in_array(auth()->user()->user_type,['superadmin','admin'])) {
             $this->guard()->logout();
             $request->session()->invalidate();
-            session()->flash('info', trans('dashboard.auth.logout_msg'));
-            return redirect()->route($redirect);
+            session()->flash('info', trans('auth.logout_waiting_u_another_time'));
+            return redirect()->route('dashboard.login');
         }
     }
 }

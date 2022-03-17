@@ -82,14 +82,31 @@ class ActivityController extends Controller
         return OnlyResource::collection($mainPrograms);
     }
 
-    public function getSubPrograms($main_progs)
+    public function getSubPrograms($main_progs = null)
     {
-        $subPrograms = collect(trans('dashboard.' . mb_strtolower($main_progs) . '.sub_progs'))->transform(function ($trans, $key) {
-            $data['name'] = $key;
-            $data['trans'] = $trans;
+        $subPrograms = collect([]);
 
-            return $data;
-        })->values();
+        if ($main_progs) {
+            $subPrograms = collect(trans('dashboard.' . mb_strtolower($main_progs) . '.sub_progs'))->transform(function ($trans, $key) {
+                $data['name'] = $key;
+                $data['trans'] = $trans;
+
+                return $data;
+            })->values();
+        } else {
+            $mainPrograms = array_keys(AppServiceProvider::MORPH_MAP);
+
+            foreach ($mainPrograms as $main_progs) {
+                $subPrograms[] =  collect(trans('dashboard.' . mb_strtolower(Str::snake($main_progs)) . '.sub_progs'))->transform(function ($trans, $key) {
+                    $data['name'] = $key;
+                    $data['trans'] = $trans;
+
+                    return $data;
+                })->values();
+            }
+
+            $subPrograms = $subPrograms->flatten(1);
+        }
 
         return response()->json([
             'data' => $subPrograms,

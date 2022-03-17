@@ -9,7 +9,7 @@
 </p>
 <!-- FORM OPEN -->
 
-<form method="post" action="{!! route('dashboard.check_sms_code') !!}" class="needs-validation" novalidate>
+<form method="POST" action="{!! route('dashboard.check_sms_code') !!}" class="needs-validation" id="form_sms" novalidate>
     @csrf
     <input type="hidden" name="reset_token" value="{{ $reset_token }}">
     <div class="row col-12 col-md-8 m-auto">
@@ -36,30 +36,10 @@
     </div>
 
     <div class="col-12 mt-5 text-center">
-        <a onclick="checkSmsCode()" class="btn btn-primary">إرسال</a>
+        {!! Form::submit('إرسال',['class' => "btn btn-primary"]) !!}
         <a href="{!! route('dashboard.reset') !!}" class="btn btn-outline-primary">
             عودة
         </a>
     </div>
 </form>
-@endsection
-@section('scripts')
-<script>
-    function checkSmsCode() {
-        var form = $('form');
-        var actionUrl = form.attr('action');
-
-        $.ajax({
-            type: "POST",
-            url: actionUrl,
-            data: form.serialize(), // serializes the form's elements.
-            success: function(data) {
-                form.submit(); // show response from the php script.
-            },
-            error: function(err) {
-                console.log(err.responseJSON);
-            }
-        });
-    }
-</script>
 @endsection

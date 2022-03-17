@@ -14,8 +14,10 @@ Route::group(
 	Route::get('dashboard/password/reset', 'Auth\ForgotPasswordController@showLinkRequestForm')->name('reset');
 	Route::post('dashboard/password/email', 'Auth\ForgotPasswordController@sendResetLinkEmail')->name('post_reset');
 
+	Route::get('password/code_check/{token}', 'Auth\ResetPasswordController@showCodeCheckForm')->name('check_sms_code_form');
 	Route::post('password/phone_reset', 'Auth\ResetPasswordController@checkSmsCode')->name('check_sms_code');
-	Route::get('password/phone_reset/{token}', 'Auth\ResetPasswordController@showPhoneResetForm')->name('post_sms_verify');
+	Route::get('password/phone_reset/{token}', 'Auth\ResetPasswordController@showPhoneResetForm')->name('get_phone_password_reset');
+	Route::post('password/phone_reset/{token}', 'Auth\ResetPasswordController@resetUsingPhone')->name('reset_to_new');
 
 	Route::get('activate/{confirmationCode}', 'Auth\LoginController@confirm')->name('confirmation_path');
 	Route::post('setPassword', "Auth\LoginController@storePassword")->name('setPassword');
@@ -25,6 +27,7 @@ Route::group(
 
     Route::middleware('auth')->prefix('dashboard')->group(function () {
         Route::get('/', "HomeController@index")->name("home.index");
+		Route::post('logout', "Auth\LoginController@logout")->name("logout");
 
     });
     Route::resource('departments',"DepartmentController");

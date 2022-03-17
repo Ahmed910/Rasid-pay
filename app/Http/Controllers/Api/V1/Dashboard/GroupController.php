@@ -44,7 +44,7 @@ class GroupController extends Controller
     public function show(Request $request, Group $group)
     {
         $activities = [];
-        if ($request->with_activity) {
+        if (!$request->has('with_activity') || $request->with_activity) {
             $activities  = $group->activity()->paginate((int)($request->per_page ?? 15));
         }
         data_set($activities, 'permissions', $group->permissions);
