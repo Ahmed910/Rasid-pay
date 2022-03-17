@@ -11,6 +11,8 @@
     <meta name="keywords"
         content="admin,admin dashboard,admin panel,admin template,bootstrap,clean,dashboard,flat,jquery,modern,responsive,premium admin templates,responsive admin,ui,ui kit." />
 
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+
     <!-- FAVICON -->
     <link rel="shortcut icon" type="image/x-icon" href="{{ asset('dashboardAssets/images/brand/favicon.ico') }}" />
 

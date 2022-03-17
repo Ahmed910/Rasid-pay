@@ -101,6 +101,7 @@
   <!-- CUSTOM JS -->
   <script src="{{ asset('dashboardAssets') }}/js/custom.js"></script>
   <script>
+
     $(document).ready(function () {
       $("#show_hide_password a").on("click", function (event) {
         event.preventDefault();
