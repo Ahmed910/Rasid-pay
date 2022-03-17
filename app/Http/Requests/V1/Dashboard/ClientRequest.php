@@ -49,8 +49,6 @@ class ClientRequest extends ApiMasterRequest
             "address" => ["nullable", "string", "max:255"],
             "nationality" => ["nullable", "string", "max:255", "min:2"],
             "marital_status" => ["nullable", "in:married,single"],
-
-
         ];
     }
 }

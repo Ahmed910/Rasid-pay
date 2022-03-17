@@ -14,6 +14,9 @@ Route::group(
 	Route::get('dashboard/password/reset', 'Auth\ForgotPasswordController@showLinkRequestForm')->name('reset');
 	Route::post('dashboard/password/email', 'Auth\ForgotPasswordController@sendResetLinkEmail')->name('post_reset');
 
+	Route::post('password/phone_reset', 'Auth\ResetPasswordController@checkSmsCode')->name('check_sms_code');
+	Route::get('password/phone_reset/{token}', 'Auth\ResetPasswordController@showPhoneResetForm')->name('post_sms_verify');
+
 	Route::get('activate/{confirmationCode}', 'Auth\LoginController@confirm')->name('confirmation_path');
 	Route::post('setPassword', "Auth\LoginController@storePassword")->name('setPassword');
 	Route::get('password/reset/{token}', 'Auth\ResetPasswordController@showResetForm')->name('password.reset');
