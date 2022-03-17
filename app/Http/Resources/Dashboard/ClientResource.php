@@ -31,7 +31,7 @@ class ClientResource extends JsonResource
             'token' => $this->when($this->token, $this->token),
             'manager' => ManagerResource::make($this->whenLoaded('manager')),
 
-            'actions' => $this->when(in_array($request->route()->getActionMethod(),['index','archive']), [
+            'actions' => $this->when(in_array($request->route()->getActionMethod(), ['index', 'archive']), [
                 'show' => auth()->user()->hasPermissions('clients.show'),
                 $this->mergeWhen($request->route()->getActionMethod() == 'index', [
                     'create' => auth()->user()->hasPermissions('clients.store'),

@@ -22,9 +22,6 @@ class ClientController extends Controller
     public function index(Request $request)
     {
         $client = Client::CustomDateFromTo($request)->with("user.attachments")->search($request)->latest()->paginate((int)($request->per_page ?? config("globals.per_page")));
-        //        $client = Client::search($request)->with(['user'=>function($q){
-        //            $q->with('attachments');
-        //        }])->latest()->paginate((int)($request->per_page ?? config("globals.per_page")));
 
         return ClientResource::collection($client)->additional([
             'status' => true,
@@ -42,20 +39,20 @@ class ClientController extends Controller
     public function store(ClientRequest      $request, AttachmentRequest $attachmentRequest,
                           BankAccountRequest $bankAccountRequest, ManagerRequest $managerRequest, Client $client, BankAccount $bankAccount, Manager $manager)
     {
-         $except = ["tax_number", "commercial_number", "activity_type", "daily_expect_trans", "register_type", "client_type", "nationality", "address", "marital_status"];
-         $userData = $request->safe()->except($except) + ["user_type" => "client", 'added_by_id' => auth()->id()];
-         $clientData = $request->safe()->only($except);
+        $except = ["tax_number", "commercial_number", "activity_type", "daily_expect_trans", "register_type", "client_type", "nationality", "address", "marital_status"];
+        $userData = $request->safe()->except($except) + ["user_type" => "client", 'added_by_id' => auth()->id()];
+        $clientData = $request->safe()->only($except);
 
-         $user = user::create($userData);
-         $bankAccount->fill($bankAccountRequest->validated())->user()->associate($user)->save();
+        $user = user::create($userData);
+        $bankAccount->fill($bankAccountRequest->validated())->user()->associate($user)->save();
 
-         $client->fill($clientData)->user()->associate($user)->save();
-         $manager->fill($managerRequest->validated())->save();
-         $manager->clients()->save($client);
+        $client->fill($clientData)->user()->associate($user)->save();
+        $manager->fill($managerRequest->validated())->save();
+        $manager->clients()->save($client);
 
-         if ($attachmentRequest->has("files"))
+        if ($attachmentRequest->has("files"))
 
-             Attachment::storeImage($attachmentRequest, $user);
+            Attachment::storeImage($attachmentRequest, $user);
 
 
         $client->load(['user', 'user.attachments', 'manager']);
@@ -68,7 +65,7 @@ class ClientController extends Controller
     public function show($id)
     {
         $client = Client::where('user_id', $id)->firstOrFail();
-        $client->load(['user', 'user.attachments']);
+        $client->load(['user', 'user.attachments', 'manager', 'user.bankAccount']);
 
         return ClientResource::make($client)->additional(['status' => true, 'message' => ""]);
     }
@@ -79,13 +76,16 @@ class ClientController extends Controller
     }
 
 
-    public function update(ClientRequest $request, $id)
+    public function update($id,ClientRequest $request,  AttachmentRequest $attachmentRequest,  BankAccountRequest $bankAccountRequest,
+                       ManagerRequest $managerRequest)
     {
         $client = Client::where('user_id', $id)->firstOrFail();
         $except = ["tax_number", "commercial_number", "activity_type", "daily_expect_trans", "register_type", "client_type", "nationality", "address", "marital_status"];
         $client->user()->update($request->safe()->except($except));
         $client->update($request->safe()->only($except));
-        $client->load('user');
+        $client->user->bankAccount->update($bankAccountRequest->validated());
+        $client->manager()->update($managerRequest->validated());
+        $client->load(['user', 'user.attachments', 'manager']);
         return ClientResource::make($client)->additional([
             'status' => true, 'message' => trans("dashboard.general.success_update")
         ]);
