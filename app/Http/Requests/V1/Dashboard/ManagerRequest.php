@@ -16,6 +16,16 @@ class ManagerRequest extends ApiMasterRequest
         return true;
     }
 
+    protected function prepareForValidation()
+    {
+        $data = $this->all();
+
+        $this->merge([
+            'manager_date_of_birth' => @$data['manager_date_of_birth'] ? date('Y-m-d', strtotime($data['date_of_birth'])) : null,
+            'phone' => @$data['phone'] ? convert_arabic_number($data['phone']) : null
+        ]);
+    }
+
     /**
      * Get the validation rules that apply to the request.
      *
@@ -23,16 +33,17 @@ class ManagerRequest extends ApiMasterRequest
      */
     public function rules()
     {
+// TODO make unique checks with same [client , manager] [email ,phone  , identity ]
         return [
-            "name" => ["required", "max:100", "string", "unique"],
-            "email" => ["required", "max:100", "email", "unique:managers,email," . @$this->client->id],
-            "phone" => ["required","starts_with:9665,05", "numeric", "digits_between:10,15", "unique:managers,phone," . @$this->client->id],
-            "identity_number" => ["required", "numeric", "digits_between:5,10", "unique:managers,identity_number," . @$this->client->id],
-            "gender" => ["nullable", "in:male,female"],
-            "date_of_birth" => ["required", "date"],
-            "address" => ["nullable","string" , "max:255"  ],
-            "nationality" => ["nullable","string" , "max:255"  ],
-            "marital_status" => ["nullable", "in:married,single"],
+            "manager_name" => ["required", "max:100", "string"],
+            "manager_email" => ["required", "max:100", "email", "unique:managers,manager_email," . @$this->manager->id, "unique:users,email". @$this->manager->id],
+            "manager_phone" => ["required", "starts_with:9665,05", "numeric", "digits_between:10,15", "unique:managers,manager_phone," . @$this->manager->id, "unique:users,phone," . @$this->manager->id],
+            "manager_identity_number" => ["required", "numeric", "digits_between:5,10", "unique:managers,manager_identity_number," . @$this->manager->id, "unique:users,identity_number," . @$this->manager->id],
+            "manager_gender" => ["nullable", "in:male,female"],
+            "manager_date_of_birth" => ["required", "date"],
+            "manager_address" => ["nullable", "string", "max:255"],
+            "manager_nationality" => ["nullable", "string", "max:255"],
+            "manager_marital_status" => ["nullable", "in:married,single"],
 
 
         ];

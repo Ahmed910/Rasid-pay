@@ -24,11 +24,11 @@ class BankAccountRequest extends ApiMasterRequest
     public function rules()
     {
         return [
-            "account_name" => ["required", "max:255"],
-            "iban_number" => ["required", "max:255"],
-            "contract_type" => ["required", "max:255" , "in:pending,before_review,reviewed"],
+//            "account_name" => ["required", "max:255"],
+            "iban_number" => ["required", "max:255", "unique:bank_accounts,iban_number," . @$this->banck_account->id . ",id,bank_id," . @$this->bank_id],
+            "contract_type" => ["required", "max:255", "in:pending,before_review,reviewed"],
             "bank_id" => ["required", "exists:banks,id"],
-            "user_id" => ["required", "exists:users,id"],
+//            "user_id" => ["required", "exists:users,id"],
 
 
         ];
