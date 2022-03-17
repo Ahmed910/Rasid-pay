@@ -28,6 +28,7 @@ class ActivityLogResource extends JsonResource
             'url' => $this->url,
             'ip' => $this->ip_address,
             'agent' => $this->agent,
+            'sub_program'  => $this->sub_program
         ];
     }
 }

@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests\V1\Dashboard\Auth;
+namespace App\Http\Requests\Dashboard\Auth;
 
-use App\Http\Requests\ApiMasterRequest;
+use Illuminate\Foundation\Http\FormRequest;
 
-class SendCodeRequest extends ApiMasterRequest
+class SendTokenRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -25,20 +25,21 @@ class SendCodeRequest extends ApiMasterRequest
     {
         $rules = ['send_type' => 'required|in:email,phone'];
         if($this->send_type == 'email'){
-            $rules['username'] = 'required|email|exists:users,email,deleted_at,NULL';
+            $rules['email'] = 'required|email|exists:users,email,deleted_at,NULL';
         }elseif($this->send_type == 'phone'){
-            $rules['username'] = 'required|numeric|digits_between:5,20|exists:users,phone,deleted_at,NULL';
+            $rules['phone'] = 'required|numeric|digits_between:5,20|exists:users,phone,deleted_at,NULL';
         }
-        return $rules;  
+        return $rules;
     }
 
     protected function prepareForValidation()
     {
         $data = $this->all();
-
-        $this->merge([
-            'username' => @$data['username'] && is_numeric($data['username']) ? convert_arabic_number($data['username']) : @$data['username']
-        ]);
+        if (@$data['send_type'] == 'phone') {
+            $this->merge([
+                'phone' => @$data['phone'] && is_numeric($data['phone']) ? convert_arabic_number($data['phone']) : @$data['phone']
+            ]);
+        }
     }
 
 }
