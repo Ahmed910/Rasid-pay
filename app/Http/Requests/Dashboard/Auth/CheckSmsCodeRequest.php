@@ -24,14 +24,12 @@ class CheckSmsCodeRequest extends FormRequest
      */
     public function rules()
     {
-        dd($this->all());
         $user = User::where(['reset_token'=>$this->reset_token])->first();
         if ($user && ($user->phone_verified_at || $user->email_verified_at)) {
             $code = 'required|exists:users,reset_code,deleted_at,NULL';
         }else{
             $code = 'required|exists:users,verified_code,deleted_at,NULL';
         }
-
         return [
             'reset_token' => 'required|exists:users,reset_token,ban_status,active',
             'reset_code' => $code
@@ -43,7 +41,7 @@ class CheckSmsCodeRequest extends FormRequest
         $data = $this->all();
 
         $this->merge([
-            'reset_code' => @$data['reset_code'] ? implode('',$data['reset_code']) : null
+            'reset_code' => @$data['reset_code'] ? implode('',array_reverse($data['reset_code'])) : null
         ]);
     }
 }
