@@ -43,7 +43,10 @@ class GroupController extends Controller
 
     public function show(Request $request, Group $group)
     {
-        $activities  = $group->activity()->paginate((int)($request->per_page ?? 15));
+        $activities = [];
+        if ($request->with_activity) {
+            $activities  = $group->activity()->paginate((int)($request->per_page ?? 15));
+        }
         data_set($activities, 'permissions', $group->permissions);
 
         $group->load(['translations','groups' => function ($q) {
