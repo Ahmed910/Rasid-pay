@@ -199,7 +199,7 @@
                               {{$value->is_active==1?'مفعل':'معطل'}}</span>
                                             </td>
                                             <td class="text-center">
-                                                <a href="./{{$value->id}}" class="azureIcon"
+                                                <a href="{{Request::url()}}/{{$value->id}}" class="azureIcon"
                                                    data-bs-toggle="tooltip" data-bs-placement="top" title=""
                                                    data-bs-original-title="التفاصيل" aria-label="التفاصيل"><i
                                                         class="mdi mdi-eye-outline"></i></a>

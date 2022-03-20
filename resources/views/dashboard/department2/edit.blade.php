@@ -22,7 +22,7 @@
                 <!-- ROW OPEN -->
 
 {{--                {{ Form::open(array('url' => 'departments2')) }}--}}
-                {{ Form::model($department, array('route' => array('departments2', $department->id), 'method' => 'PUT')) }}
+                {{ Form::model($department, array('route' => array('departments2.update', $department->id), 'method' => 'PUT')) }}
 
 {{--                {{dd($parents)}}--}}
                 {{--                <form method="post" action="" class="needs-validation" novalidate="">--}}

@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Blade\Dashboard;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\V1\Dashboard\DepartmentRequest;
 use App\Http\Requests\V1\Dashboard\ReasonRequest;
-use App\Http\Resources\Dashboard\Department\{DepartmentResource, DepartmentCollection, ParentResource};
+use App\Http\Resources\Blade\Dashboard\Department\DepartmentCollection;
 use App\Models\Department\Department;
 use Illuminate\Http\Request;
 
@@ -13,7 +13,46 @@ class DepartmentController extends Controller
 {
     public function index(Request $request)
     {
-       return view('dashboard.department.index');
+        $sortingColumns = [
+            'id',
+            'name',
+            'parent',
+            'created_at',
+            'is_active'
+        ];
+
+        if (isset($request['sort']))
+            $request['sort'] = ['column' => $sortingColumns[$request->order[0]['column']], 'dir' => $request->order[0]['dir']];
+
+        $departmentsQuery = Department::search($request)
+            ->CustomDateFromTo($request)
+            ->with('parent.translations')
+            ->ListsTranslations('name')
+            ->addSelect('departments.created_at', 'departments.is_active', 'departments.parent_id', 'departments.added_by_id')
+            ->sortBy($request);
+
+        $departmentCount = $departmentsQuery->count();
+        $departments = $departmentsQuery->skip($request->start)
+            ->take($request->length)
+            ->get();
+
+        if ($request->isAjax()) {
+            return DepartmentCollection::make($departments)
+                ->additional(['total_count' => $departmentCount]);
+        }
+
+        $departments = Department::where('is_active', 1)
+            ->has("children")
+            ->orWhere(function ($q) {
+                $q->doesntHave('children')
+                    ->WhereNull('parent_id');
+            })
+            ->without("images", 'addedBy')
+            ->select("id")
+            ->ListsTranslations("name")
+            ->pluck('name', 'id');
+
+        return view('dashboard.department.index', compact('departments'));
     }
 
     public function create()
@@ -23,7 +62,6 @@ class DepartmentController extends Controller
 
     public function store(DepartmentRequest $request, Department $department)
     {
-
     }
 
     public function show(Request $request, $id)
@@ -39,13 +77,10 @@ class DepartmentController extends Controller
 
     public function update(DepartmentRequest $request, Department $department)
     {
-
     }
 
 
     public function destroy(ReasonRequest $request, Department $department)
     {
-
     }
-
 }
