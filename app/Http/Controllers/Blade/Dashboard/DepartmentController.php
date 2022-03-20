@@ -11,7 +11,7 @@ use Illuminate\Http\Request;
 
 class DepartmentController extends Controller
 {
-    public function getDataForIndex(Request $request)
+    public function index(Request $request)
     {
         $sortingColumns = [
             'id',
@@ -20,7 +20,9 @@ class DepartmentController extends Controller
             'created_at',
             'is_active'
         ];
-        $request['sort'] = ['column' => $sortingColumns[$request->order[0]['column']], 'dir' => $request->order[0]['dir']];
+
+        if (isset($request['sort']))
+            $request['sort'] = ['column' => $sortingColumns[$request->order[0]['column']], 'dir' => $request->order[0]['dir']];
 
         $departmentsQuery = Department::search($request)
             ->CustomDateFromTo($request)
@@ -34,12 +36,11 @@ class DepartmentController extends Controller
             ->take($request->length)
             ->get();
 
-        return DepartmentCollection::make($departments)
-            ->additional(['total_count' => $departmentCount]);
-    }
+        if ($request->isAjax()) {
+            return DepartmentCollection::make($departments)
+                ->additional(['total_count' => $departmentCount]);
+        }
 
-    public function index(Request $request)
-    {
         $departments = Department::where('is_active', 1)
             ->has("children")
             ->orWhere(function ($q) {
@@ -49,7 +50,6 @@ class DepartmentController extends Controller
             ->without("images", 'addedBy')
             ->select("id")
             ->ListsTranslations("name")
-            ->take(20)
             ->pluck('name', 'id');
 
         return view('dashboard.department.index', compact('departments'));

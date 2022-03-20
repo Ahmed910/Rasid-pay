@@ -4,7 +4,8 @@
             sDom: "t<'domOption'lpi>",
             serverSide: true,
             ajax: {
-                url: "{{ route('dashboard.datatable.index') }}",
+                url: "{{ route('dashboard.departments.index') }}?" + $.param(
+                    @json(request()->query())),
                 dataSrc: 'data'
             },
             columns: [{

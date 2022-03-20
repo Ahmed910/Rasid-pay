@@ -18,24 +18,26 @@
                     <div class="row align-items-end mb-3">
                         <div class="col">
                             <label for="departmentName">اسم القسم</label>
-                            <input type="text" class="form-control" id="departmentName" placeholder="اسم القسم" />
+                            <input type="text" class="form-control" id="departmentName" placeholder="اسم القسم" name="name"
+                                value="{{ old('name') ?? request('name') }}" />
                         </div>
                         <div class="col">
-                            <label for="mainDepartment">القسم الرئيسي</label>
-                            {!! Form::select('parent', $departments, null, ['class' => 'form-control select2-show-search form-select', 'data-placeholder' => 'اختر قسم رئيسي', 'id' => 'mainDepartment']) !!}
-                            {{-- <select class="form-control select2-show-search form-select" data-placeholder="اختر قسم رئيسي"
-                                id="mainDepartment">
+                            <label>القسم الرئيسي</label>
+                            <select class="form-control select2" data-placeholder="اختر قسم رئيسي"
+                                name="parent_id">
                                 <option selected disabled value="">اختر قسم رئيسي</option>
                                 @foreach ($departments as $id => $name)
-                                    <option value="{{ $id }}">{{ $name }}</option>
+                                    <option value="{{ $id }}"
+                                        {{ (old('parent_id') ?? request('parent_id')) == $id ? 'selected' : '' }}>
+                                        {{ $name }}</option>
                                 @endforeach
-                            </select> --}}
+                            </select>
                         </div>
                         <div class="col">
                             <label for="validationCustom02"> تاريخ الإنشاء (من)</label>
                             <div class="input-group">
-                                <input id="from-hijri-picker" type="text" placeholder="يوم/شهر/سنة"
-                                    class="form-control" />
+                                <input id="from-hijri-picker" type="text" placeholder="يوم/شهر/سنة" class="form-control"
+                                    name="created_from" value="{{ old('created_from') ?? request('created_from') }}" />
                                 <div class="input-group-text border-start-0">
                                     <i class="fa fa-calendar tx-16 lh-0 op-6"></i>
                                 </div>
@@ -44,7 +46,8 @@
                         <div class="col">
                             <label for="validationCustom02"> تاريخ الإنشاء (إلى)</label>
                             <div class="input-group">
-                                <input id="to-hijri-picker" type="text" placeholder="يوم/شهر/سنة" class="form-control" />
+                                <input id="to-hijri-picker" type="text" placeholder="يوم/شهر/سنة" class="form-control"
+                                    name="created_to" value="{{ old('created_to') ?? request('created_to') }}" />
                                 <div class="input-group-text border-start-0">
                                     <i class="fa fa-calendar tx-16 lh-0 op-6"></i>
                                 </div>
@@ -52,11 +55,11 @@
                         </div>
                         <div class="col">
                             <label for="status">الحالة</label>
-                            <select class="form-control select2" id="status">
+                            <select class="form-control select2" id="status" name="is_active">
                                 <option selected disabled value="">اختر الحالة</option>
-                                <option>الجميع</option>
-                                <option>مفعل</option>
-                                <option>معطل</option>
+                                <option value="">الجميع</option>
+                                <option value="1" {{ request('is_active') == 1 ? 'selected' : '' }}>مفعل</option>
+                                <option value="0" {{ request('is_active') == 0 ? 'selected' : '' }}>معطل</option>
                             </select>
                         </div>
                     </div>
