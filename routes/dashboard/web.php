@@ -33,6 +33,8 @@ Route::group(
                 Route::post('logout', "Auth\LoginController@logout")->name("logout");
             });
             Route::resource('departments', "DepartmentController");
+            Route::resource('departments2', "Department2Controller");
+
         });
     }
 );
