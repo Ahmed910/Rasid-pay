@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" dir="ltr">
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}" dir="ltr">
 
 <head>
     <!-- META DATA -->
@@ -10,6 +10,8 @@
     <meta name="author" content="Spruko Technologies Private Limited" />
     <meta name="keywords"
         content="admin,admin dashboard,admin panel,admin template,bootstrap,clean,dashboard,flat,jquery,modern,responsive,premium admin templates,responsive admin,ui,ui kit." />
+
+    <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <!-- FAVICON -->
     <link rel="shortcut icon" type="image/x-icon" href="{{ asset('dashboardAssets/images/brand/favicon.ico') }}" />
@@ -39,7 +41,6 @@
         <img src="{{ asset('dashboardAssets/images/loader.gif') }}" class="loader-img" alt="Loader" />
     </div>
     <!-- /GLOBAL-LOADER -->
-
     <!-- PAGE -->
     <div class="page">
         <div class="page-main">
@@ -61,6 +62,7 @@
         <!-- Modal END -->
 
         <!-- FOOTER -->
+
         @include('dashboard.layouts.footer')
         <!-- FOOTER END -->
     </div>

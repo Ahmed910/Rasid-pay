@@ -24,15 +24,8 @@ class AttachmentRequest extends ApiMasterRequest
     public function rules()
     {
 
-//        if ($this->attachment_type == 'videos') $data= [
-////              'file.*' =>  'mimes:jpeg,jpg,png,suv',
-//            "files"=>["required","array"],
-//            'files.*' => ['image']
-//
-//        ];
-
         $data = [];
-// max sizes needs to be handled
+// TODO max sizes needs to be handled
         if ($this->attachment_type == 'videos') {
             $data = [
                 'files.*' => 'required|mimetypes:video/avi,video/mpeg,video/quicktime',
