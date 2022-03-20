@@ -33,7 +33,8 @@ return [
         "force_delete" => "حذف نهائي",
         'sent_successfully' => 'تم الارسال بنجاح',
         'fail_send' => 'فشل عملية الارسال',
-
+        'active' => 'مفعل',
+        'inactive' => 'معطل'
     ],
     'error' => [
         'method_not_allow' => 'طريقة الطلب (:method) غير صحيحة',
@@ -131,7 +132,7 @@ return [
         'permissions' => $permissions + ['get_parents' => 'عرض الاقسام الرئيسية'],
         "has_jobs_cannot_delete" => "لا يمكن أرشفة قسم مرتبط بوظائف",
         "department_has_relationship_cannot_delete" => "لا يمكن حذف هذا القسم لأنه يحتوي علي أقسام فرعية   ",
-
+        'without_parent' => 'بدون'
     ],
     "rasid_job" => [
         "rasid_job" => "الوظيفة",
@@ -275,18 +276,41 @@ return [
         'permissions' => array_except($permissions, ['archive', 'restore', 'force_delete']) + ['create' => 'عرض العملاء']
     ],
     'user' => [
-        'users' => 'المستخدمين'
+        'users' => 'المستخدمين',
+        'sub_progs' => [
+            'index' => 'سجل المستخدمين',
+            'archive' => 'ارشيف المستخدمين',
+            'create' => 'اضافة مستخدم',
+        ],
     ],
     'chat' => [
-        'chats' => 'الدردشات'
+        'chats' => 'الدردشات',
+        'sub_progs' => [
+            'index' => 'سجل الدردشات',
+            'archive' => 'ارشيف الدردشات',
+        ],
     ],
     'device' => [
-        'devices' => 'الأجهزة'
+        'devices' => 'الأجهزة',
+        'sub_progs' => [
+            'index' => 'سجل الأجهزة',
+            'archive' => 'ارشيف الأجهزة',
+        ],
     ],
     'message' => [
-        'messages' => 'الرسائل'
+        'messages' => 'الرسائل',
+        'sub_progs' => [
+            'index' => 'سجل الرسائل',
+            'archive' => 'ارشيف الرسائل',
+            'create' => 'اضافة رسالة',
+        ],
     ],
     'permission' => [
-        'permissions' => 'الصلاحيات'
+        'permissions' => 'الصلاحيات',
+        'sub_progs' => [
+            'index' => 'سجل الصلاحيات',
+            'archive' => 'ارشيف الصلاحيات',
+            'create' => 'اضافة صلاحية',
+        ],
     ]
 ];

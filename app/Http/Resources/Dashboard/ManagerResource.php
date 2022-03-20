@@ -16,15 +16,15 @@ class ManagerResource extends JsonResource
     {
         return [
             "id"=>$this->id ,
-            "name" =>$this->name ,
-            "email" => $this->email,
-            "identity_number" => $this->identity_number,
-            "nationality" => $this->nationality,
-            "address" => $this->address,
-            "gender" => $this->gender,
-            "marital_status" => $this->marital_status,
-            "date_of_birth" => $this->date_of_birth,
-            "date_of_birth_hijri" => $this->date_of_birth_hijri,
+            "manager_name" =>$this->manager_name ,
+            "manager_email" => $this->manager_email,
+            "manager_identity_number" => $this->manager_identity_number,
+            "manager_nationality" => $this->manager_nationality,
+            "manager_address" => $this->manager_address,
+            "manager_gender" => $this->manager_gender,
+            "manager_marital_status" => $this->manager_marital_status,
+            "manager_date_of_birth" => $this->manager_date_of_birth,
+            "manager_date_of_birth_hijri" => $this->manager_date_of_birth_hijri,
 
         ];
     }

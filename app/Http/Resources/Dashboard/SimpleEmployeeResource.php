@@ -16,7 +16,7 @@ class SimpleEmployeeResource extends JsonResource
     {
         return [
             'id' => $this->user_id,
-            'fullname' => $this->user->fullname,
+            'fullname' => @$this->user->fullname,
         ];
     }
 }

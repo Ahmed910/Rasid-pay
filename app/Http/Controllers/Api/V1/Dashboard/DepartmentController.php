@@ -14,10 +14,10 @@ class DepartmentController extends Controller
     public function index(Request $request)
     {
         $departments = Department::search($request)
+            ->ListsTranslations('name')
             ->CustomDateFromTo($request)
             ->with('parent.translations')
-            ->ListsTranslations('name')
-            ->addSelect('created_at', 'is_active', 'parent_id', 'added_by_id')
+            ->addSelect('departments.created_at', 'departments.is_active', 'departments.parent_id', 'departments.added_by_id')
             ->sortBy($request)
             ->paginate((int)($request->per_page ?? config("globals.per_page")));
 
@@ -51,12 +51,12 @@ class DepartmentController extends Controller
     public function getAllDepartments(Request $request)
     {
         return response()->json([
-            'data' => Department::select('id')->when($request->department_id,function ($q) use($request){
+            'data' => Department::select('id')->when($request->department_id, function ($q) use ($request) {
                 $children = Department::flattenChildren(Department::find($request->department_id));
-                $q->whereNotIn('departments.id',$children);
-            })->when($request->department_type == 'children',function ($q){
+                $q->whereNotIn('departments.id', $children);
+            })->when($request->department_type == 'children', function ($q) {
                 $q->has('children');
-            })->ListsTranslations('name')->without(['images', 'addedBy','translations'])->get(),
+            })->ListsTranslations('name')->without(['images', 'addedBy', 'translations'])->get(),
             'status' => true,
             'message' =>  '',
         ]);

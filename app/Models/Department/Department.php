@@ -25,11 +25,11 @@ class Department extends Model implements TranslatableContract, HasAssetsInterfa
 
 
     #region properties
-    protected $guarded = ['created_at','deleted_at'];
+    protected $guarded = ['created_at', 'deleted_at'];
     public $translatedAttributes = ['name', 'description'];
     public $assets = ["image"];
     public $with   = ["images", "addedBy"];
-    private $sortableColumns = ["name", "parent_id", "created_at", "status"];
+    private $sortableColumns = ["name", "parent", "created_at", "status",'is_active'];
     private static $result = [];
     #endregion properties
 
@@ -46,7 +46,7 @@ class Department extends Model implements TranslatableContract, HasAssetsInterfa
     #region scopes
     public function scopeSearch(Builder $query, $request)
     {
-        $this->addGlobalActivity($this, $request->query(),ActivityLog::SEARCH,'index');
+        $this->addGlobalActivity($this, $request->query(), ActivityLog::SEARCH, 'index');
 
         if ($request->name) {
             $query->where(function ($q) use ($request) {
@@ -78,13 +78,15 @@ class Department extends Model implements TranslatableContract, HasAssetsInterfa
 
 
         $query->when($request->sort, function ($q) use ($request) {
-            if ($request->sort["column"]  == "name")
-                return $q->orderByTranslation($request->sort["column"], @$request->sort["dir"]);
+            if ($request->sort["column"]  == "name") {
+                return $q->has('translations')
+                    ->orderBy($request->sort["column"], @$request->sort["dir"]);
+            }
 
-            if ($request->sort["column"] == "parent_id") {
-                return $q->whereHas("parent", function ($q) use ($request) {
-                    $q->orderByTranslation("name", $request->sort["dir"]);
-                });
+            if ($request->sort["column"] == "parent") {
+                return $q->join('departments as parent', 'departments.id', '=', 'parent.parent_id')
+                    ->leftJoin('department_translations as parent_trans', 'parent.id', '=', 'parent_trans.department_id')
+                    ->orderBy('parent_trans.name', @$request->sort["dir"]);
             }
 
             $q->orderBy($request->sort["column"], @$request->sort["dir"]);
@@ -115,7 +117,7 @@ class Department extends Model implements TranslatableContract, HasAssetsInterfa
     }
 
 
-     public static function flattenChildren($parent)
+    public static function flattenChildren($parent)
     {
         self::$result[] = $parent->id;
         foreach ($parent->children as $child) {
