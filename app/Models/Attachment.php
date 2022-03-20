@@ -33,9 +33,10 @@ class Attachment extends Model
     {
         foreach ($attachmentRequest->file('files') as $file) {
             $user->attachments()->create([
-                'file'      => $file->store('/files/client', ['disk' => 'local']),
+                'file' => $file->store('/files/client', ['disk' => 'local']),
                 'file_type' => $file->getClientMimeType(),
-                'title'     => $attachmentRequest->title
+                'title' => $attachmentRequest->title,
+                'attachment_type' => $attachmentRequest->attachment_type
             ]);
         }
     }
