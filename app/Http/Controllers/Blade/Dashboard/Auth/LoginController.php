@@ -48,19 +48,20 @@ class LoginController extends Controller
 
     public function username()
     {
-        $username = request()->username;
-        switch ($username) {
-          case filter_var($username, FILTER_VALIDATE_EMAIL):
-              $username = 'email';
-            break;
-          case is_numeric($username):
-                $username = 'phone';
-                break;
-          default:
-               $username = 'login_id';
-            break;
-        }
-        return $username;
+        // $username = request()->username;
+        // switch ($username) {
+        //   case filter_var($username, FILTER_VALIDATE_EMAIL):
+        //       $username = 'email';
+        //     break;
+        //   case is_numeric($username):
+        //         $username = 'phone';
+        //         break;
+        //   default:
+        //        $username = 'login_id';
+        //     break;
+        // }
+        // return $username;
+        return 'login_id';
     }
 
     protected function validateLogin(Request $request)
@@ -96,8 +97,7 @@ class LoginController extends Controller
     //To Confirmation Email
     public function confirm($code)
     {
-        if( ! $code)
-        {
+        if( ! $code){
             return redirect('/')->with('false', trans('dashboard.auth.code_not_match'));
         }else{
           // return redirect()->route('getPassword',$code);

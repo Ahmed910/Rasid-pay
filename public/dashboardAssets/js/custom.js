@@ -376,7 +376,7 @@ $(document).ready(function () {
             .getElementById("style")
             .setAttribute(
                 "href",
-                "/dashboardAssets/plugins/bootstrap/css/bootstrap.rtl.min.css"
+                "../assets/plugins/bootstrap/css/bootstrap.rtl.min.css"
             );
         var carousel = $(".owl-carousel");
         $.each(carousel, function (index, element) {
@@ -413,13 +413,11 @@ $(document).ready(function () {
     });
 
     /******* Calendar *******/
-
-    if ($("#from-hijri-picker")[0]) {
-        $("#from-hijri-picker, #to-hijri-picker").hijriDatePicker({
-            hijri: true,
-            showSwitcher: false,
-        });
-    }
+    // $("#from-hijri-picker, #to-hijri-picker, #from-hijri-unactive-picker ,#to-hijri-unactive-picker"
+    // ).hijriDatePicker({
+    //     hijri: true,
+    //     showSwitcher: false,
+    // });
 
     $("input").attr("autocomplete", "off");
 

@@ -1,14 +1,6 @@
 @extends('dashboard.auth.master')
 
 @section('content')
-    <div class="col-12 col-md-7 d-flex align-center">
-      <div class="card m-auto w-60 p-9">
-        <img
-          src="/dashboardAssets/images/brand/Rasid-Jack-Logo-V.svg"
-          width="150"
-          alt=""
-          class="mb-5"
-        />
         <h3 class="text-center mt-5">تسجيل دخول</h3>
         <p class="text-center">
           من فضلك قم بإدخال بريدك الإلكتروني وكلمة المرور
@@ -21,6 +13,7 @@
           class="needs-validation"
           novalidate
         >
+        @csrf
           <div class="form-group">
             <label for="userID">رقم المستخدم</label>
             <input
@@ -58,13 +51,10 @@
               </label>
             </div>
             <div class="col text-end">
-              <a href="reset.html">استعادة كلمة المرور؟</a>
+              <a href="{!! route('dashboard.reset') !!}">استعادة كلمة المرور؟</a>
             </div>
           </div>
-          {!! Form::submit('تسجيل دخول',['class' => "btn btn-primary d-block mt-5"]) !!}
-
+          {!! Form::submit('تسجيل دخول',['class' => "btn btn-primary w-100 mt-5"]) !!}
         </form>
         <!-- FORM CLOSED -->
-      </div>
-    </div>
 @endsection

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" dir="ltr">
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}" dir="ltr">
 
 <head>
     <!-- META DATA -->
@@ -41,7 +41,6 @@
         <img src="{{ asset('dashboardAssets/images/loader.gif') }}" class="loader-img" alt="Loader" />
     </div>
     <!-- /GLOBAL-LOADER -->
-
     <!-- PAGE -->
     <div class="page">
         <div class="page-main">
@@ -63,6 +62,7 @@
         <!-- Modal END -->
 
         <!-- FOOTER -->
+
         @include('dashboard.layouts.footer')
         <!-- FOOTER END -->
     </div>
