@@ -14,7 +14,7 @@ class RasidJobController extends Controller
 
     public function index(Request $request)
     {
-        $rasidJobs = RasidJob::search($request)->latest()->paginate((int)($request->per_page ?? config("globals.per_page")));
+        $rasidJobs = RasidJob::search($request)->with('translations','employee')->latest()->paginate((int)($request->per_page ?? config("globals.per_page")));
 
         return RasidJobResource::collection($rasidJobs)
             ->additional([

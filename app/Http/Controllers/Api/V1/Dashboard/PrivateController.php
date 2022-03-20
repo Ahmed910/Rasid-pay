@@ -16,7 +16,7 @@ class PrivateController extends Controller
     public function downloadfile($path)
     {
         $path = "files/client/" . $path;
-        $owner = Attachment::where("file", $path)->pluck("user_id")[0];
+        $owner = Attachment::where("file", $path)->pluck("user_id")??[0];
         if ($owner != auth()->user()->id && auth()->user()->user_type == "client")
             return response()->json([
                 'status' => false,
