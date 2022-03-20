@@ -26,6 +26,12 @@ Route::group(
         Route::get('password/reset/{token}', 'Auth\ResetPasswordController@showResetForm')->name('password.reset');
         Route::post('password/reset', 'Auth\ResetPasswordController@reset')->name('resetToNew');
 
+    Route::middleware('auth')->prefix('dashboard')->group(function () {
+        Route::get('/', "HomeController@index")->name("home.index");
+
+    });
+    Route::resource('departments',"DepartmentController");
+    Route::resource('jobs',"Job2Controller");
         Route::middleware('auth')->prefix('dashboard')->group(function () {
             Route::get('/', "HomeController@index")->name("home.index");
             Route::post('logout', "Auth\LoginController@logout")->name("logout");
