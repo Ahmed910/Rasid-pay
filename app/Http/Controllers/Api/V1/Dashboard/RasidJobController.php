@@ -14,7 +14,10 @@ class RasidJobController extends Controller
 
     public function index(Request $request)
     {
-        $rasidJobs = RasidJob::search($request)->with('translations','employee')->latest()->paginate((int)($request->per_page ?? config("globals.per_page")));
+        $rasidJobs = RasidJob::search($request)
+            ->CustomDateFromTo($request)
+            ->sortBy($request)
+            ->paginate((int)($request->per_page ?? config("globals.per_page")));
 
         return RasidJobResource::collection($rasidJobs)
             ->additional([
@@ -39,9 +42,9 @@ class RasidJobController extends Controller
 
     public function show(Request $request, $id)
     {
-        $rasidJob  = RasidJob::withTrashed()->with('translations','employee')->findOrFail($id);
+        $rasidJob  = RasidJob::withTrashed()->with('translations', 'employee')->findOrFail($id);
         $activities  = $rasidJob->activity()->paginate((int)($request->per_page ?? 15));
-        data_set($activities,'job',$rasidJob);
+        data_set($activities, 'job', $rasidJob);
         return RasidJobCollection::make($activities)
             ->additional([
                 'status' => true,
@@ -95,18 +98,16 @@ class RasidJobController extends Controller
     }
 
 
-    public function destroy( RasidJob $rasidJob)
+    public function destroy(RasidJob $rasidJob)
     {
 
-        if(!$rasidJob->is_vacant){
+        if (!$rasidJob->is_vacant) {
 
             return response()->json([
                 'status' => false,
                 'message' => trans("dashboard.rasid_job.jobs_hired_archived"),
                 'data' => null
             ], 422);
-
-
         }
 
         $rasidJob->delete();
@@ -125,15 +126,13 @@ class RasidJobController extends Controller
 
         $rasidJob = RasidJob::onlyTrashed()->findOrFail($id);
 
-        if(!$rasidJob->is_vacant){
+        if (!$rasidJob->is_vacant) {
 
             return response()->json([
                 'status' => false,
                 'message' => trans("dashboard.rasid_job.jobs_hired_deleted"),
                 'data' => null
             ], 422);
-
-
         }
 
         $rasidJob->forceDelete();
@@ -149,10 +148,10 @@ class RasidJobController extends Controller
     public function getVacantJobs($id)
     {
         return response()->json([
-                'data' => RasidJob::where(['department_id' => $id , 'is_vacant' => true])->select('id')->ListsTranslations('name')
-                        ->without(['images', 'addedBy','translations','department','employee'])->get(),
-                'status' => true,
-                'message' =>  '',
-            ]);
+            'data' => RasidJob::where(['department_id' => $id, 'is_vacant' => true])->select('id')->ListsTranslations('name')
+                ->without(['images', 'addedBy', 'translations', 'department', 'employee'])->get(),
+            'status' => true,
+            'message' =>  '',
+        ]);
     }
 }

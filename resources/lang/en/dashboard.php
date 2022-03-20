@@ -134,6 +134,26 @@ return [
         "bank_count" => "Banks Count",
         'permissions' => $permissions
     ],
+    'job' => [
+        "job" => "Job",
+        "jobs" => "Jobs",
+        "add_job" => "Add Job",
+        "edit_job" => "Edit Job",
+        "job_count" => "Job Count",
+        "job_name" => "Job Name",
+        "department" => "Department",
+        "select_department" => "Select Department",
+        "status" => "Status",
+        "select_status" => "Select Status",
+        "type" => "Type",
+        "employee_name" => "Employee Name",
+        "job_description" => "Job Description",
+        'sub_progs' => [
+            'index' => 'Jobs Record',
+            'archive' => 'Jobs Archive',
+            'create' => 'Add Job',
+        ],
+    ],
     "notification" => [
         "notification" => "Notification",
         "notifications" => "Notifications",

@@ -53,13 +53,13 @@
                             <a href="javascript:void(0)">الوظائف</a>
                         </li>
                         <li>
-                            <a href="../jobs/jobs-record.html" class="slide-item px-6"><i
+                            <a href="{{ route('dashboard.jobs.index') }}" class="slide-item px-6"><i
                                     class="mdi mdi-file-document-multiple-outline"></i>
                                 سجل الوظائف</a>
                         </li>
                         <li>
-                            <a href="../jobs/job-add.html" class="slide-item px-6"><i
-                                    class="mdi mdi-plus-circle-outline"></i> إضافة</a>
+                            <a href="{{ route('dashboard.jobs.create') }}" class="slide-item px-6"><i
+                                    class="mdi mdi-plus-circle-outline"></i> {{ trans('dashboard.general.add') }}</a>
                         </li>
                     </ul>
                 </li>
