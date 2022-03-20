@@ -1,5 +1,5 @@
 @extends('dashboard.layouts.master')
-@include('dashboard.job.style')
+@include('dashboard.job2.style')
 @section('content')
     <div class="main-content app-content mt-0">
         <div class="side-app">
@@ -13,7 +13,7 @@
                                 <a href="jobs-record.html">{{ trans('dashboard.job.sub_progs.index') }}</a>
                             </li>
                             <li class="breadcrumb-item active" aria-current="page">
-                                {!! trans('dashboard.job.add_job') !!}
+                                {!! trans('dashboard.job.edit_job') !!}
                             </li>
                         </ol>
                     </nav>
@@ -22,12 +22,13 @@
 
                 <!-- ROW OPEN -->
 
-                    {!! Form::open(['route' => 'dashboard.jobs.store' , 'method' => 'POST' , 'files' => true ,'class' => 'steps-validation wizard-circle needs-validation','data-locale' => app()->getLocale()]) !!}
-                    @include('dashboard.job._form')
-                    {!! Form::close() !!}
+                {!! Form::model($job, ['route' => ['dashboard.jobs.update', $job->id], 'method' => 'PUT', 'files' => true, 'class' => 'steps-validation wizard-circle needs-validation', 'data-locale' => app()->getLocale()]) !!}
+                @include('dashboard.job2._form')
+                {!! Form::close() !!}
             </div>
-            <!-- CONTAINER CLOSED -->
+            </section>
         </div>
+
     </div>
 @endsection
-@include('dashboard.job.script')
+@include('dashboard.job2.script')

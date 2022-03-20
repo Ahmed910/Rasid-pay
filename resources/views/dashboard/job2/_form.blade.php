@@ -31,7 +31,7 @@
               <option>مفعلة</option>
               <option>معطلة</option>
             </select> --}}
-            {!! Form::select('is_active', [true => trans('dashboard.job.is_active.active'), false => trans('dashboard.job.is_active.disactive')], isset($job) ? $job->is_active : trans('dashboard.job.select_department'), ['class' => 'form-control select2', 'placeholder' => trans('dashboard.job.select_department'), 'id' => 'mainDepartment']) !!}
+            {!! Form::select('is_active', [true => trans('dashboard.job.is_active.active'), false => trans('dashboard.job.is_active.disactive')], isset($job) ? $job->is_active : trans('dashboard.job.select_status'), ['class' => 'form-control select2', 'placeholder' => trans('dashboard.job.select_status'), 'id' => 'mainDepartment']) !!}
 
             {{-- <div class="invalid-feedback">الحالة مطلوبة.</div> --}}
         </div>
@@ -45,13 +45,13 @@
               placeholder="مشغولة"
               disabled
             /> --}}
-            {!! Form::text('is_vacant', isset($job) ? $job->is_vacant : null, ['class' => 'form-control', 'placeholder' => isset($job) && (bool)$job->is_vacant ? trans('dashboard.job.is_vacant.' . (bool)$job->is_vacant) : trans('dashboard.job.is_vacant.true'), 'disabled' => 'disabled', 'id' => 'jobType']) !!}
+            {!! Form::text('is_vacant', trans('dashboard.job.is_vacant.true'), ['class' => 'form-control', 'disabled' => 'disabled', 'id' => 'jobType']) !!}
 
         </div>
         <div class="col-12 col-md-3 mb-5">
             <label for="added_by">{{ trans('dashboard.job.employee_name') }}</label>
 
-            {!! Form::text('fullname', auth()->user()->fullname ?? 'احمد ابوطالب', ['class' => 'form-control', 'placeholder' => auth()->user()->fullname ?? 'احمد ابوطالب' , 'disabled' => 'disabled', 'id' => 'added_by']) !!}
+            {!! Form::text('added_by_id',auth()->id() ?? null, ['class' => 'form-control', 'placeholder' => auth()->user()->fullname ?? 'احمد ابوطالب' , 'readonly', 'id' => 'added_by']) !!}
         </div>
 
         @foreach (config('translatable.locales') as $locale)

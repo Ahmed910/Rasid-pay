@@ -26,7 +26,7 @@ return [
         "has_relationship_cannot_delete" => "لا يمكن حذف هذا العنصر ،بسبب احتواءه علي علاقات",
         "save" => "حفظ",
         "edit" => "تعديل",
-        'add'=>'إضافة',
+        'add' => 'إضافة',
         "show" => "عرض",
         "archive" => "أرشفة",
         "restore" => "استعادة",
@@ -217,16 +217,24 @@ return [
         "status" => "الحالة",
         "select_status" => "اختر الحالة",
         "type" => "النوع",
+        "select_type" => "اختر النوع",
         "employee_name" => "اسم الموظف",
-
+        "from_date" => "تاريخ الإنشاء (من)",
+        "to_date" => "تاريخ الإنشاء (إلى)",
+        "search" => "بحث",
+        "show_all" => "عرض الكل",
+        "show"=>"عرض",
+        "created_at" => "تاريخ الإنشاء",
+        "actions" => "العمليات",
         "job_description" => "وصف الوظيفة",
-        'is_active'=>[
-            'active'=>'مفعلة',
-            'disactive'=>'معطلة',
+        'all' => 'الجميع',
+        'is_active' => [
+            'active' => 'مفعلة',
+            'disactive' => 'معطلة',
         ],
-        'is_vacant'=>[
-            'true'=>'مشغولة',
-            'false'=>'غير مشغولة',
+        'is_vacant' => [
+            'true' => 'مشغولة',
+            'false' => 'شاغرة',
         ],
         'sub_progs' => [
             'index' => 'سجل الوظائف',
