@@ -5,22 +5,15 @@
 @endsection
 
 @section('content')
-    <!--app-content open-->
     <div class="main-content app-content mt-0">
         <div class="side-app">
-            <!-- CONTAINER -->
             <div class="main-container container-fluid">
-                <!-- PAGE-HEADER -->
                 <div class="page-header">
                     <h1 class="page-title">سجل الأقسام</h1>
                     <a href="department-add.html" class="btn btn-primary">
                         <i class="mdi mdi-plus-circle-outline"></i> إضافة قسم
                     </a>
                 </div>
-                <!-- PAGE-HEADER END -->
-
-                <!-- FORM OPEN -->
-
                 <form method="get" action="">
                     <div class="row align-items-end mb-3">
                         <div class="col">
@@ -66,7 +59,6 @@
                                 <option>معطل</option>
                             </select>
                         </div>
-
                     </div>
                     <div class="row">
                         <div class="col-12 col-md-6 my-2">
@@ -92,13 +84,11 @@
                     </div>
                 </form>
 
-                <!-- FORM CLOSED -->
-
-                <!-- Row -->
                 <div class="row row-sm">
                     <div class="col-lg-12">
                         <div class="table-responsive p-1">
-                            <table id="historyTable" class="table table-bordered shadow-sm bg-body text-nowrap key-buttons">
+                            <table id="departmentTable"
+                                class="table table-bordered shadow-sm bg-body text-nowrap key-buttons">
                                 <thead>
                                     <tr>
                                         <th class="border-bottom-0">#</th>
@@ -109,176 +99,15 @@
                                         <th class="border-bottom-0 text-center">العمليات</th>
                                     </tr>
                                 </thead>
-                                <tbody>
-                                    <tr>
-                                        <td>1</td>
-                                        <td>
-                                            <div class="d-flex align-items-center">
-                                                <div class="flex-shrink-0">
-                                                    <img src="https://picsum.photos/seed/picsum/100" width="25"
-                                                        class="avatar brround cover-image" alt="..."
-                                                        data-toggle="popoverIMG" />
-                                                </div>
-                                                <div class="flex-grow-1 ms-3">
-                                                    قسم التطبيقات الذكية
-                                                </div>
-                                            </div>
-                                        </td>
-                                        <td>قسم البرمجيات</td>
-                                        <td>20 يناير 2022</td>
-                                        <td>
-                                            <span class="badge bg-success-opacity py-2 px-4">
-                                                مفعل</span>
-                                        </td>
-                                        <td class="text-center">
-                                            <a href="department-view.html" class="azureIcon" data-bs-toggle="tooltip"
-                                                data-bs-placement="top" title="التفاصيل"><i
-                                                    class="mdi mdi-eye-outline"></i></a>
-                                            <a href="department-add.html" class="warningIcon" data-bs-toggle="tooltip"
-                                                data-bs-placement="top" title="تعديل"><i
-                                                    class="mdi mdi-square-edit-outline"></i></a>
-                                            <a href="#" class="primaryIcon" data-bs-toggle="tooltip"
-                                                data-bs-placement="top" title="أرشفة"><i data-bs-toggle="modal"
-                                                    data-bs-target="#archiveModal"
-                                                    class="mdi mdi-archive-arrow-down-outline"></i></a>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>2</td>
-                                        <td>
-                                            <div class="d-flex align-items-center">
-                                                <div class="flex-shrink-0">
-                                                    <img src="https://picsum.photos/seed/picsum/100" width="25"
-                                                        class="avatar brround cover-image" alt="..."
-                                                        data-toggle="popoverIMG" />
-                                                </div>
-                                                <div class="flex-grow-1 ms-3">قسم الجودة</div>
-                                            </div>
-                                        </td>
-                                        <td>قسم البرمجيات</td>
-                                        <td>20 يناير 2022</td>
-                                        <td>
-                                            <span class="badge bg-danger-opacity py-2 px-4">معطل</span>
-                                        </td>
-                                        <td class="text-center">
-                                            <a href="department-view.html" class="azureIcon" data-bs-toggle="tooltip"
-                                                data-bs-placement="top" title="التفاصيل"><i
-                                                    class="mdi mdi-eye-outline"></i></a>
-                                            <a href="department-add.html" class="warningIcon" data-bs-toggle="tooltip"
-                                                data-bs-placement="top" title="تعديل"><i
-                                                    class="mdi mdi-square-edit-outline"></i></a>
-                                            <a href="#" class="primaryIcon" data-bs-toggle="tooltip"
-                                                data-bs-placement="top" title="أرشفة"><i data-bs-toggle="modal"
-                                                    data-bs-target="#notArchiveModal"
-                                                    class="mdi mdi-archive-arrow-down-outline"></i></a>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>3</td>
-                                        <td>
-                                            <div class="d-flex align-items-center">
-                                                <div class="flex-shrink-0">
-                                                    <img src="https://picsum.photos/seed/picsum/100" width="25"
-                                                        class="avatar brround cover-image" alt="..."
-                                                        data-toggle="popoverIMG" />
-                                                </div>
-                                                <div class="flex-grow-1 ms-3">
-                                                    قسم تصميم الواجهات
-                                                </div>
-                                            </div>
-                                        </td>
-                                        <td>قسم التصميم</td>
-                                        <td>20 يناير 2022</td>
-                                        <td>
-                                            <span class="badge bg-success-opacity py-2 px-4">
-                                                مفعل</span>
-                                        </td>
-                                        <td class="text-center">
-                                            <a href="department-view.html" class="azureIcon" data-bs-toggle="tooltip"
-                                                data-bs-placement="top" title="التفاصيل"><i
-                                                    class="mdi mdi-eye-outline"></i></a>
-                                            <a href="department-add.html" class="warningIcon" data-bs-toggle="tooltip"
-                                                data-bs-placement="top" title="تعديل"><i
-                                                    class="mdi mdi-square-edit-outline"></i></a>
-                                            <a href="#" class="primaryIcon" data-bs-toggle="tooltip"
-                                                data-bs-placement="top" title="أرشفة"><i data-bs-toggle="modal"
-                                                    data-bs-target="#archiveModal"
-                                                    class="mdi mdi-archive-arrow-down-outline"></i></a>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>4</td>
-                                        <td>
-                                            <div class="d-flex align-items-center">
-                                                <div class="flex-shrink-0">
-                                                    <img src="https://picsum.photos/seed/picsum/100" width="25"
-                                                        class="avatar brround cover-image" alt="..."
-                                                        data-toggle="popoverIMG" />
-                                                </div>
-                                                <div class="flex-grow-1 ms-3">
-                                                    قسم التطبيقات الذكية
-                                                </div>
-                                            </div>
-                                        </td>
-                                        <td>قسم البرمجيات</td>
-                                        <td>20 يناير 2022</td>
-                                        <td>
-                                            <span class="badge bg-success-opacity py-2 px-4">
-                                                مفعل</span>
-                                        </td>
-                                        <td class="text-center">
-                                            <a href="department-view.html" class="azureIcon" data-bs-toggle="tooltip"
-                                                data-bs-placement="top" title="التفاصيل"><i
-                                                    class="mdi mdi-eye-outline"></i></a>
-                                            <a href="department-add.html" class="warningIcon" data-bs-toggle="tooltip"
-                                                data-bs-placement="top" title="تعديل"><i
-                                                    class="mdi mdi-square-edit-outline"></i></a>
-                                            <a href="#" class="primaryIcon" data-bs-toggle="tooltip"
-                                                data-bs-placement="top" title="أرشفة"><i data-bs-toggle="modal"
-                                                    data-bs-target="#archiveModal"
-                                                    class="mdi mdi-archive-arrow-down-outline"></i></a>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>5</td>
-                                        <td>
-                                            <div class="d-flex align-items-center">
-                                                <div class="flex-shrink-0">
-                                                    <img src="https://picsum.photos/seed/picsum/100" width="25"
-                                                        class="avatar brround cover-image" alt="..."
-                                                        data-toggle="popoverIMG" />
-                                                </div>
-                                                <div class="flex-grow-1 ms-3">قسم الجودة</div>
-                                            </div>
-                                        </td>
-                                        <td>قسم البرمجيات</td>
-                                        <td>20 يناير 2022</td>
-                                        <td>
-                                            <span class="badge bg-danger-opacity py-2 px-4">معطل</span>
-                                        </td>
-                                        <td class="text-center">
-                                            <a href="department-view.html" class="azureIcon" data-bs-toggle="tooltip"
-                                                data-bs-placement="top" title="التفاصيل"><i
-                                                    class="mdi mdi-eye-outline"></i></a>
-                                            <a href="department-add.html" class="warningIcon" data-bs-toggle="tooltip"
-                                                data-bs-placement="top" title="تعديل"><i
-                                                    class="mdi mdi-square-edit-outline"></i></a>
-                                            <a href="#" class="primaryIcon" data-bs-toggle="tooltip"
-                                                data-bs-placement="top" title="أرشفة"><i data-bs-toggle="modal"
-                                                    data-bs-target="#notArchiveModal"
-                                                    class="mdi mdi-archive-arrow-down-outline"></i></a>
-                                        </td>
-                                    </tr>
-                                </tbody>
+
                             </table>
                         </div>
                     </div>
                 </div>
-                <!-- End Row -->
             </div>
-            <!-- CONTAINER CLOSED -->
         </div>
     </div>
-    <!--app-content closed-->
 @endsection
-@include('dashboard.department.script')
+@section('scripts')
+    @include('dashboard.department.script')
+@endsection

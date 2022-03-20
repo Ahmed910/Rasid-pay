@@ -32,7 +32,8 @@ return [
         "force_delete" => "حذف نهائي",
         'sent_successfully' => 'تم الارسال بنجاح',
         'fail_send' => 'فشل عملية الارسال',
-
+        'active' => 'مفعل',
+        'inactive' => 'معطل'
     ],
     'error' => [
         'method_not_allow' => 'طريقة الطلب (:method) غير صحيحة',
