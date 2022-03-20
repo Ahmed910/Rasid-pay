@@ -21,8 +21,9 @@ class DepartmentController extends Controller
             'is_active'
         ];
 
-        if (isset($request['sort']))
+        if(isset($request->order[0]['column'])){
             $request['sort'] = ['column' => $sortingColumns[$request->order[0]['column']], 'dir' => $request->order[0]['dir']];
+        }
 
         $departmentsQuery = Department::search($request)
             ->CustomDateFromTo($request)
@@ -31,17 +32,18 @@ class DepartmentController extends Controller
             ->addSelect('departments.created_at', 'departments.is_active', 'departments.parent_id', 'departments.added_by_id')
             ->sortBy($request);
 
-        $departmentCount = $departmentsQuery->count();
-        $departments = $departmentsQuery->skip($request->start)
-            ->take($request->length)
-            ->get();
 
-        if ($request->isAjax()) {
+        if ($request->ajax()) {
+            $departmentCount = $departmentsQuery->count();
+            $departments = $departmentsQuery->skip($request->start)
+                ->take(($request->length == -1) ? $departmentCount : $request->length)
+                ->get();
+
             return DepartmentCollection::make($departments)
                 ->additional(['total_count' => $departmentCount]);
         }
 
-        $departments = Department::where('is_active', 1)
+        $parentDepartments = Department::where('is_active', 1)
             ->has("children")
             ->orWhere(function ($q) {
                 $q->doesntHave('children')
@@ -52,7 +54,7 @@ class DepartmentController extends Controller
             ->ListsTranslations("name")
             ->pluck('name', 'id');
 
-        return view('dashboard.department.index', compact('departments'));
+        return view('dashboard.department.index', compact('parentDepartments'));
     }
 
     public function create()

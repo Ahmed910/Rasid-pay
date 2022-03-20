@@ -14,7 +14,7 @@
                         <i class="mdi mdi-plus-circle-outline"></i> إضافة قسم
                     </a>
                 </div>
-                <form method="get" action="">
+                <form method="get" action="" id="search-form">
                     <div class="row align-items-end mb-3">
                         <div class="col">
                             <label for="departmentName">اسم القسم</label>
@@ -26,7 +26,7 @@
                             <select class="form-control select2" data-placeholder="اختر قسم رئيسي"
                                 name="parent_id">
                                 <option selected disabled value="">اختر قسم رئيسي</option>
-                                @foreach ($departments as $id => $name)
+                                @foreach ($parentDepartments as $id => $name)
                                     <option value="{{ $id }}"
                                         {{ (old('parent_id') ?? request('parent_id')) == $id ? 'selected' : '' }}>
                                         {{ $name }}</option>
@@ -57,9 +57,9 @@
                             <label for="status">الحالة</label>
                             <select class="form-control select2" id="status" name="is_active">
                                 <option selected disabled value="">اختر الحالة</option>
-                                <option value="">الجميع</option>
-                                <option value="1" {{ request('is_active') == 1 ? 'selected' : '' }}>مفعل</option>
-                                <option value="0" {{ request('is_active') == 0 ? 'selected' : '' }}>معطل</option>
+                                <option value="" selected>الجميع</option>
+                                <option value="1" {{ request('is_active') == "1" ? 'selected' : '' }}>مفعل</option>
+                                <option value="0" {{ request('is_active') == "0" ? 'selected' : '' }}>معطل</option>
                             </select>
                         </div>
                     </div>
@@ -80,7 +80,7 @@
                             <button class="btn btn-primary mx-2" type="submit">
                                 <i class="mdi mdi-magnify"></i> بحث
                             </button>
-                            <button class="btn btn-outline-primary" type="submit">
+                            <button type="button" class="btn btn-outline-primary">
                                 <i class="mdi mdi-restore"></i> عرض الكل
                             </button>
                         </div>

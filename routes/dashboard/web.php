@@ -26,6 +26,12 @@ Route::group(
 		Route::get('activate/{confirmationCode}', 'Auth\LoginController@confirm')->name('confirmation_path');
 		Route::post('setPassword', "Auth\LoginController@storePassword")->name('setPassword');
 
+    Route::middleware('auth')->prefix('dashboard')->group(function () {
+        Route::get('/', "HomeController@index")->name("home.index");
+
+    });
+    Route::resource('departments',"DepartmentController");
+    Route::resource('jobs',"Job2Controller");
         Route::middleware('auth')->prefix('dashboard')->group(function () {
             Route::get('/', "HomeController@index")->name("home.index");
             Route::post('logout', "Auth\LoginController@logout")->name("logout");
