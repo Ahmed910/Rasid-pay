@@ -7,13 +7,6 @@
                 url: "{{ route('dashboard.datatable.index') }}",
                 dataSrc: 'data'
             },
-            columnDefs: [{
-                orderable: false,
-                targets: 0,
-                checkboxes: {
-                    selectRow: true
-                }
-            }],
             columns: [{
                     data: "id"
                 },
@@ -35,9 +28,9 @@
                 {
                     data: function(data) {
                         if (data.is_active) {
-                            return ` <span class="badge bg-success-opacity py-2 px-4">${data.is_active}</span>`;
+                            return ` <span class="badge bg-success-opacity py-2 px-4">${"@lang('dashboard.general.active')"}</span>`;
                         } else {
-                            return ` <span class="badge bg-danger-opacity py-2 px-4">${data.is_active}</span>`;
+                            return ` <span class="badge bg-danger-opacity py-2 px-4">${"@lang('dashboard.general.inactive')"}</span>`;
                         }
                     }
                 },

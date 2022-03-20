@@ -14,7 +14,7 @@ class DepartmentResource extends JsonResource
             'name' => $this->name,
             'parent' => $this->parent,
             'created_at' => $this->created_at,
-            'is_active' => ($this->active) ? Lang::get('dashboard.general.active') : Lang::get('dashboard.general.inactive'),
+            'is_active' => $this->is_active,
             'show_route' => route('dashboard.departments.show', $this->id),
             'edit_route' => route('dashboard.departments.edit', $this->id),
             'delete_route' => route('dashboard.departments.destroy', $this->id)
