@@ -9,7 +9,7 @@
                 </button>
             </div>
             <div class="modal-body text-center">
-                <lottie-player autoplay loop mode="normal" src="../assets/images/lottie/archive.json"
+                <lottie-player autoplay loop mode="normal" src="{{asset('dashboardAssets/images/lottie/archive.json')}}"
                     style="width: 70%; display: block; margin: auto">
                 </lottie-player>
                 <p>هل تريد أرشفة هذا القسم؟</p>
