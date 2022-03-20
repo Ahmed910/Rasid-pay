@@ -15,16 +15,16 @@ class CreateManagersTable extends Migration
     {
         Schema::create('managers', function (Blueprint $table) {
             $table->uuid("id")->primary();
-            $table->string('phone')->unique();
-            $table->string('email')->unique();
-            $table->string("identity_number")->unique();
-            $table->string("name");
-            $table->string("nationality")->nullable();
-            $table->string("address")->nullable();
-            $table->enum('gender', ['male', 'female'])->nullable();
-            $table->enum('marital_status', ['married', 'single'])->nullable();
-            $table->date('date_of_birth');
-            $table->text("elm_reply")->nullable();
+            $table->string('manager_phone')->unique();
+            $table->string('manager_email')->unique();
+            $table->string("manager_identity_number")->unique();
+            $table->string("manager_name");
+            $table->string("manager_nationality")->nullable();
+            $table->string("manager_address")->nullable();
+            $table->enum('manager_gender', ['male', 'female'])->nullable();
+            $table->enum('manager_marital_status', ['married', 'single'])->nullable();
+            $table->date('manager_date_of_birth');
+            $table->text("manager_elm_reply")->nullable();
             $table->timestamps();
         });
     }
