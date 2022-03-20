@@ -16,6 +16,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Astrotomic\Translatable\Contracts\Translatable as TranslatableContract;
+use Carbon\Carbon;
 
 class RasidJob extends Model implements TranslatableContract
 {
@@ -31,7 +32,19 @@ class RasidJob extends Model implements TranslatableContract
     #endregion properties
 
     #region mutators
+
+    public function setAddedByIdAttribute($value)
+    {
+        $this->attributes['added_by_id'] = $value ? $value : null;
+    }
     #endregion mutators
+
+    #region accessor
+    public function getCreatedAtAttribute($value)
+    {
+        return Carbon::parse($value)->toFormattedDateString();
+    }
+    #endregion accessor
 
     #region scopes
     public function scopeSearch(Builder $query, $request)
@@ -106,7 +119,7 @@ class RasidJob extends Model implements TranslatableContract
 
     public function employee()
     {
-        return $this->hasOne(Employee::class);
+        return $this->hasOne(Employee::class,'rasid_job_id');
     }
 
     #endregion relationships
