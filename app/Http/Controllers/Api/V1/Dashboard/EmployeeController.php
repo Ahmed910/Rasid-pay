@@ -7,6 +7,7 @@ use App\Http\Requests\V1\Dashboard\EmployeeRequest;
 use App\Http\Requests\V1\Dashboard\ReasonRequest;
 use App\Http\Resources\Dashboard\EmployeeResource;
 use App\Models\Employee;
+use App\Models\RasidJob\RasidJob;
 use App\Models\User;
 use Illuminate\Http\Request;
 
@@ -23,7 +24,7 @@ class EmployeeController extends Controller
         return EmployeeResource::collection($employees)
             ->additional([
                 'status' => true,
-                'message' =>  '',
+                'message' => '',
             ]);
     }
 
@@ -45,14 +46,15 @@ class EmployeeController extends Controller
 
     public function store(EmployeeRequest $request, User $user)
     {
-        $user->fill($request->safe()->except(['contract_type', 'salary', 'qr_path', 'qr_code', 'department_id', 'rasid_job_id'])  + ['user_type' => 'employee', 'added_by_id' => auth()->id()])->save();
+        $user->fill($request->safe()->except(['contract_type', 'salary', 'qr_path', 'qr_code', 'department_id', 'rasid_job_id']) + ['user_type' => 'employee', 'added_by_id' => auth()->id()])->save();
         $employee = Employee::create($request->safe()->only(['contract_type', 'salary', 'qr_path', 'qr_code', 'department_id', 'rasid_job_id']) + ['user_id' => $user->id]);
-        $employee->job()->update(['is_vacant' => false]);
+        $employee->job()->update(['is_vacant' => 0]);
+        $job = RasidJob::where("id", $request->rasid_job_id)->update(["is_vacant" => 0]);
         $employee->load('user');
         return EmployeeResource::make($employee)
             ->additional([
                 'status' => true,
-                'message' =>  trans('dashboard.general.success_add'),
+                'message' => trans('dashboard.general.success_add'),
             ]);
     }
 
@@ -65,7 +67,7 @@ class EmployeeController extends Controller
         return EmployeeResource::make($employee)
             ->additional([
                 'status' => true,
-                'message' =>  '',
+                'message' => '',
             ]);
     }
 
@@ -92,18 +94,18 @@ class EmployeeController extends Controller
         return EmployeeResource::make($employee)
             ->additional([
                 'status' => true,
-                'message' =>  trans('dashboard.general.success_update'),
+                'message' => trans('dashboard.general.success_update'),
             ]);
     }
 
     public function getEmployeesByDepartment($id)
     {
         return response()->json([
-            'data' => User::select('id','fullname')->where('user_type','employee')->whereHas('department',function ($q) use($id) {
-                $q->where('departments.id',$id);
+            'data' => User::select('id', 'fullname')->where('user_type', 'employee')->whereHas('department', function ($q) use ($id) {
+                $q->where('departments.id', $id);
             })->setEagerLoads([])->get(),
             'status' => true,
-            'message' =>  '',
+            'message' => '',
         ]);
     }
 
