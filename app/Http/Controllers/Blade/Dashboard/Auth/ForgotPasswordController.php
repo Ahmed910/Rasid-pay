@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Blade\Dashboard\Auth;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\SendsPasswordResetEmails;
 use App\Http\Requests\Dashboard\Auth\SendTokenRequest;
+use App\Models\User;
 
 class ForgotPasswordController extends Controller
 {
@@ -58,8 +59,8 @@ class ForgotPasswordController extends Controller
         }
         $reset_token = generate_unique_code(User::class, 'reset_token', 100);
         $code = $this->generateCode($request, $user,'reset_code');
-        $user->update(['reset_code' => $code, 'reset_token' => $reset_token]);
-        return response()->view('dashboard.auth.verfiy_code',['reset_token' => $reset_token]);
+        $user->update(['reset_code' => $code, 'reset_token' => $reset_token]);        
+        return redirect()->route('dashboard.check_sms_code_form',$reset_token);
     }
 
     private function generateCode($request, $user, $col)

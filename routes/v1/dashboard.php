@@ -48,7 +48,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::controller('ActivityController')->name('activity_logs.')->prefix('activity_logs')->group(function () {
         Route::get('employees', 'getEmployees')->name('employees');
         Route::get('main-programs','ActivityController@getMainPrograms')->name('main_programs');
-        Route::get('sub-programs/{main}','ActivityController@getSubPrograms')->name('sub_programs');
+        Route::get('sub-programs/{main?}','ActivityController@getSubPrograms')->name('sub_programs');
         Route::get('events','ActivityController@getEvents')->name('events');
     });
 
