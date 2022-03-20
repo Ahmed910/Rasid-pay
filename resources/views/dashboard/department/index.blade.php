@@ -26,7 +26,7 @@
                             <select class="form-control select2" data-placeholder="اختر قسم رئيسي"
                                 name="parent_id">
                                 <option selected disabled value="">اختر قسم رئيسي</option>
-                                @foreach ($departments as $id => $name)
+                                @foreach ($parentDepartments as $id => $name)
                                     <option value="{{ $id }}"
                                         {{ (old('parent_id') ?? request('parent_id')) == $id ? 'selected' : '' }}>
                                         {{ $name }}</option>
