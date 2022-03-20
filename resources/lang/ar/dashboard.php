@@ -32,7 +32,8 @@ return [
         "force_delete" => "حذف نهائي",
         'sent_successfully' => 'تم الارسال بنجاح',
         'fail_send' => 'فشل عملية الارسال',
-
+        'active' => 'مفعل',
+        'inactive' => 'معطل'
     ],
     'error' => [
         'method_not_allow' => 'طريقة الطلب (:method) غير صحيحة',
@@ -130,7 +131,7 @@ return [
         'permissions' => $permissions + ['get_parents' => 'عرض الاقسام الرئيسية'],
         "has_jobs_cannot_delete" => "لا يمكن أرشفة قسم مرتبط بوظائف",
         "department_has_relationship_cannot_delete" => "لا يمكن حذف هذا القسم لأنه يحتوي علي أقسام فرعية   ",
-
+        'without_parent' => 'بدون'
     ],
     "rasid_job" => [
         "rasid_job" => "الوظيفة",
