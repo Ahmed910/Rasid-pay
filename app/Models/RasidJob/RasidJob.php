@@ -11,6 +11,7 @@ use App\Models\Employee;
 use Illuminate\Database\Eloquent\Model;
 use Astrotomic\Translatable\Translatable;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Support\Str;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -24,7 +25,9 @@ class RasidJob extends Model implements TranslatableContract
     protected $guarded = ['created_at','deleted_at'];
     public $translatedAttributes = ['name', 'description'];
     public $attributes = ['is_active' => false, 'is_vacant' =>  true];
-    protected $with = ['translations', 'addedBy', 'department','employee'];
+    protected $with = ['translations', 'addedBy', 'department', 'employee'];
+    private $sortableColumns = ["name", "department", "created_at", "is_active", "is_vacant"];
+
     #endregion properties
 
     #region mutators
@@ -59,6 +62,34 @@ class RasidJob extends Model implements TranslatableContract
             $query->where('is_vacant', $request->is_vacant);
         }
     }
+
+    public function scopeSortBy(Builder $query, $request)
+    {
+        if (!isset($request->sort["column"]) || !isset($request->sort["dir"])) return $query->latest('created_at');
+
+        if (
+            !in_array(Str::lower($request->sort["column"]), $this->sortableColumns) ||
+            !in_array(Str::lower($request->sort["dir"]), ["asc", "desc"])
+        ) {
+            return $query->latest('created_at');
+        }
+
+        $query->when($request->sort, function ($q) use ($request) {
+            if ($request->sort["column"]  == "name") {
+                return $q->has('translations')
+                    ->orderByTranslation($request->sort["column"], @$request->sort["dir"]);
+            }
+
+            if ($request->sort["column"] == "department") {
+                return $q->join('departments as department', 'rasid_jobs.department_id', '=', 'department.id')
+                    ->leftJoin('department_translations as department_trans', 'department.id', '=', 'department_trans.department_id')
+                    ->orderBy('department_trans.name', @$request->sort["dir"]);
+            }
+
+            $q->orderBy($request->sort["column"], @$request->sort["dir"]);
+        });
+    }
+
     #endregion scopes
 
     #region relationships
