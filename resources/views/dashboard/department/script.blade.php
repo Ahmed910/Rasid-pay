@@ -8,7 +8,9 @@
                 dataSrc: 'data'
             },
             columns: [{
-                    data: "id"
+                    data: function(data, type, full, meta) {
+                        return meta.row + 1;
+                    }
                 },
                 {
                     data: "name"

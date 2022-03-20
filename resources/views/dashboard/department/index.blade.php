@@ -22,14 +22,14 @@
                         </div>
                         <div class="col">
                             <label for="mainDepartment">القسم الرئيسي</label>
-                            <select class="form-control select2-show-search form-select" data-placeholder="اختر قسم رئيسي"
+                            {!! Form::select('parent', $departments, null, ['class' => 'form-control select2-show-search form-select', 'data-placeholder' => 'اختر قسم رئيسي', 'id' => 'mainDepartment']) !!}
+                            {{-- <select class="form-control select2-show-search form-select" data-placeholder="اختر قسم رئيسي"
                                 id="mainDepartment">
                                 <option selected disabled value="">اختر قسم رئيسي</option>
-                                <option>قسم البرمجيات</option>
-                                <option>قسم التصميم</option>
-                                <option>قسم الجودة</option>
-                                <option>قسم تحليل المتطلبات</option>
-                            </select>
+                                @foreach ($departments as $id => $name)
+                                    <option value="{{ $id }}">{{ $name }}</option>
+                                @endforeach
+                            </select> --}}
                         </div>
                         <div class="col">
                             <label for="validationCustom02"> تاريخ الإنشاء (من)</label>

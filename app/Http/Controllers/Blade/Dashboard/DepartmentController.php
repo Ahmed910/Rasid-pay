@@ -13,11 +13,20 @@ class DepartmentController extends Controller
 {
     public function getDataForIndex(Request $request)
     {
+        $sortingColumns = [
+            'id',
+            'name',
+            'parent',
+            'created_at',
+            'is_active'
+        ];
+        $request['sort'] = ['column' => $sortingColumns[$request->order[0]['column']], 'dir' => $request->order[0]['dir']];
+
         $departmentsQuery = Department::search($request)
             ->CustomDateFromTo($request)
             ->with('parent.translations')
             ->ListsTranslations('name')
-            ->addSelect('created_at', 'is_active', 'parent_id', 'added_by_id')
+            ->addSelect('departments.created_at', 'departments.is_active', 'departments.parent_id', 'departments.added_by_id')
             ->sortBy($request);
 
         $departmentCount = $departmentsQuery->count();
@@ -31,7 +40,19 @@ class DepartmentController extends Controller
 
     public function index(Request $request)
     {
-        return view('dashboard.department.index');
+        $departments = Department::where('is_active', 1)
+            ->has("children")
+            ->orWhere(function ($q) {
+                $q->doesntHave('children')
+                    ->WhereNull('parent_id');
+            })
+            ->without("images", 'addedBy')
+            ->select("id")
+            ->ListsTranslations("name")
+            ->take(20)
+            ->pluck('name', 'id');
+
+        return view('dashboard.department.index', compact('departments'));
     }
 
     public function create()
