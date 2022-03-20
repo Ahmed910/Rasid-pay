@@ -97,7 +97,7 @@ class Department extends Model implements TranslatableContract, HasAssetsInterfa
     #region relationships
     public function parent(): BelongsTo
     {
-        return $this->belongsTo(Department::class, 'parent_id');
+        return $this->belongsTo(Department::class, 'parent_id')->withDefault(["name" =>""]);
     }
 
     public function children(): HasMany
