@@ -46,12 +46,12 @@
           <div class="row align-items-center">
             <div class="col">
               <label class="custom-control custom-checkbox mb-0">
-                <input type="checkbox" class="custom-control-input" />
+                <input type="checkbox" class="custom-control-input" name="remember" />
                 <span class="custom-control-label">تذكرني</span>
               </label>
             </div>
             <div class="col text-end">
-{{--              <a href="{!! route('dashboard.reset') !!}">استعادة كلمة المرور؟</a>--}}
+             <a href="{!! route('dashboard.reset') !!}">استعادة كلمة المرور؟</a>
             </div>
           </div>
           {!! Form::submit('تسجيل دخول',['class' => "btn btn-primary w-100 mt-5"]) !!}

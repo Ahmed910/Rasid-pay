@@ -41,7 +41,7 @@ class LoginController extends Controller
 
     protected function credentials(Request $request)
     {
-        $credentials=$request->has('username') ? [$this->username() => $request->username, 'password' => $request->password] : $request->only($this->username(), 'password');
+        $credentials = $request->has('username') ? [$this->username() => $request->username, 'password' => $request->password] : $request->only($this->username(), 'password');
         $credentials['is_active'] = 1;
         return $credentials;
     }
@@ -92,37 +92,6 @@ class LoginController extends Controller
     public function showLoginForm()
     {
         return view("dashboard.auth.login");
-    }
-
-    //To Confirmation Email
-    public function confirm($code)
-    {
-        if( ! $code){
-            return redirect('/')->with('false', trans('dashboard.auth.code_not_match'));
-        }else{
-          // return redirect()->route('getPassword',$code);
-          return view('dashboard.auth.getPassword',compact('code'));
-
-        }
-    }
-
-    public function storePassword(Request $request)
-    {
-        $user = User::where('code',$request->code)->first();
-
-        if ( ! $user){
-            return redirect('/')->with('false', trans('dashboard.auth.code_not_true'));
-        }
-      $request->validate([
-          'password'=>'required|confirmed|min:6',
-      ]);
-      $user->update(['password'=>$request->password,'is_active'=>1,'code' => null ,'email_verified_at'=>now()]);
-      auth()->login($user);
-      if ($user->role()->exists()) {
-        return redirect()->route('dashboard')->withTrue(trans('dashboard.auth.success_activate'));
-      }
-      abort(404);
-
     }
 
     public function logout(Request $request)

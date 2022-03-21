@@ -23,8 +23,7 @@
                         </div>
                         <div class="col">
                             <label>القسم الرئيسي</label>
-                            <select class="form-control select2" data-placeholder="اختر قسم رئيسي"
-                                name="parent_id">
+                            <select class="form-control select2" data-placeholder="اختر قسم رئيسي" name="parent_id">
                                 <option selected disabled value="">اختر قسم رئيسي</option>
                                 @foreach ($parentDepartments as $id => $name)
                                     <option value="{{ $id }}"
@@ -57,7 +56,7 @@
                             <label for="status">الحالة</label>
                             <select class="form-control select2" id="status" name="is_active">
                                 <option selected disabled value="">اختر الحالة</option>
-                                <option value="" selected>الجميع</option>
+                                <option value="">الجميع</option>
                                 <option value="1" {{ request('is_active') == "1" ? 'selected' : '' }}>مفعل</option>
                                 <option value="0" {{ request('is_active') == "0" ? 'selected' : '' }}>معطل</option>
                             </select>
@@ -80,9 +79,9 @@
                             <button class="btn btn-primary mx-2" type="submit">
                                 <i class="mdi mdi-magnify"></i> بحث
                             </button>
-                            <button type="button" class="btn btn-outline-primary">
+                            <a href="{{ route('dashboard.departments.index') }}" class="btn btn-outline-primary">
                                 <i class="mdi mdi-restore"></i> عرض الكل
-                            </button>
+                            </a>
                         </div>
                     </div>
                 </form>

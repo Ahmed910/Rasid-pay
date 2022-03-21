@@ -1,6 +1,6 @@
 <script>
     $(function() {
-        $("#departmentTable").DataTable({
+      $("#departmentTable").DataTable({
             sDom: "t<'domOption'lpi>",
             serverSide: true,
             ajax: {
@@ -79,7 +79,7 @@
             language: {
                 lengthMenu: "عرض _MENU_",
                 zeroRecords: "لا يوجد بيانات",
-                info: "عرض _PAGE_ من _PAGES_ عنصر",
+                info: "إظهار _START_ إلى _END_ من أصل _TOTAL_ مدخل",
                 infoEmpty: "لا يوجد نتائج بحث متاحة",
                 paginate: {
                     previous: '<i class="mdi mdi-chevron-right"></i>',
