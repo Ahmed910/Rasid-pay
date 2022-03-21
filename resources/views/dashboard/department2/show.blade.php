@@ -53,8 +53,8 @@
                 </div>
                 <div class="row">
                     <div class="col-12 text-end">
-{{--                        {{ link_to_action("Blade\Dashboard\Department2Controller@edit" , $title = null, $parameters =["departments2"=>$department->id] ) }}--}}
-                        <a href="{{Request::url()}}/edit" class="btn btn-primary">
+                        {{ link_to_action("Blade\Dashboard\Dpartment2Controller@edit" , $title = null, $parameters =["departments2"=>$department->id] ) }}
+                        <a href="" class="btn btn-primary">
                             <i class="mdi mdi-square-edit-outline"></i> تعديل
                         </a>
                         <a href="departments-record.html" class="btn btn-outline-primary">
