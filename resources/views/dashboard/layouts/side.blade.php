@@ -34,12 +34,12 @@
                             <a href="javascript:void(0)">الأقسام</a>
                         </li>
                         <li>
-                            <a href="{{ route('dashboard.departments.index') }}" class="slide-item px-6"><i
+                            <a href="{{ route('dashboard.department.index') }}" class="slide-item px-6"><i
                                     class="mdi mdi-file-document-multiple-outline"></i>
                                 سجل الأقسام</a>
                         </li>
                         <li>
-                            <a href="{{ route('dashboard.departments.create') }}" class="slide-item px-6"><i
+                            <a href="{{ route('dashboard.department.create') }}" class="slide-item px-6"><i
                                     class="mdi mdi-plus-circle-outline"></i> إضافة</a>
                         </li>
                     </ul>
