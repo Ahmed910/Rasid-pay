@@ -35,6 +35,7 @@ $attributes = [
     'ban_reason'                  => 'حقل سبب الحظر',
     'is_ban'                  => 'حقل الحالة من الحظر',
     'is_active'                  => 'حقل الحالة من التفعيل',
+    'reset_code'                  => 'حقل الكود',
     // new attr
 
     'permissions'   => 'حقل الصلاحيات',

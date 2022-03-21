@@ -16,19 +16,19 @@
     <input type="hidden" name="reset_token" value="{{ $reset_token }}">
     <div class="row col-12 col-md-8 m-auto">
         <div class="col">
-            <input type="tel" class="form-control text-center @error('reset_code') is-invalid @enderror" name="reset_code[]" required maxlength="1" />
+            <input type="tel" class="form-control text-center @error('reset_code') border-danger @enderror" name="reset_code[]" required maxlength="1" />
         </div>
         <div class="col">
-            <input type="tel" class="form-control text-center @error('reset_code') is-invalid @enderror" name="reset_code[]" required maxlength="1" />
+            <input type="tel" class="form-control text-center @error('reset_code') border-danger @enderror" name="reset_code[]" required maxlength="1" />
         </div>
         <div class="col">
-            <input type="tel" class="form-control text-center @error('reset_code') is-invalid @enderror" name="reset_code[]" required maxlength="1" />
+            <input type="tel" class="form-control text-center @error('reset_code') border-danger @enderror" name="reset_code[]" required maxlength="1" />
         </div>
         <div class="col">
-            <input type="tel" class="form-control text-center @error('reset_code') is-invalid @enderror" name="reset_code[]" required maxlength="1" />
+            <input type="tel" class="form-control text-center @error('reset_code') border-danger @enderror" name="reset_code[]" required maxlength="1" />
         </div>
-        @error('password_confirmation')
-            <div class="invalid-feedback">{{ $message }}.</div>
+        @error('reset_code')
+            <div class="text-danger">{{ $message }}</div>
         @enderror
 
         {{-- <div class="text-center m-auto">
