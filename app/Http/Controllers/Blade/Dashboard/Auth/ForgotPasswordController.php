@@ -73,15 +73,15 @@ class ForgotPasswordController extends Controller
     private function generateCode($request, $user, $col)
     {
         $code = 1111;
-        if ($request['send_type'] == 'phone') {
-            $code = generate_unique_code(User::class, $col, 4, 'numbers');
-            $message = trans("auth.{$col}_is", ['code' => $code]);
-            //   $response = send_sms($user->phone, $message);
-        }elseif ($request['send_type'] == 'email') {
-            $code = generate_unique_code(User::class, $col, 4, 'numbers');
-            $message = trans("auth.{$col}_is", ['code' => $code]);
-            // send email
-        }
+        // if ($request['send_type'] == 'phone') {
+        //     $code = generate_unique_code(User::class, $col, 4, 'numbers');
+        //     $message = trans("auth.{$col}_is", ['code' => $code]);
+        //     //   $response = send_sms($user->phone, $message);
+        // }elseif ($request['send_type'] == 'email') {
+        //     $code = generate_unique_code(User::class, $col, 4, 'numbers');
+        //     $message = trans("auth.{$col}_is", ['code' => $code]);
+        //     // send email
+        // }
         // ExpireCodeJob::dispatch($user, $col)->delay((int)setting('erp_code_ttl') ?? 1);
         return $code;
     }
