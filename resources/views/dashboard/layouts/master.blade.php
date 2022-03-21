@@ -99,9 +99,6 @@
     <script src="{{ asset('dashboardAssets/plugins/bootstrap-hijri-datepicker/js/bootstrap-hijri-datetimepicker.js') }}"></script>
 
 
-   <!-- FILE UPLOADES JS -->
-    <script src="{{ asset('dashboardAssets/plugins/fileuploads/js/fileupload.js') }}"></script>
-    <script src="{{ asset('dashboardAssets/plugins/fileuploads/js/file-upload.js') }}"></script>
 
     @yield('scripts')
 
