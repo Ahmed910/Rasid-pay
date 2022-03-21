@@ -17,7 +17,7 @@
         <div class="input-group" id="show_hide_password">
             <input class="form-control @error('password') is-invalid @enderror" placeholder="كلمة المرور" type="password" name="password" required/>
                 @error('password')
-                    <div class="invalid-feedback">{{ $message }}.</div>
+                    <div class="invalid-feedback">{{ $message }}</div>
                 @enderror
             <div class="input-group-text bg-white border-start-0">
                 <a href=""><i class="mdi mdi-eye-off-outline d-flex"></i></a>
@@ -31,7 +31,7 @@
         <div class="input-group" id="show_hide_confirm_password">
             <input class="form-control @error('password_confirmation') is-invalid @enderror" placeholder="كلمة المرور" type="password" name="password_confirmation" required/>
                 @error('password_confirmation')
-                    <div class="invalid-feedback">{{ $message }}.</div>
+                    <div class="invalid-feedback">{{ $message }}</div>
                 @enderror
             <div class="input-group-text bg-white border-start-0">
                 <a href=""><i class="mdi mdi-eye-off-outline d-flex"></i></a>

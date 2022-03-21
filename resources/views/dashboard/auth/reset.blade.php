@@ -35,7 +35,6 @@
                     novalidate
                   >
                   @csrf
-                  {!! Form::hidden('send_type', 'email') !!}
                     <div class="form-group">
                       <label for="email">البريد الإلكتروني</label>
                       <input
@@ -47,7 +46,7 @@
                         required
                       />
                       @error('email')
-                          <div class="invalid-feedback">{{ $message }}.</div>
+                          <div class="invalid-feedback">{{ $message }}</div>
                       @enderror
                     </div>
                     <div class="col-12 mt-5 text-center">
@@ -65,13 +64,12 @@
                 <div class="tab-pane  @error('phone') active @enderror" id="tab6">
                   <!-- FORM OPEN -->
                   <form
-                    action="{!! route('dashboard.post_reset') !!}"
+                    action=""
                     method="post"
                     class="needs-validation"
                     novalidate
                   >
                   @csrf
-                  {!! Form::hidden('send_type', 'phone') !!}
                     <div class="form-group">
                       <label for="mobile">رقم الجوال</label>
                       <input
@@ -83,7 +81,7 @@
                         required
                       />
                       @error('phone')
-                          <div class="invalid-feedback">{{ $message }}.</div>
+                          <div class="invalid-feedback">{{ $message }}</div>
                       @enderror
                     </div>
                     <div class="col-12 mt-5 text-center">

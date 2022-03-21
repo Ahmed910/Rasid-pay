@@ -35,9 +35,15 @@ class SendTokenRequest extends FormRequest
     protected function prepareForValidation()
     {
         $data = $this->all();
-        if (@$data['send_type'] == 'phone') {
+        if ($this->has('phone')) {
             $this->merge([
-                'phone' => @$data['phone'] && is_numeric($data['phone']) ? convert_arabic_number($data['phone']) : @$data['phone']
+                'phone' => @$data['phone'] && is_numeric($data['phone']) ? convert_arabic_number($data['phone']) : @$data['phone'],
+                'send_type' => 'phone'
+            ]);
+        }else{
+            $this->merge([
+                'email' => @$data['email'],
+                'send_type' => 'email'
             ]);
         }
     }
