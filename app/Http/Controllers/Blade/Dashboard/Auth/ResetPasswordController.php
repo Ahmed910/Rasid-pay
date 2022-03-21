@@ -48,7 +48,7 @@ class ResetPasswordController extends Controller
         if (!$user) {
             return back()->withInput()->withFalse(trans('auth.account_not_exists'));
         }
-        return redirect()->route('dashboard.passwords.reset',$user->reset_token)->withTrue(trans('auth.success_code_plz_add_new_password'));
+        return redirect()->route('dashboard.passwords.reset.phone',$user->reset_token)->withTrue(trans('auth.success_code_plz_add_new_password'));
 
     }
 
