@@ -51,7 +51,7 @@
               </label>
             </div>
             <div class="col text-end">
-             <a href="{!! route('dashboard.reset') !!}">استعادة كلمة المرور؟</a>
+{{--              <a href="{!! route('dashboard.reset') !!}">استعادة كلمة المرور؟</a>--}}
             </div>
           </div>
           {!! Form::submit('تسجيل دخول',['class' => "btn btn-primary w-100 mt-5"]) !!}

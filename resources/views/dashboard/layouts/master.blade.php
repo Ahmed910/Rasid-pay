@@ -25,12 +25,16 @@
 
     <!-- STYLE CSS -->
     <link href="{{ asset('dashboardAssets/css/style.css') }}" rel="stylesheet" />
-    <link href="{{ asset('dashboardAssets/plugins/bootstrap-hijri-datepicker/css/bootstrap-datetimepicker.min.css') }}" rel="stylesheet" />
+    <link
+        href="{{ asset('dashboardAssets/plugins/bootstrap-hijri-datepicker/css/bootstrap-datetimepicker.min.css') }}"
+        rel="stylesheet" />
     <!--- FONT-ICONS CSS -->
     <link href="{{ asset('dashboardAssets/css/icons.css') }}" rel="stylesheet" />
 
+
     <!-- COLOR SKIN CSS -->
-    <link id="theme" rel="stylesheet" type="text/css" media="all" href="{{ asset('dashboardAssets/colors/color1.css') }}" />
+    <link id="theme" rel="stylesheet" type="text/css" media="all"
+        href="{{ asset('dashboardAssets/colors/color1.css') }}" />
 
     @yield('styles')
 </head>
@@ -88,7 +92,6 @@
 
     <!-- lottie-player js -->
     <script src="https://unpkg.com/@lottiefiles/lottie-player@0.4.0/dist/tgs-player.js"></script>
-
 
     <!-- CUSTOM JS -->
     <script src="{{ asset('dashboardAssets/js/custom.js') }}"></script>
