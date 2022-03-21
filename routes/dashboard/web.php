@@ -22,9 +22,8 @@ Route::group(
         Route::post('password/phone_reset/{token}', 'Auth\ResetPasswordController@resetUsingPhone')->name('reset_to_new');
 
         Route::get('password/email_reset/{token}', 'Auth\ResetPasswordController@showResetEmailForm')->name('passwords.reset.email');
-        Route::post('password/reset', 'Auth\ResetPasswordController@reset')->name('passwords.reset.new_password');
-        Route::get('activate/{confirmationCode}', 'Auth\LoginController@confirm')->name('confirmation_path');
-        Route::post('setPassword', "Auth\LoginController@storePassword")->name('setPassword');
+        Route::post('password/email_reset', 'Auth\ResetPasswordController@reset')->name('passwords.reset.new_password');
+
 
         Route::middleware('auth')->prefix('dashboard')->group(function () {
             Route::get('/', "HomeController@index")->name("home.index");

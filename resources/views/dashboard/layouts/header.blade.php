@@ -202,7 +202,8 @@
                                         {!! Form::open(['route' => 'dashboard.logout', 'method' => 'POST', 'id' => 'logout_form']) !!}
 
                                         <a class="dropdown-item"
-                                            onclick="document.getElementById('logout_form').submit();">
+                                            onclick="document.getElementById('logout_form').submit();"
+                                            style="cursor: pointer;">
                                             <i class="mdi mdi-logout-variant"></i>
                                             تسجيل خروج
                                         </a>
@@ -213,7 +214,3 @@
                         </div>
                     </div>
                 </div>
-            </div>
-        </div>
-    </div>
-</div>
