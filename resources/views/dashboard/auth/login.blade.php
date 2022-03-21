@@ -25,7 +25,7 @@
               required
             />
             @error('username')
-                <div class="invalid-feedback">{{ $message }}.</div>
+                <div class="invalid-feedback">{{ $message }}</div>
             @enderror
           </div>
 
@@ -40,7 +40,7 @@
                 required
               />
               @error('password')
-                  <div class="invalid-feedback">{{ $message }}.</div>
+                  <div class="invalid-feedback">{{ $message }}</div>
               @enderror
               <div class="input-group-text bg-white border-start-0">
                 <a href=""

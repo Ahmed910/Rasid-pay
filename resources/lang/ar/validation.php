@@ -3,7 +3,7 @@
 $attributes = [
     'name'                  => 'حقل الاسم',
     'fullname'                  => 'حقل الاسم',
-    'username'              => 'حقل اسم المُستخدم',
+    'username'              => 'حقل رقم المستخدم',
     'email'                 => 'حقل البريد الالكتروني',
     'first_name'            => 'حقل الاسم الأول',
     'last_name'             => 'حقل اسم العائلة',
@@ -81,7 +81,7 @@ return [
       'digits_between'       => 'يجب أن يحتوي  :attribute بين :min و :max رقمًا/أرقام .',
       'dimensions'           => 'ال:attribute يحتوي على أبعاد صورة غير صالحة.',
       'distinct'             => 'لل :attribute قيمة مُكرّرة.',
-      'email'                => 'يجب أن يكون  :attribute عنوان بريد إلكتروني صحيح البُنية.',
+      'email'                => 'صيغة  :attribute غير صحيحة',
       'ends_with'            => 'يجب أن ينتهي  :attribute بأحد القيم التالية: :values',
       'enum'                 => ' :attribute المختار غير صالح.',
       'exists'               => 'القيمة المحددة :attribute غير موجودة.',
