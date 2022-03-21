@@ -376,7 +376,7 @@ $(document).ready(function () {
             .getElementById("style")
             .setAttribute(
                 "href",
-                "../assets/plugins/bootstrap/css/bootstrap.rtl.min.css"
+                "../dashboardAssets/plugins/bootstrap/css/bootstrap.rtl.min.css"
             );
         var carousel = $(".owl-carousel");
         $.each(carousel, function (index, element) {
@@ -411,8 +411,6 @@ $(document).ready(function () {
         content:
             "<span class='tooltipRole'>تعديل المستخدمين</span><span class='tooltipRole'>تعديل البيانات</span><span class='tooltipRole'>تعديل </span><span class='tooltipRole'>تعديل المستخدمين</span><span class='tooltipRole'>تعديل المستخدمين</span><span class='tooltipRole'>إضافة مستخدم </span><span class='tooltipRole'>تعديل الوظائف</span><span class='tooltipRole'>تعديل الصلاحيات</span><span class='tooltipRole'>تعديل المستخدمين</span>",
     });
-
-
 
     $("input").attr("autocomplete", "off");
 

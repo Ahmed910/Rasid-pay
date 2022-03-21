@@ -10,7 +10,7 @@
             <div class="main-container container-fluid">
                 <div class="page-header">
                     <h1 class="page-title">سجل الأقسام</h1>
-                    <a href="department-add.html" class="btn btn-primary">
+                    <a href="{{ route('dashboard.department.create') }}" class="btn btn-primary">
                         <i class="mdi mdi-plus-circle-outline"></i> إضافة قسم
                     </a>
                 </div>
@@ -23,7 +23,8 @@
                         </div>
                         <div class="col">
                             <label>القسم الرئيسي</label>
-                            <select class="form-control select2" data-placeholder="اختر قسم رئيسي" name="parent_id">
+                            <select class="form-control select2-show-search form-select" data-placeholder="اختر قسم رئيسي"
+                                name="parent_id">
                                 <option selected disabled value="">اختر قسم رئيسي</option>
                                 @foreach ($parentDepartments as $id => $name)
                                     <option value="{{ $id }}"
@@ -57,8 +58,8 @@
                             <select class="form-control select2" id="status" name="is_active">
                                 <option selected disabled value="">اختر الحالة</option>
                                 <option value="">الجميع</option>
-                                <option value="1" {{ request('is_active') == "1" ? 'selected' : '' }}>مفعل</option>
-                                <option value="0" {{ request('is_active') == "0" ? 'selected' : '' }}>معطل</option>
+                                <option value="1" {{ request('is_active') == '1' ? 'selected' : '' }}>مفعل</option>
+                                <option value="0" {{ request('is_active') == '0' ? 'selected' : '' }}>معطل</option>
                             </select>
                         </div>
                     </div>
@@ -110,6 +111,8 @@
         </div>
     </div>
 @endsection
+
+
 @section('scripts')
     @include('dashboard.department.script')
 @endsection
