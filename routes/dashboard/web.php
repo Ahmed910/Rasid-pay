@@ -32,12 +32,16 @@ Route::group(
     Route::middleware('auth')->prefix('dashboard')->group(function () {
         Route::get('/', "HomeController@index")->name("home.index");
 
+
+
     });
     Route::resource('departments',"DepartmentController");
     Route::resource('jobs',"Job2Controller");
         Route::middleware('auth')->prefix('dashboard')->group(function () {
             Route::get('/', "HomeController@index")->name("home.index");
             Route::post('logout', "Auth\LoginController@logout")->name("logout");
-			Route::resource('departments', "DepartmentController");
+			// Route::resource('departments', "DepartmentController");
         });
+        Route::resource('department', "DepartmentController");
+
 });

@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\V1\Dashboard\DepartmentRequest;
 use App\Http\Requests\V1\Dashboard\ReasonRequest;
 use App\Http\Resources\Blade\Dashboard\Department\DepartmentCollection;
+use App\Http\Resources\Dashboard\ActivityLogResource;
 use App\Models\Department\Department;
 use Illuminate\Http\Request;
 
@@ -73,8 +74,20 @@ class DepartmentController extends Controller
     public function show(Request $request,$id)
     {
         $department = Department::withTrashed()->findOrFail($id);
-        $activities  = $department->activity()->get();
-        return view('dashboard.department.show',compact('department','activities'));
+        $activitiesQuery  = $department->activity()->get();
+
+    if ($request->ajax()) {
+        $activityCount = $activitiesQuery->count();
+        $activities = $activitiesQuery->skip($request->start)
+            ->take(($request->length == -1) ? $activityCount : $request->length)
+            ->get();
+
+        return ActivityLogResource::collection($department->activity())
+            ->additional(['total_count' => $activityCount]);
+    }
+
+
+        return view('dashboard.department.show',compact('department','activitiesQuery'));
     }
 
     public function edit(Department $department)

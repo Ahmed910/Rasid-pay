@@ -10,7 +10,7 @@
             <div class="main-container container-fluid">
                 <div class="page-header">
                     <h1 class="page-title">سجل الأقسام</h1>
-                    <a href="department-add.html" class="btn btn-primary">
+                    <a href="{{ route('dashboard.department.create') }}" class="btn btn-primary">
                         <i class="mdi mdi-plus-circle-outline"></i> إضافة قسم
                     </a>
                 </div>
@@ -102,7 +102,6 @@
                                         <th class="border-bottom-0 text-center">العمليات</th>
                                     </tr>
                                 </thead>
-
                             </table>
                         </div>
                     </div>

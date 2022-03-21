@@ -365,28 +365,28 @@ $(".layout-setting").on("click", function (e) {
 // $('body').addClass('rtl');
 
 $(document).ready(function () {
-    let bodyRtl = $("body").hasClass("rtl");
-    if (bodyRtl) {
-        $("body").addClass("rtl");
-        $("html[lang=en]").attr("dir", "rtl");
-        $("body").removeClass("ltr");
-        localStorage.setItem("rtl", "True");
-        $("head link#style").attr("href", $(this));
-        document
-            .getElementById("style")
-            .setAttribute(
-                "href",
-                "../assets/plugins/bootstrap/css/bootstrap.rtl.min.css"
-            );
-        var carousel = $(".owl-carousel");
-        $.each(carousel, function (index, element) {
-            // element == this
-            var carouselData = $(element).data("owl.carousel");
-            carouselData.settings.rtl = true; //don't know if both are necessary
-            carouselData.options.rtl = true;
-            $(element).trigger("refresh.owl.carousel");
-        });
-    }
+  let bodyRtl = $("body").hasClass("rtl");
+  if (bodyRtl) {
+    $("body").addClass("rtl");
+    $("html[lang=en]").attr("dir", "rtl");
+    $("body").removeClass("ltr");
+    localStorage.setItem("rtl", "True");
+    $("head link#style").attr("href", $(this));
+    document
+      .getElementById("style")
+      .setAttribute(
+        "href",
+        "../dashboardAssets/plugins/bootstrap/css/bootstrap.rtl.min.css"
+      );
+    var carousel = $(".owl-carousel");
+    $.each(carousel, function (index, element) {
+      // element == this
+      var carouselData = $(element).data("owl.carousel");
+      carouselData.settings.rtl = true; //don't know if both are necessary
+      carouselData.options.rtl = true;
+      $(element).trigger("refresh.owl.carousel");
+    });
+  }
 });
 
 /******* Navigation Style *******/
@@ -396,13 +396,12 @@ $(document).ready(function () {
 $(document).ready(function () {
     /******* popoverIMG *******/
 
-    $('[data-toggle="popoverIMG"]').popover({
-        placement: "left",
-        trigger: "hover",
-        html: true,
-        content:
-            '<img src="https://picsum.photos/seed/picsum/1000" width="1000" class="mr-3" alt="Sample Image">',
-    });
+  $('[data-toggle="popoverIMG"]').popover({
+    placement: "left",
+    trigger: "hover",
+    html: true,
+
+  });
 
     $('[data-bs-toggle="popoverRoles"]').popover({
         placement: "left",
@@ -413,20 +412,20 @@ $(document).ready(function () {
     });
 
     /******* Calendar *******/
-    // $("#from-hijri-picker, #to-hijri-picker, #from-hijri-unactive-picker ,#to-hijri-unactive-picker"
-    // ).hijriDatePicker({
-    //     hijri: true,
-    //     showSwitcher: false,
-    // });
+    $("#from-hijri-picker, #to-hijri-picker, #from-hijri-unactive-picker ,#to-hijri-unactive-picker"
+    ).hijriDatePicker({
+        hijri: true,
+        showSwitcher: false,
+    });
 
     $("input").attr("autocomplete", "off");
 
-    // $(".select2").select2({
-    //   width: "100%",
-    //   language: {
-    //     noResults: function () {
-    //       return "لا يوجد بيانات";
-    //     },
-    //   },
-    // });
+    $(".select2").select2({
+      width: "100%",
+      language: {
+        noResults: function () {
+          return "لا يوجد بيانات";
+        },
+      },
+    });
 });
