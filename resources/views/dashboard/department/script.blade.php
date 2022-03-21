@@ -27,7 +27,7 @@
             sDom: "t<'domOption'lpi>",
             serverSide: true,
             ajax: {
-                url: "{{ route('dashboard.departments.index') }}?" + $.param(
+                url: "{{ route('dashboard.department.index') }}?" + $.param(
                     @json(request()->query())),
                 dataSrc: 'data'
             },
