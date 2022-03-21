@@ -7,13 +7,15 @@
     من فضلك قم بادخال كلمة المرور الجديدة وتأكيدها
 </p>
 <!-- FORM OPEN -->
-@dump($errors)
+@error('email','token')
+    <div class="alert alert-danger">{{ $message }}</div>
+@enderror
 <form method="post" action="{!! route('dashboard.passwords.reset.new_password') !!}" class="needs-validation" novalidate>
     @csrf
     <div class="form-group">
         <label>كلمة المرور الجديدة</label>
         <div class="input-group" id="show_hide_password">
-            <input class="form-control" placeholder="كلمة المرور" type="password" name="password"/>
+            <input class="form-control @error('password') is-invalid @enderror" placeholder="كلمة المرور" type="password" name="password"/>
             <div class="input-group-text bg-white border-start-0">
                 <a href=""><i class="mdi mdi-eye-off-outline d-flex"></i></a>
             </div>
@@ -24,7 +26,7 @@
     <div class="form-group">
         <label>تأكيد كلمة المرور </label>
         <div class="input-group" id="show_hide_confirm_password">
-            <input class="form-control" placeholder="كلمة المرور" type="password" name="password_confirmation"/>
+            <input class="form-control @error('password_confirmation') is-invalid @enderror" placeholder="كلمة المرور" type="password" name="password_confirmation"/>
             <div class="input-group-text bg-white border-start-0">
                 <a href=""><i class="mdi mdi-eye-off-outline d-flex"></i></a>
             </div>

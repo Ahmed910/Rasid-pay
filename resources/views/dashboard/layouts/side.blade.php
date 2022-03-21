@@ -31,15 +31,15 @@
                             class="angle fe fe-chevron-right"></i></a>
                     <ul class="slide-menu">
                         <li class="side-menu-label1">
-                            <a href="{{ route('dashboard.department.index') }}">الأقسام</a>
+                            <a href="javascript:void(0)">الأقسام</a>
                         </li>
                         <li>
-                            <a href="{{ route('dashboard.department.index') }}" class="slide-item px-6"><i
+                            <a href="{{ route('dashboard.departments.index') }}" class="slide-item px-6"><i
                                     class="mdi mdi-file-document-multiple-outline"></i>
                                 سجل الأقسام</a>
                         </li>
                         <li>
-                            <a href="{{ route('dashboard.department.create') }}" class="slide-item px-6"><i
+                            <a href="{{ route('dashboard.departments.create') }}" class="slide-item px-6"><i
                                     class="mdi mdi-plus-circle-outline"></i> إضافة</a>
                         </li>
                     </ul>
