@@ -63,35 +63,101 @@
                 {
                     class: "text-center",
                     data: function(data) {
-                        return `<a
-                    href="${data.show_route}"
-                    class="azureIcon"
-                    data-bs-toggle="tooltip"
-                    data-bs-placement="top"
-                    title="التفاصيل"
-                    ><i class="mdi mdi-eye-outline"></i
-                  ></a>
-                  <a
-                    href="${data.edit_route}"
-                    class="warningIcon"
-                    data-bs-toggle="tooltip"
-                    data-bs-placement="top"
-                    title="تعديل"
-                    ><i class="mdi mdi-square-edit-outline"></i
-                  ></a>
-                  <a
-                    href="#"
-                    class="primaryIcon"
-                    data-bs-toggle="tooltip"
-                    data-bs-placement="top"
-                    title="أرشفة"
-                    ><i
-                      data-bs-toggle="modal"
-                      data-bs-target="#archiveModal"
-                      class="mdi mdi-archive-arrow-down-outline"
-                    ></i
-                  ></a>`
-                    }
+                        tagInfo = (data.has_jobs) ?
+                        `<i data-bs-toggle="modal" data-bs-target="#notArchiveModal_${data.id}" class="mdi mdi-archive-arrow-down-outline"></i>`:
+                            `<i data-bs-toggle="modal" data-bs-target="#archiveModal_${data.id}" class="mdi mdi-archive-arrow-down-outline"></i>` ;
+
+                          return `<a
+                                href="${data.show_route}"
+                                class="azureIcon"
+                                data-bs-toggle="tooltip"
+                                data-bs-placement="top"
+                                title="التفاصيل"
+                                ><i class="mdi mdi-eye-outline"></i
+                              ></a>
+                              <a
+                                href="${data.edit_route}"
+                                class="warningIcon"
+                                data-bs-toggle="tooltip"
+                                data-bs-placement="top"
+                                title="تعديل"
+                                ><i class="mdi mdi-square-edit-outline"></i
+                              ></a>
+                              <a
+                              href="#"
+                              class="primaryIcon"
+                              data-bs-toggle="tooltip"
+                              data-bs-placement="top"
+                              title="أرشفة"
+                              >${tagInfo}</a>
+
+                            <!-- archiveModal -->
+                            <div class="modal fade" id="archiveModal_${data.id}">
+                              <div class="modal-dialog modal-dialog-centered">
+                                <div class="modal-content border-0">
+                                  <form method="post" action="${data.delete_route}" class="needs-validation" novalidate>@csrf
+                                    <div class="modal-body text-center p-0">
+                                      <lottie-player
+                                        autoplay
+                                        loop
+                                        mode="normal"
+                                        src="{{ asset('dashboardAssets/images/lottie/archive.json') }}"
+                                        style="width: 55%; display: block; margin: 0 auto 1em"
+                                      >
+                                      </lottie-player>
+                                      <p>هل تريد إتمام عملية الأرشفة؟</p>
+                                      <div class="mt-3">
+                                        <textarea
+                                          class="form-control"
+                                          placeholder="الرجاء ذكر السبب*"
+                                          rows="3"
+                                          required
+                                        ></textarea>
+
+                                        <div class="invalid-feedback">السبب مطلوب.</div>
+                                      </div>
+                                    </div>
+                                    <div class="modal-footer justify-content-center mt-5 p-0">
+                                      <button type="submit" class="btn btn-primary mx-3">
+                                        موافق
+                                      </button>
+                                      <button
+                                        type="button"
+                                        class="btn btn-outline-primary"
+                                        data-bs-dismiss="modal"
+                                      >
+                                        غير موافق
+                                      </button>
+                                    </div>
+                                  </form>
+                                </div>
+                              </div>
+                            </div>
+
+                            <!-- notArchiveModal Modal -->
+                            <div class="modal fade" id="notArchiveModal_${data.id}">
+                              <div class="modal-dialog modal-dialog-centered">
+                                <div class="modal-content border-0">
+                                  <div class="modal-body text-center p-0">
+                                    <lottie-player
+                                      autoplay
+                                      loop
+                                      mode="normal"
+                                      src="{{ asset('dashboardAssets/images/lottie/unarchive.json') }}"
+                                      style="width: 55%; display: block; margin: 0 auto 1em"
+                                    >
+                                    </lottie-player>
+                                    <p>لا يمكن أرشفة قسم مرتبط بوظائف</p>
+                                  </div>
+                                  <div class="modal-footer justify-content-center mt-5 p-0">
+                                    <button type="button" class="btn btn-warning mx-3" data-bs-dismiss="modal">إغلاق</button>
+                                  </div>
+                                </div>
+                              </div>
+                            </div> `
+                    },
+                    orderable: false,
+                    searchable: false
                 }
             ],
             pageLength: 10,
