@@ -2,7 +2,7 @@
     <div class="app-sidebar__overlay" data-bs-toggle="sidebar"></div>
     <div class="app-sidebar d-flex flex-column h-100">
         <div class="side-header">
-            <a class="header-brand1" href="index.html">
+            <a class="header-brand1" href="{{ route('dashboard.home.index') }}">
                 <img src="{{ asset('dashboardAssets') }}/images/brand/logo.png" class="header-brand-img desktop-logo"
                     alt="logo" />
                 <img src="{{ asset('dashboardAssets') }}/images/brand/logo-1.png" class="header-brand-img toggle-logo"
@@ -22,10 +22,10 @@
             </div>
             <ul class="side-menu">
                 <li class="slide">
-                    <a class="side-menu__item" data-bs-toggle="slide" href="../index.html"><i
+                    <a class="side-menu__item" data-bs-toggle="slide" href="{{ route('dashboard.home.index') }}"><i
                             class="mdi mdi-home-variant-outline"></i><span class="side-menu__label">الرئيسية</span></a>
                 </li>
-                <li class="slide {{ strpos(URL::current(), 'departments') !== false ? 'is-expanded' : '' }} ">
+                <li class="slide {{ strpos(URL::current(), 'department') !== false ? 'is-expanded' : '' }} ">
                     <a class="side-menu__item" data-bs-toggle="slide" href="javascript:void(0)"><i
                             class="mdi mdi-view-dashboard-outline"></i><span class="side-menu__label">الأقسام</span><i
                             class="angle fe fe-chevron-right"></i></a>
@@ -44,6 +44,7 @@
                         </li>
                     </ul>
                 </li>
+
                 <li class="slide">
                     <a class="side-menu__item" data-bs-toggle="slide" href="javascript:void(0)"><i
                             class="mdi mdi-briefcase-variant-outline"></i><span
@@ -53,12 +54,12 @@
                             <a href="javascript:void(0)">الوظائف</a>
                         </li>
                         <li>
-                            <a href="{{ route('dashboard.jobs.index') }}" class="slide-item px-6"><i
+                            <a href="{{ route('dashboard.job.index') }}" class="slide-item px-6"><i
                                     class="mdi mdi-file-document-multiple-outline"></i>
                                 سجل الوظائف</a>
                         </li>
                         <li>
-                            <a href="{{ route('dashboard.jobs.create') }}" class="slide-item px-6"><i
+                            <a href="{{ route('dashboard.job.create') }}" class="slide-item px-6"><i
                                     class="mdi mdi-plus-circle-outline"></i> {{ trans('dashboard.general.add') }}</a>
                         </li>
                     </ul>

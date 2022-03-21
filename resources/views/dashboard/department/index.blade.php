@@ -79,7 +79,7 @@
                             <button class="btn btn-primary mx-2" type="submit">
                                 <i class="mdi mdi-magnify"></i> بحث
                             </button>
-                            <a href="{{ route('dashboard.departments.index') }}" class="btn btn-outline-primary">
+                            <a href="{{ route('dashboard.department.index') }}" class="btn btn-outline-primary">
                                 <i class="mdi mdi-restore"></i> عرض الكل
                             </a>
                         </div>
