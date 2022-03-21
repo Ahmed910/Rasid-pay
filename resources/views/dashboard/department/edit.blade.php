@@ -38,4 +38,3 @@
 
     <!--app-content closed-->
 @endsection
-@include('dashboard.department.script')

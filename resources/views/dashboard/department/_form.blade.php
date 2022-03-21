@@ -11,7 +11,7 @@
         </div>
         <div class="col-12 col-md-4 mb-5">
             {!! Form::label('mainDepartment', 'القسم الرئيسي') !!}
-            {!! Form::select('parent_id', $departments, null, ['class' => 'form-control select2', 'id' => 'mainDepartment', 'required', 'placeholder' => 'اختر قسم رئيسي']) !!}
+            {!! Form::select('parent_id',$departments, null, ['class' => 'form-control select2-show-search form-select', 'id' => 'mainDepartment', 'required']) !!}
             @if ($errors->has('parent_id'))
                 <span class="invalid-feedback">{{ $errors->first('parent_id') }}</span>
             @endif
