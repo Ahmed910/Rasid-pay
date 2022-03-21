@@ -18,24 +18,13 @@ class Job2Controller extends Controller
      */
     public function index(Request $request)
     {
-        $sortingColumns = [
-            'id',
-            'name',
-            'department',
-            'created_at',
-            'is_active',
-            'is_vacant'
-        ];
-
-        if (isset($request['sort'])) {
-            $request['sort'] = ['column' => $sortingColumns[$request->order[0]['column']], 'dir' => $request->order[0]['dir']];
-        }
 
         if ($request->ajax()) {
 
             $jobsQuery = RasidJob::without('employee')->search($request)
             ->CustomDateFromTo($request)
             ->ListsTranslations('name')
+            ->sortBy($request)
             ->addSelect('rasid_jobs.created_at', 'rasid_jobs.is_active', 'rasid_jobs.department_id', 'rasid_jobs.is_vacant')
             ;
             $jobCount = $jobsQuery->count();
