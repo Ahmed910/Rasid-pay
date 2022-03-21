@@ -28,9 +28,9 @@ Route::group(
         Route::middleware('auth')->prefix('dashboard')->group(function () {
             Route::get('/', "HomeController@index")->name("home.index");
             Route::post('logout', "Auth\LoginController@logout")->name("logout");
-            Route::resource('department', "DepartmentController");
             Route::resource('job', "Job2Controller");
         });
+        Route::resource('department', "DepartmentController");
 
         Route::resource('jobs',"Job2Controller");
     }

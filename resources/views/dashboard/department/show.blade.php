@@ -103,4 +103,4 @@
     </div>
     <!--app-content closed-->
 @endsection
-@include('dashboard.department.script')
+@include('dashboard.department.show-script')
