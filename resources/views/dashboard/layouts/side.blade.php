@@ -2,14 +2,14 @@
     <div class="app-sidebar__overlay" data-bs-toggle="sidebar"></div>
     <div class="app-sidebar d-flex flex-column h-100">
         <div class="side-header">
-            <a class="header-brand1" href="{{ route('dashboard.home.index') }}">
-                <img src="{{ asset('dashboardAssets') }}/images/brand/logo.png" class="header-brand-img desktop-logo"
+            <a class="header-brand1" href="index.html">
+                <img src="{{ asset('dashboardAssets/images/brand/logo.png') }}" class="header-brand-img desktop-logo"
                     alt="logo" />
-                <img src="{{ asset('dashboardAssets') }}/images/brand/logo-1.png" class="header-brand-img toggle-logo"
+                <img src="{{ asset('dashboardAssets/images/brand/logo-1.png') }}" class="header-brand-img toggle-logo"
                     alt="logo" />
-                <img src="{{ asset('dashboardAssets') }}/images/brand/logo-1.png" class="header-brand-img light-logo"
+                <img src="{{ asset('dashboardAssets/images/brand/logo-1.png') }}" class="header-brand-img light-logo"
                     alt="logo" />
-                <img src="{{ asset('dashboardAssets') }}/images/brand/logo-3.png" class="header-brand-img light-logo1"
+                <img src="{{ asset('dashboardAssets/images/brand/logo-3.png') }}" class="header-brand-img light-logo1"
                     alt="logo" />
             </a>
             <!-- LOGO -->

@@ -23,7 +23,7 @@
                         </div>
                         <div class="col">
                             <label>القسم الرئيسي</label>
-                            <select class="form-control select2-show-search form-select" data-placeholder="اختر قسم رئيسي"
+                            <select class="form-control select2" data-placeholder="اختر قسم رئيسي"
                                 name="parent_id">
                                 <option selected disabled value="">اختر قسم رئيسي</option>
                                 @foreach ($parentDepartments as $id => $name)
@@ -102,7 +102,6 @@
                                         <th class="border-bottom-0 text-center">العمليات</th>
                                     </tr>
                                 </thead>
-
                             </table>
                         </div>
                     </div>

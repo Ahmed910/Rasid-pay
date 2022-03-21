@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\V1\Dashboard\DepartmentRequest;
 use App\Http\Requests\V1\Dashboard\ReasonRequest;
 use App\Http\Resources\Blade\Dashboard\Department\DepartmentCollection;
+use App\Http\Resources\Dashboard\ActivityLogResource;
 use App\Models\Department\Department;
 use Illuminate\Http\Request;
 
@@ -59,30 +60,54 @@ class DepartmentController extends Controller
 
     public function create()
     {
-        return view('dashboard.department.create');
+        $departments = Department::with('parent.translations')->ListsTranslations('name')->where('parent_id', null)->pluck('name', 'id');
+        $locales = config('translatable.locales');
+        return view('dashboard.department.create', compact('departments', 'locales'));
     }
 
     public function store(DepartmentRequest $request, Department $department)
     {
+        $department->fill($request->validated())->save();
+        return redirect()->route('dashboard.departments.index')->with('success', __('dashboard.general.success_add'));
     }
 
-    public function show(Request $request, $id)
+    public function show(Request $request,$id)
     {
-        return view('dashboard.department.show');
+        $department = Department::withTrashed()->findOrFail($id);
+        $activitiesQuery  = $department->activity()->get();
+
+    if ($request->ajax()) {
+        $activityCount = $activitiesQuery->count();
+        $activities = $activitiesQuery->skip($request->start)
+            ->take(($request->length == -1) ? $activityCount : $request->length)
+            ->get();
+
+        return ActivityLogResource::collection($department->activity())
+            ->additional(['total_count' => $activityCount]);
     }
 
-    public function edit($id)
+
+        return view('dashboard.department.show',compact('department','activitiesQuery'));
+    }
+
+    public function edit(Department $department)
     {
-        return view('dashboard.department.edit');
+        $departments = Department::with('parent.translations')->ListsTranslations('name')->where('parent_id', null)->pluck('name', 'id');
+        $locales = config('translatable.locales');
+        return view('dashboard.department.edit', compact('departments', 'department','locales'));
     }
 
 
     public function update(DepartmentRequest $request, Department $department)
     {
+        $department->fill($request->validated() + ['updated_at' => now()])->save();
+        return redirect()->route('dashboard.departments.index')->with('success', __('dashboard.general.success_update'));
     }
 
 
     public function destroy(ReasonRequest $request, Department $department)
     {
     }
+
+
 }

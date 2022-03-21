@@ -16,7 +16,7 @@
                     <nav aria-label="breadcrumb">
                         <ol class="breadcrumb">
                             <li class="breadcrumb-item">
-                                <a href="departments-record.html"> سجل الأقسام</a>
+                                <a href="{{ route('dashboard.department.index') }}"> سجل الأقسام</a>
                             </li>
                             <li class="breadcrumb-item active" aria-current="page">
                                 إضافة قسم
@@ -27,9 +27,9 @@
                 <!-- PAGE-HEADER END -->
 
                 <!-- ROW OPEN -->
-                <form method="post" action="" class="needs-validation" novalidate>
-                    @include('dashboard.department._form')
-                </form>
+                {!! Form::open(['route' => 'dashboard.department.store', 'method' => 'POST', 'enctype' => 'multipart/form-data', 'class' => 'needs-validation','id' =>'formId', 'novalidate']) !!}
+                   @include('dashboard.department._form')
+                {!! Form::close() !!}
                 <!-- ROW CLOSED -->
             </div>
             <!-- CONTAINER CLOSED -->
@@ -38,5 +38,3 @@
 
     <!--app-content closed-->
 @endsection
-
-
