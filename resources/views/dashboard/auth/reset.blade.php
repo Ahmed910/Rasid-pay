@@ -46,9 +46,9 @@
                         placeholder="البريد الإلكتروني"
                         required
                       />
-                      <div class="invalid-feedback">
-                        البريد الإلكتروني مطلوب.
-                      </div>
+                      @error('email')
+                          <div class="invalid-feedback">{{ $message }}.</div>
+                      @enderror
                     </div>
                     <div class="col-12 mt-5 text-center">
                       {!! Form::submit('إرسال', ['class' => "btn btn-primary",'formaction' => route('dashboard.post_reset')]) !!}
@@ -82,9 +82,9 @@
                         placeholder="رقم الجوال"
                         required
                       />
-                      <div class="invalid-feedback">
-                        رقم الجوال مطلوب.
-                      </div>
+                      @error('phone')
+                          <div class="invalid-feedback">{{ $message }}.</div>
+                      @enderror
                     </div>
                     <div class="col-12 mt-5 text-center">
                       {!! Form::submit('إرسال', ['class' => "btn btn-primary",'formaction' => route('dashboard.post_reset')]) !!}
