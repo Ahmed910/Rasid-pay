@@ -3,11 +3,11 @@
 namespace App\Http\Controllers\Blade\Dashboard;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Dashboard\RasidJobs\{JobRequest, FiltetJobsRequest};
+use App\Http\Requests\Dashboard\RasidJobs\JobRequest;
+use App\Http\Resources\Blade\Dashboard\Job\JobCollection;
 use App\Models\Department\Department;
 use App\Models\RasidJob\RasidJob;
 use Illuminate\Http\Request;
-use Yajra\DataTables\Facades\DataTables;
 
 class Job2Controller extends Controller
 {
@@ -16,36 +16,44 @@ class Job2Controller extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(FiltetJobsRequest $request)
+    public function index(Request $request)
     {
-        // dd('enter');
+        $sortingColumns = [
+            'id',
+            'name',
+            'department',
+            'created_at',
+            'is_active',
+            'is_vacant'
+        ];
 
+        if (isset($request['sort'])) {
+            $request['sort'] = ['column' => $sortingColumns[$request->order[0]['column']], 'dir' => $request->order[0]['dir']];
+        }
 
+        if ($request->ajax()) {
 
-        // if ($request->ajax()) {
+            $jobsQuery = RasidJob::without('employee')->search($request)
+            ->CustomDateFromTo($request)
+            ->ListsTranslations('name')
+            ->addSelect('rasid_jobs.created_at', 'rasid_jobs.is_active', 'rasid_jobs.department_id', 'rasid_jobs.is_vacant')
+            ;
+            $jobCount = $jobsQuery->count();
+            $jobs = $jobsQuery->skip($request->start)
+                ->take($request['length'] == '-1' ? $jobCount : $request['length'])
+                ->get();
+            return JobCollection::make($jobs)
+                ->additional(['total_count' => $jobCount]);
+        }
 
-        //     $model = RasidJob::without('employee')->search($request)->CustomDateFromTo($request)->get();
-        //     // dd($jobs);
-        //     return DataTables::of($model)
-        //         ->addIndexColumn()
-        //         ->editColumn('actions', function ($model) {
+        $departments = Department::where('is_active', 1)
+            ->select("id")
+            ->ListsTranslations("name")
+            ->pluck('name', 'id');
 
-        //             $all = ' <a href="' . route("dashboard.jobs.show",  $model->id) . '" class="azureIcon" data-bs-toggle="tooltip" data-bs-placement="top" title="' . trans('dashboard.job.show') . '"><i class="mdi mdi-eye-outline"></i></a>';
-        //             //$all .= '<a onClick="return confirm(\'Are You Sure You Want To Delete This Record ?  \')" data-toggle="tooltip" data-skin-class="tooltip-danger"  data-placement="top" title = "Delete" href = "' . url('/doctors/' . $model->id . '/delete') . '"  class="btn btn-sm btn-outline-danger" style="margin:0 10px"><i class="fa fa-trash"></i></a>';
-        //             $all .=  '<a href="' . route("dashboard.jobs.destroy",  $model->id) . '" class="warningIcon" data-bs-toggle="tooltip" data-bs-placement="top" title="تعديل"><i class="mdi mdi-square-edit-outline"></i></a>';
-        //             $all .= ' <a href="#" class="primaryIcon" data-bs-toggle="tooltip" data-bs-placement="top"  title="أرشفة"><i data-bs-toggle="modal" data-bs-target="#archiveModal" class="mdi mdi-archive-arrow-down-outline"></i></a>';
-        //             return $all;
-        //         })->editColumn('department_id', function ($model) {
-        //             return  "<div class='flex-shrink-0'> <img src='https://picsum.photos/seed/picsum/100' width='25' class='avatar brround cover-image' alt='...' data-toggle='popoverIMG' /> </div><div class='flex-grow-1 ms-3'>" . $model->department->name . "</div></div>";
-        //         })->editColumn('is_active', function ($model) {  // hospital
-        //             return $model->is_active ? '<span class="badge bg-success-opacity py-2 px-4" >' . trans("dashboard.job.is_active.active") . '</span>' : '<span class="badge bg-danger-opacity py-2 px-4" >' . trans("dashboard.job.is_active.disactive") . '</span>';
-        //         })->editColumn('is_vacant', function ($model) {  // hospital
-        //             return  $model->is_vacant ? '<span class="occupied">' . trans("dashboard.job.is_vacant.false") . '</span>' : '<span class="vacant">' . trans("dashboard.job.is_vacant.false") . '</span>';
-        //         })->rawColumns(['actions', 'department_id', 'is_active', 'is_vacant'])->make(true);
-        // }
-        // $departments = Department::get()->pluck('name', 'id');
-        // return view('dashboard.job.index', compact('departments'));
+        return view('dashboard.job2.index', compact('departments'));
     }
+
 
     /**
      * Show the form for creating a new resource.
@@ -80,7 +88,8 @@ class Job2Controller extends Controller
      */
     public function show($id)
     {
-        //
+        $job = RasidJob::without('employee')->findOrFail($id);
+        return view('dashboard.job2.show',compact('job'));
     }
 
     /**
@@ -91,7 +100,7 @@ class Job2Controller extends Controller
      */
     public function edit($id)
     {
-        
+
         $job = RasidJob::without('employee')->findOrFail($id);
         //  dd($job);
         $departments = Department::get()->pluck('name', 'id');

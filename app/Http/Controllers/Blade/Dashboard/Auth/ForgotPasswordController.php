@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\SendsPasswordResetEmails;
 use App\Http\Requests\Dashboard\Auth\SendTokenRequest;
 use App\Models\User;
+use Illuminate\Support\Facades\Password;
 
 class ForgotPasswordController extends Controller
 {
@@ -42,14 +43,20 @@ class ForgotPasswordController extends Controller
         // We will send the password reset link to this user. Once we have attempted
         // to send the link, we will examine the response then see the message we
         // need to show to the user. Finally, we'll send out a proper response.
+        // dd($request);
         $response = $this->broker()->sendResetLink(
             $this->credentials($request)
         );
-
         return $response == Password::RESET_LINK_SENT
                     ? $this->sendResetLinkResponse($request, $response)
                     : $this->sendResetLinkFailedResponse($request, $response);
     }
+
+    protected function sendResetLinkResponse($request, $response)
+    {
+        return back()->withTrue(trans($response));
+    }
+
 
     private function sendSmsCode($request)
     {
@@ -59,7 +66,7 @@ class ForgotPasswordController extends Controller
         }
         $reset_token = generate_unique_code(User::class, 'reset_token', 100);
         $code = $this->generateCode($request, $user,'reset_code');
-        $user->update(['reset_code' => $code, 'reset_token' => $reset_token]);        
+        $user->update(['reset_code' => $code, 'reset_token' => $reset_token]);
         return redirect()->route('dashboard.check_sms_code_form',$reset_token);
     }
 

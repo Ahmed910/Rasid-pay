@@ -44,6 +44,10 @@ class RasidJob extends Model implements TranslatableContract
     {
         return Carbon::parse($value)->toFormattedDateString();
     }
+    public function getAddedByEmployeeAttribute($value)
+    {
+        return $this->addedBy->fullname ?? 'ahmed abotaleb';
+    }
     #endregion accessor
 
     #region scopes
