@@ -109,6 +109,8 @@
             </div>
         </div>
     </div>
+    @include('dashboard.layouts.modals.archive')
+    @include('dashboard.layouts.modals.not_archive')
 @endsection
 
 
