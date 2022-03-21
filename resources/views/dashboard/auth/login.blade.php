@@ -18,7 +18,7 @@
             <label for="userID">رقم المستخدم</label>
             <input
               type="text"
-              class="form-control"
+              class="form-control @error('username') is-invalid @enderror"
               id="userID"
               name="username"
               placeholder="رقم المستخدم"
@@ -31,7 +31,7 @@
             <label>كلمة المرور</label>
             <div class="input-group" id="show_hide_password">
               <input
-                class="form-control border-end-0"
+                class="form-control border-end-0 @error('password') is-invalid @enderror"
                 placeholder="كلمة المرور"
                 name="password"
                 type="password"
