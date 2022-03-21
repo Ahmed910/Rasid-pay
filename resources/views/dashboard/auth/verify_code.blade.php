@@ -27,14 +27,17 @@
         <div class="col">
             <input type="tel" class="form-control text-center @error('reset_code') is-invalid @enderror" name="reset_code[]" required maxlength="1" />
         </div>
+        @error('password_confirmation')
+            <div class="invalid-feedback">{{ $message }}.</div>
+        @enderror
 
-        <div class="text-center m-auto">
+        {{-- <div class="text-center m-auto">
             <p class="mt-5">
                 <span id="countdown"> </span>
                 <i class="mdi mdi-timer-outline"></i>
             </p>
             <a class="disable resend">إعادة إرسال كود التفعيل؟</a>
-        </div>
+        </div> --}}
     </div>
 
     <div class="col-12 mt-5 text-center">

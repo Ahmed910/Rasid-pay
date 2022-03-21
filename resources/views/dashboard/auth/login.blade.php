@@ -24,7 +24,9 @@
               placeholder="رقم المستخدم"
               required
             />
-            <div class="invalid-feedback">رقم المستخدم مطلوب.</div>
+            @error('username')
+                <div class="invalid-feedback">{{ $message }}.</div>
+            @enderror
           </div>
 
           <div class="form-group">
@@ -35,7 +37,11 @@
                 placeholder="كلمة المرور"
                 name="password"
                 type="password"
+                required
               />
+              @error('password')
+                  <div class="invalid-feedback">{{ $message }}.</div>
+              @enderror
               <div class="input-group-text bg-white border-start-0">
                 <a href=""
                   ><i class="mdi mdi-eye-off-outline d-flex"></i
