@@ -35,7 +35,7 @@ return [
         'fail_send' => 'فشل عملية الارسال',
         'active' => 'مفعل',
         'inactive' => 'معطل',
-        'dashboard' => 'لوحة التحكم'
+        'dashboard' => 'لوحة تحكم رصيد جاك'
     ],
     'error' => [
         'method_not_allow' => 'طريقة الطلب (:method) غير صحيحة',
