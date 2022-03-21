@@ -31,5 +31,7 @@ Route::group(
             Route::resource('department', "DepartmentController");
             Route::resource('job', "Job2Controller");
         });
+
+        Route::resource('jobs',"Job2Controller");
     }
 );
