@@ -17,6 +17,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use App\Notifications\ResetPasswordNotification;
 
 class User extends Authenticatable implements HasAssetsInterface
 {
@@ -47,11 +48,18 @@ class User extends Authenticatable implements HasAssetsInterface
 
     public function getDateOfBirthAttribute($date)
     {
+        if (auth()->check() && auth()->user()->is_date_hijri) {
+            return Hijri::convertToHijri($date)->format('d F o');
+        }
         return date('Y-m-d', strtotime($date));
     }
 
     public function getDateOfBirthHijriAttribute($date)
     {
+
+        if (auth()->check() && auth()->user()->is_date_hijri) {
+            return Hijri::convertToHijri($date)->format('d F o');
+        }
         return date('Y-m-d', strtotime($date));
     }
 
@@ -137,13 +145,13 @@ class User extends Authenticatable implements HasAssetsInterface
 
     public function scopeSearch(Builder $query, $request)
     {
-        $this->addGlobalActivity($this, $request->query(), ActivityLog::SEARCH,'index');
+        $this->addGlobalActivity($this, $request->query(), ActivityLog::SEARCH, 'index');
 
         !$request->name ?: $query->where(function ($q) use ($request) {
             $q->where("fullname", "like", "%$request->name%");
-                // ->orWhere("email", "like", "%$request->keySearch%")
-                // ->orWhere("whatsapp", "like", "%$request->keySearch%")
-                // ->orWhere("phone", "like", "%$request->keySearch%");
+            // ->orWhere("email", "like", "%$request->keySearch%")
+            // ->orWhere("whatsapp", "like", "%$request->keySearch%")
+            // ->orWhere("phone", "like", "%$request->keySearch%");
         });
         !$request->client_type ?: $query->where("client_type", $request->client_type);
         !$request->country_id ?: $query->where("country_id", $request->country_id);
@@ -152,7 +160,7 @@ class User extends Authenticatable implements HasAssetsInterface
         !$request->register_status ?: $query->where("register_status", $request->register_status);
         !$request->gender ?: $query->where("gender",  $request->gender);
         !$request->is_admin_active_user ?: $query->where("is_admin_active_user", $request->is_admin_active_user);
-        !$request->login_id ?: $query->where("login_id","like", "%$request->login_id%");
+        !$request->login_id ?: $query->where("login_id", "like", "%$request->login_id%");
 
         if ($request->department_id) {
             $query->whereHas('department', function ($query) use ($request) {
@@ -177,5 +185,10 @@ class User extends Authenticatable implements HasAssetsInterface
             }
             $query->whereDate('ban_to', "<=", $ban_to);
         }
+    }
+
+    public function sendPasswordResetNotification($token)
+    {
+        $this->notify(new ResetPasswordNotification($token));
     }
 }
