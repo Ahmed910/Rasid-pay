@@ -31,7 +31,7 @@
                             class="angle fe fe-chevron-right"></i></a>
                     <ul class="slide-menu">
                         <li class="side-menu-label1">
-                            <a href="{{ route('dashboard.department.index') }}">الأقسام</a>
+                            <a href="javascript:void(0)">الأقسام</a>
                         </li>
                         <li>
                             <a href="{{ route('dashboard.department.index') }}"
