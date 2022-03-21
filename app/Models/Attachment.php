@@ -35,27 +35,29 @@ class Attachment extends Model
         foreach ($attachmentRequest->attachments as $item) {
 
 //        dd($item) ;
-        foreach ($item["files"] as $file)  {
-            $user->attachments()->create([
-                'file' => $file->store('/files/client', ['disk' => 'local']),
-                'file_type' => $file->getClientMimeType(),
-                'title' => $item["title"],
-                'attachment_type' => $item["type"]
-            ]);
-        }
-        } }
-    public static function deletefiles(AttachmentRequest $attachmentRequest, $client)
-{
-    foreach ($attachmentRequest->attachments as $item) {
-        $attachments = Attachment::where("user_id", $client->user_id)->where("attachment_type", $item["type"])->get();
-        $paths = $attachments->pluck("attachments");
-        foreach ($paths as $path) {
-            if (Storage::exists($path)) {
-                Storage::delete($path);
+            foreach ($item["files"] as $file) {
+                $user->attachments()->create([
+                    'file' => $file->store('/files/client', ['disk' => 'local']),
+                    'file_type' => $file->getClientMimeType(),
+                    'title' => $item["title"],
+                    'attachment_type' => $item["type"]
+                ]);
             }
         }
-        $attachments->each->delete();
     }
-}
+
+    public static function deletefiles(AttachmentRequest $attachmentRequest, $client)
+    {
+        foreach ($attachmentRequest->attachments as $item) {
+            $attachments = Attachment::where("user_id", $client->user_id)->where("attachment_type", $item["type"])->get();
+            $paths = $attachments->pluck("attachments");
+            foreach ($paths as $path) {
+                if (Storage::exists($path)) {
+                    Storage::delete($path);
+                }
+            }
+            $attachments->each->delete();
+        }
+    }
     #endregion custom Methods
 }

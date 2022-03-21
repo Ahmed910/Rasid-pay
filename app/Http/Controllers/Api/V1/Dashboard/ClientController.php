@@ -92,53 +92,53 @@ class ClientController extends Controller
         $client->manager()->update($managerRequest->validated());
 
         if ($attachmentRequest->has("attachments")) {
-            Attachment::deletefiles($attachmentRequest,$client) ;
+            Attachment::deletefiles($attachmentRequest, $client);
             Attachment::storeImage($attachmentRequest, $client->user);
         }
 
 
-$client->load(['user', 'user.attachments', 'manager']);
-return ClientResource::make($client)->additional(['status' => true, 'message' => trans("dashboard.general.success_update")]);
-}
+        $client->load(['user', 'user.attachments', 'manager']);
+        return ClientResource::make($client)->additional(['status' => true, 'message' => trans("dashboard.general.success_update")]);
+    }
 
-public
-function forceDestroy(ReasonRequest $request, $id)
-{
-    $user = User::onlyTrashed()->findorfail($id);
-    $user->forceDelete();
+    public
+    function forceDestroy(ReasonRequest $request, $id)
+    {
+        $user = User::onlyTrashed()->findorfail($id);
+        $user->forceDelete();
 
-    return ClientResource::make($user)
-        ->additional([
-            'status' => true,
-            'message' => trans('dashboard.general.success_delete'),
-        ]);
-}
-
-
-public
-function destroy(ReasonRequest $request, User $user)
-{
-
-    $user->delete();
-
-    return ClientResource::make($user)
-        ->additional([
-            'status' => true,
-            'message' => trans('dashboard.general.success_archive'),
-        ]);
-}
+        return ClientResource::make($user)
+            ->additional([
+                'status' => true,
+                'message' => trans('dashboard.general.success_delete'),
+            ]);
+    }
 
 
-public
-function restore(ReasonRequest $request, $id)
-{
-    $user = User::onlyTrashed()->findOrFail($id);
-    $user->restore();
+    public
+    function destroy(ReasonRequest $request, User $user)
+    {
 
-    return ClientResource::make($user)
-        ->additional([
-            'status' => true,
-            'message' => trans('dashboard.general.success_restore'),
-        ]);
-}
+        $user->delete();
+
+        return ClientResource::make($user)
+            ->additional([
+                'status' => true,
+                'message' => trans('dashboard.general.success_archive'),
+            ]);
+    }
+
+
+    public
+    function restore(ReasonRequest $request, $id)
+    {
+        $user = User::onlyTrashed()->findOrFail($id);
+        $user->restore();
+
+        return ClientResource::make($user)
+            ->additional([
+                'status' => true,
+                'message' => trans('dashboard.general.success_restore'),
+            ]);
+    }
 }
