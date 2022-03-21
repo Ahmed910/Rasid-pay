@@ -46,7 +46,7 @@
           <div class="row align-items-center">
             <div class="col">
               <label class="custom-control custom-checkbox mb-0">
-                <input type="checkbox" class="custom-control-input" />
+                <input type="checkbox" class="custom-control-input" name="remember" />
                 <span class="custom-control-label">تذكرني</span>
               </label>
             </div>
