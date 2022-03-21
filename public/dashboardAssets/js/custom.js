@@ -411,15 +411,14 @@ $(document).ready(function () {
             "<span class='tooltipRole'>تعديل المستخدمين</span><span class='tooltipRole'>تعديل البيانات</span><span class='tooltipRole'>تعديل </span><span class='tooltipRole'>تعديل المستخدمين</span><span class='tooltipRole'>تعديل المستخدمين</span><span class='tooltipRole'>إضافة مستخدم </span><span class='tooltipRole'>تعديل الوظائف</span><span class='tooltipRole'>تعديل الصلاحيات</span><span class='tooltipRole'>تعديل المستخدمين</span>",
     });
 
-
     $("input").attr("autocomplete", "off");
 
-    $(".select2").select2({
-      width: "100%",
-      language: {
-        noResults: function () {
-          return "لا يوجد بيانات";
-        },
-      },
-    });
+    // $(".select2").select2({
+    //   width: "100%",
+    //   language: {
+    //     noResults: function () {
+    //       return "لا يوجد بيانات";
+    //     },
+    //   },
+    // });
 });

@@ -14,19 +14,19 @@
                 <!-- Tabs -->
                 <ul class="nav panel-tabs">
                   <li class="mx-0">
-                    <a href="#tab5" class="active" data-bs-toggle="tab"
+                    <a href="#tab5" class="{{ !$errors->any() || $errors->has('email') ? 'active' : null }}" data-bs-toggle="tab"
                       >البريد الإلكتروني</a
                     >
                   </li>
                   <li class="mx-0">
-                    <a href="#tab6" data-bs-toggle="tab">رقم الجوال</a>
+                    <a href="#tab6" class="@error('phone') active @enderror" data-bs-toggle="tab">رقم الجوال</a>
                   </li>
                 </ul>
               </div>
             </div>
             <div class="panel-body tabs-menu-body p-0 pt-5">
               <div class="tab-content">
-                <div class="tab-pane active" id="tab5">
+                <div class="tab-pane {{ !$errors->any() || $errors->has('email') ? 'active' : null }}" id="tab5">
                   <!-- FORM OPEN -->
                   <form
                     action=""
@@ -62,7 +62,7 @@
                   </form>
                   <!-- FORM CLOSED -->
                 </div>
-                <div class="tab-pane" id="tab6">
+                <div class="tab-pane  @error('phone') active @enderror" id="tab6">
                   <!-- FORM OPEN -->
                   <form
                     action="{!! route('dashboard.post_reset') !!}"

@@ -25,7 +25,7 @@
                     <a class="side-menu__item" data-bs-toggle="slide" href="{{ route('dashboard.home.index') }}"><i
                             class="mdi mdi-home-variant-outline"></i><span class="side-menu__label">الرئيسية</span></a>
                 </li>
-                <li class="slide {{ strpos(URL::current(), 'department') !== false ? 'is-expanded' : '' }} ">
+                <li class="slide {{ request()->routeIs('dashboard.department.*') ? 'is-expanded' : '' }} ">
                     <a class="side-menu__item" data-bs-toggle="slide" href="javascript:void(0)"><i
                             class="mdi mdi-view-dashboard-outline"></i><span class="side-menu__label">الأقسام</span><i
                             class="angle fe fe-chevron-right"></i></a>
@@ -34,18 +34,20 @@
                             <a href="javascript:void(0)">الأقسام</a>
                         </li>
                         <li>
-                            <a href="{{ route('dashboard.department.index') }}" class="slide-item px-6"><i
+                            <a href="{{ route('dashboard.department.index') }}"
+                                class="slide-item px-6 {{ request()->routeIs('dashboard.department.index') ? 'active' : '' }}"><i
                                     class="mdi mdi-file-document-multiple-outline"></i>
                                 سجل الأقسام</a>
                         </li>
                         <li>
-                            <a href="{{ route('dashboard.department.create') }}" class="slide-item px-6"><i
+                            <a href="{{ route('dashboard.department.create') }}"
+                                class="slide-item px-6 {{ request()->routeIs('dashboard.department.create') ? 'active' : '' }}"><i
                                     class="mdi mdi-plus-circle-outline"></i> إضافة</a>
                         </li>
                     </ul>
                 </li>
 
-                <li class="slide">
+                <li class="slide {{ request()->routeIs('dashboard.job.*') ? 'is-expanded' : '' }}">
                     <a class="side-menu__item" data-bs-toggle="slide" href="javascript:void(0)"><i
                             class="mdi mdi-briefcase-variant-outline"></i><span
                             class="side-menu__label">الوظائف</span><i class="angle fe fe-chevron-right"></i></a>
@@ -54,12 +56,14 @@
                             <a href="javascript:void(0)">الوظائف</a>
                         </li>
                         <li>
-                            <a href="{{ route('dashboard.job.index') }}" class="slide-item px-6"><i
+                            <a href="{{ route('dashboard.job.index') }}"
+                                class="slide-item px-6 {{ request()->routeIs('dashboard.job.index') ? 'active' : '' }}"><i
                                     class="mdi mdi-file-document-multiple-outline"></i>
                                 سجل الوظائف</a>
                         </li>
                         <li>
-                            <a href="{{ route('dashboard.job.create') }}" class="slide-item px-6"><i
+                            <a href="{{ route('dashboard.job.create') }}"
+                                class="slide-item px-6 {{ request()->routeIs('dashboard.job.create') ? 'active' : '' }}"><i
                                     class="mdi mdi-plus-circle-outline"></i> {{ trans('dashboard.general.add') }}</a>
                         </li>
                     </ul>
