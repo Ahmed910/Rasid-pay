@@ -26,6 +26,8 @@ class ActivityLog extends Model
     const SEARCH           = 'searched';
     const DEACTIVE         = 'deactivated';
     const ACTIVE           = 'activated';
+    const PERMANENT        = 'permanent';
+    const TEMPORARY        = 'temporary';
 
     const EVENTS = [
         self::CREATE,
@@ -35,7 +37,9 @@ class ActivityLog extends Model
         self::PERMANENT_DELETE,
         self::SEARCH,
         self::DEACTIVE,
-        self::ACTIVE
+        self::ACTIVE,
+        self::PERMANENT,
+        self::TEMPORARY
     ];
     #endregion properties
 
