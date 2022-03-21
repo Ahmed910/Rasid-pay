@@ -1,17 +1,15 @@
+<!-- SELECT2 JS -->
+<script src="{{ asset('dashboardAssets/js/select2.js') }}"></script>
+<script src="{{ asset('dashboardAssets/plugins/select2/select2.full.min.js') }}"></script>
+
 <script src="{{ asset('dashboardAssets/plugins/datatable/js/jquery.dataTables.min.js') }}"></script>
 <script src="{{ asset('dashboardAssets/plugins/datatable/js/dataTables.bootstrap5.js') }}"></script>
 <script src="{{ asset('dashboardAssets/plugins/datatable/dataTables.responsive.min.js') }}"></script>
 <script src="{{ asset('dashboardAssets/plugins/datatable/responsive.bootstrap5.min.js') }}"></script>
 <script src="{{ asset('dashboardAssets/js/table-data.js') }}"></script>
 
-
-<!-- SELECT2 JS -->
-<script src="{{ asset('dashboardAssets/plugins/select2/select2.full.min.js') }}"></script>
-<script src="{{ asset('dashboardAssets/js/select2.js') }}"></script>
-
 <!-- DATE PICKER JS -->
-<script src="{{ asset('dashboardAssets/plugins/bootstrap-hijri-datepicker/js/bootstrap-hijri-datetimepicker.js') }}">
-</script>
+<script src="{{ asset('dashboardAssets/plugins/bootstrap-hijri-datepicker/js/bootstrap-hijri-datetimepicker.js') }}"></script>
 
 
 <script>
@@ -64,10 +62,10 @@
                     class: "text-center",
                     data: function(data) {
                         tagInfo = (data.has_jobs) ?
-                        `<i data-bs-toggle="modal" data-bs-target="#notArchiveModal_${data.id}" class="mdi mdi-archive-arrow-down-outline"></i>`:
-                            `<i data-bs-toggle="modal" data-bs-target="#archiveModal_${data.id}" class="mdi mdi-archive-arrow-down-outline"></i>` ;
+                            `<i data-bs-toggle="modal" data-bs-target="#notArchiveModal_${data.id}" class="mdi mdi-archive-arrow-down-outline"></i>` :
+                            `<i data-bs-toggle="modal" data-bs-target="#archiveModal_${data.id}" class="mdi mdi-archive-arrow-down-outline"></i>`;
 
-                          return `<a
+                        return `<a
                                 href="${data.show_route}"
                                 class="azureIcon"
                                 data-bs-toggle="tooltip"
