@@ -1,5 +1,5 @@
 @extends('dashboard.layouts.master')
-@include('dashboard.department.style')
+@include('dashboard.job2.style')
 
 @section('nav-title')
 @endsection
@@ -116,7 +116,7 @@
               <div class="col-lg-12">
                 <div class="table-responsive p-1">
                   <table
-                    id="historyTable"
+                    id="JobsTable"
                     class="table table-bordered shadow-sm bg-body text-nowrap key-buttons"
                   >
                     <thead>
@@ -146,32 +146,5 @@
     <!--app-content closed-->
 @endsection
 @section('scripts')
-
- <script>
-    $(document).ready(function() {
-
-        $.ajaxSetup({
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            }
-        });
-
-
-        var ajaxUrl = "jobs";
-        var data = [
-
-            {data: 'DT_RowIndex'},
-            {data: 'name'},
-            {data: 'department_id'},
-            {data: 'created_at'},
-            {data: 'is_active'},
-            {data: 'is_vacant'},
-            {data: 'actions'},
-        ];
-
-        _DataTableHandler(ajaxUrl,data);
-    });
-</script>
-
+@include('dashboard.job2.script')
 @endsection
-@include('dashboard.job.script')
