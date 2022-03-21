@@ -25,4 +25,6 @@ return [
     'account_not_exists' => 'الحساب غير موجود',
     'success_change_password' => 'تم تغيير كلمة المرور بنجاح',
     'account_is_true' => 'البيانات المدخلة صحيحة',
+    'success_code_plz_add_new_password' => 'تم التحقق من كود الاسترجاع برجاء اضافة كلمة مرور جديدة',
+    'code_not_true' => 'الكود غير صحيح',
 ];
