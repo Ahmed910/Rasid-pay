@@ -3,13 +3,13 @@
     <div class="app-sidebar d-flex flex-column h-100">
         <div class="side-header">
             <a class="header-brand1" href="index.html">
-                <img src="{{ asset('dashboardAssets') }}/images/brand/logo.png" class="header-brand-img desktop-logo"
+                <img src="{{ asset('dashboardAssets/images/brand/logo.png') }}" class="header-brand-img desktop-logo"
                     alt="logo" />
-                <img src="{{ asset('dashboardAssets') }}/images/brand/logo-1.png" class="header-brand-img toggle-logo"
+                <img src="{{ asset('dashboardAssets/images/brand/logo-1.png') }}" class="header-brand-img toggle-logo"
                     alt="logo" />
-                <img src="{{ asset('dashboardAssets') }}/images/brand/logo-1.png" class="header-brand-img light-logo"
+                <img src="{{ asset('dashboardAssets/images/brand/logo-1.png') }}" class="header-brand-img light-logo"
                     alt="logo" />
-                <img src="{{ asset('dashboardAssets') }}/images/brand/logo-3.png" class="header-brand-img light-logo1"
+                <img src="{{ asset('dashboardAssets/images/brand/logo-3.png') }}" class="header-brand-img light-logo1"
                     alt="logo" />
             </a>
             <!-- LOGO -->
@@ -30,18 +30,18 @@
                             class="mdi mdi-view-dashboard-outline"></i><span class="side-menu__label">الأقسام</span><i
                             class="angle fe fe-chevron-right"></i></a>
                     <ul class="slide-menu">
-                        {{-- <li class="side-menu-label1">
-                            <a href="{{ route('departments.index') }}">الأقسام</a>
+                        <li class="side-menu-label1">
+                            <a href="{{ route('dashboard.departments.index') }}">الأقسام</a>
                         </li>
                         <li>
-                            <a href="{{ route('departments.index') }}" class="slide-item px-6"><i
+                            <a href="{{ route('dashboard.departments.index') }}" class="slide-item px-6"><i
                                     class="mdi mdi-file-document-multiple-outline"></i>
                                 سجل الأقسام</a>
                         </li>
                         <li>
-                            <a href="{{ route('departments.create') }}" class="slide-item px-6"><i
+                            <a href="{{ route('dashboard.departments.create') }}" class="slide-item px-6"><i
                                     class="mdi mdi-plus-circle-outline"></i> إضافة</a>
-                        </li> --}}
+                        </li>
                     </ul>
                 </li>
                 <li class="slide">

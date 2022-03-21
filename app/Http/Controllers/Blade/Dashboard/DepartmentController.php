@@ -59,30 +59,42 @@ class DepartmentController extends Controller
 
     public function create()
     {
-        return view('dashboard.department.create');
+        $departments = Department::with('parent.translations')->ListsTranslations('name')->where('parent_id', null)->pluck('name', 'id');
+        $locales = config('translatable.locales');
+        return view('dashboard.department.create', compact('departments', 'locales'));
     }
 
     public function store(DepartmentRequest $request, Department $department)
     {
+        $department->fill($request->validated())->save();
+        return redirect()->route('dashboard.departments.index')->with('success', __('dashboard.general.success_add'));
     }
 
-    public function show(Request $request, $id)
+    public function show(Request $request,$id)
     {
-        return view('dashboard.department.show');
+        $department = Department::withTrashed()->findOrFail($id);
+        $activities  = $department->activity()->get();
+        return view('dashboard.department.show',compact('department','activities'));
     }
 
-    public function edit($id)
+    public function edit(Department $department)
     {
-        return view('dashboard.department.edit');
+        $departments = Department::with('parent.translations')->ListsTranslations('name')->where('parent_id', null)->pluck('name', 'id');
+        $locales = config('translatable.locales');
+        return view('dashboard.department.edit', compact('departments', 'department','locales'));
     }
 
 
     public function update(DepartmentRequest $request, Department $department)
     {
+        $department->fill($request->validated() + ['updated_at' => now()])->save();
+        return redirect()->route('dashboard.departments.index')->with('success', __('dashboard.general.success_update'));
     }
 
 
     public function destroy(ReasonRequest $request, Department $department)
     {
     }
+
+
 }
