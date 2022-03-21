@@ -89,8 +89,6 @@
     <!-- lottie-player js -->
     <script src="https://unpkg.com/@lottiefiles/lottie-player@0.4.0/dist/tgs-player.js"></script>
 
-    <!-- INTERNAL Bootstrap-Datepicker js-->
-    <!-- <script src="{{ asset('dashboardAssets/plugins/bootstrap-datepicker/bootstrap-datepicker.js') }}"></script> -->
 
     <!-- CUSTOM JS -->
     <script src="{{ asset('dashboardAssets/js/custom.js') }}"></script>
