@@ -81,11 +81,7 @@
 
     <!-- DATA TABLE JS-->
 
-    <script src="{{ asset('dashboardAssets/plugins/datatable/js/jquery.dataTables.min.js') }}"></script>
-    <script src="{{ asset('dashboardAssets/plugins/datatable/js/dataTables.bootstrap5.js') }}"></script>
-    <script src="{{ asset('dashboardAssets/plugins/datatable/dataTables.responsive.min.js') }}"></script>
-    <script src="{{ asset('dashboardAssets/plugins/datatable/responsive.bootstrap5.min.js') }}"></script>
-    <script src="{{ asset('dashboardAssets/js/table-data.js') }}"></script>
+
 
     <!-- Sticky js -->
     <script src="{{ asset('dashboardAssets/js/sticky.js') }}"></script>
@@ -95,13 +91,6 @@
 
     <!-- INTERNAL Bootstrap-Datepicker js-->
     <!-- <script src="{{ asset('dashboardAssets/plugins/bootstrap-datepicker/bootstrap-datepicker.js') }}"></script> -->
-
-    <!-- SELECT2 JS -->
-    <script src="{{ asset('dashboardAssets/plugins/select2/select2.full.min.js') }}"></script>
-    <script src="{{ asset('dashboardAssets/js/select2.js') }}"></script>
-
-
-    <script src="{{ asset('dashboardAssets/plugins/bootstrap-hijri-datepicker/js/bootstrap-hijri-datetimepicker.js') }}"></script>
 
     <!-- CUSTOM JS -->
     <script src="{{ asset('dashboardAssets/js/custom.js') }}"></script>

@@ -49,7 +49,6 @@ class EmployeeController extends Controller
         $user->fill($request->safe()->except(['contract_type', 'salary', 'qr_path', 'qr_code', 'department_id', 'rasid_job_id']) + ['user_type' => 'employee', 'added_by_id' => auth()->id()])->save();
         $employee = Employee::create($request->safe()->only(['contract_type', 'salary', 'qr_path', 'qr_code', 'department_id', 'rasid_job_id']) + ['user_id' => $user->id]);
         $employee->job()->update(['is_vacant' => 0]);
-        $job = RasidJob::where("id", $request->rasid_job_id)->update(["is_vacant" => 0]);
         $employee->load('user');
         return EmployeeResource::make($employee)
             ->additional([
