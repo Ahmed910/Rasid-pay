@@ -8,24 +8,22 @@
     <span style="direction: ltr; display: block">{{ $phone }}</span>
 </p>
 <!-- FORM OPEN -->
-@error('reset_token')
-    <div class="alert alert-danger">{{ $message }}</div>
-@enderror
+
 <form method="POST" action="{!! route('dashboard.check_sms_code') !!}" class="needs-validation" id="form_sms" novalidate>
     @csrf
     <input type="hidden" name="reset_token" value="{{ $reset_token }}">
     <div class="row col-12 col-md-8 m-auto">
         <div class="col">
-            <input type="tel" class="form-control text-center @error('reset_code') border-danger @enderror" name="reset_code[]" required maxlength="1" />
+            <input type="tel" class="form-control text-center" name="reset_code[]" required maxlength="1" />
         </div>
         <div class="col">
-            <input type="tel" class="form-control text-center @error('reset_code') border-danger @enderror" name="reset_code[]" required maxlength="1" />
+            <input type="tel" class="form-control text-center" name="reset_code[]" required maxlength="1" />
         </div>
         <div class="col">
-            <input type="tel" class="form-control text-center @error('reset_code') border-danger @enderror" name="reset_code[]" required maxlength="1" />
+            <input type="tel" class="form-control text-center" name="reset_code[]" required maxlength="1" />
         </div>
         <div class="col">
-            <input type="tel" class="form-control text-center @error('reset_code') border-danger @enderror" name="reset_code[]" required maxlength="1" />
+            <input type="tel" class="form-control text-center" name="reset_code[]" required maxlength="1" />
         </div>
         @error('reset_code')
             <div class="text-danger">{{ $message }}</div>

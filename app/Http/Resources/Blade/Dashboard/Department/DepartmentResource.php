@@ -14,11 +14,15 @@ class DepartmentResource extends JsonResource
             'name' => $this->name,
             'parent' => $this->parent,
             'created_at' => $this->created_at,
+            'deleted_at' => $this->deleted_at,
             'is_active' => $this->is_active,
             'has_jobs'  => $this->rasidJobs()->exists(),
             'show_route' => route('dashboard.department.show', $this->id),
             'edit_route' => route('dashboard.department.edit', $this->id),
-            'delete_route' => route('dashboard.department.destroy', $this->id)
+            'delete_route' => route('dashboard.department.destroy', $this->id),
+            'restore_route' => route('dashboard.department.restore', $this->id),
+            'forceDelete_route' => route('dashboard.department.forceDelete', $this->id)
+
         ];
     }
 }

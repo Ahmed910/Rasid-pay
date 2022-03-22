@@ -365,28 +365,28 @@ $(".layout-setting").on("click", function (e) {
 // $('body').addClass('rtl');
 
 $(document).ready(function () {
-  let bodyRtl = $("body").hasClass("rtl");
-  if (bodyRtl) {
-    // $("body").addClass("rtl");
-    // $("html[lang=en]").attr("dir", "rtl");
-    // $("body").removeClass("ltr");
-    localStorage.setItem("rtl", "True");
-    // $("head link#style").attr("href", $(this));
-    // document
-    //   .getElementById("style")
-    //   .setAttribute(
-    //     "href",
-    //     "../dashboardAssets/plugins/bootstrap/css/bootstrap.rtl.min.css"
-    //   );
-    var carousel = $(".owl-carousel");
-    $.each(carousel, function (index, element) {
-      // element == this
-      var carouselData = $(element).data("owl.carousel");
-      carouselData.settings.rtl = true; //don't know if both are necessary
-      carouselData.options.rtl = true;
-      $(element).trigger("refresh.owl.carousel");
-    });
-  }
+    let bodyRtl = $("body").hasClass("rtl");
+    if (bodyRtl) {
+        $("body").addClass("rtl");
+        $("html[lang=en]").attr("dir", "rtl");
+        $("body").removeClass("ltr");
+        localStorage.setItem("rtl", "True");
+        $("head link#style").attr("href", $(this));
+        document
+            .getElementById("style")
+            .setAttribute(
+                "href",
+                "../dashboardAssets/plugins/bootstrap/css/bootstrap.rtl.min.css"
+            );
+        var carousel = $(".owl-carousel");
+        $.each(carousel, function (index, element) {
+            // element == this
+            var carouselData = $(element).data("owl.carousel");
+            carouselData.settings.rtl = true; //don't know if both are necessary
+            carouselData.options.rtl = true;
+            $(element).trigger("refresh.owl.carousel");
+        });
+    }
 });
 
 /******* Navigation Style *******/

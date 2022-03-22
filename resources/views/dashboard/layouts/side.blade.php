@@ -31,41 +31,43 @@
                             class="angle fe fe-chevron-right"></i></a>
                     <ul class="slide-menu">
                         <li class="side-menu-label1">
-                            <a href="javascript:void(0)">الأقسام</a>
+                            <a href="{{ route('dashboard.department.index') }}">الأقسام</a>
                         </li>
                         <li>
-                            <a href="{{ route('dashboard.department.index') }}"
-                                class="slide-item px-6 {{ request()->routeIs('dashboard.department.index') ? 'active' : '' }}"><i
+                            <a href="{{ route('dashboard.department.index') }}" class="slide-item px-6"><i
                                     class="mdi mdi-file-document-multiple-outline"></i>
                                 سجل الأقسام</a>
                         </li>
                         <li>
-                            <a href="{{ route('dashboard.department.create') }}"
-                                class="slide-item px-6 {{ request()->routeIs('dashboard.department.create') ? 'active' : '' }}"><i
+                            <a href="{{ route('dashboard.department.create') }}" class="slide-item px-6"><i
                                     class="mdi mdi-plus-circle-outline"></i> إضافة</a>
                         </li>
                     </ul>
                 </li>
-
-                <li class="slide {{ request()->routeIs('dashboard.job.*') ? 'is-expanded' : '' }}">
-                    <a class="side-menu__item" data-bs-toggle="slide" href="javascript:void(0)"><i
-                            class="mdi mdi-briefcase-variant-outline"></i><span
-                            class="side-menu__label">الوظائف</span><i class="angle fe fe-chevron-right"></i></a>
-                    <ul class="slide-menu">
-                        <li class="side-menu-label1">
-                            <a href="javascript:void(0)">الوظائف</a>
-                        </li>
-                        <li>
-                            <a href="{{ route('dashboard.job.index') }}"
-                                class="slide-item px-6 {{ request()->routeIs('dashboard.job.index') ? 'active' : '' }}"><i
-                                    class="mdi mdi-file-document-multiple-outline"></i>
-                                سجل الوظائف</a>
-                        </li>
-                        <li>
-                            <a href="{{ route('dashboard.job.create') }}"
-                                class="slide-item px-6 {{ request()->routeIs('dashboard.job.create') ? 'active' : '' }}"><i
-                                    class="mdi mdi-plus-circle-outline"></i> {{ trans('dashboard.general.add') }}</a>
-                        </li>
+                <li class='slide {{Request::is(LaravelLocalization::getCurrentLocale()."/job*") ? 'is-expanded':''}} '>
+                    <a
+                      class="side-menu__item"
+                      data-bs-toggle="slide"
+                      href="javascript:void(0)"
+                      ><i class="mdi mdi-briefcase-variant-outline"></i
+                      ><span class="side-menu__label ">الوظائف</span
+                      ><i class="angle fe fe-chevron-right"></i
+                    ></a>
+                    <ul class="slide-menu {{Request::is(LaravelLocalization::getCurrentLocale()."/job*")  ? 'open':''}} ">
+                      <li class="side-menu-label1">
+                        <a href="javascript:void(0)">الوظائف</a>
+                      </li>
+                      <li>
+                        <a href="{{route('dashboard.job.index')}}" class="slide-item px-6 {{Request::is(LaravelLocalization::getCurrentLocale()."/jobs*")  ? 'active':''}} "
+                          ><i class="mdi mdi-file-document-multiple-outline"></i>
+                          سجل الوظائف</a
+                        >
+                      </li>
+                      <li>
+                        <a href="{{route('dashboard.job.create')}}" class="slide-item px-6 {{Request::is(LaravelLocalization::getCurrentLocale()."/jobs/create*") ? 'active':''}} "
+                          ><i class="mdi mdi-plus-circle-outline"></i> إضافة</a
+                        >
+                      </li>
                     </ul>
                   </li>
                 <li class="slide">
@@ -153,7 +155,7 @@
                             <a href="javascript:void(0)">الأرشيف</a>
                         </li>
                         <li>
-                            <a href="../archive/departments-archive.html" class="slide-item px-6"><i
+                            <a href="{{route('dashboard.department.archive')}}" class="slide-item px-6"><i
                                     class="mdi mdi-view-dashboard-edit-outline"></i>
                                 أرشيف الأقسام</a>
                         </li>

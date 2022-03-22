@@ -88,6 +88,15 @@
     <!-- lottie-player js -->
     <script src="https://unpkg.com/@lottiefiles/lottie-player@0.4.0/dist/tgs-player.js"></script>
 
+    <!-- INTERNAL Bootstrap-Datepicker js-->
+    <!-- <script src="{{ asset('dashboardAssets/plugins/bootstrap-datepicker/bootstrap-datepicker.js') }}"></script> -->
+
+    <!-- SELECT2 JS -->
+    <script src="{{ asset('dashboardAssets/plugins/select2/select2.full.min.js') }}"></script>
+    <script src="{{ asset('dashboardAssets/js/select2.js') }}"></script>
+
+    <script src="{{ asset('dashboardAssets/plugins/bootstrap-hijri-datepicker/js/bootstrap-hijri-datetimepicker.js') }}"></script>
+
     <!-- CUSTOM JS -->
     <script src="{{ asset('dashboardAssets/js/custom.js') }}"></script>
 
