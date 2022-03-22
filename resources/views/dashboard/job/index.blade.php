@@ -13,14 +13,14 @@
         <!-- PAGE-HEADER -->
         <div class="page-header">
           <h1 class="page-title">{{ trans('dashboard.job.sub_progs.index') }}</h1>
-          <a href="{{ route('dashboard.jobs.create') }}" class="btn btn-primary">
+          <a href="{{ route('dashboard.job.create') }}" class="btn btn-primary">
             <i class="mdi mdi-plus-circle-outline"></i> {{ trans('dashboard.job.add_job') }}
           </a>
         </div>
         <!-- PAGE-HEADER END -->
 
         <!-- FORM OPEN -->
-        <form method="get" action="{{ route('dashboard.jobs.index') }}">
+        <form method="get" action="{{ route('dashboard.job.index') }}">
           <div class="row align-items-end mb-3">
             <div class="col">
               <label for="job_name">{{ trans('dashboard.job.job_name') }}</label>
@@ -28,7 +28,7 @@
               {!! Form::text('name', null, ['class' => 'form-control', 'placeholder' => trans('dashboard.job.job_name'), 'id' => 'job_name']) !!}
             </div>
             <div class="col">
-              <label for="mainDepartment"> {{ trans('dashboard.job.department') }} </label>
+              <label for="mainDepartment"> {{ trans('dashboard.department.department') }} </label>
               {{--              <select class="form-control select2"--}}
 
               {{--                      name="department_id">--}}
@@ -43,7 +43,7 @@
               {!! Form::select('department_id', $departments, "ll", ['placeholder' => trans('dashboard.job.select_department'),'class' => 'form-control select2-show-search select2-hidden-accessible select2 select2-container  select2-container--below', 'id' => 'mainDepartment',] , ) !!}
             </div>
             <div class="col">
-              <label for="from-hijri-picker"> {{ trans('dashboard.job.from_date') }}</label>
+              <label for="from-hijri-picker"> {{ trans('dashboard.general.from_date') }}</label>
               <div class="input-group">
 
                 {!! Form::date('from_date', null, ['class' => 'form-control', 'id' => 'from-hijri-picker']) !!}
@@ -53,7 +53,7 @@
               </div>
             </div>
             <div class="col">
-              <label for="to-hijri-picker"> {{ trans('dashboard.job.to_date') }}</label>
+              <label for="to-hijri-picker"> {{ trans('dashboard.general.to_date') }}</label>
               <div class="input-group">
 
                 {!! Form::date('to_date', null, ['class' => 'form-control', 'placeholder' => 'يوم/شهر/سنة', 'id' => 'to-hijri-picker']) !!}
@@ -112,7 +112,6 @@
         </form>
 
         <!-- FORM CLOSED -->
-
         <!-- Row -->
         <div class="row row-sm">
           <div class="col-lg-12">
@@ -122,11 +121,11 @@
                 <tr>
                   <th class="border-bottom-0">#</th>
                   <th class="border-bottom-0">{{ trans('dashboard.job.job_name') }}</th>
-                  <th class="border-bottom-0">{{ trans('dashboard.job.department') }} </th>
-                  <th class="border-bottom-0">{{ trans('dashboard.job.created_at') }} </th>
-                  <th class="border-bottom-0">{{ trans('dashboard.job.status') }}</th>
-                  <th class="border-bottom-0">{{ trans('dashboard.job.type') }}</th>
-                  <th class="border-bottom-0 text-center">{{ trans('dashboard.job.actions') }}</th>
+                  <th class="border-bottom-0">{{ trans('dashboard.department.department') }} </th>
+                  <th class="border-bottom-0">{{ trans('dashboard.general.created_at') }} </th>
+                  <th class="border-bottom-0">{{ trans('dashboard.general.status') }}</th>
+                  <th class="border-bottom-0">{{ trans('dashboard.general.type') }}</th>
+                  <th class="border-bottom-0 text-center">{{ trans('dashboard.general.actions') }}</th>
                 </tr>
                 </thead>
                 <tbody>

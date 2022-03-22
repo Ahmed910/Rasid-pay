@@ -14,14 +14,11 @@
 
  <script>
      $(function() {
-
-
-
          $("#JobsTable").DataTable({
              sDom: "t<'domOption'lpi>",
              serverSide: true,
              ajax: {
-                 url: "{{ route('dashboard.jobs.index') }}?" + $.param(
+                 url: "{{ route('dashboard.job.index') }}?" + $.param(
                      @json(request()->query()))
              },
              columns: [{
