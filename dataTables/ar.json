@@ -1,0 +1,12 @@
+{
+	"EmptyTable":     "ليست هناك بيانات متاحة في الجدول",
+	"LengthMenu":   "عرض _MENU_",
+	"ZeroRecords":  "لا يوجد بيانات",
+	"Info":         "إظهار _START_ إلى _END_ من أصل _TOTAL_ مدخل",
+	"InfoEmpty":    "لا يوجد نتائج بحث متاحة",
+	"InfoFiltered": "(منتقاة من مجموع _MAX_ مُدخل)",
+	"Paginate": {
+		"Previous": "<i class='mdi mdi-chevron-right'></i>",
+		"Next":     "<i class='mdi mdi-chevron-left'></i>"
+	}
+}
