@@ -55,7 +55,9 @@ class CountryController extends Controller
     public function show(Request $request, $id)
     {
         $country = Country::withTrashed()->with('translations')->findOrFail($id);
-        $activities  = $country->activity()->paginate((int)($request->per_page ?? 15));
+        $activities  = $country->activity()
+        ->sortBy($request)
+        ->paginate((int)($request->per_page ?? 15));
         data_set($activities, 'country', $country);
 
 

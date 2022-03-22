@@ -11,8 +11,8 @@ $permissions = [
 ];
 return [
     'attributes' => [
-         'name' => 'Name in Arabic',
-         'description' => 'Description in Arabic',
+        'name' => 'Name in Arabic',
+        'description' => 'Description in Arabic',
     ],
 
     'general' => [
@@ -23,6 +23,7 @@ return [
         "success_restore" => "Restored Successfully",
         "has_relationship_cannot_delete" => "This item has relationships ,so you cannot delete it",
         "save" => "Save",
+        "back" => "Back",
         "edit" => "Edit",
         "show" => "Show",
         "archive" => "Archive",
@@ -30,6 +31,23 @@ return [
         "force_delete" => "Permanent Delete",
         'sent_successfully' => 'Sent Successfully',
         'success_send_login_code' => 'The verification code has been sent to the mobile number',
+        'fail_send' => 'Sending Failed',
+        'active' => 'Active',
+        'inactive' => 'Inactive',
+        'dashboard' => 'Rasid Jack Dashboard',
+        "status" => "Status",
+        "select_status" => "Select Status",
+        "type" => "Type",
+        "select_type" => "Select Type",
+        "from_date" => "Creation Date (From)",
+        "to_date" => "Creation Date (To)",
+        "search" => "Search",
+        "show_all" => "Show All",
+        "created_at" => "Creation Date",
+        "actions" => "Actions",
+        'all' => 'All',
+        'description' => 'Description'
+
     ],
     'error' => [
         'method_not_allow' => 'Http method (:method) not allowed',
@@ -68,6 +86,9 @@ return [
     "department" => [
         "department" => "Department",
         "departments" => "Departments",
+        "department_image" => "Department Image",
+        "main_department" => "Main Department",
+        "department_name" => "Department Name",
         "add_department" => "",
         "edit_department" => "",
         "department_count" => "",
@@ -84,8 +105,8 @@ return [
             'name_must_be_unique_on_department' => 'The job title was previously selected for the same department'
         ],
 
-       "jobs_hired_deleted" => " can't delete this job ",
-       "jobs_hired_archived" => " can't archive this job ",
+        "jobs_hired_deleted" => " can't delete this job ",
+        "jobs_hired_archived" => " can't archive this job ",
         'permissions' => $permissions
     ],
     "setting" => [
@@ -124,7 +145,7 @@ return [
         "add_employee" => "Add Employee",
         "edit_employee" => "Edit Employee",
         "employee_count" => "Employees Count",
-        'permissions' => array_except($permissions, ['archive', 'restore', 'force_delete'])+ ['create' => 'Show Employees']
+        'permissions' => array_except($permissions, ['archive', 'restore', 'force_delete']) + ['create' => 'Show Employees']
     ],
     "bank" => [
         "bank" => "Bank",
@@ -143,9 +164,6 @@ return [
         "job_name" => "Job Name",
         "department" => "Department",
         "select_department" => "Select Department",
-        "status" => "Status",
-        "select_status" => "Select Status",
-        "type" => "Type",
         "employee_name" => "Employee Name",
         "job_description" => "Job Description",
         'sub_progs' => [
@@ -175,7 +193,7 @@ return [
         "add_client" => "add_client",
         "edit_client" => "edit_client",
         "admin_client" => "admin_client",
-        'permissions' => array_except($permissions, ['archive', 'restore', 'force_delete']) + [ 'create' => 'Show Client']
+        'permissions' => array_except($permissions, ['archive', 'restore', 'force_delete']) + ['create' => 'Show Client']
     ],
     'user' => [
         'users' => 'Users'
