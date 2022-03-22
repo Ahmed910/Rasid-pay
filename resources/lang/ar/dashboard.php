@@ -231,7 +231,6 @@ return [
         "edit_job" => "تعديل وظيفة",
         "job_count" => "عدد الوظائف",
         "job_name" => "اسم الوظيفة",
-        "department" => "القسم",
         "select_department" => "اختر القسم",
         "employee_name" => "اسم الموظف",
         "job_description" => "وصف الوظيفة",
