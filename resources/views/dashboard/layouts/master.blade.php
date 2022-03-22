@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}" dir="ltr">
+<html lang="en" dir="{{ LaravelLocalization::getCurrentLocaleDirection() }}">
 
 <head>
     <!-- META DATA -->
@@ -17,29 +17,27 @@
     <link rel="shortcut icon" type="image/x-icon" href="{{ asset('dashboardAssets/images/brand/favicon.ico') }}" />
 
     <!-- TITLE -->
-    <title>Rasid Jack Dashboard - @yield('title')</title>
+    <title>{!! trans('dashboard.general.dashboard') !!} @yield('title')</title>
 
     <!-- BOOTSTRAP CSS -->
 
-    <link id="style" href="{{ asset('dashboardAssets/plugins/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet" />
+    <link rel="stylesheet" type="text/css" media="all" href="{{ asset('dashboardAssets') }}/plugins/bootstrap/css/bootstrap{{ LaravelLocalization::getCurrentLocaleDirection() == 'rtl' ? '.rtl' : null }}.min.css" />
 
     <!-- STYLE CSS -->
     <link href="{{ asset('dashboardAssets/css/style.css') }}" rel="stylesheet" />
-    <link
-        href="{{ asset('dashboardAssets/plugins/bootstrap-hijri-datepicker/css/bootstrap-datetimepicker.min.css') }}"
+    <link href="{{ asset('dashboardAssets/plugins/bootstrap-hijri-datepicker/css/bootstrap-datetimepicker.min.css') }}"
         rel="stylesheet" />
     <!--- FONT-ICONS CSS -->
     <link href="{{ asset('dashboardAssets/css/icons.css') }}" rel="stylesheet" />
 
 
     <!-- COLOR SKIN CSS -->
-    <link id="theme" rel="stylesheet" type="text/css" media="all"
-        href="{{ asset('dashboardAssets/colors/color1.css') }}" />
+    <link id="theme" rel="stylesheet" type="text/css" media="all" href="{{ asset('dashboardAssets/colors/color1.css') }}" />
 
     @yield('styles')
 </head>
 
-<body class="app sidebar-mini rtl">
+<body class="app sidebar-mini {{ LaravelLocalization::getCurrentLocaleDirection() }}">
     <!-- GLOBAL-LOADER -->
     <div id="global-loader">
         <img src="{{ asset('dashboardAssets/images/loader.gif') }}" class="loader-img" alt="Loader" />
@@ -84,9 +82,6 @@
     <script src="{{ asset('dashboardAssets/plugins/sidemenu/sidemenu.js') }}"></script>
 
     <!-- DATA TABLE JS-->
-
-
-
     <!-- Sticky js -->
     <script src="{{ asset('dashboardAssets/js/sticky.js') }}"></script>
 

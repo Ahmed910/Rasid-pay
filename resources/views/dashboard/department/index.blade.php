@@ -36,7 +36,7 @@
                         <div class="col">
                             <label for="validationCustom02"> تاريخ الإنشاء (من)</label>
                             <div class="input-group">
-                                <input id="from-hijri-picker" type="text" placeholder="يوم/شهر/سنة" class="form-control"
+                                <input id="from-hijri-picker" type="text" readonly placeholder="يوم/شهر/سنة" class="form-control"
                                     name="created_from" value="{{ old('created_from') ?? request('created_from') }}" />
                                 <div class="input-group-text border-start-0">
                                     <i class="fa fa-calendar tx-16 lh-0 op-6"></i>
@@ -46,7 +46,7 @@
                         <div class="col">
                             <label for="validationCustom02"> تاريخ الإنشاء (إلى)</label>
                             <div class="input-group">
-                                <input id="to-hijri-picker" type="text" placeholder="يوم/شهر/سنة" class="form-control"
+                                <input id="to-hijri-picker" type="text" readonly placeholder="يوم/شهر/سنة" class="form-control"
                                     name="created_to" value="{{ old('created_to') ?? request('created_to') }}" />
                                 <div class="input-group-text border-start-0">
                                     <i class="fa fa-calendar tx-16 lh-0 op-6"></i>
@@ -102,6 +102,9 @@
                                         <th class="border-bottom-0 text-center">العمليات</th>
                                     </tr>
                                 </thead>
+                                <tbody>
+
+                                </tbody>
                             </table>
                         </div>
                     </div>

@@ -14,25 +14,15 @@ class DepartmentController extends Controller
 {
     public function index(Request $request)
     {
-        $sortingColumns = [
-            'id',
-            'name',
-            'parent',
-            'created_at',
-            'is_active'
-        ];
-
         if(isset($request->order[0]['column'])){
-            $request['sort'] = ['column' => $sortingColumns[$request->order[0]['column']], 'dir' => $request->order[0]['dir']];
+            $request['sort'] = ['column' => $request['columns'][$request['order'][0]['column']]['name'], 'dir' => $request['order'][0]['dir']];
         }
-
         $departmentsQuery = Department::search($request)
             ->CustomDateFromTo($request)
             ->with('parent.translations')
             ->ListsTranslations('name')
             ->addSelect('departments.created_at', 'departments.is_active', 'departments.parent_id', 'departments.added_by_id')
             ->sortBy($request);
-
 
         if ($request->ajax()) {
             $departmentCount = $departmentsQuery->count();
@@ -68,7 +58,7 @@ class DepartmentController extends Controller
     public function store(DepartmentRequest $request, Department $department)
     {
         $department->fill($request->validated())->save();
-        return redirect()->route('dashboard.departments.index')->with('success', __('dashboard.general.success_add'));
+        return redirect()->route('dashboard.department.index')->withSuccess(__('dashboard.general.success_add'));
     }
 
     public function show(Request $request,$id)
@@ -101,7 +91,7 @@ class DepartmentController extends Controller
     public function update(DepartmentRequest $request, Department $department)
     {
         $department->fill($request->validated() + ['updated_at' => now()])->save();
-        return redirect()->route('dashboard.departments.index')->with('success', __('dashboard.general.success_update'));
+        return redirect()->route('dashboard.department.index')->withSuccess(__('dashboard.general.success_update'));
     }
 
 
