@@ -81,7 +81,9 @@ class DepartmentController extends Controller
     public function show(Request $request, $id)
     {
         $department = Department::withTrashed()->with('translations')->findOrFail($id);
-        $activities  = $department->activity()->paginate((int)($request->per_page ?? 15));
+        $activities  = $department->activity()
+            ->sortBy($request)
+            ->paginate((int)($request->per_page ?? 15));
         data_set($activities, 'department', $department);
 
         return DepartmentCollection::make($activities)
