@@ -6,7 +6,7 @@ $permissions = [
     'store' => 'حفظ',
     'update' => 'تعديل',
     'destroy' => 'أرشفة',
-    'archive' => 'عرض الارشيف',
+    'archive' => 'عرض أرشيف',
     'restore' => 'استعادة',
     'force_delete' => 'حذف نهائي',
 ];
@@ -77,7 +77,7 @@ return [
         'permissions' => $permissions,
         'sub_progs' => [
             'index' => 'سجل الدول',
-            'archive' => 'ارشيف الدول',
+            'archive' => 'أرشيف الدول',
             'create' => 'اضافة دولة',
         ],
     ],
@@ -90,7 +90,7 @@ return [
         'permissions' => $permissions,
         'sub_progs' => [
             'index' => 'سجل المناطق',
-            'archive' => 'ارشيف المناطق',
+            'archive' => 'أرشيف المناطق',
             'create' => 'اضافة منطقة',
         ],
     ],
@@ -102,7 +102,7 @@ return [
         "city_count" => "عدد المدن",
         'sub_progs' => [
             'index' => 'سجل المدن',
-            'archive' => 'ارشيف المدن',
+            'archive' => 'أرشيف المدن',
             'create' => 'اضافة مدينة',
         ],
         'permissions' => $permissions
@@ -115,7 +115,7 @@ return [
         "group_count" => "عدد المجموعات",
         'sub_progs' => [
             'index' => 'سجل الصلاحيات',
-            'archive' => 'ارشيف الصلاحيات',
+            'archive' => 'أرشيف الصلاحيات',
             'create' => 'اضافة مجموعة',
         ],
         'permissions' => array_except($permissions, ['archive', 'restore', 'force_delete']) + ['create' => 'عرض القائمة']
@@ -128,26 +128,26 @@ return [
         "currency_count" => "عدد العملات",
         'sub_progs' => [
             'index' => 'سجل العملات',
-            'archive' => 'ارشيف العملات',
+            'archive' => 'أرشيف العملات',
             'create' => 'اضافة عملة',
         ],
         'permissions' => $permissions
     ],
     "department" => [
         "department" => "القسم",
-        "main_department" => "عدد الاقسام",
-        "department_name" => "القسم الرئيسي",
-        "departments" => "الاقسام",
+        "main_department" => "القسم الرئيسي",
+        "departments" => "الأقسام",
         "department_image" => "صورة القسم",
         "add_department" => "اضافة قسم",
         "edit_department" => "تعديل القسم",
-        "department_count" => "عدد الاقسام",
+        "department_count" => "عدد الأقسام",
+        'select_main_department' => 'اختر قسم الرئيسي',
         'sub_progs' => [
             'index' => 'سجل الأقسام',
-            'archive' => 'ارشيف الأقسام',
+            'archive' => 'أرشيف الأقسام',
             'create' => 'اضافة قسم',
         ],
-        'permissions' => $permissions + ['get_parents' => 'عرض الاقسام الرئيسية'],
+        'permissions' => $permissions + ['get_parents' => 'عرض الأقسام الرئيسية'],
         "has_jobs_cannot_delete" => "لا يمكن أرشفة قسم مرتبط بوظائف",
         "department_has_relationship_cannot_delete" => "لا يمكن حذف هذا القسم لأنه يحتوي علي أقسام فرعية   ",
         'without_parent' => 'بدون'
@@ -165,7 +165,7 @@ return [
         "jobs_hired_archived" => " لا يمكن أرشفة هذه الوظيفة لانها مشغولة ",
         'sub_progs' => [
             'index' => 'سجل الوظائف',
-            'archive' => 'ارشيف الوظائف',
+            'archive' => 'أرشيف الوظائف',
             'create' => 'اضافة وظيفة',
         ],
         'permissions' => $permissions
@@ -177,7 +177,7 @@ return [
         "setting_count" => "",
         'sub_progs' => [
             'index' => 'سجل الاعدادات',
-            'archive' => 'ارشيف الاعدادات',
+            'archive' => 'أرشيف الاعدادات',
             'create' => 'اضافة إعداد',
         ],
         'permissions' => $permissions
@@ -196,7 +196,7 @@ return [
         "admin_count" => "عدد المستخدمين",
         'sub_progs' => [
             'index' => 'سجل مستخدمى النظام',
-            'archive' => 'ارشيف مستخدمى النظام',
+            'archive' => 'أرشيف مستخدمى النظام',
             'create' => 'اضافة مستخدم',
         ],
         'permissions' => array_except($permissions, ['archive', 'restore', 'force_delete']) + ['create' => 'عرض المستخدمين']
@@ -218,7 +218,7 @@ return [
         "employee_count" => "عدد الموظفين",
         'sub_progs' => [
             'index' => 'سجل الموظفين',
-            'archive' => 'ارشيف الموظفين',
+            'archive' => 'أرشيف الموظفين',
             'create' => 'اضافة موظف',
         ],
         'permissions' => array_except($permissions, ['archive', 'restore', 'force_delete']) + ['create' => 'عرض الموظفين']
@@ -241,7 +241,7 @@ return [
         ],
         'sub_progs' => [
             'index' => 'سجل الوظائف',
-            'archive' => 'ارشيف الوظائف',
+            'archive' => 'أرشيف الوظائف',
             'create' => 'اضافة وظيفة',
         ],
     ],
@@ -253,7 +253,7 @@ return [
         "bank_count" => "عدد البنوك",
         'sub_progs' => [
             'index' => 'سجل البنوك',
-            'archive' => 'ارشيف البنوك',
+            'archive' => 'أرشيف البنوك',
             'create' => 'اضافة بنك',
         ],
         'permissions' => $permissions
@@ -272,7 +272,7 @@ return [
         "admin_client" => "عدد العملاء",
         'sub_progs' => [
             'index' => 'سجل العملاء',
-            'archive' => 'ارشيف العملاء',
+            'archive' => 'أرشيف العملاء',
             'create' => 'اضافة عميل',
         ],
         'permissions' => array_except($permissions, ['archive', 'restore', 'force_delete']) + ['create' => 'عرض العملاء']
@@ -281,7 +281,7 @@ return [
         'users' => 'المستخدمين',
         'sub_progs' => [
             'index' => 'سجل المستخدمين',
-            'archive' => 'ارشيف المستخدمين',
+            'archive' => 'أرشيف المستخدمين',
             'create' => 'اضافة مستخدم',
         ],
     ],
@@ -289,21 +289,21 @@ return [
         'chats' => 'الدردشات',
         'sub_progs' => [
             'index' => 'سجل الدردشات',
-            'archive' => 'ارشيف الدردشات',
+            'archive' => 'أرشيف الدردشات',
         ],
     ],
     'device' => [
         'devices' => 'الأجهزة',
         'sub_progs' => [
             'index' => 'سجل الأجهزة',
-            'archive' => 'ارشيف الأجهزة',
+            'archive' => 'أرشيف الأجهزة',
         ],
     ],
     'message' => [
         'messages' => 'الرسائل',
         'sub_progs' => [
             'index' => 'سجل الرسائل',
-            'archive' => 'ارشيف الرسائل',
+            'archive' => 'أرشيف الرسائل',
             'create' => 'اضافة رسالة',
         ],
     ],
@@ -311,7 +311,7 @@ return [
         'permissions' => 'الصلاحيات',
         'sub_progs' => [
             'index' => 'سجل الصلاحيات',
-            'archive' => 'ارشيف الصلاحيات',
+            'archive' => 'أرشيف الصلاحيات',
             'create' => 'اضافة صلاحية',
         ],
     ],
