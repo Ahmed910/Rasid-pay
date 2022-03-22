@@ -1,4 +1,4 @@
- (function() {
+(function() {
     'use strict';
     // Select2
     if ($(".select2")[0]) {

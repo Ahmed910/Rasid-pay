@@ -70,7 +70,9 @@ class RegionController extends Controller
     public function show( Request $request, $id)
     {
         $region = Region::withTrashed()->with('translations')->findOrFail($id);
-        $activities  = $region->activity()->paginate((int)($request->per_page ?? 15));
+        $activities  = $region->activity()
+        ->sortBy($request)
+        ->paginate((int)($request->per_page ?? 15));
         data_set($activities,'region',$region);
 
         return RegionCollection::make($activities)

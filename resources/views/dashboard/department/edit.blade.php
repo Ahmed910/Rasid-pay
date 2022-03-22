@@ -1,8 +1,7 @@
 @extends('dashboard.layouts.master')
 @include('dashboard.department.style')
 
-@section('nav-title')
-@endsection
+@section('title', trans('dashboard.department.edit_department'))
 
 @section('content')
     <!--app-content open-->
@@ -16,10 +15,13 @@
                     <nav aria-label="breadcrumb">
                         <ol class="breadcrumb">
                             <li class="breadcrumb-item">
-                                <a href="{{ route('dashboard.department.index') }}"> سجل الأقسام</a>
+                                <a href="{{ route('dashboard.department.index') }}">
+                                    {{ trans('dashboard.department.sub_progs.index') }}
+                                </a>
                             </li>
                             <li class="breadcrumb-item active" aria-current="page">
-                                تعديل قسم
+                                {{ trans('dashboard.department.edit_department') }}
+
                             </li>
                         </ol>
                     </nav>
@@ -27,7 +29,7 @@
                 <!-- PAGE-HEADER END -->
 
                 <!-- ROW OPEN -->
-                {!! Form::model($department, ['route' => ['dashboard.department.update', $department->id], 'method' => 'PUT', 'class' => 'needs-validation', 'enctype' => 'multipart/form-data','id' =>'formId', 'files' => true]) !!}
+                {!! Form::model($department, ['route' => ['dashboard.department.update', $department->id], 'method' => 'PUT', 'class' => 'needs-validation', 'id' => 'formId', 'enctype' => 'multipart/form-data', 'id' => 'formId', 'files' => true, 'novalidate']) !!}
                 @include('dashboard.department._form')
                 {!! Form::close() !!}
                 <!-- ROW CLOSED -->
