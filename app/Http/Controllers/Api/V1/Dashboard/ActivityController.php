@@ -19,7 +19,7 @@ class ActivityController extends Controller
     {
         $activatyLogs = ActivityLog::search($request)
             ->CustomDateFromTo($request)
-            ->latest()
+            ->sortBy($request)
             ->paginate((int)($request->per_page ?? config("globals.per_page")));
 
         return ActivityLogResource::collection($activatyLogs)

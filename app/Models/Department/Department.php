@@ -84,7 +84,7 @@ class Department extends Model implements TranslatableContract, HasAssetsInterfa
             }
 
             if ($request->sort["column"] == "parent") {
-                return $q->join('departments as parent', 'departments.id', '=', 'parent.parent_id')
+                return $q->leftJoin('departments as parent', 'departments.id', '=', 'parent.parent_id')
                     ->leftJoin('department_translations as parent_trans', 'parent.id', '=', 'parent_trans.department_id')
                     ->orderBy('parent_trans.name', @$request->sort["dir"]);
             }
