@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Blade\Dashboard;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Dashboard\JobBladeRequest;
 use App\Http\Requests\V1\Dashboard\RasidJobRequest;
 use App\Http\Resources\Blade\Dashboard\Job\JobCollection;
 use App\Http\Resources\Dashboard\RasidJob\{RasidJobResource, RasidJobCollection};
@@ -62,7 +63,7 @@ class JobController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(RasidJobRequest $request, RasidJob $rasidJob)
+    public function store(JobBladeRequest $request, RasidJob $rasidJob)
     {
 
         $rasidJob->fill($request->validated())->save();

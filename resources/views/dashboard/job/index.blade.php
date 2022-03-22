@@ -80,8 +80,8 @@
               <select class="form-control select2" id="type" name="is_vacant">
                 <option selected disabled value="">{{ trans('dashboard.general.select_type') }}</option>
                 <option value="">{{ trans('dashboard.general.all') }}</option>
-                <option value=1>{{ trans('dashboard.job.is_vacant.false') }}</option>
-                <option value=0>{{ trans('dashboard.job.is_vacant.true') }}</option>
+                <option value=0>{{ trans('dashboard.job.is_vacant.false') }}</option>
+                <option value=1>{{ trans('dashboard.job.is_vacant.true') }}</option>
               </select>
             </div>
 
