@@ -34,6 +34,6 @@ Route::group(
             ]);
         });
 
-        Route::resource('jobs', "Job2Controller");
+//        Route::resource('jobs', "Job2Controller");
     }
 );

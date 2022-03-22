@@ -40,7 +40,7 @@ class JobController extends Controller
             ->ListsTranslations("name")
             ->pluck('name', 'id');
 
-        return view('dashboard.job2.index', compact('departments'));
+        return view('dashboard.job.index', compact('departments'));
     }
 
     /**

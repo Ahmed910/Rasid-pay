@@ -13,14 +13,14 @@
         <!-- PAGE-HEADER -->
         <div class="page-header">
           <h1 class="page-title">{{ trans('dashboard.job.sub_progs.index') }}</h1>
-          <a href="{{ route('dashboard.jobs.create') }}" class="btn btn-primary">
+          <a href="{{ route('dashboard.job.create') }}" class="btn btn-primary">
             <i class="mdi mdi-plus-circle-outline"></i> {{ trans('dashboard.job.add_job') }}
           </a>
         </div>
         <!-- PAGE-HEADER END -->
 
         <!-- FORM OPEN -->
-        <form method="get" action="{{ route('dashboard.jobs.index') }}">
+        <form method="get" action="{{ route('dashboard.job.index') }}">
           <div class="row align-items-end mb-3">
             <div class="col">
               <label for="job_name">{{ trans('dashboard.job.job_name') }}</label>
@@ -40,10 +40,10 @@
               {{--                    {{ $name }}</option>--}}
               {{--                @endforeach--}}
               {{--              </select>--}}
-              {!! Form::select('department_id', $departments, "ll", ['placeholder' => trans('dashboard.job.select_department'),'class' => 'form-control select2-show-search select2-hidden-accessible select2 select2-container  select2-container--below', 'id' => 'mainDepartment',] , ) !!}
+              {!! Form::select('department_id', $departments, null, ['placeholder' => trans('dashboard.job.select_department'),'class' => 'form-control select2-show-search select2-hidden-accessible select2 select2-container  select2-container--below', 'id' => 'mainDepartment',] , ) !!}
             </div>
             <div class="col">
-              <label for="from-hijri-picker"> {{ trans('dashboard.job.from_date') }}</label>
+              <label for="from-hijri-picker"> {{ trans('dashboard.general.from_date') }}</label>
               <div class="input-group">
 
                 {!! Form::date('from_date', null, ['class' => 'form-control', 'id' => 'from-hijri-picker']) !!}
@@ -53,7 +53,7 @@
               </div>
             </div>
             <div class="col">
-              <label for="to-hijri-picker"> {{ trans('dashboard.job.to_date') }}</label>
+              <label for="to-hijri-picker"> {{ trans('dashboard.general.to_date') }}</label>
               <div class="input-group">
 
                 {!! Form::date('to_date', null, ['class' => 'form-control', 'placeholder' => 'يوم/شهر/سنة', 'id' => 'to-hijri-picker']) !!}
@@ -64,22 +64,22 @@
               </div>
             </div>
             <div class="col">
-              <label for="status">{{ trans('dashboard.job.status') }}</label>
+              <label for="status">{{ trans('dashboard.general.status') }}</label>
               <select name = "is_active" class="form-control select2" id="status">
                 <option selected disabled value="">
-                  {{ trans('dashboard.job.select_status') }}
+                  {{ trans('dashboard.general.select_status') }}
                 </option>
-                <option value="">{{ trans('dashboard.job.all') }}</option>
-                <option value=1>{{ trans('dashboard.job.is_active.active') }}</option>
-                <option value=0>{{ trans('dashboard.job.is_active.disactive') }}</option>
+                <option value="">{{ trans('dashboard.general.all') }}</option>
+                <option value=1>{{ trans('dashboard.general.active') }}</option>
+                <option value=0>{{ trans('dashboard.general.inactive') }}</option>
               </select>
             </div>
 
             <div class="col">
-              <label for="type">{{ trans('dashboard.job.type') }}</label>
+              <label for="type">{{ trans('dashboard.general.type') }}</label>
               <select class="form-control select2" id="type" name="is_vacant">
-                <option selected disabled value="">{{ trans('dashboard.job.select_type') }}</option>
-                <option value="">{{ trans('dashboard.job.all') }}</option>
+                <option selected disabled value="">{{ trans('dashboard.general.select_type') }}</option>
+                <option value="">{{ trans('dashboard.general.all') }}</option>
                 <option value=1>{{ trans('dashboard.job.is_vacant.false') }}</option>
                 <option value=0>{{ trans('dashboard.job.is_vacant.true') }}</option>
               </select>
@@ -101,10 +101,10 @@
             </div>
             <div class="col-12 col-md-6 my-2 d-flex justify-content-end">
               <button class="btn btn-primary mx-2" type="submit">
-                <i class="mdi mdi-magnify"></i> {{ trans('dashboard.job.search') }}
+                <i class="mdi mdi-magnify"></i> {{ trans('dashboard.general.search') }}
               </button>
               <button class="btn btn-outline-primary" type="submit">
-                <i class="mdi mdi-restore"></i> {{ trans('dashboard.job.show_all') }}
+                <i class="mdi mdi-restore"></i> {{ trans('dashboard.general.show_all') }}
               </button>
             </div>
           </div>
@@ -123,10 +123,10 @@
                   <th class="border-bottom-0">#</th>
                   <th class="border-bottom-0">{{ trans('dashboard.job.job_name') }}</th>
                   <th class="border-bottom-0">{{ trans('dashboard.job.department') }} </th>
-                  <th class="border-bottom-0">{{ trans('dashboard.job.created_at') }} </th>
-                  <th class="border-bottom-0">{{ trans('dashboard.job.status') }}</th>
-                  <th class="border-bottom-0">{{ trans('dashboard.job.type') }}</th>
-                  <th class="border-bottom-0 text-center">{{ trans('dashboard.job.actions') }}</th>
+                  <th class="border-bottom-0">{{ trans('dashboard.general.created_at') }} </th>
+                  <th class="border-bottom-0">{{ trans('dashboard.general.status') }}</th>
+                  <th class="border-bottom-0">{{ trans('dashboard.general.type') }}</th>
+                  <th class="border-bottom-0 text-center">{{ trans('dashboard.general.actions') }}</th>
                 </tr>
                 </thead>
                 <tbody>
