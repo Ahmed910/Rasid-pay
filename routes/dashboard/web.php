@@ -30,7 +30,15 @@ Route::group(
             Route::get('/', "HomeController@index")->name("home.index");
             Route::post('logout', "Auth\LoginController@logout")->name("logout");
            // Route::resource('departments', "DepartmentController");
+
+            Route::controller('JobController')->name('job.')->prefix('job')->group(function () {
+                Route::get('archive', 'archive')->name('archive');
+                Route::post('restore/{id}', 'restore')->name('restore');
+                Route::delete('forceDelete/{id}', 'forceDelete')->name('forceDelete');
+            });
             Route::resource('job', "JobController");
+
+
             Route::controller('DepartmentController')->name('department.')->prefix('department')->group(function () {
                 Route::get('archive', 'archive')->name('archive');
                 Route::post('restore/{id}', 'restore')->name('restore');
@@ -38,8 +46,9 @@ Route::group(
             });
             Route::resource('department', "DepartmentController");
 
+
         });
 
-
+        // Route::resource('jobs', "Job2Controller");
     }
 );

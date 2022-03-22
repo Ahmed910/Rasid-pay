@@ -6,7 +6,7 @@
           من فضلك قم بإدخال بريدك الإلكتروني وكلمة المرور
         </p>
         <!-- FORM OPEN -->
-
+        
         <form
           method="post"
           action="{{ route('dashboard.post_login') }}"
@@ -22,7 +22,6 @@
               id="userID"
               name="username"
               placeholder="رقم المستخدم"
-              required
             />
             @error('username')
                 <div class="invalid-feedback">{{ $message }}</div>
@@ -37,7 +36,6 @@
                 placeholder="كلمة المرور"
                 name="password"
                 type="password"
-                required
               />
               @error('password')
                   <div class="invalid-feedback">{{ $message }}</div>

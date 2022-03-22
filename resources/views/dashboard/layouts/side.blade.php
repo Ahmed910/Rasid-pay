@@ -160,7 +160,7 @@
                                 أرشيف الأقسام</a>
                         </li>
                         <li>
-                            <a href="../archive/jobs-archive.html" class="slide-item px-6"><i
+                            <a href="{{route('dashboard.job.archive')}}" class="slide-item px-6"><i
                                     class="mdi mdi-briefcase-edit-outline"></i> أرشيف
                                 الوظائف</a>
                         </li>

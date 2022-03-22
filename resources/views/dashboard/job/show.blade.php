@@ -34,7 +34,7 @@ Job view
                   </div>
                   <div class="col-12 col-md-3">
                     <label>اسم القسم:</label>
-                    <p>{{$rasidJob->department->name}}</p>
+                    <p></p>
                   </div>
                   <div class="col-12 col-md-3">
                     <label class="d-block" for="departmentName">الحالة:</label>
@@ -59,13 +59,13 @@ Job view
 
                 <div class="row">
                   <div class="col-12 text-end">
-                    <a href="{{route('dashboard.jobs.edit',$rasidJob->id)}}"
+                    <a href="{{route('dashboard.job.edit',$rasidJob->id)}}"
                       class="btn btn-primary"
                     >
                       <i class="mdi mdi-square-edit-outline"></i> تعديل
                     </a>
                     <a
-                      href="{{route('dashboard.jobs.index')}}"
+                      href="{{route('dashboard.job.index')}}"
                       class="btn btn-outline-primary"
                     >
                       <i class="mdi mdi-arrow-left"></i> عودة

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Blade\Dashboard;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Dashboard\RasidJobs\JobRequest;
+use App\Http\Requests\V1\Dashboard\RasidJobRequest;
 use App\Http\Resources\Blade\Dashboard\Job\JobCollection;
 use App\Models\Department\Department;
 use App\Models\RasidJob\RasidJob;
@@ -18,7 +19,6 @@ class Job2Controller extends Controller
      */
     public function index(Request $request)
     {
-
         if ($request->ajax()) {
 
             $jobsQuery = RasidJob::without('employee')->search($request)
@@ -62,7 +62,7 @@ class Job2Controller extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(JobRequest $request, RasidJob $job)
+    public function store(RasidJobRequest $request, RasidJob $job)
     {
 
         $job->fill($request->validated())->save();
@@ -103,7 +103,7 @@ class Job2Controller extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(JobRequest $request, $id)
+    public function update(RasidJobRequest $request, $id)
     {
         $job = RasidJob::without('employee')->findOrFail($id);
         $job->fill($request->validated() + ['updated_at' => now()])->save();

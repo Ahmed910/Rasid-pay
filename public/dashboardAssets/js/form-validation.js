@@ -1,4 +1,4 @@
- (function() {
+(function() {
     'use strict';
     // Select2
     if ($(".select2")[0]) {
@@ -24,7 +24,7 @@
                                 event.stopPropagation();
 
                             }
-                            form.classList.add("was-validated");
+                            // form.classList.add("was-validated");
                         },
                         false
                     );

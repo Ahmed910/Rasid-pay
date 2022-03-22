@@ -18,6 +18,7 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use App\Notifications\ResetPasswordNotification;
+use Illuminate\Support\Str;
 
 class User extends Authenticatable implements HasAssetsInterface
 {
@@ -30,6 +31,7 @@ class User extends Authenticatable implements HasAssetsInterface
     protected $dates = ['date_of_birth', 'date_of_birth_hijri'];
     public $assets = ['image'];
     protected $with = ['images'];
+    private $sortableColumns = ["login_id", "created_at", "fullname", "department", 'ban_status'];
 
     public static function boot()
     {
@@ -143,6 +145,7 @@ class User extends Authenticatable implements HasAssetsInterface
         }
     }
 
+    #region scopes
     public function scopeSearch(Builder $query, $request)
     {
         $this->addGlobalActivity($this, $request->query(), ActivityLog::SEARCH, 'index');
@@ -186,6 +189,31 @@ class User extends Authenticatable implements HasAssetsInterface
             $query->whereDate('ban_to', "<=", $ban_to);
         }
     }
+
+    public function scopeSortBy(Builder $query, $request)
+    {
+        if (!isset($request->sort["column"]) || !isset($request->sort["dir"])) return $query->latest('created_at');
+
+        if (
+            !in_array(Str::lower($request->sort["column"]), $this->sortableColumns) ||
+            !in_array(Str::lower($request->sort["dir"]), ["asc", "desc"])
+        ) {
+            return $query->latest('created_at');
+        }
+
+        $query->when($request->sort, function ($q) use ($request) {
+            if ($request->sort['column'] == 'department') {
+                return ;
+            //     return $q->leftJoin('employees', 'users.id', 'employees.user_id')
+            //         ->leftJoin('departments', 'departments.id', 'employees.department_id')
+            //         ->leftJoin('department_translations as trans', 'trans.department_id', 'departments.id')
+            //         ->orderBy('trans.name');
+            }
+
+            $q->orderBy($request->sort["column"], @$request->sort["dir"]);
+        });
+    }
+    #endregion scopes
 
     public function sendPasswordResetNotification($token)
     {

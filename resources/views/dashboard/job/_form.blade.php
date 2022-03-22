@@ -8,7 +8,7 @@
 
             @foreach ($locales as $locale)
                 {!! Form::label('jobName', 'اسم الوظيفة') !!}
-                {!! Form::text("{$locale}[name]", Route::currentRouteName() == 'dashboard.jobs.edit'? $rasidJob->name : null, ['class' => 'form-control', 'id' => 'departmentName', 'placeholder' => 'اسم الوظيفة', 'required']) !!}
+                {!! Form::text("{$locale}[name]", Route::currentRouteName() == 'dashboard.job.edit'? $rasidJob->name : null, ['class' => 'form-control', 'id' => 'departmentName', 'placeholder' => 'اسم الوظيفة', 'required']) !!}
 
 
                 <div class="invalid-feedback">اسم الوظيفة مطلوب.</div>
@@ -37,7 +37,7 @@
             <div class="col-12 col-md-9">
 
                 {!! Form::label('departmentDes', 'الوصف الوظيفي') !!}
-                {!! form::textarea("{$locale}[description]", Route::currentRouteName() == 'dashboard.jobs.edit'? $rasidJob->description: null, ['class' => 'form-control', 'id' => 'departmentDes', 'placeholder' => 'الوصف', 'rows' => '5']) !!}
+                {!! form::textarea("{$locale}[description]", Route::currentRouteName() == 'dashboard.job.edit'? $rasidJob->description: null, ['class' => 'form-control', 'id' => 'departmentDes', 'placeholder' => 'الوصف', 'rows' => '5']) !!}
 
             </div>
         @endforeach

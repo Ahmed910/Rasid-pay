@@ -19,11 +19,14 @@ class JobResource extends JsonResource
             'id' => $this->id,
             'name' => $this->name,
             'department_name' => optional($this->department)->name,
-            'created_at' => $this->created_at,
+            'deleted_at' => $this->deleted_at,
             'is_active' => $this->is_active,
-            'show_route' => route('dashboard.jobs.show', $this->id),
-            'edit_route' => route('dashboard.jobs.edit', $this->id),
-            'delete_route' => route('dashboard.jobs.destroy', $this->id)
+            'show_route' => route('dashboard.job.show', $this->id),
+            'edit_route' => route('dashboard.job.edit', $this->id),
+            'delete_route' => route('dashboard.job.destroy', $this->id),
+            'restore_route' => route('dashboard.job.restore', $this->id),
+            'forceDelete_route' => route('dashboard.job.forceDelete', $this->id)
+
         ];
     }
 }

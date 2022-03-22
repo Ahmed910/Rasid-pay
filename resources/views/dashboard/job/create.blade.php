@@ -25,7 +25,7 @@
                 <!-- PAGE-HEADER END -->
 
                 <!-- ROW OPEN -->
-                {!! Form::open(['route'=>'dashboard.jobs.store', 'method' => 'POST', 'class' => 'needs-validation novalidate','id'=>'formId']) !!}
+                {!! Form::open(['route'=>'dashboard.job.store', 'method' => 'POST', 'class' => 'needs-validation novalidate','id'=>'formId']) !!}
                 @include('dashboard.job._form')
                 {!! form::close() !!}
 

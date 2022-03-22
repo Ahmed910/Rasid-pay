@@ -60,7 +60,9 @@ class CurrencyController extends Controller
     public function show(Request $request ,$id)
     {
         $currency = Currency::withTrashed()->with('translations')->findOrFail($id);
-        $activities  = $currency->activity()->paginate((int)($request->per_page ?? 15));
+        $activities  = $currency->activity()
+        ->sortBy($request)
+        ->paginate((int)($request->per_page ?? 15));
         data_set($activities, 'currency', $currency);
 
         return CurrencyCollection::make($activities)

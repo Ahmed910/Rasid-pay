@@ -11,22 +11,19 @@
       <!-- CONTAINER -->
       <div class="main-container container-fluid">
         <div class="page-header">
-            <h1 class="page-title">سجل الأقسام</h1>
-            <a href="department-add.html" class="btn btn-primary">
-                <i class="mdi mdi-plus-circle-outline"></i> إضافة قسم
-            </a>
+          <h1 class="page-title">{{ trans('dashboard.department.sub_progs.archive') }}</h1>
         </div>
         <form method="get" action="" id="search-form">
             <div class="row align-items-end mb-3">
                 <div class="col">
-                    <label for="departmentName">اسم القسم</label>
+                    <label for="departmentName">{{ trans('dashboard.department.department_main') }}</label>
                     <input type="text" class="form-control" id="departmentName" placeholder="اسم القسم" name="name"
                         value="{{ old('name') ?? request('name') }}" />
                 </div>
                 <div class="col">
-                    <label>القسم الرئيسي</label>
-                    <select class="form-control select2" data-placeholder="اختر قسم رئيسي" name="parent_id">
-                        <option selected disabled value="">اختر قسم رئيسي</option>
+                    <label>{{trans('dashboard.department.department_main')}}</label>
+                    <select class="form-control select2" data-placeholder="{{trans('dashboard.department.select_department')}}" name="parent_id">
+                        <option selected disabled value=""></option>
                         @foreach ($parentDepartments as $id => $name)
                             <option value="{{ $id }}"
                                 {{ (old('parent_id') ?? request('parent_id')) == $id ? 'selected' : '' }}>
@@ -35,7 +32,7 @@
                     </select>
                 </div>
                 <div class="col">
-                    <label for="validationCustom02"> تاريخ الإنشاء (من)</label>
+                    <label for="validationCustom02"> {{ trans('dashboard.department.archive_from_date') }}</label>
                     <div class="input-group">
                         <input id="from-hijri-picker" type="text" placeholder="يوم/شهر/سنة" class="form-control"
                             name="created_from" value="{{ old('created_from') ?? request('created_from') }}" />
@@ -45,7 +42,7 @@
                     </div>
                 </div>
                 <div class="col">
-                    <label for="validationCustom02"> تاريخ الإنشاء (إلى)</label>
+                    <label for="validationCustom02">{{ trans('dashboard.department.archive_to_date') }} </label>
                     <div class="input-group">
                         <input id="to-hijri-picker" type="text" placeholder="يوم/شهر/سنة" class="form-control"
                             name="created_to" value="{{ old('created_to') ?? request('created_to') }}" />
@@ -54,15 +51,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col">
-                    <label for="status">الحالة</label>
-                    <select class="form-control select2" id="status" name="is_active">
-                        <option selected disabled value="">اختر الحالة</option>
-                        <option value="">الجميع</option>
-                        <option value="1" {{ request('is_active') == "1" ? 'selected' : '' }}>مفعل</option>
-                        <option value="0" {{ request('is_active') == "0" ? 'selected' : '' }}>معطل</option>
-                    </select>
-                </div>
+
             </div>
             <div class="row">
                 <div class="col-12 col-md-6 my-2">
@@ -79,10 +68,10 @@
                 </div>
                 <div class="col-12 col-md-6 my-2 d-flex justify-content-end">
                     <button class="btn btn-primary mx-2" type="submit">
-                        <i class="mdi mdi-magnify"></i> بحث
+                        <i class="mdi mdi-magnify"></i> {{ trans('dashboard.department.search') }}
                     </button>
                     <a href="{{ route('dashboard.department.index') }}" class="btn btn-outline-primary">
-                        <i class="mdi mdi-restore"></i> عرض الكل
+                        <i class="mdi mdi-restore"></i>{{ trans('dashboard.department.show_all') }}
                     </a>
                 </div>
             </div>

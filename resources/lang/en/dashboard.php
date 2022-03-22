@@ -11,10 +11,13 @@ $permissions = [
 ];
 return [
     'attributes' => [
-         'name' => 'Name in Arabic',
-         'description' => 'Description in Arabic',
+        'name' => 'Name in Arabic',
+        'description' => 'Description in Arabic',
     ],
 
+    'datatable' => [
+        'show' => 'Show :menu'
+    ],
     'general' => [
         "success_add" => "Created Successfully",
         "success_delete" => "Deleted Successfully",
@@ -23,6 +26,7 @@ return [
         "success_restore" => "Restored Successfully",
         "has_relationship_cannot_delete" => "This item has relationships ,so you cannot delete it",
         "save" => "Save",
+        "back" => "Back",
         "edit" => "Edit",
         "show" => "Show",
         "archive" => "Archive",
@@ -30,6 +34,27 @@ return [
         "force_delete" => "Permanent Delete",
         'sent_successfully' => 'Sent Successfully',
         'success_send_login_code' => 'The verification code has been sent to the mobile number',
+        'fail_send' => 'Sending Failed',
+        'active' => 'Active',
+        'inactive' => 'Inactive',
+        'dashboard' => 'Rasid Jack Dashboard',
+        "status" => "Status",
+        "select_status" => "Select Status",
+        "type" => "Type",
+        "select_type" => "Select Type",
+        "from_date" => "Creation Date (From)",
+        "to_date" => "Creation Date (To)",
+        "search" => "Search",
+        "show_all" => "Show All",
+        "created_at" => "Creation Date",
+        "actions" => "Actions",
+        'all' => 'All',
+        'description' => 'Description',
+        'day_month_year' => 'day/month/year',
+        'export' => 'Export',
+        'details' => 'Details',
+        'no_data' => 'No Data',
+        'there_is_no_data' => 'There is no data available',
     ],
     'error' => [
         'method_not_allow' => 'Http method (:method) not allowed',
@@ -68,11 +93,23 @@ return [
     "department" => [
         "department" => "Department",
         "departments" => "Departments",
+        "department_main" => "Main Department",
+        "select_department" => "select_department",
         "add_department" => "",
         "edit_department" => "",
         "department_count" => "",
+        "archive_from_date" => "archive_from_date",
+        "archive_to_date" => "archive_to_date",
+        "search" => "search",
+        "show_all" => "show_all",
+        'sub_progs' => [
+            'index' => 'index ',
+            'archive' => 'archive ',
+            'create' => 'create ',
+        ],
         "department_has_relationship_cannot_delete" => "This department has sub department ,so you cannot delete it",
-        'permissions' => $permissions + ['get_parents' => 'Show main departments']
+        'permissions' => $permissions + ['get_parents' => 'Show main departments'],
+        'without_parent' => 'Without'
     ],
     "rasid_job" => [
         "rasid_job" => "Job",
@@ -86,7 +123,13 @@ return [
 
        "jobs_hired_deleted" => " can't delete this job ",
        "jobs_hired_archived" => " can't archive this job ",
-        'permissions' => $permissions
+        'permissions' => $permissions,
+        'sub_progs' => [
+            'index' => 'index',
+            'archive' => 'archive ',
+            'create' => 'create ',
+        ],
+
     ],
     "setting" => [
         "setting" => "Setting",
@@ -124,7 +167,7 @@ return [
         "add_employee" => "Add Employee",
         "edit_employee" => "Edit Employee",
         "employee_count" => "Employees Count",
-        'permissions' => array_except($permissions, ['archive', 'restore', 'force_delete'])+ ['create' => 'Show Employees']
+        'permissions' => array_except($permissions, ['archive', 'restore', 'force_delete']) + ['create' => 'Show Employees']
     ],
     "bank" => [
         "bank" => "Bank",
@@ -146,6 +189,8 @@ return [
         "status" => "Status",
         "select_status" => "Select Status",
         "type" => "Type",
+        "archive_from_date" => "تاريخ الأرشفة  (من)",
+        "archive_to_date" => "تاريخ الأرشفة  (إلى)",
         "employee_name" => "Employee Name",
         "job_description" => "Job Description",
         'sub_progs' => [
@@ -175,7 +220,7 @@ return [
         "add_client" => "add_client",
         "edit_client" => "edit_client",
         "admin_client" => "admin_client",
-        'permissions' => array_except($permissions, ['archive', 'restore', 'force_delete']) + [ 'create' => 'Show Client']
+        'permissions' => array_except($permissions, ['archive', 'restore', 'force_delete']) + ['create' => 'Show Client']
     ],
     'user' => [
         'users' => 'Users'

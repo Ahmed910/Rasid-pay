@@ -1,115 +1,98 @@
 @extends('dashboard.layouts.master')
 @section('title')
-Jobs Grid
+job Grid
 @endsection
+
 @section('content')
-<div class="main-content app-content mt-0">
+  <!--app-content open-->
+  <div class="main-content app-content mt-0">
     <div class="side-app">
       <!-- CONTAINER -->
       <div class="main-container container-fluid">
         <!-- PAGE-HEADER -->
         <div class="page-header">
           <h1 class="page-title">سجل الوظائف</h1>
-          <a href="{{route('dashboard.jobs.create')}}" class="btn btn-primary">
+          <a href="{{route('dashboard.job.create')}}" class="btn btn-primary">
             <i class="mdi mdi-plus-circle-outline"></i> إضافة وظيفة
           </a>
         </div>
         <!-- PAGE-HEADER END -->
 
         <!-- FORM OPEN -->
-            <form method="get" action="">
-              <div class="row align-items-end mb-3">
-                <div class="col">
-                  <label for="departmentName">اسم الوظيفة</label>
-                  <input
-                    type="text"
-                    class="form-control"
-                    id="departmentName"
-                    placeholder="اسم الوظيفة"
-                  />
-                </div>
-                <div class="col">
-                  <label for="mainDepartment">  اسم القسم </label>
-                  <select
-                    class="form-control select2-show-search form-select"
-                    id="mainDepartment"
-                    data-placeholder="اختر قسم"
+        <form method="get" action="{{ route('dashboard.job.index') }}">
+          <div class="row align-items-end mb-3">
+            <div class="col">
+              <label for="job_name">{{ trans('dashboard.job.job_name') }}</label>
 
-                  >
-                    <option selected disabled value="">
-                      اختر قسم
-                    </option>
-                    <option>قسم البرمجيات</option>
-                    <option>قسم التصميم</option>
-                    <option>قسم الجودة</option>
-                    <option>قسم تحليل المتطلبات</option>
-                  </select>
-                </div>
-<div class="col">
-              <label for="from-hijri-picker"> تاريخ الإنشاء (من)</label>
+              {!! Form::text('name', null, ['class' => 'form-control', 'placeholder' => trans('dashboard.job.job_name'), 'id' => 'job_name']) !!}
+            </div>
+            <div class="col">
+              <label for="mainDepartment"> {{ trans('dashboard.department.department') }} </label>
+              {{--              <select class="form-control select2"--}}
+
+              {{--                      name="department_id">--}}
+              {{--                <option selected disabled value="">{{ trans('dashboard.job.select_department') }}</option>--}}
+              {{--                @foreach ($departments as $id => $name)--}}
+              {{--                  <option value="{{ $id }}"--}}
+              {{--                    {{ (old('department_id') ?? request('department_id')) == $id ? 'selected' : '' }}--}}
+              {{--                  >--}}
+              {{--                    {{ $name }}</option>--}}
+              {{--                @endforeach--}}
+              {{--              </select>--}}
+              {!! Form::select('department_id', $departments, "ll", ['placeholder' => trans('dashboard.job.select_department'),'class' => 'form-control select2-show-search select2-hidden-accessible select2 select2-container  select2-container--below', 'id' => 'mainDepartment',] , ) !!}
+            </div>
+            <div class="col">
+              <label for="from-hijri-picker"> {{ trans('dashboard.general.from_date') }}</label>
               <div class="input-group">
-                <input
-                  id="from-hijri-picker"
-                  type="text"
-                  placeholder="يوم/شهر/سنة"
-                  class="form-control"
-                /> <div class="input-group-text border-start-0">
+
+                {!! Form::date('from_date', null, ['class' => 'form-control', 'id' => 'from-hijri-picker']) !!}
+                <div class="input-group-text border-start-0">
                   <i class="fa fa-calendar tx-16 lh-0 op-6"></i>
                 </div>
               </div>
             </div>
             <div class="col">
-              <label for="to-hijri-picker">تاريخ الإنشاء (إلى)</label>
+              <label for="to-hijri-picker"> {{ trans('dashboard.general.to_date') }}</label>
               <div class="input-group">
-                <input
-                  id="to-hijri-picker"
-                  type="text"
-                  placeholder="يوم/شهر/سنة"
-                  class="form-control"
-                /> <div class="input-group-text border-start-0">
+
+                {!! Form::date('to_date', null, ['class' => 'form-control', 'placeholder' => 'يوم/شهر/سنة', 'id' => 'to-hijri-picker']) !!}
+
+                <div class="input-group-text border-start-0">
                   <i class="fa fa-calendar tx-16 lh-0 op-6"></i>
                 </div>
               </div>
             </div>
-                <div class="col">
-                  <label for="status">الحالة</label>
-                  <select class="form-control select2" id="status">
-                    <option selected disabled value="">
-                      اختر الحالة
-                    </option>
-                    <option>الجميع</option>
-                    <option>مفعلة</option>
-                    <option>معطلة</option>
-                  </select>
-                </div>
+            <div class="col">
+              <label for="status">{{ trans('dashboard.job.status') }}</label>
+              <select name = "is_active" class="form-control select2" id="status">
+                <option selected disabled value="">
+                  {{ trans('dashboard.job.select_status') }}
+                </option>
+                <option value="">{{ trans('dashboard.job.all') }}</option>
+                <option value=1>{{ trans('dashboard.job.is_active.active') }}</option>
+                <option value=0>{{ trans('dashboard.job.is_active.disactive') }}</option>
+              </select>
+            </div>
 
-                <div class="col">
-                  <label for="type">النوع</label>
-                  <select class="form-control select2" id="type">
-                    <option selected disabled value="">اختر النوع</option>
-                    <option>الجميع</option>
-                    <option>ِشاغرة</option>
-                    <option>مشغولة</option>
-                  </select>
-                </div>
+            <div class="col">
+              <label for="type">{{ trans('dashboard.job.type') }}</label>
+              <select class="form-control select2" id="type" name="is_vacant">
+                <option selected disabled value="">{{ trans('dashboard.job.select_type') }}</option>
+                <option value="">{{ trans('dashboard.job.all') }}</option>
+                <option value=1>{{ trans('dashboard.job.is_vacant.false') }}</option>
+                <option value=0>{{ trans('dashboard.job.is_vacant.true') }}</option>
+              </select>
+            </div>
 
-              </div>
-              <div class="row">
-                <div class="col-12 col-md-6 my-2">
+          </div>
+          <div class="row">
+            <div class="col-12 col-md-6 my-2">
               <div class="dropdown">
-                <button
-                  class="btn btn-outline-primary dropdown-toggle"
-                  type="button"
-                  id="dropdownMenuButton1"
-                  data-bs-toggle="dropdown"
-                  aria-expanded="false"
-                >
+                <button class="btn btn-outline-primary dropdown-toggle" type="button"
+                        id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
                   <i class="mdi mdi-tray-arrow-down"></i> تصدير
                 </button>
-                <ul
-                  class="dropdown-menu"
-                  aria-labelledby="dropdownMenuButton1"
-                >
+                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
                   <li><a class="dropdown-item" href="#">PDF</a></li>
                   <li><a class="dropdown-item" href="#">Excel</a></li>
                 </ul>
@@ -117,36 +100,32 @@ Jobs Grid
             </div>
             <div class="col-12 col-md-6 my-2 d-flex justify-content-end">
               <button class="btn btn-primary mx-2" type="submit">
-                <i class="mdi mdi-magnify"></i> بحث
+                <i class="mdi mdi-magnify"></i> {{ trans('dashboard.job.search') }}
               </button>
               <button class="btn btn-outline-primary" type="submit">
-                <i class="mdi mdi-restore"></i> عرض الكل
+                <i class="mdi mdi-restore"></i> {{ trans('dashboard.job.show_all') }}
               </button>
             </div>
-              </div>
+          </div>
 
-            </form>
+        </form>
 
         <!-- FORM CLOSED -->
-
         <!-- Row -->
         <div class="row row-sm">
           <div class="col-lg-12">
             <div class="table-responsive p-1">
-              <table
-                id="historyTable"
-                class="table table-bordered shadow-sm bg-body text-nowrap key-buttons"
-              >
+              <table id="JobsTable" class="table table-bordered shadow-sm bg-body text-nowrap key-buttons">
                 <thead>
-                  <tr>
-                    <th class="border-bottom-0">#</th>
-                    <th class="border-bottom-0">اسم الوظيفة</th>
-                    <th class="border-bottom-0">اسم القسم </th>
-                    <th class="border-bottom-0">تاريخ الإنشاء </th>
-                    <th class="border-bottom-0">الحالة</th>
-                    <th class="border-bottom-0">النوع</th>
-                    <th class="border-bottom-0 text-center">العمليات</th>
-                  </tr>
+                <tr>
+                  <th class="border-bottom-0">#</th>
+                  <th class="border-bottom-0">{{ trans('dashboard.job.job_name') }}</th>
+                  <th class="border-bottom-0">{{ trans('dashboard.department.department') }} </th>
+                  <th class="border-bottom-0">{{ trans('dashboard.general.created_at') }} </th>
+                  <th class="border-bottom-0">{{ trans('dashboard.general.status') }}</th>
+                  <th class="border-bottom-0">{{ trans('dashboard.general.type') }}</th>
+                  <th class="border-bottom-0 text-center">{{ trans('dashboard.general.actions') }}</th>
+                </tr>
                 </thead>
                 <tbody>
 
@@ -167,7 +146,7 @@ Jobs Grid
                               />
                             </div>
                             <div class="flex-grow-1 ms-3">
-                              {{$rasidJob->department->name }}
+                              {{-- {{$rasidJob->department->name }} --}}
                             </div>
                           </div>
                         </td>
@@ -183,7 +162,7 @@ Jobs Grid
                         </td>
                         <td class="text-center">
                           <a
-                            href="{{route('dashboard.jobs.show',$rasidJob->id)}}"
+                            href="{{route('dashboard.job.show',$rasidJob->id)}}"
                             class="azureIcon"
                             data-bs-toggle="tooltip"
                             data-bs-placement="top"
@@ -191,7 +170,7 @@ Jobs Grid
                             ><i class="mdi mdi-eye-outline"></i
                           ></a>
                           <a
-                            href="{{route('dashboard.jobs.edit',$rasidJob->id)}}"
+                            href="{{route('dashboard.job.edit',$rasidJob->id)}}"
                             class="warningIcon"
                             data-bs-toggle="tooltip"
                             data-bs-placement="top"
@@ -226,72 +205,8 @@ Jobs Grid
     </div>
   </div>
   <!--app-content closed-->
-</div>
-
-<!-- archiveModal -->
-<div
-  class="modal fade"
-  id="archiveModal"
->
-  <div class="modal-dialog modal-dialog-centered">
-    <div class="modal-content border-0">
-      <div class="modal-body text-center p-0">
-        <lottie-player
-          autoplay
-          loop
-          mode="normal"
-          src="{{asset('dashboardAssets/images/lottie/archive.json')}}"
-          style="width: 55%; display: block; margin: 0 auto 1em"
-        >
-        </lottie-player>
-        <p>هل تريد إتمام عملية الأرشفة؟
-
-</p>
-        <div class="mt-3">
-          <textarea
-            class="form-control"
-            placeholder="الرجاء ذكر السبب"
-            rows="3"
-          ></textarea>
-        </div>
-      </div>
-      <div class="modal-footer mt-5 p-0">
-        <button type="button" class="btn btn-primary mx-3">تأكيد</button>
-        <button
-          type="button"
-          class="btn btn-outline-primary"
-          data-bs-dismiss="modal"
-        >
-          إلغاء
-        </button>
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- notArchiveModal Modal -->
-<div class="modal fade" id="notArchiveModal">
-  <div class="modal-dialog modal-dialog-centered">
-    <div class="modal-content border-0">
-      <div class="modal-body text-center p-0">
-        <lottie-player
-          autoplay
-          loop
-          mode="normal"
-          src="{{asset('dashboardAssets/images/lottie/unarchive.json')}}"
-          style="width: 55%; display: block; margin: 0 auto 1em"
-        >
-        </lottie-player>
-        <p>لا يمكن أرشفة وظيفة مشغولة</p>
-      </div>
-      <div class="modal-footer justify-content-center mt-5 p-0">
-        <button type="button" class="btn btn-warning mx-3">إغلاق</button>
-
-      </div>
-    </div>
-  </div>
-</div>
 @endsection
 
-@section('script')
-
+@section('scripts')
+  @include('dashboard.job.script')
+@endsection
