@@ -69,9 +69,7 @@
                 {
                     class: "text-center",
                     data: function(data) {
-                        fun_modal = (data.has_jobs) ?
-                            `archiveItem('${data.id}', '${data.delete_route}')` :
-                            `notArchiveItem()`;
+                        fun_modal = data.has_jobs ? `notArchiveItem()`: `archiveItem('${data.id}', '${data.delete_route}')`;
 
                         return `<a
                                 href="${data.show_route}"

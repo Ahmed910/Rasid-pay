@@ -42,11 +42,11 @@ class Group extends Model implements TranslatableContract
             $query->where('is_active', $request->is_active);
         }
 
-        if ($request->admins_from) {
+        if ($request->has('admins_from')) {
             $query->withCount('admins as admins_from')->having('admins_from',">=" , $request->admins_from);
         }
 
-        if ($request->admins_to) {
+        if ($request->has('admins_to')) {
             $query->withCount('admins as admins_to')->having('admins_to',"<=" , $request->admins_to);
         }
     }
