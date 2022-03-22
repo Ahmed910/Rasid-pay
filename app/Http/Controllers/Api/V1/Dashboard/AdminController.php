@@ -17,7 +17,9 @@ class AdminController extends Controller
     {
         $users = User::CustomDateFromTo($request)->search($request)->with(['department', 'permissions', 'groups' => function ($q) {
             $q->with('permissions');
-        }])->where('user_type', 'admin')->latest()->paginate((int)($request->per_page ?? config("globals.per_page")));
+        }])->where('user_type', 'admin')
+        ->sortBy($request)
+        ->paginate((int)($request->per_page ?? config("globals.per_page")));
 
         // $users = User::CustomSearch($request)->latest()->paginate((int)($request->per_page ?? config("globals.per_page")));
 
