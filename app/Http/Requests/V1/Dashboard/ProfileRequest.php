@@ -23,9 +23,9 @@ class ProfileRequest extends ApiMasterRequest
         return [
             'fullname' => 'required|string|max:225',
             'email' => 'required|email|max:225|unique:users,email,' . auth()->id(),
-            'phone' => 'required|numeric|min:20|unique:users,phone,' . auth()->id(),
-            'whatsapp' => 'required|max:20|unique:users,whatsapp,' . auth()->id(),
-            'identity_number' => 'required|numeric|min:20|unique:users,identity_number,' . auth()->id(),
+            'phone' => 'required|digits_between:5,15|unique:users,phone,' . auth()->id(),
+            'whatsapp' => 'required|digits_between:5,15|unique:users,whatsapp,' . auth()->id(),
+            'identity_number' => 'required|digits:10|unique:users,identity_number,' . auth()->id(),
             'gender' => 'required|in:male,female',
             'date_of_birth' => 'required|date',
             'date_of_birth_hijri' => 'required|date',
