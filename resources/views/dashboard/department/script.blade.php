@@ -10,7 +10,8 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.9.0/moment.min.js"></script>
 <script src="https://cdn.jsdelivr.net/gh/moment/moment@develop/min/moment-with-locales.min.js"></script>
 <!-- DATE PICKER JS -->
-<script src="{{ asset('dashboardAssets/plugins/bootstrap-hijri-datepicker/js/bootstrap-hijri-datetimepicker.js') }}"></script>
+<script src="{{ asset('dashboardAssets/plugins/bootstrap-hijri-datepicker/js/bootstrap-hijri-datetimepicker.js') }}">
+</script>
 <script src="{{ asset('dashboardAssets/js/custom_scripts.js') }}"></script>
 
 <script>
@@ -50,7 +51,8 @@
                 },
                 {
                     data: function(data) {
-                        return data.parent ? data.parent.name : "{{ trans('dashboard.department.without_parent') }}";
+                        return data.parent ? data.parent.name :
+                            "{{ trans('dashboard.department.without_parent') }}";
                     },
                     name: 'parent'
                 },
@@ -65,19 +67,22 @@
                         } else {
                             return ` <span class="badge bg-danger-opacity py-2 px-4">${"@lang('dashboard.general.inactive')"}</span>`;
                         }
-                    }
+                    },
+                    name: 'is_active'
                 },
                 {
                     class: "text-center",
                     data: function(data) {
-                        fun_modal = (data.has_jobs) ? `archiveItem('${data.id}', '${data.delete_route}')` : `notArchiveItem()`;
+                        fun_modal = (data.has_jobs) ?
+                            `archiveItem('${data.id}', '${data.delete_route}')` :
+                            `notArchiveItem()`;
 
                         return `<a
                                 href="${data.show_route}"
                                 class="azureIcon"
                                 data-bs-toggle="tooltip"
                                 data-bs-placement="top"
-                                title="التفاصيل"
+                                title="@lang('dashboard.general.details')"
                                 ><i class="mdi mdi-eye-outline"></i
                               ></a>
                               <a
@@ -85,7 +90,7 @@
                                 class="warningIcon"
                                 data-bs-toggle="tooltip"
                                 data-bs-placement="top"
-                                title="تعديل"
+                                title="@lang('dashboard.general.edit')"
                                 ><i class="mdi mdi-square-edit-outline"></i
                               ></a>
                               <a
@@ -94,7 +99,7 @@
                               class="primaryIcon"
                               data-bs-toggle="tooltip"
                               data-bs-placement="top"
-                              title="أرشفة"
+                              title="@lang('dashboard.general.archive')"
                               ><i class="mdi mdi-archive-arrow-down-outline"></i></a>`
                     }
                 }
@@ -102,13 +107,13 @@
             pageLength: 10,
             lengthMenu: [
                 [5, 10, 20, -1],
-                [5, 10, 20, "الكل"],
+                [5, 10, 20, "@lang('dashboard.general.all')"],
             ],
             "language": {
-                "lengthMenu": "عرض _MENU_",
-                "zeroRecords": "لا يوجد بيانات",
+                "lengthMenu": "@lang('dashboard.datatable.show') _MENU_",
+                "zeroRecords": "@lang('dashboard.general.no_data')",
                 "info": "إظهار _START_ إلى _END_ من أصل _TOTAL_ مدخل",
-                "infoEmpty": "لا يوجد نتائج بحث متاحة",
+                "infoEmpty": "@lang('dashboard.general.there_is_no_data')",
                 "paginate": {
                     "previous": '<i class="mdi mdi-chevron-right"></i>',
                     "next": '<i class="mdi mdi-chevron-left"></i>',

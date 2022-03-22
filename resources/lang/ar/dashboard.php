@@ -17,6 +17,9 @@ return [
         'description' => 'الوصف باللغة العربية',
         'nationality' => 'الجنسية باللغة العربية',
     ],
+    'datatable' => [
+        'show :menu' => 'عرض :menu'
+    ],
     'general' => [
         "success_add" => "تم الإضافة بنجاح",
         "success_delete" => "تم الحذف بنجاح",
@@ -49,7 +52,12 @@ return [
         "created_at" => "تاريخ الإنشاء",
         "actions" => "العمليات",
         'all' => 'الجميع',
-        'description'=>'الوصف'
+        'description' => 'الوصف',
+        'day_month_year' => 'يوم/شهر/سنة',
+        'export' => 'تصدير',
+        'details' => 'التفاصيل',
+        'no_data' => 'لا يوجد بيانات',
+        'there_is_no_data' => 'لا يوجد نتائج بحث متاحة',
     ],
     'error' => [
         'method_not_allow' => 'طريقة الطلب (:method) غير صحيحة',
