@@ -61,11 +61,13 @@ class Department2Controller extends Controller
      * @param int $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($id,Request $request)
 
     {
         $department = Department::withTrashed()->with('translations')->findOrFail($id);
-        $activities = $department->activity()->latest()->get();
+        $activities = $department->activity()
+        ->sortBy($request)
+        ->get();
 
         return View("dashboard.department2.show", ["department" => $department, 'activity' => $activities]);
     }

@@ -64,7 +64,9 @@ class DepartmentController extends Controller
     public function show(Request $request, $id)
     {
         $department = Department::withTrashed()->findOrFail($id);
-        $activitiesQuery  = $department->activity()->get();
+        $activitiesQuery  = $department->activity()
+        ->sortBy($request)
+        ->get();
 
         if ($request->ajax()) {
             $activityCount = $activitiesQuery->count();
