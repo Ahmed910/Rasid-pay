@@ -18,7 +18,11 @@ class GroupController extends Controller
      */
     public function index(Request $request)
     {
-        $groups = Group::with('groups','permissions')->withTranslation()->search($request)->latest()->paginate((int)($request->per_page ?? 15));
+        $groups = Group::with('groups','permissions')
+        ->withTranslation()
+        ->search($request)
+        ->sortBy($request)
+        ->paginate((int)($request->per_page ?? 15));
 
         return GroupResource::collection($groups)->additional(['status' => true, 'message' => ""]);
     }
