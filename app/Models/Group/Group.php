@@ -71,7 +71,7 @@ class Group extends Model implements TranslatableContract
         $query->when($request->sort, function ($q) use ($request) {
             if ($request->sort["column"]  == "name") {
                 return $q->has('translations')
-                    ->orderBy($request->sort["column"], @$request->sort["dir"]);
+                    ->orderByTranslation($request->sort["column"], @$request->sort["dir"]);
             }
 
             if ($request->sort["column"] == "user_count") {
