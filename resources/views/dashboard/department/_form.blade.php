@@ -64,9 +64,6 @@
     <script src="{{ asset('dashboardAssets/js/select2.js') }}"></script>
     <script src="{{ asset('dashboardAssets/plugins/select2/select2.full.min.js') }}"></script>
 
-    <!-- FORMVALIDATION JS -->
-    <script src="{{ asset('dashboardAssets/js/form-validation.js') }}"></script>
-
     <!-- FILE UPLOADES JS -->
     <script src="{{ asset('dashboardAssets/plugins/fileuploads/js/fileupload.js') }}"></script>
     <script src="{{ asset('dashboardAssets/plugins/fileuploads/js/file-upload.js') }}"></script>
