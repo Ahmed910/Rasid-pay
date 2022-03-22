@@ -215,7 +215,7 @@ return [
         "job_count" => "عدد الوظائف",
         "job_name" => "اسم الوظيفة",
         "department" => "القسم",
-        "select_department" => "اختر القسم",
+        "select_department" => "جميع الاقسام",
         "status" => "الحالة",
         "select_status" => "اختر الحالة",
         "type" => "النوع",

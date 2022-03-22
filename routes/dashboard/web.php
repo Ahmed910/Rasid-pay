@@ -29,7 +29,7 @@ Route::group(
             Route::get('/', "HomeController@index")->name("home.index");
             Route::post('logout', "Auth\LoginController@logout")->name("logout");
             Route::resources([
-                'job' => 'Job2Controller',
+                'job' => 'JobController',
                 'department' => 'DepartmentController',
             ]);
         });
