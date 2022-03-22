@@ -21,8 +21,17 @@
                 <!-- PAGE-HEADER END -->
 
                 <!-- ROW OPEN -->
+              @if ($errors->any())
+                <div class="alert alert-danger">
+                  <ul>
+                    @foreach ($errors->all() as $error)
+                      <li>{{ $error }}</li>
+                    @endforeach
+                  </ul>
+                </div>
+              @endif
 
-                {!! Form::model($job, ['route' => ['dashboard.jobs.update', $job->id], 'method' => 'PUT', 'files' => true, 'class' => 'steps-validation wizard-circle needs-validation', 'data-locale' => app()->getLocale()]) !!}
+              {!! Form::model($job, ['route' => ['dashboard.jobs.update', $job->id], 'method' => 'PUT', 'files' => true, 'class' => 'steps-validation wizard-circle needs-validation', 'data-locale' => app()->getLocale()]) !!}
                 @include('dashboard.job2._form')
                 {!! Form::close() !!}
             </div>

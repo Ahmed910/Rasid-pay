@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Blade\Dashboard;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\V1\Dashboard\RasidJobRequest;
+use App\Http\Resources\Blade\Dashboard\Job\JobCollection;
 use App\Http\Resources\Dashboard\RasidJob\{RasidJobResource, RasidJobCollection};
 use App\Models\Department\Department;
 use App\Models\RasidJob\RasidJob;
@@ -18,15 +19,28 @@ class JobController extends Controller
      */
     public function index(Request $request)
     {
-        // $rasidJobs = RasidJob::search($request)
-        //     ->CustomDateFromTo($request)
-        //     ->ListsTranslations('name')
-        //     ->sortBy($request)
-        //     ->paginate((int)($request->per_page ?? config("globals.per_page")));
+        if ($request->ajax()) {
 
-        $rasidJobs=RasidJob::all();
+            $jobsQuery = RasidJob::without('employee')->search($request)
+                ->CustomDateFromTo($request)
+                ->ListsTranslations('name')
+                ->sortBy($request)
+                ->addSelect('rasid_jobs.created_at', 'rasid_jobs.is_active', 'rasid_jobs.department_id', 'rasid_jobs.is_vacant')
+            ;
+            $jobCount = $jobsQuery->count();
+            $jobs = $jobsQuery->skip($request->start)
+                ->take($request['length'] == '-1' ? $jobCount : $request['length'])
+                ->get();
+            return JobCollection::make($jobs)
+                ->additional(['total_count' => $jobCount]);
+        }
 
-        return view('dashboard.job.index',compact('rasidJobs'));
+        $departments = Department::where('is_active', 1)
+            ->select("id")
+            ->ListsTranslations("name")
+            ->pluck('name', 'id');
+
+        return view('dashboard.job2.index', compact('departments'));
     }
 
     /**

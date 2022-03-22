@@ -141,7 +141,7 @@ return [
         "add_department" => "اضافة قسم",
         "edit_department" => "تعديل القسم",
         "department_count" => "عدد الأقسام",
-        'select_main_department' => 'اختر قسم الرئيسي',
+        'select_main_department' => 'جميع الاقسام',
         'sub_progs' => [
             'index' => 'سجل الأقسام',
             'archive' => 'أرشيف الأقسام',
