@@ -69,13 +69,7 @@
                 {
                     class: "text-center",
                     data: function(data) {
-<<<<<<< HEAD
                         fun_modal = data.has_jobs ? `notArchiveItem()`: `archiveItem('${data.id}', '${data.delete_route}')`;
-=======
-                        fun_modal = (data.has_jobs) ?
-                            `archiveItem('${data.id}', '${data.delete_route}')` :
-                            `notArchiveItem()`;
->>>>>>> 7347583271ab15dba69c6f5731c0b62fba5dcf32
 
                         return `<a
                                 href="${data.show_route}"
@@ -123,7 +117,7 @@
         $('.select2').select2({
             minimumResultsForSearch: Infinity
         });
-    });    
+    });
 </script>
 <script src="{{ asset('dashboardAssets/js/select2.js') }}"></script>
 <script src="{{ asset('dashboardAssets/plugins/select2/select2.full.min.js') }}"></script>
