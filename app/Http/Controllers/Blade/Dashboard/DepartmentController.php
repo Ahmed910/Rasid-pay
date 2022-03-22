@@ -60,7 +60,7 @@ class DepartmentController extends Controller
 
     public function create()
     {
-        $departments = Department::with('parent.translations')->ListsTranslations('name')->where('parent_id', null)->pluck('name', 'id');
+        $departments = Department::with('parent.translations')->ListsTranslations('name')->where('parent_id', null)->pluck('name', 'id')->toArray();
         $locales = config('translatable.locales');
         return view('dashboard.department.create', compact('departments', 'locales'));
     }
@@ -68,7 +68,7 @@ class DepartmentController extends Controller
     public function store(DepartmentRequest $request, Department $department)
     {
         $department->fill($request->validated())->save();
-        return redirect()->route('dashboard.departments.index')->with('success', __('dashboard.general.success_add'));
+        return redirect()->route('dashboard.department.index')->with('success', __('dashboard.general.success_add'));
     }
 
     public function show(Request $request,$id)
@@ -92,7 +92,7 @@ class DepartmentController extends Controller
 
     public function edit(Department $department)
     {
-        $departments = Department::with('parent.translations')->ListsTranslations('name')->where('parent_id', null)->pluck('name', 'id');
+        $departments = Department::with('parent.translations')->ListsTranslations('name')->where('parent_id', null)->pluck('name', 'id')->toArray();
         $locales = config('translatable.locales');
         return view('dashboard.department.edit', compact('departments', 'department','locales'));
     }
@@ -101,7 +101,7 @@ class DepartmentController extends Controller
     public function update(DepartmentRequest $request, Department $department)
     {
         $department->fill($request->validated() + ['updated_at' => now()])->save();
-        return redirect()->route('dashboard.departments.index')->with('success', __('dashboard.general.success_update'));
+        return redirect()->route('dashboard.department.index')->with('success', __('dashboard.general.success_update'));
     }
 
 

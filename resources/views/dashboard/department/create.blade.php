@@ -16,10 +16,11 @@
                     <nav aria-label="breadcrumb">
                         <ol class="breadcrumb">
                             <li class="breadcrumb-item">
-                                <a href="{{ route('dashboard.department.index') }}"> سجل الأقسام</a>
+                                <a href="{{ route('dashboard.department.index') }}">{{ trans('dashboard.department.sub_progs.index') }}
+                                </a>
                             </li>
                             <li class="breadcrumb-item active" aria-current="page">
-                                إضافة قسم
+                                {{ trans('dashboard.department.sub_progs.create') }}
                             </li>
                         </ol>
                     </nav>
@@ -27,8 +28,8 @@
                 <!-- PAGE-HEADER END -->
 
                 <!-- ROW OPEN -->
-                {!! Form::open(['route' => 'dashboard.department.store', 'method' => 'POST', 'enctype' => 'multipart/form-data', 'class' => 'needs-validation','id' =>'formId', 'novalidate']) !!}
-                   @include('dashboard.department._form')
+                {!! Form::open(['route' => 'dashboard.department.store', 'method' => 'POST', 'enctype' => 'multipart/form-data', 'class' => 'needs-validation', 'id' => 'formId', 'novalidate']) !!}
+                @include('dashboard.department._form')
                 {!! Form::close() !!}
                 <!-- ROW CLOSED -->
             </div>
