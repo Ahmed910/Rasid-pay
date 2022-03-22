@@ -8,7 +8,7 @@
         <div class="side-app">
             <div class="main-container container-fluid">
                 <div class="page-header">
-                    <h1 class="page-title">سجل الأقسام</h1>
+                    <h1 class="page-title">@lang('dashboard.department.sub_progs.index')</h1>
                     <a href="{{ route('dashboard.department.create') }}" class="btn btn-primary">
                         <i class="mdi mdi-plus-circle-outline"></i> إضافة قسم
                     </a>
@@ -16,15 +16,17 @@
                 <form method="get" action="" id="search-form">
                     <div class="row align-items-end mb-3">
                         <div class="col">
-                            <label for="departmentName">اسم القسم</label>
-                            <input type="text" class="form-control" id="departmentName" placeholder="اسم القسم" name="name"
+                            <label for="departmentName">@lang('dashboard.department.department')</label>
+                            <input type="text" class="form-control" id="departmentName"
+                                placeholder="@lang('dashboard.department.department')" name="name"
                                 value="{{ old('name') ?? request('name') }}" />
                         </div>
                         <div class="col">
-                            <label>القسم الرئيسي</label>
-                            <select class="form-control select2" data-placeholder="اختر قسم رئيسي"
+                            <label>@lang('dashboard.department.main_department')</label>
+                            <select class="form-control select2" data-placeholder="@lang('dashboard.department.select_main_department')"
                                 name="parent_id">
-                                <option selected disabled value="">اختر قسم رئيسي</option>
+                                <option selected disabled value="">@lang('dashboard.department.select_main_department')
+                                </option>
                                 @foreach ($parentDepartments as $id => $name)
                                     <option value="{{ $id }}"
                                         {{ (old('parent_id') ?? request('parent_id')) == $id ? 'selected' : '' }}>
@@ -33,20 +35,22 @@
                             </select>
                         </div>
                         <div class="col">
-                            <label for="validationCustom02"> تاريخ الإنشاء (من)</label>
+                            <label for="validationCustom02">@lang('dashboard.general.from_date')</label>
                             <div class="input-group">
-                                <input id="from-hijri-picker" type="text" readonly placeholder="يوم/شهر/سنة" class="form-control"
-                                    name="created_from" value="{{ old('created_from') ?? request('created_from') }}" />
+                                <input id="from-hijri-picker" type="text" readonly placeholder="يوم/شهر/سنة"
+                                    class="form-control" name="created_from"
+                                    value="{{ old('created_from') ?? request('created_from') }}" />
                                 <div class="input-group-text border-start-0">
                                     <i class="fa fa-calendar tx-16 lh-0 op-6"></i>
                                 </div>
                             </div>
                         </div>
                         <div class="col">
-                            <label for="validationCustom02"> تاريخ الإنشاء (إلى)</label>
+                            <label for="validationCustom02">@lang('dashboard.general.to_date')</label>
                             <div class="input-group">
-                                <input id="to-hijri-picker" type="text" readonly placeholder="يوم/شهر/سنة" class="form-control"
-                                    name="created_to" value="{{ old('created_to') ?? request('created_to') }}" />
+                                <input id="to-hijri-picker" type="text" readonly placeholder="يوم/شهر/سنة"
+                                    class="form-control" name="created_to"
+                                    value="{{ old('created_to') ?? request('created_to') }}" />
                                 <div class="input-group-text border-start-0">
                                     <i class="fa fa-calendar tx-16 lh-0 op-6"></i>
                                 </div>

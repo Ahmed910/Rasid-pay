@@ -202,10 +202,6 @@ class User extends Authenticatable implements HasAssetsInterface
         }
 
         $query->when($request->sort, function ($q) use ($request) {
-            if ($request->sort["column"]  == "fullname") {
-                return $q->orderBy('fullname', @$request->sort["dir"]);
-            }
-
             if ($request->sort['column'] == 'department') {
                 return ;
             //     return $q->leftJoin('employees', 'users.id', 'employees.user_id')
