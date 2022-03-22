@@ -9,7 +9,7 @@
                     <p>هل تريد العودة دون الحفظ؟</p>
                 </div>
                 <div class="modal-footer d-flex justify-content-center mt-5 p-0">
-                    <button type="button" class="btn btn-warning mx-3">موافق</button>
+                    <button type="button" class="btn btn-warning mx-3" onclick="history.back()">موافق</button>
                     <button type="button" class="btn btn-outline-warning" data-bs-dismiss="modal">
                         غير موافق
                     </button>

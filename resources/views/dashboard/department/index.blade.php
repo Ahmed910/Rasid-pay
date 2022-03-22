@@ -1,8 +1,7 @@
 @extends('dashboard.layouts.master')
 @include('dashboard.department.style')
 
-@section('nav-title')
-@endsection
+@section('title', trans('dashboard.department.sub_progs.index'))
 
 @section('content')
     <div class="main-content app-content mt-0">

@@ -14,7 +14,7 @@ class DepartmentController extends Controller
 {
     public function index(Request $request)
     {
-        if(isset($request->order[0]['column'])){
+        if (isset($request->order[0]['column'])) {
             $request['sort'] = ['column' => $request['columns'][$request['order'][0]['column']]['name'], 'dir' => $request['order'][0]['dir']];
         }
         $departmentsQuery = Department::search($request)
@@ -50,7 +50,7 @@ class DepartmentController extends Controller
 
     public function create()
     {
-        $departments = Department::with('parent.translations')->ListsTranslations('name')->where('parent_id', null)->pluck('name', 'id');
+        $departments = Department::with('parent.translations')->ListsTranslations('name')->where('parent_id', null)->pluck('name', 'id')->toArray();
         $locales = config('translatable.locales');
         return view('dashboard.department.create', compact('departments', 'locales'));
     }
@@ -61,30 +61,30 @@ class DepartmentController extends Controller
         return redirect()->route('dashboard.department.index')->withSuccess(__('dashboard.general.success_add'));
     }
 
-    public function show(Request $request,$id)
+    public function show(Request $request, $id)
     {
         $department = Department::withTrashed()->findOrFail($id);
         $activitiesQuery  = $department->activity()->get();
 
-    if ($request->ajax()) {
-        $activityCount = $activitiesQuery->count();
-        $activities = $activitiesQuery->skip($request->start)
-            ->take(($request->length == -1) ? $activityCount : $request->length)
-            ->get();
+        if ($request->ajax()) {
+            $activityCount = $activitiesQuery->count();
+            $activities = $activitiesQuery->skip($request->start)
+                ->take(($request->length == -1) ? $activityCount : $request->length)
+                ->get();
 
-        return ActivityLogResource::collection($department->activity())
-            ->additional(['total_count' => $activityCount]);
-    }
+            return ActivityLogResource::collection($department->activity())
+                ->additional(['total_count' => $activityCount]);
+        }
 
 
-        return view('dashboard.department.show',compact('department','activitiesQuery'));
+        return view('dashboard.department.show', compact('department', 'activitiesQuery'));
     }
 
     public function edit(Department $department)
     {
-        $departments = Department::with('parent.translations')->ListsTranslations('name')->where('parent_id', null)->pluck('name', 'id');
+        $departments = Department::with('parent.translations')->ListsTranslations('name')->where('parent_id', null)->pluck('name', 'id')->toArray();
         $locales = config('translatable.locales');
-        return view('dashboard.department.edit', compact('departments', 'department','locales'));
+        return view('dashboard.department.edit', compact('departments', 'department', 'locales'));
     }
 
 
@@ -98,6 +98,4 @@ class DepartmentController extends Controller
     public function destroy(ReasonRequest $request, Department $department)
     {
     }
-
-
 }
