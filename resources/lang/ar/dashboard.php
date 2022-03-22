@@ -51,6 +51,10 @@ return [
         "show_all" => "عرض الكل",
         "created_at" => "تاريخ الإنشاء",
         "actions" => "العمليات",
+        "active_cases" => [
+            'معطل',
+            'مفعل',
+        ],
         'all' => 'الجميع',
         'description' => 'الوصف',
         'day_month_year' => 'يوم/شهر/سنة',

@@ -29,8 +29,8 @@
                 <!-- PAGE-HEADER END -->
 
                 <!-- ROW OPEN -->
-                {!! Form::model($department, ['route' => ['dashboard.department.update', $department->id], 'method' => 'PUT', 'class' => 'needs-validation', 'id' => 'formId', 'enctype' => 'multipart/form-data', 'id' => 'formId', 'files' => true, 'novalidate']) !!}
-                @include('dashboard.department._form')
+                {!! Form::model($department, ['route' => ['dashboard.department.update', $department->id], 'method' => 'PUT', 'class' => 'needs-validation', 'id' => 'formId', 'files' => true, 'novalidate']) !!}
+                @include('dashboard.department._form',['btn_submit' => trans('dashboard.general.edit')])
                 {!! Form::close() !!}
                 <!-- ROW CLOSED -->
             </div>
