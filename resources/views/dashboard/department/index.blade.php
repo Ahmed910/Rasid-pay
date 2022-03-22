@@ -23,16 +23,7 @@
                         </div>
                         <div class="col">
                             <label>@lang('dashboard.department.main_department')</label>
-                            <select class="form-control select2" data-placeholder="@lang('dashboard.department.select_main_department')"
-                                name="parent_id">
-                                <option selected disabled value="">@lang('dashboard.department.select_main_department')
-                                </option>
-                                @foreach ($parentDepartments as $id => $name)
-                                    <option value="{{ $id }}"
-                                        {{ (old('parent_id') ?? request('parent_id')) == $id ? 'selected' : '' }}>
-                                        {{ $name }}</option>
-                                @endforeach
-                            </select>
+                            {!! Form::select('parent_id', $parentDepartments, null, ['class' => "form-control select2-show-search",'placeholder' => trans('dashboard.department.select_main_department') ]) !!}
                         </div>
                         <div class="col">
                             <label for="validationCustom02">@lang('dashboard.general.from_date')</label>
@@ -58,12 +49,7 @@
                         </div>
                         <div class="col">
                             <label for="status">الحالة</label>
-                            <select class="form-control select2" id="status" name="is_active">
-                                <option selected disabled value="">اختر الحالة</option>
-                                <option value="">الجميع</option>
-                                <option value="1" {{ request('is_active') == '1' ? 'selected' : '' }}>مفعل</option>
-                                <option value="0" {{ request('is_active') == '0' ? 'selected' : '' }}>معطل</option>
-                            </select>
+                            {!! Form::select('is_active', trans('dashboard.general.active_cases'), null, ['class' => "form-control select2-show-search",'placeholder' => trans('dashboard.general.select_status') ]) !!}
                         </div>
                     </div>
                     <div class="row">

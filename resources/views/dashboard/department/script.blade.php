@@ -1,17 +1,13 @@
 <!-- SELECT2 JS -->
-<script src="{{ asset('dashboardAssets/js/select2.js') }}"></script>
-<script src="{{ asset('dashboardAssets/plugins/select2/select2.full.min.js') }}"></script>
-
 <script src="{{ asset('dashboardAssets/plugins/datatable/js/jquery.dataTables.min.js') }}"></script>
 <script src="{{ asset('dashboardAssets/plugins/datatable/js/dataTables.bootstrap5.js') }}"></script>
 <script src="{{ asset('dashboardAssets/plugins/datatable/dataTables.responsive.min.js') }}"></script>
 <script src="{{ asset('dashboardAssets/plugins/datatable/responsive.bootstrap5.min.js') }}"></script>
 <script src="{{ asset('dashboardAssets/js/table-data.js') }}"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.9.0/moment.min.js"></script>
-<script src="https://cdn.jsdelivr.net/gh/moment/moment@develop/min/moment-with-locales.min.js"></script>
 <!-- DATE PICKER JS -->
 <script src="{{ asset('dashboardAssets/plugins/bootstrap-hijri-datepicker/js/bootstrap-hijri-datetimepicker.js') }}"></script>
 <script src="{{ asset('dashboardAssets/js/custom_scripts.js') }}"></script>
+
 
 <script>
     $(function() {
@@ -61,16 +57,16 @@
                 {
                     data: function(data) {
                         if (data.is_active) {
-                            return ` <span class="badge bg-success-opacity py-2 px-4">${"@lang('dashboard.general.active')"}</span>`;
+                            return ` <span class="badge bg-success-opacity py-2 px-4">${data.active_case}</span>`;
                         } else {
-                            return ` <span class="badge bg-danger-opacity py-2 px-4">${"@lang('dashboard.general.inactive')"}</span>`;
+                            return ` <span class="badge bg-danger-opacity py-2 px-4">${data.active_case}</span>`;
                         }
                     }
                 },
                 {
                     class: "text-center",
                     data: function(data) {
-                        fun_modal = (data.has_jobs) ? `archiveItem('${data.id}', '${data.delete_route}')` : `notArchiveItem()`;
+                        fun_modal = data.has_jobs ? `notArchiveItem()`: `archiveItem('${data.id}', '${data.delete_route}')`;
 
                         return `<a
                                 href="${data.show_route}"
@@ -118,5 +114,7 @@
         $('.select2').select2({
             minimumResultsForSearch: Infinity
         });
-    });
+    });    
 </script>
+<script src="{{ asset('dashboardAssets/js/select2.js') }}"></script>
+<script src="{{ asset('dashboardAssets/plugins/select2/select2.full.min.js') }}"></script>
