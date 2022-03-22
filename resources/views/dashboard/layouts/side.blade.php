@@ -67,7 +67,7 @@
                                     class="mdi mdi-plus-circle-outline"></i> {{ trans('dashboard.general.add') }}</a>
                         </li>
                     </ul>
-                </li>
+                  </li>
                 <li class="slide">
                     <a class="side-menu__item" data-bs-toggle="slide" href="javascript:void(0)"><i
                             class="mdi mdi-account-group-outline"></i><span class="side-menu__label">الموظفين</span><i

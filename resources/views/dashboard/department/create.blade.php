@@ -1,8 +1,7 @@
 @extends('dashboard.layouts.master')
 @include('dashboard.department.style')
 
-@section('nav-title')
-@endsection
+@section('title', trans('dashboard.department.sub_progs.create'))
 
 @section('content')
     <!--app-content open-->

@@ -30,4 +30,3 @@
         </div>
     </div>
 @endsection
-@include('dashboard.job2.script')
