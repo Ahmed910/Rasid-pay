@@ -7,7 +7,8 @@
 <script src="{{ asset('dashboardAssets/plugins/datatable/dataTables.responsive.min.js') }}"></script>
 <script src="{{ asset('dashboardAssets/plugins/datatable/responsive.bootstrap5.min.js') }}"></script>
 <script src="{{ asset('dashboardAssets/js/table-data.js') }}"></script>
-
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.9.0/moment.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/moment/moment@develop/min/moment-with-locales.min.js"></script>
 <!-- DATE PICKER JS -->
 <script src="{{ asset('dashboardAssets/plugins/bootstrap-hijri-datepicker/js/bootstrap-hijri-datetimepicker.js') }}"></script>
 <script src="{{ asset('dashboardAssets/js/custom_scripts.js') }}"></script>
@@ -20,9 +21,11 @@
                 hijri: {{ auth()->user()->is_date_hijri ? 'true' : 'false' }},
                 showSwitcher: false,
                 format: "DD-MM-YYYY",
-                hijriFormat:'iYYYY-iMM-iDD',
+                hijriFormat:'iYYYY-iMMMM-iDD',
                 hijriDayViewHeaderFormat:'iDD iMMMM iYYYY',
-                ignoreReadonly: true
+                showClear: true,
+                ignoreReadonly: true,
+                locale: 'ar-SA'
             });
 
         $("#departmentTable").DataTable({
@@ -38,7 +41,8 @@
             columns: [{
                     data: function(data, type, full, meta) {
                         return meta.row + 1;
-                    }
+                    },
+                    name: 'id'
                 },
                 {
                     data: "name",

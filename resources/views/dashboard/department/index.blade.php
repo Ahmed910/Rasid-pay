@@ -7,7 +7,7 @@
 @section('content')
     <div class="main-content app-content mt-0">
         <div class="side-app">
-            <div class="main-container container-fluid">
+            <div class="main-container container-fluid" style="min-height:50vh;">
                 <div class="page-header">
                     <h1 class="page-title">سجل الأقسام</h1>
                     <a href="{{ route('dashboard.department.create') }}" class="btn btn-primary">
