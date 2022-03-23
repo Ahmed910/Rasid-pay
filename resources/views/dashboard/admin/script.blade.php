@@ -10,6 +10,26 @@
 {{-- Ajax DataTable --}}
 <script src="{{ asset('dashboardAssets/js/select2.js') }}"></script>
 <script src="{{ asset('dashboardAssets/plugins/select2/select2.full.min.js') }}"></script>
-<script src="{{ asset('dashboardAssets/plugins/select2/select2.full.min.js') }}"></script>
 <script src="{{ asset('dashboardAssets') }}/plugins/bootstrap-hijri-datepicker/js/bootstrap-hijri-datetimepicker.js"></script>
+<script>
+     $(document).ready(function () {
+       $("select")
+         .change(function () {
+           $(this)
+             .find("option:selected")
+             .each(function () {
+               var optionValue = $(this).attr("value");
+               if (optionValue) {
+                 $(".hold")
+                   .not("." + optionValue)
+                   .hide();
+                 $("." + optionValue).show();
+               } else {
+                 $(".hold").hide();
+               }
+             });
+         })
+         .change();
+     });
+   </script>
 @endsection

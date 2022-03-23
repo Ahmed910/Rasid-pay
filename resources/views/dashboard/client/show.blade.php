@@ -238,3 +238,4 @@
     </div>
     <!-- End Row -->
 @endsection
+@include('dashboard.client.show-script')

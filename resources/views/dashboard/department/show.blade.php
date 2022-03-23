@@ -85,12 +85,5 @@
             </thead>
         </table>
     </div>
-    <!-- End Row -->
-
-    <!-- Row -->
-
-    <!-- End Row -->
-
-    <!--app-content closed-->
 @endsection
 @include('dashboard.department.show-script')
