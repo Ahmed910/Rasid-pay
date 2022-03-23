@@ -22,9 +22,9 @@ class RegionController extends Controller
     {
         $regions = Region::Search($request)
             ->with(['translations' => function ($q) {
-                    $q->where('locale', app()->getLocale());
-                }])->sortby($request)
-            ->latest()
+                $q->where('locale', app()->getLocale());
+            }])
+            ->sortby($request)
             ->paginate((int)($request->per_page ?? config("globals.per_page")));
 
         return RegionResource::collection($regions)->additional([
@@ -67,19 +67,19 @@ class RegionController extends Controller
      * @param int $id
      * @return RegionResource
      */
-    public function show( Request $request, $id)
+    public function show(Request $request, $id)
     {
         $region = Region::withTrashed()->with('translations')->findOrFail($id);
         $activities  = $region->activity()
-        ->sortBy($request)
-        ->paginate((int)($request->per_page ?? 15));
-        data_set($activities,'region',$region);
+            ->sortBy($request)
+            ->paginate((int)($request->per_page ?? 15));
+        data_set($activities, 'region', $region);
 
         return RegionCollection::make($activities)
-        ->additional([
-            'status' => true,
-            'message' => ''
-        ]);
+            ->additional([
+                'status' => true,
+                'message' => ''
+            ]);
     }
 
     public function edit($id)
@@ -97,12 +97,12 @@ class RegionController extends Controller
     public function update(RegionRequest $request, Region $region)
     {
 
-        $region->fill($request->validated()+['updated_at'=>now()])->save();
+        $region->fill($request->validated() + ['updated_at' => now()])->save();
 
 
         return RegionResource::make($region)->additional([
-            'status' => true, 'message' => trans("dashboard.general.success_update")]);
-
+            'status' => true, 'message' => trans("dashboard.general.success_update")
+        ]);
     }
 
     /**
@@ -111,7 +111,7 @@ class RegionController extends Controller
      * @param int $id
      * @return \Illuminate\Http\JsonResponse
      */
-    public function destroy(ReasonRequest $request,Region $region)
+    public function destroy(ReasonRequest $request, Region $region)
     {
 
         if ($region->cities()->exists()) {
@@ -129,7 +129,7 @@ class RegionController extends Controller
             ]);
     }
 
-    public function forceDelete(ReasonRequest $request , $id)
+    public function forceDelete(ReasonRequest $request, $id)
     {
         $region = Region::onlyTrashed()->findOrFail($id);
 
@@ -140,10 +140,9 @@ class RegionController extends Controller
                 'status' => true,
                 'message' => trans('dashboard.general.success_delete'),
             ]);
-
     }
 
-    public function restore(ReasonRequest  $reasonRequest , $id)
+    public function restore(ReasonRequest  $reasonRequest, $id)
     {
         $region = Region::onlyTrashed()->findOrFail($id);
         $region->restore();
@@ -153,7 +152,5 @@ class RegionController extends Controller
                 'status' => true,
                 'message' => trans('dashboard.general.success_restore'),
             ]);
-
     }
-
 }

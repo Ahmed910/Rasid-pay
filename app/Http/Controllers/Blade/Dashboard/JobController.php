@@ -4,8 +4,8 @@ namespace App\Http\Controllers\Blade\Dashboard;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\V1\Dashboard\RasidJobRequest;
+use App\Http\Resources\Blade\Dashboard\Activitylog\ActivityLogCollection;
 use App\Http\Resources\Blade\Dashboard\Job\JobCollection;
-use App\Http\Resources\Dashboard\RasidJob\{RasidJobResource, RasidJobCollection};
 use App\Models\Department\Department;
 use App\Models\RasidJob\RasidJob;
 use Illuminate\Http\Request;
@@ -77,9 +77,34 @@ class JobController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Request $request, $id)
     {
-        $rasidJob = RasidJob::findOrFail($id);
+        $rasidJob = RasidJob::withTrashed()->findOrFail($id);
+        $sortingColumns = [
+            'id',
+            'user_name',
+            'department_name',
+            'created_at',
+            'action_type',
+            'reason'
+        ];
+        if(isset($request->order[0]['column'])){
+            $request['sort'] = ['column' => $sortingColumns[$request->order[0]['column']], 'dir' => $request->order[0]['dir']];
+        }
+
+        $activitiesQuery  = $rasidJob->activity()
+        ->sortBy($request);
+
+        if ($request->ajax()) {
+            $activityCount = $activitiesQuery->count();
+            $activities = $activitiesQuery->skip($request->start)
+                ->take(($request->length == -1) ? $activityCount : $request->length)
+                ->get();
+
+        return ActivityLogCollection::make($activities)
+                ->additional(['total_count' => $activityCount]);
+        }
+
         return view('dashboard.job.show', compact('rasidJob'));
     }
 
