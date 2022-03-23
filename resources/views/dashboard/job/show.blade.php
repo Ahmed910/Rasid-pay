@@ -33,7 +33,7 @@
                             <p>{{ $rasidJob->name }}</p>
                         </div>
                         <div class="col-12 col-md-3">
-                            <label>اسم القسم:</label>
+                            <label>@lang('dashboard.rasid_job.rasid_job_department'):</label>
                             <p>{{ $rasidJob->department->name }}</p>
                         </div>
                         <div class="col-12 col-md-3">
@@ -45,15 +45,19 @@
                             @endif
                         </div>
                         <div class="col-12 col-md-3">
-                            <label class="d-block" for="departmentName">النوع:</label>
-                            <p class="occupied">{{ $rasidJob->is_vacant === 1 ? 'شاغرة ' : 'مشغولة ' }}</p>
+                            <label class="d-block" for="departmentName">@lang('dashboard.general.type'):</label>
+                            <p class="occupied">
+                                {{ $rasidJob->is_vacant === 1? trans('dashboard.rasid_job.is_vacant.false'): trans('dashboard.rasid_job.is_vacant.true') }}
+                            </p>
                         </div>
                         <div class="col-12 col-md-3">
-                            <label class="d-block" for="departmentName">@lang('dashboard.rasid_job.employee_name') :</label>
+                            <label class="d-block" for="departmentName">@lang('dashboard.rasid_job.employee_name')
+                                :</label>
                             <p> {{ $rasidJob->employee?->user?->fullname }}</p>
                         </div>
                         <div class="col-12 col-md-9">
-                            <label class="d-block" for="departmentName">@lang('dashboard.rasid_job.rasid_job_description') :</label>
+                            <label class="d-block"
+                                for="departmentName">@lang('dashboard.rasid_job.rasid_job_description') :</label>
                             <p>
                                 {{ $rasidJob->description }}
                             </p>
@@ -81,11 +85,9 @@
                             <tr>
                                 <th class="border-bottom-0">#</th>
                                 <th class="border-bottom-0">@lang('dashboard.general.done_by') </th>
+                                <th class="border-bottom-0"> @lang('dashboard.department.name') </th>
                                 <th class="border-bottom-0">@lang('dashboard.activity_log.date') </th>
-                                <th class="border-bottom-0"> @lang('dashboard.activity_log.activity') </th>
-                                <th class="border-bottom-0">
-                                    @lang('dashboard.activity_log.activity')
-                                </th>
+                                <th class="border-bottom-0">@lang('dashboard.activity_log.activity')</th>
                                 <th class="border-bottom-0" style="max-width: 800px;">@lang('dashboard.general.reason')
                                 </th>
                             </tr>
@@ -103,3 +105,4 @@
 
 
 @endsection
+@include('dashboard.job.show-script')

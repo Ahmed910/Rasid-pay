@@ -50,7 +50,7 @@
                             <label> @lang('dashboard.department.department_image'):</label>
                             <img src="{{ asset("{$department->images[0]->media}") }}" width="150" height="150"
                                 class="d-block rounded-3" alt="" data-toggle="popoverIMG" title='<img src="{{ asset("{$department->images[0]->media}") }}" width="150" height="150" class="d-block rounded-3" alt=""
-                                                data-toggle="popoverIMG" >'>
+                                                    data-toggle="popoverIMG" >'>
                         </div>
                         <div class="col-12 col-md-8">
                             <label class="d-block"
@@ -82,11 +82,9 @@
                             <tr>
                                 <th class="border-bottom-0">#</th>
                                 <th class="border-bottom-0">@lang('dashboard.general.done_by') </th>
+                                <th class="border-bottom-0"> @lang('dashboard.department.name') </th>
                                 <th class="border-bottom-0">@lang('dashboard.activity_log.date') </th>
-                                <th class="border-bottom-0"> @lang('dashboard.activity_log.activity') </th>
-                                <th class="border-bottom-0">
-                                    @lang('dashboard.activity_log.activity')
-                                </th>
+                                <th class="border-bottom-0">@lang('dashboard.activity_log.activity')</th>
                                 <th class="border-bottom-0" style="max-width: 800px;">@lang('dashboard.general.reason')
                                 </th>
                             </tr>

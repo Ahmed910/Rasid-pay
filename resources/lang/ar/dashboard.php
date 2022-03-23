@@ -195,8 +195,7 @@ return [
         "rasid_job_count" => "عدد الوظائف",
         "employee_name" => "اسم الموظف",
         "rasid_job_description" => "الوصف الوظيفي",
-        "rasid_job_count" => "عدد الوظائف",
-
+        "rasid_job_department" => "اسم القسم",
         "name" => "اسم الوظيفة",
         "validation" => [
             'name_must_be_unique_on_department' => 'تم اختيار اسم الوظيفة من قبل لنفس القسم'
@@ -207,7 +206,10 @@ return [
             'index' => 'سجل الوظائف',
             'archive' => 'أرشيف الوظائف',
             'create' => 'اضافة وظيفة',
-            'show' => 'عرض وظيفة'
+        ],
+        'is_vacant' => [
+            'true' => 'مشغولة',
+            'false' => 'شاغرة',
         ],
         'permissions' => $permissions
     ],

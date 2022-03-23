@@ -17,7 +17,7 @@
                 sDom: "t<'domOption'lpi>",
                 serverSide: true,
                 ajax: {
-                    url: "{{ route('dashboard.department.show', $department->id) }}?" + $.param(
+                    url: "{{ route('dashboard.job.show', $rasidJob->id) }}?" + $.param(
                         @json(request()->query())),
                     dataSrc: 'data'
                 },
@@ -85,7 +85,7 @@
                     [1, 5, 10, 20, -1],
                     [1, 5, 10, 20, "الكل"],
                 ],
-                "language": {
+               "language": {
                     "lengthMenu": "@lang('dashboard.datatable.show') _MENU_",
                     "zeroRecords": "@lang('dashboard.general.no_data')",
                     "info": "إظهار _START_ إلى _END_ من أصل _TOTAL_ مدخل",
