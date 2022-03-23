@@ -15,7 +15,7 @@ Job view
                 <nav aria-label="breadcrumb">
                   <ol class="breadcrumb">
                     <li class="breadcrumb-item">
-                      <a href="departments-record.html"> سجل الوظائف</a>
+                      <a href="departments-record.html">{{trans('dashboard.rasid_job.sub_progs.index')}}</a>
                     </li>
                     <li class="breadcrumb-item active" aria-current="page">
                       عرض الوظيفة
@@ -29,27 +29,30 @@ Job view
               <div class="card py-7 px-7">
                 <div class="row">
                   <div class="col-12 col-md-3">
-                    <label>اسم الوظيفة:</label>
+                    <label>{{trans("dashboard.job.job_name")}}</label>
                     <p>{{$rasidJob->name}}</p>
                   </div>
                   <div class="col-12 col-md-3">
-                    <label>اسم القسم:</label>
+                    <label>{{trans("dashboard.department.department")}}</label>
                     <p>{{$rasidJob->department->name}}</p>
                   </div>
                   <div class="col-12 col-md-3">
-                    <label class="d-block" for="departmentName">الحالة:</label>
-                    <p class="badge bg-success-opacity py-2 px-4">{{$rasidJob->is_active === 1 ? 'مفعلة ': 'معطلة ' }}</p>
+                    <label class="d-block" for="departmentName">@lang("dashboard.general.status")</label>
+                    <p class="badge bg-{{$rasidJob->is_active?"success":"danger"}}-opacity py-2 px-4">{{$rasidJob->is_active === 1 ? trans("dashboard.general.active"): trans("dashboard.general.inactive") }}</p>
                   </div>
                   <div class="col-12 col-md-3">
-                    <label class="d-block" for="departmentName">النوع:</label>
-                    <p class="occupied">{{$rasidJob->is_vacant === 1 ? 'شاغرة ': 'مشغولة ' }}</p>
+                    <label class="d-block" for="departmentName">@lang("dashboard.general.type")</label>
+                    <p class="occupied">{{$rasidJob->is_vacant === 1 ? trans("dashboard.job.is_vacant.true"): trans("dashboard.job.is_vacant.false") }}</p>
                   </div>
                    <div class="col-12 col-md-3">
-                    <label class="d-block" for="departmentName">اسم الموظف:</label>
-                    <p>هشام أشرف</p>
+                    <label class="d-block" for="departmentName">@lang("dashboard.job.employee_name")</label>
+                     @php
+                      // dd($rasidJob->addedBy);
+                     @endphp
+                    <p>{{$rasidJob->addedBy->fullname}}</p>
                   </div>
                   <div class="col-12 col-md-9">
-                    <label class="d-block" for="departmentName">الوصف الوظيفي:</label>
+                    <label class="d-block" for="departmentName">@lang("dashboard.job.job_description")</label>
                     <p>
                       {{$rasidJob->description}}
                     </p>

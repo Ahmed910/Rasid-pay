@@ -80,7 +80,7 @@ class JobController extends Controller
      */
     public function show($id)
     {
-        $rasidJob = RasidJob::findOrFail($id);
+        $rasidJob = RasidJob::with("addedBy")->findOrFail($id);
         return view('dashboard.job.show', compact('rasidJob'));
     }
 
