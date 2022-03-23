@@ -26,6 +26,7 @@ class Department extends Model implements TranslatableContract, HasAssetsInterfa
 
 
     #region properties
+    protected $appends = ['image'];
     protected $guarded = ['created_at', 'deleted_at'];
     public $translatedAttributes = ['name', 'description'];
     public $assets = ["image"];
@@ -49,6 +50,11 @@ class Department extends Model implements TranslatableContract, HasAssetsInterfa
     public function getCreatedAtAttribute($value)
     {
         return Carbon::parse($value)->toFormattedDateString();
+    }
+
+    public function getImageAttribute()
+    {
+        return asset($this->images()->first()?->media) ?? 'https://picsum.photos/200';
     }
     #endregion accessor
 

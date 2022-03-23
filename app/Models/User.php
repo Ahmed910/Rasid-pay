@@ -25,7 +25,7 @@ class User extends Authenticatable implements HasAssetsInterface
     use HasApiTokens, HasFactory, Notifiable, Uuid, SoftDeletes, HasAssetsTrait, Loggable;
 
     protected $guarded = ['created_at', 'deleted_at'];
-    // protected $appends = ['avatar','image' , 'name'];
+    protected $appends = ['image'];
     protected $hidden = ['password', 'remember_token'];
     protected $casts = ['email_verified_at' => 'datetime', 'phone_verified_at' => 'datetime'];
     protected $dates = ['date_of_birth', 'date_of_birth_hijri'];
@@ -63,6 +63,11 @@ class User extends Authenticatable implements HasAssetsInterface
             return Hijri::convertToHijri($date)->format('d F o');
         }
         return date('Y-m-d', strtotime($date));
+    }
+
+    public function getImageAttribute()
+    {
+        return asset($this->images()->first()?->media) ?? 'https://picsum.photos/200';
     }
 
     // Roles & Permissions
