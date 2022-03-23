@@ -69,22 +69,22 @@
                     </ul>
                   </li>
 
-                <li class="slide">
+                <li class="slide {{ request()->routeIs('dashboard.employee.*') ? 'is-expanded' : '' }}">
                     <a class="side-menu__item" data-bs-toggle="slide" href="javascript:void(0)"><i
-                            class="mdi mdi-account-group-outline"></i><span class="side-menu__label">الموظفين</span><i
+                            class="mdi mdi-account-group-outline"></i><span class="side-menu__label">{!! trans('dashboard.employee.employees') !!}</span><i
                             class="angle fe fe-chevron-right"></i></a>
                     <ul class="slide-menu">
                         <li class="side-menu-label1">
-                            <a href="javascript:void(0)">الموظفين</a>
+                            <a href="javascript:void(0)">{!! trans('dashboard.employee.employees') !!}</a>
                         </li>
                         <li>
-                            <a href="../employees/employees-record.html" class="slide-item px-6"><i
+                            <a href="{!! route('dashboard.employee.index') !!}" class="slide-item px-6 {{ request()->routeIs('dashboard.employee.index') ? 'active' : '' }}"><i
                                     class="mdi mdi-file-document-multiple-outline"></i>
-                                سجل الموظفين</a>
+                                {!! trans('dashboard.employee.sub_progs.index') !!}</a>
                         </li>
                         <li>
-                            <a href="../employees/employee-add.html" class="slide-item px-6"><i
-                                    class="mdi mdi-plus-circle-outline"></i> إضافة</a>
+                            <a href="{{ route('dashboard.group.create') }}" class="slide-item px-6 {{ request()->routeIs('dashboard.employee.create') ? 'active' : '' }}"><i
+                                    class="mdi mdi-plus-circle-outline"></i> {{ trans('dashboard.general.add') }}</a>
                         </li>
                     </ul>
                 </li>

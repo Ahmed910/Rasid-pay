@@ -143,8 +143,8 @@ class GroupController extends Controller
 
     private function savedPermissions()
     {
-        return Permission::select('id', 'name')->get()->transform(function ($item) {
-            $uri = str_before($item->name, '.');
+        return Permission::where('permission_on', 'dashboard_api')->select('id','name')->get()->transform(function($item){
+            $uri = str_before($item->name,'.');
             $single_uri = str_singular($uri);
             $action = trans('dashboard.' . $single_uri . '.permissions.' . str_after($item->name, '.'));
             $item['uri'] = $uri;

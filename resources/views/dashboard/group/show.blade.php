@@ -3,7 +3,6 @@
 
 @section('nav-title')
 @endsection
-
 @section('content')
     <div class="page-header">
       <nav aria-label="breadcrumb">
@@ -323,5 +322,5 @@
         </tbody>
       </table>
     </div>
-    @include('dashboard.group.show_script')
 @endsection
+@include('dashboard.group.show_script')
