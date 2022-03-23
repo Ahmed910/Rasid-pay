@@ -1,7 +1,3 @@
- <!-- SELECT2 JS -->
- <script src="{{ asset('dashboardAssets/js/select2.js') }}"></script>
- <script src="{{ asset('dashboardAssets/plugins/select2/select2.full.min.js') }}"></script>
-
  <script src="{{ asset('dashboardAssets/plugins/datatable/js/jquery.dataTables.min.js') }}"></script>
  <script src="{{ asset('dashboardAssets/plugins/datatable/js/dataTables.bootstrap5.js') }}"></script>
  <script src="{{ asset('dashboardAssets/plugins/datatable/dataTables.responsive.min.js') }}"></script>
@@ -14,6 +10,20 @@
 
  <script>
      $(function() {
+
+         /******* Calendar *******/
+         $("#from-hijri-picker, #to-hijri-picker, #from-hijri-unactive-picker ,#to-hijri-unactive-picker")
+             .hijriDatePicker({
+                 hijri: {{ auth()->user()->is_date_hijri ? 'true' : 'false' }},
+                 showSwitcher: false,
+                 format: "DD MMMM YYYY",
+                 hijriFormat: "iDD iMMMM iYYYY",
+                 hijriDayViewHeaderFormat: "iMMMM iYYYY",
+                 dayViewHeaderFormat: "MMMM YYYY",
+                 showClear: true,
+                 ignoreReadonly: true,
+             });
+
          $("#JobsTable").DataTable({
              sDom: "t<'domOption'lpi>",
              serverSide: true,
@@ -112,3 +122,5 @@
          });
      });
  </script>
+ <script src="{{ asset('dashboardAssets/js/select2.js') }}"></script>
+ <script src="{{ asset('dashboardAssets/plugins/select2/select2.full.min.js') }}"></script>
