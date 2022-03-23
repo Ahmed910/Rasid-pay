@@ -31,9 +31,11 @@ Route::group(
             Route::resources([
                 'job' => 'JobController',
                 'department' => 'DepartmentController',
+                'group' => 'GroupController',
+                'client' => 'ClientController',
+                'employee' => 'EmployeeController',
+                'admin' => 'AdminController',
             ]);
         });
-
-        // Route::resource('jobs', "Job2Controller");
     }
 );

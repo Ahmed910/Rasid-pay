@@ -17,20 +17,20 @@
             .hijriDatePicker({
                 hijri: {{ auth()->user()->is_date_hijri ? 'true' : 'false' }},
                 showSwitcher: false,
-                format: "DD MMMM YYYY",
-                hijriFormat: "iDD iMMMM iYYYY",
-                hijriDayViewHeaderFormat: "iMMMM iYYYY",
-                dayViewHeaderFormat: "MMMM YYYY",
+                format: "DD-MM-YYYY",
+                hijriFormat:'iYYYY-iMMMM-iDD',
+                hijriDayViewHeaderFormat:'iDD iMMMM iYYYY',
                 showClear: true,
                 ignoreReadonly: true,
+                locale: 'ar-SA'
             });
 
-        $("#departmentTable").DataTable({
+        $("#groupTable").DataTable({
             sDom: "t<'domOption'lpi>",
             serverSide: true,
             processing: true,
             ajax: {
-                url: "{{ route('dashboard.department.index') }}?" + $.param(
+                url: "{{ route('dashboard.group.index') }}?" + $.param(
                     @json(request()->query())),
                 type: "GET",
                 dataSrc: 'data'
@@ -48,7 +48,7 @@
                 {
                     data: function(data) {
                         return data.parent ? data.parent.name :
-                            "{{ trans('dashboard.department.without_parent') }}";
+                            "{{ trans('dashboard.group.without_parent') }}";
                     },
                     name: 'parent'
                 },
@@ -69,7 +69,13 @@
                 {
                     class: "text-center",
                     data: function(data) {
+<<<<<<< HEAD
                         fun_modal = data.has_jobs ? `notArchiveItem()`: `archiveItem('${data.id}', '${data.delete_route}')`;
+=======
+                        fun_modal = (data.has_jobs) ?
+                            `archiveItem('${data.id}', '${data.delete_route}')` :
+                            `notArchiveItem()`;
+>>>>>>> 7347583271ab15dba69c6f5731c0b62fba5dcf32
 
                         return `<a
                                 href="${data.show_route}"
@@ -103,14 +109,14 @@
                 [5, 10, 20, -1],
                 [5, 10, 20, "@lang('dashboard.general.all')"],
             ],
-
             "language": {
-                "lengthMenu": "@lang('dashboard.general.show') _MENU_",
-                "emptyTable": "@lang('dashboard.general.no_data')",
-                "info": "@lang('dashboard.general.showing') _START_ @lang('dashboard.general.to') _END_ @lang('dashboard.general.from') _TOTAL_ @lang('dashboard.general.entries')",
+                "lengthMenu": "@lang('dashboard.datatable.show') _MENU_",
+                "zeroRecords": "@lang('dashboard.general.no_data')",
+                "info": "إظهار _START_ إلى _END_ من أصل _TOTAL_ مدخل",
+                "infoEmpty": "@lang('dashboard.general.there_is_no_data')",
                 "paginate": {
+                    "previous": '<i class="mdi mdi-chevron-right"></i>',
                     "next": '<i class="mdi mdi-chevron-left"></i>',
-                    "previous": '<i class="mdi mdi-chevron-right"></i>'
                 },
             }
         });
