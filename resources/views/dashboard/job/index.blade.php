@@ -62,7 +62,7 @@
             <div class="col">
                 <label for="type">
                     @lang('dashboard.general.type')</label>
-                {!! Form::select('is_vacant',[], null, ['class' => 'form-control select2-show-search', 'placeholder' => trans('dashboard.general.select_type'), 'id' => 'type']) !!}
+                {!! Form::select('is_vacant', trans('dashboard.general.job_type_cases'), null, ['class' => 'form-control select2-show-search', 'placeholder' => trans('dashboard.general.select_type'), 'id' => 'type']) !!}
             </div>
 
         </div>
