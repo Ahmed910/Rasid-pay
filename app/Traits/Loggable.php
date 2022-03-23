@@ -161,6 +161,7 @@ trait Loggable
             $this->checkStatus($self, $column);
         } elseif ($hasData && in_array($column, array_keys($this->newData($self)))) {
             $self->addUserActivity($self, ActivityLog::UPDATE, 'index');
+            $this->checkStatus($self, $column);
         } else {
             $self->addUserActivity($self, ActivityLog::UPDATE, 'index');
         }

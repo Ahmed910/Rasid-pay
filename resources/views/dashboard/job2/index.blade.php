@@ -13,14 +13,14 @@
         <!-- PAGE-HEADER -->
         <div class="page-header">
           <h1 class="page-title">{{ trans('dashboard.job.sub_progs.index') }}</h1>
-          <a href="{{ route('dashboard.job.create') }}" class="btn btn-primary">
+          <a href="{{ route('dashboard.jobs.create') }}" class="btn btn-primary">
             <i class="mdi mdi-plus-circle-outline"></i> {{ trans('dashboard.job.add_job') }}
           </a>
         </div>
         <!-- PAGE-HEADER END -->
 
         <!-- FORM OPEN -->
-        <form method="get" action="{{ route('dashboard.job.index') }}">
+        <form method="get" action="{{ route('dashboard.jobs.index') }}">
           <div class="row align-items-end mb-3">
             <div class="col">
               <label for="job_name">{{ trans('dashboard.job.job_name') }}</label>

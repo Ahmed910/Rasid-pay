@@ -22,7 +22,7 @@
 
                 <!-- ROW OPEN -->
 
-                    {!! Form::open(['route' => 'dashboard.job.store' , 'method' => 'POST' , 'files' => true ,'class' => 'steps-validation wizard-circle needs-validation','data-locale' => app()->getLocale()]) !!}
+                    {!! Form::open(['route' => 'dashboard.jobs.store' , 'method' => 'POST' , 'files' => true ,'class' => 'steps-validation wizard-circle needs-validation','data-locale' => app()->getLocale()]) !!}
                     @include('dashboard.job2._form')
                     {!! Form::close() !!}
             </div>

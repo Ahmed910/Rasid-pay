@@ -133,15 +133,6 @@ return [
         'name' => 'Department Name',
         "edit_department" => "",
         "department_count" => "",
-        "archive_from_date" => "archive_from_date",
-        "archive_to_date" => "archive_to_date",
-        "search" => "search",
-        "show_all" => "show_all",
-        'sub_progs' => [
-            'index' => 'index ',
-            'archive' => 'archive ',
-            'create' => 'create ',
-        ],
         "department_has_relationship_cannot_delete" => "This department has sub department ,so you cannot delete it",
         'permissions' => $permissions + ['get_parents' => 'Show main departments'],
         'without_parent' => 'Without'
@@ -170,15 +161,9 @@ return [
             'false' => 'Vacant',
         ],
 
-       "jobs_hired_deleted" => " can't delete this job ",
-       "jobs_hired_archived" => " can't archive this job ",
-        'permissions' => $permissions,
-        'sub_progs' => [
-            'index' => 'index',
-            'archive' => 'archive ',
-            'create' => 'create ',
-        ],
-
+        "jobs_hired_deleted" => " can't delete this job ",
+        "jobs_hired_archived" => " can't archive this job ",
+        'permissions' => $permissions
     ],
     "setting" => [
         "setting" => "Setting",
@@ -235,11 +220,6 @@ return [
         "job_name" => "Job Name",
         "department" => "Department",
         "select_department" => "Select Department",
-        "status" => "Status",
-        "select_status" => "Select Status",
-        "type" => "Type",
-        "archive_from_date" => "تاريخ الأرشفة  (من)",
-        "archive_to_date" => "تاريخ الأرشفة  (إلى)",
         "employee_name" => "Employee Name",
         "job_description" => "Job Description",
         'sub_progs' => [

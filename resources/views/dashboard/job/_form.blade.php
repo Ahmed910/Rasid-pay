@@ -3,19 +3,19 @@
   <div class="card-body pb-0"> -->
 
 <div class="card py-7 px-7">
-
   <div class="row">
     <div class="col-12 col-md-3 mb-5">
 
       @foreach ($locales as $locale)
         {!! Form::label('jobName', trans('dashboard.job.job_name')) !!}
-        {!! Form::text("{$locale}[name]", isset($rasidJob) ? $rasidJob->name : null, ['class' => 'form-control', 'id' => 'departmentName', 'placeholder' => trans('dashboard.job.job_name') , 'required']) !!}
+        {!! Form::text("{$locale}[name]", Route::currentRouteName() == 'dashboard.job.edit'? $rasidJob->name : null, ['class' => 'form-control', 'id' => 'departmentName', 'placeholder' => trans('dashboard.job.job_name') , 'required']) !!}
         {{--                <div class="invalid-feedback">اسم الوظيفة مطلوب.</div>--}}
           @error("${locale}.name")
           <span class="text-danger">{{ $message }}</span>
           @enderror
     </div>
     @endforeach
+
     <div class="col-12 col-md-3 mb-5">
 
 
@@ -39,8 +39,9 @@
     </div>
     @foreach ($locales as $locale)
       <div class="col-12 col-md-9">
+
         {!! Form::label('departmentDes',trans('dashboard.job.job_description')) !!}
-        {!! form::textarea("{$locale}[description]", isset($rasidJob) ? $rasidJob->description: null, ['class' => 'form-control', 'id' => 'departmentDes', 'placeholder' => trans('dashboard.job.job_description'), 'rows' => '5']) !!}
+        {!! form::textarea("{$locale}[description]", Route::currentRouteName() == 'dashboard.jobs.edit'? $rasidJob->description: null, ['class' => 'form-control', 'id' => 'departmentDes', 'placeholder' => trans('dashboard.job.job_description'), 'rows' => '5']) !!}
 
       </div>
     @endforeach

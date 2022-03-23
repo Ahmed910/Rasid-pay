@@ -29,7 +29,7 @@
                 <div class="tab-pane {{ !$errors->any() || $errors->has('email') ? 'active' : null }}" id="tab5">
                   <!-- FORM OPEN -->
                   <form
-                    action="{!! route('dashboard.post_reset') !!}"
+                    action=""
                     method="post"
                     class="needs-validation"
                     novalidate
@@ -39,7 +39,7 @@
                       <label for="email">البريد الإلكتروني</label>
                       <input
                         type="email"
-                        class="form-control"
+                        class="form-control @error('email') is-invalid @enderror"
                         id="email"
                         name="email"
                         placeholder="البريد الإلكتروني"
@@ -49,7 +49,7 @@
                       @enderror
                     </div>
                     <div class="col-12 mt-5 text-center">
-                      {!! Form::submit('إرسال', ['class' => "btn btn-primary"]) !!}
+                      {!! Form::submit('إرسال', ['class' => "btn btn-primary",'formaction' => route('dashboard.post_reset')]) !!}
                       <a
                         href="{!! route('dashboard.login') !!}"
                         class="btn btn-outline-primary"
@@ -73,7 +73,7 @@
                       <label for="mobile">رقم الجوال</label>
                       <input
                         type="number"
-                        class="form-control"
+                        class="form-control @error('phone') is-invalid @enderror"
                         id="mobile"
                         name="phone"
                         placeholder="رقم الجوال"
@@ -83,7 +83,7 @@
                       @enderror
                     </div>
                     <div class="col-12 mt-5 text-center">
-                      {!! Form::submit('إرسال', ['class' => "btn btn-primary"]) !!}
+                      {!! Form::submit('إرسال', ['class' => "btn btn-primary",'formaction' => route('dashboard.post_reset')]) !!}
                       <a
                         href="{!! route('dashboard.login') !!}"
                         class="btn btn-outline-primary"

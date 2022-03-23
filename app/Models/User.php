@@ -18,7 +18,6 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use App\Notifications\ResetPasswordNotification;
-use Carbon\Carbon;
 use Illuminate\Support\Str;
 
 class User extends Authenticatable implements HasAssetsInterface
@@ -151,32 +150,6 @@ class User extends Authenticatable implements HasAssetsInterface
         }
     }
 
-    public function getBanFromAttribute($value)
-    {
-        if ($value == null) return;
-
-        if (auth()->check() && auth()->user()->is_date_hijri) {
-            $this->changeDateLocale();
-
-            return Hijri::convertToHijri($value)->format('d F o  h:i A');
-        }
-
-        return Carbon::parse($value)->format('Y-m-d h:i A');
-    }
-
-    public function getBanToAttribute($value)
-    {
-        if ($value == null) return;
-
-        if (auth()->check() && auth()->user()->is_date_hijri) {
-            $this->changeDateLocale();
-
-            return Hijri::convertToHijri($value)->format('d F o  h:i A');
-        }
-
-        return Carbon::parse($value)->format('Y-m-d h:i A');
-    }
-
     #region scopes
     public function scopeSearch(Builder $query, $request)
     {
@@ -188,22 +161,10 @@ class User extends Authenticatable implements HasAssetsInterface
             // ->orWhere("whatsapp", "like", "%$request->keySearch%")
             // ->orWhere("phone", "like", "%$request->keySearch%");
         });
-
         !$request->client_type ?: $query->where("client_type", $request->client_type);
         !$request->country_id ?: $query->where("country_id", $request->country_id);
-
-        if (isset($request->is_active)) {
-            if (!in_array($request->is_active, [1, 0])) return;
-
-            $query->where('is_active', $request->is_active);
-        }
-
-        if (isset($request->ban_status)) {
-            if (!in_array($request->ban_status, ['active', 'permanent', 'temporary'])) return;
-
-            $query->where('ban_status', $request->ban_status);
-        }
-
+        !$request->is_active ?: $query->where("is_active",  $request->is_active);
+        !$request->ban_status ?: $query->where("ban_status", $request->ban_status);
         !$request->register_status ?: $query->where("register_status", $request->register_status);
         !$request->gender ?: $query->where("gender",  $request->gender);
         !$request->is_admin_active_user ?: $query->where("is_admin_active_user", $request->is_admin_active_user);
@@ -247,11 +208,11 @@ class User extends Authenticatable implements HasAssetsInterface
 
         $query->when($request->sort, function ($q) use ($request) {
             if ($request->sort['column'] == 'department') {
-                return;
-                //     return $q->leftJoin('employees', 'users.id', 'employees.user_id')
-                //         ->leftJoin('departments', 'departments.id', 'employees.department_id')
-                //         ->leftJoin('department_translations as trans', 'trans.department_id', 'departments.id')
-                //         ->orderBy('trans.name');
+                return ;
+            //     return $q->leftJoin('employees', 'users.id', 'employees.user_id')
+            //         ->leftJoin('departments', 'departments.id', 'employees.department_id')
+            //         ->leftJoin('department_translations as trans', 'trans.department_id', 'departments.id')
+            //         ->orderBy('trans.name');
             }
 
             $q->orderBy($request->sort["column"], @$request->sort["dir"]);

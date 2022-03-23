@@ -95,7 +95,6 @@
     <div class="row row-sm">
         <div class="col-lg-12">
             <div class="table-responsive p-1">
-
                 <table id="JobsTable" class="table table-bordered shadow-sm bg-body text-nowrap key-buttons">
                     <thead>
                         <tr>

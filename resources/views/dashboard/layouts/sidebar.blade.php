@@ -1,5 +1,4 @@
 <div class="sticky">
-
   <div class="app-sidebar__overlay" data-bs-toggle="sidebar"></div>
   <div class="app-sidebar d-flex flex-column h-100">
     <div class="side-header">
@@ -32,7 +31,7 @@
                 سجل الأقسام</a>
             </li>
             <li>
-              <a href="{{ route('dashboard.department.create') }}" class="slide-item px-6 {{ request()->routeIs('dashboard.department.create') ? 'active' : '' }}"><i class="mdi mdi-plus-circle-outline"></i> {!! trans('dashboard.department.sub_progs.create') !!}</a>
+              <a href="{{ route('dashboard.department.create') }}" class="slide-item px-6 {{ request()->routeIs('dashboard.department.create') ? 'active' : '' }}"><i class="mdi mdi-plus-circle-outline"></i> إضافة</a>
             </li>
           </ul>
         </li>
@@ -48,7 +47,7 @@
                 سجل الوظائف</a>
             </li>
             <li>
-              <a href="{{ route('dashboard.job.create') }}" class="slide-item px-6 {{ request()->routeIs('dashboard.job.create') ? 'active' : '' }}"><i class="mdi mdi-plus-circle-outline"></i> {!! trans('dashboard.job.sub_progs.create') !!}</a>
+              <a href="{{ route('dashboard.job.create') }}" class="slide-item px-6 {{ request()->routeIs('dashboard.job.create') ? 'active' : '' }}"><i class="mdi mdi-plus-circle-outline"></i> {{ trans('dashboard.general.add') }}</a>
             </li>
           </ul>
         </li>
@@ -65,7 +64,7 @@
                 {!! trans('dashboard.employee.sub_progs.index') !!}</a>
             </li>
             <li>
-              <a href="{{ route('dashboard.group.create') }}" class="slide-item px-6 {{ request()->routeIs('dashboard.employee.create') ? 'active' : '' }}"><i class="mdi mdi-plus-circle-outline"></i> {!! trans('dashboard.employee.sub_progs.create') !!}</a>
+              <a href="{{ route('dashboard.group.create') }}" class="slide-item px-6 {{ request()->routeIs('dashboard.employee.create') ? 'active' : '' }}"><i class="mdi mdi-plus-circle-outline"></i> {{ trans('dashboard.general.add') }}</a>
             </li>
           </ul>
         </li>
@@ -81,7 +80,7 @@
                 {!! trans('dashboard.group.sub_progs.index') !!}</a>
             </li>
             <li>
-              <a href="{{ route('dashboard.group.create') }}" class="slide-item px-6 {{ request()->routeIs('dashboard.group.create') ? 'active' : '' }}"><i class="mdi mdi-plus-circle-outline"></i> {!! trans('dashboard.group.sub_progs.create') !!}</a>
+              <a href="{{ route('dashboard.group.create') }}" class="slide-item px-6 {{ request()->routeIs('dashboard.group.create') ? 'active' : '' }}"><i class="mdi mdi-plus-circle-outline"></i> {{ trans('dashboard.general.add') }}</a>
             </li>
           </ul>
         </li>
@@ -97,7 +96,7 @@
                 {!! trans('dashboard.admin.sub_progs.index') !!}</a>
             </li>
             <li>
-              <a href="{{ route('dashboard.admin.create') }}" class="slide-item px-6 {{ request()->routeIs('dashboard.admin.create') ? 'active' : '' }}"><i class="mdi mdi-plus-circle-outline"></i> {!! trans('dashboard.admin.sub_progs.create') !!}</a>
+              <a href="{{ route('dashboard.admin.create') }}" class="slide-item px-6 {{ request()->routeIs('dashboard.admin.create') ? 'active' : '' }}"><i class="mdi mdi-plus-circle-outline"></i> {{ trans('dashboard.general.add') }}</a>
             </li>
           </ul>
         </li>
@@ -113,7 +112,7 @@
                 {!! trans('dashboard.employee.sub_progs.index') !!}</a>
             </li>
             <li>
-              <a href="{!! route('dashboard.client.create') !!}" class="slide-item px-6 {{ request()->routeIs('dashboard.client.index') ? 'active' : '' }}"><i class="mdi mdi-plus-circle-outline"></i> {!! trans('dashboard.admin.sub_progs.create') !!}</a>
+              <a href="{!! route('dashboard.client.create') !!}" class="slide-item px-6 {{ request()->routeIs('dashboard.client.index') ? 'active' : '' }}"><i class="mdi mdi-plus-circle-outline"></i> {{ trans('dashboard.general.add') }}</a>
             </li>
           </ul>
         </li>
@@ -133,15 +132,15 @@
             </li>
           </ul>
         </li>
-        <li class="slide {{ request()->routeIs('dashboard.activity_log.*') ? 'is-expanded' : '' }}">
-          <a class="side-menu__item" data-bs-toggle="slide" href="javascript:void(0)"><i class="mdi mdi-chart-line"></i><span class="side-menu__label">{!! trans('dashboard.activity_log.activity_logs') !!}</span><i class="angle fe fe-chevron-right"></i></a>
+        <li class="slide">
+          <a class="side-menu__item" data-bs-toggle="slide" href="javascript:void(0)"><i class="mdi mdi-chart-line"></i><span class="side-menu__label">المتابعة</span><i class="angle fe fe-chevron-right"></i></a>
           <ul class="slide-menu">
             <li class="side-menu-label1">
-              <a href="javascript:void(0)">{!! trans('dashboard.activity_log.activity_logs') !!}</a>
+              <a href="javascript:void(0)">المتابعة</a>
             </li>
             <li>
-              <a href="{!! route('dashboard.activity_log.index') !!}" class="slide-item px-6 {{ request()->routeIs('dashboard.activity_log.index') ? 'active' : '' }}"><i class="mdi mdi-file-document-multiple-outline"></i>
-                {!! trans('dashboard.activity_log.sub_progs.index') !!}</a>
+              <a href="../followup/activity-log.html" class="slide-item px-6"><i class="mdi mdi-file-document-multiple-outline"></i>
+                سجل النشاطات</a>
             </li>
           </ul>
         </li>

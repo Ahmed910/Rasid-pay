@@ -21,12 +21,11 @@
              sDom: "t<'domOption'lpi>",
              serverSide: true,
              ajax: {
-                 url: "{{ route('dashboard.job.index') }}?" + $.param(
+                 url: "{{ route('dashboard.jobs.index') }}?" + $.param(
                      @json(request()->query()))
              },
              columns: [{
                      data: function(data, type, full, meta) {
-                        console.log(data)
                          return meta.row + 1;
                      }
                  },
@@ -36,10 +35,7 @@
                  {
                      data: function(data) {
                          if (data.department_name !== null) {
-
                              return `<div class="flex-shrink-0"> <img src="https://picsum.photos/seed/picsum/100" width="25" class="avatar brround cover-image" alt="..." data-toggle="popoverIMG" /> </div><div class="flex-grow-1 ms-3">${data.department_name}</div></div>`
-                            }else{
-                               return `<div class="flex-shrink-0"> <img src="https://picsum.photos/seed/picsum/100" width="25" class="avatar brround cover-image" alt="..." data-toggle="popoverIMG" /> </div><div class="flex-grow-1 ms-3"></div></div>`
                          }
                      }
                  },
