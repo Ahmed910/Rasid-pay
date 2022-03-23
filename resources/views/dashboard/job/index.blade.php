@@ -5,12 +5,7 @@
 @endsection
 
 @section('content')
-  <!--app-content open-->
-  <div class="main-content app-content mt-0">
-    <div class="side-app">
-      <!-- CONTAINER -->
-      <div class="main-container container-fluid">
-        <!-- PAGE-HEADER -->
+
         <div class="page-header">
           <h1 class="page-title">{{ trans('dashboard.job.sub_progs.index') }}</h1>
           <a href="{{ route('dashboard.job.create') }}" class="btn btn-primary">
@@ -36,7 +31,7 @@
               <label for="from-hijri-picker"> {{ trans('dashboard.general.from_date') }}</label>
               <div class="input-group">
 
-                {!! Form::date('from_date', null, ['class' => 'form-control', 'id' => 'from-hijri-picker']) !!}
+                {!! Form::text('from_date', null, ['class' => 'form-control', 'readonly', 'id' => 'from-hijri-picker-custom']) !!}
                 <div class="input-group-text border-start-0">
                   <i class="fa fa-calendar tx-16 lh-0 op-6"></i>
                 </div>
@@ -46,7 +41,7 @@
               <label for="to-hijri-picker"> {{ trans('dashboard.general.to_date') }}</label>
               <div class="input-group">
 
-                {!! Form::date('to_date', null, ['class' => 'form-control', 'placeholder' => 'يوم/شهر/سنة', 'id' => 'to-hijri-picker']) !!}
+                {!! Form::text('to_date', null, ['class' => 'form-control', 'placeholder' => 'يوم/شهر/سنة', 'readonly', 'id' => 'to-hijri-picker-custom']) !!}
 
                 <div class="input-group-text border-start-0">
                   <i class="fa fa-calendar tx-16 lh-0 op-6"></i>
@@ -128,13 +123,6 @@
           </div>
         </div>
         <!-- End Row -->
-      </div>
-      <!-- CONTAINER CLOSED -->
-    </div>
-  </div>
-  <!--app-content closed-->
-@endsection
 
-@section('scripts')
-  @include('dashboard.job.script')
 @endsection
+@include('dashboard.job.script')
