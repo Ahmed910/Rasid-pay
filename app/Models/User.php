@@ -18,6 +18,7 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use App\Notifications\ResetPasswordNotification;
+use Carbon\Carbon;
 use Illuminate\Support\Str;
 
 class User extends Authenticatable implements HasAssetsInterface
@@ -148,6 +149,32 @@ class User extends Authenticatable implements HasAssetsInterface
             $this->attributes['ban_from'] = null;
             $this->attributes['ban_to'] = null;
         }
+    }
+
+    public function getBanFromAttribute($value)
+    {
+        if ($value == null) return;
+
+        if (auth()->check() && auth()->user()->is_date_hijri) {
+            $this->changeDateLocale();
+
+            return Hijri::convertToHijri($value)->format('d F o  h:i A');
+        }
+
+        return Carbon::parse($value)->format('Y-m-d h:i A');
+    }
+
+    public function getBanToAttribute($value)
+    {
+        if ($value == null) return;
+
+        if (auth()->check() && auth()->user()->is_date_hijri) {
+            $this->changeDateLocale();
+
+            return Hijri::convertToHijri($value)->format('d F o  h:i A');
+        }
+
+        return Carbon::parse($value)->format('Y-m-d h:i A');
     }
 
     #region scopes
