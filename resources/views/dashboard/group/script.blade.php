@@ -7,7 +7,7 @@
 @endsection
 @section('scripts')
 <script src="{{ asset('dashboardAssets/js/custom_scripts.js') }}"></script>
-{{-- Ajax DataTable --}}
+
 <script src="{{ asset('dashboardAssets/js/select2.js') }}"></script>
 <script src="{{ asset('dashboardAssets/plugins/select2/select2.full.min.js') }}"></script>
 @endsection

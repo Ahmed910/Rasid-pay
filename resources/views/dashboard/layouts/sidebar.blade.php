@@ -1,4 +1,5 @@
 <div class="sticky">
+
   <div class="app-sidebar__overlay" data-bs-toggle="sidebar"></div>
   <div class="app-sidebar d-flex flex-column h-100">
     <div class="side-header">

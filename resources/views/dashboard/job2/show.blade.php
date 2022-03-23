@@ -15,7 +15,7 @@
             <nav aria-label="breadcrumb">
               <ol class="breadcrumb">
                 <li class="breadcrumb-item">
-                  <a href="{{ route('dashboard.jobs.index') }}">{{ trans('dashboard.job.sub_progs.index') }}</a>
+                  <a href="{{ route('dashboard.job.index') }}">{{ trans('dashboard.job.sub_progs.index') }}</a>
                 </li>
                 <li class="breadcrumb-item active" aria-current="page">
                   {{ trans('dashboard.job.show') }}
@@ -68,7 +68,7 @@
 
             <div class="row">
               <div class="col-12 text-end">
-                <a href="{{ route('dashboard.jobs.edit',$job->id) }}"
+                <a href="{{ route('dashboard.job.edit',$job->id) }}"
                   class="btn btn-primary"
                 >
                   <i class="mdi mdi-square-edit-outline"></i> {{ trans('dashboard.general.edit') }}

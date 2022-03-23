@@ -8,9 +8,7 @@
     <span style="direction: ltr; display: block">{{ $phone }}</span>
 </p>
 <!-- FORM OPEN -->
-@error('reset_token')
-    <div class="alert alert-danger">{{ $message }}</div>
-@enderror
+
 <form method="POST" action="{!! route('dashboard.check_sms_code') !!}" class="needs-validation" id="form_sms" novalidate>
     @csrf
     <input type="hidden" name="reset_token" value="{{ $reset_token }}">
