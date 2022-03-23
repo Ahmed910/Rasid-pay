@@ -26,7 +26,7 @@ Edit Job
               <!-- PAGE-HEADER END -->
 
               <!-- ROW OPEN -->
-             {!! Form::model($rasidJob, ['route' => ['dashboard.jobs.update', $rasidJob->id],'method' => 'PUT','class' => 'needs-validation novalidate','id'=>'formId']) !!}
+             {!! Form::model($rasidJob, ['route' => ['dashboard.job.update', $rasidJob->id],'method' => 'PUT','class' => 'needs-validation novalidate','id'=>'formId']) !!}
                 @include('dashboard.job._form')
            {!! Form::close() !!}
 

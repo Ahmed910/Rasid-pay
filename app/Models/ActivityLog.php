@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use App\Traits\Uuid;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Str;
 
@@ -47,6 +48,13 @@ class ActivityLog extends Model
 
     #region mutators
     #endregion mutators
+
+    #region accessor
+        public function getCreatedAtAttribute($value)
+        {
+            return Carbon::parse($value)->toFormattedDateString();
+        }
+    #endregion accessor
 
     #region scopes
     public function scopeSearch(Builder $query, $request)

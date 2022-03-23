@@ -105,16 +105,16 @@
                  [1, 5, 10, 20, -1],
                  [1, 5, 10, 20, "الكل"],
              ],
-             language: {
-                 lengthMenu: "عرض _MENU_",
-                 zeroRecords: "لا يوجد بيانات",
-                 info: "عرض _PAGE_ من _PAGES_ عنصر",
-                 infoEmpty: "لا يوجد نتائج بحث متاحة",
-                 paginate: {
-                     previous: '<i class="mdi mdi-chevron-right"></i>',
-                     next: '<i class="mdi mdi-chevron-left"></i>',
+             "language": {
+                 "lengthMenu": "@lang('dashboard.datatable.show') _MENU_",
+                 "zeroRecords": "@lang('dashboard.general.no_data')",
+                 "info": "إظهار _START_ إلى _END_ من أصل _TOTAL_ مدخل",
+                 "infoEmpty": "@lang('dashboard.general.there_is_no_data')",
+                 "paginate": {
+                     "previous": '<i class="mdi mdi-chevron-right"></i>',
+                     "next": '<i class="mdi mdi-chevron-left"></i>',
                  },
-             },
+             }
          });
          $('.select2').select2({
              minimumResultsForSearch: Infinity
