@@ -14,9 +14,6 @@
 
  <script>
      $(function() {
-
-
-
          $("#JobsTable").DataTable({
              sDom: "t<'domOption'lpi>",
              serverSide: true,

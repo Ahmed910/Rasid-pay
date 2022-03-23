@@ -27,8 +27,8 @@
                 <!-- PAGE-HEADER END -->
 
                 <!-- ROW OPEN -->
-                {!! Form::open(['route' => 'dashboard.department.store', 'method' => 'POST', 'enctype' => 'multipart/form-data', 'class' => 'needs-validation', 'id' => 'formId', 'novalidate']) !!}
-                @include('dashboard.department._form')
+                {!! Form::open(['route' => 'dashboard.department.store', 'method' => 'POST', 'class' => 'needs-validation', 'id' => 'formId', 'files' => true, 'novalidate']) !!}
+                @include('dashboard.department._form',['btn_submit' => trans('dashboard.general.save')])
                 {!! Form::close() !!}
                 <!-- ROW CLOSED -->
             </div>
