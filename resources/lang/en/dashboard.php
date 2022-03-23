@@ -15,6 +15,9 @@ return [
         'description' => 'Description in Arabic',
     ],
 
+    'datatable' => [
+        'show' => 'Show :menu'
+    ],
     'general' => [
         "success_add" => "Created Successfully",
         "success_delete" => "Deleted Successfully",
@@ -46,8 +49,22 @@ return [
         "created_at" => "Creation Date",
         "actions" => "Actions",
         'all' => 'All',
-        'description' => 'Description'
-
+        'description' => 'Description',
+        'day_month_year' => 'day/month/year',
+        'export' => 'Export',
+        'details' => 'Details',
+        'no_data' => 'No Data',
+        'there_is_no_data' => 'There is no data available',
+        'showing' => 'Showing',
+        'to' => 'To',
+        'from' => 'From',
+        'entries' => 'Entries',
+        'delete' => 'Delete',
+        'hold_upload' => 'Drag and drop or upload the image',
+        'hold_change' => 'Drag and drop or tap to change the image',
+        'upload_error' => 'Oh, something went wrong',
+        'upload_file_max' => 'File size is large',
+        'notAllowdedToUpload' => 'File type is not allowded to be uploaded',
     ],
     'error' => [
         'method_not_allow' => 'Http method (:method) not allowed',
@@ -87,13 +104,15 @@ return [
         "department" => "Department",
         "departments" => "Departments",
         "department_image" => "Department Image",
+        "add_department" => "Add Department",
         "main_department" => "Main Department",
         "department_name" => "Department Name",
-        "add_department" => "",
+        'select_main_department' => 'Select Main Department',
         "edit_department" => "",
         "department_count" => "",
         "department_has_relationship_cannot_delete" => "This department has sub department ,so you cannot delete it",
-        'permissions' => $permissions + ['get_parents' => 'Show main departments']
+        'permissions' => $permissions + ['get_parents' => 'Show main departments'],
+        'without_parent' => 'Without'
     ],
     "rasid_job" => [
         "rasid_job" => "Job",

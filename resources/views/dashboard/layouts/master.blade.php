@@ -78,6 +78,8 @@
     <script src="{{ asset('dashboardAssets/plugins/bootstrap/js/popper.min.js') }}"></script>
     <script src="{{ asset('dashboardAssets/plugins/bootstrap/js/bootstrap.min.js') }}"></script>
 
+        @yield('scripts')
+
     <!-- SIDE-MENU JS -->
     <script src="{{ asset('dashboardAssets/plugins/sidemenu/sidemenu.js') }}"></script>
 
@@ -94,8 +96,6 @@
     <script src="{{ asset('dashboardAssets/plugins/bootstrap-hijri-datepicker/js/bootstrap-hijri-datetimepicker.js') }}"></script>
 
 
-
-    @yield('scripts')
 
 </body>
 

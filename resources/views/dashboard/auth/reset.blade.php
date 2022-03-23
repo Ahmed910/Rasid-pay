@@ -43,7 +43,6 @@
                         id="email"
                         name="email"
                         placeholder="البريد الإلكتروني"
-                        required
                       />
                       @error('email')
                           <div class="invalid-feedback">{{ $message }}</div>
@@ -78,7 +77,6 @@
                         id="mobile"
                         name="phone"
                         placeholder="رقم الجوال"
-                        required
                       />
                       @error('phone')
                           <div class="invalid-feedback">{{ $message }}</div>

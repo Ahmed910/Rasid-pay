@@ -3,17 +3,17 @@
 $white: #fff;
 
 .btn-success {
-    color: #fff;
-    background-color: $green;
-    border-color: $green;
+  color: #fff;
+  background-color: $green;
+  border-color: $green;
 }
 .btn-outline-success {
-    color: $green;
+  color: $green;
+  border-color: $green;
+  &:hover {
+    background-color: $green;
     border-color: $green;
-    &:hover{
-      background-color: $green;
-    border-color: $green;
-    }
+  }
 }
 /* ----------------- SIDE MENU ------------------*/
 .side-menu {
@@ -349,8 +349,8 @@ textarea {
 }
 
 .bg-info-opacity {
-  background: #EBECFB ;
-  color: #6777CB;
+  background: #ebecfb;
+  color: #6777cb;
   font-weight: bold;
   min-width: 77px;
 }
@@ -693,6 +693,8 @@ label {
   padding: 1em 2em;
   position: relative;
   border-bottom: 1px solid #f7f7f7;
+  font-weight: normal;
+  font-family: "Cairo";
   &:last-of-type {
     border: none;
   }
@@ -748,16 +750,16 @@ input[type="number"] {
   -moz-appearance: textfield;
 }
 
-.popoverTable{
-  
-.popover-body {
-  height: 250px;
-  overflow: scroll;
-}
+.popoverTooltip {
+  .popover-body,
+  .popover-header {
+    height: 250px;
+    overflow: scroll;
+  }
 
-i[data-bs-toggle="popoverRoles"] {
-  cursor: pointer;
-}
+  i[data-bs-toggle="popoverRoles"] {
+    cursor: pointer;
+  }
 }
 
 .select2 {
@@ -778,44 +780,110 @@ i[data-bs-toggle="popoverRoles"] {
   right: inherit !important;
 }
 
-
-.select2-container--default .select2-search--inline .select2-search__field{
+.select2-container--default .select2-search--inline .select2-search__field {
   text-align: right;
 }
 
-table.dataTable.dtr-column>tbody>tr>td.dtr-control:before, table.dataTable.dtr-column>tbody>tr>th.dtr-control:before, table.dataTable.dtr-column>tbody>tr>td.control:before, table.dataTable.dtr-column>tbody>tr>th.control:before {
-    top: 50%;
-    left: 50%;
-    height: initial; 
-    width: initial; 
-    margin-top: -0.5em;
-    margin-left: -0.5em;
-    display: block;
-    position: absolute;
-    color: #000;
-    border: transparent;
-    border-radius: 1em;
-    box-shadow: none;
-    box-sizing: content-box;
+table.dataTable.dtr-column > tbody > tr > td.dtr-control:before,
+table.dataTable.dtr-column > tbody > tr > th.dtr-control:before,
+table.dataTable.dtr-column > tbody > tr > td.control:before,
+table.dataTable.dtr-column > tbody > tr > th.control:before {
+  top: 50%;
+  left: 50%;
+  height: initial;
+  width: initial;
+  margin-top: -0.5em;
+  margin-left: -0.5em;
+  display: block;
+  position: absolute;
+  color: #000;
+  border: transparent;
+  border-radius: 1em;
+  box-shadow: none;
+  box-sizing: content-box;
+  text-align: center;
+  text-indent: 0 !important;
+  font: normal normal normal 20px/1 "Material Design Icons";
+  line-height: 1em;
+  content: "\F06D0";
+  background-color: transparent;
+}
+
+table.dataTable.dtr-column > tbody > tr.parent td.dtr-control:before,
+table.dataTable.dtr-column > tbody > tr.parent th.dtr-control:before,
+table.dataTable.dtr-column > tbody > tr.parent td.control:before,
+table.dataTable.dtr-column > tbody > tr.parent th.control:before {
+  content: "\F0D05";
+  background-color: transparent;
+  color: #45aaf2 !important;
+}
+
+tr {
+  &:hover {
+    .dtr-control:before {
+      color: #45aaf2 !important;
+    }
+  }
+}
+
+.digit-group {
+  direction: ltr;
+}
+
+$BaseBG: #0f0f1a;
+.digit-group {
+  input {
+    width: 30px;
+    height: 50px;
+    background-color: lighten($BaseBG, 5%);
+    border: none;
+    line-height: 50px;
     text-align: center;
-    text-indent: 0 !important;
-    font: normal normal normal 20px/1 "Material Design Icons";
-    line-height: 1em;
-    content: "\F06D0";
-    background-color: transparent;
+    font-size: 24px;
+    font-family: "Raleway", sans-serif;
+    font-weight: 200;
+    color: white;
+    margin: 0 2px;
+  }
 
+  .splitter {
+    padding: 0 5px;
+    color: white;
+    font-size: 24px;
+  }
 }
 
-table.dataTable.dtr-column>tbody>tr.parent td.dtr-control:before, table.dataTable.dtr-column>tbody>tr.parent th.dtr-control:before, table.dataTable.dtr-column>tbody>tr.parent td.control:before, table.dataTable.dtr-column>tbody>tr.parent th.control:before{
-    content: "\F0D05";
-    background-color: transparent;
-      color: #45aaf2 !important;
+.disable {
+  cursor: initial;
 }
 
-tr{
-  &:hover{
-    .dtr-control:before{
-      color: #45aaf2 !important;
+.modal-backdrop.show {
+  opacity: 0.75;
+}
+
+.permissions {
+  .badge {
+    &.bg-primary-opacity {
+      height: 36px;
+      i {
+        margin-right: 5px;
+        display: inline-block;
+      }
+    }
+  }
+}
+
+.has-error {
+  &.dropify-wrapper .dropify-errors-container {
+    ul {
+      right: 0;
+      left: initial;
+    }
+  }
+  .dropify-message {
+    top: 80% !important;
+    p {
+      margin-top: 0 !important;
     }
   }
 }

@@ -28,7 +28,7 @@
               {!! Form::text('name', null, ['class' => 'form-control', 'placeholder' => trans('dashboard.job.job_name'), 'id' => 'job_name']) !!}
             </div>
             <div class="col">
-              <label for="mainDepartment"> {{ trans('dashboard.job.department') }} </label>
+              <label for="mainDepartment"> {{ trans('dashboard.department.department') }} </label>
               {{--              <select class="form-control select2"--}}
 
               {{--                      name="department_id">--}}
@@ -112,7 +112,6 @@
         </form>
 
         <!-- FORM CLOSED -->
-
         <!-- Row -->
         <div class="row row-sm">
           <div class="col-lg-12">
@@ -122,7 +121,8 @@
                 <tr>
                   <th class="border-bottom-0">#</th>
                   <th class="border-bottom-0">{{ trans('dashboard.job.job_name') }}</th>
-                  <th class="border-bottom-0">{{ trans('dashboard.job.department') }} </th>
+
+                  <th class="border-bottom-0">{{ trans('dashboard.department.department') }} </th>
                   <th class="border-bottom-0">{{ trans('dashboard.general.created_at') }} </th>
                   <th class="border-bottom-0">{{ trans('dashboard.general.status') }}</th>
                   <th class="border-bottom-0">{{ trans('dashboard.general.type') }}</th>

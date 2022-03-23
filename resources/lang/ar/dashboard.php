@@ -17,6 +17,9 @@ return [
         'description' => 'الوصف باللغة العربية',
         'nationality' => 'الجنسية باللغة العربية',
     ],
+    'datatable' => [
+        'show :menu' => 'عرض :menu'
+    ],
     'general' => [
         "success_add" => "تم الإضافة بنجاح",
         "success_delete" => "تم الحذف بنجاح",
@@ -48,8 +51,28 @@ return [
         "show_all" => "عرض الكل",
         "created_at" => "تاريخ الإنشاء",
         "actions" => "العمليات",
+        "active_cases" => [
+            'معطل',
+            'مفعل',
+        ],
         'all' => 'الجميع',
-        'description'=>'الوصف'
+        'description' => 'الوصف',
+        'day_month_year' => 'يوم/شهر/سنة',
+        'export' => 'تصدير',
+        'details' => 'التفاصيل',
+        'no_data' => 'لا يوجد بيانات',
+        'there_is_no_data' => 'لا يوجد نتائج بحث متاحة',
+        'showing' => 'عرض',
+        'to' => 'الى',
+        'from' => 'من',
+        'entries' => 'مدخلات',
+        'delete' => 'حذف',
+        'hold_upload' => 'اسحب وأسقط او قم برفع الصورة',
+        'hold_change' => 'اسحب وأسقط او إضغط لتغيير الصورة',
+        'upload_error' => 'اووه ، حدث خطأ ما',
+        'upload_file_max' => 'حجم الملف كبير',
+        'notAllowdedToUpload' => 'نوع الملف غير مسموح بتحميله',
+
     ],
     'error' => [
         'method_not_allow' => 'طريقة الطلب (:method) غير صحيحة',
@@ -231,7 +254,6 @@ return [
         "edit_job" => "تعديل وظيفة",
         "job_count" => "عدد الوظائف",
         "job_name" => "اسم الوظيفة",
-        "department" => "القسم",
         "select_department" => "اختر القسم",
         "employee_name" => "اسم الموظف",
         "job_description" => "وصف الوظيفة",
