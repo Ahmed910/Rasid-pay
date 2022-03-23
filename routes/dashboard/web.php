@@ -27,7 +27,7 @@ Route::group(
 
         Route::middleware('auth')->prefix('dashboard')->group(function () {
             Route::get('/', "HomeController@index")->name("home.index");
-            Route::post('logout', "Auth\LoginController@logout")->name("logout");
+            Route::post('logout', "Auth\LoginController@logout")->name("session.logout");
             Route::resources([
                 'job' => 'JobController',
                 'department' => 'DepartmentController',

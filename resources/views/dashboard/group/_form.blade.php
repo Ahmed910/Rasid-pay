@@ -67,3 +67,9 @@
     </div>
   </div>
 <!-- ROW CLOSED -->
+@section('scripts')
+    <script src="{{ asset('dashboardAssets/js/select2.js') }}"></script>
+    <script src="{{ asset('dashboardAssets/plugins/select2/select2.full.min.js') }}"></script>
+    <script src="{{ asset('dashboardAssets') }}/plugins/fileuploads/js/fileupload.js"></script>
+    <script src="{{ asset('dashboardAssets') }}/plugins/fileuploads/js/file-upload.js"></script>
+@endsection

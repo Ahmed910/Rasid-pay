@@ -6,7 +6,7 @@
 <!-- PAGE-HEADER -->
 <div class="page-header">
   <h1 class="page-title">سجل الصلاحيات</h1>
-  <a href="permission-add.html" class="btn btn-primary">
+  <a href="{!! route('dashboard.group.edit','c5529d54-3900-4b35-95ed-39a21568031a') !!}" class="btn btn-primary">
     <i class="mdi mdi-plus-circle-outline"></i> إضافة مجموعة
   </a>
 </div>
@@ -87,8 +87,8 @@
                 مفعلة</span>
             </td>
             <td class="text-center">
-              <a href="permission-view.html" class="azureIcon" data-bs-toggle="tooltip" data-bs-placement="top" title="عرض"><i class="mdi mdi-eye-outline"></i></a>
-              <a href="permission-add.html" class="warningIcon" data-bs-toggle="tooltip" data-bs-placement="top" title="تعديل"><i class="mdi mdi-square-edit-outline"></i></a>
+              <a href="{!! route('dashboard.group.show','c5529d54-3900-4b35-95ed-39a21568031a') !!}" class="azureIcon" data-bs-toggle="tooltip" data-bs-placement="top" title="عرض"><i class="mdi mdi-eye-outline"></i></a>
+              <a href="{!! route('dashboard.group.edit','c5529d54-3900-4b35-95ed-39a21568031a') !!}" class="warningIcon" data-bs-toggle="tooltip" data-bs-placement="top" title="تعديل"><i class="mdi mdi-square-edit-outline"></i></a>
             </td>
           </tr>
 
@@ -104,8 +104,8 @@
                 معطله</span>
             </td>
             <td class="text-center">
-              <a href="permission-view.html" class="azureIcon" data-bs-toggle="tooltip" data-bs-placement="top" title="عرض"><i class="mdi mdi-eye-outline"></i></a>
-              <a href="permission-add.html" class="warningIcon" data-bs-toggle="tooltip" data-bs-placement="top" title="تعديل"><i class="mdi mdi-square-edit-outline"></i></a>
+              <a href="{!! route('dashboard.group.show','c5529d54-3900-4b35-95ed-39a21568031a') !!}" class="azureIcon" data-bs-toggle="tooltip" data-bs-placement="top" title="عرض"><i class="mdi mdi-eye-outline"></i></a>
+              <a href="{!! route('dashboard.group.edit','c5529d54-3900-4b35-95ed-39a21568031a') !!}" class="warningIcon" data-bs-toggle="tooltip" data-bs-placement="top" title="تعديل"><i class="mdi mdi-square-edit-outline"></i></a>
             </td>
           </tr>
 
@@ -122,8 +122,8 @@
                 مفعلة</span>
             </td>
             <td class="text-center">
-              <a href="permission-view.html" class="azureIcon" data-bs-toggle="tooltip" data-bs-placement="top" title="عرض"><i class="mdi mdi-eye-outline"></i></a>
-              <a href="permission-add.html" class="warningIcon" data-bs-toggle="tooltip" data-bs-placement="top" title="تعديل"><i class="mdi mdi-square-edit-outline"></i></a>
+              <a href="{!! route('dashboard.group.show','c5529d54-3900-4b35-95ed-39a21568031a') !!}" class="azureIcon" data-bs-toggle="tooltip" data-bs-placement="top" title="عرض"><i class="mdi mdi-eye-outline"></i></a>
+              <a href="{!! route('dashboard.group.edit','c5529d54-3900-4b35-95ed-39a21568031a') !!}" class="warningIcon" data-bs-toggle="tooltip" data-bs-placement="top" title="تعديل"><i class="mdi mdi-square-edit-outline"></i></a>
             </td>
           </tr>
 
@@ -140,8 +140,8 @@
                 مفعلة</span>
             </td>
             <td class="text-center">
-              <a href="permission-view.html" class="azureIcon" data-bs-toggle="tooltip" data-bs-placement="top" title="عرض"><i class="mdi mdi-eye-outline"></i></a>
-              <a href="permission-add.html" class="warningIcon" data-bs-toggle="tooltip" data-bs-placement="top" title="تعديل"><i class="mdi mdi-square-edit-outline"></i></a>
+              <a href="{!! route('dashboard.group.show','c5529d54-3900-4b35-95ed-39a21568031a') !!}" class="azureIcon" data-bs-toggle="tooltip" data-bs-placement="top" title="عرض"><i class="mdi mdi-eye-outline"></i></a>
+              <a href="{!! route('dashboard.group.edit','c5529d54-3900-4b35-95ed-39a21568031a') !!}" class="warningIcon" data-bs-toggle="tooltip" data-bs-placement="top" title="تعديل"><i class="mdi mdi-square-edit-outline"></i></a>
             </td>
           </tr>
 
@@ -158,8 +158,8 @@
                 معطله</span>
             </td>
             <td class="text-center">
-              <a href="permission-view.html" class="azureIcon" data-bs-toggle="tooltip" data-bs-placement="top" title="عرض"><i class="mdi mdi-eye-outline"></i></a>
-              <a href="permission-add.html" class="warningIcon" data-bs-toggle="tooltip" data-bs-placement="top" title="تعديل"><i class="mdi mdi-square-edit-outline"></i></a>
+              <a href="{!! route('dashboard.group.show','c5529d54-3900-4b35-95ed-39a21568031a') !!}" class="azureIcon" data-bs-toggle="tooltip" data-bs-placement="top" title="عرض"><i class="mdi mdi-eye-outline"></i></a>
+              <a href="{!! route('dashboard.group.edit','c5529d54-3900-4b35-95ed-39a21568031a') !!}" class="warningIcon" data-bs-toggle="tooltip" data-bs-placement="top" title="تعديل"><i class="mdi mdi-square-edit-outline"></i></a>
             </td>
           </tr>
         </tbody>

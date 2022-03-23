@@ -25,6 +25,7 @@ class Permission extends Model
         'menus.update',
         'menus.show',
         'menus.destroy',
+        'session.logout',
     ];
     #endregion properties
 
