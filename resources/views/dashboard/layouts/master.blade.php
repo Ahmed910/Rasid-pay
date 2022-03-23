@@ -86,6 +86,7 @@
   <script src="{{ asset('dashboardAssets/plugins/sidemenu/sidemenu.js') }}"></script>
 
   <!-- DATA TABLE JS-->
+  @yield('datatable_script')
   <!-- Sticky js -->
   <script src="{{ asset('dashboardAssets/js/sticky.js') }}"></script>
 
@@ -94,13 +95,9 @@
 
   <!-- CUSTOM JS -->
   <script src="{{ asset('dashboardAssets/js/custom.js') }}"></script>
-
-  <script src="{{ asset('dashboardAssets/plugins/bootstrap-hijri-datepicker/js/bootstrap-hijri-datetimepicker.js') }}"></script>
-
-
-
+  {{-- <script src="{{ asset('dashboardAssets/plugins/bootstrap-hijri-datepicker/js/bootstrap-hijri-datetimepicker.js') }}"></script> --}}
   @yield('scripts')
-  <script src="{{ asset('dashboardAssets/plugins/sidemenu/sidemenu.js') }}"></script>
+
 </body>
 
 </html>
