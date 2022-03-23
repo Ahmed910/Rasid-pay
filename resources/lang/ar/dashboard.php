@@ -40,6 +40,8 @@ return [
         'fail_send' => 'فشل عملية الارسال',
         'active' => 'مفعل',
         'inactive' => 'معطل',
+        'activited' => 'تفعيل',
+        'unactivited' => 'تعطيل',
         'dashboard' => 'لوحة تحكم رصيد جاك',
         "status" => "الحالة",
         "select_status" => "اختر الحالة",
@@ -50,6 +52,7 @@ return [
         "search" => "بحث",
         "show_all" => "عرض الكل",
         "created_at" => "تاريخ الإنشاء",
+        'create' => 'انشاء',
         "actions" => "العمليات",
         "active_cases" => [
             'معطل',
@@ -72,7 +75,9 @@ return [
         'upload_error' => 'اووه ، حدث خطأ ما',
         'upload_file_max' => 'حجم الملف كبير',
         'notAllowdedToUpload' => 'نوع الملف غير مسموح بتحميله',
-
+        'description'=>'الوصف',
+        'reason' =>'السبب',
+        'done_by' => 'تم بواسطة',
     ],
     'error' => [
         'method_not_allow' => 'طريقة الطلب (:method) غير صحيحة',
@@ -83,6 +88,10 @@ return [
     ],
     'activity_log' => [
         "reason" => ":user قام :action",
+        "date" => "تاريخ النشاط",
+        "activity" => " النشاط",
+        'history' => 'الحركة التاريخية',
+
     ],
     'home' => [
         'home' => 'الرئيسية',
@@ -165,10 +174,13 @@ return [
         "edit_department" => "تعديل القسم",
         "department_count" => "عدد الأقسام",
         'select_main_department' => 'جميع الاقسام',
-        'sub_progs' => [
+        "name" => "اسم القسم",
+        "sub_progs" => [
             'index' => 'سجل الأقسام',
             'archive' => 'أرشيف الأقسام',
             'create' => 'اضافة قسم',
+            'show' => 'عرض قسم',
+
         ],
         'permissions' => $permissions + ['get_parents' => 'عرض الأقسام الرئيسية'],
         "has_jobs_cannot_delete" => "لا يمكن أرشفة قسم مرتبط بوظائف",

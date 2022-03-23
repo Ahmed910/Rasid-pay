@@ -37,6 +37,8 @@ return [
         'fail_send' => 'Sending Failed',
         'active' => 'Active',
         'inactive' => 'Inactive',
+        'activited' => 'Activited',
+        'unactivited' => 'Unactivited',
         'dashboard' => 'Rasid Jack Dashboard',
         "status" => "Status",
         "select_status" => "Select Status",
@@ -75,6 +77,10 @@ return [
     ],
     'activity_log' => [
         "reason" => ":user did :action",
+        "date" =>"Activity Date",
+        "activity" => "Activity",
+        'history' => 'History ',
+
     ],
     "country" => [
         "country" => "Country",

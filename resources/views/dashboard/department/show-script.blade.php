@@ -46,28 +46,28 @@
                     {
                         data: function(data) {
                             if (data.type == 'created') {
-                                return '<span class="badge bg-success-opacity py-2 px-4">انشاء</span>';
+                                return `<span class="badge bg-success-opacity py-2 px-4">${"@lang('dashboard.general.create')"}</span>`;
                             }
                             if (data.type == 'updated') {
-                                return '<span class="badge bg-warning-opacity py-2 px-4">تعديل</span>';
+                                return `<span class="badge bg-warning-opacity py-2 px-4">${"@lang('dashboard.general.edit')"}</span>`;
                             }
                             if (data.type == 'destroy') {
-                                return '<span class="badge bg-primary-opacity py-2 px-4">أرشفة</span>';
+                                return `<span class="badge bg-primary-opacity py-2 px-4">${"@lang('dashboard.general.archive')"}</span>`;
                             }
                             if (data.type == 'restored') {
-                                return '<span class="badge bg-success-opacity py-2 px-4">استلاجاع</span>';
+                                return `<span class="badge bg-success-opacity py-2 px-4">${"@lang('dashboard.general.restore')"}</span>`;
                             }
                             if (data.type == 'permanent_delete') {
-                                return '<span class="badge bg-success-opacity py-2 px-4">حذف</span>';
+                                return `<span class="badge bg-success-opacity py-2 px-4">${"@lang('dashboard.general.force_delete')"}</span>`;
                             }
                             if (data.type == 'searched') {
-                                return '<span class="badge bg-success-opacity py-2 px-4">بحث</span>';
+                                return `<span class="badge bg-success-opacity py-2 px-4">${"@lang('dashboard.general.search')"}</span>`;
                             }
                             if (data.type == 'deactivated') {
-                                return '<span class="badge bg-default-opacity py-2 px-4">تعطيل</span>';
+                                return `<span class="badge bg-default-opacity py-2 px-4">${"@lang('dashboard.general.unactivited')"}</span>`;
                             }
                             if (data.type == 'activated') {
-                                return '<span class="badge bg-success-opacity py-2 px-4">تفعيل</span>';
+                                return `<span class="badge bg-success-opacity py-2 px-4">${"@lang('dashboard.general.activited')"}</span>`;
                             }
 
 
@@ -82,8 +82,8 @@
                 ],
                 pageLength: 10,
                 lengthMenu: [
-                    [ 1,5, 10, 20, -1],
-                    [ 1,5, 10, 20, "الكل"],
+                    [1, 5, 10, 20, -1],
+                    [1, 5, 10, 20, "الكل"],
                 ],
                 language: {
                     lengthMenu: "عرض _MENU_",
