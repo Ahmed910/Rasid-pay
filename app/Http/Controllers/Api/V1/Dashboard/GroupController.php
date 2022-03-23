@@ -149,7 +149,7 @@ class GroupController extends Controller
     {
         $groups = Group::when($group_id, function ($q) use($group_id) {
                     $q->where('groups.id',"<>",$group_id);
-                })->with('permissions')->ListsTranslations('name')->without(['addedBy'])->get();
+                })->active()->with('permissions')->ListsTranslations('name')->without(['addedBy'])->get();
 
         return GroupResource::collection($groups)->additional(['status' => true, 'message' => ""]);
 
