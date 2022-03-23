@@ -123,11 +123,18 @@ return [
     "rasid_job" => [
         "rasid_job" => "Job",
         "rasid_jobs" => "Jobs",
-        "add_rasid_job" => "",
-        "edit_rasid_job" => "",
-        "rasid_job_count" => "",
+        "add_rasid_job" => "Add Job",
+        "edit_rasid_job" => "Edit Job",
+        "rasid_job_count" => "Job Count",
+        "name" => "Job Name",
         "validation" => [
             'name_must_be_unique_on_department' => 'The job title was previously selected for the same department'
+        ],
+        'sub_progs' => [
+            'index' => 'Jobs Record',
+            'archive' => 'Jobs Archive',
+            'create' => 'Add Job',
+            'show' => 'Show Job'
         ],
 
         "jobs_hired_deleted" => " can't delete this job ",

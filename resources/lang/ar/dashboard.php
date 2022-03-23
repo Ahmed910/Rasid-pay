@@ -193,6 +193,11 @@ return [
         "add_rasid_job" => "اضافة وظيفة",
         "edit_rasid_job" => "تعديل الوظيفة",
         "rasid_job_count" => "عدد الوظائف",
+        "employee_name" => "اسم الموظف",
+        "rasid_job_description" => "الوصف الوظيفي",
+        "rasid_job_count" => "عدد الوظائف",
+
+        "name" => "اسم الوظيفة",
         "validation" => [
             'name_must_be_unique_on_department' => 'تم اختيار اسم الوظيفة من قبل لنفس القسم'
         ],
@@ -202,6 +207,7 @@ return [
             'index' => 'سجل الوظائف',
             'archive' => 'أرشيف الوظائف',
             'create' => 'اضافة وظيفة',
+            'show' => 'عرض وظيفة'
         ],
         'permissions' => $permissions
     ],
