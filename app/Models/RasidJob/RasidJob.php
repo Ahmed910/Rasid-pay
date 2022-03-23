@@ -70,11 +70,13 @@ class RasidJob extends Model implements TranslatableContract
 
 
         if (isset($request->is_active)) {
+            if (!in_array($request->is_active, [1, 0])) return;
 
             $query->where('is_active', $request->is_active);
         }
 
         if (isset($request->is_vacant)) {
+            if (!in_array($request->is_vacant, [1, 0])) return;
 
             $query->where('is_vacant', $request->is_vacant);
         }
