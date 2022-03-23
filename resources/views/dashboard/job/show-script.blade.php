@@ -1,14 +1,11 @@
-@section('scripts')
-    <!-- SELECT2 JS -->
-    <script src="{{ asset('dashboardAssets/js/select2.js') }}"></script>
-    <script src="{{ asset('dashboardAssets/plugins/select2/select2.full.min.js') }}"></script>
-
-
+@section('datatable_script')
     <script src="{{ asset('dashboardAssets/plugins/datatable/js/jquery.dataTables.min.js') }}"></script>
     <script src="{{ asset('dashboardAssets/plugins/datatable/js/dataTables.bootstrap5.js') }}"></script>
     <script src="{{ asset('dashboardAssets/plugins/datatable/dataTables.responsive.min.js') }}"></script>
     <script src="{{ asset('dashboardAssets/plugins/datatable/responsive.bootstrap5.min.js') }}"></script>
-    {{-- <script src="{{ asset('dashboardAssets/js/table-data.js') }}"></script> --}}
+@endsection
+@section('scripts')
+    <script src="{{ asset('dashboardAssets/js/custom_scripts.js') }}"></script>
 
     <script>
         $(function() {
@@ -85,7 +82,7 @@
                     [1, 5, 10, 20, -1],
                     [1, 5, 10, 20, "الكل"],
                 ],
-               "language": {
+                "language": {
                     "lengthMenu": "@lang('dashboard.datatable.show') _MENU_",
                     "zeroRecords": "@lang('dashboard.general.no_data')",
                     "info": "إظهار _START_ إلى _END_ من أصل _TOTAL_ مدخل",
@@ -102,4 +99,6 @@
             });
         });
     </script>
+    <script src="{{ asset('dashboardAssets/js/select2.js') }}"></script>
+    <script src="{{ asset('dashboardAssets/plugins/select2/select2.full.min.js') }}"></script>
 @endsection
