@@ -4,12 +4,7 @@ job Grid
 @endsection
 
 @section('content')
-  <!--app-content open-->
-  <div class="main-content app-content mt-0">
-    <div class="side-app">
-      <!-- CONTAINER -->
-      <div class="main-container container-fluid">
-        <!-- PAGE-HEADER -->
+
         <div class="page-header">
           <h1 class="page-title">سجل الوظائف</h1>
           <a href="{{route('dashboard.job.create')}}" class="btn btn-primary">
@@ -28,24 +23,14 @@ job Grid
             </div>
             <div class="col">
               <label for="mainDepartment"> {{ trans('dashboard.department.department') }} </label>
-              {{--              <select class="form-control select2"--}}
 
-              {{--                      name="department_id">--}}
-              {{--                <option selected disabled value="">{{ trans('dashboard.job.select_department') }}</option>--}}
-              {{--                @foreach ($departments as $id => $name)--}}
-              {{--                  <option value="{{ $id }}"--}}
-              {{--                    {{ (old('department_id') ?? request('department_id')) == $id ? 'selected' : '' }}--}}
-              {{--                  >--}}
-              {{--                    {{ $name }}</option>--}}
-              {{--                @endforeach--}}
-              {{--              </select>--}}
-              {!! Form::select('department_id', $departments, "ll", ['placeholder' => trans('dashboard.job.select_department'),'class' => 'form-control select2-show-search select2-hidden-accessible select2 select2-container  select2-container--below', 'id' => 'mainDepartment',] , ) !!}
+              {!! Form::select('department_id', $departments, null, ['placeholder' => trans('dashboard.job.select_department'),'class' => 'form-control select2-show-search select2-hidden-accessible select2 select2-container  select2-container--below', 'id' => 'mainDepartment',] , ) !!}
             </div>
             <div class="col">
               <label for="from-hijri-picker"> {{ trans('dashboard.general.from_date') }}</label>
               <div class="input-group">
 
-                {!! Form::date('from_date', null, ['class' => 'form-control', 'id' => 'from-hijri-picker']) !!}
+                {!! Form::text('from_date', null, ['class' => 'form-control', 'readonly', 'id' => 'from-hijri-picker-custom']) !!}
                 <div class="input-group-text border-start-0">
                   <i class="fa fa-calendar tx-16 lh-0 op-6"></i>
                 </div>
@@ -55,7 +40,7 @@ job Grid
               <label for="to-hijri-picker"> {{ trans('dashboard.general.to_date') }}</label>
               <div class="input-group">
 
-                {!! Form::date('to_date', null, ['class' => 'form-control', 'placeholder' => 'يوم/شهر/سنة', 'id' => 'to-hijri-picker']) !!}
+                {!! Form::text('to_date', null, ['class' => 'form-control', 'placeholder' => 'يوم/شهر/سنة', 'readonly', 'id' => 'to-hijri-picker-custom']) !!}
 
                 <div class="input-group-text border-start-0">
                   <i class="fa fa-calendar tx-16 lh-0 op-6"></i>
@@ -63,22 +48,22 @@ job Grid
               </div>
             </div>
             <div class="col">
-              <label for="status">{{ trans('dashboard.job.status') }}</label>
+              <label for="status">{{ trans('dashboard.general.status') }}</label>
               <select name = "is_active" class="form-control select2" id="status">
                 <option selected disabled value="">
-                  {{ trans('dashboard.job.select_status') }}
+                  {{ trans('dashboard.general.select_status') }}
                 </option>
-                <option value="">{{ trans('dashboard.job.all') }}</option>
-                <option value=1>{{ trans('dashboard.job.is_active.active') }}</option>
-                <option value=0>{{ trans('dashboard.job.is_active.disactive') }}</option>
+                <option value="">{{ trans('dashboard.general.all') }}</option>
+                <option value=1>{{ trans('dashboard.general.active') }}</option>
+                <option value=0>{{ trans('dashboard.general.inactive') }}</option>
               </select>
             </div>
 
             <div class="col">
-              <label for="type">{{ trans('dashboard.job.type') }}</label>
+              <label for="type">{{ trans('dashboard.general.type') }}</label>
               <select class="form-control select2" id="type" name="is_vacant">
-                <option selected disabled value="">{{ trans('dashboard.job.select_type') }}</option>
-                <option value="">{{ trans('dashboard.job.all') }}</option>
+                <option selected disabled value="">{{ trans('dashboard.general.select_type') }}</option>
+                <option value="">{{ trans('dashboard.general.all') }}</option>
                 <option value=1>{{ trans('dashboard.job.is_vacant.false') }}</option>
                 <option value=0>{{ trans('dashboard.job.is_vacant.true') }}</option>
               </select>
@@ -100,10 +85,10 @@ job Grid
             </div>
             <div class="col-12 col-md-6 my-2 d-flex justify-content-end">
               <button class="btn btn-primary mx-2" type="submit">
-                <i class="mdi mdi-magnify"></i> {{ trans('dashboard.job.search') }}
+                <i class="mdi mdi-magnify"></i> {{ trans('dashboard.general.search') }}
               </button>
               <button class="btn btn-outline-primary" type="submit">
-                <i class="mdi mdi-restore"></i> {{ trans('dashboard.job.show_all') }}
+                <i class="mdi mdi-restore"></i> {{ trans('dashboard.general.show_all') }}
               </button>
             </div>
           </div>
@@ -120,6 +105,7 @@ job Grid
                 <tr>
                   <th class="border-bottom-0">#</th>
                   <th class="border-bottom-0">{{ trans('dashboard.job.job_name') }}</th>
+
                   <th class="border-bottom-0">{{ trans('dashboard.department.department') }} </th>
                   <th class="border-bottom-0">{{ trans('dashboard.general.created_at') }} </th>
                   <th class="border-bottom-0">{{ trans('dashboard.general.status') }}</th>
@@ -200,13 +186,6 @@ job Grid
           </div>
         </div>
         <!-- End Row -->
-      </div>
-      <!-- CONTAINER CLOSED -->
-    </div>
-  </div>
-  <!--app-content closed-->
-@endsection
 
-@section('scripts')
-  @include('dashboard.job.script')
 @endsection
+@include('dashboard.job.script')

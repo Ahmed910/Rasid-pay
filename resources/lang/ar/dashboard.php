@@ -62,6 +62,17 @@ return [
         'details' => 'التفاصيل',
         'no_data' => 'لا يوجد بيانات',
         'there_is_no_data' => 'لا يوجد نتائج بحث متاحة',
+        'showing' => 'عرض',
+        'to' => 'الى',
+        'from' => 'من',
+        'entries' => 'مدخلات',
+        'delete' => 'حذف',
+        'hold_upload' => 'اسحب وأسقط او قم برفع الصورة',
+        'hold_change' => 'اسحب وأسقط او إضغط لتغيير الصورة',
+        'upload_error' => 'اووه ، حدث خطأ ما',
+        'upload_file_max' => 'حجم الملف كبير',
+        'notAllowdedToUpload' => 'نوع الملف غير مسموح بتحميله',
+
     ],
     'error' => [
         'method_not_allow' => 'طريقة الطلب (:method) غير صحيحة',

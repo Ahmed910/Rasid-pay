@@ -17,22 +17,25 @@
     <link rel="shortcut icon" type="image/x-icon" href="{{ asset('dashboardAssets/images/brand/favicon.ico') }}" />
 
     <!-- TITLE -->
-    <title>{!! trans('dashboard.general.dashboard') !!} - @yield('title')</title>
+    <title>{!! trans('dashboard.general.dashboard') !!} @yield('title')</title>
 
     <!-- BOOTSTRAP CSS -->
 
-    <link rel="stylesheet" type="text/css" media="all" href="{{ asset('dashboardAssets') }}/plugins/bootstrap/css/bootstrap{{ LaravelLocalization::getCurrentLocaleDirection() == 'rtl' ? '.rtl' : null }}.min.css" />
+    <link rel="stylesheet" type="text/css" media="all"
+        href="{{ asset('dashboardAssets') }}/plugins/bootstrap/css/bootstrap{{ LaravelLocalization::getCurrentLocaleDirection() == 'rtl' ? '.rtl' : null }}.min.css" />
 
     <!-- STYLE CSS -->
     <link href="{{ asset('dashboardAssets/css/style.css') }}" rel="stylesheet" />
-    <link href="{{ asset('dashboardAssets/plugins/bootstrap-hijri-datepicker/css/bootstrap-datetimepicker.min.css') }}"
+    <link
+        href="{{ asset('dashboardAssets/plugins/bootstrap-hijri-datepicker/css/bootstrap-datetimepicker.min.css') }}"
         rel="stylesheet" />
     <!--- FONT-ICONS CSS -->
     <link href="{{ asset('dashboardAssets/css/icons.css') }}" rel="stylesheet" />
 
 
     <!-- COLOR SKIN CSS -->
-    <link id="theme" rel="stylesheet" type="text/css" media="all" href="{{ asset('dashboardAssets/colors/color1.css') }}" />
+    <link id="theme" rel="stylesheet" type="text/css" media="all"
+        href="{{ asset('dashboardAssets/colors/color1.css') }}" />
 
     @yield('styles')
 </head>
@@ -51,11 +54,17 @@
             <!-- /app-Header -->
 
             <!--APP-SIDEBAR-->
-            @include('dashboard.layouts.side')
+            @include('dashboard.layouts.sidebar')
             <!--APP-SIDEBAR END-->
 
             <!--app-content open-->
-            @yield('content')
+            <div class="main-content app-content mt-0">
+                <div class="side-app">
+                    <div class="main-container container-fluid" style="min-height:50vh;">
+                        @yield('content')
+                    </div>
+                </div>
+            </div>
             <!--app-content closed-->
         </div>
 
@@ -100,11 +109,18 @@
     <!-- CUSTOM JS -->
     <script src="{{ asset('dashboardAssets/js/custom.js') }}"></script>
 
-    <script src="{{ asset('dashboardAssets/plugins/bootstrap-hijri-datepicker/js/bootstrap-hijri-datetimepicker.js') }}"></script>
+  <!-- DATA TABLE JS-->
+  @yield('datatable_script')
+  <!-- Sticky js -->
+  <script src="{{ asset('dashboardAssets/js/sticky.js') }}"></script>
 
+  <!-- lottie-player js -->
+  <script src="https://unpkg.com/@lottiefiles/lottie-player@0.4.0/dist/tgs-player.js"></script>
 
-
-    @yield('scripts')
+  <!-- CUSTOM JS -->
+  <script src="{{ asset('dashboardAssets/js/custom.js') }}"></script>
+  {{-- <script src="{{ asset('dashboardAssets/plugins/bootstrap-hijri-datepicker/js/bootstrap-hijri-datetimepicker.js') }}"></script> --}}
+  @yield('scripts')
 
 </body>
 
