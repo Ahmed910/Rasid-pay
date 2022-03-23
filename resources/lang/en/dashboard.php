@@ -51,6 +51,14 @@ return [
         "created_at" => "Creation Date",
         'create' => 'Create',
         "actions" => "Actions",
+        "active_cases" => [
+            'Active',
+            'Inactive',
+        ],
+        'job_type_cases' => [
+            'Occupied',
+            'Available',
+        ],
         'all' => 'All',
         'description' => 'Description',
         'day_month_year' => 'day/month/year',
@@ -65,6 +73,7 @@ return [
         'from' => 'From',
         'entries' => 'Entries',
         'delete' => 'Delete',
+        'no_search_result' => 'No search results availables',
         'hold_upload' => 'Drag and drop or upload the image',
         'hold_change' => 'Drag and drop or tap to change the image',
         'upload_error' => 'Oh, something went wrong',
