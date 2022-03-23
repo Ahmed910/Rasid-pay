@@ -32,6 +32,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('logout', "Auth\LoginController@logout");
     Route::apiResource('notifications', 'NotificationController')->except('store');
     Route::apiResource('menus', 'MenuController');
+    Route::get('group-permissions/{group}','GroupController@getPermissionsOfGroup')->name('group_permissions');
     Route::get('permissions', 'GroupController@permissions');
 
     Route::controller('ProfileController')->name('profiles.')->prefix('profile')->group(function () {

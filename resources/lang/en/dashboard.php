@@ -37,6 +37,8 @@ return [
         'fail_send' => 'Sending Failed',
         'active' => 'Active',
         'inactive' => 'Inactive',
+        'activited' => 'Activited',
+        'unactivited' => 'Unactivited',
         'dashboard' => 'Rasid Jack Dashboard',
         "status" => "Status",
         "select_status" => "Select Status",
@@ -47,6 +49,7 @@ return [
         "search" => "Search",
         "show_all" => "Show All",
         "created_at" => "Creation Date",
+        'create' => 'Create',
         "actions" => "Actions",
         "active_cases" => [
             'Active',
@@ -62,6 +65,8 @@ return [
         'export' => 'Export',
         'details' => 'Details',
         'no_data' => 'No Data',
+        'reason' =>'Reason',
+        'done_by' => 'Done By',
         'there_is_no_data' => 'There is no data available',
         'showing' => 'Showing',
         'to' => 'To',
@@ -74,7 +79,10 @@ return [
         'upload_error' => 'Oh, something went wrong',
         'upload_file_max' => 'File size is large',
         'notAllowdedToUpload' => 'File type is not allowded to be uploaded',
-
+        "active_cases" => [
+            'Active',
+            'Unactive',
+        ],
     ],
     'error' => [
         'method_not_allow' => 'Http method (:method) not allowed',
@@ -85,6 +93,10 @@ return [
     ],
     'activity_log' => [
         "reason" => ":user did :action",
+        "date" =>"Activity Date",
+        "activity" => "Activity",
+        'history' => 'History ',
+
     ],
     "country" => [
         "country" => "Country",
@@ -118,6 +130,7 @@ return [
         "main_department" => "Main Department",
         "department_name" => "Department Name",
         'select_main_department' => 'Select Main Department',
+        'name' => 'Department Name',
         "edit_department" => "",
         "department_count" => "",
         "department_has_relationship_cannot_delete" => "This department has sub department ,so you cannot delete it",
@@ -127,11 +140,25 @@ return [
     "rasid_job" => [
         "rasid_job" => "Job",
         "rasid_jobs" => "Jobs",
-        "add_rasid_job" => "",
-        "edit_rasid_job" => "",
-        "rasid_job_count" => "",
+        "add_rasid_job" => "Add Job",
+        "edit_rasid_job" => "Edit Job",
+        "rasid_job_count" => "Job Count",
+        "rasid_job_department" => "Department Name",
+        "name" => "Job Name",
+        "employee_name" => "Employee Name ",
+        "rasid_job_description" => "Description",
         "validation" => [
             'name_must_be_unique_on_department' => 'The job title was previously selected for the same department'
+        ],
+        'sub_progs' => [
+            'index' => 'Jobs Record',
+            'archive' => 'Jobs Archive',
+            'create' => 'Add Job',
+            'show' => 'Show Job'
+        ],
+        'is_vacant' => [
+            'true' => 'Busy',
+            'false' => 'Vacant',
         ],
 
         "jobs_hired_deleted" => " can't delete this job ",

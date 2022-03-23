@@ -6,6 +6,7 @@
 @endsection
 @section('scripts')
     <script src="{{ asset('dashboardAssets/js/custom_scripts.js') }}"></script>
+
     <script>
         $(function() {
 
@@ -13,7 +14,7 @@
                 sDom: "t<'domOption'lpi>",
                 serverSide: true,
                 ajax: {
-                    url: "{{ route('dashboard.department.show', $department->id) }}?" + $.param(
+                    url: "{{ route('dashboard.job.show', $rasidJob->id) }}?" + $.param(
                         @json(request()->query())),
                     dataSrc: 'data'
                 },
