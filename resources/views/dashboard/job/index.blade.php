@@ -3,6 +3,7 @@
 @section('title', trans('dashboard.job.sub_progs.index'))
 
 @section('content')
+
     <div class="page-header">
         <h1 class="page-title">{{ trans('dashboard.job.sub_progs.index') }}</h1>
         <a href="{{ route('dashboard.job.create') }}" class="btn btn-primary">
@@ -31,7 +32,7 @@
                 <label for="from-hijri-picker"> {{ trans('dashboard.general.from_date') }}</label>
                 <div class="input-group">
 
-                    {!! Form::text('from_date', null, ['class' => 'form-control', 'id' => 'from-hijri-picker', 'placeholder' => trans('dashboard.general.day_month_year'), 'readonly']) !!}
+                    {!! Form::text('from_date', null, ['class' => 'form-control', 'id' => 'from-hijri-picker-custom', 'placeholder' => trans('dashboard.general.day_month_year'), 'readonly']) !!}
                     <div class="input-group-text border-start-0">
                         <i class="fa fa-calendar tx-16 lh-0 op-6"></i>
                     </div>
@@ -44,7 +45,7 @@
                 <label for="to-hijri-picker"> {{ trans('dashboard.general.to_date') }}</label>
                 <div class="input-group">
 
-                    {!! Form::text('to_date', null, ['class' => 'form-control', 'placeholder' => trans('dashboard.general.day_month_year'), 'id' => 'to-hijri-picker', 'readonly']) !!}
+                    {!! Form::text('to_date', null, ['class' => 'form-control', 'placeholder' => trans('dashboard.general.day_month_year'), 'id' => 'to-hijri-picker-custom', 'readonly']) !!}
 
                     <div class="input-group-text border-start-0">
                         <i class="fa fa-calendar tx-16 lh-0 op-6"></i>
@@ -61,7 +62,7 @@
             <div class="col">
                 <label for="type">
                     @lang('dashboard.general.type')</label>
-                {!! Form::select('is_vacant', trans('dashboard.general.job_type_cases'), null, ['class' => 'form-control select2-show-search', 'placeholder' => trans('dashboard.general.select_type'), 'id' => 'type']) !!}
+                {!! Form::select('is_vacant',[], null, ['class' => 'form-control select2-show-search', 'placeholder' => trans('dashboard.general.select_type'), 'id' => 'type']) !!}
             </div>
 
         </div>
@@ -115,12 +116,7 @@
                 </table>
             </div>
         </div>
-    </div>
-    <!-- End Row -->
+        <!-- End Row -->
 
-    <!--app-content closed-->
-@endsection
-
-@section('scripts')
+    @endsection
     @include('dashboard.job.script')
-@endsection
