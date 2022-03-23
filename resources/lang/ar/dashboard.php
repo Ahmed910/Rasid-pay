@@ -109,7 +109,12 @@ return [
             'activated' => 'تفعيل',
             'permanent' => 'حظر دائم',
             'temporary' => 'حظر لفترة',
-        ]
+        ],
+        'permissions' => array_only($permissions,['index','show']),
+        'sub_progs' => [
+            'index' => 'سجل النشاطات',
+            'show' => 'عرض النشاط',
+        ],
     ],
     'home' => [
         'home' => 'الرئيسية',
