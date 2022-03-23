@@ -284,8 +284,8 @@ return [
         "employee_name" => "اسم الموظف",
         "job_description" => "وصف الوظيفة",
         'is_vacant' => [
-            'true' => 'مشغولة',
-            'false' => 'شاغرة',
+            'true' => 'شاغرة',
+            'false' => 'مشغولة',
         ],
         'sub_progs' => [
             'index' => 'سجل الوظائف',
