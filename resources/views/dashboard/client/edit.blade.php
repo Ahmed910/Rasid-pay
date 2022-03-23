@@ -1,7 +1,7 @@
 @extends('dashboard.layouts.master')
-@include('dashboard.employee.style')
+@include('dashboard.client.style')
 
-@section('title', trans('dashboard.employee.edit_employee'))
+@section('title', trans('dashboard.client.edit_client'))
 
 @section('content')
 
@@ -9,12 +9,12 @@
   <nav aria-label="breadcrumb">
     <ol class="breadcrumb">
       <li class="breadcrumb-item">
-        <a href="{{ route('dashboard.employee.index') }}">
-          {{ trans('dashboard.employee.sub_progs.index') }}
+        <a href="{{ route('dashboard.client.index') }}">
+          {{ trans('dashboard.client.sub_progs.index') }}
         </a>
       </li>
       <li class="breadcrumb-item active" aria-current="page">
-        {{ trans('dashboard.employee.edit_employee') }}
+        {{ trans('dashboard.client.edit_client') }}
       </li>
     </ol>
   </nav>
@@ -22,8 +22,8 @@
 <!-- PAGE-HEADER END -->
 
 <!-- ROW OPEN -->
-{!! Form::model($employee, ['route' => ['dashboard.employee.update', $employee->id], 'method' => 'PUT', 'class' => 'needs-validation', 'id' => 'formId', 'files' => true, 'novalidate']) !!}
-@include('dashboard.employee._form',['btn_submit' => trans('dashboard.general.edit')])
+{!! Form::model($client, ['route' => ['dashboard.client.update', $client->id], 'method' => 'PUT', 'class' => 'needs-validation', 'id' => 'formId', 'files' => true, 'novalidate']) !!}
+@include('dashboard.client._form',['btn_submit' => trans('dashboard.general.edit')])
 {!! Form::close() !!}
 
 @endsection
