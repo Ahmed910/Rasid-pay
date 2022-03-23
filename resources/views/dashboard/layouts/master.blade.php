@@ -16,7 +16,7 @@
   <link rel="shortcut icon" type="image/x-icon" href="{{ asset('dashboardAssets/images/brand/favicon.ico') }}" />
 
   <!-- TITLE -->
-  <title>{!! trans('dashboard.general.dashboard') !!} - @yield('title')</title>
+  <title>{!! trans('dashboard.general.dashboard') !!}  @yield('title')</title>
 
   <!-- BOOTSTRAP CSS -->
 
@@ -49,7 +49,7 @@
       <!-- /app-Header -->
 
       <!--APP-SIDEBAR-->
-      @include('dashboard.layouts.side')
+      @include('dashboard.layouts.sidebar')
       <!--APP-SIDEBAR END-->
 
       <!--app-content open-->

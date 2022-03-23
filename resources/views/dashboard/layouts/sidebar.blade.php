@@ -68,6 +68,7 @@
                         </li>
                     </ul>
                   </li>
+
                 <li class="slide">
                     <a class="side-menu__item" data-bs-toggle="slide" href="javascript:void(0)"><i
                             class="mdi mdi-account-group-outline"></i><span class="side-menu__label">الموظفين</span><i
@@ -87,25 +88,30 @@
                         </li>
                     </ul>
                 </li>
-                <li class="slide">
+
+                <li class="slide {{ request()->routeIs('dashboard.group.*') ? 'is-expanded' : '' }}">
                     <a class="side-menu__item" data-bs-toggle="slide" href="javascript:void(0)"><i
-                            class="mdi mdi-shield-key-outline"></i><span class="side-menu__label">الصلاحيات</span><i
+                            class="mdi mdi-shield-key-outline"></i><span
+                            class="side-menu__label">{!! trans('dashboard.group.groups') !!}</span><i
                             class="angle fe fe-chevron-right"></i></a>
                     <ul class="slide-menu">
                         <li class="side-menu-label1">
-                            <a href="javascript:void(0)">الصلاحيات</a>
+                            <a href="javascript:void(0)">{!! trans('dashboard.group.groups') !!}</a>
                         </li>
                         <li>
-                            <a href="permissions-record.html" class="slide-item px-6"><i
-                                    class="mdi mdi-file-document-multiple-outline"></i>
-                                سجل الصلاحيات</a>
+                            <a href="{{ route('dashboard.group.index') }}"
+                                class="slide-item px-6 {{ request()->routeIs('dashboard.group.index') ? 'active' : '' }}"><i
+                                        class="mdi mdi-file-document-multiple-outline"></i>
+                                {!! trans('dashboard.group.sub_progs.index') !!}</a>
                         </li>
                         <li>
-                            <a href="permission-add.html" class="slide-item px-6"><i
-                                    class="mdi mdi-plus-circle-outline"></i> إضافة</a>
+                            <a href="{{ route('dashboard.group.create') }}"
+                                class="slide-item px-6 {{ request()->routeIs('dashboard.group.create') ? 'active' : '' }}"><i
+                                        class="mdi mdi-plus-circle-outline"></i> {{ trans('dashboard.general.add') }}</a>
                         </li>
                     </ul>
-                </li>
+                  </li>
+
                 <li class="slide">
                     <a class="side-menu__item" data-bs-toggle="slide" href="javascript:void(0)"><i
                             class="mdi mdi-account-multiple-outline"></i><span
