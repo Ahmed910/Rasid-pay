@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Blade\Dashboard;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\V1\Dashboard\DepartmentRequest;
 use App\Http\Requests\V1\Dashboard\ReasonRequest;
+use App\Http\Resources\Blade\Dashboard\Activitylog\ActivityLogCollection;
 use App\Http\Resources\Blade\Dashboard\Department\DepartmentCollection;
 use App\Http\Resources\Dashboard\ActivityLogResource;
 use App\Models\Department\Department;
@@ -45,6 +46,7 @@ class DepartmentController extends Controller
             ->ListsTranslations("name")
             ->pluck('name', 'id');
 
+
         return view('dashboard.department.index', compact('parentDepartments'));
     }
 
@@ -64,6 +66,18 @@ class DepartmentController extends Controller
     public function show(Request $request, $id)
     {
         $department = Department::withTrashed()->findOrFail($id);
+        $sortingColumns = [
+            'id',
+            'user_name',
+            'department_name',
+            'created_at',
+            'action_type',
+            'reason'
+        ];
+        if(isset($request->order[0]['column'])){
+            $request['sort'] = ['column' => $sortingColumns[$request->order[0]['column']], 'dir' => $request->order[0]['dir']];
+        }
+
         $activitiesQuery  = $department->activity()
         ->sortBy($request)
         ->get();
@@ -76,10 +90,10 @@ class DepartmentController extends Controller
 
             return ActivityLogResource::collection($department->activity())
                 ->additional(['total_count' => $activityCount]);
+
         }
 
-
-        return view('dashboard.department.show', compact('department', 'activitiesQuery'));
+        return view('dashboard.department.show',compact('department'));
     }
 
     public function edit(Department $department)

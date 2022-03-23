@@ -49,7 +49,7 @@
                             <label>صورة القسم:</label>
                             <img src="{{ asset("{$department->images[0]->media}") }}" width="150" height="150"
                                 class="d-block rounded-3" alt="" data-toggle="popoverIMG" title='<img src="{{ asset("{$department->images[0]->media}") }}" width="150" height="150" class="d-block rounded-3" alt=""
-                                        data-toggle="popoverIMG" >'>
+                                            data-toggle="popoverIMG" >'>
                         </div>
                         <div class="col-12 col-md-8">
                             <label class="d-block" for="departmentName">الوصف:</label>
@@ -93,8 +93,6 @@
                 <!-- End Row -->
 
                 <!-- Row -->
-
-
 
                 <!-- End Row -->
             </div>
