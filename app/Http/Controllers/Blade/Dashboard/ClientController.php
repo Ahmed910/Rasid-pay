@@ -3,11 +3,11 @@
 namespace App\Http\Controllers\Blade\Dashboard;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\V1\Dashboard\EmployeeRequest;
-use App\Models\{User, Employee};
+use App\Http\Requests\V1\Dashboard\ClientRequest;
+use App\Models\{User, Client};
 use Illuminate\Http\Request;
 
-class EmployeeController extends Controller
+class ClientController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -19,7 +19,7 @@ class EmployeeController extends Controller
         if ($request->ajax()) {
 
         }
-        return view('dashboard.employee.index');
+        return view('dashboard.client.index');
     }
 
     /**
@@ -29,7 +29,7 @@ class EmployeeController extends Controller
      */
     public function create()
     {
-        return view('dashboard.employee.create');
+        return view('dashboard.client.create');
     }
 
     /**
@@ -38,11 +38,11 @@ class EmployeeController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(EmployeeRequest $request, User $employee)
+    public function store(ClientRequest $request, User $client)
     {
-        $employee->fill($request->validated())->save();
+        $client->fill($request->validated())->save();
 
-        return redirect()->route('dashboard.employee.index')->withSuccess(__('dashboard.general.success_add'));
+        return redirect()->route('dashboard.client.index')->withSuccess(__('dashboard.general.success_add'));
     }
 
     /**
@@ -53,7 +53,7 @@ class EmployeeController extends Controller
      */
     public function show($id)
     {
-        return view('dashboard.employee.show');
+        return view('dashboard.client.show');
     }
 
     /**
@@ -64,7 +64,7 @@ class EmployeeController extends Controller
      */
     public function edit($id)
     {
-        return view('dashboard.employee.edit');
+        return view('dashboard.client.edit');
     }
 
     /**
@@ -74,11 +74,11 @@ class EmployeeController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(EmployeeRequest $request, User $employee)
+    public function update(ClientRequest $request, User $client)
     {
-        $employee->fill($request->validated() + ['updated_at' => now()])->save();
+        $client->fill($request->validated() + ['updated_at' => now()])->save();
 
-        return redirect()->route('dashboard.employee.index')->withSuccess(__('dashboard.general.success_update'));
+        return redirect()->route('dashboard.client.index')->withSuccess(__('dashboard.general.success_update'));
     }
 
     /**
@@ -87,7 +87,7 @@ class EmployeeController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Employee $employee)
+    public function destroy(Client $client)
     {
 
     }

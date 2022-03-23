@@ -1,7 +1,5 @@
 @extends('dashboard.layouts.master')
-@include('dashboard.employee.style')
-
-@section('title', trans('dashboard.employee.sub_progs.create'))
+@section('title', trans('dashboard.client.sub_progs.create'))
 
 @section('content')
 <!-- PAGE-HEADER -->
@@ -9,11 +7,11 @@
   <nav aria-label="breadcrumb">
     <ol class="breadcrumb">
       <li class="breadcrumb-item">
-        <a href="{{ route('dashboard.employee.index') }}">{{ trans('dashboard.employee.sub_progs.index') }}
+        <a href="{{ route('dashboard.client.index') }}">{{ trans('dashboard.client.sub_progs.index') }}
         </a>
       </li>
       <li class="breadcrumb-item active" aria-current="page">
-        {{ trans('dashboard.employee.sub_progs.create') }}
+        {{ trans('dashboard.client.sub_progs.create') }}
       </li>
     </ol>
   </nav>
@@ -22,8 +20,8 @@
 
 
 <!-- ROW OPEN -->
-{!! Form::open(['route' => 'dashboard.employee.store', 'method' => 'POST', 'class' => 'needs-validation', 'id' => 'formId', 'files' => true, 'novalidate']) !!}
-@include('dashboard.employee._form',['btn_submit' => trans('dashboard.general.save')])
+{!! Form::open(['route' => 'dashboard.client.store', 'method' => 'POST', 'class' => 'needs-validation', 'id' => 'formId', 'files' => true, 'novalidate']) !!}
+@include('dashboard.client._form',['btn_submit' => trans('dashboard.general.save')])
 {!! Form::close() !!}
 
 @endsection
