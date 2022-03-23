@@ -322,4 +322,10 @@
   </table>
 </div>
 
+@include('dashboard.layouts.modals.archive')
+@include('dashboard.layouts.modals.not_archive')
+@endsection
+
+@section('scripts')
+@include('dashboard.group.script')
 @endsection
