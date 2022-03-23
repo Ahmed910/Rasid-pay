@@ -48,6 +48,14 @@ return [
         "show_all" => "Show All",
         "created_at" => "Creation Date",
         "actions" => "Actions",
+        "active_cases" => [
+            'Active',
+            'Inactive',
+        ],
+        'job_type_cases' => [
+            'Occupied',
+            'Available',
+        ],
         'all' => 'All',
         'description' => 'Description',
         'day_month_year' => 'day/month/year',
@@ -65,6 +73,7 @@ return [
         'upload_error' => 'Oh, something went wrong',
         'upload_file_max' => 'File size is large',
         'notAllowdedToUpload' => 'File type is not allowded to be uploaded',
+
     ],
     'error' => [
         'method_not_allow' => 'Http method (:method) not allowed',

@@ -1,5 +1,4 @@
 @extends('dashboard.layouts.master')
-@include('dashboard.department.style')
 
 @section('title', trans('dashboard.department.edit_department'))
 
