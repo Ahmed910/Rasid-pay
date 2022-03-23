@@ -4,12 +4,6 @@
 @endsection
 
 @section('content')
-    <div class="main-content app-content mt-0">
-      <div class="side-app">
-        <!-- CONTAINER -->
-          <!-- CONTAINER -->
-          <div class="main-container container-fluid">
-            <!-- PAGE-HEADER -->
             <div class="page-header">
               <h1 class="page-title">{{ trans('dashboard.rasid_job.sub_progs.archive') }}</h1>
 
@@ -114,11 +108,7 @@
               </div>
             </div>
             <!-- End Row -->
-          </div>
-          <!-- CONTAINER CLOSED -->
-        <!-- CONTAINER CLOSED -->
-      </div>
-    </div>
+
     @endsection
     @section('scripts')
         @include('dashboard.archive.job.script')

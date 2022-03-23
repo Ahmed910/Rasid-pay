@@ -41,8 +41,8 @@
                 },
                 {
                     data: function(data) {
-                        if (data.parent !== null) {
-                            return data.parent.name;
+                        if (data.department_name !== null) {
+                             return data.department_name;
                         } else {
                            return "@lang('dashboard.department.without_parent')";
                         }
@@ -60,10 +60,7 @@
                         }
                     }
                 },
-                {
-                  data:"is_active"
-                },
-                {
+           {
                   class: "text-center",
                     data: function(data) {
                         tagInfo = (data.has_jobs) ?
