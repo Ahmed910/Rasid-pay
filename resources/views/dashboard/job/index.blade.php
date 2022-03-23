@@ -40,7 +40,7 @@
               {{--                    {{ $name }}</option>--}}
               {{--                @endforeach--}}
               {{--              </select>--}}
-              {!! Form::select('department_id', $departments, "ll", ['placeholder' => trans('dashboard.job.select_department'),'class' => 'form-control select2-show-search select2-hidden-accessible select2 select2-container  select2-container--below', 'id' => 'mainDepartment',] , ) !!}
+              {!! Form::select('department_id', $departments, null, ['placeholder' => trans('dashboard.job.select_department'),'class' => 'form-control select2-show-search select2-hidden-accessible select2 select2-container  select2-container--below', 'id' => 'mainDepartment',] , ) !!}
             </div>
             <div class="col">
               <label for="from-hijri-picker"> {{ trans('dashboard.general.from_date') }}</label>
@@ -64,22 +64,22 @@
               </div>
             </div>
             <div class="col">
-              <label for="status">{{ trans('dashboard.job.status') }}</label>
+              <label for="status">{{ trans('dashboard.general.status') }}</label>
               <select name = "is_active" class="form-control select2" id="status">
                 <option selected disabled value="">
-                  {{ trans('dashboard.job.select_status') }}
+                  {{ trans('dashboard.general.select_status') }}
                 </option>
-                <option value="">{{ trans('dashboard.job.all') }}</option>
-                <option value=1>{{ trans('dashboard.job.is_active.active') }}</option>
-                <option value=0>{{ trans('dashboard.job.is_active.disactive') }}</option>
+                <option value="">{{ trans('dashboard.general.all') }}</option>
+                <option value=1>{{ trans('dashboard.general.active') }}</option>
+                <option value=0>{{ trans('dashboard.general.inactive') }}</option>
               </select>
             </div>
 
             <div class="col">
-              <label for="type">{{ trans('dashboard.job.type') }}</label>
+              <label for="type">{{ trans('dashboard.general.type') }}</label>
               <select class="form-control select2" id="type" name="is_vacant">
-                <option selected disabled value="">{{ trans('dashboard.job.select_type') }}</option>
-                <option value="">{{ trans('dashboard.job.all') }}</option>
+                <option selected disabled value="">{{ trans('dashboard.general.select_type') }}</option>
+                <option value="">{{ trans('dashboard.general.all') }}</option>
                 <option value=1>{{ trans('dashboard.job.is_vacant.false') }}</option>
                 <option value=0>{{ trans('dashboard.job.is_vacant.true') }}</option>
               </select>
@@ -101,10 +101,10 @@
             </div>
             <div class="col-12 col-md-6 my-2 d-flex justify-content-end">
               <button class="btn btn-primary mx-2" type="submit">
-                <i class="mdi mdi-magnify"></i> {{ trans('dashboard.job.search') }}
+                <i class="mdi mdi-magnify"></i> {{ trans('dashboard.general.search') }}
               </button>
               <button class="btn btn-outline-primary" type="submit">
-                <i class="mdi mdi-restore"></i> {{ trans('dashboard.job.show_all') }}
+                <i class="mdi mdi-restore"></i> {{ trans('dashboard.general.show_all') }}
               </button>
             </div>
           </div>
@@ -121,6 +121,7 @@
                 <tr>
                   <th class="border-bottom-0">#</th>
                   <th class="border-bottom-0">{{ trans('dashboard.job.job_name') }}</th>
+
                   <th class="border-bottom-0">{{ trans('dashboard.department.department') }} </th>
                   <th class="border-bottom-0">{{ trans('dashboard.general.created_at') }} </th>
                   <th class="border-bottom-0">{{ trans('dashboard.general.status') }}</th>
