@@ -366,17 +366,17 @@ $(".layout-setting").on("click", function (e) {
 $(document).ready(function () {
   let bodyRtl = $("body").hasClass("rtl");
   if (bodyRtl) {
-    $("body").addClass("rtl");
-    $("html[lang=en]").attr("dir", "rtl");
-    $("body").removeClass("ltr");
-    localStorage.setItem("rtl", "True");
-    $("head link#style").attr("href", $(this));
-    document
-      .getElementById("style")
-      .setAttribute(
-        "href",
-        "../assets/plugins/bootstrap/css/bootstrap.rtl.min.css"
-      );
+    // $("body").addClass("rtl");
+    // $("html[lang=en]").attr("dir", "rtl");
+    // $("body").removeClass("ltr");
+    // localStorage.setItem("rtl", "True");
+    // $("head link#style").attr("href", $(this));
+    // document
+    //   .getElementById("style")
+    //   .setAttribute(
+    //     "href",
+    //     "../assets/plugins/bootstrap/css/bootstrap.rtl.min.css"
+    //   );
     var carousel = $(".owl-carousel");
     $.each(carousel, function (index, element) {
       // element == this
