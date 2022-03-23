@@ -158,6 +158,7 @@ return [
         "archive_to_date" => "تاريخ الأرشفة  (إلى)",
         "search" => "بحث",
         "show_all" => "عرض الكل",
+        "archived_at" => " تاريخ الأرشفة",
         'sub_progs' => [
             'index' => 'سجل الأقسام',
             'archive' => 'أرشيف الأقسام',
@@ -246,6 +247,7 @@ return [
         "add_job" => "اضافة وظيفة",
         "edit_job" => "تعديل وظيفة",
         "job_count" => "عدد الوظائف",
+        "department" =>"القسم",
         "job_name" => "اسم الوظيفة",
         "select_department" => "اختر القسم",
         "employee_name" => "اسم الموظف",
@@ -260,6 +262,7 @@ return [
         "archived_at" => " تاريخ الأرشفة",
         "actions" => "العمليات",
         "job_description" => "وصف الوظيفة",
+        "is_active" =>"الحالة",
         'is_vacant' => [
             'true' => 'مشغولة',
             'false' => 'شاغرة',

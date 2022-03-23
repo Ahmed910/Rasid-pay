@@ -85,10 +85,10 @@
                         <thead>
                             <tr>
                                 <th class="border-bottom-0">#</th>
-                                <th class="border-bottom-0">اسم القسم</th>
-                                <th class="border-bottom-0">القسم الرئيسي</th>
-                                <th class="border-bottom-0">تاريخ الارشفة </th>
-                                <th class="border-bottom-0 text-center">العمليات</th>
+                                <th class="border-bottom-0">{{ trans('dashboard.department.department_name') }}</th>
+                                <th class="border-bottom-0"> {{trans('dashboard.department.department_main')}}</th>
+                                <th class="border-bottom-0">{{trans('dashboard.department.archived_at')}}  </th>
+                                <th class="border-bottom-0 text-center">{{ trans('dashboard.general.actions') }}</th>
                             </tr>
                         </thead>
 
