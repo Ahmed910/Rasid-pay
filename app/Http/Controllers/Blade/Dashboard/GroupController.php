@@ -113,20 +113,19 @@ class GroupController extends Controller
 
     private function permissions()
     {
-        $permissions = Permission::get();
+        $permissions = Permission::where('permission_on', 'dashboard_blade')->get();
         foreach (app()->routes->getRoutes() as $value) {
-            if(str_contains($value->getPrefix(),'dashboard')){
+            if(str_contains($value->getPrefix(),'dashboard') && !str_contains($value->getPrefix(),'api')){
                 if($value->getName() != 'dashboard.' && !is_null($value->getName())){
                     $path = str_after($value->getName(),'.');
                     $uri = str_replace(['create','edit'],['store','update'],$path);
-                    if ($permissions->contains('name',$uri) || in_array($uri,Group::PUBLIC_ROUTES)) {
+                    if (!$uri || ($permissions->contains('name',$uri) && $permissions->contains('permission_on','dashboard_blade')) || in_array($uri,Permission::PUBLIC_ROUTES)) {
                         continue;
                     }
-                    $permissions->push(Permission::create(['name' => $uri]));
+                    $permissions->push(Permission::create(['name' => $uri,'permission_on' => 'dashboard_blade']));
                 }
             }
         }
-
         $permissions->transform(function ($item) {
             $action = explode('.',$item->name);
             $data['uri'] = $action[0];

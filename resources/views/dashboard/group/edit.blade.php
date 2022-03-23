@@ -5,21 +5,19 @@
 
 @section('content')
 
-<div class="page-header">
-  <nav aria-label="breadcrumb">
-    <ol class="breadcrumb">
-      <li class="breadcrumb-item">
-        <a href="{{ route('dashboard.group.index') }}">
-          {{ trans('dashboard.group.sub_progs.index') }}
-        </a>
-      </li>
-      <li class="breadcrumb-item active" aria-current="page">
-        {{ trans('dashboard.group.edit_group') }}
-
-      </li>
-    </ol>
-  </nav>
-</div>
+    <div class="page-header">
+      <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item">
+            <a href="{{ route('dashboard.group.index') }}">{{ trans('dashboard.group.sub_progs.index') }}
+            </a>
+          </li>
+          <li class="breadcrumb-item active" aria-current="page">
+            {{ trans('dashboard.group.sub_progs.edit') }}
+          </li>
+        </ol>
+      </nav>
+    </div>
 <!-- PAGE-HEADER END -->
 
 <!-- ROW OPEN -->
