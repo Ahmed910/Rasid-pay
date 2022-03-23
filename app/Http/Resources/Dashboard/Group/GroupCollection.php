@@ -18,7 +18,6 @@ class GroupCollection extends ResourceCollection
         return [
             'group' => GroupResource::make($this->collection['group']),
             'activity' => ActivityLogResource::collection($this->collection->except(['group','permissions'])),
-            'permissions' => PermissionResource::collection($this->collection['permissions'])
         ];
     }
 }
