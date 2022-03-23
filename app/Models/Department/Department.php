@@ -75,6 +75,8 @@ class Department extends Model implements TranslatableContract, HasAssetsInterfa
         }
 
         if (isset($request->is_active)) {
+            if (!in_array($request->is_active, [1, 0])) return;
+
             $query->where('is_active', $request->is_active);
         }
     }

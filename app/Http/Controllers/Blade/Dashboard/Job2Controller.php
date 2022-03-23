@@ -19,7 +19,6 @@ class Job2Controller extends Controller
      */
     public function index(Request $request)
     {
-
         if ($request->ajax()) {
 
             $jobsQuery = RasidJob::without('employee')->search($request)
