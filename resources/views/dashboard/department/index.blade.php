@@ -30,7 +30,7 @@
       <label for="validationCustom02">
         @lang('dashboard.general.from_date')</label>
           <div class="input-group">
-            <input id="from-hijri-picker" type="text" readonly placeholder="@lang('dashboard.general.day_month_year')" class="form-control"
+            <input id="from-hijri-picker-custom" type="text" readonly placeholder="@lang('dashboard.general.day_month_year')" class="form-control"
             name="created_from" value="{{ old('created_from') ?? request('created_from') }}" />
             <div class="input-group-text border-start-0">
               <i class="fa fa-calendar tx-16 lh-0 op-6"></i>
@@ -41,7 +41,7 @@
       <label for="validationCustom02">
         @lang('dashboard.general.to_date')</label>
           <div class="input-group">
-            <input id="to-hijri-picker" type="text" readonly placeholder="@lang('dashboard.general.day_month_year')" class="form-control"
+            <input id="to-hijri-picker-custom" type="text" readonly placeholder="@lang('dashboard.general.day_month_year')" class="form-control"
             name="created_to" value="{{ old('created_to') ?? request('created_to') }}" />
             <div class="input-group-text border-start-0">
               <i class="fa fa-calendar tx-16 lh-0 op-6"></i>
@@ -109,7 +109,4 @@
 @include('dashboard.layouts.modals.archive')
 @include('dashboard.layouts.modals.not_archive')
 @endsection
-
-@section('scripts')
 @include('dashboard.department.script')
-@endsection
