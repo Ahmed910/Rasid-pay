@@ -238,14 +238,14 @@ return [
         "edit_profile" => "تعديل الملف الشخصي",
     ],
     "admin" => [
-        "admin" => "مستخدم النظام",
-        "admins" => "مستخدمى النظام",
+        "admin" => "المستخدم",
+        "admins" => "المستخدمين",
         "add_admin" => "اضافة مستخدم",
         "edit_admin" => "تعديل المستخدم",
         "admin_count" => "عدد المستخدمين",
         'sub_progs' => [
-            'index' => 'سجل مستخدمى النظام',
-            'archive' => 'أرشيف مستخدمى النظام',
+            'index' => 'سجل المستخدمين',
+            'archive' => 'أرشيف المستخدمين',
             'create' => 'اضافة مستخدم',
         ],
         'permissions' => array_except($permissions, ['archive', 'restore', 'force_delete']) + ['create' => 'عرض المستخدمين']
