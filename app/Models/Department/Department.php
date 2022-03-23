@@ -14,6 +14,7 @@ use App\Traits\Uuid;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Astrotomic\Translatable\Contracts\Translatable as TranslatableContract;
 use Astrotomic\Translatable\Translatable;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Builder;
@@ -42,6 +43,14 @@ class Department extends Model implements TranslatableContract, HasAssetsInterfa
     }
     #region mutators
     #endregion mutators
+
+
+    #region accessor
+    public function getCreatedAtAttribute($value)
+    {
+        return Carbon::parse($value)->toFormattedDateString();
+    }
+    #endregion accessor
 
     #region scopes
     public function scopeSearch(Builder $query, $request)
