@@ -29,17 +29,7 @@
             </div>
             <div class="col">
               <label for="mainDepartment"> {{ trans('dashboard.department.department') }} </label>
-              {{--              <select class="form-control select2"--}}
 
-              {{--                      name="department_id">--}}
-              {{--                <option selected disabled value="">{{ trans('dashboard.job.select_department') }}</option>--}}
-              {{--                @foreach ($departments as $id => $name)--}}
-              {{--                  <option value="{{ $id }}"--}}
-              {{--                    {{ (old('department_id') ?? request('department_id')) == $id ? 'selected' : '' }}--}}
-              {{--                  >--}}
-              {{--                    {{ $name }}</option>--}}
-              {{--                @endforeach--}}
-              {{--              </select>--}}
               {!! Form::select('department_id', $departments, null, ['placeholder' => trans('dashboard.job.select_department'),'class' => 'form-control select2-show-search select2-hidden-accessible select2 select2-container  select2-container--below', 'id' => 'mainDepartment',] , ) !!}
             </div>
             <div class="col">
