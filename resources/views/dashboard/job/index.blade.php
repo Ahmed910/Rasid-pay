@@ -13,83 +13,82 @@
     <!-- PAGE-HEADER END -->
 
     <!-- FORM OPEN -->
-    <form method="get" action="{{ route('dashboard.job.index') }}">
-        <div class="row align-items-end mb-3">
-            <div class="col">
-                <label for="job_name">{{ trans('dashboard.job.job_name') }}</label>
-
-                {!! Form::text('name', null, ['class' => 'form-control', 'placeholder' => trans('dashboard.job.job_name'), 'id' => 'job_name']) !!}
-            </div>
-            <div class="col">
-                <label for="mainDepartment"> {{ trans('dashboard.department.department') }} </label>
-
-                {!! Form::select('department_id', $departments, null, ['placeholder' => trans('dashboard.job.select_department'), 'class' => 'form-control select2-show-search', 'id' => 'mainDepartment']) !!}
-            </div>
 
 
+    {!! Form::open(['route' => 'dashboard.job.index', 'method' => 'GET']) !!}
 
-            <div class="col">
-                <label for="from-hijri-picker"> {{ trans('dashboard.general.from_date') }}</label>
-                <div class="input-group">
+    <div class="row align-items-end mb-3">
+        <div class="col">
+            <label for="job_name">{{ trans('dashboard.job.job_name') }}</label>
 
-                    {!! Form::text('from_date', null, ['class' => 'form-control', 'id' => 'from-hijri-picker-custom', 'placeholder' => trans('dashboard.general.day_month_year'), 'readonly']) !!}
-                    <div class="input-group-text border-start-0">
-                        <i class="fa fa-calendar tx-16 lh-0 op-6"></i>
-                    </div>
-                </div>
-            </div>
-
-
-
-            <div class="col">
-                <label for="to-hijri-picker"> {{ trans('dashboard.general.to_date') }}</label>
-                <div class="input-group">
-
-                    {!! Form::text('to_date', null, ['class' => 'form-control', 'placeholder' => trans('dashboard.general.day_month_year'), 'id' => 'to-hijri-picker-custom', 'readonly']) !!}
-
-                    <div class="input-group-text border-start-0">
-                        <i class="fa fa-calendar tx-16 lh-0 op-6"></i>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col">
-                <label for="status">
-                    @lang('dashboard.general.status')</label>
-                {!! Form::select('is_active', trans('dashboard.general.active_cases'), null, ['class' => 'form-control select2-show-search', 'placeholder' => trans('dashboard.general.select_status'), 'id' => 'status']) !!}
-            </div>
-
-            <div class="col">
-                <label for="type">
-                    @lang('dashboard.general.type')</label>
-                {!! Form::select('is_vacant', trans('dashboard.general.job_type_cases'), null, ['class' => 'form-control select2-show-search', 'placeholder' => trans('dashboard.general.select_type'), 'id' => 'type']) !!}
-            </div>
-
+            {!! Form::text('name', old('name') ?? request('name'), ['class' => 'form-control', 'placeholder' => trans('dashboard.job.job_name'), 'id' => 'job_name']) !!}
         </div>
-        <div class="row">
-            <div class="col-12 col-md-6 my-2">
-                <div class="dropdown">
-                    <button class="btn btn-outline-primary dropdown-toggle" type="button" id="dropdownMenuButton1"
-                        data-bs-toggle="dropdown" aria-expanded="false">
-                        <i class="mdi mdi-tray-arrow-down"></i> تصدير
-                    </button>
-                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                        <li><a class="dropdown-item" href="#">PDF</a></li>
-                        <li><a class="dropdown-item" href="#">Excel</a></li>
-                    </ul>
+        <div class="col">
+            <label for="mainDepartment"> {{ trans('dashboard.department.department') }} </label>
+
+            {!! Form::select('department_id', $departments, old('department_id') ?? request('department_id'), ['placeholder' => trans('dashboard.job.select_department'), 'class' => 'form-control select2-show-search', 'id' => 'mainDepartment']) !!}
+        </div>
+
+        <div class="col">
+            <label for="from-hijri-picker"> {{ trans('dashboard.general.from_date') }}</label>
+            <div class="input-group">
+
+                {!! Form::text('from_date', old('from_date') ?? request('from_date'), ['class' => 'form-control', 'id' => 'from-hijri-picker-custom', 'placeholder' => trans('dashboard.general.day_month_year'), 'readonly']) !!}
+                <div class="input-group-text border-start-0">
+                    <i class="fa fa-calendar tx-16 lh-0 op-6"></i>
                 </div>
-            </div>
-            <div class="col-12 col-md-6 my-2 d-flex justify-content-end">
-                <button class="btn btn-primary mx-2" type="submit">
-                    <i class="mdi mdi-magnify"></i> {{ trans('dashboard.general.search') }}
-                </button>
-                <button class="btn btn-outline-primary" type="submit">
-                    <i class="mdi mdi-restore"></i> {{ trans('dashboard.general.show_all') }}
-                </button>
             </div>
         </div>
 
-    </form>
+        <div class="col">
+            <label for="to-hijri-picker"> {{ trans('dashboard.general.to_date') }}</label>
+            <div class="input-group">
+
+                {!! Form::text('to_date', old('to_date') ?? request('to_date'), ['class' => 'form-control', 'placeholder' => trans('dashboard.general.day_month_year'), 'id' => 'to-hijri-picker-custom', 'readonly']) !!}
+
+                <div class="input-group-text border-start-0">
+                    <i class="fa fa-calendar tx-16 lh-0 op-6"></i>
+                </div>
+            </div>
+        </div>
+
+        <div class="col">
+            <label for="status">
+                @lang('dashboard.general.status')</label>
+            {!! Form::select('is_active', trans('dashboard.general.active_cases'), old('is_active') ?? request('is_active'), ['class' => 'form-control select2-show-search', 'placeholder' => trans('dashboard.general.select_status'), 'id' => 'status']) !!}
+        </div>
+
+        <div class="col">
+            <label for="type">
+                @lang('dashboard.general.type')</label>
+            {!! Form::select('is_vacant', trans('dashboard.general.job_type_cases'), old('is_vacant') ?? request('is_vacant'), ['class' => 'form-control select2-show-search', 'placeholder' => trans('dashboard.general.select_type'), 'id' => 'type']) !!}
+        </div>
+
+    </div>
+    <div class="row">
+        <div class="col-12 col-md-6 my-2">
+            <div class="dropdown">
+                <button class="btn btn-outline-primary dropdown-toggle" type="button" id="dropdownMenuButton1"
+                    data-bs-toggle="dropdown" aria-expanded="false">
+                    <i class="mdi mdi-tray-arrow-down"></i> تصدير
+                </button>
+                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                    <li><a class="dropdown-item" href="#">PDF</a></li>
+                    <li><a class="dropdown-item" href="#">Excel</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="col-12 col-md-6 my-2 d-flex justify-content-end">
+            <button class="btn btn-primary mx-2" type="submit">
+                <i class="mdi mdi-magnify"></i> {{ trans('dashboard.general.search') }}
+            </button>
+            <button class="btn btn-outline-primary" type="submit">
+                <i class="mdi mdi-restore"></i> {{ trans('dashboard.general.show_all') }}
+            </button>
+        </div>
+    </div>
+
+    {!! form::close() !!}
 
     <!-- FORM CLOSED -->
     <!-- Row -->

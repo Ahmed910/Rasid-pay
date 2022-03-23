@@ -68,6 +68,7 @@ return [
         'from' => 'From',
         'entries' => 'Entries',
         'delete' => 'Delete',
+        'no_search_result' => 'No search results availables',
         'hold_upload' => 'Drag and drop or upload the image',
         'hold_change' => 'Drag and drop or tap to change the image',
         'upload_error' => 'Oh, something went wrong',

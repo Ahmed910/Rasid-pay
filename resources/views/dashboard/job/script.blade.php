@@ -7,7 +7,8 @@
 
  @section('scripts')
      <script src="{{ asset('dashboardAssets/js/custom_scripts.js') }}"></script>
-     <script src="{{ asset('dashboardAssets/plugins/bootstrap-hijri-datepicker/js/bootstrap-hijri-datetimepicker.js') }}"></script>
+     <script src="{{ asset('dashboardAssets/plugins/bootstrap-hijri-datepicker/js/bootstrap-hijri-datetimepicker.js') }}">
+     </script>
 
      <script>
          $(function() {
@@ -41,7 +42,7 @@
                      {
                          data: function(data) {
                              if (data.department_name !== null) {
-                                 return `<div class="flex-shrink-0"> <img src="https://picsum.photos/seed/picsum/100" width="25" class="avatar brround cover-image" alt="..." data-toggle="popoverIMG" /> </div><div class="flex-grow-1 ms-3">${data.department_name}</div></div>`
+                                 return `<div class="d-flex align-items-center"><div class="flex-shrink-0"> <img src="https://picsum.photos/seed/picsum/100" width="25" class="avatar brround cover-image" alt="..." data-toggle="popoverIMG" /> </div><div class="flex-grow-1 ms-3">${data.department_name}</div>`
                              }
                          }
                      },
@@ -102,19 +103,20 @@
                  ],
                  pageLength: 10,
                  lengthMenu: [
-                     [1, 5, 10, 20, -1],
-                     [1, 5, 10, 20, "الكل"],
+                     [5, 10, 20, -1],
+                     [5, 10, 20, "@lang('dashboard.general.all')"],
                  ],
-                 language: {
-                     lengthMenu: "عرض _MENU_",
-                     zeroRecords: "لا يوجد بيانات",
-                     info: "عرض _PAGE_ من _PAGES_ عنصر",
-                     infoEmpty: "لا يوجد نتائج بحث متاحة",
-                     paginate: {
-                         previous: '<i class="mdi mdi-chevron-right"></i>',
-                         next: '<i class="mdi mdi-chevron-left"></i>',
+
+                 "language": {
+                     "lengthMenu": "@lang('dashboard.general.show') _MENU_",
+                     "emptyTable": "@lang('dashboard.general.no_data')",
+                     "info": "@lang('dashboard.general.showing') _START_ @lang('dashboard.general.to') _END_ @lang('dashboard.general.from') _TOTAL_ @lang('dashboard.general.entries')",
+                     "infoEmpty": "@lang('dashboard.general.no_search_result')",
+                     "paginate": {
+                         "next": '<i class="mdi mdi-chevron-left"></i>',
+                         "previous": '<i class="mdi mdi-chevron-right"></i>'
                      },
-                 },
+                 }
              });
              $('.select2').select2({
                  minimumResultsForSearch: Infinity
