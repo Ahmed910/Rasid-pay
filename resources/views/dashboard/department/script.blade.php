@@ -17,12 +17,12 @@
             .hijriDatePicker({
                 hijri: {{ auth()->user()->is_date_hijri ? 'true' : 'false' }},
                 showSwitcher: false,
-                format: "DD-MM-YYYY",
-                hijriFormat:'iYYYY-iMMMM-iDD',
-                hijriDayViewHeaderFormat:'iDD iMMMM iYYYY',
+                format: "DD MMMM YYYY",
+                hijriFormat: "iDD iMMMM iYYYY",
+                hijriDayViewHeaderFormat: "iMMMM iYYYY",
+                dayViewHeaderFormat: "MMMM YYYY",
                 showClear: true,
                 ignoreReadonly: true,
-                locale: 'ar-SA'
             });
 
         $("#departmentTable").DataTable({
@@ -69,13 +69,7 @@
                 {
                     class: "text-center",
                     data: function(data) {
-<<<<<<< HEAD
                         fun_modal = data.has_jobs ? `notArchiveItem()`: `archiveItem('${data.id}', '${data.delete_route}')`;
-=======
-                        fun_modal = (data.has_jobs) ?
-                            `archiveItem('${data.id}', '${data.delete_route}')` :
-                            `notArchiveItem()`;
->>>>>>> 7347583271ab15dba69c6f5731c0b62fba5dcf32
 
                         return `<a
                                 href="${data.show_route}"
@@ -109,21 +103,21 @@
                 [5, 10, 20, -1],
                 [5, 10, 20, "@lang('dashboard.general.all')"],
             ],
+
             "language": {
-                "lengthMenu": "@lang('dashboard.datatable.show') _MENU_",
-                "zeroRecords": "@lang('dashboard.general.no_data')",
-                "info": "إظهار _START_ إلى _END_ من أصل _TOTAL_ مدخل",
-                "infoEmpty": "@lang('dashboard.general.there_is_no_data')",
+                "lengthMenu": "@lang('dashboard.general.show') _MENU_",
+                "emptyTable": "@lang('dashboard.general.no_data')",
+                "info": "@lang('dashboard.general.showing') _START_ @lang('dashboard.general.to') _END_ @lang('dashboard.general.from') _TOTAL_ @lang('dashboard.general.entries')",
                 "paginate": {
-                    "previous": '<i class="mdi mdi-chevron-right"></i>',
                     "next": '<i class="mdi mdi-chevron-left"></i>',
+                    "previous": '<i class="mdi mdi-chevron-right"></i>'
                 },
             }
         });
         $('.select2').select2({
             minimumResultsForSearch: Infinity
         });
-    });    
+    });
 </script>
 <script src="{{ asset('dashboardAssets/js/select2.js') }}"></script>
 <script src="{{ asset('dashboardAssets/plugins/select2/select2.full.min.js') }}"></script>

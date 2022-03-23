@@ -100,7 +100,7 @@
 
 
   @yield('scripts')
-
+  <script src="{{ asset('dashboardAssets/plugins/sidemenu/sidemenu.js') }}"></script>
 </body>
 
 </html>

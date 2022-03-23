@@ -216,7 +216,7 @@
             $('body').removeClass('transparent-mode');
             $('body').removeClass('dark-mode');
 
-            // remove dark theme properties
+            // remove dark theme properties	
             localStorage.removeItem('darkPrimary')
 
             // remove light theme properties
@@ -274,7 +274,7 @@
             document.querySelector('html').style.removeProperty('--primary-bg-border', localStorage.darkPrimary);
             document.querySelector('html').style.removeProperty('--dark-primary', localStorage.darkPrimary);
 
-            // removing light theme data
+            // removing light theme data 
             localStorage.removeItem('primaryColor')
             localStorage.removeItem('primaryHoverColor')
             localStorage.removeItem('primaryBorderColor')
@@ -318,7 +318,7 @@
             localStorage.removeItem('primaryHoverColor')
             localStorage.removeItem('primaryBorderColor')
 
-            // removing light theme data
+            // removing light theme data 
             localStorage.removeItem('darkPrimary');
             localStorage.removeItem('primaryColor')
             localStorage.removeItem('primaryHoverColor')
@@ -769,7 +769,7 @@ $('#myonoffswitch24').click(function () {
         $('body').removeClass('ltr');
         localStorage.setItem("rtl", "True");
         $("head link#style").attr("href", $(this));
-        (document.getElementById("style").setAttribute("href", "../dashboardAssets/plugins/bootstrap/css/bootstrap.rtl.min.css"));
+        (document.getElementById("style").setAttribute("href", "../assets/plugins/bootstrap/css/bootstrap.rtl.min.css"));
         var carousel = $('.owl-carousel');
         $.each(carousel, function (index, element) {
             // element == this
@@ -864,7 +864,7 @@ $('#myonoffswitch35').click(function () {
         // $('#slide-left').addClass('d-none');
         // $('#slide-right').addClass('d-none');
         document.querySelector('.horizontal .side-menu').style.flexWrap = 'nowrap'
-
+       
         menuClick();
         scrollWidthChecker();
     } else {
@@ -997,19 +997,19 @@ $(document).ready(function () {
 });
 
 function checkOptions() {
-    // light header
+    // light header 
     if (document.querySelector('body').classList.contains('header-light')) {
         $('#myonoffswitch6').prop('checked', true);
     }
-    // color header
+    // color header 
     if (document.querySelector('body').classList.contains('color-header')) {
         $('#myonoffswitch7').prop('checked', true);
     }
-    // gradient header
+    // gradient header 
     if (document.querySelector('body').classList.contains('gradient-header')) {
         $('#myonoffswitch20').prop('checked', true);
     }
-    // dark header
+    // dark header 
     if (document.querySelector('body').classList.contains('dark-header')) {
         $('#myonoffswitch8').prop('checked', true);
     }
