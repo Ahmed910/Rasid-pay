@@ -199,7 +199,7 @@
                                         <i class="mdi mdi-cog-outline"></i> الإعدادات
                                     </a>
                                     @auth
-                                        {!! Form::open(['route' => 'dashboard.logout', 'method' => 'POST', 'id' => 'logout_form']) !!}
+                                        {!! Form::open(['route' => 'dashboard.session.logout', 'method' => 'POST', 'id' => 'logout_form']) !!}
 
                                         <a class="dropdown-item"
                                             onclick="document.getElementById('logout_form').submit();"

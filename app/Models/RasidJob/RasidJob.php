@@ -123,7 +123,7 @@ class RasidJob extends Model implements TranslatableContract
 
     public function employee()
     {
-        return $this->hasOne(Employee::class,'rasid_job_id');
+        return $this->hasOne(Employee::class,'id','rasid_job_id');
     }
 
     #endregion relationships

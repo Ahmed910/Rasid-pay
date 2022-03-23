@@ -9,10 +9,11 @@
   <nav aria-label="breadcrumb">
     <ol class="breadcrumb">
       <li class="breadcrumb-item">
-        <a href="permissions-record.html"> سجل الصلاحيات</a>
+        <a href="{{ route('dashboard.group.index') }}">{{ trans('dashboard.group.sub_progs.index') }}
+        </a>
       </li>
       <li class="breadcrumb-item active" aria-current="page">
-        إضافة مجموعة
+        {{ trans('dashboard.group.sub_progs.create') }}
       </li>
     </ol>
   </nav>

@@ -1,4 +1,3 @@
-<!-- SELECT2 JS -->
 @section('datatable_script')
     <script src="{{ asset('dashboardAssets/plugins/datatable/js/jquery.dataTables.min.js') }}"></script>
     <script src="{{ asset('dashboardAssets/plugins/datatable/js/dataTables.bootstrap5.js') }}"></script>

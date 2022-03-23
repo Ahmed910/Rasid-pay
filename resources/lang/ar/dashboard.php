@@ -40,6 +40,8 @@ return [
         'fail_send' => 'فشل عملية الارسال',
         'active' => 'مفعل',
         'inactive' => 'معطل',
+        'activited' => 'تفعيل',
+        'unactivited' => 'تعطيل',
         'dashboard' => 'لوحة تحكم رصيد جاك',
         "status" => "الحالة",
         "select_status" => "اختر الحالة",
@@ -50,10 +52,15 @@ return [
         "search" => "بحث",
         "show_all" => "عرض الكل",
         "created_at" => "تاريخ الإنشاء",
+        'create' => 'انشاء',
         "actions" => "العمليات",
         "active_cases" => [
             'معطل',
             'مفعل',
+        ],
+        'job_type_cases' => [
+            'مشغولة',
+            'شاغرة',
         ],
         'all' => 'الجميع',
         'description' => 'الوصف',
@@ -67,12 +74,15 @@ return [
         'from' => 'من',
         'entries' => 'مدخلات',
         'delete' => 'حذف',
+        'no_search_result'=>'لا يوجد نتائج بحث متاحة',
         'hold_upload' => 'اسحب وأسقط او قم برفع الصورة',
         'hold_change' => 'اسحب وأسقط او إضغط لتغيير الصورة',
         'upload_error' => 'اووه ، حدث خطأ ما',
         'upload_file_max' => 'حجم الملف كبير',
         'notAllowdedToUpload' => 'نوع الملف غير مسموح بتحميله',
-
+        'description'=>'الوصف',
+        'reason' =>'السبب',
+        'done_by' => 'تم بواسطة',
     ],
     'error' => [
         'method_not_allow' => 'طريقة الطلب (:method) غير صحيحة',
@@ -83,6 +93,10 @@ return [
     ],
     'activity_log' => [
         "reason" => ":user قام :action",
+        "date" => "تاريخ النشاط",
+        "activity" => " النشاط",
+        'history' => 'الحركة التاريخية',
+
     ],
     'home' => [
         'home' => 'الرئيسية',
@@ -174,6 +188,8 @@ return [
             'index' => 'سجل الأقسام',
             'archive' => 'أرشيف الأقسام',
             'create' => 'اضافة قسم',
+            'show' => 'عرض قسم',
+
         ],
         'permissions' => $permissions + ['get_parents' => 'عرض الأقسام الرئيسية'],
         "has_jobs_cannot_delete" => "لا يمكن أرشفة قسم مرتبط بوظائف",
@@ -186,6 +202,10 @@ return [
         "add_rasid_job" => "اضافة وظيفة",
         "edit_rasid_job" => "تعديل الوظيفة",
         "rasid_job_count" => "عدد الوظائف",
+        "employee_name" => "اسم الموظف",
+        "rasid_job_description" => "الوصف الوظيفي",
+        "rasid_job_department" => "اسم القسم",
+        "name" => "اسم الوظيفة",
         "validation" => [
             'name_must_be_unique_on_department' => 'تم اختيار اسم الوظيفة من قبل لنفس القسم'
         ],
@@ -195,6 +215,11 @@ return [
             'index' => 'سجل الوظائف',
             'archive' => 'أرشيف الوظائف',
             'create' => 'اضافة وظيفة',
+            'show' => 'عرض وظيفة',
+        ],
+        'is_vacant' => [
+            'true' => 'مشغولة',
+            'false' => 'شاغرة',
         ],
         'permissions' => $permissions
     ],
@@ -217,14 +242,14 @@ return [
         "edit_profile" => "تعديل الملف الشخصي",
     ],
     "admin" => [
-        "admin" => "مستخدم النظام",
-        "admins" => "مستخدمى النظام",
+        "admin" => "المستخدم",
+        "admins" => "المستخدمين",
         "add_admin" => "اضافة مستخدم",
         "edit_admin" => "تعديل المستخدم",
         "admin_count" => "عدد المستخدمين",
         'sub_progs' => [
-            'index' => 'سجل مستخدمى النظام',
-            'archive' => 'أرشيف مستخدمى النظام',
+            'index' => 'سجل المستخدمين',
+            'archive' => 'أرشيف المستخدمين',
             'create' => 'اضافة مستخدم',
         ],
         'permissions' => array_except($permissions, ['archive', 'restore', 'force_delete']) + ['create' => 'عرض المستخدمين']
@@ -275,8 +300,8 @@ return [
         "job_description" => "وصف الوظيفة",
         "is_active" =>"الحالة",
         'is_vacant' => [
-            'true' => 'مشغولة',
-            'false' => 'شاغرة',
+            'true' => 'شاغرة',
+            'false' => 'مشغولة',
         ],
         'sub_progs' => [
             'index' => 'سجل الوظائف',

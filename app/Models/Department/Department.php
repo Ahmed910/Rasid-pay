@@ -14,6 +14,7 @@ use App\Traits\Uuid;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Astrotomic\Translatable\Contracts\Translatable as TranslatableContract;
 use Astrotomic\Translatable\Translatable;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Builder;
@@ -25,6 +26,7 @@ class Department extends Model implements TranslatableContract, HasAssetsInterfa
 
 
     #region properties
+    protected $appends = ['image'];
     protected $guarded = ['created_at', 'deleted_at'];
     public $translatedAttributes = ['name', 'description'];
     public $assets = ["image"];
@@ -42,6 +44,19 @@ class Department extends Model implements TranslatableContract, HasAssetsInterfa
     }
     #region mutators
     #endregion mutators
+
+
+    #region accessor
+    public function getCreatedAtAttribute($value)
+    {
+        return Carbon::parse($value)->toFormattedDateString();
+    }
+
+    public function getImageAttribute()
+    {
+        return asset($this->images()->first()?->media) ?? 'https://picsum.photos/200';
+    }
+    #endregion accessor
 
     #region scopes
     public function scopeSearch(Builder $query, $request)

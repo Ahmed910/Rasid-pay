@@ -32,7 +32,7 @@
             {!! Form::file('image', [
                           'class' => 'dropify',
                           'data-show-remove' => 'true',
-                          'data-default-file' => isset($department) && count($department->images) > 0 ? asset("{$department->images[0]->media}") : '',
+                          'data-default-file' => isset($department) ? $department->image : '',
                           'data-bs-height' => '250',
                           'id' => 'departmentImg',
                           'data-errors-position' => 'inside',
