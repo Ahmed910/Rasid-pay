@@ -4,7 +4,7 @@ function archiveItem(itemId, route) {
     $('#item').attr('action', route);
 }
 
-
-function notArchiveItem() {
+function notArchiveItem(message = null) {
     $("#modal_not_archive").modal('show');
+    $("#modal_not_archive #message").text(message);
 }
