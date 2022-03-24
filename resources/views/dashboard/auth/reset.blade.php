@@ -3,10 +3,9 @@
 @section('content')
 
         {{-- <form class="login100-form validate-form"> --}}
-          <h3 class="text-center mt-5">إستعادة كلمةالمرور</h3>
+          <h3 class="text-center mt-5">{{ trans('auth.reset_password')}}</h3>
           <p class="text-center">
-            من فضلك قم بإدخال بريدك الإلكتروني أو رقم جوالك لإرسال كود
-            التفعيل
+            {{ trans('auth.reset_subtitle')}}
           </p>
           <div class="panel panel-primary">
             <div class="tab-menu-heading">
@@ -43,6 +42,8 @@
                         id="email"
                         name="email"
                         placeholder="البريد الإلكتروني"
+                        pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"
+                        required
                       />
                       @error('email')
                           <div class="invalid-feedback">{{ $message }}</div>

@@ -80034,7 +80034,7 @@ label {
 }
 
 .input-group-text {
-    background: #fff;
+    background: transparent;
     color: #000;
     padding: 0.475rem 0.75rem;
 }

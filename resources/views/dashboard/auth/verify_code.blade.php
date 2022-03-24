@@ -4,7 +4,7 @@
 
 <h3 class="text-center mt-5">رمز التحقق</h3>
 <p class="text-center">
-    من فضلك قم بإدخال كود التفعيل المرسل على رقم جوالك<br />
+    من فضلك قم بادخال رمز التحقق المرسل على رقم جوالك<br />
     <span style="direction: ltr; display: block">{{ $phone }}</span>
 </p>
 <!-- FORM OPEN -->
