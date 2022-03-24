@@ -89,18 +89,17 @@
 
     <!-- SIDE-MENU JS -->
     <script src="{{ asset('dashboardAssets/plugins/sidemenu/sidemenu.js') }}"></script>
+    <!-- CUSTOM JS -->
+    <script src="{{ asset('dashboardAssets/js/custom.js') }}"></script>
+    <!-- DATA TABLE JS-->
+    @yield('datatable_script')
+    <!-- Sticky js -->
+    <script src="{{ asset('dashboardAssets/js/sticky.js') }}"></script>
 
-  <!-- DATA TABLE JS-->
-  @yield('datatable_script')
-  <!-- Sticky js -->
-  <script src="{{ asset('dashboardAssets/js/sticky.js') }}"></script>
+    <!-- lottie-player js -->
+    <script src="https://unpkg.com/@lottiefiles/lottie-player@0.4.0/dist/tgs-player.js"></script>
 
-  <!-- lottie-player js -->
-  <script src="https://unpkg.com/@lottiefiles/lottie-player@0.4.0/dist/tgs-player.js"></script>
-
-  <!-- CUSTOM JS -->
-  <script src="{{ asset('dashboardAssets/js/custom.js') }}"></script>
-  @yield('scripts')
+    @yield('scripts')
 
 </body>
 

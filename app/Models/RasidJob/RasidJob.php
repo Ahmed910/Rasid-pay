@@ -40,10 +40,10 @@ class RasidJob extends Model implements TranslatableContract
     #endregion mutators
 
     #region accessor
-//    public function getCreatedAtAttribute($value)
-//    {
-//        return Carbon::parse($value)->toFormattedDateString();
-//    }
+    //    public function getCreatedAtAttribute($value)
+    //    {
+    //        return Carbon::parse($value)->toFormattedDateString();
+    //    }
     public function getAddedByEmployeeAttribute($value)
     {
         return $this->addedBy->fullname ?? 'ahmed abotaleb';
@@ -125,7 +125,7 @@ class RasidJob extends Model implements TranslatableContract
 
     public function employee()
     {
-        return $this->hasOne(Employee::class,'id','rasid_job_id');
+        return $this->hasOne(Employee::class, 'rasid_job_id', 'id');
     }
 
     #endregion relationships

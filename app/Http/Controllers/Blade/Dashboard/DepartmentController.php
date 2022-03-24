@@ -59,7 +59,7 @@ class DepartmentController extends Controller
 
     public function store(DepartmentRequest $request, Department $department)
     {
-        $department->fill($request->validated())->save();
+        $department->fill($request->validated() + ['added_by_id' => auth()->id()])->save();
         return redirect()->route('dashboard.department.index')->withSuccess(__('dashboard.general.success_add'));
     }
 
@@ -74,12 +74,12 @@ class DepartmentController extends Controller
             'action_type',
             'reason'
         ];
-        if(isset($request->order[0]['column'])){
+        if (isset($request->order[0]['column'])) {
             $request['sort'] = ['column' => $sortingColumns[$request->order[0]['column']], 'dir' => $request->order[0]['dir']];
         }
 
         $activitiesQuery  = $department->activity()
-        ->sortBy($request);
+            ->sortBy($request);
 
         if ($request->ajax()) {
             $activityCount = $activitiesQuery->count();
@@ -89,10 +89,9 @@ class DepartmentController extends Controller
 
             return ActivityLogCollection::make($activities)
                 ->additional(['total_count' => $activityCount]);
-
         }
 
-        return view('dashboard.department.show',compact('department'));
+        return view('dashboard.department.show', compact('department'));
     }
 
     public function edit(Department $department)
@@ -110,7 +109,66 @@ class DepartmentController extends Controller
     }
 
 
-    public function destroy(ReasonRequest $request, Department $department)
+    public function archive(Request $request)
     {
+
+        $sortingColumns = [
+            'id',
+            'name',
+            'parent',
+            'deleted_at',
+
+        ];
+
+        if (isset($request->order[0]['column'])) {
+            $request['sort'] = ['column' => $sortingColumns[$request->order[0]['column']], 'dir' => $request->order[0]['dir']];
+        }
+
+        $departmentsQuery = Department::onlyTrashed()
+            ->search($request)
+            ->CustomDateFromTo($request)
+            ->with('parent.translations')
+            ->ListsTranslations('name')
+            ->addSelect('departments.deleted_at', 'departments.parent_id')
+            ->sortBy($request);
+
+        if ($request->ajax()) {
+            $departmentCount = $departmentsQuery->count();
+            $departments = $departmentsQuery->skip($request->start)
+                ->take(($request->length == -1) ? $departmentCount : $request->length)
+                ->get();
+
+            return DepartmentCollection::make($departments)
+                ->additional(['total_count' => $departmentCount]);
+        }
+
+        $parentDepartments = Department::onlyTrashed()->where('is_active', 1)
+            ->has("children")
+            ->orWhere(function ($q) {
+                $q->doesntHave('children')
+                    ->WhereNull('parent_id');
+            })
+            // ->without("images", 'addedBy')
+            ->select("id")
+            ->ListsTranslations("name")
+            ->pluck('name', 'id');
+
+        return view('dashboard.archive.department.index', compact('parentDepartments'));
+    }
+
+    public function restore(ReasonRequest $request, $id)
+    {
+
+        $department = Department::onlyTrashed()->findOrFail($id);
+
+        $department->restore();
+        return redirect()->back();
+    }
+
+    public function forceDelete(ReasonRequest $request, $id)
+    {
+        $department = Department::onlyTrashed()->findOrFail($id);
+        $department->forceDelete();
+        return redirect()->back();
     }
 }

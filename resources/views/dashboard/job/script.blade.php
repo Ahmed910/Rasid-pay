@@ -42,7 +42,7 @@
                      {
                          data: function(data) {
                              if (data.department_name !== null) {
-                                 return `<div class="d-flex align-items-center"><div class="flex-shrink-0"> <img src="https://picsum.photos/seed/picsum/100" width="25" class="avatar brround cover-image" alt="..." data-toggle="popoverIMG" /> </div><div class="flex-grow-1 ms-3">${data.department_name}</div>`
+                                 return `<div class="d-flex align-items-center"><div class="flex-shrink-0"> <img src="${data.image}" width="25" class="avatar brround cover-image" alt="..." data-toggle="popoverIMG" /> </div><div class="flex-grow-1 ms-3">${data.department_name}</div>`
                              }
                          }
                      },

@@ -36,7 +36,7 @@ trait Uuid
             $this->changeDateLocale();
             return Hijri::convertToHijri($date)->format('d F o  h:i A');
         }
-        return date('Y-m-d h:i A', strtotime($date));
+        return date('Y-m-d', strtotime($date));
     }
 
     public function getUpdatedAtAttribute($date)
@@ -45,7 +45,7 @@ trait Uuid
             $this->changeDateLocale();
             return Hijri::convertToHijri($date)->format('d F o   h:i A');
         }
-        return date('Y-m-d h:i A', strtotime($date));
+        return date('Y-m-d', strtotime($date));
     }
 
     public function getDeletedAtAttribute($date)
@@ -54,7 +54,7 @@ trait Uuid
             $this->changeDateLocale();
             return Hijri::convertToHijri($date)->format('d F o   h:i A');
         }
-        return date('Y-m-d h:i A', strtotime($date));
+        return date('Y-m-d', strtotime($date));
     }
 
     public function changeDateLocale()
