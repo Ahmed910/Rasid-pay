@@ -142,7 +142,7 @@ class DepartmentController extends Controller
                 ->additional(['total_count' => $departmentCount]);
         }
 
-        $parentDepartments = Department::onlyTrashed()->where('is_active', 1)
+        $parentDepartments = Department::where('is_active', 1)
             ->has("children")
             ->orWhere(function ($q) {
                 $q->doesntHave('children')
