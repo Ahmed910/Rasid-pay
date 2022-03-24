@@ -27,8 +27,8 @@ trait HasAssetsTrait
     {
         $new = $request->{$key};
         $old = $model->images()->whereOption($key)?->first();
-
-        if (!empty($old) && $request->hasFile("$key")) {
+        // if delete_image is 1 , delete image
+        if (!empty($old) && $request->hasFile("$key") || $request->delete_image) {
             $old->forceDelete();
             $path = Str::replace("/storage", "", $old->media);
             Storage::disk('public')->delete($path);

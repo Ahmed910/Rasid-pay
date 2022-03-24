@@ -12,6 +12,8 @@
 
     <script>
         $(function() {
+
+
             /******* Calendar *******/
             $("#from-hijri-picker-custom, #to-hijri-picker-custom, #from-hijri-unactive-picker-custom ,#to-hijri-unactive-picker-custom")
                 .hijriDatePicker({
@@ -43,7 +45,8 @@
                     },
                     {
                         data: function(data) {
-                            return `<div class="d-flex align-items-center"><div class="flex-shrink-0"> <img src="https://picsum.photos/seed/picsum/100" width="25" class="avatar brround cover-image" alt="..." data-toggle="popoverIMG" /> </div><div class="flex-grow-1 ms-3">${data.name}</div>`
+                            return `<div class="d-flex align-items-center"><div class="flex-shrink-0">
+                              <img src="${data.image}" data-toggle="popoverIMG" title='<img src="${data.image}" width="300" height="300" class="d-block rounded-3" alt="">' width="25" class="avatar brround cover-image" alt="..."/> </div><div class="flex-grow-1 ms-3">${data.name}</div>`
                         }
                     },
                     {
@@ -100,6 +103,13 @@
                         }
                     }
                 ],
+                createdRow: function(row, data) {
+                    $('[data-toggle="popoverIMG"]', row).popover({
+                        placement: "right",
+                        trigger: "hover",
+                        html: true,
+                    });
+                },
                 pageLength: 10,
                 lengthMenu: [
                     [5, 10, 20, -1],

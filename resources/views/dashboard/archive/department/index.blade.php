@@ -15,21 +15,14 @@
                     value="{{ old('name') ?? request('name') }}" />
             </div>
             <div class="col">
-                <label>{{ trans('dashboard.department.department_main') }}</label>
-                <select class="form-control select2" data-placeholder="{{ trans('dashboard.department.select_department') }}"
-                    name="parent_id">
-                    <option selected disabled value=""></option>
-                    @foreach ($parentDepartments as $id => $name)
-                        <option value="{{ $id }}"
-                            {{ (old('parent_id') ?? request('parent_id')) == $id ? 'selected' : '' }}>
-                            {{ $name }}</option>
-                    @endforeach
-                </select>
+              <label>
+                {{ trans('dashboard.department.main_department')}}</label>
+                {!! Form::select('parent_id', $parentDepartments, null, ['class' => 'form-control select2', 'placeholder' => trans('dashboard.department.select_main_department')]) !!}
             </div>
             <div class="col">
                 <label for="validationCustom02"> {{ trans('dashboard.department.archive_from_date') }}</label>
                 <div class="input-group">
-                    <input id="from-hijri-picker" type="text" placeholder="يوم/شهر/سنة" class="form-control"
+                    <input id="from-hijri-picker" type="text" placeholder="يوم/شهر/سنة" class="form-control" readonly
                         name="created_from" value="{{ old('created_from') ?? request('created_from') }}" />
                     <div class="input-group-text border-start-0">
                         <i class="fa fa-calendar tx-16 lh-0 op-6"></i>
@@ -39,7 +32,7 @@
             <div class="col">
                 <label for="validationCustom02">{{ trans('dashboard.department.archive_to_date') }} </label>
                 <div class="input-group">
-                    <input id="to-hijri-picker" type="text" placeholder="يوم/شهر/سنة" class="form-control"
+                    <input id="to-hijri-picker" type="text" placeholder="يوم/شهر/سنة" class="form-control" readonly
                         name="created_to" value="{{ old('created_to') ?? request('created_to') }}" />
                     <div class="input-group-text border-start-0">
                         <i class="fa fa-calendar tx-16 lh-0 op-6"></i>

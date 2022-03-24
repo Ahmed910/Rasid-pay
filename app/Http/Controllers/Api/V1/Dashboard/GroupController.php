@@ -45,21 +45,15 @@ class GroupController extends Controller
         return GroupResource::make($group)->additional(['status' => true, 'message' => trans('dashboard.general.success_add')]);
     }
 
-    public function show(Request $request, Group $group)
+    public function show(Request $request, $id)
     {
+        $group = Group::findOrFail($id);
         $activities = [];
         if (!$request->has('with_activity') || $request->with_activity) {
             $activities  = $group->activity()
                 ->sortBy($request)
                 ->paginate((int)($request->per_page ?? 15));
         }
-
-        $group->load(['translations', 'groups' => function ($q) {
-            $q->with('permissions');
-        }, 'permissions' => function ($q) use ($group) {
-            $q->whereNotIn('permissions.id', $group->permissions->pluck('id')->toArray());
-        }]);
-
         return GroupCollection::make($activities)
             ->additional([
                 'status' => true,
@@ -127,7 +121,7 @@ class GroupController extends Controller
         $saved_names = array_column($saved_permissions, 'named_uri');
         foreach (app()->routes->getRoutes() as $value) {
             $name = $value->getName();
-            if (in_array($name, Permission::PUBLIC_ROUTES) || is_null($name) || in_array(str_before($name, '.'), ['ignition', 'debugbar'])) {
+            if (in_array($name, Permission::PUBLIC_ROUTES) || is_null($name) || in_array(str_before($name, '.'), ['ignition', 'debugbar']) || !str_contains($value->getPrefix(),'api')) {
                 continue;
             }
             if (!in_array($name, $saved_names)) {
