@@ -26,7 +26,8 @@ class ActivityLogResource extends JsonResource
             'type' => strtolower($this->action_type),
             'reason' => trans('dashboard.activity_log.reason', [
                 'user' => $this->user?->fullname,
-                'action' => trans('dashboard.activity_log.actions.' . $this->action_type)
+                'action' => trans('dashboard.activity_log.actions.' . $this->action_type),
+                'model' => trans('dashboard.'.strtolower($this->auditable_type).".".strtolower($this->auditable_type))
             ]),
             'url' => $this->url,
             'ip' => $this->ip_address,

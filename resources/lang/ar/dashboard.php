@@ -94,7 +94,7 @@ return [
     'activity_log' => [
         "activity_log" => "سجل النشاط",
         "activity_logs" => "سجل النشاطات",
-        "reason" => ":user قام :action",
+        "reason" => "قام :user بعمل :action علي :model",
         "date" => "تاريخ النشاط",
         "activity" => " النشاط",
         'history' => 'الحركة التاريخية',
