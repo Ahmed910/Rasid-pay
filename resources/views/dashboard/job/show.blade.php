@@ -74,7 +74,7 @@
             <tr>
                 <th class="border-bottom-0">#</th>
                 <th class="border-bottom-0">@lang('dashboard.general.done_by') </th>
-                <th class="border-bottom-0"> @lang('dashboard.department.name') </th>
+                <th class="border-bottom-0"> @lang('dashboard.department.department') </th>
                 <th class="border-bottom-0">@lang('dashboard.activity_log.date') </th>
                 <th class="border-bottom-0">@lang('dashboard.activity_log.activity')</th>
                 <th class="border-bottom-0" style="max-width: 800px;">@lang('dashboard.general.reason')
