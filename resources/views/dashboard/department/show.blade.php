@@ -24,11 +24,11 @@
     <div class="card py-7 px-7">
         <div class="row">
             <div class="col-12 col-md-4">
-                <label>@lang('dashboard.department.name') :</label>
+                <label>@lang('dashboard.department.department_name') :</label>
                 <p class="text-muted"> {!! $department->name !!}</p>
             </div>
             <div class="col-12 col-md-4">
-                <label>@lang('dashboard.department.department_name') :</label>
+                <label>@lang('dashboard.department.department_main') :</label>
                 <p class="text-muted">
                     {!! isset($department->parent->name) ? $department->parent->name : '' !!}</p>
             </div>
@@ -77,7 +77,7 @@
                 <tr>
                     <th class="border-bottom-0">#</th>
                     <th class="border-bottom-0">@lang('dashboard.general.done_by') </th>
-                    <th class="border-bottom-0"> @lang('dashboard.department.name') </th>
+                    <th class="border-bottom-0"> @lang('dashboard.department.department_name') </th>
                     <th class="border-bottom-0">@lang('dashboard.activity_log.date') </th>
                     <th class="border-bottom-0">@lang('dashboard.activity_log.activity')</th>
                     <th class="border-bottom-0" style="max-width: 800px;">@lang('dashboard.general.reason')
