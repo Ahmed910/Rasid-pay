@@ -110,7 +110,7 @@ return [
             'permanent' => 'حظر دائم',
             'temporary' => 'حظر لفترة',
         ],
-        'permissions' => array_only($permissions,['index','show']),
+        'permissions' => array_only($permissions, ['index', 'show']),
         'sub_progs' => [
             'index' => 'سجل النشاطات',
             'show' => 'عرض النشاط',
@@ -191,9 +191,12 @@ return [
     "department" => [
         "department" => "القسم ",
         "departments" => "الاقسام",
+        "department_image" => "صورة القسم",
         "department_name" => "اسم القسم",
         "department_main" => "القسم الر ئيسي",
         "select_department" => "اختر القسم",
+        "main_department" => "القسم الر ئيسي",
+        'select_main_department' => 'اختر القسم الر ئيسي',
         "add_department" => "اضافة قسم",
         "edit_department" => "تعديل القسم",
         "department_count" => "عدد الاقسام",
