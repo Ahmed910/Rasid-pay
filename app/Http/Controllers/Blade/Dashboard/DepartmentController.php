@@ -59,7 +59,7 @@ class DepartmentController extends Controller
 
     public function store(DepartmentRequest $request, Department $department)
     {
-        $department->fill($request->validated())->save();
+        $department->fill($request->validated() + ['added_by_id' => auth()->id()])->save();
         return redirect()->route('dashboard.department.index')->withSuccess(__('dashboard.general.success_add'));
     }
 
