@@ -16,13 +16,13 @@ class GroupCollection extends ResourceCollection
      */
     public function toArray($request)
     {
-        $group = Group::with('translations')->findOrFail(@$request->route()->parameters['group']);
+        $group = Group::findOrFail(@$request->route()->parameters['group']);
         $group->load(['translations', 'groups' => function ($q) {
             $q->with('permissions');
         }, 'permissions' => function ($q) use ($group) {
             $q->whereNotIn('permissions.id', $group->permissions->pluck('id')->toArray());
         }]);
-        
+
         return [
             'group' => GroupResource::make($group),
             'activity' => ActivityLogResource::collection($this->collection),
