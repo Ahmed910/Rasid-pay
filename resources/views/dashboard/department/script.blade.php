@@ -12,6 +12,8 @@
 
     <script>
         $(function() {
+
+
             /******* Calendar *******/
             $("#from-hijri-picker-custom, #to-hijri-picker-custom, #from-hijri-unactive-picker-custom ,#to-hijri-unactive-picker-custom")
                 .hijriDatePicker({
@@ -44,10 +46,7 @@
                     {
                         data: function(data) {
                             return `<div class="d-flex align-items-center"><div class="flex-shrink-0">
-                              <img src="${data.image}" width="25" class="avatar brround cover-image" alt="..."
-                              data-toggle="popoverIMG"
-                              data-bs-original-title
-                              /> </div><div class="flex-grow-1 ms-3">${data.name}</div>`
+                              <img src="${data.image}" width="25" class="avatar brround cover-image" alt="..." data-toggle="popoverIMG" /> </div><div class="flex-grow-1 ms-3">${data.name}</div>`
                         }
                     },
                     {
@@ -128,12 +127,4 @@
     </script>
     <script src="{{ asset('dashboardAssets/js/select2.js') }}"></script>
     <script src="{{ asset('dashboardAssets/plugins/select2/select2.full.min.js') }}"></script>
-
-    <script>
-        $('[data-toggle="popoverIMG"]').popover({
-            placement: "left",
-            trigger: "hover",
-            html: true,
-        });
-    </script>
 @endsection

@@ -40,21 +40,19 @@
                     <p class="badge bg-danger-opacity py-2 px-4">@lang('dashboard.general.inactive')</p>
                 @endif
 
-                        </div>
-                        <div class="col-12 col-md-4">
-                            <label> @lang('dashboard.department.department_image'):</label>
-                            <img src="{{ $department->image }}" width="150" height="150"
-                                class="d-block rounded-3" alt="" data-toggle="popoverIMG" title='<img src="{{ $department->image }}" width="150" height="150" class="d-block rounded-3" alt=""
-                                                    data-toggle="popoverIMG" >'>
-                        </div>
-                        <div class="col-12 col-md-8">
-                            <label class="d-block"
-                                for="departmentName">@lang('dashboard.general.description'):</label>
-                            <p class="text-muted">
-                                {!! $department->description !!}
-                            </p>
-                        </div>
-                    </div>
+            </div>
+            <div class="col-12 col-md-4">
+                <label> @lang('dashboard.department.department_image'):</label>
+                <img src="{{ $department->image }}" width="150" height="150" class="d-block rounded-3" alt=""
+                    data-toggle="popoverIMG" title='<img src="{{ $department->image }}" width="300" height="300" class="d-block rounded-3" alt="">'>
+            </div>
+            <div class="col-12 col-md-8">
+                <label class="d-block" for="departmentName">@lang('dashboard.general.description'):</label>
+                <p class="text-muted">
+                    {!! $department->description !!}
+                </p>
+            </div>
+        </div>
 
     </div>
     <div class="row">
