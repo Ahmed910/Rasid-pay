@@ -13,11 +13,11 @@
                   style="width: 55%; display: block; margin: 0 auto 1em"
                 >
                 </lottie-player>
-                <p>هل تريد إتمام عملية الأرشفة؟</p>
+                <p>@lang("dashboard.general.want_to_archive")</p>
                 <div class="mt-3">
                   <textarea
                     class="form-control"
-                    placeholder="الرجاء ذكر السبب*"
+                    placeholder="@lang("dashboard.general.reason_needed")"
                     rows="3"
                     required
                   ></textarea>
