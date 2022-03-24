@@ -156,7 +156,7 @@ class User extends Authenticatable implements HasAssetsInterface
         if ($value == null) return;
 
         if (auth()->check() && auth()->user()->is_date_hijri) {
-            // $this->changeDateLocale();
+            $this->changeDateLocale('en');
 
             return Hijri::convertToHijri($value)->format('d-m-Y');
         }
@@ -169,7 +169,7 @@ class User extends Authenticatable implements HasAssetsInterface
         if ($value == null) return;
 
         if (auth()->check() && auth()->user()->is_date_hijri) {
-            // $this->changeDateLocale();
+            $this->changeDateLocale('en');
 
             return Hijri::convertToHijri($value)->format('d-m-Y');
         }
