@@ -83,6 +83,7 @@ return [
         'description' => 'الوصف',
         'reason' => 'السبب',
         'done_by' => 'تم بواسطة',
+        'the_archive' => 'الأرشيف',
     ],
     'error' => [
         'method_not_allow' => 'طريقة الطلب (:method) غير صحيحة',
@@ -94,7 +95,7 @@ return [
     'activity_log' => [
         "activity_log" => "سجل النشاط",
         "activity_logs" => "سجل النشاطات",
-        "reason" => ":user قام :action",
+        "reason" => "قام :user بـ:action :model",
         "date" => "تاريخ النشاط",
         "activity" => " النشاط",
         'history' => 'الحركة التاريخية',
@@ -110,7 +111,7 @@ return [
             'permanent' => 'حظر دائم',
             'temporary' => 'حظر لفترة',
         ],
-        'permissions' => array_only($permissions,['index','show']),
+        'permissions' => array_only($permissions, ['index', 'show']),
         'sub_progs' => [
             'index' => 'سجل النشاطات',
             'show' => 'عرض النشاط',
@@ -191,9 +192,12 @@ return [
     "department" => [
         "department" => "القسم ",
         "departments" => "الاقسام",
+        "department_image" => "صورة القسم",
         "department_name" => "اسم القسم",
         "department_main" => "القسم الر ئيسي",
         "select_department" => "اختر القسم",
+        "main_department" => "القسم الر ئيسي",
+        'select_main_department' => 'اختر القسم الر ئيسي',
         "add_department" => "اضافة قسم",
         "edit_department" => "تعديل القسم",
         "department_count" => "عدد الاقسام",
@@ -212,7 +216,8 @@ return [
         'permissions' => $permissions + ['get_parents' => 'عرض الأقسام الرئيسية'],
         "has_jobs_cannot_delete" => "لا يمكن أرشفة قسم مرتبط بوظائف",
         "department_has_relationship_cannot_delete" => "لا يمكن حذف هذا القسم لأنه يحتوي علي أقسام فرعية   ",
-        'without_parent' => 'بدون'
+        'without_parent' => 'بدون',
+        'department_archive' => 'أرشيف الأقسام',
     ],
     "rasid_job" => [
         "rasid_job" => "الوظيفة",
