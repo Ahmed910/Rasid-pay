@@ -30,9 +30,10 @@ class Department extends Model implements TranslatableContract, HasAssetsInterfa
     protected $guarded = ['created_at', 'deleted_at'];
     public $translatedAttributes = ['name', 'description'];
     public $assets = ["image"];
-    public $with   = ["images", "addedBy"];
+    public $with = ["images", "addedBy"];
     private $sortableColumns = ["name", "parent", "created_at", "status", 'is_active'];
     private static $result = [];
+
     #endregion properties
 
     public static function boot()
@@ -47,10 +48,7 @@ class Department extends Model implements TranslatableContract, HasAssetsInterfa
 
 
     #region accessor
-    public function getCreatedAtAttribute($value)
-    {
-        return Carbon::parse($value)->toFormattedDateString();
-    }
+
 
     public function getImageAttribute()
     {
@@ -94,7 +92,7 @@ class Department extends Model implements TranslatableContract, HasAssetsInterfa
 
 
         $query->when($request->sort, function ($q) use ($request) {
-            if ($request->sort["column"]  == "name") {
+            if ($request->sort["column"] == "name") {
                 return $q->has('translations')
                     ->orderBy($request->sort["column"], @$request->sort["dir"]);
             }
