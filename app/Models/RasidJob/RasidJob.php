@@ -40,14 +40,7 @@ class RasidJob extends Model implements TranslatableContract
     #endregion mutators
 
     #region accessor
-    //    public function getCreatedAtAttribute($value)
-    //    {
-    //        return Carbon::parse($value)->toFormattedDateString();
-    //    }
-    public function getAddedByEmployeeAttribute($value)
-    {
-        return $this->addedBy->fullname ?? 'ahmed abotaleb';
-    }
+
     #endregion accessor
 
     #region scopes
@@ -62,9 +55,7 @@ class RasidJob extends Model implements TranslatableContract
         }
 
         if (isset($request->department_id)) {
-            $query->whereHas("department", function ($q) use ($request) {
-                $q->where("id", $request->department_id);
-            });
+            $query->where("department_id", $request->department_id);
         }
 
 
