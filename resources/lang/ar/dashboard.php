@@ -83,6 +83,7 @@ return [
         'description' => 'الوصف',
         'reason' => 'السبب',
         'done_by' => 'تم بواسطة',
+        'the_archive' => 'الأرشيف',
     ],
     'error' => [
         'method_not_allow' => 'طريقة الطلب (:method) غير صحيحة',
@@ -215,7 +216,8 @@ return [
         'permissions' => $permissions + ['get_parents' => 'عرض الأقسام الرئيسية'],
         "has_jobs_cannot_delete" => "لا يمكن أرشفة قسم مرتبط بوظائف",
         "department_has_relationship_cannot_delete" => "لا يمكن حذف هذا القسم لأنه يحتوي علي أقسام فرعية   ",
-        'without_parent' => 'بدون'
+        'without_parent' => 'بدون',
+        'department_archive' => 'أرشيف الأقسام',
     ],
     "rasid_job" => [
         "rasid_job" => "الوظيفة",

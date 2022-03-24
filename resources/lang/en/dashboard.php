@@ -83,6 +83,8 @@ return [
             'Active',
             'Unactive',
         ],
+        'the_archive' => 'The Archive',
+
     ],
     'error' => [
         'method_not_allow' => 'Http method (:method) not allowed',
@@ -135,7 +137,9 @@ return [
         "department_count" => "",
         "department_has_relationship_cannot_delete" => "This department has sub department ,so you cannot delete it",
         'permissions' => $permissions + ['get_parents' => 'Show main departments'],
-        'without_parent' => 'Without'
+        'without_parent' => 'Without',
+        'department_archive' => 'Department Archive',
+
     ],
     "rasid_job" => [
         "rasid_job" => "Job",
