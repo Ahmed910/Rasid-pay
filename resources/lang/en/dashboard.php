@@ -98,6 +98,18 @@ return [
         "date" =>"Activity Date",
         "activity" => "Activity",
         'history' => 'History ',
+        'actions' => [
+            'created' => 'Create',
+            'updated' => 'Update',
+            'destroy' => 'Archieve',
+            'restored' => 'Restore',
+            'permanent_delete' => 'Delete',
+            'searched' => 'Search',
+            'deactivated' => 'Deactivate',
+            'activated' => 'Activate',
+            'permanent' => 'Permanent Ban',
+            'temporary' => 'Temporary Ban ',
+        ],
 
     ],
     "country" => [
@@ -139,6 +151,13 @@ return [
         'permissions' => $permissions + ['get_parents' => 'Show main departments'],
         'without_parent' => 'Without',
         'department_archive' => 'Department Archive',
+        'sub_progs' => [
+            'index' => 'Department Records',
+            'archive' => 'Archieve Department',
+            'create' => 'Add Department ',
+            'show' => 'Show Department ',
+
+        ],
 
     ],
     "rasid_job" => [
