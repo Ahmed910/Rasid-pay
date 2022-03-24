@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api\V1\Dashboard;
 
 use App\Http\Controllers\Controller;
 use App\Models\AppMedia;
+use Illuminate\Support\Facades\Lang;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
@@ -22,7 +23,7 @@ class DeleteImageController extends Controller
             [
                 'data' => '',
                 'status' => true,
-                'message' => "",
+                'message' => Lang::get('dashboard.general.success_delete'),
             ],
             200
         );
