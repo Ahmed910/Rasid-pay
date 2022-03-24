@@ -39,4 +39,13 @@ class DepartmentRequest extends ApiMasterRequest
 
         return $rules;
     }
+
+    protected function prepareForValidation()
+    {
+        $data = $this->all();
+
+        $this->merge([
+            'parent_id' =>  @$data['parent_id'] ?? null,
+        ]);
+    }
 }
