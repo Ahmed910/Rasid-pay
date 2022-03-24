@@ -60,8 +60,6 @@ class GroupController extends Controller
             $q->whereNotIn('permissions.id', $group->permissions->pluck('id')->toArray());
         }]);
 
-        data_set($activities, 'group', $group);
-
         return GroupCollection::make($activities)
             ->additional([
                 'status' => true,

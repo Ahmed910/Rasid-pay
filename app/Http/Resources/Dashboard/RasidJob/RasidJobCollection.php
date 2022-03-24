@@ -4,6 +4,7 @@ namespace App\Http\Resources\Dashboard\RasidJob;
 
 use App\Http\Resources\Dashboard\ActivityLogResource;
 use Illuminate\Http\Resources\Json\ResourceCollection;
+use App\Models\RasidJob\RasidJob;
 
 class RasidJobCollection extends ResourceCollection
 {
@@ -15,9 +16,10 @@ class RasidJobCollection extends ResourceCollection
      */
     public function toArray($request)
     {
+        $rasidJob  = RasidJob::withTrashed()->with('translations', 'employee')->findOrFail($request->route()->parameters['rasid_job']);
         return [
-            'job' => RasidJobResource::make($this->collection['job']),
-            'activity' => ActivityLogResource::collection($this->collection->except('job'))
+            'job' => RasidJobResource::make($rasidJob),
+            'activity' => ActivityLogResource::collection($this->collection)
         ];
     }
 }
