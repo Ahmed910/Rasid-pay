@@ -73,7 +73,7 @@
                     {
                         class: "text-center",
                         data: function(data) {
-                            fun_modal = data.has_jobs ? `notArchiveItem()` :
+                            fun_modal = data.has_jobs ? `notArchiveItem('@lang('dashboard.department.has_jobs_cannot_delete')')` :
                                 `archiveItem('${data.id}', '${data.delete_route}')`;
 
                             return `<a

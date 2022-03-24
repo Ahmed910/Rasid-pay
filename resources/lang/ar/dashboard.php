@@ -84,6 +84,8 @@ return [
         'reason' => 'السبب',
         'done_by' => 'تم بواسطة',
         'the_archive' => 'الأرشيف',
+        "want_to_archive"=>"هل تريد إتمام عملية الأرشفة؟",
+        "reason_needed" =>"الرجاء ذكر السبب*"
     ],
     'error' => [
         'method_not_allow' => 'طريقة الطلب (:method) غير صحيحة',
