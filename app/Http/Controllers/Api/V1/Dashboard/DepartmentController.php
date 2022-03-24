@@ -77,9 +77,12 @@ class DepartmentController extends Controller
     public function show(Request $request, $id)
     {
         $department = Department::withTrashed()->findOrFail($id);
-        $activities  = $department->activity()
-            ->sortBy($request)
-            ->paginate((int)($request->per_page ?? 15));
+        $activities = [];
+        if (!$request->has('with_activity') || $request->with_activity) {
+            $activities  = $department->activity()
+                ->sortBy($request)
+                ->paginate((int)($request->per_page ?? 15));
+        }
 
         return DepartmentCollection::make($activities)
             ->additional([

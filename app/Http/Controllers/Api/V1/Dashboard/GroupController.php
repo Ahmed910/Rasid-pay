@@ -45,21 +45,15 @@ class GroupController extends Controller
         return GroupResource::make($group)->additional(['status' => true, 'message' => trans('dashboard.general.success_add')]);
     }
 
-    public function show(Request $request, Group $group)
+    public function show(Request $request, $id)
     {
+        $group = Group::findOrFail($id);
         $activities = [];
         if (!$request->has('with_activity') || $request->with_activity) {
             $activities  = $group->activity()
                 ->sortBy($request)
                 ->paginate((int)($request->per_page ?? 15));
         }
-
-        $group->load(['translations', 'groups' => function ($q) {
-            $q->with('permissions');
-        }, 'permissions' => function ($q) use ($group) {
-            $q->whereNotIn('permissions.id', $group->permissions->pluck('id')->toArray());
-        }]);
-
         return GroupCollection::make($activities)
             ->additional([
                 'status' => true,
