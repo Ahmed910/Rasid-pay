@@ -21,16 +21,16 @@ class ActivityLog extends Model
     protected $casts = ["new_data" => "array", "old_data" => "array", 'search_params' => 'array'];
     private $sortableColumns = ['employee', 'department', 'main_program', 'sub_program', 'created_at', 'ip_address', 'action_type'];
 
-    const CREATE           = 'created';
-    const UPDATE           = 'updated';
-    const DESTROY          = 'destroy';
-    const RESTORE          = 'restored';
+    const CREATE = 'created';
+    const UPDATE = 'updated';
+    const DESTROY = 'destroy';
+    const RESTORE = 'restored';
     const PERMANENT_DELETE = 'permanent_delete';
-    const SEARCH           = 'searched';
-    const DEACTIVE         = 'deactivated';
-    const ACTIVE           = 'activated';
-    const PERMANENT        = 'permanent';
-    const TEMPORARY        = 'temporary';
+    const SEARCH = 'searched';
+    const DEACTIVE = 'deactivated';
+    const ACTIVE = 'activated';
+    const PERMANENT = 'permanent';
+    const TEMPORARY = 'temporary';
 
     const EVENTS = [
         self::CREATE,
@@ -50,10 +50,7 @@ class ActivityLog extends Model
     #endregion mutators
 
     #region accessor
-        public function getCreatedAtAttribute($value)
-        {
-            return Carbon::parse($value)->toFormattedDateString();
-        }
+
     #endregion accessor
 
     #region scopes
@@ -97,16 +94,16 @@ class ActivityLog extends Model
 
         $query->when($request->sort, function ($q) use ($request) {
             // TODO:: Refactoring employee and department sorting
-            if ($request->sort["column"]  == "employee") {
+            if ($request->sort["column"] == "employee") {
                 return $q->leftjoin('users', 'activity_logs.user_id', 'users.id')
                     ->orderBy('users.fullname');
             }
 
-            if ($request->sort["column"]  == "main_program") {
+            if ($request->sort["column"] == "main_program") {
                 return $q->orderBy('auditable_type', @$request->sort["dir"]);
             }
 
-            if ($request->sort["column"]  == "department") {
+            if ($request->sort["column"] == "department") {
                 return $q->leftJoin('users', 'users.id', 'activity_logs.user_id')
                     ->leftJoin('employees', 'employees.user_id', 'users.id')
                     ->leftJoin('departments', 'departments.id', 'employees.department_id')
