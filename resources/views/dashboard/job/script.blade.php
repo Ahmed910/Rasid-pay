@@ -70,6 +70,8 @@
                      {
                          class: "text-center",
                          data: function(data) {
+                           fun_modal = !data.is_vacant ? `notArchiveItem()` :
+                             `archiveItem('${data.id}', '${data.delete_route}')`;
                              return `<a
                   href="${data.show_route}"
                   class="azureIcon"
@@ -87,17 +89,13 @@
                   ><i class="mdi mdi-square-edit-outline"></i
                 ></a>
                 <a
-                  href="#"
-                  class="primaryIcon"
-                  data-bs-toggle="tooltip"
-                  data-bs-placement="top"
-                  title="${"@lang('dashboard.general.archive')"}"
-                  ><i
-                    data-bs-toggle="modal"
-                    data-bs-target="#archiveModal"
-                    class="mdi mdi-archive-arrow-down-outline"
-                  ></i
-                ></a>`
+            href="#"
+                            onclick="${fun_modal}"
+                            class="primaryIcon"
+                            data-bs-toggle="tooltip"
+                            data-bs-placement="top"
+                            title="@lang('dashboard.general.archive')"
+                            ><i class="mdi mdi-archive-arrow-down-outline"></i></a>`
                          }
                      }
                  ],
