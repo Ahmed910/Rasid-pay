@@ -50,6 +50,7 @@ class AdminRequest extends ApiMasterRequest
             'group_list.*' => 'required_without:permission_list|exists:groups,id',
             'permission_list' => 'required_without:group_list|array|min:1',
             'permission_list.*' => 'required_without:group_list|exists:permissions,id',
+            'delete_image'  => "in:0,1"
         ] + $data;
     }
 }

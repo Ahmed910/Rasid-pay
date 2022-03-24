@@ -28,7 +28,8 @@ class DepartmentRequest extends ApiMasterRequest
         $rules = [
             "image"         => "nullable|max:2048|mimes:jpg,png,jpeg",
             "parent_id"     => "nullable|exists:departments,id,deleted_at,NULL|not_in:$igonredDepartment",
-            "is_active"     => "in:0,1"
+            "is_active"     => "in:0,1",
+            'delete_image'  => "in:0,1"
         ];
         foreach (config('translatable.locales') as $locale) {
             $rules["$locale"]               = "array";
