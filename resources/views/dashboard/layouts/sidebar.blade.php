@@ -47,19 +47,20 @@
                     </ul>
                 </li>
 
+
                 <li class="slide {{ request()->routeIs('dashboard.job.*') ? 'is-expanded' : '' }}">
                     <a class="side-menu__item" data-bs-toggle="slide" href="javascript:void(0)"><i
                             class="mdi mdi-briefcase-variant-outline"></i><span
-                            class="side-menu__label">الوظائف</span><i class="angle fe fe-chevron-right"></i></a>
+                            class="side-menu__label">{{ trans('dashboard.job.jobs') }}</span><i class="angle fe fe-chevron-right"></i></a>
                     <ul class="slide-menu">
                         <li class="side-menu-label1">
-                            <a href="javascript:void(0)">الوظائف</a>
+                            <a href="javascript:void(0)">{{ trans('dashboard.job.jobs') }}</a>
                         </li>
                         <li>
                             <a href="{{ route('dashboard.job.index') }}"
                                 class="slide-item px-6 {{ request()->routeIs('dashboard.job.index') ? 'active' : '' }}"><i
                                     class="mdi mdi-file-document-multiple-outline"></i>
-                                سجل الوظائف</a>
+                                    {{ trans('dashboard.job.sub_progs.index') }}</a>
                         </li>
                         <li>
                             <a href="{{ route('dashboard.job.create') }}"
@@ -159,40 +160,43 @@
                         </li>
                     </ul>
                 </li>
-                <li class="slide">
+                <li class="slide {{ request()->routeIs('dashboard.*.archive') ? 'is-expanded' : '' }}">
                     <a class="side-menu__item" data-bs-toggle="slide" href="javascript:void(0)"><i
                             class="mdi mdi-archive-arrow-down-outline"></i><span
-                            class="side-menu__label">الأرشيف</span><i class="angle fe fe-chevron-right"></i></a>
+                            class="side-menu__label">{{ trans('dashboard.general.the_archive') }}</span><i
+                            class="angle fe fe-chevron-right"></i></a>
                     <ul class="slide-menu">
                         <li class="side-menu-label1">
-                            <a href="javascript:void(0)">الأرشيف</a>
+                            <a href="javascript:void(0)">{{ trans('dashboard.general.the_archive') }}</a>
                         </li>
                         <li>
-                            <a href="{{ route('dashboard.department.archive') }}" class="slide-item px-6"><i
+                            <a href="{{ route('dashboard.department.archive') }}"
+                                class="slide-item px-6 {{ request()->routeIs('dashboard.department.archive') ? 'active' : '' }}"><i
                                     class="mdi mdi-view-dashboard-edit-outline"></i>
-                                أرشيف الأقسام</a>
+                                {{ trans('dashboard.department.department_archive') }}</a>
                         </li>
                         <li>
-                            <a href="{{ route('dashboard.job.archive') }}" class="slide-item px-6"><i
-                                    class="mdi mdi-briefcase-edit-outline"></i> أرشيف
-                                الوظائف</a>
+                            <a href="{{ route('dashboard.job.archive') }}"
+                                class="slide-item px-6 {{ request()->routeIs('dashboard.job.archive') ? 'active' : '' }}"><i
+                                    class="mdi mdi-briefcase-edit-outline"></i>
+                                {{ trans('dashboard.rasid_job.sub_progs.archive') }}</a>
                         </li>
                     </ul>
                 </li>
                 <li class="slide {{ request()->routeIs('dashboard.activity_log.*') ? 'is-expanded' : '' }}">
                     <a class="side-menu__item" data-bs-toggle="slide" href="javascript:void(0)"><i
                             class="mdi mdi-chart-line"></i><span
-                            class="side-menu__label">{!! trans('dashboard.activity_log.activity_logs') !!}</span><i
+                            class="side-menu__label">{{ trans('dashboard.activity_log.activity_logs') }}</span><i
                             class="angle fe fe-chevron-right"></i></a>
                     <ul class="slide-menu">
                         <li class="side-menu-label1">
-                            <a href="javascript:void(0)">{!! trans('dashboard.activity_log.activity_logs') !!}</a>
+                            <a href="javascript:void(0)">{{ trans('dashboard.activity_log.activity_logs') }}</a>
                         </li>
                         <li>
-                            <a href="{!! route('dashboard.activity_log.index') !!}"
+                            <a href="{{ route('dashboard.activity_log.index') }}"
                                 class="slide-item px-6 {{ request()->routeIs('dashboard.activity_log.index') ? 'active' : '' }}"><i
                                     class="mdi mdi-file-document-multiple-outline"></i>
-                                {!! trans('dashboard.activity_log.sub_progs.index') !!}</a>
+                                {{ trans('dashboard.activity_log.sub_progs.index') }}</a>
                         </li>
                     </ul>
                 </li>
