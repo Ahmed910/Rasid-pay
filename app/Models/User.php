@@ -161,7 +161,7 @@ class User extends Authenticatable implements HasAssetsInterface
             return Hijri::convertToHijri($value)->format('d F o  h:i A');
         }
 
-        return Carbon::parse($value)->format('Y-m-d h:i A');
+        return Carbon::parse($value)->format('Y-m-d');
     }
 
     public function getBanToAttribute($value)
@@ -174,7 +174,7 @@ class User extends Authenticatable implements HasAssetsInterface
             return Hijri::convertToHijri($value)->format('d F o  h:i A');
         }
 
-        return Carbon::parse($value)->format('Y-m-d h:i A');
+        return Carbon::parse($value)->format('Y-m-d');
     }
 
     #region scopes
