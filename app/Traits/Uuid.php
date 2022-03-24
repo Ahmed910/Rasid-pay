@@ -34,7 +34,7 @@ trait Uuid
     {
         if (auth()->check() && auth()->user()->is_date_hijri) {
             $this->changeDateLocale();
-            return Hijri::convertToHijri($date)->format('d F o  h:i A');
+            return Hijri::convertToHijri($date)->format('d F o');
         }
         return date('Y-m-d', strtotime($date));
     }
@@ -43,7 +43,7 @@ trait Uuid
     {
         if (auth()->check() && auth()->user()->is_date_hijri) {
             $this->changeDateLocale();
-            return Hijri::convertToHijri($date)->format('d F o   h:i A');
+            return Hijri::convertToHijri($date)->format('d F o');
         }
         return date('Y-m-d', strtotime($date));
     }
@@ -52,7 +52,7 @@ trait Uuid
     {
         if (auth()->check() && auth()->user()->is_date_hijri) {
             $this->changeDateLocale();
-            return Hijri::convertToHijri($date)->format('d F o   h:i A');
+            return Hijri::convertToHijri($date)->format('d F o');
         }
         return date('Y-m-d', strtotime($date));
     }
