@@ -67,7 +67,7 @@ class ClientController extends Controller
         ]);
     }
 
-    public function show($id)
+    public function show(Request $request, $id)
     {
         $client = Client::where('user_id', $id)->firstOrFail();
         $client->load(['user', 'user.attachments', 'manager', 'user.bankAccount']);
