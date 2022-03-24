@@ -33,7 +33,7 @@ trait Uuid
     public function getCreatedAtAttribute($date)
     {
         if (auth()->check() && auth()->user()->is_date_hijri) {
-            $this->changeDateLocale();
+            $this->changeDateLocale(app()->getLocale());
             return Hijri::convertToHijri($date)->format('d F o');
         }
         return date('Y-m-d', strtotime($date));
@@ -42,7 +42,7 @@ trait Uuid
     public function getUpdatedAtAttribute($date)
     {
         if (auth()->check() && auth()->user()->is_date_hijri) {
-            $this->changeDateLocale();
+            $this->changeDateLocale(app()->getLocale());
             return Hijri::convertToHijri($date)->format('d F o');
         }
         return date('Y-m-d', strtotime($date));
@@ -51,15 +51,15 @@ trait Uuid
     public function getDeletedAtAttribute($date)
     {
         if (auth()->check() && auth()->user()->is_date_hijri) {
-            $this->changeDateLocale();
+            $this->changeDateLocale(app()->getLocale());
             return Hijri::convertToHijri($date)->format('d F o');
         }
         return date('Y-m-d', strtotime($date));
     }
 
-    public function changeDateLocale()
+    public function changeDateLocale($locale = 'ar')
     {
-        if (app()->getLocale() == 'en') {
+        if ($locale == 'en') {
             Date::setTranslation(new English);
             Date::setDefaultNumbers(Date::ARABIC_NUMBERS);
         } else {
