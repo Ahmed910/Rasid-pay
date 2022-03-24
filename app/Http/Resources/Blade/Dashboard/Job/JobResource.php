@@ -19,6 +19,7 @@ class JobResource extends JsonResource
             'id' => $this->id,
             'name' => $this->name,
             'department_name' => optional($this->department)->name,
+            'department_image' => optional($this->department)->image,
             'created_at' => $this->created_at,
             'deleted_at' => $this->deleted_at,
             'is_active' => $this->is_active,
