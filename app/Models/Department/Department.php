@@ -54,7 +54,9 @@ class Department extends Model implements TranslatableContract, HasAssetsInterfa
 
     public function getImageAttribute()
     {
-        return asset($this->images()->first()?->media) ?? 'https://picsum.photos/200';
+        if ($this->images()->first()?->media == null) return 'https://picsum.photos/200';
+
+        return asset($this->images()->first()?->media);
     }
     #endregion accessor
 
