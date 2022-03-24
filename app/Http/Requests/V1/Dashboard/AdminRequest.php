@@ -23,10 +23,12 @@ class AdminRequest extends ApiMasterRequest
         $data = $this->all();
         if (auth()->check() && auth()->user()->is_date_hijri) {
             if (@$data['ban_from']) {
-                $data['ban_from'] = Hijri::convertToGregorian($data['ban_from'])->format('Y-m-d');
+                $ban_from = explode('-',$data['ban_from']);
+                $data['ban_from'] = Hijri::convertToGregorian($ban_from[2], $ban_from[1], $ban_from[0])->format('Y-m-d');
             }
             if (@$data['ban_to']) {
-                $data['ban_to'] = Hijri::convertToGregorian($data['ban_to'])->format('Y-m-d');
+                $ban_to = explode('-',$data['ban_to']);
+                $data['ban_to'] = Hijri::convertToGregorian($ban_to[2], $ban_to[1], $ban_to[0])->format('Y-m-d');
             }
         }
         $this->merge([

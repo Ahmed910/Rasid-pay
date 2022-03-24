@@ -54,6 +54,8 @@ Route::middleware('auth:sanctum')->group(function () {
     });
 
     Route::get("/files/client/{file}", [\App\Http\Controllers\Api\V1\Dashboard\PrivateController::class, "downloadfile"]);
+    Route::delete('delete-image/{appMedia}','DeleteImageController')->name('image_delete');
+
     Route::middleware('adminPermission')->group(function () {
         Route::controller('CountryController')->name('countries.')->prefix('countries')->group(function () {
             Route::get('archive', 'archive')->name('archive');
