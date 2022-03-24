@@ -42,11 +42,10 @@ class RasidJobController extends Controller
 
     public function show(Request $request, $id)
     {
-        $rasidJob  = RasidJob::withTrashed()->with('translations', 'employee')->findOrFail($id);
+        $rasidJob  = RasidJob::withTrashed()->findOrFail($id);
         $activities  = $rasidJob->activity()
             ->sortBy($request)
             ->paginate((int)($request->per_page ?? 15));
-        data_set($activities, 'job', $rasidJob);
 
         return RasidJobCollection::make($activities)
             ->additional([

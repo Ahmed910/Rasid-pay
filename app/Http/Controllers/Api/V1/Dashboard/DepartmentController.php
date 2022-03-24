@@ -63,11 +63,6 @@ class DepartmentController extends Controller
         ]);
     }
 
-    public function create()
-    {
-        //
-    }
-
     public function store(DepartmentRequest $request, Department $department)
     {
         $department->fill($request->validated() + ['added_by_id' => auth()->id()])->save();
@@ -81,11 +76,10 @@ class DepartmentController extends Controller
 
     public function show(Request $request, $id)
     {
-        $department = Department::withTrashed()->with('translations')->findOrFail($id);
+        $department = Department::withTrashed()->findOrFail($id);
         $activities  = $department->activity()
             ->sortBy($request)
             ->paginate((int)($request->per_page ?? 15));
-        data_set($activities, 'department', $department);
 
         return DepartmentCollection::make($activities)
             ->additional([

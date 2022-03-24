@@ -75,18 +75,11 @@ class AdminController extends Controller
 
     public function show(Request $request, $id)
     {
-        $admin = User::withTrashed()->where('user_type', 'admin')->with(['addedBy', 'country', 'groups' => function ($q) {
-            $q->with('permissions');
-        }])->findOrFail($id);
-
-        $admin->load(['permissions' => function ($q) use ($admin) {
-            $q->whereNotIn('permissions.id', $admin->groups->pluck('permissions')->flatten()->pluck('id')->toArray());
-        }]);
+        $admin = User::withTrashed()->where('user_type', 'admin')->findOrFail($id);
 
         $activities  = $admin->activity()
             ->sortBy($request)
             ->paginate((int)($request->per_page ?? 15));
-        data_set($activities, 'admin', $admin);
 
         return AdminCollection::make($activities)
             ->additional([
