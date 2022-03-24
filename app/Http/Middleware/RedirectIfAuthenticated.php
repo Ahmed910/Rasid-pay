@@ -23,6 +23,10 @@ class RedirectIfAuthenticated
 
         foreach ($guards as $guard) {
             if (Auth::guard($guard)->check()) {
+                $locale = app()->getLocale();
+                if ($request->is("$locale/dashboard") || $request->is("dashboard") || $request->is("dashboard/*") || $request->is("$locale/dashboard/*")) {
+                    return redirect()->route('dashboard.home.index');
+                }
                 return redirect(RouteServiceProvider::HOME);
             }
         }

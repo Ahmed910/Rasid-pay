@@ -34,27 +34,27 @@ trait Uuid
     {
         if (auth()->check() && auth()->user()->is_date_hijri) {
             $this->changeDateLocale();
-            return Hijri::convertToHijri($date)->format('d F o  h:i A');
+            return Hijri::convertToHijri($date)->format('d F o');
         }
-        return date('Y-m-d h:i A', strtotime($date));
+        return date('Y-m-d', strtotime($date));
     }
 
     public function getUpdatedAtAttribute($date)
     {
         if (auth()->check() && auth()->user()->is_date_hijri) {
             $this->changeDateLocale();
-            return Hijri::convertToHijri($date)->format('d F o   h:i A');
+            return Hijri::convertToHijri($date)->format('d F o');
         }
-        return date('Y-m-d h:i A', strtotime($date));
+        return date('Y-m-d', strtotime($date));
     }
 
     public function getDeletedAtAttribute($date)
     {
         if (auth()->check() && auth()->user()->is_date_hijri) {
             $this->changeDateLocale();
-            return Hijri::convertToHijri($date)->format('d F o   h:i A');
+            return Hijri::convertToHijri($date)->format('d F o');
         }
-        return date('Y-m-d h:i A', strtotime($date));
+        return date('Y-m-d', strtotime($date));
     }
 
     public function changeDateLocale()
