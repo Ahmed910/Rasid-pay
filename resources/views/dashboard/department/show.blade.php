@@ -28,7 +28,7 @@
                 <p class="text-muted"> {!! $department->name !!}</p>
             </div>
             <div class="col-12 col-md-4">
-                <label>@lang('dashboard.department.department_main') :</label>
+                <label>@lang('dashboard.department.main_department') :</label>
                 <p class="text-muted">
                     {!! isset($department->parent->name) ? $department->parent->name : '' !!}</p>
             </div>

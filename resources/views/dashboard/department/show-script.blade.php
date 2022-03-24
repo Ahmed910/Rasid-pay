@@ -79,16 +79,16 @@
                 pageLength: 10,
                 lengthMenu: [
                     [1, 5, 10, 20, -1],
-                    [1, 5, 10, 20, "الكل"],
+                    [1, 5, 10, 20, "@lang('dashboard.general.all')"],
                 ],
-                "language": {
-                    "lengthMenu": "@lang('dashboard.datatable.show') _MENU_",
-                    "zeroRecords": "@lang('dashboard.general.no_data')",
-                    "info": "إظهار _START_ إلى _END_ من أصل _TOTAL_ مدخل",
-                    "infoEmpty": "@lang('dashboard.general.there_is_no_data')",
+               "language": {
+                    "lengthMenu": "@lang('dashboard.general.show') _MENU_",
+                    "emptyTable": "@lang('dashboard.general.no_data')",
+                    "info": "@lang('dashboard.general.showing') _START_ @lang('dashboard.general.to') _END_ @lang('dashboard.general.from') _TOTAL_ @lang('dashboard.general.entries')",
+                    "infoEmpty": "@lang('dashboard.general.no_search_result')",
                     "paginate": {
-                        "previous": '<i class="mdi mdi-chevron-right"></i>',
                         "next": '<i class="mdi mdi-chevron-left"></i>',
+                        "previous": '<i class="mdi mdi-chevron-right"></i>'
                     },
                 }
             });
