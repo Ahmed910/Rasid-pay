@@ -3,6 +3,7 @@
 namespace App\Http\Requests\V1\Dashboard;
 
 use App\Http\Requests\ApiMasterRequest;
+use GeniusTS\HijriDate\Hijri;
 
 class AdminRequest extends ApiMasterRequest
 {
@@ -20,10 +21,17 @@ class AdminRequest extends ApiMasterRequest
     protected function prepareForValidation()
     {
         $data = $this->all();
-
+        if (auth()->check() && auth()->user()->is_date_hijri) {
+            if (@$data['ban_from']) {
+                $data['ban_from'] = Hijri::convertToGregorian($data['ban_from'])->format('Y-m-d');
+            }
+            if (@$data['ban_to']) {
+                $data['ban_to'] = Hijri::convertToGregorian($data['ban_to'])->format('Y-m-d');
+            }
+        }
         $this->merge([
-            'ban_from' =>  @$data['ban_from'] ? date('Y-m-d', strtotime($data['ban_from'])) : null,
-            'ban_to' =>  @$data['ban_to'] ? date('Y-m-d', strtotime($data['ban_to'])) : null,
+            'ban_from' =>  @$data['ban_from'] ?? null,
+            'ban_to' =>  @$data['ban_to'] ?? null,
         ]);
     }
 
