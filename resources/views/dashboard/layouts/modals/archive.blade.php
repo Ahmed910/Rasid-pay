@@ -4,6 +4,7 @@
         <div class="modal-content border-0">
             <form method="post" action="" id="item" class="needs-validation" novalidate>
                 @csrf
+                @method('delete')
               <div class="modal-body text-center p-0">
                 <lottie-player
                   autoplay
@@ -19,6 +20,7 @@
                     class="form-control"
                     placeholder="@lang("dashboard.general.reason_needed")"
                     rows="3"
+                    name="reasonAction"
                     required
                   ></textarea>
 
