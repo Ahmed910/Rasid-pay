@@ -57,8 +57,7 @@ class RasidJob extends Model implements TranslatableContract
 
         if ($request->name) {
             $query->where(function ($q) use ($request) {
-                $q->whereTranslationLike('name', "%$request->name%")
-                    ->orWhereTranslationLike('description', "%$request->name%");
+                $q->whereTranslationLike('name', "%$request->name%");
             });
         }
 
