@@ -35,7 +35,6 @@ Route::group(
                 Route::delete('forceDelete/{id}', 'forceDelete')->name('forceDelete');
             });
 
-
             Route::controller('DepartmentController')->name('department.')->prefix('department')->group(function () {
                 Route::get('archive', 'archive')->name('archive');
                 Route::post('restore/{id}', 'restore')->name('restore');
