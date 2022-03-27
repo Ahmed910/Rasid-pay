@@ -111,7 +111,7 @@ class DepartmentController extends Controller
 
     public function destroy(ReasonRequest $request, Department $department)
     {
-        
+
         if ($department->rasidJobs()->exists() || $department->children()->exists()) {
             return redirect()->back();
         }
