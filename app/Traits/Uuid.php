@@ -37,7 +37,7 @@ trait Uuid
             $this->changeDateLocale(app()->getLocale());
             return Hijri::convertToHijri($date)->format('d F o');
         }
-        return Carbon::parse($data)->format('Y-F-d');
+        return Carbon::parse($date)->format('Y-F-d');
     }
 
     public function getUpdatedAtAttribute($date)
@@ -46,7 +46,7 @@ trait Uuid
             $this->changeDateLocale(app()->getLocale());
             return Hijri::convertToHijri($date)->format('d F o');
         }
-        return Carbon::parse($data)->format('Y-F-d');
+        return Carbon::parse($date)->format('Y-F-d');
     }
 
     public function getDeletedAtAttribute($date)
@@ -55,7 +55,7 @@ trait Uuid
             $this->changeDateLocale(app()->getLocale());
             return Hijri::convertToHijri($date)->format('d F o');
         }
-        return Carbon::parse($data)->format('Y-F-d');
+        return Carbon::parse($date)->format('Y-F-d');
     }
 
     public function changeDateLocale($locale = 'ar')
