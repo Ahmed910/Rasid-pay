@@ -45,8 +45,15 @@
                     },
                     {
                         data: function(data) {
+
+                            // TODO::change imgae to default value
+                            let image = 'default';
+                            if (data.image != null) {
+                                image = data.image;
+                            }
+
                             return `<div class="d-flex align-items-center"><div class="flex-shrink-0">
-                              <img src="${data.image}" data-toggle="popoverIMG" title='<img src="${data.image}" width="300" height="300" class="d-block rounded-3" alt="">' width="25" class="avatar brround cover-image" alt="..."/> </div><div class="flex-grow-1 ms-3">${data.name}</div>`
+                              <img src="${image}" data-toggle="popoverIMG" title='<img src="${image}" width="300" height="300" class="d-block rounded-3" alt="">' width="25" class="avatar brround cover-image" alt="..."/> </div><div class="flex-grow-1 ms-3">${data.name}</div>`
                         }
                     },
                     {
@@ -73,7 +80,8 @@
                     {
                         class: "text-center",
                         data: function(data) {
-                            fun_modal = data.has_jobs ? `notArchiveItem('@lang('dashboard.department.has_jobs_cannot_delete')')` :
+                            fun_modal = data.has_jobs ?
+                                `notArchiveItem('@lang('dashboard.department.has_jobs_cannot_delete')')` :
                                 `archiveItem('${data.id}', '${data.delete_route}')`;
 
                             return `<a

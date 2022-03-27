@@ -52,7 +52,7 @@ class Department extends Model implements TranslatableContract, HasAssetsInterfa
 
     public function getImageAttribute()
     {
-        if ($this->images()->first()?->media == null) return 'https://picsum.photos/200';
+        if ($this->images()->first()?->media == null) return null;
 
         return asset($this->images()->first()?->media);
     }

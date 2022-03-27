@@ -30,7 +30,8 @@
             <div class="col-12 col-md-4">
                 <label>@lang('dashboard.department.main_department') :</label>
                 <p class="text-muted">
-                    {!! isset($department->parent->name) ? $department->parent->name : '' !!}</p>
+
+                    {!! $department->parent->name ?? trans('dashboard.department.without_parent') !!}</p>
             </div>
             <div class="col-12 col-md-4">
                 <label class="d-block" for="departmentName">@lang('dashboard.general.status') :</label>
@@ -44,7 +45,8 @@
             <div class="col-12 col-md-4">
                 <label> @lang('dashboard.department.department_image'):</label>
                 <img src="{{ $department->image }}" width="150" height="150" class="d-block rounded-3" alt=""
-                    data-toggle="popoverIMG" title='<img src="{{ $department->image }}" width="300" height="300" class="d-block rounded-3" alt="">'>
+                    data-toggle="popoverIMG"
+                    title='<img src="{{ $department->image }}" width="300" height="300" class="d-block rounded-3" alt="">'>
             </div>
             <div class="col-12 col-md-8">
                 <label class="d-block" for="departmentName">@lang('dashboard.general.description'):</label>
