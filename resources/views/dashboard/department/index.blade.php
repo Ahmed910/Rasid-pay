@@ -65,8 +65,8 @@
                         @lang('dashboard.general.export')
                     </button>
                     <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                        <li><a class="dropdown-item" href="#">PDF</a></li>
-                        <li><a class="dropdown-item" href="#">Excel</a></li>
+                        <li><a class="dropdown-item" href="{{route('dashboard.department.exportPDF')}}" target="_blank">PDF</a></li>
+                        <li><a class="dropdown-item" href="{{route('dashboard.department.export')}}" target="_blank">Excel</a></li>
                     </ul>
                 </div>
             </div>
