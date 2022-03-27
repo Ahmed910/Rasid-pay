@@ -126,7 +126,7 @@ class GroupController extends Controller
             }
             if (!in_array($name, $saved_names)) {
                 $route = Permission::create(['name' => $name]);
-                $saved_permissions[] = ['id' => $route->id, 'named_uri' => $name, 'name' => trans('dashboard.' . str_singular(str_before($name, '.')) . '.' . str_after($name, '.'))];
+                $saved_permissions[] = ['id' => $route->id, 'named_uri' => $name, 'name' => trans('dashboard.' . str_singular(str_before($name, '.')) . '.permissions.' . str_after($name, '.'))];
             }
         }
         return UriResource::collection(array_except($saved_permissions, ['name', 'named_uri']))->additional(['status' => true, 'message' => '']);
