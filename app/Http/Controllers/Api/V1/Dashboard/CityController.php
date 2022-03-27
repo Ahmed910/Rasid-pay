@@ -49,8 +49,10 @@ class CityController extends Controller
     public function show(Request $request ,$id)
     {
         $city = City::withTrashed()->with('translations')->findOrFail($id);
-        $activities  = $city->activity()->paginate((int)($request->per_page ?? 15));
-        data_set($activities, 'city', $city);
+
+        $activities  = $city->activity()
+        ->sortBy($request)
+        ->paginate((int)($request->per_page ?? config("globals.per_page")));
 
         return CityCollection::make($activities)
             ->additional([

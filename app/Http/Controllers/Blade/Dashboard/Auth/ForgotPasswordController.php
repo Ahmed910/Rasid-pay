@@ -52,44 +52,14 @@ class ForgotPasswordController extends Controller
                     : $this->sendResetLinkFailedResponse($request, $response);
     }
 
-    /**
-    * Send a password reset link to a user.
-    *
-    * @param  array  $credentials
-    * @param  \Closure|null  $callback
-    * @return string
-    */
-//    public function sendResetLink(array $credentials, Closure $callback = null)
-//    {
-//        // First we will check to see if we found a user at the given credentials and
-//        // if we did not we will redirect back to this current URI with a piece of
-//        // "flash" data in the session to indicate to the developers the errors.
-//        $user = $this->getUser($credentials);
-
-//        if (is_null($user)) {
-//            return static::INVALID_USER;
-//        }
-
-//        if ($this->tokens->recentlyCreatedToken($user)) {
-//            return static::RESET_THROTTLED;
-//        }
-
-//        $token = $this->tokens->create($user);
-
-//        if ($callback) {
-//            $callback($user, $token);
-//        } else {
-//            // Once we have the reset token, we are ready to send the message out to this
-//            // user with a link to reset their password. We will then redirect back to
-//            // the current URI having nothing set in the session to indicate errors.
-//            $user->sendPasswordResetNotification($token);
-//        }
-//        return static::RESET_LINK_SENT;
-//    }
-
     protected function sendResetLinkResponse($request, $response)
     {
-        return back()->withTrue(trans($response));
+        return back()->withSuccess(trans($response));
+    }
+
+    protected function sendResetLinkFailedResponse($request, $response)
+    {
+        return back()->withFail(trans($response));
     }
 
 
@@ -108,15 +78,15 @@ class ForgotPasswordController extends Controller
     private function generateCode($request, $user, $col)
     {
         $code = 1111;
-        if ($request['send_type'] == 'phone') {
-            $code = generate_unique_code(User::class, $col, 4, 'numbers');
-            $message = trans("auth.{$col}_is", ['code' => $code]);
-            //   $response = send_sms($user->phone, $message);
-        }elseif ($request['send_type'] == 'email') {
-            $code = generate_unique_code(User::class, $col, 4, 'numbers');
-            $message = trans("auth.{$col}_is", ['code' => $code]);
-            // send email
-        }
+        // if ($request['send_type'] == 'phone') {
+        //     $code = generate_unique_code(User::class, $col, 4, 'numbers');
+        //     $message = trans("auth.{$col}_is", ['code' => $code]);
+        //     //   $response = send_sms($user->phone, $message);
+        // }elseif ($request['send_type'] == 'email') {
+        //     $code = generate_unique_code(User::class, $col, 4, 'numbers');
+        //     $message = trans("auth.{$col}_is", ['code' => $code]);
+        //     // send email
+        // }
         // ExpireCodeJob::dispatch($user, $col)->delay((int)setting('erp_code_ttl') ?? 1);
         return $code;
     }

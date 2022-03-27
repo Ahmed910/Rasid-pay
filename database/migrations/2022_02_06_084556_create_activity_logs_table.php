@@ -26,7 +26,7 @@ class CreateActivityLogsTable extends Migration
             $table->ipAddress("ip_address");
             $table->string("agent");
             $table->text("url");
-            $table->string("reason")->nullable();
+            $table->text("reason")->nullable();
             $table->softDeletes();
             $table->timestamps();
         });

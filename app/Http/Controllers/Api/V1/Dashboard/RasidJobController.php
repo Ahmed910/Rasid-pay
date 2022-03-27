@@ -42,9 +42,14 @@ class RasidJobController extends Controller
 
     public function show(Request $request, $id)
     {
-        $rasidJob  = RasidJob::withTrashed()->with('translations', 'employee')->findOrFail($id);
-        $activities  = $rasidJob->activity()->paginate((int)($request->per_page ?? 15));
-        data_set($activities, 'job', $rasidJob);
+        $rasidJob  = RasidJob::withTrashed()->findOrFail($id);
+        $activities = [];
+        if (!$request->has('with_activity') || $request->with_activity) {
+            $activities  = $rasidJob->activity()
+                ->sortBy($request)
+                ->paginate((int)($request->per_page ?? 15));
+        }
+
         return RasidJobCollection::make($activities)
             ->additional([
                 'status' => true,
@@ -98,7 +103,7 @@ class RasidJobController extends Controller
     }
 
 
-    public function destroy(RasidJob $rasidJob)
+    public function destroy(ReasonRequest $request, RasidJob $rasidJob)
     {
 
         if (!$rasidJob->is_vacant) {

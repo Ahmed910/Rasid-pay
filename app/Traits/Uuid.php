@@ -3,7 +3,7 @@
 namespace App\Traits;
 
 use App\Scopes\GlobalSearchScope;
-use GeniusTS\HijriDate\{Date, Hijri, Translations\Arabic};
+use GeniusTS\HijriDate\{Date, Hijri, Translations\Arabic, Translations\English};
 use Illuminate\Support\Str;
 
 trait Uuid
@@ -33,24 +33,38 @@ trait Uuid
     public function getCreatedAtAttribute($date)
     {
         if (auth()->check() && auth()->user()->is_date_hijri) {
-            return Hijri::convertToHijri($date)->format('d F o  h:i A');
+            $this->changeDateLocale(app()->getLocale());
+            return Hijri::convertToHijri($date)->format('d F o');
         }
-        return date('Y-m-d h:i A', strtotime($date));
+        return date('Y-m-d', strtotime($date));
     }
 
     public function getUpdatedAtAttribute($date)
     {
         if (auth()->check() && auth()->user()->is_date_hijri) {
-            return Hijri::convertToHijri($date)->format('d F o   h:i A');
+            $this->changeDateLocale(app()->getLocale());
+            return Hijri::convertToHijri($date)->format('d F o');
         }
-        return date('Y-m-d h:i A', strtotime($date));
+        return date('Y-m-d', strtotime($date));
     }
 
     public function getDeletedAtAttribute($date)
     {
         if (auth()->check() && auth()->user()->is_date_hijri) {
-            return Hijri::convertToHijri($date)->format('d F o   h:i A');
+            $this->changeDateLocale(app()->getLocale());
+            return Hijri::convertToHijri($date)->format('d F o');
         }
-        return date('Y-m-d h:i A', strtotime($date));
+        return date('Y-m-d', strtotime($date));
+    }
+
+    public function changeDateLocale($locale = 'ar')
+    {
+        if ($locale == 'en') {
+            Date::setTranslation(new English);
+            Date::setDefaultNumbers(Date::ARABIC_NUMBERS);
+        } else {
+            Date::setTranslation(new Arabic);
+            Date::setDefaultNumbers(Date::INDIAN_NUMBERS);
+        }
     }
 }

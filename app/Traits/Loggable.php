@@ -17,6 +17,9 @@ trait Loggable
         });
 
         static::updated(function (self $self) {
+            if (class_basename($self) == 'User') {
+                return $self->checkIfHasIsActiveOnly($self, 'ban_status');
+            }
 
             $self->checkIfHasIsActiveOnly($self, 'is_active');
         });
@@ -125,11 +128,26 @@ trait Loggable
 
         if (Schema::hasColumn($table, $column) && request()->has($column)) {
             if (request($column) != $model->getOriginal()[$column]) {
-                $newData = array_only($this->newData($model), ['is_active']);
-                if (request($column)) {
+                $newData = array_only($this->newData($model), [$column]);
+
+                if (request($column) && $column == 'is_active') {
                     $model->addUserActivity($model, ActivityLog::ACTIVE, 'index', $newData);
-                } else {
+                }
+
+                if (!request($column) && $column == 'is_active') {
                     $model->addUserActivity($model, ActivityLog::DEACTIVE, 'index', $newData);
+                }
+
+                if (request($column) == 'permanent' && $column == 'ban_status') {
+                    $model->addUserActivity($model, ActivityLog::PERMANENT, 'index', $newData);
+                }
+
+                if (request($column)  == 'temporary' && $column == 'ban_status') {
+                    $model->addUserActivity($model, ActivityLog::TEMPORARY, 'index', $newData);
+                }
+
+                if (request($column) == 'active' && $column == 'ban_status') {
+                    $model->addUserActivity($model, ActivityLog::ACTIVE, 'index', $newData);
                 }
             }
         }
@@ -143,7 +161,6 @@ trait Loggable
             $this->checkStatus($self, $column);
         } elseif ($hasData && in_array($column, array_keys($this->newData($self)))) {
             $self->addUserActivity($self, ActivityLog::UPDATE, 'index');
-            $this->checkStatus($self, $column);
         } else {
             $self->addUserActivity($self, ActivityLog::UPDATE, 'index');
         }

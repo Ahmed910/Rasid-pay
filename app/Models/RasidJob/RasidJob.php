@@ -23,7 +23,7 @@ class RasidJob extends Model implements TranslatableContract
     use HasFactory, Uuid, Translatable, SoftDeletes, Loggable;
 
     #region properties
-    protected $guarded = ['created_at','deleted_at'];
+    protected $guarded = ['created_at', 'deleted_at'];
     public $translatedAttributes = ['name', 'description'];
     public $attributes = ['is_active' => false, 'is_vacant' =>  true];
     protected $with = ['translations', 'addedBy', 'department', 'employee'];
@@ -40,37 +40,33 @@ class RasidJob extends Model implements TranslatableContract
     #endregion mutators
 
     #region accessor
-    public function getCreatedAtAttribute($value)
-    {
-        return Carbon::parse($value)->toFormattedDateString();
-    }
+
     #endregion accessor
 
     #region scopes
     public function scopeSearch(Builder $query, $request)
     {
-        $this->addGlobalActivity($this, $request->query(), ActivityLog::SEARCH,'index');
+        $this->addGlobalActivity($this, $request->query(), ActivityLog::SEARCH, 'index');
 
         if ($request->name) {
             $query->where(function ($q) use ($request) {
-                $q->whereTranslationLike('name', "%$request->name%")
-                    ->orWhereTranslationLike('description', "%$request->name%");
+                $q->whereTranslationLike('name', "%$request->name%");
             });
         }
 
         if (isset($request->department_id)) {
-            $query->whereHas("department", function ($q) use ($request) {
-                $q->where("id", $request->department_id);
-            });
+            $query->where("department_id", $request->department_id);
         }
 
 
         if (isset($request->is_active)) {
+            if (!in_array($request->is_active, [1, 0])) return;
 
             $query->where('is_active', $request->is_active);
         }
 
         if (isset($request->is_vacant)) {
+            if (!in_array($request->is_vacant, [1, 0])) return;
 
             $query->where('is_vacant', $request->is_vacant);
         }
@@ -119,7 +115,7 @@ class RasidJob extends Model implements TranslatableContract
 
     public function employee()
     {
-        return $this->hasOne(Employee::class,'rasid_job_id');
+        return $this->hasOne(Employee::class, 'rasid_job_id', 'id');
     }
 
     #endregion relationships

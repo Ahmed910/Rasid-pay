@@ -1,10 +1,33 @@
+<script src="{{ asset('dashboardAssets/plugins/datatable/js/jquery.dataTables.min.js') }}"></script>
+<script src="{{ asset('dashboardAssets/plugins/datatable/js/dataTables.bootstrap5.js') }}"></script>
+<script src="{{ asset('dashboardAssets/plugins/datatable/dataTables.responsive.min.js') }}"></script>
+<script src="{{ asset('dashboardAssets/plugins/datatable/responsive.bootstrap5.min.js') }}"></script>
+<script src="{{ asset('dashboardAssets/js/table-data.js') }}"></script>
+
+
+<!-- SELECT2 JS -->
+<script src="{{ asset('dashboardAssets/plugins/select2/select2.full.min.js') }}"></script>
+<script src="{{ asset('dashboardAssets/js/select2.js') }}"></script>
+
+<!-- DATE PICKER JS -->
+<script src="{{ asset('dashboardAssets/plugins/bootstrap-hijri-datepicker/js/bootstrap-hijri-datetimepicker.js') }}">
+</script>
+
+
 <script>
     $(function() {
-        $("#archiveDepartmentTable").DataTable({
+        /******* Calendar *******/
+        $("#from-hijri-picker, #to-hijri-picker, #from-hijri-unactive-picker ,#to-hijri-unactive-picker")
+            .hijriDatePicker({
+                hijri: true,
+                showSwitcher: false,
+            });
+
+        $("#departmentTable").DataTable({
             sDom: "t<'domOption'lpi>",
             serverSide: true,
             ajax: {
-                url: "{{ route('dashboard.departments.archive') }}?" + $.param(
+                url: "{{ route('dashboard.department.archive') }}?" + $.param(
                     @json(request()->query())),
                 dataSrc: 'data'
             },
@@ -31,39 +54,126 @@
                 {
                     class: "text-center",
                     data: function(data) {
-                        return `<a
-                    href="${data.show_route}"
-                    class="azureIcon"
-                    data-bs-toggle="tooltip"
-                    data-bs-placement="top"
-                    title="التفاصيل"
-                    ><i class="mdi mdi-eye-outline"></i
-                  ></a>
-                   <a
-                    href="#"
-                    class="primaryIcon"
-                    data-bs-toggle="tooltip"
-                    data-bs-placement="top"
-                    title="استعادة"
-                    ><i
-                      data-bs-toggle="modal"
-                      data-bs-target="#archiveModal"
-                      class="mdi mdi-archive-arrow-down-outline"
-                    ></i
-                  ></a>
-                  <a
-                    href="#"
-                    class="primaryIcon"
-                    data-bs-toggle="tooltip"
-                    data-bs-placement="top"
-                    title="حذف"
-                    ><i
-                      data-bs-toggle="modal"
-                      data-bs-target="#archiveModal"
-                      class="mdi mdi-archive-arrow-down-outline"
-                    ></i
-                  ></a>`
-                    }
+                        tagInfo = (data.has_jobs) ?
+                        `<i data-bs-toggle="modal" data-bs-target="#DeleteModal_${data.id}" class="mdi mdi-archive-arrow-down-outline"></i>`:
+                            `<i data-bs-toggle="modal" data-bs-target="#unarchiveModal_${data.id}" class="mdi mdi-archive-arrow-down-outline"></i>` ;
+
+                          return `<a
+                                href="${data.show_route}"
+                                class="azureIcon"
+                                data-bs-toggle="tooltip"
+                                data-bs-placement="top"
+                                title="التفاصيل"
+                                ><i class="mdi mdi-eye-outline"></i
+                              ></a>
+                              <a
+                              href="#"
+                              class="successIcon"
+                              data-bs-toggle="tooltip"
+                              data-bs-placement="top"
+                              title="استعادة"
+                              ><i
+                                data-bs-toggle="modal"
+                                data-bs-target="#UnArchiveModal_${data.id}"
+                                class="mdi mdi-backup-restore"
+                              ></i
+                            ></a>
+                            <a
+                              href="#"
+                              class="errorIcon"
+                              data-bs-toggle="tooltip"
+                              data-bs-placement="top"
+                              title="حذف"
+                              ><i
+                                data-bs-toggle="modal"
+                                data-bs-target="#DeleteModal_${data.id}"
+                                class="mdi mdi-trash-can-outline"
+                              ></i
+                            ></a>
+
+                              <!-- DeleteModal Modal -->
+      <div class="modal fade" id="DeleteModal_${data.id}">
+        <div class="modal-dialog modal-dialog-centered">
+          <div class="modal-content border-0">
+            <form method="post" action="${data.forceDelete_route}" class="needs-validation" novalidate>@csrf @method('delete')
+            <div class="modal-body text-center p-0">
+              <lottie-player
+                autoplay
+                loop
+                mode="normal"
+                src="{{ asset('dashboardAssets/images/lottie/delete.json') }}""
+                style="width: 55%; display: block; margin: 0 auto 1em"
+              >
+              </lottie-player>
+              <p>هل تريد إتمام عملية الحذف النهائي؟</p>
+            </div>
+            <div class="modal-footer justify-content-center mt-5 p-0">
+                <button type="submit" class="btn btn-danger mx-3">
+                  موافق
+                </button>
+                <button
+                  type="button"
+                  class="btn btn-outline-danger"
+                  data-bs-dismiss="modal"
+                >
+                  غير موافق
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+
+      <!-- UnArchiveModal -->
+      <div class="modal fade" id="UnArchiveModal_${data.id}">
+        <div class="modal-dialog modal-dialog-centered">
+          <div class="modal-content border-0">
+            <form method="POST" action="${data.restore_route}" class="needs-validation" novalidate>@csrf
+              <div class="modal-body text-center p-0">
+                <lottie-player
+                  autoplay
+                  loop
+                  mode="normal"
+                  src="{{asset('dashboardassets/images/lottie/unarchive1.json')}}"
+                  style="width: 55%; display: block; margin: 0 auto 1em"
+                >
+                </lottie-player>
+                <p>هل تريد إتمام عملية الاستعادة؟</p>
+                <div class="mt-3">
+                  <textarea
+                  name="reasonAction"
+                    class="form-control"
+                    placeholder="الرجاء ذكر السبب*"
+                    rows="3"
+                    required
+                  ></textarea>
+
+                  <div class="invalid-feedback">السبب مطلوب.</div>
+                </div>
+              </div>
+              <div class="modal-footer justify-content-center mt-5 p-0">
+                <button type="submit" class="btn btn-success mx-3">
+                  موافق
+                </button>
+                <button
+                  type="button"
+                  class="btn btn-outline-success"
+                  data-bs-dismiss="modal"
+                >
+                  غير موافق
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+      `
+
+
+
+        },
+                    orderable: false,
+                    searchable: false
                 }
             ],
             pageLength: 10,
@@ -74,7 +184,7 @@
             language: {
                 lengthMenu: "عرض _MENU_",
                 zeroRecords: "لا يوجد بيانات",
-                info: "عرض _PAGE_ من _PAGES_ صفحة",
+                info: "إظهار _START_ إلى _END_ من أصل _TOTAL_ صفحة  ",
                 infoEmpty: "لا يوجد نتائج بحث متاحة",
                 paginate: {
                     previous: '<i class="mdi mdi-chevron-right"></i>',

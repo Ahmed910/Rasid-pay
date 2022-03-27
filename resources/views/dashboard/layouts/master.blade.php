@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}" dir="ltr">
+<html lang="en" dir="{{ LaravelLocalization::getCurrentLocaleDirection() }}">
 
 <head>
     <!-- META DATA -->
@@ -17,25 +17,30 @@
     <link rel="shortcut icon" type="image/x-icon" href="{{ asset('dashboardAssets/images/brand/favicon.ico') }}" />
 
     <!-- TITLE -->
-    <title>Rasid Jack Dashboard - @yield('title')</title>
+    <title>{!! trans('dashboard.general.dashboard') !!} @yield('title')</title>
 
     <!-- BOOTSTRAP CSS -->
 
-    <link id="style" href="{{ asset('dashboardAssets/plugins/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet" />
+    <link rel="stylesheet" type="text/css" media="all"
+        href="{{ asset('dashboardAssets') }}/plugins/bootstrap/css/bootstrap{{ LaravelLocalization::getCurrentLocaleDirection() == 'rtl' ? '.rtl' : null }}.min.css" />
 
     <!-- STYLE CSS -->
     <link href="{{ asset('dashboardAssets/css/style.css') }}" rel="stylesheet" />
-    <link href="{{ asset('dashboardAssets/plugins/bootstrap-hijri-datepicker/css/bootstrap-datetimepicker.min.css') }}" rel="stylesheet" />
+    <link
+        href="{{ asset('dashboardAssets/plugins/bootstrap-hijri-datepicker/css/bootstrap-datetimepicker.min.css') }}"
+        rel="stylesheet" />
     <!--- FONT-ICONS CSS -->
     <link href="{{ asset('dashboardAssets/css/icons.css') }}" rel="stylesheet" />
 
+
     <!-- COLOR SKIN CSS -->
-    <link id="theme" rel="stylesheet" type="text/css" media="all" href="{{ asset('dashboardAssets/colors/color1.css') }}" />
+    <link id="theme" rel="stylesheet" type="text/css" media="all"
+        href="{{ asset('dashboardAssets/colors/color1.css') }}" />
 
     @yield('styles')
 </head>
 
-<body class="app sidebar-mini rtl">
+<body class="app sidebar-mini {{ LaravelLocalization::getCurrentLocaleDirection() }}">
     <!-- GLOBAL-LOADER -->
     <div id="global-loader">
         <img src="{{ asset('dashboardAssets/images/loader.gif') }}" class="loader-img" alt="Loader" />
@@ -49,11 +54,17 @@
             <!-- /app-Header -->
 
             <!--APP-SIDEBAR-->
-            @include('dashboard.layouts.side')
+            @include('dashboard.layouts.sidebar')
             <!--APP-SIDEBAR END-->
 
             <!--app-content open-->
-            @yield('content')
+            <div class="main-content app-content mt-0">
+                <div class="side-app">
+                    <div class="main-container container-fluid" style="min-height:50vh;">
+                        @yield('content')
+                    </div>
+                </div>
+            </div>
             <!--app-content closed-->
         </div>
 
@@ -78,33 +89,15 @@
 
     <!-- SIDE-MENU JS -->
     <script src="{{ asset('dashboardAssets/plugins/sidemenu/sidemenu.js') }}"></script>
-
+    <!-- CUSTOM JS -->
+    <script src="{{ asset('dashboardAssets/js/custom.js') }}"></script>
     <!-- DATA TABLE JS-->
-
-    <script src="{{ asset('dashboardAssets/plugins/datatable/js/jquery.dataTables.min.js') }}"></script>
-    <script src="{{ asset('dashboardAssets/plugins/datatable/js/dataTables.bootstrap5.js') }}"></script>
-    <script src="{{ asset('dashboardAssets/plugins/datatable/dataTables.responsive.min.js') }}"></script>
-    <script src="{{ asset('dashboardAssets/plugins/datatable/responsive.bootstrap5.min.js') }}"></script>
-    <script src="{{ asset('dashboardAssets/js/table-data.js') }}"></script>
-
+    @yield('datatable_script')
     <!-- Sticky js -->
     <script src="{{ asset('dashboardAssets/js/sticky.js') }}"></script>
 
     <!-- lottie-player js -->
     <script src="https://unpkg.com/@lottiefiles/lottie-player@0.4.0/dist/tgs-player.js"></script>
-
-    <!-- INTERNAL Bootstrap-Datepicker js-->
-    <!-- <script src="{{ asset('dashboardAssets/plugins/bootstrap-datepicker/bootstrap-datepicker.js') }}"></script> -->
-
-    <!-- SELECT2 JS -->
-    <script src="{{ asset('dashboardAssets/plugins/select2/select2.full.min.js') }}"></script>
-    <script src="{{ asset('dashboardAssets/js/select2.js') }}"></script>
-
-
-    <script src="{{ asset('dashboardAssets/plugins/bootstrap-hijri-datepicker/js/bootstrap-hijri-datetimepicker.js') }}"></script>
-
-    <!-- CUSTOM JS -->
-    <script src="{{ asset('dashboardAssets/js/custom.js') }}"></script>
 
     @yield('scripts')
 

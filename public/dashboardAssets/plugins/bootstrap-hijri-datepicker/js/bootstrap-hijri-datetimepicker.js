@@ -14868,7 +14868,7 @@
 
     $.fn.hijriDatePicker.defaults = {
       timeZone: "Etc/UTC",
-      format: "DD-MM-YYYY",
+      format: "DD MMMM YYYY",
       hijriFormat: "iDD iMMMM iYYYY",
       hijriDayViewHeaderFormat: "iMMMM iYYYY",
       dayViewHeaderFormat: "MMMM YYYY",
@@ -14877,7 +14877,7 @@
       extraFormats: false,
       stepping: 1,
       useCurrent: false,
-      collapse: false,
+      collapse: true,
       locale: "ar-SA",
       defaultDate: false,
       disabledDates: false,
@@ -15046,13 +15046,13 @@
       },
       showSwitcher: true,
       debug: false,
-      allowInputToggle: false,
+      allowInputToggle: true,
       disabledTimeIntervals: false,
       disabledHours: false,
       enabledHours: false,
       viewDate: false,
       hijri: false,
-      isRTL: false,
+      isRTL: true,
       hijriText: "هجري",
       gregorianText: "ميلادي",
     };

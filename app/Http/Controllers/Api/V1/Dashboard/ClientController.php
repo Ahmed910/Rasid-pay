@@ -16,7 +16,6 @@ use App\Models\Manager;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Storage;
 
 class ClientController extends Controller
@@ -40,12 +39,12 @@ class ClientController extends Controller
     }
 
 
-    public function store(ClientRequest      $request, AttachmentRequest $attachmentRequest,
+    public function store(ClientRequest      $clientRequestrequest, AttachmentRequest $attachmentRequest,
                           BankAccountRequest $bankAccountRequest, ManagerRequest $managerRequest, Client $client, BankAccount $bankAccount, Manager $manager)
     {
         $except = ["tax_number", "commercial_number", "activity_type", "daily_expect_trans", "register_type", "client_type", "nationality", "address", "marital_status"];
-        $userData = $request->safe()->except($except) + ["user_type" => "client", 'added_by_id' => auth()->id()];
-        $clientData = $request->safe()->only($except);
+        $userData = $clientRequestrequest->safe()->except($except) + ["user_type" => "client", 'added_by_id' => auth()->id()];
+        $clientData = $clientRequestrequest->safe()->only($except);
 
         $user = user::create($userData);
         $bankAccount->fill($bankAccountRequest->validated())->user()->associate($user)->save();
@@ -54,9 +53,10 @@ class ClientController extends Controller
         $manager->fill($managerRequest->validated())->save();
         $manager->clients()->save($client);
 
-        if ($attachmentRequest->has("files"))
-
+        if ($attachmentRequest->has("attachments")) {
             Attachment::storeImage($attachmentRequest, $user);
+
+        }
 
 
         $client->load(['user', 'user.attachments', 'manager']);
@@ -66,7 +66,7 @@ class ClientController extends Controller
         ]);
     }
 
-    public function show($id)
+    public function show(Request $request, $id)
     {
         $client = Client::where('user_id', $id)->firstOrFail();
         $client->load(['user', 'user.attachments', 'manager', 'user.bankAccount']);
@@ -89,26 +89,19 @@ class ClientController extends Controller
         $client->update($request->safe()->only($except));
         $client->user->bankAccount->update($bankAccountRequest->validated());
         $client->manager()->update($managerRequest->validated());
-        if ($attachmentRequest->has("files")) {
-            $attachments = Attachment::where("user_id", $client->user_id)->where("attachment_type", $request->attachment_type)->get();
-            $paths = $attachments->pluck("file");
-            foreach ($paths as $path) {
-                if (Storage::exists($path)) {
-                    Storage::delete($path);
-                }
-            }
-            $attachments->each->delete();
 
+        if ($attachmentRequest->has("attachments")) {
+            Attachment::deletefiles($attachmentRequest, $client);
             Attachment::storeImage($attachmentRequest, $client->user);
         }
 
+
         $client->load(['user', 'user.attachments', 'manager']);
-        return ClientResource::make($client)->additional([
-            'status' => true, 'message' => trans("dashboard.general.success_update")
-        ]);
+        return ClientResource::make($client)->additional(['status' => true, 'message' => trans("dashboard.general.success_update")]);
     }
 
-    public function forceDestroy(ReasonRequest $request, $id)
+    public
+    function forceDestroy(ReasonRequest $request, $id)
     {
         $user = User::onlyTrashed()->findorfail($id);
         $user->forceDelete();
@@ -121,7 +114,8 @@ class ClientController extends Controller
     }
 
 
-    public function destroy(ReasonRequest $request, User $user)
+    public
+    function destroy(ReasonRequest $request, User $user)
     {
 
         $user->delete();
@@ -134,7 +128,8 @@ class ClientController extends Controller
     }
 
 
-    public function restore(ReasonRequest $request, $id)
+    public
+    function restore(ReasonRequest $request, $id)
     {
         $user = User::onlyTrashed()->findOrFail($id);
         $user->restore();

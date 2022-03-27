@@ -17,7 +17,9 @@ class AdminController extends Controller
     {
         $users = User::CustomDateFromTo($request)->search($request)->with(['department', 'permissions', 'groups' => function ($q) {
             $q->with('permissions');
-        }])->where('user_type', 'admin')->latest()->paginate((int)($request->per_page ?? config("globals.per_page")));
+        }])->where('user_type', 'admin')
+            ->sortBy($request)
+            ->paginate((int)($request->per_page ?? config("globals.per_page")));
 
         // $users = User::CustomSearch($request)->latest()->paginate((int)($request->per_page ?? config("globals.per_page")));
 
@@ -73,16 +75,13 @@ class AdminController extends Controller
 
     public function show(Request $request, $id)
     {
-        $admin = User::withTrashed()->where('user_type', 'admin')->with(['addedBy', 'country', 'groups' => function ($q) {
-            $q->with('permissions');
-        }])->findOrFail($id);
-
-        $admin->load(['permissions' => function ($q) use ($admin) {
-            $q->whereNotIn('permissions.id', $admin->groups->pluck('permissions')->flatten()->pluck('id')->toArray());
-        }]);
-
-        $activities  = $admin->activity()->paginate((int)($request->per_page ?? 15));
-        data_set($activities, 'admin', $admin);
+        $admin = User::withTrashed()->where('user_type', 'admin')->findOrFail($id);
+        $activities = [];
+        if (!$request->has('with_activity') || $request->with_activity) {
+            $activities  = $admin->activity()
+                ->sortBy($request)
+                ->paginate((int)($request->per_page ?? 15));
+        }
 
         return AdminCollection::make($activities)
             ->additional([

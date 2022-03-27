@@ -8,6 +8,8 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Astrotomic\Translatable\Contracts\Translatable as TranslatableContract;
 use Astrotomic\Translatable\Translatable;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Support\Str;
 
 class Group extends Model implements TranslatableContract
 {
@@ -17,6 +19,7 @@ class Group extends Model implements TranslatableContract
     protected $guarded = ["created_at", "updated_at"];
     public $translatedAttributes = ['name'];
     public $attributes = ['is_active' => false];
+    private $sortableColumns = ['name', 'user_count', 'is_active'];
     #endregion properties
 
     #region mutators
@@ -35,15 +38,18 @@ class Group extends Model implements TranslatableContract
 
             $query->whereDate('created_at', $request->created_at);
         }
-        if (in_array($request->is_active,['0','1'])) {
+
+        if (isset($request->is_active)) {
+            if (!in_array($request->is_active, [1, 0])) return;
+
             $query->where('is_active', $request->is_active);
         }
 
-        if ($request->admins_from) {
+        if ($request->has('admins_from')) {
             $query->withCount('admins as admins_from')->having('admins_from',">=" , $request->admins_from);
         }
 
-        if ($request->admins_to) {
+        if ($request->has('admins_to')) {
             $query->withCount('admins as admins_to')->having('admins_to',"<=" , $request->admins_to);
         }
     }
@@ -51,6 +57,30 @@ class Group extends Model implements TranslatableContract
     public function scopeActive($query)
     {
         $query->where('is_active',true);
+    }
+
+    public function scopeSortBy(Builder $query,$request)
+    {
+        if (!isset($request->sort["column"]) || !isset($request->sort["dir"])) return $query->latest('created_at');
+
+        if (
+            !in_array(Str::lower($request->sort["column"]), $this->sortableColumns) ||
+            !in_array(Str::lower($request->sort["dir"]), ["asc", "desc"])
+        ) {
+            return $query->latest('created_at');
+        }
+
+
+        $query->when($request->sort, function ($q) use ($request) {
+            if ($request->sort["column"]  == "name") {
+                return $q->has('translations')
+                    ->orderByTranslation($request->sort["column"], @$request->sort["dir"]);
+            }
+            if ($request->sort["column"] == "user_count") {
+                return $q->withCount('admins as user_count')->orderBy($request->sort["column"], @$request->sort["dir"]);
+            }
+            $q->orderBy($request->sort["column"], @$request->sort["dir"]);
+        });
     }
     #endregion scopes
 

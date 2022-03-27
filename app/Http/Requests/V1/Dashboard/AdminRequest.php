@@ -3,6 +3,7 @@
 namespace App\Http\Requests\V1\Dashboard;
 
 use App\Http\Requests\ApiMasterRequest;
+use GeniusTS\HijriDate\Hijri;
 
 class AdminRequest extends ApiMasterRequest
 {
@@ -20,10 +21,19 @@ class AdminRequest extends ApiMasterRequest
     protected function prepareForValidation()
     {
         $data = $this->all();
-
+        if (auth()->check() && auth()->user()->is_date_hijri) {
+            if (@$data['ban_from']) {
+                $ban_from = explode('-',$data['ban_from']);
+                $data['ban_from'] = Hijri::convertToGregorian($ban_from[2], $ban_from[1], $ban_from[0])->format('Y-m-d');
+            }
+            if (@$data['ban_to']) {
+                $ban_to = explode('-',$data['ban_to']);
+                $data['ban_to'] = Hijri::convertToGregorian($ban_to[2], $ban_to[1], $ban_to[0])->format('Y-m-d');
+            }
+        }
         $this->merge([
-            'ban_from' =>  @$data['ban_from'] ? date('Y-m-d', strtotime($data['ban_from'])) : null,
-            'ban_to' =>  @$data['ban_to'] ? date('Y-m-d', strtotime($data['ban_to'])) : null,
+            'ban_from' =>  @$data['ban_from'] ?? null,
+            'ban_to' =>  @$data['ban_to'] ?? null,
         ]);
     }
 
@@ -50,6 +60,7 @@ class AdminRequest extends ApiMasterRequest
             'group_list.*' => 'required_without:permission_list|exists:groups,id',
             'permission_list' => 'required_without:group_list|array|min:1',
             'permission_list.*' => 'required_without:group_list|exists:permissions,id',
+            'delete_image'  => "in:0,1"
         ] + $data;
     }
 }

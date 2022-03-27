@@ -14,6 +14,7 @@ use App\Traits\Uuid;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Astrotomic\Translatable\Contracts\Translatable as TranslatableContract;
 use Astrotomic\Translatable\Translatable;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Builder;
@@ -25,12 +26,14 @@ class Department extends Model implements TranslatableContract, HasAssetsInterfa
 
 
     #region properties
+    protected $appends = ['image'];
     protected $guarded = ['created_at', 'deleted_at'];
     public $translatedAttributes = ['name', 'description'];
     public $assets = ["image"];
-    public $with   = ["images", "addedBy"];
-    private $sortableColumns = ["name", "parent", "created_at", "status",'is_active'];
+    public $with = ["images", "addedBy"];
+    private $sortableColumns = ["name", "parent", "created_at", "status", 'is_active'];
     private static $result = [];
+
     #endregion properties
 
     public static function boot()
@@ -43,6 +46,18 @@ class Department extends Model implements TranslatableContract, HasAssetsInterfa
     #region mutators
     #endregion mutators
 
+
+    #region accessor
+
+
+    public function getImageAttribute()
+    {
+        if ($this->images()->first()?->media == null) return null;
+
+        return asset($this->images()->first()?->media);
+    }
+    #endregion accessor
+
     #region scopes
     public function scopeSearch(Builder $query, $request)
     {
@@ -50,8 +65,7 @@ class Department extends Model implements TranslatableContract, HasAssetsInterfa
 
         if ($request->name) {
             $query->where(function ($q) use ($request) {
-                $q->whereTranslationLike('name', "%\\$request->name%")
-                    ->orWhereTranslationLike('description', "%\\$request->name%");
+                $q->whereTranslationLike('name', "%\\$request->name%");
             });
         }
 
@@ -60,6 +74,8 @@ class Department extends Model implements TranslatableContract, HasAssetsInterfa
         }
 
         if (isset($request->is_active)) {
+            if (!in_array($request->is_active, [1, 0])) return;
+
             $query->where('is_active', $request->is_active);
         }
     }
@@ -78,15 +94,13 @@ class Department extends Model implements TranslatableContract, HasAssetsInterfa
 
 
         $query->when($request->sort, function ($q) use ($request) {
-            if ($request->sort["column"]  == "name") {
+            if ($request->sort["column"] == "name") {
                 return $q->has('translations')
                     ->orderBy($request->sort["column"], @$request->sort["dir"]);
             }
 
             if ($request->sort["column"] == "parent") {
-                return $q->join('departments as parent', 'departments.id', '=', 'parent.parent_id')
-                    ->leftJoin('department_translations as parent_trans', 'parent.id', '=', 'parent_trans.department_id')
-                    ->orderBy('parent_trans.name', @$request->sort["dir"]);
+                return $q->orderBy('parent_id', $request->sort['dir']);
             }
 
             $q->orderBy($request->sort["column"], @$request->sort["dir"]);
@@ -97,7 +111,7 @@ class Department extends Model implements TranslatableContract, HasAssetsInterfa
     #region relationships
     public function parent(): BelongsTo
     {
-        return $this->belongsTo(Department::class, 'parent_id')->withDefault(["name" =>""]);
+        return $this->belongsTo(Department::class, 'parent_id');
     }
 
     public function children(): HasMany

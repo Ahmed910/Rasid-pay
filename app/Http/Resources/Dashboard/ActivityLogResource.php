@@ -24,11 +24,17 @@ class ActivityLogResource extends JsonResource
             ] : null,
             'created_at' => $this->created_at,
             'type' => strtolower($this->action_type),
-            'reason' => trans('dashboard.activity_log.reason',['user'=>$this->id,'action'=>$this->action_type]),
+            'reason' => $this->reason ?? '---',
             'url' => $this->url,
             'ip' => $this->ip_address,
             'agent' => $this->agent,
             'sub_program'  => $this->sub_program
         ];
+
+        // trans('dashboard.activity_log.reason', [
+        //     'user' => $this->user?->fullname,
+        //     'action' => trans('dashboard.activity_log.actions.' . $this->action_type),
+        //     'model' => trans('dashboard.'.strtolower($this->auditable_type).".".strtolower($this->auditable_type))
+        // ])
     }
 }

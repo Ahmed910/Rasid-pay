@@ -52,19 +52,23 @@ class DepartmentController extends Controller
     {
         return response()->json([
             'data' => Department::select('id')->when($request->department_id, function ($q) use ($request) {
-                $children = Department::flattenChildren(Department::find($request->department_id));
-                $q->whereNotIn('departments.id', $children);
-            })->when($request->department_type == 'children', function ($q) {
-                $q->has('children');
-            })->ListsTranslations('name')->without(['images', 'addedBy', 'translations'])->get(),
+                    $children = Department::flattenChildren(Department::find($request->department_id));
+                    $q->whereNotIn('departments.id', $children);
+                })->when($request->department_type == 'children', function ($q) {
+                    $q->has('children');
+                })->when($request->activate_case, function ($q) use($request){
+                    switch ($request->activate_case) {
+                        case 'active':
+                            $q->where('is_active', 1);
+                            break;
+                        case 'hold':
+                            $q->where('is_active', 0);
+                            break;
+                    }
+                })->ListsTranslations('name')->without(['images', 'addedBy', 'translations'])->get(),
             'status' => true,
             'message' =>  '',
         ]);
-    }
-
-    public function create()
-    {
-        //
     }
 
     public function store(DepartmentRequest $request, Department $department)
@@ -80,9 +84,13 @@ class DepartmentController extends Controller
 
     public function show(Request $request, $id)
     {
-        $department = Department::withTrashed()->with('translations')->findOrFail($id);
-        $activities  = $department->activity()->paginate((int)($request->per_page ?? 15));
-        data_set($activities, 'department', $department);
+        $department = Department::withTrashed()->findOrFail($id);
+        $activities = [];
+        if (!$request->has('with_activity') || $request->with_activity) {
+            $activities  = $department->activity()
+                ->sortBy($request)
+                ->paginate((int)($request->per_page ?? 15));
+        }
 
         return DepartmentCollection::make($activities)
             ->additional([

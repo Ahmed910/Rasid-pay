@@ -4,6 +4,7 @@ namespace App\Http\Resources\Dashboard\Group;
 
 use App\Http\Resources\Dashboard\ActivityLogResource;
 use Illuminate\Http\Resources\Json\ResourceCollection;
+use App\Models\Group\Group;
 
 class GroupCollection extends ResourceCollection
 {
@@ -15,10 +16,16 @@ class GroupCollection extends ResourceCollection
      */
     public function toArray($request)
     {
+        $group = Group::findOrFail(@$request->route()->parameters['group']);
+        $group->load(['translations', 'groups' => function ($q) {
+            $q->with('permissions');
+        }, 'permissions' => function ($q) use ($group) {
+            $q->whereNotIn('permissions.id', $group->permissions->pluck('id')->toArray());
+        }]);
+
         return [
-            'group' => GroupResource::make($this->collection['group']),
-            'activity' => ActivityLogResource::collection($this->collection->except(['group','permissions'])),
-            'permissions' => PermissionResource::collection($this->collection['permissions'])
+            'group' => GroupResource::make($group),
+            'activity' => ActivityLogResource::collection($this->collection),
         ];
     }
 }

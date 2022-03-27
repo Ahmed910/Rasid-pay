@@ -6,7 +6,9 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use App\Traits\Uuid;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Support\Str;
 
 class ActivityLog extends Model
 {
@@ -17,15 +19,18 @@ class ActivityLog extends Model
     protected $table = 'activity_logs';
     protected $with = ['user', 'auditable'];
     protected $casts = ["new_data" => "array", "old_data" => "array", 'search_params' => 'array'];
+    private $sortableColumns = ['employee', 'department', 'main_program', 'sub_program', 'created_at', 'ip_address', 'action_type'];
 
-    const CREATE           = 'created';
-    const UPDATE           = 'updated';
-    const DESTROY          = 'destroy';
-    const RESTORE          = 'restored';
+    const CREATE = 'created';
+    const UPDATE = 'updated';
+    const DESTROY = 'destroy';
+    const RESTORE = 'restored';
     const PERMANENT_DELETE = 'permanent_delete';
-    const SEARCH           = 'searched';
-    const DEACTIVE         = 'deactivated';
-    const ACTIVE           = 'activated';
+    const SEARCH = 'searched';
+    const DEACTIVE = 'deactivated';
+    const ACTIVE = 'activated';
+    const PERMANENT = 'permanent';
+    const TEMPORARY = 'temporary';
 
     const EVENTS = [
         self::CREATE,
@@ -35,12 +40,18 @@ class ActivityLog extends Model
         self::PERMANENT_DELETE,
         self::SEARCH,
         self::DEACTIVE,
-        self::ACTIVE
+        self::ACTIVE,
+        self::PERMANENT,
+        self::TEMPORARY
     ];
     #endregion properties
 
     #region mutators
     #endregion mutators
+
+    #region accessor
+
+    #endregion accessor
 
     #region scopes
     public function scopeSearch(Builder $query, $request)
@@ -55,7 +66,7 @@ class ActivityLog extends Model
 
         if ($request->department_id) {
             $query->whereHas('user.employee.department', function ($q) use ($request) {
-                $q->where('id', $request->department_id)->toSql();
+                $q->where('id', $request->department_id);
             });
         }
 
@@ -66,6 +77,42 @@ class ActivityLog extends Model
         if ($request->sub_program) {
             $query->where('sub_program', $request->sub_program);
         }
+    }
+
+    public function scopeSortBy(Builder $query, $request)
+    {
+
+        if (!isset($request->sort["column"]) || !isset($request->sort["dir"])) return $query->latest('created_at');
+
+        if (
+            !in_array(Str::lower($request->sort["column"]), $this->sortableColumns) ||
+            !in_array(Str::lower($request->sort["dir"]), ["asc", "desc"])
+        ) {
+            return $query->latest('created_at');
+        }
+
+
+        $query->when($request->sort, function ($q) use ($request) {
+            // TODO:: Refactoring employee and department sorting
+            if ($request->sort["column"] == "employee") {
+                return $q->leftjoin('users', 'activity_logs.user_id', 'users.id')
+                    ->orderBy('users.fullname');
+            }
+
+            if ($request->sort["column"] == "main_program") {
+                return $q->orderBy('auditable_type', @$request->sort["dir"]);
+            }
+
+            if ($request->sort["column"] == "department") {
+                return $q->leftJoin('users', 'users.id', 'activity_logs.user_id')
+                    ->leftJoin('employees', 'employees.user_id', 'users.id')
+                    ->leftJoin('departments', 'departments.id', 'employees.department_id')
+                    ->leftJoin('department_translations', 'department_translations.department_id', 'departments.id')
+                    ->orderBy('department_translations.name');
+            }
+
+            $q->orderBy($request->sort["column"], @$request->sort["dir"]);
+        });
     }
     #endregion scopes
 

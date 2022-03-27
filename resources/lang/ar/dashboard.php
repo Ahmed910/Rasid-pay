@@ -6,16 +6,19 @@ $permissions = [
     'store' => 'حفظ',
     'update' => 'تعديل',
     'destroy' => 'أرشفة',
-    'archive' => 'عرض الارشيف',
+    'archive' => 'عرض أرشيف',
     'restore' => 'استعادة',
     'force_delete' => 'حذف نهائي',
 ];
 
 return [
     'attributes' => [
-        'name' => 'الاسم باللغة العربية',
-        'description' => 'الوصف باللغة العربية',
+        'name' => 'الاسم',
+        'description' => 'الوصف',
         'nationality' => 'الجنسية باللغة العربية',
+    ],
+    'datatable' => [
+        'show :menu' => 'عرض :menu'
     ],
     'general' => [
         "success_add" => "تم الإضافة بنجاح",
@@ -25,6 +28,7 @@ return [
         "success_restore" => "تم الاستعادة بنجاح",
         "has_relationship_cannot_delete" => "لا يمكن حذف هذا العنصر ،بسبب احتواءه علي علاقات",
         "save" => "حفظ",
+        "back" => "عودة",
         "edit" => "تعديل",
         'add' => 'إضافة',
         "show" => "عرض",
@@ -32,19 +36,90 @@ return [
         "restore" => "استعادة",
         "force_delete" => "حذف نهائي",
         'sent_successfully' => 'تم الارسال بنجاح',
+        'success_send_login_code' => 'تم ارسال كود التحقق الى رقم الهاتف',
         'fail_send' => 'فشل عملية الارسال',
         'active' => 'مفعل',
-        'inactive' => 'معطل'
+        'inactive' => 'معطل',
+        'activited' => 'تفعيل',
+        'unactivited' => 'تعطيل',
+        'dashboard' => 'لوحة تحكم رصيد جاك',
+        "status" => "الحالة",
+        "select_status" => "اختر الحالة",
+        "type" => "النوع",
+        "select_type" => "اختر النوع",
+        "from_date" => "تاريخ الإنشاء (من)",
+        "to_date" => "تاريخ الإنشاء (إلى)",
+        "search" => "بحث",
+        "show_all" => "عرض الكل",
+        "created_at" => "تاريخ الإنشاء",
+        'create' => 'انشاء',
+        "actions" => "العمليات",
+        "active_cases" => [
+            'معطل',
+            'مفعل',
+        ],
+        'job_type_cases' => [
+            'مشغولة',
+            'شاغرة',
+        ],
+        'all' => 'الجميع',
+        'description' => 'الوصف',
+        'day_month_year' => 'يوم/شهر/سنة',
+        'export' => 'تصدير',
+        'details' => 'التفاصيل',
+
+        'hold_upload' => 'اسحب وأسقط او قم برفع الصورة',
+        'hold_change' => 'اسحب وأسقط او إضغط لتغيير الصورة',
+        'upload_error' => 'اووه ، حدث خطأ ما',
+        'upload_file_max' => 'حجم الملف كبير',
+        'notAllowdedToUpload' => 'نوع الملف غير مسموح بتحميله',
+        'description' => 'الوصف',
+        'reason' => 'السبب',
+        'done_by' => 'تم بواسطة',
+        'the_archive' => 'الأرشيف',
+        "want_to_archive"=>"هل تريد إتمام عملية الأرشفة؟",
+        "reason_needed" =>"الرجاء ذكر السبب*"
+    ],
+    'datatable' => [
+        'no_data' => 'لا يوجد بيانات',
+        'there_is_no_data' => 'لا يوجد نتائج بحث متاحة',
+        'showing' => 'عرض',
+        'to' => 'الى',
+        'from' => 'من',
+        'entries' => 'عنصر',
+        'no_search_result' => 'لا يوجد نتائج بحث متاحة',
     ],
     'error' => [
         'method_not_allow' => 'طريقة الطلب (:method) غير صحيحة',
         'not_found' => 'لم يتم العثور على بيانات',
         'page_not_found' => '404, الصفحة غير موجودة',
-        'something_went_wrog' => 'البيانات المدخلة غير صحيحة',
+        'something_went_wrong' => 'البيانات المدخلة غير صحيحة',
         'name_must_be_unique_on_department' =>  'هذه الوظيفة موجودة بالفعل لهذا القسم'
     ],
     'activity_log' => [
-        "reason" => ":user قام :action",
+        "activity_log" => "سجل النشاط",
+        "activity_logs" => "سجل النشاطات",
+        "reason" => "قام :user بـ:action :model",
+        "date" => "تاريخ النشاط",
+        "activity" => " النشاط",
+        'history' => 'الحركة التاريخية',
+        'actions' => [
+            'created' => 'إضافة',
+            'updated' => 'تعديل',
+            'destroy' => 'أرشفة',
+            'restored' => 'استعادة',
+            'permanent_delete' => 'حذف',
+            'searched' => 'بحث',
+            'deactivated' => 'تعطيل',
+            'activated' => 'تفعيل',
+            'permanent' => 'حظر دائم',
+            'temporary' => 'حظر لفترة',
+        ],
+        'permissions' => array_only($permissions, ['index', 'show']),
+        'sub_progs' => [
+            'index' => 'سجل النشاطات',
+            'show' => 'عرض النشاط',
+        ],
     ],
     'home' => [
         'home' => 'الرئيسية',
@@ -62,7 +137,7 @@ return [
         'permissions' => $permissions,
         'sub_progs' => [
             'index' => 'سجل الدول',
-            'archive' => 'ارشيف الدول',
+            'archive' => 'أرشيف الدول',
             'create' => 'اضافة دولة',
         ],
     ],
@@ -75,7 +150,7 @@ return [
         'permissions' => $permissions,
         'sub_progs' => [
             'index' => 'سجل المناطق',
-            'archive' => 'ارشيف المناطق',
+            'archive' => 'أرشيف المناطق',
             'create' => 'اضافة منطقة',
         ],
     ],
@@ -87,20 +162,20 @@ return [
         "city_count" => "عدد المدن",
         'sub_progs' => [
             'index' => 'سجل المدن',
-            'archive' => 'ارشيف المدن',
+            'archive' => 'أرشيف المدن',
             'create' => 'اضافة مدينة',
         ],
         'permissions' => $permissions
     ],
     "group" => [
         "group" => "المجموعة الادارية",
-        "groups" => "المجموعات الادارية",
+        "groups" => "الصلاحيات",
         "add_group" => "اضافة مجموعه",
         "edit_group" => "تعديل المجموعه",
         "group_count" => "عدد المجموعات",
         'sub_progs' => [
             'index' => 'سجل الصلاحيات',
-            'archive' => 'ارشيف الصلاحيات',
+            'archive' => 'أرشيف الصلاحيات',
             'create' => 'اضافة مجموعة',
         ],
         'permissions' => array_except($permissions, ['archive', 'restore', 'force_delete']) + ['create' => 'عرض القائمة']
@@ -113,7 +188,7 @@ return [
         "currency_count" => "عدد العملات",
         'sub_progs' => [
             'index' => 'سجل العملات',
-            'archive' => 'ارشيف العملات',
+            'archive' => 'أرشيف العملات',
             'create' => 'اضافة عملة',
         ],
         'permissions' => $permissions
@@ -121,18 +196,32 @@ return [
     "department" => [
         "department" => "القسم ",
         "departments" => "الاقسام",
+        "department_image" => "صورة القسم",
+        "department_name" => "اسم القسم",
+        "department_main" => "القسم الر ئيسي",
+        "select_department" => "اختر القسم",
+        "main_department" => "القسم الر ئيسي",
+        'select_main_department' => 'اختر القسم الر ئيسي',
         "add_department" => "اضافة قسم",
         "edit_department" => "تعديل القسم",
         "department_count" => "عدد الاقسام",
+        "archive_from_date" => "تاريخ الأرشفة  (من)",
+        "archive_to_date" => "تاريخ الأرشفة  (إلى)",
+        "search" => "بحث",
+        "show_all" => "عرض الكل",
+        "archived_at" => " تاريخ الأرشفة",
         'sub_progs' => [
             'index' => 'سجل الأقسام',
-            'archive' => 'ارشيف الأقسام',
+            'archive' => 'أرشيف الأقسام',
             'create' => 'اضافة قسم',
+            'show' => 'عرض قسم',
+
         ],
-        'permissions' => $permissions + ['get_parents' => 'عرض الاقسام الرئيسية'],
+        'permissions' => $permissions + ['get_parents' => 'عرض الأقسام الرئيسية'],
         "has_jobs_cannot_delete" => "لا يمكن أرشفة قسم مرتبط بوظائف",
         "department_has_relationship_cannot_delete" => "لا يمكن حذف هذا القسم لأنه يحتوي علي أقسام فرعية   ",
-        'without_parent' => 'بدون'
+        'without_parent' => 'بدون',
+        'department_archive' => 'أرشيف الأقسام',
     ],
     "rasid_job" => [
         "rasid_job" => "الوظيفة",
@@ -140,6 +229,10 @@ return [
         "add_rasid_job" => "اضافة وظيفة",
         "edit_rasid_job" => "تعديل الوظيفة",
         "rasid_job_count" => "عدد الوظائف",
+        "employee_name" => "اسم الموظف",
+        "rasid_job_description" => "الوصف الوظيفي",
+        "rasid_job_department" => "اسم القسم",
+        "name" => "اسم الوظيفة",
         "validation" => [
             'name_must_be_unique_on_department' => 'تم اختيار اسم الوظيفة من قبل لنفس القسم'
         ],
@@ -147,8 +240,13 @@ return [
         "jobs_hired_archived" => " لا يمكن أرشفة هذه الوظيفة لانها مشغولة ",
         'sub_progs' => [
             'index' => 'سجل الوظائف',
-            'archive' => 'ارشيف الوظائف',
+            'archive' => 'أرشيف الوظائف',
             'create' => 'اضافة وظيفة',
+            'show' => 'عرض وظيفة',
+        ],
+        'is_vacant' => [
+            'true' => 'مشغولة',
+            'false' => 'شاغرة',
         ],
         'permissions' => $permissions
     ],
@@ -159,7 +257,7 @@ return [
         "setting_count" => "",
         'sub_progs' => [
             'index' => 'سجل الاعدادات',
-            'archive' => 'ارشيف الاعدادات',
+            'archive' => 'أرشيف الاعدادات',
             'create' => 'اضافة إعداد',
         ],
         'permissions' => $permissions
@@ -171,14 +269,14 @@ return [
         "edit_profile" => "تعديل الملف الشخصي",
     ],
     "admin" => [
-        "admin" => "مستخدم النظام",
-        "admins" => "مستخدمى النظام",
+        "admin" => "المستخدم",
+        "admins" => "المستخدمين",
         "add_admin" => "اضافة مستخدم",
         "edit_admin" => "تعديل المستخدم",
         "admin_count" => "عدد المستخدمين",
         'sub_progs' => [
-            'index' => 'سجل مستخدمى النظام',
-            'archive' => 'ارشيف مستخدمى النظام',
+            'index' => 'سجل المستخدمين',
+            'archive' => 'أرشيف المستخدمين',
             'create' => 'اضافة مستخدم',
         ],
         'permissions' => array_except($permissions, ['archive', 'restore', 'force_delete']) + ['create' => 'عرض المستخدمين']
@@ -186,11 +284,13 @@ return [
     'contact' => [
         'contact'        => 'الدعم الفني',
         'contacts'       => 'الدعم الفني',
-        'index'          => 'رسائل الدعم الفني',
-        'show'           => 'عرض رسالة الدعم الفني',
-        'reply'          => 'الرد علي رسالة دعم فني',
-        'delete_contact' => 'حذف رسالة دعم فني',
-        'delete_reply'   => 'حذف الرد علي رسالة دعم فني',
+        'permissions' => [
+            'index'          => 'رسائل الدعم الفني',
+            'show'           => 'عرض رسالة الدعم الفني',
+            'reply'          => 'الرد علي رسالة دعم فني',
+            'delete_contact' => 'حذف رسالة دعم فني',
+            'delete_reply'   => 'حذف الرد علي رسالة دعم فني',
+        ]
     ],
     "employee" => [
         "employee" => "الموظف",
@@ -200,7 +300,7 @@ return [
         "employee_count" => "عدد الموظفين",
         'sub_progs' => [
             'index' => 'سجل الموظفين',
-            'archive' => 'ارشيف الموظفين',
+            'archive' => 'أرشيف الموظفين',
             'create' => 'اضافة موظف',
         ],
         'permissions' => array_except($permissions, ['archive', 'restore', 'force_delete']) + ['create' => 'عرض الموظفين']
@@ -212,34 +312,29 @@ return [
         "add_job" => "اضافة وظيفة",
         "edit_job" => "تعديل وظيفة",
         "job_count" => "عدد الوظائف",
-        "job_name" => "اسم الوظيفة",
         "department" => "القسم",
+        "job_name" => "اسم الوظيفة",
         "select_department" => "اختر القسم",
-        "status" => "الحالة",
-        "select_status" => "اختر الحالة",
-        "type" => "النوع",
-        "select_type" => "اختر النوع",
         "employee_name" => "اسم الموظف",
         "from_date" => "تاريخ الإنشاء (من)",
         "to_date" => "تاريخ الإنشاء (إلى)",
+        "archive_from_date" => "تاريخ الأرشفة  (من)",
+        "archive_to_date" => "تاريخ الأرشفة  (إلى)",
         "search" => "بحث",
         "show_all" => "عرض الكل",
-        "show"=>"عرض",
+        "show" => "عرض",
         "created_at" => "تاريخ الإنشاء",
+        "archived_at" => " تاريخ الأرشفة",
         "actions" => "العمليات",
         "job_description" => "وصف الوظيفة",
-        'all' => 'الجميع',
-        'is_active' => [
-            'active' => 'مفعلة',
-            'disactive' => 'معطلة',
-        ],
+        "is_active" => "الحالة",
         'is_vacant' => [
-            'true' => 'مشغولة',
-            'false' => 'شاغرة',
+            'true' => 'شاغرة',
+            'false' => 'مشغولة',
         ],
         'sub_progs' => [
             'index' => 'سجل الوظائف',
-            'archive' => 'ارشيف الوظائف',
+            'archive' => 'أرشيف الوظائف',
             'create' => 'اضافة وظيفة',
         ],
     ],
@@ -251,7 +346,7 @@ return [
         "bank_count" => "عدد البنوك",
         'sub_progs' => [
             'index' => 'سجل البنوك',
-            'archive' => 'ارشيف البنوك',
+            'archive' => 'أرشيف البنوك',
             'create' => 'اضافة بنك',
         ],
         'permissions' => $permissions
@@ -270,7 +365,7 @@ return [
         "admin_client" => "عدد العملاء",
         'sub_progs' => [
             'index' => 'سجل العملاء',
-            'archive' => 'ارشيف العملاء',
+            'archive' => 'أرشيف العملاء',
             'create' => 'اضافة عميل',
         ],
         'permissions' => array_except($permissions, ['archive', 'restore', 'force_delete']) + ['create' => 'عرض العملاء']
@@ -279,7 +374,7 @@ return [
         'users' => 'المستخدمين',
         'sub_progs' => [
             'index' => 'سجل المستخدمين',
-            'archive' => 'ارشيف المستخدمين',
+            'archive' => 'أرشيف المستخدمين',
             'create' => 'اضافة مستخدم',
         ],
     ],
@@ -287,21 +382,21 @@ return [
         'chats' => 'الدردشات',
         'sub_progs' => [
             'index' => 'سجل الدردشات',
-            'archive' => 'ارشيف الدردشات',
+            'archive' => 'أرشيف الدردشات',
         ],
     ],
     'device' => [
         'devices' => 'الأجهزة',
         'sub_progs' => [
             'index' => 'سجل الأجهزة',
-            'archive' => 'ارشيف الأجهزة',
+            'archive' => 'أرشيف الأجهزة',
         ],
     ],
     'message' => [
         'messages' => 'الرسائل',
         'sub_progs' => [
             'index' => 'سجل الرسائل',
-            'archive' => 'ارشيف الرسائل',
+            'archive' => 'أرشيف الرسائل',
             'create' => 'اضافة رسالة',
         ],
     ],
@@ -309,8 +404,8 @@ return [
         'permissions' => 'الصلاحيات',
         'sub_progs' => [
             'index' => 'سجل الصلاحيات',
-            'archive' => 'ارشيف الصلاحيات',
+            'archive' => 'أرشيف الصلاحيات',
             'create' => 'اضافة صلاحية',
         ],
-    ]
+    ],
 ];

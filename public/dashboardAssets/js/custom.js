@@ -367,17 +367,17 @@ $(".layout-setting").on("click", function (e) {
 $(document).ready(function () {
     let bodyRtl = $("body").hasClass("rtl");
     if (bodyRtl) {
-        $("body").addClass("rtl");
-        $("html[lang=en]").attr("dir", "rtl");
-        $("body").removeClass("ltr");
-        localStorage.setItem("rtl", "True");
-        $("head link#style").attr("href", $(this));
-        document
-            .getElementById("style")
-            .setAttribute(
-                "href",
-                "../assets/plugins/bootstrap/css/bootstrap.rtl.min.css"
-            );
+        // $("body").addClass("rtl");
+        // $("html[lang=en]").attr("dir", "rtl");
+        // $("body").removeClass("ltr");
+        // localStorage.setItem("rtl", "True");
+        // $("head link#style").attr("href", $(this));
+        // document
+        //   .getElementById("style")
+        //   .setAttribute(
+        //     "href",
+        //     "../assets/plugins/bootstrap/css/bootstrap.rtl.min.css"
+        //   );
         var carousel = $(".owl-carousel");
         $.each(carousel, function (index, element) {
             // element == this
@@ -396,37 +396,49 @@ $(document).ready(function () {
 $(document).ready(function () {
     /******* popoverIMG *******/
 
+
     $('[data-toggle="popoverIMG"]').popover({
-        placement: "left",
+        placement: "right",
         trigger: "hover",
         html: true,
-        content:
-            '<img src="https://picsum.photos/seed/picsum/1000" width="1000" class="mr-3" alt="Sample Image">',
+        // content:
+        //     '<img src="https://picsum.photos/seed/picsum/1000" width="1000" class="mr-3" alt="Sample Image">',
     });
 
     $('[data-bs-toggle="popoverRoles"]').popover({
         placement: "left",
         trigger: "focus",
         html: true,
-        content:
-            "<span class='tooltipRole'>تعديل المستخدمين</span><span class='tooltipRole'>تعديل البيانات</span><span class='tooltipRole'>تعديل </span><span class='tooltipRole'>تعديل المستخدمين</span><span class='tooltipRole'>تعديل المستخدمين</span><span class='tooltipRole'>إضافة مستخدم </span><span class='tooltipRole'>تعديل الوظائف</span><span class='tooltipRole'>تعديل الصلاحيات</span><span class='tooltipRole'>تعديل المستخدمين</span>",
+        // content:
+        //   "<span class='tooltipRole'>تعديل المستخدمين</span><span class='tooltipRole'>تعديل البيانات</span><span class='tooltipRole'>تعديل </span><span class='tooltipRole'>تعديل المستخدمين</span><span class='tooltipRole'>تعديل المستخدمين</span><span class='tooltipRole'>إضافة مستخدم </span><span class='tooltipRole'>تعديل الوظائف</span><span class='tooltipRole'>تعديل الصلاحيات</span><span class='tooltipRole'>تعديل المستخدمين</span>",
     });
 
     /******* Calendar *******/
-    $("#from-hijri-picker, #to-hijri-picker, #from-hijri-unactive-picker ,#to-hijri-unactive-picker"
-    ).hijriDatePicker({
-        hijri: true,
-        showSwitcher: false,
-    });
+    //   $(
+    //     "#from-hijri-picker, #to-hijri-picker, #from-hijri-unactive-picker ,#to-hijri-unactive-picker"
+    //   ).hijriDatePicker({
+    //     hijri: true,
+    //     showSwitcher: false,
+    //   });
 
     $("input").attr("autocomplete", "off");
 
-    // $(".select2").select2({
-    //   width: "100%",
-    //   language: {
-    //     noResults: function () {
-    //       return "لا يوجد بيانات";
+    //   $(".dropify").dropify({
+    //     messages: {
+    //       default: "اسحب وأسقط او قم برفع الصورة",
+    //       replace: "اسحب وأسقط او إضغط لتغيير الصورة",
+    //       remove: "حذف",
+    //       error: "اووه ، حدث خطأ ما",
     //     },
-    //   },
-    // });
+    //     error: {
+    //       fileSize: "حجم الملف كبير (5M max).",
+    //       minWidth: "The image width is too small ({{ value }}}px min).",
+    //       maxWidth: "The image width is too big ({{ value }}}px max).",
+    //       minHeight: "The image height is too small ({{ value }}}px min).",
+    //       maxHeight: "The image height is too big ({{ value }}px max).",
+    //       imageFormat: "The image format is not allowed ({{ value }} only).",
+    //     },
+    //   });
 });
+
+

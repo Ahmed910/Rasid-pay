@@ -18,18 +18,21 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use App\Notifications\ResetPasswordNotification;
+use Carbon\Carbon;
+use Illuminate\Support\Str;
 
 class User extends Authenticatable implements HasAssetsInterface
 {
     use HasApiTokens, HasFactory, Notifiable, Uuid, SoftDeletes, HasAssetsTrait, Loggable;
 
     protected $guarded = ['created_at', 'deleted_at'];
-    // protected $appends = ['avatar','image' , 'name'];
+    protected $appends = ['image'];
     protected $hidden = ['password', 'remember_token'];
     protected $casts = ['email_verified_at' => 'datetime', 'phone_verified_at' => 'datetime'];
     protected $dates = ['date_of_birth', 'date_of_birth_hijri'];
     public $assets = ['image'];
     protected $with = ['images'];
+    private $sortableColumns = ["login_id", "created_at", "fullname", "department", 'ban_status'];
 
     public static function boot()
     {
@@ -48,12 +51,24 @@ class User extends Authenticatable implements HasAssetsInterface
 
     public function getDateOfBirthAttribute($date)
     {
+        if (auth()->check() && auth()->user()->is_date_hijri) {
+            return Hijri::convertToHijri($date)->format('d F o');
+        }
         return date('Y-m-d', strtotime($date));
     }
 
     public function getDateOfBirthHijriAttribute($date)
     {
+
+        if (auth()->check() && auth()->user()->is_date_hijri) {
+            return Hijri::convertToHijri($date)->format('d F o');
+        }
         return date('Y-m-d', strtotime($date));
+    }
+
+    public function getImageAttribute()
+    {
+        return asset($this->images()->first()?->media) ?? 'https://picsum.photos/200';
     }
 
     // Roles & Permissions
@@ -136,24 +151,63 @@ class User extends Authenticatable implements HasAssetsInterface
         }
     }
 
+    public function getBanFromAttribute($value)
+    {
+        if ($value == null) return;
+
+        if (auth()->check() && auth()->user()->is_date_hijri) {
+            $this->changeDateLocale('en');
+
+            return Hijri::convertToHijri($value)->format('Y-m-d');
+        }
+
+        return Carbon::parse($value)->format('Y-m-d');
+    }
+
+    public function getBanToAttribute($value)
+    {
+        if ($value == null) return;
+
+        if (auth()->check() && auth()->user()->is_date_hijri) {
+            $this->changeDateLocale('en');
+
+            return Hijri::convertToHijri($value)->format('Y-m-d');
+        }
+
+        return Carbon::parse($value)->format('Y-m-d');
+    }
+
+    #region scopes
     public function scopeSearch(Builder $query, $request)
     {
-        $this->addGlobalActivity($this, $request->query(), ActivityLog::SEARCH,'index');
+        $this->addGlobalActivity($this, $request->query(), ActivityLog::SEARCH, 'index');
 
         !$request->name ?: $query->where(function ($q) use ($request) {
             $q->where("fullname", "like", "%$request->name%");
-                // ->orWhere("email", "like", "%$request->keySearch%")
-                // ->orWhere("whatsapp", "like", "%$request->keySearch%")
-                // ->orWhere("phone", "like", "%$request->keySearch%");
+            // ->orWhere("email", "like", "%$request->keySearch%")
+            // ->orWhere("whatsapp", "like", "%$request->keySearch%")
+            // ->orWhere("phone", "like", "%$request->keySearch%");
         });
+
         !$request->client_type ?: $query->where("client_type", $request->client_type);
         !$request->country_id ?: $query->where("country_id", $request->country_id);
-        !$request->is_active ?: $query->where("is_active",  $request->is_active);
-        !$request->ban_status ?: $query->where("ban_status", $request->ban_status);
+
+        if (isset($request->is_active)) {
+            if (!in_array($request->is_active, [1, 0])) return;
+
+            $query->where('is_active', $request->is_active);
+        }
+
+        if (isset($request->ban_status)) {
+            if (!in_array($request->ban_status, ['active', 'permanent', 'temporary'])) return;
+
+            $query->where('ban_status', $request->ban_status);
+        }
+
         !$request->register_status ?: $query->where("register_status", $request->register_status);
         !$request->gender ?: $query->where("gender",  $request->gender);
         !$request->is_admin_active_user ?: $query->where("is_admin_active_user", $request->is_admin_active_user);
-        !$request->login_id ?: $query->where("login_id","like", "%$request->login_id%");
+        !$request->login_id ?: $query->where("login_id", "like", "%$request->login_id%");
 
         if ($request->department_id) {
             $query->whereHas('department', function ($query) use ($request) {
@@ -179,6 +233,31 @@ class User extends Authenticatable implements HasAssetsInterface
             $query->whereDate('ban_to', "<=", $ban_to);
         }
     }
+
+    public function scopeSortBy(Builder $query, $request)
+    {
+        if (!isset($request->sort["column"]) || !isset($request->sort["dir"])) return $query->latest('created_at');
+
+        if (
+            !in_array(Str::lower($request->sort["column"]), $this->sortableColumns) ||
+            !in_array(Str::lower($request->sort["dir"]), ["asc", "desc"])
+        ) {
+            return $query->latest('created_at');
+        }
+
+        $query->when($request->sort, function ($q) use ($request) {
+            if ($request->sort['column'] == 'department') {
+                return;
+                //     return $q->leftJoin('employees', 'users.id', 'employees.user_id')
+                //         ->leftJoin('departments', 'departments.id', 'employees.department_id')
+                //         ->leftJoin('department_translations as trans', 'trans.department_id', 'departments.id')
+                //         ->orderBy('trans.name');
+            }
+
+            $q->orderBy($request->sort["column"], @$request->sort["dir"]);
+        });
+    }
+    #endregion scopes
 
     public function sendPasswordResetNotification($token)
     {

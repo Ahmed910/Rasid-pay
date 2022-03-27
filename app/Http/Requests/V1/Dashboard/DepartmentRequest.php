@@ -28,14 +28,24 @@ class DepartmentRequest extends ApiMasterRequest
         $rules = [
             "image"         => "nullable|max:2048|mimes:jpg,png,jpeg",
             "parent_id"     => "nullable|exists:departments,id,deleted_at,NULL|not_in:$igonredDepartment",
-            "is_active"     => "in:0,1"
+            "is_active"     => "in:0,1",
+            'delete_image'  => "in:0,1"
         ];
         foreach (config('translatable.locales') as $locale) {
             $rules["$locale"]               = "array";
             $rules["$locale.name"]          = "required|between:2,100|regex:/^[\pL\pN\s\-\_]+$/u|unique:department_translations,name," . $this->department?->id  . ",department_id";
-            $rules["$locale.description"]   = "nullable|string||max:300";
+            $rules["$locale.description"]   = "nullable|string|max:300";
         }
 
         return $rules;
+    }
+
+    protected function prepareForValidation()
+    {
+        $data = $this->all();
+
+        $this->merge([
+            'parent_id' =>  @$data['parent_id'] ?? null,
+        ]);
     }
 }
