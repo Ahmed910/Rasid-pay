@@ -2,7 +2,7 @@
     data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content border-0">
-            <form method="post" action="" id="item" class="needs-validation" novalidate>
+            <form method="post" action="#?_method=DELETE" id="item" class="needs-validation" novalidate>
                 @csrf
                 @method('delete')
               <div class="modal-body text-center p-0">
@@ -23,6 +23,7 @@
                     name="reasonAction"
                     required
                   ></textarea>
+                  <input type="hidden" name="_method" value="DELETE">
 
                   <div class="invalid-feedback">السبب مطلوب.</div>
                 </div>
