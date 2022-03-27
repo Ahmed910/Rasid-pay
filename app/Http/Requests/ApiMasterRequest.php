@@ -20,7 +20,7 @@ class ApiMasterRequest extends FormRequest
 
     protected function failedValidation(Validator $validator)
     {
-        if(request()->isJson())
+        if(request()->wantsJson())
         {
             throw new HttpResponseException(response()->json([
                 'status' => false,

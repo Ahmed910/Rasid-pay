@@ -125,10 +125,10 @@
                 ],
 
                 "language": {
-                    "lengthMenu": "@lang('dashboard.general.show') _MENU_",
-                    "emptyTable": "@lang('dashboard.general.no_data')",
-                    "info": "@lang('dashboard.general.showing') _START_ @lang('dashboard.general.to') _END_ @lang('dashboard.general.from') _TOTAL_ @lang('dashboard.general.entries')",
-                    "infoEmpty": "@lang('dashboard.general.no_search_result')",
+                    "lengthMenu": "@lang('dashboard.datatable.show') _MENU_",
+                    "emptyTable": "@lang('dashboard.datatable.no_data')",
+                    "info": "@lang('dashboard.datatable.showing') _START_ @lang('dashboard.datatable.to') _END_ @lang('dashboard.datatable.from') _TOTAL_ @lang('dashboard.datatable.entries')",
+                    "infoEmpty": "@lang('dashboard.datatable.no_search_result')",
                     "paginate": {
                         "next": '<i class="mdi mdi-chevron-left"></i>',
                         "previous": '<i class="mdi mdi-chevron-right"></i>'

@@ -165,7 +165,7 @@ return [
     'starts_with'          => 'يجب أن يبدأ  :attribute بأحد القيم التالية: :values',
     'string'               => 'يجب أن يكون  :attribute نصًا.',
     'timezone'             => 'يجب أن يكون  :attribute نطاقًا زمنيًا صحيحًا.',
-    'unique'               => 'قيمة  :attribute مُستخدمة من قبل.',
+    'unique'               => 'قيمة  :attribute موجودة من قبل.',
     'uploaded'             => 'فشل في تحميل الـ :attribute.',
     'url'                  => 'صيغة رابط  :attribute غير صحيحة.',
     'uuid'                 => ' :attribute يجب أن يكون بصيغة UUID سليمة.',
