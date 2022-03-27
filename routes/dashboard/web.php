@@ -29,7 +29,17 @@ Route::group(
         Route::middleware('auth')->prefix('dashboard')->group(function () {
             Route::get('/', "HomeController@index")->name("home.index");
             Route::post('logout', "Auth\LoginController@logout")->name("logout");
-			Route::resource('departments', "DepartmentController");
-			Route::resource('jobs',"Job2Controller");
-        });
-});
+            Route::resource('jobs',"Job2Controller");
+            Route::controller('DepartmentController')->name('departments.')->prefix('departments')->group(function () {
+                Route::get('archive', 'archive')->name('archive');
+                Route::post('restore/{id}', 'restore')->name('restore');
+                Route::delete('forceDelete/{id}', 'forceDelete')->name('force_delete');
+                // Route::get('get-parents', 'getAllParents')->name("get_parents");
+
+            });
+            Route::resource('departments', "DepartmentController");
+
+    });
+
+
+    });

@@ -14,6 +14,7 @@ class DepartmentResource extends JsonResource
             'name' => $this->name,
             'parent' => $this->parent,
             'created_at' => $this->created_at,
+            'deleted_at' => $this->deleted_at,
             'is_active' => $this->is_active,
             'show_route' => route('dashboard.departments.show', $this->id),
             'edit_route' => route('dashboard.departments.edit', $this->id),

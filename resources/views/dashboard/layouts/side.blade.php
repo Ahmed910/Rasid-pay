@@ -148,7 +148,7 @@
                             <a href="javascript:void(0)">الأرشيف</a>
                         </li>
                         <li>
-                            <a href="../archive/departments-archive.html" class="slide-item px-6"><i
+                            <a href="{{ route('dashboard.departments.archive') }}" class="slide-item px-6"><i
                                     class="mdi mdi-view-dashboard-edit-outline"></i>
                                 أرشيف الأقسام</a>
                         </li>
