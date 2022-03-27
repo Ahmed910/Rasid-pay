@@ -12,7 +12,7 @@
                     </lottie-player>
                     <p>@lang("dashboard.general.want_to_archive")</p>
                     <div class="mt-3">
-                        <textarea class="form-control" placeholder="@lang(" dashboard.general.reason_needed")" rows="3" name="reasonAction"
+                        <textarea class="form-control" placeholder="@lang("dashboard.general.reason_needed")" rows="3" name="reasonAction"
                             required></textarea>
                         <input type="hidden" name="_method" value="DELETE">
 
