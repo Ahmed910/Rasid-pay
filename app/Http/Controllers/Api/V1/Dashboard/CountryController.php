@@ -58,8 +58,6 @@ class CountryController extends Controller
         $activities  = $country->activity()
         ->sortBy($request)
         ->paginate((int)($request->per_page ?? 15));
-        data_set($activities, 'country', $country);
-
 
         return CountryCollection::make($activities)
             ->additional([

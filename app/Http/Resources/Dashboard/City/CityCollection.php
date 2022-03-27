@@ -3,6 +3,7 @@
 namespace App\Http\Resources\Dashboard\City;
 
 use App\Http\Resources\Dashboard\ActivityLogResource;
+use App\Models\City\City;
 use Illuminate\Http\Resources\Json\ResourceCollection;
 
 class CityCollection extends ResourceCollection
@@ -15,9 +16,11 @@ class CityCollection extends ResourceCollection
      */
     public function toArray($request)
     {
+        $city = City::withTrashed()->with('translations')->findOrFail(@$request->route()->parameters['city']);
+
         return [
-            'city' => CityResource::make($this->collection['city']),
-            'activity' => ActivityLogResource::collection($this->collection->except('city'))
+            'city' => CityResource::make($city),
+            'activity' => ActivityLogResource::collection($this->collection)
         ];
     }
 }
