@@ -32,9 +32,10 @@ class ClientRequest extends ApiMasterRequest
      * @return array
      */
     public function rules()
-    {
-        return [
+    {$list = countries_list() ;
+         return [
             "fullname" => ["required", "max:100", "string"],
+            "country_code" =>"required|in:".$list,
             "email" => ["required", "max:255", "email", "unique:users,email," . @$this->client],
             "phone" => ["nullable", "starts_with:9665,05", "numeric", "digits_between:10,20", "unique:users,phone," . @$this->client],
             "identity_number" => ["required", "numeric", "digits_between:10,20", "unique:users,identity_number," . @$this->client],
