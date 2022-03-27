@@ -141,10 +141,10 @@ class DepartmentController extends Controller
 
     public function export(Request $request)
     {
-        return Excel::download(new DepartmentsExport($request->all()), 'departments.xlsx');
+        return Excel::download(new DepartmentsExport($request), 'departments.xlsx');
     }
     public function exportPDF(Request $request)
     {
-        return  Excel::download(new DepartmentsExport($request->all()), 'departments.pdf');
+        return  Excel::download(new DepartmentsExport($request), 'departments.pdf');
     }
 }
