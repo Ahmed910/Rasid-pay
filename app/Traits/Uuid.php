@@ -5,6 +5,7 @@ namespace App\Traits;
 use App\Scopes\GlobalSearchScope;
 use GeniusTS\HijriDate\{Date, Hijri, Translations\Arabic, Translations\English};
 use Illuminate\Support\Str;
+use Carbon\Carbon;
 
 trait Uuid
 {
