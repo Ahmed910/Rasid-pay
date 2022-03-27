@@ -171,8 +171,8 @@ return [
 
 
     'custom'               => [
-        'attribute-name' => [
-            'rule-name' => 'custom-message',
+        'email' => [
+            'exists' => 'هذا البريد غير مسجل بالنظام',
         ],
     ],
 

@@ -6,7 +6,7 @@
           {{ trans('auth.login_subtitle')}}
         </p>
         <!-- FORM OPEN -->
-        
+
         <form
           method="post"
           action="{{ route('dashboard.post_login') }}"
@@ -24,6 +24,7 @@
               class="form-control @error('username') is-invalid @enderror"
               id="userID"
               name="username"
+              value="{{ old('username') }}"
               placeholder="{{ trans('auth.userID')}}"
             />
             @error('username')
