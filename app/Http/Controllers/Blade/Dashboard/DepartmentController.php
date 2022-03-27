@@ -10,6 +10,8 @@ use App\Http\Resources\Blade\Dashboard\Department\DepartmentCollection;
 use App\Http\Resources\Dashboard\ActivityLogResource;
 use App\Models\Department\Department;
 use Illuminate\Http\Request;
+use App\Exports\DepartmentsExport;
+use Maatwebsite\Excel\Facades\Excel;
 
 class DepartmentController extends Controller
 {
@@ -137,49 +139,12 @@ class DepartmentController extends Controller
         return redirect()->back();
     }
 
-    public function archive(Request $request)
+    public function export(Request $request)
     {
-        $sortingColumns = [
-            'id',
-            'name',
-            'parent',
-            'deleted_at'
-        ];
-
-        if(isset($request->order[0]['column'])){
-            $request['sort'] = ['column' => $sortingColumns[$request->order[0]['column']], 'dir' => $request->order[0]['dir']];
-        }
-
-        $departmentsQuery = Department::search($request)
-            ->CustomDateFromTo($request)
-            ->with('parent.translations')
-            ->ListsTranslations('name')
-            ->addSelect('departments.deleted_at', 'departments.parent_id', 'departments.added_by_id')
-            ->sortBy($request);
-
-
-        if ($request->ajax()) {
-            $departmentCount = $departmentsQuery->count();
-            $departments = $departmentsQuery->skip($request->start)
-                ->take(($request->length == -1) ? $departmentCount : $request->length)
-                ->get();
-
-            return DepartmentCollection::make($departments)
-                ->additional(['total_count' => $departmentCount]);
-        }
-
-        $parentDepartments = Department::where('is_active', 1)
-            ->has("children")
-            ->orWhere(function ($q) {
-                $q->doesntHave('children')
-                    ->WhereNull('parent_id');
-            })
-            ->without("images", 'addedBy')
-            ->select("id")
-            ->ListsTranslations("name")
-            ->pluck('name', 'id');
-
-        return view('dashboard.archive.department.index',compact('parentDepartments'));
+        return Excel::download(new DepartmentsExport($request->all()), 'departments.xlsx');
     }
-
+    public function exportPDF(Request $request)
+    {
+        return  Excel::download(new DepartmentsExport($request->all()), 'departments.pdf');
+    }
 }
