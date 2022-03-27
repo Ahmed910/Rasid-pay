@@ -6,12 +6,12 @@
                     <lottie-player autoplay loop mode="normal" src="{{asset('dashboardAssets/images/lottie/save.json')}}"
                         style="width: 55%; display: block; margin: 0 auto 1em">
                     </lottie-player>
-                    <p>هل تريد إتمام عملية الحفظ؟</p>
+                    <p>{{ trans('dashboard.general.want_saving') }}</p>
                 </div>
                 <div class="modal-footer d-flex justify-content-center mt-5 p-0">
-                    <button type="button" class="btn btn-success mx-3" onClick='submitDetailsForm()'>موافق</button>
+                    <button type="button" class="btn btn-success mx-3" onClick='submitDetailsForm()'>{{ trans('dashboard.general.yes') }}</button>
                     <button type="button" class="btn btn-outline-success" data-bs-dismiss="modal">
-                        غير موافق
+                         {{ trans('dashboard.general.no') }}
                     </button>
                 </div>
             </div>
