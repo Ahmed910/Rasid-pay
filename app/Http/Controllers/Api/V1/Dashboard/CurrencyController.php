@@ -63,7 +63,6 @@ class CurrencyController extends Controller
         $activities  = $currency->activity()
         ->sortBy($request)
         ->paginate((int)($request->per_page ?? 15));
-        data_set($activities, 'currency', $currency);
 
         return CurrencyCollection::make($activities)
             ->additional([
