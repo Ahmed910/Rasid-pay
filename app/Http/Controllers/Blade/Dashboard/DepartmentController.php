@@ -120,52 +120,6 @@ class DepartmentController extends Controller
         return redirect()->route('dashboard.department.index');
     }
 
-    public function archive(Request $request)
-    {
-
-        $sortingColumns = [
-            'id',
-            'name',
-            'parent',
-            'deleted_at',
-
-        ];
-
-        if (isset($request->order[0]['column'])) {
-            $request['sort'] = ['column' => $sortingColumns[$request->order[0]['column']], 'dir' => $request->order[0]['dir']];
-        }
-
-        $departmentsQuery = Department::onlyTrashed()
-            ->search($request)
-            ->CustomDateFromTo($request)
-            ->with('parent.translations')
-            ->ListsTranslations('name')
-            ->addSelect('departments.deleted_at', 'departments.parent_id')
-            ->sortBy($request);
-
-        if ($request->ajax()) {
-            $departmentCount = $departmentsQuery->count();
-            $departments = $departmentsQuery->skip($request->start)
-                ->take(($request->length == -1) ? $departmentCount : $request->length)
-                ->get();
-
-            return DepartmentCollection::make($departments)
-                ->additional(['total_count' => $departmentCount]);
-        }
-
-        $parentDepartments = Department::where('is_active', 1)
-            ->has("children")
-            ->orWhere(function ($q) {
-                $q->doesntHave('children')
-                    ->WhereNull('parent_id');
-            })
-            // ->without("images", 'addedBy')
-            ->select("id")
-            ->ListsTranslations("name")
-            ->pluck('name', 'id');
-
-        return view('dashboard.archive.department.index', compact('parentDepartments'));
-    }
 
     public function restore(ReasonRequest $request, $id)
     {

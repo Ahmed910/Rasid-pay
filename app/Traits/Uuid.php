@@ -31,6 +31,13 @@ trait Uuid
         return 'string';
     }
 
+    public function getImageAttribute()
+    {
+        if ($this->images()->first()?->media == null && !request()->has('with_activity') && !request()->routeIs('dashboard.*')) return asset('dashboardAssets/images/brand/logo-3.png');
+
+        return asset($this->images()->first()?->media);
+    }
+
     public function getCreatedAtAttribute($date)
     {
         if (auth()->check() && auth()->user()->is_date_hijri) {
