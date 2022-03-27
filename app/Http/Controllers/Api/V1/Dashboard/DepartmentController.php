@@ -51,12 +51,20 @@ class DepartmentController extends Controller
     public function getAllDepartments(Request $request)
     {
         return response()->json([
-            'data' => Department::where('is_active', 1)
-                ->select('id')->when($request->department_id, function ($q) use ($request) {
+            'data' => Department::select('id')->when($request->department_id, function ($q) use ($request) {
                     $children = Department::flattenChildren(Department::find($request->department_id));
                     $q->whereNotIn('departments.id', $children);
                 })->when($request->department_type == 'children', function ($q) {
                     $q->has('children');
+                })->when($request->activate_case, function ($q) use($request){
+                    switch ($request->activate_case) {
+                        case 'active':
+                            $q->where('is_active', 1);
+                            break;
+                        case 'hold':
+                            $q->where('is_active', 0);
+                            break;
+                    }
                 })->ListsTranslations('name')->without(['images', 'addedBy', 'translations'])->get(),
             'status' => true,
             'message' =>  '',

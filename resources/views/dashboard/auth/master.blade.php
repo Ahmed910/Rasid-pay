@@ -45,7 +45,8 @@
       media="all"
       href="{{ asset('dashboardAssets') }}/colors/color1.css"
     />
- 
+    <link href="{{ asset('dashboardAssets') }}/css/toast/toast.style.css" rel="stylesheet">
+
   </head>
 
   <body class="app sidebar-mini {{ LaravelLocalization::getCurrentLocaleDirection() }}">
@@ -57,6 +58,7 @@
           alt="Loader"
         />
       </div>
+      @include('dashboard.layouts.modals.alert')
       <!-- /GLOABAL LOADER -->
 
       <!-- PAGE -->
@@ -107,7 +109,9 @@
 
   <!-- CUSTOM JS -->
   <script src="{{ asset('dashboardAssets') }}/js/custom.js"></script>
+  <script src="{{ asset('dashboardAssets') }}/js/toast/toast.script.js"></script>
   @yield('scripts')
+  @yield('notify')
   <script>
 
     $(document).ready(function () {
@@ -125,10 +129,10 @@
           $("#show_hide_password i").addClass("mdi-eye-outline");
         }
       });
-     
+
     });
-    
-    
+
+
 
   </script>
 </body>
