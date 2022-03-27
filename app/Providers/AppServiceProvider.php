@@ -48,7 +48,7 @@ class AppServiceProvider extends ServiceProvider
                 }
                 $this->whereDate('created_at', "<=", $created_to);
             }
-        });
+        });       
     }
 
     /**

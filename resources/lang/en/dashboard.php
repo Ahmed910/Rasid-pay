@@ -25,6 +25,12 @@ return [
         "success_archive" => "Archived Successfully",
         "success_restore" => "Restored Successfully",
         "has_relationship_cannot_delete" => "This item has relationships ,so you cannot delete it",
+        'close'=>'Close',
+        'yes'=>'Yes',
+        'no' => 'No',
+        'want_saving'=>'Do You Want To Save ?',
+        'reason_required' => 'Reason Is Required',
+        'want_back_without_saving' => 'Do You Want Back Without Saving ?',
         "save" => "Save",
         "back" => "Back",
         "edit" => "Edit",
@@ -93,7 +99,15 @@ return [
         'something_went_wrog' => 'The data entered is incorrect',
         'name_must_be_unique_on_department' => 'This job already exists for this department'
     ],
+    'home' => [
+        'home' => 'Home',
+        'permissions' => [
+            "show" => "show",
+        ],
+    ],
     'activity_log' => [
+        "activity_log" => " Activity Log",
+        "activity_logs" => "Activity Logs",
         "reason" => ":user did :action",
         "date" =>"Activity Date",
         "activity" => "Activity",
@@ -109,6 +123,12 @@ return [
             'activated' => 'Activate',
             'permanent' => 'Permanent Ban',
             'temporary' => 'Temporary Ban ',
+
+        ],
+        'sub_progs' => [
+            'index' => 'Activitylogs Record ',
+            'show' => 'Show ActivityLog ',
+
         ],
 
     ],
@@ -126,8 +146,14 @@ return [
         "add_group" => "Add a group",
         "edit_group" => "",
         "group_count" => "",
+        'sub_progs' => [
+            'index' => ' Groups Record',
+            'archive' => ' Groups Archive',
+            'create' => 'Add Group ',
+        ],
         'permissions' => array_except($permissions, ['archive', 'restore', 'force_delete']) + ['create' => 'Show side menu']
     ],
+
     "currency" => [
         "currency" => "Currency",
         "countries" => "Currencies",
@@ -208,6 +234,11 @@ return [
         "add_admin" => "Add Admin",
         "edit_admin" => "Edit Admin",
         "admin_count" => "Admins Count",
+        'sub_progs' => [
+            'index' => 'Admins Rescord ',
+            'archive' => 'Admins Archive',
+            'create' => 'Add Admin ',
+        ],
         'permissions' => array_except($permissions, ['archive', 'restore', 'force_delete']) + ['create' => 'Show Admins']
     ],
     "region" => [
@@ -224,7 +255,12 @@ return [
         "add_employee" => "Add Employee",
         "edit_employee" => "Edit Employee",
         "employee_count" => "Employees Count",
-        'permissions' => array_except($permissions, ['archive', 'restore', 'force_delete']) + ['create' => 'Show Employees']
+        'permissions' => array_except($permissions, ['archive', 'restore', 'force_delete']) + ['create' => 'Show Employees'],
+        'sub_progs' => [
+            'index' => ' Employees Record',
+            'archive' => 'Employess Archive ',
+            'create' => 'Add Employee ',
+        ],
     ],
     "bank" => [
         "bank" => "Bank",

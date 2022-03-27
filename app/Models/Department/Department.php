@@ -50,12 +50,7 @@ class Department extends Model implements TranslatableContract, HasAssetsInterfa
     #region accessor
 
 
-    public function getImageAttribute()
-    {
-        if ($this->images()->first()?->media == null) return null;
-
-        return asset($this->images()->first()?->media);
-    }
+    
     #endregion accessor
 
     #region scopes

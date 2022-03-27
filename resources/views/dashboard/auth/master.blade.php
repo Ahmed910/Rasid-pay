@@ -46,7 +46,6 @@
       href="{{ asset('dashboardAssets') }}/colors/color1.css"
     />
     <link href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css" rel="stylesheet">
-
   </head>
 
   <body class="app sidebar-mini {{ LaravelLocalization::getCurrentLocaleDirection() }}">
@@ -111,7 +110,7 @@
   <script src="{{ asset('dashboardAssets') }}/js/custom.js"></script>
   <script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
   @yield('scripts')
-  @yield('notify')
+  {{-- @yield('notify') --}}
   <script>
 
     $(document).ready(function () {
@@ -131,9 +130,6 @@
       });
 
     });
-
-
-
   </script>
 </body>
 </html>

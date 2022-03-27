@@ -23,21 +23,21 @@
             <ul class="side-menu">
                 <li class="slide">
                     <a class="side-menu__item" data-bs-toggle="slide" href="{{ route('dashboard.home.index') }}"><i
-                            class="mdi mdi-home-variant-outline"></i><span class="side-menu__label">الرئيسية</span></a>
+                            class="mdi mdi-home-variant-outline"></i><span class="side-menu__label">{{trans('dashboard.home.home')}}</span></a>
                 </li>
                 <li class="slide {{ request()->routeIs('dashboard.department.*') ? 'is-expanded' : '' }} ">
                     <a class="side-menu__item" data-bs-toggle="slide" href="javascript:void(0)"><i
-                            class="mdi mdi-view-dashboard-outline"></i><span class="side-menu__label">الأقسام</span><i
+                            class="mdi mdi-view-dashboard-outline"></i><span class="side-menu__label">{{trans('dashboard.department.departments')}}</span><i
                             class="angle fe fe-chevron-right"></i></a>
                     <ul class="slide-menu">
                         <li class="side-menu-label1">
-                            <a href="javascript:void(0)">الأقسام</a>
+                            <a href="javascript:void(0)">{{trans('dashboard.department.departments')}}</a>
                         </li>
                         <li>
                             <a href="{{ route('dashboard.department.index') }}"
                                 class="slide-item px-6 {{ request()->routeIs('dashboard.department.index') ? 'active' : '' }}"><i
                                     class="mdi mdi-file-document-multiple-outline"></i>
-                                سجل الأقسام</a>
+                                    {{ trans('dashboard.department.sub_progs.index') }}</a>
                         </li>
                         <li>
                             <a href="{{ route('dashboard.department.create') }}"

@@ -1,57 +1,48 @@
 @if (session()->has("success"))
- @section('notify')
+ @section('scripts')
      <script>
-         toastr.success("{{ session()->get("success") }}.", "success", {
-             has_icon:false,
-             has_close_btn:true,
-             stack: true,
-             fullscreen:false,
-             timeout:8000,
-             sticky:false,
-             has_progress:true,
-             position_class:"toast-top-left",
-             rtl:"{{ LaravelLocalization::getCurrentLocaleDirection() == 'rtl' }}",
+         toastr.success("{{ session()->get("success") }}.", '', {
+             closeButton: false,
+             tapToDismiss: false,
+             positionClass: 'toast-top-left',
+             progressBar: true,
+             hideDuration: 9000,
+             rtl: "{{ LaravelLocalization::getCurrentLocaleDirection() == 'rtl' }}"
          });
      </script>
  @endsection
 @endif
 @if (session()->has("info"))
- @section('notify')
+ @section('scripts')
      <script>
-         toastr.info("{{ session()->get("info") }}.", "info", {
-             has_icon:false,
-             has_close_btn:true,
-             stack: true,
-             fullscreen:false,
-             timeout:8000,
-             sticky:false,
-             has_progress:true,
-             position_class:"toast-top-left",
-             rtl:"{{ LaravelLocalization::getCurrentLocaleDirection() == 'rtl' }}",
+         toastr.info("{{ session()->get("info") }}.", '', {
+             closeButton: false,
+             tapToDismiss: false,
+             positionClass: 'toast-top-left',
+             progressBar: true,
+             hideDuration: 9000,
+             rtl: "{{ LaravelLocalization::getCurrentLocaleDirection() == 'rtl' }}"
          });
      </script>
  @endsection
  @endif
 
  @if (session()->has("fail"))
- @section('notify')
+ @section('scripts')
      <script>
-         toastr.error("{{ session()->get("fail") }}.", "error", {
-             has_icon:false,
-             has_close_btn:true,
-             stack: true,
-             fullscreen:false,
-             timeout:8000,
-             sticky:false,
-             has_progress:true,
-             position_class:"toast-top-left",
-             rtl:"{{ LaravelLocalization::getCurrentLocaleDirection() == 'rtl' }}",
+         toastr.error("{{ session()->get("fail") }}.", '', {
+             closeButton: false,
+             tapToDismiss: false,
+             positionClass: 'toast-top-left',
+             progressBar: true,
+             hideDuration: 9000,
+             rtl: "{{ LaravelLocalization::getCurrentLocaleDirection() == 'rtl' }}"
          });
      </script>
  @endsection
  @endif
  @if(count($errors) > 0)
- @section('notify')
+ @section('scripts')
      <script>
         @foreach($errors->all() as $error)
         toastr['error']('{{ $error }}.', '', {
