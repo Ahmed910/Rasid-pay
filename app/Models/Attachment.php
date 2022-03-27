@@ -35,7 +35,7 @@ class Attachment extends Model
         foreach ($attachmentRequest->attachments as $item) {
 
 //        dd($item) ;
-            foreach ($item["files"] as $file) {
+            if (isset($item["files"] ))foreach ($item["files"] as $file) {
                 $user->attachments()->create([
                     'file' => $file->store('/files/client', ['disk' => 'local']),
                     'file_type' => $file->getClientMimeType(),
