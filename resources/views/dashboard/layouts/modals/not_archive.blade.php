@@ -13,7 +13,7 @@
         <p id="message"></p>
       </div>
       <div class="modal-footer justify-content-center mt-5 p-0">
-        <button type="button" class="btn btn-warning mx-3" data-bs-dismiss="modal">إغلاق</button>
+        <button type="button" class="btn btn-warning mx-3" data-bs-dismiss="modal">{{ trans('dashboard.general.close') }}</button>
       </div>
     </div>
   </div>
