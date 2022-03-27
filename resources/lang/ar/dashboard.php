@@ -15,13 +15,14 @@ return [
     'attributes' => [
         'name' => 'الاسم',
         'description' => 'الوصف',
-        'nationality' => 'الجنسية باللغة العربية',
+        'nationality' => 'الجنسية',
     ],
     'datatable' => [
         'show :menu' => 'عرض :menu'
     ],
     'general' => [
-        "success_add" => "تم الإضافة بنجاح",
+        "no_reasons" => "لايوجد سبب",
+        "success_add" => "تمت الإضافة بنجاح",
         "success_delete" => "تم الحذف بنجاح",
         "success_update" => "تم التعديل بنجاح",
         "success_archive" => "تم الأرشفة بنجاح",

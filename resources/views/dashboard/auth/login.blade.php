@@ -6,7 +6,7 @@
           {{ trans('auth.login_subtitle')}}
         </p>
         <!-- FORM OPEN -->
-
+@dump($errors)
         <form
           method="post"
           action="{{ route('dashboard.post_login') }}"
@@ -27,7 +27,8 @@
               value="{{ old('username') }}"
               placeholder="{{ trans('auth.userID')}}"
             />
-            @error('username')
+            @error('username','login_id')
+                @dump($message)
                 <div class="invalid-feedback">{{ $message }}</div>
             @enderror
           </div>
