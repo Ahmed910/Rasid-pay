@@ -4,6 +4,7 @@ namespace App\Http\Resources\Dashboard\Country;
 
 use App\Http\Resources\Dashboard\Country\CountryResource;
 use App\Http\Resources\Dashboard\ActivityLogResource;
+use App\Models\Country\Country;
 use Illuminate\Http\Resources\Json\ResourceCollection;
 
 class CountryCollection extends ResourceCollection
@@ -16,9 +17,11 @@ class CountryCollection extends ResourceCollection
      */
     public function toArray($request)
     {
+        $country = Country::withTrashed()->with('translations')->findOrFail(@$request->route()->parameters['country']);
+
         return [
-            'country' => CountryResource::make($this->collection['country']),
-            'activity' => ActivityLogResource::collection($this->collection->except('country'))
+            'country' => CountryResource::make($country),
+            'activity' => ActivityLogResource::collection($this->collection)
         ];
     }
 }
