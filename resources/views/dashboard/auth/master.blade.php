@@ -23,7 +23,7 @@
     />
 
     <!-- TITLE -->
-    <title>@yield('title' , trans('dashboard.general.dashboard',['title' => $title ?? '']))</title>
+    {{-- <title>@yield('title' , trans('dashboard.general.dashboard',['title' => $title ?? '']))</title> --}}
 
     <!-- BOOTSTRAP CSS -->
     <link
@@ -45,6 +45,7 @@
       media="all"
       href="{{ asset('dashboardAssets') }}/colors/color1.css"
     />
+ 
   </head>
 
   <body class="app sidebar-mini {{ LaravelLocalization::getCurrentLocaleDirection() }}">
@@ -124,7 +125,11 @@
           $("#show_hide_password i").addClass("mdi-eye-outline");
         }
       });
+     
     });
+    
+    
+
   </script>
 </body>
 </html>

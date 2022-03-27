@@ -51,10 +51,10 @@
                       @enderror
                     </div>
                     <div class="col-12 mt-5 text-center">
-                      {!! Form::submit('إرسال', ['class' => "btn btn-primary",'formaction' => route('dashboard.post_reset')]) !!}
+                      {!! Form::submit('إرسال', ['class' => "btn btn-primary mx-2",'formaction' => route('dashboard.post_reset')]) !!}
                       <a
                         href="{!! route('dashboard.login') !!}"
-                        class="btn btn-outline-primary"
+                        class="btn btn-outline-primary mx-2"
                       >
                         عودة
                       </a>
@@ -86,10 +86,10 @@
                       @enderror
                     </div>
                     <div class="col-12 mt-5 text-center">
-                      {!! Form::submit('إرسال', ['class' => "btn btn-primary",'formaction' => route('dashboard.post_reset')]) !!}
+                      {!! Form::submit('إرسال', ['class' => "btn btn-primary mx-2",'formaction' => route('dashboard.post_reset')]) !!}
                       <a
                         href="{!! route('dashboard.login') !!}"
-                        class="btn btn-outline-primary"
+                        class="btn btn-outline-primary mx-2"
                       >
                         عودة
                       </a>

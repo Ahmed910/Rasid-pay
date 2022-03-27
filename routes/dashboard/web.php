@@ -15,6 +15,7 @@ Route::group(
         Route::post('dashboard/login', "Auth\LoginController@login")->name("post_login");
         Route::get('dashboard/password/reset', 'Auth\ForgotPasswordController@showLinkRequestForm')->name('reset');
         Route::post('dashboard/password/email', 'Auth\ForgotPasswordController@sendResetLinkEmail')->name('post_reset');
+        Route::view('dashboard/password/view_email', 'dashboard.auth.verify_code1');
 
         Route::get('password/code_check/{token}', 'Auth\ResetPasswordController@showCodeCheckForm')->name('check_sms_code_form');
         Route::post('password/phone_reset', 'Auth\ResetPasswordController@checkSmsCode')->name('check_sms_code');
