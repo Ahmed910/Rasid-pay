@@ -26,6 +26,11 @@ class Permission extends Model
         'menus.show',
         'menus.destroy',
         'session.logout',
+        "activity_logs.employees",
+        "activity_logs.main_programs",
+        "activity_logs.sub_programs",
+        "activity_logs.events",
+        "image_delete.image_delete",
     ];
     #endregion properties
 
