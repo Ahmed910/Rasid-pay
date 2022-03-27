@@ -44,7 +44,7 @@ trait Uuid
             $this->changeDateLocale(app()->getLocale());
             return Hijri::convertToHijri($date)->format('d F o');
         }
-        return date('Y-F-d',strtotime($date));
+        return Carbon::parse($date)->format("Y F d");
     }
 
     public function getUpdatedAtAttribute($date)
