@@ -67,14 +67,7 @@ return [
         'day_month_year' => 'يوم/شهر/سنة',
         'export' => 'تصدير',
         'details' => 'التفاصيل',
-        'no_data' => 'لا يوجد بيانات',
-        'there_is_no_data' => 'لا يوجد نتائج بحث متاحة',
-        'showing' => 'عرض',
-        'to' => 'الى',
-        'from' => 'من',
-        'entries' => 'مدخلات',
-        'delete' => 'حذف',
-        'no_search_result' => 'لا يوجد نتائج بحث متاحة',
+
         'hold_upload' => 'اسحب وأسقط او قم برفع الصورة',
         'hold_change' => 'اسحب وأسقط او إضغط لتغيير الصورة',
         'upload_error' => 'اووه ، حدث خطأ ما',
@@ -86,6 +79,15 @@ return [
         'the_archive' => 'الأرشيف',
         "want_to_archive"=>"هل تريد إتمام عملية الأرشفة؟",
         "reason_needed" =>"الرجاء ذكر السبب*"
+    ],
+    'datatable' => [
+        'no_data' => 'لا يوجد بيانات',
+        'there_is_no_data' => 'لا يوجد نتائج بحث متاحة',
+        'showing' => 'عرض',
+        'to' => 'الى',
+        'from' => 'من',
+        'entries' => 'عنصر',
+        'no_search_result' => 'لا يوجد نتائج بحث متاحة',
     ],
     'error' => [
         'method_not_allow' => 'طريقة الطلب (:method) غير صحيحة',
