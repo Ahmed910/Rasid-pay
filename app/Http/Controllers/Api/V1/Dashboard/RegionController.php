@@ -73,7 +73,6 @@ class RegionController extends Controller
         $activities  = $region->activity()
             ->sortBy($request)
             ->paginate((int)($request->per_page ?? 15));
-        data_set($activities, 'region', $region);
 
         return RegionCollection::make($activities)
             ->additional([

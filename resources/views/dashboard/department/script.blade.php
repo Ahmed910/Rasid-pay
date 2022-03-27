@@ -54,7 +54,8 @@
 
                             return `<div class="d-flex align-items-center"><div class="flex-shrink-0">
                               <img src="${image}" data-toggle="popoverIMG" title='<img src="${image}" width="300" height="300" class="d-block rounded-3" alt="">' width="25" class="avatar brround cover-image" alt="..."/> </div><div class="flex-grow-1 ms-3">${data.name}</div>`
-                        }
+                        },
+                        name: 'name'
                     },
                     {
                         data: function(data) {

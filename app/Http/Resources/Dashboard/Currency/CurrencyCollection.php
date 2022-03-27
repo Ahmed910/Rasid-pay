@@ -3,6 +3,7 @@
 namespace App\Http\Resources\Dashboard\Currency;
 
 use App\Http\Resources\Dashboard\ActivityLogResource;
+use App\Models\Currency\Currency;
 use Illuminate\Http\Resources\Json\ResourceCollection;
 
 class CurrencyCollection extends ResourceCollection
@@ -15,9 +16,11 @@ class CurrencyCollection extends ResourceCollection
      */
     public function toArray($request)
     {
+        $currency = Currency::withTrashed()->with('translations')->findOrFail(@$request->route()->parameters['currency']);
+
         return [
-            'currency' => CurrencyResource::make($this->collection['currency']),
-            'activity' => ActivityLogResource::collection($this->collection->except('currency'))
+            'currency' => CurrencyResource::make($currency),
+            'activity' => ActivityLogResource::collection($this->collection)
         ];
     }
 }

@@ -13,8 +13,8 @@ $permissions = [
 
 return [
     'attributes' => [
-        'name' => 'الاسم باللغة العربية',
-        'description' => 'الوصف باللغة العربية',
+        'name' => 'الاسم',
+        'description' => 'الوصف',
         'nationality' => 'الجنسية باللغة العربية',
     ],
     'datatable' => [
@@ -93,7 +93,7 @@ return [
         'method_not_allow' => 'طريقة الطلب (:method) غير صحيحة',
         'not_found' => 'لم يتم العثور على بيانات',
         'page_not_found' => '404, الصفحة غير موجودة',
-        'something_went_wrog' => 'البيانات المدخلة غير صحيحة',
+        'something_went_wrong' => 'البيانات المدخلة غير صحيحة',
         'name_must_be_unique_on_department' =>  'هذه الوظيفة موجودة بالفعل لهذا القسم'
     ],
     'activity_log' => [
