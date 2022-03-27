@@ -204,4 +204,10 @@ class JobController extends Controller
         $rasidJob->forceDelete();
         return redirect()->back();
     }
+    public function destroy(RasidJob $rasidJob, \App\Http\Requests\Dashboard\ReasonRequest $request)
+    {
+        if (!$rasidJob->is_vacant) $rasidJob->delete();
+        return redirect()->route('dashboard.job.index');
+
+    }
 }

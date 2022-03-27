@@ -54,12 +54,14 @@ Route::middleware('auth:sanctum')->group(function () {
     });
 
     Route::get("/files/client/{file}", [\App\Http\Controllers\Api\V1\Dashboard\PrivateController::class, "downloadfile"]);
+    Route::delete('delete-image/{appMedia}','DeleteImageController')->name('image_delete');
+
     Route::middleware('adminPermission')->group(function () {
-        // Route::controller('CountryController')->name('countries.')->prefix('countries')->group(function () {
-        //     Route::get('archive', 'archive')->name('archive');
-        //     Route::post('restore/{id}', 'restore')->name('restore');
-        //     Route::delete('forceDelete/{id}', 'forceDelete')->name('force_delete');
-        // });
+        Route::controller('CountryController')->name('countries.')->prefix('countries')->group(function () {
+            Route::get('archive', 'archive')->name('archive');
+            Route::post('restore/{id}', 'restore')->name('restore');
+            Route::delete('forceDelete/{id}', 'forceDelete')->name('force_delete');
+        });
         //
         // Route::controller('CurrencyController')->name('currencies.')->prefix('currencies')->group(function () {
         //     Route::get('archive', 'archive')->name('archive');
@@ -122,7 +124,7 @@ Route::middleware('auth:sanctum')->group(function () {
         });
 
         Route::apiResources([
-            // 'countries' => 'CountryController',
+            'countries' => 'CountryController',
             // 'currencies' => 'CurrencyController',
             // "cities" => "CityController",
             // "regions" => "RegionController",

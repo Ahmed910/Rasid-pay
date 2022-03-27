@@ -109,6 +109,17 @@ class DepartmentController extends Controller
     }
 
 
+    public function destroy(ReasonRequest $request, Department $department)
+    {
+        
+        if ($department->rasidJobs()->exists() || $department->children()->exists()) {
+            return redirect()->back();
+        }
+
+        $department->delete();
+        return redirect()->route('dashboard.department.index');
+    }
+
     public function archive(Request $request)
     {
 
