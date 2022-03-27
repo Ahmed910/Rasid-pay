@@ -1,7 +1,7 @@
 @if (session()->has("success"))
  @section('notify')
      <script>
-         $.Toast("Success", "{{ session()->get("success") }}.", "success", {
+         toastr.success("{{ session()->get("success") }}.", "success", {
              has_icon:false,
              has_close_btn:true,
              stack: true,
@@ -9,7 +9,7 @@
              timeout:8000,
              sticky:false,
              has_progress:true,
-             position_class:"toast-top-right",
+             position_class:"toast-top-left",
              rtl:"{{ LaravelLocalization::getCurrentLocaleDirection() == 'rtl' }}",
          });
      </script>
@@ -18,7 +18,7 @@
 @if (session()->has("info"))
  @section('notify')
      <script>
-         $.Toast("Info", "{{ session()->get("info") }}.", "info", {
+         toastr.info("{{ session()->get("info") }}.", "info", {
              has_icon:false,
              has_close_btn:true,
              stack: true,
@@ -26,7 +26,7 @@
              timeout:8000,
              sticky:false,
              has_progress:true,
-             position_class:"toast-top-right",
+             position_class:"toast-top-left",
              rtl:"{{ LaravelLocalization::getCurrentLocaleDirection() == 'rtl' }}",
          });
      </script>
@@ -36,7 +36,7 @@
  @if (session()->has("fail"))
  @section('notify')
      <script>
-         $.Toast("Error", "{{ session()->get("fail") }}.", "error", {
+         toastr.error("{{ session()->get("fail") }}.", "error", {
              has_icon:false,
              has_close_btn:true,
              stack: true,
@@ -44,7 +44,7 @@
              timeout:8000,
              sticky:false,
              has_progress:true,
-             position_class:"toast-top-right",
+             position_class:"toast-top-left",
              rtl:"{{ LaravelLocalization::getCurrentLocaleDirection() == 'rtl' }}",
          });
      </script>
@@ -54,17 +54,14 @@
  @section('notify')
      <script>
         @foreach($errors->all() as $error)
-         $.Toast("Error", "{{ $error }}.", "error", {
-             has_icon:false,
-             has_close_btn:true,
-             stack: true,
-             fullscreen:false,
-             timeout:8000,
-             sticky:false,
-             has_progress:true,
-             position_class:"toast-top-right",
-             rtl:"{{ LaravelLocalization::getCurrentLocaleDirection() == 'rtl' }}",
-         });
+        toastr['error']('{{ $error }}.', '', {
+          closeButton: false,
+          tapToDismiss: false,
+          positionClass: 'toast-top-left',
+          progressBar: true,
+          hideDuration: 9000,
+          rtl: "{{ LaravelLocalization::getCurrentLocaleDirection() == 'rtl' }}"
+        });
          @endforeach
      </script>
  @endsection

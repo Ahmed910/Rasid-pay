@@ -45,7 +45,7 @@
       media="all"
       href="{{ asset('dashboardAssets') }}/colors/color1.css"
     />
-    <link href="{{ asset('dashboardAssets') }}/css/toast/toast.style.css" rel="stylesheet">
+    <link href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css" rel="stylesheet">
 
   </head>
 
@@ -109,7 +109,7 @@
 
   <!-- CUSTOM JS -->
   <script src="{{ asset('dashboardAssets') }}/js/custom.js"></script>
-  <script src="{{ asset('dashboardAssets') }}/js/toast/toast.script.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
   @yield('scripts')
   @yield('notify')
   <script>
