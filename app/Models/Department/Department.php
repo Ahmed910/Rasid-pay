@@ -50,7 +50,7 @@ class Department extends Model implements TranslatableContract, HasAssetsInterfa
     #region accessor
 
 
-    
+
     #endregion accessor
 
     #region scopes

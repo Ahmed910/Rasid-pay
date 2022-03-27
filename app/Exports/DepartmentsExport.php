@@ -21,6 +21,7 @@ class DepartmentsExport implements FromView, ShouldAutoSize
 
     public function view(): View
     {
+
         $departmentsQuery = Department::search($this->request)
             ->CustomDateFromTo($this->request)
             ->with('parent.translations')
