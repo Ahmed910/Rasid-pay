@@ -50,6 +50,7 @@
     <div class="page">
         <div class="page-main">
             <!-- app-Header -->
+            @include('dashboard.layouts.modals.alert')
             @include('dashboard.layouts.header')
             <!-- /app-Header -->
 

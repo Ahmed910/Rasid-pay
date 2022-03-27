@@ -15,18 +15,25 @@ return [
     'attributes' => [
         'name' => 'الاسم',
         'description' => 'الوصف',
-        'nationality' => 'الجنسية باللغة العربية',
+        'nationality' => 'الجنسية',
     ],
     'datatable' => [
         'show :menu' => 'عرض :menu'
     ],
     'general' => [
-        "success_add" => "تم الإضافة بنجاح",
+        "no_reasons" => "لايوجد",
+        "success_add" => "تمت الإضافة بنجاح",
         "success_delete" => "تم الحذف بنجاح",
         "success_update" => "تم التعديل بنجاح",
         "success_archive" => "تم الأرشفة بنجاح",
         "success_restore" => "تم الاستعادة بنجاح",
         "has_relationship_cannot_delete" => "لا يمكن حذف هذا العنصر ،بسبب احتواءه علي علاقات",
+        'yes'=>'موافق',
+        'no' => 'غير موافق',
+        'want_saving'=>'هل تريد اتمام عملية الحفظ ؟',
+        'reason_required' => 'السبب مطلوب',
+        'want_back_without_saving' => 'هل تريد العودة دون حفظ ؟',
+        'close'=>'اغلاق',
         "save" => "حفظ",
         "back" => "عودة",
         "edit" => "تعديل",
