@@ -70,9 +70,11 @@ trait Uuid
         if ($locale == 'en') {
             Date::setTranslation(new English);
             Date::setDefaultNumbers(Date::ARABIC_NUMBERS);
+            setlocale(LC_ALL, "en_US.utf8" );
         } else {
             Date::setTranslation(new Arabic);
             Date::setDefaultNumbers(Date::INDIAN_NUMBERS);
+            setlocale(LC_ALL, "ar_SA.utf8" );
         }
     }
 }
