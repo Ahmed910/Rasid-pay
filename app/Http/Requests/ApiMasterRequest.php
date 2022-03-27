@@ -24,7 +24,7 @@ class ApiMasterRequest extends FormRequest
         {
             throw new HttpResponseException(response()->json([
                 'status' => false,
-                'message' => trans('dashboard.error.something_went_wrog'),
+                'message' => trans('dashboard.error.something_went_wrong'),
                 'errors' => request()->is("*/dashboard/*") ? $validator->errors()->toArray() : $validator->errors()->first(),
                 'data' => null,
             ], 422));
