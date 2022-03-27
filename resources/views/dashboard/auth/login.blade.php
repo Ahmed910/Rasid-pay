@@ -6,7 +6,7 @@
           من فضلك قم بإدخال بريدك الإلكتروني وكلمة المرور
         </p>
         <!-- FORM OPEN -->
-        
+
         <form
           method="post"
           action="{{ route('dashboard.post_login') }}"
@@ -21,6 +21,7 @@
               class="form-control @error('username') is-invalid @enderror"
               id="userID"
               name="username"
+              value="{{ old('username') }}"
               placeholder="رقم المستخدم"
             />
             @error('username')

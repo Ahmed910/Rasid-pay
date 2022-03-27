@@ -42,6 +42,7 @@
                         class="form-control @error('email') is-invalid @enderror"
                         id="email"
                         name="email"
+                        value="{{ old('email') }}"
                         placeholder="البريد الإلكتروني"
                       />
                       @error('email')
@@ -76,6 +77,7 @@
                         class="form-control @error('phone') is-invalid @enderror"
                         id="mobile"
                         name="phone"
+                        value="{{ old('phone') }}"
                         placeholder="رقم الجوال"
                       />
                       @error('phone')

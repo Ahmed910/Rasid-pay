@@ -55,29 +55,29 @@ Route::middleware('auth:sanctum')->group(function () {
 
     Route::get("/files/client/{file}", [\App\Http\Controllers\Api\V1\Dashboard\PrivateController::class, "downloadfile"]);
     Route::middleware('adminPermission')->group(function () {
-        Route::controller('CountryController')->name('countries.')->prefix('countries')->group(function () {
-            Route::get('archive', 'archive')->name('archive');
-            Route::post('restore/{id}', 'restore')->name('restore');
-            Route::delete('forceDelete/{id}', 'forceDelete')->name('force_delete');
-        });
-
-        Route::controller('CurrencyController')->name('currencies.')->prefix('currencies')->group(function () {
-            Route::get('archive', 'archive')->name('archive');
-            Route::post('restore/{id}', 'restore')->name('restore');
-            Route::delete('forceDelete/{id}', 'forceDelete')->name('force_delete');
-        });
-
-        Route::controller('CityController')->name('cities.')->prefix('cities')->group(function () {
-            Route::get('archive', 'archive')->name('archive');
-            Route::post('restore/{id}', 'restore')->name('restore');
-            Route::delete('forceDelete/{id}', 'forceDelete')->name('force_delete');
-        });
-
-        Route::controller('RegionController')->name('regions.')->prefix('regions')->group(function () {
-            Route::get('archive', 'archive')->name('archive');
-            Route::post('restore/{id}', 'restore')->name('restore');
-            Route::delete('forceDelete/{id}', 'forceDelete')->name('force_delete');
-        });
+        // Route::controller('CountryController')->name('countries.')->prefix('countries')->group(function () {
+        //     Route::get('archive', 'archive')->name('archive');
+        //     Route::post('restore/{id}', 'restore')->name('restore');
+        //     Route::delete('forceDelete/{id}', 'forceDelete')->name('force_delete');
+        // });
+        //
+        // Route::controller('CurrencyController')->name('currencies.')->prefix('currencies')->group(function () {
+        //     Route::get('archive', 'archive')->name('archive');
+        //     Route::post('restore/{id}', 'restore')->name('restore');
+        //     Route::delete('forceDelete/{id}', 'forceDelete')->name('force_delete');
+        // });
+        //
+        // Route::controller('CityController')->name('cities.')->prefix('cities')->group(function () {
+        //     Route::get('archive', 'archive')->name('archive');
+        //     Route::post('restore/{id}', 'restore')->name('restore');
+        //     Route::delete('forceDelete/{id}', 'forceDelete')->name('force_delete');
+        // });
+        //
+        // Route::controller('RegionController')->name('regions.')->prefix('regions')->group(function () {
+        //     Route::get('archive', 'archive')->name('archive');
+        //     Route::post('restore/{id}', 'restore')->name('restore');
+        //     Route::delete('forceDelete/{id}', 'forceDelete')->name('force_delete');
+        // });
         Route::controller('AdminController')->name('admins.')->prefix('admins')->group(function () {
             Route::get('create', 'create')->name('create');
             // Route::get('archive', 'archive')->name('archive');
@@ -91,8 +91,8 @@ Route::middleware('auth:sanctum')->group(function () {
             Route::delete('forceDelete/{id}', 'forceDelete')->name('force_delete');
             // Route::get('get-parents', 'getAllParents')->name("get_parents");
         });
-        Route::controller('ClientController')->name('clients.')->prefix('clients')->group(function () {
-        });
+        // Route::controller('ClientController')->name('clients.')->prefix('clients')->group(function () {
+        // });
 
         Route::controller('RasidJobController')->name('rasid_jobs.')->prefix('rasid_jobs')->group(function () {
             Route::get('archive', 'archive')->name('archive');
@@ -122,11 +122,11 @@ Route::middleware('auth:sanctum')->group(function () {
         });
 
         Route::apiResources([
-            'countries' => 'CountryController',
-            'currencies' => 'CurrencyController',
+            // 'countries' => 'CountryController',
+            // 'currencies' => 'CurrencyController',
+            // "cities" => "CityController",
+            // "regions" => "RegionController",
             "departments" => "DepartmentController",
-            "cities" => "CityController",
-            "regions" => "RegionController",
             'admins' => 'AdminController',
             'employees' => 'EmployeeController',
             'clients' => 'ClientController',
