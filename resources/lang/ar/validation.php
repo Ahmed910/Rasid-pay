@@ -37,6 +37,7 @@ $attributes = [
     'is_active'                  => 'حقل الحالة من التفعيل',
     'reset_code'                  => 'حقل الكود',
     'department_id'                  => 'حقل القسم ',
+    'reasonAction'                  => 'حقل السبب',
     // new attr
 
     'permissions'   => 'حقل الصلاحيات',
