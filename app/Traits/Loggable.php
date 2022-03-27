@@ -128,7 +128,7 @@ trait Loggable
 
         if (Schema::hasColumn($table, $column) && request()->has($column)) {
             if (request($column) != $model->getOriginal()[$column]) {
-                $newData = array_only($this->newData($model), [$column]);
+                $newData = array_only($this->newData($model), [$column, 'ban_from', 'ban_to']);
 
                 if (request($column) && $column == 'is_active') {
                     $model->addUserActivity($model, ActivityLog::ACTIVE, 'index', $newData);
@@ -155,7 +155,7 @@ trait Loggable
 
     private function checkIfHasIsActiveOnly($self, string $column)
     {
-        $hasData = count(array_flatten(array_except($this->newData($self), [$column])));
+        $hasData = count(array_flatten(array_except($this->newData($self), [$column, 'ban_from', 'ban_to'])));
 
         if (!$hasData) {
             $this->checkStatus($self, $column);
