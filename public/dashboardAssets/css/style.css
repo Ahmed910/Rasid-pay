@@ -80315,3 +80315,8 @@ tr:hover .dtr-control:before {
 }
 
 /*# sourceMappingURL=style.css.map */
+
+
+.form-control[readonly]{
+  background: #fff;
+}
