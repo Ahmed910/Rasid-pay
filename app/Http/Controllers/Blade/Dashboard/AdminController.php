@@ -4,8 +4,10 @@ namespace App\Http\Controllers\Blade\Dashboard;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\V1\Dashboard\AdminRequest;
+use App\Http\Resources\Blade\Dashboard\Admin\AdminCollection;
 use App\Http\Resources\Blade\Dashboard\Activitylog\ActivityLogCollection;
 use App\Models\{User};
+use App\Models\Department\Department;
 use Illuminate\Http\Request;
 
 class AdminController extends Controller
@@ -17,9 +19,33 @@ class AdminController extends Controller
      */
     public function index(Request $request)
     {
-        if ($request->ajax()) {
+        if (isset($request->order[0]['column'])) {
+            $request['sort'] = ['column' => $request['columns'][$request['order'][0]['column']]['name'], 'dir' => $request['order'][0]['dir']];
         }
-        return view('dashboard.admin.index');
+
+        $adminsQuery = User::CustomDateFromTo($request)->search($request)->with(['department', 'permissions', 'groups' => function ($q) {
+            $q->with('permissions');
+        }])->where('user_type', 'admin')
+
+            ->sortBy($request);
+
+
+        if ($request->ajax()) {
+            $adminCount = $adminsQuery->count();
+            $admins = $adminsQuery->skip($request->start)
+                ->take(($request->length == -1) ? $adminCount : $request->length)
+                ->get();
+            return AdminCollection::make($admins)
+                ->additional(['total_count' => $adminCount]);
+        }
+
+
+        $departments = Department::where('is_active', 1)
+            ->select("id")
+            ->ListsTranslations("name")
+            ->pluck('name', 'id');
+
+        return view('dashboard.admin.index', compact('departments'));
     }
 
     /**

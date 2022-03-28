@@ -15,24 +15,24 @@ class GroupController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
         if (isset($request->order[0]['column'])) {
             $request['sort'] = ['column' => $request['columns'][$request['order'][0]['column']]['name'], 'dir' => $request['order'][0]['dir']];
         }
 
         $query = Group::with('groups', 'permissions')
-        ->where('id',"<>",auth()->user()->group_id)
         ->withTranslation()
+        ->withCount('admins as user_count')
+        ->where('groups.id',"<>",auth()->user()->group_id)
         ->search($request)
         ->sortBy($request);
-
         if (!request()->ajax()) {
             $group_count = $query->count();
+            dd($query->dd());
             $groups = $query->skip($request->start)
                 ->take(($request->length == -1) ? $group_count : $request->length)
                 ->get();
-
             return GroupCollection::make($groups)
                 ->additional(['total_count' => $group_count]);
         }
