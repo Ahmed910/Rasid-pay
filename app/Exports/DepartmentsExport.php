@@ -6,9 +6,6 @@ use App\Models\Department\Department;
 use Maatwebsite\Excel\Concerns\FromView;
 use Illuminate\Contracts\View\View;
 use Maatwebsite\Excel\Concerns\ShouldAutoSize;
-// use Maatwebsite\Excel\Concerns\WithHeadings;
-// use Maatwebsite\Excel\Concerns\WithStrictNullComparison;
-// use Illuminate\Support\Collection;
 
 class DepartmentsExport implements FromView, ShouldAutoSize
 {
