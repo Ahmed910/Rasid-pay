@@ -62,6 +62,11 @@ return [
         "created_at" => "تاريخ الإنشاء",
         'create' => 'انشاء',
         "actions" => "العمليات",
+        "notifications"=>"الاشعارات",
+        "show_all notification"=>"مشاهدة
+        كل
+        الإشعارات",
+        "personalfile" =>"الملف الشخص",
         "active_cases" => [
             'معطل',
             'مفعل',
@@ -297,7 +302,7 @@ return [
         'number' => 'رقم المستخدم',
         "ban_from" => "معطل لفترة (من)",
         "ban_to" => "معطل لفترة (إلى)",
-       
+
         'sub_progs' => [
             'index' => 'سجل المستخدمين',
             'archive' => 'أرشيف المستخدمين',
@@ -428,6 +433,9 @@ return [
         'sub_progs' => [
             'index' => 'سجل الرسائل',
             'archive' => 'أرشيف الرسائل',
+            'show_all messages'=>"مشاهدة
+        كل
+        الرسائل",
             'create' => 'اضافة رسالة',
         ],
     ],
