@@ -25,6 +25,19 @@
                     <button type="button" class="btn btn-outline-primary" data-bs-dismiss="modal">
                         {{ trans('dashboard.general.no') }} </button>
                 </div>
+              </div>
+              <div class="modal-footer justify-content-center mt-5 p-0">
+                <button type="submit" class="btn btn-secondary mx-3">
+                  موافق
+                </button>
+                <button
+                  type="button"
+                  class="btn btn-outline-secondary"
+                  data-bs-dismiss="modal"
+                >
+                  غير موافق
+                </button>
+              </div>
             </form>
         </div>
     </div>

@@ -398,7 +398,6 @@ $(document).ready(function () {
 
 
     $('[data-toggle="popoverIMG"]').popover({
-        placement: "right",
         trigger: "hover",
         html: true,
         // content:

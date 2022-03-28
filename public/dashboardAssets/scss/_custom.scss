@@ -887,3 +887,15 @@ $BaseBG: #0f0f1a;
     }
   }
 }
+
+
+.form-control[readonly]{
+  background: #fff;
+}
+
+.rtl .bs-popover-end>.popover-arrow, .rtl .bs-popover-auto[data-popper-placement^=end]>.popover-arrow {
+    right: calc((0.5rem + 1px) * -1);
+    left: auto;
+    top: 50% !important;
+    transform: rotate(180deg) translateY(50%) !important;
+}

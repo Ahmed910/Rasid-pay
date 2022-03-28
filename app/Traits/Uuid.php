@@ -32,10 +32,10 @@ trait Uuid
     }
 
     public function getImageAttribute()
-    {
-        if ($this->images()->first()?->media == null && !request()->has('with_activity') && !request()->routeIs('dashboard.*')) return asset('dashboardAssets/images/brand/logo-3.png');
+    { $image = $this->images()->first()?->media;
+        if ($image== null && !request()->has('with_activity') && !request()->routeIs('dashboard.*')) return asset('dashboardAssets/images/brand/logo-3.png');
 
-        return asset($this->images()->first()?->media);
+        return asset($image);
     }
 
     public function getCreatedAtAttribute($date)
@@ -78,4 +78,5 @@ trait Uuid
             Date::setDefaultNumbers(Date::INDIAN_NUMBERS);
         }
     }
+
 }

@@ -27,13 +27,14 @@ return [
         "success_update" => "تم التعديل بنجاح",
         "success_archive" => "تمت الأرشفة بنجاح",
         "success_restore" => "تم الاستعادة بنجاح",
+        "Send VerificationCode"=>"إرسال رمز التحقق",
         "has_relationship_cannot_delete" => "لا يمكن حذف هذا العنصر ،بسبب احتواءه علي علاقات",
-        'yes'=>'موافق',
+        'yes' => 'موافق',
         'no' => 'غير موافق',
-        'want_saving'=>'هل تريد اتمام عملية الحفظ ؟',
+        'want_saving' => 'هل تريد اتمام عملية الحفظ ؟',
         'reason_required' => 'السبب مطلوب',
         'want_back_without_saving' => 'هل تريد العودة دون حفظ ؟',
-        'close'=>'اغلاق',
+        'close' => 'اغلاق',
         "save" => "حفظ",
         "back" => "عودة",
         "edit" => "تعديل",
@@ -69,7 +70,7 @@ return [
             'مشغولة',
             'شاغرة',
         ],
-        'all' => 'الجميع',
+        'all' => 'الكل',
         'description' => 'الوصف',
         'day_month_year' => 'يوم/شهر/سنة',
         'export' => 'تصدير',
@@ -84,8 +85,8 @@ return [
         'reason' => 'السبب',
         'done_by' => 'تم بواسطة',
         'the_archive' => 'الأرشيف',
-        "want_to_archive"=>"هل تريد إتمام عملية الأرشفة؟",
-        "reason_needed" =>"الرجاء ذكر السبب*"
+        "want_to_archive" => "هل تريد إتمام عملية الأرشفة؟",
+        "reason_needed" => "الرجاء ذكر السبب*"
     ],
     'datatable' => [
         'no_data' => 'لا يوجد بيانات',
@@ -177,6 +178,7 @@ return [
     "group" => [
         "group" => "المجموعة الادارية",
         "groups" => "الصلاحيات",
+        "chosen_groups" =>"الصلاحيات المختارة",
         "add_group" => "اضافة مجموعه",
         "edit_group" => "تعديل المجموعه",
         "group_count" => "عدد المجموعات",
@@ -277,6 +279,8 @@ return [
     ],
     "admin" => [
         "admin" => "المستخدم",
+        "admin_name" =>"اسم المستخدم",
+        "login_id" =>"رقم المستخدم",
         "admins" => "المستخدمين",
         "add_admin" => "اضافة مستخدم",
         "edit_admin" => "تعديل المستخدم",
@@ -285,6 +289,7 @@ return [
             'index' => 'سجل المستخدمين',
             'archive' => 'أرشيف المستخدمين',
             'create' => 'اضافة مستخدم',
+            'show' =>'عرض مستخدم'
         ],
         'permissions' => array_except($permissions, ['archive', 'restore', 'force_delete']) + ['create' => 'عرض المستخدمين']
     ],
