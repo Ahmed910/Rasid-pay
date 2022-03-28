@@ -290,11 +290,22 @@ return [
         "add_admin" => "اضافة مستخدم",
         "edit_admin" => "تعديل المستخدم",
         "admin_count" => "عدد المستخدمين",
+        'name' => 'اسم المستخدم',
+        'number' => 'رقم المستخدم',
+        "ban_from" => "معطل لفترة (من)",
+        "ban_to" => "معطل لفترة (إلى)",
+       
         'sub_progs' => [
             'index' => 'سجل المستخدمين',
             'archive' => 'أرشيف المستخدمين',
             'create' => 'اضافة مستخدم',
             'show' => 'عرض مستخدم'
+        ],
+
+        'active_cases' => [
+            'active' => 'مفعل',
+            'temporary' => 'معطل لفترة',
+            'permanent' => 'معطل دائم',
         ],
         'permissions' => array_except($permissions, ['archive', 'restore', 'force_delete']) + ['create' => 'عرض المستخدمين']
     ],
