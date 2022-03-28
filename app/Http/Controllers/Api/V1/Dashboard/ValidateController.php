@@ -14,11 +14,11 @@ class ValidateController extends Controller
         $rules = [];
 
         foreach (config('translatable.locales') as $locale) {
-            if ($request->type = 'department') {
-                $rules["$locale.name"]  = "unique:department_translations,name," . $request->department_id  . ",department_id";
+            if ($request->type == 'department') {
+                $rules["$locale.name"]  = "unique:department_translations,name," . ($request->department_id ?? 0)  . ",department_id";
             }
 
-            if ($request->type = 'job') {
+            if ($request->type == 'job') {
                 $rules["$locale.name"] = [function ($attribute, $value, $fail) use ($locale, $request) {
                     $job = RasidJob::whereTranslation('name', $value, $locale)
                         ->where('department_id', $request->department_id)
