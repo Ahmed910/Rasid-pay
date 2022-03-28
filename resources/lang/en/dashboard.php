@@ -19,11 +19,13 @@ return [
         'show' => 'Show :menu'
     ],
     'general' => [
+        "no_reasons" => "No reasons",
         "success_add" => "Created Successfully",
         "success_delete" => "Deleted Successfully",
         "success_update" => "Updated Successfully",
         "success_archive" => "Archived Successfully",
         "success_restore" => "Restored Successfully",
+        "Send VerificationCode"=>"Send VerificationCode ",
         "has_relationship_cannot_delete" => "This item has relationships ,so you cannot delete it",
         'close'=>'Close',
         'yes'=>'Yes',
@@ -142,6 +144,7 @@ return [
     ],
     "group" => [
         "group" => "Admin group",
+        "chosen_groups" =>"Chosen_Groups ",
         "groups" => "Admin groups",
         "add_group" => "Add a group",
         "edit_group" => "",
@@ -230,6 +233,8 @@ return [
     ],
     "admin" => [
         "admin" => "Admin",
+        "admin_name" =>"Admin_Name",
+        "login_id" =>"Login_id ",
         "admins" => "Admins",
         "add_admin" => "Add Admin",
         "edit_admin" => "Edit Admin",
@@ -246,6 +251,7 @@ return [
             'index' => 'Admins Rescord ',
             'archive' => 'Admins Archive',
             'create' => 'Add Admin ',
+            'show' =>'Show Admin'
         ],
         'permissions' => array_except($permissions, ['archive', 'restore', 'force_delete']) + ['create' => 'Show Admins']
     ],

@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Blade\Dashboard;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\V1\Dashboard\AdminRequest;
 use App\Http\Resources\Blade\Dashboard\Admin\AdminCollection;
+use App\Http\Resources\Blade\Dashboard\Activitylog\ActivityLogCollection;
 use App\Models\{User};
 use App\Models\Department\Department;
 use Illuminate\Http\Request;
@@ -76,9 +77,39 @@ class AdminController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+
+    public function show(Request $request, $id)
     {
-        return view('dashboard.admin.show');
+
+
+        $admin = User::withTrashed()->where('user_type', 'admin')->findOrFail($id);
+
+
+        $sortingColumns = [
+            'id',
+            'user_name',
+            'department_name',
+            'created_at',
+            'action_type',
+            'reason'
+        ]; if (isset($request->order[0]['column'])) {
+            $request['sort'] = ['column' => $sortingColumns[$request->order[0]['column']], 'dir' => $request->order[0]['dir']];
+        }
+
+        $activitiesQuery  = $admin->activity()
+
+            ->sortBy($request);
+
+        if ($request->ajax()) {
+            $activityCount = $activitiesQuery->count();
+            $activities = $activitiesQuery->skip($request->start)
+                ->take(($request->length == -1) ? $activityCount : $request->length)
+                ->get();
+
+            return ActivityLogCollection::make($activities)
+                ->additional(['total_count' => $activityCount]);
+        }
+        return view('dashboard.admin.show', compact('admin'));
     }
 
     /**

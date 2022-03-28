@@ -56,7 +56,7 @@ class Department extends Model implements TranslatableContract, HasAssetsInterfa
     #region scopes
     public function scopeSearch(Builder $query, $request)
     {
-        // $this->addGlobalActivity($this, $request->query(), ActivityLog::SEARCH, 'index');
+        $this->addGlobalActivity($this, $request->query(), ActivityLog::SEARCH, 'index');
 
         if (isset($request->name)) {
             $query->where(function ($q) use ($request) {
@@ -121,8 +121,9 @@ class Department extends Model implements TranslatableContract, HasAssetsInterfa
     }
 
     public function addedBy(): BelongsTo
-    {
-        return $this->belongsTo(User::class, 'added_by_id');
+    {$without = $this->relationLoaded('images')?[]:["images"];
+
+        return $this->belongsTo(User::class, 'added_by_id')->without($without);
     }
 
 

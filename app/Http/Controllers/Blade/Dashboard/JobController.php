@@ -10,6 +10,8 @@ use App\Http\Resources\Blade\Dashboard\Job\JobCollection;
 use App\Models\Department\Department;
 use App\Models\RasidJob\RasidJob;
 use Illuminate\Http\Request;
+use App\Exports\JobsExport;
+use Maatwebsite\Excel\Facades\Excel;
 
 class JobController extends Controller
 {
@@ -209,5 +211,14 @@ class JobController extends Controller
         if (!$rasidJob->is_vacant) $rasidJob->delete();
         return redirect()->route('dashboard.job.index');
 
+    }
+
+    public function export(Request $request)
+    {
+        return Excel::download(new JobsExport($request), 'jobs.xlsx');
+    }
+    public function exportPDF(Request $request)
+    {
+        return  Excel::download(new JobsExport($request), 'jobs.pdf');
     }
 }

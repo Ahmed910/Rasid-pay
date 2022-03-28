@@ -143,8 +143,23 @@ class DepartmentController extends Controller
     {
         return Excel::download(new DepartmentsExport($request), 'departments.xlsx');
     }
+
+    public function exportDepartment(Request $request)
+    {
+        $departmentsQuery = Department::search($request)
+            ->CustomDateFromTo($request)
+            ->with('parent.translations')
+            ->ListsTranslations('name')
+            ->addSelect('departments.created_at', 'departments.is_active', 'departments.parent_id', 'departments.added_by_id')->get();
+            return view('dashboard.department.export', [
+                'departments' => $departmentsQuery
+            ]);
+    }
+
     public function exportPDF(Request $request)
     {
         return  Excel::download(new DepartmentsExport($request), 'departments.pdf');
     }
+
+
 }

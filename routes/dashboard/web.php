@@ -29,11 +29,14 @@ Route::group(
             Route::get('/', "HomeController@index")->name("home.index");
             Route::post('logout', "Auth\LoginController@logout")->name("session.logout");
             Route::resource('activity_log', 'ActivityLogController')->only('index', 'show');
+            Route::get('department_export', 'DepartmentController@exportDepartment');
 
             Route::controller('JobController')->name('job.')->prefix('job')->group(function () {
                 Route::get('archive', 'archive')->name('archive');
                 Route::post('restore/{id}', 'restore')->name('restore');
                 Route::delete('forceDelete/{id}', 'forceDelete')->name('forceDelete');
+                Route::get('export', 'export')->name('export');
+                Route::get('exportPDF', 'exportPDF')->name('exportPDF');
             });
 
             Route::controller('DepartmentController')->name('department.')->prefix('department')->group(function () {

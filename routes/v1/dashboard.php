@@ -34,6 +34,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::apiResource('menus', 'MenuController');
     Route::get('group-permissions/{group}','GroupController@getPermissionsOfGroup')->name('group_permissions');
     Route::get('permissions', 'GroupController@permissions');
+    Route::post('validate','ValidateController')->name('validate');
 
     Route::controller('ProfileController')->name('profiles.')->prefix('profile')->group(function () {
         Route::get('show', 'show')->name('show');
