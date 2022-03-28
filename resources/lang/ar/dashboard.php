@@ -27,7 +27,7 @@ return [
         "success_update" => "تم التعديل بنجاح",
         "success_archive" => "تمت الأرشفة بنجاح",
         "success_restore" => "تم الاستعادة بنجاح",
-        "Send VerificationCode"=>"إرسال رمز التحقق",
+        "Send VerificationCode" => "إرسال رمز التحقق",
         "has_relationship_cannot_delete" => "لا يمكن حذف هذا العنصر ،بسبب احتواءه علي علاقات",
         'yes' => 'موافق',
         'no' => 'غير موافق',
@@ -86,7 +86,12 @@ return [
         'done_by' => 'تم بواسطة',
         'the_archive' => 'الأرشيف',
         "want_to_archive" => "هل تريد إتمام عملية الأرشفة؟",
-        "reason_needed" => "الرجاء ذكر السبب*"
+        "reason_needed" => "الرجاء ذكر السبب*",
+        'black_menu' => 'القائمة السوداء',
+        'settings' => 'الإعدادات',
+        'logout' => 'تسجيل خروج',
+        'accept'=>'موافقة',
+        'cancel'=>'الغاء',
     ],
     'datatable' => [
         'no_data' => 'لا يوجد بيانات',
@@ -179,7 +184,7 @@ return [
         "group_name" => "اسم المجموعة",
         "group" => "المجموعة الادارية",
         "groups" => "الصلاحيات",
-        "chosen_groups" =>"الصلاحيات المختارة",
+        "chosen_groups" => "الصلاحيات المختارة",
         "add_group" => "اضافة مجموعه",
         "edit_group" => "تعديل المجموعه",
         "admins_from" => "عدد المستخدمين من",
@@ -282,17 +287,28 @@ return [
     ],
     "admin" => [
         "admin" => "المستخدم",
-        "admin_name" =>"اسم المستخدم",
-        "login_id" =>"رقم المستخدم",
+        "admin_name" => "اسم المستخدم",
+        "login_id" => "رقم المستخدم",
         "admins" => "المستخدمين",
         "add_admin" => "اضافة مستخدم",
         "edit_admin" => "تعديل المستخدم",
         "admin_count" => "عدد المستخدمين",
+        'name' => 'اسم المستخدم',
+        'number' => 'رقم المستخدم',
+        "ban_from" => "معطل لفترة (من)",
+        "ban_to" => "معطل لفترة (إلى)",
+       
         'sub_progs' => [
             'index' => 'سجل المستخدمين',
             'archive' => 'أرشيف المستخدمين',
             'create' => 'اضافة مستخدم',
-            'show' =>'عرض مستخدم'
+            'show' => 'عرض مستخدم'
+        ],
+
+        'active_cases' => [
+            'active' => 'مفعل',
+            'temporary' => 'معطل لفترة',
+            'permanent' => 'معطل دائم',
         ],
         'permissions' => array_except($permissions, ['archive', 'restore', 'force_delete']) + ['create' => 'عرض المستخدمين']
     ],

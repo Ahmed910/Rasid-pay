@@ -87,12 +87,12 @@ return [
         'upload_error' => 'Oh, something went wrong',
         'upload_file_max' => 'File size is large',
         'notAllowdedToUpload' => 'File type is not allowded to be uploaded',
-        "active_cases" => [
-            'Active',
-            'Unactive',
-        ],
         'the_archive' => 'The Archive',
-
+        'black_menu'=>'Black Menu',
+        'settings'=>'Settings',
+        'logout'=>'Logout',
+        'accept'=>'Accept',
+        'cancel'=>'Cancel',
     ],
     'error' => [
         'method_not_allow' => 'Http method (:method) not allowed',
@@ -239,6 +239,16 @@ return [
         "add_admin" => "Add Admin",
         "edit_admin" => "Edit Admin",
         "admin_count" => "Admins Count",
+        'name' => 'Admin Name ',
+        'number'=>'Admin Number',
+        'ban_from' => 'Ban Date (From)',
+        'ban_to' => ' Ban Date (To)',
+        'permissions' => array_except($permissions, ['archive', 'restore', 'force_delete']) + ['create' => 'Show Admins'],
+        'active_cases'=>[
+            'active' =>'Active',
+            'temporary'=>'Ban Temporary',
+            'permanent'=>'Ban Permnent',
+        ],
         'sub_progs' => [
             'index' => 'Admins Rescord ',
             'archive' => 'Admins Archive',

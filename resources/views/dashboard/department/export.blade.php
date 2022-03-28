@@ -5,14 +5,10 @@
                 <thead>
                     <tr>
                         <th class="border-bottom-0">#</th>
-                        <th class="border-bottom-0">
-                            @lang('dashboard.department.department')</th>
-                        <th class="border-bottom-0">
-                            @lang('dashboard.department.main_department')</th>
-                        <th class="border-bottom-0">
-                            @lang('dashboard.general.created_at')</th>
-                        <th class="border-bottom-0">
-                            @lang('dashboard.general.status')</th>
+                        <th class="border-bottom-0">{{ trans('dashboard.department.department') }}</th>
+                        <th class="border-bottom-0">{{ trans('dashboard.department.main_department') }}</th>
+                        <th class="border-bottom-0">{{ trans('dashboard.general.created_at') }}</th>
+                        <th class="border-bottom-0">{{ trans('dashboard.general.status') }}</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -22,7 +18,7 @@
                             <td>{{ $department->name }}</td>
                             <td>{{ @$department->parent->name ?? null }}</td>
                             <td>{{ $department->created_at }}</td>
-                            <td>{{ trans('dashboard.general.active_cases.'.$department->is_active) }}
+                            <td>{{ trans('dashboard.general.active_cases.' . $department->is_active) }}
                             </td>
                         </tr>
                     @endforeach
