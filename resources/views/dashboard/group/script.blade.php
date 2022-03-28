@@ -11,7 +11,6 @@
 {{-- Ajax DataTable --}}
 <script>
     $(function() {
-        console.log("Tahahahahahahah");
         $("#ajaxTable").DataTable({
             ajax: {
                 url: "{{ route('dashboard.group.index') }}?" + $.param(@json(request()->query())),
@@ -29,7 +28,13 @@
                     name: 'id'
                 },
                 {
-                    data: "name",
+                    data: function(data) {
+                        return `${data.name} <i
+                          class="mdi mdi-clipboard-list"
+                          tabindex="1"
+                              data-bs-toggle="popoverRoles"
+                        ></i>`;
+                    },
                     name: 'name'
                 },
                 {
@@ -88,12 +93,29 @@
                     next : '<i class="mdi mdi-chevron-left"></i>',
                     previous : '<i class="mdi mdi-chevron-right"></i>'
                 },
-            }
+            },
+            createdRow: function(row, data) {
+                let span = ``;
+                $(`[data-bs-toggle="popoverRoles"]`,row).popover({
+                    placement: "left",
+                    trigger: "focus",
+                    html: true,
+                    content: `
+                    ${(() => {
+                        $.each( data.permissions, function( key, value) {
+                        span +=`<span class='tooltipRole'>${value.name}</span>`
+                        });
+                        return span;
+                    })()}`
+                });
+            },
         });
         $('.select2').select2({
             minimumResultsForSearch: Infinity
         });
     });
+
+
 </script>
 {{-- End Ajax DataTable --}}
 <script src="{{ asset('dashboardAssets/js/select2.js') }}"></script>
