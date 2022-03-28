@@ -64,7 +64,7 @@
 <div class="row row-sm">
   <div class="col-lg-12">
     <div class="table-responsive p-1">
-      <table id="historyTable" class="table table-bordered shadow-sm bg-body text-nowrap key-buttons">
+      <table id="ajaxTable" class="table table-bordered shadow-sm bg-body text-nowrap key-buttons">
         <thead>
           <tr>
             <th class="border-bottom-0">#</th>
@@ -75,93 +75,6 @@
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td>1</td>
-            <td>
-              جروب الموظفين
-              <i class="mdi mdi-clipboard-list" tabindex="1" data-bs-toggle="popoverRoles"></i>
-            </td>
-            <td>50</td>
-            <td>
-              <span class="badge bg-success-opacity py-2 px-4">
-                مفعلة</span>
-            </td>
-            <td class="text-center">
-              <a href="{!! route('dashboard.group.show','c5529d54-3900-4b35-95ed-39a21568031a') !!}" class="azureIcon" data-bs-toggle="tooltip" data-bs-placement="top" title="عرض"><i class="mdi mdi-eye-outline"></i></a>
-              <a href="{!! route('dashboard.group.edit','c5529d54-3900-4b35-95ed-39a21568031a') !!}" class="warningIcon" data-bs-toggle="tooltip" data-bs-placement="top" title="تعديل"><i class="mdi mdi-square-edit-outline"></i></a>
-            </td>
-          </tr>
-
-          <tr>
-            <td>2</td>
-            <td>
-              جروب المستخدمين
-              <i class="mdi mdi-clipboard-list" tabindex="2" data-bs-toggle="popoverRoles"></i>
-            </td>
-            <td>62</td>
-            <td>
-              <span class="badge bg-danger-opacity py-2 px-4">
-                معطله</span>
-            </td>
-            <td class="text-center">
-              <a href="{!! route('dashboard.group.show','c5529d54-3900-4b35-95ed-39a21568031a') !!}" class="azureIcon" data-bs-toggle="tooltip" data-bs-placement="top" title="عرض"><i class="mdi mdi-eye-outline"></i></a>
-              <a href="{!! route('dashboard.group.edit','c5529d54-3900-4b35-95ed-39a21568031a') !!}" class="warningIcon" data-bs-toggle="tooltip" data-bs-placement="top" title="تعديل"><i class="mdi mdi-square-edit-outline"></i></a>
-            </td>
-          </tr>
-
-
-          <tr>
-            <td>3</td>
-            <td>
-              جروب العملاء
-              <i class="mdi mdi-clipboard-list" tabindex="3" data-bs-toggle="popoverRoles"></i>
-            </td>
-            <td>36</td>
-            <td>
-              <span class="badge bg-success-opacity py-2 px-4">
-                مفعلة</span>
-            </td>
-            <td class="text-center">
-              <a href="{!! route('dashboard.group.show','c5529d54-3900-4b35-95ed-39a21568031a') !!}" class="azureIcon" data-bs-toggle="tooltip" data-bs-placement="top" title="عرض"><i class="mdi mdi-eye-outline"></i></a>
-              <a href="{!! route('dashboard.group.edit','c5529d54-3900-4b35-95ed-39a21568031a') !!}" class="warningIcon" data-bs-toggle="tooltip" data-bs-placement="top" title="تعديل"><i class="mdi mdi-square-edit-outline"></i></a>
-            </td>
-          </tr>
-
-
-          <tr>
-            <td>4</td>
-            <td>
-              جروب الإداريين
-              <i class="mdi mdi-clipboard-list" tabindex="4" data-bs-toggle="popoverRoles"></i>
-            </td>
-            <td>62</td>
-            <td>
-              <span class="badge bg-success-opacity py-2 px-4">
-                مفعلة</span>
-            </td>
-            <td class="text-center">
-              <a href="{!! route('dashboard.group.show','c5529d54-3900-4b35-95ed-39a21568031a') !!}" class="azureIcon" data-bs-toggle="tooltip" data-bs-placement="top" title="عرض"><i class="mdi mdi-eye-outline"></i></a>
-              <a href="{!! route('dashboard.group.edit','c5529d54-3900-4b35-95ed-39a21568031a') !!}" class="warningIcon" data-bs-toggle="tooltip" data-bs-placement="top" title="تعديل"><i class="mdi mdi-square-edit-outline"></i></a>
-            </td>
-          </tr>
-
-
-          <tr>
-            <td>5</td>
-            <td>
-              جروب المراجعين
-              <i class="mdi mdi-clipboard-list" tabindex="5" data-bs-toggle="popoverRoles"></i>
-            </td>
-            <td>15</td>
-            <td>
-              <span class="badge bg-danger-opacity py-2 px-4">
-                معطله</span>
-            </td>
-            <td class="text-center">
-              <a href="{!! route('dashboard.group.show','c5529d54-3900-4b35-95ed-39a21568031a') !!}" class="azureIcon" data-bs-toggle="tooltip" data-bs-placement="top" title="عرض"><i class="mdi mdi-eye-outline"></i></a>
-              <a href="{!! route('dashboard.group.edit','c5529d54-3900-4b35-95ed-39a21568031a') !!}" class="warningIcon" data-bs-toggle="tooltip" data-bs-placement="top" title="تعديل"><i class="mdi mdi-square-edit-outline"></i></a>
-            </td>
-          </tr>
         </tbody>
       </table>
     </div>
