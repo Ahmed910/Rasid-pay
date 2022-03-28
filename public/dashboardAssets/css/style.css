@@ -80195,7 +80195,7 @@ input[type=number] {
 
 .popoverTooltip .popover-body,
 .popoverTooltip .popover-header {
-    height: 250px;
+    max-height: 250px;
     overflow: scroll;
 }
 
