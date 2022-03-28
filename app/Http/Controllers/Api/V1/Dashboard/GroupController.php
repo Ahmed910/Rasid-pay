@@ -19,6 +19,7 @@ class GroupController extends Controller
     public function index(Request $request)
     {
         $groups = Group::with('groups', 'permissions')
+            ->where('id',"<>",auth()->user()->group_id)
             ->withTranslation()
             ->search($request)
             ->sortBy($request)
@@ -102,19 +103,6 @@ class GroupController extends Controller
         return GroupResource::make($group)->additional(['status' => true, 'message' => trans('dashboard.general.success_delete')]);
     }
 
-    private function getPermissions($uri, $group = null)
-    {
-        $flip_permissions = is_array(trans('dashboard.' . str_singular($uri) . '.permissions')) ? array_flip(trans('dashboard.' . Str::singular($uri) . '.permissions')) : [];
-        $permissions = array_flip(substr_replace($flip_permissions, $uri . '.', 0, 0));
-        $permissions_col = collect($permissions)->transform(function ($item, $key) use ($group) {
-            $data['permission']  = $key;
-            $data['trans']  = $item;
-            $data['is_checked']  = isset($group) && @$group->permissions->contains('name', $key);
-            return $data;
-        })->values()->toArray();
-        return ["uri" => $uri, 'trans' => trans('dashboard.' . Str::singular($uri) . ".{$uri}"), 'permissons' => $permissions_col];
-    }
-
     public function permissions()
     {
         $saved_permissions = $this->savedPermissions()->except('uri')->toArray();
@@ -142,13 +130,13 @@ class GroupController extends Controller
 
     public function getTransPermission($item)
     {
-        $uri = str_before($item->name,'.');
-        $single_uri = str_singular($uri);
-        $action = trans('dashboard.' . $single_uri . '.permissions.' . str_after($item->name, '.'));
+        $path = explode('.',$item->name);
+        $single_uri = str_singular(@$path[0]);
+        $action = trans('dashboard.' . $single_uri . '.permissions.' . @$path[1]);
         $item['id'] = $item->id;
-        $item['uri'] = $uri;
+        $item['uri'] = $path[0];
         $item['named_uri'] = $item->name;
-        $item['name'] = trans('dashboard.' . $single_uri . '.' . $uri) . ' (' . $action . ')';
+        $item['name'] = trans('dashboard.' . $single_uri . '.' . $path[0]) . ' (' . $action . ')';
         $item['action'] = $action;
         return $item;
     }
