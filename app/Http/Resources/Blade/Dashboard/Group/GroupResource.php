@@ -13,20 +13,15 @@ class GroupResource extends JsonResource
             'id' => $this->id,
             'name' => $this->name,
             'is_active' => (bool)$this->is_active,
-            'added_by' => SimpleUserResource::make($this->addedBy),
-            'admins_count' => $this->admins->count(),
+            // 'added_by' => SimpleUserResource::make($this->addedBy),
+            'admins_count' => $this->user_count,
             'permissions' => PermissionResource::collection($this->whenLoaded('permissions')),
             'groups' => self::collection($this->whenLoaded('groups')),
             'created_at' => $this->created_at,
             'is_selected' => auth()->user()->groups()->where('groups.id',$this->id)->exists(),
             'active_case' => trans('dashboard.general.active_cases.'.$this->is_active),
-            'show_route' => route('dashboard.group.show', $this->id),
-            'edit_route' => route('dashboard.group.edit', $this->id),
-            'delete_route' => route('dashboard.group.destroy', $this->id),
-            'actions' => $this->when($request->route()->getActionMethod() == 'index', [
-                'update' => auth()->user()->hasPermissions('group.update'),
-                'show' => auth()->user()->hasPermissions('group.show')
-            ])
+            'show_route' => $this->when(auth()->user()->hasPermissions('group.show'), route('dashboard.group.show', $this->id),null),
+            'edit_route' => $this->when(auth()->user()->hasPermissions('group.update'), route('dashboard.group.edit', $this->id),null)
         ];
     }
 }
