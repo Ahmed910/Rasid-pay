@@ -32,8 +32,7 @@
                 serverSide: true,
                 processing: true,
                 ajax: {
-                    url: "{{ route('dashboard.department.index') }}?" + $.param(
-                        @json(request()->query())),
+                    url: "{{ route('dashboard.department.index') }}?" + $.param(@json(request()->query())),
                     type: "GET",
                     dataSrc: 'data'
                 },

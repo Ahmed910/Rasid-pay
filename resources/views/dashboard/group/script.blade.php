@@ -3,35 +3,37 @@
     <script src="{{ asset('dashboardAssets/plugins/datatable/js/dataTables.bootstrap5.js') }}"></script>
     <script src="{{ asset('dashboardAssets/plugins/datatable/dataTables.responsive.min.js') }}"></script>
     <script src="{{ asset('dashboardAssets/plugins/datatable/responsive.bootstrap5.min.js') }}"></script>
-    {{-- <script src="{{ asset('dashboardAssets/js/table-data.js') }}"></script> --}}
 @endsection
 @section('scripts')
-<script src="{{ asset('dashboardAssets/js/custom_scripts.js') }}"></script>
+    <script src="{{ asset('dashboardAssets/js/custom_scripts.js') }}"></script>
+    <script src="{{ asset('dashboardAssets/plugins/bootstrap-hijri-datepicker/js/bootstrap-hijri-datetimepicker.js') }}">
+    </script>
 {{-- Ajax DataTable --}}
 <script>
     $(function() {
+        console.log("Tahahahahahahah");
         $("#ajaxTable").DataTable({
-            sDom: "t<'domOption'lpi>",
-            serverSide: true,
-            processing: true,
             ajax: {
-                url: "{{ route('dashboard.group.index') }}?" + $.param(
-                    @json(request()->query())),
+                url: "{{ route('dashboard.group.index') }}?" + $.param(@json(request()->query())),
                 type: "GET",
                 dataSrc: 'data'
             },
-            columns: [{
+            sDom: "t<'domOption'lpi>",
+            serverSide: true,
+            processing: true,
+            columns: [
+                {
                     data: function(data, type, full, meta) {
                         return meta.row + 1;
                     },
                     name: 'id'
                 },
                 {
-                    data: "name"
+                    data: "name",
                     name: 'name'
                 },
                 {
-                    data: "admins_count"
+                    data: "admins_count",
                     name: 'admins_count'
                 },
                 {
@@ -51,20 +53,23 @@
                 {
                     class: "text-center",
                     data: function(data) {
-                        return `<a href="${data.show_route}"
-                                    class="azureIcon"
+                        let actions = ``;
+                        if (data.show_route){
+                            actions += `<a href="${data.show_route}" class="azureIcon" data-bs-toggle="tooltip" data-bs-placement="top"
+                                            title="{{ trans('dashboard.general.details') }}"
+                                            ><i class="mdi mdi-eye-outline"></i>
+                                            </a>`;
+                        }
+                        if (data.edit_route){
+                            actions += `<a href="${data.edit_route}"
+                                    class="warningIcon"
                                     data-bs-toggle="tooltip"
                                     data-bs-placement="top"
-                                    title="{{ trans('dashboard.general.details') }}"
-                                    ><i class="mdi mdi-eye-outline"></i>
-                                    </a>
-                                    <a href="${data.edit_route}"
-                                        class="warningIcon"
-                                        data-bs-toggle="tooltip"
-                                        data-bs-placement="top"
-                                        title="{{ trans('dashboard.general.edit') }}"
-                                        ><i class="mdi mdi-square-edit-outline"></i>
-                                    </a>`;
+                                    title="{{ trans('dashboard.general.edit') }}"
+                                    ><i class="mdi mdi-square-edit-outline"></i>
+                                </a>`;
+                            }
+                        return actions;
                     }
                 }
             ],
@@ -74,14 +79,14 @@
                 [5, 10, 20, "{{ trans('dashboard.general.all') }}"],
             ],
 
-            "language": {
-                "lengthMenu": "{{ trans('dashboard.datatable.show')}} _MENU_",
-                "emptyTable": "{{ trans('dashboard.datatable.no_data') }}",
-                "info": "{{ trans('dashboard.datatable.showing') }}_START_ {{ trans('dashboard.datatable.to') }}_END_ {{ trans('dashboard.datatable.from') }}_TOTAL_ {{ trans('dashboard.datatable.entries') }}",
-                "infoEmpty": "{{ trans('dashboard.datatable.no_search_result') }}",
-                "paginate": {
-                    "next": '<i class="mdi mdi-chevron-left"></i>',
-                    "previous": '<i class="mdi mdi-chevron-right"></i>'
+            language: {
+                lengthMenu : "{{ trans('dashboard.datatable.show')}} _MENU_",
+                emptyTable : "{{ trans('dashboard.datatable.no_data') }}",
+                info : "{{ trans('dashboard.datatable.showing') }}_START_ {{ trans('dashboard.datatable.to') }}_END_ {{ trans('dashboard.datatable.from') }}_TOTAL_ {{ trans('dashboard.datatable.entries') }}",
+                infoEmpty : "{{ trans('dashboard.datatable.no_search_result') }}",
+                paginate : {
+                    next : '<i class="mdi mdi-chevron-left"></i>',
+                    previous : '<i class="mdi mdi-chevron-right"></i>'
                 },
             }
         });

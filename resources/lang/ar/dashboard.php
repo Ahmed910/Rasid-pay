@@ -181,11 +181,14 @@ return [
         'permissions' => $permissions
     ],
     "group" => [
+        "group_name" => "اسم المجموعة",
         "group" => "المجموعة الادارية",
         "groups" => "الصلاحيات",
         "chosen_groups" => "الصلاحيات المختارة",
         "add_group" => "اضافة مجموعه",
         "edit_group" => "تعديل المجموعه",
+        "admins_from" => "عدد المستخدمين من",
+        "admins_to" => "عدد المستخدمين إلى",
         "group_count" => "عدد المجموعات",
         'sub_progs' => [
             'index' => 'سجل الصلاحيات',

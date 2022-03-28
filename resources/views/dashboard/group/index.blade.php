@@ -1,14 +1,15 @@
 @extends('dashboard.layouts.master')
-@section('title', 'Page Title')
+@section('title', ' - ' . trans('dashboard.group.groups'))
 
 @section('content')
 
 <!-- PAGE-HEADER -->
 <div class="page-header">
-  <h1 class="page-title">سجل الصلاحيات</h1>
-  <a href="{!! route('dashboard.group.edit','c5529d54-3900-4b35-95ed-39a21568031a') !!}" class="btn btn-primary">
-    <i class="mdi mdi-plus-circle-outline"></i> إضافة مجموعة
-  </a>
+    <h1 class="page-title">{{ trans('dashboard.group.sub_progs.index') }}</h1>
+    <a href="{{ route('dashboard.group.create') }}" class="btn btn-primary">
+        <i class="mdi mdi-plus-circle-outline"></i>
+        {{ trans('dashboard.group.add_group') }}
+    </a>
 </div>
 <!-- PAGE-HEADER END -->
 
@@ -16,31 +17,26 @@
 <form method="get" action="">
   <div class="row align-items-end mb-3">
     <div class="col-12 col-md-3">
-      <label for="groupName">اسم المجموعة</label>
-      <input type="text" class="form-control" id="groupName" placeholder="اسم المجموعة" />
+      <label for="groupName">{!! trans('dashboard.group.group_name') !!}</label>
+      <input type="text" name="name" value="{{ request('name') }}" class="form-control" id="groupName" placeholder="{!! trans('dashboard.group.group_name') !!}" />
     </div>
     <div class="col-12 col-md-3">
-      <label for="status">الحالة</label>
-      <select class="form-control select2" id="status">
-        <option selected disabled value="">اختر الحالة</option>
-        <option>الجميع</option>
-        <option>مفعلة</option>
-        <option>معطله</option>
-      </select>
+        <label for="status">{{ trans('dashboard.general.status') }}</label>
+        {!! Form::select('is_active', trans('dashboard.general.active_cases'), request('is_active'), ['class' => 'form-control select2-show-search', 'placeholder' => trans('dashboard.general.select_status')]) !!}
     </div>
 
     <div class="col-12 col-md-3">
-      <label for="userNumFrom">عدد المستخدمين من</label>
-      <input type="text" class="form-control" id="userNumFrom" placeholder="0" />
+      <label for="userNumFrom">{!! trans('dashboard.group.admins_from') !!}</label>
+      <input type="text" name="admins_from" value="{{ request('admins_from') }}" class="form-control" id="userNumFrom" placeholder="{!! trans('dashboard.group.admins_from') !!}" />
     </div>
     <div class="col-12 col-md-3">
-      <label for="userNumTo">عدد المستخدمين إلي</label>
-      <input type="text" class="form-control" id="userNumTo" placeholder="0" />
+      <label for="userNumTo">{!! trans('dashboard.group.admins_to') !!}</label>
+      <input type="text" name="admins_to" value="{{ request('admins_to') }}" class="form-control" id="userNumTo" placeholder="{!! trans('dashboard.group.admins_to') !!}" />
     </div>
     <div class="col-12 col-md-6 mt-5">
       <div class="dropdown">
         <button class="btn btn-outline-primary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-          <i class="mdi mdi-tray-arrow-down"></i> تصدير
+          <i class="mdi mdi-tray-arrow-down"></i> {!! trans('dashboard.general.export') !!}
         </button>
         <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
           <li><a class="dropdown-item" href="#">PDF</a></li>
@@ -68,10 +64,11 @@
         <thead>
           <tr>
             <th class="border-bottom-0">#</th>
-            <th class="border-bottom-0">اسم المجموعة</th>
-            <th class="border-bottom-0">عدد المستخدمين</th>
-            <th class="border-bottom-0">الحالة</th>
-            <th class="border-bottom-0 text-center">العمليات</th>
+            <th class="border-bottom-0">{!! trans('dashboard.group.group_name') !!}</th>
+            <th class="border-bottom-0">{!! trans('dashboard.admin.admin_count') !!}</th>
+            <th class="border-bottom-0">{!! trans('dashboard.general.status') !!}</th>
+            <th class="border-bottom-0">{!! trans('dashboard.general.created_at') !!}</th>
+            <th class="border-bottom-0 text-center">{!! trans('dashboard.general.actions') !!}</th>
           </tr>
         </thead>
         <tbody>
