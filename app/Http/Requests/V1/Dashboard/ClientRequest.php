@@ -22,7 +22,8 @@ class ClientRequest extends ApiMasterRequest
 
         $this->merge([
             'date_of_birth' => @$data['date_of_birth'] ? date('Y-m-d', strtotime($data['date_of_birth'])) : null,
-            'phone' => @$data['phone'] ? convert_arabic_number($data['phone']) : null
+            'phone' => @$data['phone'] ? convert_arabic_number($data['phone']) : null,
+            'full_phone' => $this->country_code . $this->phone
         ]);
     }
 
@@ -33,10 +34,13 @@ class ClientRequest extends ApiMasterRequest
      */
     public function rules()
     {
+        $list = countries_list();
         return [
             "fullname" => ["required", "max:100", "string"],
+            "country_code" => "required|in:" . $list,
             "email" => ["required", "max:255", "email", "unique:users,email," . @$this->client],
-            "phone" => ["nullable", "starts_with:9665,05", "numeric", "digits_between:10,20", "unique:users,phone," . @$this->client],
+            "phone" => ["nullable", "not_regex:/^{$this->country_code}/", "numeric", "digits_between:7,20"],
+            "full_phone" => ["unique:users,phone," . @$this->client],
             "identity_number" => ["required", "numeric", "digits_between:10,20", "unique:users,identity_number," . @$this->client],
             "client_type" => ["required", "in:company,Institution ,member,freelance_doc,famous,other"],
             "gender" => ["nullable", "in:male,female"],

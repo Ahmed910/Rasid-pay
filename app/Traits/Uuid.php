@@ -5,6 +5,7 @@ namespace App\Traits;
 use App\Scopes\GlobalSearchScope;
 use GeniusTS\HijriDate\{Date, Hijri, Translations\Arabic, Translations\English};
 use Illuminate\Support\Str;
+use Carbon\Carbon;
 
 trait Uuid
 {
@@ -30,31 +31,41 @@ trait Uuid
         return 'string';
     }
 
+    public function getImageAttribute()
+    {
+        if ($this->images()->first()?->media == null && !request()->has('with_activity') && !request()->routeIs('dashboard.*')) return asset('dashboardAssets/images/brand/logo-3.png');
+
+        return asset($this->images()->first()?->media);
+    }
+
     public function getCreatedAtAttribute($date)
     {
+        $locale = app()->getLocale();
         if (auth()->check() && auth()->user()->is_date_hijri) {
-            $this->changeDateLocale(app()->getLocale());
+            $this->changeDateLocale($locale);
             return Hijri::convertToHijri($date)->format('d F o');
         }
-        return date('Y-m-d', strtotime($date));
+        return Carbon::parse($date)->locale($locale)->translatedFormat('j F Y');
     }
 
     public function getUpdatedAtAttribute($date)
     {
+        $locale = app()->getLocale();
         if (auth()->check() && auth()->user()->is_date_hijri) {
-            $this->changeDateLocale(app()->getLocale());
+            $this->changeDateLocale($locale);
             return Hijri::convertToHijri($date)->format('d F o');
         }
-        return date('Y-m-d', strtotime($date));
+        return Carbon::parse($date)->locale($locale)->translatedFormat('j F Y');
     }
 
     public function getDeletedAtAttribute($date)
     {
+        $locale = app()->getLocale();
         if (auth()->check() && auth()->user()->is_date_hijri) {
-            $this->changeDateLocale(app()->getLocale());
+            $this->changeDateLocale($locale);
             return Hijri::convertToHijri($date)->format('d F o');
         }
-        return date('Y-m-d', strtotime($date));
+        return Carbon::parse($date)->locale($locale)->translatedFormat('j F Y');
     }
 
     public function changeDateLocale($locale = 'ar')

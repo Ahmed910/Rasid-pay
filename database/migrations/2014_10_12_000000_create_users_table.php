@@ -21,6 +21,7 @@ class CreateUsersTable extends Migration
             $table->timestamp('phone_verified_at')->nullable();
             $table->string('password')->nullable();
             $table->string('phone')->unique();
+            $table->string('country_code')->nullable();
             $table->string('whatsapp')->nullable();
             $table->boolean('is_password_changed')->default(false)->comment('check if user changed password for first time');
             $table->boolean('is_login_code')->default(false)->comment('send verification code every time login');

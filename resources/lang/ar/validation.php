@@ -37,6 +37,9 @@ $attributes = [
     'is_active'                  => 'حقل الحالة من التفعيل',
     'reset_code'                  => 'حقل الكود',
     'department_id'                  => 'حقل القسم ',
+    'reasonAction'                  => 'حقل السبب',
+    'ban_from'                  => 'حقل معطل من',
+    'ban_to'                  => 'حقل معطل إلى',
     // new attr
 
     'permissions'   => 'حقل الصلاحيات',
@@ -164,15 +167,15 @@ return [
     'starts_with'          => 'يجب أن يبدأ  :attribute بأحد القيم التالية: :values',
     'string'               => 'يجب أن يكون  :attribute نصًا.',
     'timezone'             => 'يجب أن يكون  :attribute نطاقًا زمنيًا صحيحًا.',
-    'unique'               => 'قيمة  :attribute مُستخدمة من قبل.',
+    'unique'               => 'قيمة  :attribute موجودة من قبل.',
     'uploaded'             => 'فشل في تحميل الـ :attribute.',
     'url'                  => 'صيغة رابط  :attribute غير صحيحة.',
     'uuid'                 => ' :attribute يجب أن يكون بصيغة UUID سليمة.',
 
 
     'custom'               => [
-        'attribute-name' => [
-            'rule-name' => 'custom-message',
+        'email' => [
+            'exists' => 'هذا البريد غير مسجل بالنظام',
         ],
     ],
 

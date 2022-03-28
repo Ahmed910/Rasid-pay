@@ -41,6 +41,7 @@
                         class="form-control @error('email') is-invalid @enderror"
                         id="email"
                         name="email"
+                        value="{{ old('email') }}"
                         placeholder="البريد الإلكتروني"
                         pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"
                         required
@@ -77,6 +78,7 @@
                         class="form-control @error('phone') is-invalid @enderror"
                         id="mobile"
                         name="phone"
+                        value="{{ old('phone') }}"
                         placeholder="رقم الجوال"
                       />
                       @error('phone')

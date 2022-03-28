@@ -5,27 +5,25 @@
             <form method="post" action="#?_method=DELETE" id="item" class="needs-validation" novalidate>
                 @csrf
                 @method('delete')
-              <div class="modal-body text-center p-0">
-                <lottie-player
-                  autoplay
-                  loop
-                  mode="normal"
-                  src="{{ asset('dashboardAssets/images/lottie/archive.json') }}"
-                  style="width: 55%; display: block; margin: 0 auto 1em"
-                >
-                </lottie-player>
-                <p>@lang("dashboard.general.want_to_archive")</p>
-                <div class="mt-3">
-                  <textarea
-                    class="form-control"
-                    placeholder="@lang("dashboard.general.reason_needed")"
-                    rows="3"
-                    name="reasonAction"
-                    required
-                  ></textarea>
-                  <input type="hidden" name="_method" value="DELETE">
+                <div class="modal-body text-center p-0">
+                    <lottie-player autoplay loop mode="normal"
+                        src="{{ asset('dashboardAssets/images/lottie/archive.json') }}"
+                        style="width: 55%; display: block; margin: 0 auto 1em">
+                    </lottie-player>
+                    <p>@lang("dashboard.general.want_to_archive")</p>
+                    <div class="mt-3">
+                        <textarea class="form-control" placeholder="@lang("dashboard.general.reason_needed")" rows="3" name="reasonAction"
+                            required></textarea>
+                        <input type="hidden" name="_method" value="DELETE">
 
-                  <div class="invalid-feedback">السبب مطلوب.</div>
+                        <div class="invalid-feedback">{{ trans('dashboard.general.reason_required') }} .</div>
+                    </div>
+                </div>
+                <div class="modal-footer justify-content-center mt-5 p-0">
+                    <button type="submit" class="btn btn-primary mx-3">
+                        {{ trans('dashboard.general.yes') }} </button>
+                    <button type="button" class="btn btn-outline-primary" data-bs-dismiss="modal">
+                        {{ trans('dashboard.general.no') }} </button>
                 </div>
               </div>
               <div class="modal-footer justify-content-center mt-5 p-0">
@@ -41,7 +39,7 @@
                 </button>
               </div>
             </form>
-            </div>
         </div>
     </div>
+</div>
 </div>

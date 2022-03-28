@@ -24,7 +24,7 @@ class ActivityLogResource extends JsonResource
             ] : null,
             'created_at' => $this->created_at,
             'type' => strtolower($this->action_type),
-            'reason' => $this->reason ?? '---',
+            'reason' => $this->reason ?? trans('dashboard.general.no_reasons'),
             'url' => $this->url,
             'ip' => $this->ip_address,
             'agent' => $this->agent,

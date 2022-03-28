@@ -36,7 +36,7 @@
             {!! Form::file('image', [
                           'class' => 'dropify',
                           'data-show-remove' => 'true',
-                          'data-default-file' => isset($department) ? $department->image : '',
+                          'data-default-file' => isset($department) ? $department->image : null,
                           'data-bs-height' => '250',
                           'id' => 'departmentImg',
                           'data-errors-position' => 'inside',
@@ -59,9 +59,11 @@
                 @enderror
             @endforeach
         </div>
-
     </div>
+
 </div>
+
+{!! Form::hidden('delete_image', 0,['id'=>'imageStatus']) !!}
 
 <div class="row">
     <div class="col-12 mb-5 text-end">
@@ -127,7 +129,8 @@
                     history.back()
                 }
             });
-            $(".dropify").dropify({
+
+            let drEvent = $(".dropify").dropify({
                 messages: {
                     default: "{{ trans('dashboard.general.hold_upload') }}",
                     replace: "{{ trans('dashboard.general.hold_change') }}",
@@ -135,10 +138,15 @@
                     error: "{{ trans('dashboard.general.upload_error') }}",
                 },
                 error: {
-                  fileExtension: "{{ trans('dashboard.general.notAllowdedToUpload') }}",
+                    fileExtension: "{{ trans('dashboard.general.notAllowdedToUpload') }}",
                     fileSize: "{{ trans('dashboard.general.upload_file_max') }} (5M max).",
                 },
             });
+
+            drEvent.on('dropify.afterClear', function(event, element) {
+              $('#imageStatus').val(1);
+            });
+
         })();
     </script>
 @endsection

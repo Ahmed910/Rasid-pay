@@ -123,3 +123,4 @@ let tabChange = function(val){
 
 </script>
 @endsection
+

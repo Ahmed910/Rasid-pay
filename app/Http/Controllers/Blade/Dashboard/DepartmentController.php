@@ -10,6 +10,8 @@ use App\Http\Resources\Blade\Dashboard\Department\DepartmentCollection;
 use App\Http\Resources\Dashboard\ActivityLogResource;
 use App\Models\Department\Department;
 use Illuminate\Http\Request;
+use App\Exports\DepartmentsExport;
+use Maatwebsite\Excel\Facades\Excel;
 
 class DepartmentController extends Controller
 {
@@ -111,7 +113,7 @@ class DepartmentController extends Controller
 
     public function destroy(ReasonRequest $request, Department $department)
     {
-        
+
         if ($department->rasidJobs()->exists() || $department->children()->exists()) {
             return redirect()->back();
         }
@@ -120,52 +122,6 @@ class DepartmentController extends Controller
         return redirect()->route('dashboard.department.index');
     }
 
-    public function archive(Request $request)
-    {
-
-        $sortingColumns = [
-            'id',
-            'name',
-            'parent',
-            'deleted_at',
-
-        ];
-
-        if (isset($request->order[0]['column'])) {
-            $request['sort'] = ['column' => $sortingColumns[$request->order[0]['column']], 'dir' => $request->order[0]['dir']];
-        }
-
-        $departmentsQuery = Department::onlyTrashed()
-            ->search($request)
-            ->CustomDateFromTo($request)
-            ->with('parent.translations')
-            ->ListsTranslations('name')
-            ->addSelect('departments.deleted_at', 'departments.parent_id')
-            ->sortBy($request);
-
-        if ($request->ajax()) {
-            $departmentCount = $departmentsQuery->count();
-            $departments = $departmentsQuery->skip($request->start)
-                ->take(($request->length == -1) ? $departmentCount : $request->length)
-                ->get();
-
-            return DepartmentCollection::make($departments)
-                ->additional(['total_count' => $departmentCount]);
-        }
-
-        $parentDepartments = Department::where('is_active', 1)
-            ->has("children")
-            ->orWhere(function ($q) {
-                $q->doesntHave('children')
-                    ->WhereNull('parent_id');
-            })
-            // ->without("images", 'addedBy')
-            ->select("id")
-            ->ListsTranslations("name")
-            ->pluck('name', 'id');
-
-        return view('dashboard.archive.department.index', compact('parentDepartments'));
-    }
 
     public function restore(ReasonRequest $request, $id)
     {
@@ -182,4 +138,28 @@ class DepartmentController extends Controller
         $department->forceDelete();
         return redirect()->back();
     }
+
+    public function export(Request $request)
+    {
+        return Excel::download(new DepartmentsExport($request), 'departments.xlsx');
+    }
+
+    public function exportDepartment(Request $request)
+    {
+        $departmentsQuery = Department::search($request)
+            ->CustomDateFromTo($request)
+            ->with('parent.translations')
+            ->ListsTranslations('name')
+            ->addSelect('departments.created_at', 'departments.is_active', 'departments.parent_id', 'departments.added_by_id')->get();
+            return view('dashboard.department.export', [
+                'departments' => $departmentsQuery
+            ]);
+    }
+
+    public function exportPDF(Request $request)
+    {
+        return  Excel::download(new DepartmentsExport($request), 'departments.pdf');
+    }
+
+
 }

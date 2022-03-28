@@ -50,12 +50,7 @@ class Department extends Model implements TranslatableContract, HasAssetsInterfa
     #region accessor
 
 
-    public function getImageAttribute()
-    {
-        if ($this->images()->first()?->media == null) return 'https://picsum.photos/200';
 
-        return asset($this->images()->first()?->media);
-    }
     #endregion accessor
 
     #region scopes
@@ -63,7 +58,7 @@ class Department extends Model implements TranslatableContract, HasAssetsInterfa
     {
         $this->addGlobalActivity($this, $request->query(), ActivityLog::SEARCH, 'index');
 
-        if ($request->name) {
+        if (isset($request->name)) {
             $query->where(function ($q) use ($request) {
                 $q->whereTranslationLike('name', "%\\$request->name%");
             });

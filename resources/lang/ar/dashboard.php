@@ -13,20 +13,27 @@ $permissions = [
 
 return [
     'attributes' => [
-        'name' => 'الاسم باللغة العربية',
-        'description' => 'الوصف باللغة العربية',
-        'nationality' => 'الجنسية باللغة العربية',
+        'name' => 'الاسم',
+        'description' => 'الوصف',
+        'nationality' => 'الجنسية',
     ],
     'datatable' => [
         'show :menu' => 'عرض :menu'
     ],
     'general' => [
-        "success_add" => "تم الإضافة بنجاح",
+        "no_reasons" => "لايوجد",
+        "success_add" => "تمت الإضافة بنجاح",
         "success_delete" => "تم الحذف بنجاح",
         "success_update" => "تم التعديل بنجاح",
-        "success_archive" => "تم الأرشفة بنجاح",
+        "success_archive" => "تمت الأرشفة بنجاح",
         "success_restore" => "تم الاستعادة بنجاح",
         "has_relationship_cannot_delete" => "لا يمكن حذف هذا العنصر ،بسبب احتواءه علي علاقات",
+        'yes' => 'موافق',
+        'no' => 'غير موافق',
+        'want_saving' => 'هل تريد اتمام عملية الحفظ ؟',
+        'reason_required' => 'السبب مطلوب',
+        'want_back_without_saving' => 'هل تريد العودة دون حفظ ؟',
+        'close' => 'اغلاق',
         "save" => "حفظ",
         "back" => "عودة",
         "edit" => "تعديل",
@@ -62,36 +69,38 @@ return [
             'مشغولة',
             'شاغرة',
         ],
-        'all' => 'الجميع',
+        'all' => 'الكل',
         'description' => 'الوصف',
         'day_month_year' => 'يوم/شهر/سنة',
         'export' => 'تصدير',
         'details' => 'التفاصيل',
-        'no_data' => 'لا يوجد بيانات',
-        'there_is_no_data' => 'لا يوجد نتائج بحث متاحة',
-        'showing' => 'عرض',
-        'to' => 'الى',
-        'from' => 'من',
-        'entries' => 'مدخلات',
-        'delete' => 'حذف',
-        'no_search_result' => 'لا يوجد نتائج بحث متاحة',
+
         'hold_upload' => 'اسحب وأسقط او قم برفع الصورة',
         'hold_change' => 'اسحب وأسقط او إضغط لتغيير الصورة',
-        'upload_error' => 'اووه ، حدث خطأ ما',
+        'upload_error' => 'اوبس ، حدث خطأ ما',
         'upload_file_max' => 'حجم الملف كبير',
         'notAllowdedToUpload' => 'نوع الملف غير مسموح بتحميله',
         'description' => 'الوصف',
         'reason' => 'السبب',
         'done_by' => 'تم بواسطة',
         'the_archive' => 'الأرشيف',
-        "want_to_archive"=>"هل تريد إتمام عملية الأرشفة؟",
-        "reason_needed" =>"الرجاء ذكر السبب*"
+        "want_to_archive" => "هل تريد إتمام عملية الأرشفة؟",
+        "reason_needed" => "الرجاء ذكر السبب*"
+    ],
+    'datatable' => [
+        'no_data' => 'لا يوجد بيانات',
+        'there_is_no_data' => 'لا يوجد نتائج بحث متاحة',
+        'showing' => 'عرض',
+        'to' => 'الى',
+        'from' => 'من',
+        'entries' => 'عنصر',
+        'no_search_result' => 'لا يوجد نتائج بحث متاحة',
     ],
     'error' => [
         'method_not_allow' => 'طريقة الطلب (:method) غير صحيحة',
         'not_found' => 'لم يتم العثور على بيانات',
         'page_not_found' => '404, الصفحة غير موجودة',
-        'something_went_wrog' => 'البيانات المدخلة غير صحيحة',
+        'something_went_wrong' => 'البيانات المدخلة غير صحيحة',
         'name_must_be_unique_on_department' =>  'هذه الوظيفة موجودة بالفعل لهذا القسم'
     ],
     'activity_log' => [
@@ -282,11 +291,13 @@ return [
     'contact' => [
         'contact'        => 'الدعم الفني',
         'contacts'       => 'الدعم الفني',
-        'index'          => 'رسائل الدعم الفني',
-        'show'           => 'عرض رسالة الدعم الفني',
-        'reply'          => 'الرد علي رسالة دعم فني',
-        'delete_contact' => 'حذف رسالة دعم فني',
-        'delete_reply'   => 'حذف الرد علي رسالة دعم فني',
+        'permissions' => [
+            'index'          => 'رسائل الدعم الفني',
+            'show'           => 'عرض رسالة الدعم الفني',
+            'reply'          => 'الرد علي رسالة دعم فني',
+            'delete_contact' => 'حذف رسالة دعم فني',
+            'delete_reply'   => 'حذف الرد علي رسالة دعم فني',
+        ]
     ],
     "employee" => [
         "employee" => "الموظف",

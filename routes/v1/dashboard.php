@@ -34,6 +34,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::apiResource('menus', 'MenuController');
     Route::get('group-permissions/{group}','GroupController@getPermissionsOfGroup')->name('group_permissions');
     Route::get('permissions', 'GroupController@permissions');
+    Route::post('validate','ValidateController')->name('validate');
 
     Route::controller('ProfileController')->name('profiles.')->prefix('profile')->group(function () {
         Route::get('show', 'show')->name('show');
@@ -62,24 +63,24 @@ Route::middleware('auth:sanctum')->group(function () {
             Route::post('restore/{id}', 'restore')->name('restore');
             Route::delete('forceDelete/{id}', 'forceDelete')->name('force_delete');
         });
-
-        Route::controller('CurrencyController')->name('currencies.')->prefix('currencies')->group(function () {
-            Route::get('archive', 'archive')->name('archive');
-            Route::post('restore/{id}', 'restore')->name('restore');
-            Route::delete('forceDelete/{id}', 'forceDelete')->name('force_delete');
-        });
-
-        Route::controller('CityController')->name('cities.')->prefix('cities')->group(function () {
-            Route::get('archive', 'archive')->name('archive');
-            Route::post('restore/{id}', 'restore')->name('restore');
-            Route::delete('forceDelete/{id}', 'forceDelete')->name('force_delete');
-        });
-
-        Route::controller('RegionController')->name('regions.')->prefix('regions')->group(function () {
-            Route::get('archive', 'archive')->name('archive');
-            Route::post('restore/{id}', 'restore')->name('restore');
-            Route::delete('forceDelete/{id}', 'forceDelete')->name('force_delete');
-        });
+        //
+        // Route::controller('CurrencyController')->name('currencies.')->prefix('currencies')->group(function () {
+        //     Route::get('archive', 'archive')->name('archive');
+        //     Route::post('restore/{id}', 'restore')->name('restore');
+        //     Route::delete('forceDelete/{id}', 'forceDelete')->name('force_delete');
+        // });
+        //
+        // Route::controller('CityController')->name('cities.')->prefix('cities')->group(function () {
+        //     Route::get('archive', 'archive')->name('archive');
+        //     Route::post('restore/{id}', 'restore')->name('restore');
+        //     Route::delete('forceDelete/{id}', 'forceDelete')->name('force_delete');
+        // });
+        //
+        // Route::controller('RegionController')->name('regions.')->prefix('regions')->group(function () {
+        //     Route::get('archive', 'archive')->name('archive');
+        //     Route::post('restore/{id}', 'restore')->name('restore');
+        //     Route::delete('forceDelete/{id}', 'forceDelete')->name('force_delete');
+        // });
         Route::controller('AdminController')->name('admins.')->prefix('admins')->group(function () {
             Route::get('create', 'create')->name('create');
             // Route::get('archive', 'archive')->name('archive');
@@ -93,8 +94,8 @@ Route::middleware('auth:sanctum')->group(function () {
             Route::delete('forceDelete/{id}', 'forceDelete')->name('force_delete');
             // Route::get('get-parents', 'getAllParents')->name("get_parents");
         });
-        Route::controller('ClientController')->name('clients.')->prefix('clients')->group(function () {
-        });
+        // Route::controller('ClientController')->name('clients.')->prefix('clients')->group(function () {
+        // });
 
         Route::controller('RasidJobController')->name('rasid_jobs.')->prefix('rasid_jobs')->group(function () {
             Route::get('archive', 'archive')->name('archive');
@@ -125,10 +126,10 @@ Route::middleware('auth:sanctum')->group(function () {
 
         Route::apiResources([
             'countries' => 'CountryController',
-            'currencies' => 'CurrencyController',
+            // 'currencies' => 'CurrencyController',
+            // "cities" => "CityController",
+            // "regions" => "RegionController",
             "departments" => "DepartmentController",
-            "cities" => "CityController",
-            "regions" => "RegionController",
             'admins' => 'AdminController',
             'employees' => 'EmployeeController',
             'clients' => 'ClientController',

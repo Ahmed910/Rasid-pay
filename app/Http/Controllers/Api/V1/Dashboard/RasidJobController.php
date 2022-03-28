@@ -103,7 +103,7 @@ class RasidJobController extends Controller
     }
 
 
-    public function destroy(RasidJob $rasidJob)
+    public function destroy(ReasonRequest $request, RasidJob $rasidJob)
     {
 
         if (!$rasidJob->is_vacant) {
