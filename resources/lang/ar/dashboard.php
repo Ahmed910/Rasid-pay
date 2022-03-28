@@ -280,10 +280,17 @@ return [
         "add_admin" => "اضافة مستخدم",
         "edit_admin" => "تعديل المستخدم",
         "admin_count" => "عدد المستخدمين",
+        'name' => 'اسم المستخدم',
+        'number'=>'رقم المستخدم',
         'sub_progs' => [
             'index' => 'سجل المستخدمين',
             'archive' => 'أرشيف المستخدمين',
             'create' => 'اضافة مستخدم',
+        ],
+        'active_cases'=>[
+            'active' =>'مفعل',
+            'ban_temporary'=>'معطل لفترة',
+            'ban_permnent'=>'معطل دائم',
         ],
         'permissions' => array_except($permissions, ['archive', 'restore', 'force_delete']) + ['create' => 'عرض المستخدمين']
     ],

@@ -197,6 +197,10 @@ class User extends Authenticatable implements HasAssetsInterface
 
             $query->where('is_active', $request->is_active);
         }
+        if (isset($request->login_id)) {
+
+            $query->where("login_id", $request->login_id);
+        }
 
         if (isset($request->ban_status)) {
             if (!in_array($request->ban_status, ['active', 'permanent', 'temporary'])) return;

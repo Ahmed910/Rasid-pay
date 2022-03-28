@@ -214,7 +214,14 @@ return [
         "add_admin" => "Add Admin",
         "edit_admin" => "Edit Admin",
         "admin_count" => "Admins Count",
-        'permissions' => array_except($permissions, ['archive', 'restore', 'force_delete']) + ['create' => 'Show Admins']
+        'name' => 'Admin Name ',
+        'number'=>'Admin Number',
+        'permissions' => array_except($permissions, ['archive', 'restore', 'force_delete']) + ['create' => 'Show Admins'],
+        'active_cases'=>[
+            'active' =>'Active',
+            'ban_temporary'=>'Ban Temporary',
+            'ban_permnent'=>'Ban Permnent',
+        ],
     ],
     "region" => [
         "region" => "Region",
