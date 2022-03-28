@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" dir="{{ LaravelLocalization::getCurrentLocaleDirection() }}">
+<html lang="en" dir="ltr">
 
 <head>
   <!-- META DATA -->
