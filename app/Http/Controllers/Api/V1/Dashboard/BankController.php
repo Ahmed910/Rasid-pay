@@ -46,7 +46,7 @@ class BankController extends Controller
 
     public function show($id)
     {
-        $bank = Bank::withTrashed()->findOrFail($id);
+        $bank = Bank::withTrashed()->findOrFail($id)->load('translations');
 
         return BankResource::make($bank)
             ->additional([

@@ -12,23 +12,13 @@
 
     <script>
         $(document).ready(function() {
-            $("#status")
-                .change(function() {
-                    $(this)
-                        .find("option:selected")
-                        .each(function() {
-                            var optionValue = $(this).attr("value");
-                            if (optionValue) {
-                                $(".temporary")
-                                    .not("." + optionValue)
-                                    .hide();
-                                $("." + optionValue).show();
-                            } else {
-                                $(".temporary").hide();
-                            }
-                        });
-                })
-                .change();
+            $("#status").change(function() {
+                if (this.value == 'temporary') {
+                    $(".temporary").show();
+                } else {
+                    $(".temporary").hide();
+                }
+            }).change();
         });
     </script>
     <script>
@@ -65,12 +55,10 @@
                     },
                     {
                         data: "fullname",
-
                         name: 'fullname'
                     },
                     {
                         data: "login_id",
-
                         name: 'login_id'
                     },
                     {
@@ -128,7 +116,7 @@
                 ],
 
                 "language": {
-                    "lengthMenu": "@lang('dashboard.datatable.show') _MENU_",
+                    "lengthMenu": "@lang('dashboard.general.show') _MENU_",
                     "emptyTable": "@lang('dashboard.datatable.no_data')",
                     "info": "@lang('dashboard.datatable.showing') _START_ @lang('dashboard.datatable.to') _END_ @lang('dashboard.datatable.from') _TOTAL_ @lang('dashboard.datatable.entries')",
                     "infoEmpty": "@lang('dashboard.datatable.no_search_result')",

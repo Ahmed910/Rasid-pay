@@ -14,12 +14,13 @@ class GlobalTransResource extends JsonResource
      */
     public function toArray($request)
     {
+        $allAttributes = $this->getAttributes();
         return [
-                'id' => $this->id,
-                'locale' => $this->locale,
-                'name' => $this->name,
-                'description' => $this->when($this->description, $this->description, null),
-                'nationality' => $this->when($this->nationality, $this->nationality, null)
+            'id' => $this->id,
+            'locale' => $this->locale,
+            'name' => $this->name,
+            'description' => $this->when(array_key_exists('description', $allAttributes), $this->description),
+            'nationality' => $this->when(array_key_exists('nationality', $allAttributes), $this->nationality)
         ];
     }
 }
