@@ -40,29 +40,32 @@ trait Uuid
 
     public function getCreatedAtAttribute($date)
     {
+        $locale = app()->getLocale();
         if (auth()->check() && auth()->user()->is_date_hijri) {
-            $this->changeDateLocale(app()->getLocale());
+            $this->changeDateLocale($locale);
             return Hijri::convertToHijri($date)->format('d F o');
         }
-        return Carbon::parse($date)->format("Y F d");
+        return Carbon::parse($date)->locale($locale)->translatedFormat('j F Y');
     }
 
     public function getUpdatedAtAttribute($date)
     {
+        $locale = app()->getLocale();
         if (auth()->check() && auth()->user()->is_date_hijri) {
-            $this->changeDateLocale(app()->getLocale());
+            $this->changeDateLocale($locale);
             return Hijri::convertToHijri($date)->format('d F o');
         }
-        return Carbon::parse($date)->format("Y F d");
+        return Carbon::parse($date)->locale($locale)->translatedFormat('j F Y');
     }
 
     public function getDeletedAtAttribute($date)
     {
+        $locale = app()->getLocale();
         if (auth()->check() && auth()->user()->is_date_hijri) {
-            $this->changeDateLocale(app()->getLocale());
+            $this->changeDateLocale($locale);
             return Hijri::convertToHijri($date)->format('d F o');
         }
-        return Carbon::parse($date)->format("Y F d");
+        return Carbon::parse($date)->locale($locale)->translatedFormat('j F Y');
     }
 
     public function changeDateLocale($locale = 'ar')
@@ -70,11 +73,9 @@ trait Uuid
         if ($locale == 'en') {
             Date::setTranslation(new English);
             Date::setDefaultNumbers(Date::ARABIC_NUMBERS);
-            Carbon::setLocale("en");
         } else {
             Date::setTranslation(new Arabic);
             Date::setDefaultNumbers(Date::INDIAN_NUMBERS);
-            Carbon::setLocale("ar");
         }
     }
 }
