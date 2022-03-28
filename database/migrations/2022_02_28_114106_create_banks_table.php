@@ -37,7 +37,7 @@ class CreateBanksTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('banks_translations');
+        Schema::dropIfExists('bank_translations');
         Schema::dropIfExists('banks');
     }
 }
