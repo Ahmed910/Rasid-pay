@@ -42,18 +42,22 @@
         <div class="row align-items-end mb-3">
 
             <div class="col-12 col-md-3 temporary">
-                <label for="validationCustom02"> {{ trans('dashboard.admin.ban_from') }}</label>
+                <label for="ban_from"> {{ trans('dashboard.admin.ban_from') }}</label>
                 <div class="input-group">
-                    <input id="from-hijri-unactive-picker-custom" type="text" readonly placeholder="{{ trans('dashboard.general.day_month_year') }}" class="form-control" name="ban_from" value="{{ old('ban_from') ?? request('ban_from') }}"/>
+                    <input id="from-hijri-unactive-picker-custom" type="text" readonly
+                        placeholder="{{ trans('dashboard.general.day_month_year') }}" class="form-control"
+                        name="ban_from" value="{{ old('ban_from') ?? request('ban_from') }}" />
                     <div class="input-group-text border-start-0">
                         <i class="fa fa-calendar tx-16 lh-0 op-6"></i>
                     </div>
                 </div>
             </div>
             <div class="col-12 col-md-3 temporary">
-                <label for="validationCustom02">{{ trans('dashboard.admin.ban_to') }}</label>
+                <label for="ban_to">{{ trans('dashboard.admin.ban_to') }}</label>
                 <div class="input-group">
-                    <input id="to-hijri-unactive-picker-custom" type="text" readonly placeholder="{{ trans('dashboard.general.day_month_year') }}" class="form-control" name="ban_to" value="{{ old('ban_to') ?? request('ban_to') }}" />
+                    <input id="to-hijri-unactive-picker-custom" type="text" readonly
+                        placeholder="{{ trans('dashboard.general.day_month_year') }}" class="form-control"
+                        name="ban_to" value="{{ old('ban_to') ?? request('ban_to') }}" />
                     <div class="input-group-text border-start-0">
                         <i class="fa fa-calendar tx-16 lh-0 op-6"></i>
                     </div>
@@ -61,7 +65,7 @@
             </div>
 
             <div class="col-12 col-md-3">
-                <label for="validationCustom02">
+                <label for="created_from">
                     {{ trans('dashboard.general.from_date') }}</label>
                 <div class="input-group">
                     <input id="from-hijri-picker-custom" type="text" readonly
@@ -73,7 +77,7 @@
                 </div>
             </div>
             <div class="col-12 col-md-3">
-                <label for="validationCustom02">
+                <label for="created_to">
                     {{ trans('dashboard.general.to_date') }}</label>
                 <div class="input-group">
                     <input id="to-hijri-picker-custom" type="text" readonly
