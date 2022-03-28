@@ -87,12 +87,12 @@ return [
         'upload_error' => 'Oh, something went wrong',
         'upload_file_max' => 'File size is large',
         'notAllowdedToUpload' => 'File type is not allowded to be uploaded',
-        "active_cases" => [
-            'Active',
-            'Unactive',
-        ],
         'the_archive' => 'The Archive',
-
+        'black_menu'=>'Black Menu',
+        'settings'=>'Settings',
+        'logout'=>'Logout',
+        'accept'=>'Accept',
+        'cancel'=>'Cancel',
     ],
     'error' => [
         'method_not_allow' => 'Http method (:method) not allowed',
