@@ -1,6 +1,6 @@
 @extends('dashboard.layouts.master')
 
-@section('title', trans('dashboard.department.sub_progs.index'))
+@section('title', ' - ' . trans('dashboard.department.sub_progs.index'))
 
 @section('content')
 

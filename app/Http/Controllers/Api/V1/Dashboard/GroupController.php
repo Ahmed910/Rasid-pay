@@ -19,7 +19,6 @@ class GroupController extends Controller
     public function index(Request $request)
     {
         $groups = Group::with('groups', 'permissions')
-            ->where('id',"<>",auth()->user()->group_id)
             ->withCount('admins as user_count')
             ->withTranslation()
             ->search($request)
