@@ -18,8 +18,8 @@
                             <td>{{ $job->name }}</td>
                             <td>{{ $job->department->name }}</td>
                             <td>{{ $job->created_at }}</td>
-                            <td>{{ trans('dashboard.general.active_cases' . $job->is_active) }}</td>
-                            <td>{{ trans('dashboard.general.job_type_cases' . $job->is_vacant) }}</td>
+                            <td>{{ trans('dashboard.general.active_cases.' . $job->is_active) }}</td>
+                            <td>{{ trans('dashboard.general.job_type_cases.' . $job->is_vacant) }}</td>
                         </tr>
                     @endforeach
                 </tbody>
