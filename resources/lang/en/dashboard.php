@@ -241,6 +241,8 @@ return [
         "admin_count" => "Admins Count",
         'name' => 'Admin Name ',
         'number'=>'Admin Number',
+        'ban_from' => 'Ban Date (From)',
+        'ban_to' => ' Ban Date (To)',
         'permissions' => array_except($permissions, ['archive', 'restore', 'force_delete']) + ['create' => 'Show Admins'],
         'active_cases'=>[
             'active' =>'Active',
