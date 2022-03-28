@@ -9,21 +9,22 @@
     <script src="{{ asset('dashboardAssets/js/custom_scripts.js') }}"></script>
     <script src="{{ asset('dashboardAssets/plugins/bootstrap-hijri-datepicker/js/bootstrap-hijri-datetimepicker.js') }}">
     </script>
+
     <script>
         $(document).ready(function() {
-            $("select")
+            $("#status")
                 .change(function() {
                     $(this)
                         .find("option:selected")
                         .each(function() {
                             var optionValue = $(this).attr("value");
                             if (optionValue) {
-                                $(".hold")
+                                $(".temporary")
                                     .not("." + optionValue)
                                     .hide();
                                 $("." + optionValue).show();
                             } else {
-                                $(".hold").hide();
+                                $(".temporary").hide();
                             }
                         });
                 })
@@ -32,7 +33,6 @@
     </script>
     <script>
         $(function() {
-
 
             /******* Calendar *******/
             $("#from-hijri-picker-custom, #to-hijri-picker-custom, #from-hijri-unactive-picker-custom ,#to-hijri-unactive-picker-custom")
@@ -66,12 +66,12 @@
                     {
                         data: "fullname",
 
-                        fullname: 'fullname'
+                        name: 'fullname'
                     },
                     {
                         data: "login_id",
 
-                        phone: 'login_id'
+                        name: 'login_id'
                     },
                     {
                         data: function(data) {
@@ -87,7 +87,7 @@
                     },
                     {
                         data: function(data) {
-                            if (data.ban_status =='مفعل') {
+                            if (data.ban_status == 'مفعل') {
                                 return ` <span class="badge bg-success-opacity py-2 px-4">${data.ban_status}</span>`;
                             } else {
                                 return ` <span class="badge bg-danger-opacity py-2 px-4">${data.ban_status}</span>`;

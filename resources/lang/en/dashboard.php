@@ -239,8 +239,8 @@ return [
         'permissions' => array_except($permissions, ['archive', 'restore', 'force_delete']) + ['create' => 'Show Admins'],
         'active_cases'=>[
             'active' =>'Active',
-            'ban_temporary'=>'Ban Temporary',
-            'ban_permnent'=>'Ban Permnent',
+            'temporary'=>'Ban Temporary',
+            'permanent'=>'Ban Permnent',
         ],
         'sub_progs' => [
             'index' => 'Admins Rescord ',

@@ -13,15 +13,12 @@ class AdminResource extends JsonResource
 {
     public function toArray($request)
     {
-        //ban status
-        if($this->ban_status =='active'){
-            $ban_status = trans('dashboard.admin.active_cases.active');
-        }
-        elseif($this->ban_status =='permanent'){
-            $ban_status = trans('dashboard.admin.active_cases.ban_permnent');
-        }elseif($this->ban_status =='temporary'){
-            $ban_status = trans('dashboard.admin.active_cases.ban_temporary');
-        }
+
+        $ban_status = match($this->ban_status){
+            'active'=> trans('dashboard.admin.active_cases.active'),
+            'permanent'=> trans('dashboard.admin.active_cases.permanent'),
+            'temporary'=> trans('dashboard.admin.active_cases.temporary'),
+        };
 
         return [
             'id' => $this->id,

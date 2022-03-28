@@ -28,12 +28,12 @@ return [
         "success_archive" => "تمت الأرشفة بنجاح",
         "success_restore" => "تم الاستعادة بنجاح",
         "has_relationship_cannot_delete" => "لا يمكن حذف هذا العنصر ،بسبب احتواءه علي علاقات",
-        'yes'=>'موافق',
+        'yes' => 'موافق',
         'no' => 'غير موافق',
-        'want_saving'=>'هل تريد اتمام عملية الحفظ ؟',
+        'want_saving' => 'هل تريد اتمام عملية الحفظ ؟',
         'reason_required' => 'السبب مطلوب',
         'want_back_without_saving' => 'هل تريد العودة دون حفظ ؟',
-        'close'=>'اغلاق',
+        'close' => 'اغلاق',
         "save" => "حفظ",
         "back" => "عودة",
         "edit" => "تعديل",
@@ -84,8 +84,8 @@ return [
         'reason' => 'السبب',
         'done_by' => 'تم بواسطة',
         'the_archive' => 'الأرشيف',
-        "want_to_archive"=>"هل تريد إتمام عملية الأرشفة؟",
-        "reason_needed" =>"الرجاء ذكر السبب*"
+        "want_to_archive" => "هل تريد إتمام عملية الأرشفة؟",
+        "reason_needed" => "الرجاء ذكر السبب*"
     ],
     'datatable' => [
         'no_data' => 'لا يوجد بيانات',
@@ -282,16 +282,17 @@ return [
         "edit_admin" => "تعديل المستخدم",
         "admin_count" => "عدد المستخدمين",
         'name' => 'اسم المستخدم',
-        'number'=>'رقم المستخدم',
+        'number' => 'رقم المستخدم',
         'sub_progs' => [
             'index' => 'سجل المستخدمين',
             'archive' => 'أرشيف المستخدمين',
             'create' => 'اضافة مستخدم',
         ],
-        'active_cases'=>[
-            'active' =>'مفعل',
-            'ban_temporary'=>'معطل لفترة',
-            'ban_permnent'=>'معطل دائم',
+
+        'active_cases' => [
+            'active' => 'مفعل',
+            'temporary' => 'معطل لفترة',
+            'permanent' => 'معطل دائم',
         ],
         'permissions' => array_except($permissions, ['archive', 'restore', 'force_delete']) + ['create' => 'عرض المستخدمين']
     ],

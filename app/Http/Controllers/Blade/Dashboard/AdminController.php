@@ -18,7 +18,6 @@ class AdminController extends Controller
      */
     public function index(Request $request)
     {
-
         if (isset($request->order[0]['column'])) {
             $request['sort'] = ['column' => $request['columns'][$request['order'][0]['column']]['name'], 'dir' => $request['order'][0]['dir']];
         }
@@ -30,13 +29,11 @@ class AdminController extends Controller
             ->sortBy($request);
 
 
-
         if ($request->ajax()) {
             $adminCount = $adminsQuery->count();
             $admins = $adminsQuery->skip($request->start)
                 ->take(($request->length == -1) ? $adminCount : $request->length)
                 ->get();
-
             return AdminCollection::make($admins)
                 ->additional(['total_count' => $adminCount]);
         }
