@@ -29,12 +29,12 @@
                 </div>
               </div>
               <div class="modal-footer justify-content-center mt-5 p-0">
-                <button type="submit" class="btn btn-primary mx-3">
+                <button type="submit" class="btn btn-secondary mx-3">
                   موافق
                 </button>
                 <button
                   type="button"
-                  class="btn btn-outline-primary"
+                  class="btn btn-outline-secondary"
                   data-bs-dismiss="modal"
                 >
                   غير موافق

@@ -9,8 +9,8 @@
                 <p>هل تريد إتمام عملية الحفظ؟</p>
             </div>
             <div class="modal-footer d-flex justify-content-center mt-5 p-0">
-                <button type="button" class="btn btn-success mx-3" onClick='submitDetailsForm()'>موافق</button>
-                <button type="button" class="btn btn-outline-success" data-bs-dismiss="modal">
+                <button type="button" class="btn btn-primary mx-3" onClick='submitDetailsForm()'>موافق</button>
+                <button type="button" class="btn btn-outline-primary" data-bs-dismiss="modal">
                     غير موافق
                 </button>
             </div>

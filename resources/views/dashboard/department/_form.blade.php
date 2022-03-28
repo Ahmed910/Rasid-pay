@@ -3,8 +3,10 @@
         <div class="col-12 col-md-4 mb-5">
             {!! Form::label('departmentName', trans('dashboard.department.department_name')) !!}
             @foreach ($locales as $locale)
-                {!! Form::text("{$locale}[name]", isset($department) ? $department->name : null, ['class' => 'form-control ', 'id' => 'departmentName', 'placeholder' => trans('dashboard.department.department_name'), 'minlength' => '2', 'maxlength' => '100', 'pattern' => '^[\u0600-\u065F\u066A-\u06EF\u06FA-\u06FFa-zA-Z]+[\u0600-\u065F\u066A-\u06EF\u06FA-\u06FFa-zA-Z0-9-_ ]*$', 'onpaste' => 'return false;', 'oncopy' => 'return false;', 'ondrop' => 'return false;']) !!}
-                @error("${locale}.name")
+                {!! Form::text("{$locale}[name]", isset($department) ? $department->name : null, ['class' => 'form-control ', 'id' => 'departmentName', 'placeholder' => trans('dashboard.department.department_name'), 'minlength' => '2', 'maxlength' => '100','required' => 'required',  'pattern' => '^[\u0600-\u065F\u066A-\u06EF\u06FA-\u06FFa-zA-Z]+[\u0600-\u065F\u066A-\u06EF\u06FA-\u06FFa-zA-Z0-9-_ ]*$', 'onpaste' => 'return false;', 'oncopy' => 'return false;', 'ondrop' => 'return false;']) !!}
+                
+                    <div class="invalid-feedback">اسم القسم مطلوب.</div>
+                    @error("${locale}.name")
                     <span class="text-danger">{{ $message }}</span>
                 @enderror
             @endforeach
@@ -21,7 +23,9 @@
 
         <div class="col-12 col-md-4 mb-5">
             {!! Form::label('status', trans('dashboard.general.status')) !!}
-            {!! Form::select('is_active', trans('dashboard.general.active_cases'), null, ['class' => 'form-control select2', 'id' => 'status', 'placeholder' => trans('dashboard.general.select_status')]) !!}
+            {!! Form::select('is_active', trans('dashboard.general.active_cases'), null, ['class' => 'form-control select2', 'id' => 'status','required' => 'required', 'placeholder' => trans('dashboard.general.select_status')]) !!}
+            
+                    <div class="invalid-feedback">الحالة مطلوبة.</div>
             @error('is_active')
                 <span class="text-danger">{{ $message }}</span>
             @enderror

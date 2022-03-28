@@ -98,14 +98,13 @@
                             class="primaryIcon"
                             data-bs-toggle="tooltip"
                             data-bs-placement="top"
-                            title="@lang('dashboard.general.archive')"
+                            title="{{ trans('dashboard.general.archive') }}"
                             ><i class="mdi mdi-archive-arrow-down-outline"></i></a>`
                         }
                     }
                 ],
                 createdRow: function(row, data) {
                     $('[data-toggle="popoverIMG"]', row).popover({
-                        placement: "right",
                         trigger: "hover",
                         html: true,
                     });

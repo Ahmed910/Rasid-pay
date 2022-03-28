@@ -61,11 +61,11 @@
                     >
                   </div>
                 <div class="col-12 mt-5 text-center">
-                  <a href="newPass.html" class="btn btn-primary"> إرسال </a>
-                  <a href="reset.html" class="btn btn-outline-primary">
-                    عودة
-                  </a>
-                </div>
+        {!! Form::submit('إرسال',['class' => "btn btn-primary mx-2"]) !!}
+        <a href="{!! route('dashboard.login') !!}" class="btn btn-outline-primary mx-2">
+            عودة
+        </a>
+    </div>
               </form>
               <!-- FORM CLOSED -->
 
