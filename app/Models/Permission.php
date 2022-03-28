@@ -30,7 +30,10 @@ class Permission extends Model
         "activity_logs.main_programs",
         "activity_logs.sub_programs",
         "activity_logs.events",
-        "image_delete.image_delete",
+        "image_delete",
+        "send_message",
+        "validate",
+        'group_permissions'
     ];
     #endregion properties
 
