@@ -16,17 +16,15 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @php $index = 1; @endphp
                     @foreach ($departments as $department)
                         <tr>
-                            <td>{{ $index }}</td>
+                            <td>{{ $loop->iteration }}</td>
                             <td>{{ $department->name }}</td>
-                            <td>{{ $department->parent->name ?? null }}</td>
+                            <td>{{ @$department->parent->name ?? null }}</td>
                             <td>{{ $department->created_at }}</td>
-                            <td>{{ $department->is_active == 1 ? trans('dashboard.general.active') : trans('dashboard.general.inactive') }}
+                            <td>{{ trans('dashboard.general.active_cases.'.$department->is_active) }}
                             </td>
                         </tr>
-                        @php $index++; @endphp
                     @endforeach
                 </tbody>
             </table>
