@@ -31,7 +31,7 @@ class AppServiceProvider extends ServiceProvider
     public function register()
     {
         Builder::macro("CustomDateFromTo",  function ($request) {
-            if ($request->created_from) {
+            if (isset($request->created_from)) {
                 $created_from = date('Y-m-d', strtotime($request->created_from));
                 if (auth()->user()->is_date_hijri == 1) {
                     $date = explode("-", $created_from);
@@ -40,7 +40,7 @@ class AppServiceProvider extends ServiceProvider
                 $this->whereDate('created_at', ">=", $created_from);
             }
 
-            if ($request->created_to) {
+            if (isset($request->created_to)) {
                 $created_to = date('Y-m-d', strtotime($request->created_to));
                 if (auth()->user()->is_date_hijri == 1) {
                     $date = explode("-", $created_to);
@@ -48,7 +48,7 @@ class AppServiceProvider extends ServiceProvider
                 }
                 $this->whereDate('created_at', "<=", $created_to);
             }
-        });
+        });       
     }
 
     /**

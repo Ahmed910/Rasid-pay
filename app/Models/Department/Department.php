@@ -50,20 +50,15 @@ class Department extends Model implements TranslatableContract, HasAssetsInterfa
     #region accessor
 
 
-    public function getImageAttribute()
-    {
-        if ($this->images()->first()?->media == null) return null;
 
-        return asset($this->images()->first()?->media);
-    }
     #endregion accessor
 
     #region scopes
     public function scopeSearch(Builder $query, $request)
     {
-        $this->addGlobalActivity($this, $request->query(), ActivityLog::SEARCH, 'index');
+        // $this->addGlobalActivity($this, $request->query(), ActivityLog::SEARCH, 'index');
 
-        if ($request->name) {
+        if (isset($request->name)) {
             $query->where(function ($q) use ($request) {
                 $q->whereTranslationLike('name', "%\\$request->name%");
             });

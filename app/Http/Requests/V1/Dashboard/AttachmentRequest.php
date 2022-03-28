@@ -23,7 +23,7 @@ class AttachmentRequest extends ApiMasterRequest
      */
     public function rules()
     {
-        $data = [];
+        $data = ["attachments" => "required"];
         $map = [
             "videos" => 'required|mimetypes:video/avi,video/mpeg,video/quicktime',
             "images" => 'required|mimes:jpeg,jpg,png,suv,heic',
@@ -35,15 +35,16 @@ class AttachmentRequest extends ApiMasterRequest
         ];
         $data["attachments.*.title"] = "required|max:100|min:3";
         $data["attachments.*.type"] = "required|in:delegate,identity,docs,images,videos,voices,other";
+        if (isset($this->attachments))
+//    dd($this->attachments);
+            for ($i = 0; $i < count($this->attachments); $i++) {
+                $data["attachments." . $i . ".files"] = "required|array";
+                if ($this->attachments[$i]["type"] == "delegate" || $this->attachments[$i]["type"] == "identity") $data["attachments." . $i . ".files"] .= "|size:1";
+                if (isset($map[$this->attachments[$i]["type"]])) $data["attachments." . $i . ".files.*"] = $map[$this->attachments[$i]["type"]];
 
-        for ($i = 0; $i < count($this->attachments); $i++) {
-            $data["attachments." . $i . ".files"] = "required|array";
-            if ($this->attachments[$i]["type"] == "delegate" || $this->attachments[$i]["type"] == "identity") $data["attachments." . $i . ".files"] .= "|size:1";
-            if (isset($map[$this->attachments[$i]["type"]])) $data["attachments." . $i . ".files.*"] = $map[$this->attachments[$i]["type"]];
 
-
-        }
-
+            }
+//dd($data);
         return $data;
 
 //// TODO max sizes needs to be handled

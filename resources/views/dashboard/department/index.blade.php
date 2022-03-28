@@ -53,7 +53,7 @@
             <div class="col">
                 <label for="status">
                     @lang('dashboard.general.status')</label>
-                {!! Form::select('is_active', trans('dashboard.general.active_cases'),request('is_active'), ['class' => 'form-control select2-show-search', 'placeholder' => trans('dashboard.general.select_status')]) !!}
+                {!! Form::select('is_active', trans('dashboard.general.active_cases'), request('is_active'), ['class' => 'form-control select2-show-search', 'placeholder' => trans('dashboard.general.select_status')]) !!}
             </div>
         </div>
         <div class="row">
@@ -65,8 +65,12 @@
                         @lang('dashboard.general.export')
                     </button>
                     <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                        <li><a class="dropdown-item" href="#">PDF</a></li>
-                        <li><a class="dropdown-item" href="#">Excel</a></li>
+                        <li><a class="dropdown-item"
+                                href="{{ route('dashboard.department.exportPDF', ['is_active' => request('is_active'),'name' => request('name'),'parent_id' => request('parent_id'),'created_from' => request('created_from'),'created_to' => request('created_to')]) }}"
+                                target="_blank">PDF</a></li>
+                        <li><a class="dropdown-item"
+                                href="{{ route('dashboard.department.export', ['is_active' => request('is_active'),'name' => request('name'),'parent_id' => request('parent_id'),'created_from' => request('created_from'),'created_to' => request('created_to')]) }}"
+                                target="_blank">Excel</a></li>
                     </ul>
                 </div>
             </div>

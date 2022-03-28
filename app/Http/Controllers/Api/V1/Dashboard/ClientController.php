@@ -39,12 +39,12 @@ class ClientController extends Controller
     }
 
 
-    public function store(ClientRequest      $request, AttachmentRequest $attachmentRequest,
+    public function store(ClientRequest      $clientRequestrequest, AttachmentRequest $attachmentRequest,
                           BankAccountRequest $bankAccountRequest, ManagerRequest $managerRequest, Client $client, BankAccount $bankAccount, Manager $manager)
     {
         $except = ["tax_number", "commercial_number", "activity_type", "daily_expect_trans", "register_type", "client_type", "nationality", "address", "marital_status"];
-        $userData = $request->safe()->except($except) + ["user_type" => "client", 'added_by_id' => auth()->id()];
-        $clientData = $request->safe()->only($except);
+        $userData = $clientRequestrequest->safe()->except($except) + ["user_type" => "client", 'added_by_id' => auth()->id()];
+        $clientData = $clientRequestrequest->safe()->only($except);
 
         $user = user::create($userData);
         $bankAccount->fill($bankAccountRequest->validated())->user()->associate($user)->save();
@@ -54,7 +54,6 @@ class ClientController extends Controller
         $manager->clients()->save($client);
 
         if ($attachmentRequest->has("attachments")) {
-//            dd("ds") ;
             Attachment::storeImage($attachmentRequest, $user);
 
         }

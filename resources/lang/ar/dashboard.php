@@ -15,16 +15,17 @@ return [
     'attributes' => [
         'name' => 'الاسم',
         'description' => 'الوصف',
-        'nationality' => 'الجنسية باللغة العربية',
+        'nationality' => 'الجنسية',
     ],
     'datatable' => [
         'show :menu' => 'عرض :menu'
     ],
     'general' => [
-        "success_add" => "تم الإضافة بنجاح",
+        "no_reasons" => "لايوجد",
+        "success_add" => "تمت الإضافة بنجاح",
         "success_delete" => "تم الحذف بنجاح",
         "success_update" => "تم التعديل بنجاح",
-        "success_archive" => "تم الأرشفة بنجاح",
+        "success_archive" => "تمت الأرشفة بنجاح",
         "success_restore" => "تم الاستعادة بنجاح",
         "has_relationship_cannot_delete" => "لا يمكن حذف هذا العنصر ،بسبب احتواءه علي علاقات",
         'yes'=>'موافق',
@@ -76,7 +77,7 @@ return [
 
         'hold_upload' => 'اسحب وأسقط او قم برفع الصورة',
         'hold_change' => 'اسحب وأسقط او إضغط لتغيير الصورة',
-        'upload_error' => 'اووه ، حدث خطأ ما',
+        'upload_error' => 'اوبس ، حدث خطأ ما',
         'upload_file_max' => 'حجم الملف كبير',
         'notAllowdedToUpload' => 'نوع الملف غير مسموح بتحميله',
         'description' => 'الوصف',
