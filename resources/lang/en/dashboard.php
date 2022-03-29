@@ -51,6 +51,7 @@ return [
         'dashboard' => 'Rasid Jack Dashboard',
         "status" => "Status",
         "select_status" => "Select Status",
+        'select_user' => 'Select User',
         'select_permissions'=>'Select Permissions',
         "type" => "Type",
         "select_type" => "Select Type",

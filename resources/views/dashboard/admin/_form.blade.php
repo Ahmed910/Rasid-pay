@@ -10,7 +10,7 @@
           </div>
           <div class="col-12 col-md-4">
               {!! Form::label('userName', trans('dashboard.admin.name')) !!}
-              {!! Form::text('employee_id', null, ['class' => 'form-control ', 'id' => 'userName', 'placeholder' => trans('dashboard.admin.name')]) !!}
+              {!! Form::select('employee_id', [], null, ['class' => 'form-control select2', 'id' => 'userName', 'placeholder' => trans('dashboard.general.select_user')]) !!}
               @error('employee_id')
                   <span class="text-danger">{{ $message }}</span>
               @enderror
@@ -64,21 +64,23 @@
           <div class="col-12 col-md-2  mt-3 d-flex align-items-end">
               <div class="form-check">
                   {!! Form::label('verifyCode', trans('dashboard.general.Send VerificationCode'), ['class' => 'form-check-label']) !!}
-                  {!! Form::checkbox('login_id', null, ['class' => 'form-check-input', 'id' => 'verifyCode']) !!}
-                  @error('login_id')
+                  {!! Form::checkbox('is_login_code', '1', true, [ 'id' => 'verifyCode']) !!}
+                  @error('is_login_code')
                       <span class="text-danger">{{ $message }}</span>
                   @enderror
               </div>
           </div>
-          <div class="col-12 col-md-2  mt-3 d-flex align-items-end">
-              <div class="form-check">
-                  {!! Form::label('changePassword', trans('dashboard.general.change_password'), ['class' => 'form-check-label']) !!}
-                  {!! Form::checkbox('change_password', null, ['class' => 'form-check-input', 'id' => 'changePassword']) !!}
-                  @error('change_password')
-                      <span class="text-danger">{{ $message }}</span>
-                  @enderror
+          @if (isset($admin))
+              <div class="col-12 col-md-2  mt-3 d-flex align-items-end">
+                  <div class="form-check">
+                      {!! Form::label('changePassword', trans('dashboard.general.change_password'), ['class' => 'form-check-label']) !!}
+                      {!! Form::checkbox('change_password', '1',true, [ 'id' => 'changePassword']) !!}
+                      @error('change_password')
+                          <span class="text-danger">{{ $message }}</span>
+                      @enderror
+                  </div>
               </div>
-          </div>
+          @endif
           <div class="col-12 col-md-4 mt-3 changePass">
               <div class="form-group">
                   {!! Form::label('newPassword', trans('dashboard.admin.new_password')) !!}
@@ -94,20 +96,20 @@
               </div>
           </div>
           <div class="col-12 col-md-4 mt-3 changePass">
-              <div class="form-group"></div>
-              {!! Form::label('confirmPassword', trans('dashboard.admin.confirmed_password')) !!}
-              <div class="input-group" id="show_hide_confirm_password">
-                  {!! Form::password('confirmed_password', ['class' => 'form-control', 'placeholder' => trans('dashboard.admin.confirmed_password')]) !!}
-                  <div class="input-group-text bg-white border-start-0">
-                      <a href=""><i class="mdi mdi-eye-off-outline d-flex"></i></a>
+              <div class="form-group">
+                  {!! Form::label('confirmPassword', trans('dashboard.admin.confirmed_password')) !!}
+                  <div class="input-group" id="show_hide_confirm_password">
+                      {!! Form::password('confirmed_password', ['class' => 'form-control', 'placeholder' => trans('dashboard.admin.confirmed_password')]) !!}
+                      <div class="input-group-text bg-white border-start-0">
+                          <a href=""><i class="mdi mdi-eye-off-outline d-flex"></i></a>
+                      </div>
                   </div>
+                  @error('confirmed_password')
+                      <span class="text-danger">{{ $message }}</span>
+                  @enderror
               </div>
-              @error('confirmed_password')
-                  <span class="text-danger">{{ $message }}</span>
-              @enderror
           </div>
       </div>
-  </div>
   </div>
   <div class="row">
       <div class="col-12 mb-5 text-end">
@@ -115,6 +117,10 @@
           {!! Form::button('<i class="mdi mdi-arrow-left"></i>' . trans('dashboard.general.back'), ['type' => 'button', 'class' => 'btn btn-outline-primary', 'id' => 'showBack']) !!}
       </div>
   </div>
+
+  @include('dashboard.layouts.modals.confirm')
+  @include('dashboard.layouts.modals.back')
+
   @section('scripts')
       <script src="{{ asset('dashboardAssets/js/select2.js') }}"></script>
       <script src="{{ asset('dashboardAssets/plugins/select2/select2.full.min.js') }}"></script>
@@ -181,6 +187,55 @@
                       history.back()
                   }
               });
+
+              //change password checkbox
+              $("#changePassword").change(function() {
+                  if (this.checked) {
+                      $(".changePass").show();
+                  } else {
+                      $(".changePass").hide();
+                  }
+              });
+
+              // temporary status appear date
+              $(document).ready(function() {
+                  $("#status").change(function() {
+                      if (this.value == 'temporary') {
+                          $(".temporary").show();
+                      } else {
+                          $(".temporary").hide();
+                          $('#from-hijri-unactive-picker-custom').val('');
+                          $('#to-hijri-unactive-picker-custom').val('');
+                      }
+                  }).change();
+              });
+
+
+              //get users from department script
+              $("#mainDepartment").change(function(e) {
+                  e.preventDefault();
+                  var department_id = $("#mainDepartment").val();
+
+                  //send ajax
+                  $.ajax({
+                      url: '{{ url('/dashboard/admin/all-employees') }}' + '/' + department_id,
+                      type: 'get',
+                      success: function(data) {
+                          if (data) {
+                              $('#userName').empty();
+                              $("#userName").append('<option value=""> @lang('dashboard.general.select_user') </option>')
+                              $.each(data.data, function(index, user) {
+                                  $("#userName").append('<option value="' + user.id + '">' +
+                                      user.fullname + '</option>')
+                              });
+                          }
+                      },
+                      error: function(jqXhr, textStatus, errorMessage) {
+                          alert(errorMessage);
+                      }
+                  });
+              });
+
           })();
       </script>
   @endsection

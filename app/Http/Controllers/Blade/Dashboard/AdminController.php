@@ -70,6 +70,7 @@ class AdminController extends Controller
      */
     public function store(AdminRequest $request, User $admin)
     {
+        dd($request->all());
         $admin->fill($request->validated())->save();
 
         return redirect()->route('dashboard.admin.index')->withSuccess(__('dashboard.general.success_add'));
@@ -149,5 +150,19 @@ class AdminController extends Controller
      */
     public function destroy(Admin $admin)
     {
+    }
+
+    /**
+     * get Employees by departmentId
+     */
+    public function getEmployeesByDepartment($id)
+    {
+        return response()->json([
+            'data' => User::select('id', 'fullname')->where('user_type', 'employee')->whereHas('department', function ($q) use ($id) {
+                $q->where('departments.id', $id);
+            })->setEagerLoads([])->get(),
+            'status' => true,
+            'message' => '',
+        ]);
     }
 }

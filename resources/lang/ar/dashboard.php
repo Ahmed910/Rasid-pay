@@ -54,6 +54,7 @@ return [
         'dashboard' => 'لوحة تحكم رصيد جاك',
         "status" => "الحالة",
         "select_status" => "اختر الحالة",
+        "select_user" => "اختر مستخدم",
         'select_permissions'=>'اختر الصلاحيات',
         "type" => "النوع",
         "select_type" => "اختر النوع",
