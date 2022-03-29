@@ -7,6 +7,7 @@
   <nav aria-label="breadcrumb">
     <ol class="breadcrumb">
       <li class="breadcrumb-item">
+      
         <a href="{{ route('dashboard.admin.index') }}">{{ trans('dashboard.admin.sub_progs.index') }}
         </a>
       </li>
