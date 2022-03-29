@@ -123,5 +123,7 @@
         <!-- End Row -->
         @include('dashboard.layouts.modals.archive')
         @include('dashboard.layouts.modals.not_archive')
-    @endsection
+        @include('dashboard.layouts.modals.alert')
+
+@endsection
     @include('dashboard.job.script')
