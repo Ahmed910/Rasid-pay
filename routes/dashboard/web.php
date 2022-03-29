@@ -47,6 +47,12 @@ Route::group(
                 Route::get('exportPDF', 'exportPDF')->name('exportPDF');
             });
 
+            Route::controller('AdminController')->name('admin.')->prefix('admin')->group(function () {
+
+            Route::get('all-employees/{department}', 'getEmployeesByDepartment');
+            });
+
+
 
             Route::resources([
                 'job' => 'JobController',
