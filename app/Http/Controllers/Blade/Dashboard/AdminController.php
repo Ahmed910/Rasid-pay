@@ -59,7 +59,7 @@ class AdminController extends Controller
         $departments = Department::with('parent.translations')->ListsTranslations('name')->pluck('name', 'id');
         $groups = Group::ListsTranslations('name')->pluck('name', 'id');
         $locales = config('translatable.locales');
-        return view('dashboard.admin.create', compact('departments', 'locales','groups'));
+        return view('dashboard.admin.create', compact('departments', 'locales', 'groups'));
     }
 
     /**
@@ -97,7 +97,8 @@ class AdminController extends Controller
             'created_at',
             'action_type',
             'reason'
-        ]; if (isset($request->order[0]['column'])) {
+        ];
+        if (isset($request->order[0]['column'])) {
             $request['sort'] = ['column' => $sortingColumns[$request->order[0]['column']], 'dir' => $request->order[0]['dir']];
         }
 

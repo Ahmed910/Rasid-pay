@@ -3,7 +3,7 @@
 
           <div class="col-12 col-md-4">
               {!! Form::label('mainDepartment', trans('dashboard.department.department_name')) !!}
-              {!! Form::select('department_id', $departments, null, ['class' => 'form-control select2-show-search', 'placeholder' => trans('dashboard.department.without_parent'), 'id' => 'mainDepartment']) !!}
+              {!! Form::select('department_id', $departments, null, ['class' => 'form-control select2-show-search', 'placeholder' => trans('dashboard.department.select_department'), 'id' => 'mainDepartment']) !!}
               @error('department_id')
                   <span class="text-danger">{{ $message }}</span>
               @enderror
@@ -16,15 +16,16 @@
               @enderror
           </div>
           <div class="col-12 col-md-4">
-              {!! Form::label('userID', trans('dashboard.admin.number')) !!}
-              {!! Form::number('login_id', null, ['class' => 'form-control ', 'id' => 'userID', 'placeholder' => trans('dashboard.admin.number')]) !!}
+              {!! Form::label('userId', trans('dashboard.admin.number')) !!}
+              {!! Form::number('login_id', null, ['class' => 'form-control ', 'id' => 'userId', 'placeholder' => trans('dashboard.admin.number')]) !!}
               @error('login_id')
                   <span class="text-danger">{{ $message }}</span>
               @enderror
           </div>
+
           <div class="col-12 col-md-8 mt-3">
               {!! Form::label('systemPermission', trans('dashboard.admin.permission_system')) !!}
-              {!! Form::select('permission_list[]', $groups, null, ['class' => 'form-control select2-show-search', 'multiple' => 'multiple', 'placeholder' => trans('dashboard.general.select_permissions'), 'id' => 'systemPermission']) !!}
+              {!! Form::select('permission_list[]', $groups, null, ['class' => 'form-control select2', 'multiple' => 'multiple', 'data-placeholder' => trans('dashboard.general.select_permissions'), 'id' => 'systemPermission']) !!}
               @error('permission_list')
                   <span class="text-danger">{{ $message }}</span>
               @enderror
