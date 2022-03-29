@@ -109,7 +109,7 @@
   <!-- CUSTOM JS -->
   <script src="{{ asset('dashboardAssets') }}/js/custom.js"></script>
   <script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
-  @yield('scripts')
+  @yield('toast')
   {{-- @yield('notify') --}}
   <script>
 
