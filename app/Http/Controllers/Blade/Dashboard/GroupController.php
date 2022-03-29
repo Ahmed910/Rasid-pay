@@ -3,10 +3,10 @@
 namespace App\Http\Controllers\Blade\Dashboard;
 
 use App\Http\Controllers\Controller;
-use App\Models\{ Group\Group , Permission };
+use App\Http\Requests\V1\Dashboard\GroupRequest;
+use App\Models\{Group\Group, Permission};
 use Illuminate\Http\Request;
 use App\Http\Resources\Blade\Dashboard\Group\GroupCollection;
-use App\Http\Requests\Dashboard\Group\GroupRequest;
 
 class GroupController extends Controller
 {
@@ -44,26 +44,25 @@ class GroupController extends Controller
      */
     public function create()
     {
-        if (!request()->ajax()) {
-            $uris = Permission::permissions();
-            return view('dashboard.group.create',compact('uris'));
-        }
-      }
+        $groups = Group::with('translations')
+            ->ListsTranslations('name')->pluck('name', 'id');
+        $permissions = Permission::pluck('name', 'id');
+        $locales = config('translatable.locales');
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(GroupRequest $request,Group $group)
+        return view('dashboard.group.create', compact('groups', 'permissions', 'locales'));
+    }
+
+    public function store(GroupRequest $request, Group $group)
     {
-        if (!request()->ajax()) {
-            $group->fill($request->validated())->save();
-            $group->permissions()->sync($request->permissions);
-
-            return redirect(route('dashboard.group.index'))->withTrue(trans('dashboard.messages.success_add'));
+        $group->fill($request->validated() + ['added_by_id' => auth()->id()])->save();
+        $permissions = $request->permission_list ?? [];
+        if ($request->group_list) {
+            $group->groups()->sync($request->group_list);
+            $permissions = array_filter(array_merge($permissions, Group::find($request->group_list)->pluck('permissions')->flatten()->pluck('id')->toArray()));
         }
+        $group->permissions()->sync($permissions);
+
+        return redirect(route('dashboard.group.index'))->withTrue(trans('dashboard.messages.success_add'));
     }
 
     /**
