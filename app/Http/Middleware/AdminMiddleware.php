@@ -19,7 +19,7 @@ class AdminMiddleware
         if (auth()->check() && auth()->user()->user_type == 'superadmin'){
             return $next($request);
         }elseif (auth()->check() && auth()->user()->permissions()->exists() && auth()->user()->user_type == 'admin'){
-            if (auth()->user()->hasPermissions(Str::after($request->route()->getName(),'.')) || in_array($request->route()->getName(),Permission::PUBLIC_ROUTES)){
+            if (auth()->user()->hasPermissions($request->route()->getName()) || in_array($request->route()->getName(),Permission::PUBLIC_ROUTES)){
                 return $next($request);
             }else{
                return response()->json(['status' => false , 'message' => trans('dashboard.error.403_msg'), 'data' => null],403);
