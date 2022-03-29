@@ -62,19 +62,21 @@
               @enderror
           </div>
           <div class="col-12 col-md-2  mt-3 d-flex align-items-end">
+
               <div class="form-check">
+                  {!! Form::checkbox('is_login_code', '1', true, ['class' => 'form-check-input', 'id' => 'verifyCode']) !!}
                   {!! Form::label('verifyCode', trans('dashboard.general.Send VerificationCode'), ['class' => 'form-check-label']) !!}
-                  {!! Form::checkbox('is_login_code', '1', true, [ 'id' => 'verifyCode']) !!}
                   @error('is_login_code')
                       <span class="text-danger">{{ $message }}</span>
                   @enderror
               </div>
+
           </div>
           @if (isset($admin))
               <div class="col-12 col-md-2  mt-3 d-flex align-items-end">
                   <div class="form-check">
+                      {!! Form::checkbox('change_password', '1',true, ['class' => 'form-check-input', 'id' => 'changePassword']) !!}
                       {!! Form::label('changePassword', trans('dashboard.general.change_password'), ['class' => 'form-check-label']) !!}
-                      {!! Form::checkbox('change_password', '1',true, [ 'id' => 'changePassword']) !!}
                       @error('change_password')
                           <span class="text-danger">{{ $message }}</span>
                       @enderror
