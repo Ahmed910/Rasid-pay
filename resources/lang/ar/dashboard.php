@@ -28,6 +28,7 @@ return [
         "success_archive" => "تمت الأرشفة بنجاح",
         "success_restore" => "تم الاستعادة بنجاح",
         "Send VerificationCode" => "إرسال رمز التحقق",
+        'change_password'=>'تغيير كلمة المرور',
         "has_relationship_cannot_delete" => "لا يمكن حذف هذا العنصر ،بسبب احتواءه علي علاقات",
         'yes' => 'موافق',
         'no' => 'غير موافق',
@@ -53,6 +54,7 @@ return [
         'dashboard' => 'لوحة تحكم رصيد جاك',
         "status" => "الحالة",
         "select_status" => "اختر الحالة",
+        'select_permissions'=>'اختر الصلاحيات',
         "type" => "النوع",
         "select_type" => "اختر النوع",
         "from_date" => "تاريخ الإنشاء (من)",
@@ -294,7 +296,11 @@ return [
         'number' => 'رقم المستخدم',
         "ban_from" => "معطل لفترة (من)",
         "ban_to" => "معطل لفترة (إلى)",
-       
+        'permission_system'=>'صلاحيات النظام',
+        'new_password'=>'كلمة المرور الجديدة',
+        'confirmed_password'=>'تاكيد كلمة المرور',
+
+
         'sub_progs' => [
             'index' => 'سجل المستخدمين',
             'archive' => 'أرشيف المستخدمين',

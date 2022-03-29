@@ -6,8 +6,9 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\V1\Dashboard\AdminRequest;
 use App\Http\Resources\Blade\Dashboard\Admin\AdminCollection;
 use App\Http\Resources\Blade\Dashboard\Activitylog\ActivityLogCollection;
-use App\Models\{User};
+use App\Models\{Permission, User};
 use App\Models\Department\Department;
+use App\Models\Group\Group;
 use Illuminate\Http\Request;
 
 class AdminController extends Controller
@@ -19,18 +20,18 @@ class AdminController extends Controller
      */
     public function index(Request $request)
     {
+
         if (isset($request->order[0]['column'])) {
             $request['sort'] = ['column' => $request['columns'][$request['order'][0]['column']]['name'], 'dir' => $request['order'][0]['dir']];
         }
 
-        $adminsQuery = User::CustomDateFromTo($request)->search($request)->with(['department', 'permissions', 'groups' => function ($q) {
-            $q->with('permissions');
-        }])->where('user_type', 'admin')
-
-            ->sortBy($request);
-
-
         if ($request->ajax()) {
+
+            $adminsQuery = User::CustomDateFromTo($request)->search($request)->with(['department', 'permissions', 'groups' => function ($q) {
+                $q->with('permissions');
+            }])->where('user_type', 'admin')
+                ->sortBy($request);
+
             $adminCount = $adminsQuery->count();
             $admins = $adminsQuery->skip($request->start)
                 ->take(($request->length == -1) ? $adminCount : $request->length)
@@ -55,7 +56,10 @@ class AdminController extends Controller
      */
     public function create()
     {
-        return view('dashboard.admin.create');
+        $departments = Department::with('parent.translations')->ListsTranslations('name')->pluck('name', 'id');
+        $groups = Group::ListsTranslations('name')->pluck('name', 'id');
+        $locales = config('translatable.locales');
+        return view('dashboard.admin.create', compact('departments', 'locales','groups'));
     }
 
     /**
