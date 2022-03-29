@@ -20,9 +20,7 @@ class AdminCollection extends ResourceCollection
             $q->with('permissions');
         }])->findOrFail(@$request->route()->parameters['admin']);
 
-        $admin->load(['permissions' => function ($q) use ($admin) {
-            $q->whereNotIn('permissions.id', $admin->groups->pluck('permissions')->flatten()->pluck('id')->toArray());
-        }]);
+        $admin->load('permissions');
 
         return [
             'user' => UserResource::make($admin),
