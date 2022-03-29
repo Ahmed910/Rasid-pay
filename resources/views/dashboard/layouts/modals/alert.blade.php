@@ -1,5 +1,5 @@
 @if (session()->has("success"))
- @section('scripts')
+ @section('toast')
      <script>
          toastr.success("{{ session()->get("success") }}.", '', {
              closeButton: false,
@@ -13,7 +13,7 @@
  @endsection
 @endif
 @if (session()->has("info"))
- @section('scripts')
+ @section('toast')
      <script>
          toastr.info("{{ session()->get("info") }}.", '', {
              closeButton: false,
@@ -28,7 +28,7 @@
  @endif
 
  @if (session()->has("fail"))
- @section('scripts')
+ @section('toast')
      <script>
          toastr.error("{{ session()->get("fail") }}.", '', {
              closeButton: false,
@@ -42,7 +42,7 @@
  @endsection
  @endif
  @if(count($errors) > 0)
- @section('scripts')
+ @section('toast')
      <script>
         @foreach($errors->all() as $error)
         toastr['error']('{{ $error }}.', '', {
