@@ -121,9 +121,8 @@ class Department extends Model implements TranslatableContract, HasAssetsInterfa
     }
 
     public function addedBy(): BelongsTo
-    {$without = $this->relationLoaded('images')?[]:["images"];
-
-        return $this->belongsTo(User::class, 'added_by_id')->without($without);
+    {
+        return $this->belongsTo(User::class, 'added_by_id');
     }
 
 

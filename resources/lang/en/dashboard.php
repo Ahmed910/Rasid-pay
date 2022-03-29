@@ -61,6 +61,9 @@ return [
         "created_at" => "Creation Date",
         'create' => 'Create',
         "actions" => "Actions",
+        "notifications"=>"Notifications",
+        "show_all notification" =>"Show All Notifications",
+        "personalfile" =>"Personal Account",
         "active_cases" => [
             'Active',
             'Inactive',
@@ -341,7 +344,10 @@ return [
         'devices' => 'Devices'
     ],
     'message' => [
-        'messages' => 'Messages'
+        'messages' => 'Messages',
+        'sub_progs' => [
+        'show_all messages'=>'Show All Messages',
+        ]
     ],
     'permission' => [
         'permissions' => 'Permissions'

@@ -7,8 +7,7 @@
 @endsection
 @section('scripts')
     <script src="{{ asset('dashboardAssets/js/custom_scripts.js') }}"></script>
-    <script src="{{ asset('dashboardAssets/plugins/bootstrap-hijri-datepicker/js/bootstrap-hijri-datetimepicker.js') }}">
-    </script>
+    <script src="{{ asset('dashboardAssets/plugins/bootstrap-hijri-datepicker/js/bootstrap-hijri-datetimepicker.js') }}"></script>
 
     <script>
         $(function() {
@@ -25,6 +24,7 @@
                     dayViewHeaderFormat: "MMMM YYYY",
                     showClear: true,
                     ignoreReadonly: true,
+                    isRTL: "{{ LaravelLocalization::getCurrentLocaleDirection() == 'rtl' }}"
                 });
 
             $("#departmentTable").DataTable({
@@ -32,8 +32,7 @@
                 serverSide: true,
                 processing: true,
                 ajax: {
-                    url: "{{ route('dashboard.department.index') }}?" + $.param(
-                        @json(request()->query())),
+                    url: "{{ route('dashboard.department.index') }}?" + $.param(@json(request()->query())),
                     type: "GET",
                     dataSrc: 'data'
                 },
@@ -125,7 +124,7 @@
                 ],
 
                 "language": {
-                    "lengthMenu": "@lang('dashboard.datatable.show') _MENU_",
+                    "lengthMenu": "@lang('dashboard.general.show') _MENU_",
                     "emptyTable": "@lang('dashboard.datatable.no_data')",
                     "info": "@lang('dashboard.datatable.showing') _START_ @lang('dashboard.datatable.to') _END_ @lang('dashboard.datatable.from') _TOTAL_ @lang('dashboard.datatable.entries')",
                     "infoEmpty": "@lang('dashboard.datatable.no_search_result')",

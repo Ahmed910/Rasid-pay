@@ -149,12 +149,7 @@ class User extends Authenticatable implements HasAssetsInterface
             $this->attributes['ban_from'] = null;
             $this->attributes['ban_to'] = null;
         }
-    }
-    public function setPhoneAttribute($value)
-    {
-        $this->attributes['phone'] =   $this->attributes['country_code']?$this->attributes['country_code'].  $value:$value;
-
-    }
+    }    
 
     public function getBanFromAttribute($value)
     {

@@ -24,12 +24,10 @@ class GroupController extends Controller
         $query = Group::with('groups', 'permissions')
         ->withTranslation()
         ->withCount('admins as user_count')
-        ->where('groups.id',"<>",auth()->user()->group_id)
         ->search($request)
         ->sortBy($request);
-        if (!request()->ajax()) {
+        if (request()->ajax()) {
             $group_count = $query->count();
-            dd($query->dd());
             $groups = $query->skip($request->start)
                 ->take(($request->length == -1) ? $group_count : $request->length)
                 ->get();

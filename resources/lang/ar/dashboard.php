@@ -64,6 +64,11 @@ return [
         "created_at" => "تاريخ الإنشاء",
         'create' => 'انشاء',
         "actions" => "العمليات",
+        "notifications"=>"الاشعارات",
+        "show_all notification"=>"مشاهدة
+        كل
+        الإشعارات",
+        "personalfile" =>"الملف الشخص",
         "active_cases" => [
             'معطل',
             'مفعل',
@@ -183,11 +188,14 @@ return [
         'permissions' => $permissions
     ],
     "group" => [
+        "group_name" => "اسم المجموعة",
         "group" => "المجموعة الادارية",
         "groups" => "الصلاحيات",
         "chosen_groups" => "الصلاحيات المختارة",
         "add_group" => "اضافة مجموعه",
         "edit_group" => "تعديل المجموعه",
+        "admins_from" => "عدد المستخدمين من",
+        "admins_to" => "عدد المستخدمين إلى",
         "group_count" => "عدد المجموعات",
         'sub_progs' => [
             'index' => 'سجل الصلاحيات',
@@ -431,6 +439,9 @@ return [
         'sub_progs' => [
             'index' => 'سجل الرسائل',
             'archive' => 'أرشيف الرسائل',
+            'show_all messages'=>"مشاهدة
+        كل
+        الرسائل",
             'create' => 'اضافة رسالة',
         ],
     ],
