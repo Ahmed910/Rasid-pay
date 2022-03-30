@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Blade\Dashboard;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Dashboard\RasidJob\RasidJobRequest;
-use App\Http\Requests\V1\Dashboard\ReasonRequest;
+use App\Http\Requests\Dashboard\ReasonRequest;
 use App\Http\Resources\Blade\Dashboard\Activitylog\ActivityLogCollection;
 use App\Http\Resources\Blade\Dashboard\Job\JobCollection;
 use App\Models\Department\Department;
@@ -206,9 +206,10 @@ class JobController extends Controller
         $rasidJob->forceDelete();
         return redirect()->back();
     }
-    public function destroy(RasidJob $rasidJob, \App\Http\Requests\Dashboard\ReasonRequest $request)
+    public function destroy( $rasidJob, \App\Http\Requests\Dashboard\ReasonRequest $request)
     {
-        if (!$rasidJob->is_vacant) $rasidJob->delete();
+        $jobya = RasidJob::findorfail($rasidJob) ;
+        if ($jobya->is_vacant) $jobya->delete();
         return redirect()->route('dashboard.job.index');
 
     }
