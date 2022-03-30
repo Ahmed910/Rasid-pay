@@ -84,6 +84,10 @@
         </div>
     </div>
 
+    @include('dashboard.layouts.modals.force_delete')
+    @include('dashboard.layouts.modals.un_archive')
+    @include('dashboard.layouts.modals.alert')
+
     <!--app-content closed-->
 @endsection
 @section('scripts')
