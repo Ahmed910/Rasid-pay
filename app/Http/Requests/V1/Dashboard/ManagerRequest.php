@@ -23,8 +23,10 @@ class ManagerRequest extends ApiMasterRequest
         $data = $this->all();
 
         $this->merge([
-            'manager_date_of_birth' => @$data['manager_date_of_birth'] ? date('Y-m-d', strtotime($data['date_of_birth'])) : null,
-            'phone' => @$data['phone'] ? convert_arabic_number($data['phone']) : null
+            'manager_date_of_birth' => @$data['manager_date_of_birth'] ? date('Y-m-d', strtotime($data['manager_date_of_birth'])) : null,
+            'phone' => @$data['phone'] ? convert_arabic_number($data['phone']) : null,
+            'manager_full_phone' => $this->manager_country_code . $this->manager_phone
+
         ]);
     }
 
@@ -39,9 +41,11 @@ class ManagerRequest extends ApiMasterRequest
 // TODO make unique checks with same [client , manager] [email ,phone  , identity ]
         return [
             "manager_name" => ["required", "max:100", "string"],
-            "manager_email" => ["required", "max:100", "email", "unique:managers,manager_email," . @$manager_id . ",id", "unique:users,email," . @$this->client],
-            "manager_phone" => ["required", "starts_with:9665,05", "numeric", "digits_between:10,15", "unique:managers,manager_phone," . @$manager_id, "unique:users,phone," . @$this->client],
-            "manager_identity_number" => ["required", "numeric", "digits_between:5,10", "unique:managers,manager_identity_number," . @$manager_id, "unique:users,identity_number," . @$this->client],
+            "manager_country_code"  => "required|in:" . countries_list(),
+            "manager_email" => ["required", "max:100", "email", "unique:managers,manager_email," . @$manager_id . ",id"],
+            "manager_phone" => ["required", "not_regex:/^{$this->manager_country_code}/", "numeric", "digits_between:7,15", ],
+            "manager_full_phone" => ["unique:managers,manager_phone," . @$manager_id],
+            "manager_identity_number" => ["required", "numeric", "digits_between:5,10", "unique:managers,manager_identity_number," . @$manager_id ],
             "manager_gender" => ["nullable", "in:male,female"],
             "manager_date_of_birth" => ["required", "date"],
             "manager_address" => ["nullable", "string", "max:255"],

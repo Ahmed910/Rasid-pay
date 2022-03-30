@@ -17,6 +17,8 @@ class ManagerResource extends JsonResource
         return [
             "id"=>$this->id ,
             "manager_name" =>$this->manager_name ,
+            "manager_country_code"=>$this->manager_country_code,
+            "manager_phone"=>substr($this->manager_phone, strlen($this->manager_country_code)),
             "manager_email" => $this->manager_email,
             "manager_identity_number" => $this->manager_identity_number,
             "manager_nationality" => $this->manager_nationality,
