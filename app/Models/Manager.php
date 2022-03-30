@@ -16,6 +16,12 @@ class Manager extends Model
     #endregion properties
 
     #region mutators
+    public function setManagerPhoneAttribute($value)
+    {
+        $value = $value[0] == "0" ? substr($value, 1) : $value;
+        $this->attributes['manager_phone'] = isset($this->attributes['manager_country_code']) ? $this->attributes['manager_country_code'] . $value : $value;
+
+    }
     #endregion mutators
 
     #region scopes
