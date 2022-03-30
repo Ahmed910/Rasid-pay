@@ -77,15 +77,15 @@
 
               </div>
               @if (isset($admin))
-              <div class="col-12 col-md-6">
-                  <div class="form-check">
-                      {!! Form::checkbox('change_password', '1', false, ['class' => 'form-check-input', 'id' => 'changePassword']) !!}
-                      {!! Form::label('changePassword', trans('dashboard.general.change_password'), ['class' => 'form-check-label']) !!}
-                      @error('change_password')
-                          <span class="text-danger">{{ $message }}</span>
-                      @enderror
+                  <div class="col-12 col-md-6">
+                      <div class="form-check">
+                          {!! Form::checkbox('change_password', '1', false, ['class' => 'form-check-input', 'id' => 'changePassword']) !!}
+                          {!! Form::label('changePassword', trans('dashboard.general.change_password'), ['class' => 'form-check-label']) !!}
+                          @error('change_password')
+                              <span class="text-danger">{{ $message }}</span>
+                          @enderror
+                      </div>
                   </div>
-              </div>
               @endif
           </div>
 
@@ -154,7 +154,7 @@
                               form.addEventListener(
                                   "submit",
                                   function(event) {
-                                      form.classList.add("was-validated");
+                                      // form.classList.add("was-validated");
                                       event.preventDefault();
                                       if (form.checkValidity() === false) {
                                           event.stopPropagation();
@@ -226,7 +226,8 @@
                   let department_id = $("#mainDepartment").val();
 
                   $('#userName').empty();
-                  $("#userName").append('<option value=""> @lang('dashboard.general.select_user') </option>')
+                  $("#userName").append(
+                      '<option value=""> {{ trans('dashboard.general.select_user') }} </option>')
                   if (department_id != '') {
                       //send ajax
                       $.ajax({

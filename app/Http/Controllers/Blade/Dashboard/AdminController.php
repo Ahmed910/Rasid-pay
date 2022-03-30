@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Blade\Dashboard;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\V1\Dashboard\AdminRequest;
+use App\Http\Requests\Dashboard\AdminRequest;
 use App\Http\Resources\Blade\Dashboard\Admin\AdminCollection;
 use App\Http\Resources\Blade\Dashboard\Activitylog\ActivityLogCollection;
 use App\Models\{Permission, User};
@@ -70,7 +70,6 @@ class AdminController extends Controller
      */
     public function store(AdminRequest $request, User $admin)
     {
-        dd($request->all());
         $admin->fill($request->validated())->save();
 
         return redirect()->route('dashboard.admin.index')->withSuccess(__('dashboard.general.success_add'));
