@@ -36,11 +36,11 @@ trait Uuid
         $image = $this->images()->first()?->media;
 
         if ($image == null && !request()->has('with_activity') && !request()->routeIs('dashboard.*')) {
-            return asset('dashboardAssets/images/brand/logo-3.png');
+            return asset('dashboardAssets/images/brand/logo-1.png');
         } elseif ($image == null && request()->routeIs('dashboard.*.edit')) {
             return null;
         } elseif ($image == null) {
-            return asset('dashboardAssets/images/brand/logo-3.png');
+            return asset('dashboardAssets/images/brand/logo-1.png');
         } else {
             return asset($image);
         }

@@ -29,14 +29,11 @@
                     },
                     {
                         data: function(data) {
-                            if (data.user.department !== null) {
-                                return data.user.department.name;
-                            } else {
-                                return "@lang('dashboard.department.without_parent')";
-                            }
-                        }
+                            return data.user.department ? data.user.department.name :
+                                "{{ trans('dashboard.department.without_parent') }}";
+                        },
+                        name: 'department'
                     },
-
                     {
                         data: "created_at"
                     },

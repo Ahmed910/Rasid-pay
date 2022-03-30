@@ -32,6 +32,10 @@ class ValidateController extends Controller
                     }
                 }];
             }
+
+            if ($request->type == 'permission') {
+                $rules["$locale.name"] = 'unique:group_translations,name,' . @$request->group_id . ',group_id';
+            }
         }
 
         $validator = Validator::make(
