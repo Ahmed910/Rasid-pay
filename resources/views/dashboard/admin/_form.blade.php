@@ -30,38 +30,41 @@
                   <span class="text-danger">{{ $message }}</span>
               @enderror
           </div>
-          <div class="col-12 col-md-4 mt-3">
-              {!! Form::label('status', trans('dashboard.general.status')) !!}
-              {!! Form::select('ban_status', trans('dashboard.admin.active_cases'), request('ban_status'), ['class' => 'form-control select2-show-search', 'id' => 'status', 'placeholder' => trans('dashboard.general.select_status')]) !!}
-              @error('ban_status')
-                  <span class="text-danger">{{ $message }}</span>
-              @enderror
-          </div>
+          @if (isset($admin))
+              <div class="col-12 col-md-4 mt-3">
+                  {!! Form::label('status', trans('dashboard.general.status')) !!}
+                  {!! Form::select('ban_status', trans('dashboard.admin.active_cases'), request('ban_status'), ['class' => 'form-control select2-show-search', 'id' => 'status', 'placeholder' => trans('dashboard.general.select_status')]) !!}
+                  @error('ban_status')
+                      <span class="text-danger">{{ $message }}</span>
+                  @enderror
+              </div>
 
-          <div class="col-12 col-md-4 temporary mt-3">
-              <label for="validationCustom02"> {{ trans('dashboard.admin.ban_from') }}</label>
-              <div class="input-group">
-                  {!! Form::text('ban_from', null, ['class' => 'form-control ', 'readonly' => 'readonly', 'id' => 'from-hijri-unactive-picker-custom', 'placeholder' => trans('dashboard.general.day_month_year'), 'value' => "old('ban_from')"]) !!}
-                  <div class="input-group-text border-start-0">
-                      <i class="fa fa-calendar tx-16 lh-0 op-6"></i>
+
+              <div class="col-12 col-md-4 temporary mt-3">
+                  <label for="validationCustom02"> {{ trans('dashboard.admin.ban_from') }}</label>
+                  <div class="input-group">
+                      {!! Form::text('ban_from', null, ['class' => 'form-control ', 'readonly' => 'readonly', 'id' => 'from-hijri-unactive-picker-custom', 'placeholder' => trans('dashboard.general.day_month_year'), 'value' => "old('ban_from')"]) !!}
+                      <div class="input-group-text border-start-0">
+                          <i class="fa fa-calendar tx-16 lh-0 op-6"></i>
+                      </div>
                   </div>
+                  @error('ban_from')
+                      <span class="text-danger">{{ $message }}</span>
+                  @enderror
               </div>
-              @error('ban_from')
-                  <span class="text-danger">{{ $message }}</span>
-              @enderror
-          </div>
-          <div class="col-12 col-md-4 temporary mt-3">
-              <label for="validationCustom02">{{ trans('dashboard.admin.ban_to') }}</label>
-              <div class="input-group">
-                  {!! Form::text('ban_to', null, ['class' => 'form-control ', 'readonly' => 'readonly', 'id' => 'to-hijri-unactive-picker-custom', 'placeholder' => trans('dashboard.general.day_month_year'), 'value' => "old('ban_to')"]) !!}
-                  <div class="input-group-text border-start-0">
-                      <i class="fa fa-calendar tx-16 lh-0 op-6"></i>
+              <div class="col-12 col-md-4 temporary mt-3">
+                  <label for="validationCustom02">{{ trans('dashboard.admin.ban_to') }}</label>
+                  <div class="input-group">
+                      {!! Form::text('ban_to', null, ['class' => 'form-control ', 'readonly' => 'readonly', 'id' => 'to-hijri-unactive-picker-custom', 'placeholder' => trans('dashboard.general.day_month_year'), 'value' => "old('ban_to')"]) !!}
+                      <div class="input-group-text border-start-0">
+                          <i class="fa fa-calendar tx-16 lh-0 op-6"></i>
+                      </div>
                   </div>
+                  @error('ban_to')
+                      <span class="text-danger">{{ $message }}</span>
+                  @enderror
               </div>
-              @error('ban_to')
-                  <span class="text-danger">{{ $message }}</span>
-              @enderror
-          </div>
+          @endif
 
 
           <div class="col-12 col-md-4 mt-3 d-flex align-items-end">
@@ -77,46 +80,42 @@
 
               </div>
               @if (isset($admin))
-              <div class="col-12 col-md-6">
-                  <div class="form-check">
-                      {!! Form::checkbox('change_password', '1', false, ['class' => 'form-check-input', 'id' => 'changePassword']) !!}
-                      {!! Form::label('changePassword', trans('dashboard.general.change_password'), ['class' => 'form-check-label']) !!}
-                      @error('change_password')
-                          <span class="text-danger">{{ $message }}</span>
-                      @enderror
+                  <div class="col-12 col-md-6">
+                      <div class="form-check">
+                          {!! Form::checkbox('change_password', '1', false, ['class' => 'form-check-input', 'id' => 'changePassword']) !!}
+                          {!! Form::label('changePassword', trans('dashboard.general.change_password'), ['class' => 'form-check-label']) !!}
+                          @error('change_password')
+                              <span class="text-danger">{{ $message }}</span>
+                          @enderror
+                      </div>
                   </div>
-              </div>
               @endif
           </div>
 
 
           <div class="col-12 col-md-4 mt-3 changePass">
-              <div class="form-group">
-                  {!! Form::label('newPassword', trans('dashboard.admin.new_password')) !!}
-                  <div class="input-group" id="show_hide_password">
-                      {!! Form::password('password', ['class' => 'form-control', 'placeholder' => trans('dashboard.admin.new_password')]) !!}
-                      <div class="input-group-text bg-white border-start-0">
-                          <a href=""><i class="mdi mdi-eye-off-outline d-flex"></i></a>
-                      </div>
+              {!! Form::label('newPassword', trans('dashboard.admin.new_password')) !!}
+              <div class="input-group" id="show_hide_password">
+                  {!! Form::password('password', ['class' => 'form-control', 'placeholder' => trans('dashboard.admin.new_password')]) !!}
+                  <div class="input-group-text border-start-0">
+                      <a href=""><i class="mdi mdi-eye-off-outline d-flex"></i></a>
                   </div>
-                  @error('password')
-                      <span class="text-danger">{{ $message }}</span>
-                  @enderror
               </div>
+              @error('password')
+                  <span class="text-danger">{{ $message }}</span>
+              @enderror
           </div>
           <div class="col-12 col-md-4 mt-3 changePass">
-              <div class="form-group">
-                  {!! Form::label('confirmPassword', trans('dashboard.admin.confirmed_password')) !!}
-                  <div class="input-group" id="show_hide_confirm_password">
-                      {!! Form::password('confirmed_password', ['class' => 'form-control', 'placeholder' => trans('dashboard.admin.confirmed_password')]) !!}
-                      <div class="input-group-text bg-white border-start-0">
-                          <a href=""><i class="mdi mdi-eye-off-outline d-flex"></i></a>
-                      </div>
+              {!! Form::label('confirmPassword', trans('dashboard.admin.confirmed_password')) !!}
+              <div class="input-group" id="show_hide_confirm_password">
+                  {!! Form::password('confirmed_password', ['class' => 'form-control', 'placeholder' => trans('dashboard.admin.confirmed_password')]) !!}
+                  <div class="input-group-text border-start-0">
+                      <a href=""><i class="mdi mdi-eye-off-outline d-flex"></i></a>
                   </div>
-                  @error('confirmed_password')
-                      <span class="text-danger">{{ $message }}</span>
-                  @enderror
               </div>
+              @error('confirmed_password')
+                  <span class="text-danger">{{ $message }}</span>
+              @enderror
           </div>
       </div>
   </div>
@@ -154,7 +153,7 @@
                               form.addEventListener(
                                   "submit",
                                   function(event) {
-                                      form.classList.add("was-validated");
+                                      // form.classList.add("was-validated");
                                       event.preventDefault();
                                       if (form.checkValidity() === false) {
                                           event.stopPropagation();
@@ -226,7 +225,8 @@
                   let department_id = $("#mainDepartment").val();
 
                   $('#userName').empty();
-                  $("#userName").append('<option value=""> @lang('dashboard.general.select_user') </option>')
+                  $("#userName").append(
+                      '<option value=""> {{ trans('dashboard.general.select_user') }} </option>')
                   if (department_id != '') {
                       //send ajax
                       $.ajax({

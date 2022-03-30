@@ -203,7 +203,7 @@
                                         {!! Form::open(['route' => 'dashboard.session.logout', 'method' => 'POST', 'class' => 'logout_form']) !!}
 
                                         <a class="dropdown-item"
-                                            onclick="document.getElementByClass('logout_form').submit();"
+                                            onclick="document.getElementsByClassName('logout_form')[0].submit();"
                                             style="cursor: pointer;">
                                             <i class="mdi mdi-logout-variant"></i>
                                             {{ trans('dashboard.general.logout') }}

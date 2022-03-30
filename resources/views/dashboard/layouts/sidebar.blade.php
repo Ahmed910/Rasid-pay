@@ -223,7 +223,7 @@
 
                         @auth
                             {!! Form::open(['route' => 'dashboard.session.logout', 'method' => 'POST', 'class' => 'logout_form']) !!}
-                            <a class="nav-link icon" onclick="document.getElementByClass('logout_form').submit();"
+                            <a class="nav-link icon" onclick="document.getElementsByClassName('logout_form')[0].submit();"
                                 style="cursor: pointer;">
                                 <i class="mdi mdi-logout"></i>
                                 <span class="mx-2">{{trans('dashboard.general.logout')}}</span>
