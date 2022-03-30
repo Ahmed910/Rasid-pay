@@ -64,13 +64,12 @@ class GroupController extends Controller
 
     public function checkIfUserHasPermission(Request $request,$route_name)
     {
+        $has_access = auth()->user()->hasPermissions($route_name);
         return response()->json([
-                'data' => [
-                    'has_access' => auth()->user()->hasPermissions($route_name)
-                ],
-                'status' => false,
+                'data' => null,
+                'status' => $has_access,
                 'message' => ''
-            ],403);
+            ],$has_access ? 200 : 403);
     }
 
     public function getPermissionsOfGroup(Group $group, Request $request)
