@@ -3,7 +3,7 @@
 
           <div class="col-12 col-md-4">
               {!! Form::label('mainDepartment', trans('dashboard.department.department_name')) !!}
-              {!! Form::select('department_id', $departments, null, ['class' => 'form-control select2-show-search', 'placeholder' => trans('dashboard.department.without_parent'), 'id' => 'mainDepartment']) !!}
+              {!! Form::select('department_id', $departments, null, ['class' => 'form-control select2-show-search', 'placeholder' => trans('dashboard.department.select_department'), 'id' => 'mainDepartment']) !!}
               @error('department_id')
                   <span class="text-danger">{{ $message }}</span>
               @enderror
@@ -16,15 +16,16 @@
               @enderror
           </div>
           <div class="col-12 col-md-4">
-              {!! Form::label('userID', trans('dashboard.admin.number')) !!}
-              {!! Form::number('login_id', null, ['class' => 'form-control ', 'id' => 'userID', 'placeholder' => trans('dashboard.admin.number')]) !!}
+              {!! Form::label('userId', trans('dashboard.admin.number')) !!}
+              {!! Form::number('login_id', null, ['class' => 'form-control ', 'id' => 'userId', 'placeholder' => trans('dashboard.admin.number')]) !!}
               @error('login_id')
                   <span class="text-danger">{{ $message }}</span>
               @enderror
           </div>
+
           <div class="col-12 col-md-8 mt-3">
               {!! Form::label('systemPermission', trans('dashboard.admin.permission_system')) !!}
-              {!! Form::select('permission_list[]', $groups, null, ['class' => 'form-control select2-show-search', 'multiple' => 'multiple', 'placeholder' => trans('dashboard.general.select_permissions'), 'id' => 'systemPermission']) !!}
+              {!! Form::select('permission_list[]', $groups, null, ['class' => 'form-control select2', 'multiple' => 'multiple', 'data-placeholder' => trans('dashboard.general.select_permissions'), 'id' => 'systemPermission']) !!}
               @error('permission_list')
                   <span class="text-danger">{{ $message }}</span>
               @enderror
@@ -61,28 +62,34 @@
                   <span class="text-danger">{{ $message }}</span>
               @enderror
           </div>
-          <div class="col-12 col-md-2  mt-3 d-flex align-items-end">
 
-              <div class="form-check">
-                  {!! Form::checkbox('is_login_code', '1', true, ['class' => 'form-check-input', 'id' => 'verifyCode']) !!}
-                  {!! Form::label('verifyCode', trans('dashboard.general.Send VerificationCode'), ['class' => 'form-check-label']) !!}
-                  @error('is_login_code')
-                      <span class="text-danger">{{ $message }}</span>
-                  @enderror
-              </div>
 
-          </div>
-          @if (isset($admin))
-              <div class="col-12 col-md-2  mt-3 d-flex align-items-end">
+          <div class="col-12 col-md-4 mt-3 d-flex align-items-end">
+              <div class="col-12 col-md-6">
+
                   <div class="form-check">
-                      {!! Form::checkbox('change_password', '1',true, ['class' => 'form-check-input', 'id' => 'changePassword']) !!}
+                      {!! Form::checkbox('is_login_code', '1', false, ['class' => 'form-check-input', 'id' => 'verifyCode']) !!}
+                      {!! Form::label('verifyCode', trans('dashboard.general.Send VerificationCode'), ['class' => 'form-check-label']) !!}
+                      @error('is_login_code')
+                          <span class="text-danger">{{ $message }}</span>
+                      @enderror
+                  </div>
+
+              </div>
+              @if (isset($admin))
+              <div class="col-12 col-md-6">
+                  <div class="form-check">
+                      {!! Form::checkbox('change_password', '1', false, ['class' => 'form-check-input', 'id' => 'changePassword']) !!}
                       {!! Form::label('changePassword', trans('dashboard.general.change_password'), ['class' => 'form-check-label']) !!}
                       @error('change_password')
                           <span class="text-danger">{{ $message }}</span>
                       @enderror
                   </div>
               </div>
-          @endif
+              @endif
+          </div>
+
+
           <div class="col-12 col-md-4 mt-3 changePass">
               <div class="form-group">
                   {!! Form::label('newPassword', trans('dashboard.admin.new_password')) !!}
@@ -216,26 +223,62 @@
               //get users from department script
               $("#mainDepartment").change(function(e) {
                   e.preventDefault();
-                  var department_id = $("#mainDepartment").val();
+                  let department_id = $("#mainDepartment").val();
 
-                  //send ajax
-                  $.ajax({
-                      url: '{{ url('/dashboard/admin/all-employees') }}' + '/' + department_id,
-                      type: 'get',
-                      success: function(data) {
-                          if (data) {
-                              $('#userName').empty();
-                              $("#userName").append('<option value=""> @lang('dashboard.general.select_user') </option>')
-                              $.each(data.data, function(index, user) {
-                                  $("#userName").append('<option value="' + user.id + '">' +
-                                      user.fullname + '</option>')
-                              });
+                  $('#userName').empty();
+                  $("#userName").append('<option value=""> @lang('dashboard.general.select_user') </option>')
+                  if (department_id != '') {
+                      //send ajax
+                      $.ajax({
+                          url: '{{ url('/dashboard/admin/all-employees') }}' + '/' + department_id,
+                          type: 'get',
+                          success: function(data) {
+                              if (data) {
+                                  $.each(data.data, function(index, user) {
+                                      $("#userName").append('<option value="' + user.id +
+                                          '">' + user.fullname + '</option>')
+                                  });
+                              }
                           }
-                      },
-                      error: function(jqXhr, textStatus, errorMessage) {
-                          alert(errorMessage);
+                      });
+                  }
+
+              });
+
+              $(document).ready(function() {
+                  $("#show_hide_password a").on("click", function(event) {
+                      event.preventDefault();
+                      if ($("#show_hide_password input").attr("type") == "text") {
+                          $("#show_hide_password input").attr("type", "password");
+                          $("#show_hide_password i").addClass("mdi-eye-off-outline");
+                          $("#show_hide_password i").removeClass("mdi-eye-outline");
+                      } else if (
+                          $("#show_hide_password input").attr("type") == "password"
+                      ) {
+                          $("#show_hide_password input").attr("type", "text");
+                          $("#show_hide_password i").removeClass("mdi-eye-off-outline");
+                          $("#show_hide_password i").addClass("mdi-eye-outline");
                       }
                   });
+
+              });
+
+              $(document).ready(function() {
+                  $("#show_hide_confirm_password a").on("click", function(event) {
+                      event.preventDefault();
+                      if ($("#show_hide_confirm_password input").attr("type") == "text") {
+                          $("#show_hide_confirm_password input").attr("type", "password");
+                          $("#show_hide_confirm_password i").addClass("mdi-eye-off-outline");
+                          $("#show_hide_confirm_password i").removeClass("mdi-eye-outline");
+                      } else if (
+                          $("#show_hide_confirm_password input").attr("type") == "password"
+                      ) {
+                          $("#show_hide_confirm_password input").attr("type", "text");
+                          $("#show_hide_confirm_password i").removeClass("mdi-eye-off-outline");
+                          $("#show_hide_confirm_password i").addClass("mdi-eye-outline");
+                      }
+                  });
+
               });
 
           })();
