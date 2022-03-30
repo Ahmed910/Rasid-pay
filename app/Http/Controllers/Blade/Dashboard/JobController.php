@@ -197,20 +197,20 @@ class JobController extends Controller
         $rasidJob = RasidJob::onlyTrashed()->findOrFail($id);
 
         $rasidJob->restore();
-        return redirect()->back();
+        return redirect()->back()->withSuccess(__('dashboard.general.success_restore'));
     }
 
     public function forceDelete(ReasonRequest $request, $id)
     {
         $rasidJob = RasidJob::onlyTrashed()->findOrFail($id);
         $rasidJob->forceDelete();
-        return redirect()->back();
+        return redirect()->back()->withSuccess(__('dashboard.general.success_delete'));
     }
     public function destroy( $rasidJob, \App\Http\Requests\Dashboard\ReasonRequest $request)
     {
         $jobya = RasidJob::findorfail($rasidJob) ;
         if ($jobya->is_vacant) $jobya->delete();
-        return redirect()->route('dashboard.job.index');
+        return redirect()->route('dashboard.job.index')->withSuccess(__('dashboard.general.success_archive'));
 
     }
 

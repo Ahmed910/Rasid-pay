@@ -164,7 +164,7 @@ class DepartmentController extends Controller
         }
 
         $department->delete();
-        return redirect()->route('dashboard.department.index');
+        return redirect()->route('dashboard.department.index')->withSuccess(__('dashboard.general.success_archive'));
     }
 
 
@@ -174,14 +174,14 @@ class DepartmentController extends Controller
         $department = Department::onlyTrashed()->findOrFail($id);
 
         $department->restore();
-        return redirect()->back();
+        return redirect()->back()->withSuccess(__('dashboard.general.success_restore'));
     }
 
     public function forceDelete(ReasonRequest $request, $id)
     {
         $department = Department::onlyTrashed()->findOrFail($id);
         $department->forceDelete();
-        return redirect()->back();
+        return redirect()->back()->withSuccess(__('dashboard.general.success_delete'));
     }
 
     public function export(Request $request)
