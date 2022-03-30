@@ -16,7 +16,7 @@ class Group extends Model implements TranslatableContract
     use HasFactory, Translatable, Uuid, Loggable;
 
     #region properties
-    protected $guarded = ["created_at", "updated_at"];
+    protected $guarded = ["created_at"];
     public $translatedAttributes = ['name'];
     public $attributes = ['is_active' => false];
     private $sortableColumns = ['name', 'user_count', 'is_active'];

@@ -91,7 +91,7 @@ class GroupController extends Controller
      */
     public function update(GroupRequest $request, Group $group)
     {
-        $group->fill($request->validated())->save();
+        $group->fill($request->validated()+['updated_at' => now()])->save();
         $permissions = $request->permission_list ?? [];
         if ($request->group_list) {
             $group->groups()->sync($request->group_list);

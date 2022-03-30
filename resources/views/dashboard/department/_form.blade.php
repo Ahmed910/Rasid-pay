@@ -31,17 +31,17 @@
         <div class="col-12 mb-3">
             {!! Form::label('departmentImg', trans('dashboard.department.department_image') . ' (JPG, PNG, JPEG, WEBP)') !!}
             {!! Form::file('image', [
-    'class' => 'dropify',
-    'data-show-remove' => 'true',
-    'data-default-file' => isset($department) ? $department->image : null,
-    'data-bs-height' => '250',
-    'id' => 'departmentImg',
-    'data-errors-position' => 'inside',
-    'data-show-errors' => 'true',
-    'data-show-loader' => 'true',
-    'data-allowed-file-extensions' => 'jpg png jpeg webp',
-    'accept' => 'image/png, image/jpg, image/jpeg, image/webp',
-]) !!}
+                    'class' => 'dropify',
+                    'data-show-remove' => 'true',
+                    'data-default-file' => isset($department) ? $department->image : null,
+                    'data-bs-height' => '250',
+                    'id' => 'departmentImg',
+                    'data-errors-position' => 'inside',
+                    'data-show-errors' => 'true',
+                    'data-show-loader' => 'true',
+                    'data-allowed-file-extensions' => 'jpg png jpeg webp',
+                    'accept' => 'image/png, image/jpg, image/jpeg, image/webp',
+            ]) !!}
             @error('image')
                 <span class="text-danger">{{ $message }}</span>
             @enderror

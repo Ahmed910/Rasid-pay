@@ -199,17 +199,15 @@
                                     <a class="dropdown-item" href="lockscreen.html">
                                         <i class="mdi mdi-cog-outline"></i> {{ trans('dashboard.general.settings') }}
                                     </a>
-                                    @auth
-                                        {!! Form::open(['route' => 'dashboard.session.logout', 'method' => 'POST', 'class' => 'logout_form']) !!}
+                                    {!! Form::open(['route' => 'dashboard.session.logout', 'method' => 'POST', 'class' => 'logout_form']) !!}
 
-                                        <a class="dropdown-item"
-                                            onclick="document.getElementByClass('logout_form').submit();"
-                                            style="cursor: pointer;">
-                                            <i class="mdi mdi-logout-variant"></i>
-                                            {{ trans('dashboard.general.logout') }}
-                                        </a>
-                                        {!! Form::close() !!}
-                                    @endauth
+                                    <a class="dropdown-item"
+                                        onclick="document.getElementByClass('logout_form').submit();"
+                                        style="cursor: pointer;">
+                                        <i class="mdi mdi-logout-variant"></i>
+                                        {{ trans('dashboard.general.logout') }}
+                                    </a>
+                                    {!! Form::close() !!}
                                 </div>
                             </div>
                         </div>
