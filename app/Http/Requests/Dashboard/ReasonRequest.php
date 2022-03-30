@@ -25,7 +25,7 @@ class ReasonRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            "reasonAction" => ["required", "string", "max:1000", "min:10"]
         ];
     }
 }

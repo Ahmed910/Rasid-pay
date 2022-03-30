@@ -45,7 +45,6 @@
   <div class="page">
     <div class="page-main">
       <!-- app-Header -->
-      @include('dashboard.layouts.modals.alert')
       @include('dashboard.layouts.header')
       <!-- /app-Header -->
 
@@ -95,6 +94,7 @@
   <!-- lottie-player js -->
   <script src="https://unpkg.com/@lottiefiles/lottie-player@0.4.0/dist/tgs-player.js"></script>
   <script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
+  @yield('toast')
   @yield('scripts')
 
 </body>

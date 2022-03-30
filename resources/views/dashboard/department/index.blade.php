@@ -115,5 +115,6 @@
 
     @include('dashboard.layouts.modals.archive')
     @include('dashboard.layouts.modals.not_archive')
+    @include('dashboard.layouts.modals.alert')
 @endsection
 @include('dashboard.department.script')
