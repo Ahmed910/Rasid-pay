@@ -19,7 +19,7 @@
                 @error('password')
                     <div class="invalid-feedback">{{ $message }}</div>
                 @enderror
-            <div class="input-group-text bg-white border-start-0">
+            <div class="input-group-text border-start-0">
                 <a href=""><i class="mdi mdi-eye-off-outline d-flex"></i></a>
             </div>
         </div>
@@ -33,7 +33,7 @@
                 @error('password_confirmation')
                     <div class="invalid-feedback">{{ $message }}</div>
                 @enderror
-            <div class="input-group-text bg-white border-start-0">
+            <div class="input-group-text border-start-0">
                 <a href=""><i class="mdi mdi-eye-off-outline d-flex"></i></a>
             </div>
         </div>
