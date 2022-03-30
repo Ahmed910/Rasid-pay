@@ -142,15 +142,6 @@ class AdminController extends Controller
         return redirect()->route('dashboard.admin.index')->withSuccess(__('dashboard.general.success_update'));
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Admin $admin)
-    {
-    }
 
     /**
      * get Employees by departmentId

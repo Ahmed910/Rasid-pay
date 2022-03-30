@@ -4,6 +4,7 @@
 <script src="{{ asset('dashboardAssets/plugins/datatable/responsive.bootstrap5.min.js') }}"></script>
 <script src="{{ asset('dashboardAssets/js/table-data.js') }}"></script>
 
+<script src="{{ asset('dashboardAssets/js/custom_scripts.js') }}"></script>
 
 <!-- SELECT2 JS -->
 <script src="{{ asset('dashboardAssets/plugins/select2/select2.full.min.js') }}"></script>
@@ -68,108 +69,32 @@
                               ></a>
                               <a
                               href="#"
+                              onclick=unArchiveItem('${data.id}','${data.restore_route}')
                               class="successIcon"
                               data-bs-toggle="tooltip"
                               data-bs-placement="top"
                               title="استعادة"
                               ><i
                                 data-bs-toggle="modal"
-                                data-bs-target="#UnArchiveModal_${data.id}"
                                 class="mdi mdi-backup-restore"
                               ></i
                             ></a>
                             <a
                               href="#"
+                              onclick=ForceDeleteItem('${data.id}','${data.forceDelete_route}')
                               class="errorIcon"
                               data-bs-toggle="tooltip"
                               data-bs-placement="top"
                               title="حذف"
                               ><i
                                 data-bs-toggle="modal"
-                                data-bs-target="#DeleteModal_${data.id}"
                                 class="mdi mdi-trash-can-outline"
                               ></i
-                            ></a>
-
-                              <!-- DeleteModal Modal -->
-      <div class="modal fade" id="DeleteModal_${data.id}">
-        <div class="modal-dialog modal-dialog-centered">
-          <div class="modal-content border-0">
-            <form method="post" action="${data.forceDelete_route}" class="needs-validation" novalidate>@csrf @method('delete')
-            <div class="modal-body text-center p-0">
-              <lottie-player
-                autoplay
-                loop
-                mode="normal"
-                src="{{ asset('dashboardAssets/images/lottie/delete.json') }}""
-                style="width: 55%; display: block; margin: 0 auto 1em"
-              >
-              </lottie-player>
-              <p>هل تريد إتمام عملية الحذف النهائي؟</p>
-            </div>
-            <div class="modal-footer justify-content-center mt-5 p-0">
-                <button type="submit" class="btn btn-danger mx-3">
-                  موافق
-                </button>
-                <button
-                  type="button"
-                  class="btn btn-outline-danger"
-                  data-bs-dismiss="modal"
-                >
-                  غير موافق
-                </button>
-              </div>
-            </form>
-          </div>
-        </div>
-      </div>
-
-      <!-- UnArchiveModal -->
-      <div class="modal fade" id="UnArchiveModal_${data.id}">
-        <div class="modal-dialog modal-dialog-centered">
-          <div class="modal-content border-0">
-            <form method="POST" action="${data.restore_route}" class="needs-validation" novalidate>@csrf
-              <div class="modal-body text-center p-0">
-                <lottie-player
-                  autoplay
-                  loop
-                  mode="normal"
-                  src="{{asset('dashboardassets/images/lottie/unarchive1.json')}}"
-                  style="width: 55%; display: block; margin: 0 auto 1em"
-                >
-                </lottie-player>
-                <p>هل تريد إتمام عملية الاستعادة؟</p>
-                <div class="mt-3">
-                  <textarea
-                  name="reasonAction"
-                    class="form-control"
-                    placeholder="الرجاء ذكر السبب*"
-                    rows="3"
-                    required
-                  ></textarea>
-
-                  <div class="invalid-feedback">السبب مطلوب.</div>
-                </div>
-              </div>
-              <div class="modal-footer justify-content-center mt-5 p-0">
-                <button type="submit" class="btn btn-success mx-3">
-                  موافق
-                </button>
-                <button
-                  type="button"
-                  class="btn btn-outline-success"
-                  data-bs-dismiss="modal"
-                >
-                  غير موافق
-                </button>
-              </div>
-            </form>
-          </div>
-        </div>
-      </div>
-      `
+                            >
+                            </a>
 
 
+`
 
         },
                     orderable: false,
