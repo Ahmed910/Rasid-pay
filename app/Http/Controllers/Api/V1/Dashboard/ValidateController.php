@@ -22,7 +22,7 @@ class ValidateController extends Controller
                 $rules["$locale.name"] = [function ($attribute, $value, $fail) use ($locale, $request) {
                     $job = RasidJob::whereTranslation('name', $value, $locale)
                         ->where('department_id', $request->department_id)
-                        ->when($request->rasid_job_id, function ($q, $request) {
+                        ->when($request->rasid_job_id, function ($q) use ($request) {
                             $q->where('rasid_jobs.id', "<>", $request->rasid_job_id);
                         })
                         ->count();
