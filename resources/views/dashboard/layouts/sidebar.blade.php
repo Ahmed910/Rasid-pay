@@ -202,12 +202,11 @@
                 </li>
                 <li class="slide">
                     <a class="side-menu__item" data-bs-toggle="slide" href="../blacklist.html"><i
-                            class="mdi mdi-account-cancel-outline"></i><span class="side-menu__label">القائمة
-                            السوداء</span></a>
+                            class="mdi mdi-account-cancel-outline"></i><span class="side-menu__label">{{trans('dashboard.general.black_menu')}}</span></a>
                 </li>
                 <li class="slide">
                     <a class="side-menu__item" data-bs-toggle="slide" href="../settings.html"><i
-                            class="mdi mdi-cog-outline"></i><span class="side-menu__label">الإعدادات</span></a>
+                            class="mdi mdi-cog-outline"></i><span class="side-menu__label">{{trans('dashboard.general.settings')}}</span></a>
                 </li>
             </ul>
             <div class="slide-right" id="slide-right">
@@ -223,11 +222,11 @@
                     <div class="col d-flex">
 
                         @auth
-                            {!! Form::open(['route' => 'dashboard.session.logout', 'method' => 'POST', 'id' => 'logout_form']) !!}
-                            <a class="nav-link icon" onclick="document.getElementById('logout_form').submit();"
+                            {!! Form::open(['route' => 'dashboard.session.logout', 'method' => 'POST', 'class' => 'logout_form']) !!}
+                            <a class="nav-link icon" onclick="document.getElementByClass('logout_form').submit();"
                                 style="cursor: pointer;">
                                 <i class="mdi mdi-logout"></i>
-                                <span class="mx-2">تسجيل خروج</span>
+                                <span class="mx-2">{{trans('dashboard.general.logout')}}</span>
                             </a>
                             {!! Form::close() !!}
                         @endauth

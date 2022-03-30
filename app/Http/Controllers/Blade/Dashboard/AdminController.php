@@ -4,7 +4,11 @@ namespace App\Http\Controllers\Blade\Dashboard;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\V1\Dashboard\AdminRequest;
-use App\Models\{User};
+use App\Http\Resources\Blade\Dashboard\Admin\AdminCollection;
+use App\Http\Resources\Blade\Dashboard\Activitylog\ActivityLogCollection;
+use App\Models\{Permission, User};
+use App\Models\Department\Department;
+use App\Models\Group\Group;
 use Illuminate\Http\Request;
 
 class AdminController extends Controller
@@ -16,10 +20,33 @@ class AdminController extends Controller
      */
     public function index(Request $request)
     {
+
+        if (isset($request->order[0]['column'])) {
+            $request['sort'] = ['column' => $request['columns'][$request['order'][0]['column']]['name'], 'dir' => $request['order'][0]['dir']];
+        }
+
         if ($request->ajax()) {
 
+            $adminsQuery = User::CustomDateFromTo($request)->search($request)->with(['department', 'permissions', 'groups' => function ($q) {
+                $q->with('permissions');
+            }])->where('user_type', 'admin')
+                ->sortBy($request);
+
+            $adminCount = $adminsQuery->count();
+            $admins = $adminsQuery->skip($request->start)
+                ->take(($request->length == -1) ? $adminCount : $request->length)
+                ->get();
+            return AdminCollection::make($admins)
+                ->additional(['total_count' => $adminCount]);
         }
-        return view('dashboard.admin.index');
+
+
+        $departments = Department::where('is_active', 1)
+            ->select("id")
+            ->ListsTranslations("name")
+            ->pluck('name', 'id');
+
+        return view('dashboard.admin.index', compact('departments'));
     }
 
     /**
@@ -29,7 +56,10 @@ class AdminController extends Controller
      */
     public function create()
     {
-        return view('dashboard.admin.create');
+        $departments = Department::with('parent.translations')->ListsTranslations('name')->pluck('name', 'id');
+        $groups = Group::ListsTranslations('name')->pluck('name', 'id');
+        $locales = config('translatable.locales');
+        return view('dashboard.admin.create', compact('departments', 'locales', 'groups'));
     }
 
     /**
@@ -40,6 +70,7 @@ class AdminController extends Controller
      */
     public function store(AdminRequest $request, User $admin)
     {
+        dd($request->all());
         $admin->fill($request->validated())->save();
 
         return redirect()->route('dashboard.admin.index')->withSuccess(__('dashboard.general.success_add'));
@@ -51,9 +82,40 @@ class AdminController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+
+    public function show(Request $request, $id)
     {
-        return view('dashboard.admin.show');
+
+
+        $admin = User::withTrashed()->where('user_type', 'admin')->findOrFail($id);
+
+
+        $sortingColumns = [
+            'id',
+            'user_name',
+            'department_name',
+            'created_at',
+            'action_type',
+            'reason'
+        ];
+        if (isset($request->order[0]['column'])) {
+            $request['sort'] = ['column' => $sortingColumns[$request->order[0]['column']], 'dir' => $request->order[0]['dir']];
+        }
+
+        $activitiesQuery  = $admin->activity()
+
+            ->sortBy($request);
+
+        if ($request->ajax()) {
+            $activityCount = $activitiesQuery->count();
+            $activities = $activitiesQuery->skip($request->start)
+                ->take(($request->length == -1) ? $activityCount : $request->length)
+                ->get();
+
+            return ActivityLogCollection::make($activities)
+                ->additional(['total_count' => $activityCount]);
+        }
+        return view('dashboard.admin.show', compact('admin'));
     }
 
     /**
@@ -89,9 +151,19 @@ class AdminController extends Controller
      */
     public function destroy(Admin $admin)
     {
-
     }
 
-
-
+    /**
+     * get Employees by departmentId
+     */
+    public function getEmployeesByDepartment($id)
+    {
+        return response()->json([
+            'data' => User::select('id', 'fullname')->where('user_type', 'employee')->whereHas('department', function ($q) use ($id) {
+                $q->where('departments.id', $id);
+            })->setEagerLoads([])->get(),
+            'status' => true,
+            'message' => '',
+        ]);
+    }
 }

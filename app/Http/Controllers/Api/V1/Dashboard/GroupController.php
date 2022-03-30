@@ -19,7 +19,7 @@ class GroupController extends Controller
     public function index(Request $request)
     {
         $groups = Group::with('groups', 'permissions')
-            ->where('id',"<>",auth()->user()->group_id)
+            ->withCount('admins as user_count')
             ->withTranslation()
             ->search($request)
             ->sortBy($request)
@@ -60,6 +60,16 @@ class GroupController extends Controller
                 'status' => true,
                 'message' => ''
             ]);
+    }
+
+    public function checkIfUserHasPermission(Request $request,$route_name)
+    {
+        $has_access = auth()->user()->hasPermissions($route_name);
+        return response()->json([
+                'data' => null,
+                'status' => $has_access,
+                'message' => ''
+            ],$has_access ? 200 : 403);
     }
 
     public function getPermissionsOfGroup(Group $group, Request $request)
@@ -141,11 +151,20 @@ class GroupController extends Controller
         return $item;
     }
 
-    public function getGroups($group_id = null)
+    public function getGroups(Request $request,$group_id = null)
     {
         $groups = Group::when($group_id, function ($q) use ($group_id) {
             $q->where('groups.id', "<>", $group_id);
-        })->active()->with('permissions')->ListsTranslations('name')->without(['addedBy'])->get();
+        })->when($request->activate_case, function ($q) use($request){
+            switch ($request->activate_case) {
+                case 'active':
+                    $q->where('is_active', 1);
+                    break;
+                case 'hold':
+                    $q->where('is_active', 0);
+                    break;
+            }
+        })->with('permissions')->ListsTranslations('name')->without(['addedBy'])->get();
 
         return GroupResource::collection($groups)->additional(['status' => true, 'message' => ""]);
     }

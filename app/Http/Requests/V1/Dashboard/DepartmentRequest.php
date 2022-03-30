@@ -26,7 +26,7 @@ class DepartmentRequest extends ApiMasterRequest
     {
         $igonredDepartment = $this->department ?  implode(',', Department::flattenChildren($this->department)) : "";
         $rules = [
-            "image"         => "nullable|max:2048|mimes:jpg,png,jpeg",
+            "image"         => "nullable|max:5120|mimes:jpg,png,jpeg",
             "parent_id"     => "nullable|exists:departments,id,deleted_at,NULL|not_in:$igonredDepartment",
             "is_active"     => "in:0,1",
             'delete_image'  => "in:0,1"

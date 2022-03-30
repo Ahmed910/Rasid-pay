@@ -27,6 +27,8 @@ return [
         "success_update" => "تم التعديل بنجاح",
         "success_archive" => "تمت الأرشفة بنجاح",
         "success_restore" => "تم الاستعادة بنجاح",
+        "Send VerificationCode" => "إرسال رمز التحقق",
+        'change_password'=>'تغيير كلمة المرور',
         "has_relationship_cannot_delete" => "لا يمكن حذف هذا العنصر ،بسبب احتواءه علي علاقات",
         'yes' => 'موافق',
         'no' => 'غير موافق',
@@ -52,6 +54,8 @@ return [
         'dashboard' => 'لوحة تحكم رصيد جاك',
         "status" => "الحالة",
         "select_status" => "اختر الحالة",
+        "select_user" => "اختر مستخدم",
+        'select_permissions'=>'اختر الصلاحيات',
         "type" => "النوع",
         "select_type" => "اختر النوع",
         "from_date" => "تاريخ الإنشاء (من)",
@@ -61,6 +65,11 @@ return [
         "created_at" => "تاريخ الإنشاء",
         'create' => 'انشاء',
         "actions" => "العمليات",
+        "notifications"=>"الاشعارات",
+        "show_all notification"=>"مشاهدة
+        كل
+        الإشعارات",
+        "personalfile" =>"الملف الشخص",
         "active_cases" => [
             'معطل',
             'مفعل',
@@ -85,7 +94,12 @@ return [
         'done_by' => 'تم بواسطة',
         'the_archive' => 'الأرشيف',
         "want_to_archive" => "هل تريد إتمام عملية الأرشفة؟",
-        "reason_needed" => "الرجاء ذكر السبب*"
+        "reason_needed" => "الرجاء ذكر السبب*",
+        'black_menu' => 'القائمة السوداء',
+        'settings' => 'الإعدادات',
+        'logout' => 'تسجيل خروج',
+        'accept'=>'موافقة',
+        'cancel'=>'الغاء',
     ],
     'datatable' => [
         'no_data' => 'لا يوجد بيانات',
@@ -175,10 +189,14 @@ return [
         'permissions' => $permissions
     ],
     "group" => [
+        "group_name" => "اسم المجموعة",
         "group" => "المجموعة الادارية",
         "groups" => "الصلاحيات",
+        "chosen_groups" => "الصلاحيات المختارة",
         "add_group" => "اضافة مجموعه",
         "edit_group" => "تعديل المجموعه",
+        "admins_from" => "عدد المستخدمين من",
+        "admins_to" => "عدد المستخدمين إلى",
         "group_count" => "عدد المجموعات",
         'sub_progs' => [
             'index' => 'سجل الصلاحيات',
@@ -277,14 +295,32 @@ return [
     ],
     "admin" => [
         "admin" => "المستخدم",
+        "admin_name" => "اسم المستخدم",
+        "login_id" => "رقم المستخدم",
         "admins" => "المستخدمين",
         "add_admin" => "اضافة مستخدم",
         "edit_admin" => "تعديل المستخدم",
         "admin_count" => "عدد المستخدمين",
+        'name' => 'اسم المستخدم',
+        'number' => 'رقم المستخدم',
+        "ban_from" => "معطل لفترة (من)",
+        "ban_to" => "معطل لفترة (إلى)",
+        'permission_system'=>'صلاحيات النظام',
+        'new_password'=>'كلمة المرور الجديدة',
+        'confirmed_password'=>'تاكيد كلمة المرور',
+
+
         'sub_progs' => [
             'index' => 'سجل المستخدمين',
             'archive' => 'أرشيف المستخدمين',
             'create' => 'اضافة مستخدم',
+            'show' => 'عرض مستخدم'
+        ],
+
+        'active_cases' => [
+            'active' => 'مفعل',
+            'temporary' => 'معطل لفترة',
+            'permanent' => 'معطل دائم',
         ],
         'permissions' => array_except($permissions, ['archive', 'restore', 'force_delete']) + ['create' => 'عرض المستخدمين']
     ],
@@ -404,6 +440,9 @@ return [
         'sub_progs' => [
             'index' => 'سجل الرسائل',
             'archive' => 'أرشيف الرسائل',
+            'show_all messages'=>"مشاهدة
+        كل
+        الرسائل",
             'create' => 'اضافة رسالة',
         ],
     ],

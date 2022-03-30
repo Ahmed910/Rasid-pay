@@ -54,13 +54,13 @@
 
         <div class="col">
             <label for="status">
-                @lang('dashboard.general.status')</label>
+                {{ trans('dashboard.general.status') }}</label>
             {!! Form::select('is_active', trans('dashboard.general.active_cases'), old('is_active') ?? request('is_active'), ['class' => 'form-control select2-show-search', 'placeholder' => trans('dashboard.general.select_status'), 'id' => 'status']) !!}
         </div>
 
         <div class="col">
             <label for="type">
-                @lang('dashboard.general.type')</label>
+                {{ trans('dashboard.general.type') }}</label>
             {!! Form::select('is_vacant', trans('dashboard.general.job_type_cases'), old('is_vacant') ?? request('is_vacant'), ['class' => 'form-control select2-show-search', 'placeholder' => trans('dashboard.general.select_type'), 'id' => 'type']) !!}
         </div>
 
@@ -70,7 +70,7 @@
             <div class="dropdown">
                 <button class="btn btn-outline-primary dropdown-toggle" type="button" id="dropdownMenuButton1"
                     data-bs-toggle="dropdown" aria-expanded="false">
-                    <i class="mdi mdi-tray-arrow-down"></i> تصدير
+                    <i class="mdi mdi-tray-arrow-down"></i> {{ trans('dashboard.general.export') }}
                 </button>
                 <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
                     <li><a class="dropdown-item"
@@ -123,5 +123,7 @@
         <!-- End Row -->
         @include('dashboard.layouts.modals.archive')
         @include('dashboard.layouts.modals.not_archive')
-    @endsection
+        @include('dashboard.layouts.modals.alert')
+
+@endsection
     @include('dashboard.job.script')

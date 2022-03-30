@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" dir="{{ LaravelLocalization::getCurrentLocaleDirection() }}">
+<html lang="en" dir="ltr">
 
 <head>
   <!-- META DATA -->
@@ -35,7 +35,7 @@
   @yield('styles')
 </head>
 
-<body class="app sidebar-mini {{ LaravelLocalization::getCurrentLocaleDirection() }}">
+<body class="app sidebar-mini {{ LaravelLocalization::getCurrentLocaleDirection() }} popoverTooltip">
   <!-- GLOBAL-LOADER -->
   <div id="global-loader">
     <img src="{{ asset('dashboardAssets/images/loader.gif') }}" class="loader-img" alt="Loader" />
@@ -45,7 +45,6 @@
   <div class="page">
     <div class="page-main">
       <!-- app-Header -->
-      @include('dashboard.layouts.modals.alert')
       @include('dashboard.layouts.header')
       <!-- /app-Header -->
 
@@ -95,6 +94,7 @@
   <!-- lottie-player js -->
   <script src="https://unpkg.com/@lottiefiles/lottie-player@0.4.0/dist/tgs-player.js"></script>
   <script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
+  @yield('toast')
   @yield('scripts')
 
 </body>

@@ -55,7 +55,9 @@ class DepartmentController extends Controller
                     $children = Department::flattenChildren(Department::find($request->department_id));
                     $q->whereNotIn('departments.id', $children);
                 })->when($request->department_type == 'children', function ($q) {
-                    $q->has('children');
+                    $q->where(function ($q) {
+                        $q->has('children')->orWhereNull('parent_id');
+                    });
                 })->when($request->activate_case, function ($q) use($request){
                     switch ($request->activate_case) {
                         case 'active':

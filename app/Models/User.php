@@ -149,12 +149,7 @@ class User extends Authenticatable implements HasAssetsInterface
             $this->attributes['ban_from'] = null;
             $this->attributes['ban_to'] = null;
         }
-    }
-    public function setPhoneAttribute($value)
-    {
-        $this->attributes['phone'] =   $this->attributes['country_code']?$this->attributes['country_code'].  $value:$value;
-
-    }
+    }    
 
     public function getBanFromAttribute($value)
     {
@@ -201,6 +196,10 @@ class User extends Authenticatable implements HasAssetsInterface
             if (!in_array($request->is_active, [1, 0])) return;
 
             $query->where('is_active', $request->is_active);
+        }
+        if (isset($request->login_id)) {
+
+            $query->where("login_id", $request->login_id);
         }
 
         if (isset($request->ban_status)) {

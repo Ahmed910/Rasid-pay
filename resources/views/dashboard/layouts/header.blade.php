@@ -31,7 +31,7 @@
                                     <div class="drop-heading border-bottom">
                                         <div class="d-flex">
                                             <h6 class="mt-1 mb-0 fs-16 fw-semibold text-dark">
-                                                الإشعارات
+                                                {{ trans('dashboard.general.notifications') }}
                                             </h6>
                                         </div>
                                     </div>
@@ -85,9 +85,9 @@
                                         </a>
                                     </div>
                                     <div class="dropdown-divider m-0"></div>
-                                    <a href="notify-list.html" class="dropdown-item text-center p-3 text-muted">مشاهدة
-                                        كل
-                                        الإشعارات</a>
+                                    <a href="notify-list.html" class="dropdown-item text-center p-3 text-muted">
+                                      {{ trans('dashboard.general.show_all notification') }}
+                                    </a>
                                 </div>
                             </div>
                             <!-- MESSAGE-BOX -->
@@ -158,9 +158,9 @@
                                         </a>
                                     </div>
                                     <div class="dropdown-divider m-0"></div>
-                                    <a href="javascript:void(0)" class="dropdown-item text-center p-3 text-muted">مشاهدة
-                                        كل
-                                        الرسائل</a>
+                                    <a href="javascript:void(0)" class="dropdown-item text-center p-3 text-muted">
+                                      {{ trans('dashboard.message.sub_progs.show_all messages') }}
+                                    </a>
                                 </div>
                             </div>
                             <!-- SIDE-MENU -->
@@ -173,8 +173,9 @@
                                                 class="avatar profile-user brround cover-image" />
                                         </div>
                                         <div class="flex-grow-1 ms-3">
-                                            <p>هشام أشرف</p>
-                                            <span>front-end developer</span>
+                                            <p> {{ auth()->user()->fullname }}</p>
+
+                                            <span> {{ auth()->user()->employee?->job?->name   }} </span>
                                         </div>
                                     </div>
                                 </a>
@@ -182,30 +183,30 @@
                                     <div class="drop-heading">
                                         <div class="text-center">
                                             <h5 class="text-dark mb-0 fs-14 fw-semibold">
-                                                هشام أشرف
+                                              {{ auth()->user()->fullname }}
                                             </h5>
-                                            <small class="text-muted">Front-End Developer</small>
+                                            <small class="text-muted">{{ auth()->user()->employee?->job?->name   }}</small>
                                         </div>
                                     </div>
                                     <div class="dropdown-divider m-0"></div>
                                     <a class="dropdown-item" href="profile.html">
-                                        <i class="mdi mdi-account-outline"></i> الملف الشخصي
+                                        <i class="mdi mdi-account-outline"></i> {{ trans('dashboard.general.personalfile') }}
                                     </a>
                                     <a class="dropdown-item" href="email-inbox.html">
-                                        <i class="mdi mdi-email-outline"></i> الرسائل
+                                        <i class="mdi mdi-email-outline"></i> {{ trans('dashboard.message.messages') }}
                                         <span class="badge bg-danger-opacity float-end">5</span>
                                     </a>
                                     <a class="dropdown-item" href="lockscreen.html">
-                                        <i class="mdi mdi-cog-outline"></i> الإعدادات
+                                        <i class="mdi mdi-cog-outline"></i> {{ trans('dashboard.general.settings') }}
                                     </a>
                                     @auth
-                                        {!! Form::open(['route' => 'dashboard.session.logout', 'method' => 'POST', 'id' => 'logout_form']) !!}
+                                        {!! Form::open(['route' => 'dashboard.session.logout', 'method' => 'POST', 'class' => 'logout_form']) !!}
 
                                         <a class="dropdown-item"
-                                            onclick="document.getElementById('logout_form').submit();"
+                                            onclick="document.getElementByClass('logout_form').submit();"
                                             style="cursor: pointer;">
                                             <i class="mdi mdi-logout-variant"></i>
-                                            تسجيل خروج
+                                            {{ trans('dashboard.general.logout') }}
                                         </a>
                                         {!! Form::close() !!}
                                     @endauth

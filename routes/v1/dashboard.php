@@ -32,9 +32,10 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('logout', "Auth\LoginController@logout");
     Route::apiResource('notifications', 'NotificationController')->except('store');
     Route::apiResource('menus', 'MenuController');
-    Route::get('group-permissions/{group}','GroupController@getPermissionsOfGroup')->name('group_permissions');
+    Route::get('group-permissions/{group}','GroupController@getPermissionsOfGroup');
     Route::get('permissions', 'GroupController@permissions');
-    Route::post('validate','ValidateController')->name('validate');
+    Route::get('has_permissions/{route_name}', 'GroupController@checkIfUserHasPermission');
+    Route::post('validate','ValidateController');
 
     Route::controller('ProfileController')->name('profiles.')->prefix('profile')->group(function () {
         Route::get('show', 'show')->name('show');
@@ -107,9 +108,9 @@ Route::middleware('auth:sanctum')->group(function () {
             Route::post('store', 'store')->name('store');
         });
 
-        Route::controller('EmployeeController')->name('employees.')->prefix('employees')->group(function () {
-            Route::put('ban/{employee}', 'ban')->name('ban');
-        });
+        // Route::controller('EmployeeController')->name('employees.')->prefix('employees')->group(function () {
+        //     Route::put('ban/{employee}', 'ban')->name('ban');
+        // });
 
         Route::controller('ContactController')->name('contacts.')->prefix('contacts')->group(function () {
             Route::get('/', 'index')->name('index');

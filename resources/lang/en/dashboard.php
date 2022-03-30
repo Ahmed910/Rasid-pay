@@ -19,11 +19,14 @@ return [
         'show' => 'Show :menu'
     ],
     'general' => [
+        "no_reasons" => "No reasons",
         "success_add" => "Created Successfully",
         "success_delete" => "Deleted Successfully",
         "success_update" => "Updated Successfully",
         "success_archive" => "Archived Successfully",
         "success_restore" => "Restored Successfully",
+        "Send VerificationCode"=>"Send VerificationCode ",
+        'change_password' => 'Change _password',
         "has_relationship_cannot_delete" => "This item has relationships ,so you cannot delete it",
         'close'=>'Close',
         'yes'=>'Yes',
@@ -48,6 +51,8 @@ return [
         'dashboard' => 'Rasid Jack Dashboard',
         "status" => "Status",
         "select_status" => "Select Status",
+        'select_user' => 'Select User',
+        'select_permissions'=>'Select Permissions',
         "type" => "Type",
         "select_type" => "Select Type",
         "from_date" => "Creation Date (From)",
@@ -57,6 +62,9 @@ return [
         "created_at" => "Creation Date",
         'create' => 'Create',
         "actions" => "Actions",
+        "notifications"=>"Notifications",
+        "show_all notification" =>"Show All Notifications",
+        "personalfile" =>"Personal Account",
         "active_cases" => [
             'Active',
             'Inactive',
@@ -85,12 +93,12 @@ return [
         'upload_error' => 'Oh, something went wrong',
         'upload_file_max' => 'File size is large',
         'notAllowdedToUpload' => 'File type is not allowded to be uploaded',
-        "active_cases" => [
-            'Active',
-            'Unactive',
-        ],
         'the_archive' => 'The Archive',
-
+        'black_menu'=>'Black Menu',
+        'settings'=>'Settings',
+        'logout'=>'Logout',
+        'accept'=>'Accept',
+        'cancel'=>'Cancel',
     ],
     'error' => [
         'method_not_allow' => 'Http method (:method) not allowed',
@@ -142,6 +150,7 @@ return [
     ],
     "group" => [
         "group" => "Admin group",
+        "chosen_groups" =>"Chosen_Groups ",
         "groups" => "Admin groups",
         "add_group" => "Add a group",
         "edit_group" => "",
@@ -230,14 +239,30 @@ return [
     ],
     "admin" => [
         "admin" => "Admin",
+        "admin_name" =>"Admin_Name",
+        "login_id" =>"Login_id ",
         "admins" => "Admins",
         "add_admin" => "Add Admin",
         "edit_admin" => "Edit Admin",
         "admin_count" => "Admins Count",
+        'name' => 'Admin Name ',
+        'number'=>'Admin Number',
+        'ban_from' => 'Ban Date (From)',
+        'ban_to' => ' Ban Date (To)',
+        'new_password'=>'New Password',
+        'confirmed_password'=>'Confirmed Password',
+        'permission_system' => 'Permission System',
+        'permissions' => array_except($permissions, ['archive', 'restore', 'force_delete']) + ['create' => 'Show Admins'],
+        'active_cases'=>[
+            'active' =>'Active',
+            'temporary'=>'Ban Temporary',
+            'permanent'=>'Ban Permnent',
+        ],
         'sub_progs' => [
             'index' => 'Admins Rescord ',
             'archive' => 'Admins Archive',
             'create' => 'Add Admin ',
+            'show' =>'Show Admin'
         ],
         'permissions' => array_except($permissions, ['archive', 'restore', 'force_delete']) + ['create' => 'Show Admins']
     ],
@@ -320,7 +345,10 @@ return [
         'devices' => 'Devices'
     ],
     'message' => [
-        'messages' => 'Messages'
+        'messages' => 'Messages',
+        'sub_progs' => [
+        'show_all messages'=>'Show All Messages',
+        ]
     ],
     'permission' => [
         'permissions' => 'Permissions'
