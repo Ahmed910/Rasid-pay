@@ -55,7 +55,7 @@ class JobController extends Controller
     public function create()
     {
 
-        $departments = Department::with('parent.translations')->ListsTranslations('name')->pluck('name', 'id');
+        $departments = Department::with('parent.translations')->ListsTranslations('name')->where('is_active', 1)->pluck('name', 'id');
         $locales = config('translatable.locales');
         return view('dashboard.job.create', compact('departments', 'locales'));
     }
@@ -68,7 +68,6 @@ class JobController extends Controller
      */
     public function store(RasidJobRequest $request, RasidJob $rasidJob)
     {
-
         $rasidJob->fill($request->validated())->save();
 
 
@@ -206,12 +205,11 @@ class JobController extends Controller
         $rasidJob->forceDelete();
         return redirect()->back();
     }
-    public function destroy( $rasidJob, \App\Http\Requests\Dashboard\ReasonRequest $request)
+    public function destroy($rasidJob, \App\Http\Requests\Dashboard\ReasonRequest $request)
     {
-        $jobya = RasidJob::findorfail($rasidJob) ;
+        $jobya = RasidJob::findorfail($rasidJob);
         if ($jobya->is_vacant) $jobya->delete();
         return redirect()->route('dashboard.job.index');
-
     }
 
     public function export(Request $request)

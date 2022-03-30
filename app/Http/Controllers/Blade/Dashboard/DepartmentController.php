@@ -3,11 +3,10 @@
 namespace App\Http\Controllers\Blade\Dashboard;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\V1\Dashboard\DepartmentRequest;
+use App\Http\Requests\Dashboard\DepartmentRequest;
 use App\Http\Requests\Dashboard\ReasonRequest;
 use App\Http\Resources\Blade\Dashboard\Activitylog\ActivityLogCollection;
 use App\Http\Resources\Blade\Dashboard\Department\DepartmentCollection;
-use App\Http\Resources\Dashboard\ActivityLogResource;
 use App\Models\Department\Department;
 use Illuminate\Http\Request;
 use App\Exports\DepartmentsExport;
@@ -20,14 +19,17 @@ class DepartmentController extends Controller
         if (isset($request->order[0]['column'])) {
             $request['sort'] = ['column' => $request['columns'][$request['order'][0]['column']]['name'], 'dir' => $request['order'][0]['dir']];
         }
-        $departmentsQuery = Department::search($request)
-            ->CustomDateFromTo($request)
-            ->with('parent.translations')
-            ->ListsTranslations('name')
-            ->addSelect('departments.created_at', 'departments.is_active', 'departments.parent_id', 'departments.added_by_id')
-            ->sortBy($request);
+
 
         if ($request->ajax()) {
+
+            $departmentsQuery = Department::search($request)
+                ->CustomDateFromTo($request)
+                ->with('parent.translations')
+                ->ListsTranslations('name')
+                ->addSelect('departments.created_at', 'departments.is_active', 'departments.parent_id', 'departments.added_by_id')
+                ->sortBy($request);
+
             $departmentCount = $departmentsQuery->count();
             $departments = $departmentsQuery->skip($request->start)
                 ->take(($request->length == -1) ? $departmentCount : $request->length)
@@ -196,15 +198,13 @@ class DepartmentController extends Controller
             ->with('parent.translations')
             ->ListsTranslations('name')
             ->addSelect('departments.created_at', 'departments.is_active', 'departments.parent_id', 'departments.added_by_id')->get();
-            return view('dashboard.department.export', [
-                'departments' => $departmentsQuery
-            ]);
+        return view('dashboard.department.export', [
+            'departments' => $departmentsQuery
+        ]);
     }
 
     public function exportPDF(Request $request)
     {
         return  Excel::download(new DepartmentsExport($request), 'departments.pdf');
     }
-
-
 }

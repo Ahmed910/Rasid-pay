@@ -2,10 +2,10 @@
 
 namespace App\Http\Requests\Dashboard;
 
-use App\Http\Requests\ApiMasterRequest;
+use Illuminate\Foundation\Http\FormRequest;
 use GeniusTS\HijriDate\Hijri;
 
-class AdminRequest extends ApiMasterRequest
+class AdminRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
