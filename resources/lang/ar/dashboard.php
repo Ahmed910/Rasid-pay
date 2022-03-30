@@ -21,6 +21,7 @@ return [
         'show :menu' => 'عرض :menu'
     ],
     'general' => [
+        "delete"=>"حذف",
         "no_reasons" => "لايوجد",
         "success_add" => "تمت الإضافة بنجاح",
         "success_delete" => "تم الحذف بنجاح",

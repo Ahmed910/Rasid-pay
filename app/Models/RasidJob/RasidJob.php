@@ -25,7 +25,7 @@ class RasidJob extends Model implements TranslatableContract
     #region properties
     protected $guarded = ['created_at', 'deleted_at'];
     public $translatedAttributes = ['name', 'description'];
-    public $attributes = ['is_active' => false, 'is_vacant' =>  true];
+    public $attributes = ['is_active' => true, 'is_vacant' =>  true];
     protected $with = ['translations', 'addedBy', 'department', 'employee'];
     private $sortableColumns = ["name", "department", "created_at", "is_active", "is_vacant"];
 
