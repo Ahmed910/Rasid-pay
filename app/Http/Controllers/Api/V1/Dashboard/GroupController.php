@@ -68,9 +68,9 @@ class GroupController extends Controller
                 'data' => [
                     'has_access' => auth()->user()->hasPermissions($route_name)
                 ],
-                'status' => true,
+                'status' => false,
                 'message' => ''
-            ]);
+            ],403);
     }
 
     public function getPermissionsOfGroup(Group $group, Request $request)
