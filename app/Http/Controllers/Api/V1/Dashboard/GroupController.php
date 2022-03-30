@@ -62,6 +62,17 @@ class GroupController extends Controller
             ]);
     }
 
+    public function checkIfUserHasPermission(Request $request,$route_name)
+    {
+        return response()->json([
+                'data' => [
+                    'has_access' => auth()->user()->hasPermissions($route_name)
+                ],
+                'status' => true,
+                'message' => ''
+            ]);
+    }
+
     public function getPermissionsOfGroup(Group $group, Request $request)
     {
         $permissions = $group->permissions()->paginate((int)($request->per_page ?? 15));
