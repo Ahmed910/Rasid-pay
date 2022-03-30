@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Blade\Dashboard;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Dashboard\RasidJob\RasidJobRequest;
-use App\Http\Requests\V1\Dashboard\ReasonRequest;
+use App\Http\Requests\Dashboard\ReasonRequest;
 use App\Http\Resources\Blade\Dashboard\Activitylog\ActivityLogCollection;
 use App\Http\Resources\Blade\Dashboard\Job\JobCollection;
 use App\Models\Department\Department;
