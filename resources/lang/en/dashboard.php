@@ -19,6 +19,7 @@ return [
         'show' => 'Show :menu'
     ],
     'general' => [
+        "delete" => "Delete",
         "no_reasons" => "No reasons",
         "success_add" => "Created Successfully",
         "success_delete" => "Deleted Successfully",

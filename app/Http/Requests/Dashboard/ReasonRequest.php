@@ -2,7 +2,6 @@
 
 namespace App\Http\Requests\Dashboard;
 
-use App\Http\Requests\ApiMasterRequest;
 use Illuminate\Foundation\Http\FormRequest;
 
 class ReasonRequest extends FormRequest
