@@ -41,6 +41,11 @@ class Permission extends Model
     #endregion mutators
 
     #region scopes
+
+    public function scopeBlade($query)
+    {
+        $query->where('permission_on','blade');
+    }
     #endregion scopes
 
     #region relationships
@@ -67,21 +72,28 @@ class Permission extends Model
             }
         }
         $permissions->transform(function ($item) {
-            $action = explode('.',$item->name);
-            $data['uri'] = $action[0];
-            $data['action'] = $action[1];
-            $data['name'] = trans('dashboard.'.$action[0].'.permissions.'.$action[1]);
-            $data['id'] = $item->id;
-            return $data;
+            return self::getTransPermission($item);
         });
 
-        $permissions = $permissions->groupBy('uri')->map(function ($item,$key) {
-            $data['program'] = trans('dashboard.'.$key.".".str_plural($key));
-            $data['permissions'] = $item;
-            return $data;
-        });
+        // $permissions = $permissions->groupBy('uri')->map(function ($item,$key) {
+        //     $data['program'] = trans('dashboard.'.$key.".".str_plural($key));
+        //     $data['permissions'] = $item;
+        //     return $data;
+        // });
 
         return $permissions;
+    }
+
+    private static function getTransPermission($item)
+    {
+        $path = explode('.',$item->name);
+        $action = trans('dashboard.' . @$path[0] . '.permissions.' . @$path[1]);
+        $data['id'] = $item->id;
+        $data['uri'] = $path[0];
+        $data['named_uri'] = $item->name;
+        $data['name'] = trans('dashboard.' . @$path[0] . '.' . str_plural($path[0])) . ' (' . $action . ')';
+        $data['action'] = $action;
+        return $data;
     }
     #endregion custom Methods
 }
