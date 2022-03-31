@@ -40,6 +40,7 @@ return [
         'want_back_without_saving' => 'هل تريد العودة دون حفظ ؟',
         'close' => 'اغلاق',
         "save" => "حفظ",
+        "index" => "عرض",
         "back" => "عودة",
         "edit" => "تعديل",
         'add' => 'إضافة',
@@ -86,6 +87,7 @@ return [
         'description' => 'الوصف',
         'day_month_year' => 'يوم/شهر/سنة',
         'export' => 'تصدير',
+        'report' => 'طباعة تقرير',
         'details' => 'التفاصيل',
 
         'hold_upload' => 'اسحب وأسقط او قم برفع الصورة',
@@ -127,7 +129,14 @@ return [
         "activity_logs" => "سجل النشاطات",
         "reason" => "قام :user بـ:action :model",
         "date" => "تاريخ النشاط",
+        "main_program" =>"البرنامج الرئيسي",
+        "sub_program" => "البرنامج الفرعي",
         "activity" => " النشاط",
+        "ip_address" => "رقم معرف الجهاز",
+        "select_activity"=>"اختر النشاط",
+        "select_employee" =>"اختر موظف",
+        "select_mainprogram"=>"اختر برنامج رئيسي",
+        "select_subprogram" => "اختر برنامج فرعي",
         'history' => 'الحركة التاريخية',
         'actions' => [
             'created' => 'إضافة',
@@ -140,12 +149,18 @@ return [
             'activated' => 'تفعيل',
             'permanent' => 'حظر دائم',
             'temporary' => 'حظر لفترة',
+
         ],
         'permissions' => array_only($permissions, ['index', 'show']),
         'sub_progs' => [
             'index' => 'سجل النشاطات',
             'show' => 'عرض النشاط',
+            'create' =>'اضافة',
+            'ban_status' =>'حظر',
+            'archive'=>'أرشفة'
+
         ],
+
     ],
     'home' => [
         'home' => 'الرئيسية',
