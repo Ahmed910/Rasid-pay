@@ -56,7 +56,7 @@ class DepartmentController extends Controller
 
     public function create()
     {
-        $departments = Department::with('parent.translations')->ListsTranslations('name')->where('parent_id', null)->pluck('name', 'id')->toArray();
+        $departments = Department::with('parent.translations')->ListsTranslations('name')->where(['parent_id' => null, 'is_active' => 1])->pluck('name', 'id');
         $locales = config('translatable.locales');
         return view('dashboard.department.create', compact('departments', 'locales'));
     }
@@ -100,7 +100,7 @@ class DepartmentController extends Controller
 
     public function edit(Department $department)
     {
-        $departments = Department::with('parent.translations')->ListsTranslations('name')->where('parent_id', null)->pluck('name', 'id')->toArray();
+        $departments = Department::with('parent.translations')->ListsTranslations('name')->where(['parent_id' => null, 'is_active' => 1])->pluck('name', 'id');
         $locales = config('translatable.locales');
         return view('dashboard.department.edit', compact('departments', 'department', 'locales'));
     }

@@ -69,9 +69,7 @@ return [
         'create' => 'انشاء',
         "actions" => "العمليات",
         "notifications"=>"الاشعارات",
-        "show_all notification"=>"مشاهدة
-        كل
-        الإشعارات",
+        "show_all notification"=>"مشاهدة كل الإشعارات",
         "personalfile" =>"الملف الشخص",
         "active_cases" => [
             'معطل',
@@ -81,6 +79,7 @@ return [
             'مشغولة',
             'شاغرة',
         ],
+        'all_cases' =>'الجميع',
         'all' => 'الكل',
         'description' => 'الوصف',
         'day_month_year' => 'يوم/شهر/سنة',

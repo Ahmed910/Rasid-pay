@@ -38,18 +38,23 @@
                 <p class="badge bg-{{ $department->is_active == 1 ? 'success' : 'danger' }}-opacity py-2 px-4">
                     {{ trans('dashboard.general.active_cases.' . $department->is_active) }}</p>
             </div>
+
             <div class="col-12 col-md-4">
                 <label> {{ trans('dashboard.department.department_image') }}:</label>
                 <img src="{{ $department->image }}" width="150" height="150" class="d-block rounded-3" alt=""
                     data-toggle="popoverIMG"
                     title='<img src="{{ $department->image }}" width="300" height="300" class="d-block rounded-3" alt="">'>
             </div>
-            <div class="col-12 col-md-8">
-                <label class="d-block" for="departmentName">{{ trans('dashboard.general.description') }}:</label>
-                <p class="text-muted">
-                    {!! $department->description !!}
-                </p>
-            </div>
+
+            @if ($department->description != null)
+                <div class="col-12 col-md-8">
+                    <label class="d-block"
+                        for="departmentName">{{ trans('dashboard.general.description') }}:</label>
+                    <p class="text-muted">
+                        {!! $department->description !!}
+                    </p>
+                </div>
+            @endif
         </div>
 
     </div>
