@@ -104,6 +104,7 @@ return [
         'logout' => 'تسجيل خروج',
         'accept'=>'موافقة',
         'cancel'=>'الغاء',
+        'created_by' => 'منشيء المجموعة',
     ],
     'datatable' => [
         'no_data' => 'لا يوجد بيانات',
@@ -194,19 +195,24 @@ return [
     ],
     "group" => [
         "group_name" => "اسم المجموعة",
+        "main_program" => 'البرنامج الرئيسي',
+        "sub_program" => 'البرنامج الفرعي',
         "group" => "المجموعة الادارية",
         "groups" => "الصلاحيات",
         "chosen_groups" => "الصلاحيات المختارة",
         "add_group" => "اضافة مجموعه",
         "edit_group" => "تعديل المجموعه",
+        'show_group' => 'عرض مجموعة',
         "admins_from" => "عدد المستخدمين من",
         "admins_to" => "عدد المستخدمين إلى",
         "group_count" => "عدد المجموعات",
+        'group_data' => 'بيانات المجموعة',
         'sub_progs' => [
             'index' => 'سجل الصلاحيات',
             'archive' => 'أرشيف الصلاحيات',
             'create' => 'اضافة مجموعة',
         ],
+        'admins_count' => 'عدد المستخدمين',
         'permissions' => array_except($permissions, ['archive', 'restore', 'force_delete']) + ['create' => 'عرض القائمة']
     ],
     "currency" => [
@@ -246,7 +252,10 @@ return [
             'show' => 'عرض قسم',
 
         ],
-        'permissions' => $permissions + ['get_parents' => 'عرض الأقسام الرئيسية'],
+        'permissions' => $permissions + [
+            'get_parents' => 'عرض الأقسام الرئيسية',
+            'export' => 'تصدير',
+    ],
         "has_jobs_cannot_delete" => "لا يمكن أرشفة قسم مرتبط بوظائف",
         "department_has_relationship_cannot_delete" => "لا يمكن حذف هذا القسم لأنه يحتوي علي أقسام فرعية   ",
         'without_parent' => 'بدون قسم رئيسي',
@@ -390,6 +399,7 @@ return [
             0=>'معطلة',
         ],
 
+     'permissions' => $permissions
     ],
     "bank" => [
         "bank" => "البنك",
@@ -457,6 +467,7 @@ return [
         ],
     ],
     'permission' => [
+        'name'  => 'اسم الصلاحية',
         'permissions' => 'الصلاحيات',
         'sub_progs' => [
             'index' => 'سجل الصلاحيات',

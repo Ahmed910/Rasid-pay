@@ -113,5 +113,38 @@ class Group extends Model implements TranslatableContract
     {
         return $this->groups->pluck('id')->toArray();
     }
+
+    public static function getGroupPermissions(self $group)
+    {
+        foreach ($group->permissions as $permission) {
+            $permissionObj = explode('.', $permission->name);
+            $single_uri = str_singular($permissionObj[0]);
+            $main_prog = trans('dashboard.' . $single_uri . '.' . $permissionObj[0]);
+            $action = trans('dashboard.' . $single_uri . '.permissions.' . @$permissionObj[1]);
+            $sub_prog = '---';
+
+            switch ($permissionObj) {
+                case in_array(@$permissionObj[1], ['update', 'show', 'destroy']):
+                    $sub_prog = trans('dashboard.' . $single_uri . '.sub_progs.index');
+                    break;
+                case in_array(@$permissionObj[1], ['restore', 'force_delete']):
+                    $sub_prog = trans('dashboard.' . $single_uri . '.sub_progs.archive');
+                    break;
+            }
+
+            $groupData[] = [
+                'id' => $permission->id,
+                'is_selected' => auth()->user()->permissions()->where('permissions.id',$permission->id)->exists(),
+                'main_prog' => $main_prog,
+                'sub_prog' => $sub_prog,
+                'action' => $action,
+                'uri' => $permission->name,
+                'name' => $main_prog . ' (' . $action . ')',
+                'created_at' => $permission->created_at
+            ];
+        }
+
+        return $groupData;
+    }
     #endregion custom Methods
 }
