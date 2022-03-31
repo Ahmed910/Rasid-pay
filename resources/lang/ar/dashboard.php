@@ -40,6 +40,7 @@ return [
         'want_back_without_saving' => 'هل تريد العودة دون حفظ ؟',
         'close' => 'اغلاق',
         "save" => "حفظ",
+        "index" => "عرض",
         "back" => "عودة",
         "edit" => "تعديل",
         'add' => 'إضافة',
@@ -86,6 +87,7 @@ return [
         'description' => 'الوصف',
         'day_month_year' => 'يوم/شهر/سنة',
         'export' => 'تصدير',
+        'report' => 'طباعة تقرير',
         'details' => 'التفاصيل',
 
         'hold_upload' => 'اسحب وأسقط او قم برفع الصورة',
@@ -104,6 +106,7 @@ return [
         'logout' => 'تسجيل خروج',
         'accept'=>'موافقة',
         'cancel'=>'الغاء',
+        'created_by' => 'منشيء المجموعة',
     ],
     'datatable' => [
         'no_data' => 'لا يوجد بيانات',
@@ -126,7 +129,14 @@ return [
         "activity_logs" => "سجل النشاطات",
         "reason" => "قام :user بـ:action :model",
         "date" => "تاريخ النشاط",
+        "main_program" =>"البرنامج الرئيسي",
+        "sub_program" => "البرنامج الفرعي",
         "activity" => " النشاط",
+        "ip_address" => "رقم معرف الجهاز",
+        "select_activity"=>"اختر النشاط",
+        "select_employee" =>"اختر موظف",
+        "select_mainprogram"=>"اختر برنامج رئيسي",
+        "select_subprogram" => "اختر برنامج فرعي",
         'history' => 'الحركة التاريخية',
         'actions' => [
             'created' => 'إضافة',
@@ -139,12 +149,18 @@ return [
             'activated' => 'تفعيل',
             'permanent' => 'حظر دائم',
             'temporary' => 'حظر لفترة',
+
         ],
         'permissions' => array_only($permissions, ['index', 'show']),
         'sub_progs' => [
             'index' => 'سجل النشاطات',
             'show' => 'عرض النشاط',
+            'create' =>'اضافة',
+            'ban_status' =>'حظر',
+            'archive'=>'أرشفة'
+
         ],
+
     ],
     'home' => [
         'home' => 'الرئيسية',
@@ -194,19 +210,24 @@ return [
     ],
     "group" => [
         "group_name" => "اسم المجموعة",
+        "main_program" => 'البرنامج الرئيسي',
+        "sub_program" => 'البرنامج الفرعي',
         "group" => "المجموعة الادارية",
         "groups" => "الصلاحيات",
         "chosen_groups" => "الصلاحيات المختارة",
         "add_group" => "اضافة مجموعه",
         "edit_group" => "تعديل المجموعه",
+        'show_group' => 'عرض مجموعة',
         "admins_from" => "عدد المستخدمين من",
         "admins_to" => "عدد المستخدمين إلى",
         "group_count" => "عدد المجموعات",
+        'group_data' => 'بيانات المجموعة',
         'sub_progs' => [
             'index' => 'سجل الصلاحيات',
             'archive' => 'أرشيف الصلاحيات',
             'create' => 'اضافة مجموعة',
         ],
+        'admins_count' => 'عدد المستخدمين',
         'permissions' => array_except($permissions, ['archive', 'restore', 'force_delete']) + ['create' => 'عرض القائمة']
     ],
     "currency" => [
@@ -246,7 +267,10 @@ return [
             'show' => 'عرض قسم',
 
         ],
-        'permissions' => $permissions + ['get_parents' => 'عرض الأقسام الرئيسية'],
+        'permissions' => $permissions + [
+            'get_parents' => 'عرض الأقسام الرئيسية',
+            'export' => 'تصدير',
+    ],
         "has_jobs_cannot_delete" => "لا يمكن أرشفة قسم مرتبط بوظائف",
         "department_has_relationship_cannot_delete" => "لا يمكن حذف هذا القسم لأنه يحتوي علي أقسام فرعية   ",
         'without_parent' => 'بدون قسم رئيسي',
@@ -390,6 +414,7 @@ return [
             0=>'معطلة',
         ],
 
+     'permissions' => $permissions
     ],
     "bank" => [
         "bank" => "البنك",
@@ -457,6 +482,7 @@ return [
         ],
     ],
     'permission' => [
+        'name'  => 'اسم الصلاحية',
         'permissions' => 'الصلاحيات',
         'sub_progs' => [
             'index' => 'سجل الصلاحيات',

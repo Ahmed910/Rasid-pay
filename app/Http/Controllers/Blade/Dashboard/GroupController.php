@@ -3,7 +3,8 @@
 namespace App\Http\Controllers\Blade\Dashboard;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Dashboard\GroupRequest;
+use App\Http\Requests\V1\Dashboard\GroupRequest;
+use App\Http\Resources\Blade\Dashboard\Activitylog\ActivityLogCollection;
 use App\Models\{Group\Group, Permission};
 use Illuminate\Http\Request;
 use App\Http\Resources\Blade\Dashboard\Group\GroupCollection;
@@ -22,10 +23,10 @@ class GroupController extends Controller
         }
 
         $query = Group::with('groups', 'permissions')
-        ->withTranslation()
-        ->withCount('admins as user_count')
-        ->search($request)
-        ->sortBy($request);
+            ->withTranslation()
+            ->withCount('admins as user_count')
+            ->search($request)
+            ->sortBy($request);
         if (request()->ajax()) {
             $group_count = $query->count();
             $groups = $query->skip($request->start)
@@ -65,34 +66,48 @@ class GroupController extends Controller
         return redirect(route('dashboard.group.index'))->withTrue(trans('dashboard.messages.success_add'));
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Group  $group
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Group $group)
+    public function show(Group $group, Request $request)
     {
+        if (isset($request->order[0]['column'])) {
+            $request['sort'] = ['column' => $request['columns'][$request['order'][0]['column']]['name'], 'dir' => $request->order[0]['dir']];
+        }
+
+        $activitiesQuery  = $group->activity()
+            ->sortBy($request);
+
+        if ($request->ajax()) {
+            $activityCount = $activitiesQuery->count();
+            $activities = $activitiesQuery->skip($request->start)
+                ->take(($request->length == -1) ? $activityCount : $request->length)
+                ->get();
+
+            return ActivityLogCollection::make($activities)
+                ->additional(['total_count' => $activityCount]);
+        }
+
+        $group->withCount('admins')
+            ->with([
+                'translations', 'permissions', 'addedBy',
+                'groups' => function ($q) {
+                    $q->with('permissions');
+                }
+            ]);
+
+        $groupsData  = Group::getGroupPermissions($group);
+
         if (!request()->ajax()) {
-           return view('dashboard.group.show',compact('group'));
+            return view('dashboard.group.show', compact('group', 'groupsData'));
         }
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Group  $group
-     * @return \Illuminate\Http\Response
-     */
     public function edit($id)
     {
         if (!request()->ajax()) {
-            $group = Group::where('id',"<>",auth()->user()->group_id)->findOrFail($id);
-            $groups = Group::with('translations')
-                ->ListsTranslations('name')->pluck('name', 'id');
-            $permissions = Permission::permissions()->pluck('name', 'id');
             $locales = config('translatable.locales');
-            return view('dashboard.group.edit',compact('group','groups', 'permissions', 'locales'));
+            $group = Group::where('id', "<>", auth()->user()->group_id)->findOrFail($id);
+            $uris = Permission::permissions();
+
+            return view('dashboard.group.edit', compact('group', 'uris','locales'));
         }
     }
 
@@ -106,7 +121,7 @@ class GroupController extends Controller
     public function update(GroupRequest $request, $id)
     {
         if (!request()->ajax()) {
-            $group = Group::where('id',"<>",auth()->user()->group_id)->findOrFail($id);
+            $group = Group::where('id', "<>", auth()->user()->group_id)->findOrFail($id);
             $group->fill($request->validated())->save();
             $permissions = $request->permission_list ?? [];
             if ($request->group_list) {
@@ -128,7 +143,7 @@ class GroupController extends Controller
     public function destroy(Group $group)
     {
         if ($group->delete()) {
-          return response()->json(['value' => 1]);
+            return response()->json(['value' => 1]);
         }
     }
 }
