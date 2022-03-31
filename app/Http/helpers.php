@@ -113,7 +113,15 @@ if (!function_exists('countries_list')) {
 function countries_list($type=null, $locale = 'ar'){
     $countries = config('country');
     if ($type == "full"){
-        return $countries;
+        $matches = [];
+        foreach ($countries as $country) {
+            $matches[] =  [
+                'name' => $country["name_$locale"],
+                'phone' => $country["phone"],
+                'code' => $country["code"],
+            ];
+        }
+        return $matches;
     }
 
     $codes = data_get($countries,'*.phone');
