@@ -24,7 +24,7 @@
     <!-- ROW OPEN -->
     {!! Form::model($department, ['route' => ['dashboard.department.update', $department->id], 'method' => 'PUT', 'class' => 'needs-validation', 'id' => 'formId', 'files' => true, 'novalidate']) !!}
     @include('dashboard.department._form', [
-        'btn_submit' => trans('dashboard.general.edit'),
+        'btn_submit' => trans('dashboard.general.save'),
     ])
     {!! Form::close() !!}
 

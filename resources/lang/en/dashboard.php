@@ -59,6 +59,9 @@ return [
         "from_date" => "Creation Date (From)",
         "to_date" => "Creation Date (To)",
         "search" => "Search",
+        'enter_name' =>'Enter Name',
+        'enter_description'=>'Enter Description',
+
         "show_all" => "Show All",
         "created_at" => "Creation Date",
         'create' => 'Create',
@@ -185,7 +188,7 @@ return [
         "department_count" => "",
         "department_has_relationship_cannot_delete" => "This department has sub department ,so you cannot delete it",
         'permissions' => $permissions + ['get_parents' => 'Show main departments'],
-        'without_parent' => 'Without',
+        'without_parent' => 'Without Main Department',
         'department_archive' => 'Department Archive',
         'sub_progs' => [
             'index' => 'Department Records',
