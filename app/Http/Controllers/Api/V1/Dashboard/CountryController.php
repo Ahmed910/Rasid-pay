@@ -15,7 +15,7 @@ class CountryController extends Controller
     public function index(Request $request)
     {
         return response()->json([
-                'data' => countries_list("full"),
+                'data' => countries_list("full",app()->getLocale()),
                 'status' => true,
                 'message' => '',
             ]);
