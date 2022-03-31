@@ -13,7 +13,7 @@
             </a>
           </li>
           <li class="breadcrumb-item active" aria-current="page">
-            {{ trans('dashboard.group.sub_progs.edit') }}
+            {{ trans('dashboard.group.edit_group') }}
           </li>
         </ol>
       </nav>

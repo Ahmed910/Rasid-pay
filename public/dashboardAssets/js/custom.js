@@ -400,6 +400,8 @@ $(document).ready(function () {
     $('[data-toggle="popoverIMG"]').popover({
         trigger: "hover",
         html: true,
+        placement: "left",
+
         // content:
         //     '<img src="https://picsum.photos/seed/picsum/1000" width="1000" class="mr-3" alt="Sample Image">',
     });

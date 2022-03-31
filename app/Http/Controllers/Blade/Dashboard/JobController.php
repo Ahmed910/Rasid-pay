@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Blade\Dashboard;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Dashboard\RasidJob\RasidJobRequest;
-use App\Http\Requests\V1\Dashboard\ReasonRequest;
+use App\Http\Requests\Dashboard\ReasonRequest;
 use App\Http\Resources\Blade\Dashboard\Activitylog\ActivityLogCollection;
 use App\Http\Resources\Blade\Dashboard\Job\JobCollection;
 use App\Models\Department\Department;
@@ -55,7 +55,7 @@ class JobController extends Controller
     public function create()
     {
 
-        $departments = Department::with('parent.translations')->ListsTranslations('name')->pluck('name', 'id');
+        $departments = Department::with('parent.translations')->ListsTranslations('name')->where('is_active', 1)->pluck('name', 'id');
         $locales = config('translatable.locales');
         return view('dashboard.job.create', compact('departments', 'locales'));
     }
@@ -68,7 +68,6 @@ class JobController extends Controller
      */
     public function store(RasidJobRequest $request, RasidJob $rasidJob)
     {
-
         $rasidJob->fill($request->validated())->save();
 
 
@@ -197,20 +196,20 @@ class JobController extends Controller
         $rasidJob = RasidJob::onlyTrashed()->findOrFail($id);
 
         $rasidJob->restore();
-        return redirect()->back();
+        return redirect()->back()->withSuccess(__('dashboard.general.success_restore'));
     }
 
     public function forceDelete(ReasonRequest $request, $id)
     {
         $rasidJob = RasidJob::onlyTrashed()->findOrFail($id);
         $rasidJob->forceDelete();
-        return redirect()->back();
+        return redirect()->back()->withSuccess(__('dashboard.general.success_delete'));
     }
-    public function destroy( $rasidJob, \App\Http\Requests\Dashboard\ReasonRequest $request)
+    public function destroy($rasidJob, \App\Http\Requests\Dashboard\ReasonRequest $request)
     {
-        $jobya = RasidJob::findorfail($rasidJob) ;
+        $jobya = RasidJob::findorfail($rasidJob);
         if ($jobya->is_vacant) $jobya->delete();
-        return redirect()->route('dashboard.job.index');
+        return redirect()->route('dashboard.job.index')->withSuccess(__('dashboard.general.success_archive'));
 
     }
 

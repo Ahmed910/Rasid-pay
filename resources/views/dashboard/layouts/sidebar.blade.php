@@ -220,8 +220,8 @@
             <div class="container">
                 <div class="row">
                     <div class="col d-flex">
-                        {!! Form::open(['route' => 'dashboard.session.logout', 'method' => 'POST', 'class' => 'logout_form']) !!}
-                        <a class="nav-link icon" onclick="document.getElementByClass('logout_form').submit();"
+                        {!! Form::open(['route' => 'dashboard.session.logout', 'method' => 'POST', 'id' => 'logout_form']) !!}
+                        <a class="nav-link icon" onclick="document.getElementById('logout_form').submit();"
                             style="cursor: pointer;">
                             <i class="mdi mdi-logout"></i>
                             <span class="mx-2">{{trans('dashboard.general.logout')}}</span>

@@ -24,7 +24,7 @@
                     showClear: true,
                     ignoreReadonly: true,
                 });
-            $("#JobsTable").DataTable({
+            var table = $("#JobsTable").DataTable({
                 sDom: "t<'domOption'lpi>",
                 serverSide: true,
                 ajax: {
@@ -50,6 +50,8 @@
                                 }
 
                                 return `<div class="d-flex align-items-center"><div class="flex-shrink-0"> <img src="${image}" data-toggle="popoverIMG" title='<img src="${image}" width="300" height="300" class="d-block rounded-3" alt="">' width="25" class="avatar brround cover-image" alt="..." /> </div><div class="flex-grow-1 ms-3">${data.department_name}</div>`
+                            } else {
+                                return "@lang('dashboard.department.without_parent')";
                             }
                         }
                     },
@@ -109,7 +111,12 @@
                 ],
                 createdRow: function(row, data) {
                     $('[data-toggle="popoverIMG"]', row).popover({
-                        placement: "right",
+                        placement: "left",
+                        trigger: "hover",
+                        html: true,
+                    });
+                    $('[data-toggle="popoverIMG"]', row).popover({
+                        placement: "left",
                         trigger: "hover",
                         html: true,
                     });
@@ -119,12 +126,11 @@
                     [5, 10, 20, -1],
                     [5, 10, 20, "@lang('dashboard.general.all')"],
                 ],
-
                 "language": {
                     "lengthMenu": "@lang('dashboard.general.show') _MENU_",
-                    "emptyTable": "@lang('dashboard.general.no_data')",
-                    "info": "@lang('dashboard.general.showing') _START_ @lang('dashboard.general.to') _END_ @lang('dashboard.general.from') _TOTAL_ @lang('dashboard.general.entries')",
-                    "infoEmpty": "@lang('dashboard.general.no_search_result')",
+                    "emptyTable": "@lang('dashboard.datatable.no_data')",
+                    "info": "@lang('dashboard.datatable.showing') _START_ @lang('dashboard.datatable.to') _END_ @lang('dashboard.datatable.from') _TOTAL_ @lang('dashboard.datatable.entries')",
+                    "infoEmpty": "@lang('dashboard.datatable.no_search_result')",
                     "paginate": {
                         "next": '<i class="mdi mdi-chevron-left"></i>',
                         "previous": '<i class="mdi mdi-chevron-right"></i>'
@@ -133,6 +139,16 @@
             });
             $('.select2').select2({
                 minimumResultsForSearch: Infinity
+            });
+
+            table.on('draw', function() {
+                var tooltipTriggerList = [].slice.call(
+                    document.querySelectorAll('[data-bs-toggle="tooltip"]')
+                );
+                var tooltipList = tooltipTriggerList.map(function(tooltipTriggerEl) {
+                    return new bootstrap.Tooltip(tooltipTriggerEl);
+                });
+
             });
         });
     </script>

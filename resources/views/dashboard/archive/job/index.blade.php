@@ -98,7 +98,12 @@
         </div>
     </div>
     <!-- End Row -->
+    @include('dashboard.layouts.modals.force_delete')
+    @include('dashboard.layouts.modals.un_archive')
+
 @endsection
+@include('dashboard.layouts.modals.alert')
+
 @section('scripts')
     @include('dashboard.archive.job.script')
 @endsection

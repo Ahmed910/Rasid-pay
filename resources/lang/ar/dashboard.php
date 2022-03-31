@@ -21,6 +21,7 @@ return [
         'show :menu' => 'عرض :menu'
     ],
     'general' => [
+        "delete"=>"حذف",
         "no_reasons" => "لايوجد",
         "success_add" => "تمت الإضافة بنجاح",
         "success_delete" => "تم الحذف بنجاح",
@@ -33,6 +34,8 @@ return [
         'yes' => 'موافق',
         'no' => 'غير موافق',
         'want_saving' => 'هل تريد اتمام عملية الحفظ ؟',
+        'want_force_delete' => 'هل تريد إتمام عملية الحذف النهائي؟',
+        "want_restore"=>"هل تريد إتمام عملية الاستعادة؟",
         'reason_required' => 'السبب مطلوب',
         'want_back_without_saving' => 'هل تريد العودة دون حفظ ؟',
         'close' => 'اغلاق',

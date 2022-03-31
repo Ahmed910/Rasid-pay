@@ -10,10 +10,10 @@
                         src="{{ asset('dashboardAssets/images/lottie/archive.json') }}"
                         style="width: 55%; display: block; margin: 0 auto 1em">
                     </lottie-player>
-                    <p>{{trans("dashboard.general.want_to_archive")}}</p>
+                    <p>{{ trans('dashboard.general.want_to_archive') }}</p>
                     <div class="mt-3">
-                        <textarea class="form-control" placeholder="{{trans("dashboard.general.reason_needed")}}" rows="3" name="reasonAction"
-                            required></textarea>
+                        <textarea class="form-control" placeholder="{{ trans('dashboard.general.reason_needed') }}" rows="3"
+                            name="reasonAction" required></textarea>
                         <input type="hidden" name="_method" value="DELETE">
 
                         <div class="invalid-feedback">{{ trans('dashboard.general.reason_required') }} .</div>
@@ -28,5 +28,4 @@
             </form>
         </div>
     </div>
-</div>
 </div>

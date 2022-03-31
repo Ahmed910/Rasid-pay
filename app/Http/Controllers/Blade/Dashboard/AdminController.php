@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Blade\Dashboard;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\V1\Dashboard\AdminRequest;
+use App\Http\Requests\Dashboard\AdminRequest;
 use App\Http\Resources\Blade\Dashboard\Admin\AdminCollection;
 use App\Http\Resources\Blade\Dashboard\Activitylog\ActivityLogCollection;
 use App\Models\{Permission, User};
@@ -59,7 +59,7 @@ class AdminController extends Controller
         $departments = Department::with('parent.translations')->ListsTranslations('name')->pluck('name', 'id');
         $groups = Group::ListsTranslations('name')->pluck('name', 'id');
         $locales = config('translatable.locales');
-        return view('dashboard.admin.create', compact('departments', 'locales','groups'));
+        return view('dashboard.admin.create', compact('departments', 'locales', 'groups'));
     }
 
     /**
@@ -70,7 +70,6 @@ class AdminController extends Controller
      */
     public function store(AdminRequest $request, User $admin)
     {
-        dd($request->all());
         $admin->fill($request->validated())->save();
 
         return redirect()->route('dashboard.admin.index')->withSuccess(__('dashboard.general.success_add'));
@@ -97,7 +96,8 @@ class AdminController extends Controller
             'created_at',
             'action_type',
             'reason'
-        ]; if (isset($request->order[0]['column'])) {
+        ];
+        if (isset($request->order[0]['column'])) {
             $request['sort'] = ['column' => $sortingColumns[$request->order[0]['column']], 'dir' => $request->order[0]['dir']];
         }
 
@@ -142,15 +142,6 @@ class AdminController extends Controller
         return redirect()->route('dashboard.admin.index')->withSuccess(__('dashboard.general.success_update'));
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Admin $admin)
-    {
-    }
 
     /**
      * get Employees by departmentId

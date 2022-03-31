@@ -104,5 +104,14 @@ class Group extends Model implements TranslatableContract
     #endregion relationships
 
     #region custom Methods
+    public function getPermissionListAttribute()
+    {
+        return $this->permissions->pluck('id')->toArray();
+    }
+
+    public function getGroupListAttribute()
+    {
+        return $this->groups->pluck('id')->toArray();
+    }
     #endregion custom Methods
 }
