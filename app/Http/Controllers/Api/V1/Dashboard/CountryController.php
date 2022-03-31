@@ -7,8 +7,7 @@ use App\Models\Country\Country;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\V1\Dashboard\ReasonRequest;
 use App\Http\Requests\V1\Dashboard\CountryRequest;
-use App\Http\Resources\Dashboard\Country\{CountryResource, CountryCollection};
-
+use App\Http\Resources\Dashboard\Country\{CountryCodeCollection, CountryResource, CountryCollection};
 
 
 class CountryController extends Controller
@@ -17,10 +16,10 @@ class CountryController extends Controller
     {
         $countries = Country::latest()->paginate((int)($request->per_page ?? config("globals.per_page")));
 
-        return CountryResource::collection($countries)
+        return CountryCodeCollection::make($countries)
             ->additional([
                 'status' => true,
-                'message' =>  '',
+                'message' => '',
             ]);
     }
 
@@ -31,10 +30,9 @@ class CountryController extends Controller
         return CountryResource::collection($countries)
             ->additional([
                 'status' => true,
-                'message' =>  ''
+                'message' => ''
             ]);
     }
-
 
 
     public function store(CountryRequest $request, Country $country)
@@ -46,23 +44,22 @@ class CountryController extends Controller
         return CountryResource::make($country)
             ->additional([
                 'status' => true,
-                'message' =>  trans('dashboard.general.success_add'),
+                'message' => trans('dashboard.general.success_add'),
             ]);
     }
-
 
 
     public function show(Request $request, $id)
     {
         $country = Country::withTrashed()->with('translations')->findOrFail($id);
-        $activities  = $country->activity()
-        ->sortBy($request)
-        ->paginate((int)($request->per_page ?? 15));
+        $activities = $country->activity()
+            ->sortBy($request)
+            ->paginate((int)($request->per_page ?? 15));
 
         return CountryCollection::make($activities)
             ->additional([
                 'status' => true,
-                'message' =>  '',
+                'message' => '',
             ]);
     }
 
@@ -75,7 +72,7 @@ class CountryController extends Controller
         return CountryResource::make($country)
             ->additional([
                 'status' => true,
-                'message' =>  trans('dashboard.general.success_update'),
+                'message' => trans('dashboard.general.success_update'),
             ]);
     }
 
@@ -85,7 +82,7 @@ class CountryController extends Controller
         if ($country->regions()->exists()) {
             return response()->json([
                 'status' => false,
-                'message' =>  trans('dashboard.general.has_relationship_cannot_delete'),
+                'message' => trans('dashboard.general.has_relationship_cannot_delete'),
                 'data' => null
             ], 422);
         }
@@ -95,7 +92,7 @@ class CountryController extends Controller
         return CountryResource::make($country)
             ->additional([
                 'status' => true,
-                'message' =>  trans('dashboard.general.success_archive'),
+                'message' => trans('dashboard.general.success_archive'),
             ]);
     }
 
@@ -108,7 +105,7 @@ class CountryController extends Controller
         return CountryResource::make($country)
             ->additional([
                 'status' => true,
-                'message' =>  trans('dashboard.general.success_restore'),
+                'message' => trans('dashboard.general.success_restore'),
             ]);
     }
 
@@ -121,7 +118,7 @@ class CountryController extends Controller
         return CountryResource::make($country)
             ->additional([
                 'status' => true,
-                'message' =>  trans('dashboard.general.success_delete'),
+                'message' => trans('dashboard.general.success_delete'),
             ]);
     }
 }
