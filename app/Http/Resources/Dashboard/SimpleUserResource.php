@@ -17,6 +17,9 @@ class SimpleUserResource extends JsonResource
         return [
             'id' => $this->id,
             'fullname' => $this->fullname,
+            "phone" =>substr($this->phone, strlen($this->country_code)),
+            "country_code" =>$this->country_code,
+            "gender" =>$this->gender,
             'user_type' => $this->user_type,
             'date_of_birth' => $this->date_of_birth,
             'images' => ImagesResource::collection($this->whenLoaded('images')),

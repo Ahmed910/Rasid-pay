@@ -16,9 +16,9 @@
         <div class="row align-items-end mb-3">
             <div class="col">
                 <label for="departmentName">
-                    @lang('dashboard.department.department')</label>
+                    @lang('dashboard.department.department_name')</label>
                 <input type="text" class="form-control" id="departmentName"
-                    placeholder="@lang('dashboard.department.department')" name="name"
+                    placeholder="@lang('dashboard.general.enter_name')" name="name"
                     value="{{ old('name') ?? request('name') }}" />
             </div>
             <div class="col">
@@ -53,7 +53,7 @@
             <div class="col">
                 <label for="status">
                     @lang('dashboard.general.status')</label>
-                {!! Form::select('is_active', trans('dashboard.general.active_cases'), request('is_active'), ['class' => 'form-control select2-show-search', 'placeholder' => trans('dashboard.general.select_status')]) !!}
+                {!! Form::select('is_active', trans('dashboard.general.active_cases'), request('is_active'), ['class' => 'form-control select2-show-search', 'placeholder' => trans('dashboard.general.all_cases')]) !!}
             </div>
         </div>
         <div class="row">
@@ -95,7 +95,7 @@
                         <tr>
                             <th class="border-bottom-0">#</th>
                             <th class="border-bottom-0">
-                                @lang('dashboard.department.department')</th>
+                                @lang('dashboard.department.department_name')</th>
                             <th class="border-bottom-0">
                                 @lang('dashboard.department.main_department')</th>
                             <th class="border-bottom-0">
