@@ -77,6 +77,7 @@ return [
             'Occupied',
             'Available',
         ],
+        'all_cases' =>'All',
         'all' => 'All',
         'description' => 'Description',
         'day_month_year' => 'day/month/year',

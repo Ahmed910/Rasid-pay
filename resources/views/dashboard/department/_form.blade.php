@@ -2,8 +2,9 @@
     <div class="row">
         <div class="col-12 col-md-{{ isset($department) ? 4 : 6 }} mb-5">
             {!! Form::label('departmentName', trans('dashboard.department.department_name')) !!}
+            <p class="requiredFields">*</p>
             @foreach ($locales as $locale)
-                {!! Form::text("{$locale}[name]", isset($department) ? $department->name : null, ['class' => 'form-control ', 'id' => 'departmentName', 'placeholder' => trans('dashboard.general.enter_name'), 'minlength' => '2', 'maxlength' => '100', 'required' => 'required', 'pattern' => '^[\u0600-\u065F\u066A-\u06EF\u06FA-\u06FFa-zA-Z]+[\u0600-\u065F\u066A-\u06EF\u06FA-\u06FFa-zA-Z0-9-_ ]*$', 'onpaste' => 'return false;', 'oncopy' => 'return false;', 'ondrop' => 'return false;']) !!}
+                {!! Form::text("{$locale}[name]", isset($department) ? $department->name : null, ['class' => 'form-control' . ($errors->has("${locale}.name") ? ' is-invalid' : null), 'id' => 'departmentName', 'placeholder' => trans('dashboard.general.enter_name'), 'minlength' => '2', 'maxlength' => '100', 'pattern' => '^[\u0600-\u065F\u066A-\u06EF\u06FA-\u06FFa-zA-Z]+[\u0600-\u065F\u066A-\u06EF\u06FA-\u06FFa-zA-Z0-9-_ ]*$', 'onpaste' => 'return false;', 'oncopy' => 'return false;', 'ondrop' => 'return false;']) !!}
                 @error("${locale}.name")
                     <span class="text-danger">{{ $message }}</span>
                 @enderror
@@ -12,26 +13,26 @@
 
         <div class="col-12 col-md-{{ isset($department) ? 4 : 6 }} mb-5">
             {!! Form::label('mainDepartment', trans('dashboard.department.department_main')) !!}
-            {!! Form::select('parent_id', $departments, null, ['class' => 'form-control select2-show-search', 'placeholder' => isset($department) ? trans('dashboard.department.without_parent') :trans('dashboard.department.select_main_department'), 'id' => 'mainDepartment']) !!}
+            {!! Form::select('parent_id', $departments, null, ['class' => 'form-control select2-show-search', 'placeholder' => isset($department) ? trans('dashboard.department.without_parent') : trans('dashboard.department.select_main_department'), 'id' => 'mainDepartment']) !!}
 
             @error('parent_id')
                 <span class="text-danger">{{ $message }}</span>
             @enderror
         </div>
 
-        @if(isset($department))
-        <div class="col-12 col-md-4 mb-5">
-            {!! Form::label('status', trans('dashboard.general.status')) !!}
-            {!! Form::select('is_active', trans('dashboard.general.active_cases'), null, ['class' => 'form-control select2', 'id' => 'status', 'required' => 'required', 'placeholder' => trans('dashboard.general.select_status')]) !!}
+        @if (isset($department))
+            <div class="col-12 col-md-4 mb-5">
+                {!! Form::label('status', trans('dashboard.general.status')) !!}
+                {!! Form::select('is_active', trans('dashboard.general.active_cases'), null, ['class' => 'form-control select2', 'id' => 'status', 'placeholder' => trans('dashboard.general.select_status')]) !!}
 
-            @error('is_active')
-                <span class="text-danger">{{ $message }}</span>
-            @enderror
-        </div>
+                @error('is_active')
+                    <span class="text-danger">{{ $message }}</span>
+                @enderror
+            </div>
         @endif
 
         <div class="col-12 mb-3">
-            {!! Form::label('departmentImg', trans('dashboard.department.department_image') . ' (JPG, PNG, JPEG, WEBP)') !!}
+            {!! Form::label('departmentImg', trans('dashboard.department.department_image') . ' (JPG, PNG, JPEG)') !!}
             {!! Form::file('image', [
     'class' => 'dropify',
     'data-show-remove' => 'true',
@@ -41,8 +42,8 @@
     'data-errors-position' => 'inside',
     'data-show-errors' => 'true',
     'data-show-loader' => 'true',
-    'data-allowed-file-extensions' => 'jpg png jpeg webp',
-    'accept' => 'image/png, image/jpg, image/jpeg, image/webp',
+    'data-allowed-file-extensions' => 'jpg png jpeg',
+    'accept' => 'image/png, image/jpg, image/jpeg',
 ]) !!}
             @error('image')
                 <span class="text-danger">{{ $message }}</span>
@@ -98,7 +99,7 @@
                             form.addEventListener(
                                 "submit",
                                 function(event) {
-                                    form.classList.add("was-validated");
+                                    // form.classList.add("was-validated");
                                     event.preventDefault();
                                     if (form.checkValidity() === false) {
                                         event.stopPropagation();
