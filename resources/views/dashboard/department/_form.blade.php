@@ -3,7 +3,7 @@
         <div class="col-12 col-md-{{ isset($department) ? 4 : 6 }} mb-5">
             {!! Form::label('departmentName', trans('dashboard.department.department_name')) !!}
             @foreach ($locales as $locale)
-                {!! Form::text("{$locale}[name]", isset($department) ? $department->name : null, ['class' => 'form-control ', 'id' => 'departmentName', 'placeholder' => trans('dashboard.department.department_name'), 'minlength' => '2', 'maxlength' => '100', 'required' => 'required', 'pattern' => '^[\u0600-\u065F\u066A-\u06EF\u06FA-\u06FFa-zA-Z]+[\u0600-\u065F\u066A-\u06EF\u06FA-\u06FFa-zA-Z0-9-_ ]*$', 'onpaste' => 'return false;', 'oncopy' => 'return false;', 'ondrop' => 'return false;']) !!}
+                {!! Form::text("{$locale}[name]", isset($department) ? $department->name : null, ['class' => 'form-control ', 'id' => 'departmentName', 'placeholder' => trans('dashboard.general.enter_name'), 'minlength' => '2', 'maxlength' => '100', 'required' => 'required', 'pattern' => '^[\u0600-\u065F\u066A-\u06EF\u06FA-\u06FFa-zA-Z]+[\u0600-\u065F\u066A-\u06EF\u06FA-\u06FFa-zA-Z0-9-_ ]*$', 'onpaste' => 'return false;', 'oncopy' => 'return false;', 'ondrop' => 'return false;']) !!}
                 @error("${locale}.name")
                     <span class="text-danger">{{ $message }}</span>
                 @enderror
@@ -11,8 +11,8 @@
         </div>
 
         <div class="col-12 col-md-{{ isset($department) ? 4 : 6 }} mb-5">
-            {!! Form::label('mainDepartment', trans('dashboard.department.department_name')) !!}
-            {!! Form::select('parent_id', $departments, null, ['class' => 'form-control select2-show-search', 'placeholder' => trans('dashboard.department.without_parent'), 'id' => 'mainDepartment']) !!}
+            {!! Form::label('mainDepartment', trans('dashboard.department.department_main')) !!}
+            {!! Form::select('parent_id', $departments, null, ['class' => 'form-control select2-show-search', 'placeholder' => isset($department) ? trans('dashboard.department.without_parent') :trans('dashboard.department.select_main_department'), 'id' => 'mainDepartment']) !!}
 
             @error('parent_id')
                 <span class="text-danger">{{ $message }}</span>
@@ -52,7 +52,7 @@
         <div class="col-12">
             {!! Form::label('departmentDes', trans('dashboard.general.description'), ['class' => 'mb-3']) !!}
             @foreach ($locales as $locale)
-                {!! Form::textarea("{$locale}[description]", isset($department) ? $department->description : null, ['class' => 'form-control ', 'id' => 'departmentDes', 'rows' => '5', 'placeholder' => trans('dashboard.general.description'), 'maxlength' => '300', 'onpaste' => 'return false;', 'oncopy' => 'return false;', 'ondrop' => 'return false;']) !!}
+                {!! Form::textarea("{$locale}[description]", isset($department) ? $department->description : null, ['class' => 'form-control ', 'id' => 'departmentDes', 'rows' => '5', 'placeholder' => trans('dashboard.general.enter_description'), 'maxlength' => '300', 'onpaste' => 'return false;', 'oncopy' => 'return false;', 'ondrop' => 'return false;']) !!}
                 @error("{$locale}.description")
                     <span class="text-danger">{{ $message }}</span>
                 @enderror
