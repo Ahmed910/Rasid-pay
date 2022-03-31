@@ -119,6 +119,7 @@ function countries_list($type=null, $locale = 'ar'){
                 'name' => $country["name_$locale"],
                 'phone' => $country["phone"],
                 'code' => $country["code"],
+                'emoji' => $country["emoji"],
             ];
         }
         return $matches;

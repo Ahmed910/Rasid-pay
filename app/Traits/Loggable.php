@@ -107,7 +107,7 @@ trait Loggable
         $groups = $item->groups?->each->getDirty()->toArray();
         $newData = array_except($item->getChanges(), ['created_at', 'updated_at', 'deleted_at']);
         if (request()->has('image') && request()->route()->getActionMethod() == 'update') {
-            $newData += ['image' => $item->images->pluck('media')->toArray()];
+            $newData += ['image' => $item->images->pluck('media')->toJson()];
         }
         return array_merge($newData, $translations ?? [], $permissions ?? [], $groups ?? []);
     }

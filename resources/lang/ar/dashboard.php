@@ -122,7 +122,7 @@ return [
         'not_found' => 'لم يتم العثور على بيانات',
         'page_not_found' => '404, الصفحة غير موجودة',
         'something_went_wrong' => 'البيانات المدخلة غير صحيحة',
-        'name_must_be_unique_on_department' =>  'هذه الوظيفة موجودة بالفعل لهذا القسم'
+        'name_must_be_unique_on_department' =>  'قيمة حقل الاسم موجودة من قبل لهذا القسم'
     ],
     'activity_log' => [
         "activity_log" => "سجل النشاط",
