@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Blade\Dashboard;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\V1\Dashboard\GroupRequest;
+use App\Http\Requests\Dashboard\GroupRequest;
 use App\Models\{Group\Group, Permission};
 use Illuminate\Http\Request;
 use App\Http\Resources\Blade\Dashboard\Group\GroupCollection;
@@ -46,7 +46,7 @@ class GroupController extends Controller
     {
         $groups = Group::with('translations')
             ->ListsTranslations('name')->pluck('name', 'id');
-        $permissions = Permission::pluck('name', 'id');
+        $permissions = Permission::permissions()->pluck('name', 'id');
         $locales = config('translatable.locales');
 
         return view('dashboard.group.create', compact('groups', 'permissions', 'locales'));
@@ -88,8 +88,11 @@ class GroupController extends Controller
     {
         if (!request()->ajax()) {
             $group = Group::where('id',"<>",auth()->user()->group_id)->findOrFail($id);
-            $uris = Permission::permissions();
-            return view('dashboard.group.edit',compact('group','uris'));
+            $groups = Group::with('translations')
+                ->ListsTranslations('name')->pluck('name', 'id');
+            $permissions = Permission::permissions()->pluck('name', 'id');
+            $locales = config('translatable.locales');
+            return view('dashboard.group.edit',compact('group','groups', 'permissions', 'locales'));
         }
     }
 
@@ -105,7 +108,12 @@ class GroupController extends Controller
         if (!request()->ajax()) {
             $group = Group::where('id',"<>",auth()->user()->group_id)->findOrFail($id);
             $group->fill($request->validated())->save();
-            $group->permissions()->sync($request->permissions);
+            $permissions = $request->permission_list ?? [];
+            if ($request->group_list) {
+                $permissions = array_filter(array_merge($permissions, Group::find($request->group_list)->pluck('permissions')->flatten()->pluck('id')->toArray()));
+            }
+            $group->groups()->sync($request->group_list);
+            $group->permissions()->sync($permissions);
 
             return redirect(route('dashboard.group.index'))->withTrue(trans('dashboard.messages.success_update'));
         }
