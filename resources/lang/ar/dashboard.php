@@ -66,7 +66,7 @@ return [
         "search" => "بحث",
         "show_all" => "عرض الكل",
         "created_at" => "تاريخ الإنشاء",
-        'create' => 'انشاء',
+        'create' => 'اضافة',
         "actions" => "العمليات",
         "notifications"=>"الاشعارات",
         "show_all notification"=>"مشاهدة
@@ -383,6 +383,12 @@ return [
             'archive' => 'أرشيف الوظائف',
             'create' => 'اضافة وظيفة',
         ],
+
+        'active_cases' => [
+           1=> 'مفعلة',
+            0=>'معطلة',
+        ],
+
     ],
     "bank" => [
         "bank" => "البنك",
