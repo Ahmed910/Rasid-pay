@@ -24,7 +24,7 @@ class CountryRequest extends ApiMasterRequest
     public function rules()
     {
         $rules = [
-            'currency_id' => 'required|exists:currencies,id',
+//            'currency_id' => 'required|exists:currencies,id',
             'phone_code' => 'required|string|min:2|max:8|unique:countries,phone_code,' . @$this->country->phone_code . ',phone_code',
         ];
 

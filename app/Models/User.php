@@ -42,6 +42,13 @@ class User extends Authenticatable implements HasAssetsInterface
         });
     }
 
+    public function setPhoneAttribute($value)
+    {
+        $value = $value[0] == "0" ? substr($value, 1) : $value;
+        $this->attributes['phone'] = isset($this->attributes['country_code']) ? $this->attributes['country_code'] . $value : $value;
+
+    }
+
     public function setPasswordAttribute($value)
     {
         if ($value) {
@@ -125,6 +132,7 @@ class User extends Authenticatable implements HasAssetsInterface
     {
         return $this->belongsTo(Country::class);
     }
+
     public function department()
     {
         return $this->hasOneThrough(Department::class, Employee::class, 'user_id', 'id', 'id', 'department_id');
@@ -134,14 +142,17 @@ class User extends Authenticatable implements HasAssetsInterface
     {
         return $this->hasOne(Client::class);
     }
+
     public function bankAccount()
     {
         return $this->hasOne(BankAccount::class);
     }
+
     public function attachments()
     {
         return $this->hasMany(Attachment::class);
     }
+
     public function setBanStatusAttribute($value)
     {
         $this->attributes['ban_status'] = $value;
@@ -149,7 +160,7 @@ class User extends Authenticatable implements HasAssetsInterface
             $this->attributes['ban_from'] = null;
             $this->attributes['ban_to'] = null;
         }
-    }    
+    }
 
     public function getBanFromAttribute($value)
     {
@@ -209,7 +220,7 @@ class User extends Authenticatable implements HasAssetsInterface
         }
 
         !$request->register_status ?: $query->where("register_status", $request->register_status);
-        !$request->gender ?: $query->where("gender",  $request->gender);
+        !$request->gender ?: $query->where("gender", $request->gender);
         !$request->is_admin_active_user ?: $query->where("is_admin_active_user", $request->is_admin_active_user);
         !$request->login_id ?: $query->where("login_id", "like", "%$request->login_id%");
 
@@ -261,6 +272,7 @@ class User extends Authenticatable implements HasAssetsInterface
             $q->orderBy($request->sort["column"], @$request->sort["dir"]);
         });
     }
+
     #endregion scopes
 
     public function sendPasswordResetNotification($token)

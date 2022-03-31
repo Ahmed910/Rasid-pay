@@ -110,7 +110,7 @@ if (!function_exists('setting')) {
     }
 }
 if (!function_exists('countries_list')) {
-function countries_list (){
+function countries_list ($type=null){
 
 // All countries
 // length 252
@@ -368,11 +368,10 @@ function countries_list (){
         "ZM" => 260,
         "ZW" => 263
     );
+    if ($type=="full") return $countries_list ;
     $res =  ""  ;
  $items =    array_values(($countries_list));
-//    foreach ($countries_list as $item ) {
-//      if ($it)  $res.=$item."," ;
-//    }
+
     for ($i = 0 ; $i<count($items)-1 ;$i++) {
         $res.=$items[$i]."," ;
     }

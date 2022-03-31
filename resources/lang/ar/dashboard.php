@@ -21,6 +21,7 @@ return [
         'show :menu' => 'عرض :menu'
     ],
     'general' => [
+        "delete"=>"حذف",
         "no_reasons" => "لايوجد",
         "success_add" => "تمت الإضافة بنجاح",
         "success_delete" => "تم الحذف بنجاح",
@@ -66,12 +67,12 @@ return [
         "search" => "بحث",
         "show_all" => "عرض الكل",
         "created_at" => "تاريخ الإنشاء",
-        'create' => 'انشاء',
+        'create' => 'إضافة',
         "actions" => "العمليات",
+        'enter_name'=>'أدخل الاسم',
+        'enter_description'=>'أدخل الوصف',
         "notifications"=>"الاشعارات",
-        "show_all notification"=>"مشاهدة
-        كل
-        الإشعارات",
+        "show_all notification"=>"مشاهدة كل الإشعارات",
         "personalfile" =>"الملف الشخص",
         "active_cases" => [
             'معطل',
@@ -81,6 +82,7 @@ return [
             'مشغولة',
             'شاغرة',
         ],
+        'all_cases' =>'الجميع',
         'all' => 'الكل',
         'description' => 'الوصف',
         'day_month_year' => 'يوم/شهر/سنة',
@@ -104,6 +106,7 @@ return [
         'logout' => 'تسجيل خروج',
         'accept'=>'موافقة',
         'cancel'=>'الغاء',
+        'created_by' => 'منشيء المجموعة',
     ],
     'datatable' => [
         'no_data' => 'لا يوجد بيانات',
@@ -207,19 +210,24 @@ return [
     ],
     "group" => [
         "group_name" => "اسم المجموعة",
+        "main_program" => 'البرنامج الرئيسي',
+        "sub_program" => 'البرنامج الفرعي',
         "group" => "المجموعة الادارية",
         "groups" => "الصلاحيات",
         "chosen_groups" => "الصلاحيات المختارة",
         "add_group" => "اضافة مجموعه",
         "edit_group" => "تعديل المجموعه",
+        'show_group' => 'عرض مجموعة',
         "admins_from" => "عدد المستخدمين من",
         "admins_to" => "عدد المستخدمين إلى",
         "group_count" => "عدد المجموعات",
+        'group_data' => 'بيانات المجموعة',
         'sub_progs' => [
             'index' => 'سجل الصلاحيات',
             'archive' => 'أرشيف الصلاحيات',
             'create' => 'اضافة مجموعة',
         ],
+        'admins_count' => 'عدد المستخدمين',
         'permissions' => array_except($permissions, ['archive', 'restore', 'force_delete']) + ['create' => 'عرض القائمة']
     ],
     "currency" => [
@@ -244,8 +252,8 @@ return [
         "select_department" => "اختر القسم",
         "main_department" => "القسم الر ئيسي",
         'select_main_department' => 'اختر القسم الر ئيسي',
-        "add_department" => "اضافة قسم",
-        "edit_department" => "تعديل القسم",
+        "add_department" => "إضافة قسم",
+        "edit_department" => "تعديل قسم",
         "department_count" => "عدد الاقسام",
         "archive_from_date" => "تاريخ الأرشفة  (من)",
         "archive_to_date" => "تاريخ الأرشفة  (إلى)",
@@ -255,14 +263,17 @@ return [
         'sub_progs' => [
             'index' => 'سجل الأقسام',
             'archive' => 'أرشيف الأقسام',
-            'create' => 'اضافة قسم',
+            'create' => ' إضافة قسم ',
             'show' => 'عرض قسم',
 
         ],
-        'permissions' => $permissions + ['get_parents' => 'عرض الأقسام الرئيسية'],
+        'permissions' => $permissions + [
+            'get_parents' => 'عرض الأقسام الرئيسية',
+            'export' => 'تصدير',
+    ],
         "has_jobs_cannot_delete" => "لا يمكن أرشفة قسم مرتبط بوظائف",
         "department_has_relationship_cannot_delete" => "لا يمكن حذف هذا القسم لأنه يحتوي علي أقسام فرعية   ",
-        'without_parent' => 'بدون',
+        'without_parent' => 'بدون قسم رئيسي',
         'department_archive' => 'أرشيف الأقسام',
     ],
     "rasid_job" => [
@@ -397,6 +408,13 @@ return [
             'archive' => 'أرشيف الوظائف',
             'create' => 'اضافة وظيفة',
         ],
+
+        'active_cases' => [
+           1=> 'مفعلة',
+            0=>'معطلة',
+        ],
+
+     'permissions' => $permissions
     ],
     "bank" => [
         "bank" => "البنك",
@@ -464,6 +482,7 @@ return [
         ],
     ],
     'permission' => [
+        'name'  => 'اسم الصلاحية',
         'permissions' => 'الصلاحيات',
         'sub_progs' => [
             'index' => 'سجل الصلاحيات',

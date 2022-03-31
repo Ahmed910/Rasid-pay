@@ -7,7 +7,8 @@
 @endsection
 @section('scripts')
     <script src="{{ asset('dashboardAssets/js/custom_scripts.js') }}"></script>
-    <script src="{{ asset('dashboardAssets/plugins/bootstrap-hijri-datepicker/js/bootstrap-hijri-datetimepicker.js') }}"></script>
+    <script src="{{ asset('dashboardAssets/plugins/bootstrap-hijri-datepicker/js/bootstrap-hijri-datetimepicker.js') }}">
+    </script>
 
     <script>
         $(function() {
@@ -27,12 +28,13 @@
                     isRTL: "{{ LaravelLocalization::getCurrentLocaleDirection() == 'rtl' }}"
                 });
 
-            $("#departmentTable").DataTable({
+            var table = $("#departmentTable").DataTable({
                 sDom: "t<'domOption'lpi>",
                 serverSide: true,
                 processing: true,
                 ajax: {
-                    url: "{{ route('dashboard.department.index') }}?" + $.param(@json(request()->query())),
+                    url: "{{ route('dashboard.department.index') }}?" + $.param(
+                        @json(request()->query())),
                     type: "GET",
                     dataSrc: 'data'
                 },
@@ -115,6 +117,7 @@
                     $('[data-toggle="popoverIMG"]', row).popover({
                         trigger: "hover",
                         html: true,
+                        placement: "left",
                     });
                 },
                 pageLength: 10,
@@ -136,6 +139,15 @@
             });
             $('.select2').select2({
                 minimumResultsForSearch: Infinity
+            });
+
+            table.on('draw', function() {
+                var tooltipTriggerList = [].slice.call(
+                    document.querySelectorAll('[data-bs-toggle="tooltip"]')
+                );
+                var tooltipList = tooltipTriggerList.map(function(tooltipTriggerEl) {
+                    return new bootstrap.Tooltip(tooltipTriggerEl);
+                });
             });
         });
     </script>

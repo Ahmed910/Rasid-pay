@@ -19,6 +19,7 @@ return [
         'show' => 'Show :menu'
     ],
     'general' => [
+        "delete" => "Delete",
         "no_reasons" => "No reasons",
         "success_add" => "Created Successfully",
         "success_delete" => "Deleted Successfully",
@@ -59,6 +60,9 @@ return [
         "from_date" => "Creation Date (From)",
         "to_date" => "Creation Date (To)",
         "search" => "Search",
+        'enter_name' =>'Enter Name',
+        'enter_description'=>'Enter Description',
+
         "show_all" => "Show All",
         "created_at" => "Creation Date",
         'create' => 'Create',
@@ -74,6 +78,7 @@ return [
             'Occupied',
             'Available',
         ],
+        'all_cases' =>'All',
         'all' => 'All',
         'description' => 'Description',
         'day_month_year' => 'day/month/year',
@@ -196,7 +201,7 @@ return [
         "department_count" => "",
         "department_has_relationship_cannot_delete" => "This department has sub department ,so you cannot delete it",
         'permissions' => $permissions + ['get_parents' => 'Show main departments'],
-        'without_parent' => 'Without',
+        'without_parent' => 'Without Main Department',
         'department_archive' => 'Department Archive',
         'sub_progs' => [
             'index' => 'Department Records',

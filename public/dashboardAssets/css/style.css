@@ -80320,3 +80320,9 @@ tr:hover .dtr-control:before {
 .form-control[readonly]{
   background: #fff;
 }
+
+
+.requiredFields{
+    display: inline;
+    color: #f00;
+  }
