@@ -17,6 +17,8 @@ class ActivityLogResource extends JsonResource
         return [
             'id' => $this->id,
             'user' => $this->user ? SimpleUserResource::make($this->user) : null,
+            'auditable_type'=> $this->auditable_type ?$this->auditable_type :null,
+
             'auditable' => $this->auditable_id ? [
                 'id' => $this->auditable?->id,
                 'name' => $this->auditable?->name,
@@ -28,7 +30,9 @@ class ActivityLogResource extends JsonResource
             'url' => $this->url,
             'ip' => $this->ip_address,
             'agent' => $this->agent,
-            'sub_program'  => $this->sub_program
+
+            'subprogram'  => $this->sub_program,
+
         ];
 
         // trans('dashboard.activity_log.reason', [

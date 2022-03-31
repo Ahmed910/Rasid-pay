@@ -35,6 +35,7 @@ return [
         'reason_required' => 'Reason Is Required',
         'want_back_without_saving' => 'Do You Want Back Without Saving ?',
         "save" => "Save",
+        "index" => "Index",
         "back" => "Back",
         "edit" => "Edit",
         "show" => "Show",
@@ -77,6 +78,7 @@ return [
         'description' => 'Description',
         'day_month_year' => 'day/month/year',
         'export' => 'Export',
+        'report' => 'Print Report',
         'details' => 'Details',
         'no_data' => 'No Data',
         'reason' =>'Reason',
@@ -119,6 +121,13 @@ return [
         "reason" => ":user did :action",
         "date" =>"Activity Date",
         "activity" => "Activity",
+        "ip_address" =>"ip_address",
+        "main_program" => "Main Program",
+        "sub_program" =>" Sub Program",
+        "select_activity" =>"Select Activity ",
+        "select_employee" =>"Select Employee",
+        "select_mainprogram" =>" Select MainProgram",
+        "select_subprogram" =>" Select SubProgram",
         'history' => 'History ',
         'actions' => [
             'created' => 'Create',
@@ -136,6 +145,9 @@ return [
         'sub_progs' => [
             'index' => 'Activitylogs Record ',
             'show' => 'Show ActivityLog ',
+            'create' =>'Create',
+            'ban_status' =>'Ban Status',
+            'archive'=>'Archive'
 
         ],
 
