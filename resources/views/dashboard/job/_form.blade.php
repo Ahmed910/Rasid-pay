@@ -23,7 +23,7 @@
         @if (isset($rasidJob))
             <div class="col-12 col-md-4 mb-5">
                 {!! Form::label('status', trans('dashboard.general.status')) !!}
-                {!! Form::select('is_active', trans('dashboard.general.active_cases'), null, ['class' => 'form-control select2' . ($errors->has('is_active') ? ' is-invalid' : null), 'id' => 'status', 'placeholder' => trans('dashboard.general.select_status')]) !!}
+                {!! Form::select('is_active', trans('dashboard.job.active_cases'), null, ['class' => 'form-control select2' . ($errors->has('is_active') ? ' is-invalid' : null), 'id' => 'status', 'placeholder' => trans('dashboard.general.select_status')]) !!}
                 @error('is_active')
                     <span class="text-danger">{{ $message }}</span>
                 @enderror
