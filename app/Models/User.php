@@ -44,7 +44,7 @@ class User extends Authenticatable implements HasAssetsInterface
 
     public function setPhoneAttribute($value)
     {
-        $value = $value[0] == "0" ? substr($value, 1) : $value;
+       if (isset($value)) $value = $value[0] == "0" ? substr($value, 1) : $value;
         $this->attributes['phone'] = isset($this->attributes['country_code']) ? $this->attributes['country_code'] . $value : $value;
 
     }
@@ -76,6 +76,11 @@ class User extends Authenticatable implements HasAssetsInterface
     public function getImageAttribute()
     {
         return asset($this->images()->first()?->media) ?? 'https://picsum.photos/200';
+    }
+
+    public function getPermissionListAttribute()
+    {
+        return $this->permissions->pluck('id')->toArray();
     }
 
     // Roles & Permissions
