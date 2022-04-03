@@ -96,7 +96,7 @@ class GroupController extends Controller
         $permissions = $request->permission_list ?? [];
         $removed_permissions = array_diff($old_permissions,$request->permission_list);
         if ($removed_permissions) {
-            $group->users->each(function ($user) use($removed_permissions){
+            $group->admins?->each(function ($user) use($removed_permissions){
                 $user->permissions()->detach($removed_permissions);
                 $user->permissions()->attach($request->permission_list);
             });
@@ -118,7 +118,7 @@ class GroupController extends Controller
     public function destroy(Group $group)
     {
         $group->delete();
-        $group->users->each(function ($user) use($removed_permissions){
+        $group->admins?->each(function ($user) use($removed_permissions){
             $user->permissions()->detach();
         });
         return GroupResource::make($group)->additional(['status' => true, 'message' => trans('dashboard.general.success_delete')]);
