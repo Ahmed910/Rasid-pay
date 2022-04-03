@@ -27,7 +27,6 @@ class DepartmentRequest extends FormRequest
 
     public function rules()
     {
-
         $igonredDepartment = $this->department ?  implode(',', Department::flattenChildren($this->department)) : "";
         $rules = [
             "image"         => "nullable|max:5120|mimes:jpg,png,jpeg",
