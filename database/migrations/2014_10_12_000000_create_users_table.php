@@ -20,7 +20,7 @@ class CreateUsersTable extends Migration
             $table->timestamp('email_verified_at')->nullable();
             $table->timestamp('phone_verified_at')->nullable();
             $table->string('password')->nullable();
-            $table->string('phone')->unique();
+            $table->string('phone')->unique()->nullable();
             $table->string('country_code')->nullable();
             $table->string('whatsapp')->nullable();
             $table->boolean('is_password_changed')->default(false)->comment('check if user changed password for first time');

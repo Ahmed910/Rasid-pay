@@ -19,12 +19,14 @@ class ClientRequest extends ApiMasterRequest
     protected function prepareForValidation()
     {
         $data = $this->all();
-
+       $this->phone = convert_arabic_number($this->phone);
+//        isset( $this->phone[0])
+$forvalidation =    isset( $this->phone[0])&&$this->phone[0]=="0" ?substr($this->phone , 1) : $this->phone ;
         $this->merge([
             'date_of_birth' => @$data['date_of_birth'] ? date('Y-m-d', strtotime($data['date_of_birth'])) : null,
             'country_code' => @$data['country_code'] ? convert_arabic_number($data['country_code']) : null,
             'phone' => @$data['phone'] ? convert_arabic_number($data['phone']) : null,
-            'full_phone' => $this->country_code . $this->phone
+            'full_phone' => $this->country_code . $forvalidation
         ]);
     }
 
