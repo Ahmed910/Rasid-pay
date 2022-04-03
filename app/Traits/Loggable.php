@@ -103,8 +103,8 @@ trait Loggable
     private function newData($item)
     {
         if (!$item->getChanges()) return null;
-        $permissions = $item->permissions?->each->getChanges()->toArray();
-        $groups = $item->groups?->each->getChanges()->toArray();
+        // $permissions = $item->permissions?->each->getChanges()->toArray();
+        // $groups = $item->groups?->each->getChanges()->toArray();
 
         $newData = array_except($item->getChanges(), ['created_at', 'updated_at', 'deleted_at']);
         if (request()->has('image') && request()->route()->getActionMethod() == 'update') {
