@@ -207,10 +207,15 @@ class JobController extends Controller
     }
     public function destroy($rasidJob, \App\Http\Requests\Dashboard\ReasonRequest $request)
     {
-        $jobya = RasidJob::findorfail($rasidJob);
-        if ($jobya->is_vacant) $jobya->delete();
-        return redirect()->route('dashboard.job.index')->withSuccess(__('dashboard.general.success_archive'));
+        $job = RasidJob::findorfail($rasidJob);
 
+        if ($request->ajax()) {
+            $job->delete();
+                return response()->json([
+                    'message' =>__('dashboard.general.success_archive')
+                ] );
+        }
+       
     }
 
     public function export(Request $request)

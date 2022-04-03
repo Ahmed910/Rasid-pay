@@ -92,7 +92,7 @@
                           }
                           else
                           {
-                             fun_modal =`archiveItem('${data.id}', '${data.delete_route}')`;
+                             fun_modal =`archiveItem('${data.id}', '${data.delete_route}','${'#departmentTable'}')`;
                           }
 
                             return `<a
@@ -163,5 +163,5 @@
     <script src="{{ asset('dashboardAssets/js/select2.js') }}"></script>
     <script src="{{ asset('dashboardAssets/plugins/select2/select2.full.min.js') }}"></script>
 
-  
+
 @endsection

@@ -1,7 +1,9 @@
-function archiveItem(itemId, route) {
+let datatableId ;
+function archiveItem(itemId, route,tableId) {
     $("#modal_archive").modal('show');
     $('#item').attr('item-id', itemId);
     $('#item').attr('action', route);
+    datatableId =tableId
 }
 
 function notArchiveItem(message = null) {
@@ -27,7 +29,7 @@ $(function(){
                 event.preventDefault();
                 action = $(this).attr('action');
                 method = $(this).attr('method');
-                
+
                 $.ajax({
                     url:action,
                     type: method,
@@ -36,7 +38,7 @@ $(function(){
                     success: function (data) {
                         $('#modal_archive').modal('hide');
                         toastr.success(data.message);
-                        $('#departmentTable').DataTable().ajax.reload();
+                        $(datatableId).DataTable().ajax.reload();
 
                     },
                     error: function(data) {
