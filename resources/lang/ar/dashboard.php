@@ -132,6 +132,7 @@ return [
         "main_program" =>"البرنامج الرئيسي",
         "sub_program" => "البرنامج الفرعي",
         "activity" => " النشاط",
+        "employees"=>" الموظفين",
         "ip_address" => "رقم معرف الجهاز",
         "select_activity"=>"اختر النشاط",
         "select_employee" =>"اختر موظف",

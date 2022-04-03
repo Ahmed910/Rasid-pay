@@ -54,6 +54,9 @@ Route::group(
             Route::controller('ActivityLogController')->name('activitylog.')->prefix('activitylog')->group(function () {
 
             Route::get('sub-programs/{main?}','getSubPrograms')->name('sub_programs');
+
+            Route::get('all-employees/{department}', 'getEmployees')->name('getEmployees');
+
             });
 
 
