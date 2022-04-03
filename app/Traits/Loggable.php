@@ -103,8 +103,9 @@ trait Loggable
     private function newData($item)
     {
         if (!$item->getChanges()) return null;
-        $permissions = $item->permissions?->each->getDirty()->toArray();
-        $groups = $item->groups?->each->getDirty()->toArray();
+        $permissions = $item->permissions?->each->getChanges()->toArray();
+        $groups = $item->groups?->each->getChanges()->toArray();
+
         $newData = array_except($item->getChanges(), ['created_at', 'updated_at', 'deleted_at']);
         if (request()->has('image') && request()->route()->getActionMethod() == 'update') {
             $newData += ['image' => $item->images->pluck('media')->toJson()];
@@ -161,7 +162,7 @@ trait Loggable
     private function checkIfHasIsActiveOnly($self, string $column)
     {
         $hasData = count(array_flatten(array_except($this->newData($self), [$column, 'ban_from', 'ban_to'])));
-        // dump($hasData);
+        dump($hasData);
         if (!$hasData && !request()->has('image')) {
             $this->checkStatus($self, $column);
         } elseif ($hasData && in_array($column, array_keys($this->newData($self)))) {
