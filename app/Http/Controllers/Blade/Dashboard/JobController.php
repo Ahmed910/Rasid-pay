@@ -24,7 +24,6 @@ class JobController extends Controller
     {
         if ($request->ajax()) {
 
-
             $jobsQuery = RasidJob::without('employee')->search($request)
                 ->CustomDateFromTo($request)
                 ->ListsTranslations('name')
@@ -42,7 +41,8 @@ class JobController extends Controller
         $departments = Department::where('is_active', 1)
             ->select("id")
             ->ListsTranslations("name")
-            ->pluck('name', 'id');
+            ->pluck('name', 'id')
+            ->toArray();
 
         return view('dashboard.job.index', compact('departments'));
     }
@@ -120,7 +120,7 @@ class JobController extends Controller
     public function edit($id)
     {
         $rasidJob = RasidJob::findorfail($id);
-        $departments = Department::with('parent.translations')->ListsTranslations('name')->where('parent_id', null)->pluck('name', 'id');
+        $departments = Department::with('parent.translations')->ListsTranslations('name')->where('parent_id', null)->pluck('name', 'id')->toArra();
         $locales = config('translatable.locales');
         return view('dashboard.job.edit', compact('departments', 'rasidJob', 'locales'));
     }

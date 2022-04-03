@@ -22,8 +22,12 @@ class DepartmentRequest extends FormRequest
      *
      * @return array
      */
+
+
+
     public function rules()
     {
+
         $igonredDepartment = $this->department ?  implode(',', Department::flattenChildren($this->department)) : "";
         $rules = [
             "image"         => "nullable|max:5120|mimes:jpg,png,jpeg",
@@ -43,6 +47,8 @@ class DepartmentRequest extends FormRequest
     protected function prepareForValidation()
     {
         $data = $this->all();
+        if (@$data['parent_id'] == 0)
+            $data['parent_id'] = null;
 
         $this->merge([
             'parent_id' =>  @$data['parent_id'] ?? null,
