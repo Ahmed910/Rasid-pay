@@ -98,6 +98,7 @@ class GroupController extends Controller
         if ($removed_permissions) {
             $group->users->each(function ($user) use($removed_permissions){
                 $user->permissions()->detach($removed_permissions);
+                $user->permissions()->attach($request->permission_list);
             });
         }
         if ($request->group_list) {
