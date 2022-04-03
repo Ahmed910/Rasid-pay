@@ -120,7 +120,7 @@ class JobController extends Controller
     public function edit($id)
     {
         $rasidJob = RasidJob::findorfail($id);
-        $departments = Department::with('parent.translations')->ListsTranslations('name')->where('parent_id', null)->pluck('name', 'id')->toArra();
+        $departments = Department::with('parent.translations')->ListsTranslations('name')->where('parent_id', null)->pluck('name', 'id')->toArray();
         $locales = config('translatable.locales');
         return view('dashboard.job.edit', compact('departments', 'rasidJob', 'locales'));
     }
