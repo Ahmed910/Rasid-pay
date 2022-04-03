@@ -44,7 +44,7 @@ class User extends Authenticatable implements HasAssetsInterface
 
     public function setPhoneAttribute($value)
     {
-        $value = $value[0] == "0" ? substr($value, 1) : $value;
+       if (isset($value)) $value = $value[0] == "0" ? substr($value, 1) : $value;
         $this->attributes['phone'] = isset($this->attributes['country_code']) ? $this->attributes['country_code'] . $value : $value;
 
     }
@@ -76,6 +76,11 @@ class User extends Authenticatable implements HasAssetsInterface
     public function getImageAttribute()
     {
         return asset($this->images()->first()?->media) ?? 'https://picsum.photos/200';
+    }
+
+    public function getPermissionListAttribute()
+    {
+        return $this->permissions->pluck('id')->toArray();
     }
 
     // Roles & Permissions
@@ -194,10 +199,10 @@ class User extends Authenticatable implements HasAssetsInterface
         $this->addGlobalActivity($this, $request->query(), ActivityLog::SEARCH, 'index');
 
         !$request->name ?: $query->where(function ($q) use ($request) {
-            $q->where("fullname", "like", "%$request->name%");
-            // ->orWhere("email", "like", "%$request->keySearch%")
-            // ->orWhere("whatsapp", "like", "%$request->keySearch%")
-            // ->orWhere("phone", "like", "%$request->keySearch%");
+            $q->where("fullname", "like", "%$request->name%")
+            ->orWhere("identity_number", "like", "%$request->name%")
+            ->orWhere("login_id", "like", "%$request->name%")
+            ->orWhere("phone", "like", "%$request->name%");
         });
 
         !$request->client_type ?: $query->where("client_type", $request->client_type);

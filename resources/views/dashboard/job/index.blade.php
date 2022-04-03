@@ -83,11 +83,12 @@
             </div>
         </div>
         <div class="col-12 col-md-6 my-2 d-flex justify-content-end">
-            <button class="btn btn-primary mx-2" type="submit">
+            <button class="btn btn-primary mx-2" type="submit" id="search-btn">
                 <i class="mdi mdi-magnify"></i> {{ trans('dashboard.general.search') }}
             </button>
-            <button class="btn btn-outline-primary" type="submit">
-                <i class="mdi mdi-restore"></i> {{ trans('dashboard.general.show_all') }}
+            <button  class="btn btn-outline-primary" type="button">
+              <a href="{{ route('dashboard.job.index') }}">   <i class="mdi mdi-restore"></i> {{ trans('dashboard.general.show_all') }}</a>
+
             </button>
         </div>
     </div>
