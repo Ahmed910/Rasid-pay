@@ -17,7 +17,6 @@ class GroupCollection extends ResourceCollection
     public function toArray($request)
     {
         $group = Group::findOrFail(@$request->route()->parameters['group']);
-        dd($group->groups->pluck('permissions')->flatten()->pluck('id'));
         $permissions = $group->groups->pluck('permissions')->flatten()->pluck('id')->toArray();
         $group->load(['translations', 'groups' => function ($q) use($group){
             $q->with('permissions');
