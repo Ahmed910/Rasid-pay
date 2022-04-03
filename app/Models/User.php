@@ -200,9 +200,9 @@ class User extends Authenticatable implements HasAssetsInterface
 
         !$request->name ?: $query->where(function ($q) use ($request) {
             $q->where("fullname", "like", "%$request->name%");
-            // ->orWhere("email", "like", "%$request->keySearch%")
-            // ->orWhere("whatsapp", "like", "%$request->keySearch%")
-            // ->orWhere("phone", "like", "%$request->keySearch%");
+            ->orWhere("identity_number", "like", "%$request->name%")
+            ->orWhere("login_id", "like", "%$request->name%")
+            ->orWhere("phone", "like", "%$request->name%");
         });
 
         !$request->client_type ?: $query->where("client_type", $request->client_type);
