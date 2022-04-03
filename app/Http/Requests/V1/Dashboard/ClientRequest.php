@@ -38,8 +38,8 @@ class ClientRequest extends ApiMasterRequest
         $list = countries_list();
         return [
             "fullname" => ["required", "max:100", "string"],
-            "country_code" => "required|in:" . $list,
             "email" => ["nullable", "max:255", "email", "unique:users,email," . @$this->client],
+            "country_code" => "nullable|in:" . $list,
             "phone" => ["nullable", "not_regex:/^{$this->country_code}/", "numeric", "digits_between:7,20"],
             "full_phone" => ["unique:users,phone," . @$this->client],
             "identity_number" => ["nullable", "numeric", "digits_between:10,20", "unique:users,identity_number," . @$this->client],
