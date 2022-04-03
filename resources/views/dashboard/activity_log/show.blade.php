@@ -1,6 +1,6 @@
 @extends('dashboard.layouts.master')
 
 @section('content')
-    
+
 @endsection
-@include('dashboard.admin.show-script')
+@include('dashboard.activity_log.show_script')
