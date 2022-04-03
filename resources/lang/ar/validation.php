@@ -42,6 +42,7 @@ $attributes = [
     'ban_to'                  => 'حقل معطل إلى',
     // new attr
 
+    'parent_id'   => 'حقل القسم الرئيسي',
     'permissions'   => 'حقل الصلاحيات',
     'permissions.*'   => 'حقل الصلاحيات',
     'permissions.*.*'   => 'حقل الصلاحيات'
