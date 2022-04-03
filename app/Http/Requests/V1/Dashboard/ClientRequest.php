@@ -19,12 +19,14 @@ class ClientRequest extends ApiMasterRequest
     protected function prepareForValidation()
     {
         $data = $this->all();
-
+       $this->phone = convert_arabic_number($this->phone);
+//        isset( $this->phone[0])
+$forvalidation =    isset( $this->phone[0])&&$this->phone[0]=="0" ?substr($this->phone , 1) : $this->phone ;
         $this->merge([
             'date_of_birth' => @$data['date_of_birth'] ? date('Y-m-d', strtotime($data['date_of_birth'])) : null,
             'country_code' => @$data['country_code'] ? convert_arabic_number($data['country_code']) : null,
             'phone' => @$data['phone'] ? convert_arabic_number($data['phone']) : null,
-            'full_phone' => $this->country_code . $this->phone
+            'full_phone' => $this->country_code . $forvalidation
         ]);
     }
 
@@ -38,12 +40,12 @@ class ClientRequest extends ApiMasterRequest
         $list = countries_list();
         return [
             "fullname" => ["required", "max:100", "string"],
-            "country_code" => "required|in:" . $list,
             "email" => ["nullable", "max:255", "email", "unique:users,email," . @$this->client],
+            "country_code" => "nullable|in:" . $list,
             "phone" => ["nullable", "not_regex:/^{$this->country_code}/", "numeric", "digits_between:7,20"],
             "full_phone" => ["unique:users,phone," . @$this->client],
             "identity_number" => ["nullable", "numeric", "digits_between:10,20", "unique:users,identity_number," . @$this->client],
-            "client_type" => ["required", "in:company,Institution ,member,freelance_doc,famous,other"],
+            "client_type" => ["required", "in:company,Institution,member,freelance_doc,famous,other"],
             "gender" => ["nullable", "in:male,female"],
             "date_of_birth" => ["nullable", "date"],
             "commercial_number" => ["nullable", "required_if:client_type,company,institution", "string", "max:10", "unique:clients,commercial_number," . @$this->client . ",user_id"],

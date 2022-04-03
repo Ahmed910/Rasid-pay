@@ -91,12 +91,20 @@ class GroupController extends Controller
      */
     public function update(GroupRequest $request, Group $group)
     {
-        $group->fill($request->validated())->save();
+        $old_permissions = $group->permission_list;
+        $group->fill($request->validated()+['updated_at' => now()])->save();
         $permissions = $request->permission_list ?? [];
+        $removed_permissions = array_diff($old_permissions,$request->permission_list);
+        if ($removed_permissions) {
+            $group->users->each(function ($user) use($removed_permissions){
+                $user->permissions()->detach($removed_permissions);
+                $user->permissions()->attach($request->permission_list);
+            });
+        }
         if ($request->group_list) {
-            $group->groups()->sync($request->group_list);
             $permissions = array_filter(array_merge($permissions, Group::find($request->group_list)->pluck('permissions')->flatten()->pluck('id')->toArray()));
         }
+        $group->groups()->sync($request->group_list);
         $group->permissions()->sync($permissions);
         return GroupResource::make($group)->additional(['status' => true, 'message' => trans('dashboard.general.success_update')]);
     }
@@ -110,6 +118,9 @@ class GroupController extends Controller
     public function destroy(Group $group)
     {
         $group->delete();
+        $group->users->each(function ($user) use($removed_permissions){
+            $user->permissions()->detach();
+        });
         return GroupResource::make($group)->additional(['status' => true, 'message' => trans('dashboard.general.success_delete')]);
     }
 

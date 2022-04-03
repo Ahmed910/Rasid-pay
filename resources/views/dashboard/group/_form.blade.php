@@ -9,30 +9,32 @@
                 @enderror
             @endforeach
         </div>
-        <div class="col-12 col-md-6 mb-5">
-            {!! Form::label('status', trans('dashboard.general.status')) !!}
-            {!! Form::select('is_active', trans('dashboard.general.active_cases'), null, ['class' => 'form-control select2', 'id' => 'status', 'required' => 'required', 'placeholder' => trans('dashboard.general.select_status')]) !!}
-            <div class="invalid-feedback">الحالة مطلوبة.</div>
-        </div>
+        @if (request()->routeIs('dashboard.group.edit'))
+            <div class="col-12 col-md-6 mb-5">
+                {!! Form::label('status', trans('dashboard.general.status')) !!}
+                {!! Form::select('is_active', trans('dashboard.general.active_cases'), null, ['class' => 'form-control select2', 'id' => 'status', 'required' => 'required', 'placeholder' => trans('dashboard.general.select_status')]) !!}
+                @error("is_active")
+                    <span class="text-danger">{{ $message }}</span>
+                @enderror
+            </div>
+        @endif
         <div class="col-12 col-md-12 mb-5">
             <label for="permissions">صلاحيات النظام</label>
             <select name="permission_list[]" hidden multiple></select>
             <select name="group_list[]" hidden multiple></select>
 
-            <select class="form-control select2" data-placeholder="اختر الصلاحيات" multiple="multiple" id="permissions"
+            <select class="form-control select2" onchange="addPermissions(this.selectedOptions)" data-placeholder="اختر الصلاحيات" multiple="multiple" id="permissions"
                 required>
-                <optgroup label="@lang('dashboard.group.groups')">
-                    @foreach ($groups as $id => $name)
-                        <option value="{{ $id }}" data-name="groups">{{ $name }}</option>
-                    @endforeach
-                </optgroup>
-                <optgroup label="@lang('dashboard.permission.permissions')">
-                    @foreach ($permissions as $id => $name)
-                        <option value="{{ $id }}" data-name="permissions">{{ $name }}</option>
-                    @endforeach
-                </optgroup>
+                @foreach ($groups as $id => $name)
+                    <option value="{{ $id }}" data-name="groups" {{ isset($group) && in_array($id,$group->group_list) ? 'selected' : null }}>{{ $name }}</option>
+                @endforeach
+                @foreach ($permissions as $id => $name)
+                    <option value="{{ $id }}" data-name="permissions" {{ isset($group) && in_array($id,$group->permission_list) ? 'selected' : null }}>{{ $name }}</option>
+                @endforeach
             </select>
-            <div class="invalid-feedback">الصلاحيات مطلوبة.</div>
+            @error("group_list",'permission_list')
+                <span class="text-danger">{{ $message }}</span>
+            @enderror
         </div>
     </div>
 </div>
@@ -56,35 +58,29 @@
 
     <script>
         $(function() {
-            let permissions = [];
-            let groups = [];
-
-            $('#permissions').on('change', function() {
-                let optgroupId = $('#permissions option:selected').last().attr('data-name');
-
-                if (optgroupId == 'groups') {
-                    groups.push($('#permissions option:selected').last().attr('value'));
-                }
-
-                if (optgroupId == 'permissions') {
-                    permissions.push($('#permissions option:selected').last().attr('value'));
-                }
-
-                $('[name="permission_list[]"]').empty();
-                $('[name="group_list[]"]').empty();
-
-                permissions.map(function(item, i) {
-                    $('[name="permission_list[]"]').append(
-                        `<option value="${item}" selected></option>`);
-                })
-
-                groups.map(function(item, i) {
-                    $('[name="group_list[]"]').append(
-                        `<option value="${item}" selected></option>`);
-                })
-
+            let permissions = @isset($group)  @json($group->permission_list) @else [] @endisset;
+            let groups = @isset($group)  @json($group->group_list) @else [] @endisset;
+            groups.forEach((item, i) => {
+                $('[name="group_list[]"]').append(`<option value="${item}" selected></option>`);
             });
-
+            permissions.forEach((item, i) => {
+                $('[name="permission_list[]"]').append(`<option value="${item}" selected></option>`);
+            });
         });
+
+        function addPermissions(selected) {
+            let group_options = '';
+            let permission_options = '';
+            $.each(selected,(index,item) => {
+                if (item.getAttribute('data-name') == 'groups') {
+                    group_options += `<option value="${item.value}" selected></option>`;
+                }
+                if (item.getAttribute('data-name') == 'permissions') {
+                    permission_options += `<option value="${item.value}" selected></option>`;
+                }
+            });
+            $('[name="permission_list[]"]').html(permission_options);
+            $('[name="group_list[]"]').html(group_options);
+        }
     </script>
 @endsection

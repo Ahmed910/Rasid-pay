@@ -10,6 +10,7 @@ use App\Http\Resources\Blade\Dashboard\Department\DepartmentCollection;
 use App\Models\Department\Department;
 use Illuminate\Http\Request;
 use App\Exports\DepartmentsExport;
+use Illuminate\Support\Arr;
 use Maatwebsite\Excel\Facades\Excel;
 
 class DepartmentController extends Controller
@@ -19,7 +20,6 @@ class DepartmentController extends Controller
         if (isset($request->order[0]['column'])) {
             $request['sort'] = ['column' => $request['columns'][$request['order'][0]['column']]['name'], 'dir' => $request['order'][0]['dir']];
         }
-
 
         if ($request->ajax()) {
 
@@ -48,7 +48,7 @@ class DepartmentController extends Controller
             ->without("images", 'addedBy')
             ->select("id")
             ->ListsTranslations("name")
-            ->pluck('name', 'id');
+            ->pluck('name', 'id')->toArray();
 
 
         return view('dashboard.department.index', compact('parentDepartments'));
@@ -56,8 +56,11 @@ class DepartmentController extends Controller
 
     public function create()
     {
-        $departments = Department::with('parent.translations')->ListsTranslations('name')->where(['parent_id' => null, 'is_active' => 1])->pluck('name', 'id');
+        $departments = Department::with('parent.translations')->ListsTranslations('name')->where(['parent_id' => null, 'is_active' => 1])->pluck('name', 'id')->toArray();
         $locales = config('translatable.locales');
+
+        $departments = array_merge([-1 => trans('dashboard.department.without_parent')], $departments);
+
         return view('dashboard.department.create', compact('departments', 'locales'));
     }
 
@@ -100,7 +103,10 @@ class DepartmentController extends Controller
 
     public function edit(Department $department)
     {
-        $departments = Department::with('parent.translations')->ListsTranslations('name')->where(['parent_id' => null, 'is_active' => 1])->pluck('name', 'id');
+        $departments = Department::with('parent.translations')->ListsTranslations('name')->where(['parent_id' => null, 'is_active' => 1])->pluck('name', 'id')->toArray();
+
+        $departments = array_merge([null => trans('dashboard.department.without_parent')], $departments);
+
         $locales = config('translatable.locales');
         return view('dashboard.department.edit', compact('departments', 'department', 'locales'));
     }

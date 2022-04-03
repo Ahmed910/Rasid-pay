@@ -26,7 +26,7 @@
         <div class="col">
             <label for="mainDepartment"> {{ trans('dashboard.department.department') }} </label>
 
-            {!! Form::select('department_id', $departments, old('department_id') ?? request('department_id'), ['placeholder' => trans('dashboard.job.select_department'), 'class' => 'form-control select2-show-search', 'id' => 'mainDepartment']) !!}
+            {!! Form::select('department_id', [0 => trans('dashboard.general.all_cases')] + $departments, old('department_id') ?? request('department_id'), ['placeholder' => trans('dashboard.job.select_department'), 'class' => 'form-control select2-show-search', 'id' => 'mainDepartment']) !!}
         </div>
 
         <div class="col">
@@ -55,13 +55,13 @@
         <div class="col">
             <label for="status">
                 {{ trans('dashboard.general.status') }}</label>
-            {!! Form::select('is_active', trans('dashboard.general.active_cases'), old('is_active') ?? request('is_active'), ['class' => 'form-control select2-show-search', 'placeholder' => trans('dashboard.general.select_status'), 'id' => 'status']) !!}
+            {!! Form::select('is_active', [-1 => trans('dashboard.general.all_cases')] + trans('dashboard.general.active_cases'), old('is_active') ?? request('is_active'), ['class' => 'form-control select2-show-search', 'placeholder' => trans('dashboard.general.select_status'), 'id' => 'status']) !!}
         </div>
 
         <div class="col">
             <label for="type">
                 {{ trans('dashboard.general.type') }}</label>
-            {!! Form::select('is_vacant', trans('dashboard.general.job_type_cases'), old('is_vacant') ?? request('is_vacant'), ['class' => 'form-control select2-show-search', 'placeholder' => trans('dashboard.general.select_type'), 'id' => 'type']) !!}
+            {!! Form::select('is_vacant', [-1 => trans('dashboard.general.all_cases')] + trans('dashboard.general.job_type_cases'), old('is_vacant') ?? request('is_vacant'), ['class' => 'form-control select2-show-search', 'placeholder' => trans('dashboard.general.select_type'), 'id' => 'type']) !!}
         </div>
 
     </div>
@@ -83,11 +83,12 @@
             </div>
         </div>
         <div class="col-12 col-md-6 my-2 d-flex justify-content-end">
-            <button class="btn btn-primary mx-2" type="submit">
+            <button class="btn btn-primary mx-2" type="submit" id="search-btn">
                 <i class="mdi mdi-magnify"></i> {{ trans('dashboard.general.search') }}
             </button>
-            <button class="btn btn-outline-primary" type="submit">
-                <i class="mdi mdi-restore"></i> {{ trans('dashboard.general.show_all') }}
+            <button  class="btn btn-outline-primary" type="button">
+              <a href="{{ route('dashboard.job.index') }}">   <i class="mdi mdi-restore"></i> {{ trans('dashboard.general.show_all') }}</a>
+
             </button>
         </div>
     </div>
@@ -125,5 +126,5 @@
         @include('dashboard.layouts.modals.not_archive')
         @include('dashboard.layouts.modals.alert')
 
-@endsection
+    @endsection
     @include('dashboard.job.script')

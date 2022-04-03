@@ -13,7 +13,8 @@
 
         <div class="col-12 col-md-{{ isset($department) ? 4 : 6 }} mb-5">
             {!! Form::label('mainDepartment', trans('dashboard.department.department_main')) !!}
-            {!! Form::select('parent_id', $departments, null, ['class' => 'form-control select2-show-search', 'placeholder' => isset($department) ? trans('dashboard.department.without_parent') : trans('dashboard.department.select_main_department'), 'id' => 'mainDepartment']) !!}
+            <p class="requiredFields">*</p>
+            {!! Form::select('parent_id', $departments, null, ['class' => 'form-control select2-show-search', 'placeholder' => trans('dashboard.department.select_main_department'), 'id' => 'mainDepartment']) !!}
 
             @error('parent_id')
                 <span class="text-danger">{{ $message }}</span>
@@ -34,17 +35,17 @@
         <div class="col-12 mb-3">
             {!! Form::label('departmentImg', trans('dashboard.department.department_image') . ' (JPG, PNG, JPEG)') !!}
             {!! Form::file('image', [
-    'class' => 'dropify',
-    'data-show-remove' => 'true',
-    'data-default-file' => isset($department) ? $department->image : null,
-    'data-bs-height' => '250',
-    'id' => 'departmentImg',
-    'data-errors-position' => 'inside',
-    'data-show-errors' => 'true',
-    'data-show-loader' => 'true',
-    'data-allowed-file-extensions' => 'jpg png jpeg',
-    'accept' => 'image/png, image/jpg, image/jpeg',
-]) !!}
+                    'class' => 'dropify',
+                    'data-show-remove' => 'true',
+                    'data-default-file' => isset($department) ? $department->image : null,
+                    'data-bs-height' => '250',
+                    'id' => 'departmentImg',
+                    'data-errors-position' => 'inside',
+                    'data-show-errors' => 'true',
+                    'data-show-loader' => 'true',
+                    'data-allowed-file-extensions' => 'jpg png jpeg',
+                    'accept' => 'image/png, image/jpg, image/jpeg',
+            ]) !!}
             @error('image')
                 <span class="text-danger">{{ $message }}</span>
             @enderror

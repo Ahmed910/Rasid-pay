@@ -13,8 +13,7 @@ class DeleteImageController extends Controller
     public function __invoke(AppMedia $appMedia)
     {
         $appMedia->forceDelete();
-        $media = $appMedia->media;
-
+        $media = $appMedia->media; 
         $path = Str::replace("/storage/", "", $media);
 
         Storage::disk('public')->delete($path);

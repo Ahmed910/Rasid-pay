@@ -51,6 +51,11 @@ Route::group(
 
             Route::get('all-employees/{department}', 'getEmployeesByDepartment');
             });
+            Route::controller('ActivityLogController')->name('activitylog.')->prefix('activitylog')->group(function () {
+
+            Route::get('sub-programs/{main?}','getSubPrograms')->name('sub_programs');
+            });
+
 
 
 
@@ -61,6 +66,7 @@ Route::group(
                 'client' => 'ClientController',
                 'employee' => 'EmployeeController',
                 'admin' => 'AdminController',
+                'activity_log' =>'ActivityLogController'
             ]);
         });
     }

@@ -61,9 +61,9 @@
                     {
                         data: function(data) {
                             if (data.is_active) {
-                                return ` <span class="badge bg-success-opacity py-2 px-4">${"@lang('dashboard.general.active')"}</span>`;
+                                return ` <span class="badge bg-success-opacity py-2 px-4">${"@lang('dashboard.job.active_cases.1')"}</span>`;
                             } else {
-                                return ` <span class="badge bg-danger-opacity py-2 px-4">${"@lang('dashboard.general.inactive')"}</span>`;
+                                return ` <span class="badge bg-danger-opacity py-2 px-4">${"@lang('dashboard.job.active_cases.0')"}</span>`;
                             }
                         }
                     },

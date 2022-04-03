@@ -65,6 +65,7 @@ class Department extends Model implements TranslatableContract, HasAssetsInterfa
         }
 
         if (isset($request->parent_id)) {
+            if ($request->parent_id == 0) $request->parent_id = null;
             $query->where("parent_id", $request->parent_id);
         }
 
