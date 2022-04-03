@@ -24,13 +24,13 @@
                 <p>{{ $rasidJob->name }}</p>
             </div>
             <div class="col-12 col-md-3">
-                <label>{{ trans('dashboard.rasid_job.rasid_job_department') }}:</label>
+                <label>{{ trans('dashboard.department.department') }}:</label>
                 <p>{{ $rasidJob->department->name }}</p>
             </div>
             <div class="col-12 col-md-3">
                 <label class="d-block" for="departmentName">{{ trans('dashboard.general.status') }}:</label>
                 <p class="badge bg-{{ $rasidJob->is_active == 1 ? 'success' : 'danger' }}-opacity py-2 px-4">
-                    {{ trans('dashboard.general.active_cases.' . $rasidJob->is_active) }}</p>
+                    {{ trans('dashboard.job.active_cases.' . $rasidJob->is_active) }}</p>
             </div>
             <div class="col-12 col-md-3">
                 <label class="d-block" for="departmentName">{{ trans('dashboard.general.type') }}:</label>
@@ -38,19 +38,24 @@
                     {{ trans('dashboard.general.job_type_cases.' . $rasidJob->is_vacant) }}
                 </p>
             </div>
+          @if ( $rasidJob->employee?->user?->fullname )
             <div class="col-12 col-md-3">
-                <label class="d-block" for="departmentName">{{ trans('dashboard.rasid_job.employee_name') }}
-                    :</label>
-                <p> {{ $rasidJob->employee?->user?->fullname }}</p>
+              <label class="d-block" for="departmentName">{{ trans('dashboard.rasid_job.employee_name') }}
+                :</label>
+              <p> {{ $rasidJob->employee?->user?->fullname }}</p>
             </div>
+          @endif
+        @if ($rasidJob->description)
             <div class="col-12 col-md-9">
-                <label class="d-block"
-                    for="departmentName">{{ trans('dashboard.rasid_job.rasid_job_description') }}
-                    :</label>
-                <p>
-                    {{ $rasidJob->description }}
-                </p>
-            </div>
+            <label class="d-block"
+                   for="departmentName">{{ trans('dashboard.rasid_job.rasid_job_description') }}
+              :</label>
+            <p>
+              {{$rasidJob->description }}
+            </p>
+          </div>
+          @endif
+
         </div>
     </div>
 

@@ -17,6 +17,7 @@ trait Loggable
         });
 
         static::updated(function (self $self) {
+
             if (class_basename($self) == 'User') {
                 return $self->checkIfHasIsActiveOnly($self, 'ban_status');
             }
@@ -102,11 +103,13 @@ trait Loggable
     private function newData($item)
     {
         if (!$item->getChanges()) return null;
-
-        $translations = $item->translations?->map->getDirty()->toArray();
+        $permissions = $item->permissions?->each->getDirty()->toArray();
+        $groups = $item->groups?->each->getDirty()->toArray();
         $newData = array_except($item->getChanges(), ['created_at', 'updated_at', 'deleted_at']);
-
-        return array_merge($newData ?? [], $translations ?? []);
+        if (request()->has('image') && request()->route()->getActionMethod() == 'update') {
+            $newData += ['image' => $item->images->pluck('media')->toJson()];
+        }
+        return array_merge($newData, $translations ?? [], $permissions ?? [], $groups ?? []);
     }
 
     /**
@@ -117,9 +120,11 @@ trait Loggable
         if (!$item->getOriginal()) return $item;
 
         $translations = $item->translations?->map->getOriginal()->toArray();
+        $permissions = $item->permissions?->each->getOriginal()->toArray();
+        $groups = $item->groups?->each->getOriginal()->toArray();
         $originalData = array_except($item->getOriginal(), ['created_at', 'updated_at', 'deleted_at']);
 
-        return array_merge($originalData ?? [], $translations ?? []);
+        return array_merge($originalData ?? [], $translations ?? [], $permissions ?? [], $groups ?? []);
     }
 
     private function checkStatus(self $model, string $column)
@@ -157,7 +162,7 @@ trait Loggable
     {
         $hasData = count(array_flatten(array_except($this->newData($self), [$column, 'ban_from', 'ban_to'])));
 
-        if (!$hasData) {
+        if (!$hasData && !request()->has('image')) {
             $this->checkStatus($self, $column);
         } elseif ($hasData && in_array($column, array_keys($this->newData($self)))) {
             $self->addUserActivity($self, ActivityLog::UPDATE, 'index');

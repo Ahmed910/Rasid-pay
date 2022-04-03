@@ -1,11 +1,10 @@
 <?php
 
-namespace App\Http\Requests\V1\Dashboard;
+namespace App\Http\Requests\Dashboard;
 
-use App\Http\Requests\ApiMasterRequest;
-use function config;
+use Illuminate\Foundation\Http\FormRequest;
 
-class GroupRequest extends ApiMasterRequest
+class GroupRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -25,21 +24,19 @@ class GroupRequest extends ApiMasterRequest
     public function rules()
     {
         $rules =  [
-            'is_active'=>'required|in:1,0',
             'permission_list' => 'required_without:group_list|array|min:1',
             'permission_list.*' => 'required_without:group_list|exists:permissions,id',
             'group_list' => 'required_without:permission_list|array|min:1',
             'group_list.*' => 'required_without:permission_list|exists:groups,id',
         ];
-
-        // if ($this->routeIs('dashboard.groups.update')) {
-        //     $rules['is_active'] = 'required|in:1,0';
-        // }
-
+        if ($this->routeIs('dashboard.group.update')) {
+            $rules['is_active'] = 'required|in:1,0';
+        }
         foreach (config('translatable.locales') as $locale) {
-            $rules[$locale.".name"] = 'required|string|between:2,100|regex:/^[\pL\pN\s\-\_]+$/u|unique:group_translations,name,' . @$this->group->id . ',group_id';
+            $rules[$locale.".name"] = 'required|string|between:2,100|regex:/^[\pL\pN\s\-\_]+$/u|unique:group_translations,name,' . @$this->group . ',group_id';
             $rules[$locale.'.desc'] = 'nullable|string|between:3,100000';
         }
         return $rules;
     }
+
 }

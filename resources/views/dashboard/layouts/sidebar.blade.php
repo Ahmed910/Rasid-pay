@@ -220,16 +220,13 @@
             <div class="container">
                 <div class="row">
                     <div class="col d-flex">
-
-                        @auth
-                            {!! Form::open(['route' => 'dashboard.session.logout', 'method' => 'POST', 'class' => 'logout_form']) !!}
-                            <a class="nav-link icon" onclick="document.getElementsByClassName('logout_form')[0].submit();"
-                                style="cursor: pointer;">
-                                <i class="mdi mdi-logout"></i>
-                                <span class="mx-2">{{trans('dashboard.general.logout')}}</span>
-                            </a>
-                            {!! Form::close() !!}
-                        @endauth
+                        {!! Form::open(['route' => 'dashboard.session.logout', 'method' => 'POST', 'id' => 'logout_form']) !!}
+                        <a class="nav-link icon" onclick="document.getElementById('logout_form').submit();"
+                            style="cursor: pointer;">
+                            <i class="mdi mdi-logout"></i>
+                            <span class="mx-2">{{trans('dashboard.general.logout')}}</span>
+                        </a>
+                        {!! Form::close() !!}
                     </div>
                 </div>
             </div>
