@@ -21,7 +21,7 @@
         <div class="col">
             <label for="job_name">{{ trans('dashboard.job.job_name') }}</label>
 
-            {!! Form::text('name', old('name') ?? request('name'), ['class' => 'form-control input-regex', 'placeholder' => trans('dashboard.job.job_name'), 'id' => 'job_name']) !!}
+            {!! Form::text('name', old('name') ?? request('name'), ['class' => 'form-control input-regex stop-copy-paste', 'placeholder' => trans('dashboard.job.job_name'), 'id' => 'job_name']) !!}
         </div>
         <div class="col">
             <label for="mainDepartment"> {{ trans('dashboard.department.department') }} </label>

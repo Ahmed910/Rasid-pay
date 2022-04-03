@@ -4,7 +4,7 @@
         <div class="col-12 col-md-{{ isset($rasidJob) ? 4 : 6 }} mb-5">
             {!! Form::label('jobName', trans('dashboard.job.job_name')) !!}
             @foreach ($locales as $locale)
-                {!! Form::text("{$locale}[name]", isset($rasidJob) ? $rasidJob->name : null, ['class' => 'form-control input-regex' . ($errors->has("${locale}.name") ? ' is-invalid' : null), 'id' => 'jobName', 'placeholder' => trans('dashboard.general.enter_name'), 'minlength' => '2', 'maxlength' => '100', 'pattern' => '^[\u0600-\u065F\u066A-\u06EF\u06FA-\u06FFa-zA-Z]+[\u0600-\u065F\u066A-\u06EF\u06FA-\u06FFa-zA-Z0-9-_ ]*$', 'onpaste' => 'return false;', 'oncopy' => 'return false;', 'ondrop' => 'return false;']) !!}
+                {!! Form::text("{$locale}[name]", isset($rasidJob) ? $rasidJob->name : null, ['class' => 'form-control input-regex stop-copy-paste' . ($errors->has("${locale}.name") ? ' is-invalid' : null), 'id' => 'jobName', 'placeholder' => trans('dashboard.general.enter_name'), 'minlength' => '2', 'maxlength' => '100', 'pattern' => '^[\u0600-\u065F\u066A-\u06EF\u06FA-\u06FFa-zA-Z]+[\u0600-\u065F\u066A-\u06EF\u06FA-\u06FFa-zA-Z0-9-_ ]*$', 'onpaste' => 'return false;', 'oncopy' => 'return false;', 'ondrop' => 'return false;']) !!}
                 @error("${locale}.name")
                     <span class="text-danger">{{ $message }}</span>
                 @enderror
@@ -47,7 +47,7 @@
         <div class="col-12 col-md-{{ isset($rasidJob) && isset($rasidJob->employee) ? 9 : 12 }}">
             {!! Form::label('jobDesc', trans('dashboard.rasid_job.rasid_job_description'), ['class' => 'mb-3']) !!}
             @foreach ($locales as $locale)
-                {!! Form::textarea("{$locale}[description]", isset($rasidJob) ? $rasidJob->description : null, ['class' => 'form-control input-regex' . ($errors->has("{$locale}[description]") ? ' is-invalid' : null), 'id' => 'jobDesc', 'rows' => '5', 'placeholder' => trans('dashboard.general.enter_description'), 'maxlength' => '300', 'onpaste' => 'return false;', 'oncopy' => 'return false;', 'ondrop' => 'return false;']) !!}
+                {!! Form::textarea("{$locale}[description]", isset($rasidJob) ? $rasidJob->description : null, ['class' => 'form-control input-regex stop-copy-paste' . ($errors->has("{$locale}[description]") ? ' is-invalid' : null), 'id' => 'jobDesc', 'rows' => '5', 'placeholder' => trans('dashboard.general.enter_description'), 'maxlength' => '300', 'onpaste' => 'return false;', 'oncopy' => 'return false;', 'ondrop' => 'return false;']) !!}
                 @error("{$locale}.description")
                     <span class="text-danger">{{ $message }}</span>
                 @enderror

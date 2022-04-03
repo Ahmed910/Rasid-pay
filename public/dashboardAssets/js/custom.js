@@ -452,3 +452,10 @@ $(".input-regex").on("input", function () {
     }
   });
 
+
+$(function(){
+    $('.stop-copy-paste').on("cut copy paste",function(e) {
+       e.preventDefault();
+    });
+ });
+
