@@ -102,6 +102,7 @@ trait Loggable
      */
     private function newData($item)
     {
+        // if($item->permissions)
         if (!$item->getChanges()) return null;
         // $permissions = $item->permissions?->each->getChanges()->toArray();
         // $groups = $item->groups?->each->getChanges()->toArray();
@@ -162,7 +163,6 @@ trait Loggable
     private function checkIfHasIsActiveOnly($self, string $column)
     {
         $hasData = count(array_flatten(array_except($this->newData($self), [$column, 'ban_from', 'ban_to'])));
-        dump($hasData);
         if (!$hasData && !request()->has('image')) {
             $this->checkStatus($self, $column);
         } elseif ($hasData && in_array($column, array_keys($this->newData($self)))) {
