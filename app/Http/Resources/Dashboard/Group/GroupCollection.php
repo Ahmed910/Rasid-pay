@@ -17,9 +17,12 @@ class GroupCollection extends ResourceCollection
     public function toArray($request)
     {
         $group = Group::findOrFail(@$request->route()->parameters['group']);
-        $group->load(['translations', 'groups' => function ($q) {
+        $permissions = data_get($group->groups->pluck('permissions')->toArray(),'*.*.id');
+        $group->load(['translations', 'groups' => function ($q) use($group){
             $q->with('permissions');
-        }, 'permissions']);
+        }, 'permissions' => function ($q) use($permissions) {
+            $q->whereNotIn('permissions.id',$permissions);
+        }]);
 
         return [
             'group' => GroupResource::make($group),
