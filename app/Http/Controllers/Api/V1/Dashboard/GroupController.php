@@ -74,7 +74,7 @@ class GroupController extends Controller
 
     public function getPermissionsOfGroup(Group $group, Request $request)
     {
-        $permissions = $group->permissions()->paginate((int)($request->per_page ?? 15),['*'],'permission_page');
+        $permissions = $group->permissions()->paginate((int)($request->per_page ?? 15));
 
         return PermissionResource::collection($permissions)
             ->additional([
