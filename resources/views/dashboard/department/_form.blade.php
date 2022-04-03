@@ -4,7 +4,7 @@
             {!! Form::label('departmentName', trans('dashboard.department.department_name')) !!}
             <p class="requiredFields">*</p>
             @foreach ($locales as $locale)
-                {!! Form::text("{$locale}[name]", isset($department) ? $department->name : null, ['class' => 'form-control', 'id' => "{$locale}[name]", 'placeholder' => trans('dashboard.general.enter_name'), 'minlength' => '2', 'maxlength' => '100', 'pattern' => '^[\u0600-\u065F\u066A-\u06EF\u06FA-\u06FFa-zA-Z]+[\u0600-\u065F\u066A-\u06EF\u06FA-\u06FFa-zA-Z0-9-_ ]*$', 'onpaste' => 'return false;', 'oncopy' => 'return false;', 'ondrop' => 'return false;']) !!}
+                {!! Form::text("{$locale}[name]", isset($department) ? $department->name : null, ['class' => 'form-control input-regex', 'id' => "{$locale}[name]", 'placeholder' => trans('dashboard.general.enter_name'), 'minlength' => '2', 'maxlength' => '100', 'pattern' => '^[\u0600-\u065F\u066A-\u06EF\u06FA-\u06FFa-zA-Z]+[\u0600-\u065F\u066A-\u06EF\u06FA-\u06FFa-zA-Z0-9-_ ]*$', 'onpaste' => 'return false;', 'oncopy' => 'return false;', 'ondrop' => 'return false;']) !!}
                 <span class="text-danger" id="{{ $locale }}.nameError" hidden></span>
             @endforeach
         </div>
@@ -46,7 +46,7 @@
         <div class="col-12">
             {!! Form::label('departmentDes', trans('dashboard.general.description'), ['class' => 'mb-3']) !!}
             @foreach ($locales as $locale)
-                {!! Form::textarea("{$locale}.description", isset($department) ? $department->description : null, ['class' => 'form-control ', 'id' => "$locale.description", 'rows' => '5', 'placeholder' => trans('dashboard.general.enter_description'), 'maxlength' => '300', 'onpaste' => 'return false;', 'oncopy' => 'return false;', 'ondrop' => 'return false;']) !!}
+                {!! Form::textarea("{$locale}.description", isset($department) ? $department->description : null, ['class' => 'form-control input-regex', 'id' => "$locale.description", 'rows' => '5', 'placeholder' => trans('dashboard.general.enter_description'), 'maxlength' => '300', 'onpaste' => 'return false;', 'oncopy' => 'return false;', 'ondrop' => 'return false;']) !!}
 
                 <span class="text-danger" id="{{ $locale }}.descriptionError" hidden></span>
             @endforeach
