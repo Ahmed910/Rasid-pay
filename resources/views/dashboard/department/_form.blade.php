@@ -13,7 +13,8 @@
 
         <div class="col-12 col-md-{{ isset($department) ? 4 : 6 }} mb-5">
             {!! Form::label('mainDepartment', trans('dashboard.department.department_main')) !!}
-            {!! Form::select('parent_id', $departments, null, ['class' => 'form-control select2-show-search', 'placeholder' => isset($department) ? trans('dashboard.department.without_parent') : trans('dashboard.department.select_main_department'), 'id' => 'mainDepartment']) !!}
+            <p class="requiredFields">*</p>
+            {!! Form::select('parent_id', $departments, null, ['class' => 'form-control select2-show-search', 'placeholder' => trans('dashboard.department.select_main_department'), 'id' => 'mainDepartment']) !!}
 
             @error('parent_id')
                 <span class="text-danger">{{ $message }}</span>

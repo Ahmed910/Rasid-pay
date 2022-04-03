@@ -80326,3 +80326,6 @@ tr:hover .dtr-control:before {
     display: inline;
     color: #f00;
   }
+
+  .select2-results__option:first-of-type{
+    display: none !important;
