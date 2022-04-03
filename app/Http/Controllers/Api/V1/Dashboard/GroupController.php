@@ -97,11 +97,15 @@ class GroupController extends Controller
         $shared_permissions = array_intersect($old_permissions,$request->permission_list);
         $attached_permissions = array_diff($request->permission_list,$shared_permissions);
         $detached_permissions = array_diff($old_permissions,$shared_permissions);
-        if ($removed_permissions) {
+        if ($attached_permissions || $detached_permissions) {
             $group->admins?->each(function ($admin) use($attached_permissions,$detached_permissions){
-                $admin->permissions()->detach($detached_permissions);
+                if ($detached_permissions) {
+                    $admin->permissions()->detach($detached_permissions);
+                }
                 $new_permissions = array_diff($attached_permissions,$admin->permission_list);
-                $admin->permissions()->attach($new_permissions);
+                if ($new_permissions) {
+                    $admin->permissions()->attach($new_permissions);
+                }
             });
         }
         if ($request->group_list) {
