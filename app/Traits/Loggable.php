@@ -102,7 +102,7 @@ trait Loggable
      */
     private function newData($item)
     {
-        // if($item->permissions)
+        // if($item->permission_list >)
         if (!$item->getChanges()) return null;
         // $permissions = $item->permissions?->each->getChanges()->toArray();
         // $groups = $item->groups?->each->getChanges()->toArray();
