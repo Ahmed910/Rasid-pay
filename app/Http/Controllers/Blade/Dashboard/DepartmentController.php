@@ -173,13 +173,12 @@ class DepartmentController extends Controller
 
     public function destroy(ReasonRequest $request, Department $department)
     {
-
-        if ($department->rasidJobs()->exists() || $department->children()->exists()) {
-            return redirect()->back();
+        if ($request->ajax()) {
+            $department->delete();
+                return response()->json([
+                    'message' =>__('dashboard.general.success_archive')
+                ] );
         }
-
-        $department->delete();
-        return redirect()->route('dashboard.department.index')->withSuccess(__('dashboard.general.success_archive'));
     }
 
 
