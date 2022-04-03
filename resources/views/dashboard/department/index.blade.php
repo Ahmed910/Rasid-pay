@@ -17,7 +17,7 @@
             <div class="col">
                 <label for="departmentName">
                     @lang('dashboard.department.department_name')</label>
-                <input type="text" class="form-control" id="departmentName" maxlength=100
+                <input type="text" class="form-control input-regex" id="departmentName" maxlength=100
                     placeholder="@lang('dashboard.general.enter_name')" name="name"
                     value="{{ old('name') ?? request('name') }}" />
             </div>
