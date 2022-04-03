@@ -24,7 +24,10 @@
             <div class="col">
                 <label>
                     @lang('dashboard.department.main_department')</label>
-                {!! Form::select('parent_id', $parentDepartments, request('parent_id'), ['class' => 'form-control select2-show-search', 'placeholder' => trans('dashboard.department.select_main_department')]) !!}
+
+
+
+                {!! Form::select('parent_id', [0 => trans('dashboard.department.without_parent')] + $parentDepartments, request('parent_id'), ['class' => 'form-control select2-show-search', 'placeholder' => trans('dashboard.department.select_main_department')]) !!}
             </div>
             <div class="col">
                 <label for="validationCustom02">
@@ -53,7 +56,9 @@
             <div class="col">
                 <label for="status">
                     @lang('dashboard.general.status')</label>
-                {!! Form::select('is_active', trans('dashboard.general.active_cases'), request('is_active'), ['class' => 'form-control select2-show-search', 'placeholder' => trans('dashboard.general.all_cases')]) !!}
+
+
+                {!! Form::select('is_active', [-1 => trans('dashboard.general.all_cases')] + trans('dashboard.general.active_cases'), request('is_active'), ['class' => 'form-control select2-show-search', 'placeholder' => trans('dashboard.general.select_status')]) !!}
             </div>
         </div>
         <div class="row">

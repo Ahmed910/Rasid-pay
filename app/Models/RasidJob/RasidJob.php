@@ -54,20 +54,16 @@ class RasidJob extends Model implements TranslatableContract
             });
         }
 
-        if (isset($request->department_id)) {
+        if (isset($request->department_id) && $request->department_id != 0) {
             $query->where("department_id", $request->department_id);
         }
 
 
-        if (isset($request->is_active)) {
-            if (!in_array($request->is_active, [1, 0])) return;
-
+        if (isset($request->is_active) && in_array($request->is_active, [1, 0])) {
             $query->where('is_active', $request->is_active);
         }
 
-        if (isset($request->is_vacant)) {
-            if (!in_array($request->is_vacant, [1, 0])) return;
-
+        if (isset($request->is_vacant) && in_array($request->is_vacant, [1, 0])) {
             $query->where('is_vacant', $request->is_vacant);
         }
     }
