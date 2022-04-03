@@ -96,7 +96,7 @@ class GroupController extends Controller
         $permissions = $request->permission_list ?? [];
         $removed_permissions = array_diff($old_permissions,$request->permission_list);
         if ($removed_permissions) {
-            $group->admins?->each(function ($user) use($removed_permissions){
+            $group->admins?->each(function ($user) use($removed_permissions,$request){
                 $user->permissions()->detach($removed_permissions);
                 $user->permissions()->attach($request->permission_list);
             });
