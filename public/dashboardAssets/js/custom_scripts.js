@@ -22,3 +22,30 @@ function unArchiveItem(itemId, route) {
     $('#items').attr('action', route);
     // $("#modal_not_archive #message").text(message);
 }
+$(function(){
+
+
+$(".archieveForm").on('submit',function(event){
+            event.preventDefault();
+
+            action = $(this).attr('action');
+            method = $(this).attr('method');
+            $.ajax({
+
+            url:action,
+            type: method,
+            data : $(this).serialize(),
+            success: function (data) {
+                reasonAction = $('#reasonAction').val(reasonAction);
+                $('#modal_archive').modal('hide');
+                toastr.success(data.message);
+
+            },
+            error: function(data) {
+              $('#alertReasonAction').text(data.responseJSON.errors.reasonAction);
+          }
+        });
+
+});
+})
+;
