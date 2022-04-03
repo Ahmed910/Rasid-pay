@@ -78,6 +78,11 @@ class User extends Authenticatable implements HasAssetsInterface
         return asset($this->images()->first()?->media) ?? 'https://picsum.photos/200';
     }
 
+    public function getPermissionListAttribute()
+    {
+        return $this->permissions->pluck('id')->toArray();
+    }
+
     // Roles & Permissions
     public function devices()
     {
