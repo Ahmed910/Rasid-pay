@@ -22,8 +22,7 @@ class ManagerRequest extends ApiMasterRequest
     {
         $data = $this->all();
         $this->manager_phone = convert_arabic_number($this->manager_phone);
-        if (isset( $this->manager_phone))
-            $forvalidation = $this->manager_phone[0]=="0" ?substr($this->manager_phone , 1) : $this->manager_phone ;
+        $forvalidation =    isset( $this->manager_phone[0])&&$this->manager_phone[0]=="0" ?substr($this->manager_phone , 1) : $this->manager_phone ;
         $this->merge([
             'manager_date_of_birth' => @$data['manager_date_of_birth'] ? date('Y-m-d', strtotime($data['manager_date_of_birth'])) : null,
             'manager_phone' => @$data['manager_phone'] ? convert_arabic_number($data['manager_phone']) : null,
