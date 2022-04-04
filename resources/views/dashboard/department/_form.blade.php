@@ -4,7 +4,7 @@
             {!! Form::label('departmentName', trans('dashboard.department.department_name')) !!}
             <p class="requiredFields">*</p>
             @foreach ($locales as $locale)
-                {!! Form::text("{$locale}[name]", isset($department) ? $department->name : null, ['class' => 'form-control input-regex stop-copy-paste', 'id' => "{$locale}[name]", 'placeholder' => trans('dashboard.general.enter_name'), 'minlength' => '2', 'maxlength' => '100', 'pattern' => '^[\u0600-\u065F\u066A-\u06EF\u06FA-\u06FFa-zA-Z]+[\u0600-\u065F\u066A-\u06EF\u06FA-\u06FFa-zA-Z0-9-_ ]*$', 'onpaste' => 'return false;', 'oncopy' => 'return false;', 'ondrop' => 'return false;']) !!}
+                {!! Form::text("{$locale}[name]", isset($department) ? $department->name : null, ['class' => 'form-control input-regex stop-copy-paste', 'id' => "{$locale}[name]", 'placeholder' => trans('dashboard.general.enter_name'), 'minlength' => '2', 'maxlength' => '100']) !!}
                 <span class="text-danger" id="{{ $locale }}.nameError" hidden></span>
             @endforeach
         </div>
