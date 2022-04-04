@@ -26,6 +26,8 @@
                     showClear: true,
                     ignoreReadonly: true,
                     isRTL: "{{ LaravelLocalization::getCurrentLocaleDirection() == 'rtl' }}"
+                }).on('dp.change', function() {
+                    table.draw();
                 });
 
             var table = $("#departmentTable").DataTable({
@@ -33,11 +35,23 @@
                 serverSide: true,
                 processing: true,
                 ajax: {
-                    url: "{{ route('dashboard.department.index') }}?" + $.param(
-                        @json(request()->query())),
+                    url: "{{ route('dashboard.department.index') }}",
+                    data: function(data) {
+                        data.name = $('#departmentName').val();
+                        data.created_from = $('#from-hijri-picker-custom').val();
+                        data.created_to = $('#to-hijri-picker-custom').val();
+                        data.is_active = $('#status').val();
+                        data.parent_id = $('#parent_id').val();
+                    },
                     type: "GET",
                     dataSrc: 'data'
                 },
+                // ajax: {
+                //     url: "{{ route('dashboard.department.index') }}?" + $.param(
+                //         @json(request()->query())),
+                //     type: "GET",
+                //     dataSrc: 'data'
+                // },
                 columns: [{
                         data: function(data, type, full, meta) {
                             return meta.row + 1;
@@ -82,18 +96,17 @@
                     {
                         class: "text-center",
                         data: function(data) {
-                          if(data.has_jobs)
-                          {
-                             fun_modal =  `notArchiveItem('@lang('dashboard.department.has_jobs_cannot_delete')')`;
-                          }
-                          if(data.has_children)
-                          {
-                             fun_modal = `notArchiveItem('@lang('dashboard.department.department_has_relationship_cannot_delete')')`;
-                          }
-                          else
-                          {
-                             fun_modal =`archiveItem('${data.id}', '${data.delete_route}','${'#departmentTable'}')`;
-                          }
+                            if (data.has_jobs) {
+                                fun_modal =
+                                    `notArchiveItem('@lang('dashboard.department.has_jobs_cannot_delete')')`;
+                            }
+                            if (data.has_children) {
+                                fun_modal =
+                                    `notArchiveItem('@lang('dashboard.department.department_has_relationship_cannot_delete')')`;
+                            } else {
+                                fun_modal =
+                                    `archiveItem('${data.id}', '${data.delete_route}','${'#departmentTable'}')`;
+                            }
 
                             return `<a
                     href="${data.show_route}"
@@ -146,6 +159,34 @@
                     },
                 }
             });
+
+            $('#status').on('select2:select', function(e) {
+                table.draw();
+            });
+
+            $('#parent_id').on('select2:select', function(e) {
+                table.draw();
+            });
+
+            $("#departmentName").keyup(function() {
+                table.draw();
+            });
+
+            $('#search-form').on('reset', function(e) {
+                e.preventDefault();
+                $('#status').val(null).trigger('change');
+                $('#parent_id').val(null).trigger('change');
+                $('#departmentName').val(null);
+                $('#from-hijri-picker-custom').val(null);
+                $('#to-hijri-picker-custom').val(null);
+                table.draw();
+            });
+
+            $("#search-form").submit(function(e) {
+                e.preventDefault();
+                table.draw();
+            });
+
             $('.select2').select2({
                 minimumResultsForSearch: Infinity
             });
@@ -162,6 +203,4 @@
     </script>
     <script src="{{ asset('dashboardAssets/js/select2.js') }}"></script>
     <script src="{{ asset('dashboardAssets/plugins/select2/select2.full.min.js') }}"></script>
-
-
 @endsection

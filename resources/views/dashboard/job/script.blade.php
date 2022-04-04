@@ -10,6 +10,7 @@
     <script src="{{ asset('dashboardAssets/plugins/bootstrap-hijri-datepicker/js/bootstrap-hijri-datetimepicker.js') }}">
     </script>
 
+
     <script>
         $(function() {
             /******* Calendar *******/
@@ -23,21 +24,42 @@
                     dayViewHeaderFormat: "MMMM YYYY",
                     showClear: true,
                     ignoreReadonly: true,
+                }).on('dp.change', function() {
+                    table.draw();
                 });
+
             var table = $("#JobsTable").DataTable({
                 sDom: "t<'domOption'lpi>",
                 serverSide: true,
                 ajax: {
-                    url: "{{ route('dashboard.job.index') }}?" + $.param(
-                        @json(request()->query()))
+                    url: "{{ route('dashboard.job.index') }}",
+                    data: function(data) {
+                        data.name = $('#job_name').val();
+                        data.created_from = $('#from-hijri-picker-custom').val();
+                        data.created_to = $('#to-hijri-picker-custom').val();
+                        data.is_active = $('#status').val();
+                        data.is_vacant = $('#type').val();
+                        data.department_id = $('#mainDepartment').val();
+                    },
+                    type: "GET",
+                    dataSrc: 'data'
                 },
+
+                // ajax: {
+                //     url: "{{ route('dashboard.job.index') }}?" + $.param(
+                //         @json(request()->query()))
+                // },
+
                 columns: [{
                         data: function(data, type, full, meta) {
                             return meta.row + 1;
-                        }
-                    },
+                        },
+                        name:"id"
+                    }
+                    ,
                     {
-                        data: "name"
+                        data: "name",
+                        name: "name"
                     },
                     {
                         data: function(data) {
@@ -53,10 +75,12 @@
                             } else {
                                 return "@lang('dashboard.department.without_parent')";
                             }
-                        }
+                        },
+                        name: "department"
                     },
                     {
-                        data: "created_at"
+                        data: "created_at",
+                        name: "created_at"
                     },
                     {
                         data: function(data) {
@@ -65,7 +89,9 @@
                             } else {
                                 return ` <span class="badge bg-danger-opacity py-2 px-4">${"@lang('dashboard.job.active_cases.0')"}</span>`;
                             }
-                        }
+                        },
+
+                        name:"is_active"
                     },
                     {
                         data: function(data) {
@@ -74,7 +100,8 @@
                             } else {
                                 return ` <span class="vacant">${"@lang('dashboard.job.is_vacant.false')"}</span>`;
                             }
-                        }
+                        },
+                        name:"is_vacant"
                     },
                     {
                         class: "text-center",
@@ -138,7 +165,50 @@
                 }
             });
             $('.select2').select2({
-                minimumResultsForSearch: Infinity
+                minimumResultsForSearch: Infinity,
+                createSearchChoice: function(term) {
+                    if (term.match(/^[a-zA-Z0-9]+$/g))
+                        return {
+                            id: term,
+                            text: term
+                        };
+                },
+                formatNoMatches: "Enter valid format text"
+            })
+
+
+
+
+            $("#job_name").keyup(function() {
+                table.draw();
+            });
+
+            $('#mainDepartment').on('select2:select', function(e) {
+                table.draw();
+            });
+
+            $('#status').on('select2:select', function(e) {
+                table.draw();
+            });
+
+            $('#type').on('select2:select', function(e) {
+                table.draw();
+            });
+
+            $('#search-form').on('reset', function(e) {
+                e.preventDefault();
+                $('#job_name').val(null);
+                $('#mainDepartment').val(null).trigger('change');
+                $('#status').val(null).trigger('change');
+                $('#type').val(null).trigger('change');
+                $('#from-hijri-picker-custom').val(null);
+                $('#to-hijri-picker-custom').val(null);
+                table.draw();
+            });
+
+            $("#search-form").submit(function(e) {
+                e.preventDefault();
+                table.draw();
             });
 
             table.on('draw', function() {

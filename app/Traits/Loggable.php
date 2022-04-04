@@ -102,15 +102,15 @@ trait Loggable
      */
     private function newData($item)
     {
-        // if($item->permission_list >)
+        // dd($item->permission_list, request()->permission_list);
         if (!$item->getChanges()) return null;
         // $permissions = $item->permissions?->each->getChanges()->toArray();
         // $groups = $item->groups?->each->getChanges()->toArray();
-
+        $translations = $item->translations?->map->getDirty()->toArray();
         $newData = array_except($item->getChanges(), ['created_at', 'updated_at', 'deleted_at']);
-        if (request()->has('image') && request()->route()->getActionMethod() == 'update') {
-            $newData += ['image' => $item->images->pluck('media')->toJson()];
-        }
+        // if (request()->has('image') && request()->route()->getActionMethod() == 'update') {
+        //     $newData += ['image' => $item->images->pluck('media')->toJson()];
+        // }
         return array_merge($newData, $translations ?? [], $permissions ?? [], $groups ?? []);
     }
 
@@ -162,7 +162,8 @@ trait Loggable
 
     private function checkIfHasIsActiveOnly($self, string $column)
     {
-        $hasData = count(array_flatten(array_except($this->newData($self), [$column, 'ban_from', 'ban_to'])));
+        $hasData = count(array_flatten(array_except($this->newData($self), [$column, 'ban_from', 'ban_to','user_locale'])));
+        // dump($hasData);
         if (!$hasData && !request()->has('image')) {
             $this->checkStatus($self, $column);
         } elseif ($hasData && in_array($column, array_keys($this->newData($self)))) {

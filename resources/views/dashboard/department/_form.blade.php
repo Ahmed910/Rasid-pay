@@ -4,13 +4,13 @@
             {!! Form::label('departmentName', trans('dashboard.department.department_name')) !!}
             <p class="requiredFields">*</p>
             @foreach ($locales as $locale)
-                {!! Form::text("{$locale}[name]", isset($department) ? $department->name : null, ['class' => 'form-control input-regex stop-copy-paste', 'id' => "{$locale}[name]", 'placeholder' => trans('dashboard.general.enter_name'), 'minlength' => '2', 'maxlength' => '100', 'pattern' => '^[\u0600-\u065F\u066A-\u06EF\u06FA-\u06FFa-zA-Z]+[\u0600-\u065F\u066A-\u06EF\u06FA-\u06FFa-zA-Z0-9-_ ]*$', 'onpaste' => 'return false;', 'oncopy' => 'return false;', 'ondrop' => 'return false;']) !!}
+                {!! Form::text("{$locale}[name]", isset($department) ? $department->name : null, ['class' => 'form-control input-regex stop-copy-paste', 'id' => "{$locale}[name]", 'placeholder' => trans('dashboard.general.enter_name'), 'minlength' => '2', 'maxlength' => '100']) !!}
                 <span class="text-danger" id="{{ $locale }}.nameError" hidden></span>
             @endforeach
         </div>
 
         <div class="col-12 col-md-{{ isset($department) ? 4 : 6 }} mb-5">
-            {!! Form::label('mainDepartment', trans('dashboard.department.department_main')) !!}
+            {!! Form::label('mainDepartment', trans('dashboard.department.main_department')) !!}
             <p class="requiredFields">*</p>
             {!! Form::select('parent_id', $departments, null, ['class' => 'form-control select2-show-search' . ($errors->has('parent_id') ? ' is-invalid' : null), 'placeholder' => trans('dashboard.department.select_main_department'), 'id' => 'parent_id']) !!}
             <span class="text-danger" id="parent_idError" hidden></span>
@@ -71,15 +71,15 @@
 @include('dashboard.layouts.modals.alert')
 
 @section('scripts')
-    <!-- SELECT2 JS -->
-    <script src="{{ asset('dashboardAssets/js/select2.js') }}"></script>
-    <script src="{{ asset('dashboardAssets/plugins/select2/select2.full.min.js') }}"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Dropify/0.2.2/js/dropify.min.js"
-        integrity="sha512-8QFTrG0oeOiyWo/VM9Y8kgxdlCryqhIxVeRpWSezdRRAvarxVtwLnGroJgnVW9/XBRduxO/z1GblzPrMQoeuew=="
-        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<!-- SELECT2 JS -->
+<script src="{{ asset('dashboardAssets/js/select2.js') }}"></script>
+<script src="{{ asset('dashboardAssets/plugins/select2/select2.full.min.js') }}"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Dropify/0.2.2/js/dropify.min.js"
+    integrity="sha512-8QFTrG0oeOiyWo/VM9Y8kgxdlCryqhIxVeRpWSezdRRAvarxVtwLnGroJgnVW9/XBRduxO/z1GblzPrMQoeuew=="
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
-    <script>
-        (function() {
+<script>
+    (function() {
             'use strict';
             let validate = false;
 
@@ -208,5 +208,5 @@
             });
 
         })();
-    </script>
+</script>
 @endsection

@@ -6,9 +6,6 @@
 
 <script src="{{ asset('dashboardAssets/js/custom_scripts.js') }}"></script>
 
-<!-- SELECT2 JS -->
-<script src="{{ asset('dashboardAssets/plugins/select2/select2.full.min.js') }}"></script>
-<script src="{{ asset('dashboardAssets/js/select2.js') }}"></script>
 
 <!-- DATE PICKER JS -->
 <script src="{{ asset('dashboardAssets/plugins/bootstrap-hijri-datepicker/js/bootstrap-hijri-datetimepicker.js') }}">
@@ -51,6 +48,14 @@
                 },
                 {
                     data: "deleted_at"
+                },{
+                data: function(data) {
+                if (data.is_active) {
+                return ` <span class="badge bg-success-opacity py-2 px-4">${"@lang('dashboard.general.active')"}</span>`;
+                } else {
+                return ` <span class="badge bg-danger-opacity py-2 px-4">${"@lang('dashboard.general.inactive')"}</span>`;
+                }
+                }
                 },
                 {
                     class: "text-center",
@@ -64,7 +69,7 @@
                                 class="azureIcon"
                                 data-bs-toggle="tooltip"
                                 data-bs-placement="top"
-                                title="التفاصيل"
+                                title="عرض"
                                 ><i class="mdi mdi-eye-outline"></i
                               ></a>
                               <a
@@ -122,3 +127,5 @@
         });
     });
 </script>
+<script src="{{ asset('dashboardAssets/js/select2.js') }}"></script>
+<script src="{{ asset('dashboardAssets/plugins/select2/select2.full.min.js') }}"></script>
