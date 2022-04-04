@@ -156,8 +156,18 @@
                 }
             });
             $('.select2').select2({
-                minimumResultsForSearch: Infinity
-            });
+                minimumResultsForSearch: Infinity,
+                createSearchChoice: function(term) {
+                    if (term.match(/^[a-zA-Z0-9]+$/g))
+                        return {
+                            id: term,
+                            text: term
+                        };
+                },
+                formatNoMatches: "Enter valid format text"
+            })
+
+
 
 
             $("#job_name").keyup(function() {
