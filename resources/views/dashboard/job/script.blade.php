@@ -53,8 +53,10 @@
                 columns: [{
                         data: function(data, type, full, meta) {
                             return meta.row + 1;
-                        }
-                    },
+                        },
+                        name:"id"
+                    }
+                    ,
                     {
                         data: "name",
                         name: "name"
