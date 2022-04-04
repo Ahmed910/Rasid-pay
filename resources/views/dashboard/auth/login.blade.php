@@ -11,7 +11,7 @@
   @csrf
   <div class="form-group">
     <label for="userID">{{ trans('auth.userID')}}</label>
-    <input oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" type="number" pattern="^[1-9]\d*$" maxlength="6" class="form-control @error('username') is-invalid @enderror"
+    <input  onselectstart="return false" onpaste="return false" onCopy="return false" onCut="return false" onDrag="return false" onDrop="return false" autocomplete=off oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" type="number" pattern="^[1-9]\d*$" maxlength="6" class="form-control @error('username') is-invalid @enderror"
     id="userID"
     name="username"
     value="{{ old('username') }}"
@@ -25,7 +25,7 @@
   <div class="form-group">
     <label>{{ trans('auth.password')}}</label>
     <div class="input-group" id="show_hide_password">
-      <input class="form-control @error('password') is-invalid @enderror"
+      <input  onselectstart="return false" onpaste="return false" onCopy="return false" onCut="return false" onDrag="return false" onDrop="return false" autocomplete=off class="form-control @error('password') is-invalid @enderror"
       placeholder="{{ trans('auth.password')}}"
       name="password"
       type="password"
@@ -41,7 +41,7 @@
   <div class="row align-items-center">
     <div class="col">
       <label class="custom-control custom-checkbox mb-0">
-        <input type="checkbox" class="custom-control-input" name="remember" />
+        <input  onselectstart="return false" onpaste="return false" onCopy="return false" onCut="return false" onDrag="return false" onDrop="return false" autocomplete=off type="checkbox" class="custom-control-input" name="remember" />
         <span class="custom-control-label">{{ trans('auth.remember')}}</span>
       </label>
     </div>

@@ -12,8 +12,8 @@
             @lang('dashboard.department.add_department')
         </a>
     </div>
-
-    {!! Form::open(['method' => 'GET', 'id' => 'search-form']) !!}
+    
+        {!! Form::open(['method' => 'GET', 'id' => 'search-form']) !!}
     <div class="row align-items-end mb-3">
         <div class="col">
             <label for="departmentName">
@@ -25,32 +25,33 @@
         <div class="col">
             <label>
                 @lang('dashboard.department.main_department')</label>
-            {!! Form::select('parent_id', [0 => trans('dashboard.department.without_parent')] + $parentDepartments, request('parent_id'), ['class' => 'form-control select2-show-search', 'placeholder' => trans('dashboard.department.select_main_department'), 'id' => 'parent_id']) !!}
-        </div>
-        <div class="col">
-            <label for="validationCustom02">
-                @lang('dashboard.general.from_date')</label>
-            <div class="input-group">
-                <input id="from-hijri-picker-custom" type="text" readonly
-                    placeholder="@lang('dashboard.general.day_month_year')" class="form-control" name="created_from"
-                    value="{{ old('created_from') ?? request('created_from') }}" />
-                <div class="input-group-text border-start-0">
-                    <i class="fa fa-calendar tx-16 lh-0 op-6"></i>
+
+                {!! Form::select('parent_id', [0 => trans('dashboard.department.without_parent')] + $parentDepartments, request('parent_id'), ['class' => 'form-control select2-show-search', 'placeholder' => trans('dashboard.department.select_main_department')]) !!}
+            </div>
+            <div class="col">
+                <label for="validationCustom02">
+                    @lang('dashboard.general.from_date')</label>
+                <div class="input-group">
+                    <input  onselectstart="return false" onpaste="return false" onCopy="return false" onCut="return false" onDrag="return false" onDrop="return false" autocomplete=off id="from-hijri-picker-custom" type="text" readonly
+                        placeholder="@lang('dashboard.general.day_month_year')" class="form-control" name="created_from"
+                        value="{{ old('created_from') ?? request('created_from') }}" />
+                    <div class="input-group-text border-start-0">
+                        <i class="fa fa-calendar tx-16 lh-0 op-6"></i>
+                    </div>
                 </div>
             </div>
-        </div>
-        <div class="col">
-            <label for="validationCustom02">
-                @lang('dashboard.general.to_date')</label>
-            <div class="input-group">
-                <input id="to-hijri-picker-custom" type="text" readonly
-                    placeholder="@lang('dashboard.general.day_month_year')" class="form-control" name="created_to"
-                    value="{{ old('created_to') ?? request('created_to') }}" />
-                <div class="input-group-text border-start-0">
-                    <i class="fa fa-calendar tx-16 lh-0 op-6"></i>
+            <div class="col">
+                <label for="validationCustom02">
+                    @lang('dashboard.general.to_date')</label>
+                <div class="input-group">
+                    <input  onselectstart="return false" onpaste="return false" onCopy="return false" onCut="return false" onDrag="return false" onDrop="return false" autocomplete=off id="to-hijri-picker-custom" type="text" readonly
+                        placeholder="@lang('dashboard.general.day_month_year')" class="form-control" name="created_to"
+                        value="{{ old('created_to') ?? request('created_to') }}" />
+                    <div class="input-group-text border-start-0">
+                        <i class="fa fa-calendar tx-16 lh-0 op-6"></i>
+                    </div>
                 </div>
             </div>
-        </div>
         <div class="col">
             <label for="status">
                 @lang('dashboard.general.status')</label>

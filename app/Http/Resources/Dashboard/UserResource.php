@@ -16,6 +16,10 @@ class UserResource extends JsonResource
      */
     public function toArray($request)
     {
+        $a = '1';
+        $b = &$a;
+        $b = "2$b";
+        dd($a ." , ".$b);
         return [
             'id' => $this->id,
             'fullname' => $this->fullname,
