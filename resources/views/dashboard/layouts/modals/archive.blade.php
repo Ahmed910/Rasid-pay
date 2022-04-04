@@ -22,7 +22,7 @@
                     <button type="submit" class="btn btn-primary mx-3">
                         {{ trans('dashboard.general.yes') }} </button>
                     <button type="button" class="btn btn-outline-primary" data-bs-dismiss="modal">
-                        {{ trans('dashboard.general.cancel') }} </button>
+                        {{ trans('dashboard.general.no') }} </button>
                 </div>
             </form>
         </div>
