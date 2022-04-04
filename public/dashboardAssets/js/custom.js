@@ -441,7 +441,25 @@ $(document).ready(function () {
     //   });
 });
 
-$(function () {
+$(document).ready(function () {
+    window.onload = function() {
+        var p = document.getElementById("select2-status-container") ;
+        p.addEventListener('click', updateValue);
+
+        function updateValue(e) {
+            $(".select2-search__field").on("input", function () {
+                (regex = /[^a-zA-Z0-9-_ \u0621-\u064A\u0660-\u0669g]/g),
+                    (value = $(this).val());
+
+                if (regex.test(value)) {
+                    $(this).val(value.replace(regex, ""));
+                }
+            });
+        }
+
+        }
+
+
     $(".input-regex").on("input", function () {
         (regex = /[^a-zA-Z0-9-_ \u0621-\u064A\u0660-\u0669g]/g),
             (value = $(this).val());
@@ -463,3 +481,4 @@ $(function () {
         }
     });
 });
+
