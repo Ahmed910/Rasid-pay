@@ -396,7 +396,6 @@ $(document).ready(function () {
 $(document).ready(function () {
     /******* popoverIMG *******/
 
-
     $('[data-toggle="popoverIMG"]').popover({
         trigger: "hover",
         html: true,
@@ -442,20 +441,25 @@ $(document).ready(function () {
     //   });
 });
 
+$(function () {
+    $(".input-regex").on("input", function () {
+        (regex = /[^a-zA-Z0-9-_ \u0621-\u064A\u0660-\u0669g]/g),
+            (value = $(this).val());
 
-$(".input-regex").on("input", function () {
-    (regex = /[^a-zA-Z0-9-_ \u0621-\u064A\u0660-\u0669g]/g),
-      (value = $(this).val());
-
-    if (regex.test(value)) {
-      $(this).val(value.replace(regex, ""));
-    }
-  });
-
-
-$(function(){
-    $('.stop-copy-paste').on("cut copy paste",function(e) {
-       e.preventDefault();
+        if (regex.test(value)) {
+            $(this).val(value.replace(regex, ""));
+        }
     });
- });
 
+    $(".stop-copy-paste").on("cut copy paste", function (e) {
+        e.preventDefault();
+    });
+
+    $(document).keydown(function (objEvent) {
+        if (objEvent.ctrlKey) {
+            if (objEvent.keyCode == 65) {
+                return false;
+            }
+        }
+    });
+});
