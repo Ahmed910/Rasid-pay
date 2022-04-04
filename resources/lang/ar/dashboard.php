@@ -107,6 +107,7 @@ return [
         'accept'=>'موافقة',
         'cancel'=>'الغاء',
         'created_by' => 'منشيء المجموعة',
+        'u_can_use_this_name' => 'يمكنك استخدام الإسم',
     ],
     'datatable' => [
         'no_data' => 'لا يوجد بيانات',
