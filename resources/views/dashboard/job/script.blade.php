@@ -10,6 +10,7 @@
     <script src="{{ asset('dashboardAssets/plugins/bootstrap-hijri-datepicker/js/bootstrap-hijri-datetimepicker.js') }}">
     </script>
 
+
     <script>
         $(function() {
             /******* Calendar *******/
@@ -52,10 +53,13 @@
                 columns: [{
                         data: function(data, type, full, meta) {
                             return meta.row + 1;
-                        }
-                    },
+                        },
+                        name:"id"
+                    }
+                    ,
                     {
-                        data: "name"
+                        data: "name",
+                        name: "name"
                     },
                     {
                         data: function(data) {
@@ -71,10 +75,12 @@
                             } else {
                                 return "@lang('dashboard.department.without_parent')";
                             }
-                        }
+                        },
+                        name: "department"
                     },
                     {
-                        data: "created_at"
+                        data: "created_at",
+                        name: "created_at"
                     },
                     {
                         data: function(data) {
@@ -83,7 +89,9 @@
                             } else {
                                 return ` <span class="badge bg-danger-opacity py-2 px-4">${"@lang('dashboard.job.active_cases.0')"}</span>`;
                             }
-                        }
+                        },
+
+                        name:"is_active"
                     },
                     {
                         data: function(data) {
@@ -92,7 +100,8 @@
                             } else {
                                 return ` <span class="vacant">${"@lang('dashboard.job.is_vacant.false')"}</span>`;
                             }
-                        }
+                        },
+                        name:"is_vacant"
                     },
                     {
                         class: "text-center",
