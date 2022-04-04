@@ -12,6 +12,19 @@
             @lang('dashboard.department.add_department')
         </a>
     </div>
+    
+        {!! Form::open(['method' => 'GET', 'id' => 'search-form']) !!}
+    <div class="row align-items-end mb-3">
+        <div class="col">
+            <label for="departmentName">
+                @lang('dashboard.department.department_name')</label>
+            <input type="text" class="form-control input-regex stop-copy-paste" id="departmentName" maxlength=100
+                placeholder="@lang('dashboard.general.enter_name')" name="name"
+                value="{{ old('name') ?? request('name') }}" />
+        </div>
+        <div class="col">
+            <label>
+                @lang('dashboard.department.main_department')</label>
 
                 {!! Form::select('parent_id', [0 => trans('dashboard.department.without_parent')] + $parentDepartments, request('parent_id'), ['class' => 'form-control select2-show-search', 'placeholder' => trans('dashboard.department.select_main_department')]) !!}
             </div>
