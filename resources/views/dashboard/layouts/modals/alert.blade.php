@@ -4,7 +4,7 @@
          toastr.success("{{ session()->get("success") }}.", '', {
              closeButton: false,
              tapToDismiss: false,
-             positionClass: 'toast-top-left',
+             positionClass: 'toast-top-center',
              progressBar: true,
              hideDuration: 9000,
              rtl: "{{ LaravelLocalization::getCurrentLocaleDirection() == 'rtl' }}"
@@ -18,7 +18,7 @@
          toastr.info("{{ session()->get("info") }}.", '', {
              closeButton: false,
              tapToDismiss: false,
-             positionClass: 'toast-top-left',
+             positionClass: 'toast-top-center',
              progressBar: true,
              hideDuration: 9000,
              rtl: "{{ LaravelLocalization::getCurrentLocaleDirection() == 'rtl' }}"
@@ -33,7 +33,7 @@
          toastr.error("{{ session()->get("fail") }}.", '', {
              closeButton: false,
              tapToDismiss: false,
-             positionClass: 'toast-top-left',
+             positionClass: 'toast-top-center',
              progressBar: true,
              hideDuration: 9000,
              rtl: "{{ LaravelLocalization::getCurrentLocaleDirection() == 'rtl' }}"
@@ -48,7 +48,7 @@
         toastr['error']('{{ $error }}.', '', {
           closeButton: false,
           tapToDismiss: false,
-          positionClass: 'toast-top-left',
+          positionClass: 'toast-top-center',
           progressBar: true,
           hideDuration: 9000,
           rtl: "{{ LaravelLocalization::getCurrentLocaleDirection() == 'rtl' }}"

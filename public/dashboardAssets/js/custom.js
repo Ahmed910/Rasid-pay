@@ -443,3 +443,19 @@ $(document).ready(function () {
 });
 
 
+$(".input-regex").on("input", function () {
+    (regex = /[^a-zA-Z0-9-_ \u0621-\u064A\u0660-\u0669g]/g),
+      (value = $(this).val());
+
+    if (regex.test(value)) {
+      $(this).val(value.replace(regex, ""));
+    }
+  });
+
+
+$(function(){
+    $('.stop-copy-paste').on("cut copy paste",function(e) {
+       e.preventDefault();
+    });
+ });
+

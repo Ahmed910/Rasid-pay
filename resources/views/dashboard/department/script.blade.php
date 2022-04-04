@@ -82,9 +82,18 @@
                     {
                         class: "text-center",
                         data: function(data) {
-                            fun_modal = data.has_jobs ?
-                                `notArchiveItem('@lang('dashboard.department.has_jobs_cannot_delete')')` :
-                                `archiveItem('${data.id}', '${data.delete_route}')`;
+                          if(data.has_jobs)
+                          {
+                             fun_modal =  `notArchiveItem('@lang('dashboard.department.has_jobs_cannot_delete')')`;
+                          }
+                          if(data.has_children)
+                          {
+                             fun_modal = `notArchiveItem('@lang('dashboard.department.department_has_relationship_cannot_delete')')`;
+                          }
+                          else
+                          {
+                             fun_modal =`archiveItem('${data.id}', '${data.delete_route}','${'#departmentTable'}')`;
+                          }
 
                             return `<a
                     href="${data.show_route}"
@@ -153,4 +162,6 @@
     </script>
     <script src="{{ asset('dashboardAssets/js/select2.js') }}"></script>
     <script src="{{ asset('dashboardAssets/plugins/select2/select2.full.min.js') }}"></script>
+
+
 @endsection
