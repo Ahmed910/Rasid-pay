@@ -18,7 +18,7 @@
   <div class="row align-items-end mb-3">
     <div class="col-12 col-md-3">
       <label for="groupName">{!! trans('dashboard.group.group_name') !!}</label>
-      <input  onselectstart="return false" onpaste="return false" onCopy="return false" onCut="return false" onDrag="return false" onDrop="return false" autocomplete=off type="text" maxlength="100" onselectstart="return false" onpaste="return false" onCopy="return false" onCut="return false" onDrag="return false" onDrop="return false" autocomplete=off name="name" value="{{ request('name') }}" class="form-control" id="groupName" placeholder="{!! trans('dashboard.group.group_name') !!}" />
+      <input type="text" name="name" value="{{ request('name') }}" class="form-control" id="groupName" placeholder="{!! trans('dashboard.group.group_name') !!}" />
     </div>
     <div class="col-12 col-md-3">
         <label for="status">{{ trans('dashboard.general.status') }}</label>
@@ -27,11 +27,11 @@
 
     <div class="col-12 col-md-3">
       <label for="userNumFrom">{!! trans('dashboard.group.admins_from') !!}</label>
-      <input  onselectstart="return false" onpaste="return false" onCopy="return false" onCut="return false" onDrag="return false" onDrop="return false" autocomplete=off type="text" name="admins_from" value="{{ request('admins_from') }}" class="form-control" id="userNumFrom" placeholder="{!! trans('dashboard.group.admins_from') !!}" />
+      <input type="text" name="admins_from" value="{{ request('admins_from') }}" class="form-control" id="userNumFrom" placeholder="{!! trans('dashboard.group.admins_from') !!}" />
     </div>
     <div class="col-12 col-md-3">
       <label for="userNumTo">{!! trans('dashboard.group.admins_to') !!}</label>
-      <input  onselectstart="return false" onpaste="return false" onCopy="return false" onCut="return false" onDrag="return false" onDrop="return false" autocomplete=off type="text" name="admins_to" value="{{ request('admins_to') }}" class="form-control" id="userNumTo" placeholder="{!! trans('dashboard.group.admins_to') !!}" />
+      <input type="text" name="admins_to" value="{{ request('admins_to') }}" class="form-control" id="userNumTo" placeholder="{!! trans('dashboard.group.admins_to') !!}" />
     </div>
     <div class="col-12 col-md-6 mt-5">
       <div class="dropdown">

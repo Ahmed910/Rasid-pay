@@ -43,7 +43,7 @@
                         name="email"
                         value="{{ old('email') }}"
                         placeholder="البريد الإلكتروني"
-                        
+                      
                       />
                       @error('email')
                           <div class="invalid-feedback">{{ $message }}</div>
