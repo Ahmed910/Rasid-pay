@@ -107,6 +107,15 @@ return [
         'accept'=>'Accept',
         'cancel'=>'Cancel',
     ],
+    'datatable' => [
+        'no_data' => 'No D ata ',
+        'there_is_no_data' => 'There is No Data    ',
+        'showing' => 'showing',
+        'to' => 'to',
+        'from' => 'from',
+        'entries' => 'entries',
+        'no_search_result' => 'No Search Result    ',
+    ],
     'error' => [
         'method_not_allow' => 'Http method (:method) not allowed',
         'not_found' => 'Model Not Found!',

@@ -7,6 +7,7 @@ use App\Models\{ActivityLog, User};
 use App\Models\{Employee};
 use App\Models\Department\Department;
 use App\Http\Resources\Blade\Dashboard\Activitylog\ActivityLogCollection;
+use App\Http\Resources\Dashboard\SimpleEmployeeResource;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use App\Providers\AppServiceProvider;
@@ -38,7 +39,7 @@ class ActivityLogController extends Controller
                 ->additional(['total_count' => $activitylogCount]);
         }
 
-        $departments = Department::where('is_active', 1)
+        $departments = Department::without("images", 'addedBy')
         ->select("id")
         ->ListsTranslations("name")
         ->pluck('name', 'id');
@@ -71,10 +72,30 @@ class ActivityLogController extends Controller
      */
     public function show($id)
     {
+
+
         return view('dashboard.activity_log.show');
     }
 
+ // get_Employees by ajax
 
+    public function getEmployees()
+    {
+        $employees = User::whereIn('user_type', ['admin', 'superadmin'])
+            ->when(request('department'), function ($employees) {
+                $employees->whereHas('employee', function ($employees) {
+                    $employees->where('department_id', request('department'));
+                });
+            })->get();
+
+
+            return response()->json([
+                'data' => $employees,
+                'status' => true,
+                'message' => ''
+            ]);
+
+    }
 // sub program _ ajax
 public function getSubPrograms($main_progs = null)
     {

@@ -81,7 +81,7 @@
                         data: function(data) {
                             fun_modal = !data.is_vacant ?
                                 `notArchiveItem('@lang('dashboard.rasid_job.jobs_hired_archived')')` :
-                                `archiveItem('${data.id}', '${data.delete_route}')`;
+                                `archiveItem('${data.id}', '${data.delete_route}','${'#JobsTable'}')`;
                             return `<a
                   href="${data.show_route}"
                   class="azureIcon"

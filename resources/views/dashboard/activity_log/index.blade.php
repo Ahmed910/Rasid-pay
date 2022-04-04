@@ -17,13 +17,15 @@
       {!! Form::select('action',trans('dashboard.activity_log.actions'),null,['class' => 'form-control select2-show-search form-select', 'id' => 'activityName', 'placeholder' => trans('dashboard.activity_log.select_activity')]) !!}
 
     </div>
-    <div class="col-12 col-md-3">
-      <label for="employee">{{ trans('dashboard.employee.employee') }}</label>
-      {!!  Form::select('employee_id',$employees,null,['class' => 'form-control select2-show-search form-select', 'id' => 'employee', 'placeholder' => trans('dashboard.activity_log.select_employee')]) !!}
-    </div>
+
     <div class="col-12 col-md-3">
       <label for="mainDepartment">{{ trans('dashboard.department.department') }} </label>
       {!! Form::select('department_id', $departments, null, ['class' => 'form-control select2-show-search form-select', 'id' => 'mainDepartment', 'placeholder' => trans('dashboard.department.select_department')]) !!}
+    </div>
+
+    <div class="col-12 col-md-3">
+      <label for="employee">{{ trans('dashboard.employee.employee') }}</label>
+      {!!  Form::select('employee_id',[],null,['class' => 'form-control select2-show-search form-select', 'id' => 'employee', 'placeholder' => trans('dashboard.activity_log.select_employee')]) !!}
     </div>
     <div class="col-12 col-md-3">
       <label for="mainProgram">{{ trans('dashboard.activity_log.main_program') }}</label>
@@ -74,9 +76,9 @@
         <i class="mdi mdi-magnify">
           </i> {{ trans('dashboard.general.search') }}
       </button>
-      <button class="btn btn-outline-primary" type="submit">
-        <i class="mdi mdi-restore"></i>  {{ trans('dashboard.general.show_all') }}
-      </button>
+      <a href="{{ route('dashboard.activity_log.index') }}" class="btn btn-outline-primary">
+        <i class="mdi mdi-restore"></i>{{ trans('dashboard.general.show_all') }}
+    </a>
     </div>
   </div>
 </form>

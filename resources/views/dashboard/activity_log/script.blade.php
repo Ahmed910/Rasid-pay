@@ -136,9 +136,9 @@
 
                 "language": {
                     "lengthMenu": "@lang('dashboard.general.show') _MENU_",
-                    "emptyTable": "@lang('dashboard.general.no_data')",
-                    "info": "@lang('dashboard.general.showing') _START_ @lang('dashboard.general.to') _END_ @lang('dashboard.general.from') _TOTAL_ @lang('dashboard.general.entries')",
-                    "infoEmpty": "@lang('dashboard.general.no_search_result')",
+                    "emptyTable": "@lang('dashboard.datatable.no_data')",
+                    "info": "@lang('dashboard.datatable.showing') _START_ @lang('dashboard.datatable.to') _END_ @lang('dashboard.datatable.from') _TOTAL_ @lang('dashboard.datatable.entries')",
+                    "infoEmpty": "@lang('dashboard.datatable.no_search_result')",
                     "paginate": {
                         "next": '<i class="mdi mdi-chevron-left"></i>',
                         "previous": '<i class="mdi mdi-chevron-right"></i>'
@@ -173,6 +173,34 @@
                   }
 
               });
+ //get employees from Department
+ $("#mainDepartment").change(function(e) {
+                  e.preventDefault();
+                  let maindep_id = $("#mainDepartment").val();
+                  $('#employee').empty();
+                  $("#employee").append('<option value=""> {{ trans('dashboard.activity_log.select_employee') }} </option>')
+                  if (maindep_id != '') {
+
+
+                      //send ajax
+                      $.ajax({
+                          url: '/dashboard/activitylog/all-employees/' + maindep_id,
+                          type: 'get',
+                          success: function(data) {
+                              if (data) {
+                                  $.each(data.data, function(index, user_id) {
+                                      $("#employee").append('<option value="' + user_id.id +
+                                          '">' + user_id.fullname + '</option>')
+                                  });
+
+                              }
+                          }
+                      });
+                  }
+
+              });
+
+
         });
     </script>
 

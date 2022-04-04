@@ -59,15 +59,17 @@ class DepartmentController extends Controller
         $departments = Department::with('parent.translations')->ListsTranslations('name')->where(['parent_id' => null, 'is_active' => 1])->pluck('name', 'id')->toArray();
         $locales = config('translatable.locales');
 
-        $departments = array_merge([-1 => trans('dashboard.department.without_parent')], $departments);
+        $departments = array_merge([null => trans('dashboard.department.without_parent')], $departments);
 
         return view('dashboard.department.create', compact('departments', 'locales'));
     }
 
     public function store(DepartmentRequest $request, Department $department)
     {
-        $department->fill($request->validated() + ['added_by_id' => auth()->id()])->save();
-        return redirect()->route('dashboard.department.index')->withSuccess(__('dashboard.general.success_add'));
+        if (!request()->ajax()) {
+            $department->fill($request->validated() + ['added_by_id' => auth()->id()])->save();
+            return redirect()->back()->withSuccess(__('dashboard.general.success_add'));
+        }
     }
 
     public function show(Request $request, $id)
@@ -114,8 +116,13 @@ class DepartmentController extends Controller
 
     public function update(DepartmentRequest $request, Department $department)
     {
-        $department->fill($request->validated() + ['updated_at' => now()])->save();
-        return redirect()->route('dashboard.department.index')->withSuccess(__('dashboard.general.success_update'));
+
+        if (!request()->ajax()) {
+            $department->fill($request->validated() + ['updated_at' => now()])->save();
+            return redirect()->route('dashboard.department.index')->withSuccess(__('dashboard.general.success_update'));
+        }
+
+
     }
     public function archive(Request $request)
     {
@@ -166,13 +173,12 @@ class DepartmentController extends Controller
 
     public function destroy(ReasonRequest $request, Department $department)
     {
-
-        if ($department->rasidJobs()->exists() || $department->children()->exists()) {
-            return redirect()->back();
+        if ($request->ajax()) {
+            $department->delete();
+                return response()->json([
+                    'message' =>__('dashboard.general.success_archive')
+                ] );
         }
-
-        $department->delete();
-        return redirect()->route('dashboard.department.index')->withSuccess(__('dashboard.general.success_archive'));
     }
 
 
