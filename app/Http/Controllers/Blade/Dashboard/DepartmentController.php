@@ -22,7 +22,6 @@ class DepartmentController extends Controller
         }
 
         if ($request->ajax()) {
-
             $departmentsQuery = Department::search($request)
                 ->CustomDateFromTo($request)
                 ->with('parent.translations')
