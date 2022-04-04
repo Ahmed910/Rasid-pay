@@ -19,7 +19,7 @@
                 <label for="validationCustom02">
                     @lang('dashboard.general.from_date')</label>
                 <div class="input-group">
-                    <input  onselectstart="return false" onpaste="return false" onCopy="return false" onCut="return false" onDrag="return false" onDrop="return false" autocomplete=off id="from-hijri-picker-custom" type="text" readonly
+                    <input id="from-hijri-picker-custom" type="text" readonly
                         placeholder="@lang('dashboard.general.day_month_year')" class="form-control" name="created_from"
                         value="{{ old('created_from') ?? request('created_from') }}" />
                     <div class="input-group-text border-start-0">
@@ -31,7 +31,7 @@
                 <label for="validationCustom02">
                     @lang('dashboard.general.to_date')</label>
                 <div class="input-group">
-                    <input  onselectstart="return false" onpaste="return false" onCopy="return false" onCut="return false" onDrag="return false" onDrop="return false" autocomplete=off id="to-hijri-picker-custom" type="text" readonly
+                    <input id="to-hijri-picker-custom" type="text" readonly
                         placeholder="@lang('dashboard.general.day_month_year')" class="form-control" name="created_to"
                         value="{{ old('created_to') ?? request('created_to') }}" />
                     <div class="input-group-text border-start-0">

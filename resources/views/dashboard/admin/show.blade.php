@@ -62,7 +62,7 @@
             <div class="col-12 col-md-3 d-flex align-items-end">
 
                 <div class="form-check">
-                    <input  onselectstart="return false" onpaste="return false" onCopy="return false" onCut="return false" onDrag="return false" onDrop="return false" autocomplete=off class="form-check-input" type="checkbox" value="" id="flexCheckDefault"
+                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"
                         {{ $admin->is_login_code ? 'checked' : '' }} disabled />
                     <label class="form-check-label" for="flexCheckDefault">
                         {{ trans('dashboard.general.Send VerificationCode') }}

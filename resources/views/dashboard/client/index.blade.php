@@ -17,7 +17,7 @@
   <div class="row align-items-end mb-3">
     <div class="col">
       <label for="departmentName">اسم القسم</label>
-      <input  onselectstart="return false" onpaste="return false" onCopy="return false" onCut="return false" onDrag="return false" onDrop="return false" autocomplete=off
+      <input
         type="text"
         class="form-control"
         id="departmentName"
@@ -37,7 +37,7 @@
     <div class="col">
       <label for="validationCustom02"> من تاريخ الإنشاء</label>
       <div class="input-group">
-        <input  onselectstart="return false" onpaste="return false" onCopy="return false" onCut="return false" onDrag="return false" onDrop="return false" autocomplete=off
+        <input
           id="from-hijri-picker"
           type="text"
           placeholder="يوم/شهر/سنة"
@@ -50,7 +50,7 @@
     <div class="col">
       <label for="validationCustom02">إلى تاريخ الإنشاء</label>
       <div class="input-group">
-        <input  onselectstart="return false" onpaste="return false" onCopy="return false" onCut="return false" onDrag="return false" onDrop="return false" autocomplete=off
+        <input
           id="to-hijri-picker"
           type="text"
           placeholder="يوم/شهر/سنة"

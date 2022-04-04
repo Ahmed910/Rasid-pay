@@ -10,8 +10,8 @@
     <form method="get" action="" id="search-form">
         <div class="row align-items-end mb-3">
             <div class="col">
-                <label for="departmentName">{{ trans('dashboard.department.department_name') }}</label>
-                <input maxlength="100"  onselectstart="return false" onpaste="return false" onCopy="return false" onCut="return false" onDrag="return false" onDrop="return false" autocomplete=off type="text" class="form-control" id="departmentName" placeholder="{{ trans('dashboard.department.enter_name') }}" name="name"
+                <label for="departmentName">{{ trans('dashboard.department.department_main') }}</label>
+                <input type="text" class="form-control" id="departmentName" placeholder="اسم القسم" name="name"
                     value="{{ old('name') ?? request('name') }}" />
             </div>
             <div class="col">
@@ -20,16 +20,9 @@
                 {!! Form::select('parent_id', $parentDepartments, null, ['class' => 'form-control select2', 'placeholder' => trans('dashboard.department.select_main_department')]) !!}
             </div>
             <div class="col">
-                <label for="status">
-                    @lang('dashboard.general.status')</label>
-                {!! Form::select('is_active', trans('dashboard.general.active_cases'), old('is_active') ?? request('is_active'),
-                ['class' => 'form-control select2', 'placeholder' => trans('dashboard.general.select_status'), 'id' =>
-                'status']) !!}
-            </div>
-            <div class="col">
                 <label for="validationCustom02"> {{ trans('dashboard.department.archive_from_date') }}</label>
                 <div class="input-group">
-                    <input  onselectstart="return false" onpaste="return false" onCopy="return false" onCut="return false" onDrag="return false" onDrop="return false" autocomplete=off id="from-hijri-picker" type="text" placeholder="يوم/شهر/سنة" class="form-control" readonly
+                    <input id="from-hijri-picker" type="text" placeholder="يوم/شهر/سنة" class="form-control" readonly
                         name="created_from" value="{{ old('created_from') ?? request('created_from') }}" />
                     <div class="input-group-text border-start-0">
                         <i class="fa fa-calendar tx-16 lh-0 op-6"></i>
@@ -39,7 +32,7 @@
             <div class="col">
                 <label for="validationCustom02">{{ trans('dashboard.department.archive_to_date') }} </label>
                 <div class="input-group">
-                    <input  onselectstart="return false" onpaste="return false" onCopy="return false" onCut="return false" onDrag="return false" onDrop="return false" autocomplete=off id="to-hijri-picker" type="text" placeholder="يوم/شهر/سنة" class="form-control" readonly
+                    <input id="to-hijri-picker" type="text" placeholder="يوم/شهر/سنة" class="form-control" readonly
                         name="created_to" value="{{ old('created_to') ?? request('created_to') }}" />
                     <div class="input-group-text border-start-0">
                         <i class="fa fa-calendar tx-16 lh-0 op-6"></i>
@@ -80,9 +73,8 @@
                         <tr>
                             <th class="border-bottom-0">#</th>
                             <th class="border-bottom-0">{{ trans('dashboard.department.department_name') }}</th>
-                            <th class="border-bottom-0"> {{ trans('dashboard.department.main_department') }}</th>
+                            <th class="border-bottom-0"> {{ trans('dashboard.department.department_main') }}</th>
                             <th class="border-bottom-0">{{ trans('dashboard.department.archived_at') }} </th>
-                            <th class="border-bottom-0">{{ trans('dashboard.job.is_active') }}</th>
                             <th class="border-bottom-0 text-center">{{ trans('dashboard.general.actions') }}</th>
                         </tr>
                     </thead>
