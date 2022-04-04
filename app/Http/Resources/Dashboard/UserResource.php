@@ -44,7 +44,7 @@ class UserResource extends JsonResource
             'actions' => $this->when($request->routeIs('dashboard.admins.index'), [
                 'update' => auth()->user()->hasPermissions('admins.update'),
                 'show' => auth()->user()->hasPermissions('admins.show')
-            ]
+            ])
         ];
     }
 }
