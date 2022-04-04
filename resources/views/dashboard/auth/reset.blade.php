@@ -75,14 +75,15 @@
                       <label for="mobile">رقم الجوال</label>
                       <input
                         type="number"
-                        class="form-control @error('phone') is-invalid @enderror"
+                        class="form-control @error('phone') {{ trans('dashboard.general.phoneCode_registeration') }} @enderror"
                         id="mobile"
                         name="phone"
                         value="{{ old('phone') }}"
                         placeholder="رقم الجوال"
                       />
                       @error('phone')
-                          <div class="invalid-feedback">{{ $message }}</div>
+                          <div class="invalid-feedback">{{ trans('dashboard.general.phone_code') }}</div>
+
                       @enderror
                     </div>
                     <div class="col-12 mt-5 text-center">
