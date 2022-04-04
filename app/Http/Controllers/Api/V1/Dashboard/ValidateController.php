@@ -55,7 +55,7 @@ class ValidateController extends Controller
         return response()->json([
             'status' => true,
             'data' => null,
-            'message' => '',
+            'message' => trans('dashboard.general.u_can_use_this_name'),
         ], 200);
     }
 }
