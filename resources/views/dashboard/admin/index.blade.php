@@ -17,13 +17,13 @@
         <div class="row align-items-end mb-3">
             <div class="col-12 col-md-3">
                 <label for="userName">{{ trans('dashboard.admin.name') }}</label>
-                <input  onselectstart="return false" onpaste="return false" onCopy="return false" onCut="return false" onDrag="return false" onDrop="return false" autocomplete=off type="text" class="form-control" id="userName" placeholder="{{ trans('dashboard.admin.name') }}"
+                <input type="text" class="form-control" id="userName" placeholder="{{ trans('dashboard.admin.name') }}"
                     name="name" value="{{ old('name') ?? request('name') }}" />
 
             </div>
             <div class="col-12 col-md-3">
                 <label for="userID">{{ trans('dashboard.admin.number') }}</label>
-                <input  onselectstart="return false" onpaste="return false" onCopy="return false" onCut="return false" onDrag="return false" onDrop="return false" autocomplete=off type="number" class="form-control" id="userID" placeholder="{{ trans('dashboard.admin.number') }}"
+                <input type="number" class="form-control" id="userID" placeholder="{{ trans('dashboard.admin.number') }}"
                     name="login_id" value="{{ old('login_id') ?? request('login_id') }}" />
 
             </div>
@@ -44,7 +44,7 @@
             <div class="col-12 col-md-3 temporary">
                 <label for="ban_from"> {{ trans('dashboard.admin.ban_from') }}</label>
                 <div class="input-group">
-                    <input  onselectstart="return false" onpaste="return false" onCopy="return false" onCut="return false" onDrag="return false" onDrop="return false" autocomplete=off id="from-hijri-unactive-picker-custom" type="text" readonly
+                    <input id="from-hijri-unactive-picker-custom" type="text" readonly
                         placeholder="{{ trans('dashboard.general.day_month_year') }}" class="form-control"
                         name="ban_from" value="{{ old('ban_from') ?? request('ban_from') }}" />
                     <div class="input-group-text border-start-0">
@@ -55,7 +55,7 @@
             <div class="col-12 col-md-3 temporary">
                 <label for="ban_to">{{ trans('dashboard.admin.ban_to') }}</label>
                 <div class="input-group">
-                    <input  onselectstart="return false" onpaste="return false" onCopy="return false" onCut="return false" onDrag="return false" onDrop="return false" autocomplete=off id="to-hijri-unactive-picker-custom" type="text" readonly
+                    <input id="to-hijri-unactive-picker-custom" type="text" readonly
                         placeholder="{{ trans('dashboard.general.day_month_year') }}" class="form-control"
                         name="ban_to" value="{{ old('ban_to') ?? request('ban_to') }}" />
                     <div class="input-group-text border-start-0">
@@ -68,7 +68,7 @@
                 <label for="created_from">
                     {{ trans('dashboard.general.from_date') }}</label>
                 <div class="input-group">
-                    <input  onselectstart="return false" onpaste="return false" onCopy="return false" onCut="return false" onDrag="return false" onDrop="return false" autocomplete=off id="from-hijri-picker-custom" type="text" readonly
+                    <input id="from-hijri-picker-custom" type="text" readonly
                         placeholder="{{ trans('dashboard.general.day_month_year') }}" class="form-control"
                         name="created_from" value="{{ old('created_from') ?? request('created_from') }}" />
                     <div class="input-group-text border-start-0">
@@ -80,7 +80,7 @@
                 <label for="created_to">
                     {{ trans('dashboard.general.to_date') }}</label>
                 <div class="input-group">
-                    <input  onselectstart="return false" onpaste="return false" onCopy="return false" onCut="return false" onDrag="return false" onDrop="return false" autocomplete=off id="to-hijri-picker-custom" type="text" readonly
+                    <input id="to-hijri-picker-custom" type="text" readonly
                         placeholder="{{ trans('dashboard.general.day_month_year') }}" class="form-control"
                         name="created_to" value="{{ old('created_to') ?? request('created_to') }}" />
                     <div class="input-group-text border-start-0">

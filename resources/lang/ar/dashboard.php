@@ -250,6 +250,7 @@ return [
         "departments" => "الاقسام",
         "department_image" => "صورة القسم",
         "department_name" => "اسم القسم",
+        "department_main" => "القسم الر ئيسي",
         "select_department" => "اختر القسم",
         "main_department" => "القسم الر ئيسي",
         'select_main_department' => 'اختر القسم الر ئيسي',

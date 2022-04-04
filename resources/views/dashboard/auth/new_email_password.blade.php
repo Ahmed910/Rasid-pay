@@ -15,7 +15,7 @@
     <div class="form-group">
         <label>كلمة المرور الجديدة</label>
         <div class="input-group" id="show_hide_password">
-            <input  onselectstart="return false" onpaste="return false" onCopy="return false" onCut="return false" onDrag="return false" onDrop="return false" autocomplete=off class="form-control @error('password') is-invalid @enderror" placeholder="كلمة المرور" type="password" name="password"/>
+            <input class="form-control @error('password') is-invalid @enderror" placeholder="كلمة المرور" type="password" name="password"/>
                 @error('password')
                     <div class="invalid-feedback">{{ $message }}</div>
                 @enderror
@@ -24,12 +24,12 @@
             </div>
         </div>
     </div>
-    <input  onselectstart="return false" onpaste="return false" onCopy="return false" onCut="return false" onDrag="return false" onDrop="return false" autocomplete=off type="hidden" name="token" value="{{ $token }}">
-    <input  onselectstart="return false" onpaste="return false" onCopy="return false" onCut="return false" onDrag="return false" onDrop="return false" autocomplete=off type="hidden" name="email" value="{{ $email }}">
+    <input type="hidden" name="token" value="{{ $token }}">
+    <input type="hidden" name="email" value="{{ $email }}">
     <div class="form-group">
         <label>تأكيد كلمة المرور </label>
         <div class="input-group" id="show_hide_confirm_password">
-            <input  onselectstart="return false" onpaste="return false" onCopy="return false" onCut="return false" onDrag="return false" onDrop="return false" autocomplete=off class="form-control @error('password_confirmation') is-invalid @enderror" placeholder="كلمة المرور" type="password" name="password_confirmation"/>
+            <input class="form-control @error('password_confirmation') is-invalid @enderror" placeholder="كلمة المرور" type="password" name="password_confirmation"/>
                 @error('password_confirmation')
                     <div class="invalid-feedback">{{ $message }}</div>
                 @enderror
