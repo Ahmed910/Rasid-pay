@@ -23,7 +23,7 @@ class BankResource extends JsonResource
         return [
             'id' => $this->id,
             'created_at' => $this->created_at,
-            'actions' => $this->when(in_array($request->route()->getActionMethod(),['index','archive']), [
+            'actions' => $this->when($request->routeIs('banks.index') || $request->routeIs('banks.archive'), [
                 'show' => auth()->user()->hasPermissions('banks.show'),
                 $this->mergeWhen($request->route()->getActionMethod() == 'index', [
                     'create' => auth()->user()->hasPermissions('banks.store'),
