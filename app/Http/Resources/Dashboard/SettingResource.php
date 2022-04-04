@@ -12,8 +12,8 @@ class SettingResource extends JsonResource
             'key'   => $this->key,
             'value' => $this->value,
             'input' => $this->input_type,
-            'actions' => $this->when($request->route()->getActionMethod() == 'index', [
-                'update' => auth()->user()->hasPermissions('countries.update')
+            'actions' => $this->when($request->routeIs('settings.index'), [
+                'update' => auth()->user()->hasPermissions('settings.update')
             ])
         ];
     }
