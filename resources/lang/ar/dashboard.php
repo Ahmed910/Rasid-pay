@@ -37,7 +37,7 @@ return [
         'want_force_delete' => 'هل تريد إتمام عملية الحذف النهائي؟',
         "want_restore"=>"هل تريد إتمام عملية الاستعادة؟",
         'reason_required' => 'السبب مطلوب',
-        'want_back_without_saving' => 'هل تريد العودة دون حفظ ؟',
+        'want_back_without_saving' => 'هل تريد العوده دون الحفظ ؟',
         'close' => 'اغلاق',
         "save" => "حفظ",
         "index" => "عرض",
