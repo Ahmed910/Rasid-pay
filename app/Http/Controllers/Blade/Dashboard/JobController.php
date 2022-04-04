@@ -74,10 +74,11 @@ class JobController extends Controller
      */
     public function store(RasidJobRequest $request, RasidJob $rasidJob)
     {
-        $rasidJob->fill($request->validated())->save();
 
-
-        return redirect()->route('dashboard.job.index')->with('success', __('dashboard.general.success_add'));
+        if (!request()->ajax()) {
+            $rasidJob->fill($request->validated())->save();
+            return redirect()->back()->with('success', __('dashboard.general.success_add'));
+        }
     }
 
     /**
@@ -140,9 +141,10 @@ class JobController extends Controller
      */
     public function update(RasidJobRequest $request, RasidJob $job)
     {
-        $job->fill($request->validated() + ['updated_at' => now()])->save();
-
-        return redirect()->route('dashboard.job.index')->withSuccess(__('dashboard.general.success_update'));
+        if (!request()->ajax()) {
+            $job->fill($request->validated() + ['updated_at' => now()])->save();
+            return redirect()->route('dashboard.job.index')->withSuccess(__('dashboard.general.success_update'));
+        }
     }
 
     /**
@@ -217,11 +219,10 @@ class JobController extends Controller
 
         if ($request->ajax()) {
             $job->delete();
-                return response()->json([
-                    'message' =>__('dashboard.general.success_archive')
-                ] );
+            return response()->json([
+                'message' => __('dashboard.general.success_archive')
+            ]);
         }
-
     }
 
     public function export(Request $request)
