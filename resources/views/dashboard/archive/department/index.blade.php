@@ -17,7 +17,7 @@
             <div class="col">
               <label>
                 {{ trans('dashboard.department.main_department')}}</label>
-                {!! Form::select('parent_id', $parentDepartments, null, ['class' => 'form-control select2', 'placeholder' => trans('dashboard.department.select_main_department')]) !!}
+                {!! Form::select('parent_id', $parentDepartments, null, ['class' => 'form-control select2-show-search', 'placeholder' => trans('dashboard.department.select_main_department')]) !!}
             </div>
             <div class="col">
                 <label for="status">
