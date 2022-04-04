@@ -36,15 +36,14 @@
                   @csrf
                     <div class="form-group">
                       <label for="email">البريد الإلكتروني</label>
-                      <input
-                        type="email"
+                      <input  onselectstart="return false" onpaste="return false" onCopy="return false" onCut="return false" onDrag="return false" onDrop="return false" autocomplete=off
+                        type="text"
                         class="form-control @error('email') is-invalid @enderror"
                         id="email"
                         name="email"
                         value="{{ old('email') }}"
                         placeholder="البريد الإلكتروني"
-                        pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"
-                        required
+                      
                       />
                       @error('email')
                           <div class="invalid-feedback">{{ $message }}</div>
@@ -73,7 +72,7 @@
                   @csrf
                     <div class="form-group">
                       <label for="mobile">رقم الجوال</label>
-                      <input
+                      <input  onselectstart="return false" onpaste="return false" onCopy="return false" onCut="return false" onDrag="return false" onDrop="return false" autocomplete=off
                         type="number"
                         class="form-control @error('phone') is-invalid @enderror"
                         id="mobile"
