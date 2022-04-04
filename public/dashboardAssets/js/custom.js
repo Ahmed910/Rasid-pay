@@ -257,6 +257,7 @@ function replay() {
         });
     });
 }
+
 replay();
 
 function like() {
@@ -441,32 +442,21 @@ $(document).ready(function () {
     //   });
 });
 
+window.onload = function () {
+    $(".select2-selection__rendered").on("click", updateValue);
+
+    function updateValue() {
+        $(".select2-search__field").on("input", function () {
+             getRegex(this);
+        });
+    }
+
+}
 $(document).ready(function () {
-    window.onload = function() {
-        var p = document.getElementById("select2-status-container") ;
-        p.addEventListener('click', updateValue);
-
-        function updateValue(e) {
-            $(".select2-search__field").on("input", function () {
-                (regex = /[^a-zA-Z0-9-_ \u0621-\u064A\u0660-\u0669g]/g),
-                    (value = $(this).val());
-
-                if (regex.test(value)) {
-                    $(this).val(value.replace(regex, ""));
-                }
-            });
-        }
-
-        }
 
 
     $(".input-regex").on("input", function () {
-        (regex = /[^a-zA-Z0-9-_ \u0621-\u064A\u0660-\u0669g]/g),
-            (value = $(this).val());
-
-        if (regex.test(value)) {
-            $(this).val(value.replace(regex, ""));
-        }
+        getRegex();
     });
 
     $(".stop-copy-paste").on("cut copy paste", function (e) {
@@ -482,3 +472,11 @@ $(document).ready(function () {
     });
 });
 
+function getRegex(e) {
+    (regex = /[^a-zA-Z0-9-_ \u0621-\u064A\u0660-\u0669g]/g),
+        (value = $(e).val());
+
+    if (regex.test(value)) {
+        $(e).val(value.replace(regex, ""));
+    }
+}
