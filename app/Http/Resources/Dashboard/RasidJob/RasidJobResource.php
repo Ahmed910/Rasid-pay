@@ -32,7 +32,7 @@ class RasidJobResource extends JsonResource
             'added_by' => SimpleUserResource::make($this->whenLoaded('addedBy')),
             'employee' => SimpleEmployeeResource::make($this->whenLoaded('employee')),
             'department' => DepartmentResource::make($this->whenLoaded('department')),
-            'actions' => $this->when(in_array($request->route()->getActionMethod(),['index','archive']), [
+            'actions' => $this->when($request->routeIs('rasid_jobs.index') || $request->routeIs('rasid_jobs.archive'), [
                 'show' => auth()->user()->hasPermissions('rasid_jobs.show'),
                 $this->mergeWhen($request->route()->getActionMethod() == 'index', [
                     'create' => auth()->user()->hasPermissions('rasid_jobs.store'),
