@@ -13,10 +13,10 @@
 @enderror
 <form method="POST" action="{!! route('dashboard.check_sms_code') !!}" class="needs-validation" id="form_sms" novalidate>
     @csrf
-    <input type="hidden" name="reset_token" value="{{ $reset_token }}">
+    <input  onselectstart="return false" onpaste="return false" onCopy="return false" onCut="return false" onDrag="return false" onDrop="return false" autocomplete=off type="hidden" name="reset_token" value="{{ $reset_token }}">
      <div class="row col-12 col-md-8 m-auto" dir="ltr">
                   <div class="col">
-                    <input
+                    <input  onselectstart="return false" onpaste="return false" onCopy="return false" onCut="return false" onDrag="return false" onDrop="return false" autocomplete=off
                        type="text" oninput='digitValidate(this)' onkeyup='tabChange(1)'
                       class="form-control text-center   @error('reset_code') border-danger @enderror"  name="reset_code[]"
                       required
@@ -24,7 +24,7 @@
                     />
                   </div>
                   <div class="col">
-                    <input
+                    <input  onselectstart="return false" onpaste="return false" onCopy="return false" onCut="return false" onDrag="return false" onDrop="return false" autocomplete=off
                        type="text" oninput='digitValidate(this)' onkeyup='tabChange(2)'
                       class="form-control text-center   @error('reset_code') border-danger @enderror"  name="reset_code[]"
                       required
@@ -32,7 +32,7 @@
                     />
                   </div>
                   <div class="col">
-                    <input
+                    <input  onselectstart="return false" onpaste="return false" onCopy="return false" onCut="return false" onDrag="return false" onDrop="return false" autocomplete=off
                        type="text" oninput='digitValidate(this)' onkeyup='tabChange(3)'
                       class="form-control text-center   @error('reset_code') border-danger @enderror"  name="reset_code[]"
                       required
@@ -40,7 +40,7 @@
                     />
                   </div>
                   <div class="col">
-                    <input
+                    <input  onselectstart="return false" onpaste="return false" onCopy="return false" onCut="return false" onDrag="return false" onDrop="return false" autocomplete=off
                        type="text" oninput='digitValidate(this)' onkeyup='tabChange(4)'
                       class="form-control text-center   @error('reset_code') border-danger @enderror"  name="reset_code[]"
                       required
