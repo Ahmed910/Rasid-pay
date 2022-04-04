@@ -94,8 +94,8 @@ class GroupController extends Controller
         $old_permissions = $group->permission_list;
         $group->fill($request->validated()+['updated_at' => now()])->save();
         $permissions = $request->permission_list ?? [];
-        $shared_permissions = array_intersect($old_permissions,$request->permission_list);
-        $attached_permissions = array_diff($request->permission_list,$shared_permissions);
+        $shared_permissions = array_intersect($old_permissions,$request->permission_list ?? []);
+        $attached_permissions = array_diff($request->permission_list ?? [],$shared_permissions);
         $detached_permissions = array_diff($old_permissions,$shared_permissions);
         if ($attached_permissions || $detached_permissions) {
             $group->admins?->each(function ($admin) use($attached_permissions,$detached_permissions){
