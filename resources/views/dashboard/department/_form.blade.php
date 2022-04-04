@@ -59,7 +59,6 @@
 
 <div class="row">
     <div class="col-12 mb-5 text-end">
-        {!! Form::button('<span class="spinner-border spinner-border-sm"></span>' . $btn_submit, ['type' => 'button', 'class' => 'btn btn-primary', 'id' => 'loadingButton', 'disabled', 'hidden']) !!}
         {!! Form::button('<i class="mdi mdi-content-save-outline"></i>' . $btn_submit, ['type' => 'submit', 'class' => 'btn btn-primary', 'id' => 'saveButton']) !!}
         {!! Form::button('<i class="mdi mdi-arrow-left"></i>' . trans('dashboard.general.back'), ['type' => 'button', 'class' => 'btn btn-outline-primary', 'id' => 'showBack']) !!}
 
@@ -82,6 +81,7 @@
     (function() {
             'use strict';
             let validate = false;
+            let saveButton = true;
 
             $('#saveButton').on('click', function(e) {
                 e.preventDefault();
@@ -102,16 +102,16 @@
                     url: $('#formId').attr('action'),
                     type: "POST",
                     data: data,
-                    beforeSend: toggleSaveButton('loading'),
+                    beforeSend: toggleSaveButton(),
                     processData: false,
                     contentType: false,
                     cache: false,
                     success: function() {
                         $('#successModal').modal('show');
-                        toggleSaveButton('save');
+                        toggleSaveButton();
                     },
                     error: function(data) {
-                        toggleSaveButton('save');
+                        toggleSaveButton();
 
                         $.each(data.responseJSON.errors, function(name, message) {
                             let inputName = name;
@@ -133,15 +133,16 @@
                 });
             });
 
-            function toggleSaveButton(value) {
-                if (value == 'loading') {
-                    $('#loadingButton').attr('hidden', false);
-                    $('#saveButton').attr('hidden', true);
+            function toggleSaveButton() {
+                if (saveButton) {
+                    saveButton = false;
+                    $("#saveButton").html('<i class="spinner-border spinner-border-sm"></i>' + '{{$btn_submit}}');
+                    $('#saveButton').attr('disabled', true);
                 } else {
-                    $('#saveButton').attr('hidden', false);
-                    $('#loadingButton').attr('hidden', true);
+                    saveButton = true;
+                    $("#saveButton").html('<i class="mdi mdi-content-save-outline"></i>' + '{{$btn_submit}}');
+                    $('#saveButton').attr('disabled', false);
                 }
-
             }
 
             // window.addEventListener(
