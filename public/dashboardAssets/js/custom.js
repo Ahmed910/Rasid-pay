@@ -257,6 +257,7 @@ function replay() {
         });
     });
 }
+
 replay();
 
 function like() {
@@ -441,14 +442,21 @@ $(document).ready(function () {
     //   });
 });
 
-$(function () {
-    $(".input-regex").on("input", function () {
-        (regex = /[^a-zA-Z0-9-_ \u0621-\u064A\u0660-\u0669g]/g),
-            (value = $(this).val());
+window.onload = function () {
+    $(".select2-selection__rendered").on("click", updateValue);
 
-        if (regex.test(value)) {
-            $(this).val(value.replace(regex, ""));
-        }
+    function updateValue() {
+        $(".select2-search__field").on("input", function () {
+             getRegex(this);
+        });
+    }
+
+}
+$(document).ready(function () {
+
+
+    $(".input-regex").on("input", function () {
+        getRegex();
     });
 
     $(".stop-copy-paste").on("cut copy paste", function (e) {
@@ -463,3 +471,12 @@ $(function () {
         }
     });
 });
+
+function getRegex(e) {
+    (regex = /[^a-zA-Z0-9-_ \u0621-\u064A\u0660-\u0669g]/g),
+        (value = $(e).val());
+
+    if (regex.test(value)) {
+        $(e).val(value.replace(regex, ""));
+    }
+}

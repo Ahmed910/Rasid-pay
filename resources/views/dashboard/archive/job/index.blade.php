@@ -25,7 +25,7 @@
             <div class="col">
                 <label for="status">
                     @lang('dashboard.general.status')</label>
-                {!! Form::select('is_active', trans('dashboard.general.active_cases'), old('is_active') ?? request('is_active'), ['class' => 'form-control select2', 'placeholder' => trans('dashboard.general.select_status'), 'id' => 'status']) !!}
+                {!! Form::select('is_active', trans('dashboard.general.active_cases'), old('is_active') ?? request('is_active'), ['class' => 'form-control select2-show-search', 'placeholder' => trans('dashboard.general.select_status'), 'id' => 'status']) !!}
             </div>
             <div class="col">
                 <label for="from-hijri-picker"> {{ trans('dashboard.job.archive_from_date') }}</label>

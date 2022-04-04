@@ -76,7 +76,7 @@
                                 class="azureIcon"
                                 data-bs-toggle="tooltip"
                                 data-bs-placement="top"
-                                title="عرض"
+                                title="التفاصيل"
                                 ><i class="mdi mdi-eye-outline"></i
                               ></a>
                               <a

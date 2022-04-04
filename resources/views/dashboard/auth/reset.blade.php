@@ -36,7 +36,7 @@
                   @csrf
                     <div class="form-group">
                       <label for="email">البريد الإلكتروني</label>
-                      <input  onselectstart="return false" onpaste="return false" onCopy="return false" onCut="return false" onDrag="return false" onDrop="return false" autocomplete=off
+                      <input
                         type="email"
                         class="form-control @error('email') is-invalid @enderror"
                         id="email"
@@ -73,7 +73,7 @@
                   @csrf
                     <div class="form-group">
                       <label for="mobile">رقم الجوال</label>
-                      <input  onselectstart="return false" onpaste="return false" onCopy="return false" onCut="return false" onDrag="return false" onDrop="return false" autocomplete=off
+                      <input
                         type="number"
                         class="form-control @error('phone') is-invalid @enderror"
                         id="mobile"
