@@ -52,7 +52,6 @@
                     </div>
                 </div>
             </div>
-        </div>
         <div class="col">
             <label for="status">
                 @lang('dashboard.general.status')</label>
