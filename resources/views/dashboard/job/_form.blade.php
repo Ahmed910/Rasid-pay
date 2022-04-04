@@ -3,8 +3,10 @@
 
         <div class="col-12 col-md-{{ isset($rasidJob) ? 4 : 6 }} mb-5">
             {!! Form::label('jobName', trans('dashboard.job.job_name')) !!}
+            <p class="requiredFields">*</p>
             @foreach ($locales as $locale)
                 {!! Form::text("{$locale}[name]", isset($rasidJob) ? $rasidJob->name : null, ['class' => 'form-control input-regex stop-copy-paste' . ($errors->has("${locale}.name") ? ' is-invalid' : null), 'id' => 'jobName', 'placeholder' => trans('dashboard.general.enter_name'), 'minlength' => '2', 'maxlength' => '100', 'pattern' => '^[\u0600-\u065F\u066A-\u06EF\u06FA-\u06FFa-zA-Z]+[\u0600-\u065F\u066A-\u06EF\u06FA-\u06FFa-zA-Z0-9-_ ]*$', 'onpaste' => 'return false;', 'oncopy' => 'return false;', 'ondrop' => 'return false;']) !!}
+
                 @error("${locale}.name")
                     <span class="text-danger">{{ $message }}</span>
                 @enderror
@@ -13,7 +15,9 @@
 
         <div class="col-12 col-md-{{ isset($rasidJob) ? 4 : 6 }} mb-5">
             {!! Form::label('department', trans('dashboard.department.department')) !!}
-            {!! Form::select('department_id', $departments, null, ['class' => 'form-control select2-show-search' . ($errors->has('department_id') ? ' is-invalid' : null), 'dir'=>'rtl','placeholder' => trans('dashboard.job.select_department'), 'id' => 'department']) !!}
+            <p class="requiredFields">*</p>
+
+            {!! Form::select('department_id', $departments, null, ['class' => 'form-control select2-show-search' . ($errors->has('department_id') ? ' is-invalid' : null), 'dir' => 'rtl', 'placeholder' => trans('dashboard.job.select_department'), 'id' => 'department']) !!}
 
             @error('department_id')
                 <span class="text-danger">{{ $message }}</span>
@@ -23,6 +27,8 @@
         @if (isset($rasidJob))
             <div class="col-12 col-md-4 mb-5">
                 {!! Form::label('status', trans('dashboard.general.status')) !!}
+                <p class="requiredFields">*</p>
+
                 {!! Form::select('is_active', trans('dashboard.job.active_cases'), null, ['class' => 'form-control select2' . ($errors->has('is_active') ? ' is-invalid' : null), 'id' => 'status', 'placeholder' => trans('dashboard.general.select_status')]) !!}
                 @error('is_active')
                     <span class="text-danger">{{ $message }}</span>
@@ -115,7 +121,7 @@
                     $('#backModal').modal('show');
                     return false;
                 } else {
-                  window.location.href ="../" ;
+                    window.location.href = "../";
                 }
             });
         })();
