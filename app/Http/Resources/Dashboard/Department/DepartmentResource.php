@@ -36,7 +36,7 @@ class DepartmentResource extends JsonResource
             "images"    => ImagesResource::collection($this->whenLoaded("images")),
             'added_by'   => SimpleUserResource::make($this->whenLoaded('addedBy')),
             'activity'  => ActivityLogResource::collection($this->whenLoaded('activity')),
-            'actions' => $this->when(in_array($request->route()->getActionMethod(),['index','archive']), [
+            'actions' => $this->when($request->routeIs('departments.index') || $request->routeIs('departments.archive'), [
                 'show' => auth()->user()->hasPermissions('departments.show'),
                 $this->mergeWhen($request->route()->getActionMethod() == 'index', [
                     'create' => auth()->user()->hasPermissions('departments.store'),

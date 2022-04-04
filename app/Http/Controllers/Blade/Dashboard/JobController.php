@@ -221,7 +221,7 @@ class JobController extends Controller
                     'message' =>__('dashboard.general.success_archive')
                 ] );
         }
-       
+
     }
 
     public function export(Request $request)
