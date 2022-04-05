@@ -1,3 +1,4 @@
+
 let datatableId ;
 function archiveItem(itemId, route,tableId) {
     $("#modal_archive").modal('show');
@@ -25,25 +26,43 @@ function unArchiveItem(itemId, route) {
     // $("#modal_not_archive #message").text(message);
 }
 $(function(){
-        $(".archieveForm").on('submit',function(event){
-                event.preventDefault();
-                action = $(this).attr('action');
-                method = $(this).attr('method');
 
-                $.ajax({
-                    url:action,
-                    type: method,
-                    data : $(this).serialize(),
-
-                    success: function (data) {
-                        $('#modal_archive').modal('hide');
-                        toastr.success(data.message);
-                        $(datatableId).DataTable().ajax.reload();
-
+            $(".archieveForm").validate({
+                rules: {
+                    reasonAction: {
+                        required: true,
+                        rangelength:[10,1000]
                     },
-                    error: function(data) {
-                    $('#alertReasonAction').text(data.responseJSON.errors.reasonAction);
+                },
+                messages: {
+                    reasonAction: {
+                      required: 'حقل السبب مطلوب',
+                      rangelength: 'يجب ان يكون حقل السبب 10 حروفا او اكثر '
+                    },
+                  },
+                submitHandler: function (form) {
+                    var formData = $(form).serialize();
+                    action = $(form).attr('action');
+                    method = $(form).attr('method');
+
+                    $.ajax({
+                        url:action,
+                        type: method,
+                        data: formData,
+
+                        success: function (data) {
+                            $('#modal_archive').modal('hide');
+                            toastr.success(data.message);
+                            $(datatableId).DataTable().ajax.reload();
+
+                        },
+                        error: function(data) {
+                            $('#alertReasonAction').text(data.responseJSON.errors.reasonAction);
+                        }
+                    });
                 }
             });
-        });
+
+
+
 });
