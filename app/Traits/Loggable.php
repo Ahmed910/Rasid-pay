@@ -18,7 +18,7 @@ trait Loggable
         });
 
         static::updated(function (self $self) {
-            if (class_basename($self) == 'User') {
+            if (in_array(class_basename($self),['User','Admin'])) {
                 return $self->checkIfHasIsActiveOnly($self, 'ban_status');
             }
 
