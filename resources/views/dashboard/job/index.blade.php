@@ -55,13 +55,21 @@
         <div class="col">
             <label for="status">
                 {{ trans('dashboard.general.status') }}</label>
+<<<<<<< Updated upstream
             {!! Form::select('is_active', [-1 => trans('dashboard.general.all_cases')] + trans('dashboard.general.active_cases'), old('is_active') ?? request('is_active'), ['class' => 'form-control select2-show-search', 'placeholder' => trans('dashboard.general.select_status'), 'id' => 'status']) !!}
+=======
+<<<<<<< Updated upstream
+            {!! Form::select('is_active', [-1 => trans('dashboard.general.all_cases')] + trans('dashboard.job.active_cases'), old('is_active') ?? request('is_active'), ['class' => 'form-control select2-show-search', 'placeholder' => trans('dashboard.general.select_status'), 'id' => 'status']) !!}
+=======
+            {!! Form::select('is_active', [-1 => trans('dashboard.general.all_cases')] + trans('dashboard.general.active_cases'), old('is_active') ?? request('is_active'), ['class' => 'form-control select2', 'placeholder' => trans('dashboard.general.select_status'), 'id' => 'status']) !!}
+>>>>>>> Stashed changes
+>>>>>>> Stashed changes
         </div>
 
         <div class="col">
             <label for="type">
                 {{ trans('dashboard.general.type') }}</label>
-            {!! Form::select('is_vacant', [-1 => trans('dashboard.general.all_cases')] + trans('dashboard.general.job_type_cases'), old('is_vacant') ?? request('is_vacant'), ['class' => 'form-control select2-show-search', 'placeholder' => trans('dashboard.general.select_type'), 'id' => 'type']) !!}
+            {!! Form::select('is_vacant', [-1 => trans('dashboard.general.all_cases')] + trans('dashboard.general.job_type_cases'), old('is_vacant') ?? request('is_vacant'), ['class' => 'form-control select2', 'placeholder' => trans('dashboard.general.select_type'), 'id' => 'type']) !!}
         </div>
 
     </div>
