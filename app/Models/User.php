@@ -208,7 +208,7 @@ class User extends Authenticatable implements HasAssetsInterface
 
         if (isset($request->login_id)) {
 
-            $query->where("login_id", $request->login_id);
+            $query->where("login_id", "like", "%$request->login_id%");
         }
 
         if (isset($request->ban_status)) {
