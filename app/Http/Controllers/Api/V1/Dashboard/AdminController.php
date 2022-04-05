@@ -76,10 +76,10 @@ class AdminController extends Controller
 
     public function show(Request $request, $id)
     {
-        $admin = User::withTrashed()->where('user_type', 'admin')->findOrFail($id);
+        $admin = User::withTrashed()->where('user_type', 'admin')->with('admin')->findOrFail($id);
         $activities = [];
         if (!$request->has('with_activity') || $request->with_activity) {
-            $activities  = $admin->activity()
+            $activities  = $admin->admin->activity()
                 ->sortBy($request)
                 ->paginate((int)($request->per_page ?? 15));
         }
@@ -98,8 +98,9 @@ class AdminController extends Controller
         if ($request->password_change && $request->password_change == 1) {
             $admin->fill($request->validated()+['updated_at' => now()])->save();
         }else{
-            $admin->fill($request->safe()->except(['password'])+['updated_at' => now()])->save()
+            $admin->fill($request->safe()->except(['password'])+['updated_at' => now()])->save();
         };
+        $admin->admin->fill(['updated_at' => now()])->save();
 
         //TODO::send sms with password
         // if($request->('password_change'))
