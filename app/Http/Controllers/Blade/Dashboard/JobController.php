@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Blade\Dashboard;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Dashboard\RasidJob\RasidJobRequest;
+use App\Http\Requests\Dashboard\JobBladeRequest;
 use App\Http\Requests\Dashboard\ReasonRequest;
 use App\Http\Resources\Blade\Dashboard\Activitylog\ActivityLogCollection;
 use App\Http\Resources\Blade\Dashboard\Job\JobCollection;
@@ -72,7 +72,7 @@ class JobController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(RasidJobRequest $request, RasidJob $rasidJob)
+    public function store(JobBladeRequest $request, RasidJob $rasidJob)
     {
 
         if (!request()->ajax()) {
@@ -139,7 +139,7 @@ class JobController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(RasidJobRequest $request, RasidJob $job)
+    public function update(JobBladeRequest $request, RasidJob $job)
     {
         if (!request()->ajax()) {
             $job->fill($request->validated() + ['updated_at' => now()])->save();
