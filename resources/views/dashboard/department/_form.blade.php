@@ -115,7 +115,6 @@
 
                         $.each(data.responseJSON.errors, function(name, message) {
                             let inputName = name;
-                            console.log(inputName)
                             let inputError = name + 'Error';
 
                             if (inputName.includes('.')) {
@@ -123,7 +122,6 @@
                                 inputName = convertArray[0] + '[' + convertArray[1] + ']'
                             }
 
-                            console.log(inputError);
                             $('input[name="' + inputName + '"]').addClass('is-invalid');
                             $('select[name="' + inputName + '"]').addClass('is-invalid');
                             $('span[id="' + inputError + '"]').attr('hidden', false);
