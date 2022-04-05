@@ -100,6 +100,7 @@ class AdminController extends Controller
         }else{
             $admin->fill($request->safe()->except(['password'])+['updated_at' => now()])->save();
         };
+        $admin->admin()->update();
 
         //TODO::send sms with password
         // if($request->('password_change'))
