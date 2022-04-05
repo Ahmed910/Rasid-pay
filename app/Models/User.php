@@ -197,7 +197,7 @@ class User extends Authenticatable implements HasAssetsInterface
     public function scopeSearch(Builder $query, $request)
     {
         $this->addGlobalActivity($this, $request->query(), ActivityLog::SEARCH, 'index');
-        if ($request->name) {
+        if ($request->has('name')) {
             $query->where(function ($q) use ($request) {
                 $q->where("fullname", "like", "%\\$request->name%");
             });
@@ -207,7 +207,6 @@ class User extends Authenticatable implements HasAssetsInterface
         !$request->country_id ?: $query->where("country_id", $request->country_id);
 
         if (isset($request->login_id)) {
-
             $query->where("login_id", "like", "%$request->login_id%");
         }
 

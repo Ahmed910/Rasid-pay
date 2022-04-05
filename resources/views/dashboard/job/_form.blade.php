@@ -113,7 +113,8 @@
                     },
                     error: function(data) {
                         toggleSaveButton();
-
+                        $.each(data.responseJSON.errors, function(name, message) {
+                            let
                         $.each(data.responseJSON.errors, function(name, message) {
                             let inputName = name;
                             let inputError = name + 'Error';
@@ -140,13 +141,7 @@
                 } else {
                     saveButton = true;
                     $("#saveButton").html('<i class="mdi mdi-content-save-outline"></i>' + '{{$btn_submit}}');
-                    $('#saveButton').attr('disabled', false);
-                }
-            }
-
-
-            // window.addEventListener(
-            //     "load",
+       //     "load",
             //     function() {
             //         // Fetch all the forms we want to apply custom Bootstrap validation styles to
             //         var forms = document.getElementsByClassName("needs-validation");

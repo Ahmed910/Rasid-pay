@@ -6,6 +6,7 @@
 @endsection
 @section('content')
     <div class="page-header">
+
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
                 <li class="breadcrumb-item">

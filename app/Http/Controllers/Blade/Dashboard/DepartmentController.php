@@ -58,7 +58,7 @@ class DepartmentController extends Controller
         $departments = Department::with('parent.translations')->ListsTranslations('name')->where(['parent_id' => null, 'is_active' => 1])->pluck('name', 'id')->toArray();
         $locales = config('translatable.locales');
 
-        $departments = array_merge([null => trans('dashboard.department.without_parent')], $departments);
+        $departments = array_merge(['without' => trans('dashboard.department.without_parent')], $departments);
 
         return view('dashboard.department.create', compact('departments', 'locales'));
     }
