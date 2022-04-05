@@ -11,7 +11,7 @@
 
         <div class="col-12 col-md-{{ isset($department) ? 4 : 6 }} mb-5">
             {!! Form::label('mainDepartment', trans('dashboard.department.main_department')) !!}
-            <p class="requiredFields">*</p>
+            <p class="requiredFields"></p>
             {!! Form::select('parent_id', $departments, null, ['class' => 'form-control select2-show-search' . ($errors->has('parent_id') ? ' is-invalid' : null), 'placeholder' => trans('dashboard.department.select_main_department'), 'id' => 'parent_id']) !!}
             <span class="text-danger" id="parent_idError" hidden></span>
         </div>

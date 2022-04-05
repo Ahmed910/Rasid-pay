@@ -77,6 +77,7 @@ return [
         "show_all notification"=>"مشاهدة كل الإشعارات",
         "personalfile" =>"الملف الشخص",
         "active_cases" => [
+            'الجميع',
             'معطلة',
             'مفعلة',
         ],
@@ -217,7 +218,7 @@ return [
         "main_program" => 'البرنامج الرئيسي',
         "sub_program" => 'البرنامج الفرعي',
         "group" => "المجموعة الادارية",
-        "groups" => "الصلاحيات",
+        "groups" => "سجل الصلاحيات",
         "chosen_groups" => "الصلاحيات المختارة",
         "add_group" => "اضافة مجموعة",
         "edit_group" => "تعديل المجموعة",
@@ -270,6 +271,10 @@ return [
             'create' => ' إضافة قسم ',
             'show' => 'عرض قسم',
 
+        ],
+        'active_cases' => [
+           1=> 'مفعل',
+            0=>'معطل',
         ],
         'permissions' => $permissions + [
             'get_parents' => 'عرض الأقسام الرئيسية',
