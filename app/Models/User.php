@@ -207,7 +207,6 @@ class User extends Authenticatable implements HasAssetsInterface
         !$request->country_id ?: $query->where("country_id", $request->country_id);
 
         if (isset($request->login_id)) {
-
             $query->where("login_id", "like", "%$request->login_id%");
         }
 
