@@ -58,7 +58,7 @@ class AdminController extends Controller
     public function store(AdminRequest $request)
     {
         $admin = User::where('user_type', 'employee')->findOrFail($request->employee_id);
-        $admin->update(['user_type' => 'admin', 'password' => $request->password, 'added_by_id' => auth()->id(), 'is_login_code' => $request->is_login_code, 'login_id' => $request->login_id]);
+        $admin->fill(['user_type' => 'admin', 'password' => $request->password, 'added_by_id' => auth()->id(), 'is_login_code' => $request->is_login_code, 'login_id' => $request->login_id])->save();
         //TODO::send sms with password
         $permissions = $request->permission_list ?? [];
         if ($request->group_list) {
@@ -96,7 +96,7 @@ class AdminController extends Controller
 
         if ($request->password_change && $request->password_change == 1) $admin->update($request->validated());
 
-        else $admin->update($request->safe()->except(['password']));
+        else $admin->fill($request->safe()->except(['password'])+['updated_at' => now()])->save();
 
         //TODO::send sms with password
         // if($request->('password_change'))
