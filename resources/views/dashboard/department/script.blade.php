@@ -89,7 +89,7 @@
                     class="azureIcon"
                     data-bs-toggle="tooltip"
                     data-bs-placement="top"
-                    title="@lang('dashboard.general.details')"
+                    title="@lang('dashboard.general.show')"
                     ><i class="mdi mdi-eye-outline"></i
                         ></a>
                         <a

@@ -11,7 +11,7 @@
             <a href="permissions-record.html"> سجل الصلاحيات</a>
           </li>
           <li class="breadcrumb-item active" aria-current="page">
-            عرض صلاحية
+            عرض مجموعة
           </li>
         </ol>
       </nav>
