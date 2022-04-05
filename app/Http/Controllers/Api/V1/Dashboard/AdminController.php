@@ -79,7 +79,7 @@ class AdminController extends Controller
         $admin = User::withTrashed()->where('user_type', 'admin')->with('admin')->findOrFail($id);
         $activities = [];
         if (!$request->has('with_activity') || $request->with_activity) {
-            $activities  = $admin->admin->activity()
+            $activities  = $admin->admin?->activity()
                 ->sortBy($request)
                 ->paginate((int)($request->per_page ?? 15));
         }
@@ -100,7 +100,7 @@ class AdminController extends Controller
         }else{
             $admin->fill($request->safe()->except(['password'])+['updated_at' => now()])->save();
         };
-        $admin->admin->fill($request->validated()+['updated_at' => now()])->save();
+        $admin->admin->update($request->only(['ban_status','ban_from','ban_to'])+['updated_at' => now()]);
 
         //TODO::send sms with password
         // if($request->('password_change'))
