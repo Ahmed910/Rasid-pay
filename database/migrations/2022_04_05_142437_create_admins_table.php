@@ -16,6 +16,9 @@ class CreateAdminsTable extends Migration
         Schema::create('admins', function (Blueprint $table) {
             $table->uuid("id")->primary();
             $table->foreignUuid("user_id")->constrained()->onDelete('cascade');
+            $table->enum('ban_status', ['active', 'permanent', 'temporary'])->default('active');
+            $table->date('ban_from')->nullable();
+            $table->date('ban_to')->nullable();
             $table->timestamps();
         });
     }
