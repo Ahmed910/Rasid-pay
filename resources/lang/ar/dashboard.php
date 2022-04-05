@@ -50,6 +50,8 @@ return [
         "force_delete" => "حذف نهائي",
         'sent_successfully' => 'تم الارسال بنجاح',
         'success_send_login_code' => 'تم ارسال كود التحقق الى رقم الهاتف',
+        'phone_code' =>"حقل رقم الجوال مطلوب",
+        'phoneCode_registeration'=>"رقم الجوال غير مسجل بالنظام",
         'fail_send' => 'فشل عملية الارسال',
         'active' => 'مفعل',
         'inactive' => 'معطل',

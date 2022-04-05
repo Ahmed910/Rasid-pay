@@ -197,25 +197,18 @@ class User extends Authenticatable implements HasAssetsInterface
     public function scopeSearch(Builder $query, $request)
     {
         $this->addGlobalActivity($this, $request->query(), ActivityLog::SEARCH, 'index');
-
-        !$request->name ?: $query->where(function ($q) use ($request) {
-            $q->where("fullname", "like", "%$request->name%")
-            ->orWhere("identity_number", "like", "%$request->name%")
-            ->orWhere("login_id", "like", "%$request->name%")
-            ->orWhere("phone", "like", "%$request->name%");
-        });
+        if ($request->name) {
+            $query->where(function ($q) use ($request) {
+                $q->where("fullname", "like", "%\\$request->name%");
+            });
+        }
 
         !$request->client_type ?: $query->where("client_type", $request->client_type);
         !$request->country_id ?: $query->where("country_id", $request->country_id);
 
-        if (isset($request->is_active)) {
-            if (!in_array($request->is_active, [1, 0])) return;
-
-            $query->where('is_active', $request->is_active);
-        }
         if (isset($request->login_id)) {
 
-            $query->where("login_id", $request->login_id);
+            $query->where("login_id", "like", "%$request->login_id%");
         }
 
         if (isset($request->ban_status)) {
@@ -225,8 +218,6 @@ class User extends Authenticatable implements HasAssetsInterface
         }
 
         !$request->register_status ?: $query->where("register_status", $request->register_status);
-        !$request->gender ?: $query->where("gender", $request->gender);
-        !$request->is_admin_active_user ?: $query->where("is_admin_active_user", $request->is_admin_active_user);
         !$request->login_id ?: $query->where("login_id", "like", "%$request->login_id%");
 
         if ($request->department_id) {
@@ -241,7 +232,7 @@ class User extends Authenticatable implements HasAssetsInterface
                 $date = explode("-", $ban_from);
                 $ban_from = Hijri::convertToGregorian($date[2], $date[1], $date[0])->format('Y-m-d');
             }
-            $query->whereDate('ban_from', ">=", $ban_from);
+            $query->whereDate('ban_from', "<=", $ban_from);
         }
 
         if ($request->ban_to) {
@@ -250,7 +241,7 @@ class User extends Authenticatable implements HasAssetsInterface
                 $date = explode("-", $ban_to);
                 $ban_to = Hijri::convertToGregorian($date[2], $date[1], $date[0])->format('Y-m-d');
             }
-            $query->whereDate('ban_to', "<=", $ban_to);
+            $query->whereDate('ban_to', ">=", $ban_to);
         }
     }
 

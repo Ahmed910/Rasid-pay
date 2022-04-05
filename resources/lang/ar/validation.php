@@ -38,8 +38,8 @@ $attributes = [
     'reset_code'                  => 'حقل الكود',
     'department_id'                  => 'حقل القسم ',
     'reasonAction'                  => 'حقل السبب',
-    'ban_from'                  => 'حقل معطل من',
-    'ban_to'                  => 'حقل معطل إلى',
+    'ban_from'                  => 'حقل تاريخ من',
+    'ban_to'                  => 'حقل تاريخ إلى',
     // new attr
 
     'parent_id'   => 'حقل القسم الرئيسي',
@@ -66,7 +66,7 @@ return [
     'alpha_num'            => 'يجب أن يحتوي  :attribute على حروفٍ وأرقامٍ فقط.',
     'array'                => 'يجب أن يكون  :attribute ًمصفوفة.',
     'before'               => 'يجب على  :attribute أن يكون تاريخًا سابقًا للتاريخ :date.',
-    'before_or_equal'      => ' :attribute يجب أن يكون تاريخا سابقا أو مطابقا للتاريخ :date.',
+    'before_or_equal'      => ' :attribute يجب أن يكون تاريخا سابقا أو مطابقا لتاريخ :date.',
     'between'              => [
         'array'   => 'يجب أن يحتوي  :attribute على عدد من العناصر بين :min و :max.',
         'file'    => 'يجب أن يكون حجم ملف  :attribute بين :min و :max كيلوبايت.',
