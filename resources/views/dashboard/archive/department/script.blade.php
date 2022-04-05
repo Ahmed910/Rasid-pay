@@ -61,7 +61,7 @@
                                 class="azureIcon"
                                 data-bs-toggle="tooltip"
                                 data-bs-placement="top"
-                                title="التفاصيل"
+                                title="@lang('dashboard.general.show')"
                                 ><i class="mdi mdi-eye-outline"></i
                               ></a>
                               <a
@@ -103,16 +103,16 @@
                 [1, 5, 10, 20, -1],
                 [1, 5, 10, 20, "الكل"],
             ],
-            language: {
-                lengthMenu: "عرض _MENU_",
-                zeroRecords: "لا يوجد بيانات",
-                info: "إظهار _START_ إلى _END_ من أصل _TOTAL_ صفحة  ",
-                infoEmpty: "لا يوجد نتائج بحث متاحة",
-                paginate: {
-                    previous: '<i class="mdi mdi-chevron-right"></i>',
-                    next: '<i class="mdi mdi-chevron-left"></i>',
+            "language": {
+                "lengthMenu": "@lang('dashboard.general.show') _MENU_",
+                "emptyTable": "@lang('dashboard.general.no_data')",
+                "info": "@lang('dashboard.general.showing') _START_ @lang('dashboard.general.to') _END_ @lang('dashboard.general.from') _TOTAL_ @lang('dashboard.general.entries')",
+                "infoEmpty": "",
+                "paginate": {
+                    "next": '<i class="mdi mdi-chevron-left"></i>',
+                    "previous": '<i class="mdi mdi-chevron-right"></i>'
                 },
-            },
+            }
         });
         $('.select2').select2({
             minimumResultsForSearch: Infinity

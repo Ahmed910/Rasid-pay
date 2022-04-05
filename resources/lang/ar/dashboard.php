@@ -77,8 +77,8 @@ return [
         "show_all notification"=>"مشاهدة كل الإشعارات",
         "personalfile" =>"الملف الشخص",
         "active_cases" => [
-            'معطل',
-            'مفعل',
+            'معطلة',
+            'مفعلة',
         ],
         'job_type_cases' => [
             'مشغولة',
@@ -219,8 +219,8 @@ return [
         "group" => "المجموعة الادارية",
         "groups" => "الصلاحيات",
         "chosen_groups" => "الصلاحيات المختارة",
-        "add_group" => "اضافة مجموعه",
-        "edit_group" => "تعديل المجموعه",
+        "add_group" => "اضافة مجموعة",
+        "edit_group" => "تعديل المجموعة",
         'show_group' => 'عرض مجموعة',
         "admins_from" => "عدد المستخدمين من",
         "admins_to" => "عدد المستخدمين إلى",
@@ -350,9 +350,9 @@ return [
         ],
 
         'active_cases' => [
-            'active' => 'مفعل',
-            'temporary' => 'معطل لفترة',
-            'permanent' => 'معطل دائم',
+            'active' => 'مفعلة',
+            'temporary' => 'معطلة لفترة',
+            'permanent' => 'معطلة دائم',
         ],
         'permissions' => array_except($permissions, ['archive', 'restore', 'force_delete']) + ['create' => 'عرض المستخدمين']
     ],

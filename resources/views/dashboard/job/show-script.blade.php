@@ -71,7 +71,6 @@
             data: "reason",
           },
 
-
         ],
         pageLength: 10,
         lengthMenu: [
@@ -96,4 +95,5 @@
   </script>
   <script src="{{ asset('dashboardAssets/js/select2.js') }}"></script>
   <script src="{{ asset('dashboardAssets/plugins/select2/select2.full.min.js') }}"></script>
+
 @endsection
