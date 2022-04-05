@@ -25,7 +25,7 @@ class RasidJob extends Model implements TranslatableContract
     #region properties
     protected $guarded = ['created_at', 'deleted_at'];
     public $translatedAttributes = ['name', 'description'];
-    public $attributes = ['is_active' => false, 'is_vacant' =>  true];
+    public $attributes = ['is_active' => true, 'is_vacant' =>  true];
     protected $with = ['translations', 'addedBy', 'department', 'employee'];
     private $sortableColumns = ["name", "department", "created_at", "is_active", "is_vacant"];
 
@@ -54,40 +54,38 @@ class RasidJob extends Model implements TranslatableContract
             });
         }
 
-        if (isset($request->department_id)) {
+        if (isset($request->department_id) && $request->department_id != 0) {
             $query->where("department_id", $request->department_id);
         }
 
 
-        if (isset($request->is_active)) {
-            if (!in_array($request->is_active, [1, 0])) return;
-
+        if (isset($request->is_active) && in_array($request->is_active, [1, 0])) {
             $query->where('is_active', $request->is_active);
         }
 
-        if (isset($request->is_vacant)) {
-            if (!in_array($request->is_vacant, [1, 0])) return;
-
+        if (isset($request->is_vacant) && in_array($request->is_vacant, [1, 0])) {
             $query->where('is_vacant', $request->is_vacant);
         }
     }
 
     public function scopeSortBy(Builder $query, $request)
     {
-        if (!isset($request->sort["column"]) || !isset($request->sort["dir"])) return $query->latest('created_at');
+
+        if (!isset($request->sort["column"]) || !isset($request->sort["dir"])) return $query->latest('rasid_jobs.created_at');
 
         if (
             !in_array(Str::lower($request->sort["column"]), $this->sortableColumns) ||
             !in_array(Str::lower($request->sort["dir"]), ["asc", "desc"])
         ) {
-            return $query->latest('created_at');
+            return $query->latest('rasid_jobs.created_at');
         }
 
         $query->when($request->sort, function ($q) use ($request) {
             if ($request->sort["column"]  == "name") {
                 return $q->has('translations')
-                    ->orderByTranslation($request->sort["column"], @$request->sort["dir"]);
+                ->orderBy($request->sort["column"], @$request->sort["dir"]);
             }
+
 
             if ($request->sort["column"] == "department") {
                 return $q->join('departments as department', 'rasid_jobs.department_id', '=', 'department.id')

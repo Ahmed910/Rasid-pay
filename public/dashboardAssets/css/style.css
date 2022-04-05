@@ -80320,3 +80320,12 @@ tr:hover .dtr-control:before {
 .form-control[readonly]{
   background: #fff;
 }
+
+
+.requiredFields{
+    display: inline;
+    color: #f00;
+  }
+
+  .select2-results__option:first-of-type{
+    display: none !important;

@@ -7,7 +7,8 @@
 @endsection
 @section('scripts')
     <script src="{{ asset('dashboardAssets/js/custom_scripts.js') }}"></script>
-    <script src="{{ asset('dashboardAssets/plugins/bootstrap-hijri-datepicker/js/bootstrap-hijri-datetimepicker.js') }}"></script>
+    <script src="{{ asset('dashboardAssets/plugins/bootstrap-hijri-datepicker/js/bootstrap-hijri-datetimepicker.js') }}">
+    </script>
 
     <script>
         $(function() {
@@ -25,17 +26,32 @@
                     showClear: true,
                     ignoreReadonly: true,
                     isRTL: "{{ LaravelLocalization::getCurrentLocaleDirection() == 'rtl' }}"
+                }).on('dp.change', function() {
+                    table.draw();
                 });
 
-            $("#departmentTable").DataTable({
+            var table = $("#departmentTable").DataTable({
                 sDom: "t<'domOption'lpi>",
                 serverSide: true,
                 processing: true,
                 ajax: {
-                    url: "{{ route('dashboard.department.index') }}?" + $.param(@json(request()->query())),
+                    url: "{{ route('dashboard.department.index') }}",
+                    data: function(data) {
+                        data.name = $('#departmentName').val();
+                        data.created_from = $('#from-hijri-picker-custom').val();
+                        data.created_to = $('#to-hijri-picker-custom').val();
+                        data.is_active = $('#status').val();
+                        data.parent_id = $('#parent_id').val();
+                    },
                     type: "GET",
                     dataSrc: 'data'
                 },
+                // ajax: {
+                //     url: "{{ route('dashboard.department.index') }}?" + $.param(
+                //         @json(request()->query())),
+                //     type: "GET",
+                //     dataSrc: 'data'
+                // },
                 columns: [{
                         data: function(data, type, full, meta) {
                             return meta.row + 1;
@@ -80,9 +96,17 @@
                     {
                         class: "text-center",
                         data: function(data) {
-                            fun_modal = data.has_jobs ?
-                                `notArchiveItem('@lang('dashboard.department.has_jobs_cannot_delete')')` :
-                                `archiveItem('${data.id}', '${data.delete_route}')`;
+                            if (data.has_jobs) {
+                                fun_modal =
+                                    `notArchiveItem('@lang('dashboard.department.has_jobs_cannot_delete')')`;
+                            }
+                            if (data.has_children) {
+                                fun_modal =
+                                    `notArchiveItem('@lang('dashboard.department.department_has_relationship_cannot_delete')')`;
+                            } else {
+                                fun_modal =
+                                    `archiveItem('${data.id}', '${data.delete_route}','${'#departmentTable'}')`;
+                            }
 
                             return `<a
                     href="${data.show_route}"
@@ -115,6 +139,7 @@
                     $('[data-toggle="popoverIMG"]', row).popover({
                         trigger: "hover",
                         html: true,
+                        placement: "left",
                     });
                 },
                 pageLength: 10,
@@ -134,8 +159,45 @@
                     },
                 }
             });
+
+            $('#status').on('select2:select', function(e) {
+                table.draw();
+            });
+
+            $('#parent_id').on('select2:select', function(e) {
+                table.draw();
+            });
+
+            $("#departmentName").keyup(function() {
+                table.draw();
+            });
+
+            $('#search-form').on('reset', function(e) {
+                e.preventDefault();
+                $('#status').val(null).trigger('change');
+                $('#parent_id').val(null).trigger('change');
+                $('#departmentName').val(null);
+                $('#from-hijri-picker-custom').val(null);
+                $('#to-hijri-picker-custom').val(null);
+                table.draw();
+            });
+
+            $("#search-form").submit(function(e) {
+                e.preventDefault();
+                table.draw();
+            });
+
             $('.select2').select2({
                 minimumResultsForSearch: Infinity
+            });
+
+            table.on('draw', function() {
+                var tooltipTriggerList = [].slice.call(
+                    document.querySelectorAll('[data-bs-toggle="tooltip"]')
+                );
+                var tooltipList = tooltipTriggerList.map(function(tooltipTriggerEl) {
+                    return new bootstrap.Tooltip(tooltipTriggerEl);
+                });
             });
         });
     </script>

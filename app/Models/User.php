@@ -42,6 +42,13 @@ class User extends Authenticatable implements HasAssetsInterface
         });
     }
 
+    public function setPhoneAttribute($value)
+    {
+       if (isset($value)) $value = $value[0] == "0" ? substr($value, 1) : $value;
+        $this->attributes['phone'] = isset($this->attributes['country_code']) ? $this->attributes['country_code'] . $value : $value;
+
+    }
+
     public function setPasswordAttribute($value)
     {
         if ($value) {
@@ -69,6 +76,11 @@ class User extends Authenticatable implements HasAssetsInterface
     public function getImageAttribute()
     {
         return asset($this->images()->first()?->media) ?? 'https://picsum.photos/200';
+    }
+
+    public function getPermissionListAttribute()
+    {
+        return $this->permissions->pluck('id')->toArray();
     }
 
     // Roles & Permissions
@@ -125,6 +137,7 @@ class User extends Authenticatable implements HasAssetsInterface
     {
         return $this->belongsTo(Country::class);
     }
+
     public function department()
     {
         return $this->hasOneThrough(Department::class, Employee::class, 'user_id', 'id', 'id', 'department_id');
@@ -134,14 +147,17 @@ class User extends Authenticatable implements HasAssetsInterface
     {
         return $this->hasOne(Client::class);
     }
+
     public function bankAccount()
     {
         return $this->hasOne(BankAccount::class);
     }
+
     public function attachments()
     {
         return $this->hasMany(Attachment::class);
     }
+
     public function setBanStatusAttribute($value)
     {
         $this->attributes['ban_status'] = $value;
@@ -149,7 +165,7 @@ class User extends Authenticatable implements HasAssetsInterface
             $this->attributes['ban_from'] = null;
             $this->attributes['ban_to'] = null;
         }
-    }    
+    }
 
     public function getBanFromAttribute($value)
     {
@@ -181,25 +197,18 @@ class User extends Authenticatable implements HasAssetsInterface
     public function scopeSearch(Builder $query, $request)
     {
         $this->addGlobalActivity($this, $request->query(), ActivityLog::SEARCH, 'index');
-
-        !$request->name ?: $query->where(function ($q) use ($request) {
-            $q->where("fullname", "like", "%$request->name%");
-            // ->orWhere("email", "like", "%$request->keySearch%")
-            // ->orWhere("whatsapp", "like", "%$request->keySearch%")
-            // ->orWhere("phone", "like", "%$request->keySearch%");
-        });
+        if ($request->name) {
+            $query->where(function ($q) use ($request) {
+                $q->where("fullname", "like", "%\\$request->name%");
+            });
+        }
 
         !$request->client_type ?: $query->where("client_type", $request->client_type);
         !$request->country_id ?: $query->where("country_id", $request->country_id);
 
-        if (isset($request->is_active)) {
-            if (!in_array($request->is_active, [1, 0])) return;
-
-            $query->where('is_active', $request->is_active);
-        }
         if (isset($request->login_id)) {
 
-            $query->where("login_id", $request->login_id);
+            $query->where("login_id", "like", "%$request->login_id%");
         }
 
         if (isset($request->ban_status)) {
@@ -209,8 +218,6 @@ class User extends Authenticatable implements HasAssetsInterface
         }
 
         !$request->register_status ?: $query->where("register_status", $request->register_status);
-        !$request->gender ?: $query->where("gender",  $request->gender);
-        !$request->is_admin_active_user ?: $query->where("is_admin_active_user", $request->is_admin_active_user);
         !$request->login_id ?: $query->where("login_id", "like", "%$request->login_id%");
 
         if ($request->department_id) {
@@ -225,7 +232,7 @@ class User extends Authenticatable implements HasAssetsInterface
                 $date = explode("-", $ban_from);
                 $ban_from = Hijri::convertToGregorian($date[2], $date[1], $date[0])->format('Y-m-d');
             }
-            $query->whereDate('ban_from', ">=", $ban_from);
+            $query->whereDate('ban_from', "<=", $ban_from);
         }
 
         if ($request->ban_to) {
@@ -234,7 +241,7 @@ class User extends Authenticatable implements HasAssetsInterface
                 $date = explode("-", $ban_to);
                 $ban_to = Hijri::convertToGregorian($date[2], $date[1], $date[0])->format('Y-m-d');
             }
-            $query->whereDate('ban_to', "<=", $ban_to);
+            $query->whereDate('ban_to', ">=", $ban_to);
         }
     }
 
@@ -261,6 +268,7 @@ class User extends Authenticatable implements HasAssetsInterface
             $q->orderBy($request->sort["column"], @$request->sort["dir"]);
         });
     }
+
     #endregion scopes
 
     public function sendPasswordResetNotification($token)

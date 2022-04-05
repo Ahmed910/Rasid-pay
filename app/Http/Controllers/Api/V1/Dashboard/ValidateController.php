@@ -32,6 +32,10 @@ class ValidateController extends Controller
                     }
                 }];
             }
+
+            if ($request->type == 'permission') {
+                $rules["$locale.name"] = 'unique:group_translations,name,' . @$request->group_id . ',group_id';
+            }
         }
 
         $validator = Validator::make(
@@ -51,7 +55,7 @@ class ValidateController extends Controller
         return response()->json([
             'status' => true,
             'data' => null,
-            'message' => '',
+            'message' => trans('dashboard.general.u_can_use_this_name'),
         ], 200);
     }
 }

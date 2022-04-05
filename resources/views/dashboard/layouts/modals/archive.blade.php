@@ -2,7 +2,7 @@
     data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content border-0">
-            <form method="post" action="#?_method=DELETE" id="item" class="needs-validation" novalidate>
+            <form method="post" action="#?_method=DELETE" id="item" class="needs-validation archieveForm" novalidate>
                 @csrf
                 @method('delete')
                 <div class="modal-body text-center p-0">
@@ -10,40 +10,23 @@
                         src="{{ asset('dashboardAssets/images/lottie/archive.json') }}"
                         style="width: 55%; display: block; margin: 0 auto 1em">
                     </lottie-player>
-                    <p>{{trans("dashboard.general.want_to_archive")}}</p>
+                    <p>{{ trans('dashboard.general.want_to_archive') }}</p>
                     <div class="mt-3">
-                        <textarea class="form-control" placeholder="{{trans("dashboard.general.reason_needed")}}" rows="3" name="reasonAction"
-                            required></textarea>
+                        <textarea class="form-control" placeholder="{{ trans('dashboard.general.reason_needed') }}" rows="3"
+                            name="reasonAction"  id="reasonAction"></textarea>
                         <input type="hidden" name="_method" value="DELETE">
-
-                        <div class="invalid-feedback">{{ trans('dashboard.general.reason_required') }} .</div>
+                        <div class="text-danger" id="alertReasonAction"></div>
                     </div>
                 </div>
                 <div class="modal-footer justify-content-center mt-5 p-0">
-                    <button type="submit" class="btn btn-primary mx-3">
+                    <button type="submit" class="btn btn-secondary mx-3">
                         {{ trans('dashboard.general.yes') }} </button>
                     <button type="button" class="btn btn-outline-primary" data-bs-dismiss="modal">
-                        {{ trans('dashboard.general.cancel') }} </button>
+                        {{ trans('dashboard.general.no') }} </button>
                 </div>
             </form>
         </div>
-        <div class="modal-footer justify-content-center mt-5 p-0">
-          <button type="submit" class="btn btn-primary mx-3">
-            {{ trans('dashboard.general.yes') }} </button>
-          <button type="button" class="btn btn-outline-primary" data-bs-dismiss="modal">
-            {{ trans('dashboard.general.no') }} </button>
-        </div>
     </div>
-    <div class="modal-footer justify-content-center mt-5 p-0">
-      <button type="submit" class="btn btn-secondary mx-3">
-        موافق
-      </button>
-      <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
-        غير موافق
-      </button>
-    </div>
-    </form>
-  </div>
 </div>
-</div>
-</div>
+
+

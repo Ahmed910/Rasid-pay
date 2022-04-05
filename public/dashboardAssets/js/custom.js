@@ -257,6 +257,7 @@ function replay() {
         });
     });
 }
+
 replay();
 
 function like() {
@@ -396,10 +397,11 @@ $(document).ready(function () {
 $(document).ready(function () {
     /******* popoverIMG *******/
 
-
     $('[data-toggle="popoverIMG"]').popover({
         trigger: "hover",
         html: true,
+        placement: "left",
+
         // content:
         //     '<img src="https://picsum.photos/seed/picsum/1000" width="1000" class="mr-3" alt="Sample Image">',
     });
@@ -440,4 +442,50 @@ $(document).ready(function () {
     //   });
 });
 
+window.onload = function () {
+    $(".select2-selection__rendered").on("click", updateValue);
 
+    function updateValue() {
+        $(".select2-search__field").on("input", function (e) {
+            getRegex(this);
+            $(this).addClass("stop-copy-paste");
+            stopcopypaste(e);
+        });
+    }
+
+}
+$(document).ready(function () {
+
+
+    $(".input-regex").on("input", function () {
+        getRegex(this);
+    });
+
+    // $(".stop-copy-paste").on("cut copy paste", function (e) {
+    //     e.preventDefault();
+    // });
+    stopcopypaste();
+    $(document).keydown(function (objEvent) {
+        if (objEvent.ctrlKey) {
+            if (objEvent.keyCode == 65) {
+                return false;
+            }
+        }
+    });
+});
+
+function getRegex(e) {
+    (regex = /[^a-zA-Z0-9-_ \u0621-\u064A\u0660-\u0669g]/g),
+        (value = $(e).val());
+
+    if (regex.test(value)) {
+        $(e).val(value.replace(regex, ""));
+    }
+}
+
+function stopcopypaste(e) {
+
+    $(".stop-copy-paste").on("cut copy paste", function (e) {
+        e.preventDefault();
+    });
+}

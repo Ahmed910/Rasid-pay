@@ -27,6 +27,7 @@ Route::get('artisan_commend/{command}', function ($command) {
         Artisan::call($command);
     }
 });
+Route::get('countries','CountryController@index');
 Route::middleware('auth:sanctum')->group(function () {
     // Public Routes
     Route::post('logout', "Auth\LoginController@logout");
@@ -126,7 +127,7 @@ Route::middleware('auth:sanctum')->group(function () {
         });
 
         Route::apiResources([
-            'countries' => 'CountryController',
+//            'countries' => 'CountryController',
             // 'currencies' => 'CurrencyController',
             // "cities" => "CityController",
             // "regions" => "RegionController",
@@ -145,3 +146,4 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::resource('groups', 'GroupController')->except('create', 'edit', 'destroy');
     });
 });
+

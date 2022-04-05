@@ -19,8 +19,10 @@ class AdminCollection extends ResourceCollection
         $admin = User::withTrashed()->where('user_type', 'admin')->with(['addedBy', 'country', 'groups' => function ($q) {
             $q->with('permissions');
         }])->findOrFail(@$request->route()->parameters['admin']);
-
-        $admin->load('permissions');
+        $permissions = $admin->groups->pluck('permissions')->flatten()->pluck('id')->toArray();
+        $admin->load(['permissions' => function ($q) use($permissions) {
+            $q->whereNotIn('permissions.id',$permissions);
+        }]);
 
         return [
             'user' => UserResource::make($admin),

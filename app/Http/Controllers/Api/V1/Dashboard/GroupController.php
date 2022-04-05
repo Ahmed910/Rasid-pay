@@ -19,10 +19,10 @@ class GroupController extends Controller
     public function index(Request $request)
     {
         $groups = Group::with('groups', 'permissions')
-            ->withCount('admins as user_count')
             ->withTranslation()
             ->search($request)
             ->sortBy($request)
+            ->withCount('admins as user_count')
             ->paginate((int)($request->per_page ?? 15));
 
         return GroupResource::collection($groups)->additional(['status' => true, 'message' => ""]);
@@ -91,12 +91,27 @@ class GroupController extends Controller
      */
     public function update(GroupRequest $request, Group $group)
     {
-        $group->fill($request->validated())->save();
+        $old_permissions = $group->permission_list;
+        $group->fill($request->validated()+['updated_at' => now()])->save();
         $permissions = $request->permission_list ?? [];
+        $shared_permissions = array_intersect($old_permissions,$request->permission_list ?? []);
+        $attached_permissions = array_diff($request->permission_list ?? [],$shared_permissions);
+        $detached_permissions = array_diff($old_permissions,$shared_permissions);
+        if ($attached_permissions || $detached_permissions) {
+            $group->admins?->each(function ($admin) use($attached_permissions,$detached_permissions){
+                if ($detached_permissions) {
+                    $admin->permissions()->detach($detached_permissions);
+                }
+                $new_permissions = array_diff($attached_permissions,$admin->permission_list);
+                if ($new_permissions) {
+                    $admin->permissions()->attach($new_permissions);
+                }
+            });
+        }
         if ($request->group_list) {
-            $group->groups()->sync($request->group_list);
             $permissions = array_filter(array_merge($permissions, Group::find($request->group_list)->pluck('permissions')->flatten()->pluck('id')->toArray()));
         }
+        $group->groups()->sync($request->group_list);
         $group->permissions()->sync($permissions);
         return GroupResource::make($group)->additional(['status' => true, 'message' => trans('dashboard.general.success_update')]);
     }
@@ -110,6 +125,9 @@ class GroupController extends Controller
     public function destroy(Group $group)
     {
         $group->delete();
+        $group->admins?->each(function ($user) {
+            $user->permissions()->detach();
+        });
         return GroupResource::make($group)->additional(['status' => true, 'message' => trans('dashboard.general.success_delete')]);
     }
 

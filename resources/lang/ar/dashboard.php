@@ -21,6 +21,7 @@ return [
         'show :menu' => 'عرض :menu'
     ],
     'general' => [
+        "delete"=>"حذف",
         "no_reasons" => "لايوجد",
         "success_add" => "تمت الإضافة بنجاح",
         "success_delete" => "تم الحذف بنجاح",
@@ -33,10 +34,13 @@ return [
         'yes' => 'موافق',
         'no' => 'غير موافق',
         'want_saving' => 'هل تريد اتمام عملية الحفظ ؟',
+        'want_force_delete' => 'هل تريد إتمام عملية الحذف النهائي؟',
+        "want_restore"=>"هل تريد إتمام عملية الاستعادة؟",
         'reason_required' => 'السبب مطلوب',
-        'want_back_without_saving' => 'هل تريد العودة دون حفظ ؟',
+        'want_back_without_saving' => 'هل تريد العوده دون الحفظ ؟',
         'close' => 'اغلاق',
         "save" => "حفظ",
+        "index" => "عرض",
         "back" => "عودة",
         "edit" => "تعديل",
         'add' => 'إضافة',
@@ -46,6 +50,8 @@ return [
         "force_delete" => "حذف نهائي",
         'sent_successfully' => 'تم الارسال بنجاح',
         'success_send_login_code' => 'تم ارسال كود التحقق الى رقم الهاتف',
+        'phone_code' =>"حقل رقم الجوال مطلوب",
+        'phoneCode_registeration'=>"رقم الجوال غير مسجل بالنظام",
         'fail_send' => 'فشل عملية الارسال',
         'active' => 'مفعل',
         'inactive' => 'معطل',
@@ -63,12 +69,12 @@ return [
         "search" => "بحث",
         "show_all" => "عرض الكل",
         "created_at" => "تاريخ الإنشاء",
-        'create' => 'انشاء',
+        'create' => 'إضافة',
         "actions" => "العمليات",
+        'enter_name'=>'أدخل الاسم',
+        'enter_description'=>'أدخل الوصف',
         "notifications"=>"الاشعارات",
-        "show_all notification"=>"مشاهدة
-        كل
-        الإشعارات",
+        "show_all notification"=>"مشاهدة كل الإشعارات",
         "personalfile" =>"الملف الشخص",
         "active_cases" => [
             'معطلة',
@@ -78,10 +84,12 @@ return [
             'مشغولة',
             'شاغرة',
         ],
+        'all_cases' =>'الجميع',
         'all' => 'الكل',
         'description' => 'الوصف',
         'day_month_year' => 'يوم/شهر/سنة',
         'export' => 'تصدير',
+        'report' => 'طباعة تقرير',
         'details' => 'التفاصيل',
 
         'hold_upload' => 'اسحب وأسقط او قم برفع الصورة',
@@ -100,6 +108,8 @@ return [
         'logout' => 'تسجيل خروج',
         'accept'=>'موافقة',
         'cancel'=>'الغاء',
+        'created_by' => 'منشيء المجموعة',
+        'u_can_use_this_name' => 'يمكنك استخدام الإسم',
     ],
     'datatable' => [
         'no_data' => 'لا يوجد بيانات',
@@ -115,14 +125,22 @@ return [
         'not_found' => 'لم يتم العثور على بيانات',
         'page_not_found' => '404, الصفحة غير موجودة',
         'something_went_wrong' => 'البيانات المدخلة غير صحيحة',
-        'name_must_be_unique_on_department' =>  'هذه الوظيفة موجودة بالفعل لهذا القسم'
+        'name_must_be_unique_on_department' =>  'قيمة حقل الاسم موجودة من قبل لهذا القسم'
     ],
     'activity_log' => [
         "activity_log" => "سجل النشاط",
         "activity_logs" => "سجل النشاطات",
         "reason" => "قام :user بـ:action :model",
         "date" => "تاريخ النشاط",
+        "main_program" =>"البرنامج الرئيسي",
+        "sub_program" => "البرنامج الفرعي",
         "activity" => " النشاط",
+        "employees"=>" الموظفين",
+        "ip_address" => "رقم معرف الجهاز",
+        "select_activity"=>"اختر النشاط",
+        "select_employee" =>"اختر موظف",
+        "select_mainprogram"=>"اختر برنامج رئيسي",
+        "select_subprogram" => "اختر برنامج فرعي",
         'history' => 'الحركة التاريخية',
         'actions' => [
             'created' => 'إضافة',
@@ -135,12 +153,18 @@ return [
             'activated' => 'تفعيل',
             'permanent' => 'حظر دائم',
             'temporary' => 'حظر لفترة',
+
         ],
         'permissions' => array_only($permissions, ['index', 'show']),
         'sub_progs' => [
             'index' => 'سجل النشاطات',
             'show' => 'عرض النشاط',
+            'create' =>'اضافة',
+            'ban_status' =>'حظر',
+            'archive'=>'أرشفة'
+
         ],
+
     ],
     'home' => [
         'home' => 'الرئيسية',
@@ -190,19 +214,24 @@ return [
     ],
     "group" => [
         "group_name" => "اسم المجموعة",
+        "main_program" => 'البرنامج الرئيسي',
+        "sub_program" => 'البرنامج الفرعي',
         "group" => "المجموعة الادارية",
         "groups" => "الصلاحيات",
         "chosen_groups" => "الصلاحيات المختارة",
         "add_group" => "اضافة مجموعة",
         "edit_group" => "تعديل المجموعة",
+        'show_group' => 'عرض مجموعة',
         "admins_from" => "عدد المستخدمين من",
         "admins_to" => "عدد المستخدمين إلى",
         "group_count" => "عدد المجموعات",
+        'group_data' => 'بيانات المجموعة',
         'sub_progs' => [
             'index' => 'سجل الصلاحيات',
             'archive' => 'أرشيف الصلاحيات',
             'create' => 'اضافة مجموعة',
         ],
+        'admins_count' => 'عدد المستخدمين',
         'permissions' => array_except($permissions, ['archive', 'restore', 'force_delete']) + ['create' => 'عرض القائمة']
     ],
     "currency" => [
@@ -227,8 +256,8 @@ return [
         "select_department" => "اختر القسم",
         "main_department" => "القسم الر ئيسي",
         'select_main_department' => 'اختر القسم الر ئيسي',
-        "add_department" => "اضافة قسم",
-        "edit_department" => "تعديل القسم",
+        "add_department" => "إضافة قسم",
+        "edit_department" => "تعديل قسم",
         "department_count" => "عدد الاقسام",
         "archive_from_date" => "تاريخ الأرشفة  (من)",
         "archive_to_date" => "تاريخ الأرشفة  (إلى)",
@@ -238,14 +267,17 @@ return [
         'sub_progs' => [
             'index' => 'سجل الأقسام',
             'archive' => 'أرشيف الأقسام',
-            'create' => 'اضافة قسم',
+            'create' => ' إضافة قسم ',
             'show' => 'عرض قسم',
 
         ],
-        'permissions' => $permissions + ['get_parents' => 'عرض الأقسام الرئيسية'],
+        'permissions' => $permissions + [
+            'get_parents' => 'عرض الأقسام الرئيسية',
+            'export' => 'تصدير',
+    ],
         "has_jobs_cannot_delete" => "لا يمكن أرشفة قسم مرتبط بوظائف",
         "department_has_relationship_cannot_delete" => "لا يمكن حذف هذا القسم لأنه يحتوي علي أقسام فرعية   ",
-        'without_parent' => 'بدون',
+        'without_parent' => 'بدون قسم رئيسي',
         'department_archive' => 'أرشيف الأقسام',
     ],
     "rasid_job" => [
@@ -380,6 +412,13 @@ return [
             'archive' => 'أرشيف الوظائف',
             'create' => 'اضافة وظيفة',
         ],
+
+        'active_cases' => [
+           1=> 'مفعلة',
+            0=>'معطلة',
+        ],
+
+     'permissions' => $permissions
     ],
     "bank" => [
         "bank" => "البنك",
@@ -447,6 +486,7 @@ return [
         ],
     ],
     'permission' => [
+        'name'  => 'اسم الصلاحية',
         'permissions' => 'الصلاحيات',
         'sub_progs' => [
             'index' => 'سجل الصلاحيات',

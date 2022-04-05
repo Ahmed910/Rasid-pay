@@ -21,10 +21,14 @@ class ManagerRequest extends ApiMasterRequest
     protected function prepareForValidation()
     {
         $data = $this->all();
-
+        $this->manager_phone = convert_arabic_number($this->manager_phone);
+        $forvalidation =    isset( $this->manager_phone[0])&&$this->manager_phone[0]=="0" ?substr($this->manager_phone , 1) : $this->manager_phone ;
         $this->merge([
-            'manager_date_of_birth' => @$data['manager_date_of_birth'] ? date('Y-m-d', strtotime($data['date_of_birth'])) : null,
-            'phone' => @$data['phone'] ? convert_arabic_number($data['phone']) : null
+            'manager_date_of_birth' => @$data['manager_date_of_birth'] ? date('Y-m-d', strtotime($data['manager_date_of_birth'])) : null,
+            'manager_phone' => @$data['manager_phone'] ? convert_arabic_number($data['manager_phone']) : null,
+            'manager_country_code' => @$data['manager_country_code'] ? convert_arabic_number($data['manager_country_code']) : null,
+            'manager_full_phone' => $this->manager_country_code . $forvalidation
+
         ]);
     }
 
@@ -35,13 +39,16 @@ class ManagerRequest extends ApiMasterRequest
      */
     public function rules()
     {
+
         $manager_id = !$this->client ?: User::find($this->client)->client()->pluck("manager_id")[0];
 // TODO make unique checks with same [client , manager] [email ,phone  , identity ]
         return [
             "manager_name" => ["required", "max:100", "string"],
-            "manager_email" => ["required", "max:100", "email", "unique:managers,manager_email," . @$manager_id . ",id", "unique:users,email," . @$this->client],
-            "manager_phone" => ["required", "starts_with:9665,05", "numeric", "digits_between:10,15", "unique:managers,manager_phone," . @$manager_id, "unique:users,phone," . @$this->client],
-            "manager_identity_number" => ["required", "numeric", "digits_between:5,10", "unique:managers,manager_identity_number," . @$manager_id, "unique:users,identity_number," . @$this->client],
+            "manager_country_code" => "required|in:" . countries_list(),
+            "manager_email" => ["required", "max:100", "email", "unique:managers,manager_email," . @$manager_id . ",id"],
+            "manager_phone" => ["required", "not_regex:/^{$this->manager_country_code}/", "numeric", "digits_between:7,15",],
+            "manager_full_phone" => ["unique:managers,manager_phone," . @$manager_id],
+            "manager_identity_number" => ["required", "numeric", "digits_between:5,10", "unique:managers,manager_identity_number," . @$manager_id],
             "manager_gender" => ["nullable", "in:male,female"],
             "manager_date_of_birth" => ["required", "date"],
             "manager_address" => ["nullable", "string", "max:255"],

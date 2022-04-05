@@ -10,6 +10,7 @@
     <script src="{{ asset('dashboardAssets/plugins/bootstrap-hijri-datepicker/js/bootstrap-hijri-datetimepicker.js') }}">
     </script>
 
+
     <script>
         $(function() {
             /******* Calendar *******/
@@ -23,21 +24,42 @@
                     dayViewHeaderFormat: "MMMM YYYY",
                     showClear: true,
                     ignoreReadonly: true,
+                }).on('dp.change', function() {
+                    table.draw();
                 });
-            $("#JobsTable").DataTable({
+
+            var table = $("#JobsTable").DataTable({
                 sDom: "t<'domOption'lpi>",
                 serverSide: true,
                 ajax: {
-                    url: "{{ route('dashboard.job.index') }}?" + $.param(
-                        @json(request()->query()))
+                    url: "{{ route('dashboard.job.index') }}",
+                    data: function(data) {
+                        data.name = $('#job_name').val();
+                        data.created_from = $('#from-hijri-picker-custom').val();
+                        data.created_to = $('#to-hijri-picker-custom').val();
+                        data.is_active = $('#status').val();
+                        data.is_vacant = $('#type').val();
+                        data.department_id = $('#mainDepartment').val();
+                    },
+                    type: "GET",
+                    dataSrc: 'data'
                 },
+
+                // ajax: {
+                //     url: "{{ route('dashboard.job.index') }}?" + $.param(
+                //         @json(request()->query()))
+                // },
+
                 columns: [{
                         data: function(data, type, full, meta) {
                             return meta.row + 1;
-                        }
-                    },
+                        },
+                        name:"id"
+                    }
+                    ,
                     {
-                        data: "name"
+                        data: "name",
+                        name: "name"
                     },
                     {
                         data: function(data) {
@@ -50,20 +72,26 @@
                                 }
 
                                 return `<div class="d-flex align-items-center"><div class="flex-shrink-0"> <img src="${image}" data-toggle="popoverIMG" title='<img src="${image}" width="300" height="300" class="d-block rounded-3" alt="">' width="25" class="avatar brround cover-image" alt="..." /> </div><div class="flex-grow-1 ms-3">${data.department_name}</div>`
+                            } else {
+                                return "@lang('dashboard.department.without_parent')";
                             }
-                        }
+                        },
+                        name: "department"
                     },
                     {
-                        data: "created_at"
+                        data: "created_at",
+                        name: "created_at"
                     },
                     {
                         data: function(data) {
                             if (data.is_active) {
-                                return ` <span class="badge bg-success-opacity py-2 px-4">${"@lang('dashboard.general.active')"}</span>`;
+                                return ` <span class="badge bg-success-opacity py-2 px-4">${"@lang('dashboard.job.active_cases.1')"}</span>`;
                             } else {
-                                return ` <span class="badge bg-danger-opacity py-2 px-4">${"@lang('dashboard.general.inactive')"}</span>`;
+                                return ` <span class="badge bg-danger-opacity py-2 px-4">${"@lang('dashboard.job.active_cases.0')"}</span>`;
                             }
-                        }
+                        },
+
+                        name:"is_active"
                     },
                     {
                         data: function(data) {
@@ -72,14 +100,15 @@
                             } else {
                                 return ` <span class="vacant">${"@lang('dashboard.job.is_vacant.false')"}</span>`;
                             }
-                        }
+                        },
+                        name:"is_vacant"
                     },
                     {
                         class: "text-center",
                         data: function(data) {
                             fun_modal = !data.is_vacant ?
                                 `notArchiveItem('@lang('dashboard.rasid_job.jobs_hired_archived')')` :
-                                `archiveItem('${data.id}', '${data.delete_route}')`;
+                                `archiveItem('${data.id}', '${data.delete_route}','${'#JobsTable'}')`;
                             return `<a
                   href="${data.show_route}"
                   class="azureIcon"
@@ -109,7 +138,12 @@
                 ],
                 createdRow: function(row, data) {
                     $('[data-toggle="popoverIMG"]', row).popover({
-                        placement: "right",
+                        placement: "left",
+                        trigger: "hover",
+                        html: true,
+                    });
+                    $('[data-toggle="popoverIMG"]', row).popover({
+                        placement: "left",
                         trigger: "hover",
                         html: true,
                     });
@@ -119,12 +153,11 @@
                     [5, 10, 20, -1],
                     [5, 10, 20, "@lang('dashboard.general.all')"],
                 ],
-
                 "language": {
                     "lengthMenu": "@lang('dashboard.general.show') _MENU_",
-                    "emptyTable": "@lang('dashboard.general.no_data')",
-                    "info": "@lang('dashboard.general.showing') _START_ @lang('dashboard.general.to') _END_ @lang('dashboard.general.from') _TOTAL_ @lang('dashboard.general.entries')",
-                    "infoEmpty": "@lang('dashboard.general.no_search_result')",
+                    "emptyTable": "@lang('dashboard.datatable.no_data')",
+                    "info": "@lang('dashboard.datatable.showing') _START_ @lang('dashboard.datatable.to') _END_ @lang('dashboard.datatable.from') _TOTAL_ @lang('dashboard.datatable.entries')",
+                    "infoEmpty": "@lang('dashboard.datatable.no_search_result')",
                     "paginate": {
                         "next": '<i class="mdi mdi-chevron-left"></i>',
                         "previous": '<i class="mdi mdi-chevron-right"></i>'
@@ -132,7 +165,60 @@
                 }
             });
             $('.select2').select2({
-                minimumResultsForSearch: Infinity
+                minimumResultsForSearch: Infinity,
+                createSearchChoice: function(term) {
+                    if (term.match(/^[a-zA-Z0-9]+$/g))
+                        return {
+                            id: term,
+                            text: term
+                        };
+                },
+                formatNoMatches: "Enter valid format text"
+            })
+
+
+
+
+            $("#job_name").keyup(function() {
+                table.draw();
+            });
+
+            $('#mainDepartment').on('select2:select', function(e) {
+                table.draw();
+            });
+
+            $('#status').on('select2:select', function(e) {
+                table.draw();
+            });
+
+            $('#type').on('select2:select', function(e) {
+                table.draw();
+            });
+
+            $('#search-form').on('reset', function(e) {
+                e.preventDefault();
+                $('#job_name').val(null);
+                $('#mainDepartment').val(null).trigger('change');
+                $('#status').val(null).trigger('change');
+                $('#type').val(null).trigger('change');
+                $('#from-hijri-picker-custom').val(null);
+                $('#to-hijri-picker-custom').val(null);
+                table.draw();
+            });
+
+            $("#search-form").submit(function(e) {
+                e.preventDefault();
+                table.draw();
+            });
+
+            table.on('draw', function() {
+                var tooltipTriggerList = [].slice.call(
+                    document.querySelectorAll('[data-bs-toggle="tooltip"]')
+                );
+                var tooltipList = tooltipTriggerList.map(function(tooltipTriggerEl) {
+                    return new bootstrap.Tooltip(tooltipTriggerEl);
+                });
+
             });
         });
     </script>

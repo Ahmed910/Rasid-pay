@@ -20,37 +20,42 @@
     <div class="card py-7 px-7">
         <div class="row">
             <div class="col-12 col-md-3">
-                <label>{{ trans('dashboard.rasid_job.name') }} :</label>
+                <label>{{ trans('dashboard.rasid_job.name') }} </label>
                 <p>{{ $rasidJob->name }}</p>
             </div>
             <div class="col-12 col-md-3">
-                <label>{{ trans('dashboard.rasid_job.rasid_job_department') }}:</label>
+                <label>{{ trans('dashboard.department.department') }}</label>
                 <p>{{ $rasidJob->department->name }}</p>
             </div>
             <div class="col-12 col-md-3">
-                <label class="d-block" for="departmentName">{{ trans('dashboard.general.status') }}:</label>
+                <label class="d-block" for="departmentName">{{ trans('dashboard.general.status') }}</label>
                 <p class="badge bg-{{ $rasidJob->is_active == 1 ? 'success' : 'danger' }}-opacity py-2 px-4">
-                    {{ trans('dashboard.general.active_cases.' . $rasidJob->is_active) }}</p>
+                    {{ trans('dashboard.job.active_cases.' . $rasidJob->is_active) }}</p>
             </div>
             <div class="col-12 col-md-3">
-                <label class="d-block" for="departmentName">{{ trans('dashboard.general.type') }}:</label>
+                <label class="d-block" for="departmentName">{{ trans('dashboard.general.type') }}</label>
                 <p class="occupied">
                     {{ trans('dashboard.general.job_type_cases.' . $rasidJob->is_vacant) }}
                 </p>
             </div>
+          @if ( $rasidJob->employee?->user?->fullname )
             <div class="col-12 col-md-3">
-                <label class="d-block" for="departmentName">{{ trans('dashboard.rasid_job.employee_name') }}
-                    :</label>
-                <p> {{ $rasidJob->employee?->user?->fullname }}</p>
+              <label class="d-block" for="departmentName">{{ trans('dashboard.rasid_job.employee_name') }}
+                </label>
+              <p> {{ $rasidJob->employee?->user?->fullname }}</p>
             </div>
+          @endif
+        @if ($rasidJob->description)
             <div class="col-12 col-md-9">
-                <label class="d-block"
-                    for="departmentName">{{ trans('dashboard.rasid_job.rasid_job_description') }}
-                    :</label>
-                <p>
-                    {{ $rasidJob->description }}
-                </p>
-            </div>
+            <label class="d-block"
+                   for="departmentName">{{ trans('dashboard.rasid_job.rasid_job_description') }}
+              </label>
+            <p>
+              {{$rasidJob->description }}
+            </p>
+          </div>
+          @endif
+
         </div>
     </div>
 
@@ -72,7 +77,7 @@
                 <tr>
                     <th class="border-bottom-0">#</th>
                     <th class="border-bottom-0">{{ trans('dashboard.general.done_by') }}</th>
-                    <th class="border-bottom-0"> {{ trans('dashboard.department.department') }} </th>
+                    <th class="border-bottom-0"> {{ trans('dashboard.department.department_name') }} </th>
                     <th class="border-bottom-0">{{ trans('dashboard.activity_log.date') }} </th>
                     <th class="border-bottom-0">{{ trans('dashboard.activity_log.activity') }}</th>
                     <th class="border-bottom-0" style="max-width: 800px;">{{ trans('dashboard.general.reason') }}
