@@ -14,13 +14,13 @@
     </div>
     <div class="col-12 col-md-4 mb-5">
       <label for="departmentName">اسم القسم</label>
-      <input  onselectstart="return false" onpaste="return false" onCopy="return false" onCut="return false" onDrag="return false" onDrop="return false" autocomplete=off type="text" class="form-control" id="departmentName" placeholder="اسم القسم" required />
+      <input type="text" class="form-control" id="departmentName" placeholder="اسم القسم" required />
       <div class="invalid-feedback">اسم القسم مطلوب.</div>
     </div>
     <div class="col-12 col-md-4 mb-5">
       <label class="d-block" for="departmentStatus">الحالة</label>
       <!-- <label class="custom-switch form-switch me-5">
-                  <input  onselectstart="return false" onpaste="return false" onCopy="return false" onCut="return false" onDrag="return false" onDrop="return false" autocomplete=off
+                  <input
                     type="checkbox"
                     name="custom-switch-checkbox1"
                     class="custom-switch-input"
@@ -38,7 +38,7 @@
     </div>
     <div class="col-12">
       <label for="departmentImg">صورة القسم (JPG, PNG, JPEG)</label>
-      <input  onselectstart="return false" onpaste="return false" onCopy="return false" onCut="return false" onDrag="return false" onDrop="return false" autocomplete=off type="file" class="dropify" data-show-remove="false" data-bs-height="250" id="departmentImg" data-errors-position="outside" data-show-errors="true" data-show-loader="true" data-allowed-file-extensions="jpg png jpeg" required />
+      <input type="file" class="dropify" data-show-remove="false" data-bs-height="250" id="departmentImg" data-errors-position="outside" data-show-errors="true" data-show-loader="true" data-allowed-file-extensions="jpg png jpeg" required />
     </div>
     <div class="col-12">
       <label for="departmentDes">الوصف</label>

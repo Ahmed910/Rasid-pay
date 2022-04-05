@@ -37,14 +37,13 @@
                     <div class="form-group">
                       <label for="email">البريد الإلكتروني</label>
                       <input  onselectstart="return false" onpaste="return false" onCopy="return false" onCut="return false" onDrag="return false" onDrop="return false" autocomplete=off
-                        type="email"
+                        type="text"
                         class="form-control @error('email') is-invalid @enderror"
                         id="email"
                         name="email"
                         value="{{ old('email') }}"
                         placeholder="البريد الإلكتروني"
-                        pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"
-                        required
+                      
                       />
                       @error('email')
                           <div class="invalid-feedback">{{ $message }}</div>
@@ -75,14 +74,15 @@
                       <label for="mobile">رقم الجوال</label>
                       <input  onselectstart="return false" onpaste="return false" onCopy="return false" onCut="return false" onDrag="return false" onDrop="return false" autocomplete=off
                         type="number"
-                        class="form-control @error('phone') is-invalid @enderror"
+                        class="form-control @error('phone') {{ trans('dashboard.general.phoneCode_registeration') }} @enderror"
                         id="mobile"
                         name="phone"
                         value="{{ old('phone') }}"
                         placeholder="رقم الجوال"
                       />
                       @error('phone')
-                          <div class="invalid-feedback">{{ $message }}</div>
+                          <div class="invalid-feedback">{{ trans('dashboard.general.phone_code') }}</div>
+
                       @enderror
                     </div>
                     <div class="col-12 mt-5 text-center">
