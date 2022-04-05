@@ -106,7 +106,7 @@ trait Loggable
         // $permissions = $item->permissions?->map->getDirty()->toArray();
         // $groups = $item->groups?->map->getDirty()->toArray();
         $translations = $item->translations?->map->getDirty()->toArray();
-        $newData = array_except($item->getChanges(), ['created_at', 'updated_at', 'deleted_at']);
+        $newData = array_except($item->getChanges(), ['created_at', 'deleted_at']);
         if (request()->has('image') && request()->route()->getActionMethod() == 'update') {
             $newData += ['image' => $item->images->pluck('media')->toJson()];
         }
