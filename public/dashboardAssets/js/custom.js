@@ -456,7 +456,7 @@ $(document).ready(function () {
 
 
     $(".input-regex").on("input", function () {
-        getRegex();
+        getRegex(this);
     });
 
     $(".stop-copy-paste").on("cut copy paste", function (e) {
