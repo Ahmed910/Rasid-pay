@@ -13,7 +13,7 @@
                     <a href="{{ route('dashboard.group.index') }}">@lang('dashboard.group.groups')</a>
                 </li>
                 <li class="breadcrumb-item active" aria-current="page">
-                    @lang('dashboard.group.group_name')
+                    @lang('dashboard.group.show_group')
                 </li>
             </ol>
         </nav>
