@@ -30,11 +30,11 @@ class Group extends Model implements TranslatableContract
     {
         $this->addGlobalActivity($this, $request->query(), ActivityLog::SEARCH,'index');
 
-        if ($request->name) {
+        if (isset($request->name)) {
             $query->whereTranslationLike('name',"%$request->name%");
         }
 
-        if ($request->created_at) {
+        if ($request->has('created_at')) {
 
             $query->whereDate('created_at', $request->created_at);
         }

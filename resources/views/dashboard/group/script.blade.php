@@ -88,7 +88,7 @@
                 lengthMenu : "{{ trans('dashboard.datatable.show')}} _MENU_",
                 emptyTable : "{{ trans('dashboard.datatable.no_data') }}",
                 info : "{{ trans('dashboard.datatable.showing') }}_START_ {{ trans('dashboard.datatable.to') }}_END_ {{ trans('dashboard.datatable.from') }}_TOTAL_ {{ trans('dashboard.datatable.entries') }}",
-                infoEmpty : "{{ trans('dashboard.datatable.no_search_result') }}",
+                infoEmpty : "",
                 paginate : {
                     next : '<i class="mdi mdi-chevron-left"></i>',
                     previous : '<i class="mdi mdi-chevron-right"></i>'

@@ -48,7 +48,7 @@ class RasidJob extends Model implements TranslatableContract
     {
         $this->addGlobalActivity($this, $request->query(), ActivityLog::SEARCH, 'index');
 
-        if ($request->name) {
+        if (isset($request->name)) {
             $query->where(function ($q) use ($request) {
                 $q->whereTranslationLike('name', "%$request->name%");
             });
