@@ -232,7 +232,7 @@ class User extends Authenticatable implements HasAssetsInterface
                 $date = explode("-", $ban_from);
                 $ban_from = Hijri::convertToGregorian($date[2], $date[1], $date[0])->format('Y-m-d');
             }
-            $query->whereDate('ban_from', ">=", $ban_from);
+            $query->whereDate('ban_from', "<=", $ban_from);
         }
 
         if ($request->ban_to) {
@@ -241,7 +241,7 @@ class User extends Authenticatable implements HasAssetsInterface
                 $date = explode("-", $ban_to);
                 $ban_to = Hijri::convertToGregorian($date[2], $date[1], $date[0])->format('Y-m-d');
             }
-            $query->whereDate('ban_to', "<=", $ban_to);
+            $query->whereDate('ban_to', ">=", $ban_to);
         }
     }
 
