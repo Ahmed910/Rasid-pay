@@ -51,7 +51,8 @@ class ClientController extends Controller
 
         $client->fill($clientData)->user()->associate($user)->save();
         $manager->fill($managerRequest->validated())->save();
-        $manager->clients()->save($client);
+        $client->managers()->save($manager);
+//        $manager->clients()->save($client);
 
         if ($attachmentRequest->has("attachments")) {
             Attachment::storeImage($attachmentRequest, $user);
@@ -59,7 +60,7 @@ class ClientController extends Controller
         }
 
 
-        $client->load(['user', 'user.attachments', 'manager']);
+        $client->load(['user', 'user.attachments', 'managers']);
 
         return ClientResource::make($client)->additional([
             'status' => true, 'message' => trans("dashboard.general.success_add")
@@ -69,7 +70,7 @@ class ClientController extends Controller
     public function show(Request $request, $id)
     {
         $client = Client::where('user_id', $id)->firstOrFail();
-        $client->load(['user', 'user.attachments', 'manager', 'user.bankAccount.bank.translations',]);
+        $client->load(['user', 'user.attachments', 'managers', 'user.bankAccount.bank.translations',]);
 
         return ClientResource::make($client)->additional(['status' => true, 'message' => ""]);
     }
@@ -81,14 +82,14 @@ class ClientController extends Controller
 
 
     public function update($id, ClientRequest $request, AttachmentRequest $attachmentRequest, BankAccountRequest $bankAccountRequest,
-                           ManagerRequest $managerRequest)
+                          )
     {
         $client = Client::where('user_id', $id)->firstOrFail();
         $except = ["tax_number", "commercial_number", "activity_type", "daily_expect_trans", "register_type", "client_type", "nationality", "address", "marital_status"];
-        $client->user()->update($request->safe()->except($except));
+        $client->user->update($request->safe()->except($except));
         $client->update($request->safe()->only($except));
         $client->user->bankAccount->update($bankAccountRequest->validated());
-        $client->manager()->update($managerRequest->validated());
+//        $client->managers()->update($managerRequest->validated());
 
         if ($attachmentRequest->has("attachments")) {
             Attachment::deletefiles($attachmentRequest, $client);
@@ -96,7 +97,7 @@ class ClientController extends Controller
         }
 
 
-        $client->load(['user', 'user.attachments', 'manager']);
+        $client->load(['user', 'user.attachments', 'managers']);
         return ClientResource::make($client)->additional(['status' => true, 'message' => trans("dashboard.general.success_update")]);
     }
 

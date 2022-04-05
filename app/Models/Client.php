@@ -60,9 +60,9 @@ class Client extends Model
     #endregion scopes
 
     #region relationships
-    public function manager()
+    public function managers()
     {
-        return $this->belongsTo(Manager::class);
+        return $this->hasMany(Manager::class);
     }
 
     public function user()
