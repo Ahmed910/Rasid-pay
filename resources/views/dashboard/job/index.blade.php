@@ -55,7 +55,7 @@
         <div class="col">
             <label for="status">
                 {{ trans('dashboard.general.status') }}</label>
-            {!! Form::select('is_active', [-1 => trans('dashboard.general.all_cases')] + trans('dashboard.job.active_cases'), old('is_active') ?? request('is_active'), ['class' => 'form-control select2-show-search', 'placeholder' => trans('dashboard.general.select_status'), 'id' => 'status']) !!}
+            {!! Form::select('is_active', [-1 => trans('dashboard.general.all_cases')] + trans('dashboard.job.active_cases'), old('is_active') ?? request('is_active'), ['class' => 'form-control select2', 'placeholder' => trans('dashboard.general.select_status'), 'id' => 'status']) !!}
 
         </div>
 
