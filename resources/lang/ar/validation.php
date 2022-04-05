@@ -38,8 +38,8 @@ $attributes = [
     'reset_code'                  => 'حقل الكود',
     'department_id'                  => 'حقل القسم ',
     'reasonAction'                  => 'حقل السبب',
-    'ban_from'                  => 'حقل معطل من',
-    'ban_to'                  => 'حقل معطل إلى',
+    'ban_from'                  => 'حقل تاريخ من',
+    'ban_to'                  => 'حقل تاريخ إلى',
     // new attr
 
     'parent_id'   => 'حقل القسم الرئيسي',

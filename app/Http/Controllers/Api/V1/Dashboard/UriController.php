@@ -83,7 +83,7 @@ class UriController extends Controller
             }
         }
         // $public_routes = []
-        dd($permitted_routes , array_diff($routes,$permissions->pluck('name')->toArray()));
+        // dd($permitted_routes , array_diff($routes,$permissions->pluck('name')->toArray()));
 
         // return ["uri" => $uri, 'trans' => trans('dashboard.' . Str::singular($uri) . ".{$uri}"), 'children' => $permissions];
     }
