@@ -23,14 +23,29 @@ class DepartmentRequest extends FormRequest
      * @return array
      */
 
+    protected function prepareForValidation()
+    {
+        $data = $this->all();
+        if (@$data['parent_id'] == 'without')
+            $data['parent_id'] = null;
 
+        $this->merge([
+            'parent_id' =>  @$data['parent_id'] ?? null,
+        ]);
+    }
 
     public function rules()
     {
         $igonredDepartment = $this->department ?  implode(',', Department::flattenChildren($this->department)) : "";
+        if($this->createStatus)
+            $rule = "nullable|exists:departments,id,deleted_at,NULL";
+        else
+            $rule = "required|nullable|exists:departments,id,deleted_at,NULL|not_in:$igonredDepartment";
+
+
         $rules = [
             "image"         => "nullable|max:5120|mimes:jpg,png,jpeg",
-            "parent_id"     => "nullable|exists:departments,id,deleted_at,NULL|not_in:$igonredDepartment",
+            "parent_id"     =>  $rule ,
             "is_active"     => "in:0,1",
             'delete_image'  => "in:0,1"
         ];
@@ -41,16 +56,5 @@ class DepartmentRequest extends FormRequest
         }
 
         return $rules;
-    }
-
-    protected function prepareForValidation()
-    {
-        $data = $this->all();
-        if (@$data['parent_id'] == 0)
-            $data['parent_id'] = null;
-
-        $this->merge([
-            'parent_id' =>  @$data['parent_id'] ?? null,
-        ]);
     }
 }

@@ -21,7 +21,7 @@
 
 <!-- ROW OPEN -->
 {!! Form::open(['route' => 'dashboard.department.store', 'method' => 'POST', 'class' => 'needs-validation', 'id' => 'formId', 'files' => true, 'novalidate']) !!}
-@include('dashboard.department._form',['btn_submit' => trans('dashboard.general.save')])
+@include('dashboard.department._form',['btn_submit' => trans('dashboard.general.save'), 'createVal' => 0])
 {!! Form::close() !!}
 
 @endsection

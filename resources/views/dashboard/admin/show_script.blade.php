@@ -85,7 +85,7 @@
                 "lengthMenu": "@lang('dashboard.general.show') _MENU_",
                 "emptyTable": "@lang('dashboard.general.no_data')",
                 "info": "@lang('dashboard.general.showing') _START_ @lang('dashboard.general.to') _END_ @lang('dashboard.general.from') _TOTAL_ @lang('dashboard.general.entries')",
-                "infoEmpty": "@lang('dashboard.general.no_search_result')",
+                "infoEmpty": "",
                 "paginate": {
                     "next": '<i class="mdi mdi-chevron-left"></i>',
                     "previous": '<i class="mdi mdi-chevron-right"></i>'

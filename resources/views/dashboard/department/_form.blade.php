@@ -28,17 +28,17 @@
         <div class="col-12 mb-3">
             {!! Form::label('departmentImg', trans('dashboard.department.department_image') . ' (JPG, PNG, JPEG)') !!}
             {!! Form::file('image', [
-    'class' => 'dropify',
-    'data-show-remove' => 'true',
-    'data-default-file' => isset($department) ? $department->image : null,
-    'data-bs-height' => '250',
-    'id' => 'departmentImg',
-    'data-errors-position' => 'inside',
-    'data-show-errors' => 'true',
-    'data-show-loader' => 'true',
-    'data-allowed-file-extensions' => 'jpg png jpeg',
-    'accept' => 'image/png, image/jpg, image/jpeg',
-]) !!}
+                        'class' => 'dropify',
+                        'data-show-remove' => 'true',
+                        'data-default-file' => isset($department) ? $department->image : null,
+                        'data-bs-height' => '250',
+                        'id' => 'departmentImg',
+                        'data-errors-position' => 'inside',
+                        'data-show-errors' => 'true',
+                        'data-show-loader' => 'true',
+                        'data-allowed-file-extensions' => 'jpg png jpeg',
+                        'accept' => 'image/png, image/jpg, image/jpeg',
+                    ]) !!}
 
             <span class="text-danger" id="imageError" hidden></span>
         </div>
@@ -56,6 +56,8 @@
 </div>
 
 {!! Form::hidden('delete_image', 0, ['id' => 'imageStatus']) !!}
+{!! Form::hidden('createStatus', $createVal, ['id' => 'createStatus']) !!}
+
 
 <div class="row">
     <div class="col-12 mb-5 text-end">
@@ -143,6 +145,7 @@
 
         (function() {
             'use strict';
+
             let validate = false;
             let saveButton = true;
 
@@ -213,6 +216,11 @@
 
             drEvent.on('dropify.afterClear', function(event, element) {
                 $('#imageStatus').val(1);
+            });
+
+
+            $('#parent_id').on('select2:select', function(e) {
+                $('#createStatus').val(1);
             });
 
         })();
