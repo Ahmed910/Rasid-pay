@@ -1089,7 +1089,9 @@ pre {
     color: #eba40f;
 }
 
-.alert-danger {
+.alert-danger,#reasonAction-error{
+    color: red;
+} {
     color: #e82646;
     background-color: rgba(232, 38, 70, 0.2);
     border-color: rgba(232, 38, 70, 0.1);
