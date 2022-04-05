@@ -187,9 +187,9 @@ trait Loggable
         //     dump($attribute,$original);
         //   }
         // }
+        $keys = array_keys($this->newData($self));
         $hasData = count(array_flatten(array_except($this->newData($self), [$column, 'ban_from', 'ban_to','user_locale','updated_at'])));
-        // dump($hasData);
-        if (!$hasData && !request()->has('image')) {
+        if (!$hasData && !request()->has('image') && in_array($column,$keys)) {
             $this->checkStatus($self, $column);
         } elseif ($hasData && in_array($column, array_keys($this->newData($self)))) {
             $self->addUserActivity($self, ActivityLog::UPDATE, 'index');
