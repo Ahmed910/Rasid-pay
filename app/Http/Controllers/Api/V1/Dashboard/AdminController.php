@@ -59,6 +59,7 @@ class AdminController extends Controller
     {
         $admin = User::where('user_type', 'employee')->findOrFail($request->employee_id);
         $admin->fill(['user_type' => 'admin', 'password' => $request->password, 'added_by_id' => auth()->id(), 'is_login_code' => $request->is_login_code, 'login_id' => $request->login_id])->save();
+        $admin->admin()->create();
         //TODO::send sms with password
         $permissions = $request->permission_list ?? [];
         if ($request->group_list) {
@@ -94,9 +95,11 @@ class AdminController extends Controller
     {
         $admin = User::where('user_type', 'admin')->findOrFail($id);
 
-        if ($request->password_change && $request->password_change == 1) $admin->update($request->validated());
-
-        else $admin->fill($request->safe()->except(['password'])+['updated_at' => now()])->save();
+        if ($request->password_change && $request->password_change == 1) {
+            $admin->fill($request->validated()+['updated_at' => now()])->save();
+        }else{
+            $admin->fill($request->safe()->except(['password'])+['updated_at' => now()])->save()
+        };
 
         //TODO::send sms with password
         // if($request->('password_change'))

@@ -26,6 +26,7 @@ class User extends Authenticatable implements HasAssetsInterface
     use HasApiTokens, HasFactory, Notifiable, Uuid, SoftDeletes, HasAssetsTrait, Loggable;
 
     protected $guarded = ['created_at', 'deleted_at'];
+    protected $touches = ['admin'];
     protected $appends = ['image'];
     protected $hidden = ['password', 'remember_token'];
     protected $casts = ['email_verified_at' => 'datetime', 'phone_verified_at' => 'datetime'];
