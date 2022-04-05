@@ -58,7 +58,7 @@ class Department extends Model implements TranslatableContract, HasAssetsInterfa
     {
         $this->addGlobalActivity($this, $request->query(), ActivityLog::SEARCH, 'index');
 
-        if (isset($request->name)) {
+        if ($request->has('name')) {
             $query->where(function ($q) use ($request) {
                 $q->whereTranslationLike('name', "%\\$request->name%");
             });

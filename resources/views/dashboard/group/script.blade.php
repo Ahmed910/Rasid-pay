@@ -61,7 +61,7 @@
                         let actions = ``;
                         if (data.show_route){
                             actions += `<a href="${data.show_route}" class="azureIcon" data-bs-toggle="tooltip" data-bs-placement="top"
-                                            title="{{ trans('dashboard.general.details') }}"
+                                            title="{{ trans('dashboard.general.show') }}"
                                             ><i class="mdi mdi-eye-outline"></i>
                                             </a>`;
                         }
@@ -88,7 +88,7 @@
                 lengthMenu : "{{ trans('dashboard.datatable.show')}} _MENU_",
                 emptyTable : "{{ trans('dashboard.datatable.no_data') }}",
                 info : "{{ trans('dashboard.datatable.showing') }}_START_ {{ trans('dashboard.datatable.to') }}_END_ {{ trans('dashboard.datatable.from') }}_TOTAL_ {{ trans('dashboard.datatable.entries') }}",
-                infoEmpty : "{{ trans('dashboard.datatable.no_search_result') }}",
+                infoEmpty : "",
                 paginate : {
                     next : '<i class="mdi mdi-chevron-left"></i>',
                     previous : '<i class="mdi mdi-chevron-right"></i>'
