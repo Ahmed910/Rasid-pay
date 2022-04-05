@@ -4,7 +4,7 @@
             {!! Form::label('departmentName', trans('dashboard.department.department_name')) !!}
             <p class="requiredFields">*</p>
             @foreach ($locales as $locale)
-                {!! Form::text("{$locale}[name]", isset($department) ? $department->name : null, ['class' => 'form-control input-regex stop-copy-paste', 'id' => "{$locale}[name]", 'placeholder' => trans('dashboard.general.enter_name'), 'minlength' => '2', 'maxlength' => '100']) !!}
+                {!! Form::text("{$locale}[name]", isset($department) ? $department->name : null, ['class' => 'form-control input-regex stop-copy-paste', 'id' => "{$locale}[name]", 'placeholder' => trans('dashboard.general.enter_name'), 'minlength' => '2', 'maxlength' => '100', 'onblur' => 'validateOnName(event)']) !!}
                 <span class="text-danger" id="{{ $locale }}.nameError" hidden></span>
             @endforeach
         </div>
@@ -19,7 +19,7 @@
         @if (isset($department))
             <div class="col-12 col-md-4 mb-5">
                 {!! Form::label('status', trans('dashboard.general.status')) !!}
-                {!! Form::select('is_active', trans('dashboard.general.active_cases'), null, ['class' => 'form-control select2', 'id' => 'status','placeholder' => trans('dashboard.general.select_status')]) !!}
+                {!! Form::select('is_active', trans('dashboard.general.active_cases'), null, ['class' => 'form-control select2', 'id' => 'status', 'placeholder' => trans('dashboard.general.select_status')]) !!}
 
                 <span class="text-danger" id="statusError" hidden></span>
             </div>
@@ -70,80 +70,87 @@
 @include('dashboard.layouts.modals.alert')
 
 @section('scripts')
-<!-- SELECT2 JS -->
-<script src="{{ asset('dashboardAssets/js/select2.js') }}"></script>
-<script src="{{ asset('dashboardAssets/plugins/select2/select2.full.min.js') }}"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/Dropify/0.2.2/js/dropify.min.js"
-    integrity="sha512-8QFTrG0oeOiyWo/VM9Y8kgxdlCryqhIxVeRpWSezdRRAvarxVtwLnGroJgnVW9/XBRduxO/z1GblzPrMQoeuew=="
-    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <!-- SELECT2 JS -->
+    <script src="{{ asset('dashboardAssets/js/select2.js') }}"></script>
+    <script src="{{ asset('dashboardAssets/plugins/select2/select2.full.min.js') }}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Dropify/0.2.2/js/dropify.min.js"
+        integrity="sha512-8QFTrG0oeOiyWo/VM9Y8kgxdlCryqhIxVeRpWSezdRRAvarxVtwLnGroJgnVW9/XBRduxO/z1GblzPrMQoeuew=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
-<script>
-    (function() {
+    <script>
+
+      function toggleSaveButton() {
+                if (saveButton) {
+                    saveButton = false;
+                    $("#saveButton").html('<i class="spinner-border spinner-border-sm"></i>' + '{{ $btn_submit }}');
+                    $('#saveButton').attr('disabled', true);
+                } else {
+                    saveButton = true;
+                    $("#saveButton").html('<i class="mdi mdi-content-save-outline"></i>' + '{{ $btn_submit }}');
+                    $('#saveButton').attr('disabled', false);
+                }
+            }
+
+
+        function validateOnName(e) {
+            e.preventDefault();
+
+            $('span[id*="Error"]').attr('hidden', true);
+            $('*input,select').removeClass('is-invalid');
+            let form = $('#formId')[0];
+            let data = new FormData(form);
+
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+
+            $.ajax({
+                url: $('#formId').attr('action'),
+                type: "POST",
+                data: data,
+                beforeSend: toggleSaveButton(),
+                processData: false,
+                contentType: false,
+                cache: false,
+                success: function() {
+                    $('#successModal').modal('show');
+                    toggleSaveButton();
+                },
+                error: function(data) {
+                    toggleSaveButton();
+
+                    $.each(data.responseJSON.errors, function(name, message) {
+                        let inputName = name;
+                        console.log(inputName)
+                        let inputError = name + 'Error';
+
+                        if (inputName.includes('.')) {
+                            let convertArray = inputName.split('.');
+                            inputName = convertArray[0] + '[' + convertArray[1] + ']'
+                        }
+
+                        console.log(inputError);
+                        $('input[name="' + inputName + '"]').addClass('is-invalid');
+                        $('select[name="' + inputName + '"]').addClass('is-invalid');
+                        $('span[id="' + inputError + '"]').attr('hidden', false);
+                        $('span[id="' + inputError + '"]').text(message);
+                    });
+                }
+            });
+        }
+
+        (function() {
             'use strict';
             let validate = false;
             let saveButton = true;
 
             $('#saveButton').on('click', function(e) {
-                e.preventDefault();
-
-                $('span[id*="Error"]').attr('hidden', true);
-                $('*input,select').removeClass('is-invalid');
-
-                let form = $('#formId')[0];
-                let data = new FormData(form);
-
-                $.ajaxSetup({
-                    headers: {
-                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                    }
-                });
-
-                $.ajax({
-                    url: $('#formId').attr('action'),
-                    type: "POST",
-                    data: data,
-                    beforeSend: toggleSaveButton(),
-                    processData: false,
-                    contentType: false,
-                    cache: false,
-                    success: function() {
-                        $('#successModal').modal('show');
-                        toggleSaveButton();
-                    },
-                    error: function(data) {
-                        toggleSaveButton();
-
-                        $.each(data.responseJSON.errors, function(name, message) {
-                            let inputName = name;
-                            console.log(inputName)
-                            let inputError = name + 'Error';
-
-                            if (inputName.includes('.')) {
-                                let convertArray = inputName.split('.');
-                                inputName = convertArray[0] + '[' + convertArray[1] + ']'
-                            }
-
-                            console.log(inputError);
-                            $('input[name="' + inputName + '"]').addClass('is-invalid');
-                            $('select[name="' + inputName + '"]').addClass('is-invalid');
-                            $('span[id="' + inputError + '"]').attr('hidden', false);
-                            $('span[id="' + inputError + '"]').text(message);
-                        });
-                    }
-                });
+              validateOnName(e)
             });
 
-            function toggleSaveButton() {
-                if (saveButton) {
-                    saveButton = false;
-                    $("#saveButton").html('<i class="spinner-border spinner-border-sm"></i>' + '{{$btn_submit}}');
-                    $('#saveButton').attr('disabled', true);
-                } else {
-                    saveButton = true;
-                    $("#saveButton").html('<i class="mdi mdi-content-save-outline"></i>' + '{{$btn_submit}}');
-                    $('#saveButton').attr('disabled', false);
-                }
-            }
+
 
             // window.addEventListener(
             //     "load",
@@ -209,5 +216,5 @@
             });
 
         })();
-</script>
+    </script>
 @endsection
