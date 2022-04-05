@@ -199,21 +199,13 @@ class User extends Authenticatable implements HasAssetsInterface
         $this->addGlobalActivity($this, $request->query(), ActivityLog::SEARCH, 'index');
         if ($request->name) {
             $query->where(function ($q) use ($request) {
-                $q->where("fullname", "like", "%\\$request->name%")
-                ->orWhere("identity_number", "like", "%$request->name%")
-                ->orWhere("login_id", "like", "%$request->name%")
-                ->orWhere("phone", "like", "%$request->name%");
+                $q->where("fullname", "like", "%\\$request->name%");
             });
         }
 
         !$request->client_type ?: $query->where("client_type", $request->client_type);
         !$request->country_id ?: $query->where("country_id", $request->country_id);
 
-        if (isset($request->is_active)) {
-            if (!in_array($request->is_active, [1, 0])) return;
-
-            $query->where('is_active', $request->is_active);
-        }
         if (isset($request->login_id)) {
 
             $query->where("login_id", $request->login_id);
@@ -226,8 +218,6 @@ class User extends Authenticatable implements HasAssetsInterface
         }
 
         !$request->register_status ?: $query->where("register_status", $request->register_status);
-        !$request->gender ?: $query->where("gender", $request->gender);
-        !$request->is_admin_active_user ?: $query->where("is_admin_active_user", $request->is_admin_active_user);
         !$request->login_id ?: $query->where("login_id", "like", "%$request->login_id%");
 
         if ($request->department_id) {
