@@ -17,7 +17,7 @@ trait Loggable
             $self->addUserActivity($self, ActivityLog::CREATE, 'create');
         });
 
-        static::updating(function (self $self) {
+        static::updated(function (self $self) {
             if (class_basename($self) == 'User') {
                 return $self->checkIfHasIsActiveOnly($self, 'ban_status');
             }
@@ -110,7 +110,7 @@ trait Loggable
         if (request()->has('image') && request()->route()->getActionMethod() == 'update') {
             $newData += ['image' => $item->images->pluck('media')->toJson()];
         }
-        return array_merge($newData, $translations ?? [], $permissions ?? [], $groups ?? []);
+        return array_merge($newData, $translations ?? []);
     }
 
     /**
