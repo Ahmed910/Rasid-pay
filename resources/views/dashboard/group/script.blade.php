@@ -61,7 +61,7 @@
                         let actions = ``;
                         if (data.show_route){
                             actions += `<a href="${data.show_route}" class="azureIcon" data-bs-toggle="tooltip" data-bs-placement="top"
-                                            title="{{ trans('dashboard.general.details') }}"
+                                            title="{{ trans('dashboard.general.show') }}"
                                             ><i class="mdi mdi-eye-outline"></i>
                                             </a>`;
                         }
