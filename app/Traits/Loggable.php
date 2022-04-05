@@ -106,7 +106,7 @@ trait Loggable
         // $permissions = $item->permissions?->map->getDirty()->toArray();
         // $groups = $item->groups?->map->getDirty()->toArray();
         $translations = $item->translations?->map->getDirty()->toArray();
-        $newData = array_except($item->getChanges(), ['created_at', 'updated_at', 'deleted_at']);
+        $newData = array_except($item->getChanges(), ['created_at', 'deleted_at']);
         if (request()->has('image') && request()->route()->getActionMethod() == 'update') {
             $newData += ['image' => $item->images->pluck('media')->toJson()];
         }
@@ -187,9 +187,9 @@ trait Loggable
         //     dump($attribute,$original);
         //   }
         // }
-        $hasData = count(array_flatten(array_except($this->newData($self), [$column, 'ban_from', 'ban_to','user_locale'])));
-        // dump($hasData);
-        if (!$hasData && !request()->has('image')) {
+        $keys = array_keys($this->newData($self));
+        $hasData = count(array_flatten(array_except($this->newData($self), [$column, 'ban_from', 'ban_to','user_locale','updated_at'])));
+        if (!$hasData && !request()->has('image') && in_array($column,$keys)) {
             $this->checkStatus($self, $column);
         } elseif ($hasData && in_array($column, array_keys($this->newData($self)))) {
             $self->addUserActivity($self, ActivityLog::UPDATE, 'index');

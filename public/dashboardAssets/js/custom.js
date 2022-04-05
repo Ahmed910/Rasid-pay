@@ -446,8 +446,10 @@ window.onload = function () {
     $(".select2-selection__rendered").on("click", updateValue);
 
     function updateValue() {
-        $(".select2-search__field").on("input", function () {
-             getRegex(this);
+        $(".select2-search__field").on("input", function (e) {
+            getRegex(this);
+            $(this).addClass("stop-copy-paste");
+            stopcopypaste(e);
         });
     }
 
@@ -459,10 +461,10 @@ $(document).ready(function () {
         getRegex(this);
     });
 
-    $(".stop-copy-paste").on("cut copy paste", function (e) {
-        e.preventDefault();
-    });
-
+    // $(".stop-copy-paste").on("cut copy paste", function (e) {
+    //     e.preventDefault();
+    // });
+    stopcopypaste();
     $(document).keydown(function (objEvent) {
         if (objEvent.ctrlKey) {
             if (objEvent.keyCode == 65) {
@@ -479,4 +481,11 @@ function getRegex(e) {
     if (regex.test(value)) {
         $(e).val(value.replace(regex, ""));
     }
+}
+
+function stopcopypaste(e) {
+
+    $(".stop-copy-paste").on("cut copy paste", function (e) {
+        e.preventDefault();
+    });
 }
