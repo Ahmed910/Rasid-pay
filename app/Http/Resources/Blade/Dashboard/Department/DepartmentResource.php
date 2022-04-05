@@ -18,7 +18,7 @@ class DepartmentResource extends JsonResource
             'deleted_at' => $this->deleted_at,
             'is_active' => $this->is_active,
             'image' => $this->image,
-            'active_case' => trans('dashboard.general.active_cases.'.$this->is_active),
+            'active_case' => trans('dashboard.department.active_cases.'.$this->is_active),
             'has_jobs'  => $this->rasidJobs()->exists(),
             'has_children'  => $this->children()->exists(),
             'show_route' => route('dashboard.department.show', $this->id),
