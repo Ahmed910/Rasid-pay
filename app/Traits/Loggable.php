@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Request;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Facades\Schema;
+use \Illuminate\Database\Eloquent\Builder;
 
 trait Loggable
 {
@@ -16,8 +17,7 @@ trait Loggable
             $self->addUserActivity($self, ActivityLog::CREATE, 'create');
         });
 
-        static::updated(function (self $self) {
-
+        static::updating(function (self $self) {
             if (class_basename($self) == 'User') {
                 return $self->checkIfHasIsActiveOnly($self, 'ban_status');
             }
@@ -102,15 +102,14 @@ trait Loggable
      */
     private function newData($item)
     {
-        // dd($item->permission_list, request()->permission_list);
         if (!$item->getChanges()) return null;
-        // $permissions = $item->permissions?->each->getChanges()->toArray();
-        // $groups = $item->groups?->each->getChanges()->toArray();
+        // $permissions = $item->permissions?->map->getDirty()->toArray();
+        // $groups = $item->groups?->map->getDirty()->toArray();
         $translations = $item->translations?->map->getDirty()->toArray();
         $newData = array_except($item->getChanges(), ['created_at', 'updated_at', 'deleted_at']);
-        // if (request()->has('image') && request()->route()->getActionMethod() == 'update') {
-        //     $newData += ['image' => $item->images->pluck('media')->toJson()];
-        // }
+        if (request()->has('image') && request()->route()->getActionMethod() == 'update') {
+            $newData += ['image' => $item->images->pluck('media')->toJson()];
+        }
         return array_merge($newData, $translations ?? [], $permissions ?? [], $groups ?? []);
     }
 
@@ -122,8 +121,8 @@ trait Loggable
         if (!$item->getOriginal()) return $item;
 
         $translations = $item->translations?->map->getOriginal()->toArray();
-        $permissions = $item->permissions?->each->getOriginal()->toArray();
-        $groups = $item->groups?->each->getOriginal()->toArray();
+        // $permissions = $item->permissions?->each->getOriginal()->toArray();
+        // $groups = $item->groups?->each->getOriginal()->toArray();
         $originalData = array_except($item->getOriginal(), ['created_at', 'updated_at', 'deleted_at']);
 
         return array_merge($originalData ?? [], $translations ?? [], $permissions ?? [], $groups ?? []);
@@ -160,8 +159,34 @@ trait Loggable
         }
     }
 
+    // protected function performUpdate(Builder $query, array $options = [])
+    // {
+    //     $dirty = $this->getDirty();
+    //     $per_dirty = $this->permissions->pluck('pivot')->map->getDirty();
+    //     dump($per_dirty);
+    //     if (count($dirty) > 0)
+    //     {
+    //         dump($dirty);
+    //     }
+    //
+    //     return true;
+    // }
+
     private function checkIfHasIsActiveOnly($self, string $column)
     {
+        // foreach($self->getDirty() as $attribute => $value){
+        //     $original= $self->getOriginal($attribute);
+        //     dump($attribute,$original);
+        // }
+        // $relations  =  $self->getRelations();
+        // foreach($relations as $key => $relation){
+        //   $relation_model = $self->getRelation($key);
+        //   dump($relation->first()->pivot);
+        //   foreach($relation_model->getDirty() as $attribute => $value){
+        //     $original= $relation_model->getOriginal($attribute);
+        //     dump($attribute,$original);
+        //   }
+        // }
         $hasData = count(array_flatten(array_except($this->newData($self), [$column, 'ban_from', 'ban_to','user_locale'])));
         // dump($hasData);
         if (!$hasData && !request()->has('image')) {
