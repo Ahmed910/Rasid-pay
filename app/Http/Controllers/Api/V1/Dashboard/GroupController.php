@@ -42,7 +42,7 @@ class GroupController extends Controller
         dump($permissions_collect);
         foreach ($permissions_collect as $permission) {
             $action = explode('.',$permission->name);
-            dump(!$permissions_collect->contains('name',$action[0].'.index'),$permissions_collect->where('name',$action[0].'.index')->first());
+            dump(!$permissions_collect->contains('name',$action[0].'.index'),$permissions_collect->where('name',$action[0].'.index')->first(),$action[0].'.index');
             if (in_array($action[1],['update','store','destroy','show']) && !$permissions_collect->contains('name',$action[0].'.index')) {
                 $permissions[] = $permissions_collect->where('name',$action[0].'.index')->first()?->id;
             }elseif (in_array($action[1],['restore','force_delete']) && !$permissions_collect->contains('name',$action[0].'.archive')) {
