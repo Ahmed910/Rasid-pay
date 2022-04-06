@@ -16,7 +16,6 @@ class CreateClientsTable extends Migration
         Schema::create('clients', function (Blueprint $table) {
             $table->uuid("id")->primary();
             $table->foreignUuid("user_id")->constrained("users")->onDelete("cascade");
-            $table->foreignUuid("manager_id")->nullable()->constrained("managers")->nullOnDelete();
             $table->enum('client_type', ['company', 'institution', 'member', 'freelance_doc', 'famous', 'other'])->default("company");
             $table->string("commercial_number")->nullable();
             $table->string("tax_number")->unique();

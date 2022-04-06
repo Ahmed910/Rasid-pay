@@ -113,8 +113,7 @@
                     },
                     error: function(data) {
                         toggleSaveButton();
-                        $.each(data.responseJSON.errors, function(name, message) {
-                            let
+
                         $.each(data.responseJSON.errors, function(name, message) {
                             let inputName = name;
                             let inputError = name + 'Error';
@@ -123,7 +122,6 @@
                                 let convertArray = inputName.split('.');
                                 inputName = convertArray[0] + '[' + convertArray[1] + ']'
                             }
-
                             $('input[name="' + inputName + '"]').addClass('is-invalid');
                             $('select[name="' + inputName + '"]').addClass('is-invalid');
                             $('span[id="' + inputError + '"]').attr('hidden', false);
@@ -136,12 +134,18 @@
             function toggleSaveButton() {
                 if (saveButton) {
                     saveButton = false;
-                    $("#saveButton").html('<i class="spinner-border spinner-border-sm"></i>' + '{{$btn_submit}}');
+                    $("#saveButton").html('<i class="spinner-border spinner-border-sm"></i>' + '{{ $btn_submit }}');
                     $('#saveButton').attr('disabled', true);
                 } else {
                     saveButton = true;
-                    $("#saveButton").html('<i class="mdi mdi-content-save-outline"></i>' + '{{$btn_submit}}');
-       //     "load",
+                    $("#saveButton").html('<i class="mdi mdi-content-save-outline"></i>' + '{{ $btn_submit }}');
+                    $('#saveButton').attr('disabled', false);
+                }
+            }
+
+
+            // window.addEventListener(
+            //     "load",
             //     function() {
             //         // Fetch all the forms we want to apply custom Bootstrap validation styles to
             //         var forms = document.getElementsByClassName("needs-validation");
@@ -185,6 +189,7 @@
             $("input,select").change(function() {
                 validate = true;
             });
+
 
         })();
     </script>

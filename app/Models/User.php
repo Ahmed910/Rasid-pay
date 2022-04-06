@@ -148,6 +148,11 @@ class User extends Authenticatable implements HasAssetsInterface
         return $this->hasOne(Client::class);
     }
 
+    public function admin()
+    {
+        return $this->hasOne(Admin::class);
+    }
+
     public function bankAccount()
     {
         return $this->hasOne(BankAccount::class);
@@ -197,7 +202,7 @@ class User extends Authenticatable implements HasAssetsInterface
     public function scopeSearch(Builder $query, $request)
     {
         $this->addGlobalActivity($this, $request->query(), ActivityLog::SEARCH, 'index');
-        if ($request->name) {
+        if (isset($request->name)) {
             $query->where(function ($q) use ($request) {
                 $q->where("fullname", "like", "%\\$request->name%");
             });

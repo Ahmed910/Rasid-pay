@@ -36,7 +36,7 @@
             <div class="col-12 col-md-4">
                 <label class="d-block" for="departmentName">{{ trans('dashboard.general.status') }} :</label>
                 <p class="badge bg-{{ $department->is_active == 1 ? 'success' : 'danger' }}-opacity py-2 px-4">
-                    {{ trans('dashboard.general.active_cases.' . $department->is_active) }}</p>
+                    {{ trans('dashboard.department.active_cases.' . $department->is_active) }}</p>
             </div>
 
             <div class="col-12 col-md-4">
@@ -73,7 +73,7 @@
     <!-- Row -->
     <label> {{ trans('dashboard.activity_log.history') }} </label>
     <div class="table-responsive p-1">
-        <table id="historyTable" class="table table-bordered shadow-sm bg-body key-buttons historyTable">
+        <table id="historyTable" class="table table-bordered shadow-sm bg-body text-nowrap key-buttons historyTable">
             <thead>
                 <tr>
                     <th class="border-bottom-0">#</th>
@@ -81,7 +81,7 @@
                     <th class="border-bottom-0"> {{ trans('dashboard.department.department_name') }}</th>
                     <th class="border-bottom-0">{{ trans('dashboard.activity_log.date') }} </th>
                     <th class="border-bottom-0">{{ trans('dashboard.activity_log.activity') }}</th>
-                    <th class="border-bottom-0" style="max-width: 800px;">{{ trans('dashboard.general.reason') }}
+                    <th class="border-bottom-0">{{ trans('dashboard.general.reason') }}
                     </th>
                 </tr>
             </thead>

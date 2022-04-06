@@ -1,9 +1,9 @@
 <div class="card py-7 px-7">
     <div class="row">
         <div class="col-12 col-md-6 mb-5">
-            {!! Form::label('departmentName', trans('dashboard.department.department_name')) !!}
+            {!! Form::label('departmentName', trans('dashboard.group.group_name')) !!}
             @foreach ($locales as $locale)
-                {!! Form::text("{$locale}[name]", isset($group) ? $group->name : null, ['class' => 'form-control ', 'placeholder' => trans('dashboard.department.department_name'), 'minlength' => '2', 'maxlength' => '100', 'required' => 'required', 'pattern' => '^[\u0600-\u065F\u066A-\u06EF\u06FA-\u06FFa-zA-Z]+[\u0600-\u065F\u066A-\u06EF\u06FA-\u06FFa-zA-Z0-9-_ ]*$', 'onpaste' => 'return false;', 'oncopy' => 'return false;', 'ondrop' => 'return false;']) !!}
+                {!! Form::text("{$locale}[name]", isset($group) ? $group->name : null, ['class' => 'form-control ', 'placeholder' => trans('dashboard.general.enter_name'), 'minlength' => '2', 'maxlength' => '100', 'required' => 'required', 'pattern' => '^[\u0600-\u065F\u066A-\u06EF\u06FA-\u06FFa-zA-Z]+[\u0600-\u065F\u066A-\u06EF\u06FA-\u06FFa-zA-Z0-9-_ ]*$', 'onpaste' => 'return false;', 'oncopy' => 'return false;', 'ondrop' => 'return false;']) !!}
                 @error("${locale}.name")
                     <span class="text-danger">{{ $message }}</span>
                 @enderror

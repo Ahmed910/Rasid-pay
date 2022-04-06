@@ -10,14 +10,21 @@
     <form method="get" action="" id="search-form">
         <div class="row align-items-end mb-3">
             <div class="col">
-                <label for="departmentName">{{ trans('dashboard.department.department_main') }}</label>
-                <input type="text" class="form-control" id="departmentName" placeholder="اسم القسم" name="name"
+                <label for="departmentName">{{ trans('dashboard.department.department_name') }}</label>
+                <input type="text" class="form-control" id="departmentName" placeholder="{{ trans('dashboard.general.enter_name') }}" name="name"
                     value="{{ old('name') ?? request('name') }}" />
             </div>
             <div class="col">
               <label>
                 {{ trans('dashboard.department.main_department')}}</label>
                 {!! Form::select('parent_id', $parentDepartments, null, ['class' => 'form-control select2-show-search', 'placeholder' => trans('dashboard.department.select_main_department')]) !!}
+            </div>
+            <div class="col">
+                <label for="status">
+                    @lang('dashboard.general.status')</label>
+                {!! Form::select('is_active', trans('dashboard.general.active_cases'), old('is_active') ?? request('is_active'),
+                ['class' => 'form-control select2-show-search', 'placeholder' => trans('dashboard.general.select_status'), 'id' =>
+                'status']) !!}
             </div>
             <div class="col">
                 <label for="validationCustom02"> {{ trans('dashboard.department.archive_from_date') }}</label>
@@ -74,7 +81,7 @@
                             <th class="border-bottom-0">#</th>
                             <th class="border-bottom-0">{{ trans('dashboard.department.department_name') }}</th>
                             <th class="border-bottom-0"> {{ trans('dashboard.department.department_main') }}</th>
-                            <th class="border-bottom-0">{{ trans('dashboard.department.archived_at') }} </th>
+                            <th class="border-bottom-0">{{ trans('dashboard.department.archived_at') }} </th><th class="border-bottom-0">{{ trans('dashboard.job.is_active') }}</th>
                             <th class="border-bottom-0 text-center">{{ trans('dashboard.general.actions') }}</th>
                         </tr>
                     </thead>

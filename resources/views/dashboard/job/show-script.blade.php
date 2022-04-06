@@ -71,31 +71,28 @@
                         data: "reason",
                     },
 
-
-
-                ],
-                pageLength: 10,
-                lengthMenu: [
-                    [1, 5, 10, 20, -1],
-                    [1, 5, 10, 20, "@lang('dashboard.general.all')"],
-                ],
-                "language": {
-                    "lengthMenu": "@lang('dashboard.general.show') _MENU_",
-                    "emptyTable": "@lang('dashboard.datatable.no_data')",
-                    "info": "@lang('dashboard.datatable.showing') _START_ @lang('dashboard.datatable.to') _END_ @lang('dashboard.datatable.from') _TOTAL_ @lang('dashboard.datatable.entries')",
-                    "infoEmpty": "",
-                    "paginate": {
-                        "next": '<i class="mdi mdi-chevron-left"></i>',
-                        "previous": '<i class="mdi mdi-chevron-right"></i>'
-                    },
-                }
-            });
-
-            $('.select2').select2({
-                minimumResultsForSearch: Infinity
-            });
-        });
-    </script>
-    <script src="{{ asset('dashboardAssets/js/select2.js') }}"></script>
-    <script src="{{ asset('dashboardAssets/plugins/select2/select2.full.min.js') }}"></script>
+        ],
+        pageLength: 10,
+        lengthMenu: [
+          [1, 5, 10, 20, -1],
+          [1, 5, 10, 20, "@lang('dashboard.datatable.all')"],
+        ],
+        "language": {
+          "lengthMenu": "@lang('dashboard.general.show') _MENU_",
+          "emptyTable": "@lang('dashboard.datatable.no_data')",
+          "info": "@lang('dashboard.datatable.showing') _START_ @lang('dashboard.datatable.to') _END_ @lang('dashboard.datatable.from') _TOTAL_ @lang('dashboard.datatable.entries')",
+          "infoEmpty": "@lang('dashboard.datatable.no_search_result')",
+          "paginate": {
+            "next": '<i class="mdi mdi-chevron-left"></i>',
+            "previous": '<i class="mdi mdi-chevron-right"></i>'
+          },
+        }
+      });
+      $('.select2').select2({
+        minimumResultsForSearch: Infinity
+      });
+    });
+  </script>
+  <script src="{{ asset('dashboardAssets/js/select2.js') }}"></script>
+  <script src="{{ asset('dashboardAssets/plugins/select2/select2.full.min.js') }}"></script>
 @endsection
