@@ -49,6 +49,7 @@ return [
         'invalid_code'=>'code is wrong ',
         'active' => 'Active',
         'inactive' => 'Inactive',
+        'un_active_account'=>'Account is unactive',
         'activited' => 'Activited',
         'unactivited' => 'Unactivited',
         'dashboard' => 'Rasid Jack Dashboard',
