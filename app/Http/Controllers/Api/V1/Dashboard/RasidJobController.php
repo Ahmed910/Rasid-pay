@@ -15,6 +15,7 @@ class RasidJobController extends Controller
     public function index(Request $request)
     {
         $rasidJobs = RasidJob::search($request)
+            ->ListsTranslations('name')
             ->CustomDateFromTo($request)
             ->sortBy($request)
             ->paginate((int)($request->per_page ?? config("globals.per_page")));
@@ -76,6 +77,7 @@ class RasidJobController extends Controller
     {
         $rasidJobs = RasidJob::onlyTrashed()
             ->search($request)
+            ->ListsTranslations('name')
             ->CustomDateFromTo($request)
             ->sortBy($request)
             ->paginate((int)($request->per_page ?? config("globals.per_page")));
