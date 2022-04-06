@@ -46,6 +46,13 @@ class SendTokenRequest extends FormRequest
                 'send_type' => 'email'
             ]);
         }
+    }public function attributes()
+    {
+        return [
+            'phone' => trans('dashboard.general.phone'),
+
+        ];
     }
+
 
 }
