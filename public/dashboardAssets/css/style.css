@@ -80333,4 +80333,13 @@ tr:hover .dtr-control:before {
     box-shadow: none !important;
 }
 
+.requiredFields{
+    display: inline;
+    color: #f00;
+  }
+
+  .select2-results__option:first-of-type{
+    display: none !important;
+
+
 /*# sourceMappingURL=style.css.map */
