@@ -420,23 +420,59 @@ $(document).ready(function () {
   });
 
   $("input").attr("autocomplete", "off");
+    //   $(".dropify").dropify({
+    //     messages: {
+    //       default: "اسحب وأسقط او قم برفع الصورة",
+    //       replace: "اسحب وأسقط او إضغط لتغيير الصورة",
+    //       remove: "حذف",
+    //       error: "اووه ، حدث خطأ ما",
+    //     },
+    //     error: {
+    //       fileSize: "حجم الملف كبير (5M max).",
+    //       minWidth: "The image width is too small ({{ value }}}px min).",
+    //       maxWidth: "The image width is too big ({{ value }}}px max).",
+    //       minHeight: "The image height is too small ({{ value }}}px min).",
+    //       maxHeight: "The image height is too big ({{ value }}px max).",
+    //       imageFormat: "The image format is not allowed ({{ value }} only).",
+    //     },
+    //   });
+});
 
-  $(".dropify").dropify({
-    messages: {
-      default: "اسحب وأسقط او قم برفع الصورة",
-      replace: "اسحب وأسقط او إضغط لتغيير الصورة",
-      remove: "حذف",
-      error: "اووه ، حدث خطأ ما",
-    },
-    error: {
-      fileSize: "حجم الملف كبير (5M max).",
-      minWidth: "The image width is too small ({{ value }}}px min).",
-      maxWidth: "The image width is too big ({{ value }}}px max).",
-      minHeight: "The image height is too small ({{ value }}}px min).",
-      maxHeight: "The image height is too big ({{ value }}px max).",
-      imageFormat: "The image format is not allowed ({{ value }} only).",
-    },
-  });
+window.onload = function () {
+    $(".select2-selection__rendered").on("click", updateValue);
+
+    function updateValue() {
+        $(".select2-search__field").on("input", function (e) {
+            getRegex(this);
+            $(this).addClass("stop-copy-paste");
+            stopcopypaste(e);
+        });
+    }
+
+}
+$(document).ready(function () {
+
+
+    $(".input-regex").on("input", function () {
+        getRegex(this);
+    });
+
+    document.querySelector('.number-regex').addEventListener("keydown", function(e) {
+        if (['-'].includes(e.key)) {
+          e.preventDefault();
+        }
+      });
+    // $(".stop-copy-paste").on("cut copy paste", function (e) {
+    //     e.preventDefault();
+    // });
+    stopcopypaste();
+    $(document).keydown(function (objEvent) {
+        if (objEvent.ctrlKey) {
+            if (objEvent.keyCode == 65) {
+                return false;
+            }
+        }
+    });
 });
 
 function getRegex(e) {
