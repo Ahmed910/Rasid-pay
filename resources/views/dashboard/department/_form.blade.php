@@ -2,7 +2,7 @@
     <div class="row">
         <div class="col-12 col-md-{{ isset($department) ? 4 : 6 }} mb-5">
             {!! Form::label('departmentName', trans('dashboard.department.department_name')) !!}
-            <p class="requiredFields">*</p>
+            <span class="requiredFields">*</span>
             @foreach ($locales as $locale)
                 {!! Form::text("{$locale}[name]", isset($department) ? $department->name : null, ['class' => 'form-control input-regex stop-copy-paste', 'id' => "{$locale}[name]", 'placeholder' => trans('dashboard.general.enter_name'), 'minlength' => '2', 'maxlength' => '100']) !!}
                 <span class="text-danger" id="{{ $locale }}.nameError" hidden></span>
@@ -18,7 +18,7 @@
         @if (isset($department))
             <div class="col-12 col-md-4 mb-5">
                 {!! Form::label('status', trans('dashboard.general.status')) !!}
-                {!! Form::select('is_active', trans('dashboard.general.active_cases'), null, ['class' => 'form-control select2', 'id' => 'status','placeholder' => trans('dashboard.general.select_status')]) !!}
+                {!! Form::select('is_active', trans('dashboard.department.active_cases'), null, ['class' => 'form-control select2', 'id' => 'status','placeholder' => trans('dashboard.general.select_status')]) !!}
 
                 <span class="text-danger" id="statusError" hidden></span>
             </div>
