@@ -96,13 +96,11 @@
           for (var i = 0; i < departmentHistoryTableSorting.length; i++) {
             departmentHistoryTableSorting[i].innerText = departmentHistoryTableSorting[i].innerText.replace(departmentHistoryTableSorting[i].innerText, departmentHistoryTableSorting[i].innerText.toArabicUni());
           }
-
           //pagination
           var departmentHistoryTablePagination = document.getElementsByClassName('page-link');
           for (var i = 1; i < departmentHistoryTablePagination.length - 1; i++) {
             departmentHistoryTablePagination[i].innerText = departmentHistoryTablePagination[i].innerText.replace(departmentHistoryTablePagination[i].innerText, departmentHistoryTablePagination[i].innerText.toArabicUni());
           }
-
           // department history table show info
           var departmentHistoryTableInfo = document.getElementById('historyTable_info').innerText;
           document.getElementById('historyTable_info').innerText = departmentHistoryTableInfo.replace(departmentHistoryTableInfo, departmentHistoryTableInfo.toArabicUni());

@@ -164,13 +164,11 @@
           for (var i = 0; i < departmentTableSorting.length; i++) {
             departmentTableSorting[i].innerText = departmentTableSorting[i].innerText.replace(departmentTableSorting[i].innerText, departmentTableSorting[i].innerText.toArabicUni());
           }
-
           //pagination
           var departmentTablePagination = document.getElementsByClassName('page-link');
           for (var i = 1; i < departmentTablePagination.length - 1; i++) {
             departmentTablePagination[i].innerText = departmentTablePagination[i].innerText.replace(departmentTablePagination[i].innerText, departmentTablePagination[i].innerText.toArabicUni());
           }
-
           // info
           var departmentTableInfo = document.getElementById('departmentTable_info').innerText;
           document.getElementById('departmentTable_info').innerText = departmentTableInfo.replace(departmentTableInfo, departmentTableInfo.toArabicUni());
