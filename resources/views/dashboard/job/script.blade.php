@@ -162,7 +162,17 @@
                         "next": '<i class="mdi mdi-chevron-left"></i>',
                         "previous": '<i class="mdi mdi-chevron-right"></i>'
                     },
+                },
+              "drawCallback": function (settings, json) {
+                // job table sorting
+                var jobTable_sorting = document.getElementsByClassName('sorting_1');
+                for (var i = 0; i < jobTable_sorting.length; i++) {
+                  jobTable_sorting[i].innerText = jobTable_sorting[i].innerText.replace(jobTable_sorting[i].innerText, jobTable_sorting[i].innerText.toArabicUni());
                 }
+                // job table show info
+                var JobsTable_info = document.getElementById('JobsTable_info').innerText;
+                document.getElementById('JobsTable_info').innerText = JobsTable_info.replace(JobsTable_info, JobsTable_info.toArabicUni());
+              }
             });
             $('.select2').select2({
                 minimumResultsForSearch: Infinity,
