@@ -27,6 +27,8 @@ class ClientResource extends JsonResource
             "address" => $this->address,
             "marital_status" => $this->marital_status,
             'client_type' => $this->client_type,
+            "register_type"=>$this->register_type,
+            "transactions_done"=>isset($this->transactions_done)?$this->transactions_done:0,
             'created_at' => $this->created_at,
             'token' => $this->when($this->token, $this->token),
             'managers' => ManagerResource::collection($this->whenLoaded('managers')),
