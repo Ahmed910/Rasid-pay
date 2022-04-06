@@ -31,7 +31,7 @@
                  sDom: "t<'domOption'lpi>",
                  serverSide: true,
                  ajax: {
-                     url: "{{ route('dashboard.job.archive') }}?" + $.param(
+                     url: "{{ route('dashboard.rasid_job.archive') }}?" + $.param(
                          @json(request()->query())),
                      dataSrc: 'data'
                  },
