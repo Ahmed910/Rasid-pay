@@ -60,6 +60,7 @@ return [
         'active' => 'مفعل',
         'inactive' => 'معطل',
         'activited' => 'تفعيل',
+        'un_active_account'=>'هذا المستخدم معطل',
         'unactivited' => 'تعطيل',
         'dashboard' => 'لوحة تحكم رصيد جاك',
         "status" => "الحالة",
