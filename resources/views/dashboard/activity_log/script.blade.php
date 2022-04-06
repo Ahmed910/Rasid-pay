@@ -143,7 +143,22 @@
                         "next": '<i class="mdi mdi-chevron-left"></i>',
                         "previous": '<i class="mdi mdi-chevron-right"></i>'
                     },
+                },
+              "drawCallback": function (settings, json) {
+                // table sorting
+                var activityLogTableSorting = document.getElementsByClassName('sorting_1');
+                for (var i = 0; i < activityLogTableSorting.length; i++) {
+                  activityLogTableSorting[i].innerText = activityLogTableSorting[i].innerText.replace(activityLogTableSorting[i].innerText, activityLogTableSorting[i].innerText.toArabicUni());
                 }
+                //pagination
+                var activityLogTablePagination = document.getElementsByClassName('page-link');
+                for (var i = 1; i < activityLogTablePagination.length - 1; i++) {
+                  activityLogTablePagination[i].innerText = activityLogTablePagination[i].innerText.replace(activityLogTablePagination[i].innerText, activityLogTablePagination[i].innerText.toArabicUni());
+                }
+                // info
+                var activityLogTableInfo = document.getElementById('activitylogtable_info').innerText;
+                document.getElementById('activitylogtable_info').innerText = activityLogTableInfo.replace(activityLogTableInfo, activityLogTableInfo.toArabicUni());
+              }
             });
             $('.select2').select2({
                 minimumResultsForSearch: Infinity

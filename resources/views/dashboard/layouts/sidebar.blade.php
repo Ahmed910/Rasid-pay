@@ -48,24 +48,24 @@
                 </li>
 
 
-                <li class="slide {{ request()->routeIs('dashboard.job.*') ? 'is-expanded' : '' }}">
+                <li class="slide {{ request()->routeIs('dashboard.rasid_job.*') ? 'is-expanded' : '' }}">
                     <a class="side-menu__item" data-bs-toggle="slide" href="javascript:void(0)"><i
                             class="mdi mdi-briefcase-variant-outline"></i><span
-                            class="side-menu__label">{{ trans('dashboard.job.jobs') }}</span><i class="angle fe fe-chevron-right"></i></a>
+                            class="side-menu__label">{{ trans('dashboard.rasid_job.rasid_jobs') }}</span><i class="angle fe fe-chevron-right"></i></a>
                     <ul class="slide-menu">
                         <li class="side-menu-label1">
-                            <a href="javascript:void(0)">{{ trans('dashboard.job.jobs') }}</a>
+                            <a href="javascript:void(0)">{{ trans('dashboard.rasid_job.rasid_jobs') }}</a>
                         </li>
                         <li>
-                            <a href="{{ route('dashboard.job.index') }}"
-                                class="slide-item px-6 {{ request()->routeIs('dashboard.job.index') ? 'active' : '' }}"><i
+                            <a href="{{ route('dashboard.rasid_job.index') }}"
+                                class="slide-item px-6 {{ request()->routeIs('dashboard.rasid_job.index') ? 'active' : '' }}"><i
                                     class="mdi mdi-file-document-multiple-outline"></i>
-                                    {{ trans('dashboard.job.sub_progs.index') }}</a>
+                                    {{ trans('dashboard.rasid_job.sub_progs.index') }}</a>
                         </li>
                         <li>
-                            <a href="{{ route('dashboard.job.create') }}"
-                                class="slide-item px-6 {{ request()->routeIs('dashboard.job.create') ? 'active' : '' }}"><i
-                                    class="mdi mdi-plus-circle-outline"></i> {!! trans('dashboard.job.sub_progs.create') !!}</a>
+                            <a href="{{ route('dashboard.rasid_job.create') }}"
+                                class="slide-item px-6 {{ request()->routeIs('dashboard.rasid_job.create') ? 'active' : '' }}"><i
+                                    class="mdi mdi-plus-circle-outline"></i> {!! trans('dashboard.rasid_job.sub_progs.create') !!}</a>
                         </li>
                     </ul>
                 </li>
@@ -176,8 +176,8 @@
                                 {{ trans('dashboard.department.department_archive') }}</a>
                         </li>
                         <li>
-                            <a href="{{ route('dashboard.job.archive') }}"
-                                class="slide-item px-6 {{ request()->routeIs('dashboard.job.archive') ? 'active' : '' }}"><i
+                            <a href="{{ route('dashboard.rasid_job.archive') }}"
+                                class="slide-item px-6 {{ request()->routeIs('dashboard.rasid_job.archive') ? 'active' : '' }}"><i
                                     class="mdi mdi-briefcase-edit-outline"></i>
                                 {{ trans('dashboard.rasid_job.sub_progs.archive') }}</a>
                         </li>

@@ -1,13 +1,12 @@
 @extends('dashboard.layouts.master')
 
-@section('title', trans('dashboard.job.sub_progs.index'))
+@section('title', trans('dashboard.rasid_job.sub_progs.index'))
 
 @section('content')
-
     <div class="page-header">
-        <h1 class="page-title">{{ trans('dashboard.job.sub_progs.index') }}</h1>
-        <a href="{{ route('dashboard.job.create') }}" class="btn btn-primary">
-            <i class="mdi mdi-plus-circle-outline"></i> {{ trans('dashboard.job.add_job') }}
+        <h1 class="page-title">{{ trans('dashboard.rasid_job.sub_progs.index') }}</h1>
+        <a href="{{ route('dashboard.rasid_job.create') }}" class="btn btn-primary">
+            <i class="mdi mdi-plus-circle-outline"></i> {{ trans('dashboard.rasid_job.add_job') }}
         </a>
     </div>
     <!-- PAGE-HEADER END -->
@@ -15,18 +14,18 @@
     <!-- FORM OPEN -->
 
 
-    {!! Form::open(['route' => 'dashboard.job.index', 'method' => 'GET','id'=>'search-form']) !!}
+    {!! Form::open(['route' => 'dashboard.rasid_job.index', 'method' => 'GET','id'=>'search-form']) !!}
 
     <div class="row align-items-end mb-3">
         <div class="col">
-            <label for="job_name">{{ trans('dashboard.job.job_name') }}</label>
+            <label for="job_name">{{ trans('dashboard.rasid_job.job_name') }}</label>
 
-            {!! Form::text('name', old('name') ?? request('name'), ['class' => 'form-control input-regex stop-copy-paste', 'placeholder' => trans('dashboard.job.job_name'), 'id' => 'job_name']) !!}
+            {!! Form::text('name', old('name') ?? request('name'), ['class' => 'form-control input-regex stop-copy-paste', 'placeholder' => trans('dashboard.rasid_job.job_name'), 'id' => 'job_name']) !!}
         </div>
         <div class="col">
             <label for="mainDepartment"> {{ trans('dashboard.department.department') }} </label>
 
-            {!! Form::select('department_id', [0 => trans('dashboard.general.all_cases')] + $departments, old('department_id') ?? request('department_id'), ['placeholder' => trans('dashboard.job.select_department'), 'class' => 'form-control select2-show-search', 'id' => 'mainDepartment']) !!}
+            {!! Form::select('department_id', [0 => trans('dashboard.general.all_cases')] + $departments, old('department_id') ?? request('department_id'), ['placeholder' => trans('dashboard.rasid_job.select_department'), 'class' => 'form-control select2-show-search', 'id' => 'mainDepartment']) !!}
         </div>
 
         <div class="col">
@@ -55,7 +54,7 @@
         <div class="col">
             <label for="status">
                 {{ trans('dashboard.general.status') }}</label>
-            {!! Form::select('is_active', [-1 => trans('dashboard.general.all_cases')] + trans('dashboard.job.active_cases'), old('is_active') ?? request('is_active'), ['class' => 'form-control select2', 'placeholder' => trans('dashboard.general.select_status'), 'id' => 'status']) !!}
+          {!! Form::select('is_active', [-1 => trans('dashboard.general.all_cases')] + trans('dashboard.rasid_job.active_cases'), old('is_active') ?? request('is_active'), ['class' => 'form-control select2', 'placeholder' => trans('dashboard.general.select_status'), 'id' => 'status']) !!}
 
         </div>
 
@@ -75,10 +74,10 @@
                 </button>
                 <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
                     <li><a class="dropdown-item"
-                            href="{{ route('dashboard.job.exportPDF', ['is_active' => request('is_active'),'name' => request('name'),'department_id' => request('department_id'),'from_date' => request('from_date'),'to_date' => request('to_date'),'is_vacant' => request('is_vacant')]) }}"
+                            href="{{ route('dashboard.rasid_job.exportPDF', ['is_active' => request('is_active'),'name' => request('name'),'department_id' => request('department_id'),'from_date' => request('from_date'),'to_date' => request('to_date'),'is_vacant' => request('is_vacant')]) }}"
                             target="_blank">PDF</a></li>
                     <li><a class="dropdown-item"
-                            href="{{ route('dashboard.job.export', ['is_active' => request('is_active'),'name' => request('name'),'department_id' => request('department_id'),'from_date' => request('from_date'),'to_date' => request('to_date'),'is_vacant' => request('is_vacant')]) }}"
+                            href="{{ route('dashboard.rasid_job.export', ['is_active' => request('is_active'),'name' => request('name'),'department_id' => request('department_id'),'from_date' => request('from_date'),'to_date' => request('to_date'),'is_vacant' => request('is_vacant')]) }}"
                             target="_blank">Excel</a></li>
                 </ul>
             </div>
@@ -97,7 +96,7 @@
                 <i class="mdi mdi-magnify"></i> {{ trans('dashboard.general.search') }}
             </button>
             <button  class="btn btn-outline-primary" type="button">
-              <a href="{{ route('dashboard.job.index') }}">   <i class="mdi mdi-restore"></i> {{ trans('dashboard.general.show_all') }}</a>
+              <a href="{{ route('dashboard.rasid_job.index') }}">   <i class="mdi mdi-restore"></i> {{ trans('dashboard.general.show_all') }}</a>
             </button> --}}
 
         </div>
@@ -115,7 +114,7 @@
                     <thead>
                         <tr>
                             <th class="border-bottom-0">#</th>
-                            <th class="border-bottom-0">{{ trans('dashboard.job.job_name') }}</th>
+                            <th class="border-bottom-0">{{ trans('dashboard.rasid_job.job_name') }}</th>
 
                             <th class="border-bottom-0">{{ trans('dashboard.department.department') }} </th>
                             <th class="border-bottom-0">{{ trans('dashboard.general.created_at') }} </th>
@@ -137,4 +136,4 @@
         @include('dashboard.layouts.modals.alert')
 
     @endsection
-    @include('dashboard.job.script')
+    @include('dashboard.rasid_job.script')

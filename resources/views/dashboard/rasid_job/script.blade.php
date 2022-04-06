@@ -32,7 +32,7 @@
                 sDom: "t<'domOption'lpi>",
                 serverSide: true,
                 ajax: {
-                    url: "{{ route('dashboard.job.index') }}",
+                    url: "{{ route('dashboard.rasid_job.index') }}",
                     data: function(data) {
                         data.name = $('#job_name').val();
                         data.created_from = $('#from-hijri-picker-custom').val();
@@ -46,7 +46,7 @@
                 },
 
                 // ajax: {
-                //     url: "{{ route('dashboard.job.index') }}?" + $.param(
+                //     url: "{{ route('dashboard.rasid_job.index') }}?" + $.param(
                 //         @json(request()->query()))
                 // },
 
@@ -85,9 +85,9 @@
                     {
                         data: function(data) {
                             if (data.is_active) {
-                                return ` <span class="badge bg-success-opacity py-2 px-4">${"@lang('dashboard.job.active_cases.1')"}</span>`;
+                                return ` <span class="badge bg-success-opacity py-2 px-4">${"@lang('dashboard.rasid_job.active_cases.1')"}</span>`;
                             } else {
-                                return ` <span class="badge bg-danger-opacity py-2 px-4">${"@lang('dashboard.job.active_cases.0')"}</span>`;
+                                return ` <span class="badge bg-danger-opacity py-2 px-4">${"@lang('dashboard.rasid_job.active_cases.0')"}</span>`;
                             }
                         },
 
@@ -96,9 +96,9 @@
                     {
                         data: function(data) {
                             if (data.is_vacant) {
-                                return ` <span class="occupied">${"@lang('dashboard.job.is_vacant.true')"}</span>`;
+                                return ` <span class="occupied">${"@lang('dashboard.rasid_job.is_vacant.true')"}</span>`;
                             } else {
-                                return ` <span class="vacant">${"@lang('dashboard.job.is_vacant.false')"}</span>`;
+                                return ` <span class="vacant">${"@lang('dashboard.rasid_job.is_vacant.false')"}</span>`;
                             }
                         },
                         name:"is_vacant"
@@ -164,14 +164,19 @@
                     },
                 },
               "drawCallback": function (settings, json) {
-                // job table sorting
-                var jobTable_sorting = document.getElementsByClassName('sorting_1');
-                for (var i = 0; i < jobTable_sorting.length; i++) {
-                  jobTable_sorting[i].innerText = jobTable_sorting[i].innerText.replace(jobTable_sorting[i].innerText, jobTable_sorting[i].innerText.toArabicUni());
+                // table sorting
+                var jobTableSorting = document.getElementsByClassName('sorting_1');
+                for (var i = 0; i < jobTableSorting.length; i++) {
+                  jobTableSorting[i].innerText = jobTableSorting[i].innerText.replace(jobTableSorting[i].innerText, jobTableSorting[i].innerText.toArabicUni());
                 }
-                // job table show info
-                var JobsTable_info = document.getElementById('JobsTable_info').innerText;
-                document.getElementById('JobsTable_info').innerText = JobsTable_info.replace(JobsTable_info, JobsTable_info.toArabicUni());
+                //pagination
+                var jobTablePagination = document.getElementsByClassName('page-link');
+                for (var i = 1; i < jobTablePagination.length - 1; i++) {
+                  jobTablePagination[i].innerText = jobTablePagination[i].innerText.replace(jobTablePagination[i].innerText, jobTablePagination[i].innerText.toArabicUni());
+                }
+                // info
+                var jobTableInfo = document.getElementById('JobsTable_info').innerText;
+                document.getElementById('JobsTable_info').innerText = jobTableInfo.replace(jobTableInfo, jobTableInfo.toArabicUni());
               }
             });
             $('.select2').select2({

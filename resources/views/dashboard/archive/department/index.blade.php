@@ -11,7 +11,7 @@
         <div class="row align-items-end mb-3">
             <div class="col">
                 <label for="departmentName">{{ trans('dashboard.department.department_name') }}</label>
-                <input type="text" class="form-control" id="departmentName" placeholder="{{ trans('dashboard.general.enter_name') }}" name="name"
+                <input type="text" class="form-control input-regex stop-copy-paste" maxlength="100" id="departmentName" placeholder="{{ trans('dashboard.general.enter_name') }}" name="name"
                     value="{{ old('name') ?? request('name') }}" />
             </div>
             <div class="col">
@@ -22,8 +22,8 @@
             <div class="col">
                 <label for="status">
                     @lang('dashboard.general.status')</label>
-                {!! Form::select('is_active', trans('dashboard.general.active_cases'), old('is_active') ?? request('is_active'),
-                ['class' => 'form-control select2-show-search', 'placeholder' => trans('dashboard.general.select_status'), 'id' =>
+                {!! Form::select('is_active', trans('dashboard.department.active_cases'), old('is_active') ?? request('is_active'),
+                ['class' => 'form-control select2', 'placeholder' => trans('dashboard.general.select_status'), 'id' =>
                 'status']) !!}
             </div>
             <div class="col">
