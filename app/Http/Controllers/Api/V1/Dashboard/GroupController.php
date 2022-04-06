@@ -40,16 +40,15 @@ class GroupController extends Controller
         $permissions = $request->permission_list ?? [];
         $all_permissions = Permission::select('id','name')->get();
         $permissions_collect = $all_permissions->whereIn('id',$request->permission_list);
-        dump($permissions_collect);
         foreach ($permissions_collect as $permission) {
             $action = explode('.',$permission->name);
-            dump(!$permissions_collect->contains('name',$action[0].'.index'),$permissions_collect->where('name',$action[0].'.index')->first(),$action[0].'.index');
             if (in_array($action[1],['update','store','destroy','show']) && !$permissions_collect->contains('name',$action[0].'.index')) {
                 $permissions[] = $all_permissions->where('name',$action[0].'.index')->first()?->id;
             }elseif (in_array($action[1],['restore','force_delete']) && !$permissions_collect->contains('name',$action[0].'.archive')) {
                 $permissions[] = $all_permissions->where('name',$action[0].'.archive')->first()?->id;
             }
         }
+        dump($permissions);
         if ($request->group_list) {
             $group->groups()->sync($request->group_list);
             $permissions = array_filter(array_merge($permissions, Group::find($request->group_list)->pluck('permissions')->flatten()->pluck('id')->toArray()));
@@ -108,10 +107,8 @@ class GroupController extends Controller
         $permissions = $request->permission_list ?? [];
         $all_permissions = Permission::select('id','name')->get();
         $permissions_collect = $all_permissions->whereIn('id',$request->permission_list);
-        dump($permissions_collect);
         foreach ($permissions_collect as $permission) {
             $action = explode('.',$permission->name);
-            dump(!$permissions_collect->contains('name',$action[0].'.index'),$permissions_collect->where('name',$action[0].'.index')->first(),$action[0].'.index');
             if (in_array($action[1],['update','store','destroy','show']) && !$permissions_collect->contains('name',$action[0].'.index')) {
                 $permissions[] = $all_permissions->where('name',$action[0].'.index')->first()?->id;
             }elseif (in_array($action[1],['restore','force_delete']) && !$permissions_collect->contains('name',$action[0].'.archive')) {
