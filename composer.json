@@ -6,6 +6,7 @@
     "license": "MIT",
     "require": {
         "php": "^7.3|^8.0",
+        "ext-gd": " *",
         "astrotomic/laravel-translatable": "^11.9",
         "fruitcake/laravel-cors": "^2.0",
         "geniusts/hijri-dates": "^1.1",
@@ -19,7 +20,8 @@
         "laravelcollective/html": "^6.3",
         "maatwebsite/excel": "^3.1",
         "mcamara/laravel-localization": "^1.7",
-        "mpdf/mpdf": "^8.0"
+        "mpdf/mpdf": "^8.0",
+        "niklasravnsborg/laravel-pdf": "^4.1"
     },
     "require-dev": {
         "barryvdh/laravel-debugbar": "^3.6",
