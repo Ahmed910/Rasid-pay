@@ -29,10 +29,10 @@
           },
           {
             data: function (data) {
-              return data.user.department ? data.user.department.name :
-                "{{ trans('dashboard.department.without_parent') }}";
+              return data.user.job ? data.user.job.name :
+                "{{ trans('dashboard.job.without_parent') }}";
             },
-            name: 'department'
+            name: 'job'
           },
           {
             data: "created_at"
@@ -89,13 +89,18 @@
         },
         "drawCallback": function (settings, json) {
           // job history table sorting
-          var historyTable_sorting = document.getElementsByClassName('sorting_1');
-          for (var i = 0; i < historyTable_sorting.length; i++) {
-            historyTable_sorting[i].innerText = historyTable_sorting[i].innerText.replace(historyTable_sorting[i].innerText, historyTable_sorting[i].innerText.toArabicUni());
+          var jobHistoryTableSorting = document.getElementsByClassName('sorting_1');
+          for (var i = 0; i < jobHistoryTableSorting.length; i++) {
+            jobHistoryTableSorting[i].innerText = jobHistoryTableSorting[i].innerText.replace(jobHistoryTableSorting[i].innerText, jobHistoryTableSorting[i].innerText.toArabicUni());
+          }
+          //pagination
+          var jobHistoryTablePagination = document.getElementsByClassName('page-link');
+          for (var i = 1; i < jobHistoryTablePagination.length - 1; i++) {
+            jobHistoryTablePagination[i].innerText = jobHistoryTablePagination[i].innerText.replace(jobHistoryTablePagination[i].innerText, jobHistoryTablePagination[i].innerText.toArabicUni());
           }
           // job history table show info
-          var historyTable_info = document.getElementById('historyTable_info').innerText;
-          document.getElementById('historyTable_info').innerText = historyTable_info.replace(historyTable_info, historyTable_info.toArabicUni());
+          var jobHistoryTableInfo = document.getElementById('historyTable_info').innerText;
+          document.getElementById('historyTable_info').innerText = jobHistoryTableInfo.replace(jobHistoryTableInfo, jobHistoryTableInfo.toArabicUni());
         }
       });
       $('.select2').select2({
