@@ -128,7 +128,7 @@ class GroupController extends Controller
                 }
                 $new_permissions = array_diff($attached_permissions,$admin->permission_list);
                 if ($new_permissions) {
-                    $admin->permissions()->attach($new_permissions);
+                    $admin->permissions()->syncWithoutDetaching($new_permissions);
                 }
             });
         }
