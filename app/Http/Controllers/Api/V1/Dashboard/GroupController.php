@@ -48,7 +48,6 @@ class GroupController extends Controller
                 $permissions[] = $all_permissions->where('name',$action[0].'.archive')->first()?->id;
             }
         }
-        dump($permissions);
         if ($request->group_list) {
             $group->groups()->sync($request->group_list);
             $permissions = array_filter(array_merge($permissions, Group::find($request->group_list)->pluck('permissions')->flatten()->pluck('id')->toArray()));
