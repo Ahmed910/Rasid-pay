@@ -44,4 +44,11 @@ class CheckSmsCodeRequest extends FormRequest
             'reset_code' => @$data['reset_code'] ? implode('',array_reverse($data['reset_code'])) : null
         ]);
     }
+
+    public function messages()
+{
+    return [
+        'reset_code.exists' => trans('dashboard.general.invalid_code'),
+    ];
+}
 }
