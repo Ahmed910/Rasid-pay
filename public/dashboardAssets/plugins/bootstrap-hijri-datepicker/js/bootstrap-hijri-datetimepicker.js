@@ -12111,11 +12111,11 @@
 /*! version : 4.17.37
  =========================================================
  bootstrap-datetimejs
-
+ 
  https://github.com/Eonasdan/bootstrap-datetimepicker
 
  Modified by: @balbarak
-
+ 
  Copyright (c) 2015 Jonathan Peterson
  =========================================================
  */
@@ -14872,8 +14872,8 @@
       hijriFormat: "iDD iMMMM iYYYY",
       hijriDayViewHeaderFormat: "iMMMM iYYYY",
       dayViewHeaderFormat: "MMMM YYYY",
-      minDate: "1900-01-01",
-      maxDate: "2100-01-01",
+      minDate: "1950-01-01",
+      maxDate: "2070-01-01",
       extraFormats: false,
       stepping: 1,
       useCurrent: false,
@@ -14890,7 +14890,7 @@
         previous: "<i class='mdi mdi-chevron-left'></i>",
         next: "<i class='mdi mdi-chevron-right'></i>",
         today: "اليوم",
-        clear: "حذف",
+        clear: "مسح",
         close: "اغلاق",
       },
       tooltips: {
