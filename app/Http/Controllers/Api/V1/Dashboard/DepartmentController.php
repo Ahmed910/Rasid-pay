@@ -101,12 +101,6 @@ class DepartmentController extends Controller
             ]);
     }
 
-    public function edit($id)
-    {
-        //
-    }
-
-
     public function update(DepartmentRequest $request, Department $department)
     {
         $department->fill($request->validated() + ['updated_at' => now()])->save();
@@ -149,7 +143,14 @@ class DepartmentController extends Controller
 
     public function archive(Request $request)
     {
-        $departments = Department::onlyTrashed()->search($request)->latest()->paginate((int)($request->perPage ?? 10));
+        $departments = Department::onlyTrashed()
+            ->search($request)
+            ->ListsTranslations('name')
+            ->CustomDateFromTo($request)
+            ->with('parent.translations')
+            ->addSelect('departments.created_at', 'departments.is_active', 'departments.parent_id', 'departments.added_by_id')
+            ->sortBy($request)
+            ->paginate((int)($request->per_page ?? config("globals.per_page")));
 
         return DepartmentResource::collection($departments)
             ->additional([
