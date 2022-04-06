@@ -15,6 +15,7 @@ class CreateManagersTable extends Migration
     {
         Schema::create('managers', function (Blueprint $table) {
             $table->uuid("id")->primary();
+            $table->foreignUuid("client_id")->nullable()->constrained("clients")->nullOnDelete();
             $table->string('manager_phone')->unique();
             $table->string('manager_email')->unique();
             $table->string("manager_identity_number")->unique();

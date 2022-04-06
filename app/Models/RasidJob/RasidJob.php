@@ -48,7 +48,7 @@ class RasidJob extends Model implements TranslatableContract
     {
         $this->addGlobalActivity($this, $request->query(), ActivityLog::SEARCH, 'index');
 
-        if ($request->name) {
+        if (isset($request->name)) {
             $query->where(function ($q) use ($request) {
                 $q->whereTranslationLike('name', "%$request->name%");
             });
@@ -81,9 +81,9 @@ class RasidJob extends Model implements TranslatableContract
         }
 
         $query->when($request->sort, function ($q) use ($request) {
-            if ($request->sort["column"]  == "name") {
+            if ($request->sort["column"] == "name") {
                 return $q->has('translations')
-                ->orderBy($request->sort["column"], @$request->sort["dir"]);
+                    ->orderBy($request->sort["column"], @$request->sort["dir"]);
             }
 
 

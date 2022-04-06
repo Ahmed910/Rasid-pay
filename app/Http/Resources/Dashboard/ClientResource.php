@@ -29,7 +29,7 @@ class ClientResource extends JsonResource
             'client_type' => $this->client_type,
             'created_at' => $this->created_at,
             'token' => $this->when($this->token, $this->token),
-            'manager' => ManagerResource::make($this->whenLoaded('manager')),
+            'managers' => ManagerResource::collection($this->whenLoaded('managers')),
 
             'actions' => $this->when($request->routeIs('clients.index') || $request->routeIs('clients.archive'), [
                 'show' => auth()->user()->hasPermissions('clients.show'),
