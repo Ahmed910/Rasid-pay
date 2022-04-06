@@ -13,7 +13,8 @@
                     <p>{{ trans('dashboard.general.want_to_archive') }}</p>
                     <div class="mt-3">
                         <textarea class="form-control" placeholder="{{ trans('dashboard.general.reason_needed') }}" rows="3"
-                            name="reasonAction"  id="reasonAction"></textarea>
+                            name="reasonAction"  id="reasonAction"
+                           ></textarea>
                         <input type="hidden" name="_method" value="DELETE">
                         <div class="text-danger" id="alertReasonAction"></div>
                     </div>
@@ -21,7 +22,7 @@
                 <div class="modal-footer justify-content-center mt-5 p-0">
                     <button type="submit" class="btn btn-secondary mx-3">
                         {{ trans('dashboard.general.yes') }} </button>
-                    <button type="button" class="btn btn-outline-primary" data-bs-dismiss="modal">
+                    <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
                         {{ trans('dashboard.general.no') }} </button>
                 </div>
             </form>

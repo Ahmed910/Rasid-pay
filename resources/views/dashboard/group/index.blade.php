@@ -22,7 +22,7 @@
     </div>
     <div class="col-12 col-md-3">
         <label for="status">{{ trans('dashboard.general.status') }}</label>
-        {!! Form::select('is_active', trans('dashboard.general.active_cases'), request('is_active'), ['class' => 'form-control select2-show-search', 'placeholder' => trans('dashboard.general.select_status')]) !!}
+        {!! Form::select('is_active', trans('dashboard.general.active_cases'), request('is_active'), ['class' => 'form-control select2', 'placeholder' => trans('dashboard.general.select_status')]) !!}
     </div>
 
     <div class="col-12 col-md-3">

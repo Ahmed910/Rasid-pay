@@ -15,6 +15,7 @@ class RasidJobController extends Controller
     public function index(Request $request)
     {
         $rasidJobs = RasidJob::search($request)
+            ->ListsTranslations('name')
             ->CustomDateFromTo($request)
             ->sortBy($request)
             ->paginate((int)($request->per_page ?? config("globals.per_page")));
@@ -74,7 +75,11 @@ class RasidJobController extends Controller
 
     public function archive(Request $request)
     {
-        $rasidJobs = RasidJob::onlyTrashed()->latest()
+        $rasidJobs = RasidJob::onlyTrashed()
+            ->search($request)
+            ->ListsTranslations('name')
+            ->CustomDateFromTo($request)
+            ->sortBy($request)
             ->paginate((int)($request->per_page ?? config("globals.per_page")));
 
         return RasidJobResource::collection($rasidJobs)

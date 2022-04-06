@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Resources\Blade\Dashboard\Job;
+namespace App\Http\Resources\Blade\Dashboard\RasidJob;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class JobResource extends JsonResource
+class RasidJobResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -24,11 +24,11 @@ class JobResource extends JsonResource
             'deleted_at' => $this->deleted_at,
             'is_active' => $this->is_active,
             'is_vacant' => $this->is_vacant,
-            'show_route' => route('dashboard.job.show', $this->id),
-            'edit_route' => route('dashboard.job.edit', $this->id),
-            'delete_route' => route('dashboard.job.destroy', $this->id),
-            'forceDelete_route' =>route('dashboard.job.forceDelete', $this->id),
-            'restore_route' =>route('dashboard.job.restore', $this->id)
+            'show_route' => route('dashboard.rasid_job.show', $this->id),
+            'edit_route' => route('dashboard.rasid_job.edit', $this->id),
+            'delete_route' => route('dashboard.rasid_job.destroy', $this->id),
+            'forceDelete_route' =>route('dashboard.rasid_job.forceDelete', $this->id),
+            'restore_route' =>route('dashboard.rasid_job.restore', $this->id)
         ];
     }
 }
