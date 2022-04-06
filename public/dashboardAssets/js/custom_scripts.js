@@ -25,9 +25,23 @@ function unArchiveItem(itemId, route) {
     $('#items').attr('action', route);
     // $("#modal_not_archive #message").text(message);
 }
+
+
+
+
 $(function(){
 
-            $(".archieveForm").validate({
+    //close archieveForm
+    $("#closeBtn").on('click',function(){
+        $('#reasonAction').val('').removeClass('is-invalid');
+        $('#reasonAction-error').hide();
+    });
+
+
+    //validated archieveForm
+     $(".archieveForm").validate({
+                onfocusout: function(element) {$(element).valid()},
+
                 rules: {
                     reasonAction: {
                         required: true,
@@ -40,8 +54,11 @@ $(function(){
                       rangelength: 'يجب ان يكون حقل السبب 10 حروفا او اكثر '
                     },
                   },
+                errorClass: "is-invalid",
+
                 submitHandler: function (form) {
                     var formData = $(form).serialize();
+
                     action = $(form).attr('action');
                     method = $(form).attr('method');
 
@@ -53,8 +70,8 @@ $(function(){
                         success: function (data) {
                             $('#modal_archive').modal('hide');
                             toastr.success(data.message);
+                            $('#reasonAction').val('');
                             $(datatableId).DataTable().ajax.reload();
-
                         },
                         error: function(data) {
                             $('#alertReasonAction').text(data.responseJSON.errors.reasonAction);

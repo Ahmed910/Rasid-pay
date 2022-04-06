@@ -229,10 +229,9 @@ return [
         "rasid_job_count" => "Job Count",
         "rasid_job_department" => "Department Name",
         "name" => "Job Name",
-        "employee_name" => "Employee Name ",
         "rasid_job_description" => "Description",
         "validation" => [
-            'name_must_be_unique_on_department' => 'The job title was previously selected for the same department'
+            'name_must_be_unique_on_department' => 'The rasid_job title was previously selected for the same department'
         ],
         'sub_progs' => [
             'index' => 'Jobs Record',
@@ -245,9 +244,18 @@ return [
             'false' => 'Vacant',
         ],
 
-        "jobs_hired_deleted" => " can't delete this job ",
-        "jobs_hired_archived" => " can't archive this job ",
-        'permissions' => $permissions
+        "jobs_hired_deleted" => " can't delete this rasid_job ",
+        "jobs_hired_archived" => " can't archive this rasid_job ",
+        'permissions' => $permissions,
+        "jobs" => "Jobs",
+        "add_job" => "Add Job",
+        "edit_job" => "Edit Job",
+        "job_count" => "Job Count",
+        "job_name" => "Job Name",
+        "department" => "Department",
+        "select_department" => "Select Department",
+        "employee_name" => "Employee Name",
+        "job_description" => "Job Description",
     ],
     "setting" => [
         "setting" => "Setting",
@@ -321,23 +329,7 @@ return [
         "bank_count" => "Banks Count",
         'permissions' => $permissions
     ],
-    'job' => [
-        "job" => "Job",
-        "jobs" => "Jobs",
-        "add_job" => "Add Job",
-        "edit_job" => "Edit Job",
-        "job_count" => "Job Count",
-        "job_name" => "Job Name",
-        "department" => "Department",
-        "select_department" => "Select Department",
-        "employee_name" => "Employee Name",
-        "job_description" => "Job Description",
-        'sub_progs' => [
-            'index' => 'Jobs Record',
-            'archive' => 'Jobs Archive',
-            'create' => 'Add Job',
-        ],
-    ],
+
     "notification" => [
         "notification" => "Notification",
         "notifications" => "Notifications",

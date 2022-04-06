@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Resources\Blade\Dashboard\Job;
+namespace App\Http\Resources\Blade\Dashboard\RasidJob;
 
 use Illuminate\Http\Resources\Json\ResourceCollection;
 
-class JobCollection extends ResourceCollection
+class RasidJobCollection extends ResourceCollection
 {
     /**
      * Transform the resource collection into an array.
@@ -15,7 +15,7 @@ class JobCollection extends ResourceCollection
     public function toArray($request)
     {
         return [
-            'data' => JobResource::collection($this->collection),
+            'data' => RasidJobResource::collection($this->collection),
             'draw' => (int) $request->draw,
             'recordsTotal' => (int) $this->additional['total_count'],
             'recordsFiltered' => (int) $this->additional['total_count']

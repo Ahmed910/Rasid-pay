@@ -50,8 +50,11 @@ return [
         "force_delete" => "حذف نهائي",
         'sent_successfully' => 'تم الارسال بنجاح',
         'success_send_login_code' => 'تم ارسال كود التحقق الى رقم الهاتف',
+        'phone'=> 'رقم الجوال',
         'phone_code' =>"حقل رقم الجوال مطلوب",
         'phoneCode_registeration'=>"رقم الجوال غير مسجل بالنظام",
+        'digits_between' =>"يجب أن يحتوي حقل الجوال بين 5 و 20 رقمًا/أرقام .
+        ",
         'fail_send' => 'فشل عملية الارسال',
         'active' => 'مفعل',
         'inactive' => 'معطل',
@@ -77,7 +80,6 @@ return [
         "show_all notification"=>"مشاهدة كل الإشعارات",
         "personalfile" =>"الملف الشخص",
         "active_cases" => [
-            'الجميع',
             'معطلة',
             'مفعلة',
         ],
@@ -286,12 +288,10 @@ return [
         'department_archive' => 'أرشيف الأقسام',
     ],
     "rasid_job" => [
-        "rasid_job" => "الوظيفة",
         "rasid_jobs" => "الوظائف",
         "add_rasid_job" => "اضافة وظيفة",
         "edit_rasid_job" => "تعديل الوظيفة",
         "rasid_job_count" => "عدد الوظائف",
-        "employee_name" => "اسم الموظف",
         "rasid_job_description" => "الوصف الوظيفي",
         "rasid_job_department" => "اسم القسم",
         "name" => "اسم الوظيفة",
@@ -306,11 +306,39 @@ return [
             'create' => 'اضافة وظيفة',
             'show' => 'عرض وظيفة',
         ],
+        "rasid_job" => "الوظيفة",
+        "jobs" => "الوظائف",
+        "add_job" => "اضافة وظيفة",
+        "edit_job" => "تعديل وظيفة",
+        "job_count" => "عدد الوظائف",
+        "department" => "القسم",
+        "job_name" => "اسم الوظيفة",
+        "select_department" => "اختر القسم",
+        "employee_name" => "اسم الموظف",
+        "from_date" => "تاريخ الإنشاء (من)",
+        "to_date" => "تاريخ الإنشاء (إلى)",
+        "archive_from_date" => "تاريخ الأرشفة  (من)",
+        "archive_to_date" => "تاريخ الأرشفة  (إلى)",
+        "search" => "بحث",
+        "show_all" => "عرض الكل",
+        "show" => "عرض",
+        "created_at" => "تاريخ الإنشاء",
+        "archived_at" => " تاريخ الأرشفة",
+        "actions" => "العمليات",
+        "job_description" => "وصف الوظيفة",
+        "is_active" => "الحالة",
         'is_vacant' => [
-            'true' => 'مشغولة',
-            'false' => 'شاغرة',
-        ],
-        'permissions' => $permissions
+    'true' => 'شاغرة',
+    'false' => 'مشغولة',
+],
+
+
+        'active_cases' => [
+    1=> 'مفعلة',
+    0=>'معطلة',
+],
+
+     'permissions' => $permissions
     ],
     "setting" => [
         "setting" => "الاعدادات",
@@ -384,45 +412,6 @@ return [
         ],
         'permissions' => array_except($permissions, ['archive', 'restore', 'force_delete']) + ['create' => 'عرض الموظفين']
 
-    ],
-    'job' => [
-        "job" => "الوظيفة",
-        "jobs" => "الوظائف",
-        "add_job" => "اضافة وظيفة",
-        "edit_job" => "تعديل وظيفة",
-        "job_count" => "عدد الوظائف",
-        "department" => "القسم",
-        "job_name" => "اسم الوظيفة",
-        "select_department" => "اختر القسم",
-        "employee_name" => "اسم الموظف",
-        "from_date" => "تاريخ الإنشاء (من)",
-        "to_date" => "تاريخ الإنشاء (إلى)",
-        "archive_from_date" => "تاريخ الأرشفة  (من)",
-        "archive_to_date" => "تاريخ الأرشفة  (إلى)",
-        "search" => "بحث",
-        "show_all" => "عرض الكل",
-        "show" => "عرض",
-        "created_at" => "تاريخ الإنشاء",
-        "archived_at" => " تاريخ الأرشفة",
-        "actions" => "العمليات",
-        "job_description" => "وصف الوظيفة",
-        "is_active" => "الحالة",
-        'is_vacant' => [
-            'true' => 'شاغرة',
-            'false' => 'مشغولة',
-        ],
-        'sub_progs' => [
-            'index' => 'سجل الوظائف',
-            'archive' => 'أرشيف الوظائف',
-            'create' => 'اضافة وظيفة',
-        ],
-
-        'active_cases' => [
-           1=> 'مفعلة',
-            0=>'معطلة',
-        ],
-
-     'permissions' => $permissions
     ],
     "bank" => [
         "bank" => "البنك",

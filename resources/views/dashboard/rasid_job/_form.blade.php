@@ -1,62 +1,64 @@
 <div class="card py-7 px-7">
-    <div class="row">
-        <div class="col-12 col-md-{{ isset($department) ? 4 : 6 }} mb-5">
-            {!! Form::label('departmentName', trans('dashboard.department.department_name')) !!}
-            <span class="requiredFields">*</span>
-            @foreach ($locales as $locale)
-                {!! Form::text("{$locale}[name]", isset($department) ? $department->name : null, ['class' => 'form-control input-regex stop-copy-paste', 'id' => "{$locale}[name]", 'placeholder' => trans('dashboard.general.enter_name'), 'minlength' => '2', 'maxlength' => '100']) !!}
-                <span class="text-danger" id="{{ $locale }}.nameError" hidden></span>
-            @endforeach
-        </div>
+  <div class="row">
 
-        <div class="col-12 col-md-{{ isset($department) ? 4 : 6 }} mb-5">
-            {!! Form::label('mainDepartment', trans('dashboard.department.main_department')) !!}
-            {!! Form::select('parent_id', $departments, null, ['class' => 'form-control select2-show-search' . ($errors->has('parent_id') ? ' is-invalid' : null), 'placeholder' => trans('dashboard.department.select_main_department'), 'id' => 'parent_id']) !!}
-            <span class="text-danger" id="parent_idError" hidden></span>
-        </div>
+      <div class="col-12 col-md-{{ isset($rasidJob) ? 4 : 6 }} mb-5">
+          {!! Form::label('jobName', trans('dashboard.rasid_job.job_name')) !!}
+          <p class="requiredFields">*</p>
+          @foreach ($locales as $locale)
+              {!! Form::text("{$locale}[name]", isset($rasidJob) ? $rasidJob->name : null, ['class' => 'form-control input-regex stop-copy-paste' . ($errors->has("${locale}.name") ? ' is-invalid' : null), 'id' => 'jobName', 'placeholder' => trans('dashboard.general.enter_name'), 'minlength' => '2', 'maxlength' => '100']) !!}
 
-        @if (isset($department))
-            <div class="col-12 col-md-4 mb-5">
-                {!! Form::label('status', trans('dashboard.general.status')) !!}
-                {!! Form::select('is_active', trans('dashboard.department.active_cases'), null, ['class' => 'form-control select2', 'id' => 'status','placeholder' => trans('dashboard.general.select_status')]) !!}
+              <span class="text-danger" id="{{ $locale }}.nameError" hidden></span>
+          @endforeach
+      </div>
 
-                <span class="text-danger" id="statusError" hidden></span>
-            </div>
-        @endif
+      <div class="col-12 col-md-{{ isset($rasidJob) ? 4 : 6 }} mb-5">
+          {!! Form::label('department', trans('dashboard.department.department')) !!}
+          <p class="requiredFields">*</p>
 
-        <div class="col-12 mb-3">
-            {!! Form::label('departmentImg', trans('dashboard.department.department_image') . ' (JPG, PNG, JPEG)') !!}
-            {!! Form::file('image', [
-                        'class' => 'dropify',
-                        'data-show-remove' => 'true',
-                        'data-default-file' => isset($department) ? $department->image : null,
-                        'data-bs-height' => '250',
-                        'id' => 'departmentImg',
-                        'data-errors-position' => 'inside',
-                        'data-show-errors' => 'true',
-                        'data-show-loader' => 'true',
-                        'data-allowed-file-extensions' => 'jpg png jpeg',
-                        'accept' => 'image/png, image/jpg, image/jpeg',
-                    ]) !!}
+          {!! Form::select('department_id', $departments, null, ['class' => 'form-control select2-show-search' . ($errors->has('department_id') ? ' is-invalid' : null), 'dir' => 'rtl', 'placeholder' => trans('dashboard.rasid_job.select_department'), 'id' => 'department']) !!}
 
-            <span class="text-danger" id="imageError" hidden></span>
-        </div>
+          <span class="text-danger" id="department_idError"></span>
 
-        <div class="col-12">
-            {!! Form::label('departmentDes', trans('dashboard.general.description'), ['class' => 'mb-3']) !!}
-            @foreach ($locales as $locale)
-                {!! Form::textarea("{$locale}.description", isset($department) ? $department->description : null, ['class' => 'form-control input-regex stop-copy-paste', 'id' => "$locale.description", 'rows' => '5', 'placeholder' => trans('dashboard.general.enter_description'), 'maxlength' => '300', 'onpaste' => 'return false;', 'oncopy' => 'return false;', 'ondrop' => 'return false;']) !!}
+      </div>
 
-                <span class="text-danger" id="{{ $locale }}.descriptionError" hidden></span>
-            @endforeach
-        </div>
-    </div>
+      @if (isset($rasidJob))
+          <div class="col-12 col-md-4 mb-5">
+              {!! Form::label('status', trans('dashboard.general.status')) !!}
+              <p class="requiredFields">*</p>
 
+              {!! Form::select('is_active', trans('dashboard.rasid_job.active_cases'), null, ['class' => 'form-control select2' . ($errors->has('is_active') ? ' is-invalid' : null), 'id' => 'status', 'placeholder' => trans('dashboard.general.select_status')]) !!}
+
+              <span class="text-danger" id="is_activeError"></span>
+
+
+          </div>
+
+          <div class="col-12 col-md-3 mb-5">
+              {!! Form::label('jobType', trans('dashboard.general.type')) !!}
+              {!! Form::text('is_vacant', trans('dashboard.general.job_type_cases')[$rasidJob->is_vacant], ['class' => 'form-control', 'disabled']) !!}
+          </div>
+      @endif
+
+
+      @if (isset($rasidJob) && isset($rasidJob->employee))
+          <div class="col-12 col-md-3 mb-5">
+              {!! Form::label('employeName', trans('dashboard.rasid_job.employee_name')) !!}
+              {!! Form::text('employeeName', $rasidJob->employee->user->fullname, ['class' => 'form-control', 'id' => 'employeName', 'disabled']) !!}
+          </div>
+      @endif
+
+
+      <div class="col-12 col-md-{{ isset($rasidJob) && isset($rasidJob->employee) ? 9 : 12 }}">
+          {!! Form::label('jobDesc', trans('dashboard.rasid_job.rasid_job_description'), ['class' => 'mb-3']) !!}
+          @foreach ($locales as $locale)
+              {!! Form::textarea("{$locale}[description]", isset($rasidJob) ? $rasidJob->description : null, ['class' => 'form-control input-regex stop-copy-paste' . ($errors->has("{$locale}[description]") ? ' is-invalid' : null), 'id' => 'jobDesc', 'rows' => '5', 'placeholder' => trans('dashboard.general.enter_description'), 'maxlength' => '300', 'onpaste' => 'return false;', 'oncopy' => 'return false;', 'ondrop' => 'return false;']) !!}
+
+              <span class="text-danger" id="{{ $locale }}.descriptionError"></span>
+          @endforeach
+      </div>
+
+  </div>
 </div>
-
-{!! Form::hidden('delete_image', 0, ['id' => 'imageStatus']) !!}
-{!! Form::hidden('createStatus', $createVal, ['id' => 'createStatus']) !!}
-
 
 <div class="row">
   <div class="col-12 mb-5 text-end">
@@ -66,24 +68,21 @@
   </div>
 </div>
 
+
 @include('dashboard.layouts.modals.confirm')
 @include('dashboard.layouts.modals.back')
 @include('dashboard.layouts.modals.alert')
 
 @section('scripts')
-<!-- SELECT2 JS -->
-<script src="{{ asset('dashboardAssets/js/select2.js') }}"></script>
-<script src="{{ asset('dashboardAssets/plugins/select2/select2.full.min.js') }}"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/Dropify/0.2.2/js/dropify.min.js"
-  integrity="sha512-8QFTrG0oeOiyWo/VM9Y8kgxdlCryqhIxVeRpWSezdRRAvarxVtwLnGroJgnVW9/XBRduxO/z1GblzPrMQoeuew=="
-  crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <!-- SELECT2 JS -->
+  <script src="{{ asset('dashboardAssets/js/select2.js') }}"></script>
+  <script src="{{ asset('dashboardAssets/plugins/select2/select2.full.min.js') }}"></script>
 
-<script>
-  (function() {
+  <script>
+      (function() {
           'use strict';
           let validate = false;
           let saveButton = true;
-
 
           $('#saveButton').on('click', function(e) {
               e.preventDefault();
@@ -123,7 +122,6 @@
                               let convertArray = inputName.split('.');
                               inputName = convertArray[0] + '[' + convertArray[1] + ']'
                           }
-
                           $('input[name="' + inputName + '"]').addClass('is-invalid');
                           $('select[name="' + inputName + '"]').addClass('is-invalid');
                           $('span[id="' + inputError + '"]').attr('hidden', false);
@@ -145,6 +143,7 @@
               }
           }
 
+
           // window.addEventListener(
           //     "load",
           //     function() {
@@ -157,7 +156,7 @@
           //                 form.addEventListener(
           //                     "submit",
           //                     function(event) {
-          //                         // form.classList.add("was-validated");
+          //                         form.classList.add("was-validated");
           //                         event.preventDefault();
           //                         if (form.checkValidity() === false) {
           //                             event.stopPropagation();
@@ -191,29 +190,6 @@
               validate = true;
           });
 
-          let drEvent = $(".dropify").dropify({
-              messages: {
-                  default: "{{ trans('dashboard.general.hold_upload') }}",
-                  replace: "{{ trans('dashboard.general.hold_change') }}",
-                  remove: "{{ trans('dashboard.general.delete') }}",
-                  error: "{{ trans('dashboard.general.upload_error') }}",
-              },
-              error: {
-                  fileExtension: "{{ trans('dashboard.general.notAllowdedToUpload') }}",
-                  fileSize: "{{ trans('dashboard.general.upload_file_max') }} (5M max).",
-              },
-          });
-
-          drEvent.on('dropify.afterClear', function(event, element) {
-              $('#imageStatus').val(1);
-          });
-
-
-          $('#parent_id').on('select2:select', function(e) {
-              $('#createStatus').val(1);
-          });
-
       })();
-</script>
+  </script>
 @endsection
-

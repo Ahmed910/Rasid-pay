@@ -438,3 +438,24 @@ $(document).ready(function () {
     },
   });
 });
+
+function getRegex(e) {
+    (regex = /[^a-zA-Z0-9-_ \u0621-\u064A\u0660-\u0669g]/g),
+        (value = $(e).val());
+
+    if (regex.test(value)) {
+        $(e).val(value.replace(regex, ""));
+    }
+}
+
+function stopcopypaste(e) {
+
+    $(".stop-copy-paste").on("cut copy paste", function (e) {
+        e.preventDefault();
+    });
+}
+
+// change English numbers to arabic
+String.prototype.toArabicUni = function () {
+    return this.replace(/\d/g, d => String.fromCharCode('0x066' + d))
+}

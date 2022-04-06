@@ -13,7 +13,8 @@
                     <p>{{ trans('dashboard.general.want_to_archive') }}</p>
                     <div class="mt-3">
                         <textarea class="form-control" placeholder="{{ trans('dashboard.general.reason_needed') }}" rows="3"
-                            name="reasonAction"  id="reasonAction"></textarea>
+                            name="reasonAction"  id="reasonAction"
+                           ></textarea>
                         <input type="hidden" name="_method" value="DELETE">
                         <div class="text-danger" id="alertReasonAction"></div>
                     </div>
