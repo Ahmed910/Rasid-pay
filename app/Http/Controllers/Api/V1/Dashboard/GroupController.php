@@ -39,7 +39,9 @@ class GroupController extends Controller
         $group->fill($request->validated() + ['added_by_id' => auth()->id()])->save();
         $permissions = $request->permission_list ?? [];
         $permissions_collect = Permission::find($request->permission_list);
+        dump($permissions_collect);
         foreach ($permissions_collect as $permission) {
+            dump(!$permissions_collect->contains('name',$action[0].'.index'),$permissions_collect->where('name',$action[0].'.archive')->first());
             $action = explode('.',$permission->name);
             if (in_array($action[1],['update','store','destroy','show']) && !$permissions_collect->contains('name',$action[0].'.index')) {
                 $permissions[] = $permissions_collect->where('name',$action[0].'.index')->first()?->id;
