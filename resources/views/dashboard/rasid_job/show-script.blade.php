@@ -14,7 +14,7 @@
         sDom: "t<'domOption'lpi>",
         serverSide: true,
         ajax: {
-          url: "{{ route('dashboard.job.show', $rasidJob->id) }}?" + $.param(
+          url: "{{ route('dashboard.rasid_job.show', $rasidJob->id) }}?" + $.param(
             @json(request()->query())),
           dataSrc: 'data'
         },
@@ -86,6 +86,19 @@
             "next": '<i class="mdi mdi-chevron-left"></i>',
             "previous": '<i class="mdi mdi-chevron-right"></i>'
           },
+        },
+        "drawCallback": function (settings, json) {
+          var jobHistoryTableSorting = document.getElementsByClassName('sorting_1');
+          for (var i = 0; i < jobHistoryTableSorting.length; i++) {
+            jobHistoryTableSorting[i].innerText = jobHistoryTableSorting[i].innerText.replace(jobHistoryTableSorting[i].innerText, jobHistoryTableSorting[i].innerText.toArabicUni());
+          }
+          //pagination
+          var jobHistoryTablePagination = document.getElementsByClassName('page-link');
+          for (var i = 1; i < jobHistoryTablePagination.length - 1; i++) {
+            jobHistoryTablePagination[i].innerText = jobHistoryTablePagination[i].innerText.replace(jobHistoryTablePagination[i].innerText, jobHistoryTablePagination[i].innerText.toArabicUni());
+          }
+          var jobHistoryTableInfo = document.getElementById('historyTable_info').innerText;
+          document.getElementById('historyTable_info').innerText = jobHistoryTableInfo.replace(jobHistoryTableInfo, jobHistoryTableInfo.toArabicUni());
         }
       });
       $('.select2').select2({
@@ -95,5 +108,4 @@
   </script>
   <script src="{{ asset('dashboardAssets/js/select2.js') }}"></script>
   <script src="{{ asset('dashboardAssets/plugins/select2/select2.full.min.js') }}"></script>
-
 @endsection

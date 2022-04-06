@@ -4,16 +4,17 @@ namespace App\Http\Controllers\Blade\Dashboard;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Dashboard\JobBladeRequest;
+use App\Http\Requests\Dashboard\RasidJob\RasidJobRequest;
 use App\Http\Requests\Dashboard\ReasonRequest;
 use App\Http\Resources\Blade\Dashboard\Activitylog\ActivityLogCollection;
-use App\Http\Resources\Blade\Dashboard\Job\JobCollection;
+use App\Http\Resources\Blade\Dashboard\RasidJob\RasidJobCollection;
 use App\Models\Department\Department;
 use App\Models\RasidJob\RasidJob;
 use Illuminate\Http\Request;
-use App\Exports\JobsExport;
+use App\Exports\JobsExport ;
 use Maatwebsite\Excel\Facades\Excel;
 
-class JobController extends Controller
+class RasidJobController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -28,20 +29,20 @@ class JobController extends Controller
         }
         if ($request->ajax()) {
 
-            $jobsQuery = RasidJob::without('employee')->search($request)
+            $rasid_jobsQuery = RasidJob::without('employee')->search($request)
                 ->CustomDateFromTo($request)
                 ->ListsTranslations('name')
                 ->addSelect('rasid_jobs.created_at', 'rasid_jobs.is_active', 'rasid_jobs.department_id', 'rasid_jobs.is_vacant')
                 ->sortBy($request);
 
 
-            $jobCount = $jobsQuery->count();
-            $jobs = $jobsQuery->skip($request->start)
-                ->take(($request['length'] == '-1') ? $jobCount : $request->length)
+            $rasid_jobCount = $rasid_jobsQuery->count();
+            $rasid_jobs = $rasid_jobsQuery->skip($request->start)
+                ->take(($request['length'] == '-1') ? $rasid_jobCount : $request->length)
                 ->get();
 
-            return JobCollection::make($jobs)
-                ->additional(['total_count' => $jobCount]);
+            return RasidJobCollection::make($rasid_jobs)
+                ->additional(['total_count' => $rasid_jobCount]);
         }
 
         $departments = Department::where('is_active', 1)
@@ -50,7 +51,7 @@ class JobController extends Controller
             ->pluck('name', 'id')
             ->toArray();
 
-        return view('dashboard.job.index', compact('departments'));
+        return view('dashboard.rasid_job.index', compact('departments'));
     }
 
     /**
@@ -63,7 +64,7 @@ class JobController extends Controller
 
         $departments = Department::with('parent.translations')->ListsTranslations('name')->where('is_active', 1)->pluck('name', 'id');
         $locales = config('translatable.locales');
-        return view('dashboard.job.create', compact('departments', 'locales'));
+        return view('dashboard.rasid_job.create', compact('departments', 'locales'));
     }
 
     /**
@@ -72,11 +73,11 @@ class JobController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(JobBladeRequest $request, RasidJob $rasidJob)
+    public function store(JobBladeRequest $request, RasidJob $RasidJob)
     {
 
         if (!request()->ajax()) {
-            $rasidJob->fill($request->validated())->save();
+            $RasidJob->fill($request->validated())->save();
             return redirect()->back()->with('success', __('dashboard.general.success_add'));
         }
     }
@@ -115,7 +116,7 @@ class JobController extends Controller
                 ->additional(['total_count' => $activityCount]);
         }
 
-        return view('dashboard.job.show', compact('rasidJob'));
+        return view('dashboard.rasid_job.show', compact('rasidJob'));
     }
 
     /**
@@ -129,7 +130,7 @@ class JobController extends Controller
         $rasidJob = RasidJob::findorfail($id);
         $departments = Department::with('parent.translations')->ListsTranslations('name')->where('parent_id', null)->pluck('name', 'id')->toArray();
         $locales = config('translatable.locales');
-        return view('dashboard.job.edit', compact('departments', 'rasidJob', 'locales'));
+        return view('dashboard.rasid_job.edit', compact('departments', 'rasidJob', 'locales'));
     }
 
     /**
@@ -139,11 +140,11 @@ class JobController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(JobBladeRequest $request, RasidJob $job)
+    public function update(JobBladeRequest $request, RasidJob $rasid_job)
     {
         if (!request()->ajax()) {
-            $job->fill($request->validated() + ['updated_at' => now()])->save();
-            return redirect()->route('dashboard.job.index')->withSuccess(__('dashboard.general.success_update'));
+            $rasid_job->fill($request->validated() + ['updated_at' => now()])->save();
+            return redirect()->route('dashboard.rasid_job.index')->withSuccess(__('dashboard.general.success_update'));
         }
     }
 
@@ -169,7 +170,7 @@ class JobController extends Controller
             $request['sort'] = ['column' => $sortingColumns[$request->order[0]['column']], 'dir' => $request->order[0]['dir']];
         }
 
-        $jobsQuery = RasidJob::onlyTrashed()
+        $rasid_jobsQuery = RasidJob::onlyTrashed()
             ->without('employee')
             ->search($request)
             ->CustomDateFromTo($request)
@@ -177,13 +178,13 @@ class JobController extends Controller
             ->sortBy($request)
             ->addSelect('rasid_jobs.department_id', 'rasid_jobs.deleted_at', 'rasid_jobs.is_active');
         if ($request->ajax()) {
-            $jobCount = $jobsQuery->count();
-            $jobs = $jobsQuery->skip($request->start)
-                ->take($request['length'] == '-1' ? $jobCount : $request['length'])
+            $rasid_jobCount = $rasid_jobsQuery->count();
+            $rasid_jobs = $rasid_jobsQuery->skip($request->start)
+                ->take($request['length'] == '-1' ? $rasid_jobCount : $request['length'])
                 ->get();
 
-            return JobCollection::make($jobs)
-                ->additional(['total_count' => $jobCount]);
+            return RasidJobCollection::make($rasid_jobs)
+                ->additional(['total_count' => $rasid_jobCount]);
         }
 
         $departments = Department::where('is_active', 1)
@@ -197,28 +198,28 @@ class JobController extends Controller
             ->ListsTranslations("name")
             ->pluck('name', 'id');
 
-        return view('dashboard.archive.job.index', compact('departments'));
+        return view('dashboard.archive.rasid_job.index', compact('departments'));
     }
     public function restore(ReasonRequest $request, $id)
     {
-        $rasidJob = RasidJob::onlyTrashed()->findOrFail($id);
+        $RasidJob = RasidJob::onlyTrashed()->findOrFail($id);
 
-        $rasidJob->restore();
+        $RasidJob->restore();
         return redirect()->back()->withSuccess(__('dashboard.general.success_restore'));
     }
 
     public function forceDelete(ReasonRequest $request, $id)
     {
-        $rasidJob = RasidJob::onlyTrashed()->findOrFail($id);
-        $rasidJob->forceDelete();
+        $RasidJob = RasidJob::onlyTrashed()->findOrFail($id);
+        $RasidJob->forceDelete();
         return redirect()->back()->withSuccess(__('dashboard.general.success_delete'));
     }
-    public function destroy($rasidJob, \App\Http\Requests\Dashboard\ReasonRequest $request)
+    public function destroy($RasidJob, \App\Http\Requests\Dashboard\ReasonRequest $request)
     {
-        $job = RasidJob::findorfail($rasidJob);
+        $rasid_job = RasidJob::findorfail($RasidJob);
 
         if ($request->ajax()) {
-            $job->delete();
+            $rasid_job->delete();
             return response()->json([
                 'message' => __('dashboard.general.success_archive')
             ]);
@@ -229,8 +230,28 @@ class JobController extends Controller
     {
         return Excel::download(new JobsExport($request), 'jobs.xlsx');
     }
+
+
+    // public function exportPDF(Request $request)
+    // {
+    //     return  Excel::download(new JobsExport($request), 'jobs.pdf');
+    // }
+
     public function exportPDF(Request $request)
     {
-        return  Excel::download(new JobsExport($request), 'jobs.pdf');
+        $jobs = RasidJob::without('employee')->search($request)
+        ->CustomDateFromTo($request)
+        ->ListsTranslations('name')
+        ->sortBy($request)
+        ->addSelect('rasid_jobs.created_at', 'rasid_jobs.is_active', 'rasid_jobs.department_id', 'rasid_jobs.is_vacant')
+        ->get();
+
+
+        $data = [
+            'jobs' => $jobs
+        ];
+
+        $pdf = PDF::loadView('dashboard.job.export', $data);
+        return $pdf->stream('jobs.pdf');
     }
 }

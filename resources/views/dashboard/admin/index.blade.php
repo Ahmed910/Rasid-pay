@@ -34,7 +34,7 @@
             </div>
             <div class="col-12 col-md-3">
                 <label for="status">{{ trans('dashboard.general.status') }}</label>
-                {!! Form::select('ban_status', trans('dashboard.admin.active_cases'), request('ban_status'), ['class' => 'form-control select2-show-search', 'id' => 'status', 'placeholder' => trans('dashboard.general.select_status')]) !!}
+                {!! Form::select('ban_status', trans('dashboard.admin.active_cases'), request('ban_status'), ['class' => 'form-control select2', 'id' => 'status', 'placeholder' => trans('dashboard.general.select_status')]) !!}
             </div>
         </div>
 
