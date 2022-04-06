@@ -230,8 +230,28 @@ class RasidJobController extends Controller
     {
         return Excel::download(new JobsExport($request), 'jobs.xlsx');
     }
+
+
+    // public function exportPDF(Request $request)
+    // {
+    //     return  Excel::download(new JobsExport($request), 'jobs.pdf');
+    // }
+
     public function exportPDF(Request $request)
     {
-        return  Excel::download(new JobsExport($request), 'jobs.pdf');
+        $jobs = RasidJob::without('employee')->search($request)
+        ->CustomDateFromTo($request)
+        ->ListsTranslations('name')
+        ->sortBy($request)
+        ->addSelect('rasid_jobs.created_at', 'rasid_jobs.is_active', 'rasid_jobs.department_id', 'rasid_jobs.is_vacant')
+        ->get();
+
+
+        $data = [
+            'jobs' => $jobs
+        ];
+
+        $pdf = PDF::loadView('dashboard.job.export', $data);
+        return $pdf->stream('jobs.pdf');
     }
 }
