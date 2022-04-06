@@ -904,3 +904,13 @@ $BaseBG: #0f0f1a;
   border: none !important;
   box-shadow: none !important;
 }
+
+
+.requiredFields{
+    display: inline;
+    color: #f00;
+  }
+
+  .select2-results__option:first-of-type{
+    display: none !important;
+  }
