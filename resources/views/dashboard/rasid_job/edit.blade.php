@@ -1,6 +1,6 @@
 @extends('dashboard.layouts.master')
 
-@section('title', trans('dashboard.job.edit_job'))
+@section('title', trans('dashboard.rasid_job.edit_job'))
 
 @section('content')
 
@@ -8,12 +8,12 @@
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
                 <li class="breadcrumb-item">
-                    <a href="{{ route('dashboard.job.index') }}">
-                        {{ trans('dashboard.job.sub_progs.index') }}
+                    <a href="{{ route('dashboard.rasid_job.index') }}">
+                        {{ trans('dashboard.rasid_job.sub_progs.index') }}
                     </a>
                 </li>
                 <li class="breadcrumb-item active" aria-current="page">
-                    {{ trans('dashboard.job.edit_job') }}
+                    {{ trans('dashboard.rasid_job.edit_job') }}
 
                 </li>
             </ol>
@@ -22,8 +22,8 @@
     <!-- PAGE-HEADER END -->
 
     <!-- ROW OPEN -->
-    {!! Form::model($rasidJob, ['route' => ['dashboard.job.update', $rasidJob->id], 'method' => 'PUT', 'class' => 'needs-validation', 'id' => 'formId', 'novalidate']) !!}
-    @include('dashboard.job._form', [
+    {!! Form::model($rasidJob, ['route' => ['dashboard.rasid_job.update', $rasidJob->id], 'method' => 'PUT', 'class' => 'needs-validation', 'id' => 'formId', 'novalidate']) !!}
+    @include('dashboard.rasid_job._form', [
         'btn_submit' => trans('dashboard.general.save')
     ])
     {!! Form::close() !!}

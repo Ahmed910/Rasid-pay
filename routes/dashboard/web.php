@@ -31,7 +31,7 @@ Route::group(
             Route::resource('activity_log', 'ActivityLogController')->only('index', 'show');
             Route::get('department_export', 'DepartmentController@exportDepartment');
 
-            Route::controller('JobController')->name('job.')->prefix('job')->group(function () {
+            Route::controller('rasidjobController')->name('rasid_job.')->prefix('rasid_job')->group(function () {
                 Route::get('archive', 'archive')->name('archive');
                 Route::post('restore/{id}', 'restore')->name('restore');
                 Route::delete('forceDelete/{id}', 'forceDelete')->name('forceDelete');
@@ -63,7 +63,7 @@ Route::group(
 
 
             Route::resources([
-                'job' => 'JobController',
+                'rasid_job' => 'rasidjobController',
                 'department' => 'DepartmentController',
                 'group' => 'GroupController',
                 'client' => 'ClientController',

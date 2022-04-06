@@ -7,7 +7,7 @@
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
                 <li class="breadcrumb-item">
-                    <a href="{{ route('dashboard.job.index') }}">
+                    <a href="{{ route('dashboard.rasid_job.index') }}">
                         {{ trans('dashboard.rasid_job.sub_progs.index') }} </a>
                 </li>
                 <li class="breadcrumb-item active" aria-current="page">
@@ -30,7 +30,7 @@
             <div class="col-12 col-md-3">
                 <label class="d-block" for="departmentName">{{ trans('dashboard.general.status') }}</label>
                 <p class="badge bg-{{ $rasidJob->is_active == 1 ? 'success' : 'danger' }}-opacity py-2 px-4">
-                    {{ trans('dashboard.job.active_cases.' . $rasidJob->is_active) }}</p>
+                    {{ trans('dashboard.rasid_job.active_cases.' . $rasidJob->is_active) }}</p>
             </div>
             <div class="col-12 col-md-3">
                 <label class="d-block" for="departmentName">{{ trans('dashboard.general.type') }}</label>
@@ -61,10 +61,10 @@
 
     <div class="row">
         <div class="col-12 text-end">
-            <a href="{{ route('dashboard.job.edit', $rasidJob->id) }}" class="btn btn-primary">
+            <a href="{{ route('dashboard.rasid_job.edit', $rasidJob->id) }}" class="btn btn-primary">
                 <i class="mdi mdi-square-edit-outline"></i> {{ trans('dashboard.general.edit') }}
             </a>
-            <a href="{{ route('dashboard.job.index') }}" class="btn btn-outline-primary">
+            <a href="{{ route('dashboard.rasid_job.index') }}" class="btn btn-outline-primary">
                 <i class="mdi mdi-arrow-left"></i> {{ trans('dashboard.general.back') }}
             </a>
         </div>
@@ -88,4 +88,4 @@
     </div>
 
 @endsection
-@include('dashboard.job.show-script')
+@include('dashboard.rasid_job.show-script')

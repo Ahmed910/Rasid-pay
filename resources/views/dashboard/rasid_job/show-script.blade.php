@@ -14,7 +14,7 @@
         sDom: "t<'domOption'lpi>",
         serverSide: true,
         ajax: {
-          url: "{{ route('dashboard.job.show', $rasidJob->id) }}?" + $.param(
+          url: "{{ route('dashboard.rasid_job.show', $rasidJob->id) }}?" + $.param(
             @json(request()->query())),
           dataSrc: 'data'
         },
