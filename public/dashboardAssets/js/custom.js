@@ -461,6 +461,11 @@ $(document).ready(function () {
         getRegex(this);
     });
 
+    document.querySelector('.number-regex').addEventListener("keydown", function(e) {
+        if (['-'].includes(e.key)) {
+          e.preventDefault();
+        }
+      });
     // $(".stop-copy-paste").on("cut copy paste", function (e) {
     //     e.preventDefault();
     // });

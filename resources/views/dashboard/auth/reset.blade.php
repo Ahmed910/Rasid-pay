@@ -74,7 +74,7 @@
                       <label for="mobile">رقم الجوال</label>
                       <input  onselectstart="return false" onpaste="return false" onCopy="return false" onCut="return false" onDrag="return false" onDrop="return false" autocomplete=off
                         type="number"
-                        class="form-control @error('phone') {{ trans('dashboard.general.phoneCode_registeration') }} @enderror"
+                        class="form-control  number-regex @error('phone') {{ trans('dashboard.general.phoneCode_registeration') }} @enderror"
                         id="mobile"
                         name="phone"
                         value="{{ old('phone') }}"
