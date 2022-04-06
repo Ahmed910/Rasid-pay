@@ -14,7 +14,7 @@ class AddRegisterTypeAndTransactionDoneToClients extends Migration
     public function up()
     {
         Schema::table('clients', function (Blueprint $table) {
-            $table->enum('register_type', ['direct','delegate'])->default("company")->default("direct");
+            $table->enum('register_type', ['direct','delegate'])->default("direct");
             $table->string("transactions_done")->default(0);
         });
     }
