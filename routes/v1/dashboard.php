@@ -146,4 +146,3 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::resource('groups', 'GroupController')->except('create', 'edit', 'destroy');
     });
 });
-
