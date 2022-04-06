@@ -30,7 +30,7 @@ class Group extends Model implements TranslatableContract
     {
         $this->addGlobalActivity($this, $request->query(), ActivityLog::SEARCH,'index');
 
-        if ($request->has('name')) {
+        if (isset($request->name)) {
             $query->whereTranslationLike('name',"%$request->name%");
         }
 

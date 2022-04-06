@@ -37,15 +37,9 @@ class DepartmentRequest extends FormRequest
     public function rules()
     {
         $igonredDepartment = $this->department ?  implode(',', Department::flattenChildren($this->department)) : "";
-        if($this->createStatus)
-            $rule = "nullable|exists:departments,id,deleted_at,NULL";
-        else
-            $rule = "required|nullable|exists:departments,id,deleted_at,NULL|not_in:$igonredDepartment";
-
-
         $rules = [
             "image"         => "nullable|max:5120|mimes:jpg,png,jpeg",
-            "parent_id"     =>  $rule ,
+            "parent_id"     =>  "nullable|exists:departments,id,deleted_at,NULL|not_in:$igonredDepartment",
             "is_active"     => "in:0,1",
             'delete_image'  => "in:0,1"
         ];
