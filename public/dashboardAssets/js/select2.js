@@ -9,8 +9,7 @@ $(function(e) {
     // Select2 by showing the search
     $('.select2-show-search').select2({
         minimumResultsForSearch: '',
-        dir: 'rtl',
-        width: '100%',
+        width: '100%'
     });
 
     $('.select2').on('click', () => {
