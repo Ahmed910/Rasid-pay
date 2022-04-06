@@ -26,7 +26,7 @@ class AddManagerCountryCodeToManagersTable extends Migration
     public function down()
     {
         Schema::table('managers', function (Blueprint $table) {
-            //
+            $table->dropColumn('manager_country_code');
         });
     }
 }
