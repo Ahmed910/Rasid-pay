@@ -77,7 +77,6 @@ return [
         "show_all notification"=>"مشاهدة كل الإشعارات",
         "personalfile" =>"الملف الشخص",
         "active_cases" => [
-            'الجميع',
             'معطلة',
             'مفعلة',
         ],
