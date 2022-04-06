@@ -46,6 +46,7 @@ return [
         'sent_successfully' => 'Sent Successfully',
         'success_send_login_code' => 'The verification code has been sent to the mobile number',
         'fail_send' => 'Sending Failed',
+        'invalid_code'=>'code is wrong ',
         'active' => 'Active',
         'inactive' => 'Inactive',
         'activited' => 'Activited',
