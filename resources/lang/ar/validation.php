@@ -181,6 +181,11 @@ return [
         ],
     ],
 
+    'custom'               => [
+        'phone' => [
+            'exists' => ' رقم الجوال غير مسجل بالنظام',
+        ],
+    ],
     'values' => [
         'code_type' => [
             'reset_code' => 'كود استعادة',
