@@ -1,75 +1,75 @@
 @section('datatable_script')
-    <script src="{{ asset('dashboardAssets/plugins/datatable/js/jquery.dataTables.min.js') }}"></script>
-    <script src="{{ asset('dashboardAssets/plugins/datatable/js/dataTables.bootstrap5.js') }}"></script>
-    <script src="{{ asset('dashboardAssets/plugins/datatable/dataTables.responsive.min.js') }}"></script>
-    <script src="{{ asset('dashboardAssets/plugins/datatable/responsive.bootstrap5.min.js') }}"></script>
+  <script src="{{ asset('dashboardAssets/plugins/datatable/js/jquery.dataTables.min.js') }}"></script>
+  <script src="{{ asset('dashboardAssets/plugins/datatable/js/dataTables.bootstrap5.js') }}"></script>
+  <script src="{{ asset('dashboardAssets/plugins/datatable/dataTables.responsive.min.js') }}"></script>
+  <script src="{{ asset('dashboardAssets/plugins/datatable/responsive.bootstrap5.min.js') }}"></script>
 @endsection
 @section('scripts')
-    <script src="{{ asset('dashboardAssets/js/custom_scripts.js') }}"></script>
+  <script src="{{ asset('dashboardAssets/js/custom_scripts.js') }}"></script>
 
-    <script>
-        $(function() {
+  <script>
+    $(function () {
 
-            $("#historyTable").DataTable({
-                sDom: "t<'domOption'lpi>",
-                serverSide: true,
-                ajax: {
-                    url: "{{ route('dashboard.job.show', $rasidJob->id) }}?" + $.param(
-                        @json(request()->query())),
-                    dataSrc: 'data'
-                },
+      $("#historyTable").DataTable({
+        sDom: "t<'domOption'lpi>",
+        serverSide: true,
+        ajax: {
+          url: "{{ route('dashboard.job.show', $rasidJob->id) }}?" + $.param(
+            @json(request()->query())),
+          dataSrc: 'data'
+        },
 
-                columns: [{
-                        data: function(data, type, full, meta) {
-                            return meta.row + 1;
-                        }
-                    },
-                    {
-                        data: "user.fullname"
-                    },
-                    {
-                        data: function(data) {
-                            return data.user.department ? data.user.department.name :
-                                "{{ trans('dashboard.department.without_parent') }}";
-                        },
-                        name: 'department'
-                    },
-                    {
-                        data: "created_at"
-                    },
-                    {
-                        data: function(data) {
-                            if (data.type == 'created') {
-                                return `<span class="badge bg-success-opacity py-2 px-4">${"@lang('dashboard.general.create')"}</span>`;
-                            }
-                            if (data.type == 'updated') {
-                                return `<span class="badge bg-warning-opacity py-2 px-4">${"@lang('dashboard.general.edit')"}</span>`;
-                            }
-                            if (data.type == 'destroy') {
-                                return `<span class="badge bg-primary-opacity py-2 px-4">${"@lang('dashboard.general.archive')"}</span>`;
-                            }
-                            if (data.type == 'restored') {
-                                return `<span class="badge bg-success-opacity py-2 px-4">${"@lang('dashboard.general.restore')"}</span>`;
-                            }
-                            if (data.type == 'permanent_delete') {
-                                return `<span class="badge bg-success-opacity py-2 px-4">${"@lang('dashboard.general.force_delete')"}</span>`;
-                            }
-                            if (data.type == 'searched') {
-                                return `<span class="badge bg-success-opacity py-2 px-4">${"@lang('dashboard.general.search')"}</span>`;
-                            }
-                            if (data.type == 'deactivated') {
-                                return `<span class="badge bg-default-opacity py-2 px-4">${"@lang('dashboard.general.unactivited')"}</span>`;
-                            }
-                            if (data.type == 'activated') {
-                                return `<span class="badge bg-success-opacity py-2 px-4">${"@lang('dashboard.general.activited')"}</span>`;
-                            }
+        columns: [{
+          data: function (data, type, full, meta) {
+            return meta.row + 1;
+          }
+        },
+          {
+            data: "user.fullname"
+          },
+          {
+            data: function (data) {
+              return data.user.department ? data.user.department.name :
+                "{{ trans('dashboard.department.without_parent') }}";
+            },
+            name: 'department'
+          },
+          {
+            data: "created_at"
+          },
+          {
+            data: function (data) {
+              if (data.type == 'created') {
+                return `<span class="badge bg-success-opacity py-2 px-4">${"@lang('dashboard.general.create')"}</span>`;
+              }
+              if (data.type == 'updated') {
+                return `<span class="badge bg-warning-opacity py-2 px-4">${"@lang('dashboard.general.edit')"}</span>`;
+              }
+              if (data.type == 'destroy') {
+                return `<span class="badge bg-primary-opacity py-2 px-4">${"@lang('dashboard.general.archive')"}</span>`;
+              }
+              if (data.type == 'restored') {
+                return `<span class="badge bg-success-opacity py-2 px-4">${"@lang('dashboard.general.restore')"}</span>`;
+              }
+              if (data.type == 'permanent_delete') {
+                return `<span class="badge bg-success-opacity py-2 px-4">${"@lang('dashboard.general.force_delete')"}</span>`;
+              }
+              if (data.type == 'searched') {
+                return `<span class="badge bg-success-opacity py-2 px-4">${"@lang('dashboard.general.search')"}</span>`;
+              }
+              if (data.type == 'deactivated') {
+                return `<span class="badge bg-default-opacity py-2 px-4">${"@lang('dashboard.general.unactivited')"}</span>`;
+              }
+              if (data.type == 'activated') {
+                return `<span class="badge bg-success-opacity py-2 px-4">${"@lang('dashboard.general.activited')"}</span>`;
+              }
 
 
-                        }
-                    },
-                    {
-                        data: "reason",
-                    },
+            }
+          },
+          {
+            data: "reason",
+          },
 
         ],
         pageLength: 10,
@@ -86,6 +86,16 @@
             "next": '<i class="mdi mdi-chevron-left"></i>',
             "previous": '<i class="mdi mdi-chevron-right"></i>'
           },
+        },
+        "drawCallback": function (settings, json) {
+          // job history table sorting
+          var historyTable_sorting = document.getElementsByClassName('sorting_1');
+          for (var i = 0; i < historyTable_sorting.length; i++) {
+            historyTable_sorting[i].innerText = historyTable_sorting[i].innerText.replace(historyTable_sorting[i].innerText, historyTable_sorting[i].innerText.toArabicUni());
+          }
+          // job history table show info
+          var historyTable_info = document.getElementById('historyTable_info').innerText;
+          document.getElementById('historyTable_info').innerText = historyTable_info.replace(historyTable_info, historyTable_info.toArabicUni());
         }
       });
       $('.select2').select2({
