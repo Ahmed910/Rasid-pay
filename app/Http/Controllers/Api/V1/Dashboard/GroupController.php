@@ -38,13 +38,14 @@ class GroupController extends Controller
     {
         $group->fill($request->validated() + ['added_by_id' => auth()->id()])->save();
         $permissions = $request->permission_list ?? [];
-        $permissions_collect = Permission::find($request->permission_list);
+        $all_permissions = Permission::select('id','name')->get();
+        $permissions_collect = $all_permissions->whereIn('id',$request->permission_list);
         foreach ($permissions_collect as $permission) {
             $action = explode('.',$permission->name);
-            if (in_array($action[1],['update','store','destroy','show']) && !$permissions_collect->contains('name',$action[0].'index')) {
-                $permissions[] = $permissions_collect->where('name',$action[0].'index')->first()?->id;
-            }elseif (in_array($action[1],['restore','force_delete']) && !$permissions_collect->contains('name',$action[0].'archive')) {
-                $permissions[] = $permissions_collect->where('name',$action[0].'archive')->first()?->id;
+            if (in_array($action[1],['update','store','destroy','show']) && !$permissions_collect->contains('name',$action[0].'.index')) {
+                $permissions[] = $all_permissions->where('name',$action[0].'.index')->first()?->id;
+            }elseif (in_array($action[1],['restore','force_delete']) && !$permissions_collect->contains('name',$action[0].'.archive')) {
+                $permissions[] = $all_permissions->where('name',$action[0].'.archive')->first()?->id;
             }
         }
         if ($request->group_list) {
@@ -103,13 +104,14 @@ class GroupController extends Controller
         $old_permissions = $group->permission_list;
         $group->fill($request->validated()+['updated_at' => now()])->save();
         $permissions = $request->permission_list ?? [];
-        $permissions_collect = Permission::find($request->permission_list);
+        $all_permissions = Permission::select('id','name')->get();
+        $permissions_collect = $all_permissions->whereIn('id',$request->permission_list);
         foreach ($permissions_collect as $permission) {
             $action = explode('.',$permission->name);
-            if (in_array($action[1],['update','store','destroy','show']) && !$permissions_collect->contains('name',$action[0].'index')) {
-                $permissions[] = $permissions_collect->where('name',$action[0].'index')->first()?->id;
-            }elseif (in_array($action[1],['restore','force_delete']) && !$permissions_collect->contains('name',$action[0].'archive')) {
-                $permissions[] = $permissions_collect->where('name',$action[0].'archive')->first()?->id;
+            if (in_array($action[1],['update','store','destroy','show']) && !$permissions_collect->contains('name',$action[0].'.index')) {
+                $permissions[] = $all_permissions->where('name',$action[0].'.index')->first()?->id;
+            }elseif (in_array($action[1],['restore','force_delete']) && !$permissions_collect->contains('name',$action[0].'.archive')) {
+                $permissions[] = $all_permissions->where('name',$action[0].'.archive')->first()?->id;
             }
         }
         if ($request->group_list) {
@@ -126,7 +128,7 @@ class GroupController extends Controller
                 }
                 $new_permissions = array_diff($attached_permissions,$admin->permission_list);
                 if ($new_permissions) {
-                    $admin->permissions()->attach($new_permissions);
+                    $admin->permissions()->syncWithoutDetaching($new_permissions);
                 }
             });
         }

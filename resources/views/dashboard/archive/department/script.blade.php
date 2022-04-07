@@ -112,15 +112,30 @@
                 [1, 5, 10, 20, "الكل"],
             ],
             "language": {
-                "lengthMenu": "@lang('dashboard.general.show') _MENU_",
-                "emptyTable": "@lang('dashboard.general.no_data')",
-                "info": "@lang('dashboard.general.showing') _START_ @lang('dashboard.general.to') _END_ @lang('dashboard.general.from') _TOTAL_ @lang('dashboard.general.entries')",
-                "infoEmpty": "",
+              "lengthMenu": "@lang('dashboard.general.show') _MENU_",
+              "emptyTable": "@lang('dashboard.datatable.no_data')",
+              "info": "@lang('dashboard.datatable.showing') _START_ @lang('dashboard.datatable.to') _END_ @lang('dashboard.datatable.from') _TOTAL_ @lang('dashboard.datatable.entries')",
+              "infoEmpty": "",
                 "paginate": {
                     "next": '<i class="mdi mdi-chevron-left"></i>',
                     "previous": '<i class="mdi mdi-chevron-right"></i>'
                 },
+            },
+          "drawCallback": function (settings, json) {
+            // table sorting
+            var departmentTableSorting = document.getElementsByClassName('sorting_1');
+            for (var i = 0; i < departmentTableSorting.length; i++) {
+              departmentTableSorting[i].innerText = departmentTableSorting[i].innerText.replace(departmentTableSorting[i].innerText, departmentTableSorting[i].innerText.toArabicUni());
             }
+            //pagination
+            var departmentTablePagination = document.getElementsByClassName('page-link');
+            for (var i = 1; i < departmentTablePagination.length - 1; i++) {
+              departmentTablePagination[i].innerText = departmentTablePagination[i].innerText.replace(departmentTablePagination[i].innerText, departmentTablePagination[i].innerText.toArabicUni());
+            }
+            // info
+            var departmentTableInfo = document.getElementById('departmentTable_info').innerText;
+            document.getElementById('departmentTable_info').innerText = departmentTableInfo.replace(departmentTableInfo, departmentTableInfo.toArabicUni());
+          }
         });
         $('.select2').select2({
             minimumResultsForSearch: Infinity
