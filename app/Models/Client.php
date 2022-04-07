@@ -33,7 +33,7 @@ class Client extends Model
         if ($request->client_type) $query->where("client_type", $request->client_type);
         if ($request->nationality) $query->where("nationality", $request->nationality);
         if ($request->bank_id) $query->whereHas("bankAccount", function ($q) use($request) {
-            $q->where('bank_accounts.id',$request->bank_id);
+            $q->where('bank_id',$request->bank_id);
         });
     }
 
