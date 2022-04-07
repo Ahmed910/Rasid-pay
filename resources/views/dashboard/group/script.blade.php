@@ -84,16 +84,31 @@
                 [5, 10, 20, "{{ trans('dashboard.general.all') }}"],
             ],
 
-            language: {
-                lengthMenu : "{{ trans('dashboard.datatable.show')}} _MENU_",
-                emptyTable : "{{ trans('dashboard.datatable.no_data') }}",
-                info : "{{ trans('dashboard.datatable.showing') }}_START_ {{ trans('dashboard.datatable.to') }}_END_ {{ trans('dashboard.datatable.from') }}_TOTAL_ {{ trans('dashboard.datatable.entries') }}",
-                infoEmpty : "",
-                paginate : {
-                    next : '<i class="mdi mdi-chevron-left"></i>',
-                    previous : '<i class="mdi mdi-chevron-right"></i>'
-                },
+          "language": {
+            "lengthMenu": "@lang('dashboard.general.show') _MENU_",
+            "emptyTable": "@lang('dashboard.datatable.no_data')",
+            "info": "@lang('dashboard.datatable.showing') _START_ @lang('dashboard.datatable.to') _END_ @lang('dashboard.datatable.from') _TOTAL_ @lang('dashboard.datatable.entries')",
+            "infoEmpty": "",
+            "paginate": {
+              "next": '<i class="mdi mdi-chevron-left"></i>',
+              "previous": '<i class="mdi mdi-chevron-right"></i>'
             },
+          },
+          "drawCallback": function (settings, json) {
+            // table sorting
+            var groupTableSorting = document.getElementsByClassName('sorting_1');
+            for (var i = 0; i < groupTableSorting.length; i++) {
+              groupTableSorting[i].innerText = groupTableSorting[i].innerText.replace(groupTableSorting[i].innerText, groupTableSorting[i].innerText.toArabicUni());
+            }
+            //pagination
+            var groupTablePagination = document.getElementsByClassName('page-link');
+            for (var i = 1; i < groupTablePagination.length - 1; i++) {
+              groupTablePagination[i].innerText = groupTablePagination[i].innerText.replace(groupTablePagination[i].innerText, groupTablePagination[i].innerText.toArabicUni());
+            }
+            // info
+            var groupTableInfo = document.getElementById('ajaxTable_info').innerText;
+            document.getElementById('ajaxTable_info').innerText = groupTableInfo.replace(groupTableInfo, groupTableInfo.toArabicUni());
+          },
             createdRow: function(row, data) {
                 let span = ``;
                 $(`[data-bs-toggle="popoverRoles"]`,row).popover({

@@ -96,7 +96,26 @@
                         "next": '<i class="mdi mdi-chevron-left"></i>',
                         "previous": '<i class="mdi mdi-chevron-right"></i>'
                     },
+                },
+              "drawCallback": function (settings, json) {
+                // admin history table sorting
+                var groupHistoryTableSorting = document.getElementsByClassName('sorting_1');
+                for (var i = 0; i < groupHistoryTableSorting.length; i++) {
+                  groupHistoryTableSorting[i].innerText = groupHistoryTableSorting[i].innerText.replace(groupHistoryTableSorting[i].innerText, groupHistoryTableSorting[i].innerText.toArabicUni());
                 }
+
+                //pagination
+                var groupHistoryTablePagination = document.getElementsByClassName('page-link');
+                for (var i = 1; i < groupHistoryTablePagination.length - 1; i++) {
+                  groupHistoryTablePagination[i].innerText = groupHistoryTablePagination[i].innerText.replace(groupHistoryTablePagination[i].innerText, groupHistoryTablePagination[i].innerText.toArabicUni());
+                }
+
+                // admin history table show info
+                var groupHistoryTableInfo = document.getElementById('groupTable_info').innerText;
+                var groupActivityHistoryTableInfo = document.getElementById('activityTable_info').innerText;
+                document.getElementById('groupTable_info').innerText = groupHistoryTableInfo.replace(groupHistoryTableInfo, groupHistoryTableInfo.toArabicUni());
+                document.getElementById('activityTable_info').innerText = groupActivityHistoryTableInfo.replace(groupActivityHistoryTableInfo, groupActivityHistoryTableInfo.toArabicUni());
+              }
             });
 
             $('.select2').select2({

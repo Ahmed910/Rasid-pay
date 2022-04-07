@@ -97,11 +97,13 @@
           for (var i = 0; i < adminHistoryTableSorting.length; i++) {
             adminHistoryTableSorting[i].innerText = adminHistoryTableSorting[i].innerText.replace(adminHistoryTableSorting[i].innerText, adminHistoryTableSorting[i].innerText.toArabicUni());
           }
+
           //pagination
           var adminHistoryTablePagination = document.getElementsByClassName('page-link');
           for (var i = 1; i < adminHistoryTablePagination.length - 1; i++) {
             adminHistoryTablePagination[i].innerText = adminHistoryTablePagination[i].innerText.replace(adminHistoryTablePagination[i].innerText, adminHistoryTablePagination[i].innerText.toArabicUni());
           }
+
           // admin history table show info
           var adminHistoryTableInfo = document.getElementById('historyTableadmin_info').innerText;
           document.getElementById('historyTableadmin_info').innerText = adminHistoryTableInfo.replace(adminHistoryTableInfo, adminHistoryTableInfo.toArabicUni());
