@@ -27,6 +27,7 @@ Route::group(
 
         Route::middleware('auth')->prefix('dashboard')->group(function () {
             Route::get('/', "HomeController@index")->name("home.index");
+            Route::get('/backButton', "HomeController@backButton")->name("backButton");
             Route::post('logout', "Auth\LoginController@logout")->name("session.logout");
             Route::resource('activity_log', 'ActivityLogController')->only('index', 'show');
             Route::get('department_export', 'DepartmentController@exportDepartment');
@@ -49,14 +50,13 @@ Route::group(
 
             Route::controller('AdminController')->name('admin.')->prefix('admin')->group(function () {
 
-            Route::get('all-employees/{department}', 'getEmployeesByDepartment');
+                Route::get('all-employees/{department}', 'getEmployeesByDepartment');
             });
             Route::controller('ActivityLogController')->name('activitylog.')->prefix('activitylog')->group(function () {
 
-            Route::get('sub-programs/{main?}','getSubPrograms')->name('sub_programs');
+                Route::get('sub-programs/{main?}', 'getSubPrograms')->name('sub_programs');
 
-            Route::get('all-employees/{department}', 'getEmployees')->name('getEmployees');
-
+                Route::get('all-employees/{department}', 'getEmployees')->name('getEmployees');
             });
 
 
@@ -69,7 +69,7 @@ Route::group(
                 'client' => 'ClientController',
                 'employee' => 'EmployeeController',
                 'admin' => 'AdminController',
-                'activity_log' =>'ActivityLogController'
+                'activity_log' => 'ActivityLogController'
             ]);
         });
     }
