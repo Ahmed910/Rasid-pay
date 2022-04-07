@@ -213,6 +213,7 @@ return [
         "department_has_relationship_cannot_delete" => "This department has sub department ,so you cannot delete it",
         'permissions' => $permissions + ['get_parents' => 'Show main departments'],
         'without_parent' => 'Without Main Department',
+        'without' =>'Without Department',
         'department_archive' => 'Department Archive',
         'sub_progs' => [
             'index' => 'Department Records',
