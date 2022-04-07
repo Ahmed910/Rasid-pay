@@ -28,7 +28,8 @@ class RasidJobResource extends JsonResource
             'edit_route' => route('dashboard.rasid_job.edit', $this->id),
             'delete_route' => route('dashboard.rasid_job.destroy', $this->id),
             'forceDelete_route' =>route('dashboard.rasid_job.forceDelete', $this->id),
-            'restore_route' =>route('dashboard.rasid_job.restore', $this->id)
+            'restore_route' =>route('dashboard.rasid_job.restore', $this->id),
+            'start_from' => $request->start
         ];
     }
 }

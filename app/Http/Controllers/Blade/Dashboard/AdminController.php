@@ -44,7 +44,7 @@ class AdminController extends Controller
         $departments = Department::where('is_active', 1)
             ->select("id")
             ->ListsTranslations("name")
-            ->pluck('name', 'id');
+            ->pluck('name', 'id')->toArray();
 
         return view('dashboard.admin.index', compact('departments'));
     }
@@ -59,7 +59,7 @@ class AdminController extends Controller
         $previousUrl = url()->previous();
         (strpos($previousUrl, 'admin')) ? session(['perviousPage' => 'admin']) : session(['perviousPage' => 'home']);
 
-        $departments = Department::with('parent.translations')->ListsTranslations('name')->pluck('name', 'id');
+        $departments = Department::with('parent.translations')->ListsTranslations('name')->pluck('name', 'id')->toArray();
         $groups = Group::ListsTranslations('name')->pluck('name', 'id');
         $locales = config('translatable.locales');
         return view('dashboard.admin.create', compact('departments', 'locales', 'groups'));

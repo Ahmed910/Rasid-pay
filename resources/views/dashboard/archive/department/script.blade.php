@@ -30,9 +30,10 @@
                 dataSrc: 'data'
             },
             columns: [{
-                    data: function(data, type, full, meta) {
-                        return meta.row + 1;
-                    }
+              data: function (data, type, full, meta) {
+                return parseInt(meta.row) + parseInt(data.start_from) + 1;
+              },
+              name: 'id'
                 },
                 {
                     data: "name"
@@ -96,10 +97,7 @@
                                 class="mdi mdi-trash-can-outline"
                               ></i
                             >
-                            </a>
-
-
-`
+                            </a>`
 
         },
                     orderable: false,
