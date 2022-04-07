@@ -32,15 +32,16 @@ class Attachment extends Model
     #region custom Methods
     public static function storeImage(AttachmentRequest $attachmentRequest, $user)
     {
+        $index = -1;
         foreach ($attachmentRequest->attachments as $item) {
-
-//        dd($item) ;
-            if (isset($item["files"] ))foreach ($item["files"] as $file) {
+            $index++;
+            if (isset($item["files"])) foreach ($item["files"] as $file) {
                 $user->attachments()->create([
                     'file' => $file->store('/files/client', ['disk' => 'local']),
                     'file_type' => $file->getClientMimeType(),
                     'title' => $item["title"],
-                    'attachment_type' => $item["type"]
+                    'attachment_type' => $item["type"],
+                    "group_id" => $index
                 ]);
             }
         }

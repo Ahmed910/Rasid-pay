@@ -23,8 +23,8 @@ class AttachmentResource extends JsonResource
             "title" => $this->title,
             "attachment_type" => $this->attachment_type,
             "file_type" => $this->file_type,
-            "file" => URL::to('/') . "/" . Request::segment(1) . "/" . Request::segment(2) . "/" . Request::segment(3) . "/" . $this->file //TODO handle private url
-
+            "file" => URL::to('/') . "/" . Request::segment(1) . "/" . Request::segment(2) . "/" . Request::segment(3) . "/" . $this->file,//TODO handle private url
+            "group_id" => $this->group_id
         ];
     }
 }
