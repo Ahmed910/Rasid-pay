@@ -29,6 +29,8 @@ class ClientController extends Controller
      */
     public function create()
     {
+        $previousUrl = url()->previous();
+        (strpos($previousUrl, 'client')) ? session(['perviousPage' => 'client']) : session(['perviousPage' => 'home']);
         return view('dashboard.client.create');
     }
 
