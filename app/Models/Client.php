@@ -16,7 +16,7 @@ class Client extends Model
     #region properties
     protected $guarded = ['created_at', 'updated_at'];
     protected $dates = ['date_of_birth'];
-    public $translatedAttributes = ["client_type", "marital_status", "nationality", "address", "activity_type"];
+    public $sortableColumns = ["client_type", "marital_status", "nationality", "address", "activity_type"];
 
     #endregion properties
 
@@ -32,11 +32,13 @@ class Client extends Model
 
         if ($request->client_type) $query->where("client_type", $request->client_type);
         if ($request->nationality) $query->where("nationality", $request->nationality);
+        if ($request->bank_id) $query->whereHas("bankAccount", function ($q) use($request) {
+            $q->where('bank_accounts.id',$request->bank_id);
+        });
     }
 
     public function scopeSortBy(Builder $query, $request)
     {
-
         if (!isset($request->sort["column"]) || !isset($request->sort["dir"])) return $query->latest('clients.created_at');
 
         if (
@@ -68,6 +70,11 @@ class Client extends Model
     public function user()
     {
         return $this->belongsTo(user::class);
+    }
+
+    public function bankAccount()
+    {
+        return $this->hasOne(BankAccount::class,'user_id','user_id');
     }
 
     #endregion relationships
