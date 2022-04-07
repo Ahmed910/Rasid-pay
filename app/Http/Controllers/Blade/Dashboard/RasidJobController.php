@@ -11,8 +11,9 @@ use App\Http\Resources\Blade\Dashboard\RasidJob\RasidJobCollection;
 use App\Models\Department\Department;
 use App\Models\RasidJob\RasidJob;
 use Illuminate\Http\Request;
-use App\Exports\JobsExport ;
+use App\Exports\JobsExport;
 use Maatwebsite\Excel\Facades\Excel;
+use PDF;
 
 class RasidJobController extends Controller
 {
@@ -61,6 +62,8 @@ class RasidJobController extends Controller
      */
     public function create()
     {
+        $previousUrl = url()->previous();
+        (strpos($previousUrl, 'rasid_job')) ? session(['perviousPage' => 'rasid_job']) : session(['perviousPage' => 'home']);
 
         $departments = Department::with('parent.translations')->ListsTranslations('name')->where('is_active', 1)->pluck('name', 'id');
         $locales = config('translatable.locales');
@@ -240,18 +243,18 @@ class RasidJobController extends Controller
     public function exportPDF(Request $request)
     {
         $jobs = RasidJob::without('employee')->search($request)
-        ->CustomDateFromTo($request)
-        ->ListsTranslations('name')
-        ->sortBy($request)
-        ->addSelect('rasid_jobs.created_at', 'rasid_jobs.is_active', 'rasid_jobs.department_id', 'rasid_jobs.is_vacant')
-        ->get();
+            ->CustomDateFromTo($request)
+            ->ListsTranslations('name')
+            ->sortBy($request)
+            ->addSelect('rasid_jobs.created_at', 'rasid_jobs.is_active', 'rasid_jobs.department_id', 'rasid_jobs.is_vacant')
+            ->get();
 
 
         $data = [
             'jobs' => $jobs
         ];
 
-        $pdf = PDF::loadView('dashboard.job.export', $data);
+        $pdf = PDF::loadView('dashboard.rasid_job.export', $data);
         return $pdf->stream('jobs.pdf');
     }
 }

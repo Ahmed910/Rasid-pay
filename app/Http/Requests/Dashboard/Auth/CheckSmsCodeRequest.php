@@ -26,7 +26,7 @@ class CheckSmsCodeRequest extends FormRequest
     {
         $user = User::where(['reset_token'=>$this->reset_token])->first();
         if ($user && ($user->phone_verified_at || $user->email_verified_at)) {
-            $code = 'required|exists:users,reset_code,deleted_at,NULL';
+            $code = 'required|min:4|exists:users,reset_code,deleted_at,NULL';
         }else{
             $code = 'required|exists:users,verified_code,deleted_at,NULL';
         }
