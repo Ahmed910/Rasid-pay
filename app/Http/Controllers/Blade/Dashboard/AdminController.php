@@ -56,6 +56,9 @@ class AdminController extends Controller
      */
     public function create()
     {
+        $previousUrl = url()->previous();
+        (strpos($previousUrl, 'admin')) ? session(['perviousPage' => 'admin']) : session(['perviousPage' => 'home']);
+
         $departments = Department::with('parent.translations')->ListsTranslations('name')->pluck('name', 'id');
         $groups = Group::ListsTranslations('name')->pluck('name', 'id');
         $locales = config('translatable.locales');
