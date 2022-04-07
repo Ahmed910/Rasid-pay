@@ -13,6 +13,7 @@ use App\Models\RasidJob\RasidJob;
 use Illuminate\Http\Request;
 use App\Exports\JobsExport ;
 use Maatwebsite\Excel\Facades\Excel;
+use PDF;
 
 class RasidJobController extends Controller
 {
@@ -251,7 +252,7 @@ class RasidJobController extends Controller
             'jobs' => $jobs
         ];
 
-        $pdf = PDF::loadView('dashboard.job.export', $data);
+        $pdf = PDF::loadView('dashboard.rasid_job.export', $data);
         return $pdf->stream('jobs.pdf');
     }
 }
