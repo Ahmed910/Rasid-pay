@@ -27,7 +27,6 @@ class PrivateController extends Controller
             $filepath = Storage::disk('local')->path($path);
             $headers = array();
             return response()->file($filepath, $headers);
-
         }
     }
 }

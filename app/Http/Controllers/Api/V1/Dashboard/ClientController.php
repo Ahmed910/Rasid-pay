@@ -56,7 +56,6 @@ class ClientController extends Controller
 
         if ($attachmentRequest->has("attachments")) {
             Attachment::storeImage($attachmentRequest, $user);
-
         }
 
 

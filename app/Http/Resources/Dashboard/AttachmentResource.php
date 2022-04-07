@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources\Dashboard;
 
+use App\Http\Resources\AttachmentFileResource;
 use Faker\Core\File;
 use Illuminate\Http\Resources\Json\JsonResource;
 use Illuminate\Support\Facades\Request;
@@ -23,7 +24,7 @@ class AttachmentResource extends JsonResource
         $final = [];
         if (isset($this->file) && isset($res)) foreach ($res as $item) {
             $final[] = URL::to('/') . "/" . Request::segment(1) . "/" . Request::segment(2) . "/" . Request::segment(3) . "/" . $item;
-//            $fi[] = Storage::disk('local')->path($item);
+//  $fi[] = Storage::disk('local')->path($item);
         }
         return [
 
@@ -31,8 +32,9 @@ class AttachmentResource extends JsonResource
             'id' => $this->id,
             "title" => $this->title,
             "attachment_type" => $this->attachment_type,
-            "file_type" => $this->file_type,
-            "file" => $final,
+//            "file_type" => $this->file_type,
+//            "file" => $final,
+            "files" => AttachmentFileResource::collection($this->whenLoaded('attachmentfiles')),
         ];
     }
 }
