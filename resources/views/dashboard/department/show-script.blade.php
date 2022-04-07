@@ -32,7 +32,7 @@
               if (data.user.department !== null) {
                 return data.user.department.name;
               } else {
-                return "@lang('dashboard.department.without_parent')";
+                return "@lang('dashboard.department.without')";
               }
             }
           },
