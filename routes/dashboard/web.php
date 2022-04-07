@@ -30,7 +30,7 @@ Route::group(
             Route::get('/backButton', "HomeController@backButton")->name("backButton");
             Route::post('logout', "Auth\LoginController@logout")->name("session.logout");
             Route::resource('activity_log', 'ActivityLogController')->only('index', 'show');
-            // Route::get('department_export', 'DepartmentController@exportDepartment');
+            Route::get('department_export', 'DepartmentController@exportDepartment');
 
             Route::controller('RasidJobController')->name('rasid_job.')->prefix('rasid_job')->group(function () {
                 Route::get('archive', 'archive')->name('archive');
