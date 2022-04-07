@@ -45,7 +45,7 @@
         <div class="col-12">
             {!! Form::label('departmentDes', trans('dashboard.general.description'), ['class' => 'mb-3']) !!}
             @foreach ($locales as $locale)
-                {!! Form::textarea("{$locale}.description", isset($department) ? $department->description : null, ['class' => 'form-control input-regex stop-copy-paste', 'id' => "$locale.description", 'rows' => '5', 'placeholder' => trans('dashboard.general.enter_description'), 'maxlength' => '300', 'onpaste' => 'return false;', 'oncopy' => 'return false;', 'ondrop' => 'return false;']) !!}
+                {!! Form::textarea("{$locale}[description]", isset($department) ? $department->description : null, ['class' => 'form-control input-regex stop-copy-paste', 'id' => "$locale.description", 'rows' => '5', 'placeholder' => trans('dashboard.general.enter_description'), 'maxlength' => '300', 'onpaste' => 'return false;', 'oncopy' => 'return false;', 'ondrop' => 'return false;']) !!}
 
                 <span class="text-danger" id="{{ $locale }}.descriptionError" hidden></span>
             @endforeach
