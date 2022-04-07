@@ -11,7 +11,6 @@
     <!-- PAGE-HEADER END -->
 
     <!-- FORM OPEN -->
-
     <form method="get" action="" id="search-form" autocomplete="off">
         <div class="row align-items-end mb-3">
             <div class="col">
@@ -68,7 +67,7 @@
                 <button class="btn btn-primary mx-2" type="submit">
                     <i class="mdi mdi-magnify"></i> {{ trans('dashboard.rasid_job.search') }}
                 </button>
-                <button class="btn btn-outline-primary" type="reset">
+                <button class="btn btn-outline-primary" type="reset" id="reset">
                     <i class="mdi mdi-restore"></i> {{ trans('dashboard.rasid_job.show_all') }}
                 </button>
             </div>

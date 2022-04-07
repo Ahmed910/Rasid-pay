@@ -27,7 +27,6 @@
         }).on('dp.change', function () {
         table.draw();
       });
-
       var table = $("#jobTable").DataTable({
         sDom: "t<'domOption'lpi>",
         serverSide: true,
@@ -56,13 +55,11 @@
           {
             data: function (data) {
               if (data.department_name !== null) {
-
                 // TODO::change imgae to default value
                 let image = 'default';
                 if (data.department_image != null) {
                   image = data.department_image;
                 }
-
                 return `<div class="d-flex align-items-center"><div class="flex-shrink-0"> <img src="${image}" data-toggle="popoverIMG" title='<img src="${image}" width="300" height="300" class="d-block rounded-3" alt="">' width="25" class="avatar brround cover-image" alt="..." /> </div><div class="flex-grow-1 ms-3">${data.department_name}</div>`
               } else {
                 return "@lang('dashboard.department.without_parent')";
@@ -90,7 +87,6 @@
               tagInfo = (data.has_jobs) ?
                 `<i data-bs-toggle="modal" data-bs-target="#DeleteModal_${data.id}" class="mdi mdi-archive-arrow-down-outline"></i>` :
                 `<i data-bs-toggle="modal" data-bs-target="#unarchiveModal_${data.id}" class="mdi mdi-archive-arrow-down-outline"></i>`;
-
               return `<a
                                 href="${data.show_route}"
                                 class="azureIcon"
@@ -123,7 +119,6 @@
                                 class="mdi mdi-trash-can-outline"
                               ></i
                             ></a>
-
                               `
             }
           }
@@ -182,24 +177,18 @@
         },
         formatNoMatches: "Enter valid format text"
       })
-
-
       $("#job_name").keyup(function () {
         table.draw();
       });
-
       $('#mainDepartment').on('select2:select', function (e) {
         table.draw();
       });
-
       $('#status').on('select2:select', function (e) {
         table.draw();
       });
-
       $('#type').on('select2:select', function (e) {
         table.draw();
       });
-
       $('#search-form').on('reset', function (e) {
         e.preventDefault();
         $('#job_name').val(null);
@@ -209,12 +198,10 @@
         $('#to-hijri-picker-custom').val(null);
         table.draw();
       });
-
       $("#search-form").submit(function (e) {
         e.preventDefault();
         table.draw();
       });
-
       table.on('draw', function () {
         var tooltipTriggerList = [].slice.call(
           document.querySelectorAll('[data-bs-toggle="tooltip"]')
@@ -222,7 +209,6 @@
         var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
           return new bootstrap.Tooltip(tooltipTriggerEl);
         });
-
       });
     });
   </script>
