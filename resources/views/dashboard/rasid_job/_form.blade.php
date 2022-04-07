@@ -182,19 +182,7 @@
                   $('#backModal').modal('show');
                   return false;
               } else {
-                  @if (in_array(app('router')->getRoutes()->match(app('request')->create(url()->previous()))->getName(),[
-                      'dashboard.home.index',
-                      'dashboard.rasid_job.index',
-                      'dashboard.rasid_job.create'
-                  ]))
-                    window.location.href = "{!! route('dashboard.rasid_job.index') !!}";
-                  @elseif (isset($rasidJob) && in_array(app('router')->getRoutes()->match(app('request')->create(url()->previous()))->getName(),[
-                      'dashboard.rasid_job.show'
-                  ]))
-                    window.location.href = "{!! route('dashboard.rasid_job.show',$rasidJob->id) !!}";
-                  @else
-                    history.back()
-                  @endif
+                  history.back()
               }
           });
 
