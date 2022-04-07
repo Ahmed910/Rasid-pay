@@ -474,3 +474,7 @@ $(document).ready(function () {
         }
     });
 });
+// change English numbers to arabic
+String.prototype.toArabicUni = function () {
+    return this.replace(/\d/g, d => String.fromCharCode('0x066' + d))
+}

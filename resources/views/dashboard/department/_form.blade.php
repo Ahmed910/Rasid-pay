@@ -183,7 +183,7 @@
                   $('#backModal').modal('show');
                   return false;
               } else {
-                  history.back()
+                window.location.href = "{{ route('dashboard.backButton') }}";
               }
           });
 
