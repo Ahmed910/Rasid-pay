@@ -20,8 +20,9 @@
 
         columns: [{
           data: function (data, type, full, meta) {
-            return meta.row + 1;
-          }
+            return parseInt(meta.row) + parseInt(data.start_from) + 1;
+          },
+          name: 'id'
         },
           {
             data: "user.fullname"
