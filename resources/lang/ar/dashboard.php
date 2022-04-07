@@ -269,6 +269,7 @@ return [
         "search" => "بحث",
         "show_all" => "عرض الكل",
         "archived_at" => " تاريخ الأرشفة",
+        "is_active" => "الحالة",
         'sub_progs' => [
             'index' => 'سجل الأقسام',
             'archive' => 'أرشيف الأقسام',
