@@ -21,7 +21,7 @@ class AttachmentResource extends JsonResource
         //TODO handle private url
         $res = json_decode($this->file);
         $final = [];
-        foreach ($res as $item) {
+        if (isset($this->file) && isset($res)) foreach ($res as $item) {
             $final[] = URL::to('/') . "/" . Request::segment(1) . "/" . Request::segment(2) . "/" . Request::segment(3) . "/" . $item;
 //            $fi[] = Storage::disk('local')->path($item);
         }
