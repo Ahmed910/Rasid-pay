@@ -15,7 +15,7 @@
           <p>@lang("dashboard.general.want_force_delete")</p>
         </div>
         <div class="mt-3">
-                        <textarea class="form-control" placeholder="{{trans("dashboard.general.reason_needed")}}" rows="3" name="reasonAction"
+                        <textarea class="form-control input-regex stop-copy-paste" placeholder="{{trans("dashboard.general.reason_needed")}}" rows="3" name="reasonAction"
                                   required></textarea>
 
           <div class="invalid-feedback">{{ trans('dashboard.general.reason_required') }} .</div>
