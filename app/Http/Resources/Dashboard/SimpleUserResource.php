@@ -17,14 +17,14 @@ class SimpleUserResource extends JsonResource
         return [
             'id' => $this->id,
             'fullname' => $this->fullname,
-            "phone" =>substr($this->phone, strlen($this->country_code)),
-            "country_code" =>$this->country_code,
-            "gender" =>$this->gender,
+            "phone" => substr($this->phone, strlen($this->country_code)),
+            "country_code" => $this->country_code,
+            "gender" => $this->gender,
             'user_type' => $this->user_type,
             'date_of_birth' => $this->date_of_birth,
             'images' => ImagesResource::collection($this->whenLoaded('images')),
             'created_at' => $this->created_at,
-            'attachments' => AttachmentResource::collection($this->whenLoaded('attachments')),
+            'attachments' => collect(AttachmentResource::collection($this->whenLoaded('attachments')))->groupBy("attachment_type"),
             'bank_account' => BankAccountResource::make($this->whenLoaded('bankAccount')),
             'department' => $this->department ? [
                 'id' => $this->department->id,
