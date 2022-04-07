@@ -15,7 +15,7 @@ class ClientResource extends JsonResource
      */
     public function toArray($request)
     {
-
+        dump($this->bankAccount);
         return [
             'user' => SimpleUserResource::make($this->whenLoaded('user')),
             "tax_number" => $this->tax_number,
