@@ -31,7 +31,7 @@ class Department extends Model implements TranslatableContract, HasAssetsInterfa
     public $translatedAttributes = ['name', 'description'];
     public $assets = ["image"];
     public $with = ["images", "addedBy"];
-    private $sortableColumns = ["name", "parent", "created_at", "status", 'is_active'];
+    private $sortableColumns = ["name", "parent", "created_at", "status", 'is_active','deleted_at'];
     private static $result = [];
 
     #endregion properties
