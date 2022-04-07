@@ -22,8 +22,8 @@
 
             </div>
             <div class="col-12 col-md-3">
-                <label for="userID">{{ trans('dashboard.admin.number') }}</label>
-                <input type="number" class="form-control" id="userID" placeholder="{{ trans('dashboard.admin.number') }}"
+                <label for="userId">{{ trans('dashboard.admin.number') }}</label>
+                <input type="number" class="form-control" id="userId" placeholder="{{ trans('dashboard.admin.number') }}"
                     name="login_id" value="{{ old('login_id') ?? request('login_id') }}" />
 
             </div>
@@ -124,7 +124,7 @@
     <div class="row row-sm">
         <div class="col-lg-12">
             <div class="table-responsive p-1">
-                <table id="historyTable" class="table table-bordered shadow-sm bg-body text-nowrap key-buttons">
+                <table id="adminTable" class="table table-bordered shadow-sm bg-body text-nowrap key-buttons">
                     <thead>
                         <tr>
                             <th class="border-bottom-0">#</th>

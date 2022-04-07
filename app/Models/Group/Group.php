@@ -34,11 +34,6 @@ class Group extends Model implements TranslatableContract
             $query->whereTranslationLike('name',"%$request->name%");
         }
 
-        if ($request->has('created_at')) {
-
-            $query->whereDate('created_at', $request->created_at);
-        }
-
         if (isset($request->is_active)) {
             if (!in_array($request->is_active, [1, 0])) return;
 

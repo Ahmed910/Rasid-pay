@@ -14,15 +14,15 @@
 <!-- PAGE-HEADER END -->
 
 <!-- FORM OPEN -->
-<form method="get" action="">
+<form method="get" id="search-form">
   <div class="row align-items-end mb-3">
     <div class="col-12 col-md-3">
       <label for="groupName">{!! trans('dashboard.group.group_name') !!}</label>
-      <input type="text" name="name" value="{{ request('name') }}" class="form-control input-regex stop-copy-paste" maxlength="100" id="groupName" placeholder="{!! trans('dashboard.group.group_name') !!}" />
+      <input type="text" name="name" value="{{ request('name') }}" id="name" class="form-control input-regex stop-copy-paste" maxlength="100" id="groupName" placeholder="{!! trans('dashboard.group.group_name') !!}" />
     </div>
     <div class="col-12 col-md-3">
         <label for="status">{{ trans('dashboard.general.status') }}</label>
-        {!! Form::select('is_active', trans('dashboard.general.active_cases'), request('is_active'), ['class' => 'form-control select2', 'placeholder' => trans('dashboard.general.select_status')]) !!}
+        {!! Form::select('is_active', trans('dashboard.general.active_cases'), request('is_active'), ['class' => 'form-control select2', 'placeholder' => trans('dashboard.general.select_status'),'id'=>'status']) !!}
     </div>
 
     <div class="col-12 col-md-3">
