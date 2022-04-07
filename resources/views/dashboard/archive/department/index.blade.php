@@ -17,13 +17,13 @@
             <div class="col">
               <label>
                 {{ trans('dashboard.department.main_department')}}</label>
-                {!! Form::select('parent_id', $parentDepartments, null, ['class' => 'form-control select2-show-search', 'placeholder' => trans('dashboard.department.select_main_department')]) !!}
+                {!! Form::select('parent_id', ['' => '', -1 => trans('dashboard.general.all_cases')] + $parentDepartments, null, ['class' => 'form-control select2-show-search', 'data-placeholder' => trans('dashboard.department.select_main_department')]) !!}
             </div>
             <div class="col">
                 <label for="status">
                     @lang('dashboard.general.status')</label>
-                {!! Form::select('is_active', trans('dashboard.department.active_cases'), old('is_active') ?? request('is_active'),
-                ['class' => 'form-control select2', 'placeholder' => trans('dashboard.general.select_status'), 'id' =>
+                {!! Form::select('is_active', ['' => '', -1 => trans('dashboard.general.all_cases')] + trans('dashboard.department.active_cases'), old('is_active') ?? request('is_active'),
+                ['class' => 'form-control select2', 'data-placeholder' => trans('dashboard.general.select_status'), 'id' =>
                 'status']) !!}
             </div>
             <div class="col">
@@ -81,7 +81,8 @@
                             <th class="border-bottom-0">#</th>
                             <th class="border-bottom-0">{{ trans('dashboard.department.department_name') }}</th>
                             <th class="border-bottom-0"> {{ trans('dashboard.department.department_main') }}</th>
-                            <th class="border-bottom-0">{{ trans('dashboard.department.archived_at') }} </th><th class="border-bottom-0">{{ trans('dashboard.job.is_active') }}</th>
+                            <th class="border-bottom-0">{{ trans('dashboard.department.archived_at') }} </th>
+                            <th class="border-bottom-0">{{ trans('dashboard.rasid_job.is_active') }}</th>
                             <th class="border-bottom-0 text-center">{{ trans('dashboard.general.actions') }}</th>
                         </tr>
                     </thead>

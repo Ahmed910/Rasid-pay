@@ -96,10 +96,7 @@
                                 class="mdi mdi-trash-can-outline"
                               ></i
                             >
-                            </a>
-
-
-`
+                            </a>`
 
         },
                     orderable: false,

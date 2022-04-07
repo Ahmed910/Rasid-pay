@@ -130,7 +130,11 @@
         });
     });
 
-
+    function checkNumberFieldLength(elem){
+      if (elem.value.length > 4) {
+        elem.value = elem.value.slice(0,4);
+      }
+    }
 </script>
 {{-- End Ajax DataTable --}}
 <script src="{{ asset('dashboardAssets/js/select2.js') }}"></script>
