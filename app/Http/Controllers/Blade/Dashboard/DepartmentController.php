@@ -55,6 +55,9 @@ class DepartmentController extends Controller
 
     public function create()
     {
+        $previousUrl = url()->previous();
+        (strpos($previousUrl, 'department')) ? session(['perviousPage' => 'department']) : session(['perviousPage' => 'home']);
+
         $departments = Department::with('parent.translations')->ListsTranslations('name')->where(['parent_id' => null, 'is_active' => 1])->pluck('name', 'id')->toArray();
         $locales = config('translatable.locales');
 
@@ -117,8 +120,6 @@ class DepartmentController extends Controller
             $department->fill($request->validated() + ['updated_at' => now()])->save();
             return redirect()->route('dashboard.department.index')->withSuccess(__('dashboard.general.success_update'));
         }
-
-
     }
     public function archive(Request $request)
     {
@@ -171,9 +172,9 @@ class DepartmentController extends Controller
     {
         if ($request->ajax()) {
             $department->delete();
-                return response()->json([
-                    'message' =>__('dashboard.general.success_archive')
-                ] );
+            return response()->json([
+                'message' => __('dashboard.general.success_archive')
+            ]);
         }
     }
 
