@@ -32,16 +32,17 @@ class Attachment extends Model
     #region custom Methods
     public static function storeImage(AttachmentRequest $attachmentRequest, $user)
     {
-        $index = -1;
         foreach ($attachmentRequest->attachments as $item) {
-            $index++;
-            if (isset($item["files"])) foreach ($item["files"] as $file) {
+            $paths = [];
+            if (isset($item["files"])) {
+                foreach ($item["files"] as $file) {
+                    $paths[] = $file->store('/files/client', ['disk' => 'local']);
+                }
                 $user->attachments()->create([
-                    'file' => $file->store('/files/client', ['disk' => 'local']),
+                    'file' => json_encode($paths),
                     'file_type' => $file->getClientMimeType(),
                     'title' => $item["title"],
                     'attachment_type' => $item["type"],
-                    "group_id" => $index
                 ]);
             }
         }
@@ -49,15 +50,20 @@ class Attachment extends Model
 
     public static function deletefiles(AttachmentRequest $attachmentRequest, $client)
     {
-        foreach ($attachmentRequest->attachments as $item) {
-            $attachments = Attachment::where("user_id", $client->user_id)->where("attachment_type", $item["type"])->get();
-            $paths = $attachments->pluck("attachments");
-            foreach ($paths as $path) {
-                if (Storage::exists($path)) {
-                    Storage::delete($path);
+        foreach ($attachmentRequest->attachments as $baseitem) {
+            $attachments = Attachment::where("user_id", $client->user_id)->where("attachment_type", $baseitem["type"])->where("title", $baseitem["title"])->get();
+            $res = $attachments->pluck("file");
+            foreach ($res as $item) {
+                $item = json_decode($item);
+                foreach ($item as $path) {
+                    if (Storage::exists($path)) {
+                        Storage::delete($path);
+                    }
                 }
+                Attachment::where("user_id", $client->user_id)->where("attachment_type", $baseitem["type"])->delete();
             }
-            $attachments->each->delete();
+
+
         }
     }
     #endregion custom Methods

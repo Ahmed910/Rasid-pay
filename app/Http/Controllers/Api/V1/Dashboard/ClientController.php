@@ -97,7 +97,7 @@ class ClientController extends Controller
         }
 
 
-        $client->load(['user', 'user.attachments', 'managers']);
+        $client->load(['user.attachments', 'managers']);
         return ClientResource::make($client)->additional(['status' => true, 'message' => trans("dashboard.general.success_update")]);
     }
 
