@@ -25,8 +25,8 @@ class DepartmentResource extends JsonResource
             'edit_route' => route('dashboard.department.edit', $this->id),
             'delete_route' => route('dashboard.department.destroy', $this->id),
             'forceDelete_route' =>route('dashboard.department.forceDelete', $this->id),
-            'restore_route' =>route('dashboard.department.restore', $this->id)
-
+            'restore_route' =>route('dashboard.department.restore', $this->id),
+            'start_from' => $request->start
 
         ];
     }

@@ -27,11 +27,11 @@
 
     <div class="col-12 col-md-3">
       <label for="userNumFrom">{!! trans('dashboard.group.admins_from') !!}</label>
-      <input type="text" name="admins_from" value="{{ request('admins_from') }}" class="form-control" id="userNumFrom" placeholder="{!! trans('dashboard.group.admins_from') !!}" />
+      <input type="number" oninput="checkNumberFieldLength(this);" name="admins_from" value="{{ request('admins_from') }}" class="form-control stop-copy-paste" id="userNumFrom" placeholder="{!! trans('dashboard.group.admins_from') !!}" />
     </div>
     <div class="col-12 col-md-3">
       <label for="userNumTo">{!! trans('dashboard.group.admins_to') !!}</label>
-      <input type="text" name="admins_to" value="{{ request('admins_to') }}" class="form-control" id="userNumTo" placeholder="{!! trans('dashboard.group.admins_to') !!}" />
+      <input type="number"  oninput="checkNumberFieldLength(this);" name="admins_to" value="{{ request('admins_to') }}" class="form-control stop-copy-paste" id="userNumTo" placeholder="{!! trans('dashboard.group.admins_to') !!}" />
     </div>
     <div class="col-12 col-md-6 mt-5">
       <div class="dropdown">

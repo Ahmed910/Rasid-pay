@@ -46,15 +46,9 @@
           type: "GET",
           dataSrc: 'data'
         },
-        // ajax: {
-        //     url: "{{ route('dashboard.department.index') }}?" + $.param(
-        //         @json(request()->query())),
-        //     type: "GET",
-        //     dataSrc: 'data'
-        // },
         columns: [{
           data: function (data, type, full, meta) {
-            return meta.row + 1;
+            return parseInt(meta.row) + parseInt(data.start_from) + 1;
           },
           name: 'id'
         },

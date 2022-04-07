@@ -28,13 +28,14 @@
 
             </div>
             <div class="col-12 col-md-3">
+
                 <label for="mainDepartment">{{ trans('dashboard.department.department') }} </label>
-                {!! Form::select('department_id', $departments, null, ['class' => 'form-control select2-show-search', 'id' => 'mainDepartment', 'placeholder' => trans('dashboard.department.select_department')]) !!}
+                {!! Form::select('department_id', ['' => '', -1 => trans('dashboard.general.all_cases')] + $departments, null, ['class' => 'form-control select2-show-search', 'id' => 'mainDepartment', 'data-placeholder' => trans('dashboard.department.select_department')]) !!}
 
             </div>
             <div class="col-12 col-md-3">
                 <label for="status">{{ trans('dashboard.general.status') }}</label>
-                {!! Form::select('ban_status', trans('dashboard.admin.active_cases'), request('ban_status'), ['class' => 'form-control select2', 'id' => 'status', 'placeholder' => trans('dashboard.general.select_status')]) !!}
+                {!! Form::select('ban_status', ['' => '', -1 => trans('dashboard.general.all_cases')] + trans('dashboard.admin.active_cases'), request('ban_status'), ['class' => 'form-control select2', 'id' => 'status', 'data-placeholder' => trans('dashboard.general.select_status')]) !!}
             </div>
         </div>
 
