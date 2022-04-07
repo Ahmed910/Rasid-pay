@@ -27,8 +27,7 @@ class ActivityLogController extends Controller
         if ($request->ajax()) {
             $activatyLogsQuery = ActivityLog::search($request)
             ->CustomDateFromTo($request)
-            ->sortBy($request)
-            ;
+            ->sortBy($request);
 
             $activitylogCount = $activatyLogsQuery->count();
             $activitylogs = $activatyLogsQuery->skip($request->start)
