@@ -122,7 +122,7 @@ return [
         'showing' => 'عرض',
         'to' => 'الى',
         'from' => 'من',
-        'entries' => 'عنصر',
+        'entries' => 'الاجمالي',
         'no_search_result' => 'لا يوجد نتائج بحث متاحة',
     ],
     'error' => [
