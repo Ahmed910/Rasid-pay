@@ -12,4 +12,13 @@ class HomeController extends Controller
         return view('dashboard.home.index');
     }
 
+    public function backButton()
+    {
+        $sessionVal = session('perviousPage');
+
+        if ($sessionVal && $sessionVal != 'home')
+            return redirect()->route('dashboard.'.$sessionVal.'.index');
+        else
+            return redirect()->route('dashboard.home.index');
+    }
 }
