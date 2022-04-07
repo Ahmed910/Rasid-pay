@@ -21,7 +21,7 @@
 
 
   <!-----------SCRIPT--------->
-    <script language="javascript" type="text/javascript">
+    <script>
         function submitDetailsForm() {
             $('#submit-form').prop('disabled', true);
            $("#formId").submit();
