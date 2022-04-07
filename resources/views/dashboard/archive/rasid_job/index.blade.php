@@ -20,12 +20,12 @@
             </div>
             <div class="col">
                 <label for="mainDepartment"> {{ trans('dashboard.rasid_job.department') }} </label>
-                {!! Form::select('department_id', $departments, old('department_id') ?? request('department_id'), ['placeholder' => trans('dashboard.rasid_job.select_department'), 'class' => 'form-control select2-show-search ', 'id' => 'mainDepartment']) !!}
+                {!! Form::select('department_id', ['' => '', -1 => trans('dashboard.general.all_cases')] + $departments, old('department_id') ?? request('department_id'), ['data-placeholder' => trans('dashboard.rasid_job.select_department'), 'class' => 'form-control select2-show-search ', 'id' => 'mainDepartment']) !!}
             </div>
             <div class="col">
                 <label for="status">
                     @lang('dashboard.general.status')</label>
-                {!! Form::select('is_active', trans('dashboard.general.active_cases'), old('is_active') ?? request('is_active'), ['class' => 'form-control select2', 'placeholder' => trans('dashboard.general.select_status'), 'id' => 'status']) !!}
+                {!! Form::select('is_active', ['' => '', -1 => trans('dashboard.general.all_cases')] + trans('dashboard.general.active_cases'), old('is_active') ?? request('is_active'), ['class' => 'form-control select2', 'data-placeholder' => trans('dashboard.general.select_status'), 'id' => 'status']) !!}
             </div>
             <div class="col">
                 <label for="from-hijri-picker"> {{ trans('dashboard.rasid_job.archive_from_date') }}</label>
