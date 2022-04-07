@@ -18,6 +18,7 @@
         @if (isset($department))
             <div class="col-12 col-md-4 mb-5">
                 {!! Form::label('status', trans('dashboard.general.status')) !!}
+                            <span class="requiredFields">*</span>
                 {!! Form::select('is_active', trans('dashboard.department.active_cases'), null, ['class' => 'form-control select2', 'id' => 'status','placeholder' => trans('dashboard.general.select_status')]) !!}
 
                 <span class="text-danger" id="statusError" hidden></span>
