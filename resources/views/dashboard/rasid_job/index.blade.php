@@ -25,7 +25,7 @@
         <div class="col">
             <label for="mainDepartment"> {{ trans('dashboard.department.department') }} </label>
 
-            {!! Form::select('department_id', [0 => trans('dashboard.general.all_cases')] + $departments, old('department_id') ?? request('department_id'), ['placeholder' => trans('dashboard.rasid_job.select_department'), 'class' => 'form-control select2-show-search', 'id' => 'mainDepartment']) !!}
+            {!! Form::select('department_id', [''=>'',0 => trans('dashboard.general.all_cases')] + $departments, old('department_id') ?? request('department_id'), ['data-placeholder' => trans('dashboard.rasid_job.select_department'), 'class' => 'form-control select2-show-search', 'id' => 'mainDepartment']) !!}
         </div>
 
         <div class="col">
@@ -54,14 +54,14 @@
         <div class="col">
             <label for="status">
                 {{ trans('dashboard.general.status') }}</label>
-          {!! Form::select('is_active', [-1 => trans('dashboard.general.all_cases')] + trans('dashboard.rasid_job.active_cases'), old('is_active') ?? request('is_active'), ['class' => 'form-control select2', 'placeholder' => trans('dashboard.general.select_status'), 'id' => 'status']) !!}
+          {!! Form::select('is_active', [''=>'',-1 => trans('dashboard.general.all_cases')] + trans('dashboard.rasid_job.active_cases'), old('is_active') ?? request('is_active'), ['class' => 'form-control select2', 'data-placeholder' => trans('dashboard.general.select_status'), 'id' => 'status']) !!}
 
         </div>
 
         <div class="col">
             <label for="type">
                 {{ trans('dashboard.general.type') }}</label>
-            {!! Form::select('is_vacant', [-1 => trans('dashboard.general.all_cases')] + trans('dashboard.general.job_type_cases'), old('is_vacant') ?? request('is_vacant'), ['class' => 'form-control select2', 'placeholder' => trans('dashboard.general.select_type'), 'id' => 'type']) !!}
+            {!! Form::select('is_vacant', [''=>'',-1 => trans('dashboard.general.all_cases')] + trans('dashboard.general.job_type_cases'), old('is_vacant') ?? request('is_vacant'), ['class' => 'form-control select2', 'data-placeholder' => trans('dashboard.general.select_type'), 'id' => 'type']) !!}
         </div>
 
     </div>

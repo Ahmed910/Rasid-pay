@@ -15,7 +15,7 @@
             {!! Form::label('department', trans('dashboard.department.department')) !!}
             <p class="requiredFields">*</p>
 
-            {!! Form::select('department_id', $departments, null, ['class' => 'form-control select2-show-search' . ($errors->has('department_id') ? ' is-invalid' : null), 'dir' => 'rtl', 'placeholder' => trans('dashboard.rasid_job.select_department'), 'id' => 'department']) !!}
+            {!! Form::select('department_id', [''=>'']+$departments, null, ['class' => 'form-control select2-show-search' . ($errors->has('department_id') ? ' is-invalid' : null), 'dir' => 'rtl', 'data-placeholder' => trans('dashboard.rasid_job.select_department'), 'id' => 'department']) !!}
 
             <span class="text-danger" id="department_idError"></span>
 
@@ -26,7 +26,7 @@
                 {!! Form::label('status', trans('dashboard.general.status')) !!}
                 <p class="requiredFields">*</p>
 
-                {!! Form::select('is_active', trans('dashboard.rasid_job.active_cases'), null, ['class' => 'form-control select2' . ($errors->has('is_active') ? ' is-invalid' : null), 'id' => 'status', 'placeholder' => trans('dashboard.general.select_status')]) !!}
+                {!! Form::select('is_active', [''=>'']+trans('dashboard.rasid_job.active_cases'), null, ['class' => 'form-control select2' . ($errors->has('is_active') ? ' is-invalid' : null), 'id' => 'status', 'data-placeholder' => trans('dashboard.general.select_status')]) !!}
 
                 <span class="text-danger" id="is_activeError"></span>
 
