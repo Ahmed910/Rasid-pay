@@ -68,8 +68,8 @@
             name: "department"
           },
           {
-            data: "created_at",
-            name: "created_at"
+            data: "deleted_at",
+            name: "deleted_at"
           },
           {
             data: function (data) {
