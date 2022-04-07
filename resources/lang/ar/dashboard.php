@@ -117,7 +117,7 @@ return [
         'u_can_use_this_name' => 'يمكنك استخدام الإسم',
     ],
     'datatable' => [
-        'no_data' => 'لا يوجد بيانات',
+        'no_data' => 'لا توجد نتائج متاحة',
         'there_is_no_data' => 'لا يوجد نتائج بحث متاحة',
         'showing' => 'عرض',
         'to' => 'الى',
