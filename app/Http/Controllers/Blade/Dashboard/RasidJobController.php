@@ -65,7 +65,7 @@ class RasidJobController extends Controller
         $previousUrl = url()->previous();
         (strpos($previousUrl, 'rasid_job')) ? session(['perviousPage' => 'rasid_job']) : session(['perviousPage' => 'home']);
 
-        $departments = Department::with('parent.translations')->ListsTranslations('name')->where('is_active', 1)->pluck('name', 'id');
+        $departments = Department::with('parent.translations')->ListsTranslations('name')->where('is_active', 1)->pluck('name', 'id')->toArray();
         $locales = config('translatable.locales');
         return view('dashboard.rasid_job.create', compact('departments', 'locales'));
     }
@@ -196,7 +196,7 @@ class RasidJobController extends Controller
 
             ->select("id")
             ->ListsTranslations("name")
-            ->pluck('name', 'id');
+            ->pluck('name', 'id')->toArray();
 
         return view('dashboard.archive.rasid_job.index', compact('departments'));
     }

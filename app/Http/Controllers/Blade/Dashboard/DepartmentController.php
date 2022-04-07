@@ -163,7 +163,7 @@ class DepartmentController extends Controller
             // ->without("images", 'addedBy')
             ->select("id")
             ->ListsTranslations("name")
-            ->pluck('name', 'id');
+            ->pluck('name', 'id')->toArray();
 
         return view('dashboard.archive.department.index', compact('parentDepartments'));
     }

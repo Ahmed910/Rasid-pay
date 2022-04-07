@@ -41,7 +41,7 @@ class ActivityLogController extends Controller
         $departments = Department::without("images", 'addedBy')
         ->select("id")
         ->ListsTranslations("name")
-        ->pluck('name', 'id');
+        ->pluck('name', 'id')->toArray();
 
         $employees = User::whereIn('user_type', ['admin', 'superadmin'])
         ->when(request('department_id'), function ($employees) {
@@ -49,7 +49,7 @@ class ActivityLogController extends Controller
                 $employees->where('department_id', request('department_id'));
             });
         })
-        ->pluck('fullname', 'id');
+        ->pluck('fullname', 'id')->toArray();
 
         $mainPrograms = collect(AppServiceProvider::MORPH_MAP)->transform(function ($class, $model) {
             $data['name'] = $model;
@@ -57,7 +57,7 @@ class ActivityLogController extends Controller
             $data['trans'] = trans("dashboard." . Str::snake($model) . "." . str_plural(Str::snake($model)));
 
             return $data;
-        })->pluck('trans','name');
+        })->pluck('trans','name')->toArray();
 
         //sub program
         return view('dashboard.activity_log.index',compact('departments','employees','mainPrograms'));
