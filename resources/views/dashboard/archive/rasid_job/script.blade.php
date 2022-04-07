@@ -11,7 +11,6 @@
   </script>
 
 
-
   <script>
     $(function () {
       /******* Calendar *******/
@@ -25,44 +24,62 @@
           dayViewHeaderFormat: "MMMM YYYY",
           showClear: true,
           ignoreReadonly: true,
-        });
-
-      $("#jobTable").DataTable({
+        }).on('dp.change', function () {
+        table.draw();
+      });
+      var table = $("#jobTable").DataTable({
         sDom: "t<'domOption'lpi>",
         serverSide: true,
         ajax: {
-          url: "{{ route('dashboard.rasid_job.archive') }}?" + $.param(
-            @json(request()->query())),
+          url: "{{ route('dashboard.rasid_job.archive') }}",
+          data: function (data) {
+            data.name = $('#job_name').val();
+            data.created_from = $('#from-hijri-picker-custom').val();
+            data.created_to = $('#to-hijri-picker-custom').val();
+            data.is_active = $('#status').val();
+            data.department_id = $('#mainDepartment').val();
+          },
+          type: "GET",
           dataSrc: 'data'
         },
         columns: [{
           data: function (data, type, full, meta) {
-            return meta.row + 1;
-          }
+            return parseInt(meta.row) + parseInt(data.start_from) + 1;
+          },
+          name: 'id'
         },
           {
-            data: "name"
+            data: "name",
+            name: "name"
           },
           {
             data: function (data) {
               if (data.department_name !== null) {
-                return data.department_name;
+                // TODO::change imgae to default value
+                let image = 'default';
+                if (data.department_image != null) {
+                  image = data.department_image;
+                }
+                return `<div class="d-flex align-items-center"><div class="flex-shrink-0"> <img src="${image}" data-toggle="popoverIMG" title='<img src="${image}" width="300" height="300" class="d-block rounded-3" alt="">' width="25" class="avatar brround cover-image" alt="..." /> </div><div class="flex-grow-1 ms-3">${data.department_name}</div>`
               } else {
                 return "@lang('dashboard.department.without_parent')";
               }
-            }
+            },
+            name: "department"
           },
           {
-            data: "deleted_at"
+            data: "created_at",
+            name: "created_at"
           },
           {
             data: function (data) {
               if (data.is_active) {
-                return ` <span class="badge bg-success-opacity py-2 px-4">${"@lang('dashboard.general.active')"}</span>`;
+                return ` <span class="badge bg-success-opacity py-2 px-4">${"@lang('dashboard.rasid_job.active_cases.1')"}</span>`;
               } else {
-                return ` <span class="badge bg-danger-opacity py-2 px-4">${"@lang('dashboard.general.inactive')"}</span>`;
+                return ` <span class="badge bg-danger-opacity py-2 px-4">${"@lang('dashboard.rasid_job.active_cases.0')"}</span>`;
               }
-            }
+            },
+            name: "is_active"
           },
           {
             class: "text-center",
@@ -70,7 +87,6 @@
               tagInfo = (data.has_jobs) ?
                 `<i data-bs-toggle="modal" data-bs-target="#DeleteModal_${data.id}" class="mdi mdi-archive-arrow-down-outline"></i>` :
                 `<i data-bs-toggle="modal" data-bs-target="#unarchiveModal_${data.id}" class="mdi mdi-archive-arrow-down-outline"></i>`;
-
               return `<a
                                 href="${data.show_route}"
                                 class="azureIcon"
@@ -103,13 +119,22 @@
                                 class="mdi mdi-trash-can-outline"
                               ></i
                             ></a>
-
                               `
-            },
-            orderable: false,
-            searchable: false
+            }
           }
         ],
+        createdRow: function (row, data) {
+          $('[data-toggle="popoverIMG"]', row).popover({
+            placement: "left",
+            trigger: "hover",
+            html: true,
+          });
+          $('[data-toggle="popoverIMG"]', row).popover({
+            placement: "left",
+            trigger: "hover",
+            html: true,
+          });
+        },
         pageLength: 10,
         lengthMenu: [
           [1, 5, 10, 20, -1],
@@ -142,7 +167,48 @@
         }
       });
       $('.select2').select2({
-        minimumResultsForSearch: Infinity
+        minimumResultsForSearch: Infinity,
+        createSearchChoice: function (term) {
+          if (term.match(/^[a-zA-Z0-9]+$/g))
+            return {
+              id: term,
+              text: term
+            };
+        },
+        formatNoMatches: "Enter valid format text"
+      })
+      $("#job_name").keyup(function () {
+        table.draw();
+      });
+      $('#mainDepartment').on('select2:select', function (e) {
+        table.draw();
+      });
+      $('#status').on('select2:select', function (e) {
+        table.draw();
+      });
+      $('#type').on('select2:select', function (e) {
+        table.draw();
+      });
+      $('#search-form').on('reset', function (e) {
+        e.preventDefault();
+        $('#job_name').val(null);
+        $('#mainDepartment').val(null).trigger('change');
+        $('#status').val(null).trigger('change');
+        $('#from-hijri-picker-custom').val(null);
+        $('#to-hijri-picker-custom').val(null);
+        table.draw();
+      });
+      $("#search-form").submit(function (e) {
+        e.preventDefault();
+        table.draw();
+      });
+      table.on('draw', function () {
+        var tooltipTriggerList = [].slice.call(
+          document.querySelectorAll('[data-bs-toggle="tooltip"]')
+        );
+        var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+          return new bootstrap.Tooltip(tooltipTriggerEl);
+        });
       });
     });
   </script>

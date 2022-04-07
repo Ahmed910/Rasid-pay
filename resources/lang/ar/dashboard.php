@@ -117,12 +117,12 @@ return [
         'u_can_use_this_name' => 'يمكنك استخدام الإسم',
     ],
     'datatable' => [
-        'no_data' => 'لا يوجد بيانات',
+        'no_data' => 'لا توجد نتائج متاحة',
         'there_is_no_data' => 'لا يوجد نتائج بحث متاحة',
         'showing' => 'عرض',
         'to' => 'الى',
         'from' => 'من',
-        'entries' => 'عنصر',
+        'entries' => 'الاجمالي',
         'no_search_result' => 'لا يوجد نتائج بحث متاحة',
     ],
     'error' => [
@@ -286,8 +286,9 @@ return [
             'export' => 'تصدير',
     ],
         "has_jobs_cannot_delete" => "لا يمكن أرشفة قسم مرتبط بوظائف",
-        "department_has_relationship_cannot_delete" => "لا يمكن حذف هذا القسم لأنه يحتوي علي أقسام فرعية   ",
-        'without_parent' => 'بدون قسم رئيسي',
+        "department_has_relationship_cannot_delete" => "لا يمكن أرشفة هذا القسم لأنه يحتوي علي أقسام فرعية   ",
+        'without_parent' => 'بدون قسم رئيسي ',
+        'without'=> 'بدون قسم',
         'department_archive' => 'أرشيف الأقسام',
     ],
     "rasid_job" => [
