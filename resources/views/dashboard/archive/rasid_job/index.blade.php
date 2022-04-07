@@ -11,12 +11,7 @@
     <!-- PAGE-HEADER END -->
 
     <!-- FORM OPEN -->
-
-<<<<<<< HEAD
     <form method="get" action="" id="search-form">
-=======
-    <form method="get" action="" id="search-form" autocomplete="off">
->>>>>>> 0c91840f55199ba2d76b00d2c924ccbc3a79d9fc
         <div class="row align-items-end mb-3">
             <div class="col">
                 <label for="job_name">{{ trans('dashboard.rasid_job.job_name') }}</label>
