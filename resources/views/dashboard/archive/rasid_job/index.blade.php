@@ -12,7 +12,7 @@
 
     <!-- FORM OPEN -->
 
-    <form method="get" action="">
+    <form method="get" action="" id="search-form">
         <div class="row align-items-end mb-3">
             <div class="col">
                 <label for="job_name">{{ trans('dashboard.rasid_job.job_name') }}</label>
@@ -68,7 +68,7 @@
                 <button class="btn btn-primary mx-2" type="submit">
                     <i class="mdi mdi-magnify"></i> {{ trans('dashboard.rasid_job.search') }}
                 </button>
-                <button class="btn btn-outline-primary" type="submit">
+                <button class="btn btn-outline-primary" type="reset" id="reset">
                     <i class="mdi mdi-restore"></i> {{ trans('dashboard.rasid_job.show_all') }}
                 </button>
             </div>
