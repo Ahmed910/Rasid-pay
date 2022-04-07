@@ -18,7 +18,7 @@
                   <div class="col">
                     <input
                        type="text" oninput='digitValidate(this)' onkeyup='tabChange(1)'
-                      class="form-control text-center   @error('reset_code') border-danger @enderror"  name="reset_code[]"
+                      class="form-control text-center  stop-copy-paste @error('reset_code') border-danger @enderror"  name="reset_code[]"
                       required
                       maxlength="1"
                     />
@@ -26,7 +26,7 @@
                   <div class="col">
                     <input
                        type="text" oninput='digitValidate(this)' onkeyup='tabChange(2)'
-                      class="form-control text-center   @error('reset_code') border-danger @enderror"  name="reset_code[]"
+                      class="form-control text-center   stop-copy-paste  @error('reset_code') border-danger @enderror"  name="reset_code[]"
                       required
                       maxlength="1"
                     />
@@ -34,7 +34,7 @@
                   <div class="col">
                     <input
                        type="text" oninput='digitValidate(this)' onkeyup='tabChange(3)'
-                      class="form-control text-center   @error('reset_code') border-danger @enderror"  name="reset_code[]"
+                      class="form-control text-center    stop-copy-paste @error('reset_code') border-danger @enderror"  name="reset_code[]"
                       required
                       maxlength="1"
                     />
@@ -42,7 +42,7 @@
                   <div class="col">
                     <input
                        type="text" oninput='digitValidate(this)' onkeyup='tabChange(4)'
-                      class="form-control text-center   @error('reset_code') border-danger @enderror"  name="reset_code[]"
+                      class="form-control text-center  stop-copy-paste  @error('reset_code') border-danger @enderror"  name="reset_code[]"
                       required
                       maxlength="1"
                     />
@@ -118,7 +118,7 @@ let tabChange = function(val){
       ele[val].focus()
     }else if(ele[val-1].value == ''){
       ele[val-2].focus()
-    }   
+    }
  }
 
 </script>
