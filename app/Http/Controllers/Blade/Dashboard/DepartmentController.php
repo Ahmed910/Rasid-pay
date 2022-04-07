@@ -88,12 +88,9 @@ class DepartmentController extends Controller
 
         $activitiesQuery  = $department->activity()
             ->sortBy($request);
-
         if ($request->ajax()) {
             $activityCount = $activitiesQuery->count();
-            $activities = $activitiesQuery->skip($request->start)
-                ->take(($request->length == -1) ? $activityCount : $request->length)
-                ->get();
+            $activities = $activitiesQuery->skip($request->start)->take($request->length == -1 ? $activityCount : $request->length)->get();
 
             return ActivityLogCollection::make($activities)
                 ->additional(['total_count' => $activityCount]);
