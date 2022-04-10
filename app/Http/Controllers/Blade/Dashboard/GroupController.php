@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Blade\Dashboard;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\V1\Dashboard\GroupRequest;
+use App\Http\Requests\Dashboard\GroupRequest;
 use App\Http\Resources\Blade\Dashboard\Activitylog\ActivityLogCollection;
 use App\Models\{Group\Group, Permission};
 use Illuminate\Http\Request;
