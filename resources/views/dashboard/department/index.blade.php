@@ -23,13 +23,14 @@
                 value="{{ old('name') ?? request('name') }}" />
         </div>
         <div class="col">
-            <label>
+            <label for="parent_id">
                 @lang('dashboard.department.main_department')</label>
 
-            {!! Form::select('parent_id', ['' => '', -1 => trans('dashboard.general.all_cases'),0 => trans('dashboard.department.without_parent')] + $parentDepartments, request('parent_id'), ['class' => 'form-control select2-show-search', 'data-placeholder' => trans('dashboard.department.select_main_department'), 'id' => 'parent_id']) !!}
+            {!! Form::select('parent_id', ['' => '', -1 => trans('dashboard.general.all_cases'), 0 => trans('dashboard.department.without_parent')] + $parentDepartments, request('parent_id'), ['class' => 'form-control select2-show-search', 'data-placeholder' => trans('dashboard.department.select_main_department'), 'id' => 'parent_id']) !!}
         </div>
+
         <div class="col">
-            <label for="validationCustom02">
+            <label for="from-hijri-picker-custom">
                 @lang('dashboard.general.from_date')</label>
             <div class="input-group">
                 <input onselectstart="return false" onpaste="return false" onCopy="return false" onCut="return false"
@@ -37,12 +38,14 @@
                     readonly placeholder="@lang('dashboard.general.day_month_year')" class="form-control"
                     name="created_from" value="{{ old('created_from') ?? request('created_from') }}" />
                 <div class="input-group-text border-start-0">
-                    <i class="fa fa-calendar tx-16 lh-0 op-6"></i>
+                    <label for="from-hijri-picker-custom">
+                        <i class="fa fa-calendar tx-16 lh-0 op-6"></i></label>
                 </div>
             </div>
         </div>
+
         <div class="col">
-            <label for="validationCustom02">
+            <label for="to-hijri-picker-custom">
                 @lang('dashboard.general.to_date')</label>
             <div class="input-group">
                 <input onselectstart="return false" onpaste="return false" onCopy="return false" onCut="return false"
@@ -50,17 +53,18 @@
                     readonly placeholder="@lang('dashboard.general.day_month_year')" class="form-control"
                     name="created_to" value="{{ old('created_to') ?? request('created_to') }}" />
                 <div class="input-group-text border-start-0">
-                    <i class="fa fa-calendar tx-16 lh-0 op-6"></i>
+                    <label for="to-hijri-picker-custom">
+                        <i class="fa fa-calendar tx-16 lh-0 op-6"></i></label>
                 </div>
             </div>
         </div>
+
         <div class="col">
             <label for="status">
                 @lang('dashboard.general.status')</label>
-
-
             {!! Form::select('is_active', ['' => '', -1 => trans('dashboard.general.all_cases')] + trans('dashboard.general.active_cases'), request('is_active'), ['class' => 'form-control select2', 'data-placeholder' => trans('dashboard.general.select_status'), 'id' => 'status']) !!}
         </div>
+
     </div>
     <div class="row">
         <div class="col-12 col-md-6 my-2">
