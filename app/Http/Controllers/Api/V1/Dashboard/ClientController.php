@@ -56,7 +56,6 @@ class ClientController extends Controller
 
         if ($attachmentRequest->has("attachments")) {
             Attachment::storeImage($attachmentRequest, $user);
-
         }
 
 
@@ -92,8 +91,7 @@ class ClientController extends Controller
 //        $client->managers()->update($managerRequest->validated());
 
         if ($attachmentRequest->has("attachments")) {
-            Attachment::deletefiles($attachmentRequest, $client);
-            Attachment::storeImage($attachmentRequest, $client->user);
+            Attachment::updatefiles($attachmentRequest, $client->user);
         }
 
 

@@ -47,13 +47,13 @@
             <a class="disable resend">إعادة إرسال رمز التحقق؟</a>
         </div>
 
-        <div class="col-12 mt-5 text-center">
-            {!! Form::submit('إرسال', ['class' => 'btn btn-primary']) !!}
-            <a href="{!! route('dashboard.login') !!}" class="btn btn-outline-primary">
-                عودة
-            </a>
-        </div>
-    </form>
+    <div class="col-12 mt-5 text-center">
+        {!! Form::submit('تأكيد',['class' => "btn btn-primary"]) !!}
+        <a href="{!! route('dashboard.login') !!}" class="btn btn-outline-primary">
+            عودة
+        </a>
+    </div>
+</form>
 @endsection
 @section('scripts')
 <script>
