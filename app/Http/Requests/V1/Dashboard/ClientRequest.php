@@ -45,7 +45,7 @@ class ClientRequest extends ApiMasterRequest
             "phone" => ["nullable", "not_regex:/^{$this->country_code}/", "numeric", "digits_between:7,20"],
             "full_phone" => ["unique:users,phone," . @$this->client],
             "identity_number" => ["nullable", "numeric", "digits_between:10,20", "unique:users,identity_number," . @$this->client],
-            "client_type" => ["required", "in:company,Institution,member,freelance_doc,famous,other"],
+            "client_type" => ["required", "in:company,institution,member,freelance_doc,famous,other"],
             "gender" => ["nullable", "in:male,female"],
             "date_of_birth" => ["nullable", "date"],
             "commercial_number" => ["nullable", "required_if:client_type,company,institution", "string", "max:10", "unique:clients,commercial_number," . @$this->client . ",user_id"],

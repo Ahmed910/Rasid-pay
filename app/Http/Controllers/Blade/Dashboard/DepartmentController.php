@@ -102,8 +102,9 @@ class DepartmentController extends Controller
         return view('dashboard.department.show', compact('department'));
     }
 
-    public function edit(Department $department)
+    public function edit($id)
     {
+        $department = Department::withTrashed()->findOrFail($id);
         $departments = Department::with('parent.translations')->ListsTranslations('name')->where(['parent_id' => null, 'is_active' => 1])->pluck('name', 'id')->toArray();
 
         $departments = array_merge([null => trans('dashboard.department.without_parent')], $departments);
@@ -182,18 +183,25 @@ class DepartmentController extends Controller
 
     public function restore(ReasonRequest $request, $id)
     {
-
-        $department = Department::onlyTrashed()->findOrFail($id);
-
-        $department->restore();
-        return redirect()->back()->withSuccess(__('dashboard.general.success_restore'));
+        if ($request->ajax()) {
+            $department = Department::onlyTrashed()->findOrFail($id);
+            $department->restore();
+            return response()->json([
+                'message' =>__('dashboard.general.success_restore')
+            ] );
+        }
     }
 
     public function forceDelete(ReasonRequest $request, $id)
     {
-        $department = Department::onlyTrashed()->findOrFail($id);
-        $department->forceDelete();
-        return redirect()->back()->withSuccess(__('dashboard.general.success_delete'));
+        if ($request->ajax()) {
+
+            $department = Department::onlyTrashed()->findOrFail($id);
+            $department->forceDelete();
+            return response()->json([
+                'message' =>__('dashboard.general.success_delete')
+            ] );
+        }
     }
 
     public function export(Request $request)
