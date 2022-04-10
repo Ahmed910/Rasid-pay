@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Blade\Dashboard;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\V1\Dashboard\GroupRequest;
+use App\Http\Requests\Dashboard\GroupRequest;
 use App\Http\Resources\Blade\Dashboard\Activitylog\ActivityLogCollection;
 use App\Models\{Group\Group, Permission};
 use Illuminate\Http\Request;
@@ -48,6 +48,7 @@ class GroupController extends Controller
         $previousUrl = url()->previous();
         (strpos($previousUrl, 'group')) ? session(['perviousPage' => 'group']) : session(['perviousPage' => 'home']);
 
+
         $groups = Group::with('translations')
             ->ListsTranslations('name')->pluck('name', 'id');
         $permissions = Permission::permissions()->pluck('name', 'id');
@@ -58,15 +59,18 @@ class GroupController extends Controller
 
     public function store(GroupRequest $request, Group $group)
     {
-        $group->fill($request->validated() + ['added_by_id' => auth()->id()])->save();
-        $permissions = $request->permission_list ?? [];
-        if ($request->group_list) {
-            $group->groups()->sync($request->group_list);
-            $permissions = array_filter(array_merge($permissions, Group::find($request->group_list)->pluck('permissions')->flatten()->pluck('id')->toArray()));
-        }
-        $group->permissions()->sync($permissions);
 
-        return redirect(route('dashboard.group.index'))->withTrue(trans('dashboard.messages.success_add'));
+
+        if (!request()->ajax()) {
+            $group->fill($request->validated() + ['added_by_id' => auth()->id()])->save();
+            $permissions = $request->permission_list ?? [];
+            if ($request->group_list) {
+                $group->groups()->sync($request->group_list);
+                $permissions = array_filter(array_merge($permissions, Group::find($request->group_list)->pluck('permissions')->flatten()->pluck('id')->toArray()));
+            }
+            $group->permissions()->sync($permissions);
+            return redirect()->back()->withSuccess(__('dashboard.general.success_add'));
+        }
     }
 
     public function show(Group $group, Request $request)
@@ -110,7 +114,7 @@ class GroupController extends Controller
             $group = Group::where('id', "<>", auth()->user()->group_id)->findOrFail($id);
             $uris = Permission::permissions();
 
-            return view('dashboard.group.edit', compact('group', 'uris','locales'));
+            return view('dashboard.group.edit', compact('group', 'uris', 'locales'));
         }
     }
 
