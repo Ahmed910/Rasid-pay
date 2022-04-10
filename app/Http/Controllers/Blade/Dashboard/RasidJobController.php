@@ -173,7 +173,7 @@ class RasidJobController extends Controller
         $rasid_jobsQuery = RasidJob::onlyTrashed()
             ->without('employee')
             ->search($request)
-            ->CustomDateFromTo($request)
+            ->searchDeletedAtFromTo($request)
             ->ListsTranslations('name')
             ->sortBy($request)
             ->addSelect('rasid_jobs.department_id', 'rasid_jobs.deleted_at', 'rasid_jobs.is_active');
