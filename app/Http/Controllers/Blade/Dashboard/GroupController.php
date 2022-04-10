@@ -47,8 +47,6 @@ class GroupController extends Controller
     {
         $previousUrl = url()->previous();
         (strpos($previousUrl, 'group')) ? session(['perviousPage' => 'group']) : session(['perviousPage' => 'home']);
-
-
         $groups = Group::with('translations')
             ->ListsTranslations('name')->pluck('name', 'id');
         $permissions = Permission::permissions()->pluck('name', 'id');

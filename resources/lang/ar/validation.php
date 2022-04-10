@@ -44,9 +44,10 @@ $attributes = [
     // new attr
 
     'parent_id'   => 'حقل القسم الرئيسي',
-    'permissions'   => 'حقل الصلاحيات',
-    'permissions.*'   => 'حقل الصلاحيات',
-    'permissions.*.*'   => 'حقل الصلاحيات'
+    'permission_list'   => 'حقل الصلاحيات الفردية',
+    'permission_list.*'   => 'حقل الصلاحيات الفردية',
+    'group_list'   => 'حقل المجموعات',
+    'group_list.*'   => 'حقل المجموعات',
 ];
 
 foreach (config('translatable.locales') as $locale) {
