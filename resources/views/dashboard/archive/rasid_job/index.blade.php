@@ -27,23 +27,22 @@
                 {!! Form::select('is_active', ['' => '', -1 => trans('dashboard.general.all_cases')] + trans('dashboard.general.active_cases'), old('is_active') ?? request('is_active'), ['class' => 'form-control select2', 'data-placeholder' => trans('dashboard.general.select_status'), 'id' => 'status']) !!}
             </div>
             <div class="col">
-                <label for="from-hijri-picker"> {{ trans('dashboard.rasid_job.archive_from_date') }}</label>
+                <label for="from-hijri-picker-custom"> {{ trans('dashboard.rasid_job.archive_from_date') }}</label>
                 <div class="input-group">
-
                     {!! Form::text('deleted_from', old('deleted_from') ?? request('deleted_from'), ['class' => 'form-control', 'id' => 'from-hijri-picker-custom', 'placeholder' => trans('dashboard.general.day_month_year'), 'readonly']) !!}
                     <div class="input-group-text border-start-0">
-                        <i class="fa fa-calendar tx-16 lh-0 op-6"></i>
+                        <label for="from-hijri-picker-custom">
+                            <i class="fa fa-calendar tx-16 lh-0 op-6"></i></label>
                     </div>
                 </div>
             </div>
             <div class="col">
-                <label for="to-hijri-picker"> {{ trans('dashboard.rasid_job.archive_to_date') }}</label>
+                <label for="to-hijri-picker-custom"> {{ trans('dashboard.rasid_job.archive_to_date') }}</label>
                 <div class="input-group">
-
                     {!! Form::text('deleted_to', old('deleted_to') ?? request('deleted_to'), ['class' => 'form-control', 'placeholder' => trans('dashboard.general.day_month_year'), 'id' => 'to-hijri-picker-custom', 'readonly']) !!}
-
                     <div class="input-group-text border-start-0">
-                        <i class="fa fa-calendar tx-16 lh-0 op-6"></i>
+                        <label for="to-hijri-picker-custom">
+                            <i class="fa fa-calendar tx-16 lh-0 op-6"></i></label>
                     </div>
                 </div>
             </div>
