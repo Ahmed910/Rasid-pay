@@ -23,6 +23,7 @@ class GroupRequest extends FormRequest
      */
     public function rules()
     {
+        dd($this->all());
         $rules =  [
             'permission_list' => 'required_without:group_list|array|min:1',
             'permission_list.*' => 'required_without:group_list|exists:permissions,id',

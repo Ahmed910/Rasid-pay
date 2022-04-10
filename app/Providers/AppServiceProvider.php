@@ -48,7 +48,27 @@ class AppServiceProvider extends ServiceProvider
                 }
                 $this->whereDate('created_at', "<=", $created_to);
             }
-        });       
+        });
+
+        Builder::macro("searchDeletedAtFromTo",  function ($request) {
+              if (isset($request->deleted_from)) {
+                $deleted_from = date('Y-m-d', strtotime($request->deleted_from));
+                if (auth()->user()->is_date_hijri == 1) {
+                    $date = explode("-", $deleted_from);
+                    $deleted_from = Hijri::convertToGregorian($date[2], $date[1], $date[0])->format('Y-m-d');
+                }
+                $this->whereDate('deleted_at', ">=", $deleted_from);
+            }
+
+            if (isset($request->deleted_to)) {
+                $deleted_to = date('Y-m-d', strtotime($request->deleted_to));
+                if (auth()->user()->is_date_hijri == 1) {
+                    $date = explode("-", $deleted_to);
+                    $deleted_to = Hijri::convertToGregorian($date[2], $date[1], $date[0])->format('Y-m-d');
+                }
+                $this->whereDate('deleted_at', "<=", $deleted_to);
+            }
+        });
     }
 
     /**
