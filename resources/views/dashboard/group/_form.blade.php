@@ -63,71 +63,22 @@
 
     <script>
         $(function() {
-
-          'use strict';
-          let validate = false;
+             let validate = false;
           let saveButton = true;
-          let permissions = @isset($group)  @json($group->permission_list) @else [] @endisset;
-          let groups = @isset($group)  @json($group->group_list) @else [] @endisset;
+            let permissions = @isset($group)  @json($group->permission_list) @else [] @endisset;
+            let groups = @isset($group)  @json($group->group_list) @else [] @endisset;
             groups.forEach((item, i) => {
                 $('[name="group_list[]"]').append(`<option value="${item}" selected></option>`);
             });
             permissions.forEach((item, i) => {
                 $('[name="permission_list[]"]').append(`<option value="${item}" selected></option>`);
             });
-
-          $('#saveButton').on('click', function(e) {
-              e.preventDefault();
-
-              $('span[id*="Error"]').attr('hidden', true);
-              $('*input,select').removeClass('is-invalid');
-
-              let form = $('#formId')[0];
-              let data = new FormData(form);
-
-              $.ajaxSetup({
-                  headers: {
-                      'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                  }
-              });
-
-              $.ajax({
-                  url: $('#formId').attr('action'),
-                  type: "POST",
-                  data: data,
-                  beforeSend: toggleSaveButton(),
-                  processData: false,
-                  contentType: false,
-                  cache: false,
-                  success: function() {
-                      $('#successModal').modal('show');
-                      toggleSaveButton();
-                  },
-                  error: function(data) {
-                      toggleSaveButton();
-
-                      $.each(data.responseJSON.errors, function(name, message) {
-                          let inputName = name;
-                          let inputError = name + 'Error';
-
-                          if (inputName.includes('.')) {
-                              let convertArray = inputName.split('.');
-                              inputName = convertArray[0] + '[' + convertArray[1] + ']'
-                          }
-
-                          $('input[name="' + inputName + '"]').addClass('is-invalid');
-                          $('select[name="' + inputName + '[]"]').addClass('is-invalid');
-                          $('span[id="' + inputError + '"]').attr('hidden', false);
-                          $('span[id="' + inputError + '"]').text(message);
-                      });
-                  }
-              });
-          });
+        });
 
         function addPermissions(selected) {
             let group_options = '';
             let permission_options = '';
-            $.each(selected, (index, item) => {
+            $.each(selected,(index,item) => {
                 if (item.getAttribute('data-name') == 'groups') {
                     group_options += `<option value="${item.value}" selected></option>`;
                 }
@@ -139,17 +90,7 @@
             $('[name="group_list[]"]').html(group_options);
         }
 
-        function toggleSaveButton() {
-              if (saveButton) {
-                  saveButton = false;
-                  $("#saveButton").html('<i class="spinner-border spinner-border-sm"></i>' + '{{$btn_submit}}');
-                  $('#saveButton').attr('disabled', true);
-              } else {
-                  saveButton = true;
-                  $("#saveButton").html('<i class="mdi mdi-content-save-outline"></i>' + '{{$btn_submit}}');
-                  $('#saveButton').attr('disabled', false);
-              }
-          }
+
 
         $("#showBack").click(function() {
               if (validate) {
@@ -163,7 +104,64 @@
           $("input,select").change(function() {
               validate = true;
           });
-        });
+
+          function toggleSaveButton() {
+              if (saveButton) {
+                  saveButton = false;
+                  $("#saveButton").html('<i class="spinner-border spinner-border-sm"></i>' + '{{$btn_submit}}');
+                  $('#saveButton').attr('disabled', true);
+              } else {
+                  saveButton = true;
+                  $("#saveButton").html('<i class="mdi mdi-content-save-outline"></i>' + '{{$btn_submit}}');
+                  $('#saveButton').attr('disabled', false);
+              }
+          }
+
+          $('#saveButton').on('click', function(e) {
+             e.preventDefault();
+             $('span[id*="Error"]').attr('hidden', true);
+             $('*input,select').removeClass('is-invalid');
+             let form = $('#formId')[0];
+             let data = new FormData(form);
+             let permission_list = $('[name="permission_list[]"]').val();
+             let group_list = $('[name="group_list[]"]').val();
+             data.append('permission_list',permission_list);
+             data.append('group_list',group_list);
+             $.ajaxSetup({
+                 headers: {
+                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                 }
+             });
+             $.ajax({
+                 url: $('#formId').attr('action'),
+                 type: "POST",
+                 data: data,
+                 beforeSend: toggleSaveButton(),
+                 processData: false,
+                 contentType: false,
+                 cache: false,
+                 success: function() {
+                     $('#successModal').modal('show');
+                     toggleSaveButton();
+                 },
+                 error: function(data) {
+                     toggleSaveButton();
+                     $.each(data.responseJSON.errors, function(name, message) {
+                         let inputName = name;
+                         let inputError = name + 'Error';
+                         if (inputName.includes('.')) {
+                             let convertArray = inputName.split('.');
+                             inputName = convertArray[0] + '[' + convertArray[1] + ']'
+                         }
+                         $('input[name="' + inputName + '"]').addClass('is-invalid');
+                         $('select[name="' + inputName + '[]"]').addClass('is-invalid');
+                         $('span[id="' + inputError + '"]').attr('hidden', false);
+                         $('span[id="' + inputError + '"]').text(message);
+                     });
+                 }
+             });
+         });
+
 
     </script>
 @endsection
