@@ -113,6 +113,7 @@
 <script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
 @yield('toast')
 {{-- @yield('notify') --}}
+@yield('scripts')
 <script>
 
   $(document).ready(function () {
