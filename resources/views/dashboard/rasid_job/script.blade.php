@@ -150,8 +150,8 @@
                 },
                 pageLength: 10,
                 lengthMenu: [
-                    [5, 10, 20, -1],
-                    [5, 10, 20, "@lang('dashboard.general.all')"],
+                    [1, 5, 10, 15, 20],
+                    [1, 5, 10, 15, 20]
                 ],
                 "language": {
                     "lengthMenu": "@lang('dashboard.general.show') _MENU_",
