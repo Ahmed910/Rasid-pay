@@ -20,7 +20,7 @@
 
             <div class="col-12 col-md-3">
                 <label for="mainDepartment">{{ trans('dashboard.department.department') }} </label>
-                {!! Form::select('department_id', ['' => '', -1 => trans('dashboard.general.all_cases')] + $departments, null, ['class' => 'form-control select2-show-search form-select', 'id' => 'mainDepartment', 'data-placeholder' => trans('dashboard.department.select_department')]) !!}
+                {!! Form::select('department_id', ['' => '', 0 => trans('dashboard.general.all_cases')] + $departments, old('department_id') ?? request('department_id'), ['class' => 'form-control select2-show-search', 'id' => 'mainDepartment', 'data-placeholder' => trans('dashboard.department.select_department')]) !!}
             </div>
 
             <div class="col-12 col-md-3">

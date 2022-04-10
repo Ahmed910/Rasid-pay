@@ -64,7 +64,7 @@ class ActivityLog extends Model
             $query->where('user_id', $request->employee_id);
         }
 
-        if ($request->department_id) {
+        if (isset($request->department_id) && $request->department_id != 0) {
             $query->whereHas('user.employee.department', function ($q) use ($request) {
                 $q->where('id', $request->department_id);
             });
