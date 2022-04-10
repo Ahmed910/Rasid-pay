@@ -14,11 +14,17 @@
 <script>
     $(function() {
         /******* Calendar *******/
-        $("#from-hijri-picker, #to-hijri-picker, #from-hijri-unactive-picker ,#to-hijri-unactive-picker")
-            .hijriDatePicker({
-                hijri: true,
-                showSwitcher: false,
-            });
+        $("#from-hijri-picker-custom, #to-hijri-picker-custom, #from-hijri-unactive-picker-custom ,#to-hijri-unactive-picker-custom")
+        .hijriDatePicker({
+          hijri: {{ auth()->user()->is_date_hijri ? 'true' : 'false' }},
+          showSwitcher: false,
+          format: "YYYY-MM-DD",
+          hijriFormat: "iYYYY-iMM-iDD",
+          hijriDayViewHeaderFormat: "iMMMM iYYYY",
+          dayViewHeaderFormat: "MMMM YYYY",
+          showClear: true,
+          ignoreReadonly: true,
+        })
 
         $("#departmentTable").DataTable({
             sDom: "t<'domOption'lpi>",

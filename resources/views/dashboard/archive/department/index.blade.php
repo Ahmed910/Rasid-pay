@@ -27,25 +27,26 @@
                 'status']) !!}
             </div>
             <div class="col">
-                <label for="validationCustom02"> {{ trans('dashboard.department.archive_from_date') }}</label>
-                <div class="input-group">
-                    <input id="from-hijri-picker" type="text" placeholder="يوم/شهر/سنة" class="form-control" readonly
-                        name="created_from" value="{{ old('created_from') ?? request('created_from') }}" />
-                    <div class="input-group-text border-start-0">
-                        <i class="fa fa-calendar tx-16 lh-0 op-6"></i>
-                    </div>
+              <label for="from-hijri-picker"> {{ trans('dashboard.department.archive_from_date') }}</label>
+              <div class="input-group">
+
+                  {!! Form::text('from_date', old('from_date') ?? request('from_date'), ['class' => 'form-control', 'id' => 'from-hijri-picker-custom', 'placeholder' => trans('dashboard.general.day_month_year'), 'readonly']) !!}
+                  <div class="input-group-text border-start-0">
+                      <i class="fa fa-calendar tx-16 lh-0 op-6"></i>
+                  </div>
+              </div>
+          </div>
+          <div class="col">
+            <label for="to-hijri-picker"> {{ trans('dashboard.department.archive_to_date') }}</label>
+            <div class="input-group">
+
+                {!! Form::text('to_date', old('to_date') ?? request('to_date'), ['class' => 'form-control', 'placeholder' => trans('dashboard.general.day_month_year'), 'id' => 'to-hijri-picker-custom', 'readonly']) !!}
+
+                <div class="input-group-text border-start-0">
+                    <i class="fa fa-calendar tx-16 lh-0 op-6"></i>
                 </div>
             </div>
-            <div class="col">
-                <label for="validationCustom02">{{ trans('dashboard.department.archive_to_date') }} </label>
-                <div class="input-group">
-                    <input id="to-hijri-picker" type="text" placeholder="يوم/شهر/سنة" class="form-control" readonly
-                        name="created_to" value="{{ old('created_to') ?? request('created_to') }}" />
-                    <div class="input-group-text border-start-0">
-                        <i class="fa fa-calendar tx-16 lh-0 op-6"></i>
-                    </div>
-                </div>
-            </div>
+        </div>
 
         </div>
         <div class="row">
@@ -65,7 +66,7 @@
                 <button class="btn btn-primary mx-2" type="submit">
                     <i class="mdi mdi-magnify"></i> {{ trans('dashboard.department.search') }}
                 </button>
-                <a href="{{ route('dashboard.department.index') }}" class="btn btn-outline-primary">
+                <a href="{{ route('dashboard.department.archive') }}" class="btn btn-outline-primary">
                     <i class="mdi mdi-restore"></i>{{ trans('dashboard.department.show_all') }}
                 </a>
             </div>
