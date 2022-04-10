@@ -23,7 +23,6 @@ class GroupRequest extends FormRequest
      */
     public function rules()
     {
-        dd($this->all());
         $rules =  [
             'permission_list' => 'required_without:group_list|array|min:1',
             'permission_list.*' => 'required_without:group_list|exists:permissions,id',
@@ -39,5 +38,14 @@ class GroupRequest extends FormRequest
         }
         return $rules;
     }
+
+    // protected function prepareForValidation()
+    // {
+    //     $data = $this->all();
+    //     $this->merge([
+    //         'permission_list' => @$data['permission_list'] && is_string($data['permission_list']) ? json_decode($data['permission_list']) : @$data['permission_list'],
+    //         'group_list' => @$data['group_list'] && is_string($data['group_list']) ? json_decode($data['group_list']) : @$data['group_list']
+    //     ]);
+    // }
 
 }

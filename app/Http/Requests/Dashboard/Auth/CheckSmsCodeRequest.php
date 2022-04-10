@@ -47,9 +47,9 @@ class CheckSmsCodeRequest extends FormRequest
     }
 
     public function messages()
-{
-    return [
-        'reset_code.exists' => trans('dashboard.general.invalid_code'),
-    ];
-}
+    {
+        return [
+            'reset_code.exists' => trans('dashboard.general.invalid_code'),
+        ];
+    }
 }
