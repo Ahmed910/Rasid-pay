@@ -105,14 +105,16 @@ class GroupController extends Controller
 
     public function edit($id)
     {
-        if (!request()->ajax()) {
-            $locales = config('translatable.locales');
-            $group = Group::where('id', "<>", auth()->user()->group_id)->findOrFail($id);
-            $uris = Permission::permissions();
+        $previousUrl = url()->previous();
+        (strpos($previousUrl, 'group')) ? session(['perviousPage' => 'group']) : session(['perviousPage' => 'home']);
 
-            return view('dashboard.group.edit', compact('group', 'uris', 'locales'));
-        }
+        $locales = config('translatable.locales');
+        $group = Group::where('id', "<>", auth()->user()->group_id)->findOrFail($id);
+        $uris = Permission::permissions();
+
+        return view('dashboard.group.edit', compact('group', 'uris', 'locales'));
     }
+
 
     /**
      * Update the specified resource in storage.

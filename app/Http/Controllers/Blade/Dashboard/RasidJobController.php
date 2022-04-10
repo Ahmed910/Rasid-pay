@@ -127,6 +127,9 @@ class RasidJobController extends Controller
      */
     public function edit($id)
     {
+        $previousUrl = url()->previous();
+        (strpos($previousUrl, 'rasid_job')) ? session(['perviousPage' => 'rasid_job']) : session(['perviousPage' => 'home']);
+
         $rasidJob = RasidJob::withTrashed()->findOrFail($id);
         $departments = Department::with('parent.translations')->ListsTranslations('name')->where('parent_id', null)->pluck('name', 'id')->toArray();
         $locales = config('translatable.locales');

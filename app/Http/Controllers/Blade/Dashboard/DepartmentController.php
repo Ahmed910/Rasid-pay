@@ -104,6 +104,10 @@ class DepartmentController extends Controller
 
     public function edit($id)
     {
+
+        $previousUrl = url()->previous();
+        (strpos($previousUrl, 'department')) ? session(['perviousPage' => 'department']) : session(['perviousPage' => 'home']);
+
         $department = Department::withTrashed()->findOrFail($id);
         $departments = Department::with('parent.translations')->ListsTranslations('name')->where(['parent_id' => null, 'is_active' => 1])->pluck('name', 'id')->toArray();
 
