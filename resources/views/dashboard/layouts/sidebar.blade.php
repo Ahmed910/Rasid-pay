@@ -40,7 +40,7 @@
                                     {{ trans('dashboard.department.sub_progs.index') }}</a>
                         </li>
                         <li>
-                            <a href="{{ route('dashboard.department.create') }}"
+                            <a href="{{ route('dashboard.department.create') }}" onclick="{{session()->forget('perviousPage')}}"
                                 class="slide-item px-6 {{ request()->routeIs('dashboard.department.create') ? 'active' : '' }}"><i
                                     class="mdi mdi-plus-circle-outline"></i> {!! trans('dashboard.department.sub_progs.create') !!}</a>
                         </li>
@@ -63,7 +63,7 @@
                                     {{ trans('dashboard.rasid_job.sub_progs.index') }}</a>
                         </li>
                         <li>
-                            <a href="{{ route('dashboard.rasid_job.create') }}"
+                            <a href="{{ route('dashboard.rasid_job.create') }}" onclick="{{session()->forget('perviousPage')}}"
                                 class="slide-item px-6 {{ request()->routeIs('dashboard.rasid_job.create') ? 'active' : '' }}"><i
                                     class="mdi mdi-plus-circle-outline"></i> {!! trans('dashboard.rasid_job.sub_progs.create') !!}</a>
                         </li>
@@ -86,7 +86,7 @@
                                 {!! trans('dashboard.employee.sub_progs.index') !!}</a>
                         </li>
                         <li>
-                            <a href="{{ route('dashboard.group.create') }}"
+                            <a href="{{ route('dashboard.group.create') }}" onclick="{{session()->forget('perviousPage')}}"
                                 class="slide-item px-6 {{ request()->routeIs('dashboard.employee.create') ? 'active' : '' }}"><i
                                     class="mdi mdi-plus-circle-outline"></i> {!! trans('dashboard.employee.sub_progs.create') !!}</a>
                         </li>
@@ -109,7 +109,7 @@
                                 {!! trans('dashboard.group.sub_progs.index') !!}</a>
                         </li>
                         <li>
-                            <a href="{{ route('dashboard.group.create') }}"
+                            <a href="{{ route('dashboard.group.create') }}" onclick="{{session()->forget('perviousPage')}}"
                                 class="slide-item px-6 {{ request()->routeIs('dashboard.group.create') ? 'active' : '' }}"><i
                                     class="mdi mdi-plus-circle-outline"></i> {!! trans('dashboard.group.sub_progs.create') !!}</a>
                         </li>
@@ -132,7 +132,7 @@
                                 {!! trans('dashboard.admin.sub_progs.index') !!}</a>
                         </li>
                         <li>
-                            <a href="{{ route('dashboard.admin.create') }}"
+                            <a href="{{ route('dashboard.admin.create') }}" onclick="{{session()->forget('perviousPage')}}"
                                 class="slide-item px-6 {{ request()->routeIs('dashboard.admin.create') ? 'active' : '' }}"><i
                                     class="mdi mdi-plus-circle-outline"></i> {!! trans('dashboard.admin.sub_progs.create') !!}</a>
                         </li>
@@ -154,7 +154,7 @@
                                 {!! trans('dashboard.employee.sub_progs.index') !!}</a>
                         </li>
                         <li>
-                            <a href="{!! route('dashboard.client.create') !!}"
+                            <a href="{!! route('dashboard.client.create') !!}" onclick="{{session()->forget('perviousPage')}}"
                                 class="slide-item px-6 {{ request()->routeIs('dashboard.client.index') ? 'active' : '' }}"><i
                                     class="mdi mdi-plus-circle-outline"></i> {!! trans('dashboard.admin.sub_progs.create') !!}</a>
                         </li>
