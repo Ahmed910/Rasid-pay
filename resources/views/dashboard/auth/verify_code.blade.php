@@ -100,8 +100,7 @@ let digitValidate = function (ele) {
 };
 
 let tabChange = function (val) {
-  let ele = document.querySelectorAll("input");
-  console.log(ele[val - 1]);
+  let ele = document.querySelectorAll(".inputs-code");
   if (ele[val - 1].value != "") {
     ele[val].focus();
   } else if (ele[val - 1].value == "") {
