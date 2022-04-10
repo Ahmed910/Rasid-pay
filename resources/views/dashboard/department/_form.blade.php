@@ -11,13 +11,14 @@
 
         <div class="col-12 col-md-{{ isset($department) ? 4 : 6 }} mb-5">
             {!! Form::label('mainDepartment', trans('dashboard.department.main_department')) !!}
-            {!! Form::select('parent_id', $departments, null, ['class' => 'form-control select2-show-search' . ($errors->has('parent_id') ? ' is-invalid' : null), 'placeholder' => trans('dashboard.department.select_main_department'), 'id' => 'parent_id']) !!}
+            {!! Form::select('parent_id', [''=>''] + $departments, null, ['class' => 'form-control select2-show-search' . ($errors->has('parent_id') ? ' is-invalid' : null), 'data-placeholder' => trans('dashboard.department.select_main_department'), 'id' => 'parent_id']) !!}
             <span class="text-danger" id="parent_idError" hidden></span>
         </div>
 
         @if (isset($department))
             <div class="col-12 col-md-4 mb-5">
                 {!! Form::label('status', trans('dashboard.general.status')) !!}
+                            <span class="requiredFields">*</span>
                 {!! Form::select('is_active', trans('dashboard.department.active_cases'), null, ['class' => 'form-control select2', 'id' => 'status','placeholder' => trans('dashboard.general.select_status')]) !!}
 
                 <span class="text-danger" id="statusError" hidden></span>
@@ -62,7 +63,6 @@
   <div class="col-12 mb-5 text-end">
       {!! Form::button('<i class="mdi mdi-content-save-outline"></i>' . $btn_submit, ['type' => 'submit', 'class' => 'btn btn-primary', 'id' => 'saveButton']) !!}
       {!! Form::button('<i class="mdi mdi-arrow-left"></i>' . trans('dashboard.general.back'), ['type' => 'button', 'class' => 'btn btn-outline-primary', 'id' => 'showBack']) !!}
-
   </div>
 </div>
 
@@ -174,11 +174,6 @@
           // );
 
           $("#showBack").click(function() {
-              // $('#formId input').each(function() {
-              //     if ($(this).attr('name') !== '_token' && ($(this).val() != '' || $(this).attr(
-              //             'checked')))
-              //         validate = true;
-              // });
               if (validate) {
                   $('#backModal').modal('show');
                   return false;
