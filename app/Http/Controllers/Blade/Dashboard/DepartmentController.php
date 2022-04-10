@@ -102,8 +102,9 @@ class DepartmentController extends Controller
         return view('dashboard.department.show', compact('department'));
     }
 
-    public function edit(Department $department)
+    public function edit($id)
     {
+        $department = Department::withTrashed()->findOrFail($id);
         $departments = Department::with('parent.translations')->ListsTranslations('name')->where(['parent_id' => null, 'is_active' => 1])->pluck('name', 'id')->toArray();
 
         $departments = array_merge([null => trans('dashboard.department.without_parent')], $departments);
