@@ -125,13 +125,11 @@ class DepartmentController extends Controller
     }
     public function archive(Request $request)
     {
-
         $sortingColumns = [
             'id',
             'name',
             'parent',
             'deleted_at',
-
         ];
 
         if (isset($request->order[0]['column'])) {
@@ -141,6 +139,7 @@ class DepartmentController extends Controller
         $departmentsQuery = Department::onlyTrashed()
             ->search($request)
             ->CustomDateFromTo($request)
+            ->searchDeletedAtFromTo($request)
             ->with('parent.translations')
             ->ListsTranslations('name')
             ->addSelect('departments.deleted_at', 'departments.parent_id')
