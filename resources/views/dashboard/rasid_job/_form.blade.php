@@ -125,7 +125,7 @@
                             $('input[name="' + inputName + '"]').addClass('is-invalid');
                             $('select[name="' + inputName + '"]').addClass('is-invalid');
                             $('span[id="' + inputError + '"]').attr('hidden', false);
-                            $('span[id="' + inputError + '"]').text(message);
+                            $('span[id="' + inputError + '"]').html(`<small>${message}</small>`);
                         });
                     }
                 });

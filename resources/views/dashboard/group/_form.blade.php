@@ -3,7 +3,7 @@
         <div class="col-12 col-md-6 mb-5">
             {!! Form::label('departmentName', trans('dashboard.group.group_name')) !!}
             @foreach ($locales as $locale)
-                {!! Form::text("{$locale}[name]", isset($group) ? $group->name : null, ['class' => 'form-control ', 'placeholder' => trans('dashboard.general.enter_name'), 'minlength' => '2', 'maxlength' => '100', 'required' => 'required', 'pattern' => '^[\u0600-\u065F\u066A-\u06EF\u06FA-\u06FFa-zA-Z]+[\u0600-\u065F\u066A-\u06EF\u06FA-\u06FFa-zA-Z0-9-_ ]*$', 'onpaste' => 'return false;', 'oncopy' => 'return false;', 'ondrop' => 'return false;']) !!}
+                {!! Form::text("{$locale}[name]", isset($group) ? $group->name : null, ['class' => 'form-control input-regex stop-copy-paste', 'placeholder' => trans('dashboard.general.enter_name'), 'minlength' => '2', 'maxlength' => '100', 'required' => 'required']) !!}
 
                 <span class="text-danger" id="{{ $locale }}.nameError" hidden></span>
 
@@ -68,10 +68,10 @@
             let permissions = @isset($group)  @json($group->permission_list) @else [] @endisset;
             let groups = @isset($group)  @json($group->group_list) @else [] @endisset;
             groups.forEach((item, i) => {
-                $('[name="group_list[]"]').append(`<option value="${item}" selected></option>`);
+                $('[name="group_list[]"]').append(`<option value="${item}" selected class="group_select"></option>`);
             });
             permissions.forEach((item, i) => {
-                $('[name="permission_list[]"]').append(`<option value="${item}" selected></option>`);
+                $('[name="permission_list[]"]').append(`<option value="${item}" selected class="permission_select"></option>`);
             });
         });
 
@@ -80,10 +80,10 @@
             let permission_options = '';
             $.each(selected,(index,item) => {
                 if (item.getAttribute('data-name') == 'groups') {
-                    group_options += `<option value="${item.value}" selected></option>`;
+                    group_options += `<option value="${item.value}" selected class="group_select"></option>`;
                 }
                 if (item.getAttribute('data-name') == 'permissions') {
-                    permission_options += `<option value="${item.value}" selected></option>`;
+                    permission_options += `<option value="${item.value}" selected class="permission_select"></option>`;
                 }
             });
             $('[name="permission_list[]"]').html(permission_options);
@@ -121,12 +121,8 @@
              e.preventDefault();
              $('span[id*="Error"]').attr('hidden', true);
              $('*input,select').removeClass('is-invalid');
-             let form = $('#formId')[0];
-             let data = new FormData(form);
-             let permission_list = $('[name="permission_list[]"]').val();
-             let group_list = $('[name="group_list[]"]').val();
-             data.append('permission_list',permission_list);
-             data.append('group_list',group_list);
+             let data = new FormData(document.getElementById('formId'));
+
              $.ajaxSetup({
                  headers: {
                      'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -156,7 +152,7 @@
                          $('input[name="' + inputName + '"]').addClass('is-invalid');
                          $('select[name="' + inputName + '[]"]').addClass('is-invalid');
                          $('span[id="' + inputError + '"]').attr('hidden', false);
-                         $('span[id="' + inputError + '"]').text(message);
+                         $('span[id="' + inputError + '"]').html(`<small>${message}</small>`);
                      });
                  }
              });
