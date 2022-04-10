@@ -68,8 +68,8 @@
             name: "department"
           },
           {
-            data: "created_at",
-            name: "created_at"
+            data: "deleted_at",
+            name: "deleted_at"
           },
           {
             data: function (data) {
@@ -210,6 +210,15 @@
           return new bootstrap.Tooltip(tooltipTriggerEl);
         });
       });
+    });
+
+    $('#job_name').on('keypress', function (event) {
+      var regex = new RegExp("^[a-zA-Z0-9]+$");
+      var key = String.fromCharCode(!event.charCode ? event.which : event.charCode);
+      if (!regex.test(key)) {
+        event.preventDefault();
+        return false;
+      }
     });
   </script>
   <!-- SELECT2 JS -->
