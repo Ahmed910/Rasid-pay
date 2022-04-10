@@ -6,7 +6,6 @@ use App\Http\Requests\V1\Dashboard\AttachmentRequest;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Traits\Uuid;
-use Illuminate\Support\Facades\Storage;
 
 class Attachment extends Model
 {
@@ -37,23 +36,17 @@ class Attachment extends Model
     }
 
     #region custom Methods
-    public static function storeImage(AttachmentRequest $attachmentRequest, $user)
+    public static function storeImage(AttachmentRequest $attachmentRequest, $user, $type = null)
     {
         foreach ($attachmentRequest->attachments as $item) {
             $paths = [];
             if (isset($item["files"])) {
                 $cur = $user->attachments()->create([
-//                    'file' => json_encode($paths),
-//                    'file_type' => $file->getClientMimeType(),
                     'title' => $item["title"],
                     'attachment_type' => $item["type"],
                 ]);
                 foreach ($item["files"] as $file) {
                     $curpath = $file->store('/files/client', ['disk' => 'local']);
-
-
-////                dd($paths);
-//                foreach ($paths as $curpath) {
                     $fileAttachment = new AttachmentFile();
                     $fileAttachment->create([
                         'path' => $curpath,
@@ -61,7 +54,6 @@ class Attachment extends Model
                         "attachment_id" => $cur->id
                     ]);
                 }
-//dd($cur) ;
             }
         }
     }
@@ -90,5 +82,33 @@ class Attachment extends Model
 
         }
     }
-    #endregion custom Methods
+
+    public static function updatefiles(AttachmentRequest $attachmentRequest, $user)
+    {
+        foreach ($attachmentRequest->attachments as $key => $item) {
+            $attachment = $user->attachments()->get();
+            $cur = $user->attachments->get($key);
+            if (isset($item["files"])) {
+                if ($cur) $cur->update([
+                    'title' => $item["title"],
+                    'attachment_type' => $item["type"],
+                ]);
+                else  $cur = $user->attachments()->create([
+                    'title' => $item["title"],
+                    'attachment_type' => $item["type"],
+                ]);
+                $cur->attachmentFiles()?->delete();
+                foreach ($item["files"] as $file) {
+                    $curpath = $file->store('/files/client', ['disk' => 'local']);
+                    $cur->attachmentFiles()->create([
+                        'path' => $curpath,
+                        'type' => $file->getClientMimeType(),
+                    ]);
+                }
+            }
+
+
+        }
+        #endregion custom Methods
+    }
 }
