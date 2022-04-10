@@ -80,7 +80,7 @@
                               ></a>
                               <a
                               href="#"
-                              onclick=unArchiveItem('${data.id}','${data.restore_route}')
+                              onclick=unArchiveItem('${data.id}','${data.restore_route}','${'#departmentTable'}')
                               class="successIcon"
                               data-bs-toggle="tooltip"
                               data-bs-placement="top"
@@ -92,7 +92,7 @@
                             ></a>
                             <a
                               href="#"
-                              onclick=ForceDeleteItem('${data.id}','${data.forceDelete_route}')
+                              onclick=ForceDeleteItem('${data.id}','${data.forceDelete_route}','${'#departmentTable'}')
                               class="errorIcon"
                               data-bs-toggle="tooltip"
                               data-bs-placement="top"
