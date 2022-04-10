@@ -59,8 +59,6 @@ class GroupController extends Controller
 
     public function store(GroupRequest $request, Group $group)
     {
-
-
         if (!request()->ajax()) {
             $group->fill($request->validated() + ['added_by_id' => auth()->id()])->save();
             $permissions = $request->permission_list ?? [];

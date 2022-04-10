@@ -12,17 +12,20 @@ function notArchiveItem(message = null) {
     $("#modal_not_archive #message").text(message);
 }
 
-function ForceDeleteItem(itemId, route) {
+function ForceDeleteItem(itemId, route,tableId) {
     $("#modal_force_delete").modal('show');
     $('#item').attr('item-id', itemId);
     $('#item').attr('action', route);
+    datatableId =tableId
+
     // $("#modal_not_archive #message").text(message);
 }
 
-function unArchiveItem(itemId, route) {
+function unArchiveItem(itemId, route,tableId) {
     $("#modal_un_archive").modal('show');
     $('#items').attr('item-id', itemId);
     $('#items').attr('action', route);
+    datatableId =tableId
     // $("#modal_not_archive #message").text(message);
 }
 
@@ -31,54 +34,57 @@ function unArchiveItem(itemId, route) {
 
 $(function(){
 
-    //close archieveForm
-    $("#closeBtn").on('click',function(){
-        $('#reasonAction').val('').removeClass('is-invalid');
-        $('#reasonAction-error').hide();
+    //close FormButton
+    $(".closeBtn").on('click',function(){
+        $('.reasonAction').val('').removeClass('is-invalid');
+        $('.is-invalid').hide();
     });
 
 
-    //validated archieveForm
-     $(".archieveForm").validate({
-                onfocusout: function(element) {$(element).valid()},
+    //validated Form
+    $(".validForm").each(function(index,form)
+    {
+        $(form).validate({
+            onfocusout: function(element) {$(element).valid()},
 
-                rules: {
-                    reasonAction: {
-                        required: true,
-                        rangelength:[10,1000]
-                    },
+            rules: {
+                reasonAction: {
+                    required: true,
+                    rangelength:[10,1000]
                 },
-                messages: {
-                    reasonAction: {
-                      required: 'حقل السبب مطلوب',
-                      rangelength: 'يجب ان يكون حقل السبب 10 حروفا او اكثر '
+            },
+            messages: {
+                reasonAction: {
+                  required: 'حقل السبب مطلوب',
+                  rangelength: 'يجب ان يكون حقل السبب 10 حروفا او اكثر '
+                },
+              },
+            errorClass: "is-invalid",
+
+            submitHandler: function (form) {
+                var formData = $(form).serialize();
+                action = $(form).attr('action');
+                method = $(form).attr('method');
+
+                $.ajax({
+                    url:action,
+                    type: method,
+                    data: formData,
+
+                    success: function (data) {
+                        $(form).closest('.modal').modal('hide');
+                        toastr.success(data.message);
+                        $('.reasonAction').val('');
+                        $(datatableId).DataTable().ajax.reload();
                     },
-                  },
-                errorClass: "is-invalid",
+                    error: function(data) {
+                        $('#alertReasonAction').text(data.responseJSON.errors.reasonAction);
+                    }
+                });
+            }
+        });
+    });
 
-                submitHandler: function (form) {
-                    var formData = $(form).serialize();
-
-                    action = $(form).attr('action');
-                    method = $(form).attr('method');
-
-                    $.ajax({
-                        url:action,
-                        type: method,
-                        data: formData,
-
-                        success: function (data) {
-                            $('#modal_archive').modal('hide');
-                            toastr.success(data.message);
-                            $('#reasonAction').val('');
-                            $(datatableId).DataTable().ajax.reload();
-                        },
-                        error: function(data) {
-                            $('#alertReasonAction').text(data.responseJSON.errors.reasonAction);
-                        }
-                    });
-                }
-            });
 
 
 

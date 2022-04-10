@@ -32,7 +32,7 @@
               <label for="from-hijri-picker"> {{ trans('dashboard.department.archive_from_date') }}</label>
               <div class="input-group">
 
-                  {!! Form::text('from_date', old('from_date') ?? request('from_date'), ['class' => 'form-control', 'id' => 'from-hijri-picker-custom', 'placeholder' => trans('dashboard.general.day_month_year'), 'readonly']) !!}
+                  {!! Form::text('deleted_from', old('deleted_from') ?? request('deleted_from'), ['class' => 'form-control', 'id' => 'from-hijri-picker-custom', 'placeholder' => trans('dashboard.general.day_month_year'), 'readonly']) !!}
                   <div class="input-group-text border-start-0">
                       <i class="fa fa-calendar tx-16 lh-0 op-6"></i>
                   </div>
@@ -42,7 +42,7 @@
             <label for="to-hijri-picker"> {{ trans('dashboard.department.archive_to_date') }}</label>
             <div class="input-group">
 
-                {!! Form::text('to_date', old('to_date') ?? request('to_date'), ['class' => 'form-control', 'placeholder' => trans('dashboard.general.day_month_year'), 'id' => 'to-hijri-picker-custom', 'readonly']) !!}
+                {!! Form::text('deleted_to', old('deleted_to') ?? request('deleted_to'), ['class' => 'form-control', 'placeholder' => trans('dashboard.general.day_month_year'), 'id' => 'to-hijri-picker-custom', 'readonly']) !!}
 
                 <div class="input-group-text border-start-0">
                     <i class="fa fa-calendar tx-16 lh-0 op-6"></i>
