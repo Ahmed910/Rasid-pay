@@ -61,7 +61,7 @@
     </div>
 
     <div class="col-12 mt-5 text-center">
-        {!! Form::submit('إرسال',['class' => "btn btn-primary"]) !!}
+        {!! Form::submit('تأكيد',['class' => "btn btn-primary"]) !!}
         <a href="{!! route('dashboard.login') !!}" class="btn btn-outline-primary">
             عودة
         </a>

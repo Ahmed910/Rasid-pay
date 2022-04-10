@@ -24,6 +24,7 @@
 
   <!-- STYLE CSS -->
   <link href="{{ asset('dashboardAssets/css/style.css') }}" rel="stylesheet" />
+  <link href="{{ asset('dashboardAssets/css/style2.css') }}" rel="stylesheet" />
   <link href="{{ asset('dashboardAssets/plugins/bootstrap-hijri-datepicker/css/bootstrap-datetimepicker.min.css') }}" rel="stylesheet" />
   <!--- FONT-ICONS CSS -->
   <link href="{{ asset('dashboardAssets/css/icons.css') }}" rel="stylesheet" />

@@ -202,17 +202,25 @@ class RasidJobController extends Controller
     }
     public function restore(ReasonRequest $request, $id)
     {
-        $RasidJob = RasidJob::onlyTrashed()->findOrFail($id);
-
-        $RasidJob->restore();
-        return redirect()->back()->withSuccess(__('dashboard.general.success_restore'));
+        if ($request->ajax()) {
+            $RasidJob = RasidJob::onlyTrashed()->findOrFail($id);
+            $RasidJob->restore();
+            return response()->json([
+                'message' =>__('dashboard.general.success_restore')
+            ] );
+        }
     }
 
     public function forceDelete(ReasonRequest $request, $id)
     {
-        $RasidJob = RasidJob::onlyTrashed()->findOrFail($id);
-        $RasidJob->forceDelete();
-        return redirect()->back()->withSuccess(__('dashboard.general.success_delete'));
+        if ($request->ajax()) {
+
+            $RasidJob = RasidJob::onlyTrashed()->findOrFail($id);
+            $RasidJob->forceDelete();
+            return response()->json([
+                'message' =>__('dashboard.general.success_delete')
+            ] );
+        }
     }
     public function destroy($RasidJob, \App\Http\Requests\Dashboard\ReasonRequest $request)
     {

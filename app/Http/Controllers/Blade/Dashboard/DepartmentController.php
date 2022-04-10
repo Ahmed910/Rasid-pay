@@ -180,18 +180,25 @@ class DepartmentController extends Controller
 
     public function restore(ReasonRequest $request, $id)
     {
-
-        $department = Department::onlyTrashed()->findOrFail($id);
-
-        $department->restore();
-        return redirect()->back()->withSuccess(__('dashboard.general.success_restore'));
+        if ($request->ajax()) {
+            $department = Department::onlyTrashed()->findOrFail($id);
+            $department->restore();
+            return response()->json([
+                'message' =>__('dashboard.general.success_restore')
+            ] );
+        }
     }
 
     public function forceDelete(ReasonRequest $request, $id)
     {
-        $department = Department::onlyTrashed()->findOrFail($id);
-        $department->forceDelete();
-        return redirect()->back()->withSuccess(__('dashboard.general.success_delete'));
+        if ($request->ajax()) {
+
+            $department = Department::onlyTrashed()->findOrFail($id);
+            $department->forceDelete();
+            return response()->json([
+                'message' =>__('dashboard.general.success_delete')
+            ] );
+        }
     }
 
     public function export(Request $request)
