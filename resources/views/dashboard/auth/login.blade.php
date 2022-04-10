@@ -11,7 +11,7 @@
   @csrf
   <div class="form-group">
     <label for="userID">{{ trans('auth.userID')}}</label>
-    <input oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" type="number" pattern="^[1-9]\d*$" maxlength="6" class="form-control stop-copy-paste @error('username') is-invalid @enderror"
+    <input oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" type="number" pattern="^[1-9]\d*$" maxlength="6" class="form-control stop-copy-paste number-regex @error('username') is-invalid @enderror"
            id="userID"
            name="username"
     value="{{ old('username') }}"
