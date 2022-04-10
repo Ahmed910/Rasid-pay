@@ -42,7 +42,7 @@ class LoginController extends Controller
     protected function credentials(Request $request)
     {
         $credentials = $request->has('username') ? [$this->username() => $request->username, 'password' => $request->password] : $request->only($this->username(), 'password');
-        $credentials['is_active'] = 1;
+        $credentials['ban_status'] = 'active';
         return $credentials;
     }
 
