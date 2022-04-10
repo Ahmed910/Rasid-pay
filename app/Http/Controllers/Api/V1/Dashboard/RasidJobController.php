@@ -16,10 +16,11 @@ class RasidJobController extends Controller
     {
         $rasidJobs = RasidJob::search($request)
             ->ListsTranslations('name')
+            ->select('rasid_jobs.*')
             ->CustomDateFromTo($request)
             ->sortBy($request)
             ->paginate((int)($request->per_page ?? config("globals.per_page")));
-
+            
         return RasidJobResource::collection($rasidJobs)
             ->additional([
                 'message' => '',
