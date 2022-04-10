@@ -63,7 +63,6 @@
   <div class="col-12 mb-5 text-end">
       {!! Form::button('<i class="mdi mdi-content-save-outline"></i>' . $btn_submit, ['type' => 'submit', 'class' => 'btn btn-primary', 'id' => 'saveButton']) !!}
       {!! Form::button('<i class="mdi mdi-arrow-left"></i>' . trans('dashboard.general.back'), ['type' => 'button', 'class' => 'btn btn-outline-primary', 'id' => 'showBack']) !!}
-
   </div>
 </div>
 
@@ -175,11 +174,6 @@
           // );
 
           $("#showBack").click(function() {
-              // $('#formId input').each(function() {
-              //     if ($(this).attr('name') !== '_token' && ($(this).val() != '' || $(this).attr(
-              //             'checked')))
-              //         validate = true;
-              // });
               if (validate) {
                   $('#backModal').modal('show');
                   return false;

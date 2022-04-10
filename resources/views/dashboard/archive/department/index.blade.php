@@ -17,7 +17,9 @@
             <div class="col">
               <label>
                 {{ trans('dashboard.department.main_department')}}</label>
-                {!! Form::select('parent_id', ['' => '', -1 => trans('dashboard.general.all_cases')] + $parentDepartments, old('parent_id') ?? request('parent_id') , ['class' => 'form-control select2-show-search', 'data-placeholder' => trans('dashboard.department.select_main_department')]) !!}
+
+                {!! Form::select('parent_id', ['' => '', -1 => trans('dashboard.general.all_cases'),0 => trans('dashboard.department.without_parent')] + $parentDepartments, request('parent_id'), ['class' => 'form-control select2-show-search', 'data-placeholder' => trans('dashboard.department.select_main_department'), 'id' => 'parent_id']) !!}
+
             </div>
             <div class="col">
                 <label for="status">
@@ -27,25 +29,26 @@
                 'status']) !!}
             </div>
             <div class="col">
-                <label for="validationCustom02"> {{ trans('dashboard.department.archive_from_date') }}</label>
-                <div class="input-group">
-                    <input id="from-hijri-picker" type="text" placeholder="يوم/شهر/سنة" class="form-control" readonly
-                        name="created_from" value="{{ old('created_from') ?? request('created_from') }}" />
-                    <div class="input-group-text border-start-0">
-                        <i class="fa fa-calendar tx-16 lh-0 op-6"></i>
-                    </div>
+              <label for="from-hijri-picker"> {{ trans('dashboard.department.archive_from_date') }}</label>
+              <div class="input-group">
+
+                  {!! Form::text('deleted_from', old('deleted_from') ?? request('deleted_from'), ['class' => 'form-control', 'id' => 'from-hijri-picker-custom', 'placeholder' => trans('dashboard.general.day_month_year'), 'readonly']) !!}
+                  <div class="input-group-text border-start-0">
+                      <i class="fa fa-calendar tx-16 lh-0 op-6"></i>
+                  </div>
+              </div>
+          </div>
+          <div class="col">
+            <label for="to-hijri-picker"> {{ trans('dashboard.department.archive_to_date') }}</label>
+            <div class="input-group">
+
+                {!! Form::text('deleted_to', old('deleted_to') ?? request('deleted_to'), ['class' => 'form-control', 'placeholder' => trans('dashboard.general.day_month_year'), 'id' => 'to-hijri-picker-custom', 'readonly']) !!}
+
+                <div class="input-group-text border-start-0">
+                    <i class="fa fa-calendar tx-16 lh-0 op-6"></i>
                 </div>
             </div>
-            <div class="col">
-                <label for="validationCustom02">{{ trans('dashboard.department.archive_to_date') }} </label>
-                <div class="input-group">
-                    <input id="to-hijri-picker" type="text" placeholder="يوم/شهر/سنة" class="form-control" readonly
-                        name="created_to" value="{{ old('created_to') ?? request('created_to') }}" />
-                    <div class="input-group-text border-start-0">
-                        <i class="fa fa-calendar tx-16 lh-0 op-6"></i>
-                    </div>
-                </div>
-            </div>
+        </div>
 
         </div>
         <div class="row">
@@ -65,7 +68,7 @@
                 <button class="btn btn-primary mx-2" type="submit">
                     <i class="mdi mdi-magnify"></i> {{ trans('dashboard.department.search') }}
                 </button>
-                <a href="{{ route('dashboard.department.index') }}" class="btn btn-outline-primary">
+                <a href="{{ route('dashboard.department.archive') }}" class="btn btn-outline-primary">
                     <i class="mdi mdi-restore"></i>{{ trans('dashboard.department.show_all') }}
                 </a>
             </div>

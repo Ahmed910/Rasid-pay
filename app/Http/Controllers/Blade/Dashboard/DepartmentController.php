@@ -55,6 +55,9 @@ class DepartmentController extends Controller
 
     public function create()
     {
+        $previousUrl = url()->previous();
+        (strpos($previousUrl, 'department')) ? session(['perviousPage' => 'department']) : session(['perviousPage' => 'home']);
+
         $departments = Department::with('parent.translations')->ListsTranslations('name')->where(['parent_id' => null, 'is_active' => 1])->pluck('name', 'id')->toArray();
         $locales = config('translatable.locales');
 
@@ -122,13 +125,11 @@ class DepartmentController extends Controller
     }
     public function archive(Request $request)
     {
-
         $sortingColumns = [
             'id',
             'name',
             'parent',
             'deleted_at',
-
         ];
 
         if (isset($request->order[0]['column'])) {
@@ -138,6 +139,7 @@ class DepartmentController extends Controller
         $departmentsQuery = Department::onlyTrashed()
             ->search($request)
             ->CustomDateFromTo($request)
+            ->searchDeletedAtFromTo($request)
             ->with('parent.translations')
             ->ListsTranslations('name')
             ->addSelect('departments.deleted_at', 'departments.parent_id')

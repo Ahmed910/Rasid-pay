@@ -11,15 +11,15 @@
     <!-- PAGE-HEADER END -->
 
     <!-- FORM OPEN -->
-    <form method="get" action="" id="search-form" autocomplete="off">
+    <form method="get" action="" id="search-form">
         <div class="row align-items-end mb-3">
             <div class="col">
                 <label for="job_name">{{ trans('dashboard.rasid_job.job_name') }}</label>
-                {!! Form::text('name', old('name') ?? request('name'), ['class' => 'form-control', 'placeholder' => trans('dashboard.rasid_job.job_name'), 'id' => 'job_name']) !!}
+                {!! Form::text('name', old('name') ?? request('name'), ['class' => 'form-control stop-copy-paste', 'placeholder' => trans('dashboard.rasid_job.job_name'), 'id' => 'job_name', 'pattern' => "^[a-zA-Z0-9]+$"]) !!}
             </div>
             <div class="col">
                 <label for="mainDepartment"> {{ trans('dashboard.rasid_job.department') }} </label>
-                {!! Form::select('department_id', ['' => '', -1 => trans('dashboard.general.all_cases')] + $departments, old('department_id') ?? request('department_id'), ['data-placeholder' => trans('dashboard.rasid_job.select_department'), 'class' => 'form-control select2-show-search ', 'id' => 'mainDepartment']) !!}
+                {!! Form::select('department_id', ['' => '', 0 => trans('dashboard.general.all_cases')] + $departments, old('department_id') ?? request('department_id'), ['data-placeholder' => trans('dashboard.rasid_job.select_department'), 'class' => 'form-control select2-show-search', 'id' => 'mainDepartment']) !!}
             </div>
             <div class="col">
                 <label for="status">
@@ -30,7 +30,7 @@
                 <label for="from-hijri-picker"> {{ trans('dashboard.rasid_job.archive_from_date') }}</label>
                 <div class="input-group">
 
-                    {!! Form::text('from_date', old('from_date') ?? request('from_date'), ['class' => 'form-control', 'id' => 'from-hijri-picker-custom', 'placeholder' => trans('dashboard.general.day_month_year'), 'readonly']) !!}
+                    {!! Form::text('deleted_from', old('deleted_from') ?? request('deleted_from'), ['class' => 'form-control', 'id' => 'from-hijri-picker-custom', 'placeholder' => trans('dashboard.general.day_month_year'), 'readonly']) !!}
                     <div class="input-group-text border-start-0">
                         <i class="fa fa-calendar tx-16 lh-0 op-6"></i>
                     </div>
@@ -40,7 +40,7 @@
                 <label for="to-hijri-picker"> {{ trans('dashboard.rasid_job.archive_to_date') }}</label>
                 <div class="input-group">
 
-                    {!! Form::text('to_date', old('to_date') ?? request('to_date'), ['class' => 'form-control', 'placeholder' => trans('dashboard.general.day_month_year'), 'id' => 'to-hijri-picker-custom', 'readonly']) !!}
+                    {!! Form::text('deleted_to', old('deleted_to') ?? request('deleted_to'), ['class' => 'form-control', 'placeholder' => trans('dashboard.general.day_month_year'), 'id' => 'to-hijri-picker-custom', 'readonly']) !!}
 
                     <div class="input-group-text border-start-0">
                         <i class="fa fa-calendar tx-16 lh-0 op-6"></i>
@@ -99,7 +99,6 @@
     <!-- End Row -->
     @include('dashboard.layouts.modals.force_delete')
     @include('dashboard.layouts.modals.un_archive')
-
 @endsection
 @include('dashboard.layouts.modals.alert')
 
