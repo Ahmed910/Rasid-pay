@@ -15,9 +15,9 @@ class HomeController extends Controller
     public function backButton()
     {
         $sessionVal = session('perviousPage');
-
+        session()->forget('perviousPage');
         if ($sessionVal && $sessionVal != 'home')
-            return redirect()->route('dashboard.'.$sessionVal.'.index');
+            return redirect()->route('dashboard.' . $sessionVal . '.index');
         else
             return redirect()->route('dashboard.home.index');
     }
