@@ -62,9 +62,9 @@
     <script src="{{ asset('dashboardAssets') }}/plugins/fileuploads/js/file-upload.js"></script>
 
     <script>
+    var validate = false;
+    var saveButton = true;
         $(function() {
-             let validate = false;
-          let saveButton = true;
             let permissions = @isset($group)  @json($group->permission_list) @else [] @endisset;
             let groups = @isset($group)  @json($group->group_list) @else [] @endisset;
             groups.forEach((item, i) => {

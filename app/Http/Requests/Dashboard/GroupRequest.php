@@ -39,13 +39,11 @@ class GroupRequest extends FormRequest
         return $rules;
     }
 
-    // protected function prepareForValidation()
+    // public function messages()
     // {
-    //     $data = $this->all();
-    //     $this->merge([
-    //         'permission_list' => @$data['permission_list'] && is_string($data['permission_list']) ? json_decode($data['permission_list']) : @$data['permission_list'],
-    //         'group_list' => @$data['group_list'] && is_string($data['group_list']) ? json_decode($data['group_list']) : @$data['group_list']
-    //     ]);
+    //     return [
+    //         'permission_list.required_without' => trans('dashboard.general.invalid_code'),
+    //     ];
     // }
 
 }

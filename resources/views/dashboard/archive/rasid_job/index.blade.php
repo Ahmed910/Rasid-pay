@@ -15,7 +15,7 @@
         <div class="row align-items-end mb-3">
             <div class="col">
                 <label for="job_name">{{ trans('dashboard.rasid_job.job_name') }}</label>
-                {!! Form::text('name', old('name') ?? request('name'), ['class' => 'form-control stop-copy-paste', 'placeholder' => trans('dashboard.rasid_job.job_name'), 'id' => 'job_name', 'pattern' => "^[a-zA-Z0-9]+$"]) !!}
+                {!! Form::text('name', old('name') ?? request('name'), ['class' => 'form-control input-regex stop-copy-paste', 'placeholder' => trans('dashboard.rasid_job.job_name'), 'id' => 'job_name']) !!}
             </div>
             <div class="col">
                 <label for="mainDepartment"> {{ trans('dashboard.rasid_job.department') }} </label>
