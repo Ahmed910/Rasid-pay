@@ -132,22 +132,15 @@
       }
     });
 
+
+
     $("#login-id").on("click", function (event) {
       event.preventDefault();
 
-      $.ajaxSetup({
-        headers: {
-          'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-        }
-      });
-
-      username = $("[name='username']").val();
-      password = $("[name='password']").val();
       $.ajax({
-        type: "post",
-        dataType: "json",
-        data: {username: username, password: password},
-        url: "{{route("dashboard.login")}}",
+        type: $('#login-form').attr('method'),
+        data: $('#login-form').serialize(),
+        url: "{{route('dashboard.login')}}",
         success: function (data) {
           window.location = "{{route("dashboard.login")}}";
         },
@@ -176,6 +169,7 @@
 
       })
     });
+
   });
 
 </script>
