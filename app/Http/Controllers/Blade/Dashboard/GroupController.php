@@ -88,8 +88,8 @@ class GroupController extends Controller
                 ->additional(['total_count' => $activityCount]);
         }
 
-        $group->withCount('admins')
-            ->with([
+        $group->loadCount('admins')
+            ->load([
                 'translations', 'permissions', 'addedBy',
                 'groups' => function ($q) {
                     $q->with('permissions');
