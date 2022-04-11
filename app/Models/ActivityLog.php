@@ -56,7 +56,8 @@ class ActivityLog extends Model
     #region scopes
     public function scopeSearch(Builder $query, $request)
     {
-        if ($request->action) {
+
+        if (isset($request->action) && in_array($request->action, [1, 0])) {
             $query->where('action_type', $request->action);
         }
 
@@ -70,13 +71,14 @@ class ActivityLog extends Model
             });
         }
 
-        if ($request->main_program) {
+        if (isset($request->main_program) && in_array($request->main_program, [1, 0])) {
             $query->where('auditable_type', $request->main_program);
         }
-
-        if ($request->sub_program) {
+        
+        if (isset($request->sub_program) && in_array($request->sub_program, [1, 0])) {
             $query->where('sub_program', $request->sub_program);
         }
+
     }
 
     public function scopeSortBy(Builder $query, $request)
