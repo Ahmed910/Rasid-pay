@@ -200,8 +200,8 @@
                 $('#job_name').val(null);
                 $('#mainDepartment').val(null).trigger('change');
                 $('#status').val(null).trigger('change');
-                $('#from-hijri-picker-custom').val(null);
-                $('#to-hijri-picker-custom').val(null);
+                $('#from-hijri-picker-custom').val("").trigger('change');
+                $('#to-hijri-picker-custom').val("").trigger('change');
                 table.draw();
             });
             $("#search-form").submit(function(e) {
