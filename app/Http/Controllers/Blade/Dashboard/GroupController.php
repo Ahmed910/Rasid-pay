@@ -88,8 +88,8 @@ class GroupController extends Controller
                 ->additional(['total_count' => $activityCount]);
         }
 
-        $group->withCount('admins')
-            ->with([
+        $group->loadCount('admins')
+            ->load([
                 'translations', 'permissions', 'addedBy',
                 'groups' => function ($q) {
                     $q->with('permissions');
@@ -105,14 +105,16 @@ class GroupController extends Controller
 
     public function edit($id)
     {
-        if (!request()->ajax()) {
-            $locales = config('translatable.locales');
-            $group = Group::where('id', "<>", auth()->user()->group_id)->findOrFail($id);
-            $uris = Permission::permissions();
+        $previousUrl = url()->previous();
+        (strpos($previousUrl, 'group')) ? session(['perviousPage' => 'group']) : session(['perviousPage' => 'home']);
 
-            return view('dashboard.group.edit', compact('group', 'uris', 'locales'));
-        }
+        $locales = config('translatable.locales');
+        $group = Group::where('id', "<>", auth()->user()->group_id)->findOrFail($id);
+        $uris = Permission::permissions();
+
+        return view('dashboard.group.edit', compact('group', 'uris', 'locales'));
     }
+
 
     /**
      * Update the specified resource in storage.
