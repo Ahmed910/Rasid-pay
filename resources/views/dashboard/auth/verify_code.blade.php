@@ -48,9 +48,9 @@
         </div>
 
     <div class="col-12 mt-5 text-center">
-        {!! Form::submit('تأكيد',['class' => "btn btn-primary"]) !!}
+        {!! Form::submit({{ trans('dashboard.general.confirm')}},['class' => "btn btn-primary"]) !!}
         <a href="{!! route('dashboard.login') !!}" class="btn btn-outline-primary">
-            عودة
+          {{ trans('dashboard.general.back')}}
         </a>
     </div>
 </form>
