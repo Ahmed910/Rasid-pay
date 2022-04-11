@@ -87,6 +87,7 @@ return [
         'export' => 'Export',
         'report' => 'Print Report',
         'details' => 'Details',
+        'email' => 'Email',
         'no_data' => 'No Data',
         'reason' =>'Reason',
         'done_by' => 'Done By',
