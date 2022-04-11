@@ -107,6 +107,11 @@
 
 
         function submitForm(formId) {
+
+
+            let form = $(formId)[0];
+            let data = new FormData(form);
+
             $.ajaxSetup({
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -119,7 +124,7 @@
                 processData: false,
                 contentType: false,
                 cache: false,
-                data: $(formId).serialize(),
+                data: data,
                 success: function(data) {
                     $(formId).submit();
                 },
@@ -138,8 +143,10 @@
                         $('select[name="' + inputName + '"]').addClass('is-invalid');
                         $('span[id="' + inputError + '"]').attr('hidden', false);
                         $('span[id="' + inputError + '"]').html(`<small>${message}</small>`);
+
+                        toastr.error(message);
                     });
-                    if (data.responseJSON.message) toastr.error("{{ trans('auth.failed') }}");
+                    // if (data.responseJSON.message) toastr.error("{{ trans('auth.failed') }}");
                 }
             })
         }
