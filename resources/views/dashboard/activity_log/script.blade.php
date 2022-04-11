@@ -22,7 +22,7 @@
                     showClear: true,
                     ignoreReadonly: true,
                 });
-            $("#activitylogtable").DataTable({
+                var table = $("#activitylogtable").DataTable({
                 sDom: "t<'domOption'lpi>",
                 serverSide: true,
                 ajax: {
@@ -103,8 +103,8 @@
                                 return `<span class="badge bg-success-opacity py-2 px-4">${"@lang('dashboard.general.activited')"}</span>`;
                             }
 
-
-                        }
+                        },
+                        name:"type"
                     },
 
                     {
@@ -161,6 +161,36 @@
                 document.getElementById('activitylogtable_info').innerText = activityLogTableInfo.replace(activityLogTableInfo, activityLogTableInfo.toArabicUni());
               }
             });
+
+            $('#activityName').on('select2:select', function (e) {
+
+          table.draw();
+      });
+      $("#mainDepartment").on('select2:select',function (e) {
+        table.draw();
+
+      });
+      $('#mainProgram').on('select2:select', function(e) {
+                table.draw();
+            });
+
+      $('#branchProgram').on('select2:select', function(e) {
+                table.draw();
+            });
+      $('#search-form').on('reset', function (e) {
+        e.preventDefault();
+        $('#activityName').val(null).trigger('change');
+        $('#mainDepartment').val(null).trigger('change');
+        $('#mainProgram').val(null);
+        $('#branchProgram').val(null);
+        table.draw();
+      });
+
+      $("#search-form").submit(function (e) {
+        e.preventDefault();
+        table.draw();
+      });
+
             $('.select2').select2({
                 minimumResultsForSearch: Infinity
             });
