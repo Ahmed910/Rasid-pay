@@ -53,6 +53,30 @@
           {{ trans('dashboard.general.back')}}
         </a>
     </div>
+    <div class="col">
+      <input type="text" oninput='digitValidate(this)' onkeyup='tabChange(4)'
+        class="form-control text-center   @error('reset_code') border-danger @enderror" name="reset_code[]" required
+        maxlength="1" />
+    </div>
+  </div>
+  @error('reset_code')
+  <div class="text-danger">{{ $message }}</div>
+  @enderror
+
+  <div class="text-center m-auto">
+    <p class="mt-5">
+      <span id="countdown"> </span>
+      <i class="mdi mdi-timer-outline"></i>
+    </p>
+    <a href="#!" class="disable resend">إعادة إرسال رمز التحقق؟</a>
+  </div>
+
+  <div class="col-12 mt-5 text-center">
+    {!! Form::submit('إرسال',['class' => "btn btn-primary"]) !!}
+    <a href="{!! route('dashboard.login') !!}" class="btn btn-outline-primary">
+      عودة
+    </a>
+  </div>
 </form>
 @endsection
 @section('scripts')

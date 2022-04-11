@@ -1,8 +1,7 @@
 <!DOCTYPE html>
-<html lang="en">
-
+<html lang="en" dir="{{ LaravelLocalization::getCurrentLocaleDirection() }}">
 <head>
-
+    <!-- META DATA -->
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -11,20 +10,25 @@
     <meta name="keywords"
         content="admin,admin dashboard,admin panel,admin template,bootstrap,clean,dashboard,flat,jquery,modern,responsive,premium admin templates,responsive admin,ui,ui kit." />
 
-    <style>
-        body {
-            font-family: 'arabic-regular', sans-serif;
-        }
+    <!-- STYLE CSS -->
+    {{-- <link href="{{ asset('dashboardAssets/css/style.css') }}" rel="stylesheet" /> --}}
+    <!--- FONT-ICONS CSS -->
+    {{-- <link href="{{ asset('dashboardAssets/css/icons.css') }}" rel="stylesheet" /> --}}
 
+    <style>
+        body{
+            font-family: "Cairo"
+        }
         @media screen,
         print {
             * {
                 -webkit-print-color-adjust: exact;
+
             }
 
             header {
                 margin-bottom: 2em;
-                background: url('dashboardAssets/images/brand/fot-04.svg') no-repeat;
+                /* background: url("{{ asset('dashboardAssets/images/brand/fot-04.svg') }}") no-repeat; */
                 background-size: contain;
                 min-height: 270px;
                 position: relative
@@ -55,8 +59,7 @@
 
             footer {
                 margin-bottom: 2em;
-
-                background: url('dashboardAssets/images/brand/header-05.svg') no-repeat;
+                /* background: url("{{ asset('dashboardAssets/images/brand/header-05.svg') }}") no-repeat; */
                 background-size: cover;
                 min-height: 350px;
                 position: relative
@@ -107,11 +110,9 @@
                 color: #e23e3d
             }
         }
-
     </style>
 </head>
-
-<body class="app sidebar-mini {{ LaravelLocalization::getCurrentLocaleDirection() }}">
+<body class="app sidebar-mini {{ LaravelLocalization::getCurrentLocaleDirection() }}" >
 
     <div class="container">
 
