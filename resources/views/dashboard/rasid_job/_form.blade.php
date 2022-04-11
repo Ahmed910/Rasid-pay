@@ -182,7 +182,7 @@
                     $('#backModal').modal('show');
                     return false;
                 } else {
-                    window.location.href = "{{ route('dashboard.rasid_job.index') }}";
+                  window.location.href = "{{ route('dashboard.backButton') }}";
                 }
             });
 

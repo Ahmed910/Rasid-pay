@@ -17,7 +17,7 @@ class CreateAttachmentsTable extends Migration
             $table->uuid("id")->primary();
             $table->foreignUuid("user_id")->constrained("users")->cascadeOnDelete();
             $table->string("title") ;
-            $table->enum("attachment_type", ["delegate","identity","docs","Images" ,"videos" ,"voices" ,"other"])->default("other") ;
+            $table->enum("attachment_type", ["delegate","identity","docs","images" ,"videos" ,"voices" ,"other"])->default("other") ;
             $table->timestamps();
         });
     }

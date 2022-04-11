@@ -7,7 +7,7 @@
 </p>
 <!-- FORM OPEN -->
 {{-- @dd($errors->getMessages()) --}}
-<form method="post" action="{{ route('dashboard.post_login') }}" class="needs-validation" novalidate>
+<form method="post" action="{{ route('dashboard.post_login') }}" class="needs-validation" id="login-form" novalidate>
   @csrf
   <div class="form-group">
     <label for="userID">{{ trans('auth.userID')}}</label>
