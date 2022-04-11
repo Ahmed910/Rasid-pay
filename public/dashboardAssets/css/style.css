@@ -80342,4 +80342,9 @@ tr:hover .dtr-control:before {
     display: none !important;
 }
 
+
+  input.btn{
+    border: 1px solid;
+  }
+
 /*# sourceMappingURL=style.css.map */
