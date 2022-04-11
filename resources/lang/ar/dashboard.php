@@ -116,6 +116,7 @@ return [
         'created_by' => 'منشيء المجموعة',
         'u_can_use_this_name' => 'يمكنك استخدام الإسم',
         'confirm' => 'تأكيد',
+        'send' => 'إرسال'
     ],
     'datatable' => [
         'no_data' => 'لا توجد نتائج متاحة',

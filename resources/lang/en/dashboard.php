@@ -109,6 +109,7 @@ return [
         'accept'=>'Accept',
         'cancel'=>'Cancel',
         'confirm' => 'Confirm',
+        'send' => 'Send'
     ],
     'datatable' => [
         'no_data' => 'No D ata ',
