@@ -5,7 +5,7 @@ namespace App\Http\Requests\Dashboard\Auth;
 use Illuminate\Foundation\Http\FormRequest;
 use App\Models\User;
 
-class ResetEmailPasswordRequest extends FormRequest
+class LoginRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -25,11 +25,9 @@ class ResetEmailPasswordRequest extends FormRequest
     public function rules()
     {
         return [
-            'token' => 'required',
-            'password' => 'required|min:6|confirmed',
-            'email' => ['required','email',function ($attribute, $value, $fail){
-                $user = User::firstWhere('email', $value);
-
+            'password' => 'required|string',
+            'username' => ['required','numeric',function ($attribute, $value, $fail){
+                $user = User::firstWhere('login_id', $value);
                 if ($user && $user->ban_status != 'active') {
                     $fail(trans('auth.user_banned'));
                 }

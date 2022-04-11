@@ -12,8 +12,7 @@
   <div class="form-group">
     <label for="userID">{{ trans('auth.userID')}}</label>
     <input oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" type="number" pattern="^[1-9]\d*$" maxlength="6" class="form-control stop-copy-paste number-regex @error('username') is-invalid @enderror"
-           id="userID"
-           name="username"
+           id="userId" name="username"
     value="{{ old('username') }}"
     placeholder="{{ trans('auth.userID')}}"
     />
@@ -29,8 +28,7 @@
     <div class="input-group" id="show_hide_password">
       <input class="form-control stop-copy-paste @error('password') is-invalid @enderror"
       placeholder="{{ trans('auth.password')}}"
-      type="password"
-             name="password"
+      type="password"  name="password"
 
       />
 
@@ -56,7 +54,8 @@
       <a href="{!! route('dashboard.reset') !!}">{{ trans('auth.reset_password')}}</a>
     </div>
   </div>
-  {!! Form::submit(trans('auth.login_title'),['class' => "btn btn-primary w-100 mt-5"  , 'id' =>"login-id"]) !!}
+  <a onclick="submitForm('#login-form')" class="btn btn-primary w-100 mt-5">{{ trans('auth.login_title') }}</a>
+  {{-- {!! Form::submit(trans('auth.login_title'),['class' => "btn btn-primary w-100 mt-5"  , 'id' =>"login-id"]) !!} --}}
 </form>
 <!-- FORM CLOSED -->
 @endsection
