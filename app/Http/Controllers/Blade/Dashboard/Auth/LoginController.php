@@ -3,10 +3,10 @@
 namespace App\Http\Controllers\Blade\Dashboard\Auth;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Dashboard\Auth\LoginRequest;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
+use App\Http\Requests\Dashboard\Auth\LoginRequest;
 
 class LoginController extends Controller
 {
@@ -76,7 +76,6 @@ class LoginController extends Controller
     protected function credentials(Request $request)
     {
         $credentials = $request->has('username') ? [$this->username() => $request->username, 'password' => $request->password] : $request->only($this->username(), 'password');
-        $credentials['ban_status'] = 'active';
         return $credentials;
     }
 
@@ -98,13 +97,13 @@ class LoginController extends Controller
         return 'login_id';
     }
 
-    protected function validateLogin(Request $request)
-    {
-        $username = $this->username() == 'login_id' ? ['username' => 'required|numeric'] : ['username' => 'required|email'];
-        $request->validate([
-            'password' => 'required|string'
-        ] + $username);
-    }
+    // protected function validateLogin(LoginRequest $request)
+    // {
+    //    $username = $this->username() == 'login_id' ? ['username' => 'required|numeric'] : ['username' => 'required|email'];
+    //     $request->validate([
+    //        'password' => 'required|string'
+    //     ]+$username);
+    // }
     /**
      * Get the post register / login redirect path.
      *
