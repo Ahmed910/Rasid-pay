@@ -14,11 +14,11 @@
         <ul class="nav panel-tabs">
           <li class="mx-0">
             <a href="#tab5" class="{{ !$errors->any() || $errors->has('email') ? 'active' : null }}" data-bs-toggle="tab"
-            >البريد الإلكتروني</a
+            >{{trans('dashboard.general.email')}}</a
             >
           </li>
           <li class="mx-0">
-            <a href="#tab6" class="@error('phone') active @enderror" data-bs-toggle="tab">رقم الجوال</a>
+            <a href="#tab6" class="@error('phone') active @enderror" data-bs-toggle="tab">{{ trans('dashboard.general.phone')}}</a>
           </li>
         </ul>
       </div>
@@ -35,14 +35,14 @@
           >
             @csrf
             <div class="form-group">
-              <label for="email">البريد الإلكتروني</label>
+              <label for="email">{{trans('dashboard.general.email')}}</label>
               <input  onselectstart="return false" onpaste="return false" onCopy="return false" onCut="return false" onDrag="return false" onDrop="return false" autocomplete=off
                       type="text"
                       class="form-control @error('email') is-invalid @enderror"
                       id="email"
                       name="email"
                       value="{{ old('email') }}"
-                      placeholder="البريد الإلكتروني"
+                      placeholder="{{trans('dashboard.general.email')}}"
 
               />
               @error('email')
@@ -50,12 +50,12 @@
               @enderror
             </div>
             <div class="col-12 mt-5 text-center">
-              {!! Form::submit('إرسال', ['class' => "btn btn-primary mx-2",'id' => 'resend_btn','formaction' => route('dashboard.post_reset')]) !!}
+              {!! Form::submit(trans('dashboard.general.send'), ['class' => "btn btn-primary mx-2",'id' => 'resend_btn','formaction' => route('dashboard.post_reset')]) !!}
               <a
                 href="{!! route('dashboard.login') !!}"
                 class="btn btn-outline-primary mx-2"
               >
-                عودة
+                {{trans('dashboard.general.back')}}
               </a>
             </div>
           </form>
@@ -71,14 +71,14 @@
           >
             @csrf
             <div class="form-group">
-              <label for="mobile">رقم الجوال</label>
+              <label for="mobile">{{trans('dashboard.general.phone')}}</label>
               <input  onselectstart="return false" onpaste="return false" onCopy="return false" onCut="return false" onDrag="return false" onDrop="return false" autocomplete=off
                       type="number"
                       class="form-control number-regex @error('phone') is-invalid @enderror"
                       id="mobile"
                       name="phone"
                       value="{{ old('phone') }}"
-                      placeholder="رقم الجوال"
+                      placeholder="{{trans('dashboard.general.phone')}}"
               />
               @error('phone')
               <div class="invalid-feedback">{{ $message }}</div>
@@ -86,12 +86,12 @@
               @enderror
             </div>
             <div class="col-12 mt-5 text-center">
-              {!! Form::submit('إرسال', ['class' => "btn btn-primary mx-2",'id' => 'resend_btn','formaction' => route('dashboard.post_reset')]) !!}
+              {!! Form::submit(trans('dashboard.general.send'), ['class' => "btn btn-primary mx-2",'id' => 'resend_btn','formaction' => route('dashboard.post_reset')]) !!}
               <a
                 href="{!! route('dashboard.login') !!}"
                 class="btn btn-outline-primary mx-2"
               >
-                عودة
+                {{trans('dashboard.general.back')}}
               </a>
             </div>
           </form>

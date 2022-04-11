@@ -172,8 +172,8 @@
             $('#status').val(null).trigger('change');
             $('#parent_id').val(null).trigger('change');
             $('#departmentName').val(null);
-            $('#from-hijri-picker-custom').val(null);
-            $('#to-hijri-picker-custom').val(null);
+            $('#from-hijri-picker-custom').val("").trigger('change');
+            $('#to-hijri-picker-custom').val("").trigger('change');
             table.draw();
         });
 
