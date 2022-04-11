@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\Blade\Dashboard\Auth;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Dashboard\Auth\LoginRequest;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
