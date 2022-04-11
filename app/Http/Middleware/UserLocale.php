@@ -27,7 +27,7 @@ class UserLocale
         //         Date::setDefaultNumbers(Date::INDIAN_NUMBERS);
         //     }
         // }
-        if (auth()->check() && $locale && auth()->user()->user_locale != $locale) {
+        if (auth()->check() && $locale && strlen($locale) <= 3&& auth()->user()->user_locale != $locale) {
             app()->setLocale($locale);
             auth()->user()->update(['user_locale' => $locale]);
         } elseif ($locale != app()->getLocale() && in_array($locale, config('translatable.locales'))) {
