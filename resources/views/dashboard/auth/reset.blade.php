@@ -100,6 +100,8 @@
       </div>
     </div>
   </div>
+@endsection
+@section('styles')
   <style>
     #resend_btn{
       border-color: transparent !important;
