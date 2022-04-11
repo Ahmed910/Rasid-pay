@@ -10,7 +10,7 @@
     @error('reset_token')
         <div class="alert alert-danger">{{ $message }}</div>
     @enderror
-    <form method="POST" action="{!! route('dashboard.check_sms_code') !!}" class="needs-validation" id="form_sms" novalidate>
+    <form method="POST" id="verify-form" action="{!! route('dashboard.check_sms_code') !!}" class="needs-validation" id="form_sms" novalidate>
         @csrf
         <input type="hidden" name="reset_token" value="{{ $reset_token }}">
         <div class="row col-12 col-md-8 m-auto" dir="ltr">
@@ -47,65 +47,77 @@
             <a class="disable resend">إعادة إرسال رمز التحقق؟</a>
         </div>
 
-    <div class="col-12 mt-5 text-center">
-        {!! Form::submit('تأكيد',['class' => "btn btn-primary"]) !!}
-        <a href="{!! route('dashboard.login') !!}" class="btn btn-outline-primary">
-            عودة
-        </a>
-    </div>
-</form>
+        <div class="col-12 mt-5 text-center">
+            <a onclick="submitForm('#verify-form')" class="btn btn-primary"
+                id="code-submit">{{ trans('dashboard.general.confirm') }}</a>
+
+            {{-- {!! Form::submit(trans('dashboard.general.confirm'), ['class' => 'btn btn-primary', 'id' => 'code-submit']) !!} --}}
+            <a href="{!! route('dashboard.login') !!}" class="btn btn-outline-primary">
+                {{ trans('dashboard.general.back') }}
+            </a>
+        </div>
+    </form>
 @endsection
 @section('scripts')
-<script>
-      $(document).ready(function () {
-  function countdown(elementName, minutes, seconds) {
-    var element, endTime, hours, mins, msLeft, time;
+    <script>
+        $(document).ready(function() {
+            function countdown(elementName, minutes, seconds) {
+                var element, endTime, hours, mins, msLeft, time;
 
-    function twoDigits(n) {
-      return n <= 9 ? "0" + n : n;
-    }
+                function twoDigits(n) {
+                    return n <= 9 ? "0" + n : n;
+                }
 
-    function updateTimer() {
-      msLeft = endTime - +new Date();
-      if (msLeft < 1000) {
-        element.innerHTML = "تم انتهاء صلاحية الكود!";
-        $(".resend").removeClass("disable");
-      } else {
-        time = new Date(msLeft);
-        hours = time.getUTCHours();
-        mins = time.getUTCMinutes();
-        element.innerHTML =
-          (hours ? hours + ":" + twoDigits(mins) : mins) +
-          ":" +
-          twoDigits(time.getUTCSeconds());
-        setTimeout(updateTimer, time.getUTCMilliseconds() + 500);
-      }
-    }
+                function updateTimer() {
+                    msLeft = endTime - +new Date();
+                    if (msLeft < 1000) {
+                        element.innerHTML = "تم انتهاء صلاحية الكود!";
+                        $(".resend").removeClass("disable");
+                    } else {
+                        time = new Date(msLeft);
+                        hours = time.getUTCHours();
+                        mins = time.getUTCMinutes();
+                        element.innerHTML =
+                            (hours ? hours + ":" + twoDigits(mins) : mins) +
+                            ":" +
+                            twoDigits(time.getUTCSeconds());
+                        setTimeout(updateTimer, time.getUTCMilliseconds() + 500);
+                    }
+                }
 
-    element = document.getElementById(elementName);
-    endTime = +new Date() + 1000 * (60 * minutes + seconds) + 500;
-    updateTimer();
-  }
+                element = document.getElementById(elementName);
+                endTime = +new Date() + 1000 * (60 * minutes + seconds) + 500;
+                updateTimer();
+            }
 
-  countdown("countdown", 0, 30);
+            countdown("countdown", 0, 30);
 
-  $(".resend").click(function () {
-    countdown("countdown", 0, 30);
-    $(this).addClass("disable");
-  });
-});
+            $(".resend").click(function() {
+                countdown("countdown", 0, 30);
+                $(this).addClass("disable");
+            });
+        });
 
-let digitValidate = function (ele) {
-  ele.value = ele.value.replace(/[^0-9]/g, "");
-};
+        let digitValidate = function(ele) {
+            ele.value = ele.value.replace(/[^0-9]/g, "");
+        };
 
-let tabChange = function (val) {
-  let ele = document.querySelectorAll(".inputs-code");
-  if (ele[val - 1].value != "") {
-    ele[val].focus();
-  } else if (ele[val - 1].value == "") {
-    ele[val - 2].focus();
-  }
-};
-</script>
+        let tabChange = function(val) {
+            let ele = document.querySelectorAll(".inputs-code");
+            if (ele[val - 1].value != "") {
+                ele[val].focus();
+            } else if (ele[val - 1].value == "") {
+                ele[val - 2].focus();
+            }
+        };
+    </script>
+@endsection
+
+@section('styles')
+    <style>
+        #code-submit {
+            border-color: transparent !important;
+        }
+
+    </style>
 @endsection

@@ -87,6 +87,7 @@ return [
         'export' => 'Export',
         'report' => 'Print Report',
         'details' => 'Details',
+        'email' => 'Email',
         'no_data' => 'No Data',
         'reason' =>'Reason',
         'done_by' => 'Done By',
@@ -108,6 +109,8 @@ return [
         'logout'=>'Logout',
         'accept'=>'Accept',
         'cancel'=>'Cancel',
+        'confirm' => 'Confirm',
+        'send' => 'Send'
     ],
     'datatable' => [
         'no_data' => 'No D ata ',

@@ -49,7 +49,7 @@ return [
         "restore" => "استعادة",
         "force_delete" => "حذف نهائي",
         'sent_successfully' => 'تم الارسال بنجاح',
-        'success_send_login_code' => 'تم ارسال كود التحقق الى رقم الهاتف',
+        'success_send_login_code' => 'تم ارسال كود التحقق الى رقم الجوال',
         'phone'=> 'رقم الجوال',
         'phone_code' =>"حقل رقم الجوال مطلوب",
         'phoneCode_registeration'=>"رقم الجوال غير مسجل بالنظام",
@@ -96,7 +96,7 @@ return [
         'export' => 'تصدير',
         'report' => 'طباعة تقرير',
         'details' => 'التفاصيل',
-
+        'email' => 'البريد الإلكتروني',
         'hold_upload' => 'اسحب وأسقط او قم برفع الصورة',
         'hold_change' => 'اسحب وأسقط او إضغط لتغيير الصورة',
         'upload_error' => 'اوبس ، حدث خطأ ما',
@@ -115,6 +115,8 @@ return [
         'cancel'=>'الغاء',
         'created_by' => 'منشيء المجموعة',
         'u_can_use_this_name' => 'يمكنك استخدام الإسم',
+        'confirm' => 'تأكيد',
+        'send' => 'إرسال'
     ],
     'datatable' => [
         'no_data' => 'لا توجد نتائج متاحة',

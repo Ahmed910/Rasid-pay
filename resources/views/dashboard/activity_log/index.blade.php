@@ -9,18 +9,18 @@
     </div>
     <!-- PAGE-HEADER END -->
     <!-- FORM OPEN -->
-    <form method="get" action="">
+    {!! Form::open(['method' => 'GET', 'id' => 'search-form']) !!}
         <div class="row align-items-end mb-3">
             <div class="col-12 col-md-3">
                 <label for="activityName"> {{ trans('dashboard.activity_log.activity') }}</label>
 
-                {!! Form::select('action', ['' => '', -1 => trans('dashboard.general.all_cases')] + trans('dashboard.activity_log.actions'), null, ['class' => 'form-control select2-show-search form-select', 'id' => 'activityName', 'data-placeholder' => trans('dashboard.activity_log.select_activity')]) !!}
+                {!! Form::select('action', ['' => '', -1 => trans('dashboard.general.all_cases')] + trans('dashboard.activity_log.actions'),request('action'), ['class' => 'form-control select2-show-search ', 'id' => 'activityName', 'data-placeholder' => trans('dashboard.activity_log.select_activity')]) !!}
 
             </div>
 
             <div class="col-12 col-md-3">
                 <label for="mainDepartment">{{ trans('dashboard.department.department') }} </label>
-                {!! Form::select('department_id', ['' => '', 0 => trans('dashboard.general.all_cases')] + $departments, old('department_id') ?? request('department_id'), ['class' => 'form-control select2-show-search', 'id' => 'mainDepartment', 'data-placeholder' => trans('dashboard.department.select_department')]) !!}
+                {!! Form::select('department_id', ['' => '', 0 => trans('dashboard.general.all_cases')] + $departments, old('department_id') ?? request('department_id'), ['class' => 'form-control select2-show-search form-select', 'id' => 'mainDepartment', 'data-placeholder' => trans('dashboard.department.select_department')]) !!}
             </div>
 
             <div class="col-12 col-md-3">
@@ -30,12 +30,12 @@
             <div class="col-12 col-md-3">
                 <label for="mainProgram">{{ trans('dashboard.activity_log.main_program') }}</label>
 
-                {!! Form::select('main_program', ['' => '', -1 => trans('dashboard.general.all_cases')] + $mainPrograms, null, ['class' => 'form-control select2-show-search form-select', 'id' => 'mainProgram', 'data-placeholder' => trans('dashboard.activity_log.select_mainprogram')]) !!}
+                {!! Form::select('main_program', ['' => '', -1 => trans('dashboard.general.all_cases')] + $mainPrograms, request('main_program'), ['class' => 'form-control select2-show-search form-select', 'id' => 'mainProgram', 'data-placeholder' => trans('dashboard.activity_log.select_mainprogram')]) !!}
 
             </div>
             <div class="col-12 col-md-3 mt-3">
                 <label for="branchProgram"> {{ trans('dashboard.activity_log.sub_program') }}</label>
-                {!! Form::select('sub_program', ['' => '', -1 => trans('dashboard.general.all_cases')] + trans('dashboard.activity_log.sub_progs'), null, ['class' => 'form-control select2-show-search form-select', 'id' => 'branchProgram', 'data-placeholder' => trans('dashboard.activity_log.select_subprogram')]) !!}
+                {!! Form::select('sub_program', ['' => '', -1 => trans('dashboard.general.all_cases')] + trans('dashboard.activity_log.sub_progs'), request('sub_program'), ['class' => 'form-control select2-show-search form-select', 'id' => 'branchProgram', 'data-placeholder' => trans('dashboard.activity_log.select_subprogram')]) !!}
 
             </div>
             <div class="col-12 col-md-3 mt-3">
