@@ -138,6 +138,12 @@
     $("#login-id").on("click", function (event) {
       event.preventDefault();
 
+      $.ajaxSetup({
+                  headers: {
+                      'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                  }
+              });
+
       $.ajax({
         type: $('#login-form').attr('method'),
         data: $('#login-form').serialize(),
