@@ -218,14 +218,14 @@
             });
         });
 
-        $('#job_name').on('keypress', function(event) {
-            var regex = new RegExp("^[a-zA-Z0-9]+$");
-            var key = String.fromCharCode(!event.charCode ? event.which : event.charCode);
-            if (!regex.test(key)) {
-                event.preventDefault();
-                return false;
-            }
-        });
+        // $('#job_name').on('keypress', function(event) {
+        //     var regex = new RegExp("^[a-zA-Z0-9]+$");
+        //     var key = String.fromCharCode(!event.charCode ? event.which : event.charCode);
+        //     if (!regex.test(key)) {
+        //         event.preventDefault();
+        //         return false;
+        //     }
+        // });
     </script>
     <!-- SELECT2 JS -->
     <script src="{{ asset('dashboardAssets/js/select2.js') }}"></script>
