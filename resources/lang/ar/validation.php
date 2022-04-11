@@ -1,4 +1,4 @@
-<?php
+رمز التحقق<?php
 
 $attributes = [
     'name'                  => 'حقل الاسم',
@@ -36,7 +36,7 @@ $attributes = [
     'ban_reason'                  => 'حقل سبب الحظر',
     'is_ban'                  => 'حقل الحالة من الحظر',
     'is_active'                  => 'حقل الحالة من التفعيل',
-    'reset_code'                  => 'حقل الكود',
+    'reset_code'                  => 'رمز التحقق',
     'department_id'                  => 'حقل القسم ',
     'reasonAction'                  => 'حقل السبب',
     'ban_from'                  => 'حقل تاريخ من',
