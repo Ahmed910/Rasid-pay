@@ -18,5 +18,6 @@ return [
     'throttle' => 'Too many login attempts. Please try again in :seconds seconds.',
     'success_login' => 'تم تسجيل الدخول بنجاح',
     'unauth' => 'قم بتسجيل الدخول أولا',
-    'login_title' => 'login'
+    'login_title' => 'login',
+    'user_banned' => 'User Banned'
 ];
