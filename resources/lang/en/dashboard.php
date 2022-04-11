@@ -108,6 +108,7 @@ return [
         'logout'=>'Logout',
         'accept'=>'Accept',
         'cancel'=>'Cancel',
+        'confirm' => 'Confirm',
     ],
     'datatable' => [
         'no_data' => 'No D ata ',
