@@ -17,10 +17,10 @@ return [
 	'font_path' => base_path('public/dashboardAssets/fonts/'),
 	'font_data' => [
 		'examplefont' => [
-			'R'  => 'arabic-regular.otf',    // regular font
-			'B'  => 'arabic-regular.otf',       // optional: bold font
-			'I'  => 'arabic-regular.otf',     // optional: italic font
-			'BI' => 'arabic-regular.otf', // optional: bold-italic font
+			'R'  => 'Cairo-VariableFont_wght.ttf',    // regular font
+			'B'  => 'Cairo-VariableFont_wght.ttf',       // optional: bold font
+			'I'  => 'Cairo-VariableFont_wght.ttf',     // optional: italic font
+			'BI' => 'Cairo-VariableFont_wght.ttf', // optional: bold-italic font
 			'useOTL' => 0xFF,    // required for complicated langs like Persian, Arabic and Chinese
 			'useKashida' => 75,  // required for complicated langs like Persian, Arabic and Chinese
 		]

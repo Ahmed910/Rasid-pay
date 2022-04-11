@@ -49,7 +49,7 @@ return [
         "restore" => "استعادة",
         "force_delete" => "حذف نهائي",
         'sent_successfully' => 'تم الارسال بنجاح',
-        'success_send_login_code' => 'تم ارسال كود التحقق الى رقم الهاتف',
+        'success_send_login_code' => 'تم ارسال كود التحقق الى رقم الجوال',
         'phone'=> 'رقم الجوال',
         'phone_code' =>"حقل رقم الجوال مطلوب",
         'phoneCode_registeration'=>"رقم الجوال غير مسجل بالنظام",
@@ -115,6 +115,7 @@ return [
         'cancel'=>'الغاء',
         'created_by' => 'منشيء المجموعة',
         'u_can_use_this_name' => 'يمكنك استخدام الإسم',
+        'confirm' => 'تأكيد',
     ],
     'datatable' => [
         'no_data' => 'لا توجد نتائج متاحة',

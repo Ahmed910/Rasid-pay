@@ -27,6 +27,7 @@
   <!-- TITLE -->
 {{-- <title>@yield('title' , trans('dashboard.general.dashboard',['title' => $title ?? '']))</title> --}}
 
+@yield('styles')
 <!-- BOOTSTRAP CSS -->
   <link
     id="style"
@@ -173,5 +174,6 @@
   });
 
 </script>
+@yield('scripts')
 </body>
 </html>

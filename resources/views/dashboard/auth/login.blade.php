@@ -59,9 +59,12 @@
   {!! Form::submit(trans('auth.login_title'),['class' => "btn btn-primary w-100 mt-5"  , 'id' =>"login-id"]) !!}
 </form>
 <!-- FORM CLOSED -->
-<style>
-  #login-id{
-    border-color: transparent !important;
-  }
-</style>
+@endsection
+
+@section('styles')
+  <style>
+    #login-id{
+      border-color: transparent !important;
+    }
+  </style>
 @endsection
