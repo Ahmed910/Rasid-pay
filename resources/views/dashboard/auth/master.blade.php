@@ -143,10 +143,11 @@
 
       username = $("[name='username']").val();
       password = $("[name='password']").val();
+      remember = $("[name='remember']").val();
       $.ajax({
         type: "post",
         dataType: "json",
-        data: {username: username, password: password},
+        data: {username: username, password: password,remember:remember},
         url: "{{route("dashboard.login")}}",
         success: function (data) {
           window.location = "{{route("dashboard.login")}}";
