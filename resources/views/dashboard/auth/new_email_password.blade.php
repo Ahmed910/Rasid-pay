@@ -10,7 +10,7 @@
 @error('email','token')
     <div class="alert alert-danger">{{ $message }}</div>
 @enderror
-<form method="post" action="{!! route('dashboard.passwords.reset.new_password') !!}" class="needs-validation" novalidate>
+<form method="post" action="{!! route('dashboard.passwords.reset.new_password') !!}"  class="needs-validation" novalidate>
     @csrf
     <div class="form-group">
         <label>كلمة المرور الجديدة</label>

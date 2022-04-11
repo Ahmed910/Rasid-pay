@@ -131,46 +131,41 @@
         $("#show_hide_password i").addClass("mdi-eye-outline");
       }
     });
+});
 
-
-
-    $("#login-id").on("click", function (event) {
-      event.preventDefault();
-
+function submitForm(formId) {
       $.ajax({
-        type: $('#login-form').attr('method'),
-        data: $('#login-form').serialize(),
-        url: "{{route('dashboard.login')}}",
+        url: $(formId).attr('action'),
+        type: $(formId).attr('method'),
+        processData: false,
+        contentType: false,
+        cache: false,
+        data: $(formId).serialize(),
         success: function (data) {
-          window.location = "{{route("dashboard.login")}}";
-        },
-        error: function (data) {
+          $(formId).submit();
+      },
+      error : function (data) {
+              console.log(data.respose);
+              $.each(data.responseJSON.errors, function(name, message) {
+                  console.log(name);
+                  let inputName = name;
+                  let inputError = name + 'Error';
 
-          $('.text-danger').text("");
-          $.each(data.responseJSON.errors, function (name, message) {
-            let inputName = name;
-            let inputError = name + 'Error';
+                  if (inputName.includes('.')) {
+                      let convertArray = inputName.split('.');
+                      inputName = convertArray[0] + '[' + convertArray[1] + ']'
+                  }
 
-            if (inputName.includes('.')) {
-              let convertArray = inputName.split('.');
-              inputName = convertArray[0] + '[' + convertArray[1] + ']'
-            }
+                  $('input[name="' + inputName + '"]').addClass('is-invalid');
+                  $('select[name="' + inputName + '"]').addClass('is-invalid');
+                  $('span[id="' + inputError + '"]').attr('hidden', false);
+                  $('span[id="' + inputError + '"]').html(`<small>${message}</small>`);
+              });
+            // if (data.responseJSON.message) toastr.error("{{trans('auth.failed')}}");
+          }
+    })
+}
 
-            $('input[name="' + inputName + '"]').addClass('is-invalid');
-            $('select[name="' + inputName + '"]').addClass('is-invalid');
-            $('span[id="' + inputError + '"]').attr('hidden', false);
-            $('span[id="' + inputError + '"]').html(`<small>${message}</small>`);
-
-          });
-          if (data.responseJSON.message) toastr.error("{{trans('auth.failed')}}");
-
-        }
-
-
-      })
-    });
-
-  });
 
 </script>
 </body>
