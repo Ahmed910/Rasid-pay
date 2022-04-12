@@ -35,6 +35,7 @@
                     name="reset_code[]" required maxlength="1" />
             </div>
         </div>
+        <span class="text-danger" id="reset_code_error"></span>
         @error('reset_code')
             <div class="text-danger">{{ $message }}</div>
         @enderror

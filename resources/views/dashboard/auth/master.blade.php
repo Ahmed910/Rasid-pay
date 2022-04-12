@@ -130,18 +130,9 @@
                 },
                 error: function(data) {
                     $.each(data.responseJSON.errors, function(name, message) {
-                        let inputName = name;
-                        let inputError = name + 'Error';
-
-                        if (inputName.includes('.')) {
-                            let convertArray = inputName.split('.');
-                            inputName = convertArray[0] + '[' + convertArray[1] + ']'
-                        }
-
-                        $('input[name="' + inputName + '"]').addClass('is-invalid');
-                        $('select[name="' + inputName + '"]').addClass('is-invalid');
-                        $('span[id="' + inputError + '"]').attr('hidden', false);
-                        $('span[id="' + inputError + '"]').html(`<small>${message}</small>`);
+                        $('input[name="' + name + '"]').addClass('is-invalid');
+                        $('select[name="' + name + '"]').addClass('is-invalid');
+                        $('#' + name + '_error').html(`<small>${message}</small>`);
 
                         toastr.error(message);
                     });

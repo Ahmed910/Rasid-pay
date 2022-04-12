@@ -19,6 +19,7 @@
                 @error('password')
                     <div class="invalid-feedback">{{ $message }}</div>
                 @enderror
+                <span class="text-danger" id="password_error"></span>
             <div class="input-group-text border-start-0">
                 <a href=""><i class="mdi mdi-eye-off-outline d-flex"></i></a>
             </div>
