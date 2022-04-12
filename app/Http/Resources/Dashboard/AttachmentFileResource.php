@@ -19,7 +19,7 @@ class AttachmentFileResource extends JsonResource
         return [
             "attachment_id" =>$this->attachment_id,
             "type"=> $this->type ,
-            "path"=> asset('storage/'.$this->path),
+            "path"=> asset($this->path),
         ];
     }
 }
