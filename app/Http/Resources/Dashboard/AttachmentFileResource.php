@@ -3,9 +3,8 @@
 namespace App\Http\Resources\Dashboard;
 
 use Illuminate\Http\Resources\Json\JsonResource;
-// use Illuminate\Support\Facades\Request;
-// use Illuminate\Support\Facades\URL;
-
+use Illuminate\Support\Facades\Request;
+use Illuminate\Support\Facades\URL;
 class AttachmentFileResource extends JsonResource
 {
     /**
@@ -18,8 +17,8 @@ class AttachmentFileResource extends JsonResource
     {
         return [
             "attachment_id" =>$this->attachment_id,
-            "type"=> $this->type ,
-            "path"=> asset($this->path),
+            "type"=>$this->type ,
+            "path"=>URL::to('/') . "/" . Request::segment(1) . "/" . Request::segment(2) . "/" . Request::segment(3) . "/" .$this->path,
         ];
     }
 }
