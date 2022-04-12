@@ -11,24 +11,24 @@ class PrivateController extends Controller
 {
     public function __construct()
     {
-        $this->middleware("auth:sanctum");
+//        $this->middleware("auth:sanctum");
     }
 
     public function downloadfile($path)
     {
         $path = "files/client/" . $path;
-        $owner = AttachmentFile::where("path", $path)->get()->first()?->attachment?->user?->id;
-        if (!$owner) return response()->json([
-            'status' => false,
-            'message' => trans('dashboard.error.not_found'),
-            'data' => null
-        ], 404);
-        if ((auth()->user() == null) || ($owner != auth()->user()->id && auth()->user()->user_type == "client"))
-            return response()->json([
-                'status' => false,
-                'message' => trans('auth.failed'),
-                'data' => null
-            ], 401);
+//        $owner = AttachmentFile::where("path", $path)->get()->first()?->attachment?->user?->id;
+//        if (!$owner) return response()->json([
+//            'status' => false,
+//            'message' => trans('dashboard.error.not_found'),
+//            'data' => null
+//        ], 404);
+//        if ((auth()->user() == null) || ($owner != auth()->user()->id && auth()->user()->user_type == "client"))
+//            return response()->json([
+//                'status' => false,
+//                'message' => trans('auth.failed'),
+//                'data' => null
+//            ], 401);
         if (Storage::exists($path)) {
             $filepath = Storage::disk('local')->path($path);
             $headers = array();
