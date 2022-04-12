@@ -103,6 +103,25 @@
   @yield('toast')
   @yield('scripts')
 
+  {{-- <script>
+      function submitForm(formId) {
+        $.ajax({
+            type: $(formId).attr('method'),
+            url: $(formId).attr('action'),
+            data: $(formId).serialize(),
+            success: function(data) {
+                $(formId).find('input[name=phone]').val('');
+            },
+            error: function (data) {
+                $.each(data.responseJSON.errors,(i,item) => {
+                    $(`.${i}_error`).addClass('text-danger');
+                    $(`input[name=${i}]`).addClass('border-danger');
+                    $(`.${i}_error`).text(item[0]);
+                })
+            }
+        });
+    }
+  </script> --}}
 </body>
 
 </html>
