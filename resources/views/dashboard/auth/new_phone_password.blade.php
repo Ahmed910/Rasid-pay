@@ -16,6 +16,7 @@
         <label>كلمة المرور الجديدة</label>
         <div class="input-group" id="show_hide_password">
             <input class="form-control @error('password') is-invalid @enderror" placeholder="كلمة المرور" type="password" name="password"/>
+                <span class="text-danger" id="password_error"></span>
                 @error('password')
                     <div class="invalid-feedback">{{ $message }}</div>
                 @enderror
