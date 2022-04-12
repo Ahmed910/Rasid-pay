@@ -45,7 +45,7 @@
                 <span id="countdown"> </span>
                 <i class="mdi mdi-timer-outline"></i>
             </p>
-            <a href ="" class="disable resend">إعادة إرسال رمز التحقق؟</a>
+            <a href ="#!" class="disable resend">إعادة إرسال رمز التحقق؟</a>
         </div>
 
         <div class="col-12 mt-5 text-center">
