@@ -3,14 +3,14 @@
 
           <div class="col-12 col-md-4">
               {!! Form::label('mainDepartment', trans('dashboard.department.department_name')) !!}
-              {!! Form::select('department_id', $departments, null, ['class' => 'form-control select2-show-search', 'placeholder' => trans('dashboard.department.select_department'), 'id' => 'mainDepartment']) !!}
+              {!! Form::select('department_id', ['' => ''] + $departments, null, ['class' => 'form-control select2-show-search', 'data-placeholder' => trans('dashboard.department.select_department'), 'id' => 'mainDepartment']) !!}
               @error('department_id')
                   <span class="text-danger">{{ $message }}</span>
               @enderror
           </div>
           <div class="col-12 col-md-4">
               {!! Form::label('userName', trans('dashboard.admin.name')) !!}
-              {!! Form::select('employee_id', [], null, ['class' => 'form-control select2', 'id' => 'userName', 'placeholder' => trans('dashboard.general.select_user')]) !!}
+              {!! Form::select('employee_id', [''=>''], null, ['class' => 'form-control select2', 'id' => 'userName', 'data-placeholder' => trans('dashboard.general.select_user')]) !!}
               @error('employee_id')
                   <span class="text-danger">{{ $message }}</span>
               @enderror
@@ -192,7 +192,7 @@
                       $('#backModal').modal('show');
                       return false;
                   } else {
-                      history.back()
+                      window.location.href = "{{ route('dashboard.backButton') }}";
                   }
               });
 

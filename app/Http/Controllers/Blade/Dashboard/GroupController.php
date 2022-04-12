@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Blade\Dashboard;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\V1\Dashboard\GroupRequest;
+use App\Http\Requests\Dashboard\GroupRequest;
 use App\Http\Resources\Blade\Dashboard\Activitylog\ActivityLogCollection;
 use App\Models\{Group\Group, Permission};
 use Illuminate\Http\Request;
@@ -45,6 +45,8 @@ class GroupController extends Controller
      */
     public function create()
     {
+        $previousUrl = url()->previous();
+        (strpos($previousUrl, 'group')) ? session(['perviousPage' => 'group']) : session(['perviousPage' => 'home']);
         $groups = Group::with('translations')
             ->ListsTranslations('name')->pluck('name', 'id');
         $permissions = Permission::permissions()->pluck('name', 'id');
@@ -55,15 +57,16 @@ class GroupController extends Controller
 
     public function store(GroupRequest $request, Group $group)
     {
-        $group->fill($request->validated() + ['added_by_id' => auth()->id()])->save();
-        $permissions = $request->permission_list ?? [];
-        if ($request->group_list) {
-            $group->groups()->sync($request->group_list);
-            $permissions = array_filter(array_merge($permissions, Group::find($request->group_list)->pluck('permissions')->flatten()->pluck('id')->toArray()));
+        if (!request()->ajax()) {
+            $group->fill($request->validated() + ['added_by_id' => auth()->id()])->save();
+            $permissions = $request->permission_list ?? [];
+            if ($request->group_list) {
+                $group->groups()->sync($request->group_list);
+                $permissions = array_filter(array_merge($permissions, Group::find($request->group_list)->pluck('permissions')->flatten()->pluck('id')->toArray()));
+            }
+            $group->permissions()->sync($permissions);
+            return redirect()->back()->withSuccess(__('dashboard.general.success_add'));
         }
-        $group->permissions()->sync($permissions);
-
-        return redirect(route('dashboard.group.index'))->withTrue(trans('dashboard.messages.success_add'));
     }
 
     public function show(Group $group, Request $request)
@@ -85,8 +88,8 @@ class GroupController extends Controller
                 ->additional(['total_count' => $activityCount]);
         }
 
-        $group->withCount('admins')
-            ->with([
+        $group->loadCount('admins')
+            ->load([
                 'translations', 'permissions', 'addedBy',
                 'groups' => function ($q) {
                     $q->with('permissions');
@@ -102,14 +105,16 @@ class GroupController extends Controller
 
     public function edit($id)
     {
-        if (!request()->ajax()) {
-            $locales = config('translatable.locales');
-            $group = Group::where('id', "<>", auth()->user()->group_id)->findOrFail($id);
-            $uris = Permission::permissions();
+        $previousUrl = url()->previous();
+        (strpos($previousUrl, 'group')) ? session(['perviousPage' => 'group']) : session(['perviousPage' => 'home']);
 
-            return view('dashboard.group.edit', compact('group', 'uris','locales'));
-        }
+        $locales = config('translatable.locales');
+        $group = Group::where('id', "<>", auth()->user()->group_id)->findOrFail($id);
+        $uris = Permission::permissions();
+
+        return view('dashboard.group.edit', compact('group', 'uris', 'locales'));
     }
+
 
     /**
      * Update the specified resource in storage.

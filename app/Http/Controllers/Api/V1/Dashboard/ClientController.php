@@ -56,11 +56,10 @@ class ClientController extends Controller
 
         if ($attachmentRequest->has("attachments")) {
             Attachment::storeImage($attachmentRequest, $user);
-
         }
 
 
-        $client->load(['user', 'user.attachments', 'managers']);
+        $client->load(['user.attachments', 'managers']);
 
         return ClientResource::make($client)->additional([
             'status' => true, 'message' => trans("dashboard.general.success_add")
@@ -70,7 +69,7 @@ class ClientController extends Controller
     public function show(Request $request, $id)
     {
         $client = Client::where('user_id', $id)->firstOrFail();
-        $client->load(['user', 'user.attachments', 'managers', 'user.bankAccount.bank.translations',]);
+        $client->load(['user.attachments', 'managers', 'user.bankAccount.bank.translations',]);
 
         return ClientResource::make($client)->additional(['status' => true, 'message' => ""]);
     }
@@ -92,12 +91,11 @@ class ClientController extends Controller
 //        $client->managers()->update($managerRequest->validated());
 
         if ($attachmentRequest->has("attachments")) {
-            Attachment::deletefiles($attachmentRequest, $client);
-            Attachment::storeImage($attachmentRequest, $client->user);
+            Attachment::updatefiles($attachmentRequest, $client->user);
         }
 
 
-        $client->load(['user', 'user.attachments', 'managers']);
+        $client->load(['user.attachments', 'managers']);
         return ClientResource::make($client)->additional(['status' => true, 'message' => trans("dashboard.general.success_update")]);
     }
 

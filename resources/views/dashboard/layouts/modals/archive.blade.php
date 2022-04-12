@@ -2,7 +2,7 @@
     data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content border-0">
-            <form method="post" action="#?_method=DELETE" id="item" class="needs-validation archieveForm" novalidate>
+            <form method="post" action="#?_method=DELETE" id="item" class="needs-validation validForm" novalidate>
                 @csrf
                 @method('delete')
                 <div class="modal-body text-center p-0">
@@ -12,8 +12,8 @@
                     </lottie-player>
                     <p>{{ trans('dashboard.general.want_to_archive') }}</p>
                     <div class="mt-3">
-                        <textarea class="form-control" placeholder="{{ trans('dashboard.general.reason_needed') }}" rows="3"
-                            name="reasonAction"  id="reasonAction"
+                        <textarea class="form-control input-regex stop-copy-paste reasonAction" placeholder="{{ trans('dashboard.general.reason_needed') }}" rows="3"
+                            name="reasonAction"
                            ></textarea>
                         <input type="hidden" name="_method" value="DELETE">
                         <div class="text-danger" id="alertReasonAction"></div>
@@ -22,7 +22,7 @@
                 <div class="modal-footer justify-content-center mt-5 p-0">
                     <button type="submit" class="btn btn-secondary mx-3">
                         {{ trans('dashboard.general.yes') }} </button>
-                    <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
+                    <button type="button" class="btn btn-outline-secondary closeBtn"  data-bs-dismiss="modal">
                         {{ trans('dashboard.general.no') }} </button>
                 </div>
             </form>

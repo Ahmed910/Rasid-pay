@@ -371,12 +371,12 @@ $(document).ready(function () {
     $("body").removeClass("ltr");
     localStorage.setItem("rtl", "True");
     $("head link#style").attr("href", $(this));
-    document
-      .getElementById("style")
-      .setAttribute(
-        "href",
-        "../assets/plugins/bootstrap/css/bootstrap.rtl.min.css"
-      );
+    // document
+    //   .getElementById("style")
+    //   .setAttribute(
+    //     "href",
+    //     "../assets/plugins/bootstrap/css/bootstrap.rtl.min.css"
+    //   );
     var carousel = $(".owl-carousel");
     $.each(carousel, function (index, element) {
       // element == this
@@ -411,13 +411,7 @@ $(document).ready(function () {
       "<span class='tooltipRole'>تعديل المستخدمين</span><span class='tooltipRole'>تعديل البيانات</span><span class='tooltipRole'>تعديل </span><span class='tooltipRole'>تعديل المستخدمين</span><span class='tooltipRole'>تعديل المستخدمين</span><span class='tooltipRole'>إضافة مستخدم </span><span class='tooltipRole'>تعديل الوظائف</span><span class='tooltipRole'>تعديل الصلاحيات</span><span class='tooltipRole'>تعديل المستخدمين</span>",
   });
 
-  /******* Calendar *******/
-  $(
-    "#from-hijri-picker, #to-hijri-picker, #from-hijri-unactive-picker ,#to-hijri-unactive-picker"
-  ).hijriDatePicker({
-    hijri: true,
-    showSwitcher: false,
-  });
+
 
   $("input").attr("autocomplete", "off");
     //   $(".dropify").dropify({
@@ -438,6 +432,26 @@ $(document).ready(function () {
     //   });
 });
 
+function getRegex(e) {
+    (regex = /[^a-zA-Z0-9-_ \u0621-\u064A\u0660-\u0669g]/g),
+        (value = $(e).val());
+
+    if (regex.test(value)) {
+        $(e).val(value.replace(regex, ""));
+    }
+}
+
+function stopcopypaste(e) {
+    $(".stop-copy-paste").on("cut copy paste", function (e) {
+        e.preventDefault();
+    });
+}
+
+// change English numbers to arabic
+String.prototype.toArabicUni = function () {
+    return this.replace(/\d/g, d => String.fromCharCode('0x066' + d))
+}
+
 window.onload = function () {
     $(".select2-selection__rendered").on("click", updateValue);
 
@@ -450,21 +464,22 @@ window.onload = function () {
     }
 
 }
-$(document).ready(function () {
 
+let numberClass = document.querySelector('.number-regex');
 
+if(numberClass){
+    numberClass.addEventListener("keydown", function(e) {
+        if (['-','.'].includes(e.key)) {
+            e.preventDefault();
+        }
+    });
+}
+
+$(function(){
     $(".input-regex").on("input", function () {
         getRegex(this);
     });
 
-    document.querySelector('.number-regex').addEventListener("keydown", function(e) {
-        if (['-'].includes(e.key)) {
-          e.preventDefault();
-        }
-      });
-    // $(".stop-copy-paste").on("cut copy paste", function (e) {
-    //     e.preventDefault();
-    // });
     stopcopypaste();
     $(document).keydown(function (objEvent) {
         if (objEvent.ctrlKey) {
@@ -474,3 +489,7 @@ $(document).ready(function () {
         }
     });
 });
+// change English numbers to arabic
+String.prototype.toArabicUni = function () {
+    return this.replace(/\d/g, d => String.fromCharCode('0x066' + d))
+}

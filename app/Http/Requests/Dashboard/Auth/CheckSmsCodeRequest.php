@@ -25,8 +25,9 @@ class CheckSmsCodeRequest extends FormRequest
     public function rules()
     {
         $user = User::where(['reset_token'=>$this->reset_token])->first();
-        if ($user && ($user->phone_verified_at || $user->email_verified_at)) {
-            $code = 'required|exists:users,reset_code,deleted_at,NULL';
+        // if ($user && ($user->phone_verified_at || $user->email_verified_at)) {
+        if ($user) {
+            $code = 'required|min:4|exists:users,reset_code,deleted_at,NULL';
         }else{
             $code = 'required|exists:users,verified_code,deleted_at,NULL';
         }
@@ -46,9 +47,9 @@ class CheckSmsCodeRequest extends FormRequest
     }
 
     public function messages()
-{
-    return [
-        'reset_code.exists' => trans('dashboard.general.invalid_code'),
-    ];
-}
+    {
+        return [
+            'reset_code.exists' => trans('dashboard.general.invalid_code'),
+        ];
+    }
 }

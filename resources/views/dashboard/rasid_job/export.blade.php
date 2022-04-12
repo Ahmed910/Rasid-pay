@@ -2,7 +2,7 @@
 <html lang="en" dir="{{ LaravelLocalization::getCurrentLocaleDirection() }}">
 
 <head>
-
+    <!-- META DATA -->
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -10,13 +10,14 @@
     <meta name="author" content="Spruko Technologies Private Limited" />
     <meta name="keywords"
         content="admin,admin dashboard,admin panel,admin template,bootstrap,clean,dashboard,flat,jquery,modern,responsive,premium admin templates,responsive admin,ui,ui kit." />
-    <style>
+
         @media screen,
         print {
             @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;700&display=swap');
 
             * {
                 -webkit-print-color-adjust: exact;
+
             }
 
             body {
@@ -26,6 +27,7 @@
             header {
                 margin-bottom: 2em;
                 background: url('https://jackapi.fintechrsa.com/dashboardAssets/images/brand/fot-04.svg') no-repeat;
+
                 background-size: contain;
                 min-height: 270px;
                 position: relative
@@ -57,6 +59,7 @@
             tbody {
                 margin-bottom: 2em;
                 background: url(https://jackapi.fintechrsa.com/dashboardAssets/images/brand/header-05.svg) no-repeat;
+
                 background-size: cover;
                 min-height: 350px;
                 position: relative
@@ -111,6 +114,7 @@
 </head>
 
 <body class="app sidebar-mini {{ LaravelLocalization::getCurrentLocaleDirection() }}">
+
     <div class="container">
 
         <div class="row row-sm">

@@ -1,77 +1,94 @@
- @section('datatable_script')
-     <script src="{{ asset('dashboardAssets/plugins/datatable/js/jquery.dataTables.min.js') }}"></script>
-     <script src="{{ asset('dashboardAssets/plugins/datatable/js/dataTables.bootstrap5.js') }}"></script>
-     <script src="{{ asset('dashboardAssets/plugins/datatable/dataTables.responsive.min.js') }}"></script>
-     <script src="{{ asset('dashboardAssets/plugins/datatable/responsive.bootstrap5.min.js') }}"></script>
- @endsection
+@section('datatable_script')
+    <script src="{{ asset('dashboardAssets/plugins/datatable/js/jquery.dataTables.min.js') }}"></script>
+    <script src="{{ asset('dashboardAssets/plugins/datatable/js/dataTables.bootstrap5.js') }}"></script>
+    <script src="{{ asset('dashboardAssets/plugins/datatable/dataTables.responsive.min.js') }}"></script>
+    <script src="{{ asset('dashboardAssets/plugins/datatable/responsive.bootstrap5.min.js') }}"></script>
+@endsection
 
- @section('scripts')
-     <script src="{{ asset('dashboardAssets/js/custom_scripts.js') }}"></script>
-     <script src="{{ asset('dashboardAssets/plugins/bootstrap-hijri-datepicker/js/bootstrap-hijri-datetimepicker.js') }}">
-     </script>
+@section('scripts')
+    <script src="{{ asset('dashboardAssets/js/custom_scripts.js') }}"></script>
+    <script src="{{ asset('dashboardAssets/plugins/bootstrap-hijri-datepicker/js/bootstrap-hijri-datetimepicker.js') }}">
+    </script>
 
 
-
-     <script>
-         $(function() {
-             /******* Calendar *******/
-             $("#from-hijri-picker-custom, #to-hijri-picker-custom, #from-hijri-unactive-picker-custom ,#to-hijri-unactive-picker-custom")
-                 .hijriDatePicker({
-                     hijri: {{ auth()->user()->is_date_hijri ? 'true' : 'false' }},
-                     showSwitcher: false,
-                     format: "YYYY-MM-DD",
-                     hijriFormat: "iYYYY-iMM-iDD",
-                     hijriDayViewHeaderFormat: "iMMMM iYYYY",
-                     dayViewHeaderFormat: "MMMM YYYY",
-                     showClear: true,
-                     ignoreReadonly: true,
-                 });
-
-             $("#jobTable").DataTable({
-                 sDom: "t<'domOption'lpi>",
-                 serverSide: true,
-                 ajax: {
-                     url: "{{ route('dashboard.rasid_job.archive') }}?" + $.param(
-                         @json(request()->query())),
-                     dataSrc: 'data'
-                 },
-                 columns: [{
-                         data: function(data, type, full, meta) {
-                             return meta.row + 1;
-                         }
-                     },
-                     {
-                         data: "name"
-                     },
-                     {
-                         data: function(data) {
-                             if (data.department_name !== null) {
-                                 return data.department_name;
-                             } else {
-                                 return "@lang('dashboard.department.without_parent')";
-                             }
-                         }
-                     },
-                     {
-                         data: "deleted_at"
-                     },
-                     {
-                         data: function(data) {
-                             if (data.is_active) {
-                                 return ` <span class="badge bg-success-opacity py-2 px-4">${"@lang('dashboard.general.active')"}</span>`;
-                             } else {
-                                 return ` <span class="badge bg-danger-opacity py-2 px-4">${"@lang('dashboard.general.inactive')"}</span>`;
-                             }
-                         }
-                     },
-                     {
-                         class: "text-center",
-                         data: function(data) {
-                             tagInfo = (data.has_jobs) ?
-                                 `<i data-bs-toggle="modal" data-bs-target="#DeleteModal_${data.id}" class="mdi mdi-archive-arrow-down-outline"></i>` :
-                                 `<i data-bs-toggle="modal" data-bs-target="#unarchiveModal_${data.id}" class="mdi mdi-archive-arrow-down-outline"></i>`;
-
-                             return `<a
+    <script>
+        $(function() {
+            /******* Calendar *******/
+            $("#from-hijri-picker-custom, #to-hijri-picker-custom, #from-hijri-unactive-picker-custom ,#to-hijri-unactive-picker-custom")
+                .hijriDatePicker({
+                    hijri: {{ auth()->user()->is_date_hijri ? 'true' : 'false' }},
+                    showSwitcher: false,
+                    format: "YYYY-MM-DD",
+                    hijriFormat: "iYYYY-iMM-iDD",
+                    hijriDayViewHeaderFormat: "iMMMM iYYYY",
+                    dayViewHeaderFormat: "MMMM YYYY",
+                    showClear: true,
+                    ignoreReadonly: true,
+                    isRTL: "{{ LaravelLocalization::getCurrentLocaleDirection() == 'rtl' }}"
+                }).on('dp.change', function() {
+                    table.draw();
+                });
+            var table = $("#jobTable").DataTable({
+                sDom: "t<'domOption'lpi>",
+                serverSide: true,
+                ajax: {
+                    url: "{{ route('dashboard.rasid_job.archive') }}",
+                    data: function(data) {
+                        data.name = $('#job_name').val();
+                        data.created_from = $('#from-hijri-picker-custom').val();
+                        data.created_to = $('#to-hijri-picker-custom').val();
+                        data.is_active = $('#status').val();
+                        data.department_id = $('#mainDepartment').val();
+                    },
+                    type: "GET",
+                    dataSrc: 'data'
+                },
+                columns: [{
+                        data: function(data, type, full, meta) {
+                            return parseInt(meta.row) + parseInt(data.start_from) + 1;
+                        },
+                        name: 'id'
+                    },
+                    {
+                        data: "name",
+                        name: "name"
+                    },
+                    {
+                        data: function(data) {
+                            if (data.department_name !== null) {
+                                // TODO::change imgae to default value
+                                let image = 'default';
+                                if (data.department_image != null) {
+                                    image = data.department_image;
+                                }
+                                return `<div class="d-flex align-items-center"><div class="flex-shrink-0"> <img src="${image}" data-toggle="popoverIMG" title='<img src="${image}" width="300" height="300" class="d-block rounded-3" alt="">' width="25" class="avatar brround cover-image" alt="..." /> </div><div class="flex-grow-1 ms-3">${data.department_name}</div>`
+                            } else {
+                                return "@lang('dashboard.department.without_parent')";
+                            }
+                        },
+                        name: "department"
+                    },
+                    {
+                        data: "deleted_at",
+                        name: "deleted_at"
+                    },
+                    {
+                        data: function(data) {
+                            if (data.is_active) {
+                                return ` <span class="badge bg-success-opacity py-2 px-4">${"@lang('dashboard.rasid_job.active_cases.1')"}</span>`;
+                            } else {
+                                return ` <span class="badge bg-danger-opacity py-2 px-4">${"@lang('dashboard.rasid_job.active_cases.0')"}</span>`;
+                            }
+                        },
+                        name: "is_active"
+                    },
+                    {
+                        class: "text-center",
+                        data: function(data) {
+                            tagInfo = (data.has_jobs) ?
+                                `<i data-bs-toggle="modal" data-bs-target="#DeleteModal_${data.id}" class="mdi mdi-archive-arrow-down-outline"></i>` :
+                                `<i data-bs-toggle="modal" data-bs-target="#unarchiveModal_${data.id}" class="mdi mdi-archive-arrow-down-outline"></i>`;
+                            return `<a
                                 href="${data.show_route}"
                                 class="azureIcon"
                                 data-bs-toggle="tooltip"
@@ -81,7 +98,7 @@
                               ></a>
                               <a
                               href="#"
-                              onclick=unArchiveItem('${data.id}','${data.restore_route}')
+                              onclick=unArchiveItem('${data.id}','${data.restore_route}','${'#jobTable'}')
                               class="successIcon"
                               data-bs-toggle="tooltip"
                               data-bs-placement="top"
@@ -93,7 +110,7 @@
                             ></a>
                             <a
                               href="#"
-                              onclick=ForceDeleteItem('${data.id}','${data.forceDelete_route}')
+                              onclick=ForceDeleteItem('${data.id}','${data.forceDelete_route}','${'#jobTable'}')
                               class="errorIcon"
                               data-bs-toggle="tooltip"
                               data-bs-placement="top"
@@ -103,35 +120,114 @@
                                 class="mdi mdi-trash-can-outline"
                               ></i
                             ></a>
-
                               `
-                         },
-                         orderable: false,
-                         searchable: false
-                     }
-                 ],
-                 pageLength: 10,
-                 lengthMenu: [
-                     [1, 5, 10, 20, -1],
-                     [1, 5, 10, 20, "الكل"],
-                 ],
-                 "language": {
-                     "lengthMenu": "@lang('dashboard.general.show') _MENU_",
-                     "emptyTable": "@lang('dashboard.general.no_data')",
-                     "info": "@lang('dashboard.general.showing') _START_ @lang('dashboard.general.to') _END_ @lang('dashboard.general.from') _TOTAL_ @lang('dashboard.general.entries')",
-                     "infoEmpty": "",
-                     "paginate": {
-                         "next": '<i class="mdi mdi-chevron-left"></i>',
-                         "previous": '<i class="mdi mdi-chevron-right"></i>'
-                     },
-                 }
-             });
-             $('.select2').select2({
-                 minimumResultsForSearch: Infinity
-             });
-         });
-     </script>
-     <!-- SELECT2 JS -->
-     <script src="{{ asset('dashboardAssets/js/select2.js') }}"></script>
-     <script src="{{ asset('dashboardAssets/plugins/select2/select2.full.min.js') }}"></script>
- @endsection
+                        }
+                    }
+                ],
+                createdRow: function(row, data) {
+                    $('[data-toggle="popoverIMG"]', row).popover({
+                        placement: "left",
+                        trigger: "hover",
+                        html: true,
+                    });
+                    $('[data-toggle="popoverIMG"]', row).popover({
+                        placement: "left",
+                        trigger: "hover",
+                        html: true,
+                    });
+                },
+                pageLength: 10,
+                lengthMenu: [
+                    [1, 5, 10, 15, 20],
+                    [1, 5, 10, 15, 20]
+                ],
+                "language": {
+                    "lengthMenu": "@lang('dashboard.general.show') _MENU_",
+                    "emptyTable": "@lang('dashboard.datatable.no_data')",
+                    "info": "@lang('dashboard.datatable.showing') _START_ @lang('dashboard.datatable.to') _END_ @lang('dashboard.datatable.from') _TOTAL_ @lang('dashboard.datatable.entries')",
+                    "infoEmpty": "",
+                    "paginate": {
+                        "next": '<i class="mdi mdi-chevron-left"></i>',
+                        "previous": '<i class="mdi mdi-chevron-right"></i>'
+                    },
+                },
+                "drawCallback": function(settings, json) {
+                    // table sorting
+                    var jobTableSorting = document.getElementsByClassName('sorting_1');
+                    for (var i = 0; i < jobTableSorting.length; i++) {
+                        jobTableSorting[i].innerText = jobTableSorting[i].innerText.replace(
+                            jobTableSorting[i].innerText, jobTableSorting[i].innerText.toArabicUni()
+                            );
+                    }
+                    //pagination
+                    var jobTablePagination = document.getElementsByClassName('page-link');
+                    for (var i = 1; i < jobTablePagination.length - 1; i++) {
+                        jobTablePagination[i].innerText = jobTablePagination[i].innerText.replace(
+                            jobTablePagination[i].innerText, jobTablePagination[i].innerText
+                            .toArabicUni());
+                    }
+                    // info
+                    var jobTableInfo = document.getElementById('jobTable_info').innerText;
+                    document.getElementById('jobTable_info').innerText = jobTableInfo.replace(
+                        jobTableInfo, jobTableInfo.toArabicUni());
+                }
+            });
+            $('.select2').select2({
+                minimumResultsForSearch: Infinity,
+                createSearchChoice: function(term) {
+                    if (term.match(/^[a-zA-Z0-9]+$/g))
+                        return {
+                            id: term,
+                            text: term
+                        };
+                },
+                formatNoMatches: "Enter valid format text"
+            })
+            $("#job_name").keyup(function() {
+                table.draw();
+            });
+            $('#mainDepartment').on('select2:select', function(e) {
+                table.draw();
+            });
+            $('#status').on('select2:select', function(e) {
+                table.draw();
+            });
+            $('#type').on('select2:select', function(e) {
+                table.draw();
+            });
+            $('#search-form').on('reset', function(e) {
+                e.preventDefault();
+                $('#job_name').val(null);
+                $('#mainDepartment').val(null).trigger('change');
+                $('#status').val(null).trigger('change');
+                $('#from-hijri-picker-custom').val("").trigger('change');
+                $('#to-hijri-picker-custom').val("").trigger('change');
+                table.draw();
+            });
+            $("#search-form").submit(function(e) {
+                e.preventDefault();
+                table.draw();
+            });
+            table.on('draw', function() {
+                var tooltipTriggerList = [].slice.call(
+                    document.querySelectorAll('[data-bs-toggle="tooltip"]')
+                );
+                var tooltipList = tooltipTriggerList.map(function(tooltipTriggerEl) {
+                    return new bootstrap.Tooltip(tooltipTriggerEl);
+                });
+            });
+        });
+
+        // $('#job_name').on('keypress', function(event) {
+        //     var regex = new RegExp("^[a-zA-Z0-9]+$");
+        //     var key = String.fromCharCode(!event.charCode ? event.which : event.charCode);
+        //     if (!regex.test(key)) {
+        //         event.preventDefault();
+        //         return false;
+        //     }
+        // });
+    </script>
+    <!-- SELECT2 JS -->
+    <script src="{{ asset('dashboardAssets/js/select2.js') }}"></script>
+    <script src="{{ asset('dashboardAssets/plugins/select2/select2.full.min.js') }}"></script>
+@endsection

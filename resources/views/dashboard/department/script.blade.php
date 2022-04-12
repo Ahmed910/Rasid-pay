@@ -46,15 +46,9 @@
           type: "GET",
           dataSrc: 'data'
         },
-        // ajax: {
-        //     url: "{{ route('dashboard.department.index') }}?" + $.param(
-        //         @json(request()->query())),
-        //     type: "GET",
-        //     dataSrc: 'data'
-        // },
         columns: [{
           data: function (data, type, full, meta) {
-            return meta.row + 1;
+            return parseInt(meta.row) + parseInt(data.start_from) + 1;
           },
           name: 'id'
         },
@@ -144,8 +138,8 @@
         },
         pageLength: 10,
         lengthMenu: [
-          [5, 10, 20, -1],
-          [5, 10, 20, "@lang('dashboard.general.all')"],
+            [1, 5, 10, 15, 20],
+            [1, 5, 10, 15, 20]
         ],
 
         "language": {
@@ -192,8 +186,8 @@
         $('#status').val(null).trigger('change');
         $('#parent_id').val(null).trigger('change');
         $('#departmentName').val(null);
-        $('#from-hijri-picker-custom').val(null);
-        $('#to-hijri-picker-custom').val(null);
+        $('#from-hijri-picker-custom').val("").trigger('change');
+        $('#to-hijri-picker-custom').val("").trigger('change');
         table.draw();
       });
 

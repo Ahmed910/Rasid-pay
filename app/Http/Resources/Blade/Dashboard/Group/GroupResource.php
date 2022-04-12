@@ -21,7 +21,8 @@ class GroupResource extends JsonResource
             'is_selected' => auth()->user()->groups()->where('groups.id',$this->id)->exists(),
             'active_case' => trans('dashboard.general.active_cases.'.$this->is_active),
             'show_route' => $this->when(auth()->user()->hasPermissions('group.show'), route('dashboard.group.show', $this->id),null),
-            'edit_route' => $this->when(auth()->user()->hasPermissions('group.update'), route('dashboard.group.edit', $this->id),null)
+            'edit_route' => $this->when(auth()->user()->hasPermissions('group.update'), route('dashboard.group.edit', $this->id),null),
+            'start_from' => $request->start
         ];
     }
 }

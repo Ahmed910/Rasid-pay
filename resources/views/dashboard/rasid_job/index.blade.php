@@ -14,7 +14,7 @@
     <!-- FORM OPEN -->
 
 
-    {!! Form::open(['route' => 'dashboard.rasid_job.index', 'method' => 'GET','id'=>'search-form']) !!}
+    {!! Form::open(['route' => 'dashboard.rasid_job.index', 'method' => 'GET', 'id' => 'search-form']) !!}
 
     <div class="row align-items-end mb-3">
         <div class="col">
@@ -25,28 +25,30 @@
         <div class="col">
             <label for="mainDepartment"> {{ trans('dashboard.department.department') }} </label>
 
-            {!! Form::select('department_id', [0 => trans('dashboard.general.all_cases')] + $departments, old('department_id') ?? request('department_id'), ['placeholder' => trans('dashboard.rasid_job.select_department'), 'class' => 'form-control select2-show-search', 'id' => 'mainDepartment']) !!}
+            {!! Form::select('department_id', ['' => '', 0 => trans('dashboard.general.all_cases')] + $departments, old('department_id') ?? request('department_id'), ['data-placeholder' => trans('dashboard.rasid_job.select_department'), 'class' => 'form-control select2-show-search', 'id' => 'mainDepartment']) !!}
         </div>
 
         <div class="col">
-            <label for="from-hijri-picker"> {{ trans('dashboard.general.from_date') }}</label>
+            <label for="from-hijri-picker-custom"> {{ trans('dashboard.general.from_date') }}</label>
             <div class="input-group">
 
                 {!! Form::text('from_date', old('from_date') ?? request('from_date'), ['class' => 'form-control', 'id' => 'from-hijri-picker-custom', 'placeholder' => trans('dashboard.general.day_month_year'), 'readonly']) !!}
                 <div class="input-group-text border-start-0">
-                    <i class="fa fa-calendar tx-16 lh-0 op-6"></i>
+                    <label for="from-hijri-picker-custom">
+                        <i class="fa fa-calendar tx-16 lh-0 op-6"></i></label>
                 </div>
             </div>
         </div>
 
         <div class="col">
-            <label for="to-hijri-picker"> {{ trans('dashboard.general.to_date') }}</label>
+            <label for="to-hijri-picker-custom"> {{ trans('dashboard.general.to_date') }}</label>
             <div class="input-group">
 
                 {!! Form::text('to_date', old('to_date') ?? request('to_date'), ['class' => 'form-control', 'placeholder' => trans('dashboard.general.day_month_year'), 'id' => 'to-hijri-picker-custom', 'readonly']) !!}
 
                 <div class="input-group-text border-start-0">
-                    <i class="fa fa-calendar tx-16 lh-0 op-6"></i>
+                    <label for="to-hijri-picker-custom">
+                        <i class="fa fa-calendar tx-16 lh-0 op-6"></i></label>
                 </div>
             </div>
         </div>
@@ -54,14 +56,14 @@
         <div class="col">
             <label for="status">
                 {{ trans('dashboard.general.status') }}</label>
-          {!! Form::select('is_active', [-1 => trans('dashboard.general.all_cases')] + trans('dashboard.rasid_job.active_cases'), old('is_active') ?? request('is_active'), ['class' => 'form-control select2', 'placeholder' => trans('dashboard.general.select_status'), 'id' => 'status']) !!}
+            {!! Form::select('is_active', ['' => '', -1 => trans('dashboard.general.all_cases')] + trans('dashboard.rasid_job.active_cases'), old('is_active') ?? request('is_active'), ['class' => 'form-control select2', 'data-placeholder' => trans('dashboard.general.select_status'), 'id' => 'status']) !!}
 
         </div>
 
         <div class="col">
             <label for="type">
                 {{ trans('dashboard.general.type') }}</label>
-            {!! Form::select('is_vacant', [-1 => trans('dashboard.general.all_cases')] + trans('dashboard.general.job_type_cases'), old('is_vacant') ?? request('is_vacant'), ['class' => 'form-control select2', 'placeholder' => trans('dashboard.general.select_type'), 'id' => 'type']) !!}
+            {!! Form::select('is_vacant', ['' => '', -1 => trans('dashboard.general.all_cases')] + trans('dashboard.general.job_type_cases'), old('is_vacant') ?? request('is_vacant'), ['class' => 'form-control select2', 'data-placeholder' => trans('dashboard.general.select_type'), 'id' => 'type']) !!}
         </div>
 
     </div>

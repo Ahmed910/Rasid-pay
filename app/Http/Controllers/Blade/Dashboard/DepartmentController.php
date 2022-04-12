@@ -55,6 +55,9 @@ class DepartmentController extends Controller
 
     public function create()
     {
+        $previousUrl = url()->previous();
+        (strpos($previousUrl, 'department')) ? session(['perviousPage' => 'department']) : session(['perviousPage' => 'home']);
+
         $departments = Department::with('parent.translations')->ListsTranslations('name')->where(['parent_id' => null, 'is_active' => 1])->pluck('name', 'id')->toArray();
         $locales = config('translatable.locales');
 
@@ -88,12 +91,9 @@ class DepartmentController extends Controller
 
         $activitiesQuery  = $department->activity()
             ->sortBy($request);
-
         if ($request->ajax()) {
             $activityCount = $activitiesQuery->count();
-            $activities = $activitiesQuery->skip($request->start)
-                ->take(($request->length == -1) ? $activityCount : $request->length)
-                ->get();
+            $activities = $activitiesQuery->skip($request->start)->take($request->length == -1 ? $activityCount : $request->length)->get();
 
             return ActivityLogCollection::make($activities)
                 ->additional(['total_count' => $activityCount]);
@@ -102,8 +102,13 @@ class DepartmentController extends Controller
         return view('dashboard.department.show', compact('department'));
     }
 
-    public function edit(Department $department)
+    public function edit($id)
     {
+
+        $previousUrl = url()->previous();
+        (strpos($previousUrl, 'department')) ? session(['perviousPage' => 'department']) : session(['perviousPage' => 'home']);
+
+        $department = Department::withTrashed()->findOrFail($id);
         $departments = Department::with('parent.translations')->ListsTranslations('name')->where(['parent_id' => null, 'is_active' => 1])->pluck('name', 'id')->toArray();
 
         $departments = array_merge([null => trans('dashboard.department.without_parent')], $departments);
@@ -125,13 +130,11 @@ class DepartmentController extends Controller
     }
     public function archive(Request $request)
     {
-
         $sortingColumns = [
             'id',
             'name',
             'parent',
             'deleted_at',
-
         ];
 
         if (isset($request->order[0]['column'])) {
@@ -141,6 +144,7 @@ class DepartmentController extends Controller
         $departmentsQuery = Department::onlyTrashed()
             ->search($request)
             ->CustomDateFromTo($request)
+            ->searchDeletedAtFromTo($request)
             ->with('parent.translations')
             ->ListsTranslations('name')
             ->addSelect('departments.deleted_at', 'departments.parent_id')
@@ -165,7 +169,7 @@ class DepartmentController extends Controller
             // ->without("images", 'addedBy')
             ->select("id")
             ->ListsTranslations("name")
-            ->pluck('name', 'id');
+            ->pluck('name', 'id')->toArray();
 
         return view('dashboard.archive.department.index', compact('parentDepartments'));
     }
@@ -183,18 +187,25 @@ class DepartmentController extends Controller
 
     public function restore(ReasonRequest $request, $id)
     {
-
-        $department = Department::onlyTrashed()->findOrFail($id);
-
-        $department->restore();
-        return redirect()->back()->withSuccess(__('dashboard.general.success_restore'));
+        if ($request->ajax()) {
+            $department = Department::onlyTrashed()->findOrFail($id);
+            $department->restore();
+            return response()->json([
+                'message' =>__('dashboard.general.success_restore')
+            ] );
+        }
     }
 
     public function forceDelete(ReasonRequest $request, $id)
     {
-        $department = Department::onlyTrashed()->findOrFail($id);
-        $department->forceDelete();
-        return redirect()->back()->withSuccess(__('dashboard.general.success_delete'));
+        if ($request->ajax()) {
+
+            $department = Department::onlyTrashed()->findOrFail($id);
+            $department->forceDelete();
+            return response()->json([
+                'message' =>__('dashboard.general.success_delete')
+            ] );
+        }
     }
 
     public function export(Request $request)

@@ -37,6 +37,12 @@ class ForgotPasswordController extends Controller
      */
     public function sendResetLinkEmail(SendTokenRequest $request)
     {
+        $user = User::where('email',$request->email)->orWhere('phone',$request->phone)->first();
+        if($user && in_array($user->ban_status,['permanent','temporary']))
+        {
+            return back()->withFail(trans('dashboard.general.un_active_account'));
+        }
+
         if ($request->send_type == 'phone') {
             return $this->sendSmsCode($request);
         }

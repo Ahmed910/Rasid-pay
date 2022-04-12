@@ -22,8 +22,9 @@
 
         columns: [{
           data: function (data, type, full, meta) {
-            return meta.row + 1;
-          }
+            return parseInt(meta.row) + parseInt(data.start_from) + 1;
+          },
+          name: 'id'
         },
           {
             data: "user.fullname"
@@ -78,8 +79,8 @@
         ],
         pageLength: 10,
         lengthMenu: [
-          [1, 5, 10, 20, -1],
-          [1, 5, 10, 20, "@lang('dashboard.general.all')"],
+            [1, 5, 10, 15, 20],
+            [1, 5, 10, 15, 20]
         ],
         "language": {
           "lengthMenu": "@lang('dashboard.general.show') _MENU_",
@@ -97,11 +98,13 @@
           for (var i = 0; i < adminHistoryTableSorting.length; i++) {
             adminHistoryTableSorting[i].innerText = adminHistoryTableSorting[i].innerText.replace(adminHistoryTableSorting[i].innerText, adminHistoryTableSorting[i].innerText.toArabicUni());
           }
+
           //pagination
           var adminHistoryTablePagination = document.getElementsByClassName('page-link');
           for (var i = 1; i < adminHistoryTablePagination.length - 1; i++) {
             adminHistoryTablePagination[i].innerText = adminHistoryTablePagination[i].innerText.replace(adminHistoryTablePagination[i].innerText, adminHistoryTablePagination[i].innerText.toArabicUni());
           }
+
           // admin history table show info
           var adminHistoryTableInfo = document.getElementById('historyTableadmin_info').innerText;
           document.getElementById('historyTableadmin_info').innerText = adminHistoryTableInfo.replace(adminHistoryTableInfo, adminHistoryTableInfo.toArabicUni());

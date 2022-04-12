@@ -10,12 +10,13 @@
 @error('reset_token')
     <div class="alert alert-danger">{{ $message }}</div>
 @enderror
-<form method="post" action="{!! route('dashboard.reset_to_new',$reset_token) !!}" class="needs-validation" novalidate>
+<form method="post" id="phone-form" action="{!! route('dashboard.reset_to_new',$reset_token) !!}" class="needs-validation" novalidate>
     @csrf
     <div class="form-group">
         <label>كلمة المرور الجديدة</label>
         <div class="input-group" id="show_hide_password">
             <input class="form-control @error('password') is-invalid @enderror" placeholder="كلمة المرور" type="password" name="password"/>
+                <span class="text-danger" id="password_error"></span>
                 @error('password')
                     <div class="invalid-feedback">{{ $message }}</div>
                 @enderror
@@ -38,9 +39,11 @@
         </div>
     </div>
     <div class="col-12 mt-5 text-center">
-        {!! Form::submit('تأكيد',['class' => "btn btn-primary"]) !!}
+      <a onclick="submitForm('#phone-form')" class="btn btn-primary">{{ trans('dashboard.general.confirm') }}</a>
+
+        {{-- {!! Form::submit('تأكيد',['class' => "btn btn-primary"]) !!} --}}
         <a href="{!! route('dashboard.check_sms_code_form',$reset_token) !!}" class="btn btn-outline-primary">
-            عودة
+          {{ trans('dashboard.general.back') }}
         </a>
     </div>
 

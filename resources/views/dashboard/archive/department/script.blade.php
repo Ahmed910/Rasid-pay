@@ -11,28 +11,43 @@
 <script src="{{ asset('dashboardAssets/plugins/bootstrap-hijri-datepicker/js/bootstrap-hijri-datetimepicker.js') }}">
 </script>
 
-
 <script>
     $(function() {
         /******* Calendar *******/
-        $("#from-hijri-picker, #to-hijri-picker, #from-hijri-unactive-picker ,#to-hijri-unactive-picker")
+        $("#from-hijri-picker-custom, #to-hijri-picker-custom, #from-hijri-unactive-picker-custom ,#to-hijri-unactive-picker-custom")
             .hijriDatePicker({
-                hijri: true,
+                hijri: {{ auth()->user()->is_date_hijri ? 'true' : 'false' }},
                 showSwitcher: false,
+                format: "YYYY-MM-DD",
+                hijriFormat: "iYYYY-iMM-iDD",
+                hijriDayViewHeaderFormat: "iMMMM iYYYY",
+                dayViewHeaderFormat: "MMMM YYYY",
+                showClear: true,
+                ignoreReadonly: true,
+                isRTL: "{{ LaravelLocalization::getCurrentLocaleDirection() == 'rtl' }}"
+            }).on('dp.change', function() {
+                table.draw();
             });
 
-        $("#departmentTable").DataTable({
+        var table = $("#departmentTable").DataTable({
             sDom: "t<'domOption'lpi>",
             serverSide: true,
             ajax: {
-                url: "{{ route('dashboard.department.archive') }}?" + $.param(
-                    @json(request()->query())),
+                url: "{{ route('dashboard.department.archive') }}?",
+                data: function(data) {
+                    data.name = $('#departmentName').val();
+                    data.created_from = $('#from-hijri-picker-custom').val();
+                    data.created_to = $('#to-hijri-picker-custom').val();
+                    data.is_active = $('#status').val();
+                    data.parent_id = $('#parent_id').val();
+                },
                 dataSrc: 'data'
             },
             columns: [{
                     data: function(data, type, full, meta) {
-                        return meta.row + 1;
-                    }
+                        return parseInt(meta.row) + parseInt(data.start_from) + 1;
+                    },
+                    name: 'id'
                 },
                 {
                     data: "name"
@@ -48,23 +63,23 @@
                 },
                 {
                     data: "deleted_at"
-                },{
-                data: function(data) {
-                if (data.is_active) {
-                return ` <span class="badge bg-success-opacity py-2 px-4">${"@lang('dashboard.general.active')"}</span>`;
-                } else {
-                return ` <span class="badge bg-danger-opacity py-2 px-4">${"@lang('dashboard.general.inactive')"}</span>`;
-                }
-                }
+                }, {
+                    data: function(data) {
+                        if (data.is_active) {
+                            return ` <span class="badge bg-success-opacity py-2 px-4">${"@lang('dashboard.general.active')"}</span>`;
+                        } else {
+                            return ` <span class="badge bg-danger-opacity py-2 px-4">${"@lang('dashboard.general.inactive')"}</span>`;
+                        }
+                    }
                 },
                 {
                     class: "text-center",
                     data: function(data) {
                         tagInfo = (data.has_jobs) ?
-                        `<i data-bs-toggle="modal" data-bs-target="#DeleteModal_${data.id}" class="mdi mdi-archive-arrow-down-outline"></i>`:
-                            `<i data-bs-toggle="modal" data-bs-target="#unarchiveModal_${data.id}" class="mdi mdi-archive-arrow-down-outline"></i>` ;
+                            `<i data-bs-toggle="modal" data-bs-target="#DeleteModal_${data.id}" class="mdi mdi-archive-arrow-down-outline"></i>` :
+                            `<i data-bs-toggle="modal" data-bs-target="#unarchiveModal_${data.id}" class="mdi mdi-archive-arrow-down-outline"></i>`;
 
-                          return `<a
+                        return `<a
                                 href="${data.show_route}"
                                 class="azureIcon"
                                 data-bs-toggle="tooltip"
@@ -74,7 +89,7 @@
                               ></a>
                               <a
                               href="#"
-                              onclick=unArchiveItem('${data.id}','${data.restore_route}')
+                              onclick=unArchiveItem('${data.id}','${data.restore_route}','${'#departmentTable'}')
                               class="successIcon"
                               data-bs-toggle="tooltip"
                               data-bs-placement="top"
@@ -86,7 +101,7 @@
                             ></a>
                             <a
                               href="#"
-                              onclick=ForceDeleteItem('${data.id}','${data.forceDelete_route}')
+                              onclick=ForceDeleteItem('${data.id}','${data.forceDelete_route}','${'#departmentTable'}')
                               class="errorIcon"
                               data-bs-toggle="tooltip"
                               data-bs-placement="top"
@@ -96,32 +111,77 @@
                                 class="mdi mdi-trash-can-outline"
                               ></i
                             >
-                            </a>
+                            </a>`
 
-
-`
-
-        },
+                    },
                     orderable: false,
                     searchable: false
                 }
             ],
             pageLength: 10,
             lengthMenu: [
-                [1, 5, 10, 20, -1],
-                [1, 5, 10, 20, "الكل"],
+                [1, 5, 10, 15, 20],
+                [1, 5, 10, 15, 20]
             ],
             "language": {
                 "lengthMenu": "@lang('dashboard.general.show') _MENU_",
-                "emptyTable": "@lang('dashboard.general.no_data')",
-                "info": "@lang('dashboard.general.showing') _START_ @lang('dashboard.general.to') _END_ @lang('dashboard.general.from') _TOTAL_ @lang('dashboard.general.entries')",
+                "emptyTable": "@lang('dashboard.datatable.no_data')",
+                "info": "@lang('dashboard.datatable.showing') _START_ @lang('dashboard.datatable.to') _END_ @lang('dashboard.datatable.from') _TOTAL_ @lang('dashboard.datatable.entries')",
                 "infoEmpty": "",
                 "paginate": {
                     "next": '<i class="mdi mdi-chevron-left"></i>',
                     "previous": '<i class="mdi mdi-chevron-right"></i>'
                 },
+            },
+            "drawCallback": function(settings, json) {
+                // table sorting
+                var departmentTableSorting = document.getElementsByClassName('sorting_1');
+                for (var i = 0; i < departmentTableSorting.length; i++) {
+                    departmentTableSorting[i].innerText = departmentTableSorting[i].innerText
+                        .replace(departmentTableSorting[i].innerText, departmentTableSorting[i]
+                            .innerText.toArabicUni());
+                }
+                //pagination
+                var departmentTablePagination = document.getElementsByClassName('page-link');
+                for (var i = 1; i < departmentTablePagination.length - 1; i++) {
+                    departmentTablePagination[i].innerText = departmentTablePagination[i].innerText
+                        .replace(departmentTablePagination[i].innerText, departmentTablePagination[
+                            i].innerText.toArabicUni());
+                }
+                // info
+                var departmentTableInfo = document.getElementById('departmentTable_info').innerText;
+                document.getElementById('departmentTable_info').innerText = departmentTableInfo
+                    .replace(departmentTableInfo, departmentTableInfo.toArabicUni());
             }
         });
+
+        $('#status').on('select2:select', function(e) {
+            table.draw();
+        });
+
+        $('#parent_id').on('select2:select', function(e) {
+            table.draw();
+        });
+
+        $("#departmentName").keyup(function() {
+            table.draw();
+        });
+
+        $('#search-form').on('reset', function(e) {
+            e.preventDefault();
+            $('#status').val(null).trigger('change');
+            $('#parent_id').val(null).trigger('change');
+            $('#departmentName').val(null);
+            $('#from-hijri-picker-custom').val("").trigger('change');
+            $('#to-hijri-picker-custom').val("").trigger('change');
+            table.draw();
+        });
+
+        $("#search-form").submit(function(e) {
+            e.preventDefault();
+            table.draw();
+        });
+
         $('.select2').select2({
             minimumResultsForSearch: Infinity
         });

@@ -21,9 +21,10 @@
                 },
 
                 columns: [{
-                        data: function(data, type, full, meta) {
-                            return meta.row + 1;
-                        }
+                  data: function (data, type, full, meta) {
+                    return parseInt(meta.row) + parseInt(data.start_from) + 1;
+                  },
+                  name: 'id'
                     },
                     {
                         data: "user.fullname",
@@ -84,8 +85,8 @@
                 ],
                 pageLength: 10,
                 lengthMenu: [
-                    [1, 5, 10, 20, -1],
-                    [1, 5, 10, 20, "@lang('dashboard.general.all')"],
+                    [1, 5, 10, 15, 20],
+                    [1, 5, 10, 15, 20]
                 ],
                   "language": {
                     "lengthMenu": "@lang('dashboard.general.show') _MENU_",
@@ -96,7 +97,26 @@
                         "next": '<i class="mdi mdi-chevron-left"></i>',
                         "previous": '<i class="mdi mdi-chevron-right"></i>'
                     },
+                },
+              "drawCallback": function (settings, json) {
+                // admin history table sorting
+                var groupHistoryTableSorting = document.getElementsByClassName('sorting_1');
+                for (var i = 0; i < groupHistoryTableSorting.length; i++) {
+                  groupHistoryTableSorting[i].innerText = groupHistoryTableSorting[i].innerText.replace(groupHistoryTableSorting[i].innerText, groupHistoryTableSorting[i].innerText.toArabicUni());
                 }
+
+                //pagination
+                var groupHistoryTablePagination = document.getElementsByClassName('page-link');
+                for (var i = 1; i < groupHistoryTablePagination.length - 1; i++) {
+                  groupHistoryTablePagination[i].innerText = groupHistoryTablePagination[i].innerText.replace(groupHistoryTablePagination[i].innerText, groupHistoryTablePagination[i].innerText.toArabicUni());
+                }
+
+                // admin history table show info
+                var groupHistoryTableInfo = document.getElementById('groupTable_info').innerText;
+                var groupActivityHistoryTableInfo = document.getElementById('activityTable_info').innerText;
+                document.getElementById('groupTable_info').innerText = groupHistoryTableInfo.replace(groupHistoryTableInfo, groupHistoryTableInfo.toArabicUni());
+                document.getElementById('activityTable_info').innerText = groupActivityHistoryTableInfo.replace(groupActivityHistoryTableInfo, groupActivityHistoryTableInfo.toArabicUni());
+              }
             });
 
             $('.select2').select2({

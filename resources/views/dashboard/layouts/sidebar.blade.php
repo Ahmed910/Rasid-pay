@@ -26,7 +26,8 @@
                             class="mdi mdi-home-variant-outline"></i><span
                             class="side-menu__label">{{trans('dashboard.home.home')}}</span></a>
                 </li>
-                <li class="slide {{ request()->routeIs('dashboard.department.*') ? 'is-expanded' : '' }} ">
+
+                <li class="slide {{ request()->routeIs('dashboard.department.*') && !request()->routeIs('dashboard.*.archive') ? 'is-expanded' : '' }} ">
                     <a class="side-menu__item" data-bs-toggle="slide" href="javascript:void(0)"><i
                             class="mdi mdi-view-dashboard-outline"></i><span
                             class="side-menu__label">{{trans('dashboard.department.departments')}}</span><i
@@ -50,7 +51,8 @@
                     </ul>
                 </li>
 
-                <li class="slide {{ request()->routeIs('dashboard.rasid_job.*') ? 'is-expanded' : '' }}">
+
+                <li class="slide {{ request()->routeIs('dashboard.rasid_job.*') && !request()->routeIs('dashboard.*.archive') ? 'is-expanded' : '' }}">
                     <a class="side-menu__item" data-bs-toggle="slide" href="javascript:void(0)"><i
                             class="mdi mdi-briefcase-variant-outline"></i><span class="side-menu__label">{{
                             trans('dashboard.rasid_job.rasid_jobs') }}</span><i

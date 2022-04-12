@@ -20,8 +20,9 @@
 
         columns: [{
           data: function (data, type, full, meta) {
-            return meta.row + 1;
-          }
+            return parseInt(meta.row) + parseInt(data.start_from) + 1;
+          },
+          name: 'id'
         },
           {
             data: "user.fullname"
@@ -31,7 +32,7 @@
               if (data.user.department !== null) {
                 return data.user.department.name;
               } else {
-                return "@lang('dashboard.department.without_parent')";
+                return "@lang('dashboard.department.without')";
               }
             }
           },
@@ -77,8 +78,8 @@
         ],
         pageLength: 10,
         lengthMenu: [
-          [1, 5, 10, 20, -1],
-          [1, 5, 10, 20, "@lang('dashboard.general.all')"],
+            [1, 5, 10, 15, 20],
+            [1, 5, 10, 15, 20]
         ],
         "language": {
           "lengthMenu": "@lang('dashboard.general.show') _MENU_",

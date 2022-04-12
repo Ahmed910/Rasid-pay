@@ -10,7 +10,7 @@
 @error('email','token')
     <div class="alert alert-danger">{{ $message }}</div>
 @enderror
-<form method="post" action="{!! route('dashboard.passwords.reset.new_password') !!}" class="needs-validation" novalidate>
+<form method="post" id="email-form" action="{!! route('dashboard.passwords.reset.new_password') !!}" class="needs-validation" novalidate>
     @csrf
     <div class="form-group">
         <label>كلمة المرور الجديدة</label>
@@ -19,6 +19,7 @@
                 @error('password')
                     <div class="invalid-feedback">{{ $message }}</div>
                 @enderror
+                <span class="text-danger" id="password_error"></span>
             <div class="input-group-text border-start-0">
                 <a href=""><i class="mdi mdi-eye-off-outline d-flex"></i></a>
             </div>
@@ -39,9 +40,11 @@
         </div>
     </div>
     <div class="col-12 mt-5 text-center">
-        {!! Form::submit('تأكيد',['class' => "btn btn-primary"]) !!}
+      <a onclick="submitForm('#email-form')" class="btn btn-primary">{{ trans('dashboard.general.confirm') }}</a>
+
+        {{-- {!! Form::submit('تأكيد',['class' => "btn btn-primary"]) !!} --}}
         <a href="{!! route('dashboard.login') !!}" class="btn btn-outline-primary">
-            عودة
+          {{ trans('dashboard.general.back') }}
         </a>
     </div>
 

@@ -9,7 +9,7 @@
                     <p>{{ trans('dashboard.general.want_saving') }}</p>
                 </div>
                 <div class="modal-footer d-flex justify-content-center mt-5 p-0">
-                    <button type="button" class="btn btn-primary mx-3" onClick='submitDetailsForm()'>{{ trans('dashboard.general.yes') }}</button>
+                    <button type="button" id="submit-form" class="btn btn-primary mx-3" onclick='submitDetailsForm()'>{{ trans('dashboard.general.yes') }}</button>
                     <button type="button" class="btn btn-outline-primary" data-bs-dismiss="modal">
                          {{ trans('dashboard.general.no') }}
                     </button>
@@ -21,12 +21,10 @@
 
 
   <!-----------SCRIPT--------->
-    <script language="javascript" type="text/javascript">
+    <script>
         function submitDetailsForm() {
+            $('#submit-form').prop('disabled', true);
            $("#formId").submit();
         }
     </script>
   <!-----------END SCRIPT--------->
-
-
-

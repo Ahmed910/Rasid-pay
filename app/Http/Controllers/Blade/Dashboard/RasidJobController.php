@@ -11,7 +11,7 @@ use App\Http\Resources\Blade\Dashboard\RasidJob\RasidJobCollection;
 use App\Models\Department\Department;
 use App\Models\RasidJob\RasidJob;
 use Illuminate\Http\Request;
-use App\Exports\JobsExport ;
+use App\Exports\JobsExport;
 use Maatwebsite\Excel\Facades\Excel;
 use PDF;
 
@@ -62,8 +62,10 @@ class RasidJobController extends Controller
      */
     public function create()
     {
+        $previousUrl = url()->previous();
+        (strpos($previousUrl, 'rasid_job')) ? session(['perviousPage' => 'rasid_job']) : session(['perviousPage' => 'home']);
 
-        $departments = Department::with('parent.translations')->ListsTranslations('name')->where('is_active', 1)->pluck('name', 'id');
+        $departments = Department::with('parent.translations')->ListsTranslations('name')->where('is_active', 1)->pluck('name', 'id')->toArray();
         $locales = config('translatable.locales');
         return view('dashboard.rasid_job.create', compact('departments', 'locales'));
     }
@@ -109,10 +111,7 @@ class RasidJobController extends Controller
 
         if ($request->ajax()) {
             $activityCount = $activitiesQuery->count();
-            $activities = $activitiesQuery->skip($request->start)
-                ->take(($request->length == -1) ? $activityCount : $request->length)
-                ->get();
-
+            $activities = $activitiesQuery->skip($request->start)->take($request->length == -1 ? $activityCount : $request->length)->get();
             return ActivityLogCollection::make($activities)
                 ->additional(['total_count' => $activityCount]);
         }
@@ -128,7 +127,10 @@ class RasidJobController extends Controller
      */
     public function edit($id)
     {
-        $rasidJob = RasidJob::findorfail($id);
+        $previousUrl = url()->previous();
+        (strpos($previousUrl, 'rasid_job')) ? session(['perviousPage' => 'rasid_job']) : session(['perviousPage' => 'home']);
+
+        $rasidJob = RasidJob::withTrashed()->findOrFail($id);
         $departments = Department::with('parent.translations')->ListsTranslations('name')->where('parent_id', null)->pluck('name', 'id')->toArray();
         $locales = config('translatable.locales');
         return view('dashboard.rasid_job.edit', compact('departments', 'rasidJob', 'locales'));
@@ -174,7 +176,7 @@ class RasidJobController extends Controller
         $rasid_jobsQuery = RasidJob::onlyTrashed()
             ->without('employee')
             ->search($request)
-            ->CustomDateFromTo($request)
+            ->searchDeletedAtFromTo($request)
             ->ListsTranslations('name')
             ->sortBy($request)
             ->addSelect('rasid_jobs.department_id', 'rasid_jobs.deleted_at', 'rasid_jobs.is_active');
@@ -197,23 +199,31 @@ class RasidJobController extends Controller
 
             ->select("id")
             ->ListsTranslations("name")
-            ->pluck('name', 'id');
+            ->pluck('name', 'id')->toArray();
 
         return view('dashboard.archive.rasid_job.index', compact('departments'));
     }
     public function restore(ReasonRequest $request, $id)
     {
-        $RasidJob = RasidJob::onlyTrashed()->findOrFail($id);
-
-        $RasidJob->restore();
-        return redirect()->back()->withSuccess(__('dashboard.general.success_restore'));
+        if ($request->ajax()) {
+            $RasidJob = RasidJob::onlyTrashed()->findOrFail($id);
+            $RasidJob->restore();
+            return response()->json([
+                'message' =>__('dashboard.general.success_restore')
+            ] );
+        }
     }
 
     public function forceDelete(ReasonRequest $request, $id)
     {
-        $RasidJob = RasidJob::onlyTrashed()->findOrFail($id);
-        $RasidJob->forceDelete();
-        return redirect()->back()->withSuccess(__('dashboard.general.success_delete'));
+        if ($request->ajax()) {
+
+            $RasidJob = RasidJob::onlyTrashed()->findOrFail($id);
+            $RasidJob->forceDelete();
+            return response()->json([
+                'message' =>__('dashboard.general.success_delete')
+            ] );
+        }
     }
     public function destroy($RasidJob, \App\Http\Requests\Dashboard\ReasonRequest $request)
     {
@@ -241,11 +251,11 @@ class RasidJobController extends Controller
     public function exportPDF(Request $request)
     {
         $jobs = RasidJob::without('employee')->search($request)
-        ->CustomDateFromTo($request)
-        ->ListsTranslations('name')
-        ->sortBy($request)
-        ->addSelect('rasid_jobs.created_at', 'rasid_jobs.is_active', 'rasid_jobs.department_id', 'rasid_jobs.is_vacant')
-        ->get();
+            ->CustomDateFromTo($request)
+            ->ListsTranslations('name')
+            ->sortBy($request)
+            ->addSelect('rasid_jobs.created_at', 'rasid_jobs.is_active', 'rasid_jobs.department_id', 'rasid_jobs.is_vacant')
+            ->get();
 
 
         $data = [

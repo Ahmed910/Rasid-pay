@@ -31,7 +31,7 @@ class Department extends Model implements TranslatableContract, HasAssetsInterfa
     public $translatedAttributes = ['name', 'description'];
     public $assets = ["image"];
     public $with = ["images", "addedBy"];
-    private $sortableColumns = ["name", "parent", "created_at", "status", 'is_active'];
+    private $sortableColumns = ["name", "parent", "created_at", "status", 'is_active', 'deleted_at'];
     private static $result = [];
 
     #endregion properties
@@ -66,12 +66,10 @@ class Department extends Model implements TranslatableContract, HasAssetsInterfa
 
         if (isset($request->parent_id)) {
             if ($request->parent_id == 0) $request->parent_id = null;
-            $query->where("parent_id", $request->parent_id);
+            if ($request->parent_id != -1)  $query->where("parent_id", $request->parent_id);
         }
 
-        if (isset($request->is_active)) {
-            if (!in_array($request->is_active, [1, 0])) return;
-
+        if (isset($request->is_active) && in_array($request->is_active, [1, 0])) {
             $query->where('is_active', $request->is_active);
         }
     }

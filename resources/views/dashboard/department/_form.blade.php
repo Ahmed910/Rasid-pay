@@ -11,13 +11,14 @@
 
         <div class="col-12 col-md-{{ isset($department) ? 4 : 6 }} mb-5">
             {!! Form::label('mainDepartment', trans('dashboard.department.main_department')) !!}
-            {!! Form::select('parent_id', $departments, null, ['class' => 'form-control select2-show-search' . ($errors->has('parent_id') ? ' is-invalid' : null), 'placeholder' => trans('dashboard.department.select_main_department'), 'id' => 'parent_id']) !!}
+            {!! Form::select('parent_id', $appendArray + $departments, null, ['class' => 'form-control select2-show-search' . ($errors->has('parent_id') ? ' is-invalid' : null), 'data-placeholder' => trans('dashboard.department.select_main_department'), 'id' => 'parent_id']) !!}
             <span class="text-danger" id="parent_idError" hidden></span>
         </div>
 
         @if (isset($department))
             <div class="col-12 col-md-4 mb-5">
                 {!! Form::label('status', trans('dashboard.general.status')) !!}
+                            <span class="requiredFields">*</span>
                 {!! Form::select('is_active', trans('dashboard.department.active_cases'), null, ['class' => 'form-control select2', 'id' => 'status','placeholder' => trans('dashboard.general.select_status')]) !!}
 
                 <span class="text-danger" id="statusError" hidden></span>
@@ -45,7 +46,7 @@
         <div class="col-12">
             {!! Form::label('departmentDes', trans('dashboard.general.description'), ['class' => 'mb-3']) !!}
             @foreach ($locales as $locale)
-                {!! Form::textarea("{$locale}.description", isset($department) ? $department->description : null, ['class' => 'form-control input-regex stop-copy-paste', 'id' => "$locale.description", 'rows' => '5', 'placeholder' => trans('dashboard.general.enter_description'), 'maxlength' => '300', 'onpaste' => 'return false;', 'oncopy' => 'return false;', 'ondrop' => 'return false;']) !!}
+                {!! Form::textarea("{$locale}[description]", isset($department) ? $department->description : null, ['class' => 'form-control input-regex stop-copy-paste', 'id' => "$locale.description", 'rows' => '5', 'placeholder' => trans('dashboard.general.enter_description'), 'maxlength' => '300', 'onpaste' => 'return false;', 'oncopy' => 'return false;', 'ondrop' => 'return false;']) !!}
 
                 <span class="text-danger" id="{{ $locale }}.descriptionError" hidden></span>
             @endforeach
@@ -62,7 +63,6 @@
   <div class="col-12 mb-5 text-end">
       {!! Form::button('<i class="mdi mdi-content-save-outline"></i>' . $btn_submit, ['type' => 'submit', 'class' => 'btn btn-primary', 'id' => 'saveButton']) !!}
       {!! Form::button('<i class="mdi mdi-arrow-left"></i>' . trans('dashboard.general.back'), ['type' => 'button', 'class' => 'btn btn-outline-primary', 'id' => 'showBack']) !!}
-
   </div>
 </div>
 
@@ -127,7 +127,7 @@
                           $('input[name="' + inputName + '"]').addClass('is-invalid');
                           $('select[name="' + inputName + '"]').addClass('is-invalid');
                           $('span[id="' + inputError + '"]').attr('hidden', false);
-                          $('span[id="' + inputError + '"]').text(message);
+                          $('span[id="' + inputError + '"]').html(`<small>${message}</small>`);
                       });
                   }
               });
@@ -174,16 +174,11 @@
           // );
 
           $("#showBack").click(function() {
-              // $('#formId input').each(function() {
-              //     if ($(this).attr('name') !== '_token' && ($(this).val() != '' || $(this).attr(
-              //             'checked')))
-              //         validate = true;
-              // });
               if (validate) {
                   $('#backModal').modal('show');
                   return false;
               } else {
-                  history.back()
+                window.location.href = "{{ route('dashboard.backButton') }}";
               }
           });
 
@@ -216,4 +211,3 @@
       })();
 </script>
 @endsection
-

@@ -22,19 +22,20 @@
 
             </div>
             <div class="col-12 col-md-3">
-                <label for="userID">{{ trans('dashboard.admin.number') }}</label>
-                <input type="number" class="form-control" id="userID" placeholder="{{ trans('dashboard.admin.number') }}"
+                <label for="userId">{{ trans('dashboard.admin.number') }}</label>
+                <input type="number" class="form-control" id="userId" placeholder="{{ trans('dashboard.admin.number') }}"
                     name="login_id" value="{{ old('login_id') ?? request('login_id') }}" />
 
             </div>
             <div class="col-12 col-md-3">
+
                 <label for="mainDepartment">{{ trans('dashboard.department.department') }} </label>
-                {!! Form::select('department_id', $departments, null, ['class' => 'form-control select2-show-search', 'id' => 'mainDepartment', 'placeholder' => trans('dashboard.department.select_department')]) !!}
+                {!! Form::select('department_id', ['' => '', -1 => trans('dashboard.general.all_cases')] + $departments, null, ['class' => 'form-control select2-show-search', 'id' => 'mainDepartment', 'data-placeholder' => trans('dashboard.department.select_department')]) !!}
 
             </div>
             <div class="col-12 col-md-3">
                 <label for="status">{{ trans('dashboard.general.status') }}</label>
-                {!! Form::select('ban_status', trans('dashboard.admin.active_cases'), request('ban_status'), ['class' => 'form-control select2', 'id' => 'status', 'placeholder' => trans('dashboard.general.select_status')]) !!}
+                {!! Form::select('ban_status', ['' => '', -1 => trans('dashboard.general.all_cases')] + trans('dashboard.admin.active_cases'), request('ban_status'), ['class' => 'form-control select2', 'id' => 'status', 'data-placeholder' => trans('dashboard.general.select_status')]) !!}
             </div>
         </div>
 
@@ -65,26 +66,28 @@
             </div>
 
             <div class="col-12 col-md-3">
-                <label for="created_from">
+                <label for="from-hijri-picker-custom">
                     {{ trans('dashboard.general.from_date') }}</label>
                 <div class="input-group">
                     <input id="from-hijri-picker-custom" type="text" readonly
                         placeholder="{{ trans('dashboard.general.day_month_year') }}" class="form-control"
                         name="created_from" value="{{ old('created_from') ?? request('created_from') }}" />
                     <div class="input-group-text border-start-0">
-                        <i class="fa fa-calendar tx-16 lh-0 op-6"></i>
+                        <label for="from-hijri-picker-custom">
+                            <i class="fa fa-calendar tx-16 lh-0 op-6"></i></label>
                     </div>
                 </div>
             </div>
             <div class="col-12 col-md-3">
-                <label for="created_to">
+                <label for="to-hijri-picker-custom">
                     {{ trans('dashboard.general.to_date') }}</label>
                 <div class="input-group">
                     <input id="to-hijri-picker-custom" type="text" readonly
                         placeholder="{{ trans('dashboard.general.day_month_year') }}" class="form-control"
                         name="created_to" value="{{ old('created_to') ?? request('created_to') }}" />
                     <div class="input-group-text border-start-0">
-                        <i class="fa fa-calendar tx-16 lh-0 op-6"></i>
+                        <label for="to-hijri-picker-custom">
+                            <i class="fa fa-calendar tx-16 lh-0 op-6"></i></label>
                     </div>
                 </div>
             </div>
@@ -123,7 +126,7 @@
     <div class="row row-sm">
         <div class="col-lg-12">
             <div class="table-responsive p-1">
-                <table id="historyTable" class="table table-bordered shadow-sm bg-body text-nowrap key-buttons">
+                <table id="adminTable" class="table table-bordered shadow-sm bg-body text-nowrap key-buttons">
                     <thead>
                         <tr>
                             <th class="border-bottom-0">#</th>

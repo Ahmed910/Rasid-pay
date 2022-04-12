@@ -49,6 +49,7 @@ return [
         'invalid_code'=>'code is wrong ',
         'active' => 'Active',
         'inactive' => 'Inactive',
+        'un_active_account'=>'Account is unactive',
         'activited' => 'Activited',
         'unactivited' => 'Unactivited',
         'dashboard' => 'Rasid Jack Dashboard',
@@ -86,6 +87,7 @@ return [
         'export' => 'Export',
         'report' => 'Print Report',
         'details' => 'Details',
+        'email' => 'Email',
         'no_data' => 'No Data',
         'reason' =>'Reason',
         'done_by' => 'Done By',
@@ -107,6 +109,8 @@ return [
         'logout'=>'Logout',
         'accept'=>'Accept',
         'cancel'=>'Cancel',
+        'confirm' => 'Confirm',
+        'send' => 'Send'
     ],
     'datatable' => [
         'no_data' => 'No D ata ',
@@ -212,6 +216,7 @@ return [
         "department_has_relationship_cannot_delete" => "This department has sub department ,so you cannot delete it",
         'permissions' => $permissions + ['get_parents' => 'Show main departments'],
         'without_parent' => 'Without Main Department',
+        'without' =>'Without Department',
         'department_archive' => 'Department Archive',
         'sub_progs' => [
             'index' => 'Department Records',
