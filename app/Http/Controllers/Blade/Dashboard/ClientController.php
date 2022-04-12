@@ -34,6 +34,11 @@ class ClientController extends Controller
         return view('dashboard.client.create');
     }
 
+    public function accountOrders()
+    {
+        return view('dashboard.client.account_orders');
+    }
+
     /**
      * Store a newly created resource in storage.
      *

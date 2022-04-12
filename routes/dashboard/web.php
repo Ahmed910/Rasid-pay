@@ -39,7 +39,10 @@ Route::group(
                 Route::get('export', 'export')->name('export');
                 Route::get('exportPDF', 'exportPDF')->name('exportPDF');
             });
-
+Route::controller('ClientController')->name('client.')->prefix('client')->group(function () {
+                Route::get('account_orders', 'accountOrders')->name('account_orders');
+                
+            });
             Route::controller('DepartmentController')->name('department.')->prefix('department')->group(function () {
                 Route::get('archive', 'archive')->name('archive');
                 Route::post('restore/{id}', 'restore')->name('restore');
