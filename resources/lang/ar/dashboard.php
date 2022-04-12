@@ -442,7 +442,8 @@ return [
         'sub_progs' => [
             'index' => 'سجل العملاء',
             'archive' => 'أرشيف العملاء',
-            'create' => 'اضافة عميل',
+            'create' => 'تسجيل عميل',
+            'account_order' => 'طلبات فتح حساب',
         ],
         'permissions' => array_except($permissions, ['archive', 'restore', 'force_delete']) + ['create' => 'عرض العملاء']
     ],
