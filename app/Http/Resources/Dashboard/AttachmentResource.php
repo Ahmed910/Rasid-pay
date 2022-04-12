@@ -2,7 +2,7 @@
 
 namespace App\Http\Resources\Dashboard;
 
-use App\Http\Resources\Dashboard\AttachmentFileResource;
+use App\Http\Resources\AttachmentFileResource;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class AttachmentResource extends JsonResource
