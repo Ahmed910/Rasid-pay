@@ -23,12 +23,14 @@
             <ul class="side-menu">
                 <li class="slide">
                     <a class="side-menu__item" data-bs-toggle="slide" href="{{ route('dashboard.home.index') }}"><i
-                            class="mdi mdi-home-variant-outline"></i><span class="side-menu__label">{{trans('dashboard.home.home')}}</span></a>
+                            class="mdi mdi-home-variant-outline"></i><span
+                            class="side-menu__label">{{trans('dashboard.home.home')}}</span></a>
                 </li>
 
                 <li class="slide {{ request()->routeIs('dashboard.department.*') && !request()->routeIs('dashboard.*.archive') ? 'is-expanded' : '' }} ">
                     <a class="side-menu__item" data-bs-toggle="slide" href="javascript:void(0)"><i
-                            class="mdi mdi-view-dashboard-outline"></i><span class="side-menu__label">{{trans('dashboard.department.departments')}}</span><i
+                            class="mdi mdi-view-dashboard-outline"></i><span
+                            class="side-menu__label">{{trans('dashboard.department.departments')}}</span><i
                             class="angle fe fe-chevron-right"></i></a>
                     <ul class="slide-menu">
                         <li class="side-menu-label1">
@@ -38,12 +40,13 @@
                             <a href="{{ route('dashboard.department.index') }}"
                                 class="slide-item px-6 {{ request()->routeIs('dashboard.department.index') ? 'active' : '' }}"><i
                                     class="mdi mdi-file-document-multiple-outline"></i>
-                                    {{ trans('dashboard.department.sub_progs.index') }}</a>
+                                {{ trans('dashboard.department.sub_progs.index') }}</a>
                         </li>
                         <li>
                             <a href="{{ route('dashboard.department.create') }}"
                                 class="slide-item px-6 {{ request()->routeIs('dashboard.department.create') ? 'active' : '' }}"><i
-                                    class="mdi mdi-plus-circle-outline"></i> {!! trans('dashboard.department.sub_progs.create') !!}</a>
+                                    class="mdi mdi-plus-circle-outline"></i> {!!
+                                trans('dashboard.department.sub_progs.create') !!}</a>
                         </li>
                     </ul>
                 </li>
@@ -51,8 +54,9 @@
 
                 <li class="slide {{ request()->routeIs('dashboard.rasid_job.*') && !request()->routeIs('dashboard.*.archive') ? 'is-expanded' : '' }}">
                     <a class="side-menu__item" data-bs-toggle="slide" href="javascript:void(0)"><i
-                            class="mdi mdi-briefcase-variant-outline"></i><span
-                            class="side-menu__label">{{ trans('dashboard.rasid_job.rasid_jobs') }}</span><i class="angle fe fe-chevron-right"></i></a>
+                            class="mdi mdi-briefcase-variant-outline"></i><span class="side-menu__label">{{
+                            trans('dashboard.rasid_job.rasid_jobs') }}</span><i
+                            class="angle fe fe-chevron-right"></i></a>
                     <ul class="slide-menu">
                         <li class="side-menu-label1">
                             <a href="javascript:void(0)">{{ trans('dashboard.rasid_job.rasid_jobs') }}</a>
@@ -61,20 +65,21 @@
                             <a href="{{ route('dashboard.rasid_job.index') }}"
                                 class="slide-item px-6 {{ request()->routeIs('dashboard.rasid_job.index') ? 'active' : '' }}"><i
                                     class="mdi mdi-file-document-multiple-outline"></i>
-                                    {{ trans('dashboard.rasid_job.sub_progs.index') }}</a>
+                                {{ trans('dashboard.rasid_job.sub_progs.index') }}</a>
                         </li>
                         <li>
                             <a href="{{ route('dashboard.rasid_job.create') }}"
                                 class="slide-item px-6 {{ request()->routeIs('dashboard.rasid_job.create') ? 'active' : '' }}"><i
-                                    class="mdi mdi-plus-circle-outline"></i> {!! trans('dashboard.rasid_job.sub_progs.create') !!}</a>
+                                    class="mdi mdi-plus-circle-outline"></i> {!!
+                                trans('dashboard.rasid_job.sub_progs.create') !!}</a>
                         </li>
                     </ul>
                 </li>
 
                 <li class="slide {{ request()->routeIs('dashboard.employee.*') ? 'is-expanded' : '' }}">
                     <a class="side-menu__item" data-bs-toggle="slide" href="javascript:void(0)"><i
-                            class="mdi mdi-account-group-outline"></i><span
-                            class="side-menu__label">{!! trans('dashboard.employee.employees') !!}</span><i
+                            class="mdi mdi-account-group-outline"></i><span class="side-menu__label">{!!
+                            trans('dashboard.employee.employees') !!}</span><i
                             class="angle fe fe-chevron-right"></i></a>
                     <ul class="slide-menu">
                         <li class="side-menu-label1">
@@ -89,16 +94,16 @@
                         <li>
                             <a href="{{ route('dashboard.group.create') }}"
                                 class="slide-item px-6 {{ request()->routeIs('dashboard.employee.create') ? 'active' : '' }}"><i
-                                    class="mdi mdi-plus-circle-outline"></i> {!! trans('dashboard.employee.sub_progs.create') !!}</a>
+                                    class="mdi mdi-plus-circle-outline"></i> {!!
+                                trans('dashboard.employee.sub_progs.create') !!}</a>
                         </li>
                     </ul>
                 </li>
 
                 <li class="slide {{ request()->routeIs('dashboard.group.*') ? 'is-expanded' : '' }}">
                     <a class="side-menu__item" data-bs-toggle="slide" href="javascript:void(0)"><i
-                            class="mdi mdi-shield-key-outline"></i><span
-                            class="side-menu__label">{!! trans('dashboard.group.groups') !!}</span><i
-                            class="angle fe fe-chevron-right"></i></a>
+                            class="mdi mdi-shield-key-outline"></i><span class="side-menu__label">{!!
+                            trans('dashboard.group.groups') !!}</span><i class="angle fe fe-chevron-right"></i></a>
                     <ul class="slide-menu">
                         <li class="side-menu-label1">
                             <a href="javascript:void(0)">{!! trans('dashboard.group.groups') !!}</a>
@@ -112,16 +117,16 @@
                         <li>
                             <a href="{{ route('dashboard.group.create') }}"
                                 class="slide-item px-6 {{ request()->routeIs('dashboard.group.create') ? 'active' : '' }}"><i
-                                    class="mdi mdi-plus-circle-outline"></i> {!! trans('dashboard.group.sub_progs.create') !!}</a>
+                                    class="mdi mdi-plus-circle-outline"></i> {!!
+                                trans('dashboard.group.sub_progs.create') !!}</a>
                         </li>
                     </ul>
                 </li>
 
                 <li class="slide {{ request()->routeIs('dashboard.admin.*') ? 'is-expanded' : '' }}">
                     <a class="side-menu__item" data-bs-toggle="slide" href="javascript:void(0)"><i
-                            class="mdi mdi-account-multiple-outline"></i><span
-                            class="side-menu__label">{!! trans('dashboard.admin.admins') !!}</span><i
-                            class="angle fe fe-chevron-right"></i></a>
+                            class="mdi mdi-account-multiple-outline"></i><span class="side-menu__label">{!!
+                            trans('dashboard.admin.admins') !!}</span><i class="angle fe fe-chevron-right"></i></a>
                     <ul class="slide-menu">
                         <li class="side-menu-label1">
                             <a href="javascript:void(0)">{!! trans('dashboard.admin.admins') !!}</a>
@@ -135,15 +140,16 @@
                         <li>
                             <a href="{{ route('dashboard.admin.create') }}"
                                 class="slide-item px-6 {{ request()->routeIs('dashboard.admin.create') ? 'active' : '' }}"><i
-                                    class="mdi mdi-plus-circle-outline"></i> {!! trans('dashboard.admin.sub_progs.create') !!}</a>
+                                    class="mdi mdi-plus-circle-outline"></i> {!!
+                                trans('dashboard.admin.sub_progs.create') !!}</a>
                         </li>
                     </ul>
                 </li>
+
                 <li class="slide {{ request()->routeIs('dashboard.client.*') ? 'is-expanded' : '' }}">
                     <a class="side-menu__item" data-bs-toggle="slide" href="javascript:void(0)"><i
-                            class="mdi mdi-account-heart-outline"></i><span
-                            class="side-menu__label">{!! trans('dashboard.client.clients') !!}</span><i
-                            class="angle fe fe-chevron-right"></i></a>
+                            class="mdi mdi-account-heart-outline"></i><span class="side-menu__label">{!!
+                            trans('dashboard.client.clients') !!}</span><i class="angle fe fe-chevron-right"></i></a>
                     <ul class="slide-menu">
                         <li class="side-menu-label1">
                             <a href="javascript:void(0)">{!! trans('dashboard.client.clients') !!}</a>
@@ -152,19 +158,26 @@
                             <a href="{!! route('dashboard.client.index') !!}"
                                 class="slide-item px-6 {{ request()->routeIs('dashboard.client.index') ? 'active' : '' }}"><i
                                     class="mdi mdi-file-document-multiple-outline"></i>
-                                {!! trans('dashboard.employee.sub_progs.index') !!}</a>
+                                {!! trans('dashboard.client.sub_progs.index') !!}</a>
+                        </li>
+                        <li>
+                            <a href="{!! route('dashboard.client.account_orders') !!}"
+                                class="slide-item px-6 {{ request()->routeIs('dashboard.client.account_orders') ? 'active' : '' }}"><i
+                                    class="mdi mdi-badge-account-horizontal-outline"></i> {!!
+                                trans('dashboard.client.sub_progs.account_order') !!}</a>
                         </li>
                         <li>
                             <a href="{!! route('dashboard.client.create') !!}"
-                                class="slide-item px-6 {{ request()->routeIs('dashboard.client.index') ? 'active' : '' }}"><i
-                                    class="mdi mdi-plus-circle-outline"></i> {!! trans('dashboard.admin.sub_progs.create') !!}</a>
+                                class="slide-item px-6 {{ request()->routeIs('dashboard.client.create') ? 'active' : '' }}"><i
+                                    class="mdi mdi-plus-circle-outline"></i> {!!
+                                trans('dashboard.client.sub_progs.create') !!}</a>
                         </li>
                     </ul>
                 </li>
                 <li class="slide {{ request()->routeIs('dashboard.*.archive') ? 'is-expanded' : '' }}">
                     <a class="side-menu__item" data-bs-toggle="slide" href="javascript:void(0)"><i
-                            class="mdi mdi-archive-arrow-down-outline"></i><span
-                            class="side-menu__label">{{ trans('dashboard.general.the_archive') }}</span><i
+                            class="mdi mdi-archive-arrow-down-outline"></i><span class="side-menu__label">{{
+                            trans('dashboard.general.the_archive') }}</span><i
                             class="angle fe fe-chevron-right"></i></a>
                     <ul class="slide-menu">
                         <li class="side-menu-label1">
@@ -186,8 +199,8 @@
                 </li>
                 <li class="slide {{ request()->routeIs('dashboard.activity_log.*') ? 'is-expanded' : '' }}">
                     <a class="side-menu__item" data-bs-toggle="slide" href="javascript:void(0)"><i
-                            class="mdi mdi-chart-line"></i><span
-                            class="side-menu__label">{{ trans('dashboard.activity_log.activity_logs') }}</span><i
+                            class="mdi mdi-chart-line"></i><span class="side-menu__label">{{
+                            trans('dashboard.activity_log.activity_logs') }}</span><i
                             class="angle fe fe-chevron-right"></i></a>
                     <ul class="slide-menu">
                         <li class="side-menu-label1">
@@ -203,11 +216,13 @@
                 </li>
                 <li class="slide">
                     <a class="side-menu__item" data-bs-toggle="slide" href="../blacklist.html"><i
-                            class="mdi mdi-account-cancel-outline"></i><span class="side-menu__label">{{trans('dashboard.general.black_menu')}}</span></a>
+                            class="mdi mdi-account-cancel-outline"></i><span
+                            class="side-menu__label">{{trans('dashboard.general.black_menu')}}</span></a>
                 </li>
                 <li class="slide">
                     <a class="side-menu__item" data-bs-toggle="slide" href="../settings.html"><i
-                            class="mdi mdi-cog-outline"></i><span class="side-menu__label">{{trans('dashboard.general.settings')}}</span></a>
+                            class="mdi mdi-cog-outline"></i><span
+                            class="side-menu__label">{{trans('dashboard.general.settings')}}</span></a>
                 </li>
             </ul>
             <div class="slide-right" id="slide-right">
@@ -221,7 +236,8 @@
             <div class="container">
                 <div class="row">
                     <div class="col d-flex">
-                        {!! Form::open(['route' => 'dashboard.session.logout', 'method' => 'POST', 'id' => 'logout_form']) !!}
+                        {!! Form::open(['route' => 'dashboard.session.logout', 'method' => 'POST', 'id' =>
+                        'logout_form']) !!}
                         <a class="nav-link icon" onclick="document.getElementById('logout_form').submit();"
                             style="cursor: pointer;">
                             <i class="mdi mdi-logout"></i>
