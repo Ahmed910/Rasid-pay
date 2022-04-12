@@ -130,7 +130,6 @@
                 },
                 error: function(data) {
                     $.each(data.responseJSON.errors, function(name, message) {
-                        console.log(name);
                         let inputName = name;
                         let inputError = name + 'Error';
 

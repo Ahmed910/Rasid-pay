@@ -1,4 +1,4 @@
-رمز التحقق<?php
+<?php
 
 $attributes = [
     'name'                  => 'حقل الاسم',
