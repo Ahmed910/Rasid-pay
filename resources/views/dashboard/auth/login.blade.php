@@ -16,7 +16,7 @@
     value="{{ old('username') }}"
     placeholder="{{ trans('auth.userID')}}"
     />
-    <span class="text-danger" id="usernameError" hidden></span>
+    <span class="text-danger" id="username_error"></span>
 
   @if($errors->has('username'))
       <div class="invalid-feedback">{{ array_first($errors->messages()['username']) }}</div>
@@ -40,7 +40,7 @@
       </div>
 
     </div>
-    <span class="text-danger" id="passwordError" hidden></span>
+    <span class="text-danger" id="password_error"></span>
 
   </div>
   <div class="row align-items-center">
