@@ -411,13 +411,7 @@ $(document).ready(function () {
       "<span class='tooltipRole'>تعديل المستخدمين</span><span class='tooltipRole'>تعديل البيانات</span><span class='tooltipRole'>تعديل </span><span class='tooltipRole'>تعديل المستخدمين</span><span class='tooltipRole'>تعديل المستخدمين</span><span class='tooltipRole'>إضافة مستخدم </span><span class='tooltipRole'>تعديل الوظائف</span><span class='tooltipRole'>تعديل الصلاحيات</span><span class='tooltipRole'>تعديل المستخدمين</span>",
   });
 
-  /******* Calendar *******/
-  $(
-    "#from-hijri-picker, #to-hijri-picker, #from-hijri-unactive-picker ,#to-hijri-unactive-picker"
-  ).hijriDatePicker({
-    hijri: true,
-    showSwitcher: false,
-  });
+
 
   $("input").attr("autocomplete", "off");
     //   $(".dropify").dropify({

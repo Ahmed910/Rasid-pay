@@ -74,9 +74,6 @@
     <script src="{{ asset('dashboardAssets') }}/plugins/bootstrap/js/popper.min.js"></script>
     <script src="{{ asset('dashboardAssets') }}/plugins/bootstrap/js/bootstrap.min.js"></script>
 
-    <!-- FORMVALIDATION JS -->
-    <script src="{{ asset('dashboardAssets') }}/js/form-validation.js"></script>
-
     <!-- lottie-player js -->
     <script src="https://unpkg.com/@lottiefiles/lottie-player@0.4.0/dist/tgs-player.js"></script>
 
