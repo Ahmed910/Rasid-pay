@@ -28,6 +28,7 @@ Route::get('artisan_commend/{command}', function ($command) {
     }
 });
 Route::get('countries','CountryController@index');
+Route::get("/files/client/{file}", [\App\Http\Controllers\Api\V1\Dashboard\PrivateController::class, "downloadfile"]);
 Route::middleware('auth:sanctum')->group(function () {
     // Public Routes
     Route::post('logout', "Auth\LoginController@logout");
@@ -56,7 +57,6 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::get('events','ActivityController@getEvents')->name('events');
     });
 
-    Route::get("/files/client/{file}", [\App\Http\Controllers\Api\V1\Dashboard\PrivateController::class, "downloadfile"]);
     Route::delete('delete-image/{appMedia}','DeleteImageController')->name('image_delete');
 
     Route::middleware('adminPermission')->group(function () {
