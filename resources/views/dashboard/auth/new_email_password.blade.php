@@ -40,7 +40,7 @@
         </div>
     </div>
     <div class="col-12 mt-5 text-center">
-      <a onclick="submitForm('#email-form')" class="btn btn-primary">{{ trans('dashboard.general.confirm') }}</a>
+      <a onclick="submitForm('#email-form')" class="btn btn-primary a-submit">{{ trans('dashboard.general.confirm') }}</a>
 
         {{-- {!! Form::submit('تأكيد',['class' => "btn btn-primary"]) !!} --}}
         <a href="{!! route('dashboard.login') !!}" class="btn btn-outline-primary">

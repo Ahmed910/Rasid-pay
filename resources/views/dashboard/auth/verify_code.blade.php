@@ -49,7 +49,7 @@
         </div>
 
         <div class="col-12 mt-5 text-center">
-            <a onclick="submitForm('#verify-form')" class="btn btn-primary mx-3"
+            <a onclick="submitForm('#verify-form')" class="btn btn-primary mx-3 a-submit"
                 id="code-submit">{{ trans('dashboard.general.confirm') }}</a>
 
             {{-- {!! Form::submit(trans('dashboard.general.confirm'), ['class' => 'btn btn-primary', 'id' => 'code-submit']) !!} --}}

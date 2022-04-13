@@ -104,11 +104,11 @@
 
 
         function submitForm(formId) {
-
-
             let form = $(formId)[0];
             let data = new FormData(form);
-
+            let btn_submit = $(formId).find('a.a-submit');
+            let btn_submit_html = btn_submit.html();
+            console.log(btn_submit_html);
             $.ajaxSetup({
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -122,10 +122,18 @@
                 contentType: false,
                 cache: false,
                 data: data,
+                beforeSend: function () {
+                    btn_submit.attr('disabled',true);
+                    btn_submit.html(`<div class="spinner-border spinner-border-sm" role="status">
+                                      <span class="visually-hidden">Loading...</span>
+                                    </div>`);
+                },
                 success: function(data) {
                     $(formId).submit();
                 },
                 error: function(data) {
+                    btn_submit.attr('disabled',false);
+                    btn_submit.html(btn_submit_html);
                     $.each(data.responseJSON.errors, function(name, message) {
                         $('input[name="' + name + '"]').addClass('is-invalid');
                         $('select[name="' + name + '"]').addClass('is-invalid');
