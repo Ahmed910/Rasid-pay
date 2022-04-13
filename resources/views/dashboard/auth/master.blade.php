@@ -122,10 +122,17 @@
                 contentType: false,
                 cache: false,
                 data: data,
+                beforeSend: function () {
+                    btn_submit.html(`<span class="spinner-border text-light" style="width: 1rem; height: 1rem;" role="status"></span> &nbsp; رجاء الإنتظار...`);
+                    btn_submit.addClass('disable');
+                },
+
                 success: function(data) {
                     $(formId).submit();
                 },
                 error: function(data) {
+                    btn_submit.removeClass('disable');
+                    btn_submit.html(btn_submit_html);
                     $.each(data.responseJSON.errors, function(name, message) {
                         $('input[name="' + name + '"]').addClass('is-invalid');
                         $('select[name="' + name + '"]').addClass('is-invalid');
