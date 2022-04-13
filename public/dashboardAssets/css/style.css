@@ -80347,4 +80347,7 @@ tr:hover .dtr-control:before {
     border: 1px solid;
   }
 
+  .btn.disable {
+    cursor: default !important;
+}
 /*# sourceMappingURL=style.css.map */
