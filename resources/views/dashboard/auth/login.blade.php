@@ -5,10 +5,13 @@
 <p class="text-center">
   {{ trans('auth.login_subtitle')}}
 </p>
+
 <!-- FORM OPEN -->
 {{-- @dd($errors->getMessages()) --}}
 <form method="post" action="{{ route('dashboard.post_login') }}" class="needs-validation" id="login-form" novalidate>
   @csrf
+
+  
   <div class="form-group">
     <label for="userID">{{ trans('auth.userID')}}</label>
     <input oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" type="number" pattern="^[1-9]\d*$" maxlength="6" class="form-control stop-copy-paste number-regex @error('username') is-invalid @enderror"

@@ -493,3 +493,14 @@ $(function(){
 String.prototype.toArabicUni = function () {
     return this.replace(/\d/g, d => String.fromCharCode('0x066' + d))
 }
+
+function toast(type, message, dir = true){
+  toastr[type](message, "", {
+      closeButton: false,
+      tapToDismiss: false,
+      positionClass: "toast-top-left",
+      progressBar: true,
+      hideDuration: 9000,
+      rtl: dir,
+  });
+}

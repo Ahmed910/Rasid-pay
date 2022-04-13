@@ -132,7 +132,7 @@ class LoginController extends Controller
         if (auth()->check() && in_array(auth()->user()->user_type, ['superadmin', 'admin'])) {
             $this->guard()->logout();
             $request->session()->invalidate();
-            session()->flash('info', trans('auth.logout_waiting_u_another_time'));
+            session()->flash('success', trans('auth.logout_waiting_u_another_time'));
             return redirect()->route('dashboard.login');
         }
     }

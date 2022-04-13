@@ -21,8 +21,8 @@
 
     @yield('styles')
     <!-- BOOTSTRAP CSS -->
-    <link id="style" href="{{ asset('dashboardAssets') }}/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
-
+    <link rel="stylesheet" type="text/css" media="all"
+        href="{{ asset('dashboardAssets') }}/plugins/bootstrap/css/bootstrap{{ LaravelLocalization::getCurrentLocaleDirection() == 'rtl' ? '.rtl' : null }}.min.css" />
     <!-- STYLE CSS -->
     <link href="{{ asset('dashboardAssets') }}/css/style.css" rel="stylesheet" />
     <!--- FONT-ICONS CSS -->
@@ -30,7 +30,7 @@
 
     <!-- COLOR SKIN CSS -->
     <link id="theme" rel="stylesheet" type="text/css" media="all"
-        href="{{ asset('dashboardAssets') }}/colors/color1.css" />
+        href="{{ asset('dashboardAssets/colors/color1.css') }}" />
     <link href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css" rel="stylesheet">
 </head>
 
@@ -139,7 +139,7 @@
                         $('select[name="' + name + '"]').addClass('is-invalid');
                         $('#' + name + '_error').html(`<small>${message}</small>`);
 
-                        toastr.error(message);
+                        toast('error',message ,"{{ LaravelLocalization::getCurrentLocaleDirection() == 'rtl' }}");
                     });
                     // if (data.responseJSON.message) toastr.error("{{ trans('auth.failed') }}");
                 }
