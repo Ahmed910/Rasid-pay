@@ -24,6 +24,7 @@ Route::group(
 
         Route::get('password/reset/{token}', 'Auth\ResetPasswordController@showResetForm')->name('passwords.reset.email');
         Route::post('password/reset', 'Auth\ResetPasswordController@reset')->name('resetToNew');
+        Route::get('password/resend_code/{token}','Auth\ForgotPasswordController@resendCode')->name('resend_code');
 
         Route::middleware('auth')->prefix('dashboard')->group(function () {
             Route::get('/', "HomeController@index")->name("home.index");
