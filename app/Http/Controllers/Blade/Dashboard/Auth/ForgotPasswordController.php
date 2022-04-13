@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\SendsPasswordResetEmails;
 use App\Http\Requests\Dashboard\Auth\SendTokenRequest;
 use App\Models\User;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Password;
 
 class ForgotPasswordController extends Controller
@@ -75,9 +76,7 @@ class ForgotPasswordController extends Controller
         if (!$user) {
             return back()->withFalse(trans('auth.account_not_exists'));
         }
-        $reset_token = generate_unique_code(User::class, 'reset_token', 100);
-        $code = $this->generateCode($request, $user,'reset_code');
-        $user->update(['reset_code' => $code, 'reset_token' => $reset_token]);
+        $reset_token = $this->sendCode($user,$request);
         return redirect()->route('dashboard.check_sms_code_form',$reset_token);
     }
 
@@ -95,5 +94,23 @@ class ForgotPasswordController extends Controller
         // }
         // ExpireCodeJob::dispatch($user, $col)->delay((int)setting('erp_code_ttl') ?? 1);
         return $code;
+    }
+
+    public function resendCode(Request $request)
+    {
+        $user = User::whereIn('user_type',['admin','superadmin'])->firstWhere('reset_token',$request->token);
+
+       $reset_token = $this->sendCode($user, $request);
+
+       return redirect()->route('dashboard.check_sms_code_form',$reset_token);
+    }
+
+    public function sendCode($user,$request)
+    {
+        $reset_token = generate_unique_code(User::class, 'reset_token', 100);
+        $code = $this->generateCode($request, $user,'reset_code');
+        $user->update(['reset_code' => $code, 'reset_token' => $reset_token]);
+
+        return $reset_token;
     }
 }

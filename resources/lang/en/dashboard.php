@@ -110,7 +110,15 @@ return [
         'accept'=>'Accept',
         'cancel'=>'Cancel',
         'confirm' => 'Confirm',
-        'send' => 'Send'
+        'send' => 'Send',
+        'Total_departments'=>'Departments',
+        'Total_active_users'=>'Active Users  ',
+        'Total_permenant_users'=>'Permenant Users',
+        'Total_temporary_users'=>'Temporary Users',
+        'Total_employees'=>'Employees',
+        'Total_vacant_jobs'=>'Vacant Jobs',
+        'Total_unvacant_jobs'=>'Unvacant Jobs',
+
     ],
     'datatable' => [
         'no_data' => 'No D ata ',

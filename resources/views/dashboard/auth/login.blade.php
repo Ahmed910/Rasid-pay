@@ -57,7 +57,7 @@
       <a href="{!! route('dashboard.reset') !!}">{{ trans('auth.reset_password')}}</a>
     </div>
   </div>
-  <a onclick="submitForm('#login-form')" class="btn btn-primary w-100 mt-5">{{ trans('auth.login_title') }}</a>
+  <a onclick="submitForm('#login-form')" class="btn btn-primary w-100 mt-5 a-submit">{{ trans('auth.login_title') }}</a>
   {{-- {!! Form::submit(trans('auth.login_title'),['class' => "btn btn-primary w-100 mt-5"  , 'id' =>"login-id"]) !!} --}}
 </form>
 <!-- FORM CLOSED -->

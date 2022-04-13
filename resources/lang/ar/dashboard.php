@@ -116,7 +116,15 @@ return [
         'created_by' => 'منشيء المجموعة',
         'u_can_use_this_name' => 'يمكنك استخدام الإسم',
         'confirm' => 'تأكيد',
-        'send' => 'إرسال'
+        'send' => 'إرسال',
+        'Total_departments'=>'الأقسام ',
+        'Total_active_users'=>'المستخدمين المفعلة ',
+        'Total_permenant_users'=>'المستخدمين المعطلين لفترة دائمة ',
+        'Total_temporary_users'=>'المستخدمين المعطلين لفترة ',
+        'Total_employees'=>'الموظفين',
+        'Total_vacant_jobs'=>'الوظائف الشاغرة ',
+        'Total_unvacant_jobs'=>'الوظائف المشغولة',
+
     ],
     'datatable' => [
         'no_data' => 'لا توجد نتائج متاحة',
