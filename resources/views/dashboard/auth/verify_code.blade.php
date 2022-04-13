@@ -45,11 +45,11 @@
                 <span id="countdown"> </span>
                 <i class="mdi mdi-timer-outline"></i>
             </p>
-            <a class="disable resend">إعادة إرسال رمز التحقق؟</a>
+            <a href ="#!" class="disable resend">إعادة إرسال رمز التحقق؟</a>
         </div>
 
         <div class="col-12 mt-5 text-center">
-            <a onclick="submitForm('#verify-form')" class="btn btn-primary"
+            <a onclick="submitForm('#verify-form')" class="btn btn-primary mx-3"
                 id="code-submit">{{ trans('dashboard.general.confirm') }}</a>
 
             {{-- {!! Form::submit(trans('dashboard.general.confirm'), ['class' => 'btn btn-primary', 'id' => 'code-submit']) !!} --}}
@@ -73,7 +73,7 @@
                     msLeft = endTime - +new Date();
                     if (msLeft < 1000) {
                         element.innerHTML = "تم انتهاء صلاحية الكود!";
-                        $(".resend").removeClass("disable");
+                        $(".resend").removeClass("disable").attr('href',"{{ route('dashboard.resend_code',request('token')) }}");
                     } else {
                         time = new Date(msLeft);
                         hours = time.getUTCHours();
