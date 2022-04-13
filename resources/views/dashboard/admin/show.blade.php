@@ -29,7 +29,7 @@
                 <p class="text-muted">{{ $admin->login_id }}</p>
             </div>
             <div class="col-12 col-md-4">
-                <label>@lang('dashboard.department.main_department') :</label>
+                <label>@lang('dashboard.department.department') :</label>
                 <p class="text-muted">
 
                     {!! $admin->department->name ?? trans('dashboard.department.without_parent') !!}</p>
