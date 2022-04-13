@@ -128,11 +128,10 @@ class AdminController extends Controller
      */
     public function edit($id)
     {
-
         $previousUrl = url()->previous();
         (strpos($previousUrl, 'admin')) ? session(['perviousPage' => 'admin']) : session(['perviousPage' => 'home']);
-
-        return view('dashboard.admin.edit');
+        $admin = User::where('user_type', 'admin')->findOrFail($id);
+        return view('dashboard.admin.edit',compact('admin'));
     }
 
     /**
