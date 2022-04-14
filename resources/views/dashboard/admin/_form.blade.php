@@ -282,6 +282,19 @@
 
               });
 
+            // prevent dot (.) in number input
+            $(document).ready(function() {
+              $('#userId').on('keypress', function(event){
+                var key = event.charCode ? event.charCode : event.keyCode;
+                $("#userId").innerHTML = key;
+                if (key == 46)
+                {
+                  event.preventDefault();
+                  return false;
+                }
+              });
+            });
+
           })();
       </script>
   @endsection
