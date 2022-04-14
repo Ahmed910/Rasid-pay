@@ -39,7 +39,7 @@
 <body class="app sidebar-mini {{ LaravelLocalization::getCurrentLocaleDirection() }} popoverTooltip">
   <!-- GLOBAL-LOADER -->
   <div id="global-loader">
-    <img src="{{ asset('dashboardAssets/images/loader.gif') }}" class="loader-img" alt="Loader" />
+    <img src="{{ asset('dashboardAssets/images/loader.svg') }}" class="loader-img" alt="Loader" />
   </div>
   <!-- /GLOBAL-LOADER -->
   <!-- PAGE -->

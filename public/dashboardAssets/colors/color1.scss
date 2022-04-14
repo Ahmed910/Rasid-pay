@@ -468,7 +468,9 @@ a.text-primary {
 }
 
 .avatar {
-    background: #e3e1f5 no-repeat center/cover;
+        background: #ffffff no-repeat center/cover !important;
+    border: 1px solid #f9f9f9 !important;
+
 }
 
 .spinner,
