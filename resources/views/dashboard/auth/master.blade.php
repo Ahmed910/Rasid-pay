@@ -37,7 +37,7 @@
 <body class="app sidebar-mini {{ LaravelLocalization::getCurrentLocaleDirection() }}">
     <!-- GLOABAL LOADER -->
     <div id="global-loader">
-        <img src="{{ asset('dashboardAssets') }}/images/loader.gif" class="loader-img" alt="Loader" />
+        <img src="{{ asset('dashboardAssets') }}/images/loader.svg" class="loader-img" alt="Loader" />
     </div>
     @include('dashboard.layouts.modals.alert')
     <!-- /GLOABAL LOADER -->
