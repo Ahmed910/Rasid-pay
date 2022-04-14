@@ -99,18 +99,18 @@ Editing        :   Hesham Ashraf.
 /*Transparent variables*/
 /* ###### Bootstrap ###### */
 :root {
-    --primary-bg-color: #862a87;
-    --primary-bg-hover: #d01186;
+    --primary-bg-color: #2e9fd8;
+    --primary-bg-hover: #20295c;
     --primary-bg-border: #5161c1;
     --dark-body: #292e4a;
     --dark-border: #30314e;
-    --dark-primary: #862a87;
-    --transparent-primary: #862a87;
+    --dark-primary: #2e9fd8;
+    --transparent-primary: #2e9fd8;
     --transparent-body: #584cd9;
     --transparent-theme: rgba(0, 0, 0, 0.2);
     --transparent-border: rgba(255, 255, 255, 0.1);
     --blue: #1a1a3c;
-    --dark-primary-hover: #d01186;
+    --dark-primary-hover: #20295c;
     --primary-transparentcolor: #eaedf7;
     --darkprimary-transparentcolor: #2b356e;
     --transparentprimary-transparentcolor: rgba(255, 255, 255, 0.05);
@@ -126,7 +126,7 @@ Editing        :   Hesham Ashraf.
     --gray: #FDFDFD;
     --gray-medium: #F9F9F9;
     --gray-dark: #606162;
-    --primary: #862a87;
+    --primary: #2e9fd8;
     --secondary: #6c757d;
     --success: #28a745;
     --info: #17a2b8;
@@ -79615,7 +79615,7 @@ textarea.form-control {
 }
 
 .dataTables_wrapper table.dataTable.table-bordered th {
-    background: #F6EDF6;
+    background: #e0f1f9;
 }
 
 .dataTables_wrapper table thead th {
@@ -79642,7 +79642,7 @@ textarea.form-control {
 
 .dataTables_wrapper table tbody tr:hover {
     color: var(--primary-bg-color);
-    background-color: #FFFCFE;
+    background-color: #fcfefe;
 }
 
 .dataTables_wrapper table tbody tr:hover td:last-of-type a.successIcon {
@@ -79799,7 +79799,7 @@ textarea {
 }
 
 .bg-primary-opacity {
-    background: #f9eef9;
+    background: #e0f1f9;
     color: var(--primary-bg-color);
     font-weight: bold;
     min-width: 77px;
@@ -80338,16 +80338,16 @@ tr:hover .dtr-control:before {
     color: #f00;
 }
 
-/* .select2-results__option:first-of-type {
+.select2-results__option:first-of-type {
     display: none !important;
-} */
+}
 
-
- .btn{
+.btn {
     border: 1px solid;
-  }
+}
 
-  .btn.disable {
+.btn.disable {
     cursor: default !important;
 }
+
 /*# sourceMappingURL=style.css.map */
