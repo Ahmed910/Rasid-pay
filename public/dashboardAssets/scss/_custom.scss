@@ -360,6 +360,9 @@ textarea {
   .domOption {
     flex-direction: column;
   }
+  .header-brand-img{
+  width: 100px;
+}
 }
 
 /* width */
@@ -557,7 +560,7 @@ label {
 
 .auth_vector {
   min-height: 100vh;
-  background-image: url("../images/pngs/bg.png");
+  // background-image: url("../images/pngs/bg.png");
   .v-image__image--cover {
     background-size: auto;
   }
@@ -923,3 +926,4 @@ $BaseBG: #0f0f1a;
   .btn.disable {
     cursor: default !important;
 }
+
