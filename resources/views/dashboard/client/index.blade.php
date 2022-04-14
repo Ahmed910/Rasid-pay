@@ -15,11 +15,11 @@
 
 <form method="get" action="">
   <div class="row align-items-end mb-3">
-    <div class="col-12 col-md-4 mb-3">
+    <div class="col-12 col-md-3 mb-3">
       <label for="clientName">اسم العميل</label>
       <input type="text" class="form-control" id="clientName" placeholder="اسم العميل" />
     </div>
-    <div class="col-12 col-md-4 mb-3">
+    <div class="col-12 col-md-3 mb-3">
       <label for="clientType">نوع العميل</label>
       <select class="form-control select2" id="clientType">
         <option selected disabled value="">إختر النوع </option>
@@ -33,22 +33,22 @@
       </select>
     </div>
   
-    <div class="col-12 col-md-4 mb-3">
+    <div class="col-12 col-md-3 mb-3">
       <label for="transactionFrom">رقم السجل</label>
       <input type="number" class="form-control" id="transactionFrom" placeholder="رقم السجل" />
     </div>
-    <div class="col-12 col-md-4 mb-3">
+    <div class="col-12 col-md-3 mb-3">
       <label for="transactionTo">الرقم الضريبي</label>
       <input type="number" class="form-control" id="transactionTo" placeholder="الرقم الضريبي" />
     </div>
-    <div class="col-12 col-md-4 mb-3">
+    <div class="col-12 col-md-3 mb-3">
       <label for="transactionFrom">عدد المعاملات من</label>
       <input type="number" class="form-control" id="transactionFrom" placeholder="0" />
     </div>
-    <div class="col-12 col-md-4 mb-3">
+    <div class="col-12 col-md-3 mb-3">
       <label for="transactionTo">عدد المعاملات إلى</label>
       <input type="number" class="form-control" id="transactionTo" placeholder="0" />
-    </div>  <div class="col-12 col-md-4 mb-3">
+    </div>  <div class="col-12 col-md-3 mb-3">
       <label for="bankName">البنك التابع له</label>
       <select class="form-control select2" id="bankName">
         <option selected disabled value="">اختر البنك</option>
@@ -58,7 +58,7 @@
         <option>بنك سامبا</option>
       </select>
     </div>
-    <div class="col-12 col-md-4 mb-3">
+    <div class="col-12 col-md-3 mb-3">
       <label for="bankStatus">حالة الحساب البنكي</label>
       <select class="form-control select2" id="bankStatus">
         <option selected disabled value="">إختر الحالة </option>
@@ -67,7 +67,7 @@
         <option>تم مراجعة الحساب البنكي</option>
       </select>
     </div>
-    <div class="col-12 col-md-4 mb-3">
+    <div class="col-12 col-md-3 mb-3">
       <label for="from-hijri-picker-custom"> المعاملات المنجزة في الفترة (من)</label>
       <div class="input-group">
         <input id="from-hijri-picker-custom" type="text" placeholder="يوم/شهر/سنة" class="form-control" />
@@ -76,7 +76,7 @@
         </div>
       </div>
     </div>
-    <div class="col-12 col-md-4 mb-3">
+    <div class="col-12 col-md-3 mb-3">
       <label for="to-hijri-picker-custom">المعاملات المنجزة في الفترة (إلى)</label>
       <div class="input-group">
         <input id="to-hijri-picker-custom" type="text" placeholder="يوم/شهر/سنة" class="form-control" />
