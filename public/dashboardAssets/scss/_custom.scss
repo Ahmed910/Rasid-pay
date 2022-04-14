@@ -330,7 +330,7 @@ textarea {
   min-width: 77px;
 }
 .bg-primary-opacity {
-  background: #f9eef9;
+  background: #e0f1f9;
   color: $primary-01;
   font-weight: bold;
   min-width: 77px;
@@ -915,6 +915,11 @@ $BaseBG: #0f0f1a;
     display: none !important;
   }
 
-  input.btn{
+
+ .btn{
     border: 1px solid;
   }
+
+  .btn.disable {
+    cursor: default !important;
+}
