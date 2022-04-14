@@ -33,7 +33,8 @@
           @if (isset($admin))
               <div class="col-12 col-md-4 mt-3">
                   {!! Form::label('status', trans('dashboard.general.status')) !!}
-                  {!! Form::select('ban_status', trans('dashboard.admin.active_cases'), request('ban_status'), ['class' => 'form-control select2', 'id' => 'status', 'placeholder' => trans('dashboard.general.select_status')]) !!}
+
+                {!! Form::select('ban_status', [''=>'']+trans('dashboard.admin.active_cases'), request('ban_status'), ['class' => 'form-control select2' . ($errors->has('status') ? ' is-invalid' : null), 'id' => 'status', 'data-placeholder' => trans('dashboard.general.select_status')]) !!}
                   @error('ban_status')
                       <span class="text-danger">{{ $message }}</span>
                   @enderror

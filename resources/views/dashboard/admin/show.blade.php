@@ -29,7 +29,7 @@
                 <p class="text-muted">{{ $admin->login_id }}</p>
             </div>
             <div class="col-12 col-md-4">
-                <label>@lang('dashboard.department.main_department') :</label>
+                <label>@lang('dashboard.department.department') :</label>
                 <p class="text-muted">
 
                     {!! $admin->department->name ?? trans('dashboard.department.without_parent') !!}</p>
@@ -74,7 +74,7 @@
     </div>
     <div class="row">
         <div class="col-12 text-end">
-            <a href="user-add.html" class="btn btn-primary">
+            <a href="{{ route('dashboard.admin.edit', $admin) }}" class="btn btn-primary">
                 <i class="mdi mdi-square-edit-outline">{{ trans('dashboard.general.edit') }}</i>
             </a>
             <a href="{{ url()->previous() }}" class="btn btn-outline-primary">
