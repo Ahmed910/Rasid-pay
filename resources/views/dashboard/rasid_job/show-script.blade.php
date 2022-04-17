@@ -23,7 +23,8 @@
           data: function (data, type, full, meta) {
             return parseInt(meta.row) + parseInt(data.start_from) + 1;
           },
-          name: 'id'
+          name: 'id',
+          class: 'rasid_job_show_index'
         },
           {
             data: "user.fullname"
@@ -89,7 +90,7 @@
           },
         },
         "drawCallback": function (settings, json) {
-          var jobHistoryTableSorting = document.getElementsByClassName('sorting_1');
+          var jobHistoryTableSorting = document.getElementsByClassName('rasid_job_show_index');
           for (var i = 0; i < jobHistoryTableSorting.length; i++) {
             jobHistoryTableSorting[i].innerText = jobHistoryTableSorting[i].innerText.replace(jobHistoryTableSorting[i].innerText, jobHistoryTableSorting[i].innerText.toArabicUni());
           }

@@ -22,7 +22,8 @@
           data: function (data, type, full, meta) {
             return parseInt(meta.row) + parseInt(data.start_from) + 1;
           },
-          name: 'id'
+          name: 'id',
+          class:'department_show_index'
         },
           {
             data: "user.fullname"
@@ -93,7 +94,7 @@
         },
         "drawCallback": function (settings, json) {
           // department history table sorting
-          var departmentHistoryTableSorting = document.getElementsByClassName('sorting_1');
+          var departmentHistoryTableSorting = document.getElementsByClassName('department_show_index');
           for (var i = 0; i < departmentHistoryTableSorting.length; i++) {
             departmentHistoryTableSorting[i].innerText = departmentHistoryTableSorting[i].innerText.replace(departmentHistoryTableSorting[i].innerText, departmentHistoryTableSorting[i].innerText.toArabicUni());
           }

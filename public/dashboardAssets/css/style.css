@@ -79831,6 +79831,10 @@ textarea {
     .domOption {
         flex-direction: column;
     }
+
+    .header-brand-img {
+        width: 100px;
+    }
 }
 
 /* width */
@@ -80023,7 +80027,6 @@ label {
 
 .auth_vector {
     min-height: 100vh;
-    background-image: url("../images/pngs/bg.png");
 }
 
 .auth_vector .v-image__image--cover {
