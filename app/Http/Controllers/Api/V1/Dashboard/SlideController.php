@@ -11,6 +11,12 @@ use Illuminate\Http\Request;
 class SlideController extends Controller
 {
 
+    public function index()
+    {
+        $sliders = Slide::where('is_active',true)->orderBy('ordering','asc')->get();
+        return SlideResource::collection($sliders)->additional(['status'=>true,'message'=>'']);
+    }
+
     public function store(SlideRequest $request, Slide $slide)
     {
         $slide->fill($request->validated() + ['added_by_id' => auth()->id()])->save();

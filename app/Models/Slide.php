@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Traits\Uuid;
 use Astrotomic\Translatable\Translatable;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Slide extends Model
@@ -30,5 +31,10 @@ class Slide extends Model
         static::saved(function ($model) {
             $model->saveAssets($model, request());
         });
+    }
+
+     public function addedBy(): BelongsTo
+    {
+        return $this->belongsTo(User::class, 'added_by_id');
     }
 }
