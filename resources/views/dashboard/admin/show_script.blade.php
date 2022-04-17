@@ -24,7 +24,8 @@
           data: function (data, type, full, meta) {
             return parseInt(meta.row) + parseInt(data.start_from) + 1;
           },
-          name: 'id'
+          name: 'id',
+          class: 'admin_show_index'
         },
           {
             data: "user.fullname"
@@ -94,7 +95,7 @@
         },
         "drawCallback": function (settings, json) {
           // admin history table sorting
-          var adminHistoryTableSorting = document.getElementsByClassName('sorting_1');
+          var adminHistoryTableSorting = document.getElementsByClassName('admin_show_index');
           for (var i = 0; i < adminHistoryTableSorting.length; i++) {
             adminHistoryTableSorting[i].innerText = adminHistoryTableSorting[i].innerText.replace(adminHistoryTableSorting[i].innerText, adminHistoryTableSorting[i].innerText.toArabicUni());
           }
