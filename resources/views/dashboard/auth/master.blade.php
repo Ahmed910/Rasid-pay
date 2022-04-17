@@ -37,7 +37,7 @@
 <body class="app sidebar-mini {{ LaravelLocalization::getCurrentLocaleDirection() }}">
     <!-- GLOABAL LOADER -->
     <div id="global-loader">
-        <img src="{{ asset('dashboardAssets') }}/images/loader.gif" class="loader-img" alt="Loader" />
+        <img src="{{ asset('dashboardAssets') }}/images/loader.svg" class="loader-img" alt="Loader" />
     </div>
     @include('dashboard.layouts.modals.alert')
     <!-- /GLOABAL LOADER -->
@@ -48,15 +48,16 @@
         <div class="row no-gutters">
             <div class="col-12 col-md-5">
                 <div class="auth_vector d-flex align-center">
-                    <lottie-player autoplay loop mode="normal"
+                    {{-- <lottie-player autoplay loop mode="normal"
                         src="{{ asset('dashboardAssets') }}/images/lottie/login.json"
                         style="display: block; margin: auto">
-                    </lottie-player>
+                    </lottie-player> --}}
+                    <img src="{{ asset('dashboardAssets') }}/images/login.png" style="width: 90%; height: fit-content; margin: auto" alt="">
                 </div>
             </div>
             <div class="col-12 col-md-7 d-flex align-center">
                 <div class="card m-auto w-60 p-9">
-                    <img src="{{ asset('dashboardAssets') }}/images/brand/Rasid-Jack-Logo-V.svg" width="150" alt=""
+                    <img src="{{ asset('dashboardAssets') }}/images/brand/logo-3.png" width="150" alt=""
                         class="mb-5" />
                     @yield('content')
                 </div>
