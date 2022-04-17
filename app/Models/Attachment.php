@@ -51,7 +51,9 @@ class Attachment extends Model
                     $fileAttachment->create([
                         'path' => $curpath,
                         'type' => $file->getClientMimeType(),
-                        "attachment_id" => $cur->id
+                        "attachment_id" => $cur->id,
+                        "name" => $file->getClientOriginalName(),
+                        "size" => $file->getSize()
                     ]);
                 }
             }
