@@ -128,11 +128,13 @@ class AdminController extends Controller
      */
     public function edit($id)
     {
-
         $previousUrl = url()->previous();
         (strpos($previousUrl, 'admin')) ? session(['perviousPage' => 'admin']) : session(['perviousPage' => 'home']);
-
-        return view('dashboard.admin.edit');
+        $admin = User::where('user_type', 'admin')->findOrFail($id);
+        $departments = Department::with('parent.translations')->ListsTranslations('name')->pluck('name', 'id')->toArray();
+        $groups = Group::ListsTranslations('name')->pluck('name', 'id');
+        $locales = config('translatable.locales');
+        return view('dashboard.admin.edit',compact('admin','departments','groups','locales'));
     }
 
     /**

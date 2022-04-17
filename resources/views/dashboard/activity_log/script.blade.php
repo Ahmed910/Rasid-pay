@@ -34,7 +34,8 @@
                   data: function (data, type, full, meta) {
                     return parseInt(meta.row) + parseInt(data.start_from) + 1;
                   },
-                  name: 'id'
+                  name: 'id',
+                  class: 'activity_log_index'
                     },
                     {
                         data: "user.fullname",
@@ -150,7 +151,7 @@
                 },
               "drawCallback": function (settings, json) {
                 // table sorting
-                var activityLogTableSorting = document.getElementsByClassName('sorting_1');
+                var activityLogTableSorting = document.getElementsByClassName('activity_log_index');
                 for (var i = 0; i < activityLogTableSorting.length; i++) {
                   activityLogTableSorting[i].innerText = activityLogTableSorting[i].innerText.replace(activityLogTableSorting[i].innerText, activityLogTableSorting[i].innerText.toArabicUni());
                 }

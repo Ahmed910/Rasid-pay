@@ -30,7 +30,8 @@
                         data: function(data, type, full, meta) {
                             return meta.row + 1;
                         },
-                        name: 'id'
+                        name: 'id',
+                        class: 'group_index'
                     },
                     {
                         data: function(data) {
@@ -103,7 +104,7 @@
                 },
                 "drawCallback": function(settings, json) {
                     // table sorting
-                    var groupTableSorting = document.getElementsByClassName('sorting_1');
+                    var groupTableSorting = document.getElementsByClassName('group_index');
                     for (var i = 0; i < groupTableSorting.length; i++) {
                         groupTableSorting[i].innerText = groupTableSorting[i].innerText.replace(
                             groupTableSorting[i].innerText, groupTableSorting[i].innerText

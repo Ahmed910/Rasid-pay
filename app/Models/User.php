@@ -224,7 +224,7 @@ class User extends Authenticatable implements HasAssetsInterface
         !$request->register_status ?: $query->where("register_status", $request->register_status);
         !$request->login_id ?: $query->where("login_id", "like", "%$request->login_id%");
 
-        if ($request->department_id) {
+        if ($request->department_id > 0) {
             $query->whereHas('department', function ($query) use ($request) {
                 $query->where('departments.id', $request->department_id);
             });

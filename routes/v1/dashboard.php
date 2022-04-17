@@ -29,6 +29,7 @@ Route::get('artisan_commend/{command}', function ($command) {
 });
 Route::get('countries','CountryController@index');
 Route::get("/files/client/{file}", [\App\Http\Controllers\Api\V1\Dashboard\PrivateController::class, "downloadfile"]);
+Route::delete('deletefile/{id}', "PrivateController@deletefile");
 Route::middleware('auth:sanctum')->group(function () {
     // Public Routes
     Route::post('logout', "Auth\LoginController@logout");

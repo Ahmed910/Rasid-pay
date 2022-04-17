@@ -16,23 +16,37 @@ class PrivateController extends Controller
 
     public function downloadfile($path)
     {
-       $path = "files/client/" . $path;
-       // $owner = AttachmentFile::where("path", $path)->get()->first()?->attachment?->user?->id;
-       // if (!$owner) return response()->json([
-       //     'status' => false,
-       //     'message' => trans('dashboard.error.not_found'),
-       //     'data' => null
-       // ], 404);
-       // if ((auth()->user() == null) || ($owner != auth()->user()->id && auth()->user()->user_type == "client"))
-       //     return response()->json([
-       //         'status' => false,
-       //         'message' => trans('auth.failed'),
-       //         'data' => null
-       //     ], 401);
+        $path = "files/client/" . $path;
+        // $owner = AttachmentFile::where("path", $path)->get()->first()?->attachment?->user?->id;
+        // if (!$owner) return response()->json([
+        //     'status' => false,
+        //     'message' => trans('dashboard.error.not_found'),
+        //     'data' => null
+        // ], 404);
+        // if ((auth()->user() == null) || ($owner != auth()->user()->id && auth()->user()->user_type == "client"))
+        //     return response()->json([
+        //         'status' => false,
+        //         'message' => trans('auth.failed'),
+        //         'data' => null
+        //     ], 401);
         if (Storage::exists($path)) {
             $filepath = Storage::disk('local')->path($path);
             $headers = array();
             return response()->file($filepath, $headers);
         }
     }
+
+    public function deletefile($id)
+    {
+        $attachmentFile = AttachmentFile::findorfail($id);
+        $attachmentFile->delete();
+        $attachmentFile->attachment?->attachmentfiles()?->count() ?: $attachmentFile->attachment->delete();
+
+        return response()->json(
+            ["data" => null,
+                'status' => true,
+                'message' => trans('dashboard.general.success_delete'),
+            ]);
+    }
+
 }
