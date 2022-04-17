@@ -130,11 +130,16 @@ class AdminController extends Controller
     {
         $previousUrl = url()->previous();
         (strpos($previousUrl, 'admin')) ? session(['perviousPage' => 'admin']) : session(['perviousPage' => 'home']);
-        $admin = User::where('user_type', 'admin')->findOrFail($id);
-        $departments = Department::with('parent.translations')->ListsTranslations('name')->pluck('name', 'id')->toArray();
+        $admin = User::where('user_type', 'admin')->findOrFail($id)->load(['employee', 'department' => function ($query) {
+            $query->with('parent.translations')
+                ->ListsTranslations('name');
+        }]);
+        // $departments = Department::with('parent.translations')->ListsTranslations('name')->pluck('name', 'id')->toArray();
         $groups = Group::ListsTranslations('name')->pluck('name', 'id');
         $locales = config('translatable.locales');
-        return view('dashboard.admin.edit',compact('admin','departments','groups','locales'));
+
+        // dd($admin);
+        return view('dashboard.admin.edit', compact('admin', 'groups', 'locales'));
     }
 
     /**
