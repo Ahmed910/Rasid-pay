@@ -126,7 +126,9 @@
                             data-bs-placement="top"
                             title="{{ trans('dashboard.general.archive') }}"
                             ><i class="mdi mdi-archive-arrow-down-outline"></i></a>`
-            }
+            },
+            orderable: false,
+            searchable: false
           }
         ],
         createdRow: function (row, data) {

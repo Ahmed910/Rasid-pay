@@ -70,8 +70,11 @@
             novalidate
           >
             @csrf
+
+
             <div class="form-group">
               <label for="mobile">{{trans('dashboard.general.phone')}}</label>
+              <div class="input-group">
               <input  onselectstart="return false" onpaste="return false" onCopy="return false" onCut="return false" onDrag="return false" onDrop="return false" autocomplete=off
                       type="number"
                       class="form-control number-regex @error('phone') is-invalid @enderror"
@@ -84,6 +87,11 @@
               <div class="invalid-feedback">{{ $message }}</div>
 
               @enderror
+              <div class="input-group-text border-start-0" dir="ltr">
+                +966
+              </div>
+              
+              </div>
             </div>
             <div class="col-12 mt-5 text-center">
               {!! Form::submit(trans('dashboard.general.send'), ['class' => "btn btn-primary mx-2",'id' => 'resend_btn','formaction' => route('dashboard.post_reset')]) !!}

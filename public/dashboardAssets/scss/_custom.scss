@@ -149,10 +149,23 @@ $white: #fff;
       th {
         padding-top: 1rem;
         padding-bottom: 1rem;
-        &:first-child, &:last-child {
+        &:first-child {
           &::before,
           &::after {
             display: none;
+          }
+        }
+      }
+    }
+
+    #departmentTable,#JobsTable, #EmployeeTable, #ajaxTable, #adminTable,#historyTable, #activitylogtable {
+      thead {
+        th {
+          &:last-child {
+            &::before,
+            &::after {
+              display: none;
+            }
           }
         }
       }
@@ -360,6 +373,9 @@ textarea {
   .domOption {
     flex-direction: column;
   }
+  .header-brand-img {
+    width: 100px;
+  }
 }
 
 /* width */
@@ -557,7 +573,7 @@ label {
 
 .auth_vector {
   min-height: 100vh;
-  background-image: url("../images/pngs/bg.png");
+  // background-image: url("../images/pngs/bg.png");
   .v-image__image--cover {
     background-size: auto;
   }
@@ -753,7 +769,7 @@ input[type="number"] {
 .popoverTooltip {
   .popover-body,
   .popover-header {
-    height: 250px;
+    max-height: 250px;
     overflow: scroll;
   }
 
@@ -888,38 +904,36 @@ $BaseBG: #0f0f1a;
   }
 }
 
-
-.form-control[readonly]{
+.form-control[readonly] {
   background: #fff;
 }
 
-.rtl .bs-popover-end>.popover-arrow, .rtl .bs-popover-auto[data-popper-placement^=end]>.popover-arrow {
-    right: calc((0.5rem + 1px) * -1);
-    left: auto;
-    top: 50% !important;
-    transform: rotate(180deg) translateY(50%) !important;
+.rtl .bs-popover-end > .popover-arrow,
+.rtl .bs-popover-auto[data-popper-placement^="end"] > .popover-arrow {
+  right: calc((0.5rem + 1px) * -1);
+  left: auto;
+  top: 50% !important;
+  transform: rotate(180deg) translateY(50%) !important;
 }
 
-.toast{
+.toast {
   border: none !important;
   box-shadow: none !important;
 }
 
+.requiredFields {
+  display: inline;
+  color: #f00;
+}
 
-.requiredFields{
-    display: inline;
-    color: #f00;
-  }
+.select2-results__option:first-of-type {
+  display: none !important;
+}
 
-  .select2-results__option:first-of-type{
-    display: none !important;
-  }
+.btn {
+  border: 1px solid;
+}
 
-
- .btn{
-    border: 1px solid;
-  }
-
-  .btn.disable {
-    cursor: default !important;
+.btn.disable {
+  cursor: default !important;
 }

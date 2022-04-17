@@ -121,7 +121,9 @@
                               ></i
                             ></a>
                               `
-                        }
+                        },
+                        orderable: false,
+                        searchable: false
                     }
                 ],
                 createdRow: function(row, data) {

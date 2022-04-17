@@ -104,7 +104,9 @@
                         ><i class="mdi mdi-square-edit-outline"></i
                             ></a>
                             `
-            }
+            },
+            orderable: false,
+            searchable: false
           }
         ],
 

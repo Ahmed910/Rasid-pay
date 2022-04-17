@@ -79624,9 +79624,24 @@ textarea.form-control {
 }
 
 .dataTables_wrapper table thead th:first-child::before,
-.dataTables_wrapper table thead th:first-child::after,
-.dataTables_wrapper table thead th:last-child::before,
-.dataTables_wrapper table thead th:last-child::after {
+.dataTables_wrapper table thead th:first-child::after {
+    display: none;
+}
+
+.dataTables_wrapper table #departmentTable thead th:last-child::before,
+.dataTables_wrapper table #departmentTable thead th:last-child::after,
+.dataTables_wrapper table #JobsTable thead th:last-child::before,
+.dataTables_wrapper table #JobsTable thead th:last-child::after,
+.dataTables_wrapper table #EmployeeTable thead th:last-child::before,
+.dataTables_wrapper table #EmployeeTable thead th:last-child::after,
+.dataTables_wrapper table #ajaxTable thead th:last-child::before,
+.dataTables_wrapper table #ajaxTable thead th:last-child::after,
+.dataTables_wrapper table #adminTable thead th:last-child::before,
+.dataTables_wrapper table #adminTable thead th:last-child::after,
+.dataTables_wrapper table #historyTable thead th:last-child::before,
+.dataTables_wrapper table #historyTable thead th:last-child::after,
+.dataTables_wrapper table #activitylogtable thead th:last-child::before,
+.dataTables_wrapper table #activitylogtable thead th:last-child::after {
     display: none;
 }
 
@@ -79831,6 +79846,10 @@ textarea {
     .domOption {
         flex-direction: column;
     }
+
+    .header-brand-img {
+        width: 100px;
+    }
 }
 
 /* width */
@@ -80023,7 +80042,6 @@ label {
 
 .auth_vector {
     min-height: 100vh;
-    background-image: url("../images/pngs/bg.png");
 }
 
 .auth_vector .v-image__image--cover {
@@ -80197,7 +80215,7 @@ input[type=number] {
 
 .popoverTooltip .popover-body,
 .popoverTooltip .popover-header {
-    height: 250px;
+    max-height: 250px;
     overflow: scroll;
 }
 

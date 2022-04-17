@@ -6,10 +6,11 @@
 @endsection
 @section('scripts')
 <script src="{{ asset('dashboardAssets/js/custom_scripts.js') }}"></script>
-<script src="{{ asset('dashboardAssets') }}/plugins/bootstrap-hijri-datepicker/js/bootstrap-hijri-datetimepicker.js"></script>
+<script src="{{ asset('dashboardAssets') }}/plugins/bootstrap-hijri-datepicker/js/bootstrap-hijri-datetimepicker.js">
+</script>
 {{-- Ajax DataTable --}}
 <script>
-        $(function() {
+    $(function() {
             /******* Calendar *******/
             $("#from-hijri-picker-custom, #to-hijri-picker-custom, #from-hijri-unactive-picker-custom ,#to-hijri-unactive-picker-custom")
                 .hijriDatePicker({
@@ -119,7 +120,9 @@
                   ><i class="mdi mdi-eye-outline"></i
                 ></a>`
 
-                        }
+                        },
+                        orderable: false,
+                        searchable: false
                     }
                 ],
                 createdRow: function(row, data) {
@@ -248,10 +251,10 @@
 
 
         });
-    </script>
+</script>
 
 {{-- <script>
-     $(document).ready(function () {
+    $(document).ready(function () {
        $("select")
          .change(function () {
            $(this)
@@ -272,7 +275,7 @@
      });
 
 
-   </script> --}}
-   <script src="{{ asset('dashboardAssets/js/select2.js') }}"></script>
-   <script src="{{ asset('dashboardAssets/plugins/select2/select2.full.min.js') }}"></script>
+</script> --}}
+<script src="{{ asset('dashboardAssets/js/select2.js') }}"></script>
+<script src="{{ asset('dashboardAssets/plugins/select2/select2.full.min.js') }}"></script>
 @endsection

@@ -47,11 +47,12 @@
         <!-- CONTAINER OPEN -->
         <div class="row no-gutters">
             <div class="col-12 col-md-5">
-                <div class="auth_vector d-flex align-center">
-                    <lottie-player autoplay loop mode="normal"
+                <div class="auth_vector d-flex align-items-center">
+                    {{-- <lottie-player autoplay loop mode="normal"
                         src="{{ asset('dashboardAssets') }}/images/lottie/login.json"
                         style="display: block; margin: auto">
-                    </lottie-player>
+                    </lottie-player> --}}
+                    <img src="{{ asset('dashboardAssets') }}/images/login.png" style="width: 90%; height: fit-content;" />
                 </div>
             </div>
             <div class="col-12 col-md-7 d-flex align-center">
