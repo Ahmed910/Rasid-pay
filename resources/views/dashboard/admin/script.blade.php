@@ -75,7 +75,7 @@
           },
           {
             data: function (data) {
-              if (data.ban_status == 'مفعل') {
+              if (data.ban_status == "{{trans('dashboard.admin.active_cases.active')}}") {
                 return ` <span class="badge bg-success-opacity py-2 px-4">${data.ban_status}</span>`;
               } else {
                 return ` <span class="badge bg-danger-opacity py-2 px-4">${data.ban_status}</span>`;
