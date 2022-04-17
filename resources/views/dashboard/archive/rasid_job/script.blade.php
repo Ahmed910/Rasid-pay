@@ -47,7 +47,8 @@
                         data: function(data, type, full, meta) {
                             return parseInt(meta.row) + parseInt(data.start_from) + 1;
                         },
-                        name: 'id'
+                        name: 'id',
+                        class: 'archive_job_index'
                     },
                     {
                         data: "name",
@@ -153,7 +154,7 @@
                 },
                 "drawCallback": function(settings, json) {
                     // table sorting
-                    var jobTableSorting = document.getElementsByClassName('sorting_1');
+                    var jobTableSorting = document.getElementsByClassName('archive_job_index');
                     for (var i = 0; i < jobTableSorting.length; i++) {
                         jobTableSorting[i].innerText = jobTableSorting[i].innerText.replace(
                             jobTableSorting[i].innerText, jobTableSorting[i].innerText.toArabicUni()

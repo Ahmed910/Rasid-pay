@@ -50,7 +50,8 @@
           data: function (data, type, full, meta) {
             return parseInt(meta.row) + parseInt(data.start_from) + 1;
           },
-          name: 'id'
+          name: 'id',
+          class: 'department_index'
         },
           {
             data: function (data) {
@@ -154,7 +155,7 @@
         },
         "drawCallback": function (settings, json) {
           // table sorting
-          var departmentTableSorting = document.getElementsByClassName('sorting_1');
+          var departmentTableSorting = document.getElementsByClassName('department_index');
           for (var i = 0; i < departmentTableSorting.length; i++) {
             departmentTableSorting[i].innerText = departmentTableSorting[i].innerText.replace(departmentTableSorting[i].innerText, departmentTableSorting[i].innerText.toArabicUni());
           }

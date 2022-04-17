@@ -49,7 +49,8 @@
           data: function (data, type, full, meta) {
             return meta.row + 1;
           },
-          name: 'id'
+          name: 'id',
+          class: 'client_index'
         },
           {
             data: "fullname",
@@ -125,7 +126,7 @@
         },
         "drawCallback": function (settings, json) {
           // table sorting
-          var adminTableSorting = document.getElementsByClassName('sorting_1');
+          var adminTableSorting = document.getElementsByClassName('client_index');
           for (var i = 0; i < adminTableSorting.length; i++) {
             adminTableSorting[i].innerText = adminTableSorting[i].innerText.replace(
               adminTableSorting[i].innerText, adminTableSorting[i].innerText
