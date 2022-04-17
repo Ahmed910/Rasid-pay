@@ -5,7 +5,7 @@
               {!! Form::label('mainDepartment', trans('dashboard.department.department_name')) !!}
 
               @if (isset($admin))
-                  {!! Form::text('department_name', $admin->department->name, ['class' => 'form-control','readonly'=>'readonly']) !!}
+                  {!! Form::text('department_name', $admin->department->name, ['class' => 'form-control','disabled'=>'disabled']) !!}
               @else
                   {!! Form::select('department_id', ['' => ''] + $departments, null, ['class' => 'form-control select2-show-search', 'data-placeholder' => trans('dashboard.department.select_department'), 'id' => 'mainDepartment']) !!}
               @endif
@@ -19,7 +19,7 @@
               {!! Form::label('userName', trans('dashboard.admin.name')) !!}
 
               @if (isset($admin))
-                  {!! Form::text('user_name', $admin->fullname, ['class' => 'form-control','readonly'=>'readonly']) !!}
+                  {!! Form::text('user_name', $admin->fullname, ['class' => 'form-control','disabled'=>'disabled']) !!}
               @else
                   {!! Form::select('employee_id', ['' => ''], null, ['class' => 'form-control select2', 'id' => 'userName', 'data-placeholder' => trans('dashboard.general.select_user')]) !!}
               @endif

@@ -57,7 +57,7 @@ class AdminRequest extends FormRequest
         }
         return [
             'is_login_code' => 'in:1,0',
-            'login_id' => 'required|digits:6|numeric|unique:users,login_id,' . @$this->admin . ',id,user_type,admin',
+            'login_id' => 'required|digits:6|numeric|unique:users,login_id,' . @$this->admin->id . ',id,user_type,admin',
             'ban_from' => 'nullable|required_if:ban_status,temporary|date|after:1900-01-01',
             'ban_to' => 'nullable|required_if:ban_status,temporary|date|after_or_equal:ban_from',
             'group_list' => 'required_without:permission_list|array|min:1',
