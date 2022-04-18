@@ -136,6 +136,7 @@ Route::middleware('auth:sanctum')->group(function () {
             'admins' => 'AdminController',
             'employees' => 'EmployeeController',
             'clients' => 'ClientController',
+            'citizens' => 'CitizenController',
             'rasid_jobs' => 'RasidJobController',
             'banks' => 'BankController',
             'slides'=>'SlideController',
