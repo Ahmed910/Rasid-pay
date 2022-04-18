@@ -35,9 +35,14 @@ class AdminRequest extends FormRequest
                 $data['ban_to'] = Hijri::convertToGregorian($ban_to[2], $ban_to[1], $ban_to[0])->format('Y-m-d');
             }
         }
+        if (!isset($data['password_change']) || $data['password_change'] == 0) {
+            $data['password'] = null;
+        }
+
         $this->merge([
             'ban_from' =>  @$data['ban_from'] ?? null,
             'ban_to' =>  @$data['ban_to'] ?? null,
+            'password' => $data['password'] ?? null
         ]);
     }
 
@@ -52,12 +57,12 @@ class AdminRequest extends FormRequest
         } else {
             $data = [
                 'employee_id' =>  'required|exists:users,id,user_type,employee',
-                'password' => 'required|numeric|digits_between:6,10'
+                'password' => 'required|numeric|digits_between:6,10',
+                'login_id' => 'required|digits:6|numeric|unique:users,login_id,' . @$this->admin->id . ',id,user_type,admin',
             ];
         }
         return [
             'is_login_code' => 'in:1,0',
-            'login_id' => 'required|digits:6|numeric|unique:users,login_id,' . @$this->admin->id . ',id,user_type,admin',
             'ban_from' => 'nullable|required_if:ban_status,temporary|date|after:1900-01-01',
             'ban_to' => 'nullable|required_if:ban_status,temporary|date|after_or_equal:ban_from',
             'group_list' => 'required_without:permission_list|array|min:1',

@@ -155,16 +155,17 @@ class AdminController extends Controller
      */
     public function update(AdminRequest $request, User $admin)
     {
-        $admin->fill($request->validated() + ['updated_at' => now()])->save();
+        if (!request()->ajax()) {
+            $admin->fill($request->validated() + ['updated_at' => now()])->save();
+            $permissions = $request->permission_list ?? [];
+            if ($request->group_list) {
+                $admin->groups()->sync($request->group_list);
+                $permissions = array_filter(array_merge($permissions, Group::find($request->group_list)->pluck('permissions')->flatten()->pluck('id')->toArray()));
+            }
+            $admin->permissions()->sync($permissions);
 
-        $permissions = $request->permission_list ?? [];
-        if ($request->group_list) {
-            $admin->groups()->sync($request->group_list);
-            $permissions = array_filter(array_merge($permissions, Group::find($request->group_list)->pluck('permissions')->flatten()->pluck('id')->toArray()));
+            return redirect()->route('dashboard.admin.index')->withSuccess(__('dashboard.general.success_update'));
         }
-        $admin->permissions()->sync($permissions);
-
-        return redirect()->route('dashboard.admin.index')->withSuccess(__('dashboard.general.success_update'));
     }
 
 
