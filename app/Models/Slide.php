@@ -23,7 +23,8 @@ class Slide extends Model
     public $assets = ["image"];
     public $with = ["images", "addedBy"];
 
-      #endregion properties
+
+    #endregion properties
 
     public static function boot()
     {
@@ -33,8 +34,17 @@ class Slide extends Model
         });
     }
 
-     public function addedBy(): BelongsTo
+    # relationships
+    public function addedBy(): BelongsTo
     {
         return $this->belongsTo(User::class, 'added_by_id');
     }
+    #end relationships
+
+    # scopes
+    public function scopeActive($query)
+    {
+        $query->where('is_active', 1);
+    }
+    #end scopes
 }
