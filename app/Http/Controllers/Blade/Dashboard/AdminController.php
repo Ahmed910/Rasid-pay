@@ -137,8 +137,6 @@ class AdminController extends Controller
         // $departments = Department::with('parent.translations')->ListsTranslations('name')->pluck('name', 'id')->toArray();
         $groups = Group::ListsTranslations('name')->pluck('name', 'id');
         $locales = config('translatable.locales');
-
-        // dd($admin);
         return view('dashboard.admin.edit', compact('admin', 'groups', 'locales'));
     }
 
@@ -151,6 +149,7 @@ class AdminController extends Controller
      */
     public function update(AdminRequest $request, User $admin)
     {
+        dd($request->validated());
         $admin->fill($request->validated() + ['updated_at' => now()])->save();
 
         return redirect()->route('dashboard.admin.index')->withSuccess(__('dashboard.general.success_update'));
