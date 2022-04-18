@@ -40,7 +40,7 @@ class CitizenRequest extends ApiMasterRequest
         $list = countries_list();
         return [
             "fullname" => ["required", "max:100", "string"],
-            "email" => ["nullable", "max:255", "email", "unique:users,email," . @$this->client],
+            "email" => ["nullable", "max:255", "email", "unique:users,email," . @$this->citizen],
             "image"         => "nullable|max:5120|mimes:jpg,png,jpeg",
             "country_code" => "nullable|in:" . $list,
             "phone" => ["nullable", "not_regex:/^{$this->country_code}/", "numeric", "digits_between:7,20"],
