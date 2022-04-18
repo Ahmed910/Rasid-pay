@@ -20,7 +20,7 @@ class CreateDepartmentsTable extends Migration
             $table->timestamps();
         });
 
-        Schema::table('departments', function (Blueprint $table) {
+       Schema::table('departments', function (Blueprint $table) {
             $table->foreignUuid('parent_id')->nullable()->constrained('departments')->onDelete('set null');
         });
 
