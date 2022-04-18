@@ -3,21 +3,33 @@
 
           <div class="col-12 col-md-4">
               {!! Form::label('mainDepartment', trans('dashboard.department.department_name')) !!}
-              {!! Form::select('department_id', ['' => ''] + $departments, null, ['class' => 'form-control select2-show-search', 'data-placeholder' => trans('dashboard.department.select_department'), 'id' => 'mainDepartment']) !!}
+
+              @if (isset($admin))
+                  {!! Form::text('department_name', $admin->department->name, ['class' => 'form-control','disabled'=>'disabled']) !!}
+              @else
+                  {!! Form::select('department_id', ['' => ''] + $departments, null, ['class' => 'form-control select2-show-search', 'data-placeholder' => trans('dashboard.department.select_department'), 'id' => 'mainDepartment']) !!}
+              @endif
+
               @error('department_id')
                   <span class="text-danger">{{ $message }}</span>
               @enderror
+
           </div>
           <div class="col-12 col-md-4">
               {!! Form::label('userName', trans('dashboard.admin.name')) !!}
-              {!! Form::select('employee_id', [''=>''], null, ['class' => 'form-control select2', 'id' => 'userName', 'data-placeholder' => trans('dashboard.general.select_user')]) !!}
+
+              @if (isset($admin))
+                  {!! Form::text('user_name', $admin->fullname, ['class' => 'form-control','disabled'=>'disabled']) !!}
+              @else
+                  {!! Form::select('employee_id', ['' => ''], null, ['class' => 'form-control select2', 'id' => 'userName', 'data-placeholder' => trans('dashboard.general.select_employee')]) !!}
+              @endif
               @error('employee_id')
                   <span class="text-danger">{{ $message }}</span>
               @enderror
           </div>
           <div class="col-12 col-md-4">
               {!! Form::label('userId', trans('dashboard.admin.number')) !!}
-              {!! Form::number('login_id', null, ['class' => 'form-control ', 'id' => 'userId', 'placeholder' => trans('dashboard.admin.number')]) !!}
+              {!! Form::number('login_id', null, ['class' => 'form-control stop-copy-paste', 'oninput'=>'javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);' ,'min'=> '0','maxlength' => '6','onkeypress'=>'return /[0-9a-zA-Z]/i.test(event.key)','id' => 'userId', 'placeholder' => trans('dashboard.admin.number')]) !!}
               @error('login_id')
                   <span class="text-danger">{{ $message }}</span>
               @enderror
@@ -34,7 +46,7 @@
               <div class="col-12 col-md-4 mt-3">
                   {!! Form::label('status', trans('dashboard.general.status')) !!}
 
-                {!! Form::select('ban_status', [''=>'']+trans('dashboard.admin.active_cases'), request('ban_status'), ['class' => 'form-control select2' . ($errors->has('status') ? ' is-invalid' : null), 'id' => 'status', 'data-placeholder' => trans('dashboard.general.select_status')]) !!}
+                  {!! Form::select('ban_status', ['' => ''] + trans('dashboard.admin.active_cases'), request('ban_status'), ['class' => 'form-control select2' . ($errors->has('status') ? ' is-invalid' : null), 'id' => 'status', 'data-placeholder' => trans('dashboard.general.select_status')]) !!}
                   @error('ban_status')
                       <span class="text-danger">{{ $message }}</span>
                   @enderror
@@ -97,7 +109,7 @@
           <div class="col-12 col-md-4 mt-3 changePass">
               {!! Form::label('newPassword', trans('dashboard.admin.new_password')) !!}
               <div class="input-group" id="show_hide_password">
-                  {!! Form::password('password', ['class' => 'form-control', 'placeholder' => trans('dashboard.admin.new_password')]) !!}
+                  {!! Form::password('password', ['class' => 'form-control stop-copy-paste', 'placeholder' => trans('dashboard.admin.new_password')]) !!}
                   <div class="input-group-text border-start-0">
                       <a href=""><i class="mdi mdi-eye-off-outline d-flex"></i></a>
                   </div>
@@ -109,7 +121,7 @@
           <div class="col-12 col-md-4 mt-3 changePass">
               {!! Form::label('confirmPassword', trans('dashboard.admin.confirmed_password')) !!}
               <div class="input-group" id="show_hide_confirm_password">
-                  {!! Form::password('confirmed_password', ['class' => 'form-control', 'placeholder' => trans('dashboard.admin.confirmed_password')]) !!}
+                  {!! Form::password('confirmed_password', ['class' => 'form-control stop-copy-paste', 'placeholder' => trans('dashboard.admin.confirmed_password')]) !!}
                   <div class="input-group-text border-start-0">
                       <a href=""><i class="mdi mdi-eye-off-outline d-flex"></i></a>
                   </div>
@@ -282,18 +294,17 @@
 
               });
 
-            // prevent dot (.) in number input
-            $(document).ready(function() {
-              $('#userId').on('keypress', function(event){
-                var key = event.charCode ? event.charCode : event.keyCode;
-                $("#userId").innerHTML = key;
-                if (key == 46)
-                {
-                  event.preventDefault();
-                  return false;
-                }
+              // prevent dot (.) in number input
+              $(document).ready(function() {
+                  $('#userId').on('keypress', function(event) {
+                      var key = event.charCode ? event.charCode : event.keyCode;
+                      $("#userId").innerHTML = key;
+                      if (key == 46) {
+                          event.preventDefault();
+                          return false;
+                      }
+                  });
               });
-            });
 
           })();
       </script>

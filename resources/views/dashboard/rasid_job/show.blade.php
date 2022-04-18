@@ -83,7 +83,7 @@
                     <th class="border-bottom-0"> {{ trans('dashboard.department.department_name') }} </th>
                     <th class="border-bottom-0">{{ trans('dashboard.activity_log.date') }} </th>
                     <th class="border-bottom-0">{{ trans('dashboard.activity_log.activity') }}</th>
-                    <th class="border-bottom-0" style="max-width: 800px;">{{ trans('dashboard.general.reason') }}
+                    <th class="border-bottom-0">{{ trans('dashboard.general.reason') }}
                     </th>
                 </tr>
             </thead>
