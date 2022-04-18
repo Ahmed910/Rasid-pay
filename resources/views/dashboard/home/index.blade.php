@@ -137,7 +137,7 @@
   </div>
   <!-- COL END -->
   <div class="col-sm-12 col-md-6 col-lg-6 col-xl-3">
-    <div class="card bg-info img-card box-info-shadow">
+    <div class="card bg-danger img-card box-danger-shadow">
       <a href="{{ url('dashboard/admin?ban_status=permanent') }}">
       <div class="card-body">
         <div class="d-flex">
@@ -155,7 +155,7 @@
   </div>
   <!-- COL END -->
   <div class="col-sm-12 col-md-6 col-lg-6 col-xl-3">
-    <div class="card bg-info img-card box-info-shadow">
+    <div class="card bg-warning img-card box-warning-shadow">
       <a href="{{ url('dashboard/admin?ban_status=temporary') }}">
       <div class="card-body">
         <div class="d-flex">
@@ -173,7 +173,7 @@
   </div>
   <!-- COL END -->
   <div class="col-sm-12 col-md-6 col-lg-6 col-xl-3">
-    <div class="card bg-info img-card box-info-shadow">
+    <div class="card bg-success img-card box-success-shadow">
       <a href="{{ url('dashboard/rasid_job?is_vacant=1') }}">
       <div class="card-body">
         <div class="d-flex">
@@ -191,7 +191,7 @@
   </div>
    <!-- COL END -->
    <div class="col-sm-12 col-md-6 col-lg-6 col-xl-3">
-    <div class="card bg-info img-card box-info-shadow">
+    <div class="card bg-warning img-card box-warning-shadow">
       <a href="{{ url('dashboard/rasid_job?is_vacant=0') }}">
       <div class="card-body">
         <div class="d-flex">

@@ -19,12 +19,12 @@
                   </div>
         @endif
         <div class="col-12 col-md-12 mb-5">
-            <label for="permissions">صلاحيات النظام</label>
+            <label for="permissions">{{trans('dashboard.admin.permission_system')}}</label>
             <select name="permission_list[]" hidden multiple></select>
             <select name="group_list[]" hidden multiple></select>
 
             <select class="form-control select2" onchange="addPermissions(this.selectedOptions)"
-                data-placeholder="اختر الصلاحيات" multiple="multiple" id="permissions" required>
+                data-placeholder="{{trans('dashboard.general.select_permissions')}}" multiple="multiple" id="permissions" required>
                 @foreach ($groups as $id => $name)
                     <option value="{{ $id }}" data-name="groups"
                         {{ isset($group) && in_array($id, $group->group_list) ? 'selected' : null }}>
@@ -161,3 +161,4 @@
 
     </script>
 @endsection
+

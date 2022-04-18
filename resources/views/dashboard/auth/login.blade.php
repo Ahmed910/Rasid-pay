@@ -14,7 +14,7 @@
   
   <div class="form-group">
     <label for="userID">{{ trans('auth.userID')}}</label>
-    <input oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" type="number" pattern="^[1-9]\d*$" maxlength="6" class="form-control stop-copy-paste number-regex @error('username') is-invalid @enderror"
+    <input oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" type="number" pattern="^[1-9]\d*$" onkeypress="return /[0-9a-zA-Z]/i.test(event.key)" maxlength="6" class="form-control stop-copy-paste number-regex @error('username') is-invalid @enderror"
            id="userId" name="username"
     value="{{ old('username') }}"
     placeholder="{{ trans('auth.userID')}}"

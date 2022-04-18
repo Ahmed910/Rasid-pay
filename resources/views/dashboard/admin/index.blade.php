@@ -17,13 +17,13 @@
         <div class="row align-items-end mb-3">
             <div class="col-12 col-md-3">
                 <label for="userName">{{ trans('dashboard.admin.name') }}</label>
-                <input type="text" class="form-control" id="userName" placeholder="{{ trans('dashboard.admin.name') }}"
+                <input type="text" class="form-control" id="userName" placeholder="{{ trans('dashboard.admin.admin_name') }}"
                     name="name" value="{{ old('name') ?? request('name') }}" />
 
             </div>
             <div class="col-12 col-md-3">
-                <label for="userId">{{ trans('dashboard.admin.number') }}</label>
-                <input type="number" class="form-control" id="userId" placeholder="{{ trans('dashboard.admin.number') }}"
+                <label for="userId">{{ trans('dashboard.admin.login_id') }}</label>
+                <input type="number" class="form-control" id="userId" placeholder="{{ trans('dashboard.admin.enter_number') }}"
                     name="login_id" value="{{ old('login_id') ?? request('login_id') }}" />
 
             </div>
@@ -133,7 +133,7 @@
                         <tr>
                             <th class="border-bottom-0">#</th>
                             <th class="border-bottom-0">{{ trans('dashboard.admin.name') }}</th>
-                            <th class="border-bottom-0">{{ trans('dashboard.admin.number') }}</th>
+                            <th class="border-bottom-0">{{ trans('dashboard.admin.login_id') }}</th>
                             <th class="border-bottom-0">{{ trans('dashboard.department.department') }}</th>
                             <th class="border-bottom-0">{{ trans('dashboard.general.created_at') }}</th>
                             <th class="border-bottom-0"> {{ trans('dashboard.general.status') }}</th>

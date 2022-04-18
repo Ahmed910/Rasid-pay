@@ -61,8 +61,11 @@ class AdminController extends Controller
 
         $departments = Department::with('parent.translations')->ListsTranslations('name')->pluck('name', 'id')->toArray();
         $groups = Group::ListsTranslations('name')->pluck('name', 'id');
+        $permissions = Permission::permissions()->pluck('name', 'id');
+
+
         $locales = config('translatable.locales');
-        return view('dashboard.admin.create', compact('departments', 'locales', 'groups'));
+        return view('dashboard.admin.create', compact('departments', 'locales', 'groups', 'permissions'));
     }
 
     /**
@@ -130,11 +133,17 @@ class AdminController extends Controller
     {
         $previousUrl = url()->previous();
         (strpos($previousUrl, 'admin')) ? session(['perviousPage' => 'admin']) : session(['perviousPage' => 'home']);
-        $admin = User::where('user_type', 'admin')->findOrFail($id);
-        $departments = Department::with('parent.translations')->ListsTranslations('name')->pluck('name', 'id')->toArray();
-        $groups = Group::ListsTranslations('name')->pluck('name', 'id');
+        $admin = User::where('user_type', 'admin')->findOrFail($id)->load(['groups', 'permissions', 'employee', 'department' => function ($query) {
+            $query->with('parent.translations')
+                ->ListsTranslations('name');
+        }]);
+
+
+        $groups = Group::with('translations')->ListsTranslations('name')->pluck('name', 'id');
+        $permissions = Permission::permissions()->pluck('name', 'id');
+
         $locales = config('translatable.locales');
-        return view('dashboard.admin.edit',compact('admin','departments','groups','locales'));
+        return view('dashboard.admin.edit', compact('admin', 'groups', 'permissions', 'locales'));
     }
 
     /**
@@ -147,6 +156,13 @@ class AdminController extends Controller
     public function update(AdminRequest $request, User $admin)
     {
         $admin->fill($request->validated() + ['updated_at' => now()])->save();
+
+        $permissions = $request->permission_list ?? [];
+        if ($request->group_list) {
+            $admin->groups()->sync($request->group_list);
+            $permissions = array_filter(array_merge($permissions, Group::find($request->group_list)->pluck('permissions')->flatten()->pluck('id')->toArray()));
+        }
+        $admin->permissions()->sync($permissions);
 
         return redirect()->route('dashboard.admin.index')->withSuccess(__('dashboard.general.success_update'));
     }

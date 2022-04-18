@@ -399,16 +399,16 @@ $(document).ready(function () {
     placement: "left",
     trigger: "hover",
     html: true,
-    content:
-      '<img src="https://picsum.photos/seed/picsum/100" width="500" alt="..." />',
+    // content:
+    //   '<img src="https://picsum.photos/seed/picsum/100" width="500" alt="..." />',
   });
 
   $('[data-bs-toggle="popoverRoles"]').popover({
     placement: "left",
     trigger: "focus",
     html: true,
-    content:
-      "<span class='tooltipRole'>تعديل المستخدمين</span><span class='tooltipRole'>تعديل البيانات</span><span class='tooltipRole'>تعديل </span><span class='tooltipRole'>تعديل المستخدمين</span><span class='tooltipRole'>تعديل المستخدمين</span><span class='tooltipRole'>إضافة مستخدم </span><span class='tooltipRole'>تعديل الوظائف</span><span class='tooltipRole'>تعديل الصلاحيات</span><span class='tooltipRole'>تعديل المستخدمين</span>",
+    // content:
+    //   "<span class='tooltipRole'>تعديل المستخدمين</span><span class='tooltipRole'>تعديل البيانات</span><span class='tooltipRole'>تعديل </span><span class='tooltipRole'>تعديل المستخدمين</span><span class='tooltipRole'>تعديل المستخدمين</span><span class='tooltipRole'>إضافة مستخدم </span><span class='tooltipRole'>تعديل الوظائف</span><span class='tooltipRole'>تعديل الصلاحيات</span><span class='tooltipRole'>تعديل المستخدمين</span>",
   });
 
 
