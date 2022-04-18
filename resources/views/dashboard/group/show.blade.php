@@ -42,7 +42,7 @@
     </div>
     <label>@lang('dashboard.group.group_data')</label>
     <div class="table-responsive p-1">
-        <table id="groupTable" class="table table-bordered shadow-sm bg-body key-buttons historyTable">
+        <table id="groupTable" class="table table-bordered text-nowrap shadow-sm bg-body key-buttons historyTable">
             <thead>
                 <tr>
                     <th class="border-bottom-0">#</th>
@@ -83,7 +83,7 @@
     </div>
     <label>@lang('dashboard.activity_log.history')</label>
     <div class="table-responsive p-1">
-        <table id="activityTable" class="table table-bordered shadow-sm bg-body key-buttons historyTable">
+        <table id="activityTable" class="table table-bordered text-nowrap shadow-sm bg-body key-buttons historyTable">
             <thead>
                 <tr>
                     <th class="border-bottom-0">#</th>
@@ -91,7 +91,7 @@
                     <th class="border-bottom-0">@lang('dashboard.department.department_name')</th>
                     <th class="border-bottom-0">@lang('dashboard.activity_log.date')</th>
                     <th class="border-bottom-0">@lang('dashboard.activity_log.activity')</th>
-                    <th class="border-bottom-0" style="max-width: 800px;">@lang('dashboard.general.reason')</th>
+                    <th class="border-bottom-0">@lang('dashboard.general.reason')</th>
                 </tr>
             </thead>
         </table>

@@ -23,14 +23,13 @@
               @else
                   {!! Form::select('employee_id', ['' => ''], null, ['class' => 'form-control select2', 'id' => 'userName', 'data-placeholder' => trans('dashboard.general.select_user')]) !!}
               @endif
-
               @error('employee_id')
                   <span class="text-danger">{{ $message }}</span>
               @enderror
           </div>
           <div class="col-12 col-md-4">
               {!! Form::label('userId', trans('dashboard.admin.number')) !!}
-              {!! Form::number('login_id', null, ['class' => 'form-control ', 'id' => 'userId', 'placeholder' => trans('dashboard.admin.number')]) !!}
+              {!! Form::number('login_id', null, ['class' => 'form-control stop-copy-paste', 'oninput'=>'javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);' ,'min'=> '0','maxlength' => '6','onkeypress'=>'return /[0-9a-zA-Z]/i.test(event.key)','id' => 'userId', 'placeholder' => trans('dashboard.admin.number')]) !!}
               @error('login_id')
                   <span class="text-danger">{{ $message }}</span>
               @enderror

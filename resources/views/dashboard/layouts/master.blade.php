@@ -36,7 +36,7 @@
   @yield('styles')
 </head>
 
-<body class="app sidebar-mini {{ LaravelLocalization::getCurrentLocaleDirection() }} popoverTooltip">
+<body class="app sidebar-mini {{ LaravelLocalization::getCurrentLocaleDirection() }} {{ request()->routeIs('dashboard.group.index')? 'popoverTooltip':'' }}">
   <!-- GLOBAL-LOADER -->
   <div id="global-loader">
     <img src="{{ asset('dashboardAssets/images/loader.svg') }}" class="loader-img" alt="Loader" />
