@@ -5,7 +5,7 @@
               {!! Form::label('mainDepartment', trans('dashboard.department.department_name')) !!}
 
               @if (isset($admin))
-                  {!! Form::text('department_name', $admin->department->name, ['class' => 'form-control','disabled'=>'disabled']) !!}
+                  {!! Form::text('department_name', $admin->department->name, ['class' => 'form-control', 'disabled' => 'disabled']) !!}
               @else
                   {!! Form::select('department_id', ['' => ''] + $departments, null, ['class' => 'form-control select2-show-search', 'data-placeholder' => trans('dashboard.department.select_department'), 'id' => 'mainDepartment']) !!}
               @endif
@@ -19,7 +19,7 @@
               {!! Form::label('userName', trans('dashboard.admin.name')) !!} <span class="requiredFields">*</span>
 
               @if (isset($admin))
-                  {!! Form::text('user_name', $admin->fullname, ['class' => 'form-control','disabled'=>'disabled']) !!}
+                  {!! Form::text('user_name', $admin->fullname, ['class' => 'form-control', 'disabled' => 'disabled']) !!}
               @else
                   {!! Form::select('employee_id', ['' => ''], null, ['class' => 'form-control select2', 'id' => 'userName', 'data-placeholder' => trans('dashboard.general.select_employee')]) !!}
               @endif
@@ -35,18 +35,56 @@
               @enderror
           </div>
 
-          <div class="col-12 col-md-8 mt-3">
-              {!! Form::label('systemPermission', trans('dashboard.admin.permission_system')) !!} <span class="requiredFields">*</span>
-              {!! Form::select('permission_list[]', $groups, null, ['class' => 'form-control select2 stop-copy-paste', 'multiple' => 'multiple', 'data-placeholder' => trans('dashboard.general.select_permissions'), 'id' => 'systemPermission']) !!}
+          {{-- <div class="col-12 col-md-8 mt-3">
+              {!! Form::label('systemPermission', trans('dashboard.admin.permission_system')) !!}
+              {!! Form::select('permission_list[]', $groups, null, ['class' => 'form-control select2', 'multiple' => 'multiple', 'data-placeholder' => trans('dashboard.general.select_permissions'), 'id' => 'systemPermission']) !!}
               @error('permission_list')
                   <span class="text-danger">{{ $message }}</span>
               @enderror
+          </div> --}}
+
+
+
+
+          <div class="col-12 col-md-8 mt-3">
+              <label for="permissions">{{ trans('dashboard.admin.permission_system') }}</label>
+              <select name="permission_list[]" hidden multiple></select>
+              <select name="group_list[]" hidden multiple></select>
+
+              <select class="form-control select2" onchange="addPermissions(this.selectedOptions)"
+                  data-placeholder="{{ trans('dashboard.general.select_permissions') }}" multiple="multiple"
+                  id="permissions" required>
+                  @foreach ($groups as $id => $name)
+                      <option value="{{ $id }}" data-name="groups"
+                          {{ isset($admin) && in_array($id, $admin->group_list) ? 'selected' : null }}>
+                          {{ $name }}</option>
+                  @endforeach
+                  @foreach ($permissions as $id => $name)
+                      <option value="{{ $id }}" data-name="permissions"
+                          {{ isset($admin) && in_array($id, $admin->permission_list) ? 'selected' : null }}>
+                          {{ $name }}</option>
+                  @endforeach
+              </select>
+
+
+              @error('permission_list')
+                  <span class="text-danger">{{ $message }}</span>
+              @enderror
+
+              @error('group_list')
+                  <span class="text-danger">{{ $message }}</span>
+              @enderror
+
+
           </div>
+
           @if (isset($admin))
               <div class="col-12 col-md-4 mt-3">
                   {!! Form::label('status', trans('dashboard.general.status')) !!}
 
-                  {!! Form::select('ban_status', ['' => ''] + trans('dashboard.admin.active_cases'), request('ban_status'), ['class' => 'form-control select2' . ($errors->has('status') ? ' is-invalid' : null), 'id' => 'status', 'data-placeholder' => trans('dashboard.general.select_status')]) !!}
+
+                  {!! Form::select('ban_status', trans('dashboard.admin.active_cases'), null, ['class' => 'form-control select2', 'id' => 'status']) !!}
+
                   @error('ban_status')
                       <span class="text-danger">{{ $message }}</span>
                   @enderror
@@ -106,8 +144,8 @@
           </div>
 
 
-          <div class="col-12 col-md-4 mt-3 changePass">
-              {!! Form::label('newPassword', trans('dashboard.admin.password')) !!} <span class="requiredFields">*</span>
+          <div class="col-12 col-md-4 mt-3 changePass" @if (isset($admin)) hidden @endif>
+              {!! Form::label('newPassword', trans('dashboard.admin.new_password')) !!}
               <div class="input-group" id="show_hide_password">
                   {!! Form::password('password', ['class' => 'form-control','maxlength' => '10', 'oninput'=>'javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);','pattern'=>'^[1-9]\d*$', 'onkeypress'=>'return /[0-9]/i.test(event.key)', 'placeholder' => trans('dashboard.admin.new_password')]) !!}
 
@@ -119,8 +157,9 @@
                   <span class="text-danger">{{ $message }}</span>
               @enderror
           </div>
-          <div class="col-12 col-md-4 mt-3 changePass">
-              {!! Form::label('confirmPassword', trans('dashboard.admin.confirmed_password')) !!} <span class="requiredFields">*</span>
+
+          <div class="col-12 col-md-4 mt-3 changePass" @if (isset($admin)) hidden @endif>
+              {!! Form::label('confirmPassword', trans('dashboard.admin.confirmed_password')) !!}
               <div class="input-group" id="show_hide_confirm_password">
                   {!! Form::password('confirmed_password', ['class' => 'form-control','maxlength' => '10', 'oninput'=>'javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);','pattern'=>'^[1-9]\d*$','onkeypress'=>'return /[0-9]/i.test(event.key)', 'placeholder' => trans('dashboard.admin.confirmed_password')]) !!}
 
@@ -132,6 +171,7 @@
                   <span class="text-danger">{{ $message }}</span>
               @enderror
           </div>
+
       </div>
   </div>
   <div class="row">
@@ -154,7 +194,35 @@
       <script src="{{ asset('dashboardAssets/plugins/bootstrap-hijri-datepicker/js/bootstrap-hijri-datetimepicker.js') }}">
       </script>
       <script>
+          function addPermissions(selected) {
+              let group_options = '';
+              let permission_options = '';
+              $.each(selected, (index, item) => {
+                  if (item.getAttribute('data-name') == 'groups') {
+                      group_options += `<option value="${item.value}" selected class="group_select"></option>`;
+                  }
+                  if (item.getAttribute('data-name') == 'permissions') {
+                      permission_options +=
+                          `<option value="${item.value}" selected class="permission_select"></option>`;
+                  }
+              });
+              $('[name="permission_list[]"]').html(permission_options);
+              $('[name="group_list[]"]').html(group_options);
+          }
+
+
           (function() {
+
+            let permissions = @isset($group)  @json($group->permission_list) @else [] @endisset;
+            let groups = @isset($group)  @json($group->group_list) @else [] @endisset;
+              groups.forEach((item, i) => {
+                  $('[name="group_list[]"]').append(
+                      `<option value="${item}" selected class="group_select"></option>`);
+              });
+              permissions.forEach((item, i) => {
+                  $('[name="permission_list[]"]').append(
+                      `<option value="${item}" selected class="permission_select"></option>`);
+              });
               'use strict';
               window.addEventListener(
                   "load",
@@ -214,9 +282,9 @@
               //change password checkbox
               $("#changePassword").change(function() {
                   if (this.checked) {
-                      $(".changePass").show();
+                      $(".changePass").attr('hidden', false);
                   } else {
-                      $(".changePass").hide();
+                      $(".changePass").attr('hidden', true);
                   }
               });
 

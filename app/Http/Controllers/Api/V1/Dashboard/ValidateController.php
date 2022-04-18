@@ -33,6 +33,10 @@ class ValidateController extends Controller
             $message = trans('dashboard.admin.u_can_use_this_id');
         }
 
+        if ($request->type == 'permission') {
+            $rules["$locale.name"] = 'unique:group_translations,name,' . @$request->group_id . ',group_id';
+        }
+
         $validator = Validator::make(
             $request->all(),
             $rules

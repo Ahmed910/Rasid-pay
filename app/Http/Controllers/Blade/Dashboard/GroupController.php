@@ -108,11 +108,12 @@ class GroupController extends Controller
         $previousUrl = url()->previous();
         (strpos($previousUrl, 'group')) ? session(['perviousPage' => 'group']) : session(['perviousPage' => 'home']);
 
-        $locales = config('translatable.locales');
         $group = Group::where('id', "<>", auth()->user()->group_id)->findOrFail($id);
-        $uris = Permission::permissions();
-
-        return view('dashboard.group.edit', compact('group', 'uris', 'locales'));
+        $groups = Group::with('translations')
+            ->ListsTranslations('name')->pluck('name', 'id');
+        $permissions = Permission::permissions()->pluck('name', 'id');
+        $locales = config('translatable.locales');
+        return view('dashboard.group.edit', compact('group', 'groups', 'permissions', 'locales'));
     }
 
 
@@ -134,8 +135,7 @@ class GroupController extends Controller
             }
             $group->groups()->sync($request->group_list);
             $group->permissions()->sync($permissions);
-
-            return redirect(route('dashboard.group.index'))->withTrue(trans('dashboard.messages.success_update'));
+            return redirect()->route('dashboard.group.index')->withSuccess(__('dashboard.general.success_update'));
         }
     }
 
