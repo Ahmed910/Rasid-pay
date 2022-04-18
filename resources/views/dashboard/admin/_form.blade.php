@@ -110,6 +110,7 @@
               {!! Form::label('newPassword', trans('dashboard.admin.password')) !!} <span class="requiredFields">*</span>
               <div class="input-group" id="show_hide_password">
                   {!! Form::password('password', ['class' => 'form-control','maxlength' => '10', 'oninput'=>'javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);','pattern'=>'^[1-9]\d*$', 'onkeypress'=>'return /[0-9]/i.test(event.key)', 'placeholder' => trans('dashboard.admin.new_password')]) !!}
+
                   <div class="input-group-text border-start-0">
                       <a href=""><i class="mdi mdi-eye-off-outline d-flex"></i></a>
                   </div>
@@ -122,6 +123,7 @@
               {!! Form::label('confirmPassword', trans('dashboard.admin.confirmed_password')) !!} <span class="requiredFields">*</span>
               <div class="input-group" id="show_hide_confirm_password">
                   {!! Form::password('confirmed_password', ['class' => 'form-control','maxlength' => '10', 'oninput'=>'javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);','pattern'=>'^[1-9]\d*$','onkeypress'=>'return /[0-9]/i.test(event.key)', 'placeholder' => trans('dashboard.admin.confirmed_password')]) !!}
+
                   <div class="input-group-text border-start-0">
                       <a href=""><i class="mdi mdi-eye-off-outline d-flex"></i></a>
                   </div>
