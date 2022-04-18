@@ -16,8 +16,8 @@ class CreateCitizensTable extends Migration
         Schema::create('citizens', function (Blueprint $table) {
             $table->uuid("id")->primary();
             $table->foreignUuid("user_id")->constrained("users")->onDelete("cascade");
-            $table->decimal("lat")->nullable();
-            $table->decimal("lng")->nullable();
+            $table->string("lat")->nullable();
+            $table->string("lng")->nullable();
             $table->string("location")->nullable();
             $table->timestamps();
         });

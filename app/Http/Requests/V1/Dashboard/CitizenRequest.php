@@ -48,8 +48,8 @@ class CitizenRequest extends ApiMasterRequest
             "identity_number" => ["nullable", "numeric", "digits_between:10,20", "unique:users,identity_number," . @$this->citizen],
             "date_of_birth" => ["nullable", "date"],
             "location" => ["nullable", "string", "max:255"],
-            "lng" => ["required","numeric","between:-180,180"],
-            'lat' => ["required","numeric","between:-90,90"],
+            "lng" => ["nullable","string","min:3","max:255"],
+            'lat' => ["nullable","string","min:3","max:255"],
         ];
     }
 }
