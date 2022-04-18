@@ -16,7 +16,7 @@
 
           </div>
           <div class="col-12 col-md-4">
-              {!! Form::label('userName', trans('dashboard.admin.name')) !!}
+              {!! Form::label('userName', trans('dashboard.admin.name')) !!} <span class="requiredFields">*</span>
 
               @if (isset($admin))
                   {!! Form::text('user_name', $admin->fullname, ['class' => 'form-control','disabled'=>'disabled']) !!}
@@ -28,7 +28,7 @@
               @enderror
           </div>
           <div class="col-12 col-md-4">
-              {!! Form::label('userId', trans('dashboard.admin.number')) !!}
+              {!! Form::label('userId', trans('dashboard.admin.login_id')) !!} <span class="requiredFields">*</span>
               {!! Form::number('login_id', null, ['class' => 'form-control stop-copy-paste', 'oninput'=>'javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);' ,'min'=> '0','maxlength' => '6','onkeypress'=>'return /[0-9a-zA-Z]/i.test(event.key)','id' => 'userId', 'placeholder' => trans('dashboard.admin.number')]) !!}
               @error('login_id')
                   <span class="text-danger">{{ $message }}</span>
@@ -36,8 +36,8 @@
           </div>
 
           <div class="col-12 col-md-8 mt-3">
-              {!! Form::label('systemPermission', trans('dashboard.admin.permission_system')) !!}
-              {!! Form::select('permission_list[]', $groups, null, ['class' => 'form-control select2', 'multiple' => 'multiple', 'data-placeholder' => trans('dashboard.general.select_permissions'), 'id' => 'systemPermission']) !!}
+              {!! Form::label('systemPermission', trans('dashboard.admin.permission_system')) !!} <span class="requiredFields">*</span>
+              {!! Form::select('permission_list[]', $groups, null, ['class' => 'form-control select2 stop-copy-paste', 'multiple' => 'multiple', 'data-placeholder' => trans('dashboard.general.select_permissions'), 'id' => 'systemPermission']) !!}
               @error('permission_list')
                   <span class="text-danger">{{ $message }}</span>
               @enderror
@@ -107,9 +107,10 @@
 
 
           <div class="col-12 col-md-4 mt-3 changePass">
-              {!! Form::label('newPassword', trans('dashboard.admin.new_password')) !!}
+              {!! Form::label('newPassword', trans('dashboard.admin.password')) !!} <span class="requiredFields">*</span>
               <div class="input-group" id="show_hide_password">
-                  {!! Form::password('password', ['class' => 'form-control stop-copy-paste', 'placeholder' => trans('dashboard.admin.new_password')]) !!}
+                  {!! Form::password('password', ['class' => 'form-control','maxlength' => '10', 'oninput'=>'javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);','pattern'=>'^[1-9]\d*$', 'onkeypress'=>'return /[0-9]/i.test(event.key)', 'placeholder' => trans('dashboard.admin.new_password')]) !!}
+
                   <div class="input-group-text border-start-0">
                       <a href=""><i class="mdi mdi-eye-off-outline d-flex"></i></a>
                   </div>
@@ -119,9 +120,10 @@
               @enderror
           </div>
           <div class="col-12 col-md-4 mt-3 changePass">
-              {!! Form::label('confirmPassword', trans('dashboard.admin.confirmed_password')) !!}
+              {!! Form::label('confirmPassword', trans('dashboard.admin.confirmed_password')) !!} <span class="requiredFields">*</span>
               <div class="input-group" id="show_hide_confirm_password">
-                  {!! Form::password('confirmed_password', ['class' => 'form-control stop-copy-paste', 'placeholder' => trans('dashboard.admin.confirmed_password')]) !!}
+                  {!! Form::password('confirmed_password', ['class' => 'form-control','maxlength' => '10', 'oninput'=>'javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);','pattern'=>'^[1-9]\d*$','onkeypress'=>'return /[0-9]/i.test(event.key)', 'placeholder' => trans('dashboard.admin.confirmed_password')]) !!}
+
                   <div class="input-group-text border-start-0">
                       <a href=""><i class="mdi mdi-eye-off-outline d-flex"></i></a>
                   </div>
