@@ -2,16 +2,18 @@
 
 namespace App\Models;
 
+use App\Contracts\HasAssetsInterface;
 use App\Traits\HasAssetsTrait;
 use App\Traits\Loggable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Traits\Uuid;
 use Astrotomic\Translatable\Translatable;
+use Astrotomic\Translatable\Contracts\Translatable as TranslatableContract;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Slide extends Model
+class Slide extends Model implements TranslatableContract, HasAssetsInterface
 {
     use HasFactory, Uuid, HasAssetsTrait, Translatable, SoftDeletes, Loggable;
 
@@ -23,7 +25,8 @@ class Slide extends Model
     public $assets = ["image"];
     public $with = ["images", "addedBy"];
 
-      #endregion properties
+
+    #endregion properties
 
     public static function boot()
     {
@@ -33,8 +36,17 @@ class Slide extends Model
         });
     }
 
-     public function addedBy(): BelongsTo
+    # relationships
+    public function addedBy(): BelongsTo
     {
         return $this->belongsTo(User::class, 'added_by_id');
     }
+    #end relationships
+
+    # scopes
+    public function scopeActive($query)
+    {
+        $query->where('is_active', 1);
+    }
+    #end scopes
 }
