@@ -6,7 +6,7 @@
     "license": "MIT",
     "require": {
         "php": "^7.3|^8.0",
-        "ext-gd": " *",
+        "ext-gd": "*",
         "astrotomic/laravel-translatable": "^11.9",
         "fruitcake/laravel-cors": "^2.0",
         "geniusts/hijri-dates": "^1.1",

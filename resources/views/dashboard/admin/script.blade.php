@@ -32,7 +32,7 @@
         serverSide: true,
         processing: true,
         ajax: {
-          url: "{{ route('dashboard.admin.index') }}?",
+          url: "{{ route('dashboard.admin.index') }}",
           data: function (data) {
             data.ban_status = $('#status').val();
             data.department_id = $('#mainDepartment').val();

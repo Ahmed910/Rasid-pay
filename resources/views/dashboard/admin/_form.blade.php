@@ -3,14 +3,26 @@
 
           <div class="col-12 col-md-4">
               {!! Form::label('mainDepartment', trans('dashboard.department.department_name')) !!}
-              {!! Form::select('department_id', ['' => ''] + $departments, null, ['class' => 'form-control select2-show-search', 'data-placeholder' => trans('dashboard.department.select_department'), 'id' => 'mainDepartment']) !!}
+
+              @if (isset($admin))
+                  {!! Form::text('department_name', $admin->department->name, ['class' => 'form-control','disabled'=>'disabled']) !!}
+              @else
+                  {!! Form::select('department_id', ['' => ''] + $departments, null, ['class' => 'form-control select2-show-search', 'data-placeholder' => trans('dashboard.department.select_department'), 'id' => 'mainDepartment']) !!}
+              @endif
+
               @error('department_id')
                   <span class="text-danger">{{ $message }}</span>
               @enderror
+
           </div>
           <div class="col-12 col-md-4">
               {!! Form::label('userName', trans('dashboard.admin.name')) !!}
-              {!! Form::select('employee_id', [''=>''], null, ['class' => 'form-control select2', 'id' => 'userName', 'data-placeholder' => trans('dashboard.general.select_employee')]) !!}
+
+              @if (isset($admin))
+                  {!! Form::text('user_name', $admin->fullname, ['class' => 'form-control','disabled'=>'disabled']) !!}
+              @else
+                  {!! Form::select('employee_id', ['' => ''], null, ['class' => 'form-control select2', 'id' => 'userName', 'data-placeholder' => trans('dashboard.general.select_user')]) !!}
+              @endif
               @error('employee_id')
                   <span class="text-danger">{{ $message }}</span>
               @enderror
@@ -34,7 +46,7 @@
               <div class="col-12 col-md-4 mt-3">
                   {!! Form::label('status', trans('dashboard.general.status')) !!}
 
-                {!! Form::select('ban_status', [''=>'']+trans('dashboard.admin.active_cases'), request('ban_status'), ['class' => 'form-control select2' . ($errors->has('status') ? ' is-invalid' : null), 'id' => 'status', 'data-placeholder' => trans('dashboard.general.select_status')]) !!}
+                  {!! Form::select('ban_status', ['' => ''] + trans('dashboard.admin.active_cases'), request('ban_status'), ['class' => 'form-control select2' . ($errors->has('status') ? ' is-invalid' : null), 'id' => 'status', 'data-placeholder' => trans('dashboard.general.select_status')]) !!}
                   @error('ban_status')
                       <span class="text-danger">{{ $message }}</span>
                   @enderror
@@ -282,18 +294,17 @@
 
               });
 
-            // prevent dot (.) in number input
-            $(document).ready(function() {
-              $('#userId').on('keypress', function(event){
-                var key = event.charCode ? event.charCode : event.keyCode;
-                $("#userId").innerHTML = key;
-                if (key == 46)
-                {
-                  event.preventDefault();
-                  return false;
-                }
+              // prevent dot (.) in number input
+              $(document).ready(function() {
+                  $('#userId').on('keypress', function(event) {
+                      var key = event.charCode ? event.charCode : event.keyCode;
+                      $("#userId").innerHTML = key;
+                      if (key == 46) {
+                          event.preventDefault();
+                          return false;
+                      }
+                  });
               });
-            });
 
           })();
       </script>
