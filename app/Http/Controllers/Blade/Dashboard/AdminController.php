@@ -130,11 +130,14 @@ class AdminController extends Controller
     {
         $previousUrl = url()->previous();
         (strpos($previousUrl, 'admin')) ? session(['perviousPage' => 'admin']) : session(['perviousPage' => 'home']);
-        $admin = User::where('user_type', 'admin')->findOrFail($id);
-        $departments = Department::with('parent.translations')->ListsTranslations('name')->pluck('name', 'id')->toArray();
+        $admin = User::where('user_type', 'admin')->findOrFail($id)->load(['employee', 'department' => function ($query) {
+            $query->with('parent.translations')
+                ->ListsTranslations('name');
+        }]);
+        // $departments = Department::with('parent.translations')->ListsTranslations('name')->pluck('name', 'id')->toArray();
         $groups = Group::ListsTranslations('name')->pluck('name', 'id');
         $locales = config('translatable.locales');
-        return view('dashboard.admin.edit',compact('admin','departments','groups','locales'));
+        return view('dashboard.admin.edit', compact('admin', 'groups', 'locales'));
     }
 
     /**
@@ -146,6 +149,7 @@ class AdminController extends Controller
      */
     public function update(AdminRequest $request, User $admin)
     {
+        dd($request->validated());
         $admin->fill($request->validated() + ['updated_at' => now()])->save();
 
         return redirect()->route('dashboard.admin.index')->withSuccess(__('dashboard.general.success_update'));

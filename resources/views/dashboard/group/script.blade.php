@@ -81,7 +81,9 @@
                                 </a>`;
                             }
                             return actions;
-                        }
+                        },
+                        orderable: false,
+                        searchable: false
                     }
                 ],
                 pageLength: 10,
