@@ -27,7 +27,7 @@ class SlideRequest extends ApiMasterRequest
         $rules = [
             "image"         => "nullable|max:5120|mimes:jpg,png,jpeg",
             "is_active"     => "in:0,1",
-            "ordering"     => "required|numeric"
+            "ordering"     => "required|integer"
         ];
         foreach (config('translatable.locales') as $locale) {
             $rules["$locale"]               = "array";

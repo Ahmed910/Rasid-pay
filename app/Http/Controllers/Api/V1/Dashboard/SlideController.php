@@ -13,7 +13,7 @@ class SlideController extends Controller
 
     public function index()
     {
-        $sliders = Slide::where('is_active',true)->orderBy('ordering','asc')->get();
+        $sliders = Slide::active()->orderBy('ordering','asc')->paginate(config('globals.per_page'));
         return SlideResource::collection($sliders)->additional(['status'=>true,'message'=>'']);
     }
 
@@ -21,10 +21,37 @@ class SlideController extends Controller
     {
         $slide->fill($request->validated() + ['added_by_id' => auth()->id()])->save();
 
+        $slide->load(['images','addedBy']);
         return SlideResource::make($slide)
             ->additional([
                 'status' => true,
                 'message' => trans("dashboard.general.success_add")
+            ]);
+    }
+
+    public function update(SlideRequest $request, Slide $slide)
+    {
+        $slide->fill($request->validated() + ['updated_at' => now()])->save();
+
+        $slide->load(['images','addedBy']);
+
+        return SlideResource::make($slide)
+            ->additional([
+                'status' => true,
+                'message' => trans("dashboard.general.success_update")
+            ]);;
+    }
+
+    public function destroy(Slide $slide)
+    {
+
+
+        $slide->delete();
+
+        return SlideResource::make($slide)
+            ->additional([
+                'status' => true,
+                'message' => trans("dashboard.general.success_archive")
             ]);
     }
 }

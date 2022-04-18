@@ -16,20 +16,20 @@
 
           </div>
           <div class="col-12 col-md-4">
-              {!! Form::label('userName', trans('dashboard.admin.name')) !!}
+              {!! Form::label('userName', trans('dashboard.admin.name')) !!} <span class="requiredFields">*</span>
 
               @if (isset($admin))
                   {!! Form::text('user_name', $admin->fullname, ['class' => 'form-control', 'disabled' => 'disabled']) !!}
               @else
-                  {!! Form::select('employee_id', ['' => ''], null, ['class' => 'form-control select2', 'id' => 'userName', 'data-placeholder' => trans('dashboard.general.select_user')]) !!}
+                  {!! Form::select('employee_id', ['' => ''], null, ['class' => 'form-control select2', 'id' => 'userName', 'data-placeholder' => trans('dashboard.general.select_employee')]) !!}
               @endif
               @error('employee_id')
                   <span class="text-danger">{{ $message }}</span>
               @enderror
           </div>
           <div class="col-12 col-md-4">
-              {!! Form::label('userId', trans('dashboard.admin.number')) !!}
-              {!! Form::number('login_id', null, ['class' => 'form-control stop-copy-paste', 'oninput' => 'javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);', 'min' => '0', 'maxlength' => '6', 'onkeypress' => 'return /[0-9a-zA-Z]/i.test(event.key)', 'id' => 'userId', 'placeholder' => trans('dashboard.admin.number')]) !!}
+              {!! Form::label('userId', trans('dashboard.admin.login_id')) !!} <span class="requiredFields">*</span>
+              {!! Form::number('login_id', null, ['class' => 'form-control stop-copy-paste', 'oninput'=>'javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);' ,'min'=> '0','maxlength' => '6','onkeypress'=>'return /[0-9a-zA-Z]/i.test(event.key)','id' => 'userId', 'placeholder' => trans('dashboard.admin.number')]) !!}
               @error('login_id')
                   <span class="text-danger">{{ $message }}</span>
               @enderror
@@ -147,7 +147,8 @@
           <div class="col-12 col-md-4 mt-3 changePass" @if (isset($admin)) hidden @endif>
               {!! Form::label('newPassword', trans('dashboard.admin.new_password')) !!}
               <div class="input-group" id="show_hide_password">
-                  {!! Form::password('password', ['class' => 'form-control', 'placeholder' => trans('dashboard.admin.new_password')]) !!}
+                  {!! Form::password('password', ['class' => 'form-control','maxlength' => '10', 'oninput'=>'javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);','pattern'=>'^[1-9]\d*$', 'onkeypress'=>'return /[0-9]/i.test(event.key)', 'placeholder' => trans('dashboard.admin.new_password')]) !!}
+
                   <div class="input-group-text border-start-0">
                       <a href=""><i class="mdi mdi-eye-off-outline d-flex"></i></a>
                   </div>
@@ -160,7 +161,8 @@
           <div class="col-12 col-md-4 mt-3 changePass" @if (isset($admin)) hidden @endif>
               {!! Form::label('confirmPassword', trans('dashboard.admin.confirmed_password')) !!}
               <div class="input-group" id="show_hide_confirm_password">
-                  {!! Form::password('confirmed_password', ['class' => 'form-control', 'placeholder' => trans('dashboard.admin.confirmed_password')]) !!}
+                  {!! Form::password('confirmed_password', ['class' => 'form-control','maxlength' => '10', 'oninput'=>'javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);','pattern'=>'^[1-9]\d*$','onkeypress'=>'return /[0-9]/i.test(event.key)', 'placeholder' => trans('dashboard.admin.confirmed_password')]) !!}
+
                   <div class="input-group-text border-start-0">
                       <a href=""><i class="mdi mdi-eye-off-outline d-flex"></i></a>
                   </div>
