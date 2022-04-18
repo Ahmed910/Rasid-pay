@@ -21,7 +21,7 @@
               @if (isset($admin))
                   {!! Form::text('user_name', $admin->fullname, ['class' => 'form-control','disabled'=>'disabled']) !!}
               @else
-                  {!! Form::select('employee_id', ['' => ''], null, ['class' => 'form-control select2', 'id' => 'userName', 'data-placeholder' => trans('dashboard.general.select_user')]) !!}
+                  {!! Form::select('employee_id', ['' => ''], null, ['class' => 'form-control select2', 'id' => 'userName', 'data-placeholder' => trans('dashboard.general.select_employee')]) !!}
               @endif
               @error('employee_id')
                   <span class="text-danger">{{ $message }}</span>
@@ -109,7 +109,7 @@
           <div class="col-12 col-md-4 mt-3 changePass">
               {!! Form::label('newPassword', trans('dashboard.admin.new_password')) !!}
               <div class="input-group" id="show_hide_password">
-                  {!! Form::password('password', ['class' => 'form-control', 'placeholder' => trans('dashboard.admin.new_password')]) !!}
+                  {!! Form::password('password', ['class' => 'form-control stop-copy-paste', 'placeholder' => trans('dashboard.admin.new_password')]) !!}
                   <div class="input-group-text border-start-0">
                       <a href=""><i class="mdi mdi-eye-off-outline d-flex"></i></a>
                   </div>
@@ -121,7 +121,7 @@
           <div class="col-12 col-md-4 mt-3 changePass">
               {!! Form::label('confirmPassword', trans('dashboard.admin.confirmed_password')) !!}
               <div class="input-group" id="show_hide_confirm_password">
-                  {!! Form::password('confirmed_password', ['class' => 'form-control', 'placeholder' => trans('dashboard.admin.confirmed_password')]) !!}
+                  {!! Form::password('confirmed_password', ['class' => 'form-control stop-copy-paste', 'placeholder' => trans('dashboard.admin.confirmed_password')]) !!}
                   <div class="input-group-text border-start-0">
                       <a href=""><i class="mdi mdi-eye-off-outline d-flex"></i></a>
                   </div>
