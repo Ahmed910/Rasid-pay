@@ -2,16 +2,18 @@
 
 namespace App\Models;
 
+use App\Contracts\HasAssetsInterface;
 use App\Traits\HasAssetsTrait;
 use App\Traits\Loggable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Traits\Uuid;
 use Astrotomic\Translatable\Translatable;
+use Astrotomic\Translatable\Contracts\Translatable as TranslatableContract;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Slide extends Model
+class Slide extends Model implements TranslatableContract, HasAssetsInterface
 {
     use HasFactory, Uuid, HasAssetsTrait, Translatable, SoftDeletes, Loggable;
 

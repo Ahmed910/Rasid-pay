@@ -26,6 +26,7 @@ class SlideResource extends JsonResource
         return [
             'id'=>$this->id,
             'name' => $this->name,
+            'description' => $this->description,
             'is_active'=>(bool) $this->is_active,
             'ordering'=>(int) $this->ordering,
             "images"    => ImagesResource::collection($this->whenLoaded("images")),
