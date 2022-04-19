@@ -62,7 +62,7 @@
 
 <div class="row">
     <div class="col-12 mb-5 text-end">
-        {!! Form::button('<i class="mdi mdi-content-save-outline"></i>' . $btn_submit, ['type' => 'submit', 'class' => 'btn btn-primary', 'id' => 'saveButton']) !!}
+        {!! Form::button('<i class="mdi mdi-content-save-outline"></i>' . trans('dashboard.general.save'), ['type' => 'submit', 'class' => 'btn btn-primary', 'id' => 'saveButton']) !!}
         {!! Form::button('<i class="mdi mdi-arrow-left"></i>' . trans('dashboard.general.back'), ['type' => 'button', 'class' => 'btn btn-outline-primary', 'id' => 'showBack']) !!}
 
     </div>
@@ -134,11 +134,11 @@
             function toggleSaveButton() {
                 if (saveButton) {
                     saveButton = false;
-                    $("#saveButton").html('<i class="spinner-border spinner-border-sm"></i>' + '{{ $btn_submit }}');
+                    $("#saveButton").html('<i class="spinner-border spinner-border-sm"></i>' + "{{  trans('dashboard.general.save') }}");
                     $('#saveButton').attr('disabled', true);
                 } else {
                     saveButton = true;
-                    $("#saveButton").html('<i class="mdi mdi-content-save-outline"></i>' + '{{ $btn_submit }}');
+                    $("#saveButton").html('<i class="mdi mdi-content-save-outline"></i>' + "{{  trans('dashboard.general.save') }}");
                     $('#saveButton').attr('disabled', false);
                 }
             }
