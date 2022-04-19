@@ -286,7 +286,6 @@
                       hijriFormat: "iYYYY-iMM-iDD",
                       hijriDayViewHeaderFormat: "iMMMM iYYYY",
                       dayViewHeaderFormat: "MMMM YYYY",
-                      showClear: true,
                       ignoreReadonly: true,
                   });
 
