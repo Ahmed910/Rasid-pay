@@ -116,7 +116,7 @@
               <div class="col-12 col-md-6">
 
                   <div class="form-check">
-                      {!! Form::checkbox('is_login_code', '1', false, ['class' => 'form-check-input', 'id' => 'verifyCode']) !!}
+                      {!! Form::checkbox('is_login_code', '1', isset($admin) && $admin->is_login_code == 1 ? true : false, ['class' => 'form-check-input', 'id' => 'verifyCode']) !!}
                       {!! Form::label('verifyCode', trans('dashboard.general.Send VerificationCode'), ['class' => 'form-check-label']) !!}
                       <span class="text-danger" id="is_login_code_error"></span>
                   </div>
@@ -150,14 +150,14 @@
           <div class="col-12 col-md-4 mt-3 changePass" @if (isset($admin)) hidden @endif>
               {!! Form::label('confirmPassword', trans('dashboard.admin.confirmed_password')) !!}
               <div class="input-group" id="show_hide_confirm_password">
-                  {!! Form::password('confirmed_password', ['class' => 'form-control', 'maxlength' => '10', 'oninput' => 'javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);', 'pattern' => '^[1-9]\d*$', 'onkeypress' => 'return /[0-9]/i.test(event.key)', 'placeholder' => trans('dashboard.admin.confirmed_password')]) !!}
+                  {!! Form::password('password_confirmation', ['class' => 'form-control', 'maxlength' => '10', 'oninput' => 'javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);', 'pattern' => '^[1-9]\d*$', 'onkeypress' => 'return /[0-9]/i.test(event.key)', 'placeholder' => trans('dashboard.admin.confirmed_password'), 'id' => 'confirmPassword']) !!}
 
                   <div class="input-group-text border-start-0">
                       <a href=""><i class="mdi mdi-eye-off-outline d-flex"></i></a>
                   </div>
               </div>
 
-              <span class="text-danger" id="confirmed_password_error"></span>
+              <span class="text-danger" id="password_confirmation_error"></span>
           </div>
 
       </div>
@@ -171,6 +171,7 @@
 
   @include('dashboard.layouts.modals.confirm')
   @include('dashboard.layouts.modals.back')
+  @include('dashboard.layouts.modals.alert')
 
   @section('scripts')
       <script src="{{ asset('dashboardAssets/js/select2.js') }}"></script>
@@ -326,6 +327,7 @@
                   let department_id = $("#mainDepartment").val();
 
                   $('#userName').empty();
+                  $('#userName').append(new Option('', '', true, true)).trigger('change');
 
                   if (department_id != '') {
                       //send ajax
@@ -338,8 +340,6 @@
                                     let newOption = new Option(user.fullname, user.id, false, false);
                                     $('#userName').append(newOption).trigger('change');
                                   });
-
-
                               }
                           }
                       });

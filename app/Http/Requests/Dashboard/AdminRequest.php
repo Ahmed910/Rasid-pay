@@ -35,7 +35,7 @@ class AdminRequest extends FormRequest
                 $data['ban_to'] = Hijri::convertToGregorian($ban_to[2], $ban_to[1], $ban_to[0])->format('Y-m-d');
             }
         }
-        if (!isset($data['password_change']) || $data['password_change'] == 0) {
+        if ((!isset($data['change_password']) || $data['change_password'] == 0) && $this->admin) {
             $data['password'] = null;
         }
 
@@ -50,14 +50,14 @@ class AdminRequest extends FormRequest
     {
         if ($this->admin) {
             $data = [
-                'password_change' => 'nullable|in:1,0',
+                'change_password' => 'nullable|in:1,0',
                 'ban_status' => 'required|in:active,permanent,temporary',
-                'password' => 'nullable|required_if:password_change,1|regex:/^[A-Za-z0-9()\]\[#%&*_=~{}^:`.,$!@+\/-]+$/|min:6|max:100|confirmed'
+                'password' => 'nullable|required_if:change_password,1|regex:/^[A-Za-z0-9()\]\[#%&*_=~{}^:`.,$!@+\/-]+$/|min:6|max:100|confirmed'
             ];
         } else {
             $data = [
                 'employee_id' =>  'required|exists:users,id,user_type,employee',
-                'password' => 'required|numeric|digits_between:6,10',
+                'password' => 'required|regex:/^[A-Za-z0-9()\]\[#%&*_=~{}^:`.,$!@+\/-]+$/|min:6|max:100|confirmed',
                 'login_id' => 'required|digits:6|numeric|unique:users,login_id,' . @$this->admin->id . ',id,user_type,admin',
             ];
         }
