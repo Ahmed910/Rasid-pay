@@ -3,6 +3,8 @@
 namespace App\Http\Requests\V1\Dashboard;
 
 use App\Http\Requests\ApiMasterRequest;
+use App\Models\BankAccount;
+use Illuminate\Validation\Rule;
 
 class BankAccountRequest extends ApiMasterRequest
 {
@@ -24,8 +26,10 @@ class BankAccountRequest extends ApiMasterRequest
     public function rules()
     {
         return [
-            "iban_number" => ["required", "min:6", "max:24", "unique:bank_accounts,iban_number," . @$this->banck_account->id . ",id,bank_id," . @$this->banck_account->bank_id],
-            "contract_type" => [ "nullable","max:255", "in:pending,before_review,reviewed"],
+            "iban_number" => ["required", "min:6", "max:24", function ($attribute, $value, $fail) {
+                !count(BankAccount::where("bank_id", $this->bank_id)->where("iban_number", $this->iban_number)?->get()) > 0 ?: $fail(trans("validation.unique"));;
+            }],
+            "contract_type" => ["nullable", "max:255", "in:pending,before_review,reviewed"],
             "bank_id" => ["required", "exists:banks,id"],
 
 

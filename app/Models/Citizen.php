@@ -15,7 +15,9 @@ class Citizen extends Model
     #region properties
     protected $guarded = ['created_at', 'updated_at'];
     protected $dates = ['date_of_birth'];
-//    public $sortableColumns = ["client_type", "marital_status", "nationality", "address", "activity_type"];
+    const user_searchable_Columns = ["fullname", "email", "image", "country_code", "phone", "full_phone", "identity_number", "date_of_birth"];
+    const bank_account_searchable_Columns = ["iban_number", "contract_type", "bank_id",];
+
 
     #endregion properties
 
@@ -23,6 +25,23 @@ class Citizen extends Model
     #endregion mutators
 
     #region scopes
+    public function scopeSearch($query, $request)
+    {
+        foreach ($request->all() as $key => $item) {
+            if (in_array($key, self::user_searchable_Columns))
+                $query->whereHas('user', function ($q) use ($key, $item) {
+                    !$key == "fullname" ? $q->where($key, $item) : $q->where($key, "like", "%$item%");
+                });
+            if (in_array($key, self::bank_account_searchable_Columns))
+                $query->whereHas('bankAccount', function ($q) use ($key, $item) {
+                    $q->where($key, $item);
+                });
+        }
+
+//        if ($request->bank_id) $query->whereHas("bankAccount", function ($q) use ($request) {
+//            $q->where('bank_id', $request->bank_id);
+//        });
+    }
 
     public function scopeSortBy(Builder $query, $request)
     {
@@ -57,7 +76,7 @@ class Citizen extends Model
 
     public function bankAccount()
     {
-        return $this->hasOne(BankAccount::class,'user_id','user_id');
+        return $this->hasOne(BankAccount::class, 'user_id', 'user_id');
     }
 
     #endregion relationships
