@@ -22,7 +22,6 @@
                 hijriFormat: "iYYYY-iMM-iDD",
                 hijriDayViewHeaderFormat: "iMMMM iYYYY",
                 dayViewHeaderFormat: "MMMM YYYY",
-                showClear: true,
                 ignoreReadonly: true,
                 isRTL: "{{ LaravelLocalization::getCurrentLocaleDirection() == 'rtl' }}"
             }).on('dp.change', function() {
