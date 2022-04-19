@@ -45,7 +45,7 @@ $attributes = [
     // new attr
 
     'parent_id'   => 'حقل القسم الرئيسي',
-    'permission_list'   => 'حقل الصلاحيات الفردية',
+    'permission_list'   => 'حقل الصلاحيات  النظام مطلوب',
     'permission_list.*'   => 'حقل الصلاحيات الفردية',
     'group_list'   => 'حقل المجموعات',
     'group_list.*'   => 'حقل المجموعات',

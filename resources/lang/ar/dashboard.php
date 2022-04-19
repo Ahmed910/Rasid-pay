@@ -389,6 +389,7 @@ return [
         'password'=>'كلمة المرور ',
         'new_password'=>'كلمة المرور الجديدة',
         'confirmed_password'=>'تاكيد كلمة المرور',
+        'enter_password'=>'أدخل كلمة المرور',
         'u_can_use_this_id'=>'يمكنك استخدام هذا الرقم',
         'sub_progs' => [
             'index' => 'سجل المستخدمين',
