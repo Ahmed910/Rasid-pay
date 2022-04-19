@@ -41,6 +41,7 @@ $attributes = [
     'reasonAction'                  => 'حقل السبب',
     'ban_from'                  => 'حقل تاريخ من',
     'ban_to'                  => 'حقل تاريخ إلى',
+    'employee_id'       =>       'اسم الموظف',
     // new attr
 
     'parent_id'   => 'حقل القسم الرئيسي',

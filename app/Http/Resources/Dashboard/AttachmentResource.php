@@ -14,15 +14,14 @@ class AttachmentResource extends JsonResource
      */
     public function toArray($request)
     {
+        $map = [null => null, "other" => "أخري", "images" => "صور", "docs" => "المستندات", "identity" => "هوية", "videos" => "فديو", 'voices' => "صوتيات", "delegate" => "مفوض"];
         //TODO handle private url
         return [
 
             'user' => SimpleUserResource::make($this->whenLoaded('user')),
             'id' => $this->id,
             "title" => $this->title,
-            "attachment_type" => $this->attachment_type,
-//            "file_type" => $this->file_type,
-//            "file" => $final,
+            "attachment_type" => ["en" => $this->attachment_type, "ar" => $map[$this->attachment_type]],
             "files" => AttachmentFileResource::collection($this->whenLoaded('attachmentfiles')),
         ];
     }

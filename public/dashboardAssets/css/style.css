@@ -80356,9 +80356,6 @@ tr:hover .dtr-control:before {
     color: #f00;
 }
 
-.select2-results__option:first-of-type {
-    display: none !important;
-}
 
 .btn {
     border: 1px solid;
