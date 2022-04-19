@@ -16,12 +16,13 @@ class CreateCitizenWalletsTable extends Migration
         Schema::create('citizen_wallets', function (Blueprint $table) {
             $table->uuid("id")->primary();
             $table->integer("wallet_number")->unique();
-            $table->foreignUuid("citizen_id")->constrained("citizens")->onDelete("cascade");
+            $table->foreignUuid("citizen_id")->constrained("users")->onDelete("cascade");
             $table->string("total_balance");
             $table->string("main_balance");
             $table->string("gift_balance");
             $table->string("dept_balance");
             $table->string("transferred_balance");
+            $table->string("wallet_qr");
             $table->timestamps();
         });
     }
