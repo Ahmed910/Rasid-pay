@@ -1,16 +1,18 @@
 <?php
 
-namespace App\Models;
+namespace App\Models\CardPackage;
 
+use App\Traits\Uuid;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use App\Traits\Uuid;
 
-class CardPackage extends Model
+class CardPackageTranslation extends Model
 {
     use HasFactory, Uuid;
 
     #region properties
+    public $timestamps = false;
+    protected $fillable = ['name', 'description'];
     #endregion properties
 
     #region mutators

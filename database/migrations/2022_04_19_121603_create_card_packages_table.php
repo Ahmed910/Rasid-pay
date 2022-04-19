@@ -17,13 +17,13 @@ class CreateCardPackagesTable extends Migration
             $table->uuid("id")->primary();
             $table->boolean('is_active')->default(true);
             $table->integer('ordering');
-            $table->float('price');
-            $table->string('offer');
-            $table->string('color',20);
+            $table->string('price');
+            $table->string('offer')->nullable();
+            $table->string('color', 20)->nullable();
             $table->boolean('available_for_promo')->default(true);
-            $table->float('cash_back');
-            $table->float('promo_cash_back');
-            $table->float('discount_promo_code');
+            $table->string('cash_back');
+            $table->string('promo_cash_back');
+            $table->string('discount_promo_code');
 
             $table->softDeletes();
 
