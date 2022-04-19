@@ -3,7 +3,7 @@
 
         <div class="col-12 col-md-{{ isset($rasidJob) ? 4 : 6 }} mb-5">
             {!! Form::label('jobName', trans('dashboard.rasid_job.job_name')) !!}
-            <p class="requiredFields">*</p>
+            <span class="requiredFields">*</span>
             @foreach ($locales as $locale)
                 {!! Form::text("{$locale}[name]", isset($rasidJob) ? $rasidJob->name : null, ['class' => 'form-control input-regex stop-copy-paste' . ($errors->has("${locale}.name") ? ' is-invalid' : null), 'id' => 'jobName', 'placeholder' => trans('dashboard.general.enter_name'), 'minlength' => '2', 'maxlength' => '100']) !!}
 
@@ -13,7 +13,7 @@
 
         <div class="col-12 col-md-{{ isset($rasidJob) ? 4 : 6 }} mb-5">
             {!! Form::label('department', trans('dashboard.department.department')) !!}
-            <p class="requiredFields">*</p>
+            <span class="requiredFields">*</span>
 
             {!! Form::select('department_id', [''=>'']+$departments, null, ['class' => 'form-control select2-show-search' . ($errors->has('department_id') ? ' is-invalid' : null), 'dir' => 'rtl', 'data-placeholder' => trans('dashboard.rasid_job.select_department'), 'id' => 'department']) !!}
 
@@ -24,7 +24,7 @@
         @if (isset($rasidJob))
             <div class="col-12 col-md-4 mb-5">
                 {!! Form::label('status', trans('dashboard.general.status')) !!}
-                <p class="requiredFields">*</p>
+                <span class="requiredFields">*</span>
 
                 {!! Form::select('is_active', [''=>'']+trans('dashboard.rasid_job.active_cases'), null, ['class' => 'form-control select2' . ($errors->has('is_active') ? ' is-invalid' : null), 'id' => 'status', 'data-placeholder' => trans('dashboard.general.select_status')]) !!}
 
