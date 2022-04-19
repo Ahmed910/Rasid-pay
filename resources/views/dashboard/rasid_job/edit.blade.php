@@ -23,8 +23,7 @@
 
     <!-- ROW OPEN -->
     {!! Form::model($rasidJob, ['route' => ['dashboard.rasid_job.update', $rasidJob->id], 'method' => 'PUT', 'class' => 'needs-validation', 'id' => 'formId', 'novalidate']) !!}
-    @include('dashboard.rasid_job._form', [
-        'btn_submit' => trans('dashboard.general.save')
+    @include('dashboard.rasid_job._form')
     ])
     {!! Form::close() !!}
 

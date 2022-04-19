@@ -22,7 +22,7 @@
 
 <!-- ROW OPEN -->
 {!! Form::model($group, ['route' => ['dashboard.group.update', $group->id], 'method' => 'PUT', 'class' => 'needs-validation', 'id' => 'formId', 'files' => true, 'novalidate']) !!}
-@include('dashboard.group._form',['btn_submit' => trans('dashboard.general.edit')])
+@include('dashboard.group._form')
 {!! Form::close() !!}
 
 @endsection

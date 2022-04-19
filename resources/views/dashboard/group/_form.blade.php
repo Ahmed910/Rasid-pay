@@ -1,7 +1,7 @@
 <div class="card py-7 px-7">
     <div class="row">
         <div class="col-12 col-md-6 mb-5">
-            {!! Form::label('departmentName', trans('dashboard.group.group_name')) !!}
+            {!! Form::label('departmentName', trans('dashboard.group.group_name')) !!} <span class="requiredFields">*</span>
             @foreach ($locales as $locale)
                 {!! Form::text("{$locale}[name]", isset($group) ? $group->name : null, ['class' => 'form-control input-regex stop-copy-paste', 'placeholder' => trans('dashboard.general.enter_name'), 'minlength' => '2', 'maxlength' => '100', 'required' => 'required']) !!}
 
@@ -19,7 +19,7 @@
                   </div>
         @endif
         <div class="col-12 col-md-12 mb-5">
-            <label for="permissions">{{trans('dashboard.admin.permission_system')}}</label>
+            <label for="permissions">{{trans('dashboard.admin.permission_system')}}</label> <span class="requiredFields">*</span>
             <select name="permission_list[]" hidden multiple></select>
             <select name="group_list[]" hidden multiple></select>
 
@@ -45,7 +45,7 @@
 </div>
 <div class="row">
     <div class="col-12 mb-5 text-end">
-        {!! Form::button('<i class="mdi mdi-content-save-outline"></i>' . $btn_submit, ['type' => 'submit', 'class' => 'btn btn-primary', 'id' => 'saveButton']) !!}
+        {!! Form::button('<i class="mdi mdi-content-save-outline"></i>' . trans('dashboard.general.save'), ['type' => 'submit', 'class' => 'btn btn-primary', 'id' => 'saveButton']) !!}
         {!! Form::button('<i class="mdi mdi-arrow-left"></i>' . trans('dashboard.general.back'), ['type' => 'button', 'class' => 'btn btn-outline-primary', 'id' => 'showBack']) !!}
     </div>
 </div>
@@ -108,11 +108,11 @@
           function toggleSaveButton() {
               if (saveButton) {
                   saveButton = false;
-                  $("#saveButton").html('<i class="spinner-border spinner-border-sm"></i>' + '{{$btn_submit}}');
+                  $("#saveButton").html('<i class="spinner-border spinner-border-sm"></i>' + "{{ trans('dashboard.general.save')}}");
                   $('#saveButton').attr('disabled', true);
               } else {
                   saveButton = true;
-                  $("#saveButton").html('<i class="mdi mdi-content-save-outline"></i>' + '{{$btn_submit}}');
+                  $("#saveButton").html('<i class="mdi mdi-content-save-outline"></i>' + "{{ trans('dashboard.general.save')}}");
                   $('#saveButton').attr('disabled', false);
               }
           }

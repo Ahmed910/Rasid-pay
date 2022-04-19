@@ -23,7 +23,7 @@
 
 <!-- ROW OPEN -->
 {!! Form::open(['route' => 'dashboard.group.store', 'method' => 'POST', 'class' => 'needs-validation', 'id' => 'formId', 'files' => true, 'novalidate']) !!}
-@include('dashboard.group._form',['btn_submit' => trans('dashboard.general.save')])
+@include('dashboard.group._form')
 {!! Form::close() !!}
 
 @endsection

@@ -2,18 +2,18 @@
       <div class="row">
 
           <div class="col-12 col-md-4">
-              {!! Form::label('mainDepartment', trans('dashboard.department.department_name')) !!}
+              {!! Form::label('mainDepartment', trans('dashboard.department.department_name')) !!} <span class="requiredFields">*</span>
 
               @if (isset($admin))
-                  {!! Form::text('department_name', $admin->department->name, ['class' => 'form-control', 'disabled' => 'disabled']) !!}
+                  {!! Form::text('department_name', @$admin->department->name, ['class' => 'form-control', 'disabled' => 'disabled']) !!}
               @else
                   {!! Form::select('department_id', ['' => ''] + $departments, null, ['class' => 'form-control select2-show-search', 'data-placeholder' => trans('dashboard.department.select_department'), 'id' => 'mainDepartment']) !!}
               @endif
 
               <span class="text-danger" id="department_id_error"></span>
 
-
           </div>
+
           <div class="col-12 col-md-4">
               {!! Form::label('userName', trans('dashboard.admin.name')) !!} <span class="requiredFields">*</span>
 
@@ -52,23 +52,31 @@
 
 
           <div class="col-12 col-md-8 mt-3">
-              <label for="permissions">{{ trans('dashboard.admin.permission_system') }}</label>
+              <label for="permissions">{{ trans('dashboard.admin.permission_system') }}</label> <span class="requiredFields">*</span>
               <select name="permission_list[]" hidden multiple></select>
               <select name="group_list[]" hidden multiple></select>
 
               <select class="form-control select2" onchange="addPermissions(this.selectedOptions)"
                   data-placeholder="{{ trans('dashboard.general.select_permissions') }}" multiple="multiple"
                   id="permissions" required>
-                  @foreach ($groups as $id => $name)
+
+
+                  <optgroup label="{{ trans('dashboard.group.groups') }}">
+                      @foreach ($groups as $id => $name)
                       <option value="{{ $id }}" data-name="groups"
                           {{ isset($admin) && in_array($id, $admin->group_list) ? 'selected' : null }}>
                           {{ $name }}</option>
-                  @endforeach
-                  @foreach ($permissions as $id => $name)
+                    @endforeach
+                  </optgroup>
+
+                  <optgroup label="{{ trans('dashboard.permission.permissions') }}">
+                      @foreach ($permissions as $id => $name)
                       <option value="{{ $id }}" data-name="permissions"
                           {{ isset($admin) && in_array($id, $admin->permission_list) ? 'selected' : null }}>
                           {{ $name }}</option>
-                  @endforeach
+                      @endforeach
+                  </optgroup>
+
               </select>
 
 
@@ -135,9 +143,9 @@
 
 
           <div class="col-12 col-md-4 mt-3 changePass" @if (isset($admin)) hidden @endif>
-              {!! Form::label('newPassword', trans('dashboard.admin.new_password')) !!}
+              {!! Form::label('newPassword', trans('dashboard.admin.password')) !!} <span class="requiredFields">*</span>
               <div class="input-group" id="show_hide_password">
-                  {!! Form::password('password', ['class' => 'form-control', 'maxlength' => '10', 'oninput' => 'javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);', 'pattern' => '^[1-9]\d*$', 'onkeypress' => 'return /[0-9]/i.test(event.key)', 'placeholder' => trans('dashboard.admin.new_password')]) !!}
+                  {!! Form::password('password', ['class' => 'form-control stop-copy-paste', 'maxlength' => '10', 'oninput' => 'javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);', 'pattern' => '^[1-9]\d*$', 'onkeypress' => 'return /[0-9]/i.test(event.key)', 'placeholder' => trans('dashboard.admin.new_password')]) !!}
 
                   <div class="input-group-text border-start-0">
                       <a href=""><i class="mdi mdi-eye-off-outline d-flex"></i></a>
@@ -147,24 +155,11 @@
 
           </div>
 
-          <div class="col-12 col-md-4 mt-3 changePass" @if (isset($admin)) hidden @endif>
-              {!! Form::label('confirmPassword', trans('dashboard.admin.confirmed_password')) !!}
-              <div class="input-group" id="show_hide_confirm_password">
-                  {!! Form::password('password_confirmation', ['class' => 'form-control', 'maxlength' => '10', 'oninput' => 'javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);', 'pattern' => '^[1-9]\d*$', 'onkeypress' => 'return /[0-9]/i.test(event.key)', 'placeholder' => trans('dashboard.admin.confirmed_password'), 'id' => 'confirmPassword']) !!}
-
-                  <div class="input-group-text border-start-0">
-                      <a href=""><i class="mdi mdi-eye-off-outline d-flex"></i></a>
-                  </div>
-              </div>
-
-              <span class="text-danger" id="password_confirmation_error"></span>
-          </div>
-
       </div>
   </div>
   <div class="row">
       <div class="col-12 mb-5 text-end">
-          {!! Form::button('<i class="mdi mdi-content-save-outline"></i>' . $btn_submit, ['type' => 'submit', 'class' => 'btn btn-primary', 'id' => 'saveButton']) !!}
+          {!! Form::button('<i class="mdi mdi-content-save-outline"></i>' . trans('dashboard.general.save'), ['type' => 'submit', 'class' => 'btn btn-primary', 'id' => 'saveButton']) !!}
           {!! Form::button('<i class="mdi mdi-arrow-left"></i>' . trans('dashboard.general.back'), ['type' => 'button', 'class' => 'btn btn-outline-primary', 'id' => 'showBack']) !!}
       </div>
   </div>
@@ -261,11 +256,11 @@
               function toggleSaveButton() {
                   if (saveButton) {
                       saveButton = false;
-                      $("#saveButton").html('<i class="spinner-border spinner-border-sm"></i>' + '{{ $btn_submit }}');
+                      $("#saveButton").html('<i class="spinner-border spinner-border-sm"></i>' + "{{ trans('dashboard.general.save') }}");
                       $('#saveButton').attr('disabled', true);
                   } else {
                       saveButton = true;
-                      $("#saveButton").html('<i class="mdi mdi-content-save-outline"></i>' + '{{ $btn_submit }}');
+                      $("#saveButton").html('<i class="mdi mdi-content-save-outline"></i>' + "{{ trans('dashboard.general.save') }}");
                       $('#saveButton').attr('disabled', false);
                   }
               }
@@ -291,7 +286,6 @@
                       hijriFormat: "iYYYY-iMM-iDD",
                       hijriDayViewHeaderFormat: "iMMMM iYYYY",
                       dayViewHeaderFormat: "MMMM YYYY",
-                      showClear: true,
                       ignoreReadonly: true,
                   });
 

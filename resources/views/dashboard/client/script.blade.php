@@ -20,7 +20,6 @@
           hijriFormat: "iYYYY-iMM-iDD",
           hijriDayViewHeaderFormat: "iMMMM iYYYY",
           dayViewHeaderFormat: "MMMM YYYY",
-          showClear: true,
           ignoreReadonly: true,
         }).on('dp.change', function () {
         table.draw();
@@ -201,7 +200,7 @@
       });
 
     });
-    
+
 </script>
 <script src="{{ asset('dashboardAssets/js/select2.js') }}"></script>
 <script src="{{ asset('dashboardAssets/plugins/select2/select2.full.min.js') }}"></script>

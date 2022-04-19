@@ -35200,6 +35200,8 @@ div.dtr-bs-modal table.table tr:first-child td {
     cursor: default;
     display: block;
     padding: 6px;
+    color: #ba9217;
+
 }
 
 .select2-container--default .select2-selection--multiple::-webkit-input-placeholder {

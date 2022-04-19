@@ -52,12 +52,13 @@ class AdminRequest extends FormRequest
             $data = [
                 'change_password' => 'nullable|in:1,0',
                 'ban_status' => 'required|in:active,permanent,temporary',
-                'password' => 'nullable|required_if:change_password,1|regex:/^[A-Za-z0-9()\]\[#%&*_=~{}^:`.,$!@+\/-]+$/|min:6|max:100|confirmed'
+                'password' => 'nullable|required_if:change_password,1|regex:/^[A-Za-z0-9()\]\[#%&*_=~{}^:`.,$!@+\/-]+$/|min:6|max:100'
             ];
         } else {
             $data = [
+                'department_id' => 'required|exists:departments,id',
                 'employee_id' =>  'required|exists:users,id,user_type,employee',
-                'password' => 'required|regex:/^[A-Za-z0-9()\]\[#%&*_=~{}^:`.,$!@+\/-]+$/|min:6|max:100|confirmed',
+                'password' => 'required|regex:/^[A-Za-z0-9()\]\[#%&*_=~{}^:`.,$!@+\/-]+$/|min:6|max:100',
                 'login_id' => 'required|digits:6|numeric|unique:users,login_id,' . @$this->admin->id . ',id,user_type,admin',
             ];
         }
@@ -65,11 +66,19 @@ class AdminRequest extends FormRequest
             'is_login_code' => 'in:1,0',
             'ban_from' => 'nullable|required_if:ban_status,temporary|date|after:1900-01-01',
             'ban_to' => 'nullable|required_if:ban_status,temporary|date|after_or_equal:ban_from',
-            'group_list' => 'required_without:permission_list|array|min:1',
+            'group_list' => 'required_without:permission_list|array',
             'group_list.*' => 'required_without:permission_list|exists:groups,id',
-            'permission_list' => 'required_without:group_list|array|min:1',
+            'permission_list' => 'required_without:group_list|array',
             'permission_list.*' => 'required_without:group_list|exists:permissions,id',
             'delete_image'  => "in:0,1"
         ] + $data;
+    }
+
+    public function messages()
+    {
+        return [
+            'permission_list.required_without' => trans('dashboard.general.Permission_field_required'),
+            'group_list.required_without' => '',
+        ];
     }
 }

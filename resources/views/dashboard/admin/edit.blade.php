@@ -23,7 +23,7 @@
 
 <!-- ROW OPEN -->
 {!! Form::model($admin, ['route' => ['dashboard.admin.update', $admin->id], 'method' => 'PUT', 'class' => 'needs-validation', 'id' => 'formId', 'files' => true, 'novalidate']) !!}
-@include('dashboard.admin._form',['btn_submit' => trans('dashboard.general.edit')])
+@include('dashboard.admin._form')
 {!! Form::close() !!}
 
 @endsection
