@@ -1,160 +1,189 @@
-  <div class="card py-7 px-7">
-      <div class="row">
+<div class="card py-7 px-7">
+    <div class="row">
 
-          <div class="col-12 col-md-4">
-              {!! Form::label('mainDepartment', trans('dashboard.department.department_name')) !!}
+        <div class="col-12 col-md-4">
+            {!! Form::label('mainDepartment', trans('dashboard.department.department_name')) !!}
 
-              @if (isset($admin))
-                  {!! Form::text('department_name', $admin->department->name, ['class' => 'form-control','disabled'=>'disabled']) !!}
-              @else
-                  {!! Form::select('department_id', ['' => ''] + $departments, null, ['class' => 'form-control select2-show-search', 'data-placeholder' => trans('dashboard.department.select_department'), 'id' => 'mainDepartment']) !!}
-              @endif
+            @if (isset($admin))
+            {!! Form::text('department_name', $admin->department->name, ['class' =>
+            'form-control','disabled'=>'disabled']) !!}
+            @else
+            {!! Form::select('department_id', ['' => ''] + $departments, null, ['class' => 'form-control
+            select2-show-search','pattern'=>'^[1-9]\d*$', 'onkeypress'=>'return /[0-9]/i.test(event.key)',
+            'data-placeholder' => trans('dashboard.department.select_department'), 'id' => 'mainDepartment']) !!}
+            @endif
 
-              @error('department_id')
-                  <span class="text-danger">{{ $message }}</span>
-              @enderror
+            @error('department_id')
+            <span class="text-danger">{{ $message }}</span>
+            @enderror
 
-          </div>
-          <div class="col-12 col-md-4">
-              {!! Form::label('userName', trans('dashboard.admin.name')) !!} <span class="requiredFields">*</span>
+        </div>
+        <div class="col-12 col-md-4">
+            {!! Form::label('userName', trans('dashboard.admin.name')) !!} <span class="requiredFields">*</span>
 
-              @if (isset($admin))
-                  {!! Form::text('user_name', $admin->fullname, ['class' => 'form-control','disabled'=>'disabled']) !!}
-              @else
-                  {!! Form::select('employee_id', ['' => ''], null, ['class' => 'form-control select2', 'id' => 'userName', 'data-placeholder' => trans('dashboard.general.select_employee')]) !!}
-              @endif
-              @error('employee_id')
-                  <span class="text-danger">{{ $message }}</span>
-              @enderror
-          </div>
-          <div class="col-12 col-md-4">
-              {!! Form::label('userId', trans('dashboard.admin.login_id')) !!} <span class="requiredFields">*</span>
-              {!! Form::number('login_id', null, ['class' => 'form-control stop-copy-paste', 'oninput'=>'javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);' ,'min'=> '0','maxlength' => '6','onkeypress'=>'return /[0-9a-zA-Z]/i.test(event.key)','id' => 'userId', 'placeholder' => trans('dashboard.admin.number')]) !!}
-              @error('login_id')
-                  <span class="text-danger">{{ $message }}</span>
-              @enderror
-          </div>
+            @if (isset($admin))
+            {!! Form::text('user_name', $admin->fullname, ['class' => 'form-control','disabled'=>'disabled']) !!}
+            @else
+            {!! Form::select('employee_id', ['' => ''], null, ['class' => 'form-control select2', 'id' => 'userName',
+            'data-placeholder' => trans('dashboard.general.select_employee')]) !!}
+            @endif
+            @error('employee_id')
+            <span class="text-danger">{{ $message }}</span>
+            @enderror
+        </div>
+        <div class="col-12 col-md-4">
+            {!! Form::label('userId', trans('dashboard.admin.login_id')) !!} <span class="requiredFields">*</span>
+            {!! Form::number('login_id', null, ['class' => 'form-control stop-copy-paste', 'oninput'=>'javascript: if
+            (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);' ,'min'=>
+            '0','maxlength' => '6','onkeypress'=>'return /[0-9a-zA-Z]/i.test(event.key)','id' => 'userId', 'placeholder'
+            => trans('dashboard.admin.enter_number')]) !!}
+            @error('login_id')
+            <span class="text-danger">{{ $message }}</span>
+            @enderror
+        </div>
 
-          <div class="col-12 col-md-8 mt-3">
-              {!! Form::label('systemPermission', trans('dashboard.admin.permission_system')) !!} <span class="requiredFields">*</span>
-              {!! Form::select('permission_list[]', $groups, null, ['class' => 'form-control select2 stop-copy-paste', 'multiple' => 'multiple', 'data-placeholder' => trans('dashboard.general.select_permissions'), 'id' => 'systemPermission']) !!}
-              @error('permission_list')
-                  <span class="text-danger">{{ $message }}</span>
-              @enderror
-          </div>
-          @if (isset($admin))
-              <div class="col-12 col-md-4 mt-3">
-                  {!! Form::label('status', trans('dashboard.general.status')) !!}
+        <div class="col-12 col-md-8 mt-3">
+            {!! Form::label('systemPermission', trans('dashboard.admin.permission_system')) !!} <span
+                class="requiredFields">*</span>
+            {!! Form::select('permission_list[]', $groups, null, ['class' => 'form-control select2 stop-copy-paste',
+            'multiple' => 'multiple', 'data-placeholder' => trans('dashboard.general.select_permissions'), 'id' =>
+            'systemPermission']) !!}
+            @error('permission_list')
+            <span class="text-danger">{{ $message }}</span>
+            @enderror
+        </div>
+        @if (isset($admin))
+        <div class="col-12 col-md-4 mt-3">
+            {!! Form::label('status', trans('dashboard.general.status')) !!}
 
-                  {!! Form::select('ban_status', ['' => ''] + trans('dashboard.admin.active_cases'), request('ban_status'), ['class' => 'form-control select2' . ($errors->has('status') ? ' is-invalid' : null), 'id' => 'status', 'data-placeholder' => trans('dashboard.general.select_status')]) !!}
-                  @error('ban_status')
-                      <span class="text-danger">{{ $message }}</span>
-                  @enderror
-              </div>
-
-
-              <div class="col-12 col-md-4 temporary mt-3">
-                  <label for="validationCustom02"> {{ trans('dashboard.admin.ban_from') }}</label>
-                  <div class="input-group">
-                      {!! Form::text('ban_from', null, ['class' => 'form-control ', 'readonly' => 'readonly', 'id' => 'from-hijri-unactive-picker-custom', 'placeholder' => trans('dashboard.general.day_month_year'), 'value' => "old('ban_from')"]) !!}
-                      <div class="input-group-text border-start-0">
-                          <i class="fa fa-calendar tx-16 lh-0 op-6"></i>
-                      </div>
-                  </div>
-                  @error('ban_from')
-                      <span class="text-danger">{{ $message }}</span>
-                  @enderror
-              </div>
-              <div class="col-12 col-md-4 temporary mt-3">
-                  <label for="validationCustom02">{{ trans('dashboard.admin.ban_to') }}</label>
-                  <div class="input-group">
-                      {!! Form::text('ban_to', null, ['class' => 'form-control ', 'readonly' => 'readonly', 'id' => 'to-hijri-unactive-picker-custom', 'placeholder' => trans('dashboard.general.day_month_year'), 'value' => "old('ban_to')"]) !!}
-                      <div class="input-group-text border-start-0">
-                          <i class="fa fa-calendar tx-16 lh-0 op-6"></i>
-                      </div>
-                  </div>
-                  @error('ban_to')
-                      <span class="text-danger">{{ $message }}</span>
-                  @enderror
-              </div>
-          @endif
+            {!! Form::select('ban_status', ['' => ''] + trans('dashboard.admin.active_cases'), request('ban_status'),
+            ['class' => 'form-control select2' . ($errors->has('status') ? ' is-invalid' : null), 'id' => 'status',
+            'data-placeholder' => trans('dashboard.general.select_status')]) !!}
+            @error('ban_status')
+            <span class="text-danger">{{ $message }}</span>
+            @enderror
+        </div>
 
 
-          <div class="col-12 col-md-4 mt-3 d-flex align-items-end">
-              <div class="col-12 col-md-6">
+        <div class="col-12 col-md-4 temporary mt-3">
+            <label for="validationCustom02"> {{ trans('dashboard.admin.ban_from') }}</label>
+            <div class="input-group">
+                {!! Form::text('ban_from', null, ['class' => 'form-control ', 'readonly' => 'readonly', 'id' =>
+                'from-hijri-unactive-picker-custom', 'placeholder' => trans('dashboard.general.day_month_year'), 'value'
+                => "old('ban_from')"]) !!}
+                <div class="input-group-text border-start-0">
+                    <i class="fa fa-calendar tx-16 lh-0 op-6"></i>
+                </div>
+            </div>
+            @error('ban_from')
+            <span class="text-danger">{{ $message }}</span>
+            @enderror
+        </div>
+        <div class="col-12 col-md-4 temporary mt-3">
+            <label for="validationCustom02">{{ trans('dashboard.admin.ban_to') }}</label>
+            <div class="input-group">
+                {!! Form::text('ban_to', null, ['class' => 'form-control ', 'readonly' => 'readonly', 'id' =>
+                'to-hijri-unactive-picker-custom', 'placeholder' => trans('dashboard.general.day_month_year'), 'value'
+                => "old('ban_to')"]) !!}
+                <div class="input-group-text border-start-0">
+                    <i class="fa fa-calendar tx-16 lh-0 op-6"></i>
+                </div>
+            </div>
+            @error('ban_to')
+            <span class="text-danger">{{ $message }}</span>
+            @enderror
+        </div>
+        @endif
 
-                  <div class="form-check">
-                      {!! Form::checkbox('is_login_code', '1', false, ['class' => 'form-check-input', 'id' => 'verifyCode']) !!}
-                      {!! Form::label('verifyCode', trans('dashboard.general.Send VerificationCode'), ['class' => 'form-check-label']) !!}
-                      @error('is_login_code')
-                          <span class="text-danger">{{ $message }}</span>
-                      @enderror
-                  </div>
 
-              </div>
-              @if (isset($admin))
-                  <div class="col-12 col-md-6">
-                      <div class="form-check">
-                          {!! Form::checkbox('change_password', '1', false, ['class' => 'form-check-input', 'id' => 'changePassword']) !!}
-                          {!! Form::label('changePassword', trans('dashboard.general.change_password'), ['class' => 'form-check-label']) !!}
-                          @error('change_password')
-                              <span class="text-danger">{{ $message }}</span>
-                          @enderror
-                      </div>
-                  </div>
-              @endif
-          </div>
+        <div class="col-12 col-md-4 mt-3 d-flex align-items-end">
+            <div class="col-12 col-md-6">
+
+                <div class="form-check">
+                    {!! Form::checkbox('is_login_code', '1', false, ['class' => 'form-check-input', 'id' =>
+                    'verifyCode']) !!}
+                    {!! Form::label('verifyCode', trans('dashboard.general.Send VerificationCode'), ['class' =>
+                    'form-check-label']) !!}
+                    @error('is_login_code')
+                    <span class="text-danger">{{ $message }}</span>
+                    @enderror
+                </div>
+
+            </div>
+            @if (isset($admin))
+            <div class="col-12 col-md-6">
+                <div class="form-check">
+                    {!! Form::checkbox('change_password', '1', false, ['class' => 'form-check-input', 'id' =>
+                    'changePassword']) !!}
+                    {!! Form::label('changePassword', trans('dashboard.general.change_password'), ['class' =>
+                    'form-check-label']) !!}
+                    @error('change_password')
+                    <span class="text-danger">{{ $message }}</span>
+                    @enderror
+                </div>
+            </div>
+            @endif
+        </div>
 
 
-          <div class="col-12 col-md-4 mt-3 changePass">
-              {!! Form::label('newPassword', trans('dashboard.admin.password')) !!} <span class="requiredFields">*</span>
-              <div class="input-group" id="show_hide_password">
-                  {!! Form::password('password', ['class' => 'form-control','maxlength' => '10', 'oninput'=>'javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);','pattern'=>'^[1-9]\d*$', 'onkeypress'=>'return /[0-9]/i.test(event.key)', 'placeholder' => trans('dashboard.admin.new_password')]) !!}
+        <div class="col-12 col-md-4 mt-3 changePass">
+            {!! Form::label('newPassword', trans('dashboard.admin.password')) !!} <span class="requiredFields">*</span>
+            <div class="input-group" id="show_hide_password">
+                {!! Form::password('password', ['class' => 'form-control','maxlength' => '10', 'oninput'=>'javascript:
+                if (this.value.length > this.maxLength) this.value = this.value.slice(0,
+                this.maxLength);','pattern'=>'^[1-9]\d*$', 'onkeypress'=>'return /[0-9]/i.test(event.key)',
+                'placeholder' => trans('dashboard.admin.enter_password')]) !!}
 
-                  <div class="input-group-text border-start-0">
-                      <a href=""><i class="mdi mdi-eye-off-outline d-flex"></i></a>
-                  </div>
-              </div>
-              @error('password')
-                  <span class="text-danger">{{ $message }}</span>
-              @enderror
-          </div>
-          <div class="col-12 col-md-4 mt-3 changePass">
-              {!! Form::label('confirmPassword', trans('dashboard.admin.confirmed_password')) !!} <span class="requiredFields">*</span>
-              <div class="input-group" id="show_hide_confirm_password">
-                  {!! Form::password('confirmed_password', ['class' => 'form-control','maxlength' => '10', 'oninput'=>'javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);','pattern'=>'^[1-9]\d*$','onkeypress'=>'return /[0-9]/i.test(event.key)', 'placeholder' => trans('dashboard.admin.confirmed_password')]) !!}
+                <div class="input-group-text border-start-0">
+                    <a href=""><i class="mdi mdi-eye-off-outline d-flex"></i></a>
+                </div>
+            </div>
+            @error('password')
+            <span class="text-danger">{{ $message }}</span>
+            @enderror
+        </div>
+        <div class="col-12 col-md-4 mt-3 changePass">
+            {!! Form::label('confirmPassword', trans('dashboard.admin.confirmed_password')) !!} <span
+                class="requiredFields">*</span>
+            <div class="input-group" id="show_hide_confirm_password">
+                {!! Form::password('confirmed_password', ['class' => 'form-control','maxlength' => '10',
+                'oninput'=>'javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0,
+                this.maxLength);','pattern'=>'^[1-9]\d*$','onkeypress'=>'return /[0-9]/i.test(event.key)', 'placeholder'
+                => trans('dashboard.admin.confirmed_password')]) !!}
 
-                  <div class="input-group-text border-start-0">
-                      <a href=""><i class="mdi mdi-eye-off-outline d-flex"></i></a>
-                  </div>
-              </div>
-              @error('confirmed_password')
-                  <span class="text-danger">{{ $message }}</span>
-              @enderror
-          </div>
-      </div>
-  </div>
-  <div class="row">
-      <div class="col-12 mb-5 text-end">
-          {!! Form::button('<i class="mdi mdi-content-save-outline"></i>' . $btn_submit, ['type' => 'submit', 'class' => 'btn btn-primary']) !!}
-          {!! Form::button('<i class="mdi mdi-arrow-left"></i>' . trans('dashboard.general.back'), ['type' => 'button', 'class' => 'btn btn-outline-primary', 'id' => 'showBack']) !!}
-      </div>
-  </div>
+                <div class="input-group-text border-start-0">
+                    <a href=""><i class="mdi mdi-eye-off-outline d-flex"></i></a>
+                </div>
+            </div>
+            @error('confirmed_password')
+            <span class="text-danger">{{ $message }}</span>
+            @enderror
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-12 mb-5 text-end">
+        {!! Form::button('<i class="mdi mdi-content-save-outline"></i>' . $btn_submit, ['type' => 'submit', 'class' =>
+        'btn btn-primary']) !!}
+        {!! Form::button('<i class="mdi mdi-arrow-left"></i>' . trans('dashboard.general.back'), ['type' => 'button',
+        'class' => 'btn btn-outline-primary', 'id' => 'showBack']) !!}
+    </div>
+</div>
 
-  @include('dashboard.layouts.modals.confirm')
-  @include('dashboard.layouts.modals.back')
+@include('dashboard.layouts.modals.confirm')
+@include('dashboard.layouts.modals.back')
 
-  @section('scripts')
-      <script src="{{ asset('dashboardAssets/js/select2.js') }}"></script>
-      <script src="{{ asset('dashboardAssets/plugins/select2/select2.full.min.js') }}"></script>
-      <script src="{{ asset('dashboardAssets') }}/plugins/fileuploads/js/fileupload.js"></script>
-      <script src="{{ asset('dashboardAssets') }}/plugins/fileuploads/js/file-upload.js"></script>
-      <script src="https://cdnjs.cloudflare.com/ajax/libs/Dropify/0.2.2/js/dropify.min.js"></script>
-      <script src="{{ asset('dashboardAssets/js/custom_scripts.js') }}"></script>
-      <script src="{{ asset('dashboardAssets/plugins/bootstrap-hijri-datepicker/js/bootstrap-hijri-datetimepicker.js') }}">
-      </script>
-      <script>
-          (function() {
+@section('scripts')
+<script src="{{ asset('dashboardAssets/js/select2.js') }}"></script>
+<script src="{{ asset('dashboardAssets/plugins/select2/select2.full.min.js') }}"></script>
+<script src="{{ asset('dashboardAssets') }}/plugins/fileuploads/js/fileupload.js"></script>
+<script src="{{ asset('dashboardAssets') }}/plugins/fileuploads/js/file-upload.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Dropify/0.2.2/js/dropify.min.js"></script>
+<script src="{{ asset('dashboardAssets/js/custom_scripts.js') }}"></script>
+<script src="{{ asset('dashboardAssets/plugins/bootstrap-hijri-datepicker/js/bootstrap-hijri-datetimepicker.js') }}">
+</script>
+<script>
+    (function() {
               'use strict';
               window.addEventListener(
                   "load",
@@ -309,5 +338,5 @@
               });
 
           })();
-      </script>
-  @endsection
+</script>
+@endsection
