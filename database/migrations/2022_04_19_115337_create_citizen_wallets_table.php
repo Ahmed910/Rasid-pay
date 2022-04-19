@@ -22,6 +22,7 @@ class CreateCitizenWalletsTable extends Migration
             $table->string("gift_balance");
             $table->string("dept_balance");
             $table->string("transferred_balance");
+            $table->string("wallet_qr");
             $table->timestamps();
         });
     }
