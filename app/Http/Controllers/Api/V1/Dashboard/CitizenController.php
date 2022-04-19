@@ -18,7 +18,7 @@ class CitizenController extends Controller
 
     public function index(Request $request)
     {
-        $citizen = Citizen::with('user.bankAccount.bank.translations')->CustomDateFromTo($request)->sortby($request)
+        $citizen = Citizen::with('user.bankAccount.bank.translations')->CustomDateFromTo($request)->search($request)->sortby($request)
             ->latest()->paginate((int)($request->per_page ?? config("globals.per_page")));
 
         return CitizenResource::collection($citizen)->additional([
@@ -28,9 +28,7 @@ class CitizenController extends Controller
     }
 
 
-
-
-    public function store(CitizenRequest  $citizenRequest,BankAccountRequest $bankAccountRequest,BankAccount $bankAccount, Citizen $citizen)
+    public function store(CitizenRequest $citizenRequest, BankAccountRequest $bankAccountRequest, BankAccount $bankAccount, Citizen $citizen)
     {
 
         $userData = $citizenRequest->validated() + ["user_type" => "citizen", 'added_by_id' => auth()->id()];

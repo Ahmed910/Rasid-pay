@@ -1,55 +1,155 @@
-  <div class="card py-7 px-7">
-      <div class="row">
+<div class="card py-7 px-7">
+    <div class="row">
 
-          <div class="col-12 col-md-4">
-              {!! Form::label('mainDepartment', trans('dashboard.department.department_name')) !!}
+        <div class="col-12 col-md-4">
+            {!! Form::label('mainDepartment', trans('dashboard.department.department_name')) !!}
 
-              @if (isset($admin))
-                  {!! Form::text('department_name', $admin->department->name, ['class' => 'form-control', 'disabled' => 'disabled']) !!}
-              @else
-                  {!! Form::select('department_id', ['' => ''] + $departments, null, ['class' => 'form-control select2-show-search', 'data-placeholder' => trans('dashboard.department.select_department'), 'id' => 'mainDepartment']) !!}
-              @endif
+            @if (isset($admin))
+            {!! Form::text('department_name', $admin->department->name, ['class' =>
+            'form-control','disabled'=>'disabled']) !!}
+            @else
+            {!! Form::select('department_id', ['' => ''] + $departments, null, ['class' => 'form-control
+            select2-show-search','pattern'=>'^[1-9]\d*$', 'onkeypress'=>'return /[0-9]/i.test(event.key)',
+            'data-placeholder' => trans('dashboard.department.select_department'), 'id' => 'mainDepartment']) !!}
+            @endif
 
-              <span class="text-danger" id="department_id_error"></span>
+            @error('department_id')
+            <span class="text-danger">{{ $message }}</span>
+            @enderror
+
+        </div>
+        <div class="col-12 col-md-4">
+            {!! Form::label('userName', trans('dashboard.admin.name')) !!} <span class="requiredFields">*</span>
+
+            @if (isset($admin))
+            {!! Form::text('user_name', $admin->fullname, ['class' => 'form-control','disabled'=>'disabled']) !!}
+            @else
+            {!! Form::select('employee_id', ['' => ''], null, ['class' => 'form-control select2', 'id' => 'userName',
+            'data-placeholder' => trans('dashboard.general.select_employee')]) !!}
+            @endif
+            @error('employee_id')
+            <span class="text-danger">{{ $message }}</span>
+            @enderror
+        </div>
+        <div class="col-12 col-md-4">
+            {!! Form::label('userId', trans('dashboard.admin.login_id')) !!} <span class="requiredFields">*</span>
+            {!! Form::number('login_id', null, ['class' => 'form-control stop-copy-paste', 'oninput'=>'javascript: if
+            (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);' ,'min'=>
+            '0','maxlength' => '6','onkeypress'=>'return /[0-9a-zA-Z]/i.test(event.key)','id' => 'userId', 'placeholder'
+            => trans('dashboard.admin.enter_number')]) !!}
+            @error('login_id')
+            <span class="text-danger">{{ $message }}</span>
+            @enderror
+        </div>
+
+        <div class="col-12 col-md-8 mt-3">
+            {!! Form::label('systemPermission', trans('dashboard.admin.permission_system')) !!} <span
+                class="requiredFields">*</span>
+            {!! Form::select('permission_list[]', $groups, null, ['class' => 'form-control select2 stop-copy-paste',
+            'multiple' => 'multiple', 'data-placeholder' => trans('dashboard.general.select_permissions'), 'id' =>
+            'systemPermission']) !!}
+            @error('permission_list')
+            <span class="text-danger">{{ $message }}</span>
+            @enderror
+        </div>
+        @if (isset($admin))
+        <div class="col-12 col-md-4 mt-3">
+            {!! Form::label('status', trans('dashboard.general.status')) !!}
+
+            {!! Form::select('ban_status', ['' => ''] + trans('dashboard.admin.active_cases'), request('ban_status'),
+            ['class' => 'form-control select2' . ($errors->has('status') ? ' is-invalid' : null), 'id' => 'status',
+            'data-placeholder' => trans('dashboard.general.select_status')]) !!}
+            @error('ban_status')
+            <span class="text-danger">{{ $message }}</span>
+            @enderror
+        </div>
 
 
-          </div>
-          <div class="col-12 col-md-4">
-              {!! Form::label('userName', trans('dashboard.admin.name')) !!} <span class="requiredFields">*</span>
-
-              @if (isset($admin))
-                  {!! Form::text('user_name', $admin->fullname, ['class' => 'form-control', 'disabled' => 'disabled']) !!}
-              @else
-                  {!! Form::select('employee_id', ['' => ''], null, ['class' => 'form-control select2-show-search', 'id' => 'userName', 'data-placeholder' => trans('dashboard.general.select_employee')]) !!}
-              @endif
-              <span class="text-danger" id="employee_id_error"></span>
-          </div>
-
-          <div class="col-12 col-md-4">
-              {!! Form::label('userId', trans('dashboard.admin.login_id')) !!} <span class="requiredFields">*</span>
-
-              @if (isset($admin))
-
-              {!! Form::number('login_id', null, ['class' => 'form-control stop-copy-paste', 'oninput' => 'javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);', 'min' => '0', 'maxlength' => '6', 'onkeypress' => 'return /[0-9a-zA-Z]/i.test(event.key)', 'id' => 'userId', 'placeholder' => trans('dashboard.admin.login_id'),'disabled' => 'disabled']) !!}
-              @else
-
-
-              {!! Form::number('login_id', null, ['class' => 'form-control stop-copy-paste', 'oninput' => 'javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);', 'min' => '0', 'maxlength' => '6', 'onkeypress' => 'return /[0-9a-zA-Z]/i.test(event.key)', 'id' => 'userId', 'placeholder' => trans('dashboard.admin.login_id')]) !!}
-              @endif
-
-              <span class="text-danger" id="login_id_error"></span>
-          </div>
-
-          {{-- <div class="col-12 col-md-8 mt-3">
-              {!! Form::label('systemPermission', trans('dashboard.admin.permission_system')) !!}
-              {!! Form::select('permission_list[]', $groups, null, ['class' => 'form-control select2', 'multiple' => 'multiple', 'data-placeholder' => trans('dashboard.general.select_permissions'), 'id' => 'systemPermission']) !!}
-              @error('permission_list')
-                  <span class="text-danger">{{ $message }}</span>
-              @enderror
-          </div> --}}
+        <div class="col-12 col-md-4 temporary mt-3">
+            <label for="validationCustom02"> {{ trans('dashboard.admin.ban_from') }}</label>
+            <div class="input-group">
+                {!! Form::text('ban_from', null, ['class' => 'form-control ', 'readonly' => 'readonly', 'id' =>
+                'from-hijri-unactive-picker-custom', 'placeholder' => trans('dashboard.general.day_month_year'), 'value'
+                => "old('ban_from')"]) !!}
+                <div class="input-group-text border-start-0">
+                    <i class="fa fa-calendar tx-16 lh-0 op-6"></i>
+                </div>
+            </div>
+            @error('ban_from')
+            <span class="text-danger">{{ $message }}</span>
+            @enderror
+        </div>
+        <div class="col-12 col-md-4 temporary mt-3">
+            <label for="validationCustom02">{{ trans('dashboard.admin.ban_to') }}</label>
+            <div class="input-group">
+                {!! Form::text('ban_to', null, ['class' => 'form-control ', 'readonly' => 'readonly', 'id' =>
+                'to-hijri-unactive-picker-custom', 'placeholder' => trans('dashboard.general.day_month_year'), 'value'
+                => "old('ban_to')"]) !!}
+                <div class="input-group-text border-start-0">
+                    <i class="fa fa-calendar tx-16 lh-0 op-6"></i>
+                </div>
+            </div>
+            @error('ban_to')
+            <span class="text-danger">{{ $message }}</span>
+            @enderror
+        </div>
+        @endif
 
 
+        <div class="col-12 col-md-4 mt-3 d-flex align-items-end">
+            <div class="col-12 col-md-6">
 
+                <div class="form-check">
+                    {!! Form::checkbox('is_login_code', '1', false, ['class' => 'form-check-input', 'id' =>
+                    'verifyCode']) !!}
+                    {!! Form::label('verifyCode', trans('dashboard.general.Send VerificationCode'), ['class' =>
+                    'form-check-label']) !!}
+                    @error('is_login_code')
+                    <span class="text-danger">{{ $message }}</span>
+                    @enderror
+                </div>
+
+            </div>
+            @if (isset($admin))
+            <div class="col-12 col-md-6">
+                <div class="form-check">
+                    {!! Form::checkbox('change_password', '1', false, ['class' => 'form-check-input', 'id' =>
+                    'changePassword']) !!}
+                    {!! Form::label('changePassword', trans('dashboard.general.change_password'), ['class' =>
+                    'form-check-label']) !!}
+                    @error('change_password')
+                    <span class="text-danger">{{ $message }}</span>
+                    @enderror
+                </div>
+            </div>
+            @endif
+        </div>
+
+
+        <div class="col-12 col-md-4 mt-3 changePass">
+            {!! Form::label('newPassword', trans('dashboard.admin.password')) !!} <span class="requiredFields">*</span>
+            <div class="input-group" id="show_hide_password">
+                {!! Form::password('password', ['class' => 'form-control','maxlength' => '10', 'oninput'=>'javascript:
+                if (this.value.length > this.maxLength) this.value = this.value.slice(0,
+                this.maxLength);','pattern'=>'^[1-9]\d*$', 'onkeypress'=>'return /[0-9]/i.test(event.key)',
+                'placeholder' => trans('dashboard.admin.enter_password')]) !!}
+
+                <div class="input-group-text border-start-0">
+                    <a href=""><i class="mdi mdi-eye-off-outline d-flex"></i></a>
+                </div>
+            </div>
+            @error('password')
+            <span class="text-danger">{{ $message }}</span>
+            @enderror
+        </div>
+        <div class="col-12 col-md-4 mt-3 changePass">
+            {!! Form::label('confirmPassword', trans('dashboard.admin.confirmed_password')) !!} <span
+                class="requiredFields">*</span>
+            <div class="input-group" id="show_hide_confirm_password">
+                {!! Form::password('confirmed_password', ['class' => 'form-control','maxlength' => '10',
+                'oninput'=>'javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0,
+                this.maxLength);','pattern'=>'^[1-9]\d*$','onkeypress'=>'return /[0-9]/i.test(event.key)', 'placeholder'
+                => trans('dashboard.admin.confirmed_password')]) !!}
 
           <div class="col-12 col-md-8 mt-3">
               <label for="permissions">{{ trans('dashboard.admin.permission_system') }}</label>
@@ -116,7 +216,7 @@
               <div class="col-12 col-md-6">
 
                   <div class="form-check">
-                      {!! Form::checkbox('is_login_code', '1', false, ['class' => 'form-check-input', 'id' => 'verifyCode']) !!}
+                      {!! Form::checkbox('is_login_code', '1', isset($admin) && $admin->is_login_code == 1 ? true : false, ['class' => 'form-check-input', 'id' => 'verifyCode']) !!}
                       {!! Form::label('verifyCode', trans('dashboard.general.Send VerificationCode'), ['class' => 'form-check-label']) !!}
                       <span class="text-danger" id="is_login_code_error"></span>
                   </div>
@@ -150,14 +250,14 @@
           <div class="col-12 col-md-4 mt-3 changePass" @if (isset($admin)) hidden @endif>
               {!! Form::label('confirmPassword', trans('dashboard.admin.confirmed_password')) !!}
               <div class="input-group" id="show_hide_confirm_password">
-                  {!! Form::password('confirmed_password', ['class' => 'form-control', 'maxlength' => '10', 'oninput' => 'javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);', 'pattern' => '^[1-9]\d*$', 'onkeypress' => 'return /[0-9]/i.test(event.key)', 'placeholder' => trans('dashboard.admin.confirmed_password')]) !!}
+                  {!! Form::password('password_confirmation', ['class' => 'form-control', 'maxlength' => '10', 'oninput' => 'javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);', 'pattern' => '^[1-9]\d*$', 'onkeypress' => 'return /[0-9]/i.test(event.key)', 'placeholder' => trans('dashboard.admin.confirmed_password'), 'id' => 'confirmPassword']) !!}
 
                   <div class="input-group-text border-start-0">
                       <a href=""><i class="mdi mdi-eye-off-outline d-flex"></i></a>
                   </div>
               </div>
 
-              <span class="text-danger" id="confirmed_password_error"></span>
+              <span class="text-danger" id="password_confirmation_error"></span>
           </div>
 
       </div>
@@ -171,6 +271,7 @@
 
   @include('dashboard.layouts.modals.confirm')
   @include('dashboard.layouts.modals.back')
+  @include('dashboard.layouts.modals.alert')
 
   @section('scripts')
       <script src="{{ asset('dashboardAssets/js/select2.js') }}"></script>
@@ -212,80 +313,48 @@
                       `<option value="${item}" selected class="permission_select"></option>`);
               });
 
+@include('dashboard.layouts.modals.confirm')
+@include('dashboard.layouts.modals.back')
 
+@section('scripts')
+<script src="{{ asset('dashboardAssets/js/select2.js') }}"></script>
+<script src="{{ asset('dashboardAssets/plugins/select2/select2.full.min.js') }}"></script>
+<script src="{{ asset('dashboardAssets') }}/plugins/fileuploads/js/fileupload.js"></script>
+<script src="{{ asset('dashboardAssets') }}/plugins/fileuploads/js/file-upload.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Dropify/0.2.2/js/dropify.min.js"></script>
+<script src="{{ asset('dashboardAssets/js/custom_scripts.js') }}"></script>
+<script src="{{ asset('dashboardAssets/plugins/bootstrap-hijri-datepicker/js/bootstrap-hijri-datetimepicker.js') }}">
+</script>
+<script>
+    (function() {
               'use strict';
-              let validate = false;
-              let saveButton = true;
-
-
-              $('#saveButton').on('click', function(e) {
-                  e.preventDefault();
-
-                  $('span[id*="_error"]').html('');
-                  $('*input,select').removeClass('is-invalid');
-
-                  let form = $('#formId')[0];
-                  let data = new FormData(form);
-
-                  $.ajaxSetup({
-                      headers: {
-                          'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                      }
-                  });
-
-                  $.ajax({
-                      url: $('#formId').attr('action'),
-                      type: "POST",
-                      data: data,
-                      beforeSend: toggleSaveButton(),
-                      processData: false,
-                      contentType: false,
-                      cache: false,
-                      success: function() {
-                          $('#successModal').modal('show');
-                          toggleSaveButton();
-                      },
-                      error: function(data) {
-                          toggleSaveButton();
-
-                          $.each(data.responseJSON.errors, function(name, message) {
-                              let inputName = name;
-                              let inputError = name + '_error';
-
-                              $('input[name="' + inputName + '"]').addClass('is-invalid');
-                              $('select[name="' + inputName + '"]').addClass('is-invalid');
-                              $('span[id="' + inputError + '"]').html(
-                                  `<small>${message}</small>`);
-                          });
-                      }
-                  });
-              });
-
-              function toggleSaveButton() {
-                  if (saveButton) {
-                      saveButton = false;
-                      $("#saveButton").html('<i class="spinner-border spinner-border-sm"></i>' + '{{ $btn_submit }}');
-                      $('#saveButton').attr('disabled', true);
-                  } else {
-                      saveButton = true;
-                      $("#saveButton").html('<i class="mdi mdi-content-save-outline"></i>' + '{{ $btn_submit }}');
-                      $('#saveButton').attr('disabled', false);
-                  }
-              }
-              $("#showBack").click(function() {
-                  if (validate) {
-                      $('#backModal').modal('show');
-                      return false;
-                  } else {
-                      window.location.href = "{{ route('dashboard.backButton') }}";
-                  }
-              });
-
-              $("input,select").change(function() {
-                  validate = true;
-              });
-
-
+              window.addEventListener(
+                  "load",
+                  function() {
+                      // Fetch all the forms we want to apply custom Bootstrap validation styles to
+                      var forms = document.getElementsByClassName("needs-validation");
+                      // Loop over them and prevent submission
+                      var validation = Array.prototype.filter.call(
+                          forms,
+                          function(form) {
+                              form.addEventListener(
+                                  "submit",
+                                  function(event) {
+                                      // form.classList.add("was-validated");
+                                      event.preventDefault();
+                                      if (form.checkValidity() === false) {
+                                          event.stopPropagation();
+                                      } else {
+                                          $('#successModal').modal('show');
+                                      }
+                                  },
+                                  false
+                              );
+                          }
+                      );
+                  },
+                  false
+              );
               $("#from-hijri-unactive-picker-custom ,#to-hijri-unactive-picker-custom")
                   .hijriDatePicker({
                       hijri: {{ auth()->user()->is_date_hijri ? 'true' : 'false' }},
@@ -299,26 +368,43 @@
                   });
 
 
+              $("#showBack").click(function() {
+                  let validate = false;
+                  $('#formId input').each(function() {
+                      if ($(this).attr('name') !== '_token' && ($(this).val() != '' || $(this).attr(
+                              'checked')))
+                          validate = true;
+                  });
+                  if (validate) {
+                      $('#backModal').modal('show');
+                      return false;
+                  } else {
+                      window.location.href = "{{ route('dashboard.backButton') }}";
+                  }
+              });
+
               //change password checkbox
               $("#changePassword").change(function() {
                   if (this.checked) {
-                      $(".changePass").attr('hidden', false);
+                      $(".changePass").show();
                   } else {
-                      $(".changePass").attr('hidden', true);
+                      $(".changePass").hide();
                   }
               });
 
               // temporary status appear date
+              $(document).ready(function() {
+                  $("#status").change(function() {
+                      if (this.value == 'temporary') {
+                          $(".temporary").show();
+                      } else {
+                          $(".temporary").hide();
+                          $('#from-hijri-unactive-picker-custom').val('');
+                          $('#to-hijri-unactive-picker-custom').val('');
+                      }
+                  }).change();
+              });
 
-              $("#status").change(function() {
-                  if (this.value == 'temporary') {
-                      $(".temporary").show();
-                  } else {
-                      $(".temporary").hide();
-                      $('#from-hijri-unactive-picker-custom').val('');
-                      $('#to-hijri-unactive-picker-custom').val('');
-                  }
-              }).change();
 
               //get users from department script
               $("#mainDepartment").change(function(e) {
@@ -326,7 +412,13 @@
                   let department_id = $("#mainDepartment").val();
 
                   $('#userName').empty();
+<<<<<<< HEAD
+                  $('#userName').append(new Option('', '', true, true)).trigger('change');
 
+=======
+                  $("#userName").append(
+                      '<option value=""> {{ trans('dashboard.general.select_user') }} </option>')
+>>>>>>> 865939ac1dd8bd0239738dd3f4acba5e765c0707
                   if (department_id != '') {
                       //send ajax
                       $.ajax({
@@ -335,11 +427,9 @@
                           success: function(data) {
                               if (data) {
                                   $.each(data.data, function(index, user) {
-                                    let newOption = new Option(user.fullname, user.id, false, false);
-                                    $('#userName').append(newOption).trigger('change');
+                                      $("#userName").append('<option value="' + user.id +
+                                          '">' + user.fullname + '</option>')
                                   });
-
-
                               }
                           }
                       });
@@ -347,7 +437,8 @@
 
               });
 
-              $("#show_hide_password a").on("click", function(event) {
+              $(document).ready(function() {
+                  $("#show_hide_password a").on("click", function(event) {
                       event.preventDefault();
                       if ($("#show_hide_password input").attr("type") == "text") {
                           $("#show_hide_password input").attr("type", "password");
@@ -361,6 +452,10 @@
                           $("#show_hide_password i").addClass("mdi-eye-outline");
                       }
                   });
+
+              });
+
+              $(document).ready(function() {
                   $("#show_hide_confirm_password a").on("click", function(event) {
                       event.preventDefault();
                       if ($("#show_hide_confirm_password input").attr("type") == "text") {
@@ -375,6 +470,11 @@
                           $("#show_hide_confirm_password i").addClass("mdi-eye-outline");
                       }
                   });
+
+              });
+
+              // prevent dot (.) in number input
+              $(document).ready(function() {
                   $('#userId').on('keypress', function(event) {
                       var key = event.charCode ? event.charCode : event.keyCode;
                       $("#userId").innerHTML = key;
@@ -383,6 +483,8 @@
                           return false;
                       }
                   });
+              });
+
           })();
-      </script>
-  @endsection
+</script>
+@endsection
