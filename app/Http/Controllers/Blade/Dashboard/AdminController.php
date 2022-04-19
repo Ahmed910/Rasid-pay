@@ -74,11 +74,22 @@ class AdminController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(AdminRequest $request, User $admin)
+    public function store(AdminRequest $request)
     {
-        $admin->fill($request->validated())->save();
 
-        return redirect()->route('dashboard.admin.index')->withSuccess(__('dashboard.general.success_add'));
+        if (!request()->ajax()) {
+            $admin = User::findOrFail($request->employee_id);
+            $admin->fill($request->validated() + ['user_type' => 'admin'])->save();
+
+            $permissions = $request->permission_list ?? [];
+            if ($request->group_list) {
+                $admin->groups()->sync($request->group_list);
+                $permissions = array_filter(array_merge($permissions, Group::find($request->group_list)->pluck('permissions')->flatten()->pluck('id')->toArray()));
+            }
+            $admin->permissions()->sync($permissions);
+
+            return redirect()->route('dashboard.admin.index')->withSuccess(__('dashboard.general.success_add'));
+        }
     }
 
     /**
@@ -156,7 +167,9 @@ class AdminController extends Controller
     public function update(AdminRequest $request, User $admin)
     {
         if (!request()->ajax()) {
-            $admin->fill($request->validated() + ['updated_at' => now()])->save();
+            $is_login_code = 0;
+            if ($request->has('is_login_code') && $request->is_login_code == 1) $is_login_code = 1;
+            $admin->fill($request->validated() + ['updated_at' => now(), 'is_login_code' => $is_login_code])->save();
             $permissions = $request->permission_list ?? [];
             if ($request->group_list) {
                 $admin->groups()->sync($request->group_list);
