@@ -15,7 +15,7 @@ class CardPackageController extends Controller
      *
      * //     * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
         $card_packages = CardPackage::with("translations")->latest()->paginate((int)($request->per_page ?? config("globals.per_page")));
         return CardPackageResource::collection($card_packages)->additional([
@@ -30,11 +30,11 @@ class CardPackageController extends Controller
      * //     * @param \Illuminate\Http\Request $request
      * //     * @return \Illuminate\Http\Response
      */
-    public function store(CardPackageRequest $cardPackageRequest)
+    public function store(CardPackageRequest $request , CardPackage $card_package)
     {
 //        dd($cardPackageRequest->validated());
-        $card_package = CardPackage::create($cardPackageRequest->validated());
-        $card_package->load("translations");
+        $card_package->fill($request->validated() + ['added_by_id' => auth()->id()])->save();
+
         return CardPackageResource::make($card_package)->additional([
             'status' => true,
             'message' => ""
@@ -47,9 +47,15 @@ class CardPackageController extends Controller
      * //     * @param int $id
      * //     * @return \Illuminate\Http\Response
      */
-    public function show(CardPackage $card_package)
+    public function show(CardPackage $id)
     {
-
+        $card_package = CardPackage::withTrashed()->findOrFail($id)->load('translations');
+dd($card_package);
+        return CardPackageResource::make($card_package)
+            ->additional([
+                'status' => true,
+                'message' => ""
+            ]);
 
     }
 

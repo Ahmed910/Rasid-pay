@@ -31,6 +31,8 @@ class CardPackageResource extends JsonResource
                 "cash_back" => $this->cash_back,
                 "promo_cash_back" => $this->promo_cash_back,
                 "discount_promo_code" => $this->discount_promo_code,
+                "images"    => ImagesResource::collection($this->whenLoaded("images")),
+
             ] + $locales;
     }
 }
