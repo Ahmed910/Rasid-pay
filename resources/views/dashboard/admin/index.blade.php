@@ -23,7 +23,7 @@
             </div>
             <div class="col-12 col-md-3">
                 <label for="userId">{{ trans('dashboard.admin.login_id') }}</label>
-                <input type="number" class="form-control" id="userId" placeholder="{{ trans('dashboard.admin.enter_number') }}"
+                <input type="number" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" pattern="^[1-9]\d*$" onkeypress="return /[0-9a-zA-Z]/i.test(event.key)" maxlength="6" class="form-control stop-copy-paste" id="userId" placeholder="{{ trans('dashboard.admin.enter_number') }}"
                     name="login_id" value="{{ old('login_id') ?? request('login_id') }}" />
 
             </div>

@@ -26,7 +26,9 @@
                             class="mdi mdi-home-variant-outline"></i><span
                             class="side-menu__label">{{trans('dashboard.home.home')}}</span></a>
                 </li>
-
+                <li class="sub-category">
+                    <h3>رصيد جاك</h3>
+                </li>
                 <li class="slide {{ request()->routeIs('dashboard.department.*') && !request()->routeIs('dashboard.*.archive') ? 'is-expanded' : '' }} ">
                     <a class="side-menu__item" data-bs-toggle="slide" href="javascript:void(0)"><i
                             class="mdi mdi-view-dashboard-outline"></i><span
@@ -50,8 +52,6 @@
                         </li>
                     </ul>
                 </li>
-
-
                 <li class="slide {{ request()->routeIs('dashboard.rasid_job.*') && !request()->routeIs('dashboard.*.archive') ? 'is-expanded' : '' }}">
                     <a class="side-menu__item" data-bs-toggle="slide" href="javascript:void(0)"><i
                             class="mdi mdi-briefcase-variant-outline"></i><span class="side-menu__label">{{
@@ -75,7 +75,6 @@
                         </li>
                     </ul>
                 </li>
-
                 <li class="slide {{ request()->routeIs('dashboard.employee.*') ? 'is-expanded' : '' }}">
                     <a class="side-menu__item" data-bs-toggle="slide" href="javascript:void(0)"><i
                             class="mdi mdi-account-group-outline"></i><span class="side-menu__label">{!!
@@ -99,7 +98,6 @@
                         </li>
                     </ul>
                 </li>
-
                 <li class="slide {{ request()->routeIs('dashboard.group.*') ? 'is-expanded' : '' }}">
                     <a class="side-menu__item" data-bs-toggle="slide" href="javascript:void(0)"><i
                             class="mdi mdi-shield-key-outline"></i><span class="side-menu__label">{!!
@@ -122,7 +120,6 @@
                         </li>
                     </ul>
                 </li>
-
                 <li class="slide {{ request()->routeIs('dashboard.admin.*') ? 'is-expanded' : '' }}">
                     <a class="side-menu__item" data-bs-toggle="slide" href="javascript:void(0)"><i
                             class="mdi mdi-account-multiple-outline"></i><span class="side-menu__label">{!!
@@ -145,7 +142,6 @@
                         </li>
                     </ul>
                 </li>
-
                 <li class="slide {{ request()->routeIs('dashboard.client.*') ? 'is-expanded' : '' }}">
                     <a class="side-menu__item" data-bs-toggle="slide" href="javascript:void(0)"><i
                             class="mdi mdi-account-heart-outline"></i><span class="side-menu__label">{!!
@@ -223,6 +219,53 @@
                     <a class="side-menu__item" data-bs-toggle="slide" href="../settings.html"><i
                             class="mdi mdi-cog-outline"></i><span
                             class="side-menu__label">{{trans('dashboard.general.settings')}}</span></a>
+                </li>
+                <li class="sub-category">
+                    <h3>رصيد باك</h3>
+                </li>
+                <li class="slide">
+                    <a class="side-menu__item" data-bs-toggle="slide" href="javascript:void(0)"><i
+                            class="mdi mdi-view-dashboard-outline"></i><span
+                            class="side-menu__label">المستخدمين</span><i
+                            class="angle fe fe-chevron-right"></i></a>
+                    <ul class="slide-menu">
+                        <li class="side-menu-label1">
+                            <a href="javascript:void(0)">المستخدمين</a>
+                        </li>
+                        <li>
+                            <a href="#"
+                                class="slide-item px-6"><i
+                                    class="mdi mdi-file-document-multiple-outline"></i>
+                                سجل المستخدمين</a>
+                        </li>
+                        <li>
+                            <a href="#"
+                                class="slide-item px-6"><i
+                                    class="mdi mdi-plus-circle-outline"></i>
+                                إضافة مستخدم</a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="slide">
+                    <a class="side-menu__item" data-bs-toggle="slide" href="javascript:void(0)"><i
+                            class="mdi mdi-briefcase-variant-outline"></i><span class="side-menu__label">المعاملات</span><i class="angle fe fe-chevron-right"></i></a>
+                    <ul class="slide-menu">
+                        <li class="side-menu-label1">
+                            <a href="javascript:void(0)">المعاملات</a>
+                        </li>
+                        <li>
+                            <a href="{{ route('dashboard.rasid_job.index') }}"
+                                class="slide-item px-6 {{ request()->routeIs('dashboard.rasid_job.index') ? 'active' : '' }}"><i
+                                    class="mdi mdi-file-document-multiple-outline"></i>
+                                {{ trans('dashboard.rasid_job.sub_progs.index') }}</a>
+                        </li>
+                        <li>
+                            <a href="{{ route('dashboard.rasid_job.create') }}"
+                                class="slide-item px-6 {{ request()->routeIs('dashboard.rasid_job.create') ? 'active' : '' }}"><i
+                                    class="mdi mdi-plus-circle-outline"></i> {!!
+                                trans('dashboard.rasid_job.sub_progs.create') !!}</a>
+                        </li>
+                    </ul>
                 </li>
             </ul>
             <div class="slide-right" id="slide-right">
