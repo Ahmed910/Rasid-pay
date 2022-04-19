@@ -98,7 +98,6 @@
 <!-- Perfect SCROLLBAR JS-->
 <script src="{{ asset('dashboardAssets/plugins/p-scroll/perfect-scrollbar.js') }}"></script>
 <script src="{{ asset('dashboardAssets/plugins/p-scroll/pscroll.js') }}"></script>
-<script src="{{ asset('dashboardAssets/plugins/p-scroll/pscroll-1.js') }}"></script>
 
   <!-- lottie-player js -->
   <script src="https://unpkg.com/@lottiefiles/lottie-player@0.4.0/dist/tgs-player.js"></script>
