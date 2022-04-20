@@ -24,6 +24,7 @@ class CreateCardPackagesTable extends Migration
             $table->string('cash_back');
             $table->string('promo_cash_back');
             $table->string('discount_promo_code');
+            $table->foreignUuid('added_by_id')->nullable()->constrained('users')->onDelete('set null');
 
             $table->softDeletes();
 
