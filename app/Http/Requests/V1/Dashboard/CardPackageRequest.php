@@ -34,6 +34,8 @@ class CardPackageRequest extends ApiMasterRequest
             "cash_back" => ["required", "max:255"],
             "promo_cash_back" => ["required", "max:255"],
             "discount_promo_code" => ["required", "max:255"],
+            "image"         => "nullable|max:5120|mimes:jpg,png,jpeg",
+
         ];
         foreach (config('translatable.locales') as $locale) {
             $rules[$locale . '.name'] = 'required|max:255';

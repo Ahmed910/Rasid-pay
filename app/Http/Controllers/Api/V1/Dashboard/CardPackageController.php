@@ -30,11 +30,10 @@ class CardPackageController extends Controller
      * //     * @param \Illuminate\Http\Request $request
      * //     * @return \Illuminate\Http\Response
      */
-    public function store(CardPackageRequest $request , CardPackage $card_package)
+    public function store(CardPackageRequest $request, CardPackage $card_package)
     {
-//        dd($cardPackageRequest->validated());
         $card_package->fill($request->validated() + ['added_by_id' => auth()->id()])->save();
-
+        $card_package->load(['images', 'addedBy']);
         return CardPackageResource::make($card_package)->additional([
             'status' => true,
             'message' => ""
@@ -47,28 +46,32 @@ class CardPackageController extends Controller
      * //     * @param int $id
      * //     * @return \Illuminate\Http\Response
      */
-    public function show(CardPackage $id)
+    public function show($id)
     {
         $card_package = CardPackage::withTrashed()->findOrFail($id)->load('translations');
-dd($card_package);
         return CardPackageResource::make($card_package)
             ->additional([
                 'status' => true,
                 'message' => ""
             ]);
-
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param \Illuminate\Http\Request $request
+     * @param \Illuminate\Http\CardPackageRequest $request
      * @param int $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(CardPackageRequest $request, CardPackage $card_package)
     {
-        //
+        $card_package->fill($request->validated() + ['updated_at' => now()])->save();
+        $card_package->load(['images', 'addedBy']);
+        return CardPackageResource::make($card_package)
+            ->additional([
+                'status' => true,
+                'message' => trans("dashboard.general.success_update")
+            ]);;
     }
 
     /**
@@ -77,8 +80,58 @@ dd($card_package);
      * @param int $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(CardPackage $card_package)
     {
-        //
+        $card_package->delete();
+        return CardPackageResource::make($card_package)
+            ->additional([
+                'status' => true,
+                'message' =>  trans('dashboard.general.success_archive'),
+            ]);
+    }
+
+    /**
+     * return archived card packages
+     */
+    public function archive(Request $request)
+    {
+        $card_packages = CardPackage::onlyTrashed()->with("translations")->latest()->paginate((int)($request->per_page ?? config("globals.per_page")));
+        return CardPackageResource::collection($card_packages)->additional([
+            'status' => true,
+            'message' => ""
+
+        ]);
+    }
+
+    /**
+     * restore deleted card package
+     * @param int $id
+     */
+    public function restore($id)
+    {
+        $card_package = CardPackage::onlyTrashed()->findOrFail($id);
+        $card_package->restore();
+
+        return CardPackageResource::make($card_package)
+            ->additional([
+                'status' => true,
+                'message' => trans('dashboard.general.restore')
+            ]);
+    }
+
+    /**
+     * force Delete card package
+     * @param int $id
+     */
+    public function forceDelete($id)
+    {
+        $card_package = CardPackage::onlyTrashed()->findOrFail($id);
+        $card_package->forceDelete();
+
+        return CardPackageResource::make($card_package)
+            ->additional([
+                'status' => true,
+                'message' => trans("dashboard.general.success_delete")
+            ]);
     }
 }
