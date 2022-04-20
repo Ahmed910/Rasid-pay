@@ -26,7 +26,7 @@ class CitizenWallet extends Model
 
     public function getQrcodeAttribute()
     {
-        return asset('storage/images/citizen_wallet/'.$this->attributes['wallet_qr']);
+        return asset('storage/'.$this->attributes['wallet_qr']);
     }
     #region mutators
     #endregion mutators
