@@ -28,6 +28,8 @@ Route::group(
 
         Route::middleware('auth')->prefix('dashboard')->group(function () {
             Route::get('/', "HomeController@index")->name("home.index");
+            Route::get('transaction', "TransactionController@index")->name("transaction.index");
+            Route::get('citizen', "CitizenController@index")->name("citizen.index");
             Route::get('/backButton', "HomeController@backButton")->name("backButton");
             Route::post('logout', "Auth\LoginController@logout")->name("session.logout");
             Route::resource('activity_log', 'ActivityLogController')->only('index', 'show');
@@ -40,7 +42,7 @@ Route::group(
                 Route::get('export', 'export')->name('export');
                 Route::get('exportPDF', 'exportPDF')->name('exportPDF');
             });
-Route::controller('ClientController')->name('client.')->prefix('client')->group(function () {
+            Route::controller('ClientController')->name('client.')->prefix('client')->group(function () {
                 Route::get('account_orders', 'accountOrders')->name('account_orders');
                 
             });
@@ -73,7 +75,8 @@ Route::controller('ClientController')->name('client.')->prefix('client')->group(
                 'client' => 'ClientController',
                 'employee' => 'EmployeeController',
                 'admin' => 'AdminController',
-                'activity_log' => 'ActivityLogController'
+                'activity_log' => 'ActivityLogController',
+                
             ]);
         });
     }
