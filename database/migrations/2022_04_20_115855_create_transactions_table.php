@@ -2,6 +2,7 @@
 
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
 
 class CreateTransactionsTable extends Migration
@@ -16,7 +17,7 @@ class CreateTransactionsTable extends Migration
         Schema::create('transactions', function (Blueprint $table) {
             $table->uuid("id")->primary();
             $table->foreignUuid("card_package_id")->nullable()->constrained()->nullOnDelete();
-            $table->unsignedInteger('number')->unique();
+            $table->unsignedbigInteger('number')->unique();
             $table->string('amount');
             $table->string("user_identity")->nullable();
             $table->enum('status', ['success', 'fail', 'pending', 'received', 'cancel'])->default('pending');
@@ -32,8 +33,11 @@ class CreateTransactionsTable extends Migration
 
 
         Schema::table('transactions', function (Blueprint $table) {
-            $table->integer('number', true, true)->change();
+            $table->bigInteger('number', true, true)->change();
         });
+
+        DB::update("ALTER TABLE transactions AUTO_INCREMENT = 10000;");
+
     }
 
     /**
