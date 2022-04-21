@@ -20,7 +20,10 @@ use Illuminate\Support\Facades\Storage;
 
 class ClientController extends Controller
 {
-
+    public function __construct()
+    {
+        \request()->usertype="client" ;
+    }
     public function index(Request $request)
     {
         $client = Client::with('user.bankAccount.bank.translations')->CustomDateFromTo($request)->with("user.attachments")->search($request)->sortby($request)
