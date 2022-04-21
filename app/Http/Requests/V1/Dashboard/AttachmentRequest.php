@@ -26,7 +26,7 @@ class AttachmentRequest extends ApiMasterRequest
         $data = ["attachments" => "required_if:client_type,company,institution"];
         $data += ["attachments.*.title" => "required_with:attachments", "attachments.*.type" => "required_with:attachments", "attachments.*.files" => "required_with:attachments"];
         $map = [
-            "videos" => 'required|mimetypes:video/avi,video/mpeg,video/quicktime',
+            "videos" => 'required|mimetypes:video/avi,video/mpeg,video/mp4,video/quicktime',
             "images" => 'required|mimes:jpeg,jpg,png,suv,heic',
             "docs" => 'required|mimes:doc,pdf,docx,zip,txt',
             "voices" => 'required|mimes:application/octet-stream,audio/mpeg,mp3,wav',

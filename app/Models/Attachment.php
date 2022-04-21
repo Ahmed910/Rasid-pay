@@ -105,6 +105,8 @@ class Attachment extends Model
                     $cur->attachmentFiles()->create([
                         'path' => $curpath,
                         'type' => $file->getClientMimeType(),
+                        "name" => $file->getClientOriginalName(),
+                        "size" => $file->getSize()
                     ]);
                 }
             }

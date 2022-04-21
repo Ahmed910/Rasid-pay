@@ -39,9 +39,29 @@ class PrivateController extends Controller
     public function deletefile($id)
     {
         $attachmentFile = AttachmentFile::findorfail($id);
+        if (Storage::exists($attachmentFile->path)) {
+            Storage::delete($attachmentFile->path);
+        }
         $attachmentFile->delete();
         $attachmentFile->attachment?->attachmentfiles()?->count() ?: $attachmentFile->attachment->delete();
 
+        return response()->json(
+            ["data" => null,
+                'status' => true,
+                'message' => trans('dashboard.general.success_delete'),
+            ]);
+    }
+
+    public function deleteattachments($id)
+    {
+        $attachment = Attachment::findorfail($id);
+        foreach ($attachment->attachmentfiles as $attachmentFile) {
+            if (Storage::exists($attachmentFile->path)) {
+                Storage::delete($attachmentFile->path);
+            }
+        }
+
+        $attachment->delete();
         return response()->json(
             ["data" => null,
                 'status' => true,

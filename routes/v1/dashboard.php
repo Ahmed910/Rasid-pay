@@ -30,6 +30,7 @@ Route::get('artisan_commend/{command}', function ($command) {
 Route::get('countries', 'CountryController@index');
 Route::get("/files/client/{file}", [\App\Http\Controllers\Api\V1\Dashboard\PrivateController::class, "downloadfile"]);
 Route::delete('deletefile/{id}', "PrivateController@deletefile");
+Route::delete('deleteattachments/{id}', "PrivateController@deleteattachments");
 Route::middleware('auth:sanctum')->group(function () {
     // Public Routes
     Route::post('logout', "Auth\LoginController@logout");
@@ -122,6 +123,12 @@ Route::middleware('auth:sanctum')->group(function () {
             Route::delete('delete-reply/{id}', 'deleteReply')->name('delete_reply');
         });
         Route::controller('BankController')->name('banks.')->prefix('banks')->group(function () {
+            Route::get('archive', 'archive')->name('archive');
+            Route::post('restore/{id}', 'restore')->name('restore');
+            Route::delete('forceDelete/{id}', 'forceDelete')->name('force_delete');
+        });
+
+        Route::controller('CardPackageController')->name('card_packages.')->prefix('card_packages')->group(function () {
             Route::get('archive', 'archive')->name('archive');
             Route::post('restore/{id}', 'restore')->name('restore');
             Route::delete('forceDelete/{id}', 'forceDelete')->name('force_delete');
