@@ -37,7 +37,7 @@ class CitizenWallet extends Model
     #region relationships
     public function user()
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class,'citizen_id');
     }
     #endregion relationships
 
