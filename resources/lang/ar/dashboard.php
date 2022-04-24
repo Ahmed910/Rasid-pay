@@ -147,7 +147,7 @@ return [
     'activity_log' => [
         "activity_log" => "المتابعة",
         "activity_logs" => "المتابعة",
-        "reason" => "قام :user بـ:action :model",
+        "reason" =>"قام :user بـ:action :model من البرنامج الرئيسى :main",
         "date" => "تاريخ المتابعة",
         "main_program" =>"البرنامج الرئيسي",
         "sub_program" => "البرنامج الفرعي",
@@ -172,6 +172,26 @@ return [
             'temporary' => 'حظر لفترة',
 
         ],
+        'models' => [
+            'department' => 'قسم',
+            'group' => 'مجموعة',
+            'rasidjob' => 'وظيفة',
+            'bank' => 'بنك',
+            'admin' => 'مستخدم',
+            'attachment' => 'مرفق',
+            'bankaccount' => 'حساب بنكى',
+            'client' => 'عميل',
+            'employee' => 'موظف',
+            'user' => 'user',
+            'profile'=>"بروفايل",
+            "manager"=>"مدير",
+            "permission"=>"صلاحية",
+            "attachments"=>"مرفقات",
+            "attachmentfile"=>" ملف مرفقات",
+            "cardpackage"=>"باقة بطاقة",
+            "citizen"=>"مواطن"
+
+        ],
         'permissions' => array_only($permissions, ['index', 'show']),
         'sub_progs' => [
             'index' => 'المتابعة',
@@ -189,6 +209,10 @@ return [
             "show" => "عرض",
         ],
     ],
+    "citizen" => [
+        "citizens" => "المواطنون",],
+    "cardpackage" => [
+        "cardpackageس" => "باقات البطاقات",],
 
     "country" => [
         "country" => "الدولة",

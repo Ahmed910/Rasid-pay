@@ -3,13 +3,14 @@
 namespace App\Models;
 
 use App\Models\Bank\Bank;
+use App\Traits\Loggable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Traits\Uuid;
 
 class BankAccount extends Model
 {
-    use HasFactory, Uuid;
+    use HasFactory, Uuid,Loggable;
 
     protected $guarded = ['created_at', 'updated_at'];
 

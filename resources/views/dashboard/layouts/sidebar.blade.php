@@ -26,6 +26,22 @@
                             class="mdi mdi-home-variant-outline"></i><span
                             class="side-menu__label">{{trans('dashboard.home.home')}}</span></a>
                 </li>
+                {{-- <li class="slide">
+                    <a class="side-menu__item" data-bs-toggle="slide" href="javascript:void(0)">
+                        <i class="side-menu__icon fe fe-cpu"></i>
+                        <span class="side-menu__label">رصيد</span><i class="angle fe fe-chevron-right"></i></a>
+                    <ul class="slide-menu">
+                        <li class="side-menu-label1"><a href="javascript:void(0)">Submenu items</a></li>
+                        <li class="sub-slide">
+                            <a class="sub-side-menu__item" data-bs-toggle="sub-slide" href="javascript:void(0)"><span
+                                    class="sub-side-menu__label">Submenu-2</span><i class="sub-angle fe fe-chevron-right"></i></a>
+                            <ul class="sub-slide-menu">
+                                <li><a class="sub-slide-item" href="javascript:void(0)">Submenu-2.1</a></li>
+                                <li><a class="sub-slide-item" href="javascript:void(0)">Submenu-2.2</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </li> --}}
                 <li class="sub-category">
                     <h3>رصيد باك</h3>
                 </li>
@@ -223,49 +239,16 @@
                 <li class="sub-category">
                     <h3>رصيد باك</h3>
                 </li>
+                
                 <li class="slide">
-                    <a class="side-menu__item" data-bs-toggle="slide" href="javascript:void(0)"><i
-                            class="mdi mdi-view-dashboard-outline"></i><span
-                            class="side-menu__label">المستخدمين</span><i
-                            class="angle fe fe-chevron-right"></i></a>
-                    <ul class="slide-menu">
-                        <li class="side-menu-label1">
-                            <a href="javascript:void(0)">المستخدمين</a>
-                        </li>
-                        <li>
-                            <a href="#"
-                                class="slide-item px-6"><i
-                                    class="mdi mdi-file-document-multiple-outline"></i>
-                                سجل المستخدمين</a>
-                        </li>
-                        <li>
-                            <a href="#"
-                                class="slide-item px-6"><i
-                                    class="mdi mdi-plus-circle-outline"></i>
-                                إضافة مستخدم</a>
-                        </li>
-                    </ul>
+                    <a class="side-menu__item" data-bs-toggle="slide" href="{{ route('dashboard.citizen.index') }}"><i
+                            class="mdi mdi-account-multiple-outline"></i><span
+                            class="side-menu__label">المستخدمين</span></a>
                 </li>
                 <li class="slide">
-                    <a class="side-menu__item" data-bs-toggle="slide" href="javascript:void(0)"><i
-                            class="mdi mdi-briefcase-variant-outline"></i><span class="side-menu__label">المعاملات</span><i class="angle fe fe-chevron-right"></i></a>
-                    <ul class="slide-menu">
-                        <li class="side-menu-label1">
-                            <a href="javascript:void(0)">المعاملات</a>
-                        </li>
-                        <li>
-                            <a href="{{ route('dashboard.rasid_job.index') }}"
-                                class="slide-item px-6 {{ request()->routeIs('dashboard.rasid_job.index') ? 'active' : '' }}"><i
-                                    class="mdi mdi-file-document-multiple-outline"></i>
-                                {{ trans('dashboard.rasid_job.sub_progs.index') }}</a>
-                        </li>
-                        <li>
-                            <a href="{{ route('dashboard.rasid_job.create') }}"
-                                class="slide-item px-6 {{ request()->routeIs('dashboard.rasid_job.create') ? 'active' : '' }}"><i
-                                    class="mdi mdi-plus-circle-outline"></i> {!!
-                                trans('dashboard.rasid_job.sub_progs.create') !!}</a>
-                        </li>
-                    </ul>
+                    <a class="side-menu__item" data-bs-toggle="slide" href="{{ route('dashboard.transaction.index') }}"><i
+                            class="mdi mdi-home-variant-outline"></i><span
+                            class="side-menu__label">المعاملات</span></a>
                 </li>
             </ul>
             <div class="slide-right" id="slide-right">

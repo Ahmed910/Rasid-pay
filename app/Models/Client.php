@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Traits\Loggable;
 use App\Traits\Uuid;
 use Astrotomic\Translatable\Translatable;
 use Illuminate\Database\Eloquent\Builder;
@@ -11,7 +12,7 @@ use Illuminate\Support\Str;
 
 class Client extends Model
 {
-    use HasFactory, Uuid;
+    use HasFactory, Uuid,Loggable;
 
     #region properties
     protected $guarded = ['created_at', 'updated_at'];

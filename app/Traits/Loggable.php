@@ -18,7 +18,7 @@ trait Loggable
         });
 
         static::updated(function (self $self) {
-            if (in_array(class_basename($self),['User','Admin'])) {
+            if (in_array(class_basename($self), ['User', 'Admin'])) {
                 return $self->checkIfHasIsActiveOnly($self, 'ban_status');
             }
 
@@ -66,7 +66,8 @@ trait Loggable
             'ip_address'  => Request::ip(),
             'agent'       => Request::header('user-agent'),
             'user_id'     => auth()->check() ? auth()->user()->id : null,
-            'reason'      => request()->reasonAction
+            'reason'      => request()->reasonAction,
+            "user_type"   =>$item->user_type??null
         ]);
     }
 
@@ -102,15 +103,15 @@ trait Loggable
      */
     private function newData($item)
     {
-        if (!$item->getChanges()) return null;
-        // $permissions = $item->permissions?->map->getDirty()->toArray();
-        // $groups = $item->groups?->map->getDirty()->toArray();
-        $translations = $item->translations?->map->getDirty()->toArray();
+        $data['permissions'] = $item->permissions?->map->name->toArray() ?? [];
+        $data['groups'] = $item->groups?->map->name->toArray() ?? [];
+        $data['translations'] = $item->translations?->map->getDirty()->toArray();
+
         $newData = array_except($item->getChanges(), ['created_at', 'deleted_at']);
         if (request()->has('image') && request()->route()->getActionMethod() == 'update') {
             $newData += ['image' => $item->images->pluck('media')->toJson()];
         }
-        return array_merge($newData, $translations ?? []);
+        return array_merge($newData, array_filter($data));
     }
 
     /**
@@ -120,12 +121,12 @@ trait Loggable
     {
         if (!$item->getOriginal()) return $item;
 
-        $translations = $item->translations?->map->getOriginal()->toArray();
-        // $permissions = $item->permissions?->each->getOriginal()->toArray();
-        // $groups = $item->groups?->each->getOriginal()->toArray();
+        $data['permissions'] = $item->permissions?->map->name->toArray() ?? [];
+        $data['groups'] = $item->groups?->map->name->toArray() ?? [];
+        $data['translations'] = $item->translations?->map->getOriginal()->toArray();
         $originalData = array_except($item->getOriginal(), ['created_at', 'updated_at', 'deleted_at']);
 
-        return array_merge($originalData ?? [], $translations ?? [], $permissions ?? [], $groups ?? []);
+        return array_merge($originalData, array_filter($data));
     }
 
     private function checkStatus(self $model, string $column)
@@ -188,8 +189,8 @@ trait Loggable
         //   }
         // }
         $keys = array_keys($this->newData($self));
-        $hasData = count(array_flatten(array_except($this->newData($self), [$column, 'ban_from', 'ban_to','user_locale','updated_at'])));
-        if (!$hasData && !request()->has('image') && in_array($column,$keys)) {
+        $hasData = count(array_flatten(array_except($this->newData($self), [$column, 'ban_from', 'ban_to', 'user_locale', 'updated_at'])));
+        if (!$hasData && !request()->has('image') && in_array($column, $keys)) {
             $this->checkStatus($self, $column);
         } elseif ($hasData && in_array($column, array_keys($this->newData($self)))) {
             $self->addUserActivity($self, ActivityLog::UPDATE, 'index');
