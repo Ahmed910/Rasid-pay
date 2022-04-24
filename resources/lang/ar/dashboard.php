@@ -62,7 +62,7 @@ return [
         'activited' => 'تفعيل',
         'un_active_account'=>'هذا المستخدم معطل',
         'unactivited' => 'تعطيل',
-        'dashboard' => 'لوحة تحكم رصيد جاك',
+        'dashboard' => 'لوحة تحكم رصيد باك',
         "status" => "الحالة",
         "select_status" => "اختر الحالة",
         "select_user" => "اختر مستخدم",
@@ -484,6 +484,8 @@ return [
             'index' => 'سجل العملاء',
             'archive' => 'أرشيف العملاء',
             'create' => 'تسجيل عميل',
+            "show" => " عرض عميل",
+            'edit' => 'تعديل عميل',
             'account_order' => 'طلبات فتح حساب',
         ],
         'permissions' => array_except($permissions, ['archive', 'restore', 'force_delete']) + ['create' => 'عرض العملاء']
