@@ -21,9 +21,5 @@
 </div>
 <!-- PAGE-HEADER END -->
 
-<!-- ROW OPEN -->
-{!! Form::model($client, ['route' => ['dashboard.client.update', $client->id], 'method' => 'PUT', 'class' => 'needs-validation', 'id' => 'formId', 'files' => true, 'novalidate']) !!}
-@include('dashboard.client._form',['btn_submit' => trans('dashboard.general.edit')])
-{!! Form::close() !!}
 
 @endsection
