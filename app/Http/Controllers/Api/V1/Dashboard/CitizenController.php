@@ -15,10 +15,7 @@ use Illuminate\Http\Request;
 
 class CitizenController extends Controller
 {
-    public function __construct()
-    {
-        \request()->usertype="citizen" ;
-    }
+
     public function index(Request $request)
     {
         $citizen = Citizen::with('user.bankAccount.bank.translations')->CustomDateFromTo($request)->search($request)->sortby($request)

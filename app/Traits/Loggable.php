@@ -67,7 +67,7 @@ trait Loggable
             'agent'       => Request::header('user-agent'),
             'user_id'     => auth()->check() ? auth()->user()->id : null,
             'reason'      => request()->reasonAction,
-            "user_type"=>request()->usertype
+            "user_type"   =>$item->user_type??null
         ]);
     }
 
