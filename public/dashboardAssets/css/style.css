@@ -79927,6 +79927,7 @@ textarea {
 .dropify-wrapper .dropify-message span.file-icon:before {
     content: "";
     background: url("../images/pngs/photo_upload.png");
+    background-size: 100%;
     position: absolute;
     width: 140px;
     height: 140px;
@@ -80365,6 +80366,18 @@ tr:hover .dtr-control:before {
 
 .btn.disable {
     cursor: default !important;
+}
+
+
+.ff_fileupload_wrap .ff_fileupload_dropzone{
+    background-image: url(../images/pngs/photo_upload.png);
+        height: 200px;
+    background-color: #ffffff;
+    background-size: 30%;
+}
+
+.ff_fileupload_wrap table.ff_fileupload_uploads td.ff_fileupload_actions button.ff_fileupload_start_upload {
+    margin-left: 0.5em;
 }
 
 /*# sourceMappingURL=style.css.map */
