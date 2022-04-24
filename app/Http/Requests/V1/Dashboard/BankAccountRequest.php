@@ -26,11 +26,13 @@ class BankAccountRequest extends ApiMasterRequest
     public function rules()
     {
         return [
+
             "iban_number" => ["required", "min:6", "max:24", function ($attribute, $value, $fail) {
                 $bankacc = BankAccount::where("bank_id", $this->bank_id)->where("iban_number", $this->iban_number)?->get();
-                if (isset($this->client)) {
+                $thisuser = $this->citizen ?? $this->client;
+                if (isset($thisuser)) {
                     $user = $bankacc?->first()?->user_id;
-                    if ($this->client != $user && count($bankacc) > 0) $fail(trans("validation.unique"));
+                    if ($thisuser != $user && count($bankacc) > 0) $fail(trans("validation.unique"));
                 } else     !count($bankacc) > 0 ?: $fail(trans("validation.unique"));
             }],
             "contract_type" => ["nullable", "max:255", "in:pending,before_review,reviewed"],

@@ -212,7 +212,15 @@ return [
     "citizen" => [
         "citizens" => "المواطنون",],
     "cardpackage" => [
-        "cardpackageس" => "باقات البطاقات",],
+        "cardpackageS" => "باقات البطاقات",],
+    "manager" => [
+        "managers" => "العملاء",],
+    "bank_account" => [
+        "bank_accounts" => "العملاء",],
+    "attachment" => [
+        "attachments" => "العملاء",],
+    "attachment_file" => [
+        "attachment_files" => "العملاء",],
 
     "country" => [
         "country" => "الدولة",
