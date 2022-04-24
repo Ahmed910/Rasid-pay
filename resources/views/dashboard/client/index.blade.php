@@ -42,11 +42,11 @@
       <input type="number" class="form-control" id="transactionTo" placeholder="الرقم الضريبي" />
     </div>
     <div class="col-12 col-md-3 mb-3">
-      <label for="transactionFrom">عدد المعاملات من</label>
+      <label for="transactionFrom">عدد المعاملات المنجزة (من)</label>
       <input type="number" class="form-control" id="transactionFrom" placeholder="0" />
     </div>
     <div class="col-12 col-md-3 mb-3">
-      <label for="transactionTo">عدد المعاملات إلى</label>
+      <label for="transactionTo">عدد المعاملات المنجزة (إلى)</label>
       <input type="number" class="form-control" id="transactionTo" placeholder="0" />
     </div>  <div class="col-12 col-md-3 mb-3">
       <label for="bankName">البنك التابع له</label>
