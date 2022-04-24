@@ -86,15 +86,9 @@ class TransactionController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(TransactionRequest $request, Transaction $transaction)
+    public function update($id)
     {
-        $transaction->fill($request->validated() + ['updated_at' => now()])->save();
-
-        return TransactionResource::make($transaction)
-            ->additional([
-                'status' => true,
-                'message' => __('dashboard.general.success_update')
-            ]);
+    //
     }
 
     /**
