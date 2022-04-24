@@ -118,7 +118,7 @@ return [
         'Total_employees'=>'Employees',
         'Total_vacant_jobs'=>'Vacant Jobs',
         'Total_unvacant_jobs'=>'Unvacant Jobs',
-
+        'Permission_field_required' => 'Permission Field Required',
     ],
     'datatable' => [
         'no_data' => 'No D ata ',
@@ -188,6 +188,7 @@ return [
         'permissions' => $permissions
     ],
     "group" => [
+        'groups' => 'Groups',
         "group" => "Admin group",
         "chosen_groups" =>"Chosen_Groups ",
         "groups" => "Admin groups",
@@ -307,7 +308,7 @@ return [
             'permanent'=>'Ban Permnent',
         ],
         'sub_progs' => [
-            'index' => 'Admins Rescord ',
+            'index' => 'Follow Up',
             'archive' => 'Admins Archive',
             'create' => 'Add Admin ',
             'show' =>'Show Admin'
@@ -383,6 +384,6 @@ return [
         ]
     ],
     'permission' => [
-        'permissions' => 'Permissions'
+        'permissions' => 'Permissions',
     ]
 ];

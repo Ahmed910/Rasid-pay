@@ -125,6 +125,7 @@ return [
         'Total_employees'=>'الموظفين',
         'Total_vacant_jobs'=>'الوظائف الشاغرة ',
         'Total_unvacant_jobs'=>'الوظائف المشغولة',
+        'Permission_field_required' => 'حقل الصلاحيات مطلوب',
 
     ],
     'datatable' => [
@@ -144,16 +145,16 @@ return [
         'name_must_be_unique_on_department' =>  'قيمة حقل الاسم موجودة من قبل لهذا القسم'
     ],
     'activity_log' => [
-        "activity_log" => "سجل النشاط",
-        "activity_logs" => "سجل النشاطات",
+        "activity_log" => "المتابعة",
+        "activity_logs" => "المتابعة",
         "reason" => "قام :user بـ:action :model",
-        "date" => "تاريخ النشاط",
+        "date" => "تاريخ المتابعة",
         "main_program" =>"البرنامج الرئيسي",
         "sub_program" => "البرنامج الفرعي",
-        "activity" => " النشاط",
+        "activity" => " المتابعة",
         "employees"=>" الموظفين",
         "ip_address" => "رقم معرف الجهاز",
-        "select_activity"=>"اختر النشاط",
+        "select_activity"=>"اختر المتابعة",
         "select_employee" =>"اختر موظف",
         "select_mainprogram"=>"اختر برنامج رئيسي",
         "select_subprogram" => "اختر برنامج فرعي",
@@ -173,8 +174,8 @@ return [
         ],
         'permissions' => array_only($permissions, ['index', 'show']),
         'sub_progs' => [
-            'index' => 'سجل النشاطات',
-            'show' => 'عرض النشاط',
+            'index' => 'المتابعة',
+            'show' => 'عرض المتابعة',
             'create' =>'اضافة',
             'ban_status' =>'حظر',
             'archive'=>'أرشفة'
@@ -229,11 +230,11 @@ return [
         'permissions' => $permissions
     ],
     "group" => [
+        'groups' => 'المجموعات',
         "group_name" => "اسم المجموعة",
         "main_program" => 'البرنامج الرئيسي',
         "sub_program" => 'البرنامج الفرعي',
         "group" => "المجموعة الادارية",
-        "groups" => "سجل الصلاحيات",
         "chosen_groups" => "الصلاحيات المختارة",
         "add_group" => "اضافة مجموعة",
         "edit_group" => "تعديل المجموعة",

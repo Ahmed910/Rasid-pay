@@ -57,7 +57,7 @@
                 <div class="dropdown">
                     <button class="btn btn-outline-primary dropdown-toggle" type="button" id="dropdownMenuButton1"
                         data-bs-toggle="dropdown" aria-expanded="false">
-                        <i class="mdi mdi-tray-arrow-down"></i> تصدير
+                        <i class="mdi mdi-tray-arrow-down"></i> {{ trans('dashboard.general.export') }}
                     </button>
                     <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
                         <li><a class="dropdown-item" href="#">PDF</a></li>

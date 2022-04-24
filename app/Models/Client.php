@@ -17,6 +17,7 @@ class Client extends Model
     protected $guarded = ['created_at', 'updated_at'];
     protected $dates = ['date_of_birth'];
     public $sortableColumns = ["client_type", "marital_status", "nationality", "address", "activity_type"];
+    const user_searchable_Columns = ["fullname", "email", "image", "country_code", "phone", "full_phone", "identity_number", "date_of_birth"];
 
     #endregion properties
 
@@ -26,14 +27,19 @@ class Client extends Model
     #region scopes
     public function scopeSearch($query, $request)
     {
-        $query->whereHas('user', function ($q) use ($request) {
-            $q->search($request);
-        });
-
+//        $query->whereHas('user', function ($q) use ($request) {
+//            $q->search($request);
+//        });
+        foreach ($request->all() as $key => $item) {
+            if (in_array($key, self::user_searchable_Columns))
+                $query->whereHas('user', function ($q) use ($key, $item) {
+                    !$key == "fullname" ? $q->where($key, $item) : $q->where($key, "like", "%$item%");
+                });
+        }
         if ($request->client_type) $query->where("client_type", $request->client_type);
         if ($request->nationality) $query->where("nationality", $request->nationality);
-        if ($request->bank_id) $query->whereHas("bankAccount", function ($q) use($request) {
-            $q->where('bank_id',$request->bank_id);
+        if ($request->bank_id) $query->whereHas("bankAccount", function ($q) use ($request) {
+            $q->where('bank_id', $request->bank_id);
         });
     }
 
@@ -74,7 +80,7 @@ class Client extends Model
 
     public function bankAccount()
     {
-        return $this->hasOne(BankAccount::class,'user_id','user_id');
+        return $this->hasOne(BankAccount::class, 'user_id', 'user_id');
     }
 
     #endregion relationships

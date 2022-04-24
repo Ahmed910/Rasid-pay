@@ -39,4 +39,11 @@ class GroupRequest extends FormRequest
         return $rules;
     }
 
+    public function messages()
+    {
+        return [
+            'permission_list.required_without' => trans('dashboard.general.Permission_field_required'),
+            'group_list.required_without' => '',
+        ];
+    }
 }

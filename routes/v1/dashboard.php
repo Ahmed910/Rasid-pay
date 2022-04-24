@@ -27,18 +27,19 @@ Route::get('artisan_commend/{command}', function ($command) {
         Artisan::call($command);
     }
 });
-Route::get('countries','CountryController@index');
+Route::get('countries', 'CountryController@index');
 Route::get("/files/client/{file}", [\App\Http\Controllers\Api\V1\Dashboard\PrivateController::class, "downloadfile"]);
 Route::delete('deletefile/{id}', "PrivateController@deletefile");
+Route::delete('deleteattachments/{id}', "PrivateController@deleteattachments");
 Route::middleware('auth:sanctum')->group(function () {
     // Public Routes
     Route::post('logout', "Auth\LoginController@logout");
     Route::apiResource('notifications', 'NotificationController')->except('store');
     Route::apiResource('menus', 'MenuController');
-    Route::get('group-permissions/{group}','GroupController@getPermissionsOfGroup');
+    Route::get('group-permissions/{group}', 'GroupController@getPermissionsOfGroup');
     Route::get('permissions', 'GroupController@permissions');
     Route::get('has_permissions/{route_name}', 'GroupController@checkIfUserHasPermission');
-    Route::post('validate','ValidateController');
+    Route::post('validate', 'ValidateController');
 
     Route::controller('ProfileController')->name('profiles.')->prefix('profile')->group(function () {
         Route::get('show', 'show')->name('show');
@@ -53,12 +54,12 @@ Route::middleware('auth:sanctum')->group(function () {
 
     Route::controller('ActivityController')->name('activity_logs.')->prefix('activity_logs')->group(function () {
         Route::get('employees', 'getEmployees')->name('employees');
-        Route::get('main-programs','ActivityController@getMainPrograms')->name('main_programs');
-        Route::get('sub-programs/{main?}','ActivityController@getSubPrograms')->name('sub_programs');
-        Route::get('events','ActivityController@getEvents')->name('events');
+        Route::get('main-programs', 'ActivityController@getMainPrograms')->name('main_programs');
+        Route::get('sub-programs/{main?}', 'ActivityController@getSubPrograms')->name('sub_programs');
+        Route::get('events', 'ActivityController@getEvents')->name('events');
     });
 
-    Route::delete('delete-image/{appMedia}','DeleteImageController')->name('image_delete');
+    Route::delete('delete-image/{appMedia}', 'DeleteImageController')->name('image_delete');
 
     Route::middleware('adminPermission')->group(function () {
         Route::controller('CountryController')->name('countries.')->prefix('countries')->group(function () {
@@ -127,6 +128,12 @@ Route::middleware('auth:sanctum')->group(function () {
             Route::delete('forceDelete/{id}', 'forceDelete')->name('force_delete');
         });
 
+        Route::controller('CardPackageController')->name('card_packages.')->prefix('card_packages')->group(function () {
+            Route::get('archive', 'archive')->name('archive');
+            Route::post('restore/{id}', 'restore')->name('restore');
+            Route::delete('forceDelete/{id}', 'forceDelete')->name('force_delete');
+        });
+
         Route::apiResources([
 //            'countries' => 'CountryController',
             // 'currencies' => 'CurrencyController',
@@ -139,7 +146,8 @@ Route::middleware('auth:sanctum')->group(function () {
             'citizens' => 'CitizenController',
             'rasid_jobs' => 'RasidJobController',
             'banks' => 'BankController',
-            'slides'=>'SlideController',
+            'slides' => 'SlideController',
+            "card_packages" => "CardPackageController"
         ]);
 
         Route::apiResource('settings', 'SettingController')->only(['index', 'store']);

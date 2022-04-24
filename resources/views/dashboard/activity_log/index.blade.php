@@ -70,7 +70,7 @@
         <div class="row">
             <div class="col-12 col-md-6 my-2">
                 <button class="btn btn-outline-primary" type="submit">
-                    <i class="mdi mdi-printer"></i> @lang('dashboard.general.report')
+                    <i class="mdi mdi-printer"></i> @lang('dashboard.general.export')
                 </button>
             </div>
             <div class="col-12 col-md-6 my-2 d-flex justify-content-end">

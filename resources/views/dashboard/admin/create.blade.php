@@ -7,7 +7,7 @@
   <nav aria-label="breadcrumb">
     <ol class="breadcrumb">
       <li class="breadcrumb-item">
-      
+
         <a href="{{ route('dashboard.admin.index') }}">{{ trans('dashboard.admin.sub_progs.index') }}
         </a>
       </li>
@@ -22,7 +22,7 @@
 
 <!-- ROW OPEN -->
 {!! Form::open(['route' => 'dashboard.admin.store', 'method' => 'POST', 'class' => 'needs-validation', 'id' => 'formId', 'files' => true, 'novalidate']) !!}
-@include('dashboard.admin._form',['btn_submit' => trans('dashboard.general.save')])
+@include('dashboard.admin._form')
 {!! Form::close() !!}
 
 @endsection
