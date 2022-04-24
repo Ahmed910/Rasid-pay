@@ -39,7 +39,7 @@ class ClientController extends Controller
     }
 
 
-    public function store(ClientRequest      $clientRequestrequest, AttachmentRequest $attachmentRequest,
+    public function store(ClientRequest $clientRequestrequest, AttachmentRequest $attachmentRequest,
                           BankAccountRequest $bankAccountRequest, ManagerRequest $managerRequest, Client $client, BankAccount $bankAccount, Manager $manager)
     {
         $except = ["tax_number", "commercial_number", "activity_type", "daily_expect_trans", "register_type", "client_type", "nationality", "address", "marital_status"];
@@ -83,7 +83,7 @@ class ClientController extends Controller
     {
         $client = Client::where('user_id', $id)->firstOrFail();
         $except = ["tax_number", "commercial_number", "activity_type", "daily_expect_trans", "register_type", "client_type", "nationality", "address", "marital_status"];
-        $client->user->update($request->safe()->except($except));
+        $client->user->fill($request->safe()->except($except)+['updated_at' => now()])->save();
         !$client->user->wasChanged() ? $client->update($request->safe()->only($except)) : $client->fill($request->safe()->only($except))->saveQuietly();
 
         $client->user->bankAccount->update($bankAccountRequest->validated());
