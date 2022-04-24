@@ -20,6 +20,16 @@ trait Uuid
             }
         });
     }
+    public function saveQuietly(array $options = [])
+    {
+        return static::withoutEvents(function () use ($options) {
+
+            if (empty($this->{$this->getKeyName()})) {
+                $this->{$this->getKeyName()} = (string)Str::uuid();
+            }
+            return $this->save($options);
+        });
+    }
 
     public function getIncrementing()
     {

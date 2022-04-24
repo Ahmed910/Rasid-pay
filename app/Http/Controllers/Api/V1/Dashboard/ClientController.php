@@ -48,12 +48,10 @@ class ClientController extends Controller
 
         $user = user::create($userData);
         $bankAccount->fill($bankAccountRequest->validated())->user()->associate($user)->save();
-
-        $client->fill($clientData)->user()->associate($user)->save();
-        $manager->fill($managerRequest->validated())->save();
+        $manager->fill($managerRequest->validated());
+        $client->fill($clientData)->user()->associate($user);
         $client->managers()->save($manager);
-//        $manager->clients()->save($client);
-
+        $client->saveQuietly();
         if ($attachmentRequest->has("attachments")) {
             Attachment::storeImage($attachmentRequest, $user);
         }
@@ -86,9 +84,9 @@ class ClientController extends Controller
         $client = Client::where('user_id', $id)->firstOrFail();
         $except = ["tax_number", "commercial_number", "activity_type", "daily_expect_trans", "register_type", "client_type", "nationality", "address", "marital_status"];
         $client->user->update($request->safe()->except($except));
-        $client->update($request->safe()->only($except));
+        !$client->user->wasChanged() ? $client->update($request->safe()->only($except)) : $client->fill($request->safe()->only($except))->saveQuietly();
+
         $client->user->bankAccount->update($bankAccountRequest->validated());
-//        $client->managers()->update($managerRequest->validated());
 
         if ($attachmentRequest->has("attachments")) {
             Attachment::updatefiles($attachmentRequest, $client->user);
