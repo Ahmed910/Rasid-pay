@@ -19,9 +19,5 @@
 <!-- PAGE-HEADER END -->
 
 
-<!-- ROW OPEN -->
-{!! Form::open(['route' => 'dashboard.client.store', 'method' => 'POST', 'class' => 'needs-validation', 'id' => 'formId', 'files' => true, 'novalidate']) !!}
-@include('dashboard.client._form',['btn_submit' => trans('dashboard.general.save')])
-{!! Form::close() !!}
 
 @endsection

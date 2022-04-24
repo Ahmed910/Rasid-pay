@@ -27,7 +27,7 @@
                             class="side-menu__label">{{trans('dashboard.home.home')}}</span></a>
                 </li>
                 <li class="sub-category">
-                    <h3>رصيد جاك</h3>
+                    <h3>رصيد باك</h3>
                 </li>
                 <li class="slide {{ request()->routeIs('dashboard.department.*') && !request()->routeIs('dashboard.*.archive') ? 'is-expanded' : '' }} ">
                     <a class="side-menu__item" data-bs-toggle="slide" href="javascript:void(0)"><i

@@ -16,9 +16,8 @@ class ClientController extends Controller
      */
     public function index(Request $request)
     {
-        if ($request->ajax()) {
+       
 
-        }
         return view('dashboard.client.index');
     }
 
