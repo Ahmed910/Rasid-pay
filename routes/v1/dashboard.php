@@ -147,7 +147,8 @@ Route::middleware('auth:sanctum')->group(function () {
             'rasid_jobs' => 'RasidJobController',
             'banks' => 'BankController',
             'slides' => 'SlideController',
-            "card_packages" => "CardPackageController"
+            "card_packages" => "CardPackageController",
+            'transaction' => 'TransactionController',
         ]);
 
         Route::apiResource('settings', 'SettingController')->only(['index', 'store']);

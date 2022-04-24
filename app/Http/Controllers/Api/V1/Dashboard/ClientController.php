@@ -139,4 +139,14 @@ class ClientController extends Controller
                 'message' => trans('dashboard.general.success_restore'),
             ]);
     }
+
+    public function getActiveClients()
+    {
+        $clients = User::where(['user_type' => 'client', 'register_status' => 'completed'])->latest()->get();
+        return ClientResource::collection($clients)->additional([
+            'status' => true,
+            'message' => ""
+        ]);
+    }
+
 }
