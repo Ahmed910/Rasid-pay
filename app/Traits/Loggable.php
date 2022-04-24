@@ -66,7 +66,8 @@ trait Loggable
             'ip_address'  => Request::ip(),
             'agent'       => Request::header('user-agent'),
             'user_id'     => auth()->check() ? auth()->user()->id : null,
-            'reason'      => request()->reasonAction
+            'reason'      => request()->reasonAction,
+            "user_type"   =>$item->user_type??null
         ]);
     }
 
