@@ -57,7 +57,7 @@ class CitizenController extends Controller
     {
         $citizen = Citizen::where('user_id', $id)->firstOrFail();
 
-        $citizen->user->update($request->validated());
+        $citizen->user->update($request->validated()+['updated_at' => now()]);
         !$citizen->user->wasChanged() ? $citizen->update($request->validated()) : $citizen->fill($request->validated())->saveQuietly();
         $citizen->user->bankAccount->update($bankAccountRequest->validated());
 

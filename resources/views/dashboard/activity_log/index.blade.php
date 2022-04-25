@@ -92,7 +92,7 @@
         <div class="col-lg-12">
             <div class="p-1">
                 <table id="activitylogtable"
-                    class="table table-bordered dt-responsive nowrap shadow-sm bg-body key-buttons historyTable">
+                    class="table table-bordered dt-responsive nowrap shadow-sm bg-body key-buttons historyTable ">
                     <thead>
                         <tr>
                             <th class="border-bottom-0">#</th>

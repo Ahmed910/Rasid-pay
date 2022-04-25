@@ -12,6 +12,17 @@ $permissions = [
 ];
 
 return [
+    'permissions' => [
+        'index' => 'السجل',
+        "create"=>"انشاء",
+        'show' => 'عرض',
+        'store' => 'حفظ',
+        'update' => 'تعديل',
+        'destroy' => 'أرشفة',
+        'archive' => 'عرض أرشيف',
+        'restore' => 'استعادة',
+        'force_delete' => 'حذف نهائي',
+    ],
     'attributes' => [
         'name' => 'الاسم',
         'description' => 'الوصف',
@@ -147,7 +158,7 @@ return [
     'activity_log' => [
         "activity_log" => "المتابعة",
         "activity_logs" => "المتابعة",
-        "reason" =>"قام :user بـ:action :model من البرنامج الرئيسى :main",
+        "reason" =>"قام :user بـ:action :model من البرنامج الرئيسى :main من البرنامج الفرعى :sub",
         "date" => "تاريخ المتابعة",
         "main_program" =>"البرنامج الرئيسي",
         "sub_program" => "البرنامج الفرعي",
