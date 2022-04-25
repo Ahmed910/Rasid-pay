@@ -9,7 +9,6 @@ class ClientResource extends JsonResource
 {
     public function toArray($request)
     {
-        // dd($this->bankAccount->bank->name);
         return [
             'id' => $this->id,
             'fullname' => $this->fullname,
