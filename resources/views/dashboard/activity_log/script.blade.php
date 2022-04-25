@@ -10,7 +10,7 @@
   </script>
   {{-- Ajax DataTable --}}
   <script>
-    $(function() {
+    $(function () {
       /******* Calendar *******/
       $("#from-hijri-picker-custom, #to-hijri-picker-custom, #from-hijri-unactive-picker-custom ,#to-hijri-unactive-picker-custom")
         .hijriDatePicker({
@@ -22,6 +22,8 @@
           dayViewHeaderFormat: "MMMM YYYY",
           ignoreReadonly: true,
         });
+    })
+    $(document).ready(function () {
       var table = $("#activitylogtable").DataTable({
         sDom: "t<'domOption'lpi>",
         serverSide: true,
@@ -38,15 +40,15 @@
         },
           {
             data: "user.fullname",
-            name : "employee"
+            name: "employee"
           },
 
           {
-            data: function(data) {
-              if(data.user.department !== null){
+            data: function (data) {
+              if (data.user.department !== null) {
                 return data.user.department.name;
-              }else{
-                return  "{{ trans('dashboard.department.without_parent') }}";
+              } else {
+                return "{{ trans('dashboard.department.without_parent') }}";
               }
             },
             name: 'department'
@@ -54,16 +56,16 @@
 
           {
 
-            data:function(data) {
+            data: function (data) {
               return data.auditable_type ? data.auditable_type :
                 " ";
             },
-            name : "main_program"
+            name: "main_program"
 
           },
           {
-            data:"type",
-            name : "subprogram"
+            data: "type",
+            name: "subprogram"
 
 
           },
@@ -78,7 +80,7 @@
           },
 
           {
-            data: function(data) {
+            data: function (data) {
               if (data.type == 'created') {
                 return `<span class="badge bg-success-opacity py-2 px-4">${"@lang('dashboard.general.create')"}</span>`;
               }
@@ -105,27 +107,23 @@
               }
 
             },
-            name:"type"
+            name: "type"
           },
 
           {
-            class: "text-center",
-            data: function(data) {
-              return `<a
-                  href="${data.show_route}"
-                  class="azureIcon"
-                  data-bs-toggle="tooltip"
-                  data-bs-placement="top"
-                  title="${"@lang('dashboard.general.show')"}"
-                  ><i class="mdi mdi-eye-outline"></i
-                ></a>`
-
-            },
-            orderable: false,
-            searchable: false
-          }
+            "className": 'dt-control',
+            "orderable": false,
+            "data": '',
+            "defaultContent": `<a
+          class="azureIcon"
+          data-bs-toggle="tooltip"
+          data-bs-placement="top"
+          title="${"@lang('dashboard.general.show')"}"
+        ><i class="mdi mdi-eye-outline"></i
+            ></a>`
+          },
         ],
-        createdRow: function(row, data) {
+        createdRow: function (row, data) {
           $('[data-toggle="popoverIMG"]', row).popover({
             placement: "right",
             trigger: "hover",
@@ -163,21 +161,49 @@
           var activityLogTableInfo = document.getElementById('activitylogtable_info').innerText;
           document.getElementById('activitylogtable_info').innerText = activityLogTableInfo.replace(activityLogTableInfo, activityLogTableInfo.toArabicUni());
         }
+
       });
+      var detailRows = [];
+
+      $('#activitylogtable tbody').on('click', 'td.dt-control', function () {
+        var tr = $(this).closest('tr');
+        var row = table.row(tr);
+
+        if (row.child.isShown()) {
+          // This row is already open - close it
+          row.child.hide();
+          tr.removeClass('shown');
+        } else {
+          // Open this row
+          row.child(format(row.data())).show();
+          tr.addClass('shown');
+        }
+      });
+
+      function format(d) {
+        console.log(d);
+        // `d` is the original data object for the row
+        return '<table >' +
+          '<tr>' +
+          '<td>' + d.discription + '</td>' +
+          '</tr>' +
+
+          '</table>';
+      }
 
       $('#activityName').on('select2:select', function (e) {
 
         table.draw();
       });
-      $("#mainDepartment").on('select2:select',function (e) {
+      $("#mainDepartment").on('select2:select', function (e) {
         table.draw();
 
       });
-      $('#mainProgram').on('select2:select', function(e) {
+      $('#mainProgram').on('select2:select', function (e) {
         table.draw();
       });
 
-      $('#branchProgram').on('select2:select', function(e) {
+      $('#branchProgram').on('select2:select', function (e) {
         table.draw();
       });
       $('#search-form').on('reset', function (e) {
@@ -198,7 +224,7 @@
         minimumResultsForSearch: Infinity
       });
       //get subprogs from activity_logs script
-      $("#mainProgram").change(function(e) {
+      $("#mainProgram").change(function (e) {
         e.preventDefault();
         let mainprog_id = $("#mainProgram").val();
         $('#branchProgram').empty();
@@ -210,9 +236,9 @@
           $.ajax({
             url: '{{ url('dashboard/activitylog/sub-programs') }}' + '/' + mainprog_id,
             type: 'get',
-            success: function(data) {
+            success: function (data) {
               if (data) {
-                $.each(data.data, function(index, subprogram) {
+                $.each(data.data, function (index, subprogram) {
                   $("#branchProgram").append('<option value="' + subprogram.name +
                     '">' + subprogram.name + '</option>')
                 });
@@ -223,7 +249,7 @@
 
       });
       //get employees from Department
-      $("#mainDepartment").change(function(e) {
+      $("#mainDepartment").change(function (e) {
         e.preventDefault();
         let maindep_id = $("#mainDepartment").val();
         $('#employee').empty();
@@ -235,9 +261,9 @@
           $.ajax({
             url: '/dashboard/activitylog/all-employees/' + maindep_id,
             type: 'get',
-            success: function(data) {
+            success: function (data) {
               if (data) {
-                $.each(data.data, function(index, user_id) {
+                $.each(data.data, function (index, user_id) {
                   $("#employee").append('<option value="' + user_id.id +
                     '">' + user_id.fullname + '</option>')
                 });
@@ -249,33 +275,11 @@
 
       });
 
+    })
 
-    });
+
   </script>
 
-  {{-- <script>
-      $(document).ready(function () {
-         $("select")
-           .change(function () {
-             $(this)
-               .find("option:selected")
-               .each(function () {
-                 var optionValue = $(this).attr("value");
-                 if (optionValue) {
-                   $(".hold")
-                     .not("." + optionValue)
-                     .hide();
-                   $("." + optionValue).show();
-                 } else {
-                   $(".hold").hide();
-                 }
-               });
-           })
-           .change();
-       });
-
-
-  </script> --}}
   <script src="{{ asset('dashboardAssets/js/select2.js') }}"></script>
   <script src="{{ asset('dashboardAssets/plugins/select2/select2.full.min.js') }}"></script>
 @endsection
