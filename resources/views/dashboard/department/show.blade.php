@@ -72,7 +72,7 @@
 
     <!-- Row -->
     <label> {{ trans('dashboard.activity_log.history') }} </label>
-    <div class="table-responsive p-1">
+    <div class="p-1">
         <table id="historyTable" class="table table-bordered shadow-sm bg-body text-nowrap key-buttons historyTable">
             <thead>
                 <tr>
