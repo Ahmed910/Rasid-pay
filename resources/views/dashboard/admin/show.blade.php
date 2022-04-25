@@ -84,7 +84,7 @@
     </div>
     <!-- End Row -->
     <label>{{ trans('dashboard.activity_log.history') }} </label>
-    <div class="table-responsive p-1">
+    <div class="p-1">
         <table id="historyTableadmin" class="table table-bordered text-wrap shadow-sm bg-body key-buttons historyTable">
             <thead>
                 <tr>
