@@ -52,7 +52,7 @@ class AttachmentRequest extends ApiMasterRequest
 
                 if (isset ($this->attachments[$i]["deleted_files"])) {
                     $data["attachments." . $i . ".id"] = "required|exists:attachments,id";
-                    $data["attachments." . $i . ".deleted_files.*"] = "exists:attachment_files,id,attachment_id," . $this->attachments[$i]["id"];
+                    $data["attachments." . $i . ".deleted_files.*"] = "exists:attachment_files,id,attachment_id," . @$this->attachments[$i]["id"];
                 }
 
                 if (isset($this->attachments[$i]["type"])) {

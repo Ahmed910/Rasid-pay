@@ -115,10 +115,20 @@ class Attachment extends Model
         }
         $data = [];
         foreach ($tocreatearr as $key => $item) {
-            $data  [] = array('title' => $item["title"], 'type' => $item["type"]);
-
+            $data   = array('title' => $item["title"], 'type' => $item["type"]);
+            $attachment =$user->attachments()->create($data) ;
+            if (isset($item["files"])) foreach ($item["files"] as $file) {
+                $curpath = $file->store('/files/client', ['disk' => 'local']);
+                $attachment->attachmentFiles()->create([
+                    'path' => $curpath,
+                    'type' => $file->getClientMimeType(),
+                    "name" => $file->getClientOriginalName(),
+                    "size" => $file->getSize()
+                ]);
+            }
         }
-        !count($data) ?: $cur = $user->attachments()->createMany($data);
+//        !count($data) ?: $cur = $user->attachments()->createMany($data);
+
         #endregion custom Methods
     }
 }
