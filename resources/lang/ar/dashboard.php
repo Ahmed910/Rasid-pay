@@ -212,7 +212,15 @@ return [
     "citizen" => [
         "citizens" => "المواطنون",],
     "cardpackage" => [
-        "cardpackageس" => "باقات البطاقات",],
+        "cardpackageS" => "باقات البطاقات",],
+    "manager" => [
+        "managers" => "العملاء",],
+    "bank_account" => [
+        "bank_accounts" => "العملاء",],
+    "attachment" => [
+        "attachments" => "العملاء",],
+    "attachment_file" => [
+        "attachment_files" => "العملاء",],
 
     "country" => [
         "country" => "الدولة",
@@ -400,7 +408,7 @@ return [
     ],
     "admin" => [
         "admin" => "المستخدم",
-        "admin_name" => "أدخل اسم الموظف",
+        "admin_name" => "أدخل اسم المستخدم",
         "login_id" => "رقم المستخدم",
         "admins" => "المستخدمين",
         "add_admin" => "اضافة مستخدم",

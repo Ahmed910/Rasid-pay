@@ -53,8 +53,8 @@
 
           <div class="col-12 col-md-8 mt-3">
               <label for="permissions">{{ trans('dashboard.admin.permission_system') }}</label> <span class="requiredFields">*</span>
-              <select name="permission_list[]" hidden multiple></select>
-              <select name="group_list[]" hidden multiple></select>
+              <select class="form-control" name="permission_list[]" hidden multiple required></select>
+              <select class="form-control" name="group_list[]" hidden multiple required></select>
 
               <select class="form-control select2" onchange="addPermissions(this.selectedOptions)"
                   data-placeholder="{{ trans('dashboard.general.select_permissions') }}" multiple="multiple"

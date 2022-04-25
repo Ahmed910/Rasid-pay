@@ -51,8 +51,6 @@ class ActivityLogResource extends JsonResource
                 "main" => trans("dashboard." . Str::snake($this->user_type ? $this->user_type : $model) . "." . str_plural(Str::snake($this->user_type ? $this->user_type : $model)))
             ],
             ),
-//            "main" => trans("dashboard." . Str::snake($model) . "." . str_plural(Str::snake($model)))
-
         ];
 
         // trans('dashboard.activity_log.reason', [
