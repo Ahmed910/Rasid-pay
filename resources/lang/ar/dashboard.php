@@ -507,6 +507,30 @@ return [
             'edit' => 'تعديل عميل',
             'account_order' => 'طلبات فتح حساب',
         ],
+        "name" => "اسم العميل",
+        "type" => "نوع العميل",
+        "client_type" => [
+            "company" => "شركات",
+            "institution" => "مؤسسة",
+            "member" => "عضو",
+            "freelance_doc" => "مستقل",
+            "famous" => "مشهور",
+            "other" => "أخري",
+
+        ],
+        "commercial_number" => "رقم السجل",
+        "tax_number" => "الرقم الضريبي",
+        "transactions_done" => "عدد المعاملات المنجزة",
+        "bank_name" => "البنك التابع له",
+        "account_status" => "حالة الحساب البنكي",
+        "account_statuses" => [
+            "pending" => "قيد الانتظار",
+            "before_review" => "تحت المراجعة",
+            "reviewed" => "تمت المراجعة",
+            "accepted" => "تمت الموافقة",
+            "refused" => "مرفوض",
+        ],
+
         'permissions' => array_except($permissions, ['archive', 'restore', 'force_delete']) + ['create' => 'عرض العملاء']
     ],
     'user' => [
