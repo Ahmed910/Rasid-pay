@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Manager extends Model
 {
-    use HasFactory, Uuid,Loggable;
+    use HasFactory, Uuid;
 
     #region properties
     protected $guarded = ['created_at', 'updated_at'];

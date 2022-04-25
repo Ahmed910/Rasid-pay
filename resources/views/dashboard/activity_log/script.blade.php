@@ -109,16 +109,17 @@
                     },
 
                     {
-                        class: "text-center",
-                        data: function(data) {
-                            return `<a
-                  href="${data.show_route}"
-                  class="azureIcon"
-                  data-bs-toggle="tooltip"
-                  data-bs-placement="top"
-                  title="${"@lang('dashboard.general.show')"}"
-                  ><i class="mdi mdi-eye-outline"></i
-                ></a>`
+                      'data-bs-toggle':"tooltip",
+                     'data-bs-placement':'top' ,
+                      'title':'ghfc' ,
+                      'data-bs-original-title':'تفاصيل النشاط' ,
+                      'aria-label':'تفاصيل النشاط ' ,
+                      'class':'text-center',
+                      'tabindex':'0',
+                      'style':'',
+                      data: function(data) {
+                            return data ;
+
 
                         },
                         orderable: false,
@@ -136,8 +137,11 @@
                 lengthMenu: [
                     [1, 5, 10, 15, 20],
                     [1, 5, 10, 15, 20]
-                ],
-
+                ]
+,attr: {
+        title: 'export to excel',
+          'aria-label': 'export'
+      },
                 "language": {
                     "lengthMenu": "@lang('dashboard.general.show') _MENU_",
                     "emptyTable": "@lang('dashboard.datatable.no_data')",
