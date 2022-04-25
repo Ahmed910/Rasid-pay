@@ -366,7 +366,30 @@ return [
         "add_client" => "add_client",
         "edit_client" => "edit_client",
         "admin_client" => "admin_client",
-        'permissions' => array_except($permissions, ['archive', 'restore', 'force_delete']) + ['create' => 'Show Client']
+        'permissions' => array_except($permissions, ['archive', 'restore', 'force_delete']) + ['create' => 'Show Client'],
+        "name" => "Client Name",
+        "type" => "Client Type",
+        "client_type" => [
+            "company" => "Company",
+            "institution" => "Institution",
+            "member" => "Member",
+            "freelance_doc" => "Freelance_doc",
+            "famous" => "Famous",
+            "other" => "Other",
+        ],
+        "commercial_number" => "Commercial Number",
+        "bank_name" => "Related Bank",
+        "tax_number" => "Tax Number ",
+        "transactions_done" => "Transactions Done",
+        "account_status" => "Account Status",
+        "account_statuses" => [
+            "pending" => "Pending",
+            "before_review" => "Before_review",
+            "reviewed" => "Reviewed",
+            "accepted" => "Accepted",
+            "refused" => "Refused",
+        ],
+
     ],
     'user' => [
         'users' => 'Users'

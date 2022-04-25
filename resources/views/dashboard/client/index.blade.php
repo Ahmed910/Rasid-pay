@@ -115,19 +115,21 @@
 <!-- Row -->
 <div class="row row-sm">
   <div class="col-lg-12">
-    <div class="table-responsive p-1">
-      <table id="historyTable" class="table table-bordered shadow-sm bg-body text-nowrap key-buttons">
+      <div class="table-responsive p-1">
+      <table id="clientTable" class="table table-bordered shadow-sm bg-body text-nowrap key-buttons">
         <thead>
           <tr>
             <th class="border-bottom-0">#</th>
-            <th class="border-bottom-0">اسم العميل</th>
-            <th class="border-bottom-0">نوع العميل</th>
-            <th class="border-bottom-0">رقم السجل</th>
-            <th class="border-bottom-0">الرقم الضريبي</th>
-            <th class="border-bottom-0">عدد المعاملات المنجزة</th>
-            <th class="border-bottom-0">البنك التابع له</th>
-            <th class="border-bottom-0">حالة الحساب البنكي</th>
-            <th class="border-bottom-0 text-center">العمليات</th>
+            <th class="border-bottom-0">{{ trans('dashboard.client.name') }}</th>
+            <th class="border-bottom-0">{{ trans('dashboard.client.type') }}</th>
+            <th class="border-bottom-0">{{ trans('dashboard.client.commercial_number') }}</th>
+            <th class="border-bottom-0">{{ trans('dashboard.client.tax_number') }}</th>
+            <th class="border-bottom-0 text-center">{{ trans('dashboard.client.transactions_done') }}</th>
+            <th class="border-bottom-0">{{ trans('dashboard.client.bank_name') }}</th>
+            <th class="border-bottom-0">{{ trans('dashboard.client.account_status') }}</th>
+            <th class="border-bottom-0 text-center">{{ trans('dashboard.general.actions') }}</th>
+
+           
           </tr>
         </thead>
         <tbody>
