@@ -18,7 +18,7 @@ class Client extends Model
     #region properties
     protected $guarded = ['created_at', 'updated_at'];
     protected $dates = ['date_of_birth'];
-    public $sortableColumns = ["client_type", "marital_status", "nationality", "address", "activity_type"];
+    public $sortableColumns = ["client_type", "marital_status", "nationality", "address", "activity_type", "fullname", "commercial_number", "tax_number", "client_type", "bank_name"];
     const user_searchable_Columns = ["fullname", "email", "image", "country_code", "phone", "full_phone", "identity_number", "date_of_birth"];
     const client_searchable_Columns = ["client_type", "commercial_number", "nationality", "tax_number"];
 
@@ -31,9 +31,9 @@ class Client extends Model
     #region scopes
     public function scopeSearch($query, $request)
     {
-//        $query->whereHas('user', function ($q) use ($request) {
-//            $q->search($request);
-//        });
+        //        $query->whereHas('user', function ($q) use ($request) {
+        //            $q->search($request);
+        //        });
         foreach ($request->all() as $key => $item) {
             if (in_array($key, self::user_searchable_Columns))
                 $query->whereHas('user', function ($q) use ($key, $item) {
@@ -73,18 +73,14 @@ class Client extends Model
             !in_array(Str::lower($request->sort["dir"]), ["asc", "desc"])
         ) {
             return $query->latest('clients.created_at');
-        }
-
-
-        $query->when($request->sort, function ($q) use ($request) {
-            if ($request->sort["column"] == "name") {
-                return $q->has('translations')
-                    ->orderBy($request->sort["column"], @$request->sort["dir"]);
+        } else {
+            if ($request->sort["column"] == "fullname") {
+                return $query->join('users', 'users.id', '=', 'clients.user_id')->orderBy('users.' . $request->sort["column"], @$request->sort["dir"]);
             }
-
-
-            $q->orderBy($request->sort["column"], @$request->sort["dir"]);
-        });
+            if ($request->sort["column"] == "account_status") {
+                return $query->join('bank_accounts', 'bank_accounts.user_id', '=', 'clients.user_id')->orderBy('bank_accounts.' . $request->sort["column"], @$request->sort["dir"]);
+            }
+        }
     }
     #endregion scopes
 

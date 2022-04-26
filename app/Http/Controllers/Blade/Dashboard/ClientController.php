@@ -21,14 +21,21 @@ class ClientController extends Controller
 
         if ($request->ajax()) {
 
-            $clientsQuery = User::CustomDateFromTo($request)->search($request)->with(['client'])->where('user_type', 'client')
-                ->sortBy($request);
+
+
+            $clientsQuery = Client::with(["user","user.bankAccount.bank"])->search($request)->sortby($request);
+
+//             $clientsQuery = User::whereHas('client' , function ($q) use ($request) {
+//                 $q->search($request)->sortBy($request);
+//             })->where('user_type', 'client');
+
 
             $clientCount = $clientsQuery->count();
 
             $clients = $clientsQuery->skip($request->start)
                 ->take(($request->length == -1) ? $clientCount : $request->length)
                 ->get();
+
 
 
             return ClientCollection::make($clients)
@@ -141,8 +148,5 @@ class ClientController extends Controller
      */
     public function destroy(Client $client)
     {
-
     }
-
-
 }
