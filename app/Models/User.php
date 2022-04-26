@@ -173,6 +173,14 @@ class User extends Authenticatable implements HasAssetsInterface
     {
         return $this->hasOne(CitizenWallet::class);
     }
+    public function clientTransactions()
+    {
+        return $this->hasMany(Transaction::class, 'client_id');
+    }
+    public function citizenTransactions()
+    {
+        return $this->hasMany(Transaction::class, 'citizen_id');
+    }
 
     public function setBanStatusAttribute($value)
     {

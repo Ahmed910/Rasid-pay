@@ -12,6 +12,17 @@ $permissions = [
 ];
 
 return [
+    'permissions' => [
+        'index' => 'السجل',
+        "create"=>"انشاء",
+        'show' => 'عرض',
+        'store' => 'حفظ',
+        'update' => 'تعديل',
+        'destroy' => 'أرشفة',
+        'archive' => 'عرض أرشيف',
+        'restore' => 'استعادة',
+        'force_delete' => 'حذف نهائي',
+    ],
     'attributes' => [
         'name' => 'الاسم',
         'description' => 'الوصف',
@@ -147,7 +158,7 @@ return [
     'activity_log' => [
         "activity_log" => "المتابعة",
         "activity_logs" => "المتابعة",
-        "reason" =>"قام :user بـ:action :model من البرنامج الرئيسى :main",
+        "reason" =>"قام :user بـ:action :model من البرنامج الرئيسى :main من البرنامج الفرعى :sub",
         "date" => "تاريخ المتابعة",
         "main_program" =>"البرنامج الرئيسي",
         "sub_program" => "البرنامج الفرعي",
@@ -408,7 +419,7 @@ return [
     ],
     "admin" => [
         "admin" => "المستخدم",
-        "admin_name" => "أدخل اسم الموظف",
+        "admin_name" => "أدخل اسم المستخدم",
         "login_id" => "رقم المستخدم",
         "admins" => "المستخدمين",
         "add_admin" => "اضافة مستخدم",
@@ -496,6 +507,30 @@ return [
             'edit' => 'تعديل عميل',
             'account_order' => 'طلبات فتح حساب',
         ],
+        "name" => "اسم العميل",
+        "type" => "نوع العميل",
+        "client_type" => [
+            "company" => "شركات",
+            "institution" => "مؤسسة",
+            "member" => "عضو",
+            "freelance_doc" => "مستقل",
+            "famous" => "مشهور",
+            "other" => "أخري",
+
+        ],
+        "commercial_number" => "رقم السجل",
+        "tax_number" => "الرقم الضريبي",
+        "transactions_done" => "عدد المعاملات المنجزة",
+        "bank_name" => "البنك التابع له",
+        "account_status" => "حالة الحساب البنكي",
+        "account_statuses" => [
+            "pending" => "قيد الانتظار",
+            "before_review" => "تحت المراجعة",
+            "reviewed" => "تمت المراجعة",
+            "accepted" => "تمت الموافقة",
+            "refused" => "مرفوض",
+        ],
+
         'permissions' => array_except($permissions, ['archive', 'restore', 'force_delete']) + ['create' => 'عرض العملاء']
     ],
     'user' => [

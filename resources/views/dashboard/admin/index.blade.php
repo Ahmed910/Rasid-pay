@@ -16,7 +16,7 @@
     <form method="get" action="" id="search-form">
         <div class="row align-items-end mb-3">
             <div class="col-12 col-md-3">
-                <label for="userName">{{ trans('dashboard.admin.name') }}</label>
+                <label for="userName">{{ trans('dashboard.admin.admin') }}</label>
                 <input type="text" class="form-control" id="userName" placeholder="{{ trans('dashboard.admin.admin_name') }}"
                     name="name" value="{{ old('name') ?? request('name') }}" />
 
@@ -127,7 +127,7 @@
     <!-- Row -->
     <div class="row row-sm">
         <div class="col-lg-12">
-            <div class="table-responsive p-1">
+            <div class="p-1">
                 <table id="adminTable" class="table table-bordered shadow-sm bg-body text-nowrap key-buttons">
                     <thead>
                         <tr>

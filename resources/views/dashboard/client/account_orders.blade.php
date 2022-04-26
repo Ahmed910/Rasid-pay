@@ -5,13 +5,10 @@
 
 <!-- PAGE-HEADER -->
 <div class="page-header">
-  <h1 class="page-title">{{ trans('dashboard.client.sub_progs.index') }}</h1>
-  <a href="{!! route('dashboard.client.create') !!}" class="btn btn-primary">
-    <i class="mdi mdi-plus-circle-outline"></i> {{ trans('dashboard.client.sub_progs.create') }}
-  </a>
+  <h1 class="page-title">{{ trans('dashboard.client.sub_progs.account_order') }}</h1>
+  
 </div>
 <!-- PAGE-HEADER END -->
-<!-- FORM OPEN -->
 
 <form method="get" action="">
   <div class="row align-items-end mb-3">
@@ -110,7 +107,7 @@
 <!-- Row -->
 <div class="row row-sm">
   <div class="col-lg-12">
-    <div class="table-responsive p-1">
+    <div class="p-1">
       <table id="historyTable" class="table table-bordered shadow-sm bg-body text-nowrap key-buttons">
         <thead>
           <tr>

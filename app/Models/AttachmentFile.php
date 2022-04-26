@@ -9,7 +9,7 @@ use App\Traits\Uuid;
 
 class AttachmentFile extends Model
 {
-    use HasFactory, Uuid,Loggable;
+    use HasFactory, Uuid;
 
     #region properties
     protected $guarded = ['created_at','deleted_at'];

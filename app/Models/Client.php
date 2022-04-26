@@ -8,17 +8,20 @@ use Astrotomic\Translatable\Translatable;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 
 class Client extends Model
 {
-    use HasFactory, Uuid,Loggable;
+    use HasFactory, Uuid, Loggable;
 
     #region properties
     protected $guarded = ['created_at', 'updated_at'];
     protected $dates = ['date_of_birth'];
     public $sortableColumns = ["client_type", "marital_status", "nationality", "address", "activity_type"];
     const user_searchable_Columns = ["fullname", "email", "image", "country_code", "phone", "full_phone", "identity_number", "date_of_birth"];
+    const client_searchable_Columns = ["client_type", "commercial_number", "nationality", "tax_number"];
+
 
     #endregion properties
 
@@ -37,10 +40,27 @@ class Client extends Model
                     !$key == "fullname" ? $q->where($key, $item) : $q->where($key, "like", "%$item%");
                 });
         }
-        if ($request->client_type) $query->where("client_type", $request->client_type);
-        if ($request->nationality) $query->where("nationality", $request->nationality);
+        foreach ($request->all() as $key => $item) {
+            if (in_array($key, self::client_searchable_Columns))
+                $query->where($key, $item);
+        }
+        if ($request->trans_count_from) $query->where("transactions_done", ">=", $request->trans_count_from);
+
+        if ($request->trans_count_to) $query->where("transactions_done", "<=", $request->trans_count_to);
+
+        if ($request->created_from || $request->created_to) {
+            $query->wherehas("user.clientTransactions", function ($q) use ($request) {
+                $q->where("status", "success")->CustomDateFromTo($request);
+            });
+        }
+
+
         if ($request->bank_id) $query->whereHas("bankAccount", function ($q) use ($request) {
             $q->where('bank_id', $request->bank_id);
+        });
+
+        if ($request->account_status) $query->whereHas("bankAccount", function ($q) use ($request) {
+            $q->where('account_status', $request->account_status);
         });
     }
 
