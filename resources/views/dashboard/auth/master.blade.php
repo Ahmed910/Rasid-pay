@@ -109,7 +109,6 @@
             let data = new FormData(form);
             let btn_submit = $(formId).find('a.a-submit');
             let btn_submit_html = btn_submit.html();
-            console.log(btn_submit_html);
             $.ajaxSetup({
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
