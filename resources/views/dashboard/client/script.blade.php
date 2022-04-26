@@ -25,12 +25,12 @@
         table.draw();
       });
 
-      var table = $("#adminTable").DataTable({
+      var table = $("#historyTable").DataTable({
         sDom: "t<'domOption'lpi>",
         serverSide: true,
         processing: true,
         ajax: {
-          url: "{{ route('dashboard.admin.index') }}?",
+          url: "{{ route('dashboard.client.index') }}?",
           data: function (data) {
             data.ban_status = $('#status').val();
             data.department_id = $('#mainDepartment').val();
