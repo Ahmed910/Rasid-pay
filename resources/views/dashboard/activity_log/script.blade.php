@@ -181,7 +181,6 @@
       });
 
       function format(d) {
-        console.log(d);
         // `d` is the original data object for the row
         return '<table >' +
           '<tr>' +
