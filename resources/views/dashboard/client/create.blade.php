@@ -312,4 +312,3 @@
         })();
 </script>
 @endsection
-@endsection

@@ -32,7 +32,7 @@
         <option>الجميع</option>
       </select>
     </div>
-  
+
     <div class="col-12 col-md-3 mb-3">
       <label for="transactionFrom">رقم السجل</label>
       <input type="number" class="form-control" id="transactionFrom" placeholder="رقم السجل" />
@@ -47,7 +47,7 @@
     </div>
     <div class="col-12 col-md-3 mb-3">
       <label for="transactionTo">عدد المعاملات المنجزة (إلى)</label>
-      <input type="number" class="form-control" id="transactionTo" placeholder="0" />
+      <input type="number" class="form-control" id="transactionTo" placeholder="" />
     </div>  <div class="col-12 col-md-3 mb-3">
       <label for="bankName">البنك التابع له</label>
       <select class="form-control select2" id="bankName">
@@ -115,114 +115,25 @@
 <!-- Row -->
 <div class="row row-sm">
   <div class="col-lg-12">
-    <div class="table-responsive p-1">
-      <table id="historyTable" class="table table-bordered shadow-sm bg-body text-nowrap key-buttons">
+      <div class="table-responsive p-1">
+      <table id="clientTable" class="table table-bordered shadow-sm bg-body text-nowrap key-buttons">
         <thead>
           <tr>
             <th class="border-bottom-0">#</th>
-            <th class="border-bottom-0">اسم العميل</th>
-            <th class="border-bottom-0">نوع العميل</th>
-            <th class="border-bottom-0">رقم السجل</th>
-            <th class="border-bottom-0">الرقم الضريبي</th>
-            <th class="border-bottom-0">عدد المعاملات المنجزة</th>
-            <th class="border-bottom-0">البنك التابع له</th>
-            <th class="border-bottom-0">حالة الحساب البنكي</th>
-            <th class="border-bottom-0 text-center">العمليات</th>
+            <th class="border-bottom-0">{{ trans('dashboard.client.name') }}</th>
+            <th class="border-bottom-0">{{ trans('dashboard.client.type') }}</th>
+            <th class="border-bottom-0">{{ trans('dashboard.client.commercial_number') }}</th>
+            <th class="border-bottom-0">{{ trans('dashboard.client.tax_number') }}</th>
+            <th class="border-bottom-0 text-center">{{ trans('dashboard.client.transactions_done') }}</th>
+            <th class="border-bottom-0">{{ trans('dashboard.client.bank_name') }}</th>
+            <th class="border-bottom-0">{{ trans('dashboard.client.account_status') }}</th>
+            <th class="border-bottom-0 text-center">{{ trans('dashboard.general.actions') }}</th>
+
+
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td>1</td>
-            <td>
-              محمد إبراهيم
-            </td>
-            <td>مؤسسات</td>
-            <td>742368</td>
-            <td>
-              63256987521436
-            </td>
-            <td>
-              32
-            </td>
-            <td>
-              البنك الأهلي
-            </td>
-            <td>
-              <span class="badge bg-success-opacity py-2 px-4">
-                تم تأكيد الحساب البنكي</span>
-            </td>
-            <td class="text-center">
-              <a href="department-view.html" class="azureIcon" data-bs-toggle="tooltip" data-bs-placement="top"
-                title="عرض"><i class="mdi mdi-eye-outline"></i></a>
-              <a href="department-add.html" class="warningIcon" data-bs-toggle="tooltip" data-bs-placement="top"
-                title="تعديل"><i class="mdi mdi-square-edit-outline"></i></a>
-              <a href="#" class="successIcon" data-bs-toggle="tooltip" data-bs-placement="top" title="مراجعة الحساب "><i
-                  class="mdi mdi-clock-edit-outline"></i></a>
-              <a href="#" class="primaryIcon" data-bs-toggle="tooltip" data-bs-placement="top" title="تعليق الحساب "><i
-                  class="mdi mdi-account-clock-outline"></i></a>
-            </td>
-          </tr>
-          <tr>
-            <td>2</td>
-            <td>
-              عبدالله محمد
-            </td>
-            <td>أفراد</td>
-            <td>963254</td>
-            <td>
-              32659874125365
-            </td>
-            <td>
-              21
-            </td>
-            <td>
-              بنك سامبا
-            </td>
-            <td>
-              <span class="badge bg-danger-opacity py-2 px-4">
-                لم تم تأكيد الحساب البنكي</span>
-            </td>
-            <td class="text-center">
-              <a href="department-view.html" class="azureIcon" data-bs-toggle="tooltip" data-bs-placement="top"
-                title="عرض"><i class="mdi mdi-eye-outline"></i></a>
-              <a href="department-add.html" class="warningIcon" data-bs-toggle="tooltip" data-bs-placement="top"
-                title="تعديل"><i class="mdi mdi-square-edit-outline"></i></a>
-              <a href="#" class="successIcon" data-bs-toggle="tooltip" data-bs-placement="top" title="تأكيد الحساب "><i
-                  class="mdi mdi-check"></i></a>
-              <a href="#" class="primaryIcon" data-bs-toggle="tooltip" data-bs-placement="top" title="تعليق الحساب "><i
-                  class="mdi mdi-account-clock-outline"></i></a>
-            </td>
-          </tr>
-          <tr>
-            <td>3</td>
-            <td>
-              صبحي محمد
-            </td>
-            <td>شركات</td>
-            <td>326548</td>
-            <td>
-              96325413687452
-            </td>
-            <td>
-              11
-            </td>
-            <td>
-              بنك الإنماء
-            </td>
-            <td>
-              <span class="badge bg-info-opacity py-2 px-4">
-                تم مراجعة الحساب البنكي</span>
-            </td>
-            <td class="text-center">
-              <a href="department-view.html" class="azureIcon" data-bs-toggle="tooltip" data-bs-placement="top"
-                title="عرض"><i class="mdi mdi-eye-outline"></i></a>
-              <a href="department-add.html" class="warningIcon" data-bs-toggle="tooltip" data-bs-placement="top"
-                title="تعديل"><i class="mdi mdi-square-edit-outline"></i></a>
 
-              <a href="#" class="primaryIcon" data-bs-toggle="tooltip" data-bs-placement="top" title="تعليق الحساب "><i
-                  class="mdi mdi-account-clock-outline"></i></a>
-            </td>
-          </tr>
         </tbody>
       </table>
     </div>

@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Http\Requests\V1\Dashboard\AttachmentRequest;
+use App\Traits\Loggable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Traits\Uuid;
@@ -87,32 +88,47 @@ class Attachment extends Model
 
     public static function updatefiles(AttachmentRequest $attachmentRequest, $user)
     {
-        foreach ($attachmentRequest->attachments as $key => $item) {
-            $attachment = $user->attachments()->get();
-            $cur = $user->attachments->get($key);
-            if (isset($item["files"])) {
-                if ($cur) $cur->update([
-                    'title' => $item["title"],
-                    'attachment_type' => $item["type"],
-                ]);
-                else  $cur = $user->attachments()->create([
-                    'title' => $item["title"],
-                    'attachment_type' => $item["type"],
-                ]);
-                $cur->attachmentFiles()?->delete();
-                foreach ($item["files"] as $file) {
-                    $curpath = $file->store('/files/client', ['disk' => 'local']);
-                    $cur->attachmentFiles()->create([
-                        'path' => $curpath,
-                        'type' => $file->getClientMimeType(),
-                        "name" => $file->getClientOriginalName(),
-                        "size" => $file->getSize()
-                    ]);
-                }
-            }
-
-
+        $toupdatearr = collect($attachmentRequest->attachments)->filter(function ($item) {
+            return array_key_exists("id", $item);
         }
+        );
+        $tocreatearr = collect($attachmentRequest->attachments)->filter(function ($item) {
+            return !array_key_exists("id", $item);
+        }
+        );
+
+        foreach ($toupdatearr as $key => $item) {
+            $attachment = Attachment::find($item["id"]);
+            $attachment->update(["title" => $item["title"]]);
+            if (isset($item["files"])) foreach ($item["files"] as $file) {
+                $curpath = $file->store('/files/client', ['disk' => 'local']);
+                $attachment->attachmentFiles()->create([
+                    'path' => $curpath,
+                    'type' => $file->getClientMimeType(),
+                    "name" => $file->getClientOriginalName(),
+                    "size" => $file->getSize()
+                ]);
+            }
+            if (isset($item["deleted_files"])) {
+                $attachment->attachmentFiles()->whereIn('id', $item["deleted_files"])->delete();
+            }
+        }
+        $data = [];
+        foreach ($tocreatearr as $key => $item) {
+            $data   = array('title' => $item["title"], 'type' => $item["type"]);
+            $attachment =$user->attachments()->create($data) ;
+            if (isset($item["files"])) foreach ($item["files"] as $file) {
+                $curpath = $file->store('/files/client', ['disk' => 'local']);
+                $attachment->attachmentFiles()->create([
+                    'path' => $curpath,
+                    'type' => $file->getClientMimeType(),
+                    "name" => $file->getClientOriginalName(),
+                    "size" => $file->getSize()
+                ]);
+            }
+        }
+//        !count($data) ?: $cur = $user->attachments()->createMany($data);
+
         #endregion custom Methods
     }
 }

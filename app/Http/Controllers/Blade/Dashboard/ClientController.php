@@ -2,23 +2,40 @@
 
 namespace App\Http\Controllers\Blade\Dashboard;
 
+use Illuminate\Http\Request;
+use App\Models\{User, Client};
 use App\Http\Controllers\Controller;
 use App\Http\Requests\V1\Dashboard\ClientRequest;
-use App\Models\{User, Client};
-use Illuminate\Http\Request;
+use App\Http\Resources\Blade\Dashboard\Client\ClientCollection;
+use App\Http\Resources\Blade\Dashboard\Activitylog\ActivityLogCollection;
 
 class ClientController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+
+
     public function index(Request $request)
     {
+        if (isset($request->order[0]['column'])) {
+            $request['sort'] = ['column' => $request['columns'][$request['order'][0]['column']]['name'], 'dir' => $request['order'][0]['dir']];
+        }
+
         if ($request->ajax()) {
 
+            $clientsQuery = User::CustomDateFromTo($request)->search($request)->with(['client'])->where('user_type', 'client')
+                ->sortBy($request);
+
+            $clientCount = $clientsQuery->count();
+
+            $clients = $clientsQuery->skip($request->start)
+                ->take(($request->length == -1) ? $clientCount : $request->length)
+                ->get();
+
+
+            return ClientCollection::make($clients)
+                ->additional(['total_count' => $clientCount]);
         }
+
+
         return view('dashboard.client.index');
     }
 
@@ -42,7 +59,7 @@ class ClientController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
     public function store(ClientRequest $request, User $client)
@@ -55,18 +72,46 @@ class ClientController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Request $request, $id)
     {
-        return view('dashboard.client.show');
+
+        $client = User::withTrashed()->where('user_type', 'client')->findOrFail($id);
+
+
+        $sortingColumns = [
+            'id',
+            'user_name',
+            'department_name',
+            'created_at',
+            'action_type',
+            'reason'
+        ];
+        if (isset($request->order[0]['column'])) {
+            $request['sort'] = ['column' => $sortingColumns[$request->order[0]['column']], 'dir' => $request->order[0]['dir']];
+        }
+
+        $activitiesQuery = $client->activity()
+            ->sortBy($request);
+
+        if ($request->ajax()) {
+            $activityCount = $activitiesQuery->count();
+            $activities = $activitiesQuery->skip($request->start)
+                ->take(($request->length == -1) ? $activityCount : $request->length)
+                ->get();
+
+            return ActivityLogCollection::make($activities)
+                ->additional(['total_count' => $activityCount]);
+        }
+        return view('dashboard.client.show', compact('client'));
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
@@ -77,8 +122,8 @@ class ClientController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param \Illuminate\Http\Request $request
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function update(ClientRequest $request, User $client)
@@ -91,14 +136,13 @@ class ClientController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function destroy(Client $client)
     {
 
     }
-
 
 
 }

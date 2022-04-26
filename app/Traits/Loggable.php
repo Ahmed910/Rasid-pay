@@ -57,6 +57,8 @@ trait Loggable
      */
     public function addUserActivity($item, string $event, string $subProgram, array $newData = [])
     {
+$user_type = $item->user_type??null ;
+       if (isset($item->user) &&$user_type == null) $user_type =$item->user->user_type   ;
         $item->activity()->create([
             'url'         => Request::fullUrl(),
             'old_data'    => $this->oldData($item),
@@ -66,7 +68,8 @@ trait Loggable
             'ip_address'  => Request::ip(),
             'agent'       => Request::header('user-agent'),
             'user_id'     => auth()->check() ? auth()->user()->id : null,
-            'reason'      => request()->reasonAction
+            'reason'      => request()->reasonAction,
+            "user_type"   =>$user_type
         ]);
     }
 

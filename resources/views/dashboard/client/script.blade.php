@@ -1,14 +1,15 @@
+<!-- SELECT2 JS -->
 @section('datatable_script')
-    <script src="{{ asset('dashboardAssets/plugins/datatable/js/jquery.dataTables.min.js') }}"></script>
-    <script src="{{ asset('dashboardAssets/plugins/datatable/js/dataTables.bootstrap5.js') }}"></script>
-    <script src="{{ asset('dashboardAssets/plugins/datatable/dataTables.responsive.min.js') }}"></script>
-    <script src="{{ asset('dashboardAssets/plugins/datatable/responsive.bootstrap5.min.js') }}"></script>
-    <script src="{{ asset('dashboardAssets/js/table-data.js') }}"></script>
+  <script src="{{ asset('dashboardAssets/plugins/datatable/js/jquery.dataTables.min.js') }}"></script>
+  <script src="{{ asset('dashboardAssets/plugins/datatable/js/dataTables.bootstrap5.js') }}"></script>
+  <script src="{{ asset('dashboardAssets/plugins/datatable/dataTables.responsive.min.js') }}"></script>
+  <script src="{{ asset('dashboardAssets/plugins/datatable/responsive.bootstrap5.min.js') }}"></script>
 @endsection
 @section('scripts')
-<script src="{{ asset('dashboardAssets/js/custom_scripts.js') }}"></script>
-{{-- Ajax DataTable --}}
-<script>
+  <script src="{{ asset('dashboardAssets/js/custom_scripts.js') }}"></script>
+  <script src="{{ asset('dashboardAssets/plugins/bootstrap-hijri-datepicker/js/bootstrap-hijri-datetimepicker.js') }}">
+  </script>
+  <script>
     $(function () {
 
       /******* Calendar *******/
@@ -25,17 +26,18 @@
         table.draw();
       });
 
-      var table = $("#historyTable").DataTable({
+      var table = $("#clientTable").DataTable({
         sDom: "t<'domOption'lpi>",
         serverSide: true,
         processing: true,
         ajax: {
-          url: "{{ route('dashboard.client.index') }}?",
+          url: "{{ route('dashboard.client.index') }}",
           data: function (data) {
             data.ban_status = $('#status').val();
             data.department_id = $('#mainDepartment').val();
             data.name = $('#userName').val();
             data.login_id = $('#userId').val();
+            data.client_type = $('#client_type').val();
             data.created_from = $('#from-hijri-picker-custom').val();
             data.created_to = $('#to-hijri-picker-custom').val();
             data.ban_from = $('#from-hijri-unactive-picker-custom').val();
@@ -56,36 +58,34 @@
             name: 'fullname'
           },
           {
-            data: "login_id",
-            name: 'login_id'
+            data: 'client_type',
+            name: 'client_type'
           },
           {
-            data: function (data) {
-              return data.department ? data.department.name :
-                "{{ trans('dashboard.department.without_parent') }}";
-            },
-            name: 'department'
+            data: 'commercial_number',
+            name: 'commercial_number'
+          }, 
+          {
+            data: 'tax_number',
+            name: 'tax_number'
+          },
+          {
+            data: 'transactions_done',
+            name: 'transactions_done'
           },
 
           {
-            data: "created_at",
-            name: 'created_at'
+            data: "bank_name",
+            name: 'bank_name'
           },
           {
-            data: function (data) {
-              if (data.ban_status == 'مفعل') {
-                return ` <span class="badge bg-success-opacity py-2 px-4">${data.ban_status}</span>`;
-              } else {
-                return ` <span class="badge bg-danger-opacity py-2 px-4">${data.ban_status}</span>`;
-              }
-            },
-            name: 'ban_status'
+            data:'account_status',
+            name: 'account_status'
           },
+         
           {
             class: "text-center",
             data: function (data) {
-
-
               return `<a
                     href="${data.show_route}"
                     class="azureIcon"
@@ -103,7 +103,9 @@
                         ><i class="mdi mdi-square-edit-outline"></i
                             ></a>
                             `
-            }
+            },
+            orderable: false,
+            searchable: false
           }
         ],
 
@@ -125,23 +127,23 @@
         },
         "drawCallback": function (settings, json) {
           // table sorting
-          var adminTableSorting = document.getElementsByClassName('client_index');
-          for (var i = 0; i < adminTableSorting.length; i++) {
-            adminTableSorting[i].innerText = adminTableSorting[i].innerText.replace(
-              adminTableSorting[i].innerText, adminTableSorting[i].innerText
+          var clientTableSorting = document.getElementsByClassName('client_index');
+          for (var i = 0; i < clientTableSorting.length; i++) {
+            clientTableSorting[i].innerText = clientTableSorting[i].innerText.replace(
+              clientTableSorting[i].innerText, clientTableSorting[i].innerText
                 .toArabicUni());
           }
           //pagination
-          var adminTablePagination = document.getElementsByClassName('page-link');
-          for (var i = 1; i < adminTablePagination.length - 1; i++) {
-            adminTablePagination[i].innerText = adminTablePagination[i].innerText.replace(
-              adminTablePagination[i].innerText, adminTablePagination[i].innerText
+          var clientTablePagination = document.getElementsByClassName('page-link');
+          for (var i = 1; i < clientTablePagination.length - 1; i++) {
+            clientTablePagination[i].innerText = clientTablePagination[i].innerText.replace(
+              clientTablePagination[i].innerText, clientTablePagination[i].innerText
                 .toArabicUni());
           }
           // info
-          var adminTableInfo = document.getElementById('adminTable_info').innerText;
-          document.getElementById('adminTable_info').innerText = adminTableInfo.replace(
-            adminTableInfo, adminTableInfo.toArabicUni());
+          var clientTableInfo = document.getElementById('clientTable_info').innerText;
+          document.getElementById('clientTable_info').innerText = clientTableInfo.replace(
+            clientTableInfo, clientTableInfo.toArabicUni());
         }
       });
 
@@ -200,9 +202,7 @@
       });
 
     });
-
-</script>
-<script src="{{ asset('dashboardAssets/js/select2.js') }}"></script>
-<script src="{{ asset('dashboardAssets/plugins/select2/select2.full.min.js') }}"></script>
-<script src="{{ asset('dashboardAssets') }}/plugins/bootstrap-hijri-datepicker/js/bootstrap-hijri-datetimepicker.js"></script>
+  </script>
+  <script src="{{ asset('dashboardAssets/js/select2.js') }}"></script>
+  <script src="{{ asset('dashboardAssets/plugins/select2/select2.full.min.js') }}"></script>
 @endsection

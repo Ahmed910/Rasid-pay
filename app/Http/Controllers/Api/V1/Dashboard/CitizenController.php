@@ -37,7 +37,8 @@ class CitizenController extends Controller
         $user = user::create($userData);
         $bankAccount->fill($bankAccountRequest->validated())->user()->associate($user)->save();
 
-        $citizen->fill($clientData)->user()->associate($user)->save();
+        $citizen->fill($clientData)->user()->associate($user);
+           $citizen ->saveQuietly();
         return CitizenResource::make($citizen)->additional([
             'status' => true, 'message' => trans("dashboard.general.success_add")
         ]);
@@ -56,8 +57,8 @@ class CitizenController extends Controller
     {
         $citizen = Citizen::where('user_id', $id)->firstOrFail();
 
-        $citizen->user->update($request->validated());
-        $citizen->update($request->validated());
+        $citizen->user->update($request->validated()+['updated_at' => now()]);
+        !$citizen->user->wasChanged() ? $citizen->update($request->validated()) : $citizen->fill($request->validated())->saveQuietly();
         $citizen->user->bankAccount->update($bankAccountRequest->validated());
 
 
