@@ -32,7 +32,7 @@
         <option>الجميع</option>
       </select>
     </div>
-  
+
     <div class="col-12 col-md-3 mb-3">
       <label for="transactionFrom">رقم السجل</label>
       <input type="number" class="form-control" id="transactionFrom" placeholder="رقم السجل" />
@@ -47,7 +47,7 @@
     </div>
     <div class="col-12 col-md-3 mb-3">
       <label for="transactionTo">عدد المعاملات المنجزة (إلى)</label>
-      <input type="number" class="form-control" id="transactionTo" placeholder="0" />
+      <input type="number" class="form-control" id="transactionTo" placeholder="" />
     </div>  <div class="col-12 col-md-3 mb-3">
       <label for="bankName">البنك التابع له</label>
       <select class="form-control select2" id="bankName">
@@ -129,11 +129,11 @@
             <th class="border-bottom-0">{{ trans('dashboard.client.account_status') }}</th>
             <th class="border-bottom-0 text-center">{{ trans('dashboard.general.actions') }}</th>
 
-           
+
           </tr>
         </thead>
         <tbody>
-    
+
         </tbody>
       </table>
     </div>
