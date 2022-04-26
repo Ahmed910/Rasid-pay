@@ -1,7 +1,6 @@
 @extends('dashboard.layouts.master')
 @include('dashboard.group.style')
 
-
 @section('nav-title')
 @endsection
 @section('content')
