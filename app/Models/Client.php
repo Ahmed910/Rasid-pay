@@ -21,6 +21,8 @@ class Client extends Model
     public $sortableColumns = ["client_type", "marital_status", "nationality", "address", "activity_type", "fullname", "commercial_number", "tax_number", "client_type", "bank_name"];
     const user_searchable_Columns = ["fullname", "email", "image", "country_code", "phone", "full_phone", "identity_number", "date_of_birth"];
     const client_searchable_Columns = ["client_type", "commercial_number", "nationality", "tax_number"];
+    const bank_sort_Columns = ["bank_name" => "user.bankAccount.bank.translations"];
+    const bank_acc_sort_Columns = ["account_status" => "user.bankAccount.account_status"];
 
 
     #endregion properties
