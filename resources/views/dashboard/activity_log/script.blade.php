@@ -39,13 +39,15 @@
           class: 'activity_log_index'
         },
           {
-            data: "user.fullname",
+            data: function (data) {
+              return data.user ? data.user.fullname : "{{trans("dashboard.error.not_found")}}";
+            },
             name: "employee"
           },
 
           {
             data: function (data) {
-              if (data.user.department !== null) {
+              if (data.user && data.user.department !== null) {
                 return data.user.department.name;
               } else {
                 return "{{ trans('dashboard.department.without_parent') }}";

@@ -23,13 +23,13 @@
       <label for="clientType">نوع العميل</label>
       <select class="form-control select2" id="clientType">
         <option selected disabled value="">إختر النوع </option>
-        <option>مؤسسات</option>
-        <option>أفراد</option>
-        <option>شركات</option>
-        <option>حر</option>
+        <option value="institution">مؤسسات</option>
+        <option value="member">عضو</option>
+        <option value="company">شركات</option>
+        <option value="freelance_doc">مستقل</option>
         <option>وثائق عمل</option>
         <option>مشاهير</option>
-        <option>الجميع</option>
+        <option value="other">اخرى</option>
       </select>
     </div>
 
