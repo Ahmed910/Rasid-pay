@@ -73,7 +73,7 @@ return [
         'activited' => 'تفعيل',
         'un_active_account'=>'هذا المستخدم معطل',
         'unactivited' => 'تعطيل',
-        'dashboard' => 'لوحة تحكم رصيد باك',
+        'dashboard' => 'لوحة تحكم رصيد باي',
         "status" => "الحالة",
         "select_status" => "اختر الحالة",
         "select_user" => "اختر مستخدم",
