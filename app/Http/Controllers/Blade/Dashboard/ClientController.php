@@ -18,25 +18,22 @@ class ClientController extends Controller
         if (isset($request->order[0]['column'])) {
             $request['sort'] = ['column' => $request['columns'][$request['order'][0]['column']]['name'], 'dir' => $request['order'][0]['dir']];
         }
+        $sortcol = isset($request->sort["column"]) ? $request->sort["column"] : null;
+        if (isset($request->sort["column"]) && in_array($request->sort["column"], Client::user_searchable_Columns)) $sortcol = "user." . $request->sort["column"];
+        else if (isset($request->sort["column"]) && array_key_exists($request->sort["column"], Client::bank_sort_Columns)) $sortcol = Client::bank_sort_Columns[$request->sort["column"]];
+        else if (isset($request->sort["column"]) && array_key_exists($request->sort["column"], Client::bank_acc_sort_Columns)) $sortcol = Client::bank_acc_sort_Columns[$sortcol];
 
         if ($request->ajax()) {
 
 
-
-            $clientsQuery = Client::with(["user","user.bankAccount.bank"])->search($request)->sortby($request);
-
-//             $clientsQuery = User::whereHas('client' , function ($q) use ($request) {
-//                 $q->search($request)->sortBy($request);
-//             })->where('user_type', 'client');
-
+            $clientsQuery = Client::with(["user", "user.bankAccount.bank.translations"])->search($request);
 
             $clientCount = $clientsQuery->count();
 
             $clients = $clientsQuery->skip($request->start)
                 ->take(($request->length == -1) ? $clientCount : $request->length)
-                ->get();
-
-
+                ->get()->
+                sortBy($sortcol, SORT_REGULAR, $request->sort["dir"] == "desc");
 
             return ClientCollection::make($clients)
                 ->additional(['total_count' => $clientCount]);
