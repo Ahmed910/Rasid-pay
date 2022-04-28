@@ -22,7 +22,7 @@
             </div>
             <ul class="side-menu">
                 <li class="slide">
-                    <a class="side-menu__item" data-bs-toggle="slide" href="{{ route('dashboard.home.index') }}"><i
+                    <a class="side-menu__item {{ request()->routeIs('dashboard.home.index') ? 'active' : '' }}" data-bs-toggle="slide" href="{{ route('dashboard.home.index') }}"><i
                             class="mdi mdi-home-variant-outline"></i><span
                             class="side-menu__label">{{trans('dashboard.home.home')}}</span></a>
                 </li>
@@ -237,17 +237,17 @@
                             class="side-menu__label">{{trans('dashboard.general.settings')}}</span></a>
                 </li>
                 <li class="sub-category">
-                    <h3>رصيد باك</h3>
+                    <h3>رصيد باي</h3>
                 </li>
                 
                 <li class="slide">
-                    <a class="side-menu__item" data-bs-toggle="slide" href="{{ route('dashboard.citizen.index') }}"><i
-                            class="mdi mdi-account-multiple-outline"></i><span
+                    <a class="side-menu__item {{ request()->routeIs('dashboard.citizen.index') ? 'active' : '' }}" data-bs-toggle="slide" href="{{ route('dashboard.citizen.index') }}"><i
+                            class="mdi mdi-account-multiple-check-outline"></i><span
                             class="side-menu__label">المستخدمين</span></a>
                 </li>
                 <li class="slide">
-                    <a class="side-menu__item" data-bs-toggle="slide" href="{{ route('dashboard.transaction.index') }}"><i
-                            class="mdi mdi-home-variant-outline"></i><span
+                    <a class="side-menu__item {{ request()->routeIs('dashboard.transaction.index') ? 'active' : '' }}" data-bs-toggle="slide" href="{{ route('dashboard.transaction.index') }}"><i
+                            class="mdi mdi-bank-transfer"></i><span
                             class="side-menu__label">المعاملات</span></a>
                 </li>
             </ul>
