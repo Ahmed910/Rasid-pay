@@ -497,6 +497,7 @@ return [
         "client" =>  "العميل",
         "clients" => "العملاء",
         "add_client" => "اضافة عميل",
+        "select_client" => "اختر العميل",
         "edit_client" => "تعديل عميل",
         "admin_client" => "عدد العملاء",
         'sub_progs' => [
@@ -511,10 +512,10 @@ return [
         "type" => "نوع العميل",
         "client_type" => [
             "company" => "شركات",
-            "institution" => "مؤسسة",
+            "institution" => "مؤسسات",
             "member" => "عضو",
             "freelance_doc" => "مستقل",
-            "famous" => "مشهور",
+            "famous" => "مشاهير",
             "other" => "أخري",
 
         ],
@@ -525,10 +526,10 @@ return [
         "account_status" => "حالة الحساب البنكي",
         "account_statuses" => [
             "pending" => "قيد الانتظار",
-            "before_review" => "تحت المراجعة",
+            "before_review" => "قبل المراجعة",
             "reviewed" => "تمت المراجعة",
             "accepted" => "تمت الموافقة",
-            "refused" => "مرفوض",
+            "refused" => "تم الرفض",
         ],
 
         'permissions' => array_except($permissions, ['archive', 'restore', 'force_delete']) + ['create' => 'عرض العملاء']
