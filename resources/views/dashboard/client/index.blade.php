@@ -13,15 +13,17 @@
 <!-- PAGE-HEADER END -->
 <!-- FORM OPEN -->
 
-<form method="get" action="" id="client-search">
-  <div class="row align-items-end mb-3">
+{!! Form::open(['method' => 'GET', 'id' => 'client-search']) !!}
+<div class="row align-items-end mb-3">
     <div class="col-12 col-md-3 mb-3">
       <label for="clientName">اسم العميل</label>
       <input type="text" class=" form-control input-regex stop-copy-paste" id="clientName" placeholder="اسم العميل" name="fullname" />
     </div>
     <div class="col-12 col-md-3 mb-3">
       <label for="clientType">نوع العميل</label>
-      <select class="form-control select2" id="client_type" name="client_type">
+      {!! Form::select('client_type', ['' => '', -1 => trans('dashboard.general.all_cases') ,  0 =>  'dsd' ],  request('client_type'), ['class' => 'form-control select2-show-search', 'data-placeholder' => trans('dashboard.client.select_client'), 'id' => 'client_type']) !!}
+
+      {{-- <select class="form-control select2" id="client_type" name="client_type">
         <option selected disabled value="">إختر النوع </option>
         <option value="institution">مؤسسات</option>
         <option value="member">عضو</option>
@@ -29,7 +31,7 @@
         <option value="freelance_doc">مستقل</option>
         <option value="famous">مشاهير</option>
         <option value="other">اخرى</option>
-      </select>
+      </select> --}}
     </div>
 
     <div class="col-12 col-md-3 mb-3">
@@ -60,7 +62,7 @@
       <label for="bankStatus">حالة الحساب البنكي</label>
       <select class="form-control select2" id="account_status">
         <option selected disabled value="">إختر الحالة </option>
-        <option value="pending">تحت الانتظار</option>
+        <option value="pending">قيد الانتظار</option>
         <option value="before_review">قبل المراجعة</option>
         <option value="refused">لم يتم تأكيد الحسب البنكي</option>
         <option value="reviewed">تم مراجعة الحساب البنكي</option>
@@ -107,7 +109,7 @@
       </button>
     </div>
   </div>
-</form>
+  {!! form::close() !!}
 
 <!-- FORM CLOSED -->
 
