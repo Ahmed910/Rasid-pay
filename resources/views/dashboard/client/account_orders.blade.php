@@ -108,7 +108,7 @@
 <div class="row row-sm">
   <div class="col-lg-12">
     <div class="p-1">
-      <table id="historyTable" class="table table-bordered shadow-sm bg-body text-nowrap key-buttons">
+      <table id="orderTable" class="table table-bordered shadow-sm bg-body text-nowrap key-buttons">
         <thead>
           <tr>
             <th class="border-bottom-0">#</th><th class="border-bottom-0">رقم الطلب</th>
