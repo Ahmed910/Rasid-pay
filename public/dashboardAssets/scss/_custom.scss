@@ -937,3 +937,22 @@ $BaseBG: #0f0f1a;
 .btn.disable {
   cursor: default !important;
 }
+
+
+.ff_fileupload_wrap .ff_fileupload_dropzone{
+    background-image: url(../images/pngs/photo_upload.png);
+        height: 200px;
+    background-color: #ffffff;
+    background-size: 30%;
+}
+
+.ff_fileupload_wrap table.ff_fileupload_uploads td.ff_fileupload_actions button.ff_fileupload_start_upload {
+    margin-left: 0.5em;
+}
+
+.rtl .side-menu__item.active {
+    text-decoration: none;
+    color: var(--primary-bg-color) !important;
+    border-left: 3px solid var(--primary-bg-color);
+    background: var(--gray-medium);
+}

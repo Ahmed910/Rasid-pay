@@ -5,7 +5,7 @@
 
 <!-- PAGE-HEADER -->
 <div class="page-header">
-    <h1 class="page-title">المستخدمين</h1>
+    <h1 class="page-title">المعاملات</h1>
 </div>
 <!-- PAGE-HEADER END -->
 
@@ -15,6 +15,10 @@
 <form method="get" action="">
     <div class="row align-items-end mb-3">
         <div class="col-12 col-md-3 mb-3">
+            <label for="transactionNum">رقم المعاملة</label>
+            <input type="number" class="form-control" id="transactionNum" placeholder="رقم المعاملة" />
+        </div>
+        <div class="col-12 col-md-3 mb-3">
             <label for="transactionName">اسم المستخدم</label>
             <input type="text" class="form-control" id="transactionName" placeholder="اسم المستخدم" />
         </div>
@@ -23,25 +27,16 @@
             <input type="number" class="form-control" id="idNumber" placeholder="رقم الهوية" />
         </div>
         <div class="col-12 col-md-3 mb-3">
-            <label for="phone">رقم الجوال</label>
-            <div class="input-group">
-                <input id="phone" type="number" placeholder="أدخل رقم الجوال" class="form-control" />
-                <div class="input-group-text border-start-0">
-                    +966
-                </div>
-            </div>
-        </div>
-        <div class="col-12 col-md-3 mb-3">
-            <label for="clientType">البطاقة المفعلة</label>
-            <select class="form-control select2" id="clientType">
-                <option selected disabled value="">إختر البطاقة </option>
-                <option>الأساسية</option>
-                <option>الأساسية</option>
-                <option>الأساسية</option>
+            <label for="clientName">العميل</label>
+            <select class="form-control select2" id="clientName">
+                <option selected disabled value="">إختر العميل </option>
+                <option>محمد رمضان ذكي</option>
+                <option>هشام أشرف عبد الشافي</option>
+                <option>محمد تريكة</option>
             </select>
         </div>
         <div class="col-12 col-md-3 mb-3">
-            <label for="from-hijri-picker-custom"> تاريخ إنتهاء البطاقة (من)</label>
+            <label for="from-hijri-picker-custom"> تاريخ المعاملة (من)</label>
             <div class="input-group">
                 <input id="from-hijri-picker-custom" type="text" placeholder="يوم/شهر/سنة" class="form-control" />
                 <div class="input-group-text border-start-0">
@@ -50,7 +45,7 @@
             </div>
         </div>
         <div class="col-12 col-md-3 mb-3">
-            <label for="to-hijri-picker-custom">تاريخ إنتهاء البطاقة (إلى)</label>
+            <label for="to-hijri-picker-custom">تاريخ المعاملة (إلى)</label>
             <div class="input-group">
                 <input id="to-hijri-picker-custom" type="text" placeholder="يوم/شهر/سنة" class="form-control" />
                 <div class="input-group-text border-start-0">
@@ -58,6 +53,65 @@
                 </div>
             </div>
         </div>
+        <div class="col-12 col-md-3 mb-3">
+            <label for="transactionValueFrom">قيمة المعاملة (من)</label>
+            <div class="input-group">
+                <input id="transactionValueFrom" type="number" placeholder="أدخل قيمة المعاملة " class="form-control" />
+                <div class="input-group-text border-start-0">
+                    ر.س
+                </div>
+            </div>
+        </div>
+        <div class="col-12 col-md-3 mb-3">
+            <label for="transactionValueTo">قيمة المعاملة (إلى)</label>
+            <div class="input-group">
+                <input id="transactionValueTo" type="number" placeholder="أدخل قيمة المعاملة " class="form-control" />
+                <div class="input-group-text border-start-0">
+                    ر.س
+                </div>
+            </div>
+        </div>
+        <div class="col-12 col-md-3 mb-3">
+            <label for="transactionType">نوع المعاملة</label>
+            <select class="form-control select2" id="transactionType">
+                <option selected disabled value="">إختر النوع </option>
+                <option>دفع</option>
+                <option>تحويل محلي</option>
+                <option>تحويل لمحفظة</option>
+                <option>تحويل دولي</option>
+                <option>استلام رصيد</option>
+                <option>شحن رصيد</option>
+                <option>ترقية البطاقات</option>
+            </select>
+        </div>
+        <div class="col-12 col-md-3 mb-3">
+            <label for="activeCard">البطاقة المفعلة</label>
+            <select class="form-control select2" id="activeCard">
+                <option selected disabled value="">إختر البطاقة </option>
+                <option>البطاقة الأساسية</option>
+                <option>البطاقة الذهبية</option>
+                <option>البطاقة البلاتينية</option>
+            </select>
+        </div>
+        <div class="col-12 col-md-3 mb-3">
+            <label for="transactionType">حالة المعاملة</label>
+            <select class="form-control select2" id="transactionType">
+                <option selected disabled value="">إختر الحالة </option>
+                <option>ناجحة</option>
+                <option>فاشلة</option><option>فاشلة</option><option>بانتظار الاستلام</option><option>تم الاستلام</option><option>تم الإلغاء</option>
+            </select>
+        </div>
+        {{-- <div class="col-12 col-md-3 mb-3">
+            <label for="phone">رقم الجوال</label>
+            <div class="input-group">
+                <input id="phone" type="number" placeholder="أدخل رقم الجوال" class="form-control" />
+                <div class="input-group-text border-start-0">
+                    +966
+                </div>
+            </div>
+        </div> 
+        
+        
         <div class="col-12 col-md-3 mb-3">
             <label for="from-hijri-picker-custom"> تاريخ التسجيل (من)</label>
             <div class="input-group">
@@ -76,7 +130,7 @@
                 </div>
             </div>
         </div>
-
+--}}
 
     </div>
     <div class="row">
