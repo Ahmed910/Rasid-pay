@@ -13,33 +13,32 @@
 <!-- PAGE-HEADER END -->
 <!-- FORM OPEN -->
 
-<form method="get" action="">
+<form method="get" action="" id="client-search">
   <div class="row align-items-end mb-3">
     <div class="col-12 col-md-3 mb-3">
       <label for="clientName">اسم العميل</label>
-      <input type="text" class="form-control" id="clientName" placeholder="اسم العميل" />
+      <input type="text" class=" form-control input-regex stop-copy-paste" id="clientName" placeholder="اسم العميل" name="fullname" />
     </div>
     <div class="col-12 col-md-3 mb-3">
       <label for="clientType">نوع العميل</label>
-      <select class="form-control select2" id="clientType">
+      <select class="form-control select2" id="client_type" name="client_type">
         <option selected disabled value="">إختر النوع </option>
         <option value="institution">مؤسسات</option>
         <option value="member">عضو</option>
         <option value="company">شركات</option>
         <option value="freelance_doc">مستقل</option>
-        <option>وثائق عمل</option>
-        <option>مشاهير</option>
+        <option value="famous">مشاهير</option>
         <option value="other">اخرى</option>
       </select>
     </div>
 
     <div class="col-12 col-md-3 mb-3">
       <label for="transactionFrom">رقم السجل</label>
-      <input type="number" class="form-control" id="transactionFrom" placeholder="رقم السجل" />
+      <input type="number" class="form-control input-regex stop-copy-paste" id="commercial_number" placeholder="رقم السجل" name="commercial_number"  />
     </div>
     <div class="col-12 col-md-3 mb-3">
       <label for="transactionTo">الرقم الضريبي</label>
-      <input type="number" class="form-control" id="transactionTo" placeholder="الرقم الضريبي" />
+      <input type="number" class="form-control input-regex stop-copy-paste" id="tax_number" placeholder="الرقم الضريبي" name="tax_number" />
     </div>
     <div class="col-12 col-md-3 mb-3">
       <label for="transactionFrom">عدد المعاملات المنجزة (من) </label>
@@ -50,21 +49,21 @@
       <input type="number" class="form-control" id="transactionTo" placeholder="" />
     </div>  <div class="col-12 col-md-3 mb-3">
       <label for="bankName">البنك التابع له</label>
-      <select class="form-control select2" id="bankName">
+      <select class="form-control select2" id="bank_id">
         <option selected disabled value="">اختر البنك</option>
-        <option>البنك الأهلي</option>
-        <option>بنك الراجحي</option>
-        <option>بنك الإنماء</option>
-        <option>بنك سامبا</option>
+        @foreach($banks as $key=>$bank)
+          <option value="{{$key}}">{{$bank}}</option>
+        @endforeach
       </select>
     </div>
     <div class="col-12 col-md-3 mb-3">
       <label for="bankStatus">حالة الحساب البنكي</label>
-      <select class="form-control select2" id="bankStatus">
+      <select class="form-control select2" id="account_status">
         <option selected disabled value="">إختر الحالة </option>
-        <option>تم تأكيد الحساب البنكي</option>
-        <option>لم يتم تأكيد الحسب البنكي</option>
-        <option>تم مراجعة الحساب البنكي</option>
+        <option value="pending">تحت الانتظار</option>
+        <option value="before_review">قبل المراجعة</option>
+        <option value="refused">لم يتم تأكيد الحسب البنكي</option>
+        <option value="reviewed">تم مراجعة الحساب البنكي</option>
       </select>
     </div>
     <div class="col-12 col-md-3 mb-3">
@@ -103,7 +102,7 @@
       <button class="btn btn-primary mx-2" type="submit">
         <i class="mdi mdi-magnify"></i> بحث
       </button>
-      <button class="btn btn-outline-primary" type="submit">
+      <button class="btn btn-outline-primary" type="reset">
         <i class="mdi mdi-restore"></i> عرض الكل
       </button>
     </div>

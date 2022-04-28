@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Blade\Dashboard;
 
 use Illuminate\Http\Request;
-use App\Models\{User, Client};
+use App\Models\{Bank\Bank, User, Client};
 use App\Http\Controllers\Controller;
 use App\Http\Requests\V1\Dashboard\ClientRequest;
 use App\Http\Resources\Blade\Dashboard\Client\ClientCollection;
@@ -25,7 +25,6 @@ class ClientController extends Controller
 
         if ($request->ajax()) {
 
-
             $clientsQuery = Client::with(["user", "user.bankAccount.bank.translations"])->search($request);
 
             $clientCount = $clientsQuery->count();
@@ -34,13 +33,13 @@ class ClientController extends Controller
                 ->take(($request->length == -1) ? $clientCount : $request->length)
                 ->get()->
                 sortBy($sortcol, SORT_REGULAR, $request->sort["dir"] == "desc");
-
             return ClientCollection::make($clients)
                 ->additional(['total_count' => $clientCount]);
         }
-
-
-        return view('dashboard.client.index');
+        $banks = Bank::with("translations")->ListsTranslations("name")
+            ->pluck('name', 'id')->toArray();;
+        return view('dashboard.client.index'
+            , compact("banks"));
     }
 
     /**
