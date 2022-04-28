@@ -14,7 +14,7 @@ class AddCitizenCardIdToCitizensTable extends Migration
     public function up()
     {
         Schema::table('citizens', function (Blueprint $table) {
-            $table->foreignUuid("citizen_card_id")->constrained("citizen_cards")->OnDelete('set null')->nullable();
+            $table->foreignUuid("citizen_card_id")->nullable()->constrained("citizen_cards")->OnDelete('set null');
         });
     }
 
@@ -26,6 +26,7 @@ class AddCitizenCardIdToCitizensTable extends Migration
     public function down()
     {
         Schema::table('citizens', function (Blueprint $table) {
+            $table->dropForeign(['citizen_card_id']);
             $table->dropColumn('citizen_card_id');
         });
     }
