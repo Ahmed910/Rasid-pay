@@ -15,6 +15,7 @@ class AddDashboradTypeToPermissionsTable extends Migration
     {
         Schema::table('permissions', function (Blueprint $table) {
             $table->string('permission_on')->default('dashboard_api');
+            $table->unique(['name', 'permission_on']);
         });
     }
 
@@ -26,6 +27,7 @@ class AddDashboradTypeToPermissionsTable extends Migration
     public function down()
     {
         Schema::table('permissions', function (Blueprint $table) {
+            $table->dropUnique(['name', 'permission_on']);
             $table->dropColumn('permission_on');
         });
     }
