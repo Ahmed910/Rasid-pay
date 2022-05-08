@@ -23,7 +23,8 @@ class Client extends Model
     const client_searchable_Columns = ["client_type", "commercial_number", "nationality", "tax_number"];
     const bank_sort_Columns = ["bank_name" => "user.bankAccount.bank.translations"];
     const bank_acc_sort_Columns = ["account_status" => "user.bankAccount.account_status"];
-
+    const CLIENT_TYPES = ["institution" => "مؤسسات", "member" => "عضو", "company" => "شركات", "freelance_doc" => "مستقل", "famous" => "مشاهير", "other" => "اخرى"];
+    const SELECT_ALL = ["client_type", "account_status", "bank_name", "bank_id"];
 
     #endregion properties
 
@@ -33,10 +34,10 @@ class Client extends Model
     #region scopes
     public function scopeSearch($query, $request)
     {
-        //        $query->whereHas('user', function ($q) use ($request) {
-        //            $q->search($request);
-        //        });
+
         foreach ($request->all() as $key => $item) {
+            if ($item == -1 && in_array($key, self::SELECT_ALL)) $request->request->remove($key);
+
             if (in_array($key, self::user_searchable_Columns))
                 $query->whereHas('user', function ($q) use ($key, $item) {
                     !$key == "fullname" ? $q->where($key, $item) : $q->where($key, "like", "%$item%");
