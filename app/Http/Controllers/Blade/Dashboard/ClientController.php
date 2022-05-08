@@ -38,8 +38,9 @@ class ClientController extends Controller
         }
         $banks = Bank::with("translations")->ListsTranslations("name")
             ->pluck('name', 'id')->toArray();;
+            $client_types =Client::CLIENT_TYPES;
         return view('dashboard.client.index'
-            , compact("banks"));
+            , compact("banks","client_types"));
     }
 
     /**

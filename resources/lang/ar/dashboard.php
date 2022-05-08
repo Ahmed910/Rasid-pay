@@ -14,7 +14,7 @@ $permissions = [
 return [
     'permissions' => [
         'index' => 'السجل',
-        "create"=>"انشاء",
+        "create" => "انشاء",
         'show' => 'عرض',
         'store' => 'حفظ',
         'update' => 'تعديل',
@@ -32,7 +32,7 @@ return [
         'show :menu' => 'عرض :menu'
     ],
     'general' => [
-        "delete"=>"حذف",
+        "delete" => "حذف",
         "no_reasons" => "لايوجد",
         "success_add" => "تمت الإضافة بنجاح",
         "success_delete" => "تم الحذف بنجاح",
@@ -40,13 +40,13 @@ return [
         "success_archive" => "تمت الأرشفة بنجاح",
         "success_restore" => "تم الاستعادة بنجاح",
         "Send VerificationCode" => "إرسال رمز التحقق",
-        'change_password'=>'تغيير كلمة المرور',
+        'change_password' => 'تغيير كلمة المرور',
         "has_relationship_cannot_delete" => "لا يمكن حذف هذا العنصر ،بسبب احتواءه علي علاقات",
         'yes' => 'موافق',
         'no' => 'غير موافق',
         'want_saving' => 'هل تريد اتمام عملية الحفظ ؟',
         'want_force_delete' => 'هل تريد إتمام عملية الحذف النهائي؟',
-        "want_restore"=>"هل تريد إتمام عملية الاستعادة؟",
+        "want_restore" => "هل تريد إتمام عملية الاستعادة؟",
         'reason_required' => 'السبب مطلوب',
         'want_back_without_saving' => 'هل تريد العوده دون الحفظ ؟',
         'close' => 'اغلاق',
@@ -61,24 +61,24 @@ return [
         "force_delete" => "حذف نهائي",
         'sent_successfully' => 'تم الارسال بنجاح',
         'success_send_login_code' => 'تم ارسال كود التحقق الى رقم الجوال',
-        'phone'=> 'رقم الجوال',
-        'phone_code' =>"حقل رقم الجوال مطلوب",
-        'phoneCode_registeration'=>"رقم الجوال غير مسجل بالنظام",
-        'digits_between' =>"يجب أن يحتوي حقل الجوال بين 5 و 20 رقمًا/أرقام .
+        'phone' => 'رقم الجوال',
+        'phone_code' => "حقل رقم الجوال مطلوب",
+        'phoneCode_registeration' => "رقم الجوال غير مسجل بالنظام",
+        'digits_between' => "يجب أن يحتوي حقل الجوال بين 5 و 20 رقمًا/أرقام .
         ",
         'fail_send' => 'فشل عملية الارسال',
-        'invalid_code'=>'رمز التحقق غير صحيح',
+        'invalid_code' => 'رمز التحقق غير صحيح',
         'active' => 'مفعل',
         'inactive' => 'معطل',
         'activited' => 'تفعيل',
-        'un_active_account'=>'هذا المستخدم معطل',
+        'un_active_account' => 'هذا المستخدم معطل',
         'unactivited' => 'تعطيل',
         'dashboard' => 'لوحة تحكم رصيد باي',
         "status" => "الحالة",
         "select_status" => "اختر الحالة",
         "select_user" => "اختر مستخدم",
         "select_employee" => "اختر موظف",
-        'select_permissions'=>'اختر الصلاحيات',
+        'select_permissions' => 'اختر الصلاحيات',
         "type" => "النوع",
         "select_type" => "اختر النوع",
         "from_date" => "تاريخ الإنشاء (من)",
@@ -88,11 +88,11 @@ return [
         "created_at" => "تاريخ الإنشاء",
         'create' => 'إضافة',
         "actions" => "العمليات",
-        'enter_name'=>'أدخل الاسم',
-        'enter_description'=>'أدخل الوصف',
-        "notifications"=>"الاشعارات",
-        "show_all notification"=>"مشاهدة كل الإشعارات",
-        "personalfile" =>"الملف الشخص",
+        'enter_name' => 'أدخل الاسم',
+        'enter_description' => 'أدخل الوصف',
+        "notifications" => "الاشعارات",
+        "show_all notification" => "مشاهدة كل الإشعارات",
+        "personalfile" => "الملف الشخص",
         "active_cases" => [
             'معطلة',
             'مفعلة',
@@ -101,7 +101,7 @@ return [
             'مشغولة',
             'شاغرة',
         ],
-        'all_cases' =>'الجميع',
+        'all_cases' => 'الجميع',
         'all' => 'الكل',
         'description' => 'الوصف',
         'day_month_year' => 'يوم/شهر/سنة',
@@ -123,19 +123,19 @@ return [
         'black_menu' => 'القائمة السوداء',
         'settings' => 'الإعدادات',
         'logout' => 'تسجيل خروج',
-        'accept'=>'موافقة',
-        'cancel'=>'الغاء',
+        'accept' => 'موافقة',
+        'cancel' => 'الغاء',
         'created_by' => 'منشيء المجموعة',
         'u_can_use_this_name' => 'يمكنك استخدام الإسم',
         'confirm' => 'تأكيد',
         'send' => 'إرسال',
-        'Total_departments'=>'الأقسام ',
-        'Total_active_users'=>'المستخدمين المفعلة ',
-        'Total_permenant_users'=>'المستخدمين المعطلين لفترة دائمة ',
-        'Total_temporary_users'=>'المستخدمين المعطلين لفترة ',
-        'Total_employees'=>'الموظفين',
-        'Total_vacant_jobs'=>'الوظائف الشاغرة ',
-        'Total_unvacant_jobs'=>'الوظائف المشغولة',
+        'Total_departments' => 'الأقسام ',
+        'Total_active_users' => 'المستخدمين المفعلة ',
+        'Total_permenant_users' => 'المستخدمين المعطلين لفترة دائمة ',
+        'Total_temporary_users' => 'المستخدمين المعطلين لفترة ',
+        'Total_employees' => 'الموظفين',
+        'Total_vacant_jobs' => 'الوظائف الشاغرة ',
+        'Total_unvacant_jobs' => 'الوظائف المشغولة',
         'Permission_field_required' => 'حقل الصلاحيات مطلوب',
 
     ],
@@ -153,21 +153,21 @@ return [
         'not_found' => 'لم يتم العثور على بيانات',
         'page_not_found' => '404, الصفحة غير موجودة',
         'something_went_wrong' => 'البيانات المدخلة غير صحيحة',
-        'name_must_be_unique_on_department' =>  'قيمة حقل الاسم موجودة من قبل لهذا القسم'
+        'name_must_be_unique_on_department' => 'قيمة حقل الاسم موجودة من قبل لهذا القسم'
     ],
     'activity_log' => [
         "activity_log" => "المتابعة",
         "activity_logs" => "المتابعة",
-        "reason" =>"قام :user بـ:action :model من البرنامج الرئيسى :main من البرنامج الفرعى :sub",
+        "reason" => "قام :user بـ:action :model من البرنامج الرئيسى :main من البرنامج الفرعى :sub",
         "date" => "تاريخ المتابعة",
-        "main_program" =>"البرنامج الرئيسي",
+        "main_program" => "البرنامج الرئيسي",
         "sub_program" => "البرنامج الفرعي",
         "activity" => " المتابعة",
-        "employees"=>" الموظفين",
+        "employees" => " الموظفين",
         "ip_address" => "رقم معرف الجهاز",
-        "select_activity"=>"اختر المتابعة",
-        "select_employee" =>"اختر موظف",
-        "select_mainprogram"=>"اختر برنامج رئيسي",
+        "select_activity" => "اختر المتابعة",
+        "select_employee" => "اختر موظف",
+        "select_mainprogram" => "اختر برنامج رئيسي",
         "select_subprogram" => "اختر برنامج فرعي",
         'history' => 'الحركة التاريخية',
         'actions' => [
@@ -194,22 +194,22 @@ return [
             'client' => 'عميل',
             'employee' => 'موظف',
             'user' => 'user',
-            'profile'=>"بروفايل",
-            "manager"=>"مدير",
-            "permission"=>"صلاحية",
-            "attachments"=>"مرفقات",
-            "attachmentfile"=>" ملف مرفقات",
-            "cardpackage"=>"باقة بطاقة",
-            "citizen"=>"مواطن"
+            'profile' => "بروفايل",
+            "manager" => "مدير",
+            "permission" => "صلاحية",
+            "attachments" => "مرفقات",
+            "attachmentfile" => " ملف مرفقات",
+            "cardpackage" => "باقة بطاقة",
+            "citizen" => "مواطن"
 
         ],
         'permissions' => array_only($permissions, ['index', 'show']),
         'sub_progs' => [
             'index' => 'المتابعة',
             'show' => 'عرض المتابعة',
-            'create' =>'اضافة',
-            'ban_status' =>'حظر',
-            'archive'=>'أرشفة'
+            'create' => 'اضافة',
+            'ban_status' => 'حظر',
+            'archive' => 'أرشفة'
 
         ],
 
@@ -333,17 +333,17 @@ return [
 
         ],
         'active_cases' => [
-           1=> 'مفعل',
-            0=>'معطل',
+            1 => 'مفعل',
+            0 => 'معطل',
         ],
         'permissions' => $permissions + [
-            'get_parents' => 'عرض الأقسام الرئيسية',
-            'export' => 'تصدير',
-    ],
+                'get_parents' => 'عرض الأقسام الرئيسية',
+                'export' => 'تصدير',
+            ],
         "has_jobs_cannot_delete" => "لا يمكن أرشفة قسم مرتبط بوظائف",
         "department_has_relationship_cannot_delete" => "لا يمكن أرشفة هذا القسم لأنه يحتوي علي أقسام فرعية   ",
         'without_parent' => 'بدون قسم رئيسي ',
-        'without'=> 'بدون قسم',
+        'without' => 'بدون قسم',
         'department_archive' => 'أرشيف الأقسام',
     ],
     "rasid_job" => [
@@ -387,17 +387,17 @@ return [
         "job_description" => "وصف الوظيفة",
         "is_active" => "الحالة",
         'is_vacant' => [
-    'true' => 'شاغرة',
-    'false' => 'مشغولة',
-],
+            'true' => 'شاغرة',
+            'false' => 'مشغولة',
+        ],
 
 
         'active_cases' => [
-    1=> 'مفعلة',
-    0=>'معطلة',
-],
+            1 => 'مفعلة',
+            0 => 'معطلة',
+        ],
 
-     'permissions' => $permissions
+        'permissions' => $permissions
     ],
     "setting" => [
         "setting" => "الاعدادات",
@@ -429,12 +429,12 @@ return [
         'enter_number' => 'أدخل الرقم',
         "ban_from" => "معطل لفترة (من)",
         "ban_to" => "معطل لفترة (إلى)",
-        'permission_system'=>'صلاحيات النظام',
-        'password'=>'كلمة المرور ',
-        'new_password'=>'كلمة المرور الجديدة',
-        'confirmed_password'=>'تاكيد كلمة المرور',
-        'enter_password'=>'أدخل كلمة المرور',
-        'u_can_use_this_id'=>'يمكنك استخدام هذا الرقم',
+        'permission_system' => 'صلاحيات النظام',
+        'password' => 'كلمة المرور ',
+        'new_password' => 'كلمة المرور الجديدة',
+        'confirmed_password' => 'تاكيد كلمة المرور',
+        'enter_password' => 'أدخل كلمة المرور',
+        'u_can_use_this_id' => 'يمكنك استخدام هذا الرقم',
         'sub_progs' => [
             'index' => 'سجل المستخدمين',
             'archive' => 'أرشيف المستخدمين',
@@ -450,14 +450,14 @@ return [
         'permissions' => array_except($permissions, ['archive', 'restore', 'force_delete']) + ['create' => 'عرض المستخدمين']
     ],
     'contact' => [
-        'contact'        => 'الدعم الفني',
-        'contacts'       => 'الدعم الفني',
+        'contact' => 'الدعم الفني',
+        'contacts' => 'الدعم الفني',
         'permissions' => [
-            'index'          => 'رسائل الدعم الفني',
-            'show'           => 'عرض رسالة الدعم الفني',
-            'reply'          => 'الرد علي رسالة دعم فني',
+            'index' => 'رسائل الدعم الفني',
+            'show' => 'عرض رسالة الدعم الفني',
+            'reply' => 'الرد علي رسالة دعم فني',
             'delete_contact' => 'حذف رسالة دعم فني',
-            'delete_reply'   => 'حذف الرد علي رسالة دعم فني',
+            'delete_reply' => 'حذف الرد علي رسالة دعم فني',
         ]
     ],
     "employee" => [
@@ -479,6 +479,7 @@ return [
         "banks" => "البنوك",
         "add_bank" => "اضافة بنك",
         "edit_bank" => "تعديل بنك",
+        "select_bank" => "اختر البنك",
         "bank_count" => "عدد البنوك",
         'sub_progs' => [
             'index' => 'سجل البنوك',
@@ -494,7 +495,7 @@ return [
         'permissions' => ['store' => 'ارسال تنبيه']
     ],
     "client" => [
-        "client" =>  "العميل",
+        "client" => "العميل",
         "clients" => "العملاء",
         "add_client" => "اضافة عميل",
         "select_client" => "اختر العميل",
@@ -522,6 +523,11 @@ return [
         "commercial_number" => "رقم السجل",
         "tax_number" => "الرقم الضريبي",
         "transactions_done" => "عدد المعاملات المنجزة",
+        "transactions_done_from" => "عدد المعاملات المنجزة من",
+        "transactions_done_to" => "عدد المعاملات المنجزة الى",
+        "transactions_done_from_date" => "عدد المعاملات المنجزة فى الفترة من",
+        "transactions_done_to_date" => "عدد المعاملات المنجزة فى الفترة الى",
+
         "bank_name" => "البنك التابع له",
         "account_status" => "حالة الحساب البنكي",
         "account_statuses" => [
@@ -561,14 +567,14 @@ return [
         'sub_progs' => [
             'index' => 'سجل الرسائل',
             'archive' => 'أرشيف الرسائل',
-            'show_all messages'=>"مشاهدة
+            'show_all messages' => "مشاهدة
         كل
         الرسائل",
             'create' => 'اضافة رسالة',
         ],
     ],
     'permission' => [
-        'name'  => 'اسم الصلاحية',
+        'name' => 'اسم الصلاحية',
         'permissions' => 'الصلاحيات',
         'sub_progs' => [
             'index' => 'سجل الصلاحيات',
