@@ -225,6 +225,7 @@
         </a>
     </div>
 </div>
+@endsection
 
 @section('scripts')
 <script src="{{ asset('dashboardAssets/js/select2.js') }}"></script>

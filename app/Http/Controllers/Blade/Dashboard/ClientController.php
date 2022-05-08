@@ -26,7 +26,7 @@ class ClientController extends Controller
         if ($request->ajax()) {
 
 
-            $clientsQuery = Client::with(["user", "user.bankAccount.bank.translations"])->search($request);
+            $clientsQuery = Client::with(["user", "user.bankAccount.bank.translations"])->has('user')->search($request);
 
             $clientCount = $clientsQuery->count();
 

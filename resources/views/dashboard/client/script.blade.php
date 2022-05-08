@@ -11,21 +11,6 @@
   </script>
   <script>
     $(function () {
-
-      /******* Calendar *******/
-      $("#from-hijri-picker-custom, #to-hijri-picker-custom, #from-hijri-unactive-picker-custom ,#to-hijri-unactive-picker-custom")
-        .hijriDatePicker({
-          hijri: {{ auth()->user()->is_date_hijri ? 'true' : 'false' }},
-          showSwitcher: false,
-          format: "YYYY-MM-DD",
-          hijriFormat: "iYYYY-iMM-iDD",
-          hijriDayViewHeaderFormat: "iMMMM iYYYY",
-          dayViewHeaderFormat: "MMMM YYYY",
-          ignoreReadonly: true,
-        }).on('dp.change', function () {
-        table.draw();
-      });
-
       var table = $("#clientTable").DataTable({
         sDom: "t<'domOption'lpi>",
         serverSide: true,
@@ -204,5 +189,16 @@
     });
   </script>
   <script src="{{ asset('dashboardAssets/js/select2.js') }}"></script>
+<script src="{{ asset('dashboardAssets/plugins/select2/select2.full.min.js') }}"></script>
+<script src="{{ asset('dashboardAssets') }}/plugins/fileuploads/js/fileupload.js"></script>
+<script src="{{ asset('dashboardAssets') }}/plugins/fileuploads/js/file-upload.js"></script>
+  <script src="{{ asset('dashboardAssets/js/select2.js') }}"></script>
   <script src="{{ asset('dashboardAssets/plugins/select2/select2.full.min.js') }}"></script>
+  <!-- INTERNAL File-Uploads Js-->
+<script src="{{ asset('dashboardAssets') }}/plugins/fancyuploder/jquery.ui.widget.js"></script>
+<script src="{{ asset('dashboardAssets') }}/plugins/fancyuploder/jquery.fileupload.js"></script>
+<script src="{{ asset('dashboardAssets') }}/plugins/fancyuploder/jquery.iframe-transport.js"></script>
+<script src="{{ asset('dashboardAssets') }}/plugins/fancyuploder/jquery.fancy-fileupload.js"></script>
+<script src="{{ asset('dashboardAssets') }}/plugins/fancyuploder/fancy-uploader.js"></script>
+
 @endsection
