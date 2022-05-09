@@ -21,9 +21,16 @@ class CreateBankAccountsTable extends Migration
             $table->string('account_number')->nullable();
             $table->string('iban_number')->nullable();
             $table->enum('contract_type', ['pending', 'before_review', 'reviewed'])->default('pending');
+            $table->unsignedbigInteger('order_number')->unique();
 
             $table->timestamps();
         });
+
+        Schema::table('bank_accounts', function (Blueprint $table) {
+            $table->bigInteger('order_number', true, true)->change();
+        });
+
+        DB::update("ALTER TABLE bank_accounts AUTO_INCREMENT = 10000;");
     }
 
     /**

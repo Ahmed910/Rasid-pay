@@ -173,7 +173,7 @@
                                 {!! trans('dashboard.client.sub_progs.index') !!}</a>
                         </li>
                         <li>
-                            <a href="{!! route('dashboard.client.account_orders') !!}"
+                            <a href="{!! route('dashboard.bank_account.index') !!}"
                                 class="slide-item px-6 {{ request()->routeIs('dashboard.client.account_orders') ? 'active' : '' }}"><i
                                     class="mdi mdi-badge-account-horizontal-outline"></i> {!!
                                 trans('dashboard.client.sub_progs.account_order') !!}</a>
@@ -239,7 +239,7 @@
                 <li class="sub-category">
                     <h3>رصيد باي</h3>
                 </li>
-                
+
                 <li class="slide">
                     <a class="side-menu__item {{ request()->routeIs('dashboard.citizen.index') ? 'active' : '' }}" data-bs-toggle="slide" href="{{ route('dashboard.citizen.index') }}"><i
                             class="mdi mdi-account-multiple-check-outline"></i><span
