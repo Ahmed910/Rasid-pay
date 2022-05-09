@@ -154,38 +154,38 @@
   </div>
 
 <!-- Row -->
-<label> أسماء المديرين/المفوضين </label>
-<div class="row row-sm">
-  <div class="col-lg-12">
-      <div class="table-responsive p-1">
-      <table id="clientTable" class="table table-bordered shadow-sm bg-body text-nowrap key-buttons">
-        <thead>
-          <tr>
-          <th class="border-bottom-0">#</th>
-          <th class="border-bottom-0">اسم المدير</th>
-          <th class="border-bottom-0">رقم الهوية</th>
-          <th class="border-bottom-0">تاريخ الميلاد</th>
-          <th class="border-bottom-0">رقم الجوال</th>
-          <th class="border-bottom-0">العمليات</th>
-          </tr>
-        </thead>
-        <tbody>
-            <td>1</td>
-              <td>name</td>
-              <td>123465433</td>
-              <td>12/5/2022</td>
-              <td>5332121331</td>
-              <td> 
-                <i class="mdi mdi-eye-outline"></i>
-              </td>
-        </tbody>
-      </table>
-    </div>
-  </div>
-</div>
+  <label> أسماء المديرين/المفوضين </label>
+      <div class="row row-sm">
+        <div class="col-lg-12">
+          <div class="table-responsive p-1">
+            <table id="collapsedTable" class="table table-bordered dt-responsive  nowrap shadow-sm bg-body key-buttons historyTable">
+              <thead>
+                <tr>
+                  <th class="border-bottom-0">#</th>
+                  <th class="border-bottom-0">اسم المدير</th>
+                  <th class="border-bottom-0">رقم الهوية</th>
+                  <th class="border-bottom-0">تاريخ الميلاد</th>
+                  <th class="border-bottom-0">رقم الجوال</th>
+                  <th class="border-bottom-0 text-center">العمليات</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>1</td>
+                  <td>محمد رمضان</td>
+                  <td>234654313</td>
+                  <td>22-2-2022</td>
+                  <td>013256465313</td>
+                  <td data-bs-toggle="tooltip" data-bs-placement="top" title="تفاصيل المدير"></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
 <!-- End Row -->
-<!-- Row -->
 
+<!-- Row -->
   <div class="row">
       <label for="departmentImg">المرفقات</label>
         <div class="col-12 col-md-4">

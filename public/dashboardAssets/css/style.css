@@ -80391,4 +80391,37 @@ tr:hover .dtr-control:before {
     margin-left: 0.5em;
 }
 
+#collapsedTable td[data-bs-toggle="tooltip"] {
+    position: relative;
+    cursor: pointer;
+}
+
+#collapsedTable td[data-bs-toggle="tooltip"]::before {
+    top: 50%;
+    left: 50%;
+    height: initial;
+    width: initial;
+    margin-top: -0.5em;
+    margin-left: -0.5em;
+    display: block;
+    position: absolute;
+    color: #000;
+    border: transparent;
+    border-radius: 1em;
+    box-shadow: none;
+    box-sizing: content-box;
+    text-align: center;
+    text-indent: 0 !important;
+    font: normal normal normal 20px/1 "Material Design Icons";
+    line-height: 1em;
+    content: "\F06D0";
+    background-color: transparent;
+
+}
+
+#collapsedTable tr.shown td[data-bs-toggle="tooltip"]::before {
+    content: "\F0D05";
+    background-color: transparent;
+    color: #45aaf2 !important;
+}
 /*# sourceMappingURL=style.css.map */
