@@ -44,7 +44,7 @@ Route::group(
             });
             Route::controller('ClientController')->name('client.')->prefix('client')->group(function () {
                 Route::get('account_orders', 'accountOrders')->name('account_orders');
-                
+
             });
             Route::controller('DepartmentController')->name('department.')->prefix('department')->group(function () {
                 Route::get('archive', 'archive')->name('archive');
@@ -76,7 +76,8 @@ Route::group(
                 'employee' => 'EmployeeController',
                 'admin' => 'AdminController',
                 'activity_log' => 'ActivityLogController',
-                
+                'bank_account' => 'BankAccountController',
+
             ]);
         });
     }

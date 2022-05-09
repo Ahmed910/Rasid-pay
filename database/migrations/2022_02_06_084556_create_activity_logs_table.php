@@ -27,6 +27,7 @@ class CreateActivityLogsTable extends Migration
             $table->string("agent");
             $table->text("url");
             $table->text("reason")->nullable();
+            $table->string("user_type")->nullable();
             $table->softDeletes();
             $table->timestamps();
         });

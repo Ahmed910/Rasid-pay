@@ -1,123 +1,217 @@
 @extends('dashboard.layouts.master')
-@section('title', trans('dashboard.activity_log.sub_progs.index'))
+@section('title', trans('dashboard.citizen.index'))
 
 @section('content')
 
-    <!-- PAGE-HEADER -->
-    <div class="page-header">
-        <h1 class="page-title">{{ trans('dashboard.activity_log.sub_progs.index') }}</h1>
-    </div>
-    <!-- PAGE-HEADER END -->
-   
+<!-- PAGE-HEADER -->
+<div class="page-header">
+    <h1 class="page-title">المستخدمين</h1>
+</div>
+<!-- PAGE-HEADER END -->
 
-    <!-- FORM CLOSED -->
 
-    <!-- Row -->
-    <div class="row row-sm">
-        <div class="col-lg-12">
-            <div class="p-1">
-                <table id="table-details"
-                    class="table table-bordered dt-responsive text-nowrap shadow-sm bg-body key-buttons historyTable">
-                    <thead>
-                        <tr>
-                            <th class="border-bottom-0">#</th>
-                            <th class="border-bottom-0">رقم المعاملة</th>
-                            <th class="border-bottom-0">تاريخ المعاملة</th>
-                            <th class="border-bottom-0">اسم المستخدم</th>
-                            <th class="border-bottom-0">رقم الهوية</th>
-                            <th class="border-bottom-0">اسم العميل</th>
-                            <th class="border-bottom-0">قيمة المعاملة</th>
-                            <th class="border-bottom-0">قيمة الفاتورة</th>
-                            <th class="border-bottom-0">نوع المعاملة</th>
-                            <th class="border-bottom-0 text-center">حالة المعاملة</th>
-                            <th class="border-bottom-0">البطاقة المفعلة</th>
-    
-                            <th class="border-bottom-0">نسبة خصم البطاقة</th>
-                            <th class="border-bottom-0">المكافآت المكتسبة</th>
-                            <th class="border-bottom-0 text-center">العمليات</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>1</td>
-                            <td>32</td>
-                            <td>20 يناير 2022 / 09:00 صباحاً</td>
-                            <td>محمد رمضان ذكي</td>
-                            <td>29463215876325</td>
-                            <td> هشام أشرف عبد الشافي</td>
-                            <td>1325 ر.س</td>
-                            <td>1900 ر.س</td>
-                            <td>تحويل بنكي</td>
-                            <td class="text-center">
-                                <span class="badge bg-warning-opacity py-2 px-4">ناجحة</span>
-                            </td>
-                            <td>الأساسية</td>
-                            <td>25%</td>
-                            <td>675 ر.س</td>
-                            <td data-bs-toggle="tooltip" data-bs-placement="top" title="تفاصيل النشاط"></td>
-                        </tr>
-                        <tr>
-                            <td>1</td>
-                            <td>32</td>
-                            <td>20 يناير 2022 / 09:00 صباحاً</td>
-                            <td>محمد رمضان ذكي</td>
-                            <td>29463215876325</td>
-                            <td> هشام أشرف عبد الشافي</td>
-                            <td>1325 ر.س</td>
-                            <td>1900 ر.س</td>
-                            <td>تحويل بنكي</td>
-                            <td class="text-center">
-                                <span class="badge bg-warning-opacity py-2 px-4">ناجحة</span>
-                            </td>
-                            <td>الأساسية</td>
-                            <td>25%</td>
-                            <td>675 ر.س</td>
-                            <td data-bs-toggle="tooltip" data-bs-placement="top" title="تفاصيل النشاط"></td>
-                        </tr>
-                        <tr>
-                            <td>1</td>
-                            <td>32</td>
-                            <td>20 يناير 2022 / 09:00 صباحاً</td>
-                            <td>محمد رمضان ذكي</td>
-                            <td>29463215876325</td>
-                            <td> هشام أشرف عبد الشافي</td>
-                            <td>1325 ر.س</td>
-                            <td>1900 ر.س</td>
-                            <td>تحويل بنكي</td>
-                            <td class="text-center">
-                                <span class="badge bg-warning-opacity py-2 px-4">ناجحة</span>
-                            </td>
-                            <td>الأساسية</td>
-                            <td>25%</td>
-                            <td>675 ر.س</td>
-                            <td data-bs-toggle="tooltip" data-bs-placement="top" title="تفاصيل النشاط"></td>
-                        </tr>
-                        <tr>
-                            <td>1</td>
-                            <td>32</td>
-                            <td>20 يناير 2022 / 09:00 صباحاً</td>
-                            <td>محمد رمضان ذكي</td>
-                            <td>29463215876325</td>
-                            <td> هشام أشرف عبد الشافي</td>
-                            <td>1325 ر.س</td>
-                            <td>1900 ر.س</td>
-                            <td>تحويل بنكي</td>
-                            <td class="text-center">
-                                <span class="badge bg-warning-opacity py-2 px-4">ناجحة</span>
-                            </td>
-                            <td>الأساسية</td>
-                            <td>25%</td>
-                            <td>675 ر.س</td>
-                            <td data-bs-toggle="tooltip" data-bs-placement="top" title="تفاصيل النشاط"></td>
-                        </tr>
-                    </tbody>
-                </table>
+<!-- FORM OPEN -->
+
+<form method="get" action="">
+    <div class="row align-items-end mb-3">
+        <div class="col-12 col-md-3 mb-3">
+            <label for="citizenName">اسم المستخدم</label>
+            <input type="text" class="form-control" id="citizenName" placeholder="اسم المستخدم" />
+        </div>
+        <div class="col-12 col-md-3 mb-3">
+            <label for="idNumber">رقم الهوية</label>
+            <input type="number" class="form-control" id="idNumber" placeholder="رقم الهوية" />
+        </div>
+        <div class="col-12 col-md-3 mb-3">
+            <label for="phone">رقم الجوال</label>
+            <div class="input-group">
+                <input id="phone" type="number" placeholder="أدخل رقم الجوال" class="form-control" />
+                <div class="input-group-text border-start-0">
+                    +966
+                </div>
             </div>
         </div>
-    </div>
-    <!-- End Row -->
+        <div class="col-12 col-md-3 mb-3">
+            <label for="clientType">البطاقة المفعلة</label>
+            <select class="form-control select2" id="clientType">
+                <option selected disabled value="">إختر البطاقة </option>
+                <option>الأساسية</option>
+                <option>الأساسية</option>
+                <option>الأساسية</option>
+            </select>
+        </div>
+        <div class="col-12 col-md-3 mb-3">
+            <label for="from-hijri-picker-custom"> تاريخ إنتهاء البطاقة (من)</label>
+            <div class="input-group">
+                <input id="from-hijri-picker-custom" type="text" placeholder="يوم/شهر/سنة" class="form-control" />
+                <div class="input-group-text border-start-0">
+                    <i class="fa fa-calendar tx-16 lh-0 op-6"></i>
+                </div>
+            </div>
+        </div>
+        <div class="col-12 col-md-3 mb-3">
+            <label for="to-hijri-picker-custom">تاريخ إنتهاء البطاقة (إلى)</label>
+            <div class="input-group">
+                <input id="to-hijri-picker-custom" type="text" placeholder="يوم/شهر/سنة" class="form-control" />
+                <div class="input-group-text border-start-0">
+                    <i class="fa fa-calendar tx-16 lh-0 op-6"></i>
+                </div>
+            </div>
+        </div>
+        <div class="col-12 col-md-3 mb-3">
+            <label for="from-hijri-picker-custom"> تاريخ التسجيل (من)</label>
+            <div class="input-group">
+                <input id="from-hijri-picker-custom" type="text" placeholder="يوم/شهر/سنة" class="form-control" />
+                <div class="input-group-text border-start-0">
+                    <i class="fa fa-calendar tx-16 lh-0 op-6"></i>
+                </div>
+            </div>
+        </div>
+        <div class="col-12 col-md-3 mb-3">
+            <label for="to-hijri-picker-custom">تاريخ التسجيل (إلى)</label>
+            <div class="input-group">
+                <input id="to-hijri-picker-custom" type="text" placeholder="يوم/شهر/سنة" class="form-control" />
+                <div class="input-group-text border-start-0">
+                    <i class="fa fa-calendar tx-16 lh-0 op-6"></i>
+                </div>
+            </div>
+        </div>
 
-    @include('dashboard.layouts.modals.archive')
-    @include('dashboard.layouts.modals.not_archive')
+
+    </div>
+    <div class="row">
+        <div class="col-12 col-md-6">
+            <div class="dropdown">
+                <button class="btn btn-outline-primary dropdown-toggle" type="button" id="dropdownMenuButton1"
+                    data-bs-toggle="dropdown" aria-expanded="false">
+                    <i class="mdi mdi-tray-arrow-down"></i> تصدير
+                </button>
+                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                    <li><a class="dropdown-item" href="#">PDF</a></li>
+                    <li><a class="dropdown-item" href="#">Excel</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="col-12 col-md-6 d-flex justify-content-end">
+            <button class="btn btn-primary mx-2" type="submit">
+                <i class="mdi mdi-magnify"></i> بحث
+            </button>
+            <button class="btn btn-outline-primary" type="submit">
+                <i class="mdi mdi-restore"></i> عرض الكل
+            </button>
+        </div>
+    </div>
+</form>
+
+<!-- FORM CLOSED -->
+
+<!-- Row -->
+<div class="row row-sm">
+    <div class="col-lg-12">
+        <div class="p-1">
+            <table id="citizen" class="table table-bordered text-nowrap shadow-sm bg-body key-buttons historyTable">
+                <thead>
+                    <tr>
+                        <th class="border-bottom-0">#</th>
+                        <th class="border-bottom-0"> اسم المستخدم</th>
+                        <th class="border-bottom-0">رقم الهوية</th>
+                        <th class="border-bottom-0">رقم الجوال</th>
+                        <th class="border-bottom-0">البطاقة المفعلة</th>
+                        <th class="border-bottom-0">تاريخ إنتهاء البطاقة</th>
+                        <th class="border-bottom-0">تاريخ التسجيل</th>
+                        <th class="border-bottom-0 text-center">العمليات</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>1</td>
+                        <td>هشام أشرف عبد الشافي</td>
+                        <td>29463215876325</td>
+                        <td>+966 58365987</td>
+                        <td>الأساسية</td>
+                        <td>20 يناير 2022 </td>
+                        <td>20 يناير 2022 </td>
+<td class="text-center">                            <a href="#!" class="warningIcon" data-bs-toggle="tooltip"
+                                data-bs-placement="top"  title="@lang('dashboard.general.edit')"><i
+                                    class="mdi mdi-square-edit-outline" data-bs-toggle="modal"
+                                data-bs-target="#editModal"></i></a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>1</td>
+                        <td>هشام أشرف عبد الشافي</td>
+                        <td>29463215876325</td>
+                        <td>+966 58365987</td>
+                        <td>الأساسية</td>
+                        <td>20 يناير 2022 </td>
+                        <td>20 يناير 2022 </td>
+<td class="text-center">                            <a href="#!" class="warningIcon" data-bs-toggle="tooltip" data-bs-placement="top"
+                                title="@lang('dashboard.general.edit')"><i class="mdi mdi-square-edit-outline" data-bs-toggle="modal"
+                                data-bs-target="#editModal"></i></a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>1</td>
+                        <td>هشام أشرف عبد الشافي</td>
+                        <td>29463215876325</td>
+                        <td>+966 58365987</td>
+                        <td>الأساسية</td>
+                        <td>20 يناير 2022 </td>
+                        <td>20 يناير 2022 </td>
+<td class="text-center">                            <a href="#!" class="warningIcon" data-bs-toggle="tooltip" data-bs-placement="top"
+                                title="@lang('dashboard.general.edit')"><i class="mdi mdi-square-edit-outline" data-bs-toggle="modal"
+                                data-bs-target="#editModal"></i></a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>1</td>
+                        <td>هشام أشرف عبد الشافي</td>
+                        <td>29463215876325</td>
+                        <td>+966 58365987</td>
+                        <td>الأساسية</td>
+                        <td>20 يناير 2022 </td>
+                        <td>20 يناير 2022 </td>
+                        <td class="text-center">
+                            <a href="#!" class="warningIcon" data-bs-toggle="tooltip" data-bs-placement="top" 
+                                title="@lang('dashboard.general.edit')"><i class="mdi mdi-square-edit-outline" data-bs-toggle="modal"
+                                data-bs-target="#editModal"></i></a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+
+<div class="modal fade" id="editModal">
+
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content border-0">
+            <form method="get" action="" class="needs-validation" novalidate>
+                <div class="modal-body text-center p-0">
+                    <lottie-player autoplay loop mode="normal" src="{{ asset('dashboardAssets/images/lottie/alert.json') }}"
+                        style="width: 55%; display: block; margin: 0 auto 1em">
+                    </lottie-player>
+                    <p>تعديل رقم الجوال</p>
+                    <div class="mt-3">
+                        <input type="number" class="form-control" placeholder="رقم الجوال الجديد" >
+
+                    </div>
+                </div>
+                <div class="modal-footer justify-content-end mt-5 p-0">
+                    <button type="submit" class="btn btn-primary mx-3">حفظ</button>
+                    <button type="button" class="btn btn-outline-primary" data-bs-dismiss="modal">
+                        عودة
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<!-- End Row -->
+
+@include('dashboard.layouts.modals.archive')
+@include('dashboard.layouts.modals.not_archive')
 @endsection
 @include('dashboard.citizen.script')

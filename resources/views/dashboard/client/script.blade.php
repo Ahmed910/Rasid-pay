@@ -21,6 +21,28 @@
   @section('scripts')
   <script>
     $(function () {
+      var accounts_table = $("#orderTable").DataTable({
+        sDom: "t<'domOption'lpi>",
+        serverSide: true,
+        processing: true,
+        ajax: {
+          url: "{{ route('dashboard.bank_account.index') }}",
+          data:
+            function (data) {
+              if ($('#bank_id').val() !== '' && $('#bank_id').val() !== null) data.bank_id = $('#bank_id').val();
+              if ($('#client_type').val() !== '' && $('#client_type').val() !== null) data.client_type = $('#client_type').val();
+              if ($('#clientName').val() !== '' && $('#clientName').val() !== null) data.fullname = $('#clientName').val();
+              if ($('#tax_number').val() !== '' && $('#tax_number').val() !== null) data.tax_number = $('#tax_number').val();
+              if ($('#commercial_number').val() !== '' && $('#commercial_number').val() !== null) data.commercial_number = $('#commercial_number').val();
+              if ($('#from-hijri-picker-custom').val() !== '' && $('#from-hijri-picker-custom').val() !== null) data.created_from = $('#from-hijri-picker-custom').val();
+              if ($('#to-hijri-picker-custom').val() !== '' && $('#to-hijri-picker-custom').val() !== null) data.created_to = $('#to-hijri-picker-custom').val();
+              if ($('#account_status').val() !== '' && $('#account_status').val() !== null) data.account_status = $('#account_status').val();
+              if ($('#transactionFrom').val() !== '' && $('#transactionFrom').val() !== null) data.trans_count_from = $('#transactionFrom').val();
+              if ($('#transactionTo').val() !== '' && $('#transactionTo').val() !== null) data.trans_count_to = $('#transactionTo').val();
+            },
+          type: "GET",
+          dataSrc: 'data',
+        },
 
         function format(d) {
     // `d` is the original data object for the row
@@ -95,20 +117,23 @@
         processing: true,
         ajax: {
           url: "{{ route('dashboard.client.index') }}",
-          data: function (data) {
-            data.ban_status = $('#status').val();
-            data.department_id = $('#mainDepartment').val();
-            data.name = $('#userName').val();
-            data.login_id = $('#userId').val();
-            data.client_type = $('#client_type').val();
-            data.created_from = $('#from-hijri-picker-custom').val();
-            data.created_to = $('#to-hijri-picker-custom').val();
-            data.ban_from = $('#from-hijri-unactive-picker-custom').val();
-            data.ban_to = $('#to-hijri-unactive-picker-custom').val();
-          },
+          data:
+            function (data) {
+              if ($('#bank_id').val() !== '' && $('#bank_id').val() !== null) data.bank_id = $('#bank_id').val();
+              if ($('#client_type').val() !== '' && $('#client_type').val() !== null) data.client_type = $('#client_type').val();
+              if ($('#clientName').val() !== '' && $('#clientName').val() !== null) data.fullname = $('#clientName').val();
+              if ($('#tax_number').val() !== '' && $('#tax_number').val() !== null) data.tax_number = $('#tax_number').val();
+              if ($('#commercial_number').val() !== '' && $('#commercial_number').val() !== null) data.commercial_number = $('#commercial_number').val();
+              if ($('#from-hijri-picker-custom').val() !== '' && $('#from-hijri-picker-custom').val() !== null) data.created_from = $('#from-hijri-picker-custom').val();
+              if ($('#to-hijri-picker-custom').val() !== '' && $('#to-hijri-picker-custom').val() !== null) data.created_to = $('#to-hijri-picker-custom').val();
+              if ($('#account_status').val() !== '' && $('#account_status').val() !== null) data.account_status = $('#account_status').val();
+              if ($('#transactionFrom').val() !== '' && $('#transactionFrom').val() !== null) data.trans_count_from = $('#transactionFrom').val();
+              if ($('#transactionTo').val() !== '' && $('#transactionTo').val() !== null) data.trans_count_to = $('#transactionTo').val();
+            },
           type: "GET",
-          dataSrc: 'data'
+          dataSrc: 'data',
         },
+
         columns: [{
           data: function (data, type, full, meta) {
             return meta.row + 1;
@@ -127,7 +152,7 @@
           {
             data: 'commercial_number',
             name: 'commercial_number'
-          }, 
+          },
           {
             data: 'tax_number',
             name: 'tax_number'
@@ -142,10 +167,10 @@
             name: 'bank_name'
           },
           {
-            data:'account_status',
+            data: 'account_status',
             name: 'account_status'
           },
-         
+
           {
             class: "text-center",
             data: function (data) {
@@ -222,23 +247,23 @@
         table.draw();
       }).change();
 
-      $('#mainDepartment').on('select2:select', function (e) {
+      $('#client_type,#account_status,#bank_id').on('select2:select', function (e) {
         table.draw();
+        accounts_table.draw();
+
       });
 
-      $("#userName").keyup(function () {
+      $("#tax_number,#commercial_number,#clientName,#transactionFrom,#transactionTo").keyup(function () {
         table.draw();
-      });
-      $("#userId").keyup(function () {
-        table.draw();
+        accounts_table.draw();
+
       });
 
-      $('#search-form').on('reset', function (e) {
+
+      $('#client-search').on('reset', function (e) {
         e.preventDefault();
-        $('#status').val(null).trigger('change');
-        $('#mainDepartment').val(null).trigger('change');
-        $('#userName').val(null);
-        $('#userId').val(null);
+        $('#client_type,#account_status,#bank_id').val(null).trigger('change');
+        $('#tax_number,#commercial_number,#clientName,#transactionFrom,#transactionTo').val(null);
         $('#from-hijri-picker-custom').val("").trigger('change');
         $('#to-hijri-picker-custom').val("").trigger('change');
         $('#from-hijri-unactive-picker-custom').val("").trigger('change');

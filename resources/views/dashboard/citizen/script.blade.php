@@ -12,26 +12,14 @@
 <script>
     $(function() {
 
-$("#table-details").DataTable({
+$("#citizen").DataTable({
 sDom: "t<'domOption'lpi>",
     pageLength: 10,
     lengthMenu: [
     [1, 5, 10, 20, -1],
     [1, 5, 10, 20, "الكل"],
     ],
-    responsive: {
-    details: {
-    type: "column",
-    target: -1,
-    },
-    },
-    columnDefs: [
-    {
-    className: "dtr-control",
-    orderable: false,
-    targets: -1,
-    },
-    ],
+    
     language: {
     lengthMenu: "عرض _MENU_",
     zeroRecords: "لا يوجد بيانات",

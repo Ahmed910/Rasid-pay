@@ -3,6 +3,8 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Schema;
 
 class DatabaseSeeder extends Seeder
 {
@@ -29,5 +31,19 @@ class DatabaseSeeder extends Seeder
         ]);
 
         $this->call(SettingSeeder::class);
+
+        Schema::disableForeignKeyConstraints();
+        DB::unprepared(include database_path('Intial_data/countries.php'));
+        DB::unprepared(include database_path('Intial_data/departments.php'));
+        DB::unprepared(include database_path('Intial_data/rasid_jobs.php'));
+        DB::unprepared(include database_path('Intial_data/users.php'));
+        DB::unprepared(include database_path('Intial_data/admins.php'));
+        DB::unprepared(include database_path('Intial_data/citizens.php'));
+        DB::unprepared(include database_path('Intial_data/clients.php'));
+        DB::unprepared(include database_path('Intial_data/permissions.php'));
+        DB::unprepared(include database_path('Intial_data/banks.php'));
+        DB::unprepared(include database_path('Intial_data/bank_accounts.php'));
+        DB::unprepared(include database_path('Intial_data/app_media.php'));
+        Schema::enableForeignKeyConstraints();
     }
 }
