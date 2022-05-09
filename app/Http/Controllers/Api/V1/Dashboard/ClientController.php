@@ -23,8 +23,13 @@ class ClientController extends Controller
 
     public function index(Request $request)
     {
-        $client = Client::with('user.bankAccount.bank.translations')->CustomDateFromTo($request)->with("user.attachments")->search($request)->sortby($request)
-            ->latest()->paginate((int)($request->per_page ?? config("globals.per_page")));
+        $sortcol = isset($request->sort["column"]) ? $request->sort["column"] : null;
+        $dir = $request->sort["dir"] ?? null;
+        if (isset($request->sort["column"]) && in_array($request->sort["column"], Client::user_searchable_Columns)) $sortcol = "user." . $request->sort["column"];
+        else if (isset($request->sort["column"]) && array_key_exists($request->sort["column"], Client::bank_sort_Columns)) $sortcol = Client::bank_sort_Columns[$request->sort["column"]];
+        else if (isset($request->sort["column"]) && array_key_exists($request->sort["column"], Client::bank_acc_sort_Columns)) $sortcol = Client::bank_acc_sort_Columns[$sortcol];
+        $client = Client::with('user.bankAccount.bank.translations')->CustomDateFromTo($request)->with("user.attachments")->search($request)
+            ->latest()->paginate((int)($request->per_page ?? config("globals.per_page")))->sortBy($sortcol, SORT_REGULAR, $dir == "desc");;
 
         return ClientResource::collection($client)->additional([
             'status' => true,

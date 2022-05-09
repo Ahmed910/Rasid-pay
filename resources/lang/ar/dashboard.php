@@ -227,7 +227,9 @@ return [
     "manager" => [
         "managers" => "العملاء",],
     "bank_account" => [
-        "bank_accounts" => "العملاء",],
+        "bank_accounts" => "العملاء",
+        "order_number" => "رقم الطلب"
+    ],
     "attachment" => [
         "attachments" => "العملاء",],
     "attachment_file" => [

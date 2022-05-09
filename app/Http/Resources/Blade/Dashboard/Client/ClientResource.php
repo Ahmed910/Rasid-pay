@@ -17,6 +17,7 @@ class ClientResource extends JsonResource
             'tax_number' => $this->tax_number,
             'transactions_done' => $this->transactions_done,
             'bank_name' => $this->bankAccount?->bank?->name,
+            'order_number' => $this->bankAccount?->order_number,
             'account_status' =>  !$this->bankAccount?->account_status ? '' : trans("dashboard.client.account_statuses.{$this->bankAccount?->account_status}"),
             'show_route' => route('dashboard.client.show', $this->id),
             'edit_route' => route('dashboard.client.edit', $this->id),
