@@ -17,6 +17,7 @@ class SimpleCitizenResource extends JsonResource
         return [
             'id' => $this->id,
             'fullname' => $this->fullname,
+            'identity_number' => $this->identity_number,
             "phone" => substr($this->phone, strlen($this->country_code)),
             "country_code" => $this->country_code,
             'user_type' => $this->user_type,
