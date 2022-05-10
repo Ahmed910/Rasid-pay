@@ -73,6 +73,7 @@ Route::group(
                 'department' => 'DepartmentController',
                 'group' => 'GroupController',
                 'client' => 'ClientController',
+                'citizen' => 'CitizenController',
                 'employee' => 'EmployeeController',
                 'admin' => 'AdminController',
                 'activity_log' => 'ActivityLogController',
