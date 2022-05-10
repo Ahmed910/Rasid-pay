@@ -148,7 +148,7 @@ Route::middleware('auth:sanctum')->group(function () {
             'banks' => 'BankController',
             'slides' => 'SlideController',
             "card_packages" => "CardPackageController",
-            'transaction' => 'TransactionController',
+            'transactions' => 'TransactionController',
         ]);
 
         Route::apiResource('settings', 'SettingController')->only(['index', 'store']);

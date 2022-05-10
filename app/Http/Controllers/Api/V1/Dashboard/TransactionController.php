@@ -16,14 +16,12 @@ class TransactionController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-
-
-
     public function index(Request $request)
     {
         $transactions = Transaction::search($request)
             ->CustomDateFromTo($request)
-            ->with('card', 'client', 'citizen')
+            ->sortBy($request)
+            ->with('card', 'client.user', 'citizen')
             ->paginate((int)($request->per_page ?? config("globals.per_page")));
 
         return TransactionResource::collection($transactions)

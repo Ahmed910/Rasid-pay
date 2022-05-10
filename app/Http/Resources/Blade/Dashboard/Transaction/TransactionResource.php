@@ -13,7 +13,7 @@ class TransactionResource extends JsonResource
             'id' => $this->id,
             'number' => $this->number,
             'created_at' => $this->created_at,
-            'user_from' => $this->user?->fullname,
+            'user_from' => $this->citizen?->fullname,
             'user_identity' => $this->user_identity,
             'user_to' => $this->client?->user?->fullname,
             'amount' => (string)$this->amount,
