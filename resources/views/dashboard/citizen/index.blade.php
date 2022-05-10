@@ -12,7 +12,7 @@
 
 <!-- FORM OPEN -->
 
-<form method="get" action="">
+{!! Form::open(['method' => 'GET', 'id' => 'citizen-search']) !!}
     <div class="row align-items-end mb-3">
         <div class="col-12 col-md-3 mb-3">
             <label for="citizenName">اسم المستخدم</label>
@@ -41,18 +41,18 @@
             </select>
         </div>
         <div class="col-12 col-md-3 mb-3">
-            <label for="from-hijri-picker-custom"> تاريخ إنتهاء البطاقة (من)</label>
+            <label for="from-hijri-picker-card"> تاريخ إنتهاء البطاقة (من)</label>
             <div class="input-group">
-                <input id="from-hijri-picker-custom" type="text" placeholder="يوم/شهر/سنة" class="form-control" />
+                <input id="from-hijri-picker-card" type="text" placeholder="يوم/شهر/سنة" class="form-control" name="end_at_from" />
                 <div class="input-group-text border-start-0">
                     <i class="fa fa-calendar tx-16 lh-0 op-6"></i>
                 </div>
             </div>
         </div>
         <div class="col-12 col-md-3 mb-3">
-            <label for="to-hijri-picker-custom">تاريخ إنتهاء البطاقة (إلى)</label>
+            <label for="to-hijri-picker-card">تاريخ إنتهاء البطاقة (إلى)</label>
             <div class="input-group">
-                <input id="to-hijri-picker-custom" type="text" placeholder="يوم/شهر/سنة" class="form-control" />
+                <input id="to-hijri-picker-card" type="text" placeholder="يوم/شهر/سنة" class="form-control" name="end_at_to"   />
                 <div class="input-group-text border-start-0">
                     <i class="fa fa-calendar tx-16 lh-0 op-6"></i>
                 </div>
@@ -61,7 +61,7 @@
         <div class="col-12 col-md-3 mb-3">
             <label for="from-hijri-picker-custom"> تاريخ التسجيل (من)</label>
             <div class="input-group">
-                <input id="from-hijri-picker-custom" type="text" placeholder="يوم/شهر/سنة" class="form-control" />
+                <input id="from-hijri-picker-custom" type="text" placeholder="يوم/شهر/سنة" class="form-control" name="created_from" />
                 <div class="input-group-text border-start-0">
                     <i class="fa fa-calendar tx-16 lh-0 op-6"></i>
                 </div>
@@ -70,7 +70,7 @@
         <div class="col-12 col-md-3 mb-3">
             <label for="to-hijri-picker-custom">تاريخ التسجيل (إلى)</label>
             <div class="input-group">
-                <input id="to-hijri-picker-custom" type="text" placeholder="يوم/شهر/سنة" class="form-control" />
+                <input id="to-hijri-picker-custom" type="text" placeholder="يوم/شهر/سنة" class="form-control" name="created_to" />
                 <div class="input-group-text border-start-0">
                     <i class="fa fa-calendar tx-16 lh-0 op-6"></i>
                 </div>
@@ -80,11 +80,12 @@
 
     </div>
     <div class="row">
-        <div class="col-12 col-md-6">
+        <div class="col-12 col-md-6 my-2">
             <div class="dropdown">
                 <button class="btn btn-outline-primary dropdown-toggle" type="button" id="dropdownMenuButton1"
                     data-bs-toggle="dropdown" aria-expanded="false">
-                    <i class="mdi mdi-tray-arrow-down"></i> تصدير
+                    <i class="mdi mdi-tray-arrow-down"></i>
+                    {{ trans('dashboard.general.export') }}
                 </button>
                 <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
                     <li><a class="dropdown-item" href="#">PDF</a></li>
@@ -94,14 +95,16 @@
         </div>
         <div class="col-12 col-md-6 d-flex justify-content-end">
             <button class="btn btn-primary mx-2" type="submit">
-                <i class="mdi mdi-magnify"></i> بحث
+                <i class="mdi mdi-magnify"></i> {{ trans('dashboard.general.search') }}
             </button>
-            <button class="btn btn-outline-primary" type="submit">
-                <i class="mdi mdi-restore"></i> عرض الكل
+
+            <button class="btn btn-outline-primary" type="reset" id="reset">
+                <i class="mdi mdi-restore"></i>{{ trans('dashboard.general.show_all') }}
             </button>
+
         </div>
     </div>
-</form>
+    {!! form::close() !!}
 
 <!-- FORM CLOSED -->
 
@@ -109,7 +112,7 @@
 <div class="row row-sm">
     <div class="col-lg-12">
         <div class="p-1">
-            <table id="citizen" class="table table-bordered text-nowrap shadow-sm bg-body key-buttons historyTable">
+            <table id="citizenTable" class="table table-bordered text-nowrap shadow-sm bg-body key-buttons">
                 <thead>
                     <tr>
                         <th class="border-bottom-0">#</th>
@@ -123,60 +126,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td>1</td>
-                        <td>هشام أشرف عبد الشافي</td>
-                        <td>29463215876325</td>
-                        <td>+966 58365987</td>
-                        <td>الأساسية</td>
-                        <td>20 يناير 2022 </td>
-                        <td>20 يناير 2022 </td>
-<td class="text-center">                            <a href="#!" class="warningIcon" data-bs-toggle="tooltip"
-                                data-bs-placement="top"  title="@lang('dashboard.general.edit')"><i
-                                    class="mdi mdi-square-edit-outline" data-bs-toggle="modal"
-                                data-bs-target="#editModal"></i></a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>1</td>
-                        <td>هشام أشرف عبد الشافي</td>
-                        <td>29463215876325</td>
-                        <td>+966 58365987</td>
-                        <td>الأساسية</td>
-                        <td>20 يناير 2022 </td>
-                        <td>20 يناير 2022 </td>
-<td class="text-center">                            <a href="#!" class="warningIcon" data-bs-toggle="tooltip" data-bs-placement="top"
-                                title="@lang('dashboard.general.edit')"><i class="mdi mdi-square-edit-outline" data-bs-toggle="modal"
-                                data-bs-target="#editModal"></i></a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>1</td>
-                        <td>هشام أشرف عبد الشافي</td>
-                        <td>29463215876325</td>
-                        <td>+966 58365987</td>
-                        <td>الأساسية</td>
-                        <td>20 يناير 2022 </td>
-                        <td>20 يناير 2022 </td>
-<td class="text-center">                            <a href="#!" class="warningIcon" data-bs-toggle="tooltip" data-bs-placement="top"
-                                title="@lang('dashboard.general.edit')"><i class="mdi mdi-square-edit-outline" data-bs-toggle="modal"
-                                data-bs-target="#editModal"></i></a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>1</td>
-                        <td>هشام أشرف عبد الشافي</td>
-                        <td>29463215876325</td>
-                        <td>+966 58365987</td>
-                        <td>الأساسية</td>
-                        <td>20 يناير 2022 </td>
-                        <td>20 يناير 2022 </td>
-                        <td class="text-center">
-                            <a href="#!" class="warningIcon" data-bs-toggle="tooltip" data-bs-placement="top" 
-                                title="@lang('dashboard.general.edit')"><i class="mdi mdi-square-edit-outline" data-bs-toggle="modal"
-                                data-bs-target="#editModal"></i></a>
-                        </td>
-                    </tr>
+
                 </tbody>
             </table>
         </div>
@@ -184,18 +134,21 @@
 </div>
 
 
-<div class="modal fade" id="editModal">
+<div class="modal fade" id="modal_phone" >
 
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content border-0">
-            <form method="get" action="" class="needs-validation" novalidate>
+                <form method="post" action="#" class="needs-validation" id="item" novalidate>
+                    @csrf
+                    @method('PATCH')
+
                 <div class="modal-body text-center p-0">
                     <lottie-player autoplay loop mode="normal" src="{{ asset('dashboardAssets/images/lottie/alert.json') }}"
                         style="width: 55%; display: block; margin: 0 auto 1em">
                     </lottie-player>
                     <p>تعديل رقم الجوال</p>
                     <div class="mt-3">
-                        <input type="number" class="form-control" placeholder="رقم الجوال الجديد" >
+                        <input type="number" name="phone" class="form-control" placeholder="رقم الجوال الجديد" >
 
                     </div>
                 </div>
@@ -211,7 +164,8 @@
 </div>
 <!-- End Row -->
 
-@include('dashboard.layouts.modals.archive')
-@include('dashboard.layouts.modals.not_archive')
+
+@include('dashboard.layouts.modals.alert')
+
 @endsection
 @include('dashboard.citizen.script')
