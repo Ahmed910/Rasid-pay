@@ -15,10 +15,10 @@ class SettingSeeder extends Seeder
     public function run()
     {
         $settings = [
-            ["key" => "erp_title", "value" => '{"en" : "Rasid Jack","ar" :"رصيد باك"}', "input_type" => "text", "dashboard" => Setting::ERP],
-            ["key" => "erp_phone", "value" => '{"en" : "1234567890,152364123,5123645523"}', "input_type" => "text", "dashboard" => Setting::ERP],
-            ["key" => "erp_logo", "value" => '{"en" : "sample.png"}', "input_type" => "file", "dashboard" => Setting::ERP],
-            ["key" => "erp_description", "value" => '{"en" : "Description","ar":"الوصف"}', "input_type" => "editor", "dashboard" => Setting::ERP],
+            ["key" => "erp_title", "value" => ["en" => "Rasid Jack", "ar" => "رصيد باك"], "input_type" => "text", "dashboard" => Setting::ERP],
+            ["key" => "erp_phone", "value" => ["en" => "1234567890,152364123,5123645523"], "input_type" => "text", "dashboard" => Setting::ERP],
+            ["key" => "erp_logo", "value" => ["en" => "sample.png"], "input_type" => "file", "dashboard" => Setting::ERP],
+            ["key" => "erp_description", "value" => ["en" => "Description", "ar" => "الوصف"], "input_type" => "editor", "dashboard" => Setting::ERP],
         ];
 
         foreach ($settings as $setting) {

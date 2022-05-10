@@ -2,17 +2,19 @@
 
 namespace App\Http\Controllers\Blade\Dashboard;
 
-use Illuminate\Http\Request;
-use App\Models\{Bank\Bank, User, Client};
 use App\Http\Controllers\Controller;
-use App\Http\Requests\V1\Dashboard\ClientRequest;
 use App\Http\Resources\Blade\Dashboard\Client\ClientCollection;
-use App\Http\Resources\Blade\Dashboard\Activitylog\ActivityLogCollection;
+use App\Models\Bank\Bank;
+use App\Models\Client;
+use Illuminate\Http\Request;
 
-class ClientController extends Controller
+class BankAccountController extends Controller
 {
-
-
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
     public function index(Request $request)
     {
         if (isset($request->order[0]['column'])) {
@@ -24,6 +26,7 @@ class ClientController extends Controller
         else if (isset($request->sort["column"]) && array_key_exists($request->sort["column"], Client::bank_acc_sort_Columns)) $sortcol = Client::bank_acc_sort_Columns[$sortcol];
 
         if ($request->ajax()) {
+//            dd($request->fullname);
 
             $clientsQuery = Client::with(["user", "user.bankAccount.bank.translations"])->search($request);
 
@@ -38,8 +41,8 @@ class ClientController extends Controller
         }
         $banks = Bank::with("translations")->ListsTranslations("name")
             ->pluck('name', 'id')->toArray();;
-            $client_types =Client::CLIENT_TYPES;
-        return view('dashboard.client.index'
+        $client_types =Client::CLIENT_TYPES;
+        return view('dashboard.client.account_orders'
             , compact("banks","client_types"));
     }
 
@@ -50,100 +53,62 @@ class ClientController extends Controller
      */
     public function create()
     {
-        $previousUrl = url()->previous();
-        (strpos($previousUrl, 'client')) ? session(['perviousPage' => 'client']) : session(['perviousPage' => 'home']);
-        return view('dashboard.client.create');
-    }
-
-    public function accountOrders()
-    {
-        return view('dashboard.client.account_orders');
+        //
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param \Illuminate\Http\Request $request
+     * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(ClientRequest $request, User $client)
+    public function store(Request $request)
     {
-        $client->fill($request->validated())->save();
-
-        return redirect()->route('dashboard.client.index')->withSuccess(__('dashboard.general.success_add'));
+        //
     }
 
     /**
      * Display the specified resource.
      *
-     * @param int $id
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Request $request, $id)
+    public function show($id)
     {
-
-        $client = User::withTrashed()->where('user_type', 'client')->findOrFail($id);
-
-
-        $sortingColumns = [
-            'id',
-            'user_name',
-            'department_name',
-            'created_at',
-            'action_type',
-            'reason'
-        ];
-        if (isset($request->order[0]['column'])) {
-            $request['sort'] = ['column' => $sortingColumns[$request->order[0]['column']], 'dir' => $request->order[0]['dir']];
-        }
-
-        $activitiesQuery = $client->activity()
-            ->sortBy($request);
-
-        if ($request->ajax()) {
-            $activityCount = $activitiesQuery->count();
-            $activities = $activitiesQuery->skip($request->start)
-                ->take(($request->length == -1) ? $activityCount : $request->length)
-                ->get();
-
-            return ActivityLogCollection::make($activities)
-                ->additional(['total_count' => $activityCount]);
-        }
-        return view('dashboard.client.show', compact('client'));
+        //
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param int $id
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
     {
-        return view('dashboard.client.edit');
+        //
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param \Illuminate\Http\Request $request
-     * @param int $id
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(ClientRequest $request, User $client)
+    public function update(Request $request, $id)
     {
-        $client->fill($request->validated() + ['updated_at' => now()])->save();
-
-        return redirect()->route('dashboard.client.index')->withSuccess(__('dashboard.general.success_update'));
+        //
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param int $id
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Client $client)
+    public function destroy($id)
     {
+        //
     }
 }
