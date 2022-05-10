@@ -72,6 +72,18 @@ class CitizenController extends Controller
         return CitizenResource::make($citizen)->additional(['status' => true, 'message' => trans("dashboard.general.success_update")]);
     }
 
+    public function updatePhone($id, Request $request)
+    {
+        $this->validate($request, ["country_code" => "required|in:" . countries_list()
+            , "phone" => ["required", "not_regex:/^{$request->country_code}/", "numeric", "digits_between:7,20", "required_with:country_code"]]);
+
+        $citizen = Citizen::where('user_id', $id)->firstOrFail();
+        $citizen->user->update($request->all() + ['updated_at' => now()]);
+
+        return CitizenResource::make($citizen)->additional(['status' => true, 'message' => trans("dashboard.general.success_update")]);
+    }
+
+
     public function forceDestroy(ReasonRequest $request, $id)
     {
         $user = User::onlyTrashed()->findorfail($id);

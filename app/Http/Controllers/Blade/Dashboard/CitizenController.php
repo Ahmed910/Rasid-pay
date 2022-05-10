@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Blade\Dashboard;
 
+use App\Http\Resources\Blade\Dashboard\Citizen\CitizenResource;
 use App\Models\Citizen;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -43,5 +44,15 @@ class CitizenController extends Controller
         $citizen->user()->update(["phone" => $request->phone]);
 
         return redirect()->route('dashboard.citizen.index')->withSuccess(__('dashboard.general.success_update'));
+    }
+    public function updatePhone($id, Request $request)
+    {
+        $this->validate($request, ["country_code" => "required|in:" . countries_list()
+            , "phone" => ["required", "not_regex:/^{$request->country_code}/", "numeric", "digits_between:7,20", "required_with:country_code"]]);
+
+        $citizen = Citizen::where('user_id', $id)->firstOrFail();
+        $citizen->user->update($request->all() + ['updated_at' => now()]);
+
+        return CitizenResource::make($citizen)->additional(['status' => true, 'message' => trans("dashboard.general.success_update")]);
     }
 }

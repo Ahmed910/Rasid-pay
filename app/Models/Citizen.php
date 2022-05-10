@@ -18,7 +18,7 @@ class Citizen extends Model
 
     protected $dates = ['date_of_birth'];
     const user_searchable_Columns = ["fullname", "email", "image", "country_code", "phone", "full_phone", "identity_number", "created_at"];
-    const ENABLEDC_SearchabLE_COLUMS = ["enabled_card"];
+    const ENABLEDCARD_SearchabLE_COLUMS = ["enabled_card" => "id"];
     const ENABLEDCARD_SORTABLE_COLUMS = ["enabled_card" => "enabledCard.cardPackage.translation", "card_end_at" => "enabledCard.end_at"];
 
     #endregion properties
@@ -37,9 +37,9 @@ class Citizen extends Model
 
         }
         foreach ($request->all() as $key => $item) {
-            if (in_array($key, self::ENABLEDC_SearchabLE_COLUMS))
+            if (key_exists($key, self::ENABLEDCARD_SearchabLE_COLUMS))
                 $query->whereHas('enabledCard', function ($q) use ($key, $item) {
-//                   $q->where($key, $item)
+                    $q->where(self::ENABLEDCARD_SearchabLE_COLUMS[$key], $item);
                 });
 
         }

@@ -98,8 +98,9 @@ Route::middleware('auth:sanctum')->group(function () {
             Route::delete('forceDelete/{id}', 'forceDelete')->name('force_delete');
             // Route::get('get-parents', 'getAllParents')->name("get_parents");
         });
-        // Route::controller('ClientController')->name('clients.')->prefix('clients')->group(function () {
-        // });
+         Route::controller('CitizenController')->name('citizens.')->prefix('citizens')->group(function () {
+             Route::put('update_phone/{id}', 'updatePhone')->name('update_phone');
+         });
 
         Route::controller('RasidJobController')->name('rasid_jobs.')->prefix('rasid_jobs')->group(function () {
             Route::get('archive', 'archive')->name('archive');
