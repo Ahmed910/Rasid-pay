@@ -11,15 +11,16 @@ use Illuminate\Support\Str;
 
 class Citizen extends Model
 {
-    use HasFactory, Uuid,Loggable;
+    use HasFactory, Uuid, Loggable;
 
     #region properties
     protected $guarded = ['created_at', 'updated_at'];
 
     protected $dates = ['date_of_birth'];
     const user_searchable_Columns = ["fullname", "email", "image", "country_code", "phone", "full_phone", "identity_number", "created_at"];
-    const ENABLEDCARD_SORTABLE_COLUMS = ["enabled_card"=>"enabledCard.cardPackage.translation","card_end_at"=>"enabledCard.end_at"] ;
-    
+    const ENABLEDC_SearchabLE_COLUMS = ["enabled_card"];
+    const ENABLEDCARD_SORTABLE_COLUMS = ["enabled_card" => "enabledCard.cardPackage.translation", "card_end_at" => "enabledCard.end_at"];
+
     #endregion properties
 
     #region mutators
@@ -33,23 +34,30 @@ class Citizen extends Model
                 $query->whereHas('user', function ($q) use ($key, $item) {
                     !$key == "fullname" ? $q->where($key, $item) : $q->where($key, "like", "%$item%");
                 });
-         
+
+        }
+        foreach ($request->all() as $key => $item) {
+            if (in_array($key, self::ENABLEDC_SearchabLE_COLUMS))
+                $query->whereHas('enabledCard', function ($q) use ($key, $item) {
+//                   $q->where($key, $item)
+                });
+
         }
         if ($request->created_from || $request->created_to) {
-                $query->CustomDateFromTo($request);
+            $query->CustomDateFromTo($request);
         }
 
         if ($request->end_at_from) {
-            $query->wherehas("user.citizenCards", function ($q) use ($request) {
+            $query->wherehas("enabledCard", function ($q) use ($request) {
                 $q->whereDate('end_at', ">=", $request->end_at_from);
             });
-           
-        } 
+
+        }
         if ($request->end_at_to) {
-            $query->wherehas("user.citizenCards", function ($q) use ($request) {
-                $q->whereDate('end_at', "<", $request->end_at_to);
+            $query->wherehas("enabledCard", function ($q) use ($request) {
+                $q->whereDate('end_at', "<=", $request->end_at_to);
             });
-           
+
         }
 
     }
@@ -88,14 +96,14 @@ class Citizen extends Model
     {
         return $this->hasOne(BankAccount::class, 'user_id', 'user_id');
     }
-    
+
 
     public function enabledCard()
     {
         return $this->belongsTo(CitizenCard::class, 'citizen_card_id');
     }
 
-   
+
 
     #endregion relationships
 

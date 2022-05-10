@@ -3,6 +3,7 @@
 namespace App\Http\Resources\Dashboard;
 
 use Illuminate\Http\Resources\Json\JsonResource;
+use App\Http\Resources\Dashboard\CitizenCardResource;
 
 class CitizenResource extends JsonResource
 {
@@ -15,12 +16,16 @@ class CitizenResource extends JsonResource
     public function toArray($request)
     {
         return [
+
             'user' => SimpleCitizenResource::make($this->whenLoaded('user')),
             "lat" => $this->lat,
             "lng" => $this->lng,
             "location" => $this->location,
-            "bank_account_number" => $this->bank_account_number,
+            'enabled_card' => CitizenCardResource::make($this->whenLoaded('enabledCard')),
+            'card_end_at' => $this->enabledCard?->end_at,
+            'bank_name' => $this->bankAccount?->bank?->name,
             'created_at' => $this->created_at,
+            'start_from' => $request->start,
             'token' => $this->when($this->token, $this->token),
             'actions' => $this->when($request->routeIs('citizens.index') || $request->routeIs('citizens.archive'), [
                 'show' => auth()->user()->hasPermissions('citizens.show'),
