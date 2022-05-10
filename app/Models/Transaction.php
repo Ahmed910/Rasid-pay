@@ -128,7 +128,7 @@ class Transaction extends Model
         return $this->belongsTo(CardPackage::class, 'card_package_id');
     }
 
-    public function user()
+    public function citizen()
     {
         return $this->belongsTo(User::class, 'from_user_id');
     }
