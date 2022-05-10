@@ -7,7 +7,6 @@ use App\Http\Requests\V1\Dashboard\BankAccountRequest;
 use App\Http\Requests\V1\Dashboard\CitizenRequest;
 use App\Http\Requests\V1\Dashboard\ReasonRequest;
 use App\Http\Resources\Dashboard\CitizenResource;
-use App\Models\Attachment;
 use App\Models\BankAccount;
 use App\Models\Citizen;
 use App\Models\User;
@@ -18,9 +17,15 @@ class CitizenController extends Controller
 
     public function index(Request $request)
     {
-        $citizen = Citizen::with('user.bankAccount.bank.translations')->CustomDateFromTo($request)->search($request)->sortby($request)
-            ->latest()->paginate((int)($request->per_page ?? config("globals.per_page")));
-
+        if (isset($request->order[0]['column'])) {
+            $request['sort'] = ['column' => $request['columns'][$request['order'][0]['column']]['name'], 'dir' => $request['order'][0]['dir']];
+        }
+        $sortcol = isset($request->sort["column"]) ? $request->sort["column"] : null;
+        if (isset($request->sort["column"]) && in_array($request->sort["column"], Citizen::user_searchable_Columns)) $sortcol = "user." . $request->sort["column"];
+        if (isset($request->sort["column"]) && key_exists($request->sort["column"], Citizen::ENABLEDCARD_SORTABLE_COLUMS)) $sortcol =Citizen::ENABLEDCARD_SORTABLE_COLUMS[$sortcol] ;
+        $citizen = Citizen::with('user.bankAccount.bank.translations')->CustomDateFromTo($request)->
+        search($request)->sortBy($sortcol, SORT_REGULAR, $request->sort["dir"] == "desc")
+        ->latest()->paginate((int)($request->per_page ?? config("globals.per_page")))->sortBy($sortcol, SORT_REGULAR, $dir == "desc");;
         return CitizenResource::collection($citizen)->additional([
             'status' => true,
             'message' => ""

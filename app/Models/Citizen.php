@@ -15,11 +15,11 @@ class Citizen extends Model
 
     #region properties
     protected $guarded = ['created_at', 'updated_at'];
+
     protected $dates = ['date_of_birth'];
-    const user_searchable_Columns = ["fullname", "email", "image", "country_code", "phone", "full_phone", "identity_number", "date_of_birth"];
-    const bank_account_searchable_Columns = ["iban_number", "contract_type", "bank_id",];
-
-
+    const user_searchable_Columns = ["fullname", "email", "image", "country_code", "phone", "full_phone", "identity_number", "created_at"];
+    const ENABLEDCARD_SORTABLE_COLUMS = ["enabled_card"=>"enabledCard.cardPackage.translation","card_end_at"=>"enabledCard.end_at"] ;
+    
     #endregion properties
 
     #region mutators
@@ -33,15 +33,25 @@ class Citizen extends Model
                 $query->whereHas('user', function ($q) use ($key, $item) {
                     !$key == "fullname" ? $q->where($key, $item) : $q->where($key, "like", "%$item%");
                 });
-            if (in_array($key, self::bank_account_searchable_Columns))
-                $query->whereHas('bankAccount', function ($q) use ($key, $item) {
-                    $q->where($key, $item);
-                });
+         
+        }
+        if ($request->created_from || $request->created_to) {
+                $query->CustomDateFromTo($request);
         }
 
-//        if ($request->bank_id) $query->whereHas("bankAccount", function ($q) use ($request) {
-//            $q->where('bank_id', $request->bank_id);
-//        });
+        if ($request->end_at_from) {
+            $query->wherehas("user.citizenCards", function ($q) use ($request) {
+                $q->whereDate('end_at', ">=", $request->end_at_from);
+            });
+           
+        } 
+        if ($request->end_at_to) {
+            $query->wherehas("user.citizenCards", function ($q) use ($request) {
+                $q->whereDate('end_at', "<", $request->end_at_to);
+            });
+           
+        }
+
     }
 
     public function scopeSortBy(Builder $query, $request)
@@ -69,7 +79,6 @@ class Citizen extends Model
     #endregion scopes
 
     #region relationships
-
     public function user()
     {
         return $this->belongsTo(user::class);
@@ -79,6 +88,14 @@ class Citizen extends Model
     {
         return $this->hasOne(BankAccount::class, 'user_id', 'user_id');
     }
+    
+
+    public function enabledCard()
+    {
+        return $this->belongsTo(CitizenCard::class, 'citizen_card_id');
+    }
+
+   
 
     #endregion relationships
 
