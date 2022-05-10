@@ -24,7 +24,7 @@ class CitizenController extends Controller
         $sortcol = isset($request->sort["column"]) ? $request->sort["column"] : null;
         if (isset($request->sort["column"]) && in_array($request->sort["column"], Citizen::user_searchable_Columns)) $sortcol = "user." . $request->sort["column"];
         if (isset($request->sort["column"]) && key_exists($request->sort["column"], Citizen::ENABLEDCARD_SORTABLE_COLUMS)) $sortcol = Citizen::ENABLEDCARD_SORTABLE_COLUMS[$sortcol];
-        $citizen = Citizen::with(['user', "enabledCard"])->CustomDateFromTo($request)->
+        $citizen = Citizen::with(['user', "enabledCard.cardPackage"])->CustomDateFromTo($request)->
         search($request)
             ->latest()->paginate((int)($request->per_page ?? config("globals.per_page")))->sortBy($sortcol, SORT_REGULAR, $dir == "desc");;
         return CitizenResource::collection($citizen)->additional([
