@@ -3,7 +3,9 @@
 namespace App\Http\Controllers\Blade\Dashboard;
 
 use App\Http\Resources\Blade\Dashboard\Citizen\CitizenResource;
+use App\Models\CardPackage\CardPackage;
 use App\Models\Citizen;
+use App\Models\CitizenCard;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\Blade\Dashboard\Citizen\CitizenCollection;
@@ -30,9 +32,9 @@ class CitizenController extends Controller
             return CitizenCollection::make($citizens)
                 ->additional(['total_count' => $citizenCount]);
         }
-
-
-        return view('dashboard.citizen.index');
+        $cards = CardPackage::has("citizenCards")->with("translation")->ListsTranslations("name")
+            ->pluck("name", 'id')->toArray();
+        return view('dashboard.citizen.index', compact("cards"));
     }
 
     public function update(Request $request, $id)
@@ -45,6 +47,7 @@ class CitizenController extends Controller
 
         return redirect()->route('dashboard.citizen.index')->withSuccess(__('dashboard.general.success_update'));
     }
+
     public function updatePhone($id, Request $request)
     {
         $this->validate($request, ["country_code" => "required|in:" . countries_list()

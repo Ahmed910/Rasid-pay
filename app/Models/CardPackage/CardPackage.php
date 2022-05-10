@@ -2,6 +2,7 @@
 
 namespace App\Models\CardPackage;
 
+use App\Models\CitizenCard;
 use App\Traits\Uuid;
 use Astrotomic\Translatable\Translatable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -50,6 +51,9 @@ class CardPackage extends Model implements  HasAssetsInterface
     public function addedBy(): BelongsTo
     {
         return $this->belongsTo(User::class, 'added_by_id');
+    }
+    public function citizenCards () {
+        return $this->hasMany(CitizenCard::class) ;
     }
     #endregion relationships
 

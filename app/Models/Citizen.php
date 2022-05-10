@@ -20,6 +20,7 @@ class Citizen extends Model
     const user_searchable_Columns = ["fullname", "email", "image", "country_code", "phone", "full_phone", "identity_number", "created_at"];
     const ENABLEDCARD_SearchabLE_COLUMS = ["enabled_card" => "id"];
     const ENABLEDCARD_SORTABLE_COLUMS = ["enabled_card" => "enabledCard.cardPackage.translation", "card_end_at" => "enabledCard.end_at"];
+    const SELECT_ALL = ["enabled_card" => "id"];
 
     #endregion properties
 
@@ -30,6 +31,7 @@ class Citizen extends Model
     public function scopeSearch($query, $request)
     {
         foreach ($request->all() as $key => $item) {
+            if ($item == -1 && in_array($key, self::SELECT_ALL)) $request->request->remove($key);
             if (in_array($key, self::user_searchable_Columns))
                 $query->whereHas('user', function ($q) use ($key, $item) {
                     !$key == "fullname" ? $q->where($key, $item) : $q->where($key, "like", "%$item%");
