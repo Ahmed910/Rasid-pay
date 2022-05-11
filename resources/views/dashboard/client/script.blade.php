@@ -25,25 +25,25 @@
       function format(d) {
         // `d` is the original data object for the row
         return '<table width="100%">' +
-          '<tr>'+
-          '<td></td>'+
-          '<td colspan="0">' +'<label>البريد الالكتروني</label>'+
-          '<p>test@test.com</p>'+
-          '</td>'+
-          '<td >' +'<label>العنوان</label>'+
-          '<p>address</p>'+
-          '</td>'+
-          '<td >' +'<label>النوع</label>'+
-          '<p>male</p>'+
-          '</td>'+
-          '<td >' +'<label>الحالة الاجتماعية</label>'+
-          '<p>single</p>'+
-          '</td>'+
-          '<td >' +'<label>الجنسية</label>'+
-          '<p>مصري</p>'+
-          '</td>'+
-          '<td></td>'+
-          '</tr>'+
+          '<tr>' +
+          '<td></td>' +
+          '<td colspan="0">' + '<label>البريد الالكتروني</label>' +
+          '<p>test@test.com</p>' +
+          '</td>' +
+          '<td >' + '<label>العنوان</label>' +
+          '<p>address</p>' +
+          '</td>' +
+          '<td >' + '<label>النوع</label>' +
+          '<p>male</p>' +
+          '</td>' +
+          '<td >' + '<label>الحالة الاجتماعية</label>' +
+          '<p>single</p>' +
+          '</td>' +
+          '<td >' + '<label>الجنسية</label>' +
+          '<p>مصري</p>' +
+          '</td>' +
+          '<td></td>' +
+          '</tr>' +
           '</table>';
       }
 
@@ -51,8 +51,8 @@
         sDom: "t<'domOption'lpi>",
         pageLength: 10,
         lengthMenu: [
-          [1,5, 10, 20, -1],
-          [1,5, 10, 20, "الكل"],
+          [1, 5, 10, 20, -1],
+          [1, 5, 10, 20, "الكل"],
         ],
         language: {
           lengthMenu: "عرض _MENU_",
@@ -81,7 +81,6 @@
           tr.addClass('shown');
         }
       });
-
 
 
       var accounts_table = $("#orderTable").DataTable({
@@ -305,17 +304,14 @@
           {
             class: "text-center",
             data: function (data) {
-              return `<a
-                    href="${data.show_route}"
-                    class="successIcon"
-                    data-bs-toggle="tooltip"
-                    data-bs-placement="top"
-                    title="@lang('dashboard.general.accept')"
-                    ><i class="mdi mdi-check"></i
-                        ></a>
-                       <a href="${data.show_route}" class="errorIcon" data-bs-toggle="tooltip" data-bs-placement="top"
-                        title="@lang('dashboard.general.refuse')"><i class="mdi mdi-close"></i></a>
-                            `
+              return `<a href="department-view.html" class="azureIcon" data-bs-toggle="tooltip" data-bs-placement="top"
+                title="عرض"><i class="mdi mdi-eye-outline"></i></a>
+              <a href="department-add.html" class="warningIcon" data-bs-toggle="tooltip" data-bs-placement="top"
+                title="تعديل"><i class="mdi mdi-square-edit-outline"></i></a>
+              <a href="#" class="successIcon" data-bs-toggle="tooltip" data-bs-placement="top" title="تأكيد الحساب "><i
+                  class="mdi mdi-check"></i></a>
+              <a href="#" class="primaryIcon" data-bs-toggle="tooltip" data-bs-placement="top" title="تعليق الحساب "><i
+                  class="mdi mdi-account-clock-outline"></i></a>`
             },
             orderable: false,
             searchable: false
