@@ -55,12 +55,12 @@ class Transaction extends Model
     {
         $this->addGlobalActivity($this, $request->query(), ActivityLog::SEARCH, 'index');
 
-        if (isset($request->transactionNum)) {
-            $query->where('number', 'like', "%$request->transactionNum%");
+        if (isset($request->transaction_number)) {
+            $query->where('number', 'like', "%$request->transaction_number%");
         }
 
-        if (isset($request->idNumber)) {
-            $query->where("user_identity", 'like', "%$request->idNumber%");
+        if (isset($request->user_identity)) {
+            $query->where("user_identity", 'like', "%$request->user_identity%");
         }
 
         if (isset($request->status)) {
@@ -73,37 +73,28 @@ class Transaction extends Model
             if ($request->type != -1) $query->where("type", $request->type);
         }
 
-        if (isset($request->transactionValueFrom)) {
-            $query->where("amount", '<=', $request->transactionValueFrom);
+        if (isset($request->transaction_value_from)) {
+            $query->where("amount", '<=', $request->transaction_value_from);
         }
-        if (isset($request->transactionValueTo)) {
-            $query->where("amount", '>=', $request->transactionValueTo);
+        if (isset($request->transaction_value_to)) {
+            $query->where("amount", '>=', $request->transaction_value_to);
         }
-
-        if (isset($request->created_from)) {
-            $query->where("created_at", '<=', $request->created_from);
-        }
-
-        if (isset($request->created_to)) {
-            $query->where("created_at", '>=', $request->created_to);
-        }
-
         if (isset($request->card_package_id)) {
             if ($request->card_package_id == 0) $request->card_package_id = null;
             if ($request->card_package_id != -1)  $query->whereHas('card',fn($q) => $q->where('id',$request->card_package_id));
 
         }
-        if (isset($request->to_user_id)) {
-            if ($request->to_user_id == 0) $request->to_user_id = null;
-            if ($request->to_user_id != -1) {
+        if (isset($request->client)) {
+            if ($request->client == 0) $request->client = null;
+            if ($request->client != -1) {
                 $query->whereHas('client', function ($query) use ($request) {
-                    $query->where('user_id', $request->to_user_id);
+                    $query->where('user_id', $request->client);
                 });
             }
         }
 
-        if (isset($request->transactionName)) {
-            $query->whereHas('user',fn($q) => $q->where('fullname','like',"%$request->transactionName%"));
+        if (isset($request->citizen)) {
+            $query->whereHas('citizen',fn($q) => $q->where('fullname','like',"%$request->citizen%"));
         }
     }
 
