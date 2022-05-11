@@ -97,6 +97,12 @@ class TransactionController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $transaction  = Transaction::delete($id);
+
+        return TransactionResource::make($transaction)
+            ->additional([
+                'status' => true,
+                'message' => trans("dashboard.general.delete")
+            ]);
     }
 }
