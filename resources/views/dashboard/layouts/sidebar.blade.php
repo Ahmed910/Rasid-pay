@@ -250,6 +250,11 @@
                             class="mdi mdi-bank-transfer"></i><span
                             class="side-menu__label">المعاملات</span></a>
                 </li>
+                <li class="slide">
+                    <a class="side-menu__item {{ request()->routeIs('dashboard.bank.index') ? 'active' : '' }}" data-bs-toggle="slide" href="{{ route('dashboard.bank.index') }}"><i
+                            class="mdi mdi-bank-outline"></i><span
+                            class="side-menu__label">البنوك</span></a>
+                </li>
             </ul>
             <div class="slide-right" id="slide-right">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="#7b8191" width="24" height="24" viewbox="0 0 24 24">

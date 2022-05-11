@@ -5,17 +5,14 @@ namespace App\Http\Controllers\Api\V1\Dashboard;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\Dashboard\TransactionResource;
 use App\Http\Requests\V1\Dashboard\TransactionRequest;
+use App\Models\Client;
 use Illuminate\Http\Request;
 use App\Models\Transaction;
 use App\Models\User;
 
 class TransactionController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+
     public function index(Request $request)
     {
         $transactions = Transaction::search($request)
@@ -41,12 +38,12 @@ class TransactionController extends Controller
     {
         $additionadData = [];
 
-        $citizen = User::find($request->citizen_id);
+        $citizen = User::find($request->from_user_id);
         $additionadData['user_identity'] = $citizen->identity_number;
 
         if (isset($request->to_user_id)) {
-            $user = User::find($request->to_user_id);
-            $additionadData['to_user_identity'] = $user->identity_number;
+            $client = Client::find($request->to_user_id);
+            $additionadData['to_user_identity'] = $client->user->identity_number;
         }
 
         $transaction->fill($request->validated() + $additionadData)->save();
@@ -95,8 +92,29 @@ class TransactionController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Transaction $transaction)
     {
-        //
+        $transaction->delete();
+        return TransactionResource::make($transaction)
+            ->additional([
+                'status' => true,
+                'message' =>  trans('dashboard.general.success_archive'),
+            ]);
+    }
+
+    /**
+     * force Delete card package
+     * @param int $id
+     */
+    public function forceDelete($id)
+    {
+        $transaction = Transaction::onlyTrashed()->findOrFail($id);
+        $transaction->forceDelete();
+
+        return TransactionResource::make($transaction)
+            ->additional([
+                'status' => true,
+                'message' => trans("dashboard.general.success_delete")
+            ]);
     }
 }

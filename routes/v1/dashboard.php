@@ -137,6 +137,10 @@ Route::middleware('auth:sanctum')->group(function () {
             Route::delete('forceDelete/{id}', 'forceDelete')->name('force_delete');
         });
 
+        Route::controller('TransactionController')->name('transactions.')->prefix('transactions')->group(function () {
+            Route::delete('forceDelete/{id}', 'forceDelete')->name('force_delete');
+        });
+
         Route::apiResources([
 //            'countries' => 'CountryController',
             // 'currencies' => 'CurrencyController',
@@ -152,6 +156,7 @@ Route::middleware('auth:sanctum')->group(function () {
             'slides' => 'SlideController',
             "card_packages" => "CardPackageController",
             'transactions' => 'TransactionController',
+            'bank' => 'BankController',
         ]);
 
         Route::apiResource('settings', 'SettingController')->only(['index', 'store']);
