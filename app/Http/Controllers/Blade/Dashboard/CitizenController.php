@@ -5,7 +5,6 @@ namespace App\Http\Controllers\Blade\Dashboard;
 use App\Http\Resources\Blade\Dashboard\Citizen\CitizenResource;
 use App\Models\CardPackage\CardPackage;
 use App\Models\Citizen;
-use App\Models\CitizenCard;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\Blade\Dashboard\Citizen\CitizenCollection;
@@ -18,8 +17,8 @@ class CitizenController extends Controller
             $request['sort'] = ['column' => $request['columns'][$request['order'][0]['column']]['name'], 'dir' => $request['order'][0]['dir']];
         }
         $sortcol = isset($request->sort["column"]) ? $request->sort["column"] : null;
-        if (isset($request->sort["column"]) && in_array($request->sort["column"], Citizen::user_searchable_Columns)) $sortcol = "user." . $request->sort["column"];
-        if (isset($request->sort["column"]) && key_exists($request->sort["column"], Citizen::ENABLEDCARD_SORTABLE_COLUMS)) $sortcol = Citizen::ENABLEDCARD_SORTABLE_COLUMS[$sortcol];
+        if (isset($request->sort["column"]) && in_array($request->sort["column"], Citizen::USER_SEARCHABLE_COLUMNS)) $sortcol = "user." . $request->sort["column"];
+        if (isset($request->sort["column"]) && key_exists($request->sort["column"], Citizen::ENABLEDCARD_SORTABLE_COLUMNS)) $sortcol = Citizen::ENABLEDCARD_SORTABLE_COLUMNS[$sortcol];
         if ($request->ajax()) {
             $citizensQuery = Citizen::with(["user.citizenCards", 'enabledCard.cardPackage.translation'])->search($request);
             $citizenCount = $citizensQuery->count();
@@ -50,8 +49,9 @@ class CitizenController extends Controller
 
     public function updatePhone($id, Request $request)
     {
-        $this->validate($request, ["country_code" => "required|in:" . countries_list()
-            , "phone" => ["required", "not_regex:/^{$request->country_code}/", "numeric", "digits_between:7,20", "required_with:country_code"]]);
+        $this->validate($request, [
+            "country_code" => "required|in:" . countries_list(), "phone" => ["required", "not_regex:/^{$request->country_code}/", "numeric", "digits_between:7,20", "required_with:country_code"]
+        ]);
 
         $citizen = Citizen::where('user_id', $id)->firstOrFail();
         $citizen->user->update($request->all() + ['updated_at' => now()]);
