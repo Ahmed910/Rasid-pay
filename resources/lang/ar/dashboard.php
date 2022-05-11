@@ -123,8 +123,9 @@ return [
         'black_menu' => 'القائمة السوداء',
         'settings' => 'الإعدادات',
         'logout' => 'تسجيل خروج',
-        'accept' => 'موافقة',
-        'cancel' => 'الغاء',
+        'accept'=>'موافقة',
+        'refuse'=>'رفض',
+        'cancel'=>'الغاء',
         'created_by' => 'منشيء المجموعة',
         'u_can_use_this_name' => 'يمكنك استخدام الإسم',
         'confirm' => 'تأكيد',
@@ -569,6 +570,8 @@ return [
         ],
         "commercial_number" => "رقم السجل",
         "tax_number" => "الرقم الضريبي",
+        "order_date" => "تاريخ الطلب",
+        "order_number" => "رقم الطلب",
         "transactions_done" => "عدد المعاملات المنجزة",
         "transactions_done_from" => "عدد المعاملات المنجزة من",
         "transactions_done_to" => "عدد المعاملات المنجزة الى",
@@ -577,6 +580,7 @@ return [
 
         "bank_name" => "البنك التابع له",
         "account_status" => "حالة الحساب البنكي",
+        "status" => "الحالة",
         "account_statuses" => [
             "pending" => "قيد الانتظار",
             "before_review" => "قبل المراجعة",

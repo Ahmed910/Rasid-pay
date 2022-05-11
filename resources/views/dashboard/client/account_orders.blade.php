@@ -3,9 +3,12 @@
 
 @section('content')
 
-  <!-- PAGE-HEADER -->
-  <div class="page-header">
-    <h1 class="page-title">{{ trans('dashboard.client.sub_progs.account_order') }}</h1>
+<!-- PAGE-HEADER -->
+<div class="page-header">
+  <h1 class="page-title">{{ trans('dashboard.client.sub_progs.account_order') }}</h1>
+
+</div>
+<!-- PAGE-HEADER END -->
 
   </div>
   <!-- PAGE-HEADER END -->
@@ -99,30 +102,33 @@
 
   <!-- FORM CLOSED -->
 
-  <!-- Row -->
-  <div class="row row-sm">
-    <div class="col-lg-12">
-      <div class="p-1">
-        <table id="orderTable" class="table table-bordered shadow-sm bg-body text-nowrap key-buttons">
-          <thead>
+
+<!-- Row -->
+<div class="row row-sm">
+  <div class="col-lg-12">
+    <div class="table-responsive p-1">
+      <table id="clientTable" class="table table-bordered shadow-sm bg-body text-nowrap key-buttons">
+        <thead>
           <tr>
             <th class="border-bottom-0">#</th>
-            <th class="border-bottom-0">رقم الطلب</th>
-            <th class="border-bottom-0">اسم العميل</th>
-            <th class="border-bottom-0">نوع العميل</th>
-            <th class="border-bottom-0">رقم السجل</th>
-            <th class="border-bottom-0">الرقم الضريبي</th>
-            <th class="border-bottom-0">تاريخ الطلب</th>
-            <th class="border-bottom-0">البنك التابع له</th>
-            <th class="border-bottom-0">الحالة</th>
-            <th class="border-bottom-0 text-center">العمليات</th>
-          </tr>
-          </thead>
-          <tbody>
+            <th class="border-bottom-0">{{ trans('dashboard.client.order_number') }}</th>
+            <th class="border-bottom-0">{{ trans('dashboard.client.name') }}</th>
+            <th class="border-bottom-0">{{ trans('dashboard.client.type') }}</th>
+            <th class="border-bottom-0">{{ trans('dashboard.client.commercial_number') }}</th>
+            <th class="border-bottom-0">{{ trans('dashboard.client.tax_number') }}</th>
+            <th class="border-bottom-0">{{ trans('dashboard.client.order_date') }}</th> 
+            {{-- <th class="border-bottom-0 text-center">{{ trans('dashboard.client.transactions_done') }}</th> --}}
+            <th class="border-bottom-0">{{ trans('dashboard.client.bank_name') }}</th>
+            <th class="border-bottom-0">{{ trans('dashboard.client.status') }}</th>
+            <th class="border-bottom-0 text-center">{{ trans('dashboard.general.actions') }}</th>
 
-          </tbody>
-        </table>
-      </div>
+
+          </tr>
+        </thead>
+        <tbody>
+
+        </tbody>
+      </table>
     </div>
   </div>
   <!-- End Row -->

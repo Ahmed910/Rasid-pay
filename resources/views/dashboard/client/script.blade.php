@@ -1,9 +1,9 @@
 <!-- SELECT2 JS -->
 @section('datatable_script')
-  <script src="{{ asset('dashboardAssets/plugins/datatable/js/jquery.dataTables.min.js') }}"></script>
-  <script src="{{ asset('dashboardAssets/plugins/datatable/js/dataTables.bootstrap5.js') }}"></script>
-  <script src="{{ asset('dashboardAssets/plugins/datatable/dataTables.responsive.min.js') }}"></script>
-  <script src="{{ asset('dashboardAssets/plugins/datatable/responsive.bootstrap5.min.js') }}"></script>
+<script src="{{ asset('dashboardAssets/plugins/datatable/js/jquery.dataTables.min.js') }}"></script>
+<script src="{{ asset('dashboardAssets/plugins/datatable/js/dataTables.bootstrap5.js') }}"></script>
+<script src="{{ asset('dashboardAssets/plugins/datatable/dataTables.responsive.min.js') }}"></script>
+<script src="{{ asset('dashboardAssets/plugins/datatable/responsive.bootstrap5.min.js') }}"></script>
 @endsection
 @section('scripts')
   <script src="{{ asset('dashboardAssets/js/custom_scripts.js') }}"></script>
@@ -266,6 +266,10 @@
           class: 'client_index'
         },
           {
+            data: "order_number",
+            name: 'order_number'
+          },
+          {
             data: "fullname",
             name: 'fullname'
           },
@@ -282,8 +286,8 @@
             name: 'tax_number'
           },
           {
-            data: 'transactions_done',
-            name: 'transactions_done'
+            data: 'created_at',
+            name: 'created_at'
           },
 
           {
@@ -291,7 +295,13 @@
             name: 'bank_name'
           },
           {
-            data: 'account_status',
+            data: function (data) {
+            if (data.account_status_name == 'pending') {
+            return ` <span class="badge bg-success-opacity py-2 px-4">${data.account_status}</span>`;
+            } else {
+            return ` <span class="badge bg-danger-opacity py-2 px-4">${data.account_status}</span>`;
+            }
+            },
             name: 'account_status'
           },
 
@@ -300,20 +310,14 @@
             data: function (data) {
               return `<a
                     href="${data.show_route}"
-                    class="azureIcon"
+                    class="successIcon"
                     data-bs-toggle="tooltip"
                     data-bs-placement="top"
-                    title="@lang('dashboard.general.show')"
-                    ><i class="mdi mdi-eye-outline"></i
+                    title="@lang('dashboard.general.accept')"
+                    ><i class="mdi mdi-check"></i
                         ></a>
-                        <a
-                        href="${data.edit_route}"
-                        class="warningIcon"
-                        data-bs-toggle="tooltip"
-                        data-bs-placement="top"
-                        title="@lang('dashboard.general.edit')"
-                        ><i class="mdi mdi-square-edit-outline"></i
-                            ></a>
+                       <a href="${data.show_route}" class="errorIcon" data-bs-toggle="tooltip" data-bs-placement="top"
+                        title="@lang('dashboard.general.refuse')"><i class="mdi mdi-close"></i></a>
                             `
             },
             orderable: false,
@@ -414,8 +418,7 @@
       });
 
     });
-
-  </script>
-  <script src="{{ asset('dashboardAssets/js/select2.js') }}"></script>
-  <script src="{{ asset('dashboardAssets/plugins/select2/select2.full.min.js') }}"></script>
+</script>
+<script src="{{ asset('dashboardAssets/js/select2.js') }}"></script>
+<script src="{{ asset('dashboardAssets/plugins/select2/select2.full.min.js') }}"></script>
 @endsection
