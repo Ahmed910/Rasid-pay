@@ -95,14 +95,29 @@ class TransactionController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Transaction $transaction)
     {
-        $transaction  = Transaction::destroy($id);
+        $transaction->delete();
+        return TransactionResource::make($transaction)
+            ->additional([
+                'status' => true,
+                'message' =>  trans('dashboard.general.success_archive'),
+            ]);
+    }
+
+    /**
+     * force Delete card package
+     * @param int $id
+     */
+    public function forceDelete($id)
+    {
+        $transaction = Transaction::onlyTrashed()->findOrFail($id);
+        $transaction->forceDelete();
 
         return TransactionResource::make($transaction)
             ->additional([
                 'status' => true,
-                'message' => trans("dashboard.general.delete")
+                'message' => trans("dashboard.general.success_delete")
             ]);
     }
 }

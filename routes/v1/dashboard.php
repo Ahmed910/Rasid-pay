@@ -135,6 +135,10 @@ Route::middleware('auth:sanctum')->group(function () {
             Route::delete('forceDelete/{id}', 'forceDelete')->name('force_delete');
         });
 
+        Route::controller('TransactionController')->name('transactions.')->prefix('transactions')->group(function () {
+            Route::delete('forceDelete/{id}', 'forceDelete')->name('force_delete');
+        });
+
         Route::apiResources([
 //            'countries' => 'CountryController',
             // 'currencies' => 'CurrencyController',

@@ -8,12 +8,13 @@ use Illuminate\Database\Eloquent\Model;
 use App\Traits\Loggable;
 use App\Traits\Uuid;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Str;
 
 class Transaction extends Model
 {
 
-    use HasFactory, Uuid, Loggable;
+    use HasFactory, Uuid, Loggable,SoftDeletes;
 
     protected $guarded = ['number', 'created_at', 'updated_at'];
     private $sortableColumns = ["number", "created_at", "user_from", "user_identity", 'user_to', 'amount', 'total_amount', 'gift_balance', 'type', 'status', 'discount_percent'];
