@@ -33,11 +33,11 @@
         </div>
         <div class="col-12 col-md-3 mb-3">
             <label for="clientType">البطاقة المفعلة</label>
-            <select class="form-control select2" id="clientType">
+            <select class="form-control select2" id="enabledcard">
                 <option selected disabled value="">إختر البطاقة </option>
-                <option>الأساسية</option>
-                <option>الأساسية</option>
-                <option>الأساسية</option>
+              @foreach($cards as $id=>$card)
+                <option value="{{$id}}" >{{$card}}</option>
+              @endforeach
             </select>
         </div>
         <div class="col-12 col-md-3 mb-3">

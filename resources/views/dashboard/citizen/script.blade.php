@@ -63,11 +63,12 @@ sDom: "t<'domOption'lpi>",
           url: "{{ route('dashboard.citizen.index') }}",
           data:
             function (data) {
+              if ($('#enabledcard').val() !== '' && $('#enabledcard').val() !== null) data.enabled_card = $('#enabledcard').val();
               if ($('#citizenName').val() !== '' && $('#citizenName').val() !== null) data.fullname = $('#citizenName').val();
               if ($('#idNumber').val() !== '' && $('#idNumber').val() !== null) data.identity_number = $('#idNumber').val();
               if ($('#phone').val() !== '' && $('#phone').val() !== null) data.phone = $('#phone').val();
               if ($('#from-hijri-picker-custom').val() !== '' && $('#from-hijri-picker-custom').val() !== null) data.created_from = $('#from-hijri-picker-custom').val();
-              if ($('#to-hijri-picker-custom').val() !== '' && $('#to-hijri-picker-custom').val() !== null) data.created_to = $('#to-hijri-picker-custom').val(); 
+              if ($('#to-hijri-picker-custom').val() !== '' && $('#to-hijri-picker-custom').val() !== null) data.created_to = $('#to-hijri-picker-custom').val();
               if ($('#from-hijri-picker-card').val() !== '' && $('#from-hijri-picker-card').val() !== null) data.end_at_from = $('#from-hijri-picker-card').val();
               if ($('#to-hijri-picker-card').val() !== '' && $('#to-hijri-picker-card').val() !== null) data.end_at_to = $('#to-hijri-picker-card').val();
             },
@@ -107,7 +108,7 @@ sDom: "t<'domOption'lpi>",
             data: "created_at",
             name: 'created_at'
           },
-     
+
 
           {
             class: "text-center",
@@ -115,7 +116,7 @@ sDom: "t<'domOption'lpi>",
               return `
               <a href="#"
               onclick=updatePhone('${data.id}','${data.update_route}','${'#citizenTable'}')
-              class="warningIcon" data-bs-toggle="tooltip" data-bs-placement="top" 
+              class="warningIcon" data-bs-toggle="tooltip" data-bs-placement="top"
                                 title="@lang('dashboard.general.edit')"><i class="mdi mdi-square-edit-outline" data-bs-toggle="modal"
                                 data-bs-target="#modal_phone"></i></a>`
             },
@@ -174,7 +175,9 @@ sDom: "t<'domOption'lpi>",
         table.draw();
       }).change();
 
-  
+      $('#enabledcard').on('select2:select', function (e) {
+        table.draw();
+      });
 
       $("#idNumber,#citizenName").keyup(function () {
         table.draw();

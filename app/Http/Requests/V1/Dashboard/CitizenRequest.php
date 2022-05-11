@@ -43,7 +43,7 @@ class CitizenRequest extends ApiMasterRequest
             "email" => ["nullable", "max:255", "email", "unique:users,email," . @$this->citizen],
             "image" => "nullable|max:5120|mimes:jpg,png,jpeg",
             "country_code" => "nullable|in:" . $list,
-            "phone" => ["nullable", "not_regex:/^{$this->country_code}/", "numeric", "digits_between:7,20"],
+            "phone" => ["nullable", "not_regex:/^{$this->country_code}/", "numeric", "digits_between:7,20", "required_with:country_code"],
             "full_phone" => ["unique:users,phone," . @$this->client],
             "identity_number" => ["nullable", "numeric", "digits_between:10,20", "unique:users,identity_number," . @$this->citizen],
             "date_of_birth" => ["nullable", "date"],
