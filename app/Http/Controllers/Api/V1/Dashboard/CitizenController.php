@@ -2,15 +2,17 @@
 
 namespace App\Http\Controllers\Api\V1\Dashboard;
 
+use App\Models\User;
+use App\Models\Citizen;
+use App\Models\BankAccount;
+use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\V1\Dashboard\BankAccountRequest;
-use App\Http\Requests\V1\Dashboard\CitizenRequest;
+use App\Models\CardPackage\CardPackage;
 use App\Http\Requests\V1\Dashboard\ReasonRequest;
 use App\Http\Resources\Dashboard\CitizenResource;
-use App\Models\BankAccount;
-use App\Models\Citizen;
-use App\Models\User;
-use Illuminate\Http\Request;
+use App\Http\Requests\V1\Dashboard\CitizenRequest;
+use App\Http\Requests\V1\Dashboard\BankAccountRequest;
+use App\Http\Resources\Dashboard\SimpleCardPackageResource;
 
 class CitizenController extends Controller
 {
@@ -22,8 +24,8 @@ class CitizenController extends Controller
         }
         $dir = $request->sort["dir"] ?? null;
         $sortcol = isset($request->sort["column"]) ? $request->sort["column"] : null;
-        if (isset($request->sort["column"]) && in_array($request->sort["column"], Citizen::user_searchable_Columns)) $sortcol = "user." . $request->sort["column"];
-        if (isset($request->sort["column"]) && key_exists($request->sort["column"], Citizen::ENABLEDCARD_SORTABLE_COLUMS)) $sortcol = Citizen::ENABLEDCARD_SORTABLE_COLUMS[$sortcol];
+        if (isset($request->sort["column"]) && in_array($request->sort["column"], Citizen::USER_SEARCHABLE_COLUMNS)) $sortcol = "user." . $request->sort["column"];
+        if (isset($request->sort["column"]) && key_exists($request->sort["column"], Citizen::ENABLEDCARD_SORTABLE_COLUMNS)) $sortcol = Citizen::ENABLEDCARD_SORTABLE_COLUMNS[$sortcol];
         $citizen = Citizen::with(['user', "enabledCard.cardPackage"])->CustomDateFromTo($request)->
         search($request)
             ->latest()->paginate((int)($request->per_page ?? config("globals.per_page")))->sortBy($sortcol, SORT_REGULAR, $dir == "desc");;
@@ -83,6 +85,17 @@ class CitizenController extends Controller
         return CitizenResource::make($citizen)->additional(['status' => true, 'message' => trans("dashboard.general.success_update")]);
     }
 
+    public function enabledCards()
+    {
+      $enabledCards = CardPackage::whereHas("citizenCards")->ListsTranslations("name")->select('card_packages.id')->get();
+
+      return response()->json([
+            'data' => SimpleCardPackageResource::collection($enabledCards),
+            'status' => true,
+            'message' =>  '',
+        ]);
+    }
+
 
     public function forceDestroy(ReasonRequest $request, $id)
     {
@@ -97,8 +110,7 @@ class CitizenController extends Controller
     }
 
 
-    public
-    function destroy(ReasonRequest $request, User $user)
+    public function destroy(ReasonRequest $request, User $user)
     {
 
         $user->delete();
@@ -111,8 +123,7 @@ class CitizenController extends Controller
     }
 
 
-    public
-    function restore(ReasonRequest $request, $id)
+    public function restore(ReasonRequest $request, $id)
     {
         $user = User::onlyTrashed()->findOrFail($id);
         $user->restore();

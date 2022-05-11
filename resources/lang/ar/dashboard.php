@@ -586,6 +586,28 @@ return [
 
         'permissions' => array_except($permissions, ['archive', 'restore', 'force_delete']) + ['create' => 'عرض العملاء']
     ],
+
+    "citizens" => [
+        "citizens" => "المستخدمبن",
+        "name" => "اسم المستخدم",
+        "identity_number" => "رقم الهوية",
+        "phone" => "رقم الجوال",
+        "enter_phone" => "ادخل رقم الجوال",
+        "enabled_card" => "البطاقة المفعلة",
+        "choose_card" => "اختر البطاقة",
+        'card_end_at_from' => "تاريخ إنتهاء البطاقة (من)",
+        'card_end_at_to' => "تاريخ إنتهاء البطاقة (إلى)",
+        'created_at_from' => "تاريخ التسجيل (من)",
+        'created_at_to' => "تاريخ التسجيل (إلى)",
+
+        'card_end_at' => "تاريخ انتهاء البطاقة",
+        'created_at' => "تاريخ التسجيل",
+        'actions' => "العمليات",
+
+        'edit_phone' => "تعديل رقم الجوال",
+        'new_phone' => "رقم الجوال الجديد",
+        ],
+
     'user' => [
         'users' => 'المستخدمين',
         'sub_progs' => [

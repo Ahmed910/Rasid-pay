@@ -243,7 +243,7 @@
                 <li class="slide">
                     <a class="side-menu__item {{ request()->routeIs('dashboard.citizen.index') ? 'active' : '' }}" data-bs-toggle="slide" href="{{ route('dashboard.citizen.index') }}"><i
                             class="mdi mdi-account-multiple-check-outline"></i><span
-                            class="side-menu__label">المستخدمين</span></a>
+                            class="side-menu__label">{{ trans('dashboard.citizens.citizens') }}</span></a>
                 </li>
                 <li class="slide">
                     <a class="side-menu__item {{ request()->routeIs('dashboard.transaction.index') ? 'active' : '' }}" data-bs-toggle="slide" href="{{ route('dashboard.transaction.index') }}"><i
