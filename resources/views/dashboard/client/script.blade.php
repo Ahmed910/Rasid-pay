@@ -133,11 +133,10 @@
             data: 'tax_number',
             name: 'tax_number'
           },
-          {
-            data: 'transactions_done',
-            name: 'transactions_done'
-          },
-
+{
+data: 'created_at',
+name: 'created_at'
+},
           {
             data: "bank_name",
             name: 'bank_name'
@@ -150,14 +149,11 @@
           {
             class: "text-center",
             data: function (data) {
-              return `<a href="department-view.html" class="azureIcon" data-bs-toggle="tooltip" data-bs-placement="top"
-                title="عرض"><i class="mdi mdi-eye-outline"></i></a>
-              <a href="department-add.html" class="warningIcon" data-bs-toggle="tooltip" data-bs-placement="top"
-                title="تعديل"><i class="mdi mdi-square-edit-outline"></i></a>
-              <a href="#" class="successIcon" data-bs-toggle="tooltip" data-bs-placement="top" title="تأكيد الحساب "><i
-                  class="mdi mdi-check"></i></a>
-              <a href="#" class="primaryIcon" data-bs-toggle="tooltip" data-bs-placement="top" title="تعليق الحساب "><i
-                  class="mdi mdi-account-clock-outline"></i></a>`
+              return `<a href="${data.show_route}" class="successIcon" data-bs-toggle="tooltip" data-bs-placement="top"
+                title="@lang('dashboard.general.accept')"><i class="mdi mdi-check"></i></a>
+              <a href="${data.show_route}" class="errorIcon" data-bs-toggle="tooltip" data-bs-placement="top"
+                title="@lang('dashboard.general.refuse')"><i class="mdi mdi-close"></i></a>
+              `
             },
             orderable: false,
             searchable: false
