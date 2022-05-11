@@ -36,6 +36,8 @@ class TransactionRequest extends ApiMasterRequest
                 "from_user_id" => "required|exists:users,id,user_type,citizen,ban_status,active",
                 "to_user_id" => "nullable|exists:clients,id",
                 "amount" => "required|numeric",
+                "gift_balance" => "required|numeric",
+                "total_amount" => "required|numeric",
             ];
         }
 

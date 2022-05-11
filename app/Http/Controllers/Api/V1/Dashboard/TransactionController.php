@@ -5,17 +5,14 @@ namespace App\Http\Controllers\Api\V1\Dashboard;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\Dashboard\TransactionResource;
 use App\Http\Requests\V1\Dashboard\TransactionRequest;
+use App\Models\Client;
 use Illuminate\Http\Request;
 use App\Models\Transaction;
 use App\Models\User;
 
 class TransactionController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+
     public function index(Request $request)
     {
         $transactions = Transaction::search($request)
@@ -45,8 +42,8 @@ class TransactionController extends Controller
         $additionadData['user_identity'] = $citizen->identity_number;
 
         if (isset($request->to_user_id)) {
-            $user = User::find($request->to_user_id);
-            $additionadData['to_user_identity'] = $user->identity_number;
+            $client = Client::find($request->to_user_id);
+            $additionadData['to_user_identity'] = $client->user->identity_number;
         }
 
         $transaction->fill($request->validated() + $additionadData)->save();

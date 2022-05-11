@@ -28,7 +28,8 @@ class TransactionResource extends JsonResource
             'status' => $this->status ? trans("dashboard.transaction.status_cases.{$this->status}") : "",
             'transaction_id' => $this->transaction_id,
             'transaction_data' => $this->transaction_data,
-            'discount_percent' => $this->card->name.' / '.$this->discount_percent.'%',
+            'discount_percent' => $this->discount_percent,
+            'card' => $this->card->name,
         ];
     }
 }
