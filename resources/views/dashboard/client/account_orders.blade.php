@@ -10,7 +10,6 @@
 </div>
 <!-- PAGE-HEADER END -->
 
-  </div>
   <!-- PAGE-HEADER END -->
 
   <form method="get" action="" id="account-search">
