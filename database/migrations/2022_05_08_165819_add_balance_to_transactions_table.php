@@ -19,6 +19,11 @@ class AddBalanceToTransactionsTable extends Migration
             $table->string("gift_balance")->default(0);
             $table->string("discount_percent")->default(0);
             $table->foreignUuid("from_user_id")->constrained("users")->onDelete("cascade");
+
+            $table->softDeletes();
+
+            \DB::statement("ALTER TABLE `transactions` CHANGE `type` `status` ENUM('payment', 'wallet_transfer', 'receive_credit', 'recharge_credit','upgrade_card') CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'payment';");
+
         });
     }
 
