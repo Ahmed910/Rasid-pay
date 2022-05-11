@@ -30,7 +30,7 @@ class CreateTransactionsTable extends Migration
             $table->string("transaction_id")->nullable()->unique();
             $table->text("transaction_data")->nullable();
             $table->string("qr_code")->nullable();
-
+            $table->softDeletes();
             $table->timestamps();
         });
 
