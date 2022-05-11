@@ -3,12 +3,12 @@
 
 @section('content')
 
-<!-- PAGE-HEADER -->
-<div class="page-header">
-  <h1 class="page-title">{{ trans('dashboard.client.sub_progs.account_order') }}</h1>
+  <!-- PAGE-HEADER -->
+  <div class="page-header">
+    <h1 class="page-title">{{ trans('dashboard.client.sub_progs.account_order') }}</h1>
 
-</div>
-<!-- PAGE-HEADER END -->
+  </div>
+  <!-- PAGE-HEADER END -->
 
   <!-- PAGE-HEADER END -->
 
@@ -107,6 +107,7 @@
     <div class="col-lg-12">
       <div class="table-responsive p-1">
         <table id="orderTable" class="table table-bordered shadow-sm bg-body text-nowrap key-buttons">
+
           <thead>
           <tr>
             <th class="border-bottom-0">#</th>
@@ -115,7 +116,7 @@
             <th class="border-bottom-0">{{ trans('dashboard.client.type') }}</th>
             <th class="border-bottom-0">{{ trans('dashboard.client.commercial_number') }}</th>
             <th class="border-bottom-0">{{ trans('dashboard.client.tax_number') }}</th>
-            <th class="border-bottom-0">{{ trans('dashboard.client.order_date') }}</th> 
+            <th class="border-bottom-0">{{ trans('dashboard.client.order_date') }}</th>
             {{-- <th class="border-bottom-0 text-center">{{ trans('dashboard.client.transactions_done') }}</th> --}}
             <th class="border-bottom-0">{{ trans('dashboard.client.bank_name') }}</th>
             <th class="border-bottom-0">{{ trans('dashboard.client.status') }}</th>
@@ -123,14 +124,14 @@
 
 
           </tr>
-        </thead>
-        <tbody>
+          </thead>
+          <tbody>
 
-        </tbody>
-      </table>
+          </tbody>
+        </table>
+      </div>
     </div>
-  </div>
-  <!-- End Row -->
+    <!-- End Row -->
 
   @include('dashboard.layouts.modals.archive')
   @include('dashboard.layouts.modals.not_archive')

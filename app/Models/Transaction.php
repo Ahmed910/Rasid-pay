@@ -2,19 +2,21 @@
 
 namespace App\Models;
 
+use App\Models\Bank\Bank;
 use App\Models\CardPackage\CardPackage;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Traits\Loggable;
 use App\Traits\Uuid;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Str;
 
 class Transaction extends Model
 {
 
-    use HasFactory, Uuid, Loggable,SoftDeletes;
+    use HasFactory, Uuid, Loggable, SoftDeletes;
 
     protected $guarded = ['number', 'created_at', 'updated_at'];
     private $sortableColumns = ["number", "created_at", "user_from", "user_identity", 'user_to', 'amount', 'total_amount', 'gift_balance', 'type', 'status', 'discount_percent'];
@@ -82,7 +84,7 @@ class Transaction extends Model
         }
         if (isset($request->card_package_id)) {
             if ($request->card_package_id == 0) $request->card_package_id = null;
-            if ($request->card_package_id != -1)  $query->whereHas('card',fn($q) => $q->where('id',$request->card_package_id));
+            if ($request->card_package_id != -1) $query->whereHas('card', fn($q) => $q->where('id', $request->card_package_id));
 
         }
         if (isset($request->client)) {
@@ -95,7 +97,7 @@ class Transaction extends Model
         }
 
         if (isset($request->citizen)) {
-            $query->whereHas('citizen',fn($q) => $q->where('fullname','like',"%$request->citizen%"));
+            $query->whereHas('citizen', fn($q) => $q->where('fullname', 'like', "%$request->citizen%"));
         }
     }
 
@@ -115,18 +117,23 @@ class Transaction extends Model
         });
     }
 
-    public function card()
+    public function card(): BelongsTo
     {
         return $this->belongsTo(CardPackage::class, 'card_package_id');
     }
 
-    public function citizen()
+    public function citizen(): BelongsTo
     {
         return $this->belongsTo(User::class, 'from_user_id');
     }
 
-    public function client()
+    public function client(): BelongsTo
     {
         return $this->belongsTo(Client::class, 'to_user_id');
+    }
+
+    public function bank(): BelongsTo
+    {
+        return $this->belongsTo(Bank::class, 'bank_id');
     }
 }
