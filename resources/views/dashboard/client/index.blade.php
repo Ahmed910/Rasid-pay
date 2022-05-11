@@ -134,8 +134,6 @@
             <th class="border-bottom-0">{{ trans('dashboard.client.bank_name') }}</th>
             <th class="border-bottom-0">{{ trans('dashboard.client.account_status') }}</th>
             <th class="border-bottom-0 text-center">{{ trans('dashboard.general.actions') }}</th>
-
-
           </tr>
           </thead>
           <tbody>

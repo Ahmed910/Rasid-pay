@@ -175,11 +175,11 @@ class User extends Authenticatable implements HasAssetsInterface
     }
     public function clientTransactions()
     {
-        return $this->hasMany(Transaction::class, 'client_id');
+        return $this->hasMany(Transaction::class, 'to_user_id');
     }
     public function citizenTransactions()
     {
-        return $this->hasMany(Transaction::class, 'citizen_id');
+        return $this->hasMany(Transaction::class, 'from_user_id');
     }
 
     public function citizenCards()

@@ -46,7 +46,7 @@
         '</tr>'+
         '</table>';
     }
-  
+
     var collapsedTable = $('#collapsedTable').DataTable({
         sDom: "t<'domOption'lpi>",
         pageLength: 10,
@@ -66,11 +66,11 @@
         },
     });
     // Add event listener for opening and closing details
-  
+
     $('#collapsedTable tbody').on('click', 'td:last-child', function () {
       var tr = $(this).closest('tr');
       var row = collapsedTable.row(tr);
-  
+
       if (row.child.isShown()) {
         // This row is already open - close it.
         row.child.hide();
@@ -138,7 +138,6 @@
             data: 'transactions_done',
             name: 'transactions_done'
           },
-
           {
             data: "bank_name",
             name: 'bank_name'
@@ -147,7 +146,6 @@
             data: 'account_status',
             name: 'account_status'
           },
-
           {
             class: "text-center",
             data: function (data) {
@@ -266,10 +264,6 @@
           class: 'client_index'
         },
           {
-            data: "order_number",
-            name: 'order_number'
-          },
-          {
             data: "fullname",
             name: 'fullname'
           },
@@ -362,7 +356,7 @@
             clientTableInfo, clientTableInfo.toArabicUni());
         }
       });
-
+      table.draw();
 
       $("#status").change(function () {
         if (this.value == 'temporary') {
