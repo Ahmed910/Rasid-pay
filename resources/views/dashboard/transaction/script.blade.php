@@ -33,15 +33,14 @@
         ajax: {
           url: "{{ route('dashboard.transaction.index') }}",
           data: function (data) {
-            data.transactionNum = $('#transactionNum').val();
-            data.transactionName = $('#transactionName').val();
-            data.idNumber = $('#idNumber').val();
-            data.to_user_id = $('#to_user_id').val();
-            data.from_user_id = $('#from_user_id').val();
+            data.transaction_number = $('#transactionNum').val();
+            data.citizen = $('#transactionName').val();
+            data.user_identity = $('#idNumber').val();
+            data.client = $('#to_user_id').val();
             data.created_from = $('#from-hijri-picker-custom').val();
             data.created_to = $('#to-hijri-picker-custom').val();
-            data.transactionValueFrom = $('#transactionValueFrom').val();
-            data.transactionValueTo = $('#transactionValueTo').val();
+            data.transaction_value_from = $('#transactionValueFrom').val();
+            data.transaction_value_to = $('#transactionValueTo').val();
             data.type = $('#type').val();
             data.card_package_id = $('#card_package_id').val();
             data.status = $('#status').val();
