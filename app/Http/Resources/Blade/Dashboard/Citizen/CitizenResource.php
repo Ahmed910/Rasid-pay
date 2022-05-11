@@ -14,7 +14,7 @@ class CitizenResource extends JsonResource
             'fullname' => $this->user->fullname,
             'identity_number' => $this->user->identity_number,
             'phone' => $this->user->phone,
-            'enabled_card' => $this->enabledCard,
+            'enabled_card' => $this->enabledCard?->cardPackage?->translation?->name,
             'card_end_at' => $this->enabledCard?->end_at,
             'bank_name' => $this->bankAccount?->bank?->name,
             'account_status' => !$this->bankAccount?->account_status ? '' : trans("dashboard.citizen.account_statuses.{$this->bankAccount?->account_status}"),

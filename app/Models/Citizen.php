@@ -40,7 +40,7 @@ class Citizen extends Model
         }
         foreach ($request->all() as $key => $item) {
             if (key_exists($key, self::ENABLEDCARD_SearchabLE_COLUMS))
-                $query->whereHas('enabledCard', function ($q) use ($key, $item) {
+                $query->whereHas('enabledCard.cardPackage', function ($q) use ($key, $item) {
                     $q->where(self::ENABLEDCARD_SearchabLE_COLUMS[$key], $item);
                 });
 
