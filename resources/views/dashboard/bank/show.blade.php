@@ -3,4 +3,4 @@
 @section('content')
 
 @endsection
-@include('dashboard.transaction.show_script')
+@include('dashboard.bank.show_script')
