@@ -1,9 +1,9 @@
 <!-- SELECT2 JS -->
 @section('datatable_script')
-<script src="{{ asset('dashboardAssets/plugins/datatable/js/jquery.dataTables.min.js') }}"></script>
-<script src="{{ asset('dashboardAssets/plugins/datatable/js/dataTables.bootstrap5.js') }}"></script>
-<script src="{{ asset('dashboardAssets/plugins/datatable/dataTables.responsive.min.js') }}"></script>
-<script src="{{ asset('dashboardAssets/plugins/datatable/responsive.bootstrap5.min.js') }}"></script>
+  <script src="{{ asset('dashboardAssets/plugins/datatable/js/jquery.dataTables.min.js') }}"></script>
+  <script src="{{ asset('dashboardAssets/plugins/datatable/js/dataTables.bootstrap5.js') }}"></script>
+  <script src="{{ asset('dashboardAssets/plugins/datatable/dataTables.responsive.min.js') }}"></script>
+  <script src="{{ asset('dashboardAssets/plugins/datatable/responsive.bootstrap5.min.js') }}"></script>
 @endsection
 @section('scripts')
   <script src="{{ asset('dashboardAssets/js/custom_scripts.js') }}"></script>
@@ -23,31 +23,31 @@
     $(function () {
 
       function format(d) {
-      // `d` is the original data object for the row
-      return '<table width="100%">' +
-        '<tr>'+
-        '<td></td>'+
-        '<td colspan="0">' +'<label>البريد الالكتروني</label>'+
-        '<p>test@test.com</p>'+
-        '</td>'+
-        '<td >' +'<label>العنوان</label>'+
-        '<p>address</p>'+
-        '</td>'+
-        '<td >' +'<label>النوع</label>'+
-        '<p>male</p>'+
-        '</td>'+
-        '<td >' +'<label>الحالة الاجتماعية</label>'+
-        '<p>single</p>'+
-        '</td>'+
-        '<td >' +'<label>الجنسية</label>'+
-        '<p>مصري</p>'+
-        '</td>'+
-        '<td></td>'+
-        '</tr>'+
-        '</table>';
-    }
+        // `d` is the original data object for the row
+        return '<table width="100%">' +
+          '<tr>'+
+          '<td></td>'+
+          '<td colspan="0">' +'<label>البريد الالكتروني</label>'+
+          '<p>test@test.com</p>'+
+          '</td>'+
+          '<td >' +'<label>العنوان</label>'+
+          '<p>address</p>'+
+          '</td>'+
+          '<td >' +'<label>النوع</label>'+
+          '<p>male</p>'+
+          '</td>'+
+          '<td >' +'<label>الحالة الاجتماعية</label>'+
+          '<p>single</p>'+
+          '</td>'+
+          '<td >' +'<label>الجنسية</label>'+
+          '<p>مصري</p>'+
+          '</td>'+
+          '<td></td>'+
+          '</tr>'+
+          '</table>';
+      }
 
-    var collapsedTable = $('#collapsedTable').DataTable({
+      var collapsedTable = $('#collapsedTable').DataTable({
         sDom: "t<'domOption'lpi>",
         pageLength: 10,
         lengthMenu: [
@@ -64,23 +64,23 @@
             next: '<i class="mdi mdi-chevron-left"></i>',
           },
         },
-    });
-    // Add event listener for opening and closing details
+      });
+      // Add event listener for opening and closing details
 
-    $('#collapsedTable tbody').on('click', 'td:last-child', function () {
-      var tr = $(this).closest('tr');
-      var row = collapsedTable.row(tr);
+      $('#collapsedTable tbody').on('click', 'td:last-child', function () {
+        var tr = $(this).closest('tr');
+        var row = collapsedTable.row(tr);
 
-      if (row.child.isShown()) {
-        // This row is already open - close it.
-        row.child.hide();
-        tr.removeClass('shown');
-      } else {
-        // Open row.
-        row.child(format(row.data())).show();
-        tr.addClass('shown');
-      }
-    });
+        if (row.child.isShown()) {
+          // This row is already open - close it.
+          row.child.hide();
+          tr.removeClass('shown');
+        } else {
+          // Open row.
+          row.child(format(row.data())).show();
+          tr.addClass('shown');
+        }
+      });
 
 
 
@@ -138,6 +138,7 @@
             data: 'transactions_done',
             name: 'transactions_done'
           },
+
           {
             data: "bank_name",
             name: 'bank_name'
@@ -146,6 +147,7 @@
             data: 'account_status',
             name: 'account_status'
           },
+
           {
             class: "text-center",
             data: function (data) {
@@ -263,6 +265,7 @@
           name: 'id',
           class: 'client_index'
         },
+
           {
             data: "fullname",
             name: 'fullname'
@@ -280,8 +283,8 @@
             name: 'tax_number'
           },
           {
-            data: 'created_at',
-            name: 'created_at'
+            data: 'transactions_done',
+            name: 'transactions_done'
           },
 
           {
@@ -290,11 +293,11 @@
           },
           {
             data: function (data) {
-            if (data.account_status_name == 'pending') {
-            return ` <span class="badge bg-success-opacity py-2 px-4">${data.account_status}</span>`;
-            } else {
-            return ` <span class="badge bg-danger-opacity py-2 px-4">${data.account_status}</span>`;
-            }
+              if (data.account_status_name == 'pending') {
+                return ` <span class="badge bg-success-opacity py-2 px-4">${data.account_status}</span>`;
+              } else {
+                return ` <span class="badge bg-danger-opacity py-2 px-4">${data.account_status}</span>`;
+              }
             },
             name: 'account_status'
           },
@@ -356,7 +359,7 @@
             clientTableInfo, clientTableInfo.toArabicUni());
         }
       });
-      table.draw();
+
 
       $("#status").change(function () {
         if (this.value == 'temporary') {
@@ -412,7 +415,7 @@
       });
 
     });
-</script>
-<script src="{{ asset('dashboardAssets/js/select2.js') }}"></script>
-<script src="{{ asset('dashboardAssets/plugins/select2/select2.full.min.js') }}"></script>
+  </script>
+  <script src="{{ asset('dashboardAssets/js/select2.js') }}"></script>
+  <script src="{{ asset('dashboardAssets/plugins/select2/select2.full.min.js') }}"></script>
 @endsection
