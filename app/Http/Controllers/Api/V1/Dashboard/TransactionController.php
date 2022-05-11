@@ -97,7 +97,7 @@ class TransactionController extends Controller
      */
     public function destroy($id)
     {
-        $transaction  = Transaction::delete($id);
+        $transaction  = Transaction::destroy($id);
 
         return TransactionResource::make($transaction)
             ->additional([
