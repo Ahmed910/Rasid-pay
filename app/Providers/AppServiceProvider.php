@@ -25,7 +25,8 @@ class AppServiceProvider extends ServiceProvider
         'Currency'   => \App\Models\Currency\Currency::class,
         'Group'      => \App\Models\Group\Group::class,
         'RasidJob'   => \App\Models\RasidJob\RasidJob::class,
-        'Region'     => \App\Models\Region\Region::class
+        'Region'     => \App\Models\Region\Region::class,
+        'Transaction' => \App\Models\Transaction::class
     ];
 
     public function register()
