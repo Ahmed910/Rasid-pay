@@ -23,7 +23,7 @@ class CreateTransactionsTable extends Migration
             $table->string('amount');
             $table->string("user_identity")->nullable();
             $table->enum('status', ['success', 'fail', 'pending', 'received', 'cancel'])->default('pending');
-            $table->enum('type', ['payment', 'wallet_transfer', 'bank_transactoin', 'receive_credit', 'recharge_credit', 'upgrade_card'])->default('payment');
+            $table->enum('type', ['payment', 'wallet_transfer', 'bank_transaction', 'receive_credit', 'recharge_credit', 'upgrade_card'])->default('payment');
             $table->string("action_type")->nullable();
             $table->string("to_user_id")->nullable();
             $table->string("to_user_identity")->nullable();

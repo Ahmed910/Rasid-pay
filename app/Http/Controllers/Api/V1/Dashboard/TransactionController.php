@@ -41,7 +41,7 @@ class TransactionController extends Controller
     {
         $additionadData = [];
 
-        $citizen = User::find($request->citizen_id);
+        $citizen = User::find($request->from_user_id);
         $additionadData['user_identity'] = $citizen->identity_number;
 
         if (isset($request->to_user_id)) {
