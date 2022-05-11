@@ -141,10 +141,16 @@ name: 'created_at'
             data: "bank_name",
             name: 'bank_name'
           },
-          {
-            data: 'account_status',
-            name: 'account_status'
-          },
+         {
+        data: function (data) {
+        if (data.account_status_name == 'pending') {
+        return ` <span class="badge bg-success-opacity py-2 px-4">${data.account_status}</span>`;
+        } else {
+        return ` <span class="badge bg-danger-opacity py-2 px-4">${data.account_status}</span>`;
+        }
+        },
+        name: 'account_status'
+        },
 
           {
             class: "text-center",
