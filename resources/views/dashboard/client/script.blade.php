@@ -1,9 +1,9 @@
 <!-- SELECT2 JS -->
 @section('datatable_script')
-<script src="{{ asset('dashboardAssets/plugins/datatable/js/jquery.dataTables.min.js') }}"></script>
-<script src="{{ asset('dashboardAssets/plugins/datatable/js/dataTables.bootstrap5.js') }}"></script>
-<script src="{{ asset('dashboardAssets/plugins/datatable/dataTables.responsive.min.js') }}"></script>
-<script src="{{ asset('dashboardAssets/plugins/datatable/responsive.bootstrap5.min.js') }}"></script>
+  <script src="{{ asset('dashboardAssets/plugins/datatable/js/jquery.dataTables.min.js') }}"></script>
+  <script src="{{ asset('dashboardAssets/plugins/datatable/js/dataTables.bootstrap5.js') }}"></script>
+  <script src="{{ asset('dashboardAssets/plugins/datatable/dataTables.responsive.min.js') }}"></script>
+  <script src="{{ asset('dashboardAssets/plugins/datatable/responsive.bootstrap5.min.js') }}"></script>
 @endsection
 @section('scripts')
   <script src="{{ asset('dashboardAssets/js/custom_scripts.js') }}"></script>
@@ -23,36 +23,36 @@
     $(function () {
 
       function format(d) {
-      // `d` is the original data object for the row
-      return '<table width="100%">' +
-        '<tr>'+
-        '<td></td>'+
-        '<td colspan="0">' +'<label>البريد الالكتروني</label>'+
-        '<p>test@test.com</p>'+
-        '</td>'+
-        '<td >' +'<label>العنوان</label>'+
-        '<p>address</p>'+
-        '</td>'+
-        '<td >' +'<label>النوع</label>'+
-        '<p>male</p>'+
-        '</td>'+
-        '<td >' +'<label>الحالة الاجتماعية</label>'+
-        '<p>single</p>'+
-        '</td>'+
-        '<td >' +'<label>الجنسية</label>'+
-        '<p>مصري</p>'+
-        '</td>'+
-        '<td></td>'+
-        '</tr>'+
-        '</table>';
-    }
-  
-    var collapsedTable = $('#collapsedTable').DataTable({
+        // `d` is the original data object for the row
+        return '<table width="100%">' +
+          '<tr>' +
+          '<td></td>' +
+          '<td colspan="0">' + '<label>البريد الالكتروني</label>' +
+          '<p>test@test.com</p>' +
+          '</td>' +
+          '<td >' + '<label>العنوان</label>' +
+          '<p>address</p>' +
+          '</td>' +
+          '<td >' + '<label>النوع</label>' +
+          '<p>male</p>' +
+          '</td>' +
+          '<td >' + '<label>الحالة الاجتماعية</label>' +
+          '<p>single</p>' +
+          '</td>' +
+          '<td >' + '<label>الجنسية</label>' +
+          '<p>مصري</p>' +
+          '</td>' +
+          '<td></td>' +
+          '</tr>' +
+          '</table>';
+      }
+
+      var collapsedTable = $('#collapsedTable').DataTable({
         sDom: "t<'domOption'lpi>",
         pageLength: 10,
         lengthMenu: [
-          [1,5, 10, 20, -1],
-          [1,5, 10, 20, "الكل"],
+          [1, 5, 10, 20, -1],
+          [1, 5, 10, 20, "الكل"],
         ],
         language: {
           lengthMenu: "عرض _MENU_",
@@ -64,24 +64,23 @@
             next: '<i class="mdi mdi-chevron-left"></i>',
           },
         },
-    });
-    // Add event listener for opening and closing details
-  
-    $('#collapsedTable tbody').on('click', 'td:last-child', function () {
-      var tr = $(this).closest('tr');
-      var row = collapsedTable.row(tr);
-  
-      if (row.child.isShown()) {
-        // This row is already open - close it.
-        row.child.hide();
-        tr.removeClass('shown');
-      } else {
-        // Open row.
-        row.child(format(row.data())).show();
-        tr.addClass('shown');
-      }
-    });
+      });
+      // Add event listener for opening and closing details
 
+      $('#collapsedTable tbody').on('click', 'td:last-child', function () {
+        var tr = $(this).closest('tr');
+        var row = collapsedTable.row(tr);
+
+        if (row.child.isShown()) {
+          // This row is already open - close it.
+          row.child.hide();
+          tr.removeClass('shown');
+        } else {
+          // Open row.
+          row.child(format(row.data())).show();
+          tr.addClass('shown');
+        }
+      });
 
 
       var accounts_table = $("#orderTable").DataTable({
@@ -261,10 +260,7 @@ name: 'created_at'
           name: 'id',
           class: 'client_index'
         },
-          {
-            data: "order_number",
-            name: 'order_number'
-          },
+
           {
             data: "fullname",
             name: 'fullname'
@@ -282,8 +278,8 @@ name: 'created_at'
             name: 'tax_number'
           },
           {
-            data: 'created_at',
-            name: 'created_at'
+            data: 'transactions_done',
+            name: 'transactions_done'
           },
 
           {
@@ -292,11 +288,11 @@ name: 'created_at'
           },
           {
             data: function (data) {
-            if (data.account_status_name == 'pending') {
-            return ` <span class="badge bg-success-opacity py-2 px-4">${data.account_status}</span>`;
-            } else {
-            return ` <span class="badge bg-danger-opacity py-2 px-4">${data.account_status}</span>`;
-            }
+              if (data.account_status_name == 'pending') {
+                return ` <span class="badge bg-success-opacity py-2 px-4">${data.account_status}</span>`;
+              } else {
+                return ` <span class="badge bg-danger-opacity py-2 px-4">${data.account_status}</span>`;
+              }
             },
             name: 'account_status'
           },
@@ -304,17 +300,14 @@ name: 'created_at'
           {
             class: "text-center",
             data: function (data) {
-              return `<a
-                    href="${data.show_route}"
-                    class="successIcon"
-                    data-bs-toggle="tooltip"
-                    data-bs-placement="top"
-                    title="@lang('dashboard.general.accept')"
-                    ><i class="mdi mdi-check"></i
-                        ></a>
-                       <a href="${data.show_route}" class="errorIcon" data-bs-toggle="tooltip" data-bs-placement="top"
-                        title="@lang('dashboard.general.refuse')"><i class="mdi mdi-close"></i></a>
-                            `
+              return `<a href="department-view.html" class="azureIcon" data-bs-toggle="tooltip" data-bs-placement="top"
+                title="عرض"><i class="mdi mdi-eye-outline"></i></a>
+              <a href="department-add.html" class="warningIcon" data-bs-toggle="tooltip" data-bs-placement="top"
+                title="تعديل"><i class="mdi mdi-square-edit-outline"></i></a>
+              <a href="#" class="successIcon" data-bs-toggle="tooltip" data-bs-placement="top" title="تأكيد الحساب "><i
+                  class="mdi mdi-check"></i></a>
+              <a href="#" class="primaryIcon" data-bs-toggle="tooltip" data-bs-placement="top" title="تعليق الحساب "><i
+                  class="mdi mdi-account-clock-outline"></i></a>`
             },
             orderable: false,
             searchable: false
@@ -414,7 +407,7 @@ name: 'created_at'
       });
 
     });
-</script>
-<script src="{{ asset('dashboardAssets/js/select2.js') }}"></script>
-<script src="{{ asset('dashboardAssets/plugins/select2/select2.full.min.js') }}"></script>
+  </script>
+  <script src="{{ asset('dashboardAssets/js/select2.js') }}"></script>
+  <script src="{{ asset('dashboardAssets/plugins/select2/select2.full.min.js') }}"></script>
 @endsection
