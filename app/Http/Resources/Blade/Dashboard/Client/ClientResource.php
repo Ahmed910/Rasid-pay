@@ -19,7 +19,7 @@ class ClientResource extends JsonResource
             'bank_name' => $this->bankAccount?->bank?->name,
             'order_number' => $this->bankAccount?->order_number,
             'account_status' =>  !$this->bankAccount?->account_status ? '' : trans("dashboard.client.account_statuses.{$this->bankAccount?->account_status}"),
-            'show_route' => route('dashboard.client.show', $this->id),
+            'show_route' => route('dashboard.client.show', $this->user_id),
             'edit_route' => route('dashboard.client.edit', $this->id),
             'created_at' => $this->created_at,
             'start_from' => $request->start

@@ -9,8 +9,81 @@
   <script src="{{ asset('dashboardAssets/js/custom_scripts.js') }}"></script>
   <script src="{{ asset('dashboardAssets/plugins/bootstrap-hijri-datepicker/js/bootstrap-hijri-datetimepicker.js') }}">
   </script>
+
+
+  <script src="{{ asset('dashboardAssets') }}/plugins/fileuploads/js/fileupload.js"></script>
+  <script src="{{ asset('dashboardAssets') }}/plugins/fileuploads/js/file-upload.js"></script>
+  <!-- INTERNAL File-Uploads Js-->
+  <script src="{{ asset('dashboardAssets') }}/plugins/fancyuploder/jquery.ui.widget.js"></script>
+  <script src="{{ asset('dashboardAssets') }}/plugins/fancyuploder/jquery.fileupload.js"></script>
+  <script src="{{ asset('dashboardAssets') }}/plugins/fancyuploder/jquery.iframe-transport.js"></script>
+  <script src="{{ asset('dashboardAssets') }}/plugins/fancyuploder/jquery.fancy-fileupload.js"></script>
+  <script src="{{ asset('dashboardAssets') }}/plugins/fancyuploder/fancy-uploader.js"></script>
   <script>
     $(function () {
+
+      function format(d) {
+      // `d` is the original data object for the row
+      return '<table width="100%">' +
+        '<tr>'+
+        '<td></td>'+
+        '<td colspan="0">' +'<label>البريد الالكتروني</label>'+
+        '<p>test@test.com</p>'+
+        '</td>'+
+        '<td >' +'<label>العنوان</label>'+
+        '<p>address</p>'+
+        '</td>'+
+        '<td >' +'<label>النوع</label>'+
+        '<p>male</p>'+
+        '</td>'+
+        '<td >' +'<label>الحالة الاجتماعية</label>'+
+        '<p>single</p>'+
+        '</td>'+
+        '<td >' +'<label>الجنسية</label>'+
+        '<p>مصري</p>'+
+        '</td>'+
+        '<td></td>'+
+        '</tr>'+
+        '</table>';
+    }
+  
+    var collapsedTable = $('#collapsedTable').DataTable({
+        sDom: "t<'domOption'lpi>",
+        pageLength: 10,
+        lengthMenu: [
+          [1,5, 10, 20, -1],
+          [1,5, 10, 20, "الكل"],
+        ],
+        language: {
+          lengthMenu: "عرض _MENU_",
+          zeroRecords: "لا يوجد بيانات",
+          info: "عرض _PAGE_ من _PAGES_ عنصر",
+          infoEmpty: "لا يوجد نتائج بحث متاحة",
+          paginate: {
+            previous: '<i class="mdi mdi-chevron-right"></i>',
+            next: '<i class="mdi mdi-chevron-left"></i>',
+          },
+        },
+    });
+    // Add event listener for opening and closing details
+  
+    $('#collapsedTable tbody').on('click', 'td:last-child', function () {
+      var tr = $(this).closest('tr');
+      var row = collapsedTable.row(tr);
+  
+      if (row.child.isShown()) {
+        // This row is already open - close it.
+        row.child.hide();
+        tr.removeClass('shown');
+      } else {
+        // Open row.
+        row.child(format(row.data())).show();
+        tr.addClass('shown');
+      }
+    });
+
+
+
       var accounts_table = $("#orderTable").DataTable({
         sDom: "t<'domOption'lpi>",
         serverSide: true,
@@ -341,6 +414,7 @@
       });
 
     });
+
   </script>
   <script src="{{ asset('dashboardAssets/js/select2.js') }}"></script>
   <script src="{{ asset('dashboardAssets/plugins/select2/select2.full.min.js') }}"></script>
