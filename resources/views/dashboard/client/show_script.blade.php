@@ -11,6 +11,7 @@
     $(function () {
       function format(d) {
       // `d` is the original data object for the row
+
       return '<table width="100%">' +
         '<tr>'+
         '<td></td>'+
@@ -32,6 +33,34 @@
         '<td></td>'+
         '</tr>'+
         '</table>';
+      // return '<table width="100%">' +
+      //   '<tr>'+
+      //   '<td>' +'<label>البريد الالكتروني</label>'+
+      //   '<p>test@test.com</p>'+
+      //   '</td>'+
+      //   '</tr>'+
+      //   '<tr>'+
+      //   '<td >' +'<label>العنوان</label>'+
+      //   '<p>address</p>'+
+      //   '</td>'+
+      //   '</tr>'+
+      //   '<tr>'+
+      //   '<td >' +'<label>النوع</label>'+
+      //   '<p>male</p>'+
+      //   '</td>'+
+      //   '</tr>'+
+      //   '<tr>'+
+      //   '<td >' +'<label>الحالة الاجتماعية</label>'+
+      //   '<p>single</p>'+
+      //   '</td>'+
+      //   '</tr>'+
+      //   '<tr>'+
+      //   '<td >' +'<label>الجنسية</label>'+
+      //   '<p>مصري</p>'+
+      //   '</td>'+
+      //   '</tr>'+
+      //   '</table>';
+
     }
   
     var table = $('#collapsedTable').DataTable({

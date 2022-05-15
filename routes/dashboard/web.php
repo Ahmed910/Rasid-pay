@@ -30,7 +30,6 @@ Route::group(
             Route::get('/', "HomeController@index")->name("home.index");
             Route::get('transaction', "TransactionController@index")->name("transaction.index");
             Route::get('citizen', "CitizenController@index")->name("citizen.index");
-            Route::get('bank', "BankController@index")->name("bank.index");
             Route::get('/backButton', "HomeController@backButton")->name("backButton");
             Route::post('logout', "Auth\LoginController@logout")->name("session.logout");
             Route::resource('activity_log', 'ActivityLogController')->only('index', 'show');
@@ -79,6 +78,7 @@ Route::group(
                 'admin' => 'AdminController',
                 'activity_log' => 'ActivityLogController',
                 'bank_account' => 'BankAccountController',
+                'bank' => 'BankController',
 
             ]);
         });
