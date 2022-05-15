@@ -26,10 +26,10 @@ class BankAccountController extends Controller
         else if (isset($request->sort["column"]) && array_key_exists($request->sort["column"], Client::bank_acc_sort_Columns)) $sortcol = Client::bank_acc_sort_Columns[$sortcol];
 
         if ($request->ajax()) {
-//            dd($request->fullname);
 
-            $clientsQuery = Client::with(["user", "user.bankAccount.bank.translations"])->search($request);
-
+            $clientsQuery = Client::whereHas("user.bankAccount", function ($q) {
+                $q->whereIn("account_status", ["pending", "refused"]);
+            })->search($request);
             $clientCount = $clientsQuery->count();
 
             $clients = $clientsQuery->skip($request->start)
@@ -41,9 +41,9 @@ class BankAccountController extends Controller
         }
         $banks = Bank::with("translations")->ListsTranslations("name")
             ->pluck('name', 'id')->toArray();;
-        $client_types =Client::CLIENT_TYPES;
+        $client_types = Client::CLIENT_TYPES;
         return view('dashboard.client.account_orders'
-            , compact("banks","client_types"));
+            , compact("banks", "client_types"));
     }
 
     /**
@@ -59,7 +59,7 @@ class BankAccountController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
@@ -70,7 +70,7 @@ class BankAccountController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function show($id)
@@ -81,7 +81,7 @@ class BankAccountController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
@@ -92,8 +92,8 @@ class BankAccountController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param \Illuminate\Http\Request $request
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
@@ -104,7 +104,7 @@ class BankAccountController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)

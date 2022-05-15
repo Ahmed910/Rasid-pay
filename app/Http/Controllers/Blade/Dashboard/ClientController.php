@@ -8,6 +8,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\V1\Dashboard\ClientRequest;
 use App\Http\Resources\Blade\Dashboard\Client\ClientCollection;
 use App\Http\Resources\Blade\Dashboard\Activitylog\ActivityLogCollection;
+use Illuminate\Support\Facades\DB;
 
 class ClientController extends Controller
 {
@@ -24,9 +25,9 @@ class ClientController extends Controller
         else if (isset($request->sort["column"]) && array_key_exists($request->sort["column"], Client::bank_acc_sort_Columns)) $sortcol = Client::bank_acc_sort_Columns[$sortcol];
 
         if ($request->ajax()) {
-
-
-            $clientsQuery = Client::with(["user", "user.bankAccount.bank.translations"])->has('user')->search($request);
+            $clientsQuery = Client::whereHas("user.bankAccount", function ($q) {
+                $q->whereIn("account_status", ["pending", "accepted", "reviewed"]);
+            })->search($request);
 
             $clientCount = $clientsQuery->count();
 
@@ -39,9 +40,9 @@ class ClientController extends Controller
         }
         $banks = Bank::with("translations")->ListsTranslations("name")
             ->pluck('name', 'id')->toArray();;
-            $client_types =Client::CLIENT_TYPES;
+        $client_types = Client::CLIENT_TYPES;
         return view('dashboard.client.index'
-            , compact("banks","client_types"));
+            , compact("banks", "client_types"));
     }
 
     /**

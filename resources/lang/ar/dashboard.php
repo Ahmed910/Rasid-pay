@@ -123,9 +123,9 @@ return [
         'black_menu' => 'القائمة السوداء',
         'settings' => 'الإعدادات',
         'logout' => 'تسجيل خروج',
-        'accept'=>'موافقة',
-        'refuse'=>'رفض',
-        'cancel'=>'الغاء',
+        'accept' => 'موافقة',
+        'refuse' => 'رفض',
+        'cancel' => 'الغاء',
         'created_by' => 'منشيء المجموعة',
         'u_can_use_this_name' => 'يمكنك استخدام الإسم',
         'confirm' => 'تأكيد',
@@ -499,7 +499,7 @@ return [
         "notification_count" => "عدد التنبيهات",
         'permissions' => ['store' => 'ارسال تنبيه']
     ],
-    'transaction' =>[
+    'transaction' => [
         'transactions' => 'المعاملات',
         'transaction' => 'المعاملة',
         'transaction_number' => 'رقم المعاملة',
@@ -584,11 +584,12 @@ return [
         "account_status" => "حالة الحساب البنكي",
         "status" => "الحالة",
         "account_statuses" => [
-            "pending" => "قيد الانتظار",
+            "pending" => "لم يتم تاكيد الحساب البنكى ",
             "before_review" => "قبل المراجعة",
             "reviewed" => "تمت المراجعة",
             "accepted" => "تمت الموافقة",
             "refused" => "تم الرفض",
+
         ],
 
         'permissions' => array_except($permissions, ['archive', 'restore', 'force_delete']) + ['create' => 'عرض العملاء']

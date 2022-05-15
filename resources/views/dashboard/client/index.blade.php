@@ -67,9 +67,8 @@
       <select class="form-control select2-show-search" id="account_status">
         <option selected value=""> {{trans("dashboard.general.select_status")}} </option>
         <option value=-1>{{trans('dashboard.general.all_cases')}}</option>
-        <option value="pending">قيد الانتظار</option>
-        <option value="before_review">قبل المراجعة</option>
-        <option value="refused">لم يتم تأكيد الحسب البنكي</option>
+        <option value="accepted">تم تاكيد الحساب البنكى</option>
+        <option value="pending">لم يتم تأكيد الحسب البنكي</option>
         <option value="reviewed">تم مراجعة الحساب البنكي</option>
       </select>
     </div>
