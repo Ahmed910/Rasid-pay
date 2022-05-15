@@ -6,21 +6,21 @@
   <script src="{{ asset('dashboardAssets/plugins/datatable/responsive.bootstrap5.min.js') }}"></script>
 @endsection
 @section('scripts')
-  <script src="{{ asset('dashboardAssets/js/custom_scripts.js') }}"></script>
-  <script src="{{ asset('dashboardAssets/plugins/bootstrap-hijri-datepicker/js/bootstrap-hijri-datetimepicker.js') }}">
-  </script>
+<script src="{{ asset('dashboardAssets/js/custom_scripts.js') }}"></script>
+<script src="{{ asset('dashboardAssets/plugins/bootstrap-hijri-datepicker/js/bootstrap-hijri-datetimepicker.js') }}">
+</script>
 
 
-  <script src="{{ asset('dashboardAssets') }}/plugins/fileuploads/js/fileupload.js"></script>
-  <script src="{{ asset('dashboardAssets') }}/plugins/fileuploads/js/file-upload.js"></script>
-  <!-- INTERNAL File-Uploads Js-->
-  <script src="{{ asset('dashboardAssets') }}/plugins/fancyuploder/jquery.ui.widget.js"></script>
-  <script src="{{ asset('dashboardAssets') }}/plugins/fancyuploder/jquery.fileupload.js"></script>
-  <script src="{{ asset('dashboardAssets') }}/plugins/fancyuploder/jquery.iframe-transport.js"></script>
-  <script src="{{ asset('dashboardAssets') }}/plugins/fancyuploder/jquery.fancy-fileupload.js"></script>
-  <script src="{{ asset('dashboardAssets') }}/plugins/fancyuploder/fancy-uploader.js"></script>
-  <script>
-    $(function () {
+<script src="{{ asset('dashboardAssets') }}/plugins/fileuploads/js/fileupload.js"></script>
+<script src="{{ asset('dashboardAssets') }}/plugins/fileuploads/js/file-upload.js"></script>
+<!-- INTERNAL File-Uploads Js-->
+<script src="{{ asset('dashboardAssets') }}/plugins/fancyuploder/jquery.ui.widget.js"></script>
+<script src="{{ asset('dashboardAssets') }}/plugins/fancyuploder/jquery.fileupload.js"></script>
+<script src="{{ asset('dashboardAssets') }}/plugins/fancyuploder/jquery.iframe-transport.js"></script>
+<script src="{{ asset('dashboardAssets') }}/plugins/fancyuploder/jquery.fancy-fileupload.js"></script>
+<script src="{{ asset('dashboardAssets') }}/plugins/fancyuploder/fancy-uploader.js"></script>
+<script>
+  $(function () {
 
       function format(d) {
         // `d` is the original data object for the row
@@ -141,10 +141,16 @@ name: 'created_at'
             data: "bank_name",
             name: 'bank_name'
           },
-          {
-            data: 'account_status',
-            name: 'account_status'
-          },
+         {
+        data: function (data) {
+        if (data.account_status_name == 'pending') {
+        return ` <span class="badge bg-success-opacity py-2 px-4">${data.account_status}</span>`;
+        } else {
+        return ` <span class="badge bg-danger-opacity py-2 px-4">${data.account_status}</span>`;
+        }
+        },
+        name: 'account_status'
+        },
 
           {
             class: "text-center",
@@ -306,7 +312,9 @@ name: 'created_at'
                 title="تعديل"><i class="mdi mdi-square-edit-outline"></i></a>
               <a href="#" class="successIcon" data-bs-toggle="tooltip" data-bs-placement="top" title="تأكيد الحساب "><i
                   class="mdi mdi-check"></i></a>
-              <a href="#" class="primaryIcon" data-bs-toggle="tooltip" data-bs-placement="top" title="تعليق الحساب "><i
+              <a href="#" class="primaryIcon" data-bs-toggle="tooltip" data-bs-placement="top" title="مراجعة الحساب "><i
+                  class="mdi mdi-comment-edit-outline"></i></a>
+              <a href="#" class="errorIcon" data-bs-toggle="tooltip" data-bs-placement="top" title="تعليق الحساب "><i
                   class="mdi mdi-account-clock-outline"></i></a>`
             },
             orderable: false,

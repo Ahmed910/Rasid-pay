@@ -17,9 +17,9 @@ class Citizen extends Model
     protected $guarded = ['created_at', 'updated_at'];
 
     protected $dates = ['date_of_birth'];
-    const user_searchable_Columns = ["fullname", "email", "image", "country_code", "phone", "full_phone", "identity_number", "created_at"];
-    const ENABLEDCARD_SearchabLE_COLUMS = ["enabled_card" => "id"];
-    const ENABLEDCARD_SORTABLE_COLUMS = ["enabled_card" => "enabledCard.cardPackage.translation", "card_end_at" => "enabledCard.end_at"];
+    const USER_SEARCHABLE_COLUMNS = ["fullname",  "country_code", "phone", "full_phone", "identity_number", "created_at"];
+    const ENABLEDCARD_SEARCHABLE_COLUMNS = ["enabled_card" => "id"];
+    const ENABLEDCARD_SORTABLE_COLUMNS = ["enabled_card" => "enabledCard.cardPackage.translation", "card_end_at" => "enabledCard.end_at"];
     const SELECT_ALL = ["enabled_card" => "id"];
 
     #endregion properties
@@ -30,21 +30,22 @@ class Citizen extends Model
     #region scopes
     public function scopeSearch($query, $request)
     {
+
         foreach ($request->all() as $key => $item) {
-            if ($item == -1 && in_array($key, self::SELECT_ALL)) $request->request->remove($key);
-            if (in_array($key, self::user_searchable_Columns))
+            if (in_array($key, self::USER_SEARCHABLE_COLUMNS))
                 $query->whereHas('user', function ($q) use ($key, $item) {
                     !$key == "fullname" ? $q->where($key, $item) : $q->where($key, "like", "%$item%");
                 });
-
         }
+
         foreach ($request->all() as $key => $item) {
-            if (key_exists($key, self::ENABLEDCARD_SearchabLE_COLUMS))
+            if ($item == -1 && in_array($key, self::SELECT_ALL)) $request->request->remove($key);
+            if (key_exists($key, self::ENABLEDCARD_SEARCHABLE_COLUMNS))
                 $query->whereHas('enabledCard.cardPackage', function ($q) use ($key, $item) {
-                    $q->where(self::ENABLEDCARD_SearchabLE_COLUMS[$key], $item);
+                    $q->where(self::ENABLEDCARD_SEARCHABLE_COLUMNS[$key], $item);
                 });
-
         }
+
         if ($request->created_from || $request->created_to) {
             $query->CustomDateFromTo($request);
         }
@@ -53,15 +54,12 @@ class Citizen extends Model
             $query->wherehas("enabledCard", function ($q) use ($request) {
                 $q->whereDate('end_at', ">=", $request->end_at_from);
             });
-
         }
         if ($request->end_at_to) {
             $query->wherehas("enabledCard", function ($q) use ($request) {
                 $q->whereDate('end_at', "<=", $request->end_at_to);
             });
-
         }
-
     }
 
     public function scopeSortBy(Builder $query, $request)
@@ -104,8 +102,6 @@ class Citizen extends Model
     {
         return $this->belongsTo(CitizenCard::class, 'citizen_card_id');
     }
-
-
 
     #endregion relationships
 
