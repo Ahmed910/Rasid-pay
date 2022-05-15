@@ -312,7 +312,9 @@ name: 'created_at'
                 title="تعديل"><i class="mdi mdi-square-edit-outline"></i></a>
               <a href="#" class="successIcon" data-bs-toggle="tooltip" data-bs-placement="top" title="تأكيد الحساب "><i
                   class="mdi mdi-check"></i></a>
-              <a href="#" class="primaryIcon" data-bs-toggle="tooltip" data-bs-placement="top" title="تعليق الحساب "><i
+              <a href="#" class="primaryIcon" data-bs-toggle="tooltip" data-bs-placement="top" title="مراجعة الحساب "><i
+                  class="mdi mdi-comment-edit-outline"></i></a>
+              <a href="#" class="errorIcon" data-bs-toggle="tooltip" data-bs-placement="top" title="تعليق الحساب "><i
                   class="mdi mdi-account-clock-outline"></i></a>`
             },
             orderable: false,
