@@ -80453,3 +80453,7 @@ tr:hover .dtr-control:before {
     background-color: transparent;
     color: #45aaf2 !important;
 }
+
+.createBankBranch:first-of-type a {
+    display: none;
+}

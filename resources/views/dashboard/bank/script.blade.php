@@ -271,6 +271,49 @@
 
 
         });
+
+    // add bank branch function
+    (function (jQuery) {
+    jQuery.mark = {
+        addNewBranch: function (options) {
+        var defaults = {
+            selector: '#addBranchBtn'
+        };
+        if (typeof options == 'string') defaults.selector = options;
+        var options = jQuery.extend(defaults, options);
+        return jQuery(options.selector).each(function () {
+            var obj = jQuery(this);
+            var geddit = $('.createBankBranch:first');
+            var gedditUp = geddit.parent();
+            obj.click(function(e){        
+            geddit.clone(true,true).appendTo('#add-branch-form');
+            e.preventDefault();
+            });
+        })
+        },
+        deleteBranch: function (options) {
+        var defaults = {
+            selector: '.deleteBranch'
+        };
+        if (typeof options == 'string') defaults.selector = options;
+        var options = jQuery.extend(defaults, options);
+        return jQuery(options.selector).each(function () {
+            var obj = jQuery(this);
+            obj.on("click", function(e){
+            jQuery(this).parent().remove();
+            e.preventDefault();
+            });
+        })
+        }
+    }
+    })(jQuery);
+
+    jQuery(function(){	
+    jQuery.mark.addNewBranch();
+    jQuery.mark.deleteBranch();
+    });
+    // end add bank branch function
+
 </script>
 
 {{-- <script>
