@@ -16,5 +16,13 @@ class BankController extends Controller
         return view('dashboard.bank.index');
     }
 
+    public function create(Request $request)
+    {
+        return view('dashboard.bank.create');
+    }
+    public function show(Request $request)
+    {
+        return view('dashboard.bank.show');
+    }
  
 }

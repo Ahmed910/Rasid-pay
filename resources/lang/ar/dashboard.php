@@ -478,6 +478,7 @@ return [
 
     ],
     "bank" => [
+        
         "bank" => "البنك",
         "banks" => "البنوك",
         "add_bank" => "اضافة بنك",
@@ -488,6 +489,7 @@ return [
             'index' => 'سجل البنوك',
             'archive' => 'أرشيف البنوك',
             'create' => 'اضافة بنك',
+            'show' => 'عرض البنك'
         ],
         'permissions' => $permissions
     ],
