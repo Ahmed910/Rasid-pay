@@ -50,10 +50,10 @@
       </div>
       <div class="col-12 col-md-4 mb-3">
         <label for="bankStatus">   {{trans('dashboard.bank_account.order_number')}}</label>
-        <select class="form-control select2" id="bankStatus">
+        <select class="form-control select2" id="account_status">
           <option selected disabled value="">إختر الحالة</option>
-          <option>طلبات جديدة</option>
-          <option>طلبات مرفوضة</option>
+          <option value="pending">طلبات جديدة</option>
+          <option value="refused">طلبات مرفوضة</option>
         </select>
       </div>
       <div class="col-12 col-md-4 mb-3">
