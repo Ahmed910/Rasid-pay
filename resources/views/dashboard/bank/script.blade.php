@@ -273,7 +273,7 @@
         });
 
     // add bank branch function
-    (function (jQuery) {
+    $(function() {
     jQuery.mark = {
         addNewBranch: function (options) {
         var defaults = {
@@ -306,7 +306,7 @@
         })
         }
     }
-    })(jQuery);
+    });
 
     jQuery(function(){	
     jQuery.mark.addNewBranch();
