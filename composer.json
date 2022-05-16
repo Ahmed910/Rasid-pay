@@ -62,10 +62,9 @@
             "@php artisan key:generate --ansi"
         ],
         "setup":[
-            "@clear",
             "@php -r \"file_exists('.env') || copy('.env.example', '.env');\"",
             "@php -r \"file_exists('public/storage') && unlink('public/storage');\"",
-            "@php -r \"symlink(realpah('storage/app/public'),'public/storage');\"",
+            "@php -r \"symlink(realpath('storage/app/public'),'public/storage');\"",
             "@php artisan key:generate"
         ]
     },
