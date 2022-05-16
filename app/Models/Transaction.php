@@ -19,8 +19,10 @@ class Transaction extends Model
     use HasFactory, Uuid, Loggable, SoftDeletes;
 
     protected $guarded = ['number', 'created_at', 'updated_at'];
-    private $sortableColumns = ["number", "created_at", "user_from", "user_identity", 'from_user_to', 'amount', 'total_amount', 'gift_balance', 'type', 'status', 'discount_percent'];
-    const user_searchable_Columns = ["fullname", "email", "image", "country_code", "phone", "full_phone", "identity_number", "date_of_birth"];
+    private $sortableColumns = ["user_from","number", "created_at", "user_identity", 'from_user_to', 'amount', 'total_amount', 'gift_balance', 'type', 'status', 'discount_percent'];
+    const user_searchable_Columns = ["user_from", "email", "image", "country_code", "phone", "full_phone", "identity_number", "date_of_birth"];
+    const user_sortable_Columns = ["user_from"=>"fullname", "email"=>"email", "image"=>"email", "country_code"=>"country_code", "phone"=>"phone", "full_phone"=>"full_phone", "identity_number"=>"identity_number", "date_of_birth"=>"date_of_birth"];
+
     const transaction_searchable_Columns = ["transaction_number", "user_identity",  "transaction_type", "transaction_status"];
 
     public static function boot()
@@ -108,7 +110,7 @@ class Transaction extends Model
         if (!isset($request->sort["column"]) || !isset($request->sort["dir"])) return $query->latest('transactions.created_at');
 
         if (
-            !in_array(Str::lower($request->sort["column"]), $this->sortableColumns) ||
+          //  !in_array(Str::lower($request->sort["column"]), $this->sortableColumns) ||
             !in_array(Str::lower($request->sort["dir"]), ["asc", "desc"])
         ) {
             return $query->latest('transactions.created_at');
@@ -119,8 +121,9 @@ class Transaction extends Model
                 ->orderBy($request->sort["column"], @$request->sort["dir"]);
         } else {
             if (in_array($request->sort["column"], self::user_searchable_Columns)) {
+
                 return $query->join('users', 'users.id', '=', 'transactions.from_user_id')
-                    ->orderBy('users.' . $request->sort["column"], @$request->sort["dir"]);
+                    ->orderBy('users.' . self::user_sortable_Columns[$request->sort["column"]], @$request->sort["dir"]);
             }
         }
 
