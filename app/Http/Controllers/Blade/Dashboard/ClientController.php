@@ -32,9 +32,9 @@ class ClientController extends Controller
             $clientCount = $clientsQuery->count();
 
             $clients = $clientsQuery->skip($request->start)
-                ->take(($request->length == -1) ? $clientCount : $request->length)
-                ->get()->
-                sortBy($sortcol, SORT_REGULAR, $request->sort["dir"] == "desc");
+                ->take(($request->length == -1) ? $clientCount : $request->length)->sortBy($request)
+                ->get();
+//                ->sortBy($sortcol, SORT_REGULAR, $request->sort["dir"] == "desc");
             return ClientCollection::make($clients)
                 ->additional(['total_count' => $clientCount]);
         }
