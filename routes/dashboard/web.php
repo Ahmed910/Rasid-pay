@@ -24,12 +24,14 @@ Route::group(
 
         Route::get('password/reset/{token}', 'Auth\ResetPasswordController@showResetForm')->name('passwords.reset.email');
         Route::post('password/reset', 'Auth\ResetPasswordController@reset')->name('resetToNew');
-        Route::get('password/resend_code/{token}','Auth\ForgotPasswordController@resendCode')->name('resend_code');
+        Route::get('password/resend_code/{token}', 'Auth\ForgotPasswordController@resendCode')->name('resend_code');
 
         Route::middleware('auth')->prefix('dashboard')->group(function () {
             Route::get('/', "HomeController@index")->name("home.index");
             Route::get('transaction', "TransactionController@index")->name("transaction.index");
             Route::get('citizen', "CitizenController@index")->name("citizen.index");
+            Route::put('update-phone/{id}', 'CitizenController@updatePhone')->name('citizen.update_phone');
+
             Route::get('/backButton', "HomeController@backButton")->name("backButton");
             Route::post('logout', "Auth\LoginController@logout")->name("session.logout");
             Route::resource('activity_log', 'ActivityLogController')->only('index', 'show');
@@ -44,7 +46,6 @@ Route::group(
             });
             Route::controller('ClientController')->name('client.')->prefix('client')->group(function () {
                 Route::get('account_orders', 'accountOrders')->name('account_orders');
-
             });
             Route::controller('DepartmentController')->name('department.')->prefix('department')->group(function () {
                 Route::get('archive', 'archive')->name('archive');
