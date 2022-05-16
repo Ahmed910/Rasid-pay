@@ -26,8 +26,7 @@ class CitizenController extends Controller
         $sortcol = isset($request->sort["column"]) ? $request->sort["column"] : null;
         if (isset($request->sort["column"]) && in_array($request->sort["column"], Citizen::USER_SEARCHABLE_COLUMNS)) $sortcol = "user." . $request->sort["column"];
         if (isset($request->sort["column"]) && key_exists($request->sort["column"], Citizen::ENABLEDCARD_SORTABLE_COLUMNS)) $sortcol = Citizen::ENABLEDCARD_SORTABLE_COLUMNS[$sortcol];
-        $citizen = Citizen::with(['user', "enabledCard.cardPackage"])->CustomDateFromTo($request)->
-        search($request)
+        $citizen = Citizen::with(['user', "enabledCard.cardPackage"])->CustomDateFromTo($request)->search($request)
             ->latest()->paginate((int)($request->per_page ?? config("globals.per_page")))->sortBy($sortcol, SORT_REGULAR, $dir == "desc");;
         return CitizenResource::collection($citizen)->additional([
             'status' => true,
@@ -76,20 +75,25 @@ class CitizenController extends Controller
 
     public function updatePhone($id, Request $request)
     {
-        $this->validate($request, ["country_code" => "required|in:" . countries_list()
-            , "phone" => ["required", "not_regex:/^{$request->country_code}/", "numeric", "digits_between:7,20", "required_with:country_code"]]);
+        $request->merge(["full_phone" => $request->country_code . $request->phone]);
+        $fileds =   $this->validate($request, [
+            "country_code" => "required|in:" . countries_list(),
+            "phone" => ["required", "not_regex:/^{$request->country_code}/", "numeric", "digits_between:7,20", "required_with:country_code"],
+            "full_phone" => ["unique:users,phone," . @$id],
 
+        ]);
+        
         $citizen = Citizen::where('user_id', $id)->firstOrFail();
-        $citizen->user->update($request->all() + ['updated_at' => now()]);
+        $citizen->user->update($fileds + ['updated_at' => now()]);
 
         return CitizenResource::make($citizen)->additional(['status' => true, 'message' => trans("dashboard.general.success_update")]);
     }
 
     public function enabledCards()
     {
-      $enabledCards = CardPackage::whereHas("citizenCards")->ListsTranslations("name")->select('card_packages.id')->get();
+        $enabledCards = CardPackage::whereHas("citizenCards")->ListsTranslations("name")->select('card_packages.id')->get();
 
-      return response()->json([
+        return response()->json([
             'data' => SimpleCardPackageResource::collection($enabledCards),
             'status' => true,
             'message' =>  '',

@@ -20,7 +20,7 @@ class CitizenResource extends JsonResource
             'account_status' => !$this->bankAccount?->account_status ? '' : trans("dashboard.citizen.account_statuses.{$this->bankAccount?->account_status}"),
             'show_route' => route('dashboard.citizen.show', $this->id),
             'edit_route' => route('dashboard.citizen.edit', $this->id),
-            'update_route' => route('dashboard.citizen.update', $this->id),
+            'update_route' => route('dashboard.citizen.update_phone', $this->user->id),
             'created_at' => $this->created_at,
             'start_from' => $request->start
         ];
