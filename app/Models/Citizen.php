@@ -19,10 +19,10 @@ class Citizen extends Model
     protected $dates = ['date_of_birth'];
     const USER_SEARCHABLE_COLUMNS = ["fullname",  "country_code", "phone", "full_phone", "identity_number", "created_at"];
     const CITIZEN_SEARCHABLE_COLUMNS  = ["citizen_card_id"];
-    const ENABLEDCARD_SEARCHABLE_COLUMNS = ["enabled_card" => "id"];
-    const CARDPKG_SORT_COLUMNS = ["enabled_card" => "name"];
+    const ENABLEDCARD_SEARCHABLE_COLUMNS = ["enabled_card" => "card_type"];
+    const CARDPKG_SORT_COLUMNS = ["enabled_card" => "card_type"];
     const CITIZEN_CARDS_SORT_COLUMNS = ['card_end_at' => 'end_at'];
-    const ENABLEDCARD_SORTABLE_COLUMNS = ["enabled_card" => "enabledCard.cardPackage.translation", "card_end_at" => "enabledCard.end_at"];
+    const ENABLEDCARD_SORTABLE_COLUMNS = ["enabled_card" => "enabledCard.cardPackage", "card_end_at" => "enabledCard.end_at"];
     const SELECT_ALL = ["enabled_card" => "id"];
     #endregion properties
 
@@ -43,7 +43,7 @@ class Citizen extends Model
         foreach ($request->all() as $key => $item) {
             if ($item == -1 && in_array($key, self::SELECT_ALL)) $request->request->remove($key);
             if (key_exists($key, self::ENABLEDCARD_SEARCHABLE_COLUMNS))
-                $query->whereHas('enabledCard.cardPackage', function ($q) use ($key, $item) {
+                $query->whereHas('enabledCard', function ($q) use ($key, $item) {
                     $q->where(self::ENABLEDCARD_SEARCHABLE_COLUMNS[$key], $item);
                 });
         }
@@ -82,9 +82,7 @@ class Citizen extends Model
                 ->orderBy('users.' . $request->sort["column"], @$request->sort["dir"]);
         } else if (key_exists($request->sort["column"], self::CARDPKG_SORT_COLUMNS)) {
             return $query->join('citizen_cards', 'citizen_cards.id', '=', 'citizens.Citizen_card_id')
-                ->join('card_packages', 'card_packages.id', '=', 'citizen_cards.card_package_id')
-                ->join('card_package_translations', 'card_packages.id', '=', 'card_package_translations.card_package_id')
-                ->orderBy('card_package_translations.' . self::CARDPKG_SORT_COLUMNS[$request->sort["column"]], @$request->sort["dir"]);
+                ->orderBy('citizen_cards.' . self::CARDPKG_SORT_COLUMNS[$request->sort["column"]], @$request->sort["dir"]);
         } else if (key_exists($request->sort["column"], self::CITIZEN_CARDS_SORT_COLUMNS)) {
             return $query->join('citizen_cards', 'citizen_cards.id', '=', 'citizens.Citizen_card_id')
                 ->orderBy('citizen_cards.' . self::CITIZEN_CARDS_SORT_COLUMNS[$request->sort["column"]], @$request->sort["dir"]);

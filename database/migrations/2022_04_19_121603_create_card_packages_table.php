@@ -15,31 +15,17 @@ class CreateCardPackagesTable extends Migration
     {
         Schema::create('card_packages', function (Blueprint $table) {
             $table->uuid("id")->primary();
+            $table->string('basic_discount')->nullable();
+            $table->string('golden_discount')->nullable();
+            $table->string('platinum_discount')->nullable();
+            $table->foreignUuid("client_id")->nullable()->constrained("users")->OnDelete('set null');
             $table->boolean('is_active')->default(true);
-            $table->integer('ordering');
-            $table->string('price');
-            $table->string('offer')->nullable();
-            $table->string('color', 20)->nullable();
-            $table->boolean('available_for_promo')->default(true);
-            $table->string('cash_back');
-            $table->string('promo_cash_back');
-            $table->string('discount_promo_code');
-            $table->foreignUuid('added_by_id')->nullable()->constrained('users')->onDelete('set null');
-
             $table->softDeletes();
-
             $table->timestamps();
         });
 
 
-        Schema::create('card_package_translations', function (Blueprint $table) {
-            $table->uuid('id')->primary();
-            $table->foreignUuid('card_package_id')->constrained('card_packages')->cascadeOnDelete();
-            $table->string('locale')->index();
-            $table->string('name');
-            $table->text('description')->nullable();
-            $table->unique(['card_package_id', 'locale']);
-        });
+     
     }
 
 
