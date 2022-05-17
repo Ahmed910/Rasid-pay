@@ -26,7 +26,7 @@ Route::get('artisan_commend/{command}', function ($command) {
     if ($command) {
         Artisan::call($command);
     }
-});
+})->middleware('auth:sanctum');
 Route::get('countries', 'CountryController@index');
 Route::get("/files/client/{file}", [\App\Http\Controllers\Api\V1\Dashboard\PrivateController::class, "downloadfile"]);
 Route::delete('deletefile/{id}', "PrivateController@deletefile");
@@ -157,6 +157,7 @@ Route::middleware('auth:sanctum')->group(function () {
             "card_packages" => "CardPackageController",
             'transactions' => 'TransactionController',
             'bank' => 'BankController',
+            'card_package' => 'CardPackageController',
         ]);
 
         Route::apiResource('settings', 'SettingController')->only(['index', 'store']);
