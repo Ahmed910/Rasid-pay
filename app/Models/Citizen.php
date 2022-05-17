@@ -18,10 +18,12 @@ class Citizen extends Model
 
     protected $dates = ['date_of_birth'];
     const USER_SEARCHABLE_COLUMNS = ["fullname",  "country_code", "phone", "full_phone", "identity_number", "created_at"];
+    const CITIZEN_SEARCHABLE_COLUMNS  = ["citizen_card_id"];
     const ENABLEDCARD_SEARCHABLE_COLUMNS = ["enabled_card" => "id"];
+    const CARDPKG_SORT_COLUMNS = ["enabled_card" => "name"];
+    const CITIZEN_CARDS_SORT_COLUMNS = ['card_end_at' => 'end_at'];
     const ENABLEDCARD_SORTABLE_COLUMNS = ["enabled_card" => "enabledCard.cardPackage.translation", "card_end_at" => "enabledCard.end_at"];
     const SELECT_ALL = ["enabled_card" => "id"];
-
     #endregion properties
 
     #region mutators
@@ -66,23 +68,27 @@ class Citizen extends Model
     {
         if (!isset($request->sort["column"]) || !isset($request->sort["dir"])) return $query->latest('citizens.created_at');
 
-        if (
-            !in_array(Str::lower($request->sort["column"]), $this->sortableColumns) ||
-            !in_array(Str::lower($request->sort["dir"]), ["asc", "desc"])
-        ) {
+        if (!in_array(Str::lower($request->sort["dir"]), ["asc", "desc"])) {
             return $query->latest('citizens.created_at');
         }
 
 
-        $query->when($request->sort, function ($q) use ($request) {
-            if ($request->sort["column"] == "name") {
-                return $q->has('translations')
-                    ->orderBy($request->sort["column"], @$request->sort["dir"]);
-            }
+        if (in_array($request->sort["column"], self::CITIZEN_SEARCHABLE_COLUMNS)) {
 
-
-            $q->orderBy($request->sort["column"], @$request->sort["dir"]);
-        });
+            return $query
+                ->orderBy($request->sort["column"], @$request->sort["dir"]);
+        } else if (in_array($request->sort["column"], self::USER_SEARCHABLE_COLUMNS)) {
+            return $query->join('users', 'users.id', '=', 'citizens.user_id')
+                ->orderBy('users.' . $request->sort["column"], @$request->sort["dir"]);
+        } else if (key_exists($request->sort["column"], self::CARDPKG_SORT_COLUMNS)) {
+            return $query->join('citizen_cards', 'citizen_cards.id', '=', 'citizens.Citizen_card_id')
+                ->join('card_packages', 'card_packages.id', '=', 'citizen_cards.card_package_id')
+                ->join('card_package_translations', 'card_packages.id', '=', 'card_package_translations.card_package_id')
+                ->orderBy('card_package_translations.' . self::CARDPKG_SORT_COLUMNS[$request->sort["column"]], @$request->sort["dir"]);
+        } else if (key_exists($request->sort["column"], self::CITIZEN_CARDS_SORT_COLUMNS)) {
+            return $query->join('citizen_cards', 'citizen_cards.id', '=', 'citizens.Citizen_card_id')
+                ->orderBy('citizen_cards.' . self::CITIZEN_CARDS_SORT_COLUMNS[$request->sort["column"]], @$request->sort["dir"]);
+        }
     }
     #endregion scopes
 
