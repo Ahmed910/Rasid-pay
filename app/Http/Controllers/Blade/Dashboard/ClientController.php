@@ -8,7 +8,6 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\V1\Dashboard\ClientRequest;
 use App\Http\Resources\Blade\Dashboard\Client\ClientCollection;
 use App\Http\Resources\Blade\Dashboard\Activitylog\ActivityLogCollection;
-use Illuminate\Support\Facades\DB;
 
 class ClientController extends Controller
 {
@@ -34,15 +33,17 @@ class ClientController extends Controller
             $clients = $clientsQuery->skip($request->start)
                 ->take(($request->length == -1) ? $clientCount : $request->length)->sortBy($request)
                 ->get();
-//                ->sortBy($sortcol, SORT_REGULAR, $request->sort["dir"] == "desc");
+            //                ->sortBy($sortcol, SORT_REGULAR, $request->sort["dir"] == "desc");
             return ClientCollection::make($clients)
                 ->additional(['total_count' => $clientCount]);
         }
         $banks = Bank::with("translations")->ListsTranslations("name")
             ->pluck('name', 'id')->toArray();;
         $client_types = Client::CLIENT_TYPES;
-        return view('dashboard.client.index'
-            , compact("banks", "client_types"));
+        return view(
+            'dashboard.client.index',
+            compact("banks", "client_types")
+        );
     }
 
     /**

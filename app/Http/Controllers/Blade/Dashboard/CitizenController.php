@@ -24,8 +24,8 @@ class CitizenController extends Controller
 
             $citizens = $citizensQuery->skip($request->start)
                 ->take(($request->length == -1) ? $citizenCount : $request->length)
-                ->get()->sortBy($sortcol, SORT_REGULAR, $request->sort["dir"] == "desc");
-
+                ->sortBy($request)
+                ->get();
 
             return CitizenCollection::make($citizens)
                 ->additional(['total_count' => $citizenCount]);
