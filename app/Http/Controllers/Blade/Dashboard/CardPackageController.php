@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Blade\Dashboard;
 
 use App\Http\Controllers\Controller;
+use App\Models\CardPackage\CardPackage;
 use Illuminate\Http\Request;
 
 class CardPackageController extends Controller
