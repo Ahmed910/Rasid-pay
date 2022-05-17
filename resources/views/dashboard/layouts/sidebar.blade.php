@@ -250,7 +250,7 @@
                             class="mdi mdi-bank-transfer"></i><span
                             class="side-menu__label">المعاملات</span></a>
                 </li>
-               
+
 <li
     class="slide {{ request()->routeIs('dashboard.bank.*') && !request()->routeIs('dashboard.*.archive') ? 'is-expanded' : '' }} ">
     <a class="side-menu__item" data-bs-toggle="slide" href="javascript:void(0)"><i
@@ -274,7 +274,7 @@
     </ul>
 </li>
                 <li
-                    class="slide {{ request()->routeIs('dashboard.discount.*') && !request()->routeIs('dashboard.*.archive') ? 'is-expanded' : '' }} ">
+                    class="slide {{ request()->routeIs('dashboard.card_package.*') && !request()->routeIs('dashboard.*.archive') ? 'is-expanded' : '' }} ">
                     <a class="side-menu__item" data-bs-toggle="slide" href="javascript:void(0)"><i
                             class="mdi mdi-view-dashboard-outline"></i><span
                             class="side-menu__label">نسب خصم البطاقات</span><i
@@ -284,14 +284,14 @@
                             <a href="javascript:void(0)">نسب خصم البطاقات</a>
                         </li>
                         <li>
-                            <a href="{{ route('dashboard.discount.index') }}"
-                                class="slide-item px-6 {{ request()->routeIs('dashboard.discount.index') ? 'active' : '' }}"><i
+                            <a href="{{ route('dashboard.card_package.index') }}"
+                                class="slide-item px-6 {{ request()->routeIs('dashboard.card_package.index') ? 'active' : '' }}"><i
                                     class="mdi mdi-file-document-multiple-outline"></i>
                                 سجل نسب الخصم للبطاقات</a>
                         </li>
                         <li>
-                            <a href="{{ route('dashboard.discount.create') }}"
-                                class="slide-item px-6 {{ request()->routeIs('dashboard.discount.create') ? 'active' : '' }}"><i
+                            <a href="{{ route('dashboard.card_package.create') }}"
+                                class="slide-item px-6 {{ request()->routeIs('dashboard.card_package.create') ? 'active' : '' }}"><i
                                     class="mdi mdi-plus-circle-outline"></i> إضافة</a>
                         </li>
                     </ul>
