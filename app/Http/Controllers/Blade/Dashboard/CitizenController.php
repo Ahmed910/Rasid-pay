@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers\Blade\Dashboard;
 
-use App\Http\Resources\Blade\Dashboard\Citizen\CitizenResource;
 use App\Models\CardPackage\CardPackage;
 use App\Models\Citizen;
 use Illuminate\Http\Request;
@@ -49,13 +48,16 @@ class CitizenController extends Controller
 
     public function updatePhone($id, Request $request)
     {
-        $this->validate($request, [
-            "country_code" => "required|in:" . countries_list(), "phone" => ["required", "not_regex:/^{$request->country_code}/", "numeric", "digits_between:7,20", "required_with:country_code"]
+        $request->merge(["full_phone" => $request->country_code . $request->phone]);
+        $fileds =   $this->validate($request, [
+            "country_code" => "required|in:" . countries_list(),
+            "phone" => ["required", "not_regex:/^{$request->country_code}/", "numeric", "digits_between:7,20", "required_with:country_code"],
+            "full_phone" => ["unique:users,phone," . @$id],
+
         ]);
-
         $citizen = Citizen::where('user_id', $id)->firstOrFail();
-        $citizen->user->update($request->all() + ['updated_at' => now()]);
+        $citizen->user->update($fileds + ['updated_at' => now()]);
 
-        return CitizenResource::make($citizen)->additional(['status' => true, 'message' => trans("dashboard.general.success_update")]);
+        return redirect()->route('dashboard.citizen.index')->withSuccess(__('dashboard.general.success_update'));
     }
 }

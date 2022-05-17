@@ -15,16 +15,19 @@
     <div class="row align-items-end mb-3">
         <div class="col-12 col-md-3 mb-3">
             <label for="citizenName">{{ trans('dashboard.citizens.name') }} </label>
-            <input type="text" class="form-control" id="citizenName" placeholder="{{ trans('dashboard.citizens.name') }} " />
+            <input type="text" class="form-control" id="citizenName"
+                placeholder="{{ trans('dashboard.citizens.name') }} " />
         </div>
         <div class="col-12 col-md-3 mb-3">
             <label for="idNumber">{{ trans('dashboard.citizens.identity_number') }} </label>
-            <input type="number" class="form-control" id="idNumber" placeholder="{{ trans('dashboard.citizens.identity_number') }} " />
+            <input type="number" class="form-control" id="idNumber"
+                placeholder="{{ trans('dashboard.citizens.identity_number') }} " />
         </div>
         <div class="col-12 col-md-3 mb-3">
             <label for="phone">{{ trans('dashboard.citizens.phone') }} </label>
             <div class="input-group">
-                <input id="phone" type="number" placeholder="{{ trans('dashboard.citizens.enter_phone') }} " class="form-control" />
+                <input id="phone" type="number" placeholder="{{ trans('dashboard.citizens.enter_phone') }} "
+                    class="form-control" />
                 <div class="input-group-text border-start-0">
                     +966
                 </div>
@@ -43,7 +46,8 @@
         <div class="col-12 col-md-3 mb-3">
             <label for="from-end-at">{{ trans('dashboard.citizens.card_end_at_from') }} </label>
             <div class="input-group">
-                <input id="from-end-at" type="text" placeholder="{{ trans('dashboard.general.day_month_year') }}" class="form-control" name="end_at_from" />
+                <input id="from-end-at" type="text" placeholder="{{ trans('dashboard.general.day_month_year') }}"
+                    class="form-control" name="end_at_from" />
                 <div class="input-group-text border-start-0">
                     <i class="fa fa-calendar tx-16 lh-0 op-6"></i>
                 </div>
@@ -52,7 +56,8 @@
         <div class="col-12 col-md-3 mb-3">
             <label for="to-end-at">{{ trans('dashboard.citizens.card_end_at_to') }} </label>
             <div class="input-group">
-                <input id="to-end-at" type="text" placeholder="{{ trans('dashboard.general.day_month_year') }}" class="form-control" name="end_at_to" />
+                <input id="to-end-at" type="text" placeholder="{{ trans('dashboard.general.day_month_year') }}"
+                    class="form-control" name="end_at_to" />
                 <div class="input-group-text border-start-0">
                     <i class="fa fa-calendar tx-16 lh-0 op-6"></i>
                 </div>
@@ -61,8 +66,8 @@
         <div class="col-12 col-md-3 mb-3">
             <label for="from-created-at">{{ trans('dashboard.citizens.created_at_from') }} </label>
             <div class="input-group">
-                <input id="from-created-at" type="text" placeholder="{{ trans('dashboard.general.day_month_year') }}" class="form-control"
-                    name="created_from" />
+                <input id="from-created-at" type="text" placeholder="{{ trans('dashboard.general.day_month_year') }}"
+                    class="form-control" name="created_from" />
                 <div class="input-group-text border-start-0">
                     <i class="fa fa-calendar tx-16 lh-0 op-6"></i>
                 </div>
@@ -71,7 +76,8 @@
         <div class="col-12 col-md-3 mb-3">
             <label for="to-created-at">{{ trans('dashboard.citizens.created_at_to') }} </label>
             <div class="input-group">
-                <input id="to-created-at" type="text" placeholder="{{ trans('dashboard.general.day_month_year') }}" class="form-control" name="created_to" />
+                <input id="to-created-at" type="text" placeholder="{{ trans('dashboard.general.day_month_year') }}"
+                    class="form-control" name="created_to" />
                 <div class="input-group-text border-start-0">
                     <i class="fa fa-calendar tx-16 lh-0 op-6"></i>
                 </div>
@@ -123,7 +129,7 @@
                             <th class="border-bottom-0">{{ trans('dashboard.citizens.enabled_card') }} </th>
                             <th class="border-bottom-0">{{ trans('dashboard.citizens.card_end_at') }} </th>
                             <th class="border-bottom-0">{{ trans('dashboard.citizens.created_at') }} </th>
-                            <th class="border-bottom-0 text-center"{{ trans('dashboard.citizens.actions') }} </th>
+                            <th class="border-bottom-0 text-center" {{ trans('dashboard.citizens.actions') }} </th>
                         </tr>
                     </thead>
                     <tbody>
@@ -141,7 +147,7 @@
             <div class="modal-content border-0">
                 <form method="post" action="#" class="needs-validation" id="item" novalidate>
                     @csrf
-                    @method('PATCH')
+                    @method('PUT')
 
                     <div class="modal-body text-center p-0">
                         <lottie-player autoplay loop mode="normal"
@@ -149,9 +155,12 @@
                             style="width: 55%; display: block; margin: 0 auto 1em">
                         </lottie-player>
                         <p>{{ trans('dashboard.citizens.edit_phone') }}</p>
-                        <div class="mt-3">
-                            <input type="number" name="phone" class="form-control" placeholder="{{ trans('dashboard.citizens.new_phone') }}">
-
+                        <div class="mt-3 input-group">
+                            <input type="number" name="phone" class="form-control"
+                                placeholder="{{ trans('dashboard.citizens.new_phone') }}">
+                            <div class="input-group-text border-start-0">
+                                966+ <input type="hidden" value="966" name="country_code">
+                            </div>
                         </div>
                     </div>
                     <div class="modal-footer justify-content-end mt-5 p-0">
