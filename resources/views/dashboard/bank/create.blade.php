@@ -8,7 +8,7 @@
   <nav aria-label="breadcrumb">
     <ol class="breadcrumb">
       <li class="breadcrumb-item">
-        <a href="{{ route('dashboard.client.index') }}">{{ trans('dashboard.bank.sub_progs.index') }}
+        <a href="{{ route('dashboard.bank.index') }}">{{ trans('dashboard.bank.sub_progs.index') }}
         </a>
       </li>
       <li class="breadcrumb-item active" aria-current="page">
@@ -19,12 +19,12 @@
 </div>
 <!-- PAGE-HEADER END -->
 
+<form action="" id="add-branch-form">
 <div class="col-12 mb-5">
     <label for="bankName">اسم البنك</label><span class="requiredFields">*</span>
     <input type="text" class="form-control" id="bankName" placeholder="أدخل اسم البنك" required />
     <div class="invalid-feedback">اسم البنك مطلوب.</div>
 </div>
-    <form action="" id="add-branch-form">
         <fieldset class="card createBankBranch px-4 py-4" id="">       
             <a
                 role="button"
