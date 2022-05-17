@@ -98,8 +98,11 @@ Route::middleware('auth:sanctum')->group(function () {
             Route::delete('forceDelete/{id}', 'forceDelete')->name('force_delete');
             // Route::get('get-parents', 'getAllParents')->name("get_parents");
         });
-        // Route::controller('ClientController')->name('clients.')->prefix('clients')->group(function () {
-        // });
+
+         Route::controller('CitizenController')->name('citizens.')->prefix('citizens')->group(function () {
+             Route::put('update-phone/{id}', 'updatePhone')->name('update_phone');
+             Route::get('enabled-cards', 'enabledCards')->name('enabled_cards');
+        });
 
         Route::controller('RasidJobController')->name('rasid_jobs.')->prefix('rasid_jobs')->group(function () {
             Route::get('archive', 'archive')->name('archive');
@@ -134,6 +137,10 @@ Route::middleware('auth:sanctum')->group(function () {
             Route::delete('forceDelete/{id}', 'forceDelete')->name('force_delete');
         });
 
+        Route::controller('TransactionController')->name('transactions.')->prefix('transactions')->group(function () {
+            Route::delete('forceDelete/{id}', 'forceDelete')->name('force_delete');
+        });
+
         Route::apiResources([
 //            'countries' => 'CountryController',
             // 'currencies' => 'CurrencyController',
@@ -148,7 +155,8 @@ Route::middleware('auth:sanctum')->group(function () {
             'banks' => 'BankController',
             'slides' => 'SlideController',
             "card_packages" => "CardPackageController",
-            'transaction' => 'TransactionController',
+            'transactions' => 'TransactionController',
+            'bank' => 'BankController',
         ]);
 
         Route::apiResource('settings', 'SettingController')->only(['index', 'store']);

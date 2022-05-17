@@ -41,15 +41,16 @@ class CitizenRequest extends ApiMasterRequest
         return [
             "fullname" => ["required", "max:100", "string"],
             "email" => ["nullable", "max:255", "email", "unique:users,email," . @$this->citizen],
-            "image"         => "nullable|max:5120|mimes:jpg,png,jpeg",
+            "image" => "nullable|max:5120|mimes:jpg,png,jpeg",
             "country_code" => "nullable|in:" . $list,
-            "phone" => ["nullable", "not_regex:/^{$this->country_code}/", "numeric", "digits_between:7,20"],
+            "phone" => ["nullable", "not_regex:/^{$this->country_code}/", "numeric", "digits_between:7,20", "required_with:country_code"],
             "full_phone" => ["unique:users,phone," . @$this->client],
             "identity_number" => ["nullable", "numeric", "digits_between:10,20", "unique:users,identity_number," . @$this->citizen],
             "date_of_birth" => ["nullable", "date"],
             "location" => ["nullable", "string", "max:255"],
-            "lng" => ["nullable","string","min:3","max:255"],
-            'lat' => ["nullable","string","min:3","max:255"],
+            "lng" => ["nullable", "string", "min:3", "max:255"],
+            'lat' => ["nullable", "string", "min:3", "max:255"],
+            "citizen_card_id" => "nullable|exists:citizen_cards,id"
         ];
     }
 }

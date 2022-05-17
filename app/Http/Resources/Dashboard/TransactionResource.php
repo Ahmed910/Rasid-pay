@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources\Dashboard;
 
+use App\Models\Transaction;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class TransactionResource extends JsonResource
@@ -14,18 +15,30 @@ class TransactionResource extends JsonResource
      */
     public function toArray($request)
     {
+        $status_codes = [
+            'success' => 1,
+            'fail' => 2,
+            'pending' => 3,
+            'received' => 4,
+            'cancel' => 5,
+        ];
         return [
             'id' => $this->id,
             'number' => $this->number,
-            'amount' => $this->amount,
-            'status' => $this->status,
-            'type' => $this->type,
             'created_at' => $this->created_at,
+            'citizen' => $this->citizen?->fullname,
+            'user_identity' => $this->user_identity,
+            'client' => $this->client?->user?->fullname,
+            'amount' => (string)$this->amount,
+            'total_amount' => (string)$this->total_amount,
+            'gift_balance' => (string)$this->gift_balance,
+            'type' => $this->type ? trans("dashboard.transaction.type_cases.{$this->type}") : "",
+            'status' => $this->status ? trans("dashboard.transaction.status_cases.{$this->status}") : "",
+            'status_code' => $status_codes[$this->status],
             'transaction_id' => $this->transaction_id,
             'transaction_data' => $this->transaction_data,
-            'citizen' => CitizenResource::make($this->whenLoaded('citizen')),
-            'client' => ClientResource::make($this->whenLoaded('client')),
-            'card' => CardPackageResource::make($this->whenLoaded('card')),
+            'discount_percent' => $this->discount_percent,
+            'card' => $this->card->name,
         ];
     }
 }

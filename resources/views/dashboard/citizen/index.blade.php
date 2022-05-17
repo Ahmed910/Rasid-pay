@@ -3,74 +3,81 @@
 
 @section('content')
 
-<!-- PAGE-HEADER -->
-<div class="page-header">
-    <h1 class="page-title">المستخدمين</h1>
-</div>
-<!-- PAGE-HEADER END -->
+    <!-- PAGE-HEADER -->
+    <div class="page-header">
+        <h1 class="page-title"> {{ trans('dashboard.citizens.citizens') }} </h1>
+    </div>
+    <!-- PAGE-HEADER END -->
 
 
-<!-- FORM OPEN -->
-
-<form method="get" action="">
+    <!-- FORM OPEN -->
+    {!! Form::open(['method' => 'GET', 'id' => 'citizen-search']) !!}
     <div class="row align-items-end mb-3">
         <div class="col-12 col-md-3 mb-3">
-            <label for="citizenName">اسم المستخدم</label>
-            <input type="text" class="form-control" id="citizenName" placeholder="اسم المستخدم" />
+            <label for="citizenName">{{ trans('dashboard.citizens.name') }} </label>
+            <input type="text" class="form-control" id="citizenName"
+                placeholder="{{ trans('dashboard.citizens.name') }} " />
         </div>
         <div class="col-12 col-md-3 mb-3">
-            <label for="idNumber">رقم الهوية</label>
-            <input type="number" class="form-control" id="idNumber" placeholder="رقم الهوية" />
+            <label for="idNumber">{{ trans('dashboard.citizens.identity_number') }} </label>
+            <input type="number" class="form-control" id="idNumber"
+                placeholder="{{ trans('dashboard.citizens.identity_number') }} " />
         </div>
         <div class="col-12 col-md-3 mb-3">
-            <label for="phone">رقم الجوال</label>
+            <label for="phone">{{ trans('dashboard.citizens.phone') }} </label>
             <div class="input-group">
-                <input id="phone" type="number" placeholder="أدخل رقم الجوال" class="form-control" />
+                <input id="phone" type="number" placeholder="{{ trans('dashboard.citizens.enter_phone') }} "
+                    class="form-control" />
                 <div class="input-group-text border-start-0">
                     +966
                 </div>
             </div>
         </div>
         <div class="col-12 col-md-3 mb-3">
-            <label for="clientType">البطاقة المفعلة</label>
-            <select class="form-control select2" id="clientType">
-                <option selected disabled value="">إختر البطاقة </option>
-                <option>الأساسية</option>
-                <option>الأساسية</option>
-                <option>الأساسية</option>
+            <label for="clientType">{{ trans('dashboard.citizens.enabled_card') }} </label>
+            <select class="form-control select2" id="enabledcard">
+                <option selected disabled value="">{{ trans('dashboard.citizens.choose_card') }} </option>
+                <option value="">{{ trans('dashboard.general.all_cases') }} </option>
+                @foreach ($cards as $id => $card)
+                    <option value="{{ $id }}">{{ $card }}</option>
+                @endforeach
             </select>
         </div>
         <div class="col-12 col-md-3 mb-3">
-            <label for="from-hijri-picker-custom"> تاريخ إنتهاء البطاقة (من)</label>
+            <label for="from-end-at">{{ trans('dashboard.citizens.card_end_at_from') }} </label>
             <div class="input-group">
-                <input id="from-hijri-picker-custom" type="text" placeholder="يوم/شهر/سنة" class="form-control" />
+                <input id="from-end-at" type="text" placeholder="{{ trans('dashboard.general.day_month_year') }}"
+                    class="form-control" name="end_at_from" />
                 <div class="input-group-text border-start-0">
                     <i class="fa fa-calendar tx-16 lh-0 op-6"></i>
                 </div>
             </div>
         </div>
         <div class="col-12 col-md-3 mb-3">
-            <label for="to-hijri-picker-custom">تاريخ إنتهاء البطاقة (إلى)</label>
+            <label for="to-end-at">{{ trans('dashboard.citizens.card_end_at_to') }} </label>
             <div class="input-group">
-                <input id="to-hijri-picker-custom" type="text" placeholder="يوم/شهر/سنة" class="form-control" />
+                <input id="to-end-at" type="text" placeholder="{{ trans('dashboard.general.day_month_year') }}"
+                    class="form-control" name="end_at_to" />
                 <div class="input-group-text border-start-0">
                     <i class="fa fa-calendar tx-16 lh-0 op-6"></i>
                 </div>
             </div>
         </div>
         <div class="col-12 col-md-3 mb-3">
-            <label for="from-hijri-picker-custom"> تاريخ التسجيل (من)</label>
+            <label for="from-created-at">{{ trans('dashboard.citizens.created_at_from') }} </label>
             <div class="input-group">
-                <input id="from-hijri-picker-custom" type="text" placeholder="يوم/شهر/سنة" class="form-control" />
+                <input id="from-created-at" type="text" placeholder="{{ trans('dashboard.general.day_month_year') }}"
+                    class="form-control" name="created_from" />
                 <div class="input-group-text border-start-0">
                     <i class="fa fa-calendar tx-16 lh-0 op-6"></i>
                 </div>
             </div>
         </div>
         <div class="col-12 col-md-3 mb-3">
-            <label for="to-hijri-picker-custom">تاريخ التسجيل (إلى)</label>
+            <label for="to-created-at">{{ trans('dashboard.citizens.created_at_to') }} </label>
             <div class="input-group">
-                <input id="to-hijri-picker-custom" type="text" placeholder="يوم/شهر/سنة" class="form-control" />
+                <input id="to-created-at" type="text" placeholder="{{ trans('dashboard.general.day_month_year') }}"
+                    class="form-control" name="created_to" />
                 <div class="input-group-text border-start-0">
                     <i class="fa fa-calendar tx-16 lh-0 op-6"></i>
                 </div>
@@ -80,11 +87,12 @@
 
     </div>
     <div class="row">
-        <div class="col-12 col-md-6">
+        <div class="col-12 col-md-6 my-2">
             <div class="dropdown">
                 <button class="btn btn-outline-primary dropdown-toggle" type="button" id="dropdownMenuButton1"
                     data-bs-toggle="dropdown" aria-expanded="false">
-                    <i class="mdi mdi-tray-arrow-down"></i> تصدير
+                    <i class="mdi mdi-tray-arrow-down"></i>
+                    {{ trans('dashboard.general.export') }}
                 </button>
                 <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
                     <li><a class="dropdown-item" href="#">PDF</a></li>
@@ -94,124 +102,81 @@
         </div>
         <div class="col-12 col-md-6 d-flex justify-content-end">
             <button class="btn btn-primary mx-2" type="submit">
-                <i class="mdi mdi-magnify"></i> بحث
+                <i class="mdi mdi-magnify"></i> {{ trans('dashboard.general.search') }}
             </button>
-            <button class="btn btn-outline-primary" type="submit">
-                <i class="mdi mdi-restore"></i> عرض الكل
+
+            <button class="btn btn-outline-primary" type="reset" id="reset">
+                <i class="mdi mdi-restore"></i>{{ trans('dashboard.general.show_all') }}
             </button>
+
         </div>
     </div>
-</form>
+    {!! form::close() !!}
 
-<!-- FORM CLOSED -->
+    <!-- FORM CLOSED -->
 
-<!-- Row -->
-<div class="row row-sm">
-    <div class="col-lg-12">
-        <div class="p-1">
-            <table id="citizen" class="table table-bordered text-nowrap shadow-sm bg-body key-buttons historyTable">
-                <thead>
-                    <tr>
-                        <th class="border-bottom-0">#</th>
-                        <th class="border-bottom-0"> اسم المستخدم</th>
-                        <th class="border-bottom-0">رقم الهوية</th>
-                        <th class="border-bottom-0">رقم الجوال</th>
-                        <th class="border-bottom-0">البطاقة المفعلة</th>
-                        <th class="border-bottom-0">تاريخ إنتهاء البطاقة</th>
-                        <th class="border-bottom-0">تاريخ التسجيل</th>
-                        <th class="border-bottom-0 text-center">العمليات</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>1</td>
-                        <td>هشام أشرف عبد الشافي</td>
-                        <td>29463215876325</td>
-                        <td>+966 58365987</td>
-                        <td>الأساسية</td>
-                        <td>20 يناير 2022 </td>
-                        <td>20 يناير 2022 </td>
-<td class="text-center">                            <a href="#!" class="warningIcon" data-bs-toggle="tooltip"
-                                data-bs-placement="top"  title="@lang('dashboard.general.edit')"><i
-                                    class="mdi mdi-square-edit-outline" data-bs-toggle="modal"
-                                data-bs-target="#editModal"></i></a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>1</td>
-                        <td>هشام أشرف عبد الشافي</td>
-                        <td>29463215876325</td>
-                        <td>+966 58365987</td>
-                        <td>الأساسية</td>
-                        <td>20 يناير 2022 </td>
-                        <td>20 يناير 2022 </td>
-<td class="text-center">                            <a href="#!" class="warningIcon" data-bs-toggle="tooltip" data-bs-placement="top"
-                                title="@lang('dashboard.general.edit')"><i class="mdi mdi-square-edit-outline" data-bs-toggle="modal"
-                                data-bs-target="#editModal"></i></a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>1</td>
-                        <td>هشام أشرف عبد الشافي</td>
-                        <td>29463215876325</td>
-                        <td>+966 58365987</td>
-                        <td>الأساسية</td>
-                        <td>20 يناير 2022 </td>
-                        <td>20 يناير 2022 </td>
-<td class="text-center">                            <a href="#!" class="warningIcon" data-bs-toggle="tooltip" data-bs-placement="top"
-                                title="@lang('dashboard.general.edit')"><i class="mdi mdi-square-edit-outline" data-bs-toggle="modal"
-                                data-bs-target="#editModal"></i></a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>1</td>
-                        <td>هشام أشرف عبد الشافي</td>
-                        <td>29463215876325</td>
-                        <td>+966 58365987</td>
-                        <td>الأساسية</td>
-                        <td>20 يناير 2022 </td>
-                        <td>20 يناير 2022 </td>
-                        <td class="text-center">
-                            <a href="#!" class="warningIcon" data-bs-toggle="tooltip" data-bs-placement="top" 
-                                title="@lang('dashboard.general.edit')"><i class="mdi mdi-square-edit-outline" data-bs-toggle="modal"
-                                data-bs-target="#editModal"></i></a>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
+    <!-- Row -->
+    <div class="row row-sm">
+        <div class="col-lg-12">
+            <div class="p-1">
+                <table id="citizenTable" class="table table-bordered text-nowrap shadow-sm bg-body key-buttons">
+                    <thead>
+                        <tr>
+                            <th class="border-bottom-0">#</th>
+                            <th class="border-bottom-0">{{ trans('dashboard.citizens.name') }} </th>
+                            <th class="border-bottom-0">{{ trans('dashboard.citizens.identity_number') }} </th>
+                            <th class="border-bottom-0">{{ trans('dashboard.citizens.phone') }} </th>
+                            <th class="border-bottom-0">{{ trans('dashboard.citizens.enabled_card') }} </th>
+                            <th class="border-bottom-0">{{ trans('dashboard.citizens.card_end_at') }} </th>
+                            <th class="border-bottom-0">{{ trans('dashboard.citizens.created_at') }} </th>
+                            <th class="border-bottom-0 text-center" {{ trans('dashboard.citizens.actions') }} </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
-</div>
 
 
-<div class="modal fade" id="editModal">
+    <div class="modal fade" id="modal_phone">
 
-    <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content border-0">
-            <form method="get" action="" class="needs-validation" novalidate>
-                <div class="modal-body text-center p-0">
-                    <lottie-player autoplay loop mode="normal" src="{{ asset('dashboardAssets/images/lottie/alert.json') }}"
-                        style="width: 55%; display: block; margin: 0 auto 1em">
-                    </lottie-player>
-                    <p>تعديل رقم الجوال</p>
-                    <div class="mt-3">
-                        <input type="number" class="form-control" placeholder="رقم الجوال الجديد" >
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content border-0">
+                <form method="post" action="#" class="needs-validation" id="item" novalidate>
+                    @csrf
+                    @method('PUT')
 
+                    <div class="modal-body text-center p-0">
+                        <lottie-player autoplay loop mode="normal"
+                            src="{{ asset('dashboardAssets/images/lottie/alert.json') }}"
+                            style="width: 55%; display: block; margin: 0 auto 1em">
+                        </lottie-player>
+                        <p>{{ trans('dashboard.citizens.edit_phone') }}</p>
+                        <div class="mt-3 input-group">
+                            <input type="number" name="phone" class="form-control"
+                                placeholder="{{ trans('dashboard.citizens.new_phone') }}">
+                            <div class="input-group-text border-start-0">
+                                966+ <input type="hidden" value="966" name="country_code">
+                            </div>
+                        </div>
                     </div>
-                </div>
-                <div class="modal-footer justify-content-end mt-5 p-0">
-                    <button type="submit" class="btn btn-primary mx-3">حفظ</button>
-                    <button type="button" class="btn btn-outline-primary" data-bs-dismiss="modal">
-                        عودة
-                    </button>
-                </div>
-            </form>
+                    <div class="modal-footer justify-content-end mt-5 p-0">
+                        <button type="submit" class="btn btn-primary mx-3">{{ trans('dashboard.general.save') }}</button>
+                        <button type="button" class="btn btn-outline-primary" data-bs-dismiss="modal">
+                            {{ trans('dashboard.general.back') }}
+                        </button>
+                    </div>
+                </form>
+            </div>
         </div>
     </div>
-</div>
-<!-- End Row -->
+    <!-- End Row -->
 
-@include('dashboard.layouts.modals.archive')
-@include('dashboard.layouts.modals.not_archive')
+
+    @include('dashboard.layouts.modals.alert')
+
 @endsection
 @include('dashboard.citizen.script')

@@ -18,10 +18,10 @@ class Client extends Model
     #region properties
     protected $guarded = ['created_at', 'updated_at'];
     protected $dates = ['date_of_birth'];
-    public $sortableColumns = ["client_type", "marital_status", "nationality", "address", "activity_type", "fullname", "commercial_number", "tax_number", "client_type", "bank_name"];
+    public $sortableColumns = ["transactions_done", "client_type", "marital_status", "nationality", "address", "activity_type", "fullname", "commercial_number", "tax_number", "client_type", "bank_name"];
     const user_searchable_Columns = ["fullname", "email", "image", "country_code", "phone", "full_phone", "identity_number", "date_of_birth"];
-    const client_searchable_Columns = ["client_type", "commercial_number", "nationality", "tax_number"];
-    const bank_sort_Columns = ["bank_name" => "user.bankAccount.bank.translations"];
+    const client_searchable_Columns = ["client_type", "commercial_number", "nationality", "tax_number", "transactions_done"];
+    const bank_sort_Columns = ["bank_name" => "name"];
     const bank_acc_sort_Columns = ["account_status" => "user.bankAccount.account_status"];
     const CLIENT_TYPES = ["institution" => "مؤسسات", "member" => "عضو", "company" => "شركات", "freelance_doc" => "مستقل", "famous" => "مشاهير", "other" => "اخرى"];
     const SELECT_ALL = ["client_type", "account_status", "bank_name", "bank_id"];
@@ -69,19 +69,31 @@ class Client extends Model
 
     public function scopeSortBy(Builder $query, $request)
     {
+//        dd()
         if (!isset($request->sort["column"]) || !isset($request->sort["dir"])) return $query->latest('clients.created_at');
 
         if (
-            !in_array(Str::lower($request->sort["column"]), $this->sortableColumns) ||
-            !in_array(Str::lower($request->sort["dir"]), ["asc", "desc"])
+//            !in_array(Str::lower($request->sort["column"]), $this->sortableColumns) ||
+        !in_array(Str::lower($request->sort["dir"]), ["asc", "desc"])
         ) {
             return $query->latest('clients.created_at');
+        }
+        if (in_array($request->sort["column"], self::client_searchable_Columns)) {
+
+            return $query
+                ->orderBy($request->sort["column"], @$request->sort["dir"]);
         } else {
-            if ($request->sort["column"] == "fullname") {
-                return $query->join('users', 'users.id', '=', 'clients.user_id')->orderBy('users.' . $request->sort["column"], @$request->sort["dir"]);
-            }
-            if ($request->sort["column"] == "account_status") {
-                return $query->join('bank_accounts', 'bank_accounts.user_id', '=', 'clients.user_id')->orderBy('bank_accounts.' . $request->sort["column"], @$request->sort["dir"]);
+            if (in_array($request->sort["column"], self::user_searchable_Columns)) {
+                return $query->join('users', 'users.id', '=', 'clients.user_id')
+                    ->orderBy('users.' . $request->sort["column"], @$request->sort["dir"]);
+            } else if (key_exists($request->sort["column"], self::bank_acc_sort_Columns)) {
+                return $query->join('bank_accounts', 'bank_accounts.user_id', '=', 'clients.user_id')
+                    ->orderBy('bank_accounts.' . $request->sort["column"], @$request->sort["dir"]);
+            } else if (key_exists($request->sort["column"], self::bank_sort_Columns)) {
+                return $query->join('bank_accounts', 'bank_accounts.user_id', '=', 'clients.user_id')
+                    ->join('banks', 'banks.id', '=', 'bank_accounts.bank_id')
+                    ->join('bank_translations', 'banks.id', '=', 'bank_translations.bank_id')
+                    ->orderBy('bank_translations.' . self::bank_sort_Columns[$request->sort["column"]], @$request->sort["dir"]);
             }
         }
     }

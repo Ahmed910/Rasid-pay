@@ -11,14 +11,16 @@ use Illuminate\Support\Str;
 
 class Citizen extends Model
 {
-    use HasFactory, Uuid,Loggable;
+    use HasFactory, Uuid, Loggable;
 
     #region properties
     protected $guarded = ['created_at', 'updated_at'];
-    protected $dates = ['date_of_birth'];
-    const user_searchable_Columns = ["fullname", "email", "image", "country_code", "phone", "full_phone", "identity_number", "date_of_birth"];
-    const bank_account_searchable_Columns = ["iban_number", "contract_type", "bank_id",];
 
+    protected $dates = ['date_of_birth'];
+    const USER_SEARCHABLE_COLUMNS = ["fullname",  "country_code", "phone", "full_phone", "identity_number", "created_at"];
+    const ENABLEDCARD_SEARCHABLE_COLUMNS = ["enabled_card" => "id"];
+    const ENABLEDCARD_SORTABLE_COLUMNS = ["enabled_card" => "enabledCard.cardPackage.translation", "card_end_at" => "enabledCard.end_at"];
+    const SELECT_ALL = ["enabled_card" => "id"];
 
     #endregion properties
 
@@ -28,20 +30,36 @@ class Citizen extends Model
     #region scopes
     public function scopeSearch($query, $request)
     {
+
         foreach ($request->all() as $key => $item) {
-            if (in_array($key, self::user_searchable_Columns))
+            if (in_array($key, self::USER_SEARCHABLE_COLUMNS))
                 $query->whereHas('user', function ($q) use ($key, $item) {
                     !$key == "fullname" ? $q->where($key, $item) : $q->where($key, "like", "%$item%");
                 });
-            if (in_array($key, self::bank_account_searchable_Columns))
-                $query->whereHas('bankAccount', function ($q) use ($key, $item) {
-                    $q->where($key, $item);
+        }
+
+        foreach ($request->all() as $key => $item) {
+            if ($item == -1 && in_array($key, self::SELECT_ALL)) $request->request->remove($key);
+            if (key_exists($key, self::ENABLEDCARD_SEARCHABLE_COLUMNS))
+                $query->whereHas('enabledCard.cardPackage', function ($q) use ($key, $item) {
+                    $q->where(self::ENABLEDCARD_SEARCHABLE_COLUMNS[$key], $item);
                 });
         }
 
-//        if ($request->bank_id) $query->whereHas("bankAccount", function ($q) use ($request) {
-//            $q->where('bank_id', $request->bank_id);
-//        });
+        if ($request->created_from || $request->created_to) {
+            $query->CustomDateFromTo($request);
+        }
+
+        if ($request->end_at_from) {
+            $query->wherehas("enabledCard", function ($q) use ($request) {
+                $q->whereDate('end_at', ">=", $request->end_at_from);
+            });
+        }
+        if ($request->end_at_to) {
+            $query->wherehas("enabledCard", function ($q) use ($request) {
+                $q->whereDate('end_at', "<=", $request->end_at_to);
+            });
+        }
     }
 
     public function scopeSortBy(Builder $query, $request)
@@ -69,7 +87,6 @@ class Citizen extends Model
     #endregion scopes
 
     #region relationships
-
     public function user()
     {
         return $this->belongsTo(user::class);
@@ -78,6 +95,12 @@ class Citizen extends Model
     public function bankAccount()
     {
         return $this->hasOne(BankAccount::class, 'user_id', 'user_id');
+    }
+
+
+    public function enabledCard()
+    {
+        return $this->belongsTo(CitizenCard::class, 'citizen_card_id');
     }
 
     #endregion relationships

@@ -13,6 +13,7 @@ class CitizenCard extends Model
 
     #region properties
     protected $table = 'citizen_cards';
+    protected $guarded = ['created_at', 'updated_at'];
     #endregion properties
 
     #region mutators
@@ -27,6 +28,16 @@ class CitizenCard extends Model
     #endregion scopes
 
     #region relationships
+    
+    public function cardPackage()
+    {
+        return $this->belongsTo(CardPackage::class, 'card_package_id');
+    }
+
+   public function citizen()
+    {
+        return $this->belongsTo(User::class);
+    }
     #endregion relationships
 
     #region custom Methods

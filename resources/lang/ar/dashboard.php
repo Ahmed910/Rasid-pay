@@ -124,6 +124,7 @@ return [
         'settings' => 'الإعدادات',
         'logout' => 'تسجيل خروج',
         'accept' => 'موافقة',
+        'refuse' => 'رفض',
         'cancel' => 'الغاء',
         'created_by' => 'منشيء المجموعة',
         'u_can_use_this_name' => 'يمكنك استخدام الإسم',
@@ -477,6 +478,7 @@ return [
 
     ],
     "bank" => [
+        
         "bank" => "البنك",
         "banks" => "البنوك",
         "add_bank" => "اضافة بنك",
@@ -487,6 +489,7 @@ return [
             'index' => 'سجل البنوك',
             'archive' => 'أرشيف البنوك',
             'create' => 'اضافة بنك',
+            'show' => 'عرض البنك'
         ],
         'permissions' => $permissions
     ],
@@ -496,7 +499,7 @@ return [
         "notification_count" => "عدد التنبيهات",
         'permissions' => ['store' => 'ارسال تنبيه']
     ],
-    'transaction' =>[
+    'transaction' => [
         'transactions' => 'المعاملات',
         'transaction' => 'المعاملة',
         'transaction_number' => 'رقم المعاملة',
@@ -535,6 +538,7 @@ return [
             'payment' => 'دفع',
             'wallet_transfer' => 'تحويل لمحفظة',
             'bank_transaction' => 'تحويل بنكي',
+            'bank_transactoin' => 'تحويل بنكي',
             'receive_credit' => 'استلام رصيد',
             'recharge_credit' => 'شحن رصيد',
             'upgrade_card' => 'ترقية بطاقات',
@@ -568,6 +572,8 @@ return [
         ],
         "commercial_number" => "رقم السجل",
         "tax_number" => "الرقم الضريبي",
+        "order_date" => "تاريخ الطلب",
+        "order_number" => "رقم الطلب",
         "transactions_done" => "عدد المعاملات المنجزة",
         "transactions_done_from" => "عدد المعاملات المنجزة من",
         "transactions_done_to" => "عدد المعاملات المنجزة الى",
@@ -576,16 +582,40 @@ return [
 
         "bank_name" => "البنك التابع له",
         "account_status" => "حالة الحساب البنكي",
+        "status" => "الحالة",
         "account_statuses" => [
-            "pending" => "قيد الانتظار",
+            "pending" => "لم يتم تاكيد الحساب البنكى ",
             "before_review" => "قبل المراجعة",
             "reviewed" => "تمت المراجعة",
             "accepted" => "تمت الموافقة",
             "refused" => "تم الرفض",
+
         ],
 
         'permissions' => array_except($permissions, ['archive', 'restore', 'force_delete']) + ['create' => 'عرض العملاء']
     ],
+
+    "citizens" => [
+        "citizens" => "المستخدمبن",
+        "name" => "اسم المستخدم",
+        "identity_number" => "رقم الهوية",
+        "phone" => "رقم الجوال",
+        "enter_phone" => "ادخل رقم الجوال",
+        "enabled_card" => "البطاقة المفعلة",
+        "choose_card" => "اختر البطاقة",
+        'card_end_at_from' => "تاريخ إنتهاء البطاقة (من)",
+        'card_end_at_to' => "تاريخ إنتهاء البطاقة (إلى)",
+        'created_at_from' => "تاريخ التسجيل (من)",
+        'created_at_to' => "تاريخ التسجيل (إلى)",
+
+        'card_end_at' => "تاريخ انتهاء البطاقة",
+        'created_at' => "تاريخ التسجيل",
+        'actions' => "العمليات",
+
+        'edit_phone' => "تعديل رقم الجوال",
+        'new_phone' => "رقم الجوال الجديد",
+        ],
+
     'user' => [
         'users' => 'المستخدمين',
         'sub_progs' => [

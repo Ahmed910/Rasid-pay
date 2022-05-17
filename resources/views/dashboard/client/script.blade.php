@@ -6,11 +6,83 @@
   <script src="{{ asset('dashboardAssets/plugins/datatable/responsive.bootstrap5.min.js') }}"></script>
 @endsection
 @section('scripts')
-  <script src="{{ asset('dashboardAssets/js/custom_scripts.js') }}"></script>
-  <script src="{{ asset('dashboardAssets/plugins/bootstrap-hijri-datepicker/js/bootstrap-hijri-datetimepicker.js') }}">
-  </script>
-  <script>
-    $(function () {
+<script src="{{ asset('dashboardAssets/js/custom_scripts.js') }}"></script>
+<script src="{{ asset('dashboardAssets/plugins/bootstrap-hijri-datepicker/js/bootstrap-hijri-datetimepicker.js') }}">
+</script>
+
+
+<script src="{{ asset('dashboardAssets') }}/plugins/fileuploads/js/fileupload.js"></script>
+<script src="{{ asset('dashboardAssets') }}/plugins/fileuploads/js/file-upload.js"></script>
+<!-- INTERNAL File-Uploads Js-->
+<script src="{{ asset('dashboardAssets') }}/plugins/fancyuploder/jquery.ui.widget.js"></script>
+<script src="{{ asset('dashboardAssets') }}/plugins/fancyuploder/jquery.fileupload.js"></script>
+<script src="{{ asset('dashboardAssets') }}/plugins/fancyuploder/jquery.iframe-transport.js"></script>
+<script src="{{ asset('dashboardAssets') }}/plugins/fancyuploder/jquery.fancy-fileupload.js"></script>
+<script src="{{ asset('dashboardAssets') }}/plugins/fancyuploder/fancy-uploader.js"></script>
+<script>
+  $(function () {
+
+      function format(d) {
+        // `d` is the original data object for the row
+        return '<table width="100%">' +
+          '<tr>' +
+          '<td></td>' +
+          '<td colspan="0">' + '<label>البريد الالكتروني</label>' +
+          '<p>test@test.com</p>' +
+          '</td>' +
+          '<td >' + '<label>العنوان</label>' +
+          '<p>address</p>' +
+          '</td>' +
+          '<td >' + '<label>النوع</label>' +
+          '<p>male</p>' +
+          '</td>' +
+          '<td >' + '<label>الحالة الاجتماعية</label>' +
+          '<p>single</p>' +
+          '</td>' +
+          '<td >' + '<label>الجنسية</label>' +
+          '<p>مصري</p>' +
+          '</td>' +
+          '<td></td>' +
+          '</tr>' +
+          '</table>';
+      }
+
+      var collapsedTable = $('#collapsedTable').DataTable({
+        sDom: "t<'domOption'lpi>",
+        pageLength: 10,
+        lengthMenu: [
+          [1, 5, 10, 20, -1],
+          [1, 5, 10, 20, "الكل"],
+        ],
+        language: {
+          lengthMenu: "عرض _MENU_",
+          zeroRecords: "لا يوجد بيانات",
+          info: "عرض _PAGE_ من _PAGES_ عنصر",
+          infoEmpty: "لا يوجد نتائج بحث متاحة",
+          paginate: {
+            previous: '<i class="mdi mdi-chevron-right"></i>',
+            next: '<i class="mdi mdi-chevron-left"></i>',
+          },
+        },
+      });
+      // Add event listener for opening and closing details
+
+      $('#collapsedTable tbody').on('click', 'td:last-child', function () {
+        var tr = $(this).closest('tr');
+        var row = collapsedTable.row(tr);
+
+        if (row.child.isShown()) {
+          // This row is already open - close it.
+          row.child.hide();
+          tr.removeClass('shown');
+        } else {
+          // Open row.
+          row.child(format(row.data())).show();
+          tr.addClass('shown');
+        }
+      });
+
+
       var accounts_table = $("#orderTable").DataTable({
         sDom: "t<'domOption'lpi>",
         serverSide: true,
@@ -61,31 +133,33 @@
             data: 'tax_number',
             name: 'tax_number'
           },
-          {
-            data: 'transactions_done',
-            name: 'transactions_done'
-          },
-
+{
+data: 'created_at',
+name: 'created_at'
+},
           {
             data: "bank_name",
             name: 'bank_name'
           },
-          {
-            data: 'account_status',
-            name: 'account_status'
-          },
+         {
+        data: function (data) {
+        if (data.account_status_name == 'pending') {
+        return ` <span class="badge bg-danger-opacity py-2 px-4">${data.account_status}</span>`;
+        } else {
+        return ` <span class="badge bg-success-opacity py-2 px-4">${data.account_status}</span>`;
+        }
+        },
+        name: 'account_status'
+        },
 
           {
             class: "text-center",
             data: function (data) {
-              return `<a href="department-view.html" class="azureIcon" data-bs-toggle="tooltip" data-bs-placement="top"
-                title="عرض"><i class="mdi mdi-eye-outline"></i></a>
-              <a href="department-add.html" class="warningIcon" data-bs-toggle="tooltip" data-bs-placement="top"
-                title="تعديل"><i class="mdi mdi-square-edit-outline"></i></a>
-              <a href="#" class="successIcon" data-bs-toggle="tooltip" data-bs-placement="top" title="تأكيد الحساب "><i
-                  class="mdi mdi-check"></i></a>
-              <a href="#" class="primaryIcon" data-bs-toggle="tooltip" data-bs-placement="top" title="تعليق الحساب "><i
-                  class="mdi mdi-account-clock-outline"></i></a>`
+              return `<a href="${data.show_route}" class="successIcon" data-bs-toggle="tooltip" data-bs-placement="top"
+                title="@lang('dashboard.general.accept')"><i class="mdi mdi-check"></i></a>
+              <a href="${data.show_route}" class="errorIcon" data-bs-toggle="tooltip" data-bs-placement="top"
+                title="@lang('dashboard.general.refuse')"><i class="mdi mdi-close"></i></a>
+              `
             },
             orderable: false,
             searchable: false
@@ -192,6 +266,7 @@
           name: 'id',
           class: 'client_index'
         },
+
           {
             data: "fullname",
             name: 'fullname'
@@ -218,30 +293,29 @@
             name: 'bank_name'
           },
           {
-            data: 'account_status',
+            data: function (data) {
+              if (data.account_status_name == 'pending') {
+                return ` <span class="badge bg-danger-opacity py-2 px-4">${data.account_status}</span>`;
+              } else {
+                return ` <span class="badge bg-success-opacity py-2 px-4">${data.account_status}</span>`;
+              }
+            },
             name: 'account_status'
           },
 
           {
             class: "text-center",
             data: function (data) {
-              return `<a
-                    href="${data.show_route}"
-                    class="azureIcon"
-                    data-bs-toggle="tooltip"
-                    data-bs-placement="top"
-                    title="@lang('dashboard.general.show')"
-                    ><i class="mdi mdi-eye-outline"></i
-                        ></a>
-                        <a
-                        href="${data.edit_route}"
-                        class="warningIcon"
-                        data-bs-toggle="tooltip"
-                        data-bs-placement="top"
-                        title="@lang('dashboard.general.edit')"
-                        ><i class="mdi mdi-square-edit-outline"></i
-                            ></a>
-                            `
+              return `<a href="department-view.html" class="azureIcon" data-bs-toggle="tooltip" data-bs-placement="top"
+                title="عرض"><i class="mdi mdi-eye-outline"></i></a>
+              <a href="department-add.html" class="warningIcon" data-bs-toggle="tooltip" data-bs-placement="top"
+                title="تعديل"><i class="mdi mdi-square-edit-outline"></i></a>
+              <a href="#" class="successIcon" data-bs-toggle="tooltip" data-bs-placement="top" title="تأكيد الحساب "><i
+                  class="mdi mdi-check"></i></a>
+              <a href="#" class="primaryIcon" data-bs-toggle="tooltip" data-bs-placement="top" title="مراجعة الحساب "><i
+                  class="mdi mdi-comment-edit-outline"></i></a>
+              <a href="#" class="errorIcon" data-bs-toggle="tooltip" data-bs-placement="top" title="تعليق الحساب "><i
+                  class="mdi mdi-account-clock-outline"></i></a>`
             },
             orderable: false,
             searchable: false

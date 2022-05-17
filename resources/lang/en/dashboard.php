@@ -391,6 +391,29 @@ return [
         ],
 
     ],
+
+    
+    "citizens" => [
+        "citizens" => "Users",
+        "name" => "Name",
+        "identity_number" => "Identity Number",
+        "phone" => "Phone Number",
+        "enter_phone" => "Enter Phone Number",
+        "enabled_card" => "Activated Card",
+        "choose_card" => "Choose Card",
+        'card_end_at_from' => "Card Expiry Date (from)",
+        'card_end_at_to' => "Card Expiry Date (to)",
+        'created_at_from' => "Registration Date (from)",
+        'created_at_to' => "Registration Date (to)",
+
+        'card_end_at' => "Card Expiry Date",
+        'created_at' => "Registration Date",
+
+        
+        'edit_phone' => "Edit Phone Number",
+        'new_phone' => "New Phone Number",
+        ],
+
     'user' => [
         'users' => 'Users'
     ],

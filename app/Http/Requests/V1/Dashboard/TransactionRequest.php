@@ -33,16 +33,17 @@ class TransactionRequest extends ApiMasterRequest
         } else {
             $data = [
                 "card_package_id" => "required|exists:card_packages,id,deleted_at,NULL",
-                "citizen_id" => "required|exists:users,id,user_type,citizen,ban_status,active",
-                "client_id" => "nullable|exists:users,id,user_type,client,ban_status,active",
-                "to_user_id" => "nullable|exists:users,id,user_type,citizen,ban_status,active",
+                "from_user_id" => "required|exists:users,id,user_type,citizen,ban_status,active",
+                "to_user_id" => "nullable|exists:clients,id",
                 "amount" => "required|numeric",
+                "gift_balance" => "required|numeric",
+                "total_amount" => "required|numeric",
             ];
         }
 
 
         $rules = [
-            "type" => "nullable|in:payment,wallet_transfer,bank_transactoin,receive_credit,recharge_credit,upgrade_card",
+            "type" => "nullable|in:payment,wallet_transfer,bank_transaction,receive_credit,recharge_credit,upgrade_card",
             "status" => "nullable|in:success,fail,pending,received,cancel",
             "action_type" => "nullable|string|min:2|max:255",
             "qr_code" => "nullable|string|min:2|max:255",

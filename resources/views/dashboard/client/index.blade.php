@@ -67,9 +67,8 @@
       <select class="form-control select2-show-search" id="account_status">
         <option selected value=""> {{trans("dashboard.general.select_status")}} </option>
         <option value=-1>{{trans('dashboard.general.all_cases')}}</option>
-        <option value="pending">قيد الانتظار</option>
-        <option value="before_review">قبل المراجعة</option>
-        <option value="refused">لم يتم تأكيد الحسب البنكي</option>
+        <option value="accepted">تم تاكيد الحساب البنكى</option>
+        <option value="pending">لم يتم تأكيد الحسب البنكي</option>
         <option value="reviewed">تم مراجعة الحساب البنكي</option>
       </select>
     </div>
@@ -130,7 +129,7 @@
             <th class="border-bottom-0">{{ trans('dashboard.client.type') }}</th>
             <th class="border-bottom-0">{{ trans('dashboard.client.commercial_number') }}</th>
             <th class="border-bottom-0">{{ trans('dashboard.client.tax_number') }}</th>
-            <th class="border-bottom-0 text-center">{{ trans('dashboard.client.transactions_done') }}</th>
+            <th class="border-bottom-0">{{ trans('dashboard.client.transactions_done') }}</th>
             <th class="border-bottom-0">{{ trans('dashboard.client.bank_name') }}</th>
             <th class="border-bottom-0">{{ trans('dashboard.client.account_status') }}</th>
             <th class="border-bottom-0 text-center">{{ trans('dashboard.general.actions') }}</th>

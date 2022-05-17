@@ -243,12 +243,58 @@
                 <li class="slide">
                     <a class="side-menu__item {{ request()->routeIs('dashboard.citizen.index') ? 'active' : '' }}" data-bs-toggle="slide" href="{{ route('dashboard.citizen.index') }}"><i
                             class="mdi mdi-account-multiple-check-outline"></i><span
-                            class="side-menu__label">المستخدمين</span></a>
+                            class="side-menu__label">{{ trans('dashboard.citizens.citizens') }}</span></a>
                 </li>
                 <li class="slide">
                     <a class="side-menu__item {{ request()->routeIs('dashboard.transaction.index') ? 'active' : '' }}" data-bs-toggle="slide" href="{{ route('dashboard.transaction.index') }}"><i
                             class="mdi mdi-bank-transfer"></i><span
                             class="side-menu__label">المعاملات</span></a>
+                </li>
+               
+<li
+    class="slide {{ request()->routeIs('dashboard.bank.*') && !request()->routeIs('dashboard.*.archive') ? 'is-expanded' : '' }} ">
+    <a class="side-menu__item" data-bs-toggle="slide" href="javascript:void(0)"><i
+            class="mdi mdi-bank-outline"></i><span class="side-menu__label">البنوك</span><i
+            class="angle fe fe-chevron-right"></i></a>
+    <ul class="slide-menu">
+        <li class="side-menu-label1">
+            <a href="javascript:void(0)">البنوك</a>
+        </li>
+        <li>
+            <a href="{{ route('dashboard.bank.index') }}"
+                class="slide-item px-6 {{ request()->routeIs('dashboard.bank.index') ? 'active' : '' }}"><i
+                    class="mdi mdi-file-document-multiple-outline"></i>
+                سجل البنوك</a>
+        </li>
+        <li>
+            <a href="{{ route('dashboard.bank.create') }}"
+                class="slide-item px-6 {{ request()->routeIs('dashboard.bank.create') ? 'active' : '' }}"><i
+                    class="mdi mdi-plus-circle-outline"></i> إضافة</a>
+        </li>
+    </ul>
+</li>
+                <li
+                    class="slide {{ request()->routeIs('dashboard.discount.*') && !request()->routeIs('dashboard.*.archive') ? 'is-expanded' : '' }} ">
+                    <a class="side-menu__item" data-bs-toggle="slide" href="javascript:void(0)"><i
+                            class="mdi mdi-view-dashboard-outline"></i><span
+                            class="side-menu__label">نسب خصم البطاقات</span><i
+                            class="angle fe fe-chevron-right"></i></a>
+                    <ul class="slide-menu">
+                        <li class="side-menu-label1">
+                            <a href="javascript:void(0)">نسب خصم البطاقات</a>
+                        </li>
+                        <li>
+                            <a href="{{ route('dashboard.discount.index') }}"
+                                class="slide-item px-6 {{ request()->routeIs('dashboard.discount.index') ? 'active' : '' }}"><i
+                                    class="mdi mdi-file-document-multiple-outline"></i>
+                                سجل نسب الخصم للبطاقات</a>
+                        </li>
+                        <li>
+                            <a href="{{ route('dashboard.discount.create') }}"
+                                class="slide-item px-6 {{ request()->routeIs('dashboard.discount.create') ? 'active' : '' }}"><i
+                                    class="mdi mdi-plus-circle-outline"></i> إضافة</a>
+                        </li>
+                    </ul>
                 </li>
             </ul>
             <div class="slide-right" id="slide-right">

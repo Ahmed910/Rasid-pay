@@ -8,6 +8,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\V1\Dashboard\ClientRequest;
 use App\Http\Resources\Blade\Dashboard\Client\ClientCollection;
 use App\Http\Resources\Blade\Dashboard\Activitylog\ActivityLogCollection;
+use Illuminate\Support\Facades\DB;
 
 class ClientController extends Controller
 {
@@ -24,23 +25,24 @@ class ClientController extends Controller
         else if (isset($request->sort["column"]) && array_key_exists($request->sort["column"], Client::bank_acc_sort_Columns)) $sortcol = Client::bank_acc_sort_Columns[$sortcol];
 
         if ($request->ajax()) {
-
-            $clientsQuery = Client::with(["user", "user.bankAccount.bank.translations"])->search($request);
+            $clientsQuery = Client::whereHas("user.bankAccount", function ($q) {
+                $q->whereIn("account_status", ["pending", "accepted", "reviewed"]);
+            })->search($request);
 
             $clientCount = $clientsQuery->count();
 
             $clients = $clientsQuery->skip($request->start)
-                ->take(($request->length == -1) ? $clientCount : $request->length)
-                ->get()->
-                sortBy($sortcol, SORT_REGULAR, $request->sort["dir"] == "desc");
+                ->take(($request->length == -1) ? $clientCount : $request->length)->sortBy($request)
+                ->get();
+//                ->sortBy($sortcol, SORT_REGULAR, $request->sort["dir"] == "desc");
             return ClientCollection::make($clients)
                 ->additional(['total_count' => $clientCount]);
         }
         $banks = Bank::with("translations")->ListsTranslations("name")
             ->pluck('name', 'id')->toArray();;
-            $client_types =Client::CLIENT_TYPES;
+        $client_types = Client::CLIENT_TYPES;
         return view('dashboard.client.index'
-            , compact("banks","client_types"));
+            , compact("banks", "client_types"));
     }
 
     /**
