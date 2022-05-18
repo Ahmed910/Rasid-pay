@@ -12,7 +12,6 @@ use App\Http\Requests\V1\Dashboard\ReasonRequest;
 use App\Http\Resources\Dashboard\CitizenResource;
 use App\Http\Requests\V1\Dashboard\CitizenRequest;
 use App\Http\Requests\V1\Dashboard\BankAccountRequest;
-use App\Http\Resources\Dashboard\SimpleCardPackageResource;
 
 class CitizenController extends Controller
 {
@@ -22,12 +21,11 @@ class CitizenController extends Controller
         if (isset($request->order[0]['column'])) {
             $request['sort'] = ['column' => $request['columns'][$request['order'][0]['column']]['name'], 'dir' => $request['order'][0]['dir']];
         }
-        $dir = $request->sort["dir"] ?? null;
-        $sortcol = isset($request->sort["column"]) ? $request->sort["column"] : null;
-        if (isset($request->sort["column"]) && in_array($request->sort["column"], Citizen::USER_SEARCHABLE_COLUMNS)) $sortcol = "user." . $request->sort["column"];
-        if (isset($request->sort["column"]) && key_exists($request->sort["column"], Citizen::ENABLEDCARD_SORTABLE_COLUMNS)) $sortcol = Citizen::ENABLEDCARD_SORTABLE_COLUMNS[$sortcol];
-        $citizen = Citizen::with(['user', "enabledCard.cardPackage"])->CustomDateFromTo($request)->search($request)
-            ->latest()->paginate((int)($request->per_page ?? config("globals.per_page")))->sortBy($sortcol, SORT_REGULAR, $dir == "desc");;
+
+        $citizen = Citizen::with(['user', "enabledCard.cardPackage"])
+            ->CustomDateFromTo($request)->search($request)->sortBy($request)
+            ->paginate((int)($request->per_page ?? config("globals.per_page")));
+
         return CitizenResource::collection($citizen)->additional([
             'status' => true,
             'message' => ""
@@ -82,7 +80,7 @@ class CitizenController extends Controller
             "full_phone" => ["unique:users,phone," . @$id],
 
         ]);
-        
+
         $citizen = Citizen::where('user_id', $id)->firstOrFail();
         $citizen->user->update($fileds + ['updated_at' => now()]);
 
@@ -91,10 +89,10 @@ class CitizenController extends Controller
 
     public function enabledCards()
     {
-        $enabledCards = CardPackage::whereHas("citizenCards")->ListsTranslations("name")->select('card_packages.id')->get();
+        $enabledCards = CardPackage::CARD_TYPES;
 
         return response()->json([
-            'data' => SimpleCardPackageResource::collection($enabledCards),
+            'data' => $enabledCards,
             'status' => true,
             'message' =>  '',
         ]);
