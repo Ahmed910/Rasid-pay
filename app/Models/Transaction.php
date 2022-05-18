@@ -22,6 +22,8 @@ class Transaction extends Model
     private $sortableColumns = ["user_from","number", "created_at", "user_identity", 'from_user_to', 'amount', 'total_amount', 'gift_balance', 'type', 'status', 'discount_percent'];
     const user_searchable_Columns = ["user_from", "email", "image", "country_code", "phone", "full_phone", "identity_number", "date_of_birth"];
     const user_sortable_Columns = ["user_from"=>"fullname", "email"=>"email", "image"=>"email", "country_code"=>"country_code", "phone"=>"phone", "full_phone"=>"full_phone", "identity_number"=>"identity_number", "date_of_birth"=>"date_of_birth"];
+    const client_searchable_Columns = ["user_to", "client_type","commercial_number", "nationality", "tax_number", "transactions_done"];
+    const client_sortable_Columns = ["user_to"=>"id", "client_type"=>"client_type" , "commercial_number"=>"commercial_number", "nationality"=>"nationality", "tax_number"=>"tax_number", "transactions_done"=>"transactions_done"];
 
     const transaction_searchable_Columns = ["transaction_number", "user_identity",  "transaction_type", "transaction_status"];
 
@@ -124,6 +126,9 @@ class Transaction extends Model
 
                 return $query->join('users', 'users.id', '=', 'transactions.from_user_id')
                     ->orderBy('users.' . self::user_sortable_Columns[$request->sort["column"]], @$request->sort["dir"]);
+            } else if (in_array($request->sort["column"], self::client_searchable_Columns)) {
+                return $query->join('clients', 'clients.id', '=', 'transactions.to_user_id')
+                ->orderBy('clients.' . self::client_sortable_Columns[$request->sort["column"]], @$request->sort["dir"]);
             }
         }
 
