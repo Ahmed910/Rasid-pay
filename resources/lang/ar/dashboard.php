@@ -614,6 +614,12 @@ return [
 
         'edit_phone' => "تعديل رقم الجوال",
         'new_phone' => "رقم الجوال الجديد",
+
+        'card_type' => [
+            'basic' => 'أساسية',
+            'golden' => 'ذهبية',
+            'platinum' => 'بلاتينية',
+        ]
         ],
 
     'user' => [
