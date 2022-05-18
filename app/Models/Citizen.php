@@ -15,6 +15,7 @@ class Citizen extends Model
 
     #region properties
     protected $guarded = ['created_at', 'updated_at'];
+    // protected $with = ['enabledCard'];
 
     protected $dates = ['date_of_birth'];
     const USER_SEARCHABLE_COLUMNS = ["fullname",  "country_code", "phone", "full_phone", "identity_number", "created_at"];
@@ -32,14 +33,7 @@ class Citizen extends Model
     #region scopes
     public function scopeSearch($query, $request)
     {
-
-        foreach ($request->all() as $key => $item) {
-            if (in_array($key, self::USER_SEARCHABLE_COLUMNS))
-                $query->whereHas('user', function ($q) use ($key, $item) {
-                    !$key == "fullname" ? $q->where($key, $item) : $q->where($key, "like", "%$item%");
-                });
-        }
-
+      
         foreach ($request->all() as $key => $item) {
             if ($item == -1 && in_array($key, self::SELECT_ALL)) $request->request->remove($key);
             if (key_exists($key, self::ENABLEDCARD_SEARCHABLE_COLUMNS))
@@ -47,6 +41,14 @@ class Citizen extends Model
                     $q->where(self::ENABLEDCARD_SEARCHABLE_COLUMNS[$key], $item);
                 });
         }
+        foreach ($request->all() as $key => $item) {
+            if (in_array($key, self::USER_SEARCHABLE_COLUMNS))
+                $query->whereHas('user', function ($q) use ($key, $item) {
+                    !$key == "fullname" ? $q->where($key, $item) : $q->where($key, "like", "%$item%");
+                });
+        }
+
+ 
 
         if ($request->created_from || $request->created_to) {
             $query->CustomDateFromTo($request);
