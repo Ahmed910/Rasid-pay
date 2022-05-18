@@ -23,25 +23,15 @@ class CardPackageRequest extends ApiMasterRequest
      */
     public function rules()
     {
-//        dd($this->all());
         $rules = [
             "is_active" => ["nullable", "boolean"],
-            "ordering" => ["required", "numeric"],
-            "price" => ["required", "max:255"],
-            "offer" => ["nullable", "max:255"],
-            "color" => ["nullable", "max:255"],
-            "available_for_promo" => ["nullable", "boolean"],
-            "cash_back" => ["required", "max:255"],
-            "promo_cash_back" => ["required", "max:255"],
-            "discount_promo_code" => ["required", "max:255"],
-            "image"         => "nullable|max:5120|mimes:jpg,png,jpeg",
-
+            "basic_discount" => ["required", "string", "min:1", "max:255", "digits_between:1,15"],
+            "golden_discount" => ["required", "string", "min:1", "max:255", "digits_between:1,15"],
+            "platinum_discount" =>["required", "string", "min:1", "max:255", "digits_between:1,15"],
+            "client_id" => ["required", "exists:users,id,user_type,client"],
+            "image" => "nullable|max:5120|mimes:jpg,png,jpeg",
         ];
-        foreach (config('translatable.locales') as $locale) {
-            $rules[$locale . '.name'] = 'required|max:255';
-            $rules[$locale . '.description'] = 'nullable';
 
-        };
         return $rules;
     }
 }

@@ -4,7 +4,6 @@ namespace App\Models\CardPackage;
 
 use App\Models\CitizenCard;
 use App\Traits\Uuid;
-use Astrotomic\Translatable\Translatable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -20,16 +19,22 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 
 
-class CardPackage extends Model implements  HasAssetsInterface
+class CardPackage extends Model implements HasAssetsInterface
 {
-    use HasFactory, Uuid, SoftDeletes,Translatable ,HasAssetsTrait,Loggable;
+    use HasFactory, Uuid, SoftDeletes, HasAssetsTrait, Loggable;
 
     protected $appends = ['image'];
     public $assets = ["image"];
     public $with = ["images", "addedBy"];
     protected $guarded = ['created_at', 'updated_at'];
-    public $translatedAttributes = ['name', 'description'];
-    protected $attributes = ["is_active" => true, "available_for_promo" => true];
+    protected $attributes = ["is_active" => true];
+
+
+    const CARD_TYPES =  [
+        "أساسية"   => 'basic',
+        "ّذهبية"    => 'golden',
+        "بلاتينية"  => 'platinum'
+    ];
 
     #region properties
     public static function boot()
@@ -52,8 +57,9 @@ class CardPackage extends Model implements  HasAssetsInterface
     {
         return $this->belongsTo(User::class, 'added_by_id');
     }
-    public function citizenCards () {
-        return $this->hasMany(CitizenCard::class) ;
+    public function citizenCards()
+    {
+        return $this->hasMany(CitizenCard::class);
     }
     #endregion relationships
 

@@ -17,9 +17,9 @@ class CitizenCardResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'card_package' => CardPackageResource::make($this->whenLoaded('cardPackage')),
+            'card_type' => $this->card_type,
             'card_price' => $this->card_price,
-            'card_data' => $this->card_data,
+            'upgrade_price' => $this->upgrade_price,
             'start_at' => $this->start_at,
             'end_at' => $this->end_at,
         ];
