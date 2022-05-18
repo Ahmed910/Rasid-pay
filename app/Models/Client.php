@@ -69,7 +69,6 @@ class Client extends Model
 
     public function scopeSortBy(Builder $query, $request)
     {
-//        dd()
         if (!isset($request->sort["column"]) || !isset($request->sort["dir"])) return $query->latest('clients.created_at');
 
         if (
@@ -91,8 +90,8 @@ class Client extends Model
                     ->orderBy('bank_accounts.' . $request->sort["column"], @$request->sort["dir"]);
             } else if (key_exists($request->sort["column"], self::bank_sort_Columns)) {
                 return $query->join('bank_accounts', 'bank_accounts.user_id', '=', 'clients.user_id')
-                    ->join('banks', 'banks.id', '=', 'bank_accounts.bank_id')
-                    ->join('bank_translations', 'banks.id', '=', 'bank_translations.bank_id')
+                    ->leftjoin('banks', 'banks.id', '=', 'bank_accounts.bank_id')
+                    ->leftjoin('bank_translations', 'banks.id', '=', 'bank_translations.bank_id')
                     ->orderBy('bank_translations.' . self::bank_sort_Columns[$request->sort["column"]], @$request->sort["dir"]);
             }
         }
