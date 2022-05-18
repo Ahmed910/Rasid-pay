@@ -19,11 +19,15 @@ class Transaction extends Model
     use HasFactory, Uuid, Loggable, SoftDeletes;
 
     protected $guarded = ['number', 'created_at', 'updated_at'];
-    private $sortableColumns = ["user_from","number", "created_at", "user_identity", 'from_user_to', 'amount', 'total_amount', 'gift_balance', 'type', 'status', 'discount_percent'];
+    private $sortableColumns = ["user_from", "number", "created_at", "user_identity", 'from_user_to', 'amount', 'total_amount', 'gift_balance', 'type', 'status', 'discount_percent'];
     const user_searchable_Columns = ["user_from", "email", "image", "country_code", "phone", "full_phone", "identity_number", "date_of_birth"];
-    const user_sortable_Columns = ["user_from"=>"fullname", "email"=>"email", "image"=>"email", "country_code"=>"country_code", "phone"=>"phone", "full_phone"=>"full_phone", "identity_number"=>"identity_number", "date_of_birth"=>"date_of_birth"];
-
+    const user_sortable_Columns = ["user_from" => "fullname", "email" => "email", "image" => "email", "country_code" => "country_code", "phone" => "phone", "full_phone" => "full_phone", "identity_number" => "identity_number", "date_of_birth" => "date_of_birth"];
+    const SELECT_ALL = ["enabled_card"];
     const transaction_searchable_Columns = ["transaction_number", "user_identity",  "transaction_type", "transaction_status"];
+    const ENABLED_CARD_SEARCHABLE_COLUMNS = ["enabled_card" => "card_type"];
+    const client_searchable_Columns = ["user_to", "client_type", "commercial_number", "nationality", "tax_number", "transactions_done"];
+    const client_sortable_Columns = ["user_to" => "fullname", "client_type" => "client_type", "commercial_number" => "commercial_number", "nationality" => "nationality", "tax_number" => "tax_number", "transactions_done" => "transactions_done"];
+    const ENABLED_CARD_sortable_COLUMNS = ["enabled_card" => "card_type"];
 
     public static function boot()
     {
@@ -61,7 +65,16 @@ class Transaction extends Model
     public function scopeSearch(Builder $query, $request)
     {
         $this->addGlobalActivity($this, $request->query(), ActivityLog::SEARCH, 'index');
-
+        foreach ($request->all() as $key => $item) {
+            if ($item == -1 && in_array($key, self::SELECT_ALL)) $request->request->remove($key);
+            if (key_exists($key, self::ENABLED_CARD_SEARCHABLE_COLUMNS) && isset($request->$key))
+                $query->whereHas(
+                    'citizen.citizen.enabledCard',
+                    function ($q) use ($key, $item) {
+                        $q->where(self::ENABLED_CARD_SEARCHABLE_COLUMNS[$key], $item);
+                    }
+                );
+        }
         if (isset($request->transaction_number)) {
             $query->where('number', 'like', "%$request->transaction_number%");
         }
@@ -88,8 +101,7 @@ class Transaction extends Model
         }
         if (isset($request->card_package_id)) {
             if ($request->card_package_id == 0) $request->card_package_id = null;
-            if ($request->card_package_id != -1) $query->whereHas('card', fn($q) => $q->where('id', $request->card_package_id));
-
+            if ($request->card_package_id != -1) $query->whereHas('card', fn ($q) => $q->where('id', $request->card_package_id));
         }
         if (isset($request->client)) {
             if ($request->client == 0) $request->client = null;
@@ -101,8 +113,14 @@ class Transaction extends Model
         }
 
         if (isset($request->citizen)) {
-            $query->whereHas('citizen', fn($q) => $q->where('fullname', 'like', "%$request->citizen%"));
+            $query->whereHas('citizen', fn ($q) => $q->where('fullname', 'like', "%$request->citizen%"));
         }
+
+
+        // if (isset($request->card_type)) {
+        //     $query->whereHas('citizen.citizen.enabledCard',
+        //      fn($q) => $q->where('card_type', $request->card_type));
+        // }
     }
 
     public function scopeSortBy(Builder $query, $request)
@@ -110,22 +128,29 @@ class Transaction extends Model
         if (!isset($request->sort["column"]) || !isset($request->sort["dir"])) return $query->latest('transactions.created_at');
 
         if (
-          //  !in_array(Str::lower($request->sort["column"]), $this->sortableColumns) ||
+            //  !in_array(Str::lower($request->sort["column"]), $this->sortableColumns) ||
             !in_array(Str::lower($request->sort["dir"]), ["asc", "desc"])
         ) {
             return $query->latest('transactions.created_at');
-        }
-        if (in_array($request->sort["column"], self::transaction_searchable_Columns)) {
+        } else if (in_array($request->sort["column"], self::transaction_searchable_Columns)) {
 
             return $query
                 ->orderBy($request->sort["column"], @$request->sort["dir"]);
-        } else {
-            if (in_array($request->sort["column"], self::user_searchable_Columns)) {
+        } else if (in_array($request->sort["column"], self::user_searchable_Columns)) {
 
-                return $query->join('users', 'users.id', '=', 'transactions.from_user_id')
-                    ->orderBy('users.' . self::user_sortable_Columns[$request->sort["column"]], @$request->sort["dir"]);
-            }
+            return $query->join('users', 'users.id', '=', 'transactions.from_user_id')
+                ->orderBy('users.' . self::user_sortable_Columns[$request->sort["column"]], @$request->sort["dir"]);
+        } else if (key_exists($request->sort["column"], self::client_sortable_Columns)) {
+            return $query->join('users', 'users.id', '=', 'transactions.to_user_id')
+                ->orderBy('users.' . self::client_sortable_Columns[$request->sort["column"]], @$request->sort["dir"]);
+        } else 
+        if (key_exists($request->sort["column"], self::ENABLED_CARD_sortable_COLUMNS)) {
+            return
+                $query
+                ->leftjoin("citizen_cards", 'citizen_cards.citizen_id', '=', 'transactions.from_user_id')
+                ->orderBy('citizen_cards.' . self::ENABLED_CARD_sortable_COLUMNS[$request->sort["column"]], @$request->sort["dir"]);
         }
+
 
         $query->when($request->sort, function ($q) use ($request) {
             $q->orderBy($request->sort["column"], @$request->sort["dir"]);
@@ -144,7 +169,7 @@ class Transaction extends Model
 
     public function client(): BelongsTo
     {
-        return $this->belongsTo(Client::class, 'to_user_id');
+        return $this->belongsTo(User::class, 'to_user_id');
     }
 
     public function bank(): BelongsTo

@@ -70,7 +70,7 @@
   </div>
   <div class="col-12 col-md-3 mb-3">
     <label for="activeCard">@lang('dashboard.transaction.active_card')</label>
-    {!! Form::select('card_package_id', ['' => '', -1 => trans('dashboard.general.all_cases')] + $cards, request('card_package_id'), ['class' => 'form-control select2', 'data-placeholder' => trans('dashboard.transaction.choose_card'), 'id' => 'card_package_id']) !!}
+    {!! Form::select('card_package_id', ['' => '', -1 => trans('dashboard.general.all_cases')] + $cards, request('card_package_id'), ['class' => 'form-control select2', 'data-placeholder' => trans('dashboard.transaction.choose_card'), 'id' => 'enabled_card']) !!}
   </div>
 
   <div class="col-12 col-md-3 mb-3">
