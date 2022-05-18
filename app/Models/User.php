@@ -44,9 +44,8 @@ class User extends Authenticatable implements HasAssetsInterface
 
     public function setPhoneAttribute($value)
     {
-       if (isset($value)) $value = $value[0] == "0" ? substr($value, 1) : $value;
+        if (isset($value)) $value = $value[0] == "0" ? substr($value, 1) : $value;
         $this->attributes['phone'] = isset($this->attributes['country_code']) ? $this->attributes['country_code'] . $value : $value;
-
     }
 
     public function setPasswordAttribute($value)
@@ -153,6 +152,10 @@ class User extends Authenticatable implements HasAssetsInterface
     {
         return $this->hasOne(Client::class);
     }
+    public function citizen()
+    {
+        return $this->hasOne(Citizen::class);
+    }
 
     public function admin()
     {
@@ -184,7 +187,7 @@ class User extends Authenticatable implements HasAssetsInterface
 
     public function citizenCards()
     {
-        return $this->hasMany(CitizenCard::class, 'citizen_id','id');
+        return $this->hasMany(CitizenCard::class, 'citizen_id', 'id');
     }
 
     public function setBanStatusAttribute($value)
