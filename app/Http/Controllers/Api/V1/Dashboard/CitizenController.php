@@ -89,7 +89,7 @@ class CitizenController extends Controller
 
     public function enabledCards()
     {
-        $enabledCards = CardPackage::CARD_TYPES;
+        $enabledCards = CardPackage::getTransCards();
 
         return response()->json([
             'data' => $enabledCards,
