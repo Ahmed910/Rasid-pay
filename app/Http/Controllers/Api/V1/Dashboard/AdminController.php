@@ -15,7 +15,10 @@ class AdminController extends Controller
 
     public function index(Request $request)
     {
-        $users = User::CustomDateFromTo($request)->search($request)->with(['department', 'permissions', 'groups' => function ($q) {
+        $users = User::CustomDateFromTo($request)
+        ->has('employee')
+        ->search($request)
+        ->with(['department', 'permissions', 'groups' => function ($q) {
             $q->with('permissions');
         }])->where('user_type', 'admin')
             ->sortBy($request)
