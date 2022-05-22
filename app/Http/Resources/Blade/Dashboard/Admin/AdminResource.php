@@ -14,12 +14,12 @@ class AdminResource extends JsonResource
     public function toArray($request)
     {
 
-        $ban_status = match($this->ban_status){
-            'active'=> trans('dashboard.admin.active_cases.active'),
-            'permanent'=> trans('dashboard.admin.active_cases.permanent'),
-            'temporary'=> trans('dashboard.admin.active_cases.temporary'),
+        $ban_status = match ($this->ban_status) {
+            'active' => trans('dashboard.admin.active_cases.active'),
+            'permanent' => trans('dashboard.admin.active_cases.permanent'),
+            'temporary' => trans('dashboard.admin.active_cases.temporary'),
         };
-
+//        $this->department["name"] =  !$this->name?     $this->department["name"]: $this->name;
         return [
             'id' => $this->id,
             'fullname' => $this->fullname,
@@ -28,11 +28,11 @@ class AdminResource extends JsonResource
             'whatsapp' => $this->whatsapp,
             'gender' => $this->gender,
             'is_phone_verified' => (bool)$this->is_active,
-            'ban_status' => $ban_status ,
+            'ban_status' => $ban_status,
             'ban_from' => $this->ban_from,
             'ban_to' => $this->ban_to,
             'login_id' => $this->login_id,
-            'department' => $this->when(in_array($this->user_type,['admin' , 'employee']), DepartmentResource::make($this->department)),
+            'department' => $this->when(in_array($this->user_type, ['admin', 'employee']), $this->department ? DepartmentResource::make($this->department) : ["name" => $this->name]),
             'is_date_hijri' => (bool)$this->is_date_hijri,
             'is_password_changed' => (bool)$this->is_password_changed,
             'is_login_code' => (bool)$this->is_login_code,
