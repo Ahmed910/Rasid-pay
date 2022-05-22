@@ -13,12 +13,6 @@ use App\Models\User;
 use App\Traits\Loggable;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
-
-
-
-
-
-
 class CardPackage extends Model implements HasAssetsInterface
 {
     use HasFactory, Uuid, SoftDeletes, HasAssetsTrait, Loggable;
@@ -29,11 +23,14 @@ class CardPackage extends Model implements HasAssetsInterface
     protected $guarded = ['created_at', 'updated_at'];
     protected $attributes = ["is_active" => true];
 
+    const BASIC = 'basic';
+    const GOLDEN = 'golden';
+    const PLATINUM = 'platinum';
 
     const CARD_TYPES =  [
-        "أساسية"   => 'basic',
-        "ّذهبية"    => 'golden',
-        "بلاتينية"  => 'platinum'
+        self::BASIC,
+        self::GOLDEN,
+        self::PLATINUM
     ];
 
     #region properties
@@ -64,5 +61,18 @@ class CardPackage extends Model implements HasAssetsInterface
     #endregion relationships
 
     #region custom Methods
+    public static function getTransCards()
+    {
+        $cards = self::CARD_TYPES;
+
+        $data = collect($cards)->transform(function ($card) {
+            $data['name'] = $card;
+            $data['trans'] = __("dashboard.citizens.card_type.$card");
+
+            return $data;
+        })->values()->toArray();
+
+        return $data;
+    }
     #endregion custom Methods
 }
