@@ -83,31 +83,7 @@
 
           {
             data: function (data) {
-              if (data.type == 'created') {
-                return `<span class="badge bg-success-opacity py-2 px-4">${"@lang('dashboard.general.create')"}</span>`;
-              }
-              if (data.type == 'updated') {
-                return `<span class="badge bg-warning-opacity py-2 px-4">${"@lang('dashboard.general.edit')"}</span>`;
-              }
-              if (data.type == 'destroy') {
-                return `<span class="badge bg-primary-opacity py-2 px-4">${"@lang('dashboard.general.archive')"}</span>`;
-              }
-              if (data.type == 'restored') {
-                return `<span class="badge bg-success-opacity py-2 px-4">${"@lang('dashboard.general.restore')"}</span>`;
-              }
-              if (data.type == 'permanent_delete') {
-                return `<span class="badge bg-success-opacity py-2 px-4">${"@lang('dashboard.general.force_delete')"}</span>`;
-              }
-              if (data.type == 'searched') {
-                return `<span class="badge bg-success-opacity py-2 px-4">${"@lang('dashboard.general.search')"}</span>`;
-              }
-              if (data.type == 'deactivated') {
-                return `<span class="badge bg-default-opacity py-2 px-4">${"@lang('dashboard.general.unactivited')"}</span>`;
-              }
-              if (data.type == 'activated') {
-                return `<span class="badge bg-success-opacity py-2 px-4">${"@lang('dashboard.general.activited')"}</span>`;
-              }
-
+              @include('dashboard.layouts.globals.activity_log_actions')
             },
             name: "type"
           },
@@ -139,14 +115,7 @@
         ],
 
         "language": {
-          "lengthMenu": "@lang('dashboard.general.show') _MENU_",
-          "emptyTable": "@lang('dashboard.datatable.no_data')",
-          "info": "@lang('dashboard.datatable.showing') _START_ @lang('dashboard.datatable.to') _END_ @lang('dashboard.datatable.from') _TOTAL_ @lang('dashboard.datatable.entries')",
-          "infoEmpty": "",
-          "paginate": {
-            "next": '<i class="mdi mdi-chevron-left"></i>',
-            "previous": '<i class="mdi mdi-chevron-right"></i>'
-          },
+          @include('dashboard.layouts.globals.datatable_translation')
         },
         "drawCallback": function (settings, json) {
           // table sorting
