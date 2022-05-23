@@ -134,6 +134,7 @@ class DepartmentController extends Controller
             'id',
             'name',
             'parent',
+            'is_active',
             'deleted_at',
         ];
 

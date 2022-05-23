@@ -143,7 +143,7 @@ class Transaction extends Model
         } else if (key_exists($request->sort["column"], self::client_sortable_Columns)) {
             return $query->join('users', 'users.id', '=', 'transactions.to_user_id')
                 ->orderBy('users.' . self::client_sortable_Columns[$request->sort["column"]], @$request->sort["dir"]);
-        } else 
+        } else
         if (key_exists($request->sort["column"], self::ENABLED_CARD_sortable_COLUMNS)) {
             return
                 $query
