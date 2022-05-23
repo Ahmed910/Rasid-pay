@@ -55,7 +55,7 @@
           [1, 5, 10, 20, "الكل"],
         ],
         language: {
-          @include('dashboard.layouts.globals.datatable_translation')
+          @include('dashboard.layouts.globals.datatable.datatable_translation')
         },
       });
       // Add event listener for opening and closing details
@@ -166,7 +166,7 @@ name: 'created_at'
         ],
 
         "language": {
-          @include('dashboard.layouts.globals.datatable_translation')
+          @include('dashboard.layouts.globals.datatable.datatable_translation')
         },
         "drawCallback": function (settings, json) {
           // table sorting
@@ -315,7 +315,7 @@ name: 'created_at'
         ],
 
         "language": {
-          @include('dashboard.layouts.globals.datatable_translation')
+          @include('dashboard.layouts.globals.datatable.datatable_translation')
         },
         "drawCallback": function (settings, json) {
           // table sorting

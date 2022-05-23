@@ -45,7 +45,7 @@
           },
           {
             data: function (data) {
-              @include('dashboard.layouts.globals.activity_log_actions')
+              @include('dashboard.layouts.globals.datatable.activity_log_actions')
             }
           },
           {
@@ -59,7 +59,7 @@
             [1, 5, 10, 15, 20]
         ],
         "language": {
-          @include('dashboard.layouts.globals.datatable_translation')
+          @include('dashboard.layouts.globals.datatable.datatable_translation')
         },
         "drawCallback": function (settings, json) {
           // admin history table sorting

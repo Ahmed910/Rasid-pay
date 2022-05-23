@@ -145,7 +145,7 @@
         ],
 
         "language": {
-          @include('dashboard.layouts.globals.datatable_translation')
+          @include('dashboard.layouts.globals.datatable.datatable_translation')
         },
         "drawCallback": function (settings, json) {
           // table sorting

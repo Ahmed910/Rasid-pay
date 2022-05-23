@@ -62,7 +62,7 @@
       //   '</table>';
 
     }
-  
+
     var table = $('#collapsedTable').DataTable({
             sDom: "t<'domOption'lpi>",
         pageLength: 10,
@@ -71,7 +71,7 @@
           [1,5, 10, 20, "الكل"],
         ],
         language: {
-          @include('dashboard.layouts.globals.datatable_translation')
+          @include('dashboard.layouts.globals.datatable.datatable_translation')
         },
       // createdRow: function (row, data, dataIndex) {
       //   if (data[0] == "1") {

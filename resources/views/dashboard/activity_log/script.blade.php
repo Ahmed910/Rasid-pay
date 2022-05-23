@@ -83,7 +83,7 @@
 
           {
             data: function (data) {
-              @include('dashboard.layouts.globals.activity_log_actions')
+              @include('dashboard.layouts.globals.datatable.activity_log_actions')
             },
             name: "type"
           },
@@ -115,7 +115,7 @@
         ],
 
         "language": {
-          @include('dashboard.layouts.globals.datatable_translation')
+          @include('dashboard.layouts.globals.datatable.datatable_translation')
         },
         "drawCallback": function (settings, json) {
           // table sorting
