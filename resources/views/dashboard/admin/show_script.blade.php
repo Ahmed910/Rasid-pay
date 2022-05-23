@@ -1,15 +1,15 @@
 @section('datatable_script')
-  <script src="{{ asset('dashboardAssets/plugins/datatable/js/jquery.dataTables.min.js') }}"></script>
-  <script src="{{ asset('dashboardAssets/plugins/datatable/js/dataTables.bootstrap5.js') }}"></script>
-  <script src="{{ asset('dashboardAssets/plugins/datatable/dataTables.responsive.min.js') }}"></script>
-  <script src="{{ asset('dashboardAssets/plugins/datatable/responsive.bootstrap5.min.js') }}"></script>
-  <script src="{{ asset('dashboardAssets/js/table-data.js') }}"></script>
+<script src="{{ asset('dashboardAssets/plugins/datatable/js/jquery.dataTables.min.js') }}"></script>
+<script src="{{ asset('dashboardAssets/plugins/datatable/js/dataTables.bootstrap5.js') }}"></script>
+<script src="{{ asset('dashboardAssets/plugins/datatable/dataTables.responsive.min.js') }}"></script>
+<script src="{{ asset('dashboardAssets/plugins/datatable/responsive.bootstrap5.min.js') }}"></script>
+<script src="{{ asset('dashboardAssets/js/table-data.js') }}"></script>
 @endsection
 @section('scripts')
-  <script src="{{ asset('dashboardAssets/js/custom_scripts.js') }}"></script>
-  {{-- Ajax DataTable --}}
-  <script>
-    $(function () {
+<script src="{{ asset('dashboardAssets/js/custom_scripts.js') }}"></script>
+{{-- Ajax DataTable --}}
+<script>
+  $(function () {
 
       $("#historyTableadmin").DataTable({
         sDom: "t<'domOption'lpi>",
@@ -45,29 +45,32 @@
           },
           {
             data: function (data) {
-              if (data.type == 'created') {
+              if (data.type == "{{App\Models\ActivityLog::CREATE}}") {
                 return `<span class="badge bg-success-opacity py-2 px-4">${"@lang('dashboard.general.create')"}</span>`;
               }
-              if (data.type == 'updated') {
+              if (data.type == "{{App\Models\ActivityLog::UPDATE}}") {
                 return `<span class="badge bg-warning-opacity py-2 px-4">${"@lang('dashboard.general.edit')"}</span>`;
               }
-              if (data.type == 'destroy') {
+              if (data.type == "{{App\Models\ActivityLog::DESTROY}}") {
                 return `<span class="badge bg-primary-opacity py-2 px-4">${"@lang('dashboard.general.archive')"}</span>`;
               }
-              if (data.type == 'restored') {
+              if (data.type == "{{App\Models\ActivityLog::RESTORE}}") {
                 return `<span class="badge bg-success-opacity py-2 px-4">${"@lang('dashboard.general.restore')"}</span>`;
               }
-              if (data.type == 'permanent_delete') {
+              if (data.type == "{{App\Models\ActivityLog::PERMANENT}}") {
                 return `<span class="badge bg-success-opacity py-2 px-4">${"@lang('dashboard.general.force_delete')"}</span>`;
               }
-              if (data.type == 'searched') {
+              if (data.type == "{{App\Models\ActivityLog::SEARCH}}") {
                 return `<span class="badge bg-success-opacity py-2 px-4">${"@lang('dashboard.general.search')"}</span>`;
               }
-              if (data.type == 'deactivated') {
+              if (data.type == "{{App\Models\ActivityLog::DEACTIVE}}") {
                 return `<span class="badge bg-default-opacity py-2 px-4">${"@lang('dashboard.general.unactivited')"}</span>`;
               }
-              if (data.type == 'activated') {
+              if (data.type == "{{App\Models\ActivityLog::ACTIVE}}") {
                 return `<span class="badge bg-success-opacity py-2 px-4">${"@lang('dashboard.general.activited')"}</span>`;
+              }
+              if (data.type == "{{App\Models\ActivityLog::TEMPORARY}}") {
+                return `<span class="badge bg-success-opacity py-2 px-4">${"@lang('dashboard.general.temporary')"}</span>`;
               }
 
 
@@ -116,10 +119,10 @@
         minimumResultsForSearch: Infinity
       });
     });
-  </script>
-  <script src="{{ asset('dashboardAssets/js/select2.js') }}"></script>
-  <script src="{{ asset('dashboardAssets/plugins/select2/select2.full.min.js') }}"></script>
-  <script src="{{ asset('dashboardAssets/plugins/select2/select2.full.min.js') }}"></script>
-  <script
-    src="{{ asset('dashboardAssets') }}/plugins/bootstrap-hijri-datepicker/js/bootstrap-hijri-datetimepicker.js"></script>
+</script>
+<script src="{{ asset('dashboardAssets/js/select2.js') }}"></script>
+<script src="{{ asset('dashboardAssets/plugins/select2/select2.full.min.js') }}"></script>
+<script src="{{ asset('dashboardAssets/plugins/select2/select2.full.min.js') }}"></script>
+<script src="{{ asset('dashboardAssets') }}/plugins/bootstrap-hijri-datepicker/js/bootstrap-hijri-datetimepicker.js">
+</script>
 @endsection

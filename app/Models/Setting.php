@@ -29,8 +29,10 @@ class Setting extends Model
     ];
 
     const ERP = "erp";
+    const RASID_PAY = "rasid_pay";
 
     const DASHBOARD_TYPES = [
-        self::ERP
+        self::ERP,
+        self::RASID_PAY
     ];
 }

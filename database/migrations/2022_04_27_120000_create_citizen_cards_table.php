@@ -17,7 +17,7 @@ class CreateCitizenCardsTable extends Migration
         Schema::create('citizen_cards', function (Blueprint $table) {
             $table->uuid("id")->primary();
             $table->foreignUuid("citizen_id")->nullable()->constrained("users")->OnDelete('set null');
-            $table->enum("card_type", CardPackage::CARD_TYPES)->default('basic');
+            $table->enum("card_type", CardPackage::CARD_TYPES)->default(CardPackage::BASIC);
             $table->string("card_price")->nullable();
             $table->string("upgrade_price")->nullable();
             $table->date("start_at")->nullable();
