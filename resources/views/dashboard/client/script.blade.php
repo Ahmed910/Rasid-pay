@@ -55,14 +55,7 @@
           [1, 5, 10, 20, "الكل"],
         ],
         language: {
-          lengthMenu: "عرض _MENU_",
-          zeroRecords: "لا يوجد بيانات",
-          info: "عرض _PAGE_ من _PAGES_ عنصر",
-          infoEmpty: "لا يوجد نتائج بحث متاحة",
-          paginate: {
-            previous: '<i class="mdi mdi-chevron-right"></i>',
-            next: '<i class="mdi mdi-chevron-left"></i>',
-          },
+          @include('dashboard.layouts.globals.datatable.datatable_translation')
         },
       });
       // Add event listener for opening and closing details
@@ -173,14 +166,7 @@ name: 'created_at'
         ],
 
         "language": {
-          "lengthMenu": "@lang('dashboard.general.show') _MENU_",
-          "emptyTable": "@lang('dashboard.datatable.no_data')",
-          "info": "@lang('dashboard.datatable.showing') _START_ @lang('dashboard.datatable.to') _END_ @lang('dashboard.datatable.from') _TOTAL_ @lang('dashboard.datatable.entries')",
-          "infoEmpty": "",
-          "paginate": {
-            "next": '<i class="mdi mdi-chevron-left"></i>',
-            "previous": '<i class="mdi mdi-chevron-right"></i>'
-          },
+          @include('dashboard.layouts.globals.datatable.datatable_translation')
         },
         "drawCallback": function (settings, json) {
           // table sorting
@@ -329,14 +315,7 @@ name: 'created_at'
         ],
 
         "language": {
-          "lengthMenu": "@lang('dashboard.general.show') _MENU_",
-          "emptyTable": "@lang('dashboard.datatable.no_data')",
-          "info": "@lang('dashboard.datatable.showing') _START_ @lang('dashboard.datatable.to') _END_ @lang('dashboard.datatable.from') _TOTAL_ @lang('dashboard.datatable.entries')",
-          "infoEmpty": "",
-          "paginate": {
-            "next": '<i class="mdi mdi-chevron-left"></i>',
-            "previous": '<i class="mdi mdi-chevron-right"></i>'
-          },
+          @include('dashboard.layouts.globals.datatable.datatable_translation')
         },
         "drawCallback": function (settings, json) {
           // table sorting
