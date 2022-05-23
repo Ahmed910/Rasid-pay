@@ -58,7 +58,7 @@
                 return `<span class="badge bg-success-opacity py-2 px-4">${"@lang('dashboard.activity_log.actions.restored')"}</span>`;
               }
               if (data.type == "{{App\Models\ActivityLog::PERMANENT}}") {
-                return `<span class="badge bg-danger-opacity py-2 px-4">${"@lang('dashboard.activity_log.actions.permanent_delete')"}</span>`;
+                return `<span class="badge bg-danger-opacity py-2 px-4">${"@lang('dashboard.activity_log.actions.permanent')"}</span>`;
               }
               if (data.type == "{{App\Models\ActivityLog::SEARCH}}") {
                 return `<span class="badge bg-success-opacity py-2 px-4">${"@lang('dashboard.activity_log.actions.searched')"}</span>`;
@@ -71,6 +71,9 @@
               }
               if (data.type == "{{App\Models\ActivityLog::TEMPORARY}}") {
                 return `<span class="badge bg-warning-opacity py-2 px-4">${"@lang('dashboard.activity_log.actions.temporary')"}</span>`;
+              }
+              if (data.type == "{{App\Models\ActivityLog::PERMANENT_DELETE}}") {
+                return `<span class="badge bg-danger-opacity py-2 px-4">${"@lang('dashboard.activity_log.actions.permanent_delete')"}</span>`;
               }
 
 

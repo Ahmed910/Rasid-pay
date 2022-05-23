@@ -24,6 +24,7 @@ class ActivityLog extends Model
     const CREATE = 'created';
     const UPDATE = 'updated';
     const DESTROY = 'destroy';
+    const PERMANENT_DELETE = 'permanent_delete';
     const RESTORE = 'restored';
     const SEARCH = 'searched';
     const DEACTIVE = 'deactivated';
@@ -35,6 +36,7 @@ class ActivityLog extends Model
         self::CREATE,
         self::UPDATE,
         self::DESTROY,
+        self::PERMANENT_DELETE,
         self::RESTORE,
         self::SEARCH,
         self::DEACTIVE,
