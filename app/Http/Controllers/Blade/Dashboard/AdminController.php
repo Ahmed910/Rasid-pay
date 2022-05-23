@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Dashboard\AdminRequest;
 use App\Http\Resources\Blade\Dashboard\Admin\AdminCollection;
 use App\Http\Resources\Blade\Dashboard\Activitylog\ActivityLogCollection;
+use Illuminate\Support\Facades\DB;
 use App\Models\{Permission, User};
 use App\Models\Department\Department;
 use App\Models\Group\Group;
@@ -26,12 +27,11 @@ class AdminController extends Controller
         }
 
         if ($request->ajax()) {
-
+            DB::enableQueryLog();
             $adminsQuery = User::CustomDateFromTo($request)->search($request)->where('user_type', 'admin')->has("employee")
-                ->with(['department', 'permissions', 'groups' => function ($q) {
+                ->sortBy($request)->with(['department', 'permissions', 'groups' => function ($q) {
                     $q->with('permissions');
-                }])
-                ->sortBy($request);
+                }]);
 
             $adminCount = $adminsQuery->count();
             $admins = $adminsQuery->skip($request->start)
