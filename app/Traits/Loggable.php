@@ -24,7 +24,7 @@ trait Loggable
 
         static::deleted(function (self $self) {
             if ($self->forceDeleting)
-                $self->addUserActivity($self, ActivityLog::PERMANENT, 'archive');
+                $self->addUserActivity($self, ActivityLog::PERMANENT_DELETE, 'archive');
 
             $self->addUserActivity($self, ActivityLog::DESTROY, 'index');
         });
