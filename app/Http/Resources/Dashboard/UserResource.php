@@ -17,7 +17,6 @@ class UserResource extends JsonResource
      */
     public function toArray($request)
     {
-        $dep = $this->department ? $this->department : Department::find($this->department_id);
         return [
             'id' => $this->id,
             'fullname' => $this->fullname,
@@ -30,7 +29,7 @@ class UserResource extends JsonResource
             'ban_from' => $this->ban_from,
             'ban_to' => $this->ban_to,
             'login_id' => $this->login_id,
-            'department' => $this->when(in_array($this->user_type, ['admin', 'employee']), DepartmentResource::make($dep)),
+            'department' => $this->when(in_array($this->user_type, ['admin', 'employee']), DepartmentResource::make($this->department)),
             'is_date_hijri' => (bool)$this->is_date_hijri,
             'is_password_changed' => (bool)$this->is_password_changed,
             'is_login_code' => (bool)$this->is_login_code,
