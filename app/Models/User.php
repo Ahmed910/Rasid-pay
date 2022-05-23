@@ -289,10 +289,10 @@ class User extends Authenticatable implements HasAssetsInterface
 
         $query->when($request->sort, function ($q) use ($request) {
             if ($request->sort['column'] == 'department') {
-                     return $q->Join('employees', 'users.id', 'employees.user_id')
-                         ->leftJoin('departments', 'departments.id', 'employees.department_id')
-                         ->leftJoin('department_translations', 'department_translations.department_id', 'employees.department_id')
-                         ->orderBy('department_translations.name',@$request->sort['dir']);
+                     return $q->select(['users.*' ,"trans.name"])
+                         ->Join('employees', 'users.id', 'employees.user_id')
+                         ->leftJoin('department_translations as trans', 'trans.department_id', 'employees.department_id')
+                         ->orderBy('trans.name',@$request->sort['dir']);
             }
 
             $q->orderBy($request->sort["column"], @$request->sort["dir"]);
