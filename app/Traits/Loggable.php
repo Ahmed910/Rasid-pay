@@ -3,11 +3,9 @@
 namespace App\Traits;
 
 use App\Models\ActivityLog;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Request;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Facades\Schema;
-use \Illuminate\Database\Eloquent\Builder;
 
 trait Loggable
 {
@@ -18,21 +16,17 @@ trait Loggable
         });
 
         static::updated(function (self $self) {
-            if (in_array(class_basename($self), ['User', 'Admin'])) {
+            if (in_array(class_basename($self), ['User', 'Admin']))
                 return $self->checkIfHasIsActiveOnly($self, 'ban_status');
-            }
 
             $self->checkIfHasIsActiveOnly($self, 'is_active');
         });
 
         static::deleted(function (self $self) {
-            if ($self->forceDeleting) {
-                $self->addUserActivity($self, ActivityLog::PERMANENT_DELETE, 'archive');
-            }
+            if ($self->forceDeleting)
+                $self->addUserActivity($self, ActivityLog::PERMANENT, 'archive');
 
-            if (!$self->forceDeleting) {
-                $self->addUserActivity($self, ActivityLog::DESTROY, 'index');
-            }
+            $self->addUserActivity($self, ActivityLog::DESTROY, 'index');
         });
 
         if (in_array(SoftDeletes::class, class_uses(static::class))) {
@@ -57,8 +51,8 @@ trait Loggable
      */
     public function addUserActivity($item, string $event, string $subProgram, array $newData = [])
     {
-$user_type = $item->user_type??null ;
-       if (isset($item->user) &&$user_type == null) $user_type =$item->user->user_type   ;
+        $user_type = $item->user_type ?? null;
+        if (isset($item->user) && $user_type == null) $user_type = $item->user->user_type;
         $item->activity()->create([
             'url'         => Request::fullUrl(),
             'old_data'    => $this->oldData($item),
@@ -69,7 +63,7 @@ $user_type = $item->user_type??null ;
             'agent'       => Request::header('user-agent'),
             'user_id'     => auth()->check() ? auth()->user()->id : null,
             'reason'      => request()->reasonAction,
-            "user_type"   =>$user_type
+            "user_type"   => $user_type
         ]);
     }
 
@@ -162,39 +156,29 @@ $user_type = $item->user_type??null ;
         }
     }
 
-    // protected function performUpdate(Builder $query, array $options = [])
-    // {
-    //     $dirty = $this->getDirty();
-    //     $per_dirty = $this->permissions->pluck('pivot')->map->getDirty();
-    //     dump($per_dirty);
-    //     if (count($dirty) > 0)
-    //     {
-    //         dump($dirty);
-    //     }
-    //
-    //     return true;
-    // }
-
     private function checkIfHasIsActiveOnly($self, string $column)
     {
-        // foreach($self->getDirty() as $attribute => $value){
-        //     $original= $self->getOriginal($attribute);
-        //     dump($attribute,$original);
-        // }
-        // $relations  =  $self->getRelations();
-        // foreach($relations as $key => $relation){
-        //   $relation_model = $self->getRelation($key);
-        //   dump($relation->first()->pivot);
-        //   foreach($relation_model->getDirty() as $attribute => $value){
-        //     $original= $relation_model->getOriginal($attribute);
-        //     dump($attribute,$original);
-        //   }
-        // }
+        $exceptedColumns =  [
+            $column,
+            'translations',
+            'groups',
+            'permissions',
+            'ban_from',
+            'ban_to',
+            'user_locale',
+            'updated_at'
+        ];
+
         $keys = array_keys($this->newData($self));
-        $hasData = count(array_flatten(array_except($this->newData($self), [$column, 'ban_from', 'ban_to', 'user_locale', 'updated_at'])));
-        if (!$hasData && !request()->has('image') && in_array($column, $keys)) {
+        $hasData = count(array_flatten(array_except($this->newData($self), $exceptedColumns)));
+
+        if (
+            !$hasData
+            && !request()->has('image')
+            && in_array($column, $keys)
+        ) {
             $this->checkStatus($self, $column);
-        } elseif ($hasData && in_array($column, array_keys($this->newData($self)))) {
+        } elseif ($hasData && in_array($column, $keys)) {
             $self->addUserActivity($self, ActivityLog::UPDATE, 'index');
         } else {
             $self->addUserActivity($self, ActivityLog::UPDATE, 'index');
