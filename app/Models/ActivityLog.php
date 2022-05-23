@@ -25,7 +25,6 @@ class ActivityLog extends Model
     const UPDATE = 'updated';
     const DESTROY = 'destroy';
     const RESTORE = 'restored';
-    const PERMANENT_DELETE = 'permanent_delete';
     const SEARCH = 'searched';
     const DEACTIVE = 'deactivated';
     const ACTIVE = 'activated';
@@ -37,7 +36,6 @@ class ActivityLog extends Model
         self::UPDATE,
         self::DESTROY,
         self::RESTORE,
-        self::PERMANENT_DELETE,
         self::SEARCH,
         self::DEACTIVE,
         self::ACTIVE,
@@ -74,7 +72,7 @@ class ActivityLog extends Model
         if (isset($request->main_program) && in_array($request->main_program, [1, 0])) {
             $query->where('auditable_type', $request->main_program);
         }
-        
+
         if (isset($request->sub_program) && in_array($request->sub_program, [1, 0])) {
             $query->where('sub_program', $request->sub_program);
         }
