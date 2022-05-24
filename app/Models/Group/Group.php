@@ -28,7 +28,7 @@ class Group extends Model implements TranslatableContract
     #region scopes
     public function scopeSearch($query, $request)
     {
-        $this->addGlobalActivity($this, $request->query(), ActivityLog::SEARCH,'index');
+        $old = $query->toSql() ;
 
         if (isset($request->name)) {
             $query->whereTranslationLike('name',"%$request->name%");
@@ -47,6 +47,8 @@ class Group extends Model implements TranslatableContract
         if (!is_null($request->admins_to) && $request->admins_to >= 0) {
             $query->having('user_count',"<=" , (int)$request->admins_to);
         }
+        $new = $query->toSql() ;
+        if ($old!=$new)  $this->addGlobalActivity($this, $request->query(), ActivityLog::SEARCH, 'index');
     }
 
     public function scopeActive($query)

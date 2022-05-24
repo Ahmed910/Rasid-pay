@@ -33,7 +33,8 @@ class Citizen extends Model
     #region scopes
     public function scopeSearch($query, $request)
     {
-      
+        $old = $query->toSql() ;
+
         foreach ($request->all() as $key => $item) {
             if ($item == -1 && in_array($key, self::SELECT_ALL)) $request->request->remove($key);
             if (key_exists($key, self::ENABLEDCARD_SEARCHABLE_COLUMNS))
@@ -47,8 +48,6 @@ class Citizen extends Model
                     !$key == "fullname" ? $q->where($key, $item) : $q->where($key, "like", "%$item%");
                 });
         }
-
- 
 
         if ($request->created_from || $request->created_to) {
             $query->CustomDateFromTo($request);
@@ -64,6 +63,8 @@ class Citizen extends Model
                 $q->whereDate('end_at', "<=", $request->end_at_to);
             });
         }
+        $new = $query->toSql() ;
+        if ($old!=$new)  $this->addGlobalActivity($this, $request->query(), ActivityLog::SEARCH, 'index');
     }
 
     public function scopeSortBy(Builder $query, $request)

@@ -34,7 +34,7 @@ class Client extends Model
     #region scopes
     public function scopeSearch($query, $request)
     {
-
+        $old = $query->toSql() ;
         foreach ($request->all() as $key => $item) {
             if ($item == -1 && in_array($key, self::SELECT_ALL)) $request->request->remove($key);
 
@@ -65,6 +65,8 @@ class Client extends Model
         if ($request->account_status) $query->whereHas("bankAccount", function ($q) use ($request) {
             $q->where('account_status', $request->account_status);
         });
+        $new = $query->toSql() ;
+        if ($old!=$new)  $this->addGlobalActivity($this, $request->query(), ActivityLog::SEARCH, 'index');
     }
 
     public function scopeSortBy(Builder $query, $request)

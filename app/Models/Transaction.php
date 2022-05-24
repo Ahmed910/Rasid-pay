@@ -64,7 +64,7 @@ class Transaction extends Model
 
     public function scopeSearch(Builder $query, $request)
     {
-        $this->addGlobalActivity($this, $request->query(), ActivityLog::SEARCH, 'index');
+        $old = $query->toSql() ;
         foreach ($request->all() as $key => $item) {
             if ($item == -1 && in_array($key, self::SELECT_ALL)) $request->request->remove($key);
             if (key_exists($key, self::ENABLED_CARD_SEARCHABLE_COLUMNS) && isset($request->$key))
@@ -116,7 +116,8 @@ class Transaction extends Model
             $query->whereHas('citizen', fn ($q) => $q->where('fullname', 'like', "%$request->citizen%"));
         }
 
-
+        $new = $query->toSql() ;
+        if ($old!=$new)  $this->addGlobalActivity($this, $request->query(), ActivityLog::SEARCH, 'index');
         // if (isset($request->card_type)) {
         //     $query->whereHas('citizen.citizen.enabledCard',
         //      fn($q) => $q->where('card_type', $request->card_type));
