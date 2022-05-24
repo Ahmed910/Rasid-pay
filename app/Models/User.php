@@ -228,6 +228,7 @@ class User extends Authenticatable implements HasAssetsInterface
     #region scopes
     public function scopeSearch(Builder $query, $request)
     {
+        $old = $query->toSql() ;
         $this->addGlobalActivity($this, $request->query(), ActivityLog::SEARCH, 'index');
         if (isset($request->name)) {
             $query->where(function ($q) use ($request) {
@@ -274,6 +275,8 @@ class User extends Authenticatable implements HasAssetsInterface
             }
             $query->whereDate('ban_to', ">=", $ban_to);
         }
+        $new = $query->toSql() ;
+        if ($old!=$new)  $this->addGlobalActivity($this, $request->query(), ActivityLog::SEARCH, 'index');
     }
 
     public function scopeSortBy(Builder $query, $request)
