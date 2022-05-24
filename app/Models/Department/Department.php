@@ -58,7 +58,6 @@ class Department extends Model implements TranslatableContract, HasAssetsInterfa
     {
         $old = $query->toSql() ;
 
-
         if (isset($request->name)) {
             $query->where(function ($q) use ($request) {
                 $q->whereTranslationLike('name', "%\\$request->name%");
