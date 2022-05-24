@@ -34,7 +34,9 @@ class BankController extends Controller
 
     public function store(BankRequest $request, Bank $bank)
     {
-        $bank->fill($request->validated() + ['added_by_id' => auth()->id()])->save();
+        $data = $request->validated();
+        $bank->fill($data + ['added_by_id' => auth()->id()])->save();
+        $bank->branches()->createMany($data['banks']);
 
         return BankResource::make($bank)
             ->additional([
