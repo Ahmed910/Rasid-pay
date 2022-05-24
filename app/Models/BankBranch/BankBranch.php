@@ -16,13 +16,26 @@ class BankBranch extends Model
     #region properties
     protected $guarded = ['created_at', 'deleted_at'];
 
-    const ISLAMIC = 'islamic';
-    const INVESTMENT = 'investment';
     const CENTERAL = 'centeral';
+    const COMMERCIAL = 'commercial';
+    const BANK = 'bank';
+    const INVESTMENT = 'investment';
+    const INDUSTRIAL = 'industrial';
+    const REAL_ESTATE = 'real_estate';
+    const AGRICULTURAL = 'agricultural';
+    const ISLAMIC = 'islamic';
+    const SAVINGS = 'savings';
+
     const TYPES = [
-        self::ISLAMIC,
+        self::CENTERAL,
+        self::COMMERCIAL,
+        self::BANK,
         self::INVESTMENT,
-        self::CENTERAL
+        self::INDUSTRIAL,
+        self::REAL_ESTATE,
+        self::AGRICULTURAL,
+        self::ISLAMIC,
+        self::SAVINGS
     ];
     #endregion properties
 
