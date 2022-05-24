@@ -10,9 +10,10 @@ class BankRequest extends ApiMasterRequest
     public function rules()
     {
         $rules = [
-            "is_active" => "nullable|in:0,1",
-            'banks'     => 'required|array',
-            'banks.*.name' => 'required|string|min:2|max:255|unique:bank_branches,bank_id,' . $this->id,
+            "is_active"    => "nullable|in:0,1",
+            'banks'        => 'required|array',
+            'banks.*.id'   => '',
+            'banks.*.name' => 'required|string|min:2|max:255|unique:bank_branches,name,' . $this->bank->id . ',bank_id',
             'banks.*.type' => 'required|in:' . implode(',', BankBranch::TYPES),
             'banks.*.code' => 'required|string|min:2|max:255',
             'banks.*.site' => 'required|string|min:2|max:255',
