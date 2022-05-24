@@ -20,7 +20,7 @@ class CreateBankBranchesTable extends Migration
             $table->string('tax_number')->nullable();
             $table->string('service_customer')->nullable();
             $table->boolean('is_active')->default(true);
-            $table->foreignId('bank_id')->constrained('banks')->cascadeOnDelete()->cascadeOnUpdate();
+            $table->foreignUuid('bank_id')->constrained('banks')->cascadeOnDelete()->cascadeOnUpdate();
 
             $table->softDeletes();
             $table->timestamps();
