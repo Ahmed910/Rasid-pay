@@ -67,7 +67,7 @@ class BankController extends Controller
 
         foreach ($data['banks'] as $key => $values) {
             BankBranch::updateOrCreate(
-                ['id' => $data['banks'][$key]['id']],
+                ['id' => $data['banks'][$key]['id'] ?? ''],
                 $values + ['bank_id' => $bank->id]
             );
         }
