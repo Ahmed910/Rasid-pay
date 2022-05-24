@@ -8,6 +8,7 @@ use App\Models\Bank\Bank;
 use App\Http\Requests\V1\Dashboard\ReasonRequest;
 use App\Http\Requests\V1\Dashboard\BankRequest;
 use App\Http\Resources\Dashboard\BankResource;
+use App\Models\BankBranch\BankBranch;
 
 class BankController extends Controller
 {
@@ -61,7 +62,15 @@ class BankController extends Controller
 
     public function update(BankRequest $request, Bank $bank)
     {
-        $bank->fill($request->validated() + ['updated_at' => now()])->save();
+        $data  = $request->validated();
+        $bank->fill($data + ['updated_at' => now()])->save();
+
+        foreach ($data['banks'] as $key => $values) {
+            BankBranch::updateOrCreate(
+                ['id' => $data['banks'][$key]['id']],
+                $values + ['bank_id' => $bank->id]
+            );
+        }
 
         return BankResource::make($bank)
             ->additional([
