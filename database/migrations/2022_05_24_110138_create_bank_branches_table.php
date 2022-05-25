@@ -14,7 +14,7 @@ class CreateBankBranchesTable extends Migration
             $table->string('name');
             $table->enum('type', BankBranch::TYPES);
             $table->string('code');
-            $table->string('site');
+            $table->string('site', 500);
             $table->decimal('transfer_amount');
             $table->string('commercial_record')->nullable();
             $table->string('tax_number')->nullable();
