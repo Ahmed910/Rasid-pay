@@ -49,6 +49,16 @@ $attributes = [
     'permission_list.*'   => 'حقل الصلاحيات الفردية',
     'group_list'   => 'حقل المجموعات',
     'group_list.*'   => 'حقل المجموعات',
+    'banks.*.id' => 'حقل ID للبنك',
+    'banks.*.name' => 'حقل اسم البنك',
+    'banks.*.type' => 'حقل نوع البنك',
+    'banks.*.code' => 'حقل كود البنك',
+    'banks.*.site' => 'حقل موقع البنك',
+    'banks.*.transfer_amount' => 'حقل قيمة تكلفة التحويل',
+    'banks.*.commercial_record' => 'حقل السجل التجاري',
+    'banks.*.tax_number' => 'حقل الرقم الضريبي',
+    'banks.*.service_customer' => 'حقل خدمة العملاء',
+    'banks.*.is_active' => 'حقل is_active',
 ];
 
 foreach (config('translatable.locales') as $locale) {
