@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources\Dashboard\Banks;
 
+use App\Http\Resources\Dashboard\BankResource;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class BankBranchResource extends JsonResource
@@ -9,6 +10,7 @@ class BankBranchResource extends JsonResource
     public function toArray($request)
     {
         return [
+            'id'   => $this->id,
             'name' => $this->name,
             'type' => $this->type,
             'code' => $this->code,
@@ -18,6 +20,7 @@ class BankBranchResource extends JsonResource
             'tax_number' => $this->tax_number,
             'service_customer' => $this->service_customer,
             'is_active' => (bool) $this->is_active,
+            'bank' => $this->whenLoaded('bank', BankResource::make($this->bank))
         ];
     }
 }

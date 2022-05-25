@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\CardPackage\CardPackage;
 use App\Traits\Uuid;
 use App\Models\Group\Group;
 use App\Traits\HasAssetsTrait;
@@ -189,6 +190,10 @@ class User extends Authenticatable implements HasAssetsInterface
     {
         return $this->hasMany(CitizenCard::class, 'citizen_id', 'id');
     }
+     public function cardPackage()
+{
+    return $this->hasMany(CardPackage::class, 'client_id', 'id');
+}
 
     public function setBanStatusAttribute($value)
     {
