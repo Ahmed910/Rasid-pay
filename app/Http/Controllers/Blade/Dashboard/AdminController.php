@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Dashboard\AdminRequest;
 use App\Http\Resources\Blade\Dashboard\Admin\AdminCollection;
 use App\Http\Resources\Blade\Dashboard\Activitylog\ActivityLogCollection;
+use Illuminate\Support\Facades\DB;
 use App\Models\{Permission, User};
 use App\Models\Department\Department;
 use App\Models\Group\Group;
@@ -26,11 +27,10 @@ class AdminController extends Controller
         }
 
         if ($request->ajax()) {
-
-            $adminsQuery = User::CustomDateFromTo($request)->search($request)->with(['department', 'permissions', 'groups' => function ($q) {
-                $q->with('permissions');
-            }])->where('user_type', 'admin')
-                ->sortBy($request);
+            $adminsQuery = User::CustomDateFromTo($request)->search($request)->where('user_type', 'admin')->has("employee")
+                ->sortBy($request)->with(['department', 'permissions', 'groups' => function ($q) {
+                    $q->with('permissions');
+                }]);
 
             $adminCount = $adminsQuery->count();
             $admins = $adminsQuery->skip($request->start)
@@ -71,7 +71,7 @@ class AdminController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
     public function store(AdminRequest $request)
@@ -95,7 +95,7 @@ class AdminController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
 
@@ -118,8 +118,7 @@ class AdminController extends Controller
             $request['sort'] = ['column' => $sortingColumns[$request->order[0]['column']], 'dir' => $request->order[0]['dir']];
         }
 
-        $activitiesQuery  = $admin->activity()
-
+        $activitiesQuery = $admin->activity()
             ->sortBy($request);
 
         if ($request->ajax()) {
@@ -137,7 +136,7 @@ class AdminController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
@@ -160,8 +159,8 @@ class AdminController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param \Illuminate\Http\Request $request
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function update(AdminRequest $request, User $admin)

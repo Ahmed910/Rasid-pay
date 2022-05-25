@@ -18,7 +18,7 @@
             [1, 5, 10, 20, -1],
             [1, 5, 10, 20, "الكل"],
             ],
-        
+
             language: {
             lengthMenu: "عرض _MENU_",
             zeroRecords: "لا يوجد بيانات",
@@ -99,31 +99,7 @@
 
                     {
                         data: function(data) {
-                            if (data.type == 'created') {
-                                return `<span class="badge bg-success-opacity py-2 px-4">${"@lang('dashboard.general.create')"}</span>`;
-                            }
-                            if (data.type == 'updated') {
-                                return `<span class="badge bg-warning-opacity py-2 px-4">${"@lang('dashboard.general.edit')"}</span>`;
-                            }
-                            if (data.type == 'destroy') {
-                                return `<span class="badge bg-primary-opacity py-2 px-4">${"@lang('dashboard.general.archive')"}</span>`;
-                            }
-                            if (data.type == 'restored') {
-                                return `<span class="badge bg-success-opacity py-2 px-4">${"@lang('dashboard.general.restore')"}</span>`;
-                            }
-                            if (data.type == 'permanent_delete') {
-                                return `<span class="badge bg-success-opacity py-2 px-4">${"@lang('dashboard.general.force_delete')"}</span>`;
-                            }
-                            if (data.type == 'searched') {
-                                return `<span class="badge bg-success-opacity py-2 px-4">${"@lang('dashboard.general.search')"}</span>`;
-                            }
-                            if (data.type == 'deactivated') {
-                                return `<span class="badge bg-default-opacity py-2 px-4">${"@lang('dashboard.general.unactivited')"}</span>`;
-                            }
-                            if (data.type == 'activated') {
-                                return `<span class="badge bg-success-opacity py-2 px-4">${"@lang('dashboard.general.activited')"}</span>`;
-                            }
-
+                          @include('dashboard.layouts.globals.datatable.activity_log_actions')
                         },
                         name:"type"
                     },
@@ -159,14 +135,7 @@
                 ],
 
                 "language": {
-                    "lengthMenu": "@lang('dashboard.general.show') _MENU_",
-                    "emptyTable": "@lang('dashboard.datatable.no_data')",
-                    "info": "@lang('dashboard.datatable.showing') _START_ @lang('dashboard.datatable.to') _END_ @lang('dashboard.datatable.from') _TOTAL_ @lang('dashboard.datatable.entries')",
-                    "infoEmpty": "",
-                    "paginate": {
-                        "next": '<i class="mdi mdi-chevron-left"></i>',
-                        "previous": '<i class="mdi mdi-chevron-right"></i>'
-                    },
+                  @include('dashboard.layouts.globals.datatable.datatable_translation')
                 },
               "drawCallback": function (settings, json) {
                 // table sorting
@@ -271,49 +240,6 @@
 
 
         });
-
-    // add bank branch function
-    $(function() {
-    jQuery.mark = {
-        addNewBranch: function (options) {
-        var defaults = {
-            selector: '#addBranchBtn'
-        };
-        if (typeof options == 'string') defaults.selector = options;
-        var options = jQuery.extend(defaults, options);
-        return jQuery(options.selector).each(function () {
-            var obj = jQuery(this);
-            var geddit = $('.createBankBranch:first');
-            var gedditUp = geddit.parent();
-            obj.click(function(e){        
-            geddit.clone(true,true).appendTo('#add-branch-form');
-            e.preventDefault();
-            });
-        })
-        },
-        deleteBranch: function (options) {
-        var defaults = {
-            selector: '.deleteBranch'
-        };
-        if (typeof options == 'string') defaults.selector = options;
-        var options = jQuery.extend(defaults, options);
-        return jQuery(options.selector).each(function () {
-            var obj = jQuery(this);
-            obj.on("click", function(e){
-            jQuery(this).parent().remove();
-            e.preventDefault();
-            });
-        })
-        }
-    }
-    });
-
-    jQuery(function(){	
-    jQuery.mark.addNewBranch();
-    jQuery.mark.deleteBranch();
-    });
-    // end add bank branch function
-
 </script>
 
 {{-- <script>

@@ -26,7 +26,11 @@ class AppServiceProvider extends ServiceProvider
         'Group'      => \App\Models\Group\Group::class,
         'RasidJob'   => \App\Models\RasidJob\RasidJob::class,
         'Region'     => \App\Models\Region\Region::class,
-        'Transaction' => \App\Models\Transaction::class
+        'Transaction' => \App\Models\Transaction::class,
+        'Client' => \App\Models\Client::class,
+        'Citizen' => \App\Models\Citizen::class
+
+
     ];
 
     public function register()

@@ -46,7 +46,7 @@ class RasidJob extends Model implements TranslatableContract
     #region scopes
     public function scopeSearch(Builder $query, $request)
     {
-        $this->addGlobalActivity($this, $request->query(), ActivityLog::SEARCH, 'index');
+        $old = $query->toSql() ;
 
         if (isset($request->name)) {
             $query->where(function ($q) use ($request) {
@@ -66,6 +66,9 @@ class RasidJob extends Model implements TranslatableContract
         if (isset($request->is_vacant) && in_array($request->is_vacant, [1, 0])) {
             $query->where('is_vacant', $request->is_vacant);
         }
+        $new = $query->toSql() ;
+        if ($old!=$new)  $this->addGlobalActivity($this, $request->query(), ActivityLog::SEARCH, 'index');
+
     }
 
     public function scopeSortBy(Builder $query, $request)

@@ -17,7 +17,7 @@ class CreateTransactionsTable extends Migration
         Schema::create('transactions', function (Blueprint $table) {
             $table->uuid("id")->primary();
             $table->foreignUuid("card_package_id")->nullable()->constrained()->nullOnDelete();
-            // $table->foreignUuid("citizen_id")->nullable()->constrained('users')->nullOnDelete();
+            $table->foreignUuid("to_user_id")->nullable()->constrained('users')->nullOnDelete();
             // $table->foreignUuid("client_id")->nullable()->constrained('users')->nullOnDelete();
             $table->unsignedbigInteger('number')->unique();
             $table->string('amount');
@@ -25,7 +25,6 @@ class CreateTransactionsTable extends Migration
             $table->enum('status', ['success', 'fail', 'pending', 'received', 'cancel'])->default('pending');
             $table->enum('type', ['payment', 'wallet_transfer', 'bank_transaction', 'receive_credit', 'recharge_credit', 'upgrade_card'])->default('payment');
             $table->string("action_type")->nullable();
-            $table->string("to_user_id")->nullable();
             $table->string("to_user_identity")->nullable();
             $table->string("transaction_id")->nullable()->unique();
             $table->text("transaction_data")->nullable();

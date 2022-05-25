@@ -56,7 +56,7 @@ class Department extends Model implements TranslatableContract, HasAssetsInterfa
     #region scopes
     public function scopeSearch(Builder $query, $request)
     {
-        $this->addGlobalActivity($this, $request->query(), ActivityLog::SEARCH, 'index');
+        $old = $query->toSql() ;
 
         if (isset($request->name)) {
             $query->where(function ($q) use ($request) {
@@ -72,6 +72,8 @@ class Department extends Model implements TranslatableContract, HasAssetsInterfa
         if (isset($request->is_active) && in_array($request->is_active, [1, 0])) {
             $query->where('is_active', $request->is_active);
         }
+        $new = $query->toSql() ;
+        if ($old!=$new)  $this->addGlobalActivity($this, $request->query(), ActivityLog::SEARCH, 'index');
     }
 
     public function scopeSortBy(Builder $query, $request)

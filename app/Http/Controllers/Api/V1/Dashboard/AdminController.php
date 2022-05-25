@@ -15,18 +15,19 @@ class AdminController extends Controller
 
     public function index(Request $request)
     {
-        $users = User::CustomDateFromTo($request)->search($request)->with(['department', 'permissions', 'groups' => function ($q) {
+        $users = User::CustomDateFromTo($request)
+        ->has('employee')
+        ->search($request)
+        ->with(['department', 'permissions', 'groups' => function ($q) {
             $q->with('permissions');
         }])->where('user_type', 'admin')
             ->sortBy($request)
             ->paginate((int)($request->per_page ?? config("globals.per_page")));
 
-        // $users = User::CustomSearch($request)->latest()->paginate((int)($request->per_page ?? config("globals.per_page")));
-
         return UserResource::collection($users)
             ->additional([
                 'status' => true,
-                'message' =>  '',
+                'message' => '',
                 'departments' => Department::ListsTranslations('name')->without(['images', 'addedBy'])->get()
             ]);
     }
@@ -37,7 +38,7 @@ class AdminController extends Controller
         return UserResource::collection($users)
             ->additional([
                 'status' => true,
-                'message' =>  ''
+                'message' => ''
             ]);
     }
 
@@ -50,7 +51,7 @@ class AdminController extends Controller
         return UserResource::collection($users)
             ->additional([
                 'status' => true,
-                'message' =>  '',
+                'message' => '',
             ]);
     }
 
@@ -70,7 +71,7 @@ class AdminController extends Controller
         return UserResource::make($admin)
             ->additional([
                 'status' => true,
-                'message' =>  __('dashboard.general.success_add'),
+                'message' => __('dashboard.general.success_add'),
             ]);
     }
 
@@ -80,9 +81,9 @@ class AdminController extends Controller
         $activities = [];
         if (!$request->has('with_activity') || $request->with_activity) {
             if ($admin->admin) {
-                $activities  = $admin->admin->activity()
-                ->sortBy($request)
-                ->paginate((int)($request->per_page ?? 15));
+                $activities = $admin->admin->activity()
+                    ->sortBy($request)
+                    ->paginate((int)($request->per_page ?? 15));
             }
         }
 
@@ -98,11 +99,11 @@ class AdminController extends Controller
         $admin = User::where('user_type', 'admin')->findOrFail($id);
 
         if ($request->password_change && $request->password_change == 1) {
-            $admin->fill($request->validated()+['updated_at' => now()])->save();
-        }else{
-            $admin->fill($request->safe()->except(['password'])+['updated_at' => now()])->save();
+            $admin->fill($request->validated() + ['updated_at' => now()])->save();
+        } else {
+            $admin->fill($request->safe()->except(['password']) + ['updated_at' => now()])->save();
         };
-        $admin->admin()->updateOrCreate(['user_id' => $admin->id],$request->only(['ban_status','ban_from','ban_to'])+['updated_at' => now()]);
+        $admin->admin()->updateOrCreate(['user_id' => $admin->id], $request->only(['ban_status', 'ban_from', 'ban_to']) + ['updated_at' => now()]);
 
         //TODO::send sms with password
         // if($request->('password_change'))
@@ -116,7 +117,7 @@ class AdminController extends Controller
         return UserResource::make($admin)
             ->additional([
                 'status' => true,
-                'message' =>  __('dashboard.general.success_update'),
+                'message' => __('dashboard.general.success_update'),
             ]);
     }
 

@@ -44,9 +44,8 @@ class User extends Authenticatable implements HasAssetsInterface
 
     public function setPhoneAttribute($value)
     {
-       if (isset($value)) $value = $value[0] == "0" ? substr($value, 1) : $value;
+        if (isset($value)) $value = $value[0] == "0" ? substr($value, 1) : $value;
         $this->attributes['phone'] = isset($this->attributes['country_code']) ? $this->attributes['country_code'] . $value : $value;
-
     }
 
     public function setPasswordAttribute($value)
@@ -153,6 +152,10 @@ class User extends Authenticatable implements HasAssetsInterface
     {
         return $this->hasOne(Client::class);
     }
+    public function citizen()
+    {
+        return $this->hasOne(Citizen::class);
+    }
 
     public function admin()
     {
@@ -184,7 +187,7 @@ class User extends Authenticatable implements HasAssetsInterface
 
     public function citizenCards()
     {
-        return $this->hasMany(CitizenCard::class, 'citizen_id','id');
+        return $this->hasMany(CitizenCard::class, 'citizen_id', 'id');
     }
 
     public function setBanStatusAttribute($value)
@@ -225,7 +228,7 @@ class User extends Authenticatable implements HasAssetsInterface
     #region scopes
     public function scopeSearch(Builder $query, $request)
     {
-        $this->addGlobalActivity($this, $request->query(), ActivityLog::SEARCH, 'index');
+        $old = $query->toSql() ;
         if (isset($request->name)) {
             $query->where(function ($q) use ($request) {
                 $q->where("fullname", "like", "%\\$request->name%");
@@ -271,6 +274,8 @@ class User extends Authenticatable implements HasAssetsInterface
             }
             $query->whereDate('ban_to', ">=", $ban_to);
         }
+        $new = $query->toSql() ;
+        if ($old!=$new)  $this->addGlobalActivity($this, $request->query(), ActivityLog::SEARCH, 'index');
     }
 
     public function scopeSortBy(Builder $query, $request)
@@ -286,11 +291,10 @@ class User extends Authenticatable implements HasAssetsInterface
 
         $query->when($request->sort, function ($q) use ($request) {
             if ($request->sort['column'] == 'department') {
-                return;
-                //     return $q->leftJoin('employees', 'users.id', 'employees.user_id')
-                //         ->leftJoin('departments', 'departments.id', 'employees.department_id')
-                //         ->leftJoin('department_translations as trans', 'trans.department_id', 'departments.id')
-                //         ->orderBy('trans.name');
+                     return $q->select(['users.*' ,"trans.name"])
+                         ->Join('employees', 'users.id', 'employees.user_id')
+                         ->leftJoin('department_translations as trans', 'trans.department_id', 'employees.department_id')
+                         ->orderBy('trans.name',@$request->sort['dir']);
             }
 
             $q->orderBy($request->sort["column"], @$request->sort["dir"]);

@@ -34,13 +34,13 @@
             </div>
         </div>
         <div class="col-12 col-md-3 mb-3">
-            <label for="clientType">{{ trans('dashboard.citizens.enabled_card') }} </label>
+            <label for="enabledcard">{{ trans('dashboard.citizens.enabled_card') }} </label>
             <select class="form-control select2" id="enabledcard">
                 <option selected disabled value="">{{ trans('dashboard.citizens.choose_card') }} </option>
                 <option value="">{{ trans('dashboard.general.all_cases') }} </option>
-                @foreach ($cards as $id => $card)
-                    <option value="{{ $id }}">{{ $card }}</option>
-                @endforeach
+                    <option value="basic"> {{ trans('dashboard.citizens.card_type.basic') }} </option>
+                    <option value="golden"> {{ trans('dashboard.citizens.card_type.golden') }} </option>
+                    <option value="platinum"> {{ trans('dashboard.citizens.card_type.platinum') }} </option>
             </select>
         </div>
         <div class="col-12 col-md-3 mb-3">

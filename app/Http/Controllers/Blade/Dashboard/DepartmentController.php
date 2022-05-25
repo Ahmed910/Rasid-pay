@@ -135,6 +135,7 @@ class DepartmentController extends Controller
             'name',
             'parent',
             'deleted_at',
+            'is_active'
         ];
 
         if (isset($request->order[0]['column'])) {

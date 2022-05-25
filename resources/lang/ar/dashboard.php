@@ -478,13 +478,22 @@ return [
 
     ],
     "bank" => [
-        
+
         "bank" => "البنك",
         "banks" => "البنوك",
         "add_bank" => "اضافة بنك",
         "edit_bank" => "تعديل بنك",
         "select_bank" => "اختر البنك",
         "bank_count" => "عدد البنوك",
+        'centeral' => 'بنك مركزي',
+        'commercial' => 'بنك تجاري',
+        'bank' => 'بنك',
+        'investment' => 'استثماري',
+        'industrial' => 'بنك صناعي',
+        'real_estate' => 'بنك عقاري',
+        'agricultural' => 'بنك زراعي',
+        'islamic' => 'بنك إسلامي',
+        'savings' => 'بنك إدخار',
         'sub_progs' => [
             'index' => 'سجل البنوك',
             'archive' => 'أرشيف البنوك',
@@ -614,6 +623,12 @@ return [
 
         'edit_phone' => "تعديل رقم الجوال",
         'new_phone' => "رقم الجوال الجديد",
+
+        'card_type' => [
+            'basic' => 'أساسية',
+            'golden' => 'ذهبية',
+            'platinum' => 'بلاتينية',
+        ]
         ],
 
     'user' => [

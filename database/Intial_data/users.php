@@ -65,7 +65,19 @@ INSERT INTO `users` (`id`, `fullname`, `email`, `email_verified_at`, `phone_veri
 
 
 INSERT INTO `employees` (`id`, `user_id`, `department_id`, `rasid_job_id`, `contract_type`, `salary`, `qr_path`, `qr_code`, `created_at`, `updated_at`) VALUES
-('bb4ac590-36f1-4d59-9f9c-99d09436e66c', 'b198fd14-21fd-4fd3-9f85-d49806eace63', '1b1240b9-9761-4989-8208-c748cd3c1ae0', '64a3a623-6305-402d-a406-e9dbb8ca4a78', 'salary', 1000.00, NULL, NULL, '2022-04-10 15:47:01', '2022-04-10 15:47:01');
+('bb4ac590-36f1-4d59-9f9c-99d09436e66c', 'b198fd14-21fd-4fd3-9f85-d49806eace63', '1b1240b9-9761-4989-8208-c748cd3c1ae0', '64a3a623-6305-402d-a406-e9dbb8ca4a78', 'salary', 1000.00, NULL, NULL, '2022-04-10 15:47:01', '2022-04-10 15:47:01'),
+('2625f1a5-31b5-4ad4-b01c-104e19c18a15', '2625f1a5-31b5-4ad4-b01c-104e19c18a12', '2375bdb4-fc13-420a-9e6c-71de95d421d2', '6844098b-3930-41b7-ad68-d8809b193450', 'salary', 1000.00, NULL, NULL, '2022-04-10 15:47:01', '2022-04-10 15:47:01'),
+('2b876323-73fd-4a0e-b80b-ef5ef8e09ea5', '2b876323-73fd-4a0e-b80b-ef5ef8e09eac', '25d1bf19-862a-4c14-9d04-eb818e98c47b', '6f37177f-b496-4ee3-8b2a-05696af9fb6b', 'salary', 1000.00, NULL, NULL, '2022-04-10 15:47:01', '2022-04-10 15:47:01'),
+('34595d9f-576d-4516-b2c1-53099590a405', '34595d9f-576d-4516-b2c1-53099590a403', '270b2706-ce49-4a1b-844e-eedf58089284', '7149dd91-bcd1-40f5-a1d7-6f32404523ca', 'salary', 1000.00, NULL, NULL, '2022-04-10 15:47:01', '2022-04-10 15:47:01'),
+('6c0f749a-0d23-4926-9a10-9b109c372145', '6c0f749a-0d23-4926-9a10-9b109c37214c', '29ffb0b0-e11e-4a08-a11e-58db03d7c6ef', '720a7707-39ed-45ac-b4c4-68900c6adc48', 'salary', 1000.00, NULL, NULL, '2022-04-10 15:47:01', '2022-04-10 15:47:01'),
+('7cbdc00f-257d-4f01-b9db-ef3893621b35', '7cbdc00f-257d-4f01-b9db-ef3893621b39', '2a1fd7fe-65b0-45c7-97e9-abe21d81b96c', '756caab3-3433-48d5-80f5-01c69a1f90e6', 'salary', 1000.00, NULL, NULL, '2022-04-10 15:47:01', '2022-04-10 15:47:01'),
+('b1d096c3-0025-4427-b21b-b79bbf075d15', 'b1d096c3-0025-4427-b21b-b79bbf075d1f', '378ce86b-321f-4b4f-858e-4aa37f2d803e', '8201576d-ccbd-4ff7-a27b-e85558fd0574', 'salary', 1000.00, NULL, NULL, '2022-04-10 15:47:01', '2022-04-10 15:47:01'),
+('b9d1a73d-3d30-4d54-9e0e-edfed8553eb5', 'b9d1a73d-3d30-4d54-9e0e-edfed8553ebf', '38af95ea-2152-4ffb-9e9e-fd2faf0dcd53', '840502d5-aa9e-4923-a698-659531913643', 'salary', 1000.00, NULL, NULL, '2022-04-10 15:47:01', '2022-04-10 15:47:01'),
+('c900d3c8-0738-4d82-8877-09c0bf6583f5', 'c900d3c8-0738-4d82-8877-09c0bf6583fc', '394a2e82-8692-4e7a-ae47-8764ed68a8ac', '86a7616b-65c2-4ce5-8b08-ab20c805de74', 'salary', 1000.00, NULL, NULL, '2022-04-10 15:47:01', '2022-04-10 15:47:01'),
+('c9711428-096c-4cfb-8d25-0761d275b6c5', 'c9711428-096c-4cfb-8d25-0761d275b6cd', '397751d8-9c84-4f1a-b829-5980bb79bc8f', '8784195f-e55d-4487-b4b2-05501547f708', 'salary', 1000.00, NULL, NULL, '2022-04-10 15:47:01', '2022-04-10 15:47:01'),
+('e918c4b0-d788-4b3b-84e8-6a28b52f90e5', 'e918c4b0-d788-4b3b-84e8-6a28b52f90e1', '4004aca2-8a6a-459f-a6e1-1356fdd64db5', '878a593a-309e-437e-934a-a957e850cc1a', 'salary', 1000.00, NULL, NULL, '2022-04-10 15:47:01', '2022-04-10 15:47:01'),
+('f238785d-2dc9-499c-ba67-097967abdbb5', 'f238785d-2dc9-499c-ba67-097967abdbbf', '415c7059-9a02-492a-a6a8-301f3dc32dd4', '967ec6da-33e2-486d-80cd-a5a3b6d3aabb', 'salary', 1000.00, NULL, NULL, '2022-04-10 15:47:01', '2022-04-10 15:47:01'),
+('f7bf058f-1718-4550-88c0-a61e356b6c75', 'f7bf058f-1718-4550-88c0-a61e356b6c7b', '44fa986b-5bf7-4a08-afac-95ab90196c18', '97f44d85-ced4-427f-a154-b6453b1097e6', 'salary', 1000.00, NULL, NULL, '2022-04-10 15:47:01', '2022-04-10 15:47:01');
 
 
 INSERT INTO `managers` (`id`, `client_id`, `manager_phone`, `manager_email`, `manager_identity_number`, `manager_name`, `manager_nationality`, `manager_address`, `manager_gender`, `manager_marital_status`, `manager_date_of_birth`, `manager_elm_reply`, `created_at`, `updated_at`, `manager_country_code`) VALUES

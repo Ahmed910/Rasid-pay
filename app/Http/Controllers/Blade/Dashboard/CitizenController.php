@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers\Blade\Dashboard;
 
-use App\Models\CardPackage\CardPackage;
 use App\Models\Citizen;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -15,24 +14,21 @@ class CitizenController extends Controller
         if (isset($request->order[0]['column'])) {
             $request['sort'] = ['column' => $request['columns'][$request['order'][0]['column']]['name'], 'dir' => $request['order'][0]['dir']];
         }
-        $sortcol = isset($request->sort["column"]) ? $request->sort["column"] : null;
-        if (isset($request->sort["column"]) && in_array($request->sort["column"], Citizen::USER_SEARCHABLE_COLUMNS)) $sortcol = "user." . $request->sort["column"];
-        if (isset($request->sort["column"]) && key_exists($request->sort["column"], Citizen::ENABLEDCARD_SORTABLE_COLUMNS)) $sortcol = Citizen::ENABLEDCARD_SORTABLE_COLUMNS[$sortcol];
+       
         if ($request->ajax()) {
-            $citizensQuery = Citizen::with(["user.citizenCards", 'enabledCard.cardPackage.translation'])->search($request);
+            $citizensQuery = Citizen::with(["user.citizenCards", 'enabledCard.cardPackage'])->search($request);
             $citizenCount = $citizensQuery->count();
 
             $citizens = $citizensQuery->skip($request->start)
                 ->take(($request->length == -1) ? $citizenCount : $request->length)
-                ->get()->sortBy($sortcol, SORT_REGULAR, $request->sort["dir"] == "desc");
-
+                ->sortBy($request)
+                ->get();
 
             return CitizenCollection::make($citizens)
                 ->additional(['total_count' => $citizenCount]);
         }
-        $cards = CardPackage::has("citizenCards")->with("translation")->ListsTranslations("name")
-            ->pluck("name", 'id')->toArray();
-        return view('dashboard.citizen.index', compact("cards"));
+    
+        return view('dashboard.citizen.index');
     }
 
     public function update(Request $request, $id)
