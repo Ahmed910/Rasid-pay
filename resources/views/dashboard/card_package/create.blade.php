@@ -100,8 +100,6 @@
 @section('scripts')
   <script src="{{ asset('dashboardAssets/js/select2.js') }}"></script>
   <script src="{{ asset('dashboardAssets/plugins/select2/select2.full.min.js') }}"></script>
-  <script src="{{ asset('dashboardAssets') }}/plugins/fileuploads/js/fileupload.js"></script>
-  <script src="{{ asset('dashboardAssets') }}/plugins/fileuploads/js/file-upload.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/Dropify/0.2.2/js/dropify.min.js"></script>
   <script src="{{ asset('dashboardAssets/js/custom_scripts.js') }}"></script>
 
