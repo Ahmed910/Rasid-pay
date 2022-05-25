@@ -104,6 +104,9 @@ class ActivityLog extends Model
             if ($request->sort["column"] == "main_program") {
                 return $q->orderBy('auditable_type', @$request->sort["dir"]);
             }
+            if ($request->sort["column"] == "subprogram") {
+                return $q->orderBy('sub_program', @$request->sort["dir"]);
+            }
 
             if ($request->sort["column"] == "department") {
                 return $q->leftJoin('users', 'users.id', 'activity_logs.user_id')

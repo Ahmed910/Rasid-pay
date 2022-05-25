@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources\Dashboard;
 
+use App\Http\Resources\Dashboard\Banks\BankBranchResource;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class BankResource extends JsonResource
@@ -23,6 +24,7 @@ class BankResource extends JsonResource
         return [
             'id' => $this->id,
             'created_at' => $this->created_at,
+            'branches'   => BankBranchResource::collection($this->branches),
             'actions' => $this->when($request->routeIs('banks.index') || $request->routeIs('banks.archive'), [
                 'show' => auth()->user()->hasPermissions('banks.show'),
                 $this->mergeWhen($request->route()->getActionMethod() == 'index', [
