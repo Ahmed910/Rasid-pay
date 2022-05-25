@@ -7,7 +7,6 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Dashboard\CardPackageRequest;
 use App\Models\CardPackage\CardPackage;
-use Illuminate\Support\Facades\DB;
 
 class CardPackageController extends Controller
 {
@@ -19,15 +18,16 @@ class CardPackageController extends Controller
 
     public function create()
     {
+        $previousUrl = url()->previous();
+        (strpos($previousUrl, 'card_package')) ? session(['perviousPage' => 'card_package']) : session(['perviousPage' => 'home']);
         $clients = User::doesntHave('cardPackage')->where("user_type", "client")->pluck('users.fullname', 'users.id');
         return view('dashboard.card_package.create', compact('clients'));
     }
 
     public function store(CardPackageRequest $request)
     {
-        $card_package = CardPackage::create($request->validated());
+        CardPackage::create($request->validated());
         return redirect()->route('dashboard.card_package.index')->withSuccess(__('dashboard.general.success_add'));
-
     }
 
 

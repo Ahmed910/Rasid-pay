@@ -277,22 +277,24 @@
                     class="slide {{ request()->routeIs('dashboard.card_package.*') && !request()->routeIs('dashboard.*.archive') ? 'is-expanded' : '' }} ">
                     <a class="side-menu__item" data-bs-toggle="slide" href="javascript:void(0)"><i
                             class="mdi mdi-view-dashboard-outline"></i><span
-                            class="side-menu__label">نسب خصم البطاقات</span><i
+                            class="side-menu__label">{{ trans('dashboard.card_package.cards_discount') }}</span><i
                             class="angle fe fe-chevron-right"></i></a>
                     <ul class="slide-menu">
                         <li class="side-menu-label1">
-                            <a href="javascript:void(0)">نسب خصم البطاقات</a>
+                            <a href="javascript:void(0)">{{ trans('dashboard.card_package.cards_discount') }}</a>
                         </li>
                         <li>
                             <a href="{{ route('dashboard.card_package.index') }}"
                                 class="slide-item px-6 {{ request()->routeIs('dashboard.card_package.index') ? 'active' : '' }}"><i
                                     class="mdi mdi-file-document-multiple-outline"></i>
-                                سجل نسب الخصم للبطاقات</a>
+                                    {{ trans('dashboard.card_package.cards_discount_records') }} 
+                                </a>
                         </li>
+
                         <li>
                             <a href="{{ route('dashboard.card_package.create') }}"
                                 class="slide-item px-6 {{ request()->routeIs('dashboard.card_package.create') ? 'active' : '' }}"><i
-                                    class="mdi mdi-plus-circle-outline"></i> إضافة</a>
+                                    class="mdi mdi-plus-circle-outline"></i> {{ trans('dashboard.general.add') }}</a>
                         </li>
                     </ul>
                 </li>

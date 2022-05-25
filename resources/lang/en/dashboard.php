@@ -414,6 +414,17 @@ return [
         'new_phone' => "New Phone Number",
         ],
 
+        'card_package' => [
+
+            "cards_discount" => "Cards discount",
+            "basic_card_discount" => "Basic Card Discount",
+            "enter_discount" => "Enter discount",
+            "golden_card_discount" => "Golden Card Discount",
+            "platinum_card_discount" => "Platinum Card Discount",
+            "cards_discount_records" => "Cards Discount Records",
+
+        ],
+
     'user' => [
         'users' => 'Users'
     ],
