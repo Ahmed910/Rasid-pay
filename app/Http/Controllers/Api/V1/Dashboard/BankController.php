@@ -52,11 +52,13 @@ class BankController extends Controller
     }
 
 
-    public function show($id)
+    public function show($bankBranchId)
     {
-        $bank = Bank::withTrashed()->findOrFail($id)->load('translations');
+        $branch = BankBranch::with('bank.translations')
+            ->withTrashed()
+            ->findOrFail($bankBranchId);
 
-        return BankResource::make($bank)
+        return BankBranchResource::make($branch)
             ->additional([
                 'status' => true,
                 'message' => ''
