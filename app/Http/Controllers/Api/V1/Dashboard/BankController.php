@@ -8,25 +8,20 @@ use App\Models\Bank\Bank;
 use App\Http\Requests\V1\Dashboard\ReasonRequest;
 use App\Http\Requests\V1\Dashboard\BankRequest;
 use App\Http\Resources\Dashboard\BankResource;
+use App\Http\Resources\Dashboard\Banks\BankBranchResource;
 use App\Models\BankBranch\BankBranch;
 
 class BankController extends Controller
 {
     public function index(Request $request)
     {
-        $bank = Bank::with('translations')->latest()->paginate((int)($request->per_page ?? config("globals.per_page")));
+        $bankBranches = BankBranch::with('bank.translations')
+            ->with(['bank' => fn ($q) => $q->withCount('transactions')])
+            ->search($request)
+            ->latest()
+            ->paginate((int)($request->per_page ?? config("globals.per_page")));
 
-        return BankResource::collection($bank)
-            ->additional([
-                'status' => true,
-                'message' => ''
-            ]);
-    }
-
-    public function archive(Request $request)
-    {
-        $banks = Bank::onlyTrashed()->latest()->paginate((int)($request->per_page ?? config("globals.per_page")));
-        return BankResource::collection($banks)
+        return BankBranchResource::collection($bankBranches)
             ->additional([
                 'status' => true,
                 'message' => ''
@@ -47,11 +42,13 @@ class BankController extends Controller
     }
 
 
-    public function show($id)
+    public function show($bankBranchId)
     {
-        $bank = Bank::withTrashed()->findOrFail($id)->load('translations');
+        $branch = BankBranch::with('bank.translations')
+            ->withTrashed()
+            ->findOrFail($bankBranchId);
 
-        return BankResource::make($bank)
+        return BankBranchResource::make($branch)
             ->additional([
                 'status' => true,
                 'message' => ''
@@ -79,11 +76,12 @@ class BankController extends Controller
             ]);
     }
 
-
-    //soft delete (archive)
+    #region Delete
+    // TODO:: Check If Delete On Branch Or Main
     public function destroy(ReasonRequest $request, Bank $bank)
     {
         $bank->delete();
+
         return BankResource::make($bank)
             ->additional([
                 'status' => true,
@@ -106,7 +104,6 @@ class BankController extends Controller
 
     public function forceDelete(ReasonRequest $request, $id)
     {
-
         $Bank = Bank::onlyTrashed()->findOrFail($id);
         $Bank->forceDelete();
 
@@ -116,4 +113,17 @@ class BankController extends Controller
                 'message' =>  __('dashboard.general.success_delete')
             ]);
     }
+
+    public function archive(Request $request)
+    {
+        $banks = Bank::onlyTrashed()->latest()
+            ->paginate((int)($request->per_page ?? config("globals.per_page")));
+
+        return BankResource::collection($banks)
+            ->additional([
+                'status' => true,
+                'message' => ''
+            ]);
+    }
+    #endregion Delete
 }
