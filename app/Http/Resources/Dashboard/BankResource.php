@@ -18,13 +18,13 @@ class BankResource extends JsonResource
         $locales = [];
         if ($this->relationLoaded('translations')) {
             foreach (config('translatable.locales') as $locale) {
-                $locales['translations'][$locale] = GlobalTransResource::make($this->translations->firstWhere('locale',$locale));
+                $locales['translations'][$locale] = GlobalTransResource::make($this->translations->firstWhere('locale', $locale));
             }
         }
         return [
             'id' => $this->id,
             'created_at' => $this->created_at,
-            'branches'   => BankBranchResource::collection($this->branches),
+            'transactions_count' => $this->transactions_count ?? 0,
             'actions' => $this->when($request->routeIs('banks.index') || $request->routeIs('banks.archive'), [
                 'show' => auth()->user()->hasPermissions('banks.show'),
                 $this->mergeWhen($request->route()->getActionMethod() == 'index', [

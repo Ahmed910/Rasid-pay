@@ -8,15 +8,20 @@ use App\Models\Bank\Bank;
 use App\Http\Requests\V1\Dashboard\ReasonRequest;
 use App\Http\Requests\V1\Dashboard\BankRequest;
 use App\Http\Resources\Dashboard\BankResource;
+use App\Http\Resources\Dashboard\Banks\BankBranchResource;
 use App\Models\BankBranch\BankBranch;
 
 class BankController extends Controller
 {
     public function index(Request $request)
     {
-        $bank = Bank::with('translations')->latest()->paginate((int)($request->per_page ?? config("globals.per_page")));
+        $bankBranches = BankBranch::with('bank.translations')
+            ->with(['bank' => fn ($q) => $q->withCount('transactions')])
+            ->search($request)
+            ->latest()
+            ->paginate((int)($request->per_page ?? config("globals.per_page")));
 
-        return BankResource::collection($bank)
+        return BankBranchResource::collection($bankBranches)
             ->additional([
                 'status' => true,
                 'message' => ''
