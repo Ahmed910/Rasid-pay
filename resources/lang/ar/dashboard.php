@@ -631,6 +631,16 @@ return [
         ]
         ],
 
+     'card_package' => [
+            "cards_discount" => "نسب خصم البطاقات",
+            "basic_card_discount" => "نسبة خصم البطاقة الأساسية",
+            "enter_discount" => "أدخل نسبة الخصم",
+            "golden_card_discount" => "نسبة خصم البطاقة الذهبية",
+            "platinum_card_discount" => "نسبة خصم البطاقة البلاتينية",
+            "cards_discount_records" => "نسب خصم البطاقات",
+
+     ],
+
     'user' => [
         'users' => 'المستخدمين',
         'sub_progs' => [
