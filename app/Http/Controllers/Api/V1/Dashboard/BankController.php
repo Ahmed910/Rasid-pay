@@ -28,16 +28,6 @@ class BankController extends Controller
             ]);
     }
 
-    public function archive(Request $request)
-    {
-        $banks = Bank::onlyTrashed()->latest()->paginate((int)($request->per_page ?? config("globals.per_page")));
-        return BankResource::collection($banks)
-            ->additional([
-                'status' => true,
-                'message' => ''
-            ]);
-    }
-
     public function store(BankRequest $request, Bank $bank)
     {
         $data = $request->validated();
@@ -86,11 +76,12 @@ class BankController extends Controller
             ]);
     }
 
-
-    //soft delete (archive)
+    #region Delete
+    // TODO:: Check If Delete On Branch Or Main
     public function destroy(ReasonRequest $request, Bank $bank)
     {
         $bank->delete();
+
         return BankResource::make($bank)
             ->additional([
                 'status' => true,
@@ -113,7 +104,6 @@ class BankController extends Controller
 
     public function forceDelete(ReasonRequest $request, $id)
     {
-
         $Bank = Bank::onlyTrashed()->findOrFail($id);
         $Bank->forceDelete();
 
@@ -123,4 +113,17 @@ class BankController extends Controller
                 'message' =>  __('dashboard.general.success_delete')
             ]);
     }
+
+    public function archive(Request $request)
+    {
+        $banks = Bank::onlyTrashed()->latest()
+            ->paginate((int)($request->per_page ?? config("globals.per_page")));
+
+        return BankResource::collection($banks)
+            ->additional([
+                'status' => true,
+                'message' => ''
+            ]);
+    }
+    #endregion Delete
 }
