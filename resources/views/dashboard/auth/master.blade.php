@@ -134,6 +134,7 @@
                 error: function(data) {
                     btn_submit.removeClass('disable');
 
+                    
                     btn_submit.html(btn_submit_html);
                     $.each(data.responseJSON.errors, function(name, message) {
                         $('input[name="' + name + '"]').addClass('is-invalid');

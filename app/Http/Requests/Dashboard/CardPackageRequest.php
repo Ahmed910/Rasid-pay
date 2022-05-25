@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests\V1\Dashboard;
+namespace App\Http\Requests\Dashboard;
 
-use App\Http\Requests\ApiMasterRequest;
+use Illuminate\Foundation\Http\FormRequest;
 
-class CardPackageRequest extends ApiMasterRequest
+class CardPackageRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -26,7 +26,7 @@ class CardPackageRequest extends ApiMasterRequest
         $rules = [
             "client_id" => ["required", "exists:users,id,user_type,client"],
             "is_active" => ["nullable", "boolean"],
-            "basic_discount" => ['required',  'regex:[0-9]*\.[0-9]+{0,10}'],
+            "basic_discount" => ["required", "numeric", "min:0", "max:100", "digits_between:1,5"],
             "golden_discount" => ["required", "numeric", "min:0", "max:100", "digits_between:1,5"],
             "platinum_discount" => ["required", "numeric", "min:0", "max:100", "digits_between:1,5"],
             "image" => "nullable|max:5120|mimes:jpg,png,jpeg",
