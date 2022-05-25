@@ -67,9 +67,7 @@
           },
           {
             data: "type",
-            name: "subprogram"
-
-
+            name: "sub_program"
           },
           {
             data: "created_at",
