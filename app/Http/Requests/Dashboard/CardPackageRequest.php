@@ -24,7 +24,7 @@ class CardPackageRequest extends FormRequest
     public function rules()
     {
         $rules = [
-            "client_id" => ["required", "exists:users,id,user_type,client"],
+            "client_id" => ["required", "unique:card_packages,client_id", "exists:users,id,user_type,client"],
             "is_active" => ["nullable", "boolean"],
             "basic_discount" => ["required", "numeric", "min:0", "max:100", "digits_between:1,5"],
             "golden_discount" => ["required", "numeric", "min:0", "max:100", "digits_between:1,5"],

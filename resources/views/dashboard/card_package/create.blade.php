@@ -102,7 +102,6 @@
     @include('dashboard.layouts.modals.confirm')
     @include('dashboard.layouts.modals.back')
     @include('dashboard.layouts.modals.alert')
-    {{-- @include('dashboard.card_package.script') --}}
 
 @section('scripts')
     <script src="{{ asset('dashboardAssets/js/select2.js') }}"></script>

@@ -33,7 +33,9 @@ class Permission extends Model
         "image_delete",
         "send_message",
         "validate",
-        'group_permissions'
+        'group_permissions',
+        'backButton',
+        'home'
     ];
     #endregion properties
 
