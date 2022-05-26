@@ -1,6 +1,13 @@
 <div class="card py-7 px-7">
     <div class="row mt-3">
         <div class="col-12 col-md-4">
+            {!! Form::label('fullname', trans('dashboard.general.name')) !!}
+            <span class="requiredFields">*</span>
+            {!! Form::text("fullname", null, ['class' => 'form-control input-regex', 'id' => "fullname", 'placeholder'
+            => trans('dashboard.general.name'), 'minlength' => '2', 'maxlength' => '100']) !!}
+            <span class="text-danger" id="fullname_error" hidden></span>
+        </div>
+        <div class="col-12 col-md-4">
             {!! Form::label('mainDepartment', trans('dashboard.department.department_name')) !!} <span
                 class="requiredFields">*</span>
             {!! Form::select('department_id', ['' => ''] + $departments, isset($admin) ?
@@ -24,49 +31,44 @@
             @endisset
             <span class="text-danger" id="rasid_job_id_error"></span>
         </div>
-        <div class="col-12 col-md-4">
-            {!! Form::label('fullname', trans('dashboard.general.name')) !!}
-            <span class="requiredFields">*</span>
-            {!! Form::text("fullname", null, ['class' => 'form-control input-regex', 'id' => "fullname", 'placeholder'
-            => trans('dashboard.general.name'), 'minlength' => '2', 'maxlength' => '100']) !!}
-            <span class="text-danger" id="fullname_error" hidden></span>
-        </div>
-        <div class="col-12 col-md-4">
-            {!! Form::label('email', trans('dashboard.general.email')) !!}
-            <span class="requiredFields">*</span>
-            {!! Form::email("email", null, ['class' => 'form-control', 'id' => "email", 'placeholder' =>
-            trans('dashboard.general.email'), 'minlength' => '2', 'maxlength' => '100']) !!}
-            <span class="text-danger" id="email_error" hidden></span>
-        </div>
-        <div class="col-12 col-md-4">
-            {!! Form::label('phone', trans('dashboard.general.phone')) !!}
-            <span class="requiredFields">*</span>
-            {!! Form::text("phone", null, ['class' => 'form-control input-regex', 'id' => "phone", 'placeholder' =>
-            trans('dashboard.general.phone'), 'minlength' => '2', 'maxlength' => '100']) !!}
-            <span class="text-danger" id="phone_error" hidden></span>
-        </div>
-        <div class="col-12 col-md-4">
+
+        <div class="col-12 col-md-4 mt-3">
             {!! Form::label('userId', trans('dashboard.admin.login_id')) !!} <span class="requiredFields">*</span>
-
+        
             @if (isset($admin))
-
+        
             {!! Form::number('login_id', null, ['class' => 'form-control stop-copy-paste', 'oninput' => 'javascript: if
             (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);', 'min' => '0',
             'maxlength'
             => '6', 'onkeypress' => 'return /[0-9a-zA-Z]/i.test(event.key)', 'id' => 'userId', 'placeholder' =>
             trans('dashboard.admin.login_id'),'disabled' => 'disabled']) !!}
             @else
-
-
+        
+        
             {!! Form::number('login_id', null, ['class' => 'form-control stop-copy-paste', 'oninput' => 'javascript: if
             (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);', 'min' => '0',
             'maxlength'
             => '6', 'onkeypress' => 'return /[0-9a-zA-Z]/i.test(event.key)', 'id' => 'userId', 'placeholder' =>
             trans('dashboard.admin.login_id')]) !!}
             @endif
-
+        
             <span class="text-danger" id="login_id_error"></span>
         </div>
+        <div class="col-12 col-md-4  mt-3">
+            {!! Form::label('email', trans('dashboard.general.email')) !!}
+            <span class="requiredFields">*</span>
+            {!! Form::email("email", null, ['class' => 'form-control', 'id' => "email", 'placeholder' =>
+            trans('dashboard.general.email'), 'minlength' => '2', 'maxlength' => '100']) !!}
+            <span class="text-danger" id="email_error" hidden></span>
+        </div>
+        <div class="col-12 col-md-4  mt-3">
+            {!! Form::label('phone', trans('dashboard.general.phone')) !!}
+            <span class="requiredFields">*</span>
+            {!! Form::text("phone", null, ['class' => 'form-control input-regex', 'id' => "phone", 'placeholder' =>
+            trans('dashboard.general.phone'), 'minlength' => '2', 'maxlength' => '100']) !!}
+            <span class="text-danger" id="phone_error" hidden></span>
+        </div>
+        
     </div>
 
     <div class="row mt-3">
@@ -80,7 +82,7 @@
             @enderror
         </div> --}}
 
-        <div class="col-12 col-md-8">
+        <div class="col-12">
             <label for="permissions">{{ trans('dashboard.admin.permission_system') }}</label> <span
                 class="requiredFields">*</span>
             <select class="form-control" name="permission_list[]" hidden multiple required></select>
@@ -151,17 +153,34 @@
             <span class="text-danger" id="ban_to_error"></span>
         </div>
         @endif
-        <div class="col-12 col-md-4 mt-3 d-flex align-items-end">
+        @if (request()->routeIs('dashboard.admin.create'))
+            <div class="col-12 col-md-4 mt-3 changePass" @if (isset($admin)) hidden @endif>
+                {!! Form::label('newPassword', trans('dashboard.admin.password')) !!} <span class="requiredFields">*</span>
+                <div class="input-group" id="show_hide_password">
+                    {!! Form::password('password', ['class' => 'form-control stop-copy-paste', 'maxlength' => '10',
+                    'oninput' => 'javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0,
+                    this.maxLength);', 'pattern' => '^[1-9]\d*$', 'onkeypress' => 'return /[0-9]/i.test(event.key)',
+                    'placeholder' => trans('dashboard.admin.new_password')]) !!}
+            
+                    <div class="input-group-text border-start-0">
+                        <a href=""><i class="mdi mdi-eye-off-outline d-flex"></i></a>
+                    </div>
+                </div>
+                <span class="text-danger" id="password_error"></span>
+            
+            </div>
+        @endif
+        <div class="col-12 col-md-8 mt-3 d-flex align-items-end">
             <div class="col-12 col-md-6">
-
+        
                 <div class="form-check">
                     {!! Form::checkbox('is_login_code', '1', isset($admin) && $admin->is_login_code == 1 ? true : false,
-                    ['class' => 'form-check-input', 'id' => 'verifyCode']) !!}
+                    ['class' => 'form-check-input', 'autocomplete'=>'off',  'autocorrect'=>'off', 'autofocus'=>'', 'id' => 'verifyCode']) !!}
                     {!! Form::label('verifyCode', trans('dashboard.general.Send VerificationCode'), ['class' =>
                     'form-check-label']) !!}
                     <span class="text-danger" id="is_login_code_error"></span>
                 </div>
-
+        
             </div>
             @if (isset($admin))
             <div class="col-12 col-md-6">
@@ -175,8 +194,7 @@
             </div>
             @endif
         </div>
-
-
+        @if (request()->routeIs('dashboard.admin.edit'))
         <div class="col-12 col-md-4 mt-3 changePass" @if (isset($admin)) hidden @endif>
             {!! Form::label('newPassword', trans('dashboard.admin.password')) !!} <span class="requiredFields">*</span>
             <div class="input-group" id="show_hide_password">
@@ -184,14 +202,17 @@
                 'oninput' => 'javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0,
                 this.maxLength);', 'pattern' => '^[1-9]\d*$', 'onkeypress' => 'return /[0-9]/i.test(event.key)',
                 'placeholder' => trans('dashboard.admin.new_password')]) !!}
-
+        
                 <div class="input-group-text border-start-0">
                     <a href=""><i class="mdi mdi-eye-off-outline d-flex"></i></a>
                 </div>
             </div>
             <span class="text-danger" id="password_error"></span>
-
+        
         </div>
+        @endif
+        
+       
     </div>
 </div>
 <div class="row">
