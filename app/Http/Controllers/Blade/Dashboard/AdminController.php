@@ -193,7 +193,7 @@ class AdminController extends Controller
     public function getJobsByDepartment($id)
     {
         return response()->json([
-            'data' => RasidJob::select('id')->ListsTranslations('name')->where('department_id', $id)->setEagerLoads([])->get(),
+            'data' => RasidJob::select('id')->ListsTranslations('name')->where(['department_id' => $id, 'is_vacant' => true])->setEagerLoads([])->get(),
             'status' => true,
             'message' => '',
         ]);
