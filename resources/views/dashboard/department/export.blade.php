@@ -117,17 +117,17 @@
         </th>
       </tr>
       <tr>
-        <th class="border-bottom-0">#</th>
-        <th class="border-bottom-0">
+        <th>#</th>
+        <th>
           @lang('dashboard.department.department')
         </th>
-        <th class="border-bottom-0">
+        <th>
           @lang('dashboard.department.main_department')
         </th>
-        <th class="border-bottom-0">
+        <th>
           @lang('dashboard.general.created_at')
         </th>
-        <th class="border-bottom-0">
+        <th>
           @lang('dashboard.general.status')
         </th>
       </tr>
