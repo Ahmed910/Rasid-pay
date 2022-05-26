@@ -114,7 +114,7 @@
         },
         "drawCallback": function (settings, json) {
           // table sorting
-          var activityLogTableSorting = document.getElementsByClassName('activity_log_index');
+          var activityLogTableSorting = document.getElementsByClassName('card_package_index');
           for (var i = 0; i < activityLogTableSorting.length; i++) {
             activityLogTableSorting[i].innerText = activityLogTableSorting[i].innerText.replace(activityLogTableSorting[i].innerText, activityLogTableSorting[i].innerText.toArabicUni());
           }
