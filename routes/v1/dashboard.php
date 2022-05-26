@@ -130,6 +130,7 @@ Route::middleware('auth:sanctum')->group(function () {
             Route::post('restore/{id}', 'restore')->name('restore');
             Route::delete('forceDelete/{id}', 'forceDelete')->name('force_delete');
             Route::get('banks-types','bankTypes')->name('banks_types');
+            Route::get('edit-show/{bank}','editShow')->name('edit');
         });
 
         Route::controller('CardPackageController')->name('card_packages.')->prefix('card_packages')->group(function () {
