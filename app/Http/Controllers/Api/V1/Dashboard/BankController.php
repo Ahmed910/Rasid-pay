@@ -72,13 +72,15 @@ class BankController extends Controller
         $data  = $request->validated();
         $bank->fill($data + ['updated_at' => now()])->save();
         $branchesIds = $bank->branches()->pluck('id')->toArray();
+        $newBranchesIds = collect($data['banks'])->pluck('id')->toArray();
 
+        foreach ($branchesIds as $id) {
+            if (!in_array($id, $newBranchesIds)) {
+                BankBranch::find($id)->delete();
+            }
+        }
 
         foreach ($data['banks'] as $key => $values) {
-            if (!in_array($data['banks'][$key]['id'], $branchesIds)) {
-                BankBranch::find($data['banks'][$key]['id'])->delete();
-            }
-
             BankBranch::updateOrCreate(
                 ['id' => $data['banks'][$key]['id'] ?? ''],
                 $values + ['bank_id' => $bank->id]
