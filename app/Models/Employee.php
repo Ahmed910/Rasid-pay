@@ -40,7 +40,7 @@ class Employee extends Model
 
     public function job()
     {
-        return $this->belongsTo(RasidJob::class,'rasid_job_id','id');
+        return $this->belongsTo(RasidJob::class,'rasid_job_id');
     }
 
 

@@ -137,15 +137,15 @@ class AdminController extends Controller
     {
         $previousUrl = url()->previous();
         (strpos($previousUrl, 'admin')) ? session(['perviousPage' => 'admin']) : session(['perviousPage' => 'home']);
-        $admin = User::where('user_type', 'admin')->findOrFail($id)->load(['groups', 'permissions', 'employee', 'department' => function ($query) {
+        $admin = User::where('user_type', 'admin')->with(['groups', 'permissions', 'employee', 'department' => function ($query) {
             $query->with('parent.translations')
                 ->ListsTranslations('name');
-        }]);
+        }])->findOrFail($id);
         $departments = Department::with('parent.translations')->ListsTranslations('name')->pluck('name', 'id')->toArray();
 
         $groups = Group::with('translations')->ListsTranslations('name')->pluck('name', 'id');
         $permissions = Permission::permissions()->pluck('name', 'id');
-        $rasid_jobs = RasidJob::select('id')->ListsTranslations('name')->where('department_id', $admin->department?->id)->setEagerLoads([])->get();
+        $rasid_jobs = RasidJob::select('id')->ListsTranslations('name')->where('department_id', $admin->department?->id)->setEagerLoads([])->pluck('name', 'id')->toArray();
         $locales = config('translatable.locales');
         return view('dashboard.admin.edit', compact('departments','admin', 'groups', 'permissions', 'locales','rasid_jobs'));
     }
@@ -163,6 +163,7 @@ class AdminController extends Controller
             $is_login_code = 0;
             if ($request->has('is_login_code') && $request->is_login_code == 1) $is_login_code = 1;
             $admin->fill($request->validated() + ['updated_at' => now(), 'is_login_code' => $is_login_code])->save();
+            $admin->employee->update($request->safe()->only(['department_id', 'rasid_job_id']));
             $permissions = $request->permission_list ?? [];
             if ($request->group_list) {
                 $admin->groups()->sync($request->group_list);

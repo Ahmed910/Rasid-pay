@@ -3,7 +3,7 @@
 
           <div class="col-12 col-md-6">
               {!! Form::label('mainDepartment', trans('dashboard.department.department_name')) !!} <span class="requiredFields">*</span>
-              {!! Form::select('department_id', ['' => ''] + $departments, null, ['class' => 'form-control select2-show-search', 'data-placeholder' => trans('dashboard.department.select_department'),'id' => 'mainDepartment', 'onchange' => 'getJobs(this.value)']) !!}
+              {!! Form::select('department_id', ['' => ''] + $departments, isset($admin) ? $admin->employee?->department_id : null, ['class' => 'form-control select2-show-search', 'data-placeholder' => trans('dashboard.department.select_department'),'id' => 'mainDepartment', 'onchange' => 'getJobs(this.value)']) !!}
               <span class="text-danger" id="department_id_error"></span>
 
           </div>
@@ -11,7 +11,7 @@
           <div class="col-12 col-md-6">
               {!! Form::label('rasid_job_id', trans('dashboard.rasid_job.rasid_job')) !!} <span class="requiredFields">*</span>
               @isset($admin)
-              {!! Form::select('rasid_job_id', ['' => ''] + $rasid_jobs, null, ['class' => 'form-control select2-show-search', 'id' => 'rasid_job_id', 'data-placeholder' => trans('dashboard.rasid_job.rasid_job')]) !!}
+              {!! Form::select('rasid_job_id', ['' => ''] + $rasid_jobs, $admin->employee?->rasid_job_id, ['class' => 'form-control select2-show-search', 'id' => 'rasid_job_id', 'data-placeholder' => trans('dashboard.rasid_job.rasid_job')]) !!}
               @else
                 {!! Form::select('rasid_job_id', ['' => ''], null, ['class' => 'form-control select2-show-search', 'id' => 'rasid_job_id', 'data-placeholder' => trans('dashboard.rasid_job.rasid_job')]) !!}
               @endisset

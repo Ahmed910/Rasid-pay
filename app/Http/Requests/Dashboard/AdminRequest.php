@@ -72,6 +72,7 @@ class AdminRequest extends FormRequest
             'permission_list.*' => 'required_without:group_list|exists:permissions,id',
             'delete_image'  => "in:0,1",
             // New Data
+            'rasid_job_id' => 'required|exists:rasid_jobs,id,department_id,'.$this->department_id,
             'fullname' => 'required|string|max:225|min:2',
             'email' => 'required|email|max:225|unique:users,email,' . @$this->admin->id,
             'phone' => 'required|numeric|digits_between:10,20|unique:users,phone,' . @$this->admin->id,
