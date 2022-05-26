@@ -62,6 +62,7 @@ return [
         'sent_successfully' => 'تم الارسال بنجاح',
         'success_send_login_code' => 'تم ارسال كود التحقق الى رقم الجوال',
         'phone' => 'رقم الجوال',
+        "enter_phone" => "أدخل رقم الجوال",
         'phone_code' => "حقل رقم الجوال مطلوب",
         'phoneCode_registeration' => "رقم الجوال غير مسجل بالنظام",
         'digits_between' => "يجب أن يحتوي حقل الجوال بين 5 و 20 رقمًا/أرقام .
@@ -95,7 +96,9 @@ return [
         "personalfile" => "الملف الشخص",
         "username" => "اسم المستخدم",
         "name" => "الاسم",
+        "user_name" => "أدخل اسم المستخدم",
         "email" => "البريد الالكتروني",
+        "enter_email" => "أدخل البريد الالكتروني",
         "phone" => "رقم الجوال",
         "active_cases" => [
             'معطلة',
@@ -354,6 +357,7 @@ return [
         'department_archive' => 'أرشيف الأقسام',
     ],
     "rasid_job" => [
+        "select_job" => "اختر الوظيفة",
         "rasid_jobs" => "الوظائف",
         "add_rasid_job" => "اضافة وظيفة",
         "edit_rasid_job" => "تعديل الوظيفة",
@@ -425,7 +429,7 @@ return [
         "edit_profile" => "تعديل الملف الشخصي",
     ],
     "admin" => [
-        "admin" => "المستخدم",
+        "admin" => "اسم المستخدم",
         "admin_name" => "أدخل اسم المستخدم",
         "login_id" => "رقم المستخدم",
         "admins" => "المستخدمين",
@@ -433,7 +437,7 @@ return [
         "edit_admin" => "تعديل المستخدم",
         "admin_count" => "عدد المستخدمين",
         'name' => 'الموظف',
-        'enter_number' => 'أدخل الرقم',
+        'enter_number' => 'أدخل رقم المستخدم',
         "ban_from" => "معطل لفترة (من)",
         "ban_to" => "معطل لفترة (إلى)",
         'permission_system' => 'صلاحيات النظام',
