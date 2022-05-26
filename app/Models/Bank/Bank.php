@@ -34,12 +34,11 @@ class Bank extends Model implements Contracts\Translatable
         if ($request->has('name'))
             $query->whereTranslationLike('name', "%$request->name%");
 
-        if ($request->has('transactions_count') || $request->has('transaction_status')) {
-            $query->where(function ($q) use ($request) {
+        if ($request->has('transactions_count')) {
+            $query->where(function ($q) {
                 $q->selectRaw('COUNT(*) as transaction_count')
                     ->from('transactions')
-                    ->where('banks.id', 'transactions.bank_id')
-                    ->where('transactions.status', $request->transaction_status);
+                    ->where('banks.id', 'transactions.bank_id');
             }, $request->transactions_count);
         }
     }
