@@ -38,7 +38,7 @@ class CardPackageController extends Controller
         $previousUrl = url()->previous();
         (strpos($previousUrl, 'card_package')) ? session(['perviousPage' => 'card_package']) : session(['perviousPage' => 'home']);
         $clients = User::doesntHave('cardPackage')->where("user_type", "client")->pluck('users.fullname', 'users.id');
-        return view('dashboard.card_package.create', compact('clients'));
+        return view('dashboard.card_package.create', compact('clients','previousUrl'));
     }
 
     public function store(CardPackageRequest $request)

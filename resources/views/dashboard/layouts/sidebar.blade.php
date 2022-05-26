@@ -167,19 +167,19 @@
                             <a href="javascript:void(0)">{!! trans('dashboard.client.clients') !!}</a>
                         </li>
                         <li>
-                            <a href="{!! route('dashboard.client.index') !!}"
+                            <a href="javascript:void(0)"
                                 class="slide-item px-6 {{ request()->routeIs('dashboard.client.index') ? 'active' : '' }}"><i
                                     class="mdi mdi-file-document-multiple-outline"></i>
                                 {!! trans('dashboard.client.sub_progs.index') !!}</a>
                         </li>
                         <li>
-                            <a href="{!! route('dashboard.bank_account.index') !!}"
+                            <a href="javascript:void(0)"
                                 class="slide-item px-6 {{ request()->routeIs('dashboard.client.account_orders') ? 'active' : '' }}"><i
                                     class="mdi mdi-badge-account-horizontal-outline"></i> {!!
                                 trans('dashboard.client.sub_progs.account_order') !!}</a>
                         </li>
                         <li>
-                            <a href="{!! route('dashboard.client.create') !!}"
+                            <a href="javascript:void(0)"
                                 class="slide-item px-6 {{ request()->routeIs('dashboard.client.create') ? 'active' : '' }}"><i
                                     class="mdi mdi-plus-circle-outline"></i> {!!
                                 trans('dashboard.client.sub_progs.create') !!}</a>
@@ -222,7 +222,7 @@
                             <a href="{{ route('dashboard.activity_log.index') }}"
                                 class="slide-item px-6 {{ request()->routeIs('dashboard.activity_log.index') ? 'active' : '' }}"><i
                                     class="mdi mdi-file-document-multiple-outline"></i>
-                                {{ trans('dashboard.activity_log.sub_progs.index') }}</a>
+                                {{ trans('dashboard.activity_log.activity_log_records') }}</a>
                         </li>
                     </ul>
                 </li>
@@ -287,7 +287,7 @@
                             <a href="{{ route('dashboard.card_package.index') }}"
                                 class="slide-item px-6 {{ request()->routeIs('dashboard.card_package.index') ? 'active' : '' }}"><i
                                     class="mdi mdi-file-document-multiple-outline"></i>
-                                    {{ trans('dashboard.card_package.cards_discount_records') }} 
+                                    {{ trans('dashboard.card_package.cards_discount_records') }}
                                 </a>
                         </li>
 
