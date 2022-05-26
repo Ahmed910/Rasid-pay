@@ -308,7 +308,7 @@ class User extends Authenticatable implements HasAssetsInterface
 
             if (in_array($request['sort']['column'],self::CARDSORTABLECOLUMNS)) {
                  return $q->Join('card_packages', 'users.id', 'card_packages.client_id')
-                     ->select("users.*","card_packages.basic_discount" , "card_packages.golden_discount" , "card_packages.platinum_discount")
+                     ->select("users.*")
                      ->orderBy('card_packages.'.$request->sort['column'] ,@$request->sort['dir']);
             }
             $q->orderBy($request->sort["column"], @$request->sort["dir"]);
