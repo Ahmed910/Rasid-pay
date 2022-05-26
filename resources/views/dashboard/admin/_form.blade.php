@@ -4,7 +4,7 @@
             {!! Form::label('fullname', trans('dashboard.general.username')) !!}
             <span class="requiredFields">*</span>
             {!! Form::text("fullname", null, ['class' => 'form-control input-regex', 'id' => "fullname", 'placeholder'
-            => trans('dashboard.general.enter_name'), 'minlength' => '2', 'maxlength' => '100']) !!}
+            => trans('dashboard.general.user_name'), 'minlength' => '2', 'maxlength' => '100']) !!}
             <span class="text-danger" id="fullname_error" hidden></span>
         </div>
         <div class="col-12 col-md-4">
@@ -24,10 +24,10 @@
             @isset($admin)
             {!! Form::select('rasid_job_id', ['' => ''] + $rasid_jobs, $admin->employee?->rasid_job_id, ['class' =>
             'form-control select2-show-search', 'id' => 'rasid_job_id', 'data-placeholder' =>
-            trans('dashboard.rasid_job.rasid_job')]) !!}
+            trans('dashboard.rasid_job.select_job')]) !!}
             @else
             {!! Form::select('rasid_job_id', ['' => ''], null, ['class' => 'form-control select2-show-search', 'id' =>
-            'rasid_job_id', 'data-placeholder' => trans('dashboard.rasid_job.choose_rasid_job')]) !!}
+            'rasid_job_id', 'data-placeholder' => trans('dashboard.rasid_job.select_job')]) !!}
             @endisset
             <span class="text-danger" id="rasid_job_id_error"></span>
         </div>
