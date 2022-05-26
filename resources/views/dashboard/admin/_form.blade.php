@@ -4,7 +4,7 @@
             {!! Form::label('fullname', trans('dashboard.general.username')) !!}
             <span class="requiredFields">*</span>
             {!! Form::text("fullname", null, ['class' => 'form-control input-regex', 'id' => "fullname", 'placeholder'
-            => trans('dashboard.general.name'), 'minlength' => '2', 'maxlength' => '100']) !!}
+            => trans('dashboard.general.enter_name'), 'minlength' => '2', 'maxlength' => '100']) !!}
             <span class="text-danger" id="fullname_error" hidden></span>
         </div>
         <div class="col-12 col-md-4">
@@ -27,7 +27,7 @@
             trans('dashboard.rasid_job.rasid_job')]) !!}
             @else
             {!! Form::select('rasid_job_id', ['' => ''], null, ['class' => 'form-control select2-show-search', 'id' =>
-            'rasid_job_id', 'data-placeholder' => trans('dashboard.rasid_job.rasid_job')]) !!}
+            'rasid_job_id', 'data-placeholder' => trans('dashboard.rasid_job.choose_rasid_job')]) !!}
             @endisset
             <span class="text-danger" id="rasid_job_id_error"></span>
         </div>
@@ -41,7 +41,7 @@
             (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);', 'min' => '0',
             'maxlength'
             => '6', 'onkeypress' => 'return /[0-9a-zA-Z]/i.test(event.key)', 'id' => 'userId', 'placeholder' =>
-            trans('dashboard.admin.login_id'),'disabled' => 'disabled']) !!}
+            trans('dashboard.admin.enter_login_id'),'disabled' => 'disabled']) !!}
             @else
         
         
@@ -49,7 +49,7 @@
             (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);', 'min' => '0',
             'maxlength'
             => '6', 'onkeypress' => 'return /[0-9a-zA-Z]/i.test(event.key)', 'id' => 'userId', 'placeholder' =>
-            trans('dashboard.admin.login_id')]) !!}
+            trans('dashboard.admin.enter_login_id')]) !!}
             @endif
         
             <span class="text-danger" id="login_id_error"></span>
@@ -58,16 +58,25 @@
             {!! Form::label('email', trans('dashboard.general.email')) !!}
             <span class="requiredFields">*</span>
             {!! Form::email("email", null, ['class' => 'form-control', 'id' => "email", 'placeholder' =>
-            trans('dashboard.general.email'), 'minlength' => '2', 'maxlength' => '100']) !!}
+            trans('dashboard.general.enter_email'), 'minlength' => '2', 'maxlength' => '100']) !!}
             <span class="text-danger" id="email_error" hidden></span>
         </div>
         <div class="col-12 col-md-4  mt-3">
-            {!! Form::label('phone', trans('dashboard.general.phone')) !!}
-            <span class="requiredFields">*</span>
-            {!! Form::text("phone", null, ['class' => 'form-control input-regex', 'id' => "phone", 'placeholder' =>
-            trans('dashboard.general.phone'), 'minlength' => '2', 'maxlength' => '100']) !!}
+            <label for="phone">{{ trans('dashboard.general.phone') }} </label>
+            <div class="input-group">
+                <input id="phone" type="number" name="phone"
+                    oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
+                    pattern="^[1-9]\d*$" onkeypress="return /[0-9a-zA-Z]/i.test(event.key)" maxlength="9"
+                    class="form-control stop-copy-paste" placeholder="{{ trans('dashboard.citizens.enter_phone') }} "
+                    class="form-control" value="{{ isset($admin) ? $admin->phone : old('phone') }}"/>
+                <div class="input-group-text border-start-0">
+                    966+
+                </div>
+            </div>
             <span class="text-danger" id="phone_error" hidden></span>
         </div>
+
+        
         
     </div>
 
@@ -160,7 +169,7 @@
                     {!! Form::password('password', ['class' => 'form-control stop-copy-paste', 'maxlength' => '10',
                     'oninput' => 'javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0,
                     this.maxLength);', 'pattern' => '^[1-9]\d*$', 'onkeypress' => 'return /[0-9]/i.test(event.key)',
-                    'placeholder' => trans('dashboard.admin.new_password')]) !!}
+                    'placeholder' => trans('dashboard.admin.enter_password')]) !!}
             
                     <div class="input-group-text border-start-0">
                         <a href=""><i class="mdi mdi-eye-off-outline d-flex"></i></a>
@@ -201,7 +210,7 @@
                 {!! Form::password('password', ['class' => 'form-control stop-copy-paste', 'maxlength' => '10',
                 'oninput' => 'javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0,
                 this.maxLength);', 'pattern' => '^[1-9]\d*$', 'onkeypress' => 'return /[0-9]/i.test(event.key)',
-                'placeholder' => trans('dashboard.admin.new_password')]) !!}
+                'placeholder' => trans('dashboard.admin.enter_password')]) !!}
         
                 <div class="input-group-text border-start-0">
                     <a href=""><i class="mdi mdi-eye-off-outline d-flex"></i></a>
@@ -294,7 +303,7 @@
                   e.preventDefault();
 
                   $('span[id*="_error"]').html('');
-                  $('*input,select').removeClass('is-invalid');
+                  $('*input,select').removeClass('border-danger');
 
                   let form = $('#formId')[0];
                   let data = new FormData(form);
@@ -324,8 +333,8 @@
                               let inputName = name;
                               let inputError = name + '_error';
 
-                              $('input[name="' + inputName + '"]').addClass('is-invalid');
-                              $('select[name="' + inputName + '"]').addClass('is-invalid');
+                              $('input[name="' + inputName + '"]').addClass('border-danger');
+                              $('select[name="' + inputName + '"]').addClass('border-danger');
                               $('span[id="' + inputError + '"]').html(
                                   `<small>${message}</small>`);
                           });

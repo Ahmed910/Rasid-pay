@@ -23,6 +23,7 @@
           hijriDayViewHeaderFormat: "iMMMM iYYYY",
           dayViewHeaderFormat: "MMMM YYYY",
           ignoreReadonly: true,
+          showClear: true,
         }).on('dp.change', function () {
         table.draw();
       });
