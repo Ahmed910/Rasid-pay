@@ -2,28 +2,7 @@
 <html lang="en" dir="{{ LaravelLocalization::getCurrentLocaleDirection() }}">
 
 <head>
-  <!-- META DATA -->
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0" />
-  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <meta name="description" content="Rasid Jack Dashboard" />
-  <meta name="author" content="Spruko Technologies Private Limited" />
-  <meta name="keywords"
-    content="admin,admin dashboard,admin panel,admin template,bootstrap,clean,dashboard,flat,jquery,modern,responsive,premium admin templates,responsive admin,ui,ui kit." />
-
-  <meta name="csrf-token" content="{{ csrf_token() }}">
-
-  <!-- FAVICON -->
-  {{-- <link rel="shortcut icon" type="image/x-icon" href="{{ asset('dashboardAssets/images/brand/favicon.ico') }}" /> --}}
-
-  <!-- TITLE -->
-  {{-- <title>{!! trans('dashboard.general.dashboard') !!} @yield('title')</title> --}}
-
-  <!-- STYLE CSS -->
-  {{-- <link href="{{ asset('dashboardAssets/css/style.css') }}" rel="stylesheet" /> --}}
-  <!--- FONT-ICONS CSS -->
-  {{-- <link href="{{ asset('dashboardAssets/css/icons.css') }}" rel="stylesheet" /> --}}
-
   <style>
     @media screen,
     print {
@@ -120,40 +99,29 @@
 </head>
 
 <body class="app sidebar-mini {{ LaravelLocalization::getCurrentLocaleDirection() }}">
-
   <div class="container">
-
     <div class="row row-sm">
       <div class="col-lg-12">
         <table id="departmentTable" class="table">
           <thead>
             <tr>
               <th colspan="5" style="border: none;">
-                <header>
-                  <div class="row ">
-                    <div class="col-6 ms-md-auto" style="transform: translateY(100%);text-align: left;">
-                      <h3>تقرير عن الأقسام
-                      </h3>
-                      <p>تاريخ إنشائها من (20/03/2023) إلى (25/03/2022)</p>
-                    </div>
-                  </div>
+                <div class="col-6 ms-md-auto" style="transform: translateY(100%);text-align: left;">
+                  <h3>تقرير عن الأقسام </h3>
+                  <p>تاريخ إنشائها من (20/03/2023) إلى (25/03/2022)</p>
+                </div>
+                <div class="col-5 ms-md-auto"
+                  style="position: absolute; left: 0; padding: 0; text-align: left; top: 65%; transform: translateY(100%);">
                   <div class="row">
-                    <div class="col-5 ms-md-auto"
-                      style="position: absolute; left: 0; padding: 0; text-align: left; top: 65%; transform: translateY(100%);">
-                      <div class="row">
-                        <div class="col-6">
-                          <b>رقم المستخدم: </b>256324
-                        </div>
-                        <div class="col-6">
-                          <b>تاريخ الطباعة: </b>20/03/2022
-                        </div>
-                      </div>
-
+                    <div class="col-6">
+                      <b>رقم المستخدم: </b>256324
+                    </div>
+                    <div class="col-6">
+                      <b>تاريخ الطباعة: </b>{{ now() }}
                     </div>
                   </div>
-                </header>
+                </div>
               </th>
-
             </tr>
             <tr>
               <th class="border-bottom-0">#</th>
@@ -176,15 +144,9 @@
               <td>{{ $department->created_at }}</td>
               <td>
                 @if($department->is_active)
-                <div class="active">
-                  <i class="mdi mdi-check-circle-outline"></i>
                   {{ trans('dashboard.general.active_cases.1') }}
-                </div>
                 @else
-                <div class="unactive">
-                  <i class="mdi mdi-cancel"></i>
                   {{ trans('dashboard.general.active_cases.0') }}
-                </div>
                 @endif
               </td>
             </tr>
@@ -193,11 +155,7 @@
         </table>
       </div>
     </div>
-    <footer>
-    </footer>
   </div>
-
-
 </body>
 
 </html>
