@@ -171,7 +171,7 @@
                         <tr>
                             <td>{{ $loop->iteration }}</td>
                             <td>{{ $job->name }}</td>
-                            <td>{{ $job->department->name }}</td>
+                            <td>{{ $job->department?->name }}</td>
                             <td>{{ $job->created_at }}</td>
                             <td>
                                 @if ($job->is_active)
