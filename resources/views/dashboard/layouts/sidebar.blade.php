@@ -2,14 +2,17 @@
     <div class="app-sidebar__overlay" data-bs-toggle="sidebar"></div>
     <div class="app-sidebar d-flex flex-column h-100">
         <div class="side-header">
-            <a class="header-brand1" href="index.html">
-                <img src="{{ asset('dashboardAssets/images/brand/logo.png') }}" class="header-brand-img desktop-logo"
+            <a class="header-brand1" href="index.html" style="background: #3553aa;
+    padding: 1em 3em;
+    border-radius: 10px;
+    margin: 2em 0 !important;">
+                <img src="{{ asset('dashboardAssets/images/brand/logoPay.png') }}" class="header-brand-img desktop-logo"
                     alt="logo" />
-                <img src="{{ asset('dashboardAssets/images/brand/logo-1.png') }}" class="header-brand-img toggle-logo"
+                <img src="{{ asset('dashboardAssets/images/brand/logoPay.png') }}" class="header-brand-img toggle-logo"
                     alt="logo" />
-                <img src="{{ asset('dashboardAssets/images/brand/logo-1.png') }}" class="header-brand-img light-logo"
+                <img src="{{ asset('dashboardAssets/images/brand/logoPay.png') }}" class="header-brand-img light-logo"
                     alt="logo" />
-                <img src="{{ asset('dashboardAssets/images/brand/logo-3.png') }}" class="header-brand-img light-logo1"
+                <img src="{{ asset('dashboardAssets/images/brand/logoPay.png') }}" class="header-brand-img light-logo1"
                     alt="logo" />
             </a>
             <!-- LOGO -->
@@ -43,7 +46,7 @@
                     </ul>
                 </li> --}}
                 <li class="sub-category">
-                    <h3>رصيد جاك</h3>
+                    <h3>رصيد </h3>
                 </li>
                 <li class="slide {{ request()->routeIs('dashboard.department.*') && !request()->routeIs('dashboard.*.archive') ? 'is-expanded' : '' }} ">
                     <a class="side-menu__item" data-bs-toggle="slide" href="javascript:void(0)"><i
