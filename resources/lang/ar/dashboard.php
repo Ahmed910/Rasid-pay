@@ -620,6 +620,7 @@ return [
         'card_end_at' => "تاريخ انتهاء البطاقة",
         'created_at' => "تاريخ التسجيل",
         'actions' => "العمليات",
+        'without' => "بدون",
 
         'edit_phone' => "تعديل رقم الجوال",
         'new_phone' => "رقم الجوال الجديد",
@@ -630,6 +631,16 @@ return [
             'platinum' => 'بلاتينية',
         ]
         ],
+
+     'card_package' => [
+            "cards_discount" => "نسب خصم البطاقات",
+            "basic_card_discount" => "نسبة خصم البطاقة الأساسية",
+            "enter_discount" => "أدخل نسبة الخصم",
+            "golden_card_discount" => "نسبة خصم البطاقة الذهبية",
+            "platinum_card_discount" => "نسبة خصم البطاقة البلاتينية",
+            "cards_discount_records" => "نسب خصم البطاقات",
+
+     ],
 
     'user' => [
         'users' => 'المستخدمين',
