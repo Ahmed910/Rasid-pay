@@ -26,6 +26,7 @@
           maxDate: '2100-01-01',
           ignoreReadonly: true,
           showClear: true,
+          isRTL: "{{ LaravelLocalization::getCurrentLocaleDirection() == 'rtl' }}"
         }).on('dp.change', function () {
         table.draw();
       });
