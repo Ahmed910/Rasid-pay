@@ -58,6 +58,11 @@ class CardPackage extends Model implements HasAssetsInterface
     {
         return $this->hasMany(CitizenCard::class);
     }
+
+    public function client()
+    {
+        return $this->hasOne(User::class, 'id','client_id');
+    }
     #endregion relationships
 
     #region custom Methods
