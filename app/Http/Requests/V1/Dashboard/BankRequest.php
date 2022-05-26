@@ -21,7 +21,7 @@ class BankRequest extends ApiMasterRequest
             'banks.*.commercial_record' => 'nullable|numeric|digits_between:10,20',
             'banks.*.tax_number' => 'nullable|numeric|digits_between:10,20',
             'banks.*.service_customer' => 'nullable|numeric|digits_between:10,20',
-            'banks.*.is_active' => 'nullable|in:0,1',
+            'banks.*.is_active' => 'nullable',
         ];
 
         foreach (config('translatable.locales') as $locale) {
