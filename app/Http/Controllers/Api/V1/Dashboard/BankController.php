@@ -76,6 +76,17 @@ class BankController extends Controller
             ]);
     }
 
+    public function bankTypes()
+    {
+        $data = transformArrayToApi(BankBranch::TYPES, 'dashboard.bank.types');
+
+        return response()->json([
+            'data' => $data,
+            'status' => true,
+            'message' => ' '
+        ], 200);
+    }
+
     #region Delete
     // TODO:: Check If Delete On Branch Or Main
     public function destroy(ReasonRequest $request, Bank $bank)

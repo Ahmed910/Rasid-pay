@@ -1,6 +1,7 @@
 <?php
 
 use App\Models\Setting;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Schema;
 
@@ -109,23 +110,40 @@ if (!function_exists('setting')) {
         return;
     }
 }
-if (!function_exists('countries_list')) {
-function countries_list($type=null, $locale = 'ar'){
-    $countries = config('country');
-    if ($type == "full"){
-        $matches = [];
-        foreach ($countries as $country) {
-            $matches[] =  [
-                'name' => $country["name_$locale"],
-                'phone' => $country["phone"],
-                'code' => $country["code"],
-                'emoji' => $country["emoji"],
-            ];
-        }
-        return $matches;
-    }
 
-    $codes = data_get($countries,'*.phone');
-    return implode(',',$codes);
+
+if (!function_exists('countries_list')) {
+    function countries_list($type = null, $locale = 'ar')
+    {
+        $countries = config('country');
+        if ($type == "full") {
+            $matches = [];
+            foreach ($countries as $country) {
+                $matches[] =  [
+                    'name' => $country["name_$locale"],
+                    'phone' => $country["phone"],
+                    'code' => $country["code"],
+                    'emoji' => $country["emoji"],
+                ];
+            }
+            return $matches;
+        }
+
+        $codes = data_get($countries, '*.phone');
+        return implode(',', $codes);
+    }
 }
+
+if (!function_exists('transformArrayToApi')) {
+    function transformArrayToApi(array $array, string $transVariable): Collection
+    {
+        $data = collect($array)->transform(function ($item) use ($transVariable) {
+            $data['type'] = $item;
+            $data['trans'] = trans("$transVariable.{$item}");
+
+            return $data;
+        });
+
+        return $data;
+    }
 }
