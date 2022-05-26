@@ -339,9 +339,40 @@ return [
     "bank" => [
         "bank" => "Bank",
         "banks" => "Banks",
+        "bank_name" => "Bank Name" ,
+        "Enter_Bank_name"=> "Enter Bank Name ",
         "add_bank" => "Add Bank",
         "edit_bank" => "Edit Bank",
         "bank_count" => "Banks Count",
+        "BranchName"=>"BranchName ",
+        "Enter_Bank_branch_name" =>"Enter_Bank_branch_name",
+        "Enter_bank_code" => "Enter_bank_code",
+        "Enter_bank_location"=>"Enter_bank_location ",
+        "transaction_Value_From"=>"transaction_Value_From",
+        "Enter_transfer_amount" => "Enter_transfer_amount",
+        "code"=>"code",
+        "type"=>" type",
+        "location"=>"location",
+        "commercialRecord"=> "commercialRecord ",
+        "Enter_commercial_Record" => " Enter_commercial_Record ",
+        "taxNumber"=>"taxNumber ",
+        "Enter_tax_Number"=>"Enter_tax_Number",
+        "serviceNumber" =>"serviceNumber ",
+        "Enter_service_Number" =>"Enter_service_Number",
+        'sub_progs' => [
+            'index' => 'سجل البنوك',
+            'archive' => 'أرشيف البنوك',
+            'create' => 'اضافة بنك',
+            'show' => 'عرض البنك'
+        ],
+        'types' => [
+
+            'islamic'=>'Islamic',
+            'investment' =>'Investment ',
+            'centeral' => 'Central'
+
+         ],
+
         'permissions' => $permissions
     ],
 
@@ -392,7 +423,7 @@ return [
 
     ],
 
-    
+
     "citizens" => [
         "citizens" => "Users",
         "name" => "Name",
@@ -409,7 +440,7 @@ return [
         'card_end_at' => "Card Expiry Date",
         'created_at' => "Registration Date",
 
-        
+
         'edit_phone' => "Edit Phone Number",
         'new_phone' => "New Phone Number",
         ],
@@ -422,6 +453,7 @@ return [
             "golden_card_discount" => "Golden Card Discount",
             "platinum_card_discount" => "Platinum Card Discount",
             "cards_discount_records" => "Cards Discount Records",
+            "discount_success_add" => "Card discounts have been added to client :client",
 
         ],
 

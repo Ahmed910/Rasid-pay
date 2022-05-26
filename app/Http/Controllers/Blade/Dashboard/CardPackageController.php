@@ -44,8 +44,10 @@ class CardPackageController extends Controller
     public function store(CardPackageRequest $request)
     {
         if (!request()->ajax()) {
-            CardPackage::create($request->validated());
-            return redirect()->route('dashboard.card_package.index')->withSuccess(__('dashboard.general.success_add'));
+            $cardPackage  =  CardPackage::create($request->validated());
+            $client_name = $cardPackage->load(['client:id,fullname'])->client->fullname;
+            return redirect()->route('dashboard.card_package.index')->withSuccess(__('dashboard.card_package.discount_success_add', [ 'client' => $client_name ]));
+
         }
 
     }

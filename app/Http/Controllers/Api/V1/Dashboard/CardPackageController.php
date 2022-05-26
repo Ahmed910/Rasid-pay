@@ -5,7 +5,9 @@ namespace App\Http\Controllers\Api\V1\Dashboard;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\V1\Dashboard\CardPackageRequest;
 use App\Http\Resources\Dashboard\CardPackageResource;
+use App\Http\Resources\Dashboard\SimpleUserResource;
 use App\Models\CardPackage\CardPackage;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class CardPackageController extends Controller
@@ -17,8 +19,25 @@ class CardPackageController extends Controller
      */
     public function index(Request $request)
     {
-        $card_packages = CardPackage::latest()->paginate((int)($request->per_page ?? config("globals.per_page")));
+        if (isset($request->order[0]['column'])) {
+            $request['sort'] = ['column' => $request['columns'][$request['order'][0]['column']]['name'], 'dir' => $request['order'][0]['dir']];
+        }
+        $card_packages = User::has('cardPackage')->where("user_type", "client")
+            ->search($request)
+            ->sortBy($request)
+            ->with("cardPackage")
+            ->paginate((int)($request->per_page ?? config("globals.per_page")));
+        $clients = User::has('cardPackage')->where("user_type", "client")->pluck('users.fullname', 'users.id');
         return CardPackageResource::collection($card_packages)->additional([
+            'status' => true,
+            'message' => ""
+        ]);
+    }
+
+    public function getclients(Request $request)
+    {
+        $clients = User::has('cardPackage')->where("user_type", "client")->select('users.fullname', 'users.id')->get();
+        return SimpleUserResource:: collection($clients)->additional([
             'status' => true,
             'message' => ""
         ]);
@@ -86,7 +105,7 @@ class CardPackageController extends Controller
         return CardPackageResource::make($card_package)
             ->additional([
                 'status' => true,
-                'message' =>  trans('dashboard.general.success_archive'),
+                'message' => trans('dashboard.general.success_archive'),
             ]);
     }
 

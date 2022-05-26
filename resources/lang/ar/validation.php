@@ -42,7 +42,12 @@ $attributes = [
     'ban_from'                  => 'حقل تاريخ من',
     'ban_to'                  => 'حقل تاريخ إلى',
     'employee_id'       =>       'اسم الموظف',
-    // new attr
+
+    //card package create screen
+    'client_id'          => 'اسم العميل',
+    'basic_discount'     => 'نسبة خصم البطاقة الأساسية',
+    'golden_discount'    => 'نسبة خصم البطاقة الذهبية',
+    'platinum_discount'  => 'نسبة خصم البطاقة البلاتينية',
 
     'parent_id'   => 'حقل القسم الرئيسي',
     'permission_list'   => 'حقل الصلاحيات  النظام مطلوب',

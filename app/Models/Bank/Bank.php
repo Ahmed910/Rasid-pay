@@ -31,7 +31,8 @@ class Bank extends Model implements Contracts\Translatable
     #region scopes
     public function scopeSearch(Builder $query, Request $request)
     {
-        $query->whereTranslationLike('name', "%$request->name%");
+        if ($request->has('name'))
+            $query->whereTranslationLike('name', "%$request->name%");
 
         if ($request->has('transactions_count') || $request->has('transaction_status')) {
             $query->where(function ($q) use ($request) {
