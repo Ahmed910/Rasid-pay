@@ -17,7 +17,6 @@ return [
 	'font_path' => base_path('public/dashboardAssets/fonts/Cairo-VariableFont_wght.ttf'),
 	'font_data' => [
 		'examplefont' => [
-
 			'R'  => 'Cairo-VariableFont_wght.ttf',    // regular font
 			'B'  => 'Cairo-VariableFont_wght.ttf',       // optional: bold font
 			'I'  => 'Cairo-VariableFont_wght.ttf',     // optional: italic font
