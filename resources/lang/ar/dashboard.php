@@ -478,18 +478,42 @@ return [
 
     ],
     "bank" => [
-        
+
         "bank" => "البنك",
         "banks" => "البنوك",
+        "bank_name" =>"اسم البنك",
+        "Enter_Bank_name"=> "أدخل اسم البنك",
         "add_bank" => "اضافة بنك",
         "edit_bank" => "تعديل بنك",
         "select_bank" => "اختر البنك",
         "bank_count" => "عدد البنوك",
+        "BranchName"=>"اسم الفرع",
+        "Enter_Bank_branch_name" =>"أدخل اسم الفرع",
+        "Enter_bank_code" => "ادخل الكود ",
+        "Enter_bank_location"=>"ادخل الموقع",
+        "transaction_Value_From"=>"قيمة تكلفة التحويل",
+        "Enter_transfer_amount" => "ادخل قيمة التحويل",
+        "code"=>"الكود",
+        "type"=>"نوع البنك",
+        "location"=>"الموقع",
+        "commercialRecord"=> "السجل التجاري",
+        "Enter_commercial_Record" => "ادخل السجل التجاري",
+        "taxNumber"=>"الرقم الضريبي",
+        "Enter_tax_Number"=>"ادخل الرقم الضريبي",
+        "serviceNumber" =>"خدمة العملاء",
+        "Enter_service_Number" =>"ادخل رقم خدمة العملاء",
         'sub_progs' => [
             'index' => 'سجل البنوك',
             'archive' => 'أرشيف البنوك',
             'create' => 'اضافة بنك',
             'show' => 'عرض البنك'
+        ],
+        'types' => [
+
+           'islamic'=>' اسلامي',
+           'investment' =>' استثماري',
+           'centeral' => ' مركزي'
+
         ],
         'permissions' => $permissions
     ],
