@@ -11,7 +11,7 @@
 
         <div class="col-12 col-md-{{ isset($department) ? 4 : 6 }} mb-5">
             {!! Form::label('mainDepartment', trans('dashboard.department.main_department')) !!}
-            {!! Form::select('parent_id', $appendArray + $departments, null, ['class' => 'form-control select2-show-search' . ($errors->has('parent_id') ? ' is-invalid' : null), 'data-placeholder' => trans('dashboard.department.select_main_department'), 'id' => 'parent_id']) !!}
+            {!! Form::select('parent_id', $appendArray + $departments, null, ['class' => 'form-control select2-show-search' . ($errors->has('parent_id') ? ' border-danger' : null), 'data-placeholder' => trans('dashboard.department.select_main_department'), 'id' => 'parent_id']) !!}
             <span class="text-danger" id="parent_idError" hidden></span>
         </div>
 
@@ -89,7 +89,7 @@
               e.preventDefault();
 
               $('span[id*="Error"]').attr('hidden', true);
-              $('*input,select').removeClass('is-invalid');
+              $('*input,select').removeClass('border-danger');
 
               let form = $('#formId')[0];
               let data = new FormData(form);
@@ -124,8 +124,8 @@
                               inputName = convertArray[0] + '[' + convertArray[1] + ']'
                           }
 
-                          $('input[name="' + inputName + '"]').addClass('is-invalid');
-                          $('select[name="' + inputName + '"]').addClass('is-invalid');
+                          $('input[name="' + inputName + '"]').addClass('border-danger');
+                          $('select[name="' + inputName + '"]').addClass('border-danger');
                           $('span[id="' + inputError + '"]').attr('hidden', false);
                           $('span[id="' + inputError + '"]').html(`<small>${message}</small>`);
                       });

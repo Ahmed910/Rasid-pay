@@ -91,7 +91,7 @@
                         </li>
                     </ul>
                 </li>
-                <li class="slide {{ request()->routeIs('dashboard.employee.*') ? 'is-expanded' : '' }}">
+                {{-- <li class="slide {{ request()->routeIs('dashboard.employee.*') ? 'is-expanded' : '' }}">
                     <a class="side-menu__item" data-bs-toggle="slide" href="javascript:void(0)"><i
                             class="mdi mdi-account-group-outline"></i><span class="side-menu__label">{!!
                             trans('dashboard.employee.employees') !!}</span><i
@@ -113,7 +113,7 @@
                                 trans('dashboard.employee.sub_progs.create') !!}</a>
                         </li>
                     </ul>
-                </li>
+                </li> --}}
                 <li class="slide {{ request()->routeIs('dashboard.group.*') ? 'is-expanded' : '' }}">
                     <a class="side-menu__item" data-bs-toggle="slide" href="javascript:void(0)"><i
                             class="mdi mdi-shield-key-outline"></i><span class="side-menu__label">{!!
@@ -226,7 +226,7 @@
                         </li>
                     </ul>
                 </li>
-                <li class="slide">
+                {{-- <li class="slide">
                     <a class="side-menu__item" data-bs-toggle="slide" href="../blacklist.html"><i
                             class="mdi mdi-account-cancel-outline"></i><span
                             class="side-menu__label">{{trans('dashboard.general.black_menu')}}</span></a>
@@ -235,7 +235,7 @@
                     <a class="side-menu__item" data-bs-toggle="slide" href="../settings.html"><i
                             class="mdi mdi-cog-outline"></i><span
                             class="side-menu__label">{{trans('dashboard.general.settings')}}</span></a>
-                </li>
+                </li> --}}
                 <li class="sub-category">
                     <h3>رصيد باي</h3>
                 </li>
