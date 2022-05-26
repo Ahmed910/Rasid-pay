@@ -17,7 +17,7 @@ class BankBranchResource extends JsonResource
             'code' => $this->code,
             'site' => $this->site,
             'transfer_amount' => (float) number_format((float)$this->transfer_amount, 2),
-            'commercial_record' => (float) number_format((float)$this->commercial_record, 2),
+            'commercial_record' => $this->commercial_record,
             'tax_number' => $this->tax_number,
             'service_customer' => $this->service_customer,
             'is_active' => (bool) $this->is_active,
