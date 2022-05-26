@@ -9,6 +9,7 @@ use App\Http\Requests\V1\Dashboard\ReasonRequest;
 use App\Http\Requests\V1\Dashboard\BankRequest;
 use App\Http\Resources\Dashboard\BankResource;
 use App\Http\Resources\Dashboard\Banks\BankBranchResource;
+use App\Http\Resources\Dashboard\Banks\BankForEditResource;
 use App\Models\BankBranch\BankBranch;
 
 class BankController extends Controller
@@ -55,7 +56,15 @@ class BankController extends Controller
             ]);
     }
 
+    public function editShow(Bank $bank)
+    {
+        $bank->load('branches', 'translations');
 
+        return BankForEditResource::make($bank)->additional([
+            'status' => true,
+            'message' => ''
+        ]);
+    }
 
     public function update(BankRequest $request, Bank $bank)
     {
