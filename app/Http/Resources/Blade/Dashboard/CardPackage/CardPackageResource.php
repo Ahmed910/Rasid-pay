@@ -16,10 +16,12 @@ class CardPackageResource extends JsonResource
     {
         return [
             "fullname" => $this->fullname,
-            "basic_discount" => $this->cardPackage->basic_discount,
-            "golden_discount" => $this->cardPackage->golden_discount,
-            "platinum_discount" => $this->cardPackage->platinum_discount,
-            "edit_route" =>route("dashboard.card_package.edit",$this->id)
+            "basic_discount" => $this->cardPackage?->basic_discount,
+            "golden_discount" => $this->cardPackage?->golden_discount,
+            "platinum_discount" => $this->cardPackage?->platinum_discount,
+            "edit_route" => route("dashboard.card_package.edit", $this->id),
+            'start_from' => $request->start
+
         ];
     }
 }

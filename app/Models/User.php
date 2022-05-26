@@ -33,8 +33,8 @@ class User extends Authenticatable implements HasAssetsInterface
     protected $dates = ['date_of_birth', 'date_of_birth_hijri'];
     public $assets = ['image'];
     protected $with = ['images'];
-    private $sortableColumns = ["login_id", "created_at", "fullname", "department", 'ban_status'];
-    private $cardsortableColumns = ["basic_discount", "golden_discount", "platinum_discount"];
+    private $sortableColumns = ["login_id", "created_at", "fullname", "department", 'ban_status',"basic_discount", "golden_discount", "platinum_discount"];
+    const CARDSORTABLECOLUMNS = ["basic_discount", "golden_discount", "platinum_discount"];
 
     public static function boot()
     {
@@ -280,8 +280,8 @@ class User extends Authenticatable implements HasAssetsInterface
             }
             $query->whereDate('ban_to', ">=", $ban_to);
         }
-        if ($request->id) {
-            $query->where('id', $request->id);
+        if ($request->id && $request->id!="-1") {
+            $query->where('users.id', $request->id);
         }
         $new = $query->toSql() ;
         if ($old!=$new)  $this->addGlobalActivity($this, $request->query(), ActivityLog::SEARCH, 'index');
@@ -305,9 +305,11 @@ class User extends Authenticatable implements HasAssetsInterface
                          ->leftJoin('department_translations as trans', 'trans.department_id', 'employees.department_id')
                          ->orderBy('trans.name',@$request->sort['dir']);
             }
-            if (in_array($request->sort['column'] ,$this->cardsortableColumns)) {
+
+            if (in_array($request['sort']['column'],self::CARDSORTABLECOLUMNS)) {
                  return $q->Join('card_packages', 'users.id', 'card_packages.client_id')
-                ->orderBy('card_packages.'.$request->sort['column'] ,@$request->sort['dir']) ;
+                     ->select("users.*")
+                     ->orderBy('card_packages.'.$request->sort['column'] ,@$request->sort['dir']);
             }
             $q->orderBy($request->sort["column"], @$request->sort["dir"]);
         });

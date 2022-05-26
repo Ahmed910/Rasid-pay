@@ -2,13 +2,16 @@
 <html lang="en" dir="{{ LaravelLocalization::getCurrentLocaleDirection() }}">
 
 <head>
+  <meta charset="UTF-8" />
+  <link href="{{ asset('dashboardAssets/css/style.css') }}" rel="stylesheet" />
   <style>
-    @media screen,print {
+    @media screen,
+    print {
       * {
         -webkit-print-color-adjust: exact;
-
       }
-      header {
+
+      .header {
         margin-bottom: 2em;
         background: url("{{ asset('dashboardAssets/images/brand/fot-04.svg') }}") no-repeat;
         background-size: contain;
@@ -16,18 +19,18 @@
         position: relative
       }
 
-      header h3 {
+      .header h3 {
         text-align: left;
         width: 100%;
         font-weight: bold;
         line-height: 1.5em
       }
 
-      header p {
+      .header p {
         margin: 0
       }
 
-      header b {
+      .header b {
         font-weight: bold
       }
 
@@ -39,7 +42,7 @@
         width: 100%
       }
 
-      footer {
+      .footer {
         margin-bottom: 2em;
         background: url("{{ asset('dashboardAssets/images/brand/header-05.svg') }}") no-repeat;
         background-size: cover;
@@ -47,15 +50,15 @@
         position: relative
       }
 
-      table th,
-      table th,
-      table td,
-      table td {
+      th,
+      td{
         border: 1px solid #e9edf4;
       }
+
       table {
         border: none;
       }
+
       td {
         border-right: 1px solid #e9edf4;
         border-bottom: 1px solid #e9edf4;
@@ -81,55 +84,41 @@
       td:last-of-type {
         border-left: 1px solid #e9edf4;
       }
-
-      .active {
-        color: #04A777
-      }
-
-      .unactive {
-        color: #e23e3d
-      }
     }
   </style>
 </head>
 
 <body>
-
   <table>
     <thead>
       <tr>
         <th colspan="5" style="border: none;">
-          <header>
-            <div style="transform: translateY(100%);text-align: left;">
-              <h3>تقرير عن الأقسام
-              </h3>
-              <p>تاريخ إنشائها من (20/03/2023) إلى (25/03/2022)</p>
+            <div class="header">
+                <div style="transform: translateY(100%);text-align: left;">
+                    <h3>تقرير عن الأقسام </h3>
+                    <p>تاريخ إنشائها من (20/03/2023) إلى (25/03/2022)</p>
+                </div>
+                <div style="position: absolute; left: 0; padding: 0; text-align: left; top: 65%; transform: translateY(100%);">
+            <div style="width: 50%;">
+              <b>رقم المستخدم: </b>256324
             </div>
-            <div style="position: absolute; left: 0; padding: 0; text-align: left; top: 65%; transform: translateY(100%);">
-              <div class="col-6">
-                <b>رقم المستخدم: </b>256324
-              </div>
-              <div class="col-6">
-                <b>تاريخ الطباعة: </b>20/03/2022
-              </div>
+            <div style="width: 50%;">
+              <b>تاريخ الطباعة: </b> {{ date("Y-m-d H:i") }}
             </div>
-          </header>
+          </div>
+      </div>
         </th>
       </tr>
       <tr>
         <th>#</th>
         <th>
-          @lang('dashboard.department.department')
-        </th>
+          @lang('dashboard.department.department')</th>
         <th>
-          @lang('dashboard.department.main_department')
-        </th>
+          @lang('dashboard.department.main_department')</th>
         <th>
-          @lang('dashboard.general.created_at')
-        </th>
+          @lang('dashboard.general.created_at')</th>
         <th>
-          @lang('dashboard.general.status')
-        </th>
+          @lang('dashboard.general.status')</th>
       </tr>
     </thead>
     <tbody>
@@ -146,7 +135,9 @@
       @endforeach
     </tbody>
   </table>
-  <footer></footer>
+  <div class="footer">
+
+  </div>
 </body>
 
 </html>
