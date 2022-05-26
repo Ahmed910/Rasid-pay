@@ -71,7 +71,7 @@ class BankController extends Controller
     {
         $data  = $request->validated();
         $bank->fill($data + ['updated_at' => now()])->save();
-        $branchesIds = $bank->branches()->pluck('id');
+        $branchesIds = $bank->branches()->pluck('id')->toArray();
 
 
         foreach ($data['banks'] as $key => $values) {
