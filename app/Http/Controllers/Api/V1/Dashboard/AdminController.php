@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\V1\Dashboard\AdminRequest;
 use App\Http\Requests\V1\Dashboard\ReasonRequest;
 use App\Http\Resources\Dashboard\{UserResource, Admin\AdminCollection};
-use App\Models\{User, Group\Group};
+use App\Models\{User, Group\Group, Employee};
 use App\Models\Department\Department;
 use Illuminate\Http\Request;
 
@@ -60,6 +60,8 @@ class AdminController extends Controller
     {
         $admin = User::where('user_type', 'employee')->findOrFail($request->employee_id);
         $admin->fill(['user_type' => 'admin', 'password' => $request->password, 'added_by_id' => auth()->id(), 'is_login_code' => $request->is_login_code, 'login_id' => $request->login_id])->save();
+        $employee = Employee::create($request->safe()->only(['department_id', 'rasid_job_id']) + ['user_id' => $admin->id]);
+        $employee->job()->update(['is_vacant' => 0]);
         $admin->admin()->create();
         //TODO::send sms with password
         $permissions = $request->permission_list ?? [];
@@ -104,6 +106,7 @@ class AdminController extends Controller
             $admin->fill($request->safe()->except(['password']) + ['updated_at' => now()])->save();
         };
         $admin->admin()->updateOrCreate(['user_id' => $admin->id], $request->only(['ban_status', 'ban_from', 'ban_to']) + ['updated_at' => now()]);
+        $admin->employee->update($request->safe()->only(['department_id', 'rasid_job_id']));
 
         //TODO::send sms with password
         // if($request->('password_change'))

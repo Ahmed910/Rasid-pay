@@ -129,16 +129,19 @@ Route::middleware('auth:sanctum')->group(function () {
             Route::get('archive', 'archive')->name('archive');
             Route::post('restore/{id}', 'restore')->name('restore');
             Route::delete('forceDelete/{id}', 'forceDelete')->name('force_delete');
+            Route::get('banks-types','bankTypes')->name('banks_types');
         });
 
         Route::controller('CardPackageController')->name('card_packages.')->prefix('card_packages')->group(function () {
             Route::get('archive', 'archive')->name('archive');
+            Route::get('getclients', 'getclients')->name('getclients');
             Route::post('restore/{id}', 'restore')->name('restore');
             Route::delete('forceDelete/{id}', 'forceDelete')->name('force_delete');
         });
 
         Route::controller('TransactionController')->name('transactions.')->prefix('transactions')->group(function () {
             Route::delete('forceDelete/{id}', 'forceDelete')->name('force_delete');
+            Route::get('/get-transactions-statuses','trasactionsStatues')->name('transactions__statues');
         });
 
         Route::apiResources([
@@ -156,7 +159,6 @@ Route::middleware('auth:sanctum')->group(function () {
             'slides' => 'SlideController',
             "card_packages" => "CardPackageController",
             'transactions' => 'TransactionController',
-            'bank' => 'BankController',
         ]);
 
         Route::apiResource('settings', 'SettingController')->only(['index', 'store']);

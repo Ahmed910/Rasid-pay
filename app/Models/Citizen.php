@@ -77,17 +77,16 @@ class Citizen extends Model
 
 
         if (in_array($request->sort["column"], self::CITIZEN_SEARCHABLE_COLUMNS)) {
-
             return $query
                 ->orderBy($request->sort["column"], @$request->sort["dir"]);
         } else if (in_array($request->sort["column"], self::USER_SEARCHABLE_COLUMNS)) {
             return $query->join('users', 'users.id', '=', 'citizens.user_id')
                 ->orderBy('users.' . $request->sort["column"], @$request->sort["dir"]);
         } else if (key_exists($request->sort["column"], self::CARDPKG_SORT_COLUMNS)) {
-            return $query->join('citizen_cards', 'citizen_cards.id', '=', 'citizens.Citizen_card_id')
+            return $query->join('citizen_cards', 'citizen_cards.id', '=', 'citizens.citizen_card_id')
                 ->orderBy('citizen_cards.' . self::CARDPKG_SORT_COLUMNS[$request->sort["column"]], @$request->sort["dir"]);
         } else if (key_exists($request->sort["column"], self::CITIZEN_CARDS_SORT_COLUMNS)) {
-            return $query->join('citizen_cards', 'citizen_cards.id', '=', 'citizens.Citizen_card_id')
+            return $query->join('citizen_cards', 'citizen_cards.id', '=', 'citizens.citizen_card_id')
                 ->orderBy('citizen_cards.' . self::CITIZEN_CARDS_SORT_COLUMNS[$request->sort["column"]], @$request->sort["dir"]);
         }
     }

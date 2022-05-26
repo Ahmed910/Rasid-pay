@@ -34,6 +34,7 @@
         <label for="clientName">اسم العميل</label>
         <select class="form-control select2-show-search" id="client_id">
           <option selected disabled value="">إختر العميل</option>
+          <option value="-1 "> {{trans("dashboard.general.all_cases")}}</option>
           @foreach($clients as $key =>$value)
             <option value="{{ $key }}">{{$value}}</option>
           @endforeach
@@ -91,8 +92,8 @@
   </div>
   <!-- End Row -->
 
-  @include('dashboard.layouts.modals.archive')
-  @include('dashboard.layouts.modals.not_archive')
+  @include('dashboard.layouts.modals.alert')
+
 @endsection
 @include('dashboard.card_package.script')
 

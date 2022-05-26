@@ -67,11 +67,8 @@ class Attachment extends Model
         foreach ($attachmentRequest->attachments as $baseitem) {
 //            $attachment = Attachment::where("user_id", $client->user_id)->where("attachment_type", $baseitem["type"])->where("title", $baseitem["title"]);
 ////            $res = $attachment["attachmentfiles"] ;
-////            dd($attachment->first()->attachmentfiles) ;
 //            foreach ($attachment as $item) {
-//                dd($item) ;
 //                foreach ($item->attachmentfiles as $cur) {
-//                    dd($cur);
 //
 //                }
 //                $item = json_decode($item);

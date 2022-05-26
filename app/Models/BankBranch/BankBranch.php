@@ -53,6 +53,9 @@ class BankBranch extends Model
         if ($request->has('code'))
             $query->where('code', $request->code);
 
+        if ($request->has('is_active') && in_array($request->is_active, [1, 0]))
+            $query->where('is_active', $request->is_active);
+
         if ($request->has('branch_name'))
             $query->where('name', 'like', "%$request->branch_name%");
 

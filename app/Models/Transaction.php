@@ -18,6 +18,19 @@ class Transaction extends Model
 
     use HasFactory, Uuid, Loggable, SoftDeletes;
 
+    const SUCCESS = 'success';
+    const FAIL = 'fail';
+    const PENDING = 'pending';
+    const RECEIVED = 'received';
+    const CANCELED = 'cancel';
+    const TYPES = [
+        self::SUCCESS,
+        self::FAIL,
+        self::PENDING,
+        self::RECEIVED,
+        self::CANCELED,
+    ];
+
     protected $guarded = ['number', 'created_at', 'updated_at'];
     private $sortableColumns = ["user_from", "number", "created_at", "user_identity", 'from_user_to', 'amount', 'total_amount', 'gift_balance', 'type', 'status', 'discount_percent'];
     const user_searchable_Columns = ["user_from", "email", "image", "country_code", "phone", "full_phone", "identity_number", "date_of_birth"];
@@ -64,7 +77,7 @@ class Transaction extends Model
 
     public function scopeSearch(Builder $query, $request)
     {
-        $old = $query->toSql() ;
+        $old = $query->toSql();
         foreach ($request->all() as $key => $item) {
             if ($item == -1 && in_array($key, self::SELECT_ALL)) $request->request->remove($key);
             if (key_exists($key, self::ENABLED_CARD_SEARCHABLE_COLUMNS) && isset($request->$key))
@@ -116,8 +129,8 @@ class Transaction extends Model
             $query->whereHas('citizen', fn ($q) => $q->where('fullname', 'like', "%$request->citizen%"));
         }
 
-        $new = $query->toSql() ;
-        if ($old!=$new)  $this->addGlobalActivity($this, $request->query(), ActivityLog::SEARCH, 'index');
+        $new = $query->toSql();
+        if ($old != $new)  $this->addGlobalActivity($this, $request->query(), ActivityLog::SEARCH, 'index');
         // if (isset($request->card_type)) {
         //     $query->whereHas('citizen.citizen.enabledCard',
         //      fn($q) => $q->where('card_type', $request->card_type));

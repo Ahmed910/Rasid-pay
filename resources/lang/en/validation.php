@@ -157,6 +157,12 @@ return [
     |
     */
 
-    'attributes' => [],
+    'attributes' => [
+    //card package create screen
+    'client_id'          => 'Client Name',
+    'basic_discount'     => 'basic card discount',
+    'golden_discount'    => 'golden card  discount',
+    'platinum_discount'  => 'platinum card discount',
+    ],
 
 ];
