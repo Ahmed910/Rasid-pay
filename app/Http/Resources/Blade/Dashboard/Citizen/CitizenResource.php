@@ -14,7 +14,7 @@ class CitizenResource extends JsonResource
             'fullname' => $this->user->fullname,
             'identity_number' => $this->user->identity_number,
             'phone' => $this->user->phone,
-            'enabled_card' => trans('dashboard.citizens.card_type.'.$this->enabledCard?->card_type),
+            'enabled_card' => $this->enabledCard ? trans('dashboard.citizens.card_type.'.$this->enabledCard?->card_type) : '---',
             'card_end_at' => $this->enabledCard?->end_at,
             'show_route' => route('dashboard.citizen.show', $this->id),
             'edit_route' => route('dashboard.citizen.edit', $this->id),
