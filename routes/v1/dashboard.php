@@ -133,6 +133,7 @@ Route::middleware('auth:sanctum')->group(function () {
 
         Route::controller('CardPackageController')->name('card_packages.')->prefix('card_packages')->group(function () {
             Route::get('archive', 'archive')->name('archive');
+            Route::get('getclients', 'getclients')->name('getclients');
             Route::post('restore/{id}', 'restore')->name('restore');
             Route::delete('forceDelete/{id}', 'forceDelete')->name('force_delete');
         });

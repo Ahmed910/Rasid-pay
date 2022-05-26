@@ -14,16 +14,16 @@ class CardPackageResource extends JsonResource
      */
     public function toArray($request)
     {
-      
+
         return [
-                "id" => $this->id,
-                "basic_discount" => $this->basic_discount,
-                "golden_discount" => $this->golden_discount,
-                "platinum_discount" => $this->platinum_discount,
-                "client_id" => $this->client_id,
-                "is_active" => $this->is_active,
-                "images"    => ImagesResource::collection($this->whenLoaded("images")),
-                'added_by'   => SimpleUserResource::make($this->whenLoaded('addedBy')),
-            ];
+            "id" => $this->cardPackage?->id,
+            "client" => SimpleUserResource::make($this),
+            "basic_discount" => $this->cardPackage?->basic_discount,
+            "golden_discount" => $this->cardPackage?->golden_discount,
+            "platinum_discount" => $this->cardPackage?->platinum_discount,
+            "is_active" => $this->is_active,
+            "images" => ImagesResource::collection($this->whenLoaded("images")),
+            'added_by' => SimpleUserResource::make($this->whenLoaded('addedBy')),
+        ];
     }
 }
