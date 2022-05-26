@@ -153,7 +153,7 @@
         @endif
         <div class="col-12 col-md-4 mt-3 d-flex align-items-end">
             <div class="col-12 col-md-6">
-        
+
                 <div class="form-check">
                     {!! Form::checkbox('is_login_code', '1', isset($admin) && $admin->is_login_code == 1 ? true : false,
                     ['class' => 'form-check-input', 'id' => 'verifyCode']) !!}
@@ -161,7 +161,7 @@
                     'form-check-label']) !!}
                     <span class="text-danger" id="is_login_code_error"></span>
                 </div>
-        
+
             </div>
             @if (isset($admin))
             <div class="col-12 col-md-6">
@@ -175,8 +175,8 @@
             </div>
             @endif
         </div>
-        
-        
+
+
         <div class="col-12 col-md-4 mt-3 changePass" @if (isset($admin)) hidden @endif>
             {!! Form::label('newPassword', trans('dashboard.admin.password')) !!} <span class="requiredFields">*</span>
             <div class="input-group" id="show_hide_password">
@@ -184,13 +184,13 @@
                 'oninput' => 'javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0,
                 this.maxLength);', 'pattern' => '^[1-9]\d*$', 'onkeypress' => 'return /[0-9]/i.test(event.key)',
                 'placeholder' => trans('dashboard.admin.new_password')]) !!}
-        
+
                 <div class="input-group-text border-start-0">
                     <a href=""><i class="mdi mdi-eye-off-outline d-flex"></i></a>
                 </div>
             </div>
             <span class="text-danger" id="password_error"></span>
-        
+
         </div>
     </div>
 </div>
