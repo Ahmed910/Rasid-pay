@@ -2,7 +2,7 @@
     <div class="app-sidebar__overlay" data-bs-toggle="sidebar"></div>
     <div class="app-sidebar d-flex flex-column h-100">
         <div class="side-header">
-            <a class="header-brand1" href="index.html" style="background: #3553aa;
+            <a class="header-brand1" href="#!" style="background: #3553aa;
     padding: 1em 3em;
     border-radius: 10px;
     margin: 2em 0 !important;">
