@@ -77,7 +77,7 @@ Route::group(
                 'citizen' => 'CitizenController',
                 'employee' => 'EmployeeController',
                 'admin' => 'AdminController',
-                'activity_log' => 'ActivityLogController',
+                // 'activity_log' => 'ActivityLogController',
                 'bank_account' => 'BankAccountController',
                 'bank' => 'BankController',
                 'card_package' => 'CardPackageController',

@@ -25,7 +25,7 @@ class ActivityLogController extends Controller
         $request['sort'] = ['column' => $request['columns'][$request['order'][0]['column']]['name'], 'dir' => $request['order'][0]['dir']];
     }
         if ($request->ajax()) {
-            $activatyLogsQuery = ActivityLog::search($request)
+            $activatyLogsQuery = ActivityLog::select('activity_logs.id','activity_logs.user_id','activity_logs.auditable_type','activity_logs.auditable_id','activity_logs.sub_program','activity_logs.action_type','activity_logs.ip_address','activity_logs.created_at')->search($request)
             ->CustomDateFromTo($request)
             ->sortBy($request);
 

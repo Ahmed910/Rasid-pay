@@ -94,31 +94,38 @@
                             return meta.row + 1;
                         },
                         name: 'id',
-                        class: 'citizen_index'
+                        class: 'citizen_index',
+                        class : 'text-center'
                     },
                     {
                         data: "fullname",
-                        name: 'fullname'
+                        name: 'fullname',
+                        class : 'text-center'
                     },
                     {
                         data: 'identity_number',
-                        name: 'identity_number'
+                        name: 'identity_number',
+                        class : 'text-center'
                     },
                     {
                         data: 'phone',
-                        name: 'phone'
+                        name: 'phone',
+                        class : 'text-center'
                     },
                     {
                         data: 'enabled_card',
-                        name: 'enabled_card'
+                        name: 'enabled_card',
+                        class : 'text-center'
                     },
                     {
                         data: 'card_end_at',
-                        name: 'card_end_at'
+                        name: 'card_end_at',
+                        class : 'text-center'
                     },
                     {
                         data: "created_at",
-                        name: 'created_at'
+                        name: 'created_at',
+                        class : 'text-center'
                     },
                     {
                         class: "text-center",
