@@ -123,7 +123,7 @@
                             trans('dashboard.group.groups') !!}</span><i class="angle fe fe-chevron-right"></i></a>
                     <ul class="slide-menu">
                         <li class="side-menu-label1">
-                            <a href="javascript:void(0)">{!! trans('dashboard.group.groups') !!}</a>
+                            <a href="javascript:void(0)">{!! trans('dashboard.group.all_groups') !!}</a>
                         </li>
                         <li>
                             <a href="{{ route('dashboard.group.index') }}"
