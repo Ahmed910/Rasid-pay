@@ -13,6 +13,7 @@ class BankBranchResource extends JsonResource
             'id'   => $this->id,
             'name' => $this->name,
             'type' => trans("dashboard.bank.types.{$this->type}"),
+            'type_name' => $this->type,
             'code' => $this->code,
             'site' => $this->site,
             'transfer_amount' => (float) number_format((float)$this->transfer_amount, 2),
