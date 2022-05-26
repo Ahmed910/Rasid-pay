@@ -502,28 +502,24 @@ return [
         "Enter_tax_Number"=>"ادخل الرقم الضريبي",
         "serviceNumber" =>"خدمة العملاء",
         "Enter_service_Number" =>"ادخل رقم خدمة العملاء",
-        'centeral' => 'بنك مركزي',
-        'commercial' => 'بنك تجاري',
-        'bank' => 'بنك',
-        'investment' => 'استثماري',
-        'industrial' => 'بنك صناعي',
-        'real_estate' => 'بنك عقاري',
-        'agricultural' => 'بنك زراعي',
-        'islamic' => 'بنك إسلامي',
-        'savings' => 'بنك إدخار',
+        'types' => [
+            'centeral' => 'بنك مركزي',
+            'commercial' => 'بنك تجاري',
+            'bank' => 'بنك',
+            'investment' => 'استثماري',
+            'industrial' => 'بنك صناعي',
+            'real_estate' => 'بنك عقاري',
+            'agricultural' => 'بنك زراعي',
+            'islamic' => 'بنك إسلامي',
+            'savings' => 'بنك إدخار',
+        ],
         'sub_progs' => [
             'index' => 'سجل البنوك',
             'archive' => 'أرشيف البنوك',
             'create' => 'اضافة بنك',
             'show' => 'عرض البنك'
         ],
-        'types' => [
-
-           'islamic'=>' اسلامي',
-           'investment' =>' استثماري',
-           'centeral' => ' مركزي'
-
-        ],
+        
         'permissions' => $permissions
     ],
     "notification" => [
