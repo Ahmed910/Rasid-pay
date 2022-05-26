@@ -65,8 +65,8 @@ class AdminRequest extends ApiMasterRequest
             'department_id' => 'required|exists:departments,id',
             'rasid_job_id' => 'required|exists:rasid_jobs,id,department_id,'.$this->department_id,
             'fullname' => 'required|string|max:225|min:2',
-            'email' => 'required|email|max:225|unique:users,email,' . @$this->admin->id,
-            'phone' => 'required|numeric|digits_between:10,20|unique:users,phone,' . @$this->admin->id,
+            'email' => 'required|email|max:225|unique:users,email,' . @$this->admin,
+            'phone' => 'required|numeric|digits_between:10,20|unique:users,phone,' . @$this->admin,
         ] + $data;
     }
 }
