@@ -649,9 +649,9 @@ return [
     "citizens" => [
         "citizens" => "المواطنين",
         "citizens_record" => "سجل المواطنين",
-        "name" => "اسم ألمواطن",
+        "name" => "اسم المواطن",
         "identity_number" => "رقم الهوية",
-        "enter_name" => "أدخل اسم ألمواطن",
+        "enter_name" => "أدخل اسم المواطن",
         "enter_identity_number" => "أدخل رقم الهوية",
         "phone" => "رقم الجوال",
         "enter_phone" => "أدخل رقم الجوال",
