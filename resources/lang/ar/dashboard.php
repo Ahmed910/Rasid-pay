@@ -644,6 +644,7 @@ return [
             "golden_card_discount" => "نسبة خصم البطاقة الذهبية",
             "platinum_card_discount" => "نسبة خصم البطاقة البلاتينية",
             "cards_discount_records" => "نسب خصم البطاقات",
+            "discount_success_add" => "تم إضافة نسب خصم البطاقات للعميل  :client",
 
      ],
 

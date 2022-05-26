@@ -1,9 +1,7 @@
 <?php
 
 namespace App\Http\Resources\Dashboard;
-
 use Illuminate\Http\Resources\Json\JsonResource;
-use App\Http\Resources\Dashboard\CardPackageResource;
 
 class CitizenCardResource extends JsonResource
 {
@@ -18,6 +16,7 @@ class CitizenCardResource extends JsonResource
         return [
             'id' => $this->id,
             'card_type' => $this->card_type,
+            'name' => trans('dashboard.citizens.card_type.'.$this->card_type),
             'card_price' => $this->card_price,
             'upgrade_price' => $this->upgrade_price,
             'start_at' => $this->start_at,
