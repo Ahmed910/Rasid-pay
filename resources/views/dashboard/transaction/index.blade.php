@@ -16,7 +16,7 @@
     <div class="row row-sm">
         <div class="col-lg-12">
             <div class="p-1">
-                <table id="transactionsTable" class="table table-bordered shadow-sm bg-body text-nowrap key-buttons">
+                <table id="transactionsTable" class="table table-bordered text-nowrap shadow-sm bg-body key-buttons">
                     <thead>
                         <tr>
                             <th class="border-bottom-0">#</th>
