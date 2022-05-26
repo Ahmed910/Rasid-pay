@@ -141,12 +141,13 @@ class AdminController extends Controller
             $query->with('parent.translations')
                 ->ListsTranslations('name');
         }]);
+        $departments = Department::with('parent.translations')->ListsTranslations('name')->pluck('name', 'id')->toArray();
 
         $groups = Group::with('translations')->ListsTranslations('name')->pluck('name', 'id');
         $permissions = Permission::permissions()->pluck('name', 'id');
         $rasid_jobs = RasidJob::select('id')->ListsTranslations('name')->where('department_id', $admin->department?->id)->setEagerLoads([])->get();
         $locales = config('translatable.locales');
-        return view('dashboard.admin.edit', compact('admin', 'groups', 'permissions', 'locales','rasid_jobs'));
+        return view('dashboard.admin.edit', compact('departments','admin', 'groups', 'permissions', 'locales','rasid_jobs'));
     }
 
     /**
