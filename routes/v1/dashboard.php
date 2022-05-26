@@ -129,6 +129,7 @@ Route::middleware('auth:sanctum')->group(function () {
             Route::get('archive', 'archive')->name('archive');
             Route::post('restore/{id}', 'restore')->name('restore');
             Route::delete('forceDelete/{id}', 'forceDelete')->name('force_delete');
+            Route::get('banks-types','bankTypes')->name('banks_types');
         });
 
         Route::controller('CardPackageController')->name('card_packages.')->prefix('card_packages')->group(function () {
@@ -157,7 +158,6 @@ Route::middleware('auth:sanctum')->group(function () {
             'slides' => 'SlideController',
             "card_packages" => "CardPackageController",
             'transactions' => 'TransactionController',
-            'bank' => 'BankController',
         ]);
 
         Route::apiResource('settings', 'SettingController')->only(['index', 'store']);
