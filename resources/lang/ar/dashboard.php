@@ -170,7 +170,7 @@ return [
         "activity_logs" => "المتابعة",
         "activity_log_records" => "سجل النشاطات",
         "reason" => "قام :user بـ:action :model من البرنامج الرئيسى :main من البرنامج الفرعى :sub",
-        "date" => "تاريخ المتابعة",
+        "date" => "تاريخ النشاط",
         "main_program" => "البرنامج الرئيسي",
         "sub_program" => "البرنامج الفرعي",
         "activity" => " النشاط",
@@ -288,6 +288,7 @@ return [
     ],
     "group" => [
         'groups' => 'المجموعات',
+        'all_groups' => 'الصلاحيات',
         "group_name" => "اسم المجموعة",
         "main_program" => 'البرنامج الرئيسي',
         "sub_program" => 'البرنامج الفرعي',
