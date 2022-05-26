@@ -198,6 +198,7 @@ return [
             'department' => 'القسم',
             'group' => 'المجموعة',
             'rasidjob' => 'الوظيفة',
+            'type_job_name' => 'أدخل اسم الوظيفة',
             'bank' => 'البنك',
             'admin' => 'المستخدم',
             'attachment' => 'المرفق',

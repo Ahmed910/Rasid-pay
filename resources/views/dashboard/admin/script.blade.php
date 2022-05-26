@@ -22,6 +22,9 @@
           hijriDayViewHeaderFormat: "iMMMM iYYYY",
           dayViewHeaderFormat: "MMMM YYYY",
           ignoreReadonly: true,
+          minDate: '1900-01-01',
+          maxDate: '2100-01-01',
+          showClear:true
         }).on('dp.change', function () {
         table.draw();
       });
