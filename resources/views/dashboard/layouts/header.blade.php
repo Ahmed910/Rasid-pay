@@ -36,7 +36,7 @@
                                         </div>
                                     </div>
                                     <div class="notifications-menu">
-                                        <a class="dropdown-item d-flex" href="notify-list.html">
+                                        <a class="dropdown-item d-flex" href="javascript::void(0);">
                                             <div class="mt-1">
                                                 <h5 class="notification-label mb-1">
                                                     رسالة جديدة من محمد رمضان
@@ -44,7 +44,7 @@
                                                 <span class="notification-subtext">منذ 3 أيام</span>
                                             </div>
                                         </a>
-                                        <a class="dropdown-item d-flex" href="notify-list.html">
+                                        <a class="dropdown-item d-flex" href="javascript::void(0);">
                                             <!-- <div
                     class="me-3 notifyimg bg-secondary brround box-shadow-secondary"
                   >
@@ -57,7 +57,7 @@
                                                 <span class="notification-subtext">منذ 2 ساعة</span>
                                             </div>
                                         </a>
-                                        <a class="dropdown-item d-flex" href="notify-list.html">
+                                        <a class="dropdown-item d-flex" href="javascript::void(0);">
                                             <!-- <div
                     class="me-3 notifyimg bg-success-opacity brround box-shadow-success"
                   >
@@ -70,7 +70,7 @@
                                                 <span class="notification-subtext">منذ 30 ثانية</span>
                                             </div>
                                         </a>
-                                        <a class="dropdown-item d-flex" href="notify-list.html">
+                                        <a class="dropdown-item d-flex" href="javascript::void(0);">
                                             <!-- <div
                     class="me-3 notifyimg bg-pink brround box-shadow-pink"
                   >
@@ -85,7 +85,7 @@
                                         </a>
                                     </div>
                                     <div class="dropdown-divider m-0"></div>
-                                    <a href="notify-list.html" class="dropdown-item text-center p-3 text-muted">
+                                    <a href="javascript::void(0);" class="dropdown-item text-center p-3 text-muted">
                                       {{ trans('dashboard.general.show_all notification') }}
                                     </a>
                                 </div>
@@ -192,13 +192,13 @@
                                     <a class="dropdown-item" href="profile.html">
                                         <i class="mdi mdi-account-outline"></i> {{ trans('dashboard.general.personalfile') }}
                                     </a>
-                                    <a class="dropdown-item" href="email-inbox.html">
+                                    {{-- <a class="dropdown-item" href="email-inbox.html">
                                         <i class="mdi mdi-email-outline"></i> {{ trans('dashboard.message.messages') }}
                                         <span class="badge bg-danger-opacity float-end">5</span>
                                     </a>
                                     <a class="dropdown-item" href="lockscreen.html">
                                         <i class="mdi mdi-cog-outline"></i> {{ trans('dashboard.general.settings') }}
-                                    </a>
+                                    </a> --}}
                                     {!! Form::open(['route' => 'dashboard.session.logout', 'method' => 'POST', 'id' => 'logout_form_header']) !!}
                                     <a class="dropdown-item"
                                         onclick="document.getElementById('logout_form_header').submit();"
