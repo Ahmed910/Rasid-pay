@@ -19,6 +19,7 @@ class BankController extends Controller
         $bankBranches = BankBranch::with('bank.translations')
             ->with(['bank' => fn ($q) => $q->withCount('transactions')])
             ->search($request)
+            ->sortBy($request)
             ->latest()
             ->paginate((int)($request->per_page ?? config("globals.per_page")));
 
