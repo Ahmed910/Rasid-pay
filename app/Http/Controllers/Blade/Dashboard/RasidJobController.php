@@ -67,7 +67,7 @@ class RasidJobController extends Controller
 
         $departments = Department::with('parent.translations')->ListsTranslations('name')->where('is_active', 1)->pluck('name', 'id')->toArray();
         $locales = config('translatable.locales');
-        return view('dashboard.rasid_job.create', compact('departments', 'locales'));
+        return view('dashboard.rasid_job.create', compact('departments', 'locales','previousUrl'));
     }
 
     /**

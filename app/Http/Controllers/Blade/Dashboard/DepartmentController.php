@@ -63,7 +63,7 @@ class DepartmentController extends Controller
 
         $departments = array_merge(['without' => trans('dashboard.department.without_parent')], $departments);
 
-        return view('dashboard.department.create', compact('departments', 'locales'));
+        return view('dashboard.department.create', compact('departments', 'locales','previousUrl'));
     }
 
     public function store(DepartmentRequest $request, Department $department)

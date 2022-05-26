@@ -168,14 +168,15 @@ return [
     'activity_log' => [
         "activity_log" => "المتابعة",
         "activity_logs" => "المتابعة",
+        "activity_log_records" => "سجل النشاطات",
         "reason" => "قام :user بـ:action :model من البرنامج الرئيسى :main من البرنامج الفرعى :sub",
         "date" => "تاريخ المتابعة",
         "main_program" => "البرنامج الرئيسي",
         "sub_program" => "البرنامج الفرعي",
-        "activity" => " المتابعة",
+        "activity" => " النشاط",
         "employees" => " الموظفين",
         "ip_address" => "رقم معرف الجهاز",
-        "select_activity" => "اختر المتابعة",
+        "select_activity" => "اختر النشاط",
         "select_employee" => "اختر موظف",
         "select_mainprogram" => "اختر برنامج رئيسي",
         "select_subprogram" => "اختر برنامج فرعي",
@@ -531,7 +532,7 @@ return [
             'create' => 'اضافة بنك',
             'show' => 'عرض البنك'
         ],
-        
+
         'permissions' => $permissions
     ],
     "notification" => [

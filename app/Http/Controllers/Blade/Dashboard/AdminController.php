@@ -63,7 +63,7 @@ class AdminController extends Controller
         $groups = Group::ListsTranslations('name')->pluck('name', 'id');
         $permissions = Permission::permissions()->pluck('name', 'id');
         $locales = config('translatable.locales');
-        return view('dashboard.admin.create', compact('departments', 'locales', 'groups', 'permissions'));
+        return view('dashboard.admin.create', compact('departments', 'locales', 'groups', 'permissions','previousUrl'));
     }
 
     /**
