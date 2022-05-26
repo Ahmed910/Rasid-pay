@@ -99,13 +99,13 @@ Editing        :   Hesham Ashraf.
 /*Transparent variables*/
 /* ###### Bootstrap ###### */
 :root {
-    --primary-bg-color: #2e9fd8;
+    --primary-bg-color: #3553aa;
     --primary-bg-hover: #20295c;
     --primary-bg-border: #5161c1;
     --dark-body: #292e4a;
     --dark-border: #30314e;
-    --dark-primary: #2e9fd8;
-    --transparent-primary: #2e9fd8;
+    --dark-primary: #3553aa;
+    --transparent-primary: #3553aa;
     --transparent-body: #584cd9;
     --transparent-theme: rgba(0, 0, 0, 0.2);
     --transparent-border: rgba(255, 255, 255, 0.1);
@@ -126,7 +126,7 @@ Editing        :   Hesham Ashraf.
     --gray: #FDFDFD;
     --gray-medium: #F9F9F9;
     --gray-dark: #606162;
-    --primary: #2e9fd8;
+    --primary: #3553aa;
     --secondary: #6c757d;
     --success: #28a745;
     --info: #17a2b8;
@@ -79925,6 +79925,7 @@ textarea {
 .dropify-wrapper .dropify-message span.file-icon:before {
     content: "";
     background: url("../images/pngs/photo_upload.png");
+    background-size: contain;
     position: absolute;
     width: 140px;
     height: 140px;
