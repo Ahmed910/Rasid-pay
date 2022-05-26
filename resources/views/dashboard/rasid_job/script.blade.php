@@ -22,6 +22,8 @@
           hijriFormat: "iYYYY-iMM-iDD",
           hijriDayViewHeaderFormat: "iMMMM iYYYY",
           dayViewHeaderFormat: "MMMM YYYY",
+          minDate: '1900-01-01',
+          maxDate: '2100-01-01',
           ignoreReadonly: true,
           showClear: true,
         }).on('dp.change', function () {
