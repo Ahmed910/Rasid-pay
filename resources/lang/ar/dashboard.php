@@ -93,6 +93,9 @@ return [
         "notifications" => "الاشعارات",
         "show_all notification" => "مشاهدة كل الإشعارات",
         "personalfile" => "الملف الشخص",
+        "name" => "الاسم",
+        "email" => "البريد الالكتروني",
+        "phone" => "رقم الجوال",
         "active_cases" => [
             'معطلة',
             'مفعلة',

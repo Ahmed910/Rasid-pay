@@ -1,45 +1,29 @@
   <div class="card py-7 px-7">
       <div class="row">
 
-          <div class="col-12 col-md-6">
+          <div class="col-12 col-md-4">
               {!! Form::label('mainDepartment', trans('dashboard.department.department_name')) !!} <span class="requiredFields">*</span>
-              {!! Form::select('department_id', ['' => ''] + $departments, null, ['class' => 'form-control select2-show-search', 'data-placeholder' => trans('dashboard.department.select_department'),'id' => 'mainDepartment', 'onchange' => 'getJobs(this.value)']) !!}
+
+              @if (isset($admin))
+                  {!! Form::text('department_name', @$admin->department->name, ['class' => 'form-control', 'disabled' => 'disabled']) !!}
+              @else
+                  {!! Form::select('department_id', ['' => ''] + $departments, null, ['class' => 'form-control select2-show-search', 'data-placeholder' => trans('dashboard.department.select_department'), 'id' => 'mainDepartment']) !!}
+              @endif
+
               <span class="text-danger" id="department_id_error"></span>
 
           </div>
 
-          <div class="col-12 col-md-6">
-              {!! Form::label('rasid_job_id', trans('dashboard.rasid_job.rasid_job')) !!} <span class="requiredFields">*</span>
-              @isset($admin)
-              {!! Form::select('rasid_job_id', ['' => ''] + $rasid_jobs, null, ['class' => 'form-control select2-show-search', 'id' => 'rasid_job_id', 'data-placeholder' => trans('dashboard.rasid_job.rasid_job')]) !!}
-              @else
-                {!! Form::select('rasid_job_id', ['' => ''], null, ['class' => 'form-control select2-show-search', 'id' => 'rasid_job_id', 'data-placeholder' => trans('dashboard.rasid_job.rasid_job')]) !!}
-              @endisset
-              <span class="text-danger" id="rasid_job_id_error"></span>
-          </div>
-          </div>
-          <div class="row mt-3">
-              <div class="col-12 col-md-4">
-                {!! Form::label('fullname', trans('dashboard.general.name')) !!}
-                  <span class="requiredFields">*</span>
-                {!! Form::text("fullname", null, ['class' => 'form-control input-regex', 'id' => "fullname", 'placeholder' => trans('dashboard.general.name'), 'minlength' => '2', 'maxlength' => '100']) !!}
-                <span class="text-danger" id="fullname_error" hidden></span>
-              </div>
-              <div class="col-12 col-md-4">
-                {!! Form::label('email', trans('dashboard.general.email')) !!}
-                  <span class="requiredFields">*</span>
-                {!! Form::email("email", null, ['class' => 'form-control', 'id' => "email", 'placeholder' => trans('dashboard.general.email'), 'minlength' => '2', 'maxlength' => '100']) !!}
-                <span class="text-danger" id="email_error" hidden></span>
-              </div>
-              <div class="col-12 col-md-4">
-                {!! Form::label('phone', trans('dashboard.general.phone')) !!}
-                  <span class="requiredFields">*</span>
-                {!! Form::text("phone", null, ['class' => 'form-control input-regex', 'id' => "phone", 'placeholder' => trans('dashboard.general.phone'), 'minlength' => '2', 'maxlength' => '100']) !!}
-                <span class="text-danger" id="phone_error" hidden></span>
-              </div>
-          </div>
+          <div class="col-12 col-md-4">
+              {!! Form::label('userName', trans('dashboard.admin.name')) !!} <span class="requiredFields">*</span>
 
-          <div class="row mt-3">
+              @if (isset($admin))
+                  {!! Form::text('user_name', $admin->fullname, ['class' => 'form-control', 'disabled' => 'disabled']) !!}
+              @else
+                  {!! Form::select('employee_id', ['' => ''], null, ['class' => 'form-control select2-show-search', 'id' => 'userName', 'data-placeholder' => trans('dashboard.general.select_employee')]) !!}
+              @endif
+              <span class="text-danger" id="employee_id_error"></span>
+          </div>
 
           <div class="col-12 col-md-4">
               {!! Form::label('userId', trans('dashboard.admin.login_id')) !!} <span class="requiredFields">*</span>
@@ -67,7 +51,7 @@
 
 
 
-          <div class="col-12 col-md-8">
+          <div class="col-12 col-md-8 mt-3">
               <label for="permissions">{{ trans('dashboard.admin.permission_system') }}</label> <span class="requiredFields">*</span>
               <select class="form-control" name="permission_list[]" hidden multiple required></select>
               <select class="form-control" name="group_list[]" hidden multiple required></select>
@@ -101,12 +85,12 @@
 
 
           </div>
-          </div>
-          <div class="row mt-3">
 
           @if (isset($admin))
               <div class="col-12 col-md-4 mt-3">
                   {!! Form::label('status', trans('dashboard.general.status')) !!}
+
+
                   {!! Form::select('ban_status', trans('dashboard.admin.active_cases'), null, ['class' => 'form-control select2', 'id' => 'status']) !!}
 
                   <span class="text-danger" id="ban_status_error"></span>
@@ -134,11 +118,9 @@
                   <span class="text-danger" id="ban_to_error"></span>
               </div>
           @endif
-      </div>
-      <div class="row mt-2">
 
 
-          <div class="col-12 col-md-6 mt-3 d-flex align-items-end">
+          <div class="col-12 col-md-4 mt-3 d-flex align-items-end">
               <div class="col-12 col-md-6">
 
                   <div class="form-check">
@@ -160,7 +142,7 @@
           </div>
 
 
-          <div class="col-12 col-md-6 mt-3 changePass" @if (isset($admin)) hidden @endif>
+          <div class="col-12 col-md-4 mt-3 changePass" @if (isset($admin)) hidden @endif>
               {!! Form::label('newPassword', trans('dashboard.admin.password')) !!} <span class="requiredFields">*</span>
               <div class="input-group" id="show_hide_password">
                   {!! Form::password('password', ['class' => 'form-control stop-copy-paste', 'maxlength' => '10', 'oninput' => 'javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);', 'pattern' => '^[1-9]\d*$', 'onkeypress' => 'return /[0-9]/i.test(event.key)', 'placeholder' => trans('dashboard.admin.new_password')]) !!}
@@ -174,7 +156,7 @@
           </div>
 
       </div>
-</div>
+  </div>
   <div class="row">
       <div class="col-12 mb-5 text-end">
           {!! Form::button('<i class="mdi mdi-content-save-outline"></i>' . trans('dashboard.general.save'), ['type' => 'submit', 'class' => 'btn btn-primary', 'id' => 'saveButton']) !!}
@@ -196,26 +178,6 @@
       <script src="{{ asset('dashboardAssets/plugins/bootstrap-hijri-datepicker/js/bootstrap-hijri-datetimepicker.js') }}">
       </script>
       <script>
-      //get users from department script
-     function getJobs(department_id) {
-          $('#rasid_job_id').empty();
-          $('#rasid_job_id').append(new Option('', '', true, true)).trigger('change');
-          if (department_id != '') {
-              //send ajax
-              $.ajax({
-                  url: '{{ url('/dashboard/admin/all-jobs') }}' + '/' + department_id,
-                  type: 'get',
-                  success: function(data) {
-                      if (data) {
-                          $.each(data.data, function(index, job) {
-                            let newOption = new Option(job.name, job.id, false, false);
-                            $('#rasid_job_id').append(newOption).trigger('change');
-                          });
-                      }
-                  }
-              });
-          }
-      }
           function addPermissions(selected) {
               let group_options = '';
               let permission_options = '';
@@ -348,6 +310,32 @@
                       $('#to-hijri-unactive-picker-custom').val('');
                   }
               }).change();
+
+              //get users from department script
+              $("#mainDepartment").change(function(e) {
+                  e.preventDefault();
+                  let department_id = $("#mainDepartment").val();
+
+                  $('#userName').empty();
+                  $('#userName').append(new Option('', '', true, true)).trigger('change');
+
+                  if (department_id != '') {
+                      //send ajax
+                      $.ajax({
+                          url: '{{ url('/dashboard/admin/all-employees') }}' + '/' + department_id,
+                          type: 'get',
+                          success: function(data) {
+                              if (data) {
+                                  $.each(data.data, function(index, user) {
+                                    let newOption = new Option(user.fullname, user.id, false, false);
+                                    $('#userName').append(newOption).trigger('change');
+                                  });
+                              }
+                          }
+                      });
+                  }
+
+              });
 
               $("#show_hide_password a").on("click", function(event) {
                       event.preventDefault();

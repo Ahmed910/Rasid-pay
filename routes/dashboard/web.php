@@ -58,6 +58,7 @@ Route::group(
             Route::controller('AdminController')->name('admin.')->prefix('admin')->group(function () {
 
                 Route::get('all-employees/{department}', 'getEmployeesByDepartment');
+                Route::get('all-jobs/{department}', 'getJobsByDepartment');
             });
             Route::controller('ActivityLogController')->name('activitylog.')->prefix('activitylog')->group(function () {
 
