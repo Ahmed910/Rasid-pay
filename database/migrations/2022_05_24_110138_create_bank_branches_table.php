@@ -24,8 +24,6 @@ class CreateBankBranchesTable extends Migration
 
             $table->softDeletes();
             $table->timestamps();
-
-            $table->unique(['bank_id', 'name']);
         });
     }
 

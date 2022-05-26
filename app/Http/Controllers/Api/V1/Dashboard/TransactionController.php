@@ -83,7 +83,7 @@ class TransactionController extends Controller
      */
     public function update($id)
     {
-    //
+        //
     }
 
     /**
@@ -116,5 +116,16 @@ class TransactionController extends Controller
                 'status' => true,
                 'message' => trans("dashboard.general.success_delete")
             ]);
+    }
+
+    public function trasactionsStatues()
+    {
+        $data = transformArrayToApi(Transaction::TYPES, 'dashboard.transaction.status_cases');
+
+        return response()->json([
+            'data' => $data,
+            'status' => true,
+            'message' => ' '
+        ], 200);
     }
 }

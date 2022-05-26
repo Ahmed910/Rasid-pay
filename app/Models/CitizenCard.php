@@ -14,6 +14,7 @@ class CitizenCard extends Model
     #region properties
     protected $table = 'citizen_cards';
     protected $guarded = ['created_at', 'updated_at'];
+    protected $dates = ['start_at', 'end_at'];
     #endregion properties
 
     #region mutators
@@ -23,12 +24,12 @@ class CitizenCard extends Model
     public function setCardPackageIdAttribute($value){
         $this->attributes['card_package_id'] = $value;
         $this->attributes['card_data'] = CardPackage::select('id','price','offer','cash_back','promo_cash_back','discount_promo_code')->listsTranslations('name')->find($value)->toJson();
-        
+
     }
     #endregion scopes
 
     #region relationships
-    
+
     public function cardPackage()
     {
         return $this->belongsTo(CardPackage::class, 'card_package_id');
