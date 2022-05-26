@@ -26,9 +26,9 @@ class BankController extends Controller
             (strpos($previousUrl, 'bank')) ? session(['perviousPage' => 'bank']) : session(['perviousPage' => 'home']);
 
             $locales = config('translatable.locales');
-            $types =BankBranch::TYPES;
-        
-            return view('dashboard.Bank.create',compact('locales','types'));
+
+
+            return view('dashboard.Bank.create',compact('locales'));
 
     }
         public function store(BankRequest $request, Bank $bank)
