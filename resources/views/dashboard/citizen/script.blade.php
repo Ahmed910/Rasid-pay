@@ -43,7 +43,8 @@
                     ignoreReadonly: true,
                     minDate: '1900-01-01',
                     maxDate: '2100-01-01',
-                    showClear:true
+                    showClear:true,
+                    isRTL: "{{ LaravelLocalization::getCurrentLocaleDirection() == 'rtl' }}"
                 }).on('dp.change', function() {
                     table.draw();
                 });
