@@ -1,7 +1,7 @@
 <div class="card py-7 px-7">
     <div class="row mt-3">
         <div class="col-12 col-md-4">
-            {!! Form::label('fullname', trans('dashboard.general.name')) !!}
+            {!! Form::label('fullname', trans('dashboard.general.username')) !!}
             <span class="requiredFields">*</span>
             {!! Form::text("fullname", null, ['class' => 'form-control input-regex', 'id' => "fullname", 'placeholder'
             => trans('dashboard.general.name'), 'minlength' => '2', 'maxlength' => '100']) !!}
