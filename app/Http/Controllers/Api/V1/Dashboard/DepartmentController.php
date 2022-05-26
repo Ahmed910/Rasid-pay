@@ -67,7 +67,9 @@ class DepartmentController extends Controller
                             $q->where('is_active', 0);
                             break;
                     }
-                })->ListsTranslations('name')->without(['images', 'addedBy', 'translations'])->get(),
+                })->ListsTranslations('name')
+                ->addSelect('is_active')
+                ->without(['images', 'addedBy', 'translations'])->get(),
             'status' => true,
             'message' =>  '',
         ]);
