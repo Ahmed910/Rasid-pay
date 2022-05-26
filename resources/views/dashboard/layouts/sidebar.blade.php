@@ -43,7 +43,7 @@
                     </ul>
                 </li> --}}
                 <li class="sub-category">
-                    <h3>رصيد باي</h3>
+                    <h3>رصيد جاك</h3>
                 </li>
                 <li class="slide {{ request()->routeIs('dashboard.department.*') && !request()->routeIs('dashboard.*.archive') ? 'is-expanded' : '' }} ">
                     <a class="side-menu__item" data-bs-toggle="slide" href="javascript:void(0)"><i
