@@ -189,12 +189,12 @@ class User extends Authenticatable implements HasAssetsInterface
 
     public function citizenCards()
     {
-        return $this->hasMany(CitizenCard::class, 'citizen_id', 'id');
+        return $this->hasMany(CitizenCard::class, 'citizen_id');
     }
-     public function cardPackage()
-{
-    return $this->hasOne(CardPackage::class, 'client_id', 'id');
-}
+    public function cardPackage()
+    {
+        return $this->hasOne(CardPackage::class, 'client_id');
+    }
 
     public function setBanStatusAttribute($value)
     {
