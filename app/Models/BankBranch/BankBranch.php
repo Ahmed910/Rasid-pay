@@ -2,7 +2,9 @@
 
 namespace App\Models\BankBranch;
 
+use App\Models\ActivityLog;
 use App\Models\Bank\Bank;
+use App\Traits\Loggable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Traits\Uuid;
@@ -10,13 +12,15 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 
 class BankBranch extends Model
 {
-    use HasFactory, Uuid, SoftDeletes;
+    use HasFactory, Uuid, SoftDeletes, Loggable;
 
     #region properties
     protected $guarded = ['created_at', 'deleted_at'];
+    private $sortableColumns = ["name", "type", "code", "branch_name", 'site', 'transfer_amount', 'transactions_count', 'is_active'];
 
     const CENTERAL = 'centeral';
     const COMMERCIAL = 'commercial';
@@ -66,6 +70,39 @@ class BankBranch extends Model
             $query->where('transfer_amount', $request->transfer_amount);
 
         $query->whereHas('bank', fn ($q) => $q->search($request));
+
+        $this->addGlobalActivity($this, $request->query(), ActivityLog::SEARCH, 'index');
+    }
+
+    public function scopeSortBy(Builder $query, Request $request)
+    {
+        if (
+            !isset($request->sort["column"])
+            || !isset($request->sort["dir"])
+            || !in_array(Str::lower($request->sort["column"]), $this->sortableColumns)
+            || !in_array(Str::lower($request->sort["dir"]), ["asc", "desc"])
+        ) {
+            return $query->latest();
+        }
+
+        $query->when($request->sort, function ($q) use ($request) {
+            if ($request->sort["column"] == "name") {
+                return $q->has('bank.translations')
+                    ->orderBy('name', @$request->sort["dir"]);
+            }
+
+            if ($request->sort["column"] == "transactions_count") {
+                return $q->where(function ($query) {
+                    $query->where(function ($q) {
+                        $q->selectRaw('COUNT(*) as transaction_count')
+                            ->from('transactions')
+                            ->where('banks.id', 'transactions.bank_id');
+                    })->orderBy('transaction_count');
+                });
+            }
+
+            $q->orderBy($request->sort["column"], @$request->sort["dir"]);
+        });
     }
     #endregion scopes
 
