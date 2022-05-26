@@ -129,7 +129,7 @@
                             <th class="border-bottom-0">{{ trans('dashboard.citizens.enabled_card') }} </th>
                             <th class="border-bottom-0">{{ trans('dashboard.citizens.card_end_at') }} </th>
                             <th class="border-bottom-0">{{ trans('dashboard.citizens.created_at') }} </th>
-                            <th class="border-bottom-0 text-center" {{ trans('dashboard.citizens.actions') }} </th>
+                            <th class="border-bottom-0 text-center">{{ trans('dashboard.general.actions') }}</th>
                         </tr>
                     </thead>
                     <tbody>
