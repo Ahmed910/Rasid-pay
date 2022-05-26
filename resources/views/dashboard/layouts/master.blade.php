@@ -13,7 +13,7 @@
   <meta name="csrf-token" content="{{ csrf_token() }}">
 
   <!-- FAVICON -->
-  <link rel="shortcut icon" type="image/x-icon" href="{{ asset('dashboardAssets/images/brand/logoPay.png') }}" />
+  <link rel="shortcut icon" type="image/x-icon" href="{{ asset('dashboardAssets/images/brand/favicon.ico') }}" />
 
   <!-- TITLE -->
   <title>{!! trans('dashboard.general.dashboard') !!} @yield('title')</title>
