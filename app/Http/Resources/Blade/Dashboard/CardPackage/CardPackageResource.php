@@ -14,7 +14,6 @@ class CardPackageResource extends JsonResource
      */
     public function toArray($request)
     {
-//        dd($this->cardPackage) ;
         return [
             "fullname" => $this->fullname,
             "basic_discount" => $this->cardPackage->basic_discount,
