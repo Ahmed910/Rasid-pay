@@ -1,8 +1,4 @@
 <div class="card py-7 px-7">
-    <div class="row">
-
-
-    </div>
     <div class="row mt-3">
         <div class="col-12 col-md-4">
             {!! Form::label('mainDepartment', trans('dashboard.department.department_name')) !!} <span
@@ -197,7 +193,6 @@
         
         </div>
     </div>
-
 </div>
 <div class="row">
     <div class="col-12 mb-5 text-end">
