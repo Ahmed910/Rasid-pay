@@ -60,7 +60,7 @@ class CardPackageController extends Controller
         $card_package->load(['images', 'addedBy']);
         return CardPackageResource::make($card_package->client)->additional([
             'status' => true,
-            'message' => ""
+            'message' => trans("dashboard.general.success_add")
         ]);
     }
 
