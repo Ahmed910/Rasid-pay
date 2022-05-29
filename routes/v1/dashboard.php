@@ -32,6 +32,9 @@ Route::get("/files/client/{file}", [\App\Http\Controllers\Api\V1\Dashboard\Priva
 Route::delete('deletefile/{id}', "PrivateController@deletefile");
 Route::delete('deleteattachments/{id}', "PrivateController@deleteattachments");
 Route::middleware('auth:sanctum')->group(function () {
+    
+    Route::get('/', "HomeController@index")->name("home.index");
+
     // Public Routes
     Route::post('logout', "Auth\LoginController@logout");
     Route::apiResource('notifications', 'NotificationController')->except('store');
