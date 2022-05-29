@@ -101,7 +101,7 @@
   </style>
 </head>
 
-<body class="app sidebar-mini {{ LaravelLocalization::getCurrentLocaleDirection() }}" style="font-family:cairo !important">
+<body class="app sidebar-mini {{ LaravelLocalization::getCurrentLocaleDirection() }}">
   <div class="container">
     <div class="row row-sm">
       <div class="col-lg-12">
