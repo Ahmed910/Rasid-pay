@@ -98,10 +98,8 @@ class AdminController extends Controller
             ]);
     }
 
-    public function update(AdminRequest $request, $id)
+    public function update(AdminRequest $request, User $admin)
     {
-        $admin = User::where('user_type', 'admin')->findOrFail($id);
-
         if ($request->password_change && $request->password_change == 1) {
             $admin->fill($request->validated() + ['updated_at' => now()])->save();
         } else {

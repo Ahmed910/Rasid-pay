@@ -53,7 +53,7 @@ class AdminRequest extends ApiMasterRequest
         }
         return [
             'is_login_code' => 'required|in:1,0',
-            'login_id' => 'required|digits:6|numeric|unique:users,login_id,' . @$this->admin,
+            'login_id' => 'required|digits:6|numeric|unique:users,login_id,' . @$this->admin->id,
             'ban_from' => 'nullable|required_if:ban_status,temporary|date|after:1900-01-01',
             'ban_to' => 'nullable|required_if:ban_status,temporary|date|after_or_equal:ban_from',
             'group_list' => 'required_without:permission_list|array|min:1',
@@ -65,8 +65,8 @@ class AdminRequest extends ApiMasterRequest
             'department_id' => 'required|exists:departments,id',
             'rasid_job_id' => 'required|exists:rasid_jobs,id,department_id,'.$this->department_id,
             'fullname' => 'required|string|max:225|min:2',
-            'email' => 'required|email|max:225|unique:users,email,' . @$this->admin,
-            'phone' => 'required|numeric|digits_between:10,20|unique:users,phone,' . @$this->admin,
+            'email' => 'required|email|max:225|unique:users,email,' . @$this->admin->id,
+            'phone' => 'required|numeric|digits_between:10,20|unique:users,phone,' . @$this->admin->id,
         ] + $data;
     }
 }
