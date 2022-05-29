@@ -7,10 +7,11 @@
   <style>
     @media screen,
     print {
+
       /* @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@300&display=swap'); */
       * {
         -webkit-print-color-adjust: exact;
-          font-family: "cairo", Times, serif;
+        font-family: "cairo", Times, serif;
       }
 
       .header {
@@ -112,9 +113,15 @@
                 <div class="header">
                   <div class="row ">
                     <div class="col-6 ms-md-auto" style="transform: translateY(100%);text-align: left;">
-                      <h3>تقرير عن الأقسام
+                      <h3>
+                        تقرير عن الأقسام
                       </h3>
-                      <p>تاريخ إنشائها من (20/03/2023) إلى (25/03/2022)</p>
+                      <p>
+                        تاريخ إنشائها من
+                        ({{ $date_from ?? '' }})
+                        إلى
+                        ({{ $date_to ?? '' }})
+                      </p>
                     </div>
                   </div>
                   <div class="row">
@@ -122,10 +129,12 @@
                       style="position: absolute; left: 0; padding: 0; text-align: left; top: 65%; transform: translateY(100%);">
                       <div class="row">
                         <div class="col-6">
-                          <b>رقم المستخدم: </b>256324
+                          <b>رقم المستخدم: </b>
+                          {{ $userId ?? '' }}
                         </div>
                         <div class="col-6">
-                          <b>تاريخ الطباعة: </b>20/03/2022
+                          <b>تاريخ الطباعة: </b>
+                          {{ format_date(now()) }}
                         </div>
                       </div>
                     </div>
@@ -151,7 +160,7 @@
             <tr>
               <td>{{ $loop->iteration }}</td>
               <td>{{ $department->name }}</td>
-              <td>{{ @$department->parent->name ?? null }}</td>
+              <td>{{ @$department->parent->name ?? __('dashboard.department.without_parent') }}</td>
               <td>{{ $department->created_at }}</td>
               <td>
                 @if($department->is_active)
