@@ -24,7 +24,14 @@
   <link href="{{ asset('dashboardAssets/css/style.css') }}" rel="stylesheet" media="print"/>
   <!--- FONT-ICONS CSS -->
   <link href="{{ asset('dashboardAssets/css/icons.css') }}" rel="stylesheet" media="print"/>
-
+<!-- JQUERY JS -->
+<script src="{{ asset('dashboardAssets/js/jquery.min.js') }}"></script>
+<script>
+  $(function(){
+    // let mywindow = window.open('http://localhost:8000/ar/dashboard/department/exportPDF', 'PRINT', 'height=650,width=900,top=100,left=150');
+    // mywindow.print();
+  })
+</script>
   <style>
     @media screen,
     print {
@@ -122,11 +129,8 @@
 
 <body class="app sidebar-mini {{ LaravelLocalization::getCurrentLocaleDirection() }}">
 
-  <div class="container">
 
-    <div class="row row-sm">
-      <div class="col-lg-12">
-        <table id="departmentTable" class="table">
+        <table class="table">
           <thead>
             <tr>
               <th colspan="5" style="border: none;">
@@ -149,7 +153,7 @@
                           <b>تاريخ الطباعة: </b>20/03/2022
                         </div>
                       </div>
-
+                
                     </div>
                   </div>
                 </div>
@@ -192,9 +196,7 @@
             @endforeach
           </tbody>
         </table>
-      </div>
-    </div>
-  </div>
+     
 
 
 </body>
