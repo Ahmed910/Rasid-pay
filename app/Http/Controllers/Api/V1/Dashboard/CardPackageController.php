@@ -58,7 +58,7 @@ class CardPackageController extends Controller
     {
         $card_package->fill($request->validated() + ['added_by_id' => auth()->id()])->save();
         $card_package->load(['images', 'addedBy']);
-        return CardPackageResource::make($card_package)->additional([
+        return CardPackageResource::make($card_package->client)->additional([
             'status' => true,
             'message' => ""
         ]);
