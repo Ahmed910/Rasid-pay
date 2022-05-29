@@ -21,7 +21,7 @@ class AdminController extends Controller
      */
     public function index(Request $request)
     {
-
+        request()->user_type="admin" ;
         if (isset($request->order[0]['column'])) {
             $request['sort'] = ['column' => $request['columns'][$request['order'][0]['column']]['name'], 'dir' => $request['order'][0]['dir']];
         }

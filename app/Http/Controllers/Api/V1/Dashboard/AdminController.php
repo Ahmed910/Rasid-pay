@@ -15,12 +15,13 @@ class AdminController extends Controller
 
     public function index(Request $request)
     {
+        request()->user_type = "admin";
         $users = User::CustomDateFromTo($request)
-        ->has('employee')
-        ->search($request)
-        ->with(['department', 'permissions', 'groups' => function ($q) {
-            $q->with('permissions');
-        }])->where('user_type', 'admin')
+            ->has('employee')
+            ->search($request)
+            ->with(['department', 'permissions', 'groups' => function ($q) {
+                $q->with('permissions');
+            }])->where('user_type', 'admin')
             ->sortBy($request)
             ->paginate((int)($request->per_page ?? config("globals.per_page")));
 
