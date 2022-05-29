@@ -10,7 +10,7 @@
       /* @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@300&display=swap'); */
       * {
         -webkit-print-color-adjust: exact;
-
+          font-family: "cairo", Times, serif;
       }
 
       .header {
@@ -101,7 +101,7 @@
   </style>
 </head>
 
-<body class="app sidebar-mini {{ LaravelLocalization::getCurrentLocaleDirection() }}">
+<body class="app sidebar-mini {{ LaravelLocalization::getCurrentLocaleDirection() }}" style="font-family:cairo !important">
   <div class="container">
     <div class="row row-sm">
       <div class="col-lg-12">
