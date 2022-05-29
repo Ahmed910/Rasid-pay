@@ -557,7 +557,6 @@ return [
         'enter_from_user' => 'أدخل اسم المستخدم',
         'enter_user_identity' => 'أدخل رقم الهوية',
         'enter_to_user_client' => 'أدخل اسم العميل',
-        'enter_transaction_amount' => 'أدخل قيمة المعاملة',
         'enter_total_amount' => 'أدخل قيمة الفاتورة',
         'gift_balance' => 'المكافآت',
         'transaction_type' => 'نوع المعاملة',
@@ -580,9 +579,9 @@ return [
             'cancel' => 'تم الالغاء',
         ],
         'card_cases' => [
-            'main_card' => 'البطاقة الاساسية',
-            'gold_card' => 'البطاقة الذهبية',
-            'platinum_card' => 'البطاقة البلاتينية',
+            'basic' => 'البطاقة الاساسية',
+            'golden' => 'البطاقة الذهبية',
+            'platinum' => 'البطاقة البلاتينية',
         ],
         'type_cases' => [
             'payment' => 'دفع',
