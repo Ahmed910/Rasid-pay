@@ -10,8 +10,8 @@ use App\Http\Resources\Blade\Dashboard\Department\DepartmentCollection;
 use App\Models\Department\Department;
 use Illuminate\Http\Request;
 use App\Exports\DepartmentsExport;
-use Illuminate\Support\Arr;
 use Maatwebsite\Excel\Facades\Excel;
+use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 
 class DepartmentController extends Controller
 {
@@ -233,11 +233,26 @@ class DepartmentController extends Controller
             ->ListsTranslations('name')
             ->addSelect('departments.created_at', 'departments.is_active', 'departments.parent_id', 'departments.added_by_id')->get();
 
-        $mpdf = new \Mpdf\Mpdf();
+        $mpdf = new \Mpdf\Mpdf([
+            'fontDir' => [
+                public_path() . '/dashboardAssets/fonts',
+            ],
+            'fontdata' =>  [
+                'cairo' => [
+                    'R' => 'Cairo-Regular.ttf',
+                    'I' => 'Cairo-Regular.ttf',
+                    'useOTL' => 0xFF,
+                    'useKashida' => 75,
+                ]
+            ],
+            'default_font' => 'cairo'
+        ]);
         $mpdf->autoScriptToLang = true;
         $mpdf->autoLangToFont = true;
         $mpdf->simpleTables = true;
         $mpdf->packTableData = true;
+        $mpdf->SetDirectionality(LaravelLocalization::getCurrentLocaleDirection());
+
         $mpdf->WriteHTML(view('dashboard.department.export', ['departments' => $departmentsQuery]));
 
         return $mpdf->Output();
