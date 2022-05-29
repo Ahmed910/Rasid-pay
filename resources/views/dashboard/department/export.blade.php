@@ -35,6 +35,7 @@
   <style>
     @media screen,
     print {
+      /* @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@300&display=swap'); */
       * {
         -webkit-print-color-adjust: exact;
 
@@ -83,7 +84,7 @@
       .text-wrap table th,
       .table-bordered td,
       .text-wrap table td {
-        border: 1px solid #e9edf4;
+        border: 1px solid #000;
       }
 
       table {
@@ -91,8 +92,9 @@
       }
 
       td {
-        border-right: 1px solid #e9edf4;
-        border-bottom: 1px solid #e9edf4;
+        border-right: 1px solid #000;
+        border-bottom: 1px solid #000;
+        text-align: center;
       }
 
       thead tr:first-child th {
@@ -103,17 +105,17 @@
 
       thead tr:nth-child(2) th {
         border: none;
-        border-right: 1px solid #e9edf4;
-        border-bottom: 1px solid #e9edf4;
-        border-top: 1px solid #e9edf4;
+        border-right: 1px solid #000;
+        border-bottom: 1px solid #000;
+        border-top: 1px solid #000;
       }
 
       thead tr:nth-child(2) th:last-of-type {
-        border-left: 1px solid #e9edf4 !important;
+        border-left: 1px solid #000 !important;
       }
 
       td:last-of-type {
-        border-left: 1px solid #e9edf4;
+        border-left: 1px solid #000;
       }
 
       .active {
@@ -133,7 +135,7 @@
         <table class="table">
           <thead>
             <tr>
-              <th colspan="5" style="border: none;">
+              <th colspan="5">
                 <div class="header">
                   <div class="row ">
                     <div class="col-6 ms-md-auto" style="transform: translateY(100%);text-align: left;">
