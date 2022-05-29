@@ -36,7 +36,12 @@ class CardPackageController extends Controller
 
     public function getclients(Request $request)
     {
-        $clients = User::has('cardPackage')->where("user_type", "client")->select('users.fullname', 'users.id')->get();
+        $fileds = $this->validate($request, [
+            "has_card" => "required|boolean"
+        ]);
+        $clients = $request->has_card
+            ? User::has('cardPackage')->where("user_type", "client")->select('users.fullname', 'users.id')->get()
+            : User::doesntHave('cardPackage')->where("user_type", "client")->select('users.fullname', 'users.id')->get();;
         return SimpleUserResource:: collection($clients)->additional([
             'status' => true,
             'message' => ""
@@ -89,7 +94,7 @@ class CardPackageController extends Controller
         return CardPackageResource::make($card_package)
             ->additional([
                 'status' => true,
-                'message' => trans("dashboard.general.success_update")
+                'message' => trans("dashboard . general . success_update")
             ]);;
     }
 
@@ -114,7 +119,7 @@ class CardPackageController extends Controller
      */
     public function archive(Request $request)
     {
-        $card_packages = CardPackage::onlyTrashed()->with("translations")->latest()->paginate((int)($request->per_page ?? config("globals.per_page")));
+        $card_packages = CardPackage::onlyTrashed()->with("translations")->latest()->paginate((int)($request->per_page ?? config("globals . per_page")));
         return CardPackageResource::collection($card_packages)->additional([
             'status' => true,
             'message' => ""
@@ -150,7 +155,7 @@ class CardPackageController extends Controller
         return CardPackageResource::make($card_package)
             ->additional([
                 'status' => true,
-                'message' => trans("dashboard.general.success_delete")
+                'message' => trans("dashboard . general . success_delete")
             ]);
     }
 }
