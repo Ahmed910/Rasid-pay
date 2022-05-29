@@ -170,7 +170,7 @@ return [
         "activity_logs" => "المتابعة",
         "activity_log_records" => "سجل النشاطات",
         "reason" => "قام :user بـ:action :model من البرنامج الرئيسى :main من البرنامج الفرعى :sub",
-        "date" => "تاريخ المتابعة",
+        "date" => "تاريخ النشاط",
         "main_program" => "البرنامج الرئيسي",
         "sub_program" => "البرنامج الفرعي",
         "activity" => " النشاط",
@@ -198,6 +198,7 @@ return [
             'department' => 'القسم',
             'group' => 'المجموعة',
             'rasidjob' => 'الوظيفة',
+            'type_job_name' => 'أدخل اسم الوظيفة',
             'bank' => 'البنك',
             'admin' => 'المستخدم',
             'attachment' => 'المرفق',
@@ -287,6 +288,7 @@ return [
     ],
     "group" => [
         'groups' => 'المجموعات',
+        'all_groups' => 'الصلاحيات',
         "group_name" => "اسم المجموعة",
         "main_program" => 'البرنامج الرئيسي',
         "sub_program" => 'البرنامج الفرعي',
@@ -532,7 +534,6 @@ return [
             'create' => 'اضافة بنك',
             'show' => 'عرض البنك'
         ],
-
         'permissions' => $permissions
     ],
     "notification" => [
@@ -647,9 +648,9 @@ return [
     "citizens" => [
         "citizens" => "المواطنين",
         "citizens_record" => "سجل المواطنين",
-        "name" => "اسم ألمواطن",
+        "name" => "اسم المواطن",
         "identity_number" => "رقم الهوية",
-        "enter_name" => "أدخل اسم ألمواطن",
+        "enter_name" => "أدخل اسم المواطن",
         "enter_identity_number" => "أدخل رقم الهوية",
         "phone" => "رقم الجوال",
         "enter_phone" => "أدخل رقم الجوال",
@@ -676,6 +677,8 @@ return [
         ],
 
      'card_package' => [
+            "card_package" => "نسب خصم البطاقات",
+            "card_packages" => "نسب خصم البطاقات",
             "cards_discount" => "نسب خصم البطاقات",
             "basic_card_discount" => "نسبة خصم البطاقة الأساسية",
             "enter_discount" => "أدخل نسبة الخصم",
@@ -683,7 +686,7 @@ return [
             "platinum_card_discount" => "نسبة خصم البطاقة البلاتينية",
             "cards_discount_records" => "نسب خصم البطاقات",
             "discount_success_add" => "تم إضافة نسب خصم البطاقات للعميل  :client",
-
+            'permissions' => array_except($permissions,['show'])
      ],
 
     'user' => [

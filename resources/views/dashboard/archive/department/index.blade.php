@@ -22,11 +22,7 @@
                 {!! Form::select('parent_id', ['' => '', -1 => trans('dashboard.general.all_cases'), 0 => trans('dashboard.department.without_parent')] + $parentDepartments, request('parent_id'), ['class' => 'form-control select2-show-search', 'data-placeholder' => trans('dashboard.department.select_main_department'), 'id' => 'parent_id']) !!}
 
             </div>
-            <div class="col">
-                <label for="status">
-                    @lang('dashboard.general.status')</label>
-                {!! Form::select('is_active', ['' => '', -1 => trans('dashboard.general.all_cases')] + trans('dashboard.department.active_cases'), old('is_active') ?? request('is_active'), ['class' => 'form-control select2', 'data-placeholder' => trans('dashboard.general.select_status'), 'id' => 'status']) !!}
-            </div>
+
             <div class="col">
                 <label for="from-hijri-picker-custom"> {{ trans('dashboard.department.archive_from_date') }}</label>
                 <div class="input-group">
@@ -49,6 +45,11 @@
                             <i class="fa fa-calendar tx-16 lh-0 op-6"></i></label>
                     </div>
                 </div>
+            </div>
+            <div class="col">
+                <label for="status">
+                    @lang('dashboard.general.status')</label>
+                {!! Form::select('is_active', ['' => '', -1 => trans('dashboard.general.all_cases')] + trans('dashboard.department.active_cases'), old('is_active') ?? request('is_active'), ['class' => 'form-control select2', 'data-placeholder' => trans('dashboard.general.select_status'), 'id' => 'status']) !!}
             </div>
 
         </div>

@@ -18,7 +18,7 @@
 
                   </div>
         @endif
-        <div class="col-12 col-md-12 mb-5">
+        <div class="col-12 col-md-6 mb-5">
             <label for="permissions">{{trans('dashboard.admin.permission_system')}}</label> <span class="requiredFields">*</span>
             <select name="permission_list[]" hidden multiple></select>
             <select name="group_list[]" hidden multiple></select>
