@@ -534,7 +534,6 @@ return [
             'create' => 'اضافة بنك',
             'show' => 'عرض البنك'
         ],
-
         'permissions' => $permissions
     ],
     "notification" => [
