@@ -12,11 +12,13 @@
 </div>
 <div class="repeater" >
 
+
         <fieldset class="card createBankBranch px-4 py-4 "  id="bankbranch">
             <a
                 role="button"
-                class="deleteBranch text-end"
-                ><i class="mdi mdi-delete"></i></a>
+                href="javascript:void(0)"
+                class="deleteBranch text-end "
+                ><i class="mdi mdi-delete  " ></i></a>
         <div class="row">
             <div class="col-12 col-md-4 mb-5">
               {!! Form::label('bankBranchName',trans('dashboard.bank.BranchName')) !!}
@@ -125,6 +127,7 @@
 
   </div>
 </div>
+
 
 
 @include('dashboard.bank.script')
