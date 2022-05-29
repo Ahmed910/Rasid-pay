@@ -63,7 +63,7 @@ class DepartmentController extends Controller
 
         $departments = array_merge(['without' => trans('dashboard.department.without_parent')], $departments);
 
-        return view('dashboard.department.create', compact('departments', 'locales'));
+        return view('dashboard.department.create', compact('departments', 'locales','previousUrl'));
     }
 
     public function store(DepartmentRequest $request, Department $department)
@@ -211,6 +211,7 @@ class DepartmentController extends Controller
 
     public function export(Request $request)
     {
+        
         return Excel::download(new DepartmentsExport($request), 'departments.xlsx');
     }
 
@@ -228,6 +229,17 @@ class DepartmentController extends Controller
 
     public function exportPDF(Request $request)
     {
-        return  Excel::download(new DepartmentsExport($request), 'departments.pdf');
+          $departmentsQuery = Department::search($request)
+            ->CustomDateFromTo($request)
+            ->with('parent.translations')
+            ->ListsTranslations('name')
+            ->addSelect('departments.created_at', 'departments.is_active', 'departments.parent_id', 'departments.added_by_id')->get();
+
+        return view('dashboard.department.export', [
+            'departments' => $departmentsQuery
+        ]);
+        return  \PDF::download(view('dashboard.department.export', [
+            'departments' => $departmentsQuery
+        ])->render(), 'departments.pdf');
     }
 }

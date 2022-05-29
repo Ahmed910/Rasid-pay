@@ -32,7 +32,7 @@ class EmployeeController extends Controller
         $previousUrl = url()->previous();
         (strpos($previousUrl, 'employee')) ? session(['perviousPage' => 'employee']) : session(['perviousPage' => 'home']);
 
-        return view('dashboard.employee.create');
+        return view('dashboard.employee.create',compact('previousUrl'));
     }
 
     /**

@@ -52,7 +52,7 @@ class GroupController extends Controller
         $permissions = Permission::permissions()->pluck('name', 'id');
         $locales = config('translatable.locales');
 
-        return view('dashboard.group.create', compact('groups', 'permissions', 'locales'));
+        return view('dashboard.group.create', compact('groups', 'permissions', 'locales', 'previousUrl'));
     }
 
     public function store(GroupRequest $request, Group $group)

@@ -5,7 +5,7 @@
 
     <!-- PAGE-HEADER -->
     <div class="page-header">
-        <h1 class="page-title"> {{ trans('dashboard.citizens.citizens') }} </h1>
+        <h1 class="page-title"> {{ trans('dashboard.citizens.citizens_record') }} </h1>
     </div>
     <!-- PAGE-HEADER END -->
 
@@ -16,20 +16,20 @@
         <div class="col-12 col-md-3 mb-3">
             <label for="citizenName">{{ trans('dashboard.citizens.name') }} </label>
             <input type="text" class="form-control" id="citizenName"
-                placeholder="{{ trans('dashboard.citizens.name') }} " />
+                placeholder="{{ trans('dashboard.citizens.enter_name') }} " />
         </div>
         <div class="col-12 col-md-3 mb-3">
             <label for="idNumber">{{ trans('dashboard.citizens.identity_number') }} </label>
             <input type="number" class="form-control" id="idNumber"
-                placeholder="{{ trans('dashboard.citizens.identity_number') }} " />
+                placeholder="{{ trans('dashboard.citizens.enter_identity_number') }} " />
         </div>
         <div class="col-12 col-md-3 mb-3">
             <label for="phone">{{ trans('dashboard.citizens.phone') }} </label>
             <div class="input-group">
-                <input id="phone" type="number" placeholder="{{ trans('dashboard.citizens.enter_phone') }} "
+                <input id="phone" type="number" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" pattern="^[1-9]\d*$" onkeypress="return /[0-9a-zA-Z]/i.test(event.key)" maxlength="9" class="form-control stop-copy-paste" placeholder="{{ trans('dashboard.citizens.enter_phone') }} "
                     class="form-control" />
                 <div class="input-group-text border-start-0">
-                    +966
+                    966+
                 </div>
             </div>
         </div>
@@ -46,7 +46,9 @@
         <div class="col-12 col-md-3 mb-3">
             <label for="from-end-at">{{ trans('dashboard.citizens.card_end_at_from') }} </label>
             <div class="input-group">
-                <input id="from-end-at" type="text" placeholder="{{ trans('dashboard.general.day_month_year') }}"
+                <input id="from-end-at" onselectstart="return false" onpaste="return false" onCopy="return false" onCut="return false"
+                    onDrag="return false" onDrop="return false" autocomplete=off type="text"
+                    readonly placeholder="{{ trans('dashboard.general.day_month_year') }}"
                     class="form-control" name="end_at_from" />
                 <div class="input-group-text border-start-0">
                     <i class="fa fa-calendar tx-16 lh-0 op-6"></i>
@@ -56,7 +58,9 @@
         <div class="col-12 col-md-3 mb-3">
             <label for="to-end-at">{{ trans('dashboard.citizens.card_end_at_to') }} </label>
             <div class="input-group">
-                <input id="to-end-at" type="text" placeholder="{{ trans('dashboard.general.day_month_year') }}"
+                <input id="to-end-at" onselectstart="return false" onpaste="return false" onCopy="return false" onCut="return false"
+                    onDrag="return false" onDrop="return false" autocomplete=off type="text"
+                    readonly placeholder="{{ trans('dashboard.general.day_month_year') }}"
                     class="form-control" name="end_at_to" />
                 <div class="input-group-text border-start-0">
                     <i class="fa fa-calendar tx-16 lh-0 op-6"></i>
@@ -66,7 +70,9 @@
         <div class="col-12 col-md-3 mb-3">
             <label for="from-created-at">{{ trans('dashboard.citizens.created_at_from') }} </label>
             <div class="input-group">
-                <input id="from-created-at" type="text" placeholder="{{ trans('dashboard.general.day_month_year') }}"
+                <input id="from-created-at" onselectstart="return false" onpaste="return false" onCopy="return false" onCut="return false"
+                    onDrag="return false" onDrop="return false" autocomplete=off type="text"
+                    readonly placeholder="{{ trans('dashboard.general.day_month_year') }}"
                     class="form-control" name="created_from" />
                 <div class="input-group-text border-start-0">
                     <i class="fa fa-calendar tx-16 lh-0 op-6"></i>
@@ -76,7 +82,9 @@
         <div class="col-12 col-md-3 mb-3">
             <label for="to-created-at">{{ trans('dashboard.citizens.created_at_to') }} </label>
             <div class="input-group">
-                <input id="to-created-at" type="text" placeholder="{{ trans('dashboard.general.day_month_year') }}"
+                <input id="to-created-at" onselectstart="return false" onpaste="return false" onCopy="return false" onCut="return false"
+                    onDrag="return false" onDrop="return false" autocomplete=off type="text"
+                    readonly placeholder="{{ trans('dashboard.general.day_month_year') }}"
                     class="form-control" name="created_to" />
                 <div class="input-group-text border-start-0">
                     <i class="fa fa-calendar tx-16 lh-0 op-6"></i>
@@ -100,7 +108,7 @@
                 </ul>
             </div>
         </div>
-        <div class="col-12 col-md-6 d-flex justify-content-end">
+        <div class="col-12 col-md-6 my-2 d-flex justify-content-end">
             <button class="btn btn-primary mx-2" type="submit">
                 <i class="mdi mdi-magnify"></i> {{ trans('dashboard.general.search') }}
             </button>
@@ -156,7 +164,7 @@
                         </lottie-player>
                         <p>{{ trans('dashboard.citizens.edit_phone') }}</p>
                         <div class="mt-3 input-group">
-                            <input type="number" name="phone" class="form-control"
+                            <input type="number" name="phone" class="form-control" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" pattern="^[1-9]\d*$" onkeypress="return /[0-9a-zA-Z]/i.test(event.key)" maxlength="9" class="form-control stop-copy-paste"
                                 placeholder="{{ trans('dashboard.citizens.new_phone') }}">
                             <div class="input-group-text border-start-0">
                                 966+ <input type="hidden" value="966" name="country_code">

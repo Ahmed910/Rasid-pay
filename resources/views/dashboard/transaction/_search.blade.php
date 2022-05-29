@@ -4,15 +4,15 @@
 <div class="row align-items-end mb-3">
   <div class="col-12 col-md-3 mb-3">
     <label for="transactionNum">@lang('dashboard.transaction.transaction_number')</label>
-    <input type="number" class="form-control" id="transactionNum" name="transaction_number" placeholder="@lang('dashboard.transaction.transaction_number')"/>
+    <input type="number" class="form-control" id="transactionNum" name="transaction_number" placeholder="@lang('dashboard.transaction.enter_transaction_number')"/>
   </div>
   <div class="col-12 col-md-3 mb-3">
     <label for="transactionName">@lang('dashboard.transaction.from_user')</label>
-    <input type="text" class="form-control" id="transactionName"  name="citizen" placeholder="@lang('dashboard.transaction.from_user')"/>
+    <input type="text" class="form-control" id="transactionName"  name="citizen" placeholder="@lang('dashboard.transaction.enter_from_user')"/>
   </div>
   <div class="col-12 col-md-3 mb-3">
     <label for="idNumber">@lang('dashboard.transaction.user_identity')</label>
-    <input type="number" class="form-control" id="idNumber" name="user_identity" placeholder="@lang('dashboard.transaction.user_identity')"/>
+    <input type="number" class="form-control" id="idNumber" name="user_identity" placeholder="@lang('dashboard.transaction.enter_user_identity')"/>
   </div>
   <div class="col-12 col-md-3 mb-3">
     <label for="clientName">@lang('dashboard.transaction.to_user_client')</label>

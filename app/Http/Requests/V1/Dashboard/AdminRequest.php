@@ -47,7 +47,7 @@ class AdminRequest extends ApiMasterRequest
             ];
         } else {
             $data = [
-                'employee_id' =>  'required|exists:users,id,user_type,employee',
+                // 'employee_id' =>  'required|exists:users,id,user_type,employee',
                 'password' => 'required|numeric|digits_between:6,10'
             ];
         }
@@ -60,7 +60,13 @@ class AdminRequest extends ApiMasterRequest
             'group_list.*' => 'required_without:permission_list|exists:groups,id',
             'permission_list' => 'required_without:group_list|array|min:1',
             'permission_list.*' => 'required_without:group_list|exists:permissions,id',
-            'delete_image'  => "in:0,1"
+            'delete_image'  => "in:0,1",
+            // New Data
+            'department_id' => 'required|exists:departments,id',
+            'rasid_job_id' => 'required|exists:rasid_jobs,id,department_id,'.$this->department_id,
+            'fullname' => 'required|string|max:225|min:2',
+            'email' => 'required|email|max:225|unique:users,email,' . @$this->admin,
+            'phone' => 'required|numeric|digits_between:10,20|unique:users,phone,' . @$this->admin,
         ] + $data;
     }
 }

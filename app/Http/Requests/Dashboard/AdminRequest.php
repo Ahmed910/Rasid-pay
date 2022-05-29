@@ -56,8 +56,8 @@ class AdminRequest extends FormRequest
             ];
         } else {
             $data = [
-                'department_id' => 'required|exists:departments,id',
-                'employee_id' =>  'required|exists:users,id,user_type,employee',
+                // 'department_id' => 'required|exists:departments,id',
+                // 'employee_id' =>  'required|exists:users,id,user_type,employee',
                 'password' => 'required|regex:/^[A-Za-z0-9()\]\[#%&*_=~{}^:`.,$!@+\/-]+$/|min:6|max:100',
                 'login_id' => 'required|digits:6|numeric|unique:users,login_id,' . @$this->admin->id . ',id,user_type,admin',
             ];
@@ -70,7 +70,13 @@ class AdminRequest extends FormRequest
             'group_list.*' => 'required_without:permission_list|exists:groups,id',
             'permission_list' => 'required_without:group_list|array',
             'permission_list.*' => 'required_without:group_list|exists:permissions,id',
-            'delete_image'  => "in:0,1"
+            'delete_image'  => "in:0,1",
+            // New Data
+            'department_id' => 'required|exists:departments,id',
+            'rasid_job_id' => 'required|exists:rasid_jobs,id,department_id,'.$this->department_id,
+            'fullname' => 'required|string|max:225|min:2',
+            'email' => 'required|email|max:225|unique:users,email,' . @$this->admin->id,
+            'phone' => 'required|numeric|digits_between:10,20|unique:users,phone,' . @$this->admin->id,
         ] + $data;
     }
 

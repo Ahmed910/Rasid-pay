@@ -7,7 +7,7 @@ use App\Http\Requests\Dashboard\AdminRequest;
 use App\Http\Resources\Blade\Dashboard\Admin\AdminCollection;
 use App\Http\Resources\Blade\Dashboard\Activitylog\ActivityLogCollection;
 use Illuminate\Support\Facades\DB;
-use App\Models\{Permission, User};
+use App\Models\{Permission, User, RasidJob\RasidJob, Employee};
 use App\Models\Department\Department;
 use App\Models\Group\Group;
 use Illuminate\Http\Request;
@@ -62,10 +62,8 @@ class AdminController extends Controller
         $departments = Department::with('parent.translations')->ListsTranslations('name')->pluck('name', 'id')->toArray();
         $groups = Group::ListsTranslations('name')->pluck('name', 'id');
         $permissions = Permission::permissions()->pluck('name', 'id');
-
-
         $locales = config('translatable.locales');
-        return view('dashboard.admin.create', compact('departments', 'locales', 'groups', 'permissions'));
+        return view('dashboard.admin.create', compact('departments', 'locales', 'groups', 'permissions','previousUrl'));
     }
 
     /**
@@ -74,13 +72,13 @@ class AdminController extends Controller
      * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
-    public function store(AdminRequest $request)
+    public function store(AdminRequest $request,User $admin)
     {
-
         if (!request()->ajax()) {
-            $admin = User::findOrFail($request->employee_id);
             $admin->fill($request->validated() + ['user_type' => 'admin'])->save();
-
+            $employee = Employee::create($request->safe()->only(['department_id', 'rasid_job_id']) + ['user_id' => $admin->id]);
+            $employee->job()->update(['is_vacant' => 0]);
+            $admin->admin()->create();
             $permissions = $request->permission_list ?? [];
             if ($request->group_list) {
                 $admin->groups()->sync($request->group_list);
@@ -101,11 +99,7 @@ class AdminController extends Controller
 
     public function show(Request $request, $id)
     {
-
-
         $admin = User::withTrashed()->where('user_type', 'admin')->findOrFail($id);
-
-
         $sortingColumns = [
             'id',
             'user_name',
@@ -143,17 +137,17 @@ class AdminController extends Controller
     {
         $previousUrl = url()->previous();
         (strpos($previousUrl, 'admin')) ? session(['perviousPage' => 'admin']) : session(['perviousPage' => 'home']);
-        $admin = User::where('user_type', 'admin')->findOrFail($id)->load(['groups', 'permissions', 'employee', 'department' => function ($query) {
+        $admin = User::where('user_type', 'admin')->with(['groups', 'permissions', 'employee', 'department' => function ($query) {
             $query->with('parent.translations')
                 ->ListsTranslations('name');
-        }]);
-
+        }])->findOrFail($id);
+        $departments = Department::with('parent.translations')->ListsTranslations('name')->pluck('name', 'id')->toArray();
 
         $groups = Group::with('translations')->ListsTranslations('name')->pluck('name', 'id');
         $permissions = Permission::permissions()->pluck('name', 'id');
-
+        $rasid_jobs = RasidJob::select('id')->ListsTranslations('name')->where('department_id', $admin->department?->id)->setEagerLoads([])->pluck('name', 'id')->toArray();
         $locales = config('translatable.locales');
-        return view('dashboard.admin.edit', compact('admin', 'groups', 'permissions', 'locales'));
+        return view('dashboard.admin.edit', compact('departments','admin', 'groups', 'permissions', 'locales','rasid_jobs'));
     }
 
     /**
@@ -169,6 +163,7 @@ class AdminController extends Controller
             $is_login_code = 0;
             if ($request->has('is_login_code') && $request->is_login_code == 1) $is_login_code = 1;
             $admin->fill($request->validated() + ['updated_at' => now(), 'is_login_code' => $is_login_code])->save();
+            $admin->employee->update($request->safe()->only(['department_id', 'rasid_job_id']));
             $permissions = $request->permission_list ?? [];
             if ($request->group_list) {
                 $admin->groups()->sync($request->group_list);
@@ -190,6 +185,15 @@ class AdminController extends Controller
             'data' => User::select('id', 'fullname')->where('user_type', 'employee')->whereHas('department', function ($q) use ($id) {
                 $q->where('departments.id', $id);
             })->setEagerLoads([])->get(),
+            'status' => true,
+            'message' => '',
+        ]);
+    }
+
+    public function getJobsByDepartment($id)
+    {
+        return response()->json([
+            'data' => RasidJob::select('id')->ListsTranslations('name')->where(['department_id' => $id, 'is_vacant' => true])->setEagerLoads([])->get(),
             'status' => true,
             'message' => '',
         ]);

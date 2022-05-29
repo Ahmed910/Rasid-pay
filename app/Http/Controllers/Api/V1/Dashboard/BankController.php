@@ -9,6 +9,7 @@ use App\Http\Requests\V1\Dashboard\ReasonRequest;
 use App\Http\Requests\V1\Dashboard\BankRequest;
 use App\Http\Resources\Dashboard\BankResource;
 use App\Http\Resources\Dashboard\Banks\BankBranchResource;
+use App\Http\Resources\Dashboard\Banks\BankForEditResource;
 use App\Models\BankBranch\BankBranch;
 
 class BankController extends Controller
@@ -18,6 +19,7 @@ class BankController extends Controller
         $bankBranches = BankBranch::with('bank.translations')
             ->with(['bank' => fn ($q) => $q->withCount('transactions')])
             ->search($request)
+            ->sortBy($request)
             ->latest()
             ->paginate((int)($request->per_page ?? config("globals.per_page")));
 
@@ -55,12 +57,28 @@ class BankController extends Controller
             ]);
     }
 
+    public function editShow(Bank $bank)
+    {
+        $bank->load('branches', 'translations');
 
+        return BankForEditResource::make($bank)->additional([
+            'status' => true,
+            'message' => ''
+        ]);
+    }
 
     public function update(BankRequest $request, Bank $bank)
     {
         $data  = $request->validated();
         $bank->fill($data + ['updated_at' => now()])->save();
+        $branchesIds = $bank->branches()->pluck('id')->toArray();
+        $newBranchesIds = collect($data['banks'])->pluck('id')->toArray();
+
+        foreach ($branchesIds as $id) {
+            if (!in_array($id, $newBranchesIds)) {
+                BankBranch::find($id)->delete();
+            }
+        }
 
         foreach ($data['banks'] as $key => $values) {
             BankBranch::updateOrCreate(

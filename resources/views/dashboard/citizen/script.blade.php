@@ -41,6 +41,10 @@
                     hijriDayViewHeaderFormat: "iMMMM iYYYY",
                     dayViewHeaderFormat: "MMMM YYYY",
                     ignoreReadonly: true,
+                    minDate: '1900-01-01',
+                    maxDate: '2100-01-01',
+                    showClear:true,
+                    isRTL: "{{ LaravelLocalization::getCurrentLocaleDirection() == 'rtl' }}"
                 }).on('dp.change', function() {
                     table.draw();
                 });
@@ -95,40 +99,32 @@
                         },
                         name: 'id',
                         class: 'citizen_index',
-                        class : 'text-center'
                     },
                     {
                         data: "fullname",
                         name: 'fullname',
-                        class : 'text-center'
                     },
                     {
                         data: 'identity_number',
                         name: 'identity_number',
-                        class : 'text-center'
                     },
                     {
                         data: 'phone',
                         name: 'phone',
-                        class : 'text-center'
                     },
                     {
                         data: 'enabled_card',
                         name: 'enabled_card',
-                        class : 'text-center'
                     },
                     {
                         data: 'card_end_at',
                         name: 'card_end_at',
-                        class : 'text-center'
                     },
                     {
                         data: "created_at",
                         name: 'created_at',
-                        class : 'text-center'
                     },
                     {
-                        class: "text-center",
                         data: function(data) {
                             return `
                   <a href="#"
