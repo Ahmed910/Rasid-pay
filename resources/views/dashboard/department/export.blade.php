@@ -10,7 +10,7 @@
       /* @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@300&display=swap'); */
       * {
         -webkit-print-color-adjust: exact;
-
+          font-family: "cairo", Times, serif;
       }
 
       .header {
