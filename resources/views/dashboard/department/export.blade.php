@@ -14,7 +14,7 @@
 
       .header {
         margin-bottom: 2em;
-        background: url("{{ public_path('dashboardAssets/images/brand/fot-04.svg') }}") no-repeat;
+        background: url("{{ asset('dashboardAssets/images/brand/fot-04.svg') }}") no-repeat;
         background-size: contain;
         min-height: 270px;
         position: relative
@@ -45,7 +45,7 @@
 
       footer {
         margin-bottom: 2em;
-        background: url("{{ public_path('dashboardAssets/images/brand/header-05.svg') }}") no-repeat;
+        background: url("{{ asset('dashboardAssets/images/brand/header-05.svg') }}") no-repeat;
         background-size: cover;
         min-height: 350px;
         position: relative
@@ -65,6 +65,7 @@
       td {
         border-right: 1px solid #e9edf4;
         border-bottom: 1px solid #e9edf4;
+        text-align: center;
       }
 
       thead tr:first-child th {
