@@ -52,7 +52,14 @@
                         src="{{ asset('dashboardAssets') }}/images/lottie/login.json"
                         style="display: block; margin: auto">
                     </lottie-player> --}}
-                    <img src="{{ asset('dashboardAssets') }}/images/login.png" style="width: 90%; height: fit-content;" />
+                    
+
+                    @if (request()->routeIs('dashboard.login'))
+                        <img src="{{ asset('dashboardAssets') }}/images/login.png" style="width: 90%;margin: auto; height: fit-content;" />
+                        @else
+                        <img src="{{ asset('dashboardAssets') }}/images/reset.png" style="width: 75%;margin: auto; height: fit-content;" />
+                    @endif
+
                 </div>
             </div>
             <div class="col-12 col-md-7 d-flex align-center">
