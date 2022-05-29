@@ -7,88 +7,21 @@
   <style>
     @media screen,
     print {
-
-      /* @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@300&display=swap'); */
       * {
         -webkit-print-color-adjust: exact;
         font-family: "cairo", Times, serif;
       }
 
-      .header {
-        margin-bottom: 2em;
-        background: url("{{ asset('dashboardAssets/images/brand/fot-04.svg') }}") no-repeat;
-        background-size: contain;
-        min-height: 270px;
-        position: relative
-      }
-
-      .header h3 {
-        text-align: left;
+      table {
+        font-family: 'cairo', sans-serif;
         width: 100%;
-        font-weight: bold;
-        line-height: 1.5em
       }
-
-      .header p {
-        margin: 0
-      }
-
-      .header b {
-        font-weight: bold
-      }
-
-      thead tr th {
-        font-weight: bold !important
-      }
-
-      table {
-        width: 100%
-      }
-
-      footer {
-        margin-bottom: 2em;
-        background: url("{{ asset('dashboardAssets/images/brand/header-05.svg') }}") no-repeat;
-        background-size: cover;
-        min-height: 350px;
-        position: relative
-      }
-
-      .table-bordered th,
-      .text-wrap table th,
-      .table-bordered td,
-      .text-wrap table td {
-        border: 1px solid #000;
-      }
-
-      table {
-        border: none;
-      }
-
-      td {
-        border-right: 1px solid #e9edf4;
-        border-bottom: 1px solid #e9edf4;
-        text-align: center;
-      }
-
-      thead tr:first-child th {
-        border: none;
-        padding: 0 0 0 0.73rem;
-        border-width: 0
-      }
-
-      thead tr:nth-child(2) th {
-        border: none;
-        border-right: 1px solid #000;
-        border-bottom: 1px solid #000;
-        border-top: 1px solid #000;
-      }
-
-      thead tr:nth-child(2) th:last-of-type {
-        border-left: 1px solid #000 !important;
-      }
-
-      td:last-of-type {
-        border-left: 1px solid #000;
+h3{
+  font-weight: bold
+}
+      table th {
+        text-align: right !important;
+        padding: 15px
       }
 
       .active {
@@ -97,6 +30,33 @@
 
       .unactive {
         color: #e23e3d
+      }
+
+      table {
+        border-collapse: collapse;
+      }
+
+      table th {
+        border: 1px solid #f3f3f3 !important;
+      }
+
+      table td {
+        padding: 15px
+      }
+.header{
+  width: 100%;
+  position: relative;
+}
+      .logo {
+        width: 10px;
+      }
+img{
+  border-radius: 10px !important
+}
+      .title {
+        width: 50%;
+        display: block;
+        float: left;
       }
     }
   </style>
@@ -109,39 +69,22 @@
         <table id="departmentTable" class="table">
           <thead>
             <tr>
-              <th colspan="5">
-                <div class="header">
-                  <div class="row ">
-                    <div class="col-6 ms-md-auto" style="transform: translateY(100%);text-align: left;">
-                      <h3>
-                        تقرير عن الأقسام
-                      </h3>
-                      <p>
-                        تاريخ إنشائها من
-                        ({{ $date_from ?? '' }})
-                        إلى
-                        ({{ $date_to ?? '' }})
-                      </p>
-                    </div>
-                  </div>
-                  <div class="row">
-                    <div class="col-5 ms-md-auto"
-                      style="position: absolute; left: 0; padding: 0; text-align: left; top: 65%; transform: translateY(100%);">
-                      <div class="row">
-                        <div class="col-6">
-                          <b>رقم المستخدم: </b>
-                          {{ $userId ?? '' }}
-                        </div>
-                        <div class="col-6">
-                          <b>تاريخ الطباعة: </b>
-                          {{ format_date(now()) }}
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
+              <th colspan="2" style="background: #3553aa; padding-right: 1em; padding-left: 1em; text-align: center">
+                
+                    <img src="{{ public_path('dashboardAssets/images/brand/logoPay.png') }}" width="150" style="margin: auto" alt="">
+                
               </th>
-
+<th colspan="3">
+     <h3>تقرير عن الأقسام
+      </h3>
+      <br>
+      <p>تاريخ إنشائها من (20/03/2023) إلى (25/03/2022)</p>
+      <br>
+      <p>رقم المستخدم: 256324</p>
+      <br>
+      <p>تاريخ الطباعة: 20/03/2022</p>
+      <br>
+</th>
             </tr>
             <tr>
               <th class="border-bottom-0">#</th>
@@ -160,7 +103,7 @@
             <tr>
               <td>{{ $loop->iteration }}</td>
               <td>{{ $department->name }}</td>
-              <td>{{ @$department->parent->name ?? __('dashboard.department.without_parent') }}</td>
+              <td>{{ @$department->parent->name ?? null }}</td>
               <td>{{ $department->created_at }}</td>
               <td>
                 @if($department->is_active)
