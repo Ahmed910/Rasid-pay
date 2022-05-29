@@ -63,7 +63,7 @@ class DepartmentController extends Controller
 
         $departments = array_merge(['without' => trans('dashboard.department.without_parent')], $departments);
 
-        return view('dashboard.department.create', compact('departments', 'locales','previousUrl'));
+        return view('dashboard.department.create', compact('departments', 'locales', 'previousUrl'));
     }
 
     public function store(DepartmentRequest $request, Department $department)
@@ -125,8 +125,6 @@ class DepartmentController extends Controller
             $department->fill($request->validated() + ['updated_at' => now()])->save();
             return redirect()->route('dashboard.department.index')->withSuccess(__('dashboard.general.success_update'));
         }
-
-
     }
     public function archive(Request $request)
     {
@@ -179,9 +177,9 @@ class DepartmentController extends Controller
     {
         if ($request->ajax()) {
             $department->delete();
-                return response()->json([
-                    'message' =>__('dashboard.general.success_archive')
-                ] );
+            return response()->json([
+                'message' => __('dashboard.general.success_archive')
+            ]);
         }
     }
 
@@ -192,8 +190,8 @@ class DepartmentController extends Controller
             $department = Department::onlyTrashed()->findOrFail($id);
             $department->restore();
             return response()->json([
-                'message' =>__('dashboard.general.success_restore')
-            ] );
+                'message' => __('dashboard.general.success_restore')
+            ]);
         }
     }
 
@@ -204,14 +202,14 @@ class DepartmentController extends Controller
             $department = Department::onlyTrashed()->findOrFail($id);
             $department->forceDelete();
             return response()->json([
-                'message' =>__('dashboard.general.success_delete')
-            ] );
+                'message' => __('dashboard.general.success_delete')
+            ]);
         }
     }
 
     public function export(Request $request)
     {
-        
+
         return Excel::download(new DepartmentsExport($request), 'departments.xlsx');
     }
 
@@ -229,17 +227,19 @@ class DepartmentController extends Controller
 
     public function exportPDF(Request $request)
     {
-          $departmentsQuery = Department::search($request)
+        $departmentsQuery = Department::search($request)
             ->CustomDateFromTo($request)
             ->with('parent.translations')
             ->ListsTranslations('name')
             ->addSelect('departments.created_at', 'departments.is_active', 'departments.parent_id', 'departments.added_by_id')->get();
 
-        return view('dashboard.department.export', [
-            'departments' => $departmentsQuery
-        ]);
-        return  \PDF::download(view('dashboard.department.export', [
-            'departments' => $departmentsQuery
-        ])->render(), 'departments.pdf');
+        $mpdf = new \Mpdf\Mpdf();
+        $mpdf->autoScriptToLang = true;
+        $mpdf->autoLangToFont = true;
+        $mpdf->simpleTables = true;
+        $mpdf->packTableData = true;
+        $mpdf->WriteHTML(view('dashboard.department.export', ['departments' => $departmentsQuery]));
+
+        return $mpdf->Output();
     }
 }

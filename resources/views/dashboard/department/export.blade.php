@@ -4,34 +4,6 @@
 <head>
   <!-- META DATA -->
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0" />
-  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <meta name="description" content="Rasid Jack Dashboard" />
-  <meta name="author" content="Spruko Technologies Private Limited" />
-  <meta name="keywords"
-    content="admin,admin dashboard,admin panel,admin template,bootstrap,clean,dashboard,flat,jquery,modern,responsive,premium admin templates,responsive admin,ui,ui kit." />
-
-  <meta name="csrf-token" content="{{ csrf_token() }}">
-
-  <!-- FAVICON -->
-  <link rel="shortcut icon" type="image/x-icon" href="{{ asset('dashboardAssets/images/brand/favicon.ico') }}" />
-
-  <!-- TITLE -->
-  <title>{!! trans('dashboard.general.dashboard') !!} @yield('title')</title>
-<link rel="stylesheet" type="text/css" media="all"
-    href="{{ asset('dashboardAssets') }}/plugins/bootstrap/css/bootstrap{{ LaravelLocalization::getCurrentLocaleDirection() == 'rtl' ? '.rtl' : null }}.min.css" />
-  <!-- STYLE CSS -->
-  <link href="{{ asset('dashboardAssets/css/style.css') }}" rel="stylesheet" media="print"/>
-  <!--- FONT-ICONS CSS -->
-  <link href="{{ asset('dashboardAssets/css/icons.css') }}" rel="stylesheet" media="print"/>
-<!-- JQUERY JS -->
-<script src="{{ asset('dashboardAssets/js/jquery.min.js') }}"></script>
-<script>
-  $(function(){
-    // let mywindow = window.open('http://localhost:8000/ar/dashboard/department/exportPDF', 'PRINT', 'height=650,width=900,top=100,left=150');
-    // mywindow.print();
-  })
-</script>
   <style>
     @media screen,
     print {
@@ -42,7 +14,7 @@
 
       .header {
         margin-bottom: 2em;
-        background: url("{{ asset('dashboardAssets/images/brand/fot-04.svg') }}") no-repeat;
+        background: url("{{ public_path('dashboardAssets/images/brand/fot-04.svg') }}") no-repeat;
         background-size: contain;
         min-height: 270px;
         position: relative
@@ -73,7 +45,7 @@
 
       footer {
         margin-bottom: 2em;
-        background: url("{{ asset('dashboardAssets/images/brand/header-05.svg') }}") no-repeat;
+        background: url("{{ public_path('dashboardAssets/images/brand/header-05.svg') }}") no-repeat;
         background-size: cover;
         min-height: 350px;
         position: relative
@@ -128,9 +100,10 @@
 </head>
 
 <body class="app sidebar-mini {{ LaravelLocalization::getCurrentLocaleDirection() }}">
-
-
-        <table class="table">
+  <div class="container">
+    <div class="row row-sm">
+      <div class="col-lg-12">
+        <table id="departmentTable" class="table">
           <thead>
             <tr>
               <th colspan="5" style="border: none;">
@@ -153,7 +126,6 @@
                           <b>تاريخ الطباعة: </b>20/03/2022
                         </div>
                       </div>
-                
                     </div>
                   </div>
                 </div>
@@ -196,7 +168,6 @@
             @endforeach
           </tbody>
         </table>
-     
 
 
 </body>
