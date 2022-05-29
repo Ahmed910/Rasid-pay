@@ -20,10 +20,12 @@ class EmployeeRequest extends ApiMasterRequest
     protected function prepareForValidation()
     {
         $data = $this->all();
+        $forvalidation = isset($this->phone[0]) && $this->phone[0] == "0" ? convert_arabic_number(substr($this->phone, 1)) : convert_arabic_number($this->phone);
 
         $this->merge([
             'date_of_birth' =>  @$data['date_of_birth'] ? date('Y-m-d', strtotime($data['date_of_birth'])) : null,
             'date_of_birth_hijri' =>  @$data['date_of_birth_hijri'] ? date('Y-m-d', strtotime($data['date_of_birth_hijri'])) : null,
+            'phone' => @$data['phone'] ? $forvalidation: null,
         ]);
     }
 

@@ -72,7 +72,7 @@ class CardPackageController extends Controller
      */
     public function show($id)
     {
-        $card_package = CardPackage::withTrashed()->findOrFail($id)->load('translations');
+        $card_package = CardPackage::withTrashed()->findOrFail($id)->client;
         return CardPackageResource::make($card_package)
             ->additional([
                 'status' => true,
@@ -91,7 +91,7 @@ class CardPackageController extends Controller
     {
         $card_package->fill($request->validated() + ['updated_at' => now()])->save();
         $card_package->load(['images', 'addedBy']);
-        return CardPackageResource::make($card_package)
+        return CardPackageResource::make($card_package->client)
             ->additional([
                 'status' => true,
                 'message' => trans("dashboard . general . success_update")
