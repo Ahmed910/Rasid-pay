@@ -209,7 +209,6 @@ class DepartmentController extends Controller
 
     public function export(Request $request)
     {
-
         return Excel::download(new DepartmentsExport($request), 'departments.xlsx');
     }
 
