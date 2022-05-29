@@ -1,5 +1,5 @@
 @extends('dashboard.layouts.master')
-@section('title', trans('dashboard.transaction.index'))
+@section('title', trans('dashboard.transaction.transactions'))
 
 @section('content')
 

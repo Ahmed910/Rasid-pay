@@ -28,7 +28,7 @@ class BankController extends Controller
             $locales = config('translatable.locales');
             $types =BankBranch::TYPES;
 
-            return view('dashboard.Bank.create',compact('locales','types','previousUrl'));
+            return view('dashboard.bank.create',compact('locales','types','previousUrl'));
 
     }
         public function store(BankRequest $request, Bank $bank)

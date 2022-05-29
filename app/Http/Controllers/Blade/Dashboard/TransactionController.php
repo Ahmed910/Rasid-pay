@@ -36,7 +36,7 @@ class TransactionController extends Controller
 
         $allCards = CardPackage::CARD_TYPES;
         foreach ($allCards as $key => $value) {
-           $cards["$value"] = __("dashboard.citizens.card_type.$value");
+           $cards["$value"] = __("dashboard.transaction.card_cases.$value");
         }
 
         return view('dashboard.transaction.index', compact('clients', 'cards'));
