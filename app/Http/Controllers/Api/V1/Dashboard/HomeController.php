@@ -21,11 +21,12 @@ class HomeController extends Controller
             'employees'              => Employee::count(),
             'vacant_jobs'            => RasidJob::where('is_vacant', 1)->count(),
             'unvacant_jobs'          => RasidJob::where('is_vacant', 0)->count()
-
         ];
 
         return response()->json([
-            'data' => $data,
+            'data' => [
+                'statistics' => $data
+            ],
             'status' => true,
             'message' =>  '',
         ]);
