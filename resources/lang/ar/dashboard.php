@@ -677,6 +677,8 @@ return [
         ],
 
      'card_package' => [
+            "card_package" => "نسب خصم البطاقات",
+            "card_packages" => "نسب خصم البطاقات",
             "cards_discount" => "نسب خصم البطاقات",
             "basic_card_discount" => "نسبة خصم البطاقة الأساسية",
             "enter_discount" => "أدخل نسبة الخصم",
@@ -684,7 +686,7 @@ return [
             "platinum_card_discount" => "نسبة خصم البطاقة البلاتينية",
             "cards_discount_records" => "نسب خصم البطاقات",
             "discount_success_add" => "تم إضافة نسب خصم البطاقات للعميل  :client",
-
+            'permissions' => array_except($permissions,['show'])
      ],
 
     'user' => [
