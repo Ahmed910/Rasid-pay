@@ -671,12 +671,11 @@ return [
         'new_phone' => "رقم الجوال الجديد",
 
         'card_type' => [
-            'basic' => 'أساسية',
-            'golden' => 'ذهبية',
-            'platinum' => 'بلاتينية',
-        ]
+                'basic' => 'أساسية',
+                'golden' => 'ذهبية',
+                'platinum' => 'بلاتينية',
+            ]
         ],
-
      'card_package' => [
             "card_package" => "نسب خصم البطاقات",
             "card_packages" => "نسب خصم البطاقات",
