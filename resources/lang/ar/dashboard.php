@@ -534,11 +534,6 @@ return [
             'create' => 'اضافة بنك',
             'show' => 'عرض البنك'
         ],
-<<<<<<< HEAD
-
-=======
-
->>>>>>> 42139ce252516548dd431c6c0073492a0e7e9554
         'permissions' => $permissions
     ],
     "notification" => [
