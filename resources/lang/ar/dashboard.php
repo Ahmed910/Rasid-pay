@@ -62,6 +62,7 @@ return [
         'sent_successfully' => 'تم الارسال بنجاح',
         'success_send_login_code' => 'تم ارسال كود التحقق الى رقم الجوال',
         'phone' => 'رقم الجوال',
+        "enter_phone" => "أدخل رقم الجوال",
         'phone_code' => "حقل رقم الجوال مطلوب",
         'phoneCode_registeration' => "رقم الجوال غير مسجل بالنظام",
         'digits_between' => "يجب أن يحتوي حقل الجوال بين 5 و 20 رقمًا/أرقام .
@@ -95,8 +96,12 @@ return [
         "personalfile" => "الملف الشخص",
         "username" => "اسم المستخدم",
         "name" => "الاسم",
+        "user_name" => "أدخل اسم المستخدم",
         "email" => "البريد الالكتروني",
+        "enter_email" => "أدخل البريد الالكتروني",
         "phone" => "رقم الجوال",
+        "enter_email" => "أدخل البريد الالكتروني",
+        "enter_phone" => "أدخل رقم الجوال",
         "active_cases" => [
             'معطلة',
             'مفعلة',
@@ -163,14 +168,15 @@ return [
     'activity_log' => [
         "activity_log" => "المتابعة",
         "activity_logs" => "المتابعة",
+        "activity_log_records" => "سجل النشاطات",
         "reason" => "قام :user بـ:action :model من البرنامج الرئيسى :main من البرنامج الفرعى :sub",
-        "date" => "تاريخ المتابعة",
+        "date" => "تاريخ النشاط",
         "main_program" => "البرنامج الرئيسي",
         "sub_program" => "البرنامج الفرعي",
-        "activity" => " المتابعة",
+        "activity" => " النشاط",
         "employees" => " الموظفين",
         "ip_address" => "رقم معرف الجهاز",
-        "select_activity" => "اختر المتابعة",
+        "select_activity" => "اختر النشاط",
         "select_employee" => "اختر موظف",
         "select_mainprogram" => "اختر برنامج رئيسي",
         "select_subprogram" => "اختر برنامج فرعي",
@@ -189,23 +195,24 @@ return [
 
         ],
         'models' => [
-            'department' => 'قسم',
-            'group' => 'مجموعة',
-            'rasidjob' => 'وظيفة',
-            'bank' => 'بنك',
-            'admin' => 'مستخدم',
-            'attachment' => 'مرفق',
-            'bankaccount' => 'حساب بنكى',
-            'client' => 'عميل',
-            'employee' => 'موظف',
-            'user' => 'user',
-            'profile' => "بروفايل",
-            "manager" => "مدير",
-            "permission" => "صلاحية",
-            "attachments" => "مرفقات",
-            "attachmentfile" => " ملف مرفقات",
-            "cardpackage" => "باقة بطاقة",
-            "citizen" => "مواطن"
+            'department' => 'القسم',
+            'group' => 'المجموعة',
+            'rasidjob' => 'الوظيفة',
+            'type_job_name' => 'أدخل اسم الوظيفة',
+            'bank' => 'البنك',
+            'admin' => 'المستخدم',
+            'attachment' => 'المرفق',
+            'bankaccount' => 'الحساب بنكى',
+            'client' => 'العميل',
+            'employee' => 'الموظف',
+            'user' => 'اليوزر',
+            'profile' => "البروفايل",
+            "manager" => "المدير",
+            "permission" => "الصلاحية",
+            "attachments" => "المرفقات",
+            "attachmentfile" => " ملف المرفقات",
+            "cardpackage" => "باقة البطاقة",
+            "citizen" => "المواطن"
 
         ],
         'permissions' => array_only($permissions, ['index', 'show']),
@@ -281,6 +288,7 @@ return [
     ],
     "group" => [
         'groups' => 'المجموعات',
+        'all_groups' => 'الصلاحيات',
         "group_name" => "اسم المجموعة",
         "main_program" => 'البرنامج الرئيسي',
         "sub_program" => 'البرنامج الفرعي',
@@ -354,6 +362,7 @@ return [
         'department_archive' => 'أرشيف الأقسام',
     ],
     "rasid_job" => [
+        "select_job" => "اختر الوظيفة",
         "rasid_jobs" => "الوظائف",
         "add_rasid_job" => "اضافة وظيفة",
         "edit_rasid_job" => "تعديل الوظيفة",
@@ -373,6 +382,7 @@ return [
             'show' => 'عرض وظيفة',
         ],
         "rasid_job" => "الوظيفة",
+        "choose_rasid_job" => "اختر الوظيفة",
         "jobs" => "الوظائف",
         "add_job" => "اضافة وظيفة",
         "edit_job" => "تعديل وظيفة",
@@ -425,15 +435,16 @@ return [
         "edit_profile" => "تعديل الملف الشخصي",
     ],
     "admin" => [
-        "admin" => "المستخدم",
+        "admin" => "اسم المستخدم",
         "admin_name" => "أدخل اسم المستخدم",
         "login_id" => "رقم المستخدم",
+        "enter_login_id" => "أدخل رقم المستخدم",
         "admins" => "المستخدمين",
         "add_admin" => "اضافة مستخدم",
         "edit_admin" => "تعديل المستخدم",
         "admin_count" => "عدد المستخدمين",
         'name' => 'الموظف',
-        'enter_number' => 'أدخل الرقم',
+        'enter_number' => 'أدخل رقم المستخدم',
         "ban_from" => "معطل لفترة (من)",
         "ban_to" => "معطل لفترة (إلى)",
         'permission_system' => 'صلاحيات النظام',
@@ -523,7 +534,6 @@ return [
             'create' => 'اضافة بنك',
             'show' => 'عرض البنك'
         ],
-        
         'permissions' => $permissions
     ],
     "notification" => [
@@ -638,9 +648,9 @@ return [
     "citizens" => [
         "citizens" => "المواطنين",
         "citizens_record" => "سجل المواطنين",
-        "name" => "اسم المستخدم",
+        "name" => "اسم المواطن",
         "identity_number" => "رقم الهوية",
-        "enter_name" => "أدخل اسم المستخدم",
+        "enter_name" => "أدخل اسم المواطن",
         "enter_identity_number" => "أدخل رقم الهوية",
         "phone" => "رقم الجوال",
         "enter_phone" => "أدخل رقم الجوال",
@@ -667,6 +677,8 @@ return [
         ],
 
      'card_package' => [
+            "card_package" => "نسب خصم البطاقات",
+            "card_packages" => "نسب خصم البطاقات",
             "cards_discount" => "نسب خصم البطاقات",
             "basic_card_discount" => "نسبة خصم البطاقة الأساسية",
             "enter_discount" => "أدخل نسبة الخصم",
@@ -674,7 +686,7 @@ return [
             "platinum_card_discount" => "نسبة خصم البطاقة البلاتينية",
             "cards_discount_records" => "نسب خصم البطاقات",
             "discount_success_add" => "تم إضافة نسب خصم البطاقات للعميل  :client",
-
+            'permissions' => array_except($permissions,['show'])
      ],
 
     'user' => [

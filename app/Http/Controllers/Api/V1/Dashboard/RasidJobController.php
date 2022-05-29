@@ -20,7 +20,7 @@ class RasidJobController extends Controller
             ->CustomDateFromTo($request)
             ->sortBy($request)
             ->paginate((int)($request->per_page ?? config("globals.per_page")));
-            
+
         return RasidJobResource::collection($rasidJobs)
             ->additional([
                 'message' => '',
@@ -79,6 +79,7 @@ class RasidJobController extends Controller
         $rasidJobs = RasidJob::onlyTrashed()
             ->search($request)
             ->ListsTranslations('name')
+            ->select('rasid_jobs.*')
             ->CustomDateFromTo($request)
             ->sortBy($request)
             ->paginate((int)($request->per_page ?? config("globals.per_page")));

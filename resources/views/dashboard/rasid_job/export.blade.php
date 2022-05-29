@@ -10,8 +10,7 @@
     <meta name="author" content="Spruko Technologies Private Limited" />
     <meta name="keywords"
         content="admin,admin dashboard,admin panel,admin template,bootstrap,clean,dashboard,flat,jquery,modern,responsive,premium admin templates,responsive admin,ui,ui kit." />
-
-        @media screen,
+<style>@media screen,
         print {
             @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;700&display=swap');
 

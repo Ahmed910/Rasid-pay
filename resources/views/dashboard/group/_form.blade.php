@@ -18,7 +18,7 @@
 
                   </div>
         @endif
-        <div class="col-12 col-md-12 mb-5">
+        <div class="col-12 col-md-6 mb-5">
             <label for="permissions">{{trans('dashboard.admin.permission_system')}}</label> <span class="requiredFields">*</span>
             <select name="permission_list[]" hidden multiple></select>
             <select name="group_list[]" hidden multiple></select>
@@ -120,7 +120,7 @@
           $('#saveButton').on('click', function(e) {
              e.preventDefault();
              $('span[id*="Error"]').attr('hidden', true);
-             $('*input,select').removeClass('is-invalid');
+             $('*input,select').removeClass('border-danger');
              let data = new FormData(document.getElementById('formId'));
 
              $.ajaxSetup({
@@ -149,8 +149,8 @@
                              let convertArray = inputName.split('.');
                              inputName = convertArray[0] + '[' + convertArray[1] + ']'
                          }
-                         $('input[name="' + inputName + '"]').addClass('is-invalid');
-                         $('select[name="' + inputName + '[]"]').addClass('is-invalid');
+                         $('input[name="' + inputName + '"]').addClass('border-danger');
+                         $('select[name="' + inputName + '[]"]').addClass('border-danger');
                          $('span[id="' + inputError + '"]').attr('hidden', false);
                          $('span[id="' + inputError + '"]').html(`<small>${message}</small>`);
                      });

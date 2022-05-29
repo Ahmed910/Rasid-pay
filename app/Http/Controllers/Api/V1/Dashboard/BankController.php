@@ -19,6 +19,7 @@ class BankController extends Controller
         $bankBranches = BankBranch::with('bank.translations')
             ->with(['bank' => fn ($q) => $q->withCount('transactions')])
             ->search($request)
+            ->sortBy($request)
             ->latest()
             ->paginate((int)($request->per_page ?? config("globals.per_page")));
 
@@ -70,6 +71,14 @@ class BankController extends Controller
     {
         $data  = $request->validated();
         $bank->fill($data + ['updated_at' => now()])->save();
+        $branchesIds = $bank->branches()->pluck('id')->toArray();
+        $newBranchesIds = collect($data['banks'])->pluck('id')->toArray();
+
+        foreach ($branchesIds as $id) {
+            if (!in_array($id, $newBranchesIds)) {
+                BankBranch::find($id)->delete();
+            }
+        }
 
         foreach ($data['banks'] as $key => $values) {
             BankBranch::updateOrCreate(
