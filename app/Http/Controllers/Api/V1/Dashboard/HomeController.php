@@ -18,6 +18,7 @@ class HomeController extends Controller
             'permanent_banned_users' => User::where('ban_status', 'permanent')->count(),
             'temporary_banned_users' => User::where('ban_status', 'temporary')->count(),
             'departments'            => Department::count(),
+            'archived_departments'   => Department::onlyTrashed()->count(),
             'employees'              => Employee::count(),
             'vacant_jobs'            => RasidJob::where('is_vacant', 1)->count(),
             'unvacant_jobs'          => RasidJob::where('is_vacant', 0)->count()
