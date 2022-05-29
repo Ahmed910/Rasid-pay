@@ -421,7 +421,11 @@
             if (counter > 1) {
                 $(".kkk").find('.minus').show();
             }
+            $(document).on("click", '.deleteBranch', function() {
 
+             $(this).closest('.createBankBranch').hide();
+
+             });
 
         });
 
@@ -429,10 +433,9 @@
 
       });
 
+</script>
 
 
-
-    </script>
 <script src="{{ asset('dashboardAssets/js/select2.js') }}"></script>
 <script src="{{ asset('dashboardAssets/plugins/select2/select2.full.min.js') }}"></script>
 @endsection
