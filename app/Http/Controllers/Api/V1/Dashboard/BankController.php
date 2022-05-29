@@ -96,7 +96,7 @@ class BankController extends Controller
 
     public function bankTypes()
     {
-        $data = transformArrayToApi(BankBranch::TYPES, 'dashboard.bank.types');
+        $data = transform_array_api(BankBranch::TYPES, 'dashboard.bank.types');
 
         return response()->json([
             'data' => $data,
