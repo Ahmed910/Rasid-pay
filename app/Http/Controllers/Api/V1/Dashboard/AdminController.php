@@ -62,7 +62,7 @@ class AdminController extends Controller
             'user_type' => 'admin', 'added_by_id' => auth()->id(),
         ] + $request->validated())->save();
         $employee = Employee::create($request->safe()->only(['department_id', 'rasid_job_id']) + ['user_id' => $admin->id]);
-        $employee->job()->update(['is_vacant' => 0]);
+        $employee->job()->create(['is_vacant' => 0]);
         $admin->admin()->create();
         //TODO::send sms with password
         $permissions = $request->permission_list ?? [];
