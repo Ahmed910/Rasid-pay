@@ -134,8 +134,8 @@ if (!function_exists('countries_list')) {
     }
 }
 
-if (!function_exists('transformArrayToApi')) {
-    function transformArrayToApi(array $array, string $transVariable): Collection
+if (!function_exists('transform_array_api')) {
+    function transform_array_api(array $array, string $transVariable): Collection
     {
         $data = collect($array)->transform(function ($item) use ($transVariable) {
             $data['type'] = $item;
