@@ -77,7 +77,7 @@ trait Loggable
      *
      * @return void
      */
-    public function addGlobalActivity($item, array $logs, string $event, string $subProgram)
+    public function addGlobalActivity($item, array $logs, string $event, string $subProgram , string $user_type = null)
     {
         $logs = array_except($logs, ['per_page', 'page']);
         if (!count($logs)) return;
@@ -90,6 +90,7 @@ trait Loggable
         $activity['agent'] = Request::header('user-agent');
         $activity['user_id'] = auth()->check() ? auth()->user()->id : null;
         $activity['search_params'] = $logs;
+        $activity['user_type'] = $user_type;
 
         ActivityLog::create($activity);
     }

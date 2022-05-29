@@ -15,6 +15,7 @@ class AdminController extends Controller
 
     public function index(Request $request)
     {
+        request()->user_type = "admin";
         $users = User::CustomDateFromTo($request)
             ->has('employee')
             ->search($request)
