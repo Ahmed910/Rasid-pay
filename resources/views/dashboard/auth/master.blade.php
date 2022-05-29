@@ -57,8 +57,10 @@
             </div>
             <div class="col-12 col-md-7 d-flex align-center">
                 <div class="card m-auto w-60 p-9">
-                    <img src="{{ asset('dashboardAssets') }}/images/brand/logo-3.png" width="150" alt=""
-                        class="mb-5" />
+                    <img src="{{ asset('dashboardAssets') }}/images/brand/logoPay.png" width="150" alt=""
+                        class="mb-5" style="background: #3553aa;
+    padding: 1em 1.5em;
+    border-radius: 10px;"/>
                     @yield('content')
                 </div>
             </div>

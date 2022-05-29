@@ -21,20 +21,20 @@
     <div class="card py-7 px-7">
         <div class="row mb-5">
             <div class="col-12 col-md-3">
-                <label>{{ trans('dashboard.admin.admin_name') }} :</label>
+                <label>{{ trans('dashboard.admin.admin') }} :</label>
                 <p class="text-muted">{{ $admin->fullname }}</p>
             </div>
             <div class="col-12 col-md-3">
                 <label> {{ trans('dashboard.admin.login_id') }}:</label>
                 <p class="text-muted">{{ $admin->login_id }}</p>
             </div>
-            <div class="col-12 col-md-4">
+            <div class="col-12 col-md-3">
                 <label>@lang('dashboard.department.department') :</label>
                 <p class="text-muted">
 
                     {!! $admin->department->name ?? trans('dashboard.department.without_parent') !!}</p>
             </div>
-            <div class="col-12 col-md-4">
+            <div class="col-12 col-md-3">
                 <label class="d-block" for="departmentName">@lang('dashboard.general.status') :</label>
                 @if ($admin->is_active == 1)
                     <p class="badge bg-success-opacity py-2 px-4">@lang('dashboard.general.active')</p>
@@ -75,10 +75,10 @@
     <div class="row">
         <div class="col-12 text-end">
             <a href="{{ route('dashboard.admin.edit', $admin) }}" class="btn btn-primary">
-                <i class="mdi mdi-square-edit-outline">{{ trans('dashboard.general.edit') }}</i>
+                <i class="mdi mdi-square-edit-outline"></i>{{ trans('dashboard.general.edit') }}
             </a>
             <a href="{{ url()->previous() }}" class="btn btn-outline-primary">
-                <i class="mdi mdi-arrow-left">{{ trans('dashboard.general.back') }}</i>
+                <i class="mdi mdi-arrow-left"></i>{{ trans('dashboard.general.back') }}
             </a>
         </div>
     </div>
