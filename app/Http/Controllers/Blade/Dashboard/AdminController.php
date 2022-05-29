@@ -75,7 +75,6 @@ class AdminController extends Controller
     public function store(AdminRequest $request,User $admin)
     {
         if (!request()->ajax()) {
-            $admin->fill($request->validated() + ['user_type' => 'admin'])->save();
             $employee = Employee::create($request->safe()->only(['department_id', 'rasid_job_id']) + ['user_id' => $admin->id]);
             $employee->job()->update(['is_vacant' => 0]);
             $admin->admin()->create();
