@@ -56,18 +56,17 @@ class AdminController extends Controller
     }
 
 
-    public function store(AdminRequest $request,User $admin)
+    public function store(AdminRequest $request, User $admin)
     {
         $admin->fill([
-            'user_type' => 'admin', 'password' => $request->password, 'added_by_id' => auth()->id(),
-            'is_login_code' => $request->is_login_code, 'login_id' => $request->login_id
-        ])->save();
+            'user_type' => 'admin', 'added_by_id' => auth()->id(),
+        ] + $request->validated())->save();
         $employee = Employee::create($request->safe()->only(['department_id', 'rasid_job_id']) + ['user_id' => $admin->id]);
         $employee->job()->update(['is_vacant' => 0]);
         $admin->admin()->create();
         //TODO::send sms with password
         $permissions = $request->permission_list ?? [];
-    if ($request->group_list) {
+        if ($request->group_list) {
             $admin->groups()->sync($request->group_list);
             $permissions = array_filter(array_merge($permissions, Group::find($request->group_list)->pluck('permissions')->flatten()->pluck('id')->toArray()));
         }
