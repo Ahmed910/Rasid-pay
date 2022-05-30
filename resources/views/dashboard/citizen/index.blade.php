@@ -120,22 +120,24 @@
 <div class="row row-sm">
   <div class="col-lg-12">
     <div class="p-1">
-      <table id="citizenTable" class="table table-bordered text-nowrap shadow-sm bg-body key-buttons">
-        <thead>
-          <tr>
-            <th class="border-bottom-0">#</th>
-            <th class="border-bottom-0">{{ trans('dashboard.citizens.name') }} </th>
-            <th class="border-bottom-0">{{ trans('dashboard.citizens.identity_number') }} </th>
-            <th class="border-bottom-0">{{ trans('dashboard.citizens.phone') }} </th>
-            <th class="border-bottom-0">{{ trans('dashboard.citizens.enabled_card') }} </th>
-            <th class="border-bottom-0">{{ trans('dashboard.citizens.card_end_at') }} </th>
-            <th class="border-bottom-0">{{ trans('dashboard.citizens.created_at') }} </th>
-            <th class="border-bottom-0 text-center">{{ trans('dashboard.general.actions') }}</th>
-          </tr>
-        </thead>
-        <tbody>
-        </tbody>
-      </table>
+      <div class="table-responsive">
+        <table id="citizenTable" class="table table-bordered text-nowrap shadow-sm bg-body key-buttons">
+          <thead>
+            <tr>
+              <th class="border-bottom-0">#</th>
+              <th class="border-bottom-0">{{ trans('dashboard.citizens.name') }} </th>
+              <th class="border-bottom-0">{{ trans('dashboard.citizens.identity_number') }} </th>
+              <th class="border-bottom-0">{{ trans('dashboard.citizens.phone') }} </th>
+              <th class="border-bottom-0">{{ trans('dashboard.citizens.enabled_card') }} </th>
+              <th class="border-bottom-0">{{ trans('dashboard.citizens.card_end_at') }} </th>
+              <th class="border-bottom-0">{{ trans('dashboard.citizens.created_at') }} </th>
+              <th class="border-bottom-0 text-center">{{ trans('dashboard.general.actions') }}</th>
+            </tr>
+          </thead>
+          <tbody>
+          </tbody>
+        </table>
+      </div>
     </div>
   </div>
 </div>

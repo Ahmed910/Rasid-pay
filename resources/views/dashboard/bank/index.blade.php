@@ -93,104 +93,110 @@
 <div class="row row-sm">
   <div class="col-lg-12">
     <div class="p-1">
-      <table id="transaction" class="table table-bordered text-nowrap shadow-sm bg-body key-buttons historyTable">
-        <thead>
-          <tr>
-            <th class="border-bottom-0">#</th>
-            <th class="border-bottom-0">اسم البنك</th>
-            <th class="border-bottom-0">النوع</th>
-            <th class="border-bottom-0">الكود</th>
-            <th class="border-bottom-0">اسم الفرع</th>
-            <th class="border-bottom-0">الموقع</th>
-            <th class="border-bottom-0">قيمة تكلفة التحويل</th>
-            <th class="border-bottom-0">عدد المعاملات</th>
-            <th class="border-bottom-0">الحالة</th>
-            <th class="border-bottom-0">العمليات</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>1</td>
-            <td>البنك الأهلي</td>
-            <td>بنك مركزي</td>
-            <td>13254546</td>
-            <td>البنك الأهلي التجاري</td>
-            <td>حي الرياض</td>
-            <td>25.256.66 ر.س</td>
-            <td>25</td>
-            <td>
-              <span class="badge bg-success-opacity py-2 px-4">مفعل</span>
-            </td>
-            <td>
-              <a href="{{ route('dashboard.bank.show',1) }}" class="azureIcon" data-bs-toggle="tooltip"
-                data-bs-placement="top" title="@lang('dashboard.general.show')"><i class="mdi mdi-eye-outline"></i></a>
-              <a href="{{ route('dashboard.bank.create') }}" class="warningIcon" data-bs-toggle="tooltip"
-                data-bs-placement="top" title="@lang('dashboard.general.edit')"><i
-                  class="mdi mdi-square-edit-outline"></i></a>
-            </td>
-          </tr>
-          <tr>
-            <td>2</td>
-            <td>البنك الأهلي</td>
-            <td>بنك مركزي</td>
-            <td>13254546</td>
-            <td>البنك الأهلي التجاري</td>
-            <td>حي الرياض</td>
-            <td>25.256.66 ر.س</td>
-            <td>25</td>
-            <td>
-              <span class="badge bg-danger-opacity py-2 px-4">مفعل</span>
-            </td>
-            <td>
-              <a href="{{ route('dashboard.bank.show',1) }}" class="azureIcon" data-bs-toggle="tooltip"
-                data-bs-placement="top" title="@lang('dashboard.general.show')"><i class="mdi mdi-eye-outline"></i></a>
-              <a href="{{ route('dashboard.bank.create') }}" class="warningIcon" data-bs-toggle="tooltip"
-                data-bs-placement="top" title="@lang('dashboard.general.edit')"><i
-                  class="mdi mdi-square-edit-outline"></i></a>
-            </td>
-          </tr>
-          <tr>
-            <td>3</td>
-            <td>البنك الأهلي</td>
-            <td>بنك مركزي</td>
-            <td>13254546</td>
-            <td>البنك الأهلي التجاري</td>
-            <td>حي الرياض</td>
-            <td>25.256.66 ر.س</td>
-            <td>25</td>
-            <td>
-              <span class="badge bg-success-opacity py-2 px-4">مفعل</span>
-            </td>
-            <td>
-              <a href="{{ route('dashboard.bank.show',1) }}" class="azureIcon" data-bs-toggle="tooltip"
-                data-bs-placement="top" title="@lang('dashboard.general.show')"><i class="mdi mdi-eye-outline"></i></a>
-              <a href="{{ route('dashboard.bank.create') }}" class="warningIcon" data-bs-toggle="tooltip"
-                data-bs-placement="top" title="@lang('dashboard.general.edit')"><i
-                  class="mdi mdi-square-edit-outline"></i></a>
-            </td>
-          </tr>
-          <tr>
-            <td>4</td>
-            <td>البنك الأهلي</td>
-            <td>بنك مركزي</td>
-            <td>13254546</td>
-            <td>البنك الأهلي التجاري</td>
-            <td>حي الرياض</td>
-            <td>25.256.66 ر.س</td>
-            <td>25</td>
-            <td>
-              <span class="badge bg-danger-opacity py-2 px-4">مفعل</span>
-            </td>
-            <td>
-              <a href="{{ route('dashboard.bank.show',1) }}" class="azureIcon" data-bs-toggle="tooltip"
-                data-bs-placement="top" title="@lang('dashboard.general.show')"><i class="mdi mdi-eye-outline"></i></a>
-              <a href="{{ route('dashboard.bank.create') }}" class="warningIcon" data-bs-toggle="tooltip"
-                data-bs-placement="top" title="@lang('dashboard.general.edit')"><i
-                  class="mdi mdi-square-edit-outline"></i></a>
-            </td>
-          </tr>
-        </tbody>
-      </table>
+      <div class="table-responsive">
+        <table id="transaction" class="table table-bordered text-nowrap shadow-sm bg-body key-buttons historyTable">
+          <thead>
+            <tr>
+              <th class="border-bottom-0">#</th>
+              <th class="border-bottom-0">اسم البنك</th>
+              <th class="border-bottom-0">النوع</th>
+              <th class="border-bottom-0">الكود</th>
+              <th class="border-bottom-0">اسم الفرع</th>
+              <th class="border-bottom-0">الموقع</th>
+              <th class="border-bottom-0">قيمة تكلفة التحويل</th>
+              <th class="border-bottom-0">عدد المعاملات</th>
+              <th class="border-bottom-0">الحالة</th>
+              <th class="border-bottom-0">العمليات</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>1</td>
+              <td>البنك الأهلي</td>
+              <td>بنك مركزي</td>
+              <td>13254546</td>
+              <td>البنك الأهلي التجاري</td>
+              <td>حي الرياض</td>
+              <td>25.256.66 ر.س</td>
+              <td>25</td>
+              <td>
+                <span class="badge bg-success-opacity py-2 px-4">مفعل</span>
+              </td>
+              <td>
+                <a href="{{ route('dashboard.bank.show',1) }}" class="azureIcon" data-bs-toggle="tooltip"
+                  data-bs-placement="top" title="@lang('dashboard.general.show')"><i
+                    class="mdi mdi-eye-outline"></i></a>
+                <a href="{{ route('dashboard.bank.create') }}" class="warningIcon" data-bs-toggle="tooltip"
+                  data-bs-placement="top" title="@lang('dashboard.general.edit')"><i
+                    class="mdi mdi-square-edit-outline"></i></a>
+              </td>
+            </tr>
+            <tr>
+              <td>2</td>
+              <td>البنك الأهلي</td>
+              <td>بنك مركزي</td>
+              <td>13254546</td>
+              <td>البنك الأهلي التجاري</td>
+              <td>حي الرياض</td>
+              <td>25.256.66 ر.س</td>
+              <td>25</td>
+              <td>
+                <span class="badge bg-danger-opacity py-2 px-4">مفعل</span>
+              </td>
+              <td>
+                <a href="{{ route('dashboard.bank.show',1) }}" class="azureIcon" data-bs-toggle="tooltip"
+                  data-bs-placement="top" title="@lang('dashboard.general.show')"><i
+                    class="mdi mdi-eye-outline"></i></a>
+                <a href="{{ route('dashboard.bank.create') }}" class="warningIcon" data-bs-toggle="tooltip"
+                  data-bs-placement="top" title="@lang('dashboard.general.edit')"><i
+                    class="mdi mdi-square-edit-outline"></i></a>
+              </td>
+            </tr>
+            <tr>
+              <td>3</td>
+              <td>البنك الأهلي</td>
+              <td>بنك مركزي</td>
+              <td>13254546</td>
+              <td>البنك الأهلي التجاري</td>
+              <td>حي الرياض</td>
+              <td>25.256.66 ر.س</td>
+              <td>25</td>
+              <td>
+                <span class="badge bg-success-opacity py-2 px-4">مفعل</span>
+              </td>
+              <td>
+                <a href="{{ route('dashboard.bank.show',1) }}" class="azureIcon" data-bs-toggle="tooltip"
+                  data-bs-placement="top" title="@lang('dashboard.general.show')"><i
+                    class="mdi mdi-eye-outline"></i></a>
+                <a href="{{ route('dashboard.bank.create') }}" class="warningIcon" data-bs-toggle="tooltip"
+                  data-bs-placement="top" title="@lang('dashboard.general.edit')"><i
+                    class="mdi mdi-square-edit-outline"></i></a>
+              </td>
+            </tr>
+            <tr>
+              <td>4</td>
+              <td>البنك الأهلي</td>
+              <td>بنك مركزي</td>
+              <td>13254546</td>
+              <td>البنك الأهلي التجاري</td>
+              <td>حي الرياض</td>
+              <td>25.256.66 ر.س</td>
+              <td>25</td>
+              <td>
+                <span class="badge bg-danger-opacity py-2 px-4">مفعل</span>
+              </td>
+              <td>
+                <a href="{{ route('dashboard.bank.show',1) }}" class="azureIcon" data-bs-toggle="tooltip"
+                  data-bs-placement="top" title="@lang('dashboard.general.show')"><i
+                    class="mdi mdi-eye-outline"></i></a>
+                <a href="{{ route('dashboard.bank.create') }}" class="warningIcon" data-bs-toggle="tooltip"
+                  data-bs-placement="top" title="@lang('dashboard.general.edit')"><i
+                    class="mdi mdi-square-edit-outline"></i></a>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
     </div>
   </div>
 </div>

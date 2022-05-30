@@ -66,20 +66,23 @@
 <div class="row row-sm">
   <div class="col-lg-12">
     <div class="p-1">
-      <table id="transaction-table" class="table table-bordered text-nowrap shadow-sm bg-body key-buttons historyTable">
-        <thead>
-          <tr>
-            <th class="border-bottom-0">#</th>
-            <th class="border-bottom-0">اسم العميل</th>
-            <th class="border-bottom-0">البطاقة الأساسية</th>
-            <th class="border-bottom-0">البطاقة الذهبية</th>
-            <th class="border-bottom-0">البطاقة البلاتينية</th>
-            <th class="border-bottom-0">العمليات</th>
-          </tr>
-        </thead>
-        <tbody>
-        </tbody>
-      </table>
+      <div class="table-responsive">
+        <table id="transaction-table"
+          class="table table-bordered text-nowrap shadow-sm bg-body key-buttons historyTable">
+          <thead>
+            <tr>
+              <th class="border-bottom-0">#</th>
+              <th class="border-bottom-0">اسم العميل</th>
+              <th class="border-bottom-0">البطاقة الأساسية</th>
+              <th class="border-bottom-0">البطاقة الذهبية</th>
+              <th class="border-bottom-0">البطاقة البلاتينية</th>
+              <th class="border-bottom-0">العمليات</th>
+            </tr>
+          </thead>
+          <tbody>
+          </tbody>
+        </table>
+      </div>
     </div>
   </div>
 </div>

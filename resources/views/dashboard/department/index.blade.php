@@ -104,25 +104,27 @@
 <div class="row row-sm">
   <div class="col-lg-12">
     <div class="p-1">
-      <table id="departmentTable" class="table table-bordered shadow-sm bg-body text-nowrap key-buttons">
-        <thead>
-          <tr>
-            <th class="border-bottom-0">#</th>
-            <th class="border-bottom-0">
-              @lang('dashboard.department.department_name')</th>
-            <th class="border-bottom-0">
-              @lang('dashboard.department.main_department')</th>
-            <th class="border-bottom-0">
-              @lang('dashboard.general.created_at')</th>
-            <th class="border-bottom-0">
-              @lang('dashboard.general.status')</th>
-            <th class="border-bottom-0 text-center">
-              @lang('dashboard.general.actions')</th>
-          </tr>
-        </thead>
-        <tbody>
-        </tbody>
-      </table>
+      <div class="table-responsive">
+        <table id="departmentTable" class="table table-bordered shadow-sm bg-body text-nowrap key-buttons">
+          <thead>
+            <tr>
+              <th class="border-bottom-0">#</th>
+              <th class="border-bottom-0">
+                @lang('dashboard.department.department_name')</th>
+              <th class="border-bottom-0">
+                @lang('dashboard.department.main_department')</th>
+              <th class="border-bottom-0">
+                @lang('dashboard.general.created_at')</th>
+              <th class="border-bottom-0">
+                @lang('dashboard.general.status')</th>
+              <th class="border-bottom-0 text-center">
+                @lang('dashboard.general.actions')</th>
+            </tr>
+          </thead>
+          <tbody>
+          </tbody>
+        </table>
+      </div>
     </div>
   </div>
 </div>

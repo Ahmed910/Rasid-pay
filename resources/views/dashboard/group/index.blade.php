@@ -62,20 +62,22 @@
 <div class="row row-sm">
   <div class="col-lg-12">
     <div class="p-1">
-      <table id="ajaxTable" class="table table-bordered shadow-sm bg-body text-nowrap key-buttons">
-        <thead>
-          <tr>
-            <th class="border-bottom-0">#</th>
-            <th class="border-bottom-0">{!! trans('dashboard.group.group_name') !!}</th>
-            <th class="border-bottom-0">{!! trans('dashboard.admin.admin_count') !!}</th>
-            <th class="border-bottom-0">{!! trans('dashboard.general.status') !!}</th>
-            <th class="border-bottom-0">{!! trans('dashboard.general.created_at') !!}</th>
-            <th class="border-bottom-0 text-center">{!! trans('dashboard.general.actions') !!}</th>
-          </tr>
-        </thead>
-        <tbody>
-        </tbody>
-      </table>
+      <div class="table-responsive">
+        <table id="ajaxTable" class="table table-bordered shadow-sm bg-body text-nowrap key-buttons">
+          <thead>
+            <tr>
+              <th class="border-bottom-0">#</th>
+              <th class="border-bottom-0">{!! trans('dashboard.group.group_name') !!}</th>
+              <th class="border-bottom-0">{!! trans('dashboard.admin.admin_count') !!}</th>
+              <th class="border-bottom-0">{!! trans('dashboard.general.status') !!}</th>
+              <th class="border-bottom-0">{!! trans('dashboard.general.created_at') !!}</th>
+              <th class="border-bottom-0 text-center">{!! trans('dashboard.general.actions') !!}</th>
+            </tr>
+          </thead>
+          <tbody>
+          </tbody>
+        </table>
+      </div>
     </div>
   </div>
 </div>

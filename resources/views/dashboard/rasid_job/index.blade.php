@@ -95,21 +95,23 @@
 <div class="row row-sm">
   <div class="col-lg-12">
     <div class="p-1">
-      <table id="JobsTable" class="table table-bordered shadow-sm bg-body text-nowrap key-buttons">
-        <thead>
-          <tr>
-            <th class="border-bottom-0">#</th>
-            <th class="border-bottom-0">{{ trans('dashboard.rasid_job.job_name') }}</th>
-            <th class="border-bottom-0">{{ trans('dashboard.department.department') }} </th>
-            <th class="border-bottom-0">{{ trans('dashboard.general.created_at') }} </th>
-            <th class="border-bottom-0">{{ trans('dashboard.general.status') }}</th>
-            <th class="border-bottom-0">{{ trans('dashboard.general.type') }}</th>
-            <th class="border-bottom-0 text-center">{{ trans('dashboard.general.actions') }}</th>
-          </tr>
-        </thead>
-        <tbody>
-        </tbody>
-      </table>
+      <div class="table-responsive">
+        <table id="JobsTable" class="table table-bordered shadow-sm bg-body text-nowrap key-buttons">
+          <thead>
+            <tr>
+              <th class="border-bottom-0">#</th>
+              <th class="border-bottom-0">{{ trans('dashboard.rasid_job.job_name') }}</th>
+              <th class="border-bottom-0">{{ trans('dashboard.department.department') }} </th>
+              <th class="border-bottom-0">{{ trans('dashboard.general.created_at') }} </th>
+              <th class="border-bottom-0">{{ trans('dashboard.general.status') }}</th>
+              <th class="border-bottom-0">{{ trans('dashboard.general.type') }}</th>
+              <th class="border-bottom-0 text-center">{{ trans('dashboard.general.actions') }}</th>
+            </tr>
+          </thead>
+          <tbody>
+          </tbody>
+        </table>
+      </div>
     </div>
   </div>
   <!-- End Row -->

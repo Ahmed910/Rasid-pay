@@ -84,18 +84,20 @@
 <div class="row row-sm">
   <div class="col-lg-12">
     <div class="p-1">
-      <table id="jobTable" class="table table-bordered shadow-sm bg-body text-nowrap key-buttons">
-        <thead>
-          <tr>
-            <th class="border-bottom-0">#</th>
-            <th class="border-bottom-0">{{ trans('dashboard.rasid_job.job_name') }}</th>
-            <th class="border-bottom-0">{{ trans('dashboard.rasid_job.department') }} </th>
-            <th class="border-bottom-0">{{ trans('dashboard.rasid_job.archived_at') }} </th>
-            <th class="border-bottom-0">{{ trans('dashboard.rasid_job.is_active') }}</th>
-            <th class="border-bottom-0 text-center">{{ trans('dashboard.general.actions') }}</th>
-          </tr>
-        </thead>
-      </table>
+      <div class="table-responsive">
+        <table id="jobTable" class="table table-bordered shadow-sm bg-body text-nowrap key-buttons">
+          <thead>
+            <tr>
+              <th class="border-bottom-0">#</th>
+              <th class="border-bottom-0">{{ trans('dashboard.rasid_job.job_name') }}</th>
+              <th class="border-bottom-0">{{ trans('dashboard.rasid_job.department') }} </th>
+              <th class="border-bottom-0">{{ trans('dashboard.rasid_job.archived_at') }} </th>
+              <th class="border-bottom-0">{{ trans('dashboard.rasid_job.is_active') }}</th>
+              <th class="border-bottom-0 text-center">{{ trans('dashboard.general.actions') }}</th>
+            </tr>
+          </thead>
+        </table>
+      </div>
     </div>
   </div>
 </div>
