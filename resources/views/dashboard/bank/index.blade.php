@@ -89,7 +89,6 @@
 </form>
 <!-- FORM CLOSED -->
 
-<!-- Row -->
 <div class="row row-sm">
   <div class="col-lg-12">
     <div class="p-1">
@@ -200,7 +199,6 @@
     </div>
   </div>
 </div>
-<!-- End Row -->
 
 @include('dashboard.layouts.modals.archive')
 @include('dashboard.layouts.modals.not_archive')
