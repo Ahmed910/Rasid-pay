@@ -5,6 +5,7 @@ namespace App\Http\Resources\Dashboard;
 use App\Http\Resources\Dashboard\Department\DepartmentResource;
 use App\Models\Department\Department;
 use App\Http\Resources\Dashboard\Group\{GroupResource, PermissionResource};
+use App\Http\Resources\Dashboard\RasidJob\RasidJobResource;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class UserResource extends JsonResource
@@ -42,7 +43,7 @@ class UserResource extends JsonResource
             'register_status' => $this->when(request()->is('*/admins/*'), $this->register_status),
             'created_at' => $this->created_at,
             'token' => $this->when($this->token, $this->token),
-            'rasid_job_id' => $this->when($this->employee?->job, $this->employee?->job?->id),
+            'job' => $this->when($this->employee?->job, RasidJobResource::make($this->employee?->job)),
             'actions' => $this->when($request->routeIs('admins.index'), [
                 'update' => auth()->user()->hasPermissions('admins.update'),
                 'show' => auth()->user()->hasPermissions('admins.show')
