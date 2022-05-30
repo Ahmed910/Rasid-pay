@@ -15,7 +15,7 @@
 {{-- Ajax DataTable --}}
 <script>
     $(function() {
-        $("#transaction").DataTable({
+        $("#bankTable").DataTable({
         sDom: "t<'domOption'lpi>",
             pageLength: 10,
             lengthMenu: [
@@ -121,7 +121,15 @@
                   data-bs-placement="top"
                   title="${"@lang('dashboard.general.show')"}"
                   ><i class="mdi mdi-eye-outline"></i
-                ></a>`
+                ></a>
+                <a
+                        href="${data.edit_route}"
+                        class="warningIcon"
+                        data-bs-toggle="tooltip"
+                        data-bs-placement="top"
+                        title="@lang('dashboard.general.edit')"
+                        ><i class="mdi mdi-square-edit-outline"></i
+                            ></a>`
 
                         },
                         orderable: false,
