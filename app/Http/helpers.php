@@ -1,6 +1,8 @@
 <?php
 
 use App\Models\Setting;
+use Carbon\Carbon;
+use GeniusTS\HijriDate\{Date, Hijri, Translations\Arabic, Translations\English};
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Schema;
@@ -145,5 +147,26 @@ if (!function_exists('transform_array_api')) {
         });
 
         return $data;
+    }
+}
+
+if (!function_exists('format_date')) {
+    function format_date(?string $date)
+    {
+        if (is_null($date)) return;
+
+        if (auth()->check() && auth()->user()->is_date_hijri) {
+
+            if (app()->getLocale() == 'en') {
+                Date::setTranslation(new English);
+                Date::setDefaultNumbers(Date::ARABIC_NUMBERS);
+            } else {
+                Date::setTranslation(new Arabic);
+                Date::setDefaultNumbers(Date::INDIAN_NUMBERS);
+            }
+
+            return Hijri::convertToHijri($date)->format('d F o');
+        }
+        return Carbon::parse($date)->locale(app()->getLocale())->translatedFormat('j F Y');
     }
 }

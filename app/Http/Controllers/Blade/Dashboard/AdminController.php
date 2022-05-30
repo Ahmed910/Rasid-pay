@@ -21,7 +21,7 @@ class AdminController extends Controller
      */
     public function index(Request $request)
     {
-
+        request()->user_type="admin" ;
         if (isset($request->order[0]['column'])) {
             $request['sort'] = ['column' => $request['columns'][$request['order'][0]['column']]['name'], 'dir' => $request['order'][0]['dir']];
         }
@@ -75,7 +75,6 @@ class AdminController extends Controller
     public function store(AdminRequest $request,User $admin)
     {
         if (!request()->ajax()) {
-            $admin->fill($request->validated() + ['user_type' => 'admin'])->save();
             $employee = Employee::create($request->safe()->only(['department_id', 'rasid_job_id']) + ['user_id' => $admin->id]);
             $employee->job()->update(['is_vacant' => 0]);
             $admin->admin()->create();

@@ -209,7 +209,6 @@ class DepartmentController extends Controller
 
     public function export(Request $request)
     {
-
         return Excel::download(new DepartmentsExport($request), 'departments.xlsx');
     }
 
@@ -233,8 +232,20 @@ class DepartmentController extends Controller
             ->ListsTranslations('name')
             ->addSelect('departments.created_at', 'departments.is_active', 'departments.parent_id', 'departments.added_by_id')->get();
 
+        if (!$request->has('created_from')) {
+            $createdFrom = Department::selectRaw('MIN(created_at) as min_created_at')->first()->min_created_at;
+        }
+
         $mpdf = $pdfGenerate->newFile()
-            ->view('dashboard.department.export', ['departments' => $departmentsQuery])
+            ->view(
+                'dashboard.department.export',
+                [
+                    'departments' => $departmentsQuery,
+                    'date_from'   => format_date($request->created_from) ?? format_date($createdFrom),
+                    'date_to'     => format_date($request->created_to) ?? format_date(now()),
+                    'userId'      => auth()->user()->login_id
+                ]
+            )
             ->export();
 
         return $mpdf;
