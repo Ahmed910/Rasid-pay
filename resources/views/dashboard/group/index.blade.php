@@ -43,8 +43,12 @@
           <i class="mdi mdi-tray-arrow-down"></i> {!! trans('dashboard.general.export') !!}
         </button>
         <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-          <li><a class="dropdown-item" href="#">PDF</a></li>
-          <li><a class="dropdown-item" href="#">Excel</a></li>
+          <li><a class="dropdown-item"
+                            href="{{ url(app()->getLocale().'/dashboard/group/exportPDF')  }}?{{ http_build_query(request()->query()) }}"
+                            target="_blank">PDF</a></li>
+                    <li><a class="dropdown-item"
+                            href="{{ url(app()->getLocale().'/dashboard/group/export') }}?{{ http_build_query(request()->query()) }}"
+                            target="_blank">Excel</a></li>
         </ul>
       </div>
     </div>

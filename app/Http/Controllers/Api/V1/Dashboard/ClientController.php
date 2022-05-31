@@ -18,6 +18,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 
+
 class ClientController extends Controller
 {
 
@@ -146,5 +147,6 @@ class ClientController extends Controller
             'message' => ""
         ]);
     }
+
 
 }

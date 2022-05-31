@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Blade\Dashboard;
 
+use App\Exports\ActivityLogsExport;
 use App\Http\Controllers\Controller;
 use App\Models\{ActivityLog, User};
 use App\Models\{Employee};
@@ -11,6 +12,8 @@ use App\Http\Resources\Dashboard\SimpleEmployeeResource;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use App\Providers\AppServiceProvider;
+use App\Services\GeneratePdf;
+use Maatwebsite\Excel\Facades\Excel;
 
 class ActivityLogController extends Controller
 {
@@ -21,6 +24,7 @@ class ActivityLogController extends Controller
      */
     public function index(Request $request)
     {
+
         if (isset($request->order[0]['column'])) {
             $request['sort'] = ['column' => $request['columns'][$request['order'][0]['column']]['name'], 'dir' => $request['order'][0]['dir']];
         }
@@ -98,6 +102,7 @@ class ActivityLogController extends Controller
 // sub program _ ajax
     public function getSubPrograms($main_progs = null)
     {
+
         $subPrograms = collect([]);
 
         if ($main_progs) {
@@ -132,6 +137,46 @@ class ActivityLogController extends Controller
             'message' => ''
         ]);
     }
+
+
+
+    public function export(Request $request)
+    {
+
+        return Excel::download(new ActivityLogsExport($request), 'activity_log.xlsx');
+    }
+
+
+
+    public function exportPDF(Request $request, GeneratePdf $pdfGenerate)
+    {
+
+        $activatyLogsQuery = ActivityLog::select('activity_logs.id','activity_logs.user_id','activity_logs.auditable_type','activity_logs.auditable_id','activity_logs.sub_program','activity_logs.action_type','activity_logs.ip_address','activity_logs.created_at')->search($request)
+        ->CustomDateFromTo($request)
+        ->get();
+
+        if (!$request->has('created_from')) {
+            $createdFrom = ActivityLog::selectRaw('MIN(created_at) as min_created_at')->value('min_created_at');
+        }
+
+
+
+        $mpdf = $pdfGenerate->newFile()
+            ->view(
+                'dashboard.exports.activity_log',
+                [
+                    'activity_logs' => $activatyLogsQuery,
+                    'date_from'   => format_date($request->created_from) ?? format_date($createdFrom),
+                    'date_to'     => format_date($request->created_to) ?? format_date(now()),
+                    'userId'      => auth()->user()->login_id,
+
+                ]
+            )
+            ->export();
+
+        return $mpdf;
+    }
+
 
 
 }
