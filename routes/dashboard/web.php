@@ -7,7 +7,7 @@ Route::group(
     [
         'prefix' => LaravelLocalization::setLocale(),
         'as' => 'dashboard.',
-        'middleware' => ['localeSessionRedirect', 'localizationRedirect', 'localeViewPath']
+        'middleware' => ['localeSessionRedirect', 'localizationRedirect', 'localeViewPath','maintenance_mode']
     ],
     function () {
         // Dashboard Login
@@ -66,9 +66,6 @@ Route::group(
 
                 Route::get('all-employees/{department}', 'getEmployees')->name('getEmployees');
             });
-
-
-
 
             Route::resources([
                 'rasid_job' => 'RasidJobController',
