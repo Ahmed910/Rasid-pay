@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Blade\Dashboard;
 
+use App\Exports\DepartmentsArchiveExport;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Dashboard\DepartmentRequest;
 use App\Http\Requests\Dashboard\ReasonRequest;
@@ -212,17 +213,7 @@ class DepartmentController extends Controller
         return Excel::download(new DepartmentsExport($request), 'departments.xlsx');
     }
 
-    public function exportDepartment(Request $request)
-    {
-        $departmentsQuery = Department::search($request)
-            ->CustomDateFromTo($request)
-            ->with('parent.translations')
-            ->ListsTranslations('name')
-            ->addSelect('departments.created_at', 'departments.is_active', 'departments.parent_id', 'departments.added_by_id')->get();
-        return view('dashboard.department.export', [
-            'departments' => $departmentsQuery
-        ]);
-    }
+
 
     public function exportPDF(Request $request, GeneratePdf $pdfGenerate)
     {
@@ -233,21 +224,62 @@ class DepartmentController extends Controller
             ->addSelect('departments.created_at', 'departments.is_active', 'departments.parent_id', 'departments.added_by_id')->get();
 
         if (!$request->has('created_from')) {
-            $createdFrom = Department::selectRaw('MIN(created_at) as min_created_at')->first()->min_created_at;
+            $createdFrom = Department::selectRaw('MIN(created_at) as min_created_at')->value('min_created_at');
         }
+
+
 
         $mpdf = $pdfGenerate->newFile()
             ->view(
-                'dashboard.department.export',
+                'dashboard.exports.department',
                 [
                     'departments' => $departmentsQuery,
                     'date_from'   => format_date($request->created_from) ?? format_date($createdFrom),
                     'date_to'     => format_date($request->created_to) ?? format_date(now()),
-                    'userId'      => auth()->user()->login_id
+                    'userId'      => auth()->user()->login_id,
+
                 ]
             )
             ->export();
 
         return $mpdf;
+    }
+
+    public function exportArchieve(Request $request)
+    {
+        return Excel::download(new DepartmentsArchiveExport($request), 'departments_archive.xlsx');
+    }
+
+    public function exportPDFArchieve(Request $request,GeneratePdf $pdfGenerate)
+    {
+        $departments_archiveQuery = Department::onlyTrashed()
+            ->search($request)
+            ->CustomDateFromTo($request)
+            ->searchDeletedAtFromTo($request)
+            ->with('parent.translations')
+            ->ListsTranslations('name')
+            ->addSelect('departments.deleted_at', 'departments.parent_id')
+            ->get();
+
+    if (!$request->has('created_from')) {
+        $createdFrom = Department::selectRaw('MIN(created_at) as min_created_at')->value('min_created_at');
+    }
+
+
+
+    $mpdf = $pdfGenerate->newFile()
+        ->view(
+            'dashboard.exports.archive.department',
+            [
+                'departments_archive' => $departments_archiveQuery,
+                'date_from'   => format_date($request->created_from) ?? format_date($createdFrom),
+                'date_to'     => format_date($request->created_to) ?? format_date(now()),
+                'userId'      => auth()->user()->login_id,
+
+            ]
+        )
+        ->export();
+
+    return $mpdf;
     }
 }
