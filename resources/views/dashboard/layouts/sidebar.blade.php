@@ -196,6 +196,7 @@
                             <a href="javascript:void(0)">{{ trans('dashboard.general.the_archive') }}</a>
                         </li>
                         <li>
+                       
                             <a href="{{ route('dashboard.department.archive') }}"
                                 class="slide-item px-6 {{ request()->routeIs('dashboard.department.archive') ? 'active' : '' }}"><i
                                     class="mdi mdi-view-dashboard-edit-outline"></i>

@@ -15,7 +15,7 @@
   <div class="col">
     <label for="job_name">{{ trans('dashboard.rasid_job.job_name') }}</label>
     {!! Form::text('name', old('name') ?? request('name'), ['class' => 'form-control input-regex stop-copy-paste',
-    'placeholder' => trans('dashboard.rasid_job.type_job_name'), 'id' => 'job_name']) !!}
+    'placeholder' => trans('dashboard.rasid_job.job_name'), 'id' => 'job_name']) !!}
   </div>
   <div class="col">
     <label for="mainDepartment"> {{ trans('dashboard.department.department') }} </label>
@@ -69,12 +69,12 @@
         <i class="mdi mdi-tray-arrow-down"></i> {{ trans('dashboard.general.export') }}
       </button>
       <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-        <li><a class="dropdown-item"
-            href="{{ route('dashboard.rasid_job.exportPDF', ['is_active' => request('is_active'),'name' => request('name'),'department_id' => request('department_id'),'from_date' => request('from_date'),'to_date' => request('to_date'),'is_vacant' => request('is_vacant')]) }}"
-            target="_blank">PDF</a></li>
-        <li><a class="dropdown-item"
-            href="{{ route('dashboard.rasid_job.export', ['is_active' => request('is_active'),'name' => request('name'),'department_id' => request('department_id'),'from_date' => request('from_date'),'to_date' => request('to_date'),'is_vacant' => request('is_vacant')]) }}"
-            target="_blank">Excel</a></li>
+       <li><a class="dropdown-item"
+                            href="{{ url(app()->getLocale().'/dashboard/rasid_job/exportPDF')  }}?{{ http_build_query(request()->query()) }}"
+                            target="_blank">PDF</a></li>
+                    <li><a class="dropdown-item"
+                            href="{{ url(app()->getLocale().'/dashboard/rasid_job/export') }}?{{ http_build_query(request()->query()) }}"
+                            target="_blank">Excel</a></li>
       </ul>
     </div>
   </div>

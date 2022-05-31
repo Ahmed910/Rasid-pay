@@ -7,7 +7,7 @@ use Maatwebsite\Excel\Concerns\FromView;
 use Illuminate\Contracts\View\View;
 use Maatwebsite\Excel\Concerns\ShouldAutoSize;
 
-class DepartmentsExport implements FromView, ShouldAutoSize
+class DepartmentsArchiveExport implements FromView, ShouldAutoSize
 {
     protected $request;
 
@@ -19,14 +19,17 @@ class DepartmentsExport implements FromView, ShouldAutoSize
     public function view(): View
     {
 
-        $departmentsQuery = Department::search($this->request)
+        $departments_archiveQuery = Department::onlyTrashed()
+            ->search($this->request)
             ->CustomDateFromTo($this->request)
+            ->searchDeletedAtFromTo($this->request)
             ->with('parent.translations')
             ->ListsTranslations('name')
-            ->addSelect('departments.created_at', 'departments.is_active', 'departments.parent_id', 'departments.added_by_id')->get();
+            ->addSelect('departments.deleted_at', 'departments.parent_id')
+            ->get();
 
-        return view('dashboard.exports.department', [
-            'departments' => $departmentsQuery
+        return view('dashboard.exports.archive.department', [
+            'departments_archive' => $departments_archiveQuery
         ]);
     }
 }
