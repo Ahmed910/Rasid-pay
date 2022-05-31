@@ -12,7 +12,7 @@
 </div>
 <div class="repeater" >
 
-@foreach ($branches as $key=>$branch )
+@foreach ($branches ?? [] as $key=>$branch )
 
         <fieldset class="card createBankBranch px-4 py-4 "  id="bankbranch">
             <a
