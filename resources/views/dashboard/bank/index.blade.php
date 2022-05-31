@@ -16,33 +16,34 @@
   <div class="row align-items-end mb-3">
     <div class="col-12 col-md-3 mb-3">
       <label for="bankName">اسم البنك</label>
-      <input type="text" class="form-control" id="bankName" placeholder="اسم البنك" />
+      <input type="text" class="form-control" id="name" placeholder="اسم البنك" />
     </div>
     <div class="col-12 col-md-3 mb-3">
       <label for="bankType">نوع البنك</label>
-      <select class="form-control select2" id="bankType">
+
+      <select class="form-control select2" id="type">
         <option selected disabled value="">إختر النوع </option>
-        <option>بنك اسلامي</option>
-        <option>بنك استثماري</option>
-        <option>البنك المركزي</option>
+        @foreach($types as $value) <option value="{{$value["type"]}}">{{$value["trans"]}}</option>
+        @endforeach
+
       </select>
     </div>
     <div class="col-12 col-md-3 mb-3">
       <label for="bankCode">الكود</label>
-      <input type="text" class="form-control" id="bankCode" placeholder="الكود" />
+      <input type="text" class="form-control" id="code" placeholder="الكود" />
     </div>
     <div class="col-12 col-md-3 mb-3">
       <label for="bankBranchName">اسم الفرع</label>
-      <input type="text" class="form-control" id="bankBranchName" placeholder="اسم الفرع" />
+      <input type="text" class="form-control" id="branch_name" placeholder="اسم الفرع" />
     </div>
     <div class="col-12 col-md-3 mb-3">
       <label for="bankLocation">الموقع</label>
-      <input type="text" class="form-control" id="bankLocation" placeholder="الموقع" />
+      <input type="text" class="form-control" id="site" placeholder="الموقع" />
     </div>
     <div class="col-12 col-md-3 mb-3">
       <label for="transactionValueFrom">قيمة تكلفة التحويل</label>
       <div class="input-group">
-        <input id="transactionValueFrom" type="number" placeholder="أدخل قيمة المعاملة " class="form-control" />
+        <input id="transfer_amount" type="number" placeholder="أدخل قيمة المعاملة " class="form-control" />
         <div class="input-group-text border-start-0">
           ر.س
         </div>
@@ -50,18 +51,21 @@
     </div>
     <div class="col-12 col-md-3 mb-3">
       <label for="transactionType">الحالة</label>
-      <select class="form-control select2" id="transactionType">
-        <option selected disabled value="">إختر الحالة </option>
-        <option>ناجحة</option>
-        <option>فاشلة</option>
-        <option>بانتظار الاستلام</option>
-        <option>تم الاستلام</option>
-        <option>تم الإلغاء</option>
-      </select>
+      {!! Form::select('is_active', ['' => '', -1 => trans('dashboard.general.all_cases')] +
+trans('dashboard.rasid_job.active_cases'), old('is_active') ?? request('is_active'), ['class' => 'form-control
+select2', 'data-placeholder' => trans('dashboard.general.select_status'), 'id' => 'is_active']) !!}
+{{--      <select class="form-control select2" id="is_active">--}}
+{{--        <option selected disabled value="">إختر الحالة </option>--}}
+{{--        <option>ناجحة</option>--}}
+{{--        <option>فاشلة</option>--}}
+{{--        <option>بانتظار الاستلام</option>--}}
+{{--        <option>تم الاستلام</option>--}}
+{{--        <option>تم الإلغاء</option>--}}
+{{--      </select>--}}
     </div>
     <div class="col-12 col-md-3 mb-3">
       <label for="transactionsNumber">عدد المعاملات</label>
-      <input type="number" class="form-control" id="transactionsNumber" placeholder="ادخل عدد المعاملات" />
+      <input type="number" class="form-control" id="transactions_count" placeholder="ادخل عدد المعاملات" />
     </div>
   </div>
   <div class="row">
@@ -93,7 +97,7 @@
   <div class="col-lg-12">
     <div class="p-1">
       <div class="table-responsive">
-        <table id="transaction" class="table table-bordered text-nowrap shadow-sm bg-body key-buttons historyTable">
+        <table id="activitylogtable" class="table table-bordered text-nowrap shadow-sm bg-body key-buttons historyTable">
           <thead>
             <tr>
               <th class="border-bottom-0">#</th>
@@ -109,90 +113,6 @@
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <td>1</td>
-              <td>البنك الأهلي</td>
-              <td>بنك مركزي</td>
-              <td>13254546</td>
-              <td>البنك الأهلي التجاري</td>
-              <td>حي الرياض</td>
-              <td>25.256.66 ر.س</td>
-              <td>25</td>
-              <td>
-                <span class="badge bg-success-opacity py-2 px-4">مفعل</span>
-              </td>
-              <td>
-                <a href="{{ route('dashboard.bank.show',1) }}" class="azureIcon" data-bs-toggle="tooltip"
-                  data-bs-placement="top" title="@lang('dashboard.general.show')"><i
-                    class="mdi mdi-eye-outline"></i></a>
-                <a href="{{ route('dashboard.bank.create') }}" class="warningIcon" data-bs-toggle="tooltip"
-                  data-bs-placement="top" title="@lang('dashboard.general.edit')"><i
-                    class="mdi mdi-square-edit-outline"></i></a>
-              </td>
-            </tr>
-            <tr>
-              <td>2</td>
-              <td>البنك الأهلي</td>
-              <td>بنك مركزي</td>
-              <td>13254546</td>
-              <td>البنك الأهلي التجاري</td>
-              <td>حي الرياض</td>
-              <td>25.256.66 ر.س</td>
-              <td>25</td>
-              <td>
-                <span class="badge bg-danger-opacity py-2 px-4">مفعل</span>
-              </td>
-              <td>
-                <a href="{{ route('dashboard.bank.show',1) }}" class="azureIcon" data-bs-toggle="tooltip"
-                  data-bs-placement="top" title="@lang('dashboard.general.show')"><i
-                    class="mdi mdi-eye-outline"></i></a>
-                <a href="{{ route('dashboard.bank.create') }}" class="warningIcon" data-bs-toggle="tooltip"
-                  data-bs-placement="top" title="@lang('dashboard.general.edit')"><i
-                    class="mdi mdi-square-edit-outline"></i></a>
-              </td>
-            </tr>
-            <tr>
-              <td>3</td>
-              <td>البنك الأهلي</td>
-              <td>بنك مركزي</td>
-              <td>13254546</td>
-              <td>البنك الأهلي التجاري</td>
-              <td>حي الرياض</td>
-              <td>25.256.66 ر.س</td>
-              <td>25</td>
-              <td>
-                <span class="badge bg-success-opacity py-2 px-4">مفعل</span>
-              </td>
-              <td>
-                <a href="{{ route('dashboard.bank.show',1) }}" class="azureIcon" data-bs-toggle="tooltip"
-                  data-bs-placement="top" title="@lang('dashboard.general.show')"><i
-                    class="mdi mdi-eye-outline"></i></a>
-                <a href="{{ route('dashboard.bank.create') }}" class="warningIcon" data-bs-toggle="tooltip"
-                  data-bs-placement="top" title="@lang('dashboard.general.edit')"><i
-                    class="mdi mdi-square-edit-outline"></i></a>
-              </td>
-            </tr>
-            <tr>
-              <td>4</td>
-              <td>البنك الأهلي</td>
-              <td>بنك مركزي</td>
-              <td>13254546</td>
-              <td>البنك الأهلي التجاري</td>
-              <td>حي الرياض</td>
-              <td>25.256.66 ر.س</td>
-              <td>25</td>
-              <td>
-                <span class="badge bg-danger-opacity py-2 px-4">مفعل</span>
-              </td>
-              <td>
-                <a href="{{ route('dashboard.bank.show',1) }}" class="azureIcon" data-bs-toggle="tooltip"
-                  data-bs-placement="top" title="@lang('dashboard.general.show')"><i
-                    class="mdi mdi-eye-outline"></i></a>
-                <a href="{{ route('dashboard.bank.create') }}" class="warningIcon" data-bs-toggle="tooltip"
-                  data-bs-placement="top" title="@lang('dashboard.general.edit')"><i
-                    class="mdi mdi-square-edit-outline"></i></a>
-              </td>
-            </tr>
           </tbody>
         </table>
       </div>
