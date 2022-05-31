@@ -18,7 +18,6 @@ class ActivityLogResource extends JsonResource
 
     public function toArray($request)
     {
-
         $model = $this->auditable_type;
         if (str_contains($this->auditable_type, '\\')) {
             $class = explode('\\', $this->auditable_type);
@@ -46,10 +45,10 @@ class ActivityLogResource extends JsonResource
             'show_route' => route('dashboard.activity_log.show', $this->id),
             'start_from' => $request->start,
             "discription" => trans('dashboard.activity_log.reason', ["user" => $this->user?->fullname,
-                "model" => trans("dashboard.activity_log.models." . strtolower($model == "User" ? $this->user_type : $model)),
+                "model" => trans("dashboard.activity_log.models." . strtolower($this->user_type ? $this->user_type : $model)),
                 "action" => trans("dashboard.activity_log.actions." . $this->action_type),
                 "main" => trans("dashboard." . Str::snake($this->user_type ? $this->user_type : $model) . "." . str_plural(Str::snake($this->user_type ? $this->user_type : $model)))
-                ,"sub"=>trans("dashboard.permissions.".$this->sub_program)
+                , "sub" => trans("dashboard.permissions." . $this->sub_program)
             ],
             ),
         ];

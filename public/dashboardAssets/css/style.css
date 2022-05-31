@@ -99,13 +99,13 @@ Editing        :   Hesham Ashraf.
 /*Transparent variables*/
 /* ###### Bootstrap ###### */
 :root {
-    --primary-bg-color: #3553aa;
+    --primary-bg-color: #014a83;
     --primary-bg-hover: #20295c;
     --primary-bg-border: #5161c1;
     --dark-body: #292e4a;
     --dark-border: #30314e;
-    --dark-primary: #3553aa;
-    --transparent-primary: #3553aa;
+    --dark-primary: #014a83;
+    --transparent-primary: #014a83;
     --transparent-body: #584cd9;
     --transparent-theme: rgba(0, 0, 0, 0.2);
     --transparent-border: rgba(255, 255, 255, 0.1);
@@ -126,7 +126,7 @@ Editing        :   Hesham Ashraf.
     --gray: #FDFDFD;
     --gray-medium: #F9F9F9;
     --gray-dark: #606162;
-    --primary: #3553aa;
+    --primary: #014a83;
     --secondary: #6c757d;
     --success: #28a745;
     --info: #17a2b8;
@@ -79615,7 +79615,7 @@ textarea.form-control {
 }
 
 .dataTables_wrapper table.dataTable.table-bordered th {
-    background: #e0f1f9;
+    background: #879ddd1a ;
 }
 
 .dataTables_wrapper table thead th {
@@ -79814,7 +79814,7 @@ textarea {
 }
 
 .bg-primary-opacity {
-    background: #e0f1f9;
+    background: #879ddd1a ;
     color: var(--primary-bg-color);
     font-weight: bold;
     min-width: 77px;

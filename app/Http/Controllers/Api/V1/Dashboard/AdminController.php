@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\V1\Dashboard\AdminRequest;
 use App\Http\Requests\V1\Dashboard\ReasonRequest;
 use App\Http\Resources\Dashboard\{UserResource, Admin\AdminCollection};
-use App\Models\{User, Group\Group, Employee};
+use App\Models\{Admin, User, Group\Group, Employee};
 use App\Models\Department\Department;
 use Illuminate\Http\Request;
 
@@ -15,12 +15,13 @@ class AdminController extends Controller
 
     public function index(Request $request)
     {
+        request()->user_type = "admin";
         $users = User::CustomDateFromTo($request)
-        ->has('employee')
-        ->search($request)
-        ->with(['department', 'permissions', 'groups' => function ($q) {
-            $q->with('permissions');
-        }])->where('user_type', 'admin')
+            ->has('employee')
+            ->search($request)
+            ->with(['department', 'permissions', 'groups' => function ($q) {
+                $q->with('permissions');
+            }])->where('user_type', 'admin')
             ->sortBy($request)
             ->paginate((int)($request->per_page ?? config("globals.per_page")));
 
@@ -56,12 +57,13 @@ class AdminController extends Controller
     }
 
 
-    public function store(AdminRequest $request)
+    public function store(AdminRequest $request, User $admin)
     {
-        $admin = User::where('user_type', 'employee')->findOrFail($request->employee_id);
-        $admin->fill(['user_type' => 'admin', 'password' => $request->password, 'added_by_id' => auth()->id(), 'is_login_code' => $request->is_login_code, 'login_id' => $request->login_id])->save();
+        $admin->fill([
+            'user_type' => 'admin', 'added_by_id' => auth()->id(),
+        ] + $request->validated())->save();
         $employee = Employee::create($request->safe()->only(['department_id', 'rasid_job_id']) + ['user_id' => $admin->id]);
-        $employee->job()->update(['is_vacant' => 0]);
+        $employee->job()->create(['is_vacant' => 0]);
         $admin->admin()->create();
         //TODO::send sms with password
         $permissions = $request->permission_list ?? [];
@@ -96,10 +98,8 @@ class AdminController extends Controller
             ]);
     }
 
-    public function update(AdminRequest $request, $id)
+    public function update(AdminRequest $request, User $admin)
     {
-        $admin = User::where('user_type', 'admin')->findOrFail($id);
-
         if ($request->password_change && $request->password_change == 1) {
             $admin->fill($request->validated() + ['updated_at' => now()])->save();
         } else {
