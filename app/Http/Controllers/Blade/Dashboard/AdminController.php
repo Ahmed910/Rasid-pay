@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Blade\Dashboard;
 
+use App\Exports\AdminsExport;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Dashboard\AdminRequest;
 use App\Http\Resources\Blade\Dashboard\Admin\AdminCollection;
@@ -10,7 +11,9 @@ use Illuminate\Support\Facades\DB;
 use App\Models\{Permission, User, RasidJob\RasidJob, Employee};
 use App\Models\Department\Department;
 use App\Models\Group\Group;
+use App\Services\GeneratePdf;
 use Illuminate\Http\Request;
+use Maatwebsite\Excel\Facades\Excel;
 
 class AdminController extends Controller
 {
@@ -189,12 +192,36 @@ class AdminController extends Controller
         ]);
     }
 
-    public function getJobsByDepartment($id)
+    public function export(Request $request)
     {
-        return response()->json([
-            'data' => RasidJob::select('id')->ListsTranslations('name')->where(['department_id' => $id, 'is_vacant' => true])->setEagerLoads([])->get(),
-            'status' => true,
-            'message' => '',
-        ]);
+        return Excel::download(new AdminsExport($request), 'admins.xlsx');
+    }
+
+
+
+    public function exportPDF(Request $request, GeneratePdf $pdfGenerate)
+    {
+        $adminsQuery = User::CustomDateFromTo($request)->search($request)->where('user_type', 'admin')->has("employee")->get();
+
+        if (!$request->has('created_from')) {
+            $createdFrom = Group::selectRaw('MIN(created_at) as min_created_at')->value('min_created_at');
+        }
+
+
+
+        $mpdf = $pdfGenerate->newFile()
+            ->view(
+                'dashboard.exports.admin',
+                [
+                    'admins' => $adminsQuery,
+                    'date_from'   => format_date($request->created_from) ?? format_date($createdFrom),
+                    'date_to'     => format_date($request->created_to) ?? format_date(now()),
+                    'userId'      => auth()->user()->login_id,
+
+                ]
+            )
+            ->export();
+
+        return $mpdf;
     }
 }

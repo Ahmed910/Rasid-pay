@@ -79,12 +79,12 @@
         @lang('dashboard.general.export')
       </button>
       <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-        <li><a class="dropdown-item"
-            href="{{ route('dashboard.department.exportPDF', ['is_active' => request('is_active'),'name' => request('name'),'parent_id' => request('parent_id'),'created_from' => request('created_from'),'created_to' => request('created_to')]) }}"
-            target="_blank">PDF</a></li>
-        <li><a class="dropdown-item"
-            href="{{ route('dashboard.department.export', ['is_active' => request('is_active'),'name' => request('name'),'parent_id' => request('parent_id'),'created_from' => request('created_from'),'created_to' => request('created_to')]) }}"
-            target="_blank">Excel</a></li>
+         <li><a class="dropdown-item"
+                            href="{{ url(app()->getLocale().'/dashboard/department/exportPDF')  }}?{{ http_build_query(request()->query()) }}"
+                            target="_blank">PDF</a></li>
+                    <li><a class="dropdown-item"
+                            href="{{ url(app()->getLocale().'/dashboard/department/export') }}?{{ http_build_query(request()->query()) }}"
+                            target="_blank">Excel</a></li>
       </ul>
     </div>
   </div>

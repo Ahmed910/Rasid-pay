@@ -2,12 +2,15 @@
 
 namespace App\Http\Controllers\Blade\Dashboard;
 
+use App\Exports\GroupsExport;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Dashboard\GroupRequest;
 use App\Http\Resources\Blade\Dashboard\Activitylog\ActivityLogCollection;
 use App\Models\{Group\Group, Permission};
 use Illuminate\Http\Request;
 use App\Http\Resources\Blade\Dashboard\Group\GroupCollection;
+use App\Services\GeneratePdf;
+use Maatwebsite\Excel\Facades\Excel;
 
 class GroupController extends Controller
 {
@@ -150,5 +153,42 @@ class GroupController extends Controller
         if ($group->delete()) {
             return response()->json(['value' => 1]);
         }
+    }
+
+    public function export(Request $request)
+    {
+        return Excel::download(new GroupsExport($request), 'groups.xlsx');
+    }
+
+
+
+    public function exportPDF(Request $request, GeneratePdf $pdfGenerate)
+    {
+        $groupsQuery = Group::with('groups', 'permissions')
+        ->withTranslation()
+        ->withCount('admins as user_count')
+        ->search($request)
+        ->get();
+
+        if (!$request->has('created_from')) {
+            $createdFrom = Group::selectRaw('MIN(created_at) as min_created_at')->value('min_created_at');
+        }
+
+
+
+        $mpdf = $pdfGenerate->newFile()
+            ->view(
+                'dashboard.exports.group',
+                [
+                    'groups' => $groupsQuery,
+                    'date_from'   => format_date($request->created_from) ?? format_date($createdFrom),
+                    'date_to'     => format_date($request->created_to) ?? format_date(now()),
+                    'userId'      => auth()->user()->login_id,
+                    
+                ]
+            )
+            ->export();
+
+        return $mpdf;
     }
 }

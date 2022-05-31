@@ -34,37 +34,58 @@ Route::group(
 
             Route::get('/backButton', "HomeController@backButton")->name("backButton");
             Route::post('logout', "Auth\LoginController@logout")->name("session.logout");
+            Route::controller('ActivityLogController')->name('activity_log.')->prefix('activity_log')->group(function () {
+
+                Route::get('sub-programs/{main?}', 'getSubPrograms')->name('sub_programs');
+
+                Route::get('all-employees/{department}', 'getEmployees')->name('getEmployees');
+                Route::get('export', 'export');
+                Route::get('exportPDF', 'exportPDF');
+            });
             Route::resource('activity_log', 'ActivityLogController')->only('index', 'show');
             Route::get('department_export', 'DepartmentController@exportDepartment');
 
             Route::controller('RasidJobController')->name('rasid_job.')->prefix('rasid_job')->group(function () {
-                Route::get('archive', 'archive')->name('archive');
+                // Route::get('archive', 'archive')->name('archive');
+                Route::prefix('archive')->group(function(){
+                    Route::get('/', 'archive')->name('archive');
+                    Route::get('export', 'exportArchieve');
+                    Route::get('exportPDF', 'exportPDFArchieve');
+                });
                 Route::post('restore/{id}', 'restore')->name('restore');
                 Route::delete('forceDelete/{id}', 'forceDelete')->name('forceDelete');
-                Route::get('export', 'export')->name('export');
-                Route::get('exportPDF', 'exportPDF')->name('exportPDF');
+                Route::get('export', 'export');
+                Route::get('exportPDF', 'exportPDF');
             });
             Route::controller('ClientController')->name('client.')->prefix('client')->group(function () {
                 Route::get('account_orders', 'accountOrders')->name('account_orders');
+                Route::get('export', 'export');
+                Route::get('exportPDF', 'exportPDF');
             });
             Route::controller('DepartmentController')->name('department.')->prefix('department')->group(function () {
-                Route::get('archive', 'archive')->name('archive');
+                Route::prefix('archive')->group(function(){
+                    Route::get('/', 'archive')->name('archive');
+                    Route::get('export', 'exportArchieve');
+                    Route::get('exportPDF', 'exportPDFArchieve');
+                });
+
                 Route::post('restore/{id}', 'restore')->name('restore');
                 Route::delete('forceDelete/{id}', 'forceDelete')->name('forceDelete');
-                Route::get('export', 'export')->name('export');
-                Route::get('exportPDF', 'exportPDF')->name('exportPDF');
+                Route::get('export', 'export');
+                Route::get('exportPDF', 'exportPDF');
+
             });
 
             Route::controller('AdminController')->name('admin.')->prefix('admin')->group(function () {
 
                 Route::get('all-employees/{department}', 'getEmployeesByDepartment');
-                Route::get('all-jobs/{department}', 'getJobsByDepartment');
+                Route::get('export', 'export');
+                Route::get('exportPDF', 'exportPDF');
             });
-            Route::controller('ActivityLogController')->name('activitylog.')->prefix('activitylog')->group(function () {
 
-                Route::get('sub-programs/{main?}', 'getSubPrograms')->name('sub_programs');
-
-                Route::get('all-employees/{department}', 'getEmployees')->name('getEmployees');
+            Route::controller('GroupController')->name('group.')->prefix('group')->group(function () {
+                Route::get('export', 'export');
+                Route::get('exportPDF', 'exportPDF');
             });
 
             Route::resources([
@@ -81,5 +102,4 @@ Route::group(
                 'card_package' => 'CardPackageController',
             ]);
         });
-    }
-);
+});
