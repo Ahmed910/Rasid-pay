@@ -8,6 +8,7 @@ use App\Traits\Loggable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Traits\Uuid;
+use Astrotomic\Translatable\Translatable;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -16,11 +17,12 @@ use Illuminate\Support\Str;
 
 class BankBranch extends Model
 {
-    use HasFactory, Uuid, SoftDeletes, Loggable;
+    use HasFactory, Uuid, SoftDeletes, Loggable, Translatable;
 
     #region properties
     protected $guarded = ['created_at', 'deleted_at'];
     private $sortableColumns = ["name", "type", "code", "branch_name", 'site', 'transfer_amount', 'transactions_count', 'is_active'];
+    public $translatedAttributes = ['name'];
 
     const CENTERAL = 'centeral';
     const COMMERCIAL = 'commercial';
@@ -51,6 +53,7 @@ class BankBranch extends Model
     #region scopes
     public function scopeSearch(Builder $query, Request $request)
     {
+        $old = $query->toSql();
         if ($request->has('type'))
             $query->where('type', $request->type);
 
@@ -71,7 +74,9 @@ class BankBranch extends Model
 
         $query->whereHas('bank', fn ($q) => $q->search($request));
 
-        $this->addGlobalActivity($this, $request->query(), ActivityLog::SEARCH, 'index');
+        $new = $query->toSql();
+
+        if ($old != $new) $this->addGlobalActivity($this, $request->query(), ActivityLog::SEARCH, 'index');
     }
 
     public function scopeSortBy(Builder $query, Request $request)

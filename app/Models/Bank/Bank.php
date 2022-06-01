@@ -2,6 +2,7 @@
 
 namespace App\Models\Bank;
 
+use App\Models\ActivityLog;
 use App\Models\BankBranch\BankBranch;
 use App\Models\Transaction;
 use App\Traits\Loggable;
@@ -31,6 +32,8 @@ class Bank extends Model implements Contracts\Translatable
     #region scopes
     public function scopeSearch(Builder $query, Request $request)
     {
+        $old = $query->toSql();
+
         if ($request->has('name'))
             $query->whereTranslationLike('name', "%$request->name%");
 
@@ -41,6 +44,9 @@ class Bank extends Model implements Contracts\Translatable
                     ->where('banks.id', 'transactions.bank_id');
             }, $request->transactions_count);
         }
+
+        $new = $query->toSql();
+        if ($old != $new) $this->addGlobalActivity($this, $request->query(), ActivityLog::SEARCH, 'index');
     }
     #endregion scopes
 
