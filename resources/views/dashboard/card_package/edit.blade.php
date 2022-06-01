@@ -26,7 +26,7 @@
 
 
 
-    @include('dashboard.layouts.modals.notChange')
+    @include('dashboard.layouts.modals.not_change')
     @include('dashboard.layouts.modals.confirm')
     @include('dashboard.layouts.modals.back')
     @include('dashboard.layouts.modals.alert')
