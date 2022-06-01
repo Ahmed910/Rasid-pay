@@ -49,10 +49,10 @@ class BankController extends Controller
 
     }
 
-    public function store(BankBladeRequest $request, Bank $bank)
+    public function store(BankBladeRequest $request,Bank $bank)
     {
-        $BankInfo = Bank::create($request->only('name') + ['added_by_id' => auth()->id()]);
-        $BankInfo->branches()->createMany($request->branches);
+        $bank->fill($request->validated() + ['added_by_id' => auth()->id()])->save();
+        $bank->branches()->createMany($request->branches);
 
         return redirect()->route('dashboard.bank.index')->withSuccess(__('dashboard.general.success_add'));
 
