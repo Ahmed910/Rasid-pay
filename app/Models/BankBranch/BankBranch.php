@@ -65,7 +65,7 @@ class BankBranch extends Model
             $query->where('is_active', $request->is_active);
 
         if ($request->has('branch_name'))
-            $query->where('name', 'like', "%$request->branch_name%");
+            $query->whereTranslationLike('name', "%$request->branch_name%");
 
         if ($request->has('site'))
             $query->where('site', "like", "%$request->site%");
