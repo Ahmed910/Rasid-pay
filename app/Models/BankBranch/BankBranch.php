@@ -53,6 +53,7 @@ class BankBranch extends Model
     #region scopes
     public function scopeSearch(Builder $query, Request $request)
     {
+        $old = $query->toSql();
         if ($request->has('type'))
             $query->where('type', $request->type);
 
@@ -73,7 +74,9 @@ class BankBranch extends Model
 
         $query->whereHas('bank', fn ($q) => $q->search($request));
 
-        $this->addGlobalActivity($this, $request->query(), ActivityLog::SEARCH, 'index');
+        $new = $query->toSql();
+
+        if ($old != $new) $this->addGlobalActivity($this, $request->query(), ActivityLog::SEARCH, 'index');
     }
 
     public function scopeSortBy(Builder $query, Request $request)
