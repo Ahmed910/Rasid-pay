@@ -25,7 +25,7 @@ class DepartmentsExport implements FromView, ShouldAutoSize
             ->ListsTranslations('name')
             ->addSelect('departments.created_at', 'departments.is_active', 'departments.parent_id', 'departments.added_by_id')->get();
 
-        return view('dashboard.department.export', [
+        return view('dashboard.exports.department', [
             'departments' => $departmentsQuery
         ]);
     }

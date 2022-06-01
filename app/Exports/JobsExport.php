@@ -25,7 +25,7 @@ class JobsExport implements FromView, ShouldAutoSize
             ->addSelect('rasid_jobs.created_at', 'rasid_jobs.is_active', 'rasid_jobs.department_id', 'rasid_jobs.is_vacant')
             ->get();
 
-        return view('dashboard.rasid_job.export', [
+        return view('dashboard.exports.job', [
             'jobs' => $jobsQuery
         ]);
     }

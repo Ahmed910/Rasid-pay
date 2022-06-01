@@ -510,7 +510,9 @@ return [
         "Enter_transfer_amount" => "ادخل قيمة التحويل",
         "code"=>"الكود",
         "type"=>"نوع البنك",
+        "type bank" =>"النوع",
         "location"=>"الموقع",
+        "Number Transactions"=>"عدد المعاملات",
         "commercialRecord"=> "السجل التجاري",
         "Enter_commercial_Record" => "ادخل السجل التجاري",
         "taxNumber"=>"الرقم الضريبي",
@@ -532,7 +534,9 @@ return [
             'index' => 'سجل البنوك',
             'archive' => 'أرشيف البنوك',
             'create' => 'اضافة بنك',
-            'show' => 'عرض البنك'
+            'show' => 'عرض البنك',
+            'edit' => 'تعديل بنك',
+
         ],
         'permissions' => $permissions
     ],
@@ -669,12 +673,11 @@ return [
         'new_phone' => "رقم الجوال الجديد",
 
         'card_type' => [
-            'basic' => 'أساسية',
-            'golden' => 'ذهبية',
-            'platinum' => 'بلاتينية',
-        ]
+                'basic' => 'أساسية',
+                'golden' => 'ذهبية',
+                'platinum' => 'بلاتينية',
+            ]
         ],
-
      'card_package' => [
             "card_package" => "نسب خصم البطاقات",
             "card_packages" => "نسب خصم البطاقات",

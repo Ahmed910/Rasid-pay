@@ -12,6 +12,8 @@ use App\Models\Department\Department;
 use App\Models\RasidJob\RasidJob;
 use Illuminate\Http\Request;
 use App\Exports\JobsExport;
+use App\Exports\RasidJobsArchiveExport;
+use App\Services\GeneratePdf;
 use Maatwebsite\Excel\Facades\Excel;
 use PDF;
 
@@ -67,7 +69,7 @@ class RasidJobController extends Controller
 
         $departments = Department::with('parent.translations')->ListsTranslations('name')->where('is_active', 1)->pluck('name', 'id')->toArray();
         $locales = config('translatable.locales');
-        return view('dashboard.rasid_job.create', compact('departments', 'locales','previousUrl'));
+        return view('dashboard.rasid_job.create', compact('departments', 'locales', 'previousUrl'));
     }
 
     /**
@@ -209,8 +211,8 @@ class RasidJobController extends Controller
             $RasidJob = RasidJob::onlyTrashed()->findOrFail($id);
             $RasidJob->restore();
             return response()->json([
-                'message' =>__('dashboard.general.success_restore')
-            ] );
+                'message' => __('dashboard.general.success_restore')
+            ]);
         }
     }
 
@@ -221,8 +223,8 @@ class RasidJobController extends Controller
             $RasidJob = RasidJob::onlyTrashed()->findOrFail($id);
             $RasidJob->forceDelete();
             return response()->json([
-                'message' =>__('dashboard.general.success_delete')
-            ] );
+                'message' => __('dashboard.general.success_delete')
+            ]);
         }
     }
     public function destroy($RasidJob, \App\Http\Requests\Dashboard\ReasonRequest $request)
@@ -237,32 +239,77 @@ class RasidJobController extends Controller
         }
     }
 
+
+
     public function export(Request $request)
     {
+
         return Excel::download(new JobsExport($request), 'jobs.xlsx');
     }
 
 
-    // public function exportPDF(Request $request)
-    // {
-    //     return  Excel::download(new JobsExport($request), 'jobs.pdf');
-    // }
 
-    public function exportPDF(Request $request)
+    public function exportPDF(Request $request, GeneratePdf $pdfGenerate)
     {
-        $jobs = RasidJob::without('employee')->search($request)
+        $jobsQuery = RasidJob::without('employee')->search($request)
             ->CustomDateFromTo($request)
             ->ListsTranslations('name')
             ->sortBy($request)
             ->addSelect('rasid_jobs.created_at', 'rasid_jobs.is_active', 'rasid_jobs.department_id', 'rasid_jobs.is_vacant')
             ->get();
 
+        if (!$request->has('created_from')) {
+            $createdFrom = RasidJob::selectRaw('MIN(created_at) as min_created_at')->value('min_created_at');
+        }
 
-        $data = [
-            'jobs' => $jobs
-        ];
+        $mpdf = $pdfGenerate->newFile()
+            ->view(
+                'dashboard.exports.job',
+                [
+                    'jobs' => $jobsQuery,
+                    'date_from'   => format_date($request->created_from) ?? format_date($createdFrom),
+                    'date_to'     => format_date($request->created_to) ?? format_date(now()),
+                    'userId'      => auth()->user()->login_id,
 
-        $pdf = PDF::loadView('dashboard.rasid_job.export', $data);
-        return $pdf->stream('jobs.pdf');
+                ]
+            )
+            ->export();
+
+        return $mpdf;
+    }
+
+    public function exportArchieve(Request $request)
+    {
+
+        return Excel::download(new RasidJobsArchiveExport($request), 'rasidjobs_archive.xlsx');
+    }
+
+    public function exportPDFArchieve(Request $request, GeneratePdf $pdfGenerate)
+    {
+        $rasid_jobs_archiveQuery = RasidJob::onlyTrashed()
+            ->without('employee')
+            ->search($request)
+            ->searchDeletedAtFromTo($request)
+            ->ListsTranslations('name')
+            ->addSelect('rasid_jobs.department_id', 'rasid_jobs.deleted_at', 'rasid_jobs.is_active')
+            ->get();
+        if (!$request->has('created_from')) {
+            $createdFrom = RasidJob::selectRaw('MIN(created_at) as min_created_at')->value('min_created_at');
+        }
+
+        $mpdf = $pdfGenerate->newFile()
+            ->view(
+                'dashboard.exports.archive.rasid_job',
+                [
+                    'jobs_archive' => $rasid_jobs_archiveQuery,
+                    'date_from'   => format_date($request->created_from) ?? format_date($createdFrom),
+                    'date_to'     => format_date($request->created_to) ?? format_date(now()),
+                    'userId'      => auth()->user()->login_id,
+
+                ]
+            )
+            ->export();
+
+        return $mpdf;
     }
 }

@@ -2,17 +2,14 @@
     <div class="app-sidebar__overlay" data-bs-toggle="sidebar"></div>
     <div class="app-sidebar d-flex flex-column h-100">
         <div class="side-header">
-            <a class="header-brand1" href="#!" style="background: #3553aa;
-    padding: 1em 3em;
-    border-radius: 10px;
-    margin: 2em 0 !important;">
-                <img src="{{ asset('dashboardAssets/images/brand/logoPay.png') }}" class="header-brand-img desktop-logo"
+            <a class="header-brand1" href="#!">
+                <img src="{{ asset('dashboardAssets/images/brand/fintech-icon.svg') }}" class="header-brand-img desktop-logo"
                     alt="logo" />
-                <img src="{{ asset('dashboardAssets/images/brand/logoPay.png') }}" class="header-brand-img toggle-logo"
+                <img src="{{ asset('dashboardAssets/images/brand/fintech-logo.svg') }}" class="header-brand-img toggle-logo"
                     alt="logo" />
-                <img src="{{ asset('dashboardAssets/images/brand/logoPay.png') }}" class="header-brand-img light-logo"
+                <img src="{{ asset('dashboardAssets/images/brand/fintech-icon.svg') }}" class="header-brand-img light-logo"
                     alt="logo" />
-                <img src="{{ asset('dashboardAssets/images/brand/logoPay.png') }}" class="header-brand-img light-logo1"
+                <img src="{{ asset('dashboardAssets/images/brand/fintech-logo.svg') }}" class="header-brand-img light-logo1"
                     alt="logo" />
             </a>
             <!-- LOGO -->
@@ -199,6 +196,7 @@
                             <a href="javascript:void(0)">{{ trans('dashboard.general.the_archive') }}</a>
                         </li>
                         <li>
+                       
                             <a href="{{ route('dashboard.department.archive') }}"
                                 class="slide-item px-6 {{ request()->routeIs('dashboard.department.archive') ? 'active' : '' }}"><i
                                     class="mdi mdi-view-dashboard-edit-outline"></i>
