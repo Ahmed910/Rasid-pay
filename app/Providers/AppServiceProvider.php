@@ -29,7 +29,7 @@ class AppServiceProvider extends ServiceProvider
         'Transaction' => \App\Models\Transaction::class,
         'Client' => \App\Models\Client::class,
         'Citizen' => \App\Models\Citizen::class,
-        'BankBranch' => \App\Models\BankBranch::class
+        'BankBranch' => \App\Models\BankBranch\BankBranch::class
 
     ];
 
