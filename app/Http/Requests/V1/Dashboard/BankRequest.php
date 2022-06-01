@@ -13,7 +13,6 @@ class BankRequest extends ApiMasterRequest
             "is_active"    => "nullable|in:0,1",
             'banks'        => 'required|array',
             'banks.*.id'   => '',
-            'banks.*.name' => 'required|string|min:2|max:100|regex:/^[\pL\pN\s\-\_\,]+$/u|unique:bank_branches,name,' . @$this->bank->id . ',bank_id',
             'banks.*.type' => 'required|in:' . implode(',', BankBranch::TYPES),
             'banks.*.code' => 'required|string|min:2|max:20|regex:/^[\pL\pN\s\-\_\,]+$/u',
             'banks.*.site' => 'required|string|min:2|max:500|regex:/^[\pL\pN\s\-\_\,]+$/u',
@@ -25,6 +24,7 @@ class BankRequest extends ApiMasterRequest
 
         foreach (config('translatable.locales') as $locale) {
             $rules[$locale . '.name'] = 'required|max:100|regex:/^[\pL\pN\s\-\_\,]+$/u|unique:bank_translations,name,' . @$this->bank->id . ',bank_id';
+            $rules['banks.*.' . $locale . '.name'] = 'required|string|min:2|max:100|regex:/^[\pL\pN\s\-\_\,]+$/u';
         }
 
         return $rules;

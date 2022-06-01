@@ -153,7 +153,7 @@ class ActivityLogController extends Controller
 
         $activatyLogsQuery = ActivityLog::select('activity_logs.id','activity_logs.user_id','activity_logs.auditable_type','activity_logs.auditable_id','activity_logs.sub_program','activity_logs.action_type','activity_logs.ip_address','activity_logs.created_at')->search($request)
         ->CustomDateFromTo($request)
-        ->get();
+        ->cursor();
 
         if (!$request->has('created_from')) {
             $createdFrom = ActivityLog::selectRaw('MIN(created_at) as min_created_at')->value('min_created_at');

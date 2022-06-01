@@ -7,11 +7,10 @@ Route::group(
     [
         'prefix' => LaravelLocalization::setLocale(),
         'as' => 'dashboard.',
-        'middleware' => ['localeSessionRedirect', 'localizationRedirect', 'localeViewPath']
+        'middleware' => ['localeSessionRedirect', 'localizationRedirect', 'localeViewPath','maintenance_mode']
     ],
     function () {
         // Dashboard Login
-
         Route::get('dashboard/login', "Auth\LoginController@showLoginForm")->name("login");
         Route::post('dashboard/login', "Auth\LoginController@login")->name("post_login");
         Route::get('dashboard/password/reset', 'Auth\ForgotPasswordController@showLinkRequestForm')->name('reset');
@@ -45,7 +44,6 @@ Route::group(
             });
             Route::resource('activity_log', 'ActivityLogController')->only('index', 'show');
             Route::get('department_export', 'DepartmentController@exportDepartment');
-
 
             Route::controller('RasidJobController')->name('rasid_job.')->prefix('rasid_job')->group(function () {
                 // Route::get('archive', 'archive')->name('archive');
@@ -90,13 +88,6 @@ Route::group(
                 Route::get('exportPDF', 'exportPDF');
             });
 
-
-
-
-
-
-
-
             Route::resources([
                 'rasid_job' => 'RasidJobController',
                 'department' => 'DepartmentController',
@@ -111,5 +102,4 @@ Route::group(
                 'card_package' => 'CardPackageController',
             ]);
         });
-    }
-);
+});

@@ -11,7 +11,6 @@ class CreateBankBranchesTable extends Migration
     {
         Schema::create('bank_branches', function (Blueprint $table) {
             $table->uuid("id")->primary();
-            $table->string('name');
             $table->enum('type', BankBranch::TYPES);
             $table->string('code');
             $table->string('site', 500);
@@ -25,10 +24,19 @@ class CreateBankBranchesTable extends Migration
             $table->softDeletes();
             $table->timestamps();
         });
+
+        Schema::create('bank_branch_translations', function (Blueprint $table) {
+            $table->uuid("id")->primary();
+            $table->string("name");
+            $table->string("locale")->index();
+            $table->foreignUuid("bank_branch_id")->constrained('bank_branches')->onDelete('cascade');
+            $table->unique(["bank_branch_id", "locale"]);
+        });
     }
 
     public function down()
     {
+        Schema::dropIfExists("bank_branch_translations");
         Schema::dropIfExists('bank_branches');
     }
 }
