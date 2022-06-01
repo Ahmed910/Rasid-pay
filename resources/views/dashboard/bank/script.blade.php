@@ -79,7 +79,7 @@
         },
           {
             data: "bank_name",
-            name: "bank_name"
+            name: "name"
           },
 
           {
@@ -94,7 +94,7 @@
           },
           {
             data: "name",
-            name: "name"
+            name: "branch_name"
           },
           {
             data: "site",
