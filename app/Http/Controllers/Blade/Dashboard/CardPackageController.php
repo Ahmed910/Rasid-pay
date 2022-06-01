@@ -37,29 +37,33 @@ class CardPackageController extends Controller
     {
         $previousUrl = url()->previous();
         (strpos($previousUrl, 'card_package')) ? session(['perviousPage' => 'card_package']) : session(['perviousPage' => 'home']);
-        $clients = User::doesntHave('cardPackage')->where("user_type", "client")->pluck('users.fullname', 'users.id');
-        return view('dashboard.card_package.create', compact('clients','previousUrl'));
+        $clients = User::doesntHave('cardPackage')->where("user_type", "client")->pluck('users.fullname', 'users.id')->toArray();
+        return view('dashboard.card_package.create', compact('clients', 'previousUrl'));
     }
 
-    public function store(CardPackageRequest $request)
+    public function store(CardPackageRequest $request, CardPackage $card_package)
     {
         if (!request()->ajax()) {
-            $cardPackage  =  CardPackage::create($request->validated());
-            $client_name = $cardPackage->load(['client:id,fullname'])->client->fullname;
-            return redirect()->route('dashboard.card_package.index')->withSuccess(__('dashboard.card_package.discount_success_add', [ 'client' => $client_name ]));
-
+            $card_package->fill($request->validated())->save();
+            $client_name = $card_package->load(['client:id,fullname'])->client->fullname;
+            return redirect()->route('dashboard.card_package.index')->withSuccess(__('dashboard.card_package.discount_success_add', ['client' => $client_name]));
         }
-
     }
 
-
-    public function show(Request $request, CardPackage $card_package)
+    public function edit(CardPackage $card_package)
     {
-        return view('dashboard.card_package.show', compact('card_package'));
+        $previousUrl = url()->previous();
+        (strpos($previousUrl, 'card_package')) ? session(['perviousPage' => 'card_package']) : session(['perviousPage' => 'home']);
+        $client = $card_package->load(['client:id,fullname'])->client;
+        return view('dashboard.card_package.edit', compact('card_package', 'client'));
     }
 
-    public function edit(Request $request, CardPackage $card_package)
+    public function update(CardPackageRequest $request, CardPackage $card_package)
     {
-        return view('dashboard.card_package.show', compact('card_package'));
+        if (!request()->ajax()) {
+            $card_package->fill($request->validated() + ['updated_at' => now()])->save();
+            $client = $card_package->load(['client:id,fullname'])->client;
+            return redirect()->route('dashboard.card_package.index')->withSuccess(__('dashboard.card_package.discount_success_update', ['client' => $client->fullname]));
+        }
     }
 }
