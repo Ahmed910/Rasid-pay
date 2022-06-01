@@ -64,6 +64,7 @@ $attributes = [
     'banks.*.tax_number' => 'حقل الرقم الضريبي',
     'banks.*.service_customer' => 'حقل خدمة العملاء',
     'banks.*.is_active' => 'حقل is_active',
+    'banks.*.ar.name'   => 'حقل اسم الفرع'
 ];
 
 foreach (config('translatable.locales') as $locale) {
