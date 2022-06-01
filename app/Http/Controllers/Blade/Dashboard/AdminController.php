@@ -31,9 +31,7 @@ class AdminController extends Controller
 
         if ($request->ajax()) {
             $adminsQuery = User::CustomDateFromTo($request)->search($request)->where('user_type', 'admin')->has("employee")
-                ->sortBy($request)->with(['department', 'permissions', 'groups' => function ($q) {
-                    $q->with('permissions');
-                }]);
+                ->sortBy($request)->with(['department']);
 
             $adminCount = $adminsQuery->count();
             $admins = $adminsQuery->skip($request->start)
