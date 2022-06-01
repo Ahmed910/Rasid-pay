@@ -4,6 +4,7 @@ namespace App\Models\BankBranch;
 
 use App\Models\ActivityLog;
 use App\Models\Bank\Bank;
+use App\Models\Transaction;
 use App\Traits\Loggable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -92,18 +93,17 @@ class BankBranch extends Model
 
         $query->when($request->sort, function ($q) use ($request) {
             if ($request->sort["column"] == "name") {
-                return $q->has('bank.translations')
-                    ->orderBy('name', @$request->sort["dir"]);
+                return $q->has('bank')->orderByTranslation('name', @$request->sort["dir"]);
+            }
+
+            if ($request->sort["column"] == "branch_name") {
+                return $q->join('bank_branch_translations','bank_branches.id','bank_branch_id')
+                    ->orderBy('bank_branch_translations.name', @$request->sort["dir"]);
             }
 
             if ($request->sort["column"] == "transactions_count") {
-                return $q->where(function ($query) {
-                    $query->where(function ($q) {
-                        $q->selectRaw('COUNT(*) as transaction_count')
-                            ->from('transactions')
-                            ->where('banks.id', 'transactions.bank_id');
-                    })->orderBy('transaction_count');
-                });
+                return $q->withCount('transactions')
+                    ->orderBy('transactions_count', @$request->sort['dir']);
             }
 
             $q->orderBy($request->sort["column"], @$request->sort["dir"]);
@@ -115,6 +115,12 @@ class BankBranch extends Model
     public function bank(): BelongsTo
     {
         return $this->belongsTo(Bank::class);
+    }
+
+    /**Custom according on relationships */
+    public function transactions()
+    {
+        return $this->hasManyThrough(Transaction::class, Bank::class, 'id', null, 'bank_id');
     }
     #endregion relationships
 

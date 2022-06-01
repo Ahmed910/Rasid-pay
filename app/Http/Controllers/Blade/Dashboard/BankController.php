@@ -26,8 +26,10 @@ class BankController extends Controller
             $bankBranchesCount = $bankBranches->count();
 
             $bankBranches = $bankBranches->skip($request->start)
-                ->take(($request->length == -1) ? $bankBranchesCount : $request->length)->sortBy($request)
+                ->take(($request->length == -1) ? $bankBranchesCount : $request->length)
+                ->sortBy($request)
                 ->get();
+
             return BankBranchCollection::make($bankBranches)
                 ->additional(['total_count' => $bankBranchesCount]);
         }
