@@ -3,12 +3,20 @@
 namespace App\Http\Resources\Dashboard\Banks;
 
 use App\Http\Resources\Dashboard\BankResource;
+use App\Http\Resources\Dashboard\GlobalTransResource;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class BankBranchResource extends JsonResource
 {
     public function toArray($request)
     {
+        $locales = [];
+        if ($this->relationLoaded('translations')) {
+            foreach (config('translatable.locales') as $locale) {
+                $locales['translations'][$locale] = GlobalTransResource::make($this->translations->firstWhere('locale', $locale));
+            }
+        }
+
         return [
             'id'   => $this->id,
             'name' => $this->name,
@@ -34,6 +42,6 @@ class BankBranchResource extends JsonResource
                     'forceDelete' => auth()->user()->hasPermissions('banks.force_delete')
                 ]),
             ])
-        ];
+        ] + $locales;
     }
 }

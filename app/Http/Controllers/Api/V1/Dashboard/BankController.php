@@ -16,7 +16,7 @@ class BankController extends Controller
 {
     public function index(Request $request)
     {
-        $bankBranches = BankBranch::with('bank.translations')
+        $bankBranches = BankBranch::with('bank.translations', 'translations')
             ->with(['bank' => fn ($q) => $q->withCount('transactions')])
             ->search($request)
             ->sortBy($request)
@@ -46,7 +46,7 @@ class BankController extends Controller
 
     public function show($bankBranchId)
     {
-        $branch = BankBranch::with('bank.translations')
+        $branch = BankBranch::with('bank.translations', 'translations')
             ->withTrashed()
             ->findOrFail($bankBranchId);
 
@@ -59,7 +59,7 @@ class BankController extends Controller
 
     public function editShow(Bank $bank)
     {
-        $bank->load('branches', 'translations');
+        $bank->load('branches.translations', 'translations');
 
         return BankForEditResource::make($bank)->additional([
             'status' => true,
