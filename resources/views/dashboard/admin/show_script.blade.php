@@ -12,6 +12,7 @@
   $(function () {
 
       $("#historyTableadmin").DataTable({
+        responsive: true,
         sDom: "t<'domOption'lpi>",
         serverSide: true,
         ajax: {
