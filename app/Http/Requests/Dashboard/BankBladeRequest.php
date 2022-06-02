@@ -24,7 +24,7 @@ class BankBladeRequest extends FormRequest
 
         foreach (config('translatable.locales') as $locale) {
             $rules[$locale . '.name'] = 'required|max:100|regex:/^[\pL\pN\s\-\_\,]+$/u|unique:bank_translations,name,' . @$this->bank->id . ',bank_id';
-            $rules['banks.*.' . $locale . '.name'] = 'required|string|min:2|max:100|regex:/^[\pL\pN\s\-\_\,]+$/u';
+            $rules['branches.*.' . $locale . '.name'] = 'required|string|min:2|max:100|regex:/^[\pL\pN\s\-\_\,]+$/u';
         }
 
         return $rules;
