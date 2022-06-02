@@ -34,7 +34,7 @@
             <div class="col-12 col-md-4 mb-5">
               {!! Form::label('bankBranchName',trans('dashboard.bank.BranchName')) !!}
           <span class="requiredFields">*</span>
-{!! Form::text("banks[` + myid + `][name]" , null, ['class' => 'form-control' . ($errors->has("name") ? ' is-invalid' : null), 'id' => 'bankBranchName', 'placeholder' => trans('dashboard.bank.Enter_Bank_branch_name')]) !!}
+{!! Form::text("branches[` + myid + `][name]" , null, ['class' => 'form-control' . ($errors->has("name") ? ' is-invalid' : null), 'id' => 'bankBranchName', 'placeholder' => trans('dashboard.bank.Enter_Bank_branch_name')]) !!}
 
           <div class="invalid-feedback">اسم الفرع مطلوب.</div>
       </div>
@@ -43,14 +43,14 @@
 {!! Form::label('bankType', trans('dashboard.bank.type')) !!}
           <span class="requiredFields">*</span>
 
-{!! Form::select("banks[` + myid + `][types]", [''=>'']+trans('dashboard.bank.types'), null, ['class' => 'form-control select2' . ($errors->has('type') ? ' is-invalid' : null), 'id' => 'bankType', 'data-placeholder' => trans('dashboard.general.select_type')]) !!}
+{!! Form::select("branches[` + myid + `][type]", [''=>'']+trans('dashboard.bank.types'), null, ['class' => 'form-control select2' . ($errors->has('type') ? ' is-invalid' : null), 'id' => 'bankType', 'data-placeholder' => trans('dashboard.general.select_type')]) !!}
           <div class="invalid-feedback">النوع مطلوب.</div>
 
       </div>
       <div class="col-12 col-md-4 mb-5">
 {!! Form::label('bankCode',trans('dashboard.bank.code')) !!}
           <span class="requiredFields">*</span>
-{!! Form::text("banks[` + myid + `][code]", null, ['class' => 'form-control' . ($errors->has("code") ? ' is-invalid' : null), 'id' => 'bankCode', 'placeholder' => trans('dashboard.bank.Enter_bank_code')]) !!}
+{!! Form::text("branches[` + myid + `][code]", null, ['class' => 'form-control' . ($errors->has("code") ? ' is-invalid' : null), 'id' => 'bankCode', 'placeholder' => trans('dashboard.bank.Enter_bank_code')]) !!}
 
           <div class="invalid-feedback">الكود مطلوب.</div>
       </div>
@@ -59,7 +59,7 @@
       <div class="col-12 col-md-4 mb-5">
 {!! Form::label('bankLocation',trans('dashboard.bank.location')) !!}
           <span class="requiredFields">*</span>
-{!! Form::text("banks[` + myid + `][site]", null, ['class' => 'form-control' . ($errors->has("site") ? ' is-invalid' : null), 'id' => 'bankLocation', 'placeholder' => trans('dashboard.bank.Enter_bank_location')]) !!}
+{!! Form::text("branches[` + myid + `][site]", null, ['class' => 'form-control' . ($errors->has("site") ? ' is-invalid' : null), 'id' => 'bankLocation', 'placeholder' => trans('dashboard.bank.Enter_bank_location')]) !!}
 
           <div class="invalid-feedback">الموقع مطلوب.</div>
       </div>
@@ -69,7 +69,7 @@
 {!! Form::label('transactionValueFrom',trans('dashboard.bank.transaction_Value_From')) !!}
           <span class="requiredFields">*</span>
           <div class="input-group">
-{!! Form::number("banks[` + myid + `][transfer_amount]", null, ['class' => 'form-control' . ($errors->has("transfer_amount") ? ' is-invalid' : null), 'id' => 'transactionValueFrom', 'placeholder' => trans('dashboard.bank.Enter_transfer_amount')]) !!}
+{!! Form::number("branches[` + myid + `][transfer_amount]", null, ['class' => 'form-control' . ($errors->has("transfer_amount") ? ' is-invalid' : null), 'id' => 'transactionValueFrom', 'placeholder' => trans('dashboard.bank.Enter_transfer_amount')]) !!}
           <div class="input-group-text border-start-0">
            ر.س
        </div>
@@ -82,7 +82,7 @@
          <div class="col-12 col-md-4 mb-5">
 {!! Form::label('commercialRecord',trans('dashboard.bank.commercialRecord')) !!}
 
-          {!! Form::text("banks[` + myid + `][commercial_record]", null, ['class' => 'form-control' . ($errors->has("commercial_record") ? ' is-invalid' : null), 'id' => 'commercialRecord', 'placeholder' => trans('dashboard.bank.Enter_commercial_Record')]) !!}
+          {!! Form::text("branches[` + myid + `][commercial_record]", null, ['class' => 'form-control' . ($errors->has("commercial_record") ? ' is-invalid' : null), 'id' => 'commercialRecord', 'placeholder' => trans('dashboard.bank.Enter_commercial_Record')]) !!}
 
           <div class="invalid-feedback">السجل التجاري مطلوب.</div>
       </div>
@@ -93,7 +93,7 @@
       <div class="col-12 col-md-4 mb-5">
 {!! Form::label('taxNumber',trans('dashboard.bank.taxNumber')) !!}
 
-          {!! Form::text("banks[` + myid + `][tax_number]", null, ['class' => 'form-control' . ($errors->has("tax_number") ? ' is-invalid' : null), 'id' => 'taxNumber', 'placeholder' => trans('dashboard.bank.Enter_tax_Number')]) !!}
+          {!! Form::text("branches[` + myid + `][tax_number]", null, ['class' => 'form-control' . ($errors->has("tax_number") ? ' is-invalid' : null), 'id' => 'taxNumber', 'placeholder' => trans('dashboard.bank.Enter_tax_Number')]) !!}
 
           <div class="invalid-feedback">السجل التجاري مطلوب.</div>
       </div>
@@ -101,7 +101,7 @@
       <div class="col-12 col-md-4 mb-5">
 {!! Form::label('serviceNumber',trans('dashboard.bank.serviceNumber')) !!}
 
-          {!! Form::text("banks[` + myid + `][service_customer]", null, ['class' => 'form-control' . ($errors->has("service_customer") ? ' is-invalid' : null), 'id' => 'serviceNumber', 'placeholder' => trans('dashboard.bank.Enter_service_Number')]) !!}
+          {!! Form::text("branches[` + myid + `][service_customer]", null, ['class' => 'form-control' . ($errors->has("service_customer") ? ' is-invalid' : null), 'id' => 'serviceNumber', 'placeholder' => trans('dashboard.bank.Enter_service_Number')]) !!}
 
           <div class="invalid-feedback">خدمة العملاء مطلوب.</div>
       </div>

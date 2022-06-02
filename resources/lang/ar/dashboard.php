@@ -519,6 +519,7 @@ return [
         "Enter_tax_Number"=>"ادخل الرقم الضريبي",
         "serviceNumber" =>"خدمة العملاء",
         "Enter_service_Number" =>"ادخل رقم خدمة العملاء",
+        "Add new Branch" =>"إضافة فرع جديد",
         'types' => [
             'centeral' => 'بنك مركزي',
             'commercial' => 'بنك تجاري',

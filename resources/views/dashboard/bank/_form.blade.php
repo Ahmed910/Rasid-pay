@@ -24,12 +24,11 @@
             <div class="col-12 col-md-4 mb-5">
               {!! Form::label('bankBranchName',trans('dashboard.bank.BranchName')) !!}
              <span class="requiredFields">*</span>
-             @foreach ($locales as $locale)
 
-             {!! Form::text("branches[$key][$locale][name]",  null, ['class' => 'form-control' . ($errors->has("branches.$key.${locale}.name") ? ' border-danger' : null), 'id' => 'bankBranchName', 'placeholder' => trans('dashboard.bank.Enter_Bank_branch_name')]) !!}
+             {!! Form::text("branches[$key][name]",  null, ['class' => 'form-control' . ($errors->has("branches.$key.name") ? ' border-danger' : null), 'id' => 'bankBranchName', 'placeholder' => trans('dashboard.bank.Enter_Bank_branch_name')]) !!}
 
-             <span class="text-danger" id="branches.{{ $key }}.{{ $locale }}.nameError" hidden></span>
-             @endforeach
+             <span class="text-danger" id="branches.{{ $key }}.nameError" hidden></span>
+
                 <div class="invalid-feedback">اسم الفرع مطلوب.</div>
             </div>
 
