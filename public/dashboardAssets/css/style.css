@@ -80479,5 +80479,13 @@ body{
    .form-check{
        margin-top:0 !important;
    }
-     .rtl .card{padding: 1.5em !important; }
+     .rtl .card{padding: 1.5em !important; }.auth_vector {
+    min-height: initial;
 }
+
+.w-60 {
+    width: 90% !important;
+}
+}
+
+

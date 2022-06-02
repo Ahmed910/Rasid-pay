@@ -46,13 +46,13 @@
     <div class="page">
         <!-- CONTAINER OPEN -->
         <div class="row no-gutters">
-            <div class="col-12 col-md-5">
+            <div class="col-12 col-lg-5">
                 <div class="auth_vector d-flex align-items-center">
                     {{-- <lottie-player autoplay loop mode="normal"
                         src="{{ asset('dashboardAssets') }}/images/lottie/login.json"
                         style="display: block; margin: auto">
                     </lottie-player> --}}
-                    
+
 
                     @if (request()->routeIs('dashboard.login'))
                         <img src="{{ asset('dashboardAssets') }}/images/login.png" style="width: 90%;margin: auto; height: fit-content;" />
@@ -62,7 +62,7 @@
 
                 </div>
             </div>
-            <div class="col-12 col-md-7 d-flex align-center">
+            <div class="col-12 col-lg-7 d-flex align-center">
                 <div class="card m-auto w-60 p-9">
                     <img src="{{ asset('dashboardAssets') }}/images/brand/fintech-logo.svg" width="175" alt=""
                         class="mb-5 d-block m-auto"/>
@@ -141,7 +141,7 @@
                 error: function(data) {
                     btn_submit.removeClass('disable');
 
-                    
+
                     btn_submit.html(btn_submit_html);
                     $.each(data.responseJSON.errors, function(name, message) {
                         $('input[name="' + name + '"]').addClass('is-invalid');

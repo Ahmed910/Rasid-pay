@@ -120,7 +120,6 @@
 <div class="row row-sm">
   <div class="col-lg-12">
     <div class="p-1">
-      <div class="table-responsive">
         <table id="citizenTable" class="table table-bordered text-nowrap shadow-sm bg-body key-buttons">
           <thead>
             <tr>
@@ -137,7 +136,6 @@
           <tbody>
           </tbody>
         </table>
-      </div>
     </div>
   </div>
 </div>
