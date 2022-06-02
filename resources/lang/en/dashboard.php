@@ -359,6 +359,7 @@ return [
         "Enter_tax_Number" => "Enter_tax_Number",
         "serviceNumber" => "serviceNumber ",
         "Enter_service_Number" => "Enter_service_Number",
+        "Add new Branch" =>" Add new Branch ",
         'sub_progs' => [
             'index' => 'سجل البنوك',
             'archive' => 'أرشيف البنوك',

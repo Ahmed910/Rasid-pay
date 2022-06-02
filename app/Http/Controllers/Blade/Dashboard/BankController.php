@@ -53,6 +53,7 @@ class BankController extends Controller
 
     public function store(BankBladeRequest $request,Bank $bank)
     {
+       
         $bank->fill($request->validated() + ['added_by_id' => auth()->id()])->save();
         $bank->branches()->createMany($request->branches);
 
@@ -76,7 +77,8 @@ class BankController extends Controller
         $bank = Bank::withTrashed()->findOrFail($id);
 
         $locales = config('translatable.locales');
-        $branches = $bank->branches()->get()->toArray();
+        $branches = $bank->branches()->with('translations')->ListsTranslations('name')->get()->toArray();
+
 
 
         return view('dashboard.bank.edit', compact('locales', 'bank', 'branches'));
@@ -91,7 +93,7 @@ class BankController extends Controller
         $bank->fill($data + ['updated_at' => now()])->save();
 
         $branchesIds = $bank->branches()->pluck('id')->toArray();
-        // dd($branchesIds);
+
         $newBranchesIds = collect($data['branches'])->pluck('id')->toArray();
 
         foreach ($branchesIds as $id) {
