@@ -110,7 +110,7 @@
 <!-- Row -->
 <div class="row row-sm">
   <div class="col-lg-12">
-    <div class="table-responsive p-1">
+    <div class="p-1">
       <table id="clientTable" class="table table-bordered shadow-sm bg-body text-nowrap key-buttons">
         <thead>
           <tr>

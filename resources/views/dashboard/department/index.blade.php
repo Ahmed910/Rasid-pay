@@ -15,13 +15,13 @@
 
 {!! Form::open(['method' => 'GET', 'id' => 'search-form']) !!}
 <div class="row align-items-end mb-3">
-  <div class="col">
+  <div class="col-12 col-md-4">
     <label for="departmentName">
       @lang('dashboard.department.department_name')</label>
     <input type="text" class="form-control input-regex stop-copy-paste" id="departmentName" maxlength=100
       placeholder="@lang('dashboard.general.enter_name')" name="name" value="{{ old('name') ?? request('name') }}" />
   </div>
-  <div class="col">
+  <div class="col-12 col-md-4">
     <label for="parent_id">
       @lang('dashboard.department.main_department')</label>
 
@@ -31,7 +31,7 @@
     'parent_id']) !!}
   </div>
 
-  <div class="col">
+  <div class="col-12 col-md-4">
     <label for="from-hijri-picker-custom">
       @lang('dashboard.general.from_date')</label>
     <div class="input-group">
@@ -46,7 +46,7 @@
     </div>
   </div>
 
-  <div class="col">
+  <div class="col-12 col-md-4">
     <label for="to-hijri-picker-custom">
       @lang('dashboard.general.to_date')</label>
     <div class="input-group">
@@ -61,7 +61,7 @@
     </div>
   </div>
 
-  <div class="col">
+  <div class="col-12 col-md-4">
     <label for="status">
       @lang('dashboard.general.status')</label>
     {!! Form::select('is_active', ['' => '', -1 => trans('dashboard.general.all_cases')] +

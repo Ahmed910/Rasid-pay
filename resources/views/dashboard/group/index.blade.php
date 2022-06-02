@@ -66,7 +66,7 @@
 <div class="row row-sm">
   <div class="col-lg-12">
     <div class="p-1">
-      <div class="table-responsive">
+
         <table id="ajaxTable" class="table table-bordered shadow-sm bg-body text-nowrap key-buttons">
           <thead>
             <tr>
@@ -81,7 +81,7 @@
           <tbody>
           </tbody>
         </table>
-      </div>
+
     </div>
   </div>
 </div>

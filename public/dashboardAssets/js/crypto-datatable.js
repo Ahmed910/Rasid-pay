@@ -1,5 +1,6 @@
 //______Data-Table
 $('#crypto-data-table').DataTable({
+        responsive: true,
     "order": [
         [0, "desc"]
     ],
