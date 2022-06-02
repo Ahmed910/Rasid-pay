@@ -20,7 +20,7 @@
         {!! Form::label('bankBranchName',trans('dashboard.bank.BranchName')) !!}
         <span class="requiredFields">*</span>
         @foreach ($locales as $locale)
-        {!! Form::text("branches[$key][$locale][name]", $branches['name'] ?? null, ['class' => 'form-control input-regex stop-copy-paste' .
+        {!! Form::text("branches[$key][$locale][name]", $branch['name'] ?? null, ['class' => 'form-control input-regex stop-copy-paste' .
         ($errors->has("branches.$key.${locale}.name") ? ' border-danger' : null), 'id' => 'bankBranchName',
         'placeholder' => trans('dashboard.bank.Enter_Bank_branch_name')]) !!}
         <span class="text-danger" id="branches.{{ $key }}.{{ $locale }}.nameError" hidden></span>
