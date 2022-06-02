@@ -92,7 +92,7 @@
 
 <div class="row">
     <div class="col-12 mb-5 text-end">
-        {!! Form::button('<i class="mdi mdi-page-next-outline"></i>' . trans('dashboard.general.save'), ['type' => 'submit', 'class' => 'btn btn-primary', 'data-bs-toggle' => 'modal', 'id' => 'saveButton']) !!}
+        {!! Form::button('<i class="mdi mdi-page-next-outline"></i>' . trans('dashboard.general.save'), ['type' => 'submit', 'class' => 'btn btn-primary', 'data-bs-toggle' => 'modal', 'id' => 'submitButton']) !!}
         {!! Form::button('<i class="mdi mdi-arrow-left"></i>' . trans('dashboard.general.back'), ['type' => 'button', 'class' => 'btn btn-outline-primary', 'id' => 'showBack']) !!}
     </div>
 </div>

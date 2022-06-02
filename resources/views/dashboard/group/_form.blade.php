@@ -62,8 +62,6 @@
     <script src="{{ asset('dashboardAssets') }}/plugins/fileuploads/js/file-upload.js"></script>
 
     <script>
-    var validate = false;
-    var saveButton = true;
         $(function() {
             let permissions = @isset($group)  @json($group->permission_list) @else [] @endisset;
             let groups = @isset($group)  @json($group->group_list) @else [] @endisset;
@@ -89,75 +87,6 @@
             $('[name="permission_list[]"]').html(permission_options);
             $('[name="group_list[]"]').html(group_options);
         }
-
-
-
-        $("#showBack").click(function() {
-              if (validate) {
-                  $('#backModal').modal('show');
-                  return false;
-              } else {
-                window.location.href = "{{ route('dashboard.backButton') }}";
-              }
-          });
-
-          $("input,select").change(function() {
-              validate = true;
-          });
-
-          function toggleSaveButton() {
-              if (saveButton) {
-                  saveButton = false;
-                  $("#saveButton").html('<i class="spinner-border spinner-border-sm"></i>' + "{{ trans('dashboard.general.save')}}");
-                  $('#saveButton').attr('disabled', true);
-              } else {
-                  saveButton = true;
-                  $("#saveButton").html('<i class="mdi mdi-content-save-outline"></i>' + "{{ trans('dashboard.general.save')}}");
-                  $('#saveButton').attr('disabled', false);
-              }
-          }
-
-          $('#saveButton').on('click', function(e) {
-             e.preventDefault();
-             $('span[id*="Error"]').attr('hidden', true);
-             $('*input,select').removeClass('border-danger');
-             let data = new FormData(document.getElementById('formId'));
-
-             $.ajaxSetup({
-                 headers: {
-                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                 }
-             });
-             $.ajax({
-                 url: $('#formId').attr('action'),
-                 type: "POST",
-                 data: data,
-                 beforeSend: toggleSaveButton(),
-                 processData: false,
-                 contentType: false,
-                 cache: false,
-                 success: function() {
-                     $('#successModal').modal('show');
-                     toggleSaveButton();
-                 },
-                 error: function(data) {
-                     toggleSaveButton();
-                     $.each(data.responseJSON.errors, function(name, message) {
-                         let inputName = name;
-                         let inputError = name + 'Error';
-                         if (inputName.includes('.')) {
-                             let convertArray = inputName.split('.');
-                             inputName = convertArray[0] + '[' + convertArray[1] + ']'
-                         }
-                         $('input[name="' + inputName + '"]').addClass('border-danger');
-                         $('select[name="' + inputName + '[]"]').addClass('border-danger');
-                         $('span[id="' + inputError + '"]').attr('hidden', false);
-                         $('span[id="' + inputError + '"]').html(`<small>${message}</small>`);
-                     });
-                 }
-             });
-         });
-
 
     </script>
 @endsection
