@@ -12,7 +12,6 @@
     <script>
         $(function() {
             $("#orderTable").DataTable({
-                responsive: true,
                 sDom: "t<'domOption'lpi>",
                 pageLength: 10,
                 lengthMenu: [
@@ -67,7 +66,6 @@
             });
 
             var table = $("#citizenTable").DataTable({
-                responsive: true,
                 sDom: "t<'domOption'lpi>",
                 serverSide: true,
                 processing: true,

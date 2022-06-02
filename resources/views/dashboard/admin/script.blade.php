@@ -31,7 +31,6 @@
       });
 
       var table = $("#adminTable").DataTable({
-        responsive: true,
         sDom: "t<'domOption'lpi>",
         serverSide: true,
         processing: true,

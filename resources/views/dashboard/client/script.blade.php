@@ -48,7 +48,6 @@
       }
 
       var collapsedTable = $('#collapsedTable').DataTable({
-        responsive: true,
         sDom: "t<'domOption'lpi>",
         pageLength: 10,
         lengthMenu: [
@@ -78,7 +77,6 @@
 
 
       var accounts_table = $("#orderTable").DataTable({
-        responsive: true,
         sDom: "t<'domOption'lpi>",
         serverSide: true,
         processing: true,
@@ -229,7 +227,6 @@ name: 'created_at'
       });
 
       var table = $("#clientTable").DataTable({
-        responsive: true,
         sDom: "t<'domOption'lpi>",
         serverSide: true,
         processing: true,

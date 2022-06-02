@@ -1,7 +1,7 @@
 <div class="card py-7 px-7">
     <div class="row">
 
-        <div class="col-12 col-md-{{ isset($rasidJob) ? 4 : 6 }}">
+        <div class="col-12 col-md-{{ isset($rasidJob) ? 4 : 6 }} mb-5">
             {!! Form::label('jobName', trans('dashboard.rasid_job.job_name')) !!}
             <span class="requiredFields">*</span>
             @foreach ($locales as $locale)
@@ -11,7 +11,7 @@
             @endforeach
         </div>
 
-        <div class="col-12 col-md-{{ isset($rasidJob) ? 4 : 6 }}">
+        <div class="col-12 col-md-{{ isset($rasidJob) ? 4 : 6 }} mb-5">
             {!! Form::label('department', trans('dashboard.department.department')) !!}
             <span class="requiredFields">*</span>
 
@@ -22,7 +22,7 @@
         </div>
 
         @if (isset($rasidJob))
-            <div class="col-12 col-md-4">
+            <div class="col-12 col-md-4 mb-5">
                 {!! Form::label('status', trans('dashboard.general.status')) !!}
                 <span class="requiredFields">*</span>
 
@@ -33,7 +33,7 @@
 
             </div>
 
-            <div class="col-12 col-md-3">
+            <div class="col-12 col-md-3 mb-5">
                 {!! Form::label('jobType', trans('dashboard.general.type')) !!}
                 {!! Form::text('is_vacant', trans('dashboard.general.job_type_cases')[$rasidJob->is_vacant], ['class' => 'form-control', 'disabled']) !!}
             </div>
@@ -41,7 +41,7 @@
 
 
         @if (isset($rasidJob) && isset($rasidJob->employee))
-            <div class="col-12 col-md-3">
+            <div class="col-12 col-md-3 mb-5">
                 {!! Form::label('employeName', trans('dashboard.rasid_job.employee_name')) !!}
                 {!! Form::text('employeeName', $rasidJob->employee->user->fullname, ['class' => 'form-control', 'id' => 'employeName', 'disabled']) !!}
             </div>

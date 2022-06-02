@@ -87,7 +87,7 @@
     <label> أسماء المديرين/المفوضين </label>
     <div class="row row-sm">
       <div class="col-lg-12">
-        <div class="p-1">
+        <div class="table-responsive p-1">
           <table id="collapsedTable" class="table table-bordered dt-responsive  nowrap shadow-sm bg-body key-buttons historyTable">
             <thead>
               <tr>

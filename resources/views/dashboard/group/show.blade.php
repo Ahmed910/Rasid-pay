@@ -41,7 +41,7 @@
     </div>
     <label>@lang('dashboard.group.group_data')</label>
     <div class="p-1">
-                <table id="groupTable" class="table table-bordered text-nowrap shadow-sm bg-body key-buttons historyTable">
+        <table id="groupTable" class="table table-bordered text-nowrap shadow-sm bg-body key-buttons historyTable">
             <thead>
                 <tr>
                     <th class="border-bottom-0">#</th>
@@ -82,7 +82,7 @@
     </div>
     <label>@lang('dashboard.activity_log.history')</label>
     <div class="p-1">
-                <table id="activityTable" class="table table-bordered text-nowrap shadow-sm bg-body key-buttons historyTable">
+        <table id="activityTable" class="table table-bordered text-nowrap shadow-sm bg-body key-buttons historyTable">
             <thead>
                 <tr>
                     <th class="border-bottom-0">#</th>

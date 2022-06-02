@@ -29,7 +29,6 @@
             });
 
         var table = $("#departmentTable").DataTable({
-            responsive: true,
             sDom: "t<'domOption'lpi>",
             serverSide: true,
             ajax: {

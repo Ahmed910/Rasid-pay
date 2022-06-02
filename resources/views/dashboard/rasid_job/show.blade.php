@@ -75,7 +75,7 @@
 
     <label> {{ trans('dashboard.activity_log.history') }} </label>
     <div class="p-1">
-                <table id="historyTable" class="table table-bordered shadow-sm bg-body key-buttons historyTable">
+        <table id="historyTable" class="table table-bordered shadow-sm bg-body key-buttons historyTable">
             <thead>
                 <tr>
                     <th class="border-bottom-0">#</th>

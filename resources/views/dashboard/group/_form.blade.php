@@ -1,6 +1,6 @@
 <div class="card py-7 px-7">
     <div class="row">
-        <div class="col-12 col-md-6">
+        <div class="col-12 col-md-6 mb-5">
             {!! Form::label('departmentName', trans('dashboard.group.group_name')) !!} <span class="requiredFields">*</span>
             @foreach ($locales as $locale)
                 {!! Form::text("{$locale}[name]", isset($group) ? $group->name : null, ['class' => 'form-control input-regex stop-copy-paste', 'placeholder' => trans('dashboard.general.enter_name'), 'minlength' => '2', 'maxlength' => '100', 'required' => 'required']) !!}
@@ -10,7 +10,7 @@
                 @endforeach
         </div>
         @if (request()->routeIs('dashboard.group.edit'))
-            <div class="col-12 col-md-6">
+            <div class="col-12 col-md-6 mb-5">
                 {!! Form::label('status', trans('dashboard.general.status')) !!}
                 {!! Form::select('is_active', trans('dashboard.general.active_cases'), null, ['class' => 'form-control select2', 'id' => 'status', 'required' => 'required', 'placeholder' => trans('dashboard.general.select_status')]) !!}
 
@@ -18,7 +18,7 @@
 
                   </div>
         @endif
-        <div class="col-12 col-md-6">
+        <div class="col-12 col-md-6 mb-5">
             <label for="permissions">{{trans('dashboard.admin.permission_system')}}</label> <span class="requiredFields">*</span>
             <select name="permission_list[]" hidden multiple></select>
             <select name="group_list[]" hidden multiple></select>

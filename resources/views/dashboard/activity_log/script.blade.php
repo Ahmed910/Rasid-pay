@@ -28,7 +28,7 @@
         });
     })
     $(document).ready(function () {
-      var table = $("#activitylogtable").DataTable({responsive: true,
+      var table = $("#activitylogtable").DataTable({
         sDom: "t<'domOption'lpi>",
         serverSide: true,
         ajax: {

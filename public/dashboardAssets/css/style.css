@@ -80458,26 +80458,3 @@ tr:hover .dtr-control:before {
 .createBankBranch:first-of-type a {
     display: none;
 }
-
-body{
-
-    background: #fff !important;
-}
-
-.page-header{
-    display: flex !important;
-    margin: 1.5rem 0rem 1rem;
-}
- label{
-        margin-top: 0.75rem !important;
-    }
-    .form-check-label{
-        margin-top: 0 !important;
-    }
-@media (max-width: 768px){
-  
-   .form-check{
-       margin-top:0 !important;
-   }
-     .rtl .card{padding: 1.5em !important; }
-}
