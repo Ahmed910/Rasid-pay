@@ -22,31 +22,31 @@
         <div class="row">
             <div class="col-12 col-md-3 mb-5">
                 <label>اسم البنك</label>
-                <p class="text-muted">البنك الأهلي</p>
+                <p class="text-muted">{{$bank->bank->name}}</p>
             </div>
             <div class="col-12 col-md-3 mb-5">
                 <label>النوع</label>
-                <p class="text-muted">بنك مركزي</p>
+                <p class="text-muted">{{trans('dashboard.bank.types.'.$bank->type)}}  </p>
             </div>
             <div class="col-12 col-md-3 mb-5">
                 <label>الكود</label>
-                <p class="text-muted">254122</p>
+                <p class="text-muted">{{$bank->code}}</p>
             </div>
             <div class="col-12 col-md-3 mb-5">
                 <label>اسم الفرع</label>
-                <p class="text-muted">البنك الأهلي التجاري</p>
+                <p class="text-muted">{{$bank->name}}</p>
             </div>
             <div class="col-12 col-md-3 mb-5">
                 <label>الموقع</label>
-                <p class="text-muted">حي الرياض</p>
+                <p class="text-muted">  {{$bank->site}}</p>
             </div>
             <div class="col-12 col-md-3 mb-5">
                 <label>قيمة تكلفة التحويل</label>
-                <p class="text-muted">25.256.66 ر.س</p>
+                <p class="text-muted"> {{$bank->transfer_amount}}</p>
             </div>
             <div class="col-12 col-md-3 mb-5">
                 <label>عدد المعاملات</label>
-                <p class="text-muted">252</p>
+                <p class="text-muted">{{$transcount["transcount"]}}</p>
             </div>
             <div class="col-12 col-md-3 mb-5">
                 <label>الحالة</label>
@@ -54,15 +54,15 @@
             </div>
             <div class="col-12 col-md-3 mb-5">
                 <label>السجل التجاري</label>
-                <p class="text-muted">2156433</p>
+                <p class="text-muted">{{$bank->commercial_record}}</p>
             </div>
             <div class="col-12 col-md-3 mb-5">
                 <label>الرقم الضريبي</label>
-                <p class="text-muted">2154321</p>
+                <p class="text-muted">{{$bank->tax_number}}</p>
             </div>
             <div class="col-12 col-md-3 mb-5">
                 <label>رقم خدمة العملاء</label>
-                <p class="text-muted">513214641313</p>
+                <p class="text-muted">{{$bank->service_customer}}</p>
             </div>
         </div>
 
@@ -79,6 +79,6 @@
     </div>
     <!-- End Row -->
 
-  
+
 @endsection
 @include('dashboard.bank.show_script')

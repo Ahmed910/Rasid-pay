@@ -7,6 +7,7 @@ use App\Http\Resources\Blade\Dashboard\Bank\BankBranchCollection;
 use App\Http\Requests\Dashboard\BankBladeRequest;
 use App\Models\Bank\Bank;
 use App\Models\BankBranch\BankBranch;
+use App\Models\Transaction;
 use App\Models\User;
 use Illuminate\Http\Request;
 
@@ -49,7 +50,7 @@ class BankController extends Controller
 
     }
 
-    public function store(BankBladeRequest $request,Bank $bank)
+    public function store(BankBladeRequest $request, Bank $bank)
     {
         $bank->fill($request->validated() + ['added_by_id' => auth()->id()])->save();
         $bank->branches()->createMany($request->branches);
@@ -60,9 +61,14 @@ class BankController extends Controller
     }
 
 
-    public function show(Request $request)
+    public function show($id)
     {
-        return view('dashboard.bank.show');
+        $bank = BankBranch::withTrashed()->findOrFail($id);
+        $bank->load(["bank.translations"]);
+        $transcount = Transaction::where("bank_id", $id)->count();
+        $transcount = ["transcount" => $transcount];
+        $locales = config('translatable.locales');
+        return view('dashboard.bank.show', compact('locales', 'bank', "transcount"));
     }
 
     public function edit($id)
