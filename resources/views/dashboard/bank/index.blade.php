@@ -4,9 +4,9 @@
 @section('content')
   <!-- PAGE-HEADER -->
   <div class="page-header">
-    <h1 class="page-title">سجل البنوك</h1>
+    <h1 class="page-title">{{trans("dashboard.bank.sub_progs.index")}}</h1>
     <a href="{{ route('dashboard.bank.create') }}" class="btn btn-primary">
-      <i class="mdi mdi-plus-circle-outline"></i> إضافة بنك
+      <i class="mdi mdi-plus-circle-outline"></i>{{trans("dashboard.bank.sub_progs.create")}}
     </a>
   </div>
   <!-- PAGE-HEADER END -->
@@ -16,13 +16,13 @@
     <div class="row align-items-end mb-3">
       <div class="col-12 col-md-3 mb-3">
         <label for="bankName">{{trans("dashboard.bank.bank_name")}}</label>
-        <input type="text" class="form-control" id="name" placeholder="اسم البنك"/>
+        <input type="text" class="form-control" id="name" placeholder="{{trans("dashboard.bank.bank_name")}}"/>
       </div>
       <div class="col-12 col-md-3 mb-3">
         <label for="bankType">{{trans("dashboard.bank.type")}}</label>
 
         <select class="form-control select2" id="type">
-          <option selected disabled value="">إختر النوع </option>
+          <option selected disabled value="">{{trans("dashboard.general.select_type")}}</option>
           <option  value = -1 > {{trans("dashboard.general.all_cases")}} </option>
           @foreach($types as $value)
             <option value="{{$value["type"]}}">{{$value["trans"]}}</option>
@@ -32,20 +32,20 @@
       </div>
       <div class="col-12 col-md-3 mb-3">
         <label for="bankCode">{{trans("dashboard.bank.code")}}</label>
-        <input type="text" class="form-control" id="code" placeholder="الكود"/>
+        <input type="text" class="form-control" id="code" placeholder="{{trans("dashboard.bank.code")}}"/>
       </div>
       <div class="col-12 col-md-3 mb-3">
         <label for="bankBranchName">{{trans("dashboard.bank.BranchName")}}</label>
-        <input type="text" class="form-control" id="branch_name" placeholder="اسم الفرع"/>
+        <input type="text" class="form-control" id="branch_name" placeholder="{{trans("dashboard.bank.BranchName")}}"/>
       </div>
       <div class="col-12 col-md-3 mb-3">
         <label for="bankLocation">{{trans("dashboard.bank.location")}}</label>
-        <input type="text" class="form-control" id="site" placeholder="الموقع"/>
+        <input type="text" class="form-control" id="site" placeholder="{{trans("dashboard.bank.location")}}"/>
       </div>
       <div class="col-12 col-md-3 mb-3">
         <label for="transactionValueFrom"> {{trans("dashboard.bank.transaction_Value_From")}}</label>
         <div class="input-group">
-          <input id="transfer_amount" type="number" placeholder="أدخل قيمة المعاملة " class="form-control"/>
+          <input id="transfer_amount" type="number" placeholder="{{trans("dashboard.bank.Enter_transfer_amount")}}" class="form-control"/>
           <div class="input-group-text border-start-0">
             ر.س
           </div>
@@ -67,7 +67,7 @@
       </div>
       <div class="col-12 col-md-3 mb-3">
         <label for="transactionsNumber"> {{trans("dashboard.bank.NumberTransactions")}}</label>
-        <input type="number" class="form-control" id="transactions_count" placeholder="ادخل عدد المعاملات"/>
+        <input type="number" class="form-control" id="transactions_count" placeholder="{{trans("dashboard.bank.Enter_NumberTransactions")}}"/>
       </div>
     </div>
     <div class="row">
@@ -75,7 +75,7 @@
         <div class="dropdown">
           <button class="btn btn-outline-primary dropdown-toggle" type="button" id="dropdownMenuButton1"
                   data-bs-toggle="dropdown" aria-expanded="false">
-            <i class="mdi mdi-tray-arrow-down"></i> تصدير
+            <i class="mdi mdi-tray-arrow-down"></i> {{trans("dashboard.general.export")}}
           </button>
           <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
             <li><a class="dropdown-item" href="#">PDF</a></li>
@@ -85,10 +85,10 @@
       </div>
       <div class="col-12 col-md-6 my-3 d-flex justify-content-end">
         <button class="btn btn-primary mx-2" type="submit">
-          <i class="mdi mdi-magnify"></i> بحث
+          <i class="mdi mdi-magnify"></i> {{trans("dashboard.general.search")}}
         </button>
         <button class="btn btn-outline-primary" type="submit">
-          <i class="mdi mdi-restore"></i> عرض الكل
+          <i class="mdi mdi-restore"></i> {{trans("dashboard.general.show_all")}}
         </button>
       </div>
     </div>

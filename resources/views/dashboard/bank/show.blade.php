@@ -22,7 +22,7 @@
         <div class="row">
             <div class="col-12 col-md-3 mb-5">
                 <label> {{trans("dashboard.bank.bank_name")}} </label>
-                <p class="text-muted">{{$bank->bank->name}}</p>
+                <p class="text-muted">{{$bank->bank?->name}}</p>
             </div>
             <div class="col-12 col-md-3 mb-5">
                 <label>{{trans("dashboard.bank.type")}}</label>
@@ -50,8 +50,6 @@
             </div>
             <div class="col-12 col-md-3 mb-5">
                 <label>{{trans("dashboard.general.status")}}</label>
-{{--              <p class="badge bg-{{ $bank->is_active == 1 ? 'success' : 'danger' }}-opacity py-2 px-4">--}}
-{{--                {{ trans('dashboard.department.active_cases.' . $bank->is_active) }}</p>--}}
                 <p class="text-muted"><span class="badge bg-{{ $bank->is_active == 1 ? 'success' : 'danger' }}-opacity py-2 px-4">
                     {{ trans('dashboard.department.active_cases.' . $bank->is_active) }}</span></p>
             </div>

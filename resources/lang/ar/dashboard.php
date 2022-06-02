@@ -513,6 +513,7 @@ return [
         "type bank" =>"النوع",
         "location"=>"الموقع",
         "NumberTransactions"=>"عدد المعاملات",
+        "Enter_NumberTransactions"=>"ادخل عدد المعاملات",
         "commercialRecord"=> "السجل التجاري",
         "Enter_commercial_Record" => "ادخل السجل التجاري",
         "taxNumber"=>"الرقم الضريبي",
