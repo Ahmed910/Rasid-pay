@@ -3,7 +3,7 @@
   <span class="requiredFields">*</span>
 
   @foreach ($locales as $locale)
-  {!! Form::text("{$locale}[name]", isset($bank) ? $bank->name : null, ['class' => 'form-control' .
+  {!! Form::text("{$locale}[name]", isset($bank) ? $bank->name : null, ['class' => 'form-control input-regex stop-copy-paste' .
   ($errors->has("${locale}.name") ? ' border-danger' : null), 'id' => 'bankName', 'placeholder' =>
   trans('dashboard.bank.Enter_Bank_name')]) !!}
 
@@ -20,7 +20,7 @@
         {!! Form::label('bankBranchName',trans('dashboard.bank.BranchName')) !!}
         <span class="requiredFields">*</span>
         @foreach ($locales as $locale)
-        {!! Form::text("branches[$key][$locale][name]", null, ['class' => 'form-control' .
+        {!! Form::text("branches[$key][$locale][name]", $branch['name'] ?? null, ['class' => 'form-control input-regex stop-copy-paste' .
         ($errors->has("branches.$key.${locale}.name") ? ' border-danger' : null), 'id' => 'bankBranchName',
         'placeholder' => trans('dashboard.bank.Enter_Bank_branch_name')]) !!}
         <span class="text-danger" id="branches.{{ $key }}.{{ $locale }}.nameError" hidden></span>
@@ -37,14 +37,14 @@
       <div class="col-12 col-md-4 mb-5">
         {!! Form::label('bankCode',trans('dashboard.bank.code')) !!}
         <span class="requiredFields">*</span>
-        {!! Form::text("branches[$key][code]", null, ['class' => 'form-control' . ($errors->has("branches.$key.code") ?
+        {!! Form::text("branches[$key][code]", null, ['class' => 'form-control input-regex stop-copy-paste' . ($errors->has("branches.$key.code") ?
         ' border-danger' : null), 'id' => 'bankCode', 'placeholder' => trans('dashboard.bank.Enter_bank_code')]) !!}
         <span class="text-danger" id="branches.{{$key}}.codeError" hidden></span>
       </div>
       <div class="col-12 col-md-4 mb-5">
         {!! Form::label('bankLocation',trans('dashboard.bank.location')) !!}
         <span class="requiredFields">*</span>
-        {!! Form::text("branches[$key][site]", null, ['class' => 'form-control' . ($errors->has("branches.$key.site") ?
+        {!! Form::text("branches[$key][site]", null, ['class' => 'form-control input-regex stop-copy-paste' . ($errors->has("branches.$key.site") ?
         ' border-danger' : null), 'id' => 'bankLocation', 'placeholder' => trans('dashboard.bank.Enter_bank_location')])
         !!}
         <span class="text-danger" id="branches.{{$key}}.siteError" hidden></span>
@@ -53,7 +53,7 @@
         {!! Form::label('transactionValueFrom',trans('dashboard.bank.transaction_Value_From')) !!}
         <span class="requiredFields">*</span>
         <div class="input-group">
-          {!! Form::number("branches[$key][transfer_amount]", null, ['class' => 'form-control' .
+          {!! Form::number("branches[$key][transfer_amount]", null, ['class' => 'form-control  stop-copy-paste' .
           ($errors->has("branches.$key.transfer_amount") ? ' border-danger' : null), 'id' => 'transactionValueFrom',
           'placeholder' => trans('dashboard.bank.Enter_transfer_amount')]) !!}
           <div class="input-group-text border-start-0"> ر.س </div>
@@ -62,21 +62,21 @@
       </div>
       <div class="col-12 col-md-4 mb-5">
         {!! Form::label('commercialRecord',trans('dashboard.bank.commercialRecord')) !!}
-        {!! Form::text("branches[$key][commercial_record]", null, ['class' => 'form-control' .
+        {!! Form::text("branches[$key][commercial_record]", null, ['class' => 'form-control input-regex stop-copy-paste' .
         ($errors->has("branches.$key.commercial_record") ? ' border-danger' : null), 'id' => 'commercialRecord',
         'placeholder' => trans('dashboard.bank.Enter_commercial_Record')]) !!}
         <span class="text-danger" id="branches.{{ $key }}.commercial_recordError" hidden></span>
       </div>
       <div class="col-12 col-md-4 mb-5">
         {!! Form::label('taxNumber',trans('dashboard.bank.taxNumber')) !!}
-        {!! Form::text("branches[$key][tax_number]", null, ['class' => 'form-control' .
+        {!! Form::text("branches[$key][tax_number]", null, ['class' => 'form-control input-regex stop-copy-paste' .
         ($errors->has("branches.$key.tax_number") ? ' border-danger' : null), 'id' => 'taxNumber', 'placeholder' =>
         trans('dashboard.bank.Enter_tax_Number')]) !!}
         <span class="text-danger" id="branches.{{ $key }}.tax_numberError" hidden></span>
       </div>
       <div class="col-12 col-md-4 mb-5">
         {!! Form::label('serviceNumber',trans('dashboard.bank.serviceNumber')) !!}
-        {!! Form::text("branches[$key][service_customer]", null, ['class' => 'form-control' .
+        {!! Form::text("branches[$key][service_customer]", null, ['class' => 'form-control input-regex stop-copy-paste' .
         ($errors->has("branches.$key.service_customer") ? ' border-danger' : null), 'id' => 'serviceNumber',
         'placeholder' => trans('dashboard.bank.Enter_service_Number')]) !!}
         <span class="text-danger" id="branches.{{ $key }}.service_customerError" hidden></span>
