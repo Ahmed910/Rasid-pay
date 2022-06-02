@@ -29,6 +29,7 @@
     })
     $(document).ready(function () {
       var table = $("#activitylogtable").DataTable({
+        responsive: true,
         sDom: "t<'domOption'lpi>",
         serverSide: true,
         ajax: {
