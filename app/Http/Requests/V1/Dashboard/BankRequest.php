@@ -16,7 +16,7 @@ class BankRequest extends ApiMasterRequest
             'banks.*.type' => 'required|in:' . implode(',', BankBranch::TYPES),
             'banks.*.code' => 'required|string|min:2|max:20|regex:/^[\pL\pN\s\-\_\,]+$/u',
             'banks.*.site' => 'required|string|min:2|max:500|regex:/^[\pL\pN\s\-\_\,]+$/u',
-            'banks.*.transfer_amount' => 'required|min:1|max:10|regex:/^[\pN\,\.]+$/u',
+            'banks.*.transfer_amount' => 'required|numeric|digits_between:1,8|regex:/^[\pN\,\.]+$/u',
             'banks.*.commercial_record' => 'nullable|numeric|digits_between:10,20',
             'banks.*.tax_number' => 'nullable|numeric|digits_between:10,20',
             'banks.*.service_customer' => 'nullable|numeric|digits_between:10,20',
