@@ -158,7 +158,7 @@
                         </li>
                     </ul>
                 </li>
-                <li class="slide {{ request()->routeIs('dashboard.client.*') ? 'is-expanded' : '' }}">
+                <li class="slide {{ request()->routeIs('dashboard.client.*') || request()->routeIs('dashboard.bank_account.*') ? 'is-expanded' : '' }}">
                     <a class="side-menu__item" data-bs-toggle="slide" href="javascript:void(0)"><i
                             class="mdi mdi-account-heart-outline"></i><span class="side-menu__label">{!!
                             trans('dashboard.client.clients') !!}</span><i class="angle fe fe-chevron-right"></i></a>
@@ -173,8 +173,8 @@
                                 {!! trans('dashboard.client.sub_progs.index') !!}</a>
                         </li>
                         <li>
-                            <a href="{{ route('dashboard.client.account_orders') }}"
-                                class="slide-item px-6 {{ request()->routeIs('dashboard.client.account_orders') ? 'active' : '' }}"><i
+                            <a href="{{ route('dashboard.bank_account.index') }}"
+                                class="slide-item px-6 {{ request()->routeIs('dashboard.bank_account.index') ? 'active' : '' }}"><i
                                     class="mdi mdi-badge-account-horizontal-outline"></i> {!!
                                 trans('dashboard.client.sub_progs.account_order') !!}</a>
                         </li>
