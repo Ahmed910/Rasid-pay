@@ -14,7 +14,11 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
+Route::get('host_url/{type}', function ($type) {
+    $host = \DB::table('vue_domains')->where(['is_active' => 1, 'domain_type' => $type])->latest()->first();
+    return response()->json([
+        'data' => ['host' => $host->domain],
+        'message' => '',
+        'status' => true,
+        ]);
 });
-

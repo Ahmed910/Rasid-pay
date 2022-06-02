@@ -2,6 +2,8 @@
 
 namespace App\Http\Requests\Dashboard;
 
+use Illuminate\Validation\Rule;
+use Illuminate\Validation\Rules\Unique;
 use Illuminate\Foundation\Http\FormRequest;
 
 class CardPackageRequest extends FormRequest
@@ -23,15 +25,13 @@ class CardPackageRequest extends FormRequest
      */
     public function rules()
     {
-        $rules = [
-            "client_id" => ["required", "unique:card_packages,client_id", "exists:users,id,user_type,client"],
-            "is_active" => ["nullable", "boolean"],
-            "basic_discount" => ["required", "numeric", "min:0", "max:100", "digits_between:1,5"],
-            "golden_discount" => ["required", "numeric", "min:0", "max:100", "digits_between:1,5"],
-            "platinum_discount" => ["required", "numeric", "min:0", "max:100", "digits_between:1,5"],
+        return [
+            "client_id" => "required|exists:users,id,user_type,client|unique:card_packages,client_id,".@$this->card_package->id,
+            "is_active" => "nullable|boolean",
+            "basic_discount" => "required|numeric|min:0|max:100|digits_between:1,5",
+            "golden_discount" => "required|numeric|min:0|max:100|digits_between:1,5",
+            "platinum_discount" => "required|numeric|min:0|max:100|digits_between:1,5",
             "image" => "nullable|max:5120|mimes:jpg,png,jpeg",
         ];
-
-        return $rules;
     }
 }
