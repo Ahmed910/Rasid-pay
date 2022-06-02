@@ -54,7 +54,7 @@ class BankBranch extends Model
     public function scopeSearch(Builder $query, Request $request)
     {
         $old = $query->toSql();
-        if ($request->has('type'))
+        if ($request->has('type')  && $request->type!=-1)
             $query->where('type', $request->type);
 
         if ($request->has('code'))
@@ -93,7 +93,7 @@ class BankBranch extends Model
         $query->when($request->sort, function ($q) use ($request) {
             if ($request->sort["column"] == "name") {
                 return $q->has('bank.translations')
-                    ->orderBy('name', @$request->sort["dir"]);
+                    ->orderBy('bank.translations.name', @$request->sort["dir"]);
             }
 
             if ($request->sort["column"] == "transactions_count") {
