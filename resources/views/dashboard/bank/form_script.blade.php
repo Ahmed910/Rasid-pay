@@ -34,7 +34,7 @@
             <div class="col-12 col-md-4 mb-5">
               {!! Form::label('bankBranchName',trans('dashboard.bank.BranchName')) !!}
           <span class="requiredFields">*</span>
-{!! Form::text("branches[` + myid + `][name]" , null, ['class' => 'form-control' . ($errors->has("name") ? ' is-invalid' : null), 'id' => 'bankBranchName', 'placeholder' => trans('dashboard.bank.Enter_Bank_branch_name')]) !!}
+{!! Form::text("branches[` + myid + `][$locale][name]" , $branches['name'] ?? null, ['class' => 'form-control input-regex stop-copy-paste' . ($errors->has("branches.$key.${locale}.name") ? ' border-danger' : null), 'id' => 'bankBranchName', 'placeholder' => trans('dashboard.bank.Enter_Bank_branch_name')]) !!}
 <span class="text-danger" id="branches.`+myid+`.nameError" hidden></span>
       </div>
 
@@ -48,7 +48,7 @@
       <div class="col-12 col-md-4 mb-5">
 {!! Form::label('bankCode',trans('dashboard.bank.code')) !!}
           <span class="requiredFields">*</span>
-{!! Form::text("branches[` + myid + `][code]", null, ['class' => 'form-control' . ($errors->has("code") ? ' is-invalid' : null), 'id' => 'bankCode', 'placeholder' => trans('dashboard.bank.Enter_bank_code')]) !!}
+{!! Form::text("branches[` + myid + `][code]", null, ['class' => 'form-control input-regex stop-copy-paste' . ($errors->has("code") ? ' is-invalid' : null), 'id' => 'bankCode', 'placeholder' => trans('dashboard.bank.Enter_bank_code')]) !!}
 
 <span class="text-danger" id="branches.`+myid+`.codeError" hidden></span>
       </div>
@@ -57,7 +57,7 @@
       <div class="col-12 col-md-4 mb-5">
 {!! Form::label('bankLocation',trans('dashboard.bank.location')) !!}
           <span class="requiredFields">*</span>
-{!! Form::text("branches[` + myid + `][site]", null, ['class' => 'form-control' . ($errors->has("site") ? ' is-invalid' : null), 'id' => 'bankLocation', 'placeholder' => trans('dashboard.bank.Enter_bank_location')]) !!}
+{!! Form::text("branches[` + myid + `][site]", null, ['class' => 'form-control input-regex stop-copy-paste' . ($errors->has("site") ? ' is-invalid' : null), 'id' => 'bankLocation', 'placeholder' => trans('dashboard.bank.Enter_bank_location')]) !!}
 
 <span class="text-danger" id="branches.`+myid+`.siteError" hidden></span>
 
@@ -68,7 +68,7 @@
 {!! Form::label('transactionValueFrom',trans('dashboard.bank.transaction_Value_From')) !!}
           <span class="requiredFields">*</span>
           <div class="input-group">
-{!! Form::number("branches[` + myid + `][transfer_amount]", null, ['class' => 'form-control' . ($errors->has("transfer_amount") ? ' is-invalid' : null), 'id' => 'transactionValueFrom', 'placeholder' => trans('dashboard.bank.Enter_transfer_amount')]) !!}
+{!! Form::number("branches[` + myid + `][transfer_amount]", null, ['class' => 'form-control  stop-copy-paste' . ($errors->has("transfer_amount") ? ' is-invalid' : null), 'id' => 'transactionValueFrom', 'placeholder' => trans('dashboard.bank.Enter_transfer_amount')]) !!}
           <div class="input-group-text border-start-0">
            ر.س
        </div>
@@ -80,7 +80,7 @@
          <div class="col-12 col-md-4 mb-5">
 {!! Form::label('commercialRecord',trans('dashboard.bank.commercialRecord')) !!}
 
-          {!! Form::text("branches[` + myid + `][commercial_record]", null, ['class' => 'form-control' . ($errors->has("commercial_record") ? ' is-invalid' : null), 'id' => 'commercialRecord', 'placeholder' => trans('dashboard.bank.Enter_commercial_Record')]) !!}
+          {!! Form::text("branches[` + myid + `][commercial_record]", null, ['class' => 'form-control input-regex stop-copy-paste' . ($errors->has("commercial_record") ? ' is-invalid' : null), 'id' => 'commercialRecord', 'placeholder' => trans('dashboard.bank.Enter_commercial_Record')]) !!}
 
           <span class="text-danger" id="branches.`+myid+`.commercial_recordError" hidden></span>
       </div>
@@ -91,14 +91,14 @@
       <div class="col-12 col-md-4 mb-5">
 {!! Form::label('taxNumber',trans('dashboard.bank.taxNumber')) !!}
 
-          {!! Form::text("branches[` + myid + `][tax_number]", null, ['class' => 'form-control' . ($errors->has("tax_number") ? ' is-invalid' : null), 'id' => 'taxNumber', 'placeholder' => trans('dashboard.bank.Enter_tax_Number')]) !!}
+          {!! Form::text("branches[` + myid + `][tax_number]", null, ['class' => 'form-control input-regex stop-copy-paste' . ($errors->has("tax_number") ? ' is-invalid' : null), 'id' => 'taxNumber', 'placeholder' => trans('dashboard.bank.Enter_tax_Number')]) !!}
 
           <span class="text-danger" id="branches.`+myid+`.tax_numberError" hidden></span>      </div>
 
       <div class="col-12 col-md-4 mb-5">
 {!! Form::label('serviceNumber',trans('dashboard.bank.serviceNumber')) !!}
 
-          {!! Form::text("branches[` + myid + `][service_customer]", null, ['class' => 'form-control' . ($errors->has("service_customer") ? ' is-invalid' : null), 'id' => 'serviceNumber', 'placeholder' => trans('dashboard.bank.Enter_service_Number')]) !!}
+          {!! Form::text("branches[` + myid + `][service_customer]", null, ['class' => 'form-control input-regex stop-copy-paste' . ($errors->has("service_customer") ? ' is-invalid' : null), 'id' => 'serviceNumber', 'placeholder' => trans('dashboard.bank.Enter_service_Number')]) !!}
 
           <span class="text-danger" id="branches.`+myid+`.service_customerError" hidden></span>
       </div>
