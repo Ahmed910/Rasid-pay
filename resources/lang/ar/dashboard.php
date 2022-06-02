@@ -510,13 +510,17 @@ return [
         "Enter_transfer_amount" => "ادخل قيمة التحويل",
         "code"=>"الكود",
         "type"=>"نوع البنك",
+        "type bank" =>"النوع",
         "location"=>"الموقع",
+        "NumberTransactions"=>"عدد المعاملات",
+        "Enter_NumberTransactions"=>"ادخل عدد المعاملات",
         "commercialRecord"=> "السجل التجاري",
         "Enter_commercial_Record" => "ادخل السجل التجاري",
         "taxNumber"=>"الرقم الضريبي",
         "Enter_tax_Number"=>"ادخل الرقم الضريبي",
-        "serviceNumber" =>"خدمة العملاء",
+        "serviceNumber" =>"رقم خدمة العملاء",
         "Enter_service_Number" =>"ادخل رقم خدمة العملاء",
+        "Add new Branch" =>"إضافة فرع جديد",
         'types' => [
             'centeral' => 'بنك مركزي',
             'commercial' => 'بنك تجاري',
@@ -532,7 +536,9 @@ return [
             'index' => 'سجل البنوك',
             'archive' => 'أرشيف البنوك',
             'create' => 'اضافة بنك',
-            'show' => 'عرض البنك'
+            'show' => 'عرض البنك',
+            'edit' => 'تعديل بنك',
+
         ],
         'permissions' => $permissions
     ],
@@ -684,6 +690,7 @@ return [
             "platinum_card_discount" => "نسبة خصم البطاقة البلاتينية",
             "cards_discount_records" => "نسب خصم البطاقات",
             "discount_success_add" => "تم إضافة نسب خصم البطاقات للعميل  :client",
+            "discount_success_update" => "تم تعديل نسب خصم البطاقات للعميل  :client",
             'permissions' => array_except($permissions,['show'])
      ],
 

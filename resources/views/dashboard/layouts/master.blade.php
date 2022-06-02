@@ -85,7 +85,7 @@
 
   <!-- SIDE-MENU JS -->
   <script src="{{ asset('dashboardAssets/plugins/sidemenu/sidemenu.js') }}"></script>
- 
+
   <!-- CUSTOM JS -->
   <script src="{{ asset('dashboardAssets/js/custom.js') }}"></script>
 
@@ -94,7 +94,7 @@
 
   <!-- Sticky js -->
   <script src="{{ asset('dashboardAssets/js/sticky.js') }}"></script>
-  
+
 <!-- Perfect SCROLLBAR JS-->
 <script src="{{ asset('dashboardAssets/plugins/p-scroll/perfect-scrollbar.js') }}"></script>
 <script src="{{ asset('dashboardAssets/plugins/p-scroll/pscroll.js') }}"></script>
@@ -129,6 +129,7 @@
         });
     }
   </script> --}}
+  @include('dashboard.layouts.scripts')
 </body>
 
 </html>

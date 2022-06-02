@@ -21,55 +21,56 @@
     <div class="card py-7 px-7">
         <div class="row">
             <div class="col-12 col-md-3 mb-5">
-                <label>اسم البنك</label>
-                <p class="text-muted">البنك الأهلي</p>
+                <label> {{trans("dashboard.bank.bank_name")}} </label>
+                <p class="text-muted">{{$bank->bank?->name}}</p>
             </div>
             <div class="col-12 col-md-3 mb-5">
-                <label>النوع</label>
-                <p class="text-muted">بنك مركزي</p>
+                <label>{{trans("dashboard.bank.type")}}</label>
+                <p class="text-muted">{{trans('dashboard.bank.types.'.$bank->type)}}  </p>
             </div>
             <div class="col-12 col-md-3 mb-5">
-                <label>الكود</label>
-                <p class="text-muted">254122</p>
+                <label>{{trans("dashboard.bank.code")}}</label>
+                <p class="text-muted">{{$bank->code}}</p>
             </div>
             <div class="col-12 col-md-3 mb-5">
-                <label>اسم الفرع</label>
-                <p class="text-muted">البنك الأهلي التجاري</p>
+                <label>{{trans("dashboard.bank.BranchName")}}</label>
+                <p class="text-muted">{{$bank->name}}</p>
             </div>
             <div class="col-12 col-md-3 mb-5">
-                <label>الموقع</label>
-                <p class="text-muted">حي الرياض</p>
+                <label>{{trans("dashboard.bank.location")}}</label>
+                <p class="text-muted">  {{$bank->site}}</p>
             </div>
             <div class="col-12 col-md-3 mb-5">
-                <label>قيمة تكلفة التحويل</label>
-                <p class="text-muted">25.256.66 ر.س</p>
+                <label>{{trans("dashboard.bank.transaction_Value_From")}}</label>
+                <p class="text-muted"> {{$bank->transfer_amount}}</p>
             </div>
             <div class="col-12 col-md-3 mb-5">
-                <label>عدد المعاملات</label>
-                <p class="text-muted">252</p>
+                <label>{{trans("dashboard.bank.NumberTransactions")}}</label>
+                <p class="text-muted">{{$transcount["transcount"]}}</p>
             </div>
             <div class="col-12 col-md-3 mb-5">
-                <label>الحالة</label>
-                <p class="text-muted"><span class="badge bg-success-opacity py-2 px-4">مفعل</span></p>
+                <label>{{trans("dashboard.general.status")}}</label>
+                <p class="text-muted"><span class="badge bg-{{ $bank->is_active == 1 ? 'success' : 'danger' }}-opacity py-2 px-4">
+                    {{ trans('dashboard.department.active_cases.' . $bank->is_active) }}</span></p>
             </div>
             <div class="col-12 col-md-3 mb-5">
-                <label>السجل التجاري</label>
-                <p class="text-muted">2156433</p>
+                <label>{{trans("dashboard.bank.commercialRecord")}}</label>
+                <p class="text-muted">{{$bank->commercial_record}}</p>
             </div>
             <div class="col-12 col-md-3 mb-5">
-                <label>الرقم الضريبي</label>
-                <p class="text-muted">2154321</p>
+                <label>{{trans("dashboard.bank.taxNumber")}}</label>
+                <p class="text-muted">{{$bank->tax_number}}</p>
             </div>
             <div class="col-12 col-md-3 mb-5">
-                <label>رقم خدمة العملاء</label>
-                <p class="text-muted">513214641313</p>
+                <label> {{trans("dashboard.bank.serviceNumber")}}</label>
+                <p class="text-muted">{{$bank->service_customer}}</p>
             </div>
         </div>
 
     </div>
     <div class="row">
         <div class="col-12 text-end">
-            <a href="{{ route('dashboard.bank.create') }}" class="btn btn-primary">
+            <a href="{{ route('dashboard.bank.edit',$bank->bank?->id) }}" class="btn btn-primary">
                 <i class="mdi mdi-square-edit-outline"></i> {{ trans('dashboard.general.edit') }}
             </a>
             <a href="{{ url()->previous() }}" class="btn btn-outline-primary">
@@ -79,6 +80,6 @@
     </div>
     <!-- End Row -->
 
-  
+
 @endsection
 @include('dashboard.bank.show_script')

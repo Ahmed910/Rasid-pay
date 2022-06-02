@@ -1,5 +1,5 @@
 @extends('dashboard.layouts.master')
-@section('title', trans('dashboard.client.sub_progs.create'))
+@section('title', trans('dashboard.general.create'))
 
 @section('content')
 
@@ -16,85 +16,12 @@
         </nav>
     </div>
     <!-- PAGE-HEADER END -->
-    <form action="{{ route('dashboard.card_package.store') }}" id="formId" method="POST">
-        @csrf
-        <div class="card px-7 py-7">
-            <div class="row">
-                <div class="col-12 col-md-6 mb-5">
-                    <label for="client_id">{{ trans('dashboard.client.name') }}</label><span
-                        class="requiredFields">*</span>
-                    <select class="form-control select2-show-search" id="client_id" name="client_id">
-                        <option selected disabled value="">{{ trans('dashboard.client.select_client') }}</option>
-                        @foreach ($clients as $key => $clientName)
-                            <option value="{{ $key }}"> {!! $clientName !!}</option>
-                        @endforeach
-                    </select>
-                    <span class="text-danger" id="client_idError" hidden></span>
-                </div>
 
-                <div class="col-12 col-md-6 mb-5">
-                    <label for="discountRate">{{ trans('dashboard.card_package.basic_card_discount') }}</label><span
-                        class="requiredFields">*</span>
-                    <div class="input-group">
-                        <input id="discountRate" type="number"
-                            placeholder="{{ trans('dashboard.card_package.enter_discount') }}" class="form-control"
-                            name="basic_discount" onpaste="return false" onCopy="return false" onCut="return false"
-                            onDrag="return false" onDrop="return false" autocomplete=off />
-                        <div class="input-group-text border-start-0">
-                            %
-                        </div>
-                    </div>
-                    <span class="text-danger" id="basic_discountError" hidden></span>
+    {!! Form::open(['route' => 'dashboard.card_package.store', 'method' => 'POST', 'id' => 'formId']) !!}
 
-                </div>
-                <div class="col-12 col-md-6 mb-5">
-                    <label for="discountRate">{{ trans('dashboard.card_package.golden_card_discount') }}</label><span
-                        class="requiredFields">*</span>
-                    <div class="input-group">
-                        <input id="discountRate" type="number"
-                            placeholder="{{ trans('dashboard.card_package.enter_discount') }}" class="form-control"
-                            name="golden_discount" onpaste="return false" onCopy="return false" onCut="return false"
-                            onDrag="return false" onDrop="return false" autocomplete=off />
-                        <div class="input-group-text border-start-0">
-                            %
-                        </div>
-                    </div>
-                    <span class="text-danger" id="golden_discountError" hidden></span>
+         @include('dashboard.card_package._form')
 
-                </div>
-                <div class="col-12 col-md-6 mb-5">
-                    <label for="discountRate">{{ trans('dashboard.card_package.platinum_card_discount') }}</label><span
-                        class="requiredFields">*</span>
-                    <div class="input-group">
-                        <input id="discountRate" type="number"
-                            placeholder="{{ trans('dashboard.card_package.enter_discount') }}" class="form-control"
-                            name="platinum_discount" onpaste="return false" onCopy="return false" onCut="return false"
-                            onDrag="return false" onDrop="return false" autocomplete=off />
-                        <div class="input-group-text border-start-0">
-                            %
-                        </div>
-                    </div>
-                    <span class="text-danger" id="platinum_discountError" hidden></span>
-
-                </div>
-            </div>
-        </div>
-
-
-        <div class="row">
-            <div class="col-12 mb-5 text-end">
-                <button class="btn btn-primary" data-bs-toggle="modal" type="submit" id="saveButton">
-                    <i class="mdi mdi-page-next-outline"></i> {{ trans('dashboard.general.save') }}
-                </button>
-                <button type="button" class="btn btn-outline-primary" id="showBack">
-
-                    <i class="mdi mdi-arrow-left"></i> {{ trans('dashboard.general.back') }}
-                </button>
-
-
-            </div>
-        </div>
-    </form>
+    {!! Form::close() !!}
 
 
 
@@ -118,7 +45,7 @@
             let saveButton = true;
 
             let erroe = false;
-            $('#saveButton').on('click', function(e) {
+            $('#submitButton').on('click', function(e) {
                 e.preventDefault();
                 if (erroe) {
                     $('span[id*="Error"]').attr('hidden', true);
@@ -130,7 +57,6 @@
                 let form = $('#formId')[0];
                 let data = new FormData(form);
 
-                //     alert($('#formId').attr('action')) ;
                 $.ajaxSetup({
                     headers: {
                         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -175,14 +101,14 @@
             function toggleSaveButton() {
                 if (saveButton) {
                     saveButton = false;
-                    $("#saveButton").html('<i class="spinner-border spinner-border-sm"></i>' +
+                    $("#submitButton").html('<i class="spinner-border spinner-border-sm"></i>' +
                         "{{ trans('dashboard.general.save') }}");
-                    $('#saveButton').attr('disabled', true);
+                    $('#submitButton').attr('disabled', true);
                 } else {
                     saveButton = true;
-                    $("#saveButton").html('<i class="mdi mdi-content-save-outline"></i>' +
+                    $("#submitButton").html('<i class="mdi mdi-content-save-outline"></i>' +
                         "{{ trans('dashboard.general.save') }}");
-                    $('#saveButton').attr('disabled', false);
+                    $('#submitButton').attr('disabled', false);
                 }
             }
 

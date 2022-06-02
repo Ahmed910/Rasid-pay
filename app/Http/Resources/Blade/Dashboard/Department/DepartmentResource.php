@@ -9,7 +9,7 @@ class DepartmentResource extends JsonResource
 {
     public function toArray($request)
     {
-        
+
         return [
             'id' => $this->id,
             'name' => $this->name,
@@ -19,8 +19,8 @@ class DepartmentResource extends JsonResource
             'is_active' => $this->is_active,
             'image' => $this->image,
             'active_case' => trans('dashboard.department.active_cases.'.$this->is_active),
-            'has_jobs'  => $this->rasidJobs()->exists(),
-            'has_children'  => $this->children()->exists(),
+            'has_jobs'  => $this->when(!$request->routeIs('dashboard.admin.*'),$this->rasidJobs()->exists()),
+            'has_children'  => $this->when(!$request->routeIs('dashboard.admin.*'),$this->children()->exists()),
             'show_route' => route('dashboard.department.show', $this->id),
             'edit_route' => route('dashboard.department.edit', $this->id),
             'delete_route' => route('dashboard.department.destroy', $this->id),

@@ -359,6 +359,7 @@ return [
         "Enter_tax_Number" => "Enter_tax_Number",
         "serviceNumber" => "serviceNumber ",
         "Enter_service_Number" => "Enter_service_Number",
+        "Add new Branch" =>" Add new Branch ",
         'sub_progs' => [
             'index' => 'سجل البنوك',
             'archive' => 'أرشيف البنوك',
@@ -514,6 +515,7 @@ return [
         "platinum_card_discount" => "Platinum Card Discount",
         "cards_discount_records" => "Cards Discount Records",
         "discount_success_add" => "Card discounts have been added to client :client",
+        "discount_success_update" => "Card discounts have been updated to client :client",
 
     ],
 

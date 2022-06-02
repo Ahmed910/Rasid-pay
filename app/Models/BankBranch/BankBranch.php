@@ -4,10 +4,12 @@ namespace App\Models\BankBranch;
 
 use App\Models\ActivityLog;
 use App\Models\Bank\Bank;
+use App\Models\Transaction;
 use App\Traits\Loggable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Traits\Uuid;
+use Astrotomic\Translatable\Translatable;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -16,11 +18,12 @@ use Illuminate\Support\Str;
 
 class BankBranch extends Model
 {
-    use HasFactory, Uuid, SoftDeletes, Loggable;
+    use HasFactory, Uuid, SoftDeletes, Loggable, Translatable;
 
     #region properties
     protected $guarded = ['created_at', 'deleted_at'];
     private $sortableColumns = ["name", "type", "code", "branch_name", 'site', 'transfer_amount', 'transactions_count', 'is_active'];
+    public $translatedAttributes = ['name'];
 
     const CENTERAL = 'centeral';
     const COMMERCIAL = 'commercial';
@@ -51,7 +54,8 @@ class BankBranch extends Model
     #region scopes
     public function scopeSearch(Builder $query, Request $request)
     {
-        if ($request->has('type'))
+        $old = $query->toSql();
+        if ($request->has('type')  && $request->type!=-1)
             $query->where('type', $request->type);
 
         if ($request->has('code'))
@@ -61,17 +65,19 @@ class BankBranch extends Model
             $query->where('is_active', $request->is_active);
 
         if ($request->has('branch_name'))
-            $query->where('name', 'like', "%$request->branch_name%");
+            $query->whereTranslationLike('name', "%$request->branch_name%");
 
         if ($request->has('site'))
             $query->where('site', "like", "%$request->site%");
 
         if ($request->has('transfer_amount'))
             $query->where('transfer_amount', $request->transfer_amount);
+        $new = $query->toSql();
 
+        if ($old != $new) $this->addGlobalActivity($this, $request->query(), ActivityLog::SEARCH, 'index');
         $query->whereHas('bank', fn ($q) => $q->search($request));
 
-        $this->addGlobalActivity($this, $request->query(), ActivityLog::SEARCH, 'index');
+
     }
 
     public function scopeSortBy(Builder $query, Request $request)
@@ -87,18 +93,17 @@ class BankBranch extends Model
 
         $query->when($request->sort, function ($q) use ($request) {
             if ($request->sort["column"] == "name") {
-                return $q->has('bank.translations')
-                    ->orderBy('name', @$request->sort["dir"]);
+                return $q->has('bank')->orderByTranslation('name', @$request->sort["dir"]);
+            }
+
+            if ($request->sort["column"] == "branch_name") {
+                return $q->join('bank_branch_translations','bank_branches.id','bank_branch_id')
+                    ->orderBy('bank_branch_translations.name', @$request->sort["dir"]);
             }
 
             if ($request->sort["column"] == "transactions_count") {
-                return $q->where(function ($query) {
-                    $query->where(function ($q) {
-                        $q->selectRaw('COUNT(*) as transaction_count')
-                            ->from('transactions')
-                            ->where('banks.id', 'transactions.bank_id');
-                    })->orderBy('transaction_count');
-                });
+                return $q->withCount('transactions')
+                    ->orderBy('transactions_count', @$request->sort['dir']);
             }
 
             $q->orderBy($request->sort["column"], @$request->sort["dir"]);
@@ -110,6 +115,12 @@ class BankBranch extends Model
     public function bank(): BelongsTo
     {
         return $this->belongsTo(Bank::class);
+    }
+
+    /**Custom according on relationships */
+    public function transactions()
+    {
+        return $this->hasManyThrough(Transaction::class, Bank::class, 'id', null, 'bank_id');
     }
     #endregion relationships
 

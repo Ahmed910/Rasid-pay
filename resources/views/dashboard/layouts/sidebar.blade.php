@@ -167,19 +167,19 @@
                             <a href="javascript:void(0)">{!! trans('dashboard.client.clients') !!}</a>
                         </li>
                         <li>
-                            <a href="javascript:void(0)"
+                            <a href="{{ route('dashboard.client.index') }}"
                                 class="slide-item px-6 {{ request()->routeIs('dashboard.client.index') ? 'active' : '' }}"><i
                                     class="mdi mdi-file-document-multiple-outline"></i>
                                 {!! trans('dashboard.client.sub_progs.index') !!}</a>
                         </li>
                         <li>
-                            <a href="javascript:void(0)"
+                            <a href="{{ route('dashboard.client.account_orders') }}"
                                 class="slide-item px-6 {{ request()->routeIs('dashboard.client.account_orders') ? 'active' : '' }}"><i
                                     class="mdi mdi-badge-account-horizontal-outline"></i> {!!
                                 trans('dashboard.client.sub_progs.account_order') !!}</a>
                         </li>
                         <li>
-                            <a href="javascript:void(0)"
+                            <a href="{{ route('dashboard.client.create') }}"
                                 class="slide-item px-6 {{ request()->routeIs('dashboard.client.create') ? 'active' : '' }}"><i
                                     class="mdi mdi-plus-circle-outline"></i> {!!
                                 trans('dashboard.client.sub_progs.create') !!}</a>
@@ -196,6 +196,7 @@
                             <a href="javascript:void(0)">{{ trans('dashboard.general.the_archive') }}</a>
                         </li>
                         <li>
+
                             <a href="{{ route('dashboard.department.archive') }}"
                                 class="slide-item px-6 {{ request()->routeIs('dashboard.department.archive') ? 'active' : '' }}"><i
                                     class="mdi mdi-view-dashboard-edit-outline"></i>
