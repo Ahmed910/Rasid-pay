@@ -15,11 +15,11 @@
   <form method="get" action="">
     <div class="row align-items-end mb-3">
       <div class="col-12 col-md-3 mb-3">
-        <label for="bankName">اسم البنك</label>
+        <label for="bankName">{{trans("dashboard.bank.bank_name")}}</label>
         <input type="text" class="form-control" id="name" placeholder="اسم البنك"/>
       </div>
       <div class="col-12 col-md-3 mb-3">
-        <label for="bankType">نوع البنك</label>
+        <label for="bankType">{{trans("dashboard.bank.type")}}</label>
 
         <select class="form-control select2" id="type">
           <option selected disabled value="">إختر النوع </option>
@@ -31,19 +31,19 @@
         </select>
       </div>
       <div class="col-12 col-md-3 mb-3">
-        <label for="bankCode">الكود</label>
+        <label for="bankCode">{{trans("dashboard.bank.code")}}</label>
         <input type="text" class="form-control" id="code" placeholder="الكود"/>
       </div>
       <div class="col-12 col-md-3 mb-3">
-        <label for="bankBranchName">اسم الفرع</label>
+        <label for="bankBranchName">{{trans("dashboard.bank.BranchName")}}</label>
         <input type="text" class="form-control" id="branch_name" placeholder="اسم الفرع"/>
       </div>
       <div class="col-12 col-md-3 mb-3">
-        <label for="bankLocation">الموقع</label>
+        <label for="bankLocation">{{trans("dashboard.bank.location")}}</label>
         <input type="text" class="form-control" id="site" placeholder="الموقع"/>
       </div>
       <div class="col-12 col-md-3 mb-3">
-        <label for="transactionValueFrom">قيمة تكلفة التحويل</label>
+        <label for="transactionValueFrom"> {{trans("dashboard.bank.transaction_Value_From")}}</label>
         <div class="input-group">
           <input id="transfer_amount" type="number" placeholder="أدخل قيمة المعاملة " class="form-control"/>
           <div class="input-group-text border-start-0">
@@ -52,7 +52,7 @@
         </div>
       </div>
       <div class="col-12 col-md-3 mb-3">
-        <label for="transactionType">الحالة</label>
+        <label for="transactionType">{{trans("dashboard.general.status")}}</label>
         {!! Form::select('is_active', ['' => '', -1 => trans('dashboard.general.all_cases')] +
   trans('dashboard.rasid_job.active_cases'), old('is_active') ?? request('is_active'), ['class' => 'form-control
   select2', 'data-placeholder' => trans('dashboard.general.select_status'), 'id' => 'is_active']) !!}
@@ -66,7 +66,7 @@
         {{--      </select>--}}
       </div>
       <div class="col-12 col-md-3 mb-3">
-        <label for="transactionsNumber">عدد المعاملات</label>
+        <label for="transactionsNumber"> {{trans("dashboard.bank.NumberTransactions")}}</label>
         <input type="number" class="form-control" id="transactions_count" placeholder="ادخل عدد المعاملات"/>
       </div>
     </div>
