@@ -64,10 +64,19 @@ $attributes = [
     'banks.*.tax_number' => 'حقل الرقم الضريبي',
     'banks.*.service_customer' => 'حقل خدمة العملاء',
     'banks.*.is_active' => 'حقل is_active',
-    'banks.*.ar.name'   => 'حقل اسم الفرع'
+    'banks.*.ar.name'   => 'حقل اسم الفرع',
+    'rasid_job_id' => 'حقل اسم الوظيفة',
+    'branches.*.type' => 'حقل نوع البنك ',
+    'branches.*.code' => 'حقل كود البنك ',
+    'branches.*.site' => 'حقل موقع البنك ',
+    'branches.*.transfer_amount' => 'حقل القيمة المحولة  ',
+    'branches.*.commercial_record' => 'حقل السجل التجاري ',
+    'branches.*.tax_number' => 'حقل الرقم الضريبي ',
+    'branches.*.service_customer' => 'حقل خدمة العملاء  '
 ];
 
 foreach (config('translatable.locales') as $locale) {
+    $attributes["branches.*.$locale.name"] = "حقل " . trans('dashboard.attributes.name', [], $locale);
     $attributes[$locale . '.name'] = "حقل " . trans('dashboard.attributes.name', [], $locale);
     $attributes[$locale . '.description'] = "حقل " . trans('dashboard.attributes.desc', [], $locale);
     $attributes[$locale . '.title'] = "حقل " . trans('dashboard.attributes.title');
