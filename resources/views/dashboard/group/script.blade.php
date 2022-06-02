@@ -12,6 +12,7 @@
     <script>
         $(function() {
             var table = $("#ajaxTable").DataTable({
+                responsive: true,
                 ajax: {
                     url: "{{ route('dashboard.group.index') }}?",
                     data: function(data) {

@@ -72,7 +72,7 @@
   <div class="row row-sm">
     <div class="col-lg-12">
       <div class="p-1">
-        <table id="transaction-table"
+                <table id="transaction-table"
                class="table table-bordered text-nowrap shadow-sm bg-body key-buttons historyTable">
           <thead>
           <tr>

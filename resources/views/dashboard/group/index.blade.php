@@ -22,8 +22,6 @@
                     class="form-control input-regex stop-copy-paste" maxlength="100" id="groupName"
                     placeholder="{!! trans('dashboard.group.group_name') !!}" />
             </div>
-   
-
             <div class="col-12 col-md-3">
                 <label for="userNumFrom">{!! trans('dashboard.group.admins_from') !!}</label>
                 <input type="number" oninput="checkNumberFieldLength(this);" name="admins_from"
@@ -36,7 +34,7 @@
                     value="{{ request('admins_to') }}" class="form-control stop-copy-paste" id="userNumTo"
                     placeholder="{!! trans('dashboard.group.admins_to') !!}" />
             </div>
-                     <div class="col-12 col-md-3">
+            <div class="col-12 col-md-3">
                 <label for="status">{{ trans('dashboard.general.status') }}</label>
                 {!! Form::select('is_active', trans('dashboard.general.active_cases'), request('is_active'), ['class' => 'form-control select2', 'placeholder' => trans('dashboard.general.select_status'), 'id' => 'status']) !!}
             </div>

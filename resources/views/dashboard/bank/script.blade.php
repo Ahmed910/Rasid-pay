@@ -16,6 +16,7 @@
 <script>
     $(function() {
         $("#transaction").DataTable({
+          responsive: true,
         sDom: "t<'domOption'lpi>",
             pageLength: 10,
             lengthMenu: [
@@ -50,6 +51,7 @@
                     ignoreReadonly: true,
                 });
                 var table = $("#activitylogtable").DataTable({
+                  responsive: true,
                 sDom: "t<'domOption'lpi>",
                 serverSide: true,
                 ajax: {

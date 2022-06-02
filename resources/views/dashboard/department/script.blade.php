@@ -33,6 +33,8 @@
       });
 
       var table = $("#departmentTable").DataTable({
+        responsive: true,
+        responsive: true,
         sDom: "t<'domOption'lpi>",
         serverSide: true,
         processing: true,

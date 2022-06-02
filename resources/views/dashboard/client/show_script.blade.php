@@ -64,6 +64,7 @@
     }
 
     var table = $('#collapsedTable').DataTable({
+      responsive: true,
             sDom: "t<'domOption'lpi>",
         pageLength: 10,
         lengthMenu: [

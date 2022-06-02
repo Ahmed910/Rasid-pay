@@ -28,6 +28,7 @@
                     table.draw();
                 });
             var table = $("#jobTable").DataTable({
+                responsive: true,
                 sDom: "t<'domOption'lpi>",
                 serverSide: true,
                 ajax: {

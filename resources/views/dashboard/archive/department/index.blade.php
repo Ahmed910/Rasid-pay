@@ -9,13 +9,13 @@
     </div>
     <form method="get" action="" id="search-form">
         <div class="row align-items-end mb-3">
-            <div class="col">
+            <div class="col-12 col-md-4">
                 <label for="departmentName">{{ trans('dashboard.department.department_name') }}</label>
                 <input type="text" class="form-control input-regex stop-copy-paste" maxlength="100" id="departmentName"
                     placeholder="{{ trans('dashboard.general.enter_name') }}" name="name"
                     value="{{ old('name') ?? request('name') }}" />
             </div>
-            <div class="col">
+            <div class="col-12 col-md-4">
                 <label>
                     {{ trans('dashboard.department.main_department') }}</label>
 
@@ -23,7 +23,7 @@
 
             </div>
 
-            <div class="col">
+            <div class="col-12 col-md-4">
                 <label for="from-hijri-picker-custom"> {{ trans('dashboard.department.archive_from_date') }}</label>
                 <div class="input-group">
 
@@ -34,7 +34,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col">
+            <div class="col-12 col-md-4">
                 <label for="to-hijri-picker-custom"> {{ trans('dashboard.department.archive_to_date') }}</label>
                 <div class="input-group">
 
@@ -46,7 +46,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col">
+            <div class="col-12 col-md-4">
                 <label for="status">
                     @lang('dashboard.general.status')</label>
                 {!! Form::select('is_active', ['' => '', -1 => trans('dashboard.general.all_cases')] + trans('dashboard.department.active_cases'), old('is_active') ?? request('is_active'), ['class' => 'form-control select2', 'data-placeholder' => trans('dashboard.general.select_status'), 'id' => 'status']) !!}

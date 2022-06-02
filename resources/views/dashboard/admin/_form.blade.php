@@ -179,29 +179,31 @@
             
             </div>
         @endif
-        <div class="col-12 col-md-8 mt-3 d-flex align-items-end">
-            <div class="col-12 col-md-6">
-        
-                <div class="form-check">
-                    {!! Form::checkbox('is_login_code', '1', isset($admin) && $admin->is_login_code == 1 ? true : false,
-                    ['class' => 'form-check-input', 'autocomplete'=>'off',  'autocorrect'=>'off', 'autofocus'=>'', 'id' => 'verifyCode']) !!}
-                    {!! Form::label('verifyCode', trans('dashboard.general.Send VerificationCode'), ['class' =>
-                    'form-check-label']) !!}
-                    <span class="text-danger" id="is_login_code_error"></span>
+        <div class="col-12 col-md-8 mt-3 align-items-end">
+            <div class="row">
+                <div class="col-12 col-md-6 mt-5">
+                    <div class="form-check mt-5">
+                        {!! Form::checkbox('is_login_code', '1', isset($admin) && $admin->is_login_code == 1 ? true : false,
+                        ['class' => 'form-check-input', 'autocomplete'=>'off', 'autocorrect'=>'off', 'autofocus'=>'', 'id' =>
+                        'verifyCode']) !!}
+                        {!! Form::label('verifyCode', trans('dashboard.general.Send VerificationCode'), ['class' =>
+                        'form-check-label']) !!}
+                        <span class="text-danger" id="is_login_code_error"></span>
+                    </div>
+                
                 </div>
-        
-            </div>
-            @if (isset($admin))
-            <div class="col-12 col-md-6">
-                <div class="form-check">
-                    {!! Form::checkbox('change_password', '1', false, ['class' => 'form-check-input', 'id' =>
-                    'changePassword']) !!}
-                    {!! Form::label('changePassword', trans('dashboard.general.change_password'), ['class' =>
-                    'form-check-label']) !!}
-                    <span class="text-danger" id="change_password_error"></span>
+                @if (isset($admin))
+                <div class="col-12 col-md-6 mt-5">
+                    <div class="form-check mt-5">
+                        {!! Form::checkbox('change_password', '1', false, ['class' => 'form-check-input', 'id' =>
+                        'changePassword']) !!}
+                        {!! Form::label('changePassword', trans('dashboard.general.change_password'), ['class' =>
+                        'form-check-label']) !!}
+                        <span class="text-danger" id="change_password_error"></span>
+                    </div>
                 </div>
+                @endif
             </div>
-            @endif
         </div>
         @if (request()->routeIs('dashboard.admin.edit'))
         <div class="col-12 col-md-4 mt-3 changePass" @if (isset($admin)) hidden @endif>

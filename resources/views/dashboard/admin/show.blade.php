@@ -85,7 +85,7 @@
     <!-- End Row -->
     <label>{{ trans('dashboard.activity_log.history') }} </label>
     <div class="p-1">
-        <table id="historyTableadmin" class="table table-bordered text-wrap shadow-sm bg-body key-buttons historyTable">
+                <table id="historyTableadmin" class="table table-bordered text-wrap shadow-sm bg-body key-buttons historyTable">
             <thead>
                 <tr>
                     <th class="border-bottom-0">#</th>
