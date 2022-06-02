@@ -158,7 +158,7 @@
                         </li>
                     </ul>
                 </li>
-                <li class="slide {{ request()->routeIs('dashboard.client.*') ? 'is-expanded' : '' }}">
+                <li class="slide {{ request()->routeIs('dashboard.client.*') || request()->routeIs('dashboard.bank_account.*') ? 'is-expanded' : '' }}">
                     <a class="side-menu__item" data-bs-toggle="slide" href="javascript:void(0)"><i
                             class="mdi mdi-account-heart-outline"></i><span class="side-menu__label">{!!
                             trans('dashboard.client.clients') !!}</span><i class="angle fe fe-chevron-right"></i></a>
