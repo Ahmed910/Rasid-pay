@@ -45,7 +45,7 @@
             let saveButton = true;
 
             let erroe = false;
-            $('#saveButton').on('click', function(e) {
+            $('#submitButton').on('click', function(e) {
                 e.preventDefault();
                 if (erroe) {
                     $('span[id*="Error"]').attr('hidden', true);
@@ -101,14 +101,14 @@
             function toggleSaveButton() {
                 if (saveButton) {
                     saveButton = false;
-                    $("#saveButton").html('<i class="spinner-border spinner-border-sm"></i>' +
+                    $("#submitButton").html('<i class="spinner-border spinner-border-sm"></i>' +
                         "{{ trans('dashboard.general.save') }}");
-                    $('#saveButton').attr('disabled', true);
+                    $('#submitButton').attr('disabled', true);
                 } else {
                     saveButton = true;
-                    $("#saveButton").html('<i class="mdi mdi-content-save-outline"></i>' +
+                    $("#submitButton").html('<i class="mdi mdi-content-save-outline"></i>' +
                         "{{ trans('dashboard.general.save') }}");
-                    $('#saveButton').attr('disabled', false);
+                    $('#submitButton').attr('disabled', false);
                 }
             }
 
