@@ -27,7 +27,7 @@ class BankBranchResource extends JsonResource
             'tax_number' => $this->tax_number,
             'service_customer' => $this->service_customer,
             'is_active' => trans('dashboard.department.active_cases.' . $this->is_active),
-            'show_route' => route('dashboard.bank.show', $this->bank?->id),
+            'show_route' => route('dashboard.bank.show', $this->id),
             'edit_route' => route('dashboard.bank.edit', $this->bank?->id),
             'start_from' => $request->start,
             'transactions_count' => $this->bank?->transactions_count,

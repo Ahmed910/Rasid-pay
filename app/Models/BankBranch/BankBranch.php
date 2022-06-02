@@ -55,7 +55,7 @@ class BankBranch extends Model
     public function scopeSearch(Builder $query, Request $request)
     {
         $old = $query->toSql();
-        if ($request->has('type'))
+        if ($request->has('type')  && $request->type!=-1)
             $query->where('type', $request->type);
 
         if ($request->has('code'))
@@ -72,12 +72,12 @@ class BankBranch extends Model
 
         if ($request->has('transfer_amount'))
             $query->where('transfer_amount', $request->transfer_amount);
-
-        $query->whereHas('bank', fn ($q) => $q->search($request));
-
         $new = $query->toSql();
 
         if ($old != $new) $this->addGlobalActivity($this, $request->query(), ActivityLog::SEARCH, 'index');
+        $query->whereHas('bank', fn ($q) => $q->search($request));
+
+
     }
 
     public function scopeSortBy(Builder $query, Request $request)
