@@ -173,8 +173,8 @@
                                 {!! trans('dashboard.client.sub_progs.index') !!}</a>
                         </li>
                         <li>
-                            <a href="{{ route('dashboard.client.account_orders') }}"
-                                class="slide-item px-6 {{ request()->routeIs('dashboard.client.account_orders') ? 'active' : '' }}"><i
+                            <a href="{{ route('dashboard.bank_account.index') }}"
+                                class="slide-item px-6 {{ request()->routeIs('dashboard.bank_account.index') ? 'active' : '' }}"><i
                                     class="mdi mdi-badge-account-horizontal-outline"></i> {!!
                                 trans('dashboard.client.sub_progs.account_order') !!}</a>
                         </li>
