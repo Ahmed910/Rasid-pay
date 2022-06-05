@@ -17,7 +17,8 @@ Route::post('send-message', 'ContactController@sendMessage')->name('send_message
 
 Route::middleware('auth:sanctum')->group(function () {
     Route::post('logout', 'Auth\LoginController@logout');
-    Route::apiResource('profile', 'ProfileController')->only('index','store');
+    Route::apiResource('profiles', 'ProfileController')->only('index','store');
+    Route::apiResource('notifications', 'NotificationController')->only('index','show');
     Route::post('update_password', 'ProfileController@updatePassword');
     Route::get('get_citizen_wallet', 'WalletController@getCitizenWallet');
 });
