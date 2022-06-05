@@ -30,7 +30,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('logout', 'Auth\LoginController@logout');
     Route::apiResource('profile', 'ProfileController')->only('index', 'store');
     Route::post('update_password', 'ProfileController@updatePassword');
-    Route::post('activate_notifcation', 'ProfileController@activateNotifcation');
+    Route::post('activate_notification', 'ProfileController@activateNotification');
 
     // home
     Route::get('home', 'HomeController@index');
