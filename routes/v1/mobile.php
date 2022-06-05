@@ -37,3 +37,8 @@ Route::controller('Auth\RegisterController')->group(function () {
     Route::post('check-verification-code', 'checkVerificationCode');
     Route::post('complete-register', 'completeRegister');
 });
+
+Route::controller('Auth\ResetController')->group(function () {
+    Route::post('check-identity-number', 'checkIdentityNumber');
+    Route::post('reset-password', 'updatePassword');
+});
