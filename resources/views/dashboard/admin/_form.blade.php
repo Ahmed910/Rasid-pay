@@ -102,8 +102,6 @@
             <select class="form-control select2" onchange="addPermissions(this.selectedOptions)"
                 data-placeholder="{{ trans('dashboard.general.select_permissions') }}" multiple="multiple"
                 id="permissions" required>
-
-
                 <optgroup label="{{ trans('dashboard.group.groups') }}">
                     @foreach ($groups as $id => $name)
                     <option value="{{ $id }}" data-name="groups" {{ isset($admin) && in_array($id, $admin->group_list) ?
@@ -119,15 +117,11 @@
                         {{ $name }}</option>
                     @endforeach
                 </optgroup>
-
             </select>
-
-
             <span class="text-danger" id="permission_listError"></span>
             <span class="text-danger" id="group_listError"></span>
-
-
         </div>
+        
         @if (isset($admin))
         <div class="col-12 col-md-4 mt-3">
             {!! Form::label('status', trans('dashboard.general.status')) !!}

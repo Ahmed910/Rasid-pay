@@ -35,6 +35,7 @@ class GroupController extends Controller
             $groups = $query->skip($request->start)
                 ->take(($request->length == -1) ? $group_count : $request->length)
                 ->get();
+
             return GroupCollection::make($groups)
                 ->additional(['total_count' => $group_count]);
         }
@@ -184,7 +185,7 @@ class GroupController extends Controller
                     'date_from'   => format_date($request->created_from) ?? format_date($createdFrom),
                     'date_to'     => format_date($request->created_to) ?? format_date(now()),
                     'userId'      => auth()->user()->login_id,
-                    
+
                 ]
             )
             ->export();
