@@ -12,12 +12,12 @@
         @if (request()->routeIs('dashboard.group.edit'))
             <div class="col-12 col-md-6">
                 {!! Form::label('status', trans('dashboard.general.status')) !!}
-                {!! Form::select('is_active', trans('dashboard.general.active_cases'), null, ['class' => 'form-control select2', 'id' => 'status', 'required' => 'required', 'placeholder' => trans('dashboard.general.select_status')]) !!}
+                {!! Form::select('is_active', trans('dashboard.general.active_cases'), null, ['class' => 'form-control select2', 'id' => 'status', 'required' => 'required']) !!}
 
                 <span class="text-danger" id="statusError" hidden></span>
-
-                  </div>
+            </div>
         @endif
+
         <div class="col-12 col-md-6">
             <label for="permissions">{{trans('dashboard.admin.permission_system')}}</label> <span class="requiredFields">*</span>
             <select name="permission_list[]" hidden multiple></select>
@@ -39,8 +39,8 @@
 
             <span class="text-danger" id="group_listError" hidden></span>
             <span class="text-danger" id="permission_listError" hidden></span>
-
         </div>
+        
     </div>
 </div>
 <div class="row">

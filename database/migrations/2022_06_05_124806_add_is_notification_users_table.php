@@ -14,9 +14,8 @@ class AddIsNotificationUsersTable extends Migration
     public function up()
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->boolean('is_notification')->default(true)->comment('check if notication is active');
-
-            //
+            $table->boolean('is_notification_enabled')->default(true)->comment('check if notication is active');
+            $table->boolean('is_red_notifications')->default(false)->comment('check if notications bell is clicked');
         });
     }
 
@@ -28,7 +27,7 @@ class AddIsNotificationUsersTable extends Migration
     public function down()
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->dropColumn(['is_notification']);
+            $table->dropColumn('is_notification','is_red_notifications');
         });
     }
 }
