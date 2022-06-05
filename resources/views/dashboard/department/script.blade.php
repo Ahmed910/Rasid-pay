@@ -26,7 +26,7 @@
           ignoreReadonly: true,
           minDate: '1900-01-01',
           maxDate: '2100-01-01',
-          showClear:true,
+          showClear: true,
           isRTL: "{{ LaravelLocalization::getCurrentLocaleDirection() == 'rtl' }}"
         }).on('dp.change', function () {
         table.draw();
@@ -144,8 +144,8 @@
         },
         pageLength: 10,
         lengthMenu: [
-            [1, 5, 10, 15, 20],
-            [1, 5, 10, 15, 20]
+          [1, 5, 10, 15, 20],
+          ["١", "٥","١٠","١٥", "٢٠"]
         ],
 
         "language": {
@@ -200,6 +200,7 @@
       });
 
       table.on('draw', function () {
+
         var tooltipTriggerList = [].slice.call(
           document.querySelectorAll('[data-bs-toggle="tooltip"]')
         );
