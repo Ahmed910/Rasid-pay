@@ -21,6 +21,8 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::apiResource('notifications', 'NotificationController')->only('index','show');
     Route::post('update_password', 'ProfileController@updatePassword');
     Route::get('get_citizen_wallet', 'WalletController@getCitizenWallet');
+    Route::post('activate_notifcation', 'ProfileController@activateNotifcation');
+
 });
 
 Route::get('slides','SlideController@index');
