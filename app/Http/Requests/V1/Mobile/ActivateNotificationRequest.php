@@ -4,7 +4,7 @@ namespace App\Http\Requests\V1\Mobile;
 
 use App\Http\Requests\ApiMasterRequest;
 
-class ActivateNotifcationRequest extends ApiMasterRequest
+class ActivateNotificationRequest extends ApiMasterRequest
 {
     /**
      * Get the validation rules that apply to the request.

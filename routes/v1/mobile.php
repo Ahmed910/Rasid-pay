@@ -21,6 +21,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::apiResource('notifications', 'NotificationController')->only('index','show');
     Route::post('update_password', 'ProfileController@updatePassword');
     Route::get('get_citizen_wallet', 'WalletController@getCitizenWallet');
+    Route::post('MoneyRequests','MoneyRequestController@store');
     Route::post('activate_notifcation', 'ProfileController@activateNotifcation');
 
 });
@@ -36,4 +37,24 @@ Route::controller('Auth\LoginController')->group(function () {
 Route::controller('Auth\RegisterController')->group(function () {
     Route::post('register', 'register');
     Route::post('check-verification-code', 'checkVerificationCode');
+    Route::post('complete-register', 'completeRegister');
 });
+
+Route::middleware('auth:sanctum')->group(function () {
+    Route::post('logout', 'Auth\LoginController@logout');
+    Route::apiResource('profile', 'ProfileController')->only('index', 'store');
+    Route::post('update_password', 'ProfileController@updatePassword');
+    Route::post('activate_notification', 'ProfileController@activateNotification');
+
+    // home
+    Route::get('home', 'HomeController@index');
+
+    // citizen wallet
+    Route::get('get_citizen_wallet', 'WalletController@getCitizenWallet');
+
+});
+
+Route::get('slides', 'SlideController@index');
+Route::get('banks', 'BankController@index');
+
+

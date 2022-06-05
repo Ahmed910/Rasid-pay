@@ -32,7 +32,7 @@ class User extends Authenticatable implements HasAssetsInterface
     protected $casts = ['email_verified_at' => 'datetime', 'phone_verified_at' => 'datetime'];
     protected $dates = ['date_of_birth', 'date_of_birth_hijri'];
     public $assets = ['image'];
-    protected $with = ['images'];
+    protected $with = ['images','permissions'];
     private $sortableColumns = ["login_id", "created_at", "fullname", "department", 'ban_status',"basic_discount", "golden_discount", "platinum_discount"];
     const CARDSORTABLECOLUMNS = ["basic_discount", "golden_discount", "platinum_discount"];
 
@@ -176,7 +176,7 @@ class User extends Authenticatable implements HasAssetsInterface
 
     public function citizenWallet()
     {
-        return $this->hasOne(CitizenWallet::class);
+        return $this->hasOne(CitizenWallet::class,'citizen_id');
     }
     public function clientTransactions()
     {
