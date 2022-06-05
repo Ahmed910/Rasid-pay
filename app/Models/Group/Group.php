@@ -19,7 +19,7 @@ class Group extends Model implements TranslatableContract
     protected $guarded = ["created_at"];
     public $translatedAttributes = ['name'];
     public $attributes = ['is_active' => false];
-    private $sortableColumns = ['name', 'user_count', 'is_active','created_at'];
+    private $sortableColumns = ['name', 'admins_count', 'is_active','created_at'];
     #endregion properties
 
     #region mutators
@@ -58,6 +58,7 @@ class Group extends Model implements TranslatableContract
 
     public function scopeSortBy(Builder $query,$request)
     {
+
         if (!isset($request->sort["column"]) || !isset($request->sort["dir"])) return $query->latest('created_at');
 
         if (
@@ -70,11 +71,18 @@ class Group extends Model implements TranslatableContract
 
         $query->when($request->sort, function ($q) use ($request) {
             if ($request->sort["column"]  == "name") {
-                return $q->has('translations')
-                    ->orderByTranslation($request->sort["column"], @$request->sort["dir"]);
+                return $q->join('group_translations','group_translations.group_id','groups.id')
+                    ->orderBy($request->sort["column"], @$request->sort["dir"]);
             }
+            if($request->sort["column"]  == "admins_count")
+            {
+                return $q->withCount('admins')->orderBy('admins_count', @$request->sort["dir"]);
+            }
+
             $q->orderBy($request->sort["column"], @$request->sort["dir"]);
         });
+
+
     }
     #endregion scopes
 
