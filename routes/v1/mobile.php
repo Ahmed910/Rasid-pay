@@ -39,3 +39,22 @@ Route::controller('Auth\RegisterController')->group(function () {
     Route::post('check-verification-code', 'checkVerificationCode');
     Route::post('complete-register', 'completeRegister');
 });
+
+Route::middleware('auth:sanctum')->group(function () {
+    Route::post('logout', 'Auth\LoginController@logout');
+    Route::apiResource('profile', 'ProfileController')->only('index', 'store');
+    Route::post('update_password', 'ProfileController@updatePassword');
+    Route::post('activate_notification', 'ProfileController@activateNotification');
+
+    // home
+    Route::get('home', 'HomeController@index');
+
+    // citizen wallet
+    Route::get('get_citizen_wallet', 'WalletController@getCitizenWallet');
+
+});
+
+Route::get('slides', 'SlideController@index');
+Route::get('banks', 'BankController@index');
+
+

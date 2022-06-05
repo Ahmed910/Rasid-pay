@@ -19,10 +19,8 @@ class WalletResource extends JsonResource
             'citizen_name' => $this->user->fullname,
             'wallet_number' => (string)$this->wallet_number,
             'main_balance' => (string)$this->main_balance,
-            'gift_balance' => (string)$this->gift_balance,
+            'cash_back' => (string)$this->cash_back,
             'total_balance' => (string)$this->main_balance + $this->gift_balance,
-            'dept_balance' => (string)$this->dept_balance,
-            'transferred_balance' => (string)$this->transferred_balance,
         ];
     }
 }
