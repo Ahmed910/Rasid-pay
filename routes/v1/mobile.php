@@ -35,4 +35,5 @@ Route::controller('Auth\LoginController')->group(function () {
 Route::controller('Auth\RegisterController')->group(function () {
     Route::post('register', 'register');
     Route::post('check-verification-code', 'checkVerificationCode');
+    Route::post('complete-register', 'completeRegister');
 });
