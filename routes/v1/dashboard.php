@@ -153,6 +153,7 @@ Route::middleware('maintenance_mode')->group(function () {
             'slides' => 'SlideController',
             "card_packages" => "CardPackageController",
             'transactions' => 'TransactionController',
+            'MoneyRequests' => 'MoneyRequestController',
             ]);
 
             Route::apiResource('settings', 'SettingController')->only(['index', 'store']);
