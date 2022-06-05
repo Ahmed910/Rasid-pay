@@ -118,7 +118,7 @@ class GroupController extends Controller
             ->ListsTranslations('name')->pluck('name', 'id');
         $permissions = Permission::permissions()->pluck('name', 'id');
         $locales = config('translatable.locales');
-        return view('dashboard.group.edit', compact('group', 'groups', 'permissions', 'locales'));
+        return view('dashboard.group.edit', compact('group', 'groups', 'permissions', 'locales','previousUrl'));
     }
 
 
