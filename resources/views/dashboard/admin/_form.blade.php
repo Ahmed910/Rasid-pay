@@ -260,6 +260,9 @@
               $.ajax({
                   url: '{{ url('/dashboard/rasid_job/all-jobs') }}' + '/' + department_id,
                   type: 'get',
+                  beforeSend: function () {
+                      $('#new_admin').html(`<span class="spinner-border text-light" style="width: 1rem; height: 1rem;" role="status"></span>`);
+                  },
                   success: function(data) {
                       if (data.view) {
                           $('#new_admin').html(data.view);
