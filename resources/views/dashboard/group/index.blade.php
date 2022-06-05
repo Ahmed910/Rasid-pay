@@ -18,7 +18,7 @@
       <label for="groupName">{!! trans('dashboard.group.group_name') !!}</label>
       <input type="text" name="name" value="{{ request('name') }}" id="name"
         class="form-control input-regex stop-copy-paste" maxlength="100" id="groupName"
-        placeholder="{!! trans('dashboard.group.group_name') !!}" />
+        placeholder="{!! trans('dashboard.general.enter_name') !!}" />
     </div>
     <div class="col-12 col-md-3">
       <label for="userNumFrom">{!! trans('dashboard.group.admins_from') !!}</label>
