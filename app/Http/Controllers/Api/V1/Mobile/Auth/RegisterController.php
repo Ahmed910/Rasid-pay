@@ -76,6 +76,10 @@ class RegisterController extends Controller
             'user_type' => 'citizen'
         ]);
 
+        if (!$user) {
+            return response()->json(['status' => false, 'data' => null, 'message' => trans('auth.account_not_exists')], 422);
+        }
+
         $user->fill($request->password)->save();
         $token =  $user->createToken('RasidBackApp')->plainTextToken;
 
