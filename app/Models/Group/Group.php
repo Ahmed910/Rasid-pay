@@ -18,7 +18,7 @@ class Group extends Model implements TranslatableContract
     #region properties
     protected $guarded = ["created_at"];
     public $translatedAttributes = ['name'];
-    public $attributes = ['is_active' => false];
+    public $attributes = ['is_active' => true];
     private $sortableColumns = ['name', 'admins_count', 'is_active','created_at'];
     #endregion properties
 

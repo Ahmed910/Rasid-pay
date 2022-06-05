@@ -51,8 +51,9 @@ class GroupController extends Controller
     {
         $previousUrl = url()->previous();
         (strpos($previousUrl, 'group')) ? session(['perviousPage' => 'group']) : session(['perviousPage' => 'home']);
-        $groups = Group::with('translations')
+        $groups = Group::with('translations')->active()
             ->ListsTranslations('name')->pluck('name', 'id');
+
         $permissions = Permission::permissions()->pluck('name', 'id');
         $locales = config('translatable.locales');
 
@@ -113,7 +114,7 @@ class GroupController extends Controller
         (strpos($previousUrl, 'group')) ? session(['perviousPage' => 'group']) : session(['perviousPage' => 'home']);
 
         $group = Group::where('id', "<>", auth()->user()->group_id)->findOrFail($id);
-        $groups = Group::with('translations')
+        $groups = Group::with('translations')->active()
             ->ListsTranslations('name')->pluck('name', 'id');
         $permissions = Permission::permissions()->pluck('name', 'id');
         $locales = config('translatable.locales');
