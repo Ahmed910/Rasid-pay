@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Api\V1\Mobile;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\V1\Mobile\ActivateNotifcationRequest;
+use App\Http\Requests\V1\Mobile\ActivateNotificationRequest;
 use App\Http\Requests\V1\Mobile\Auth\UpdatePasswordRequest;
 use App\Http\Requests\V1\Mobile\UpdateProfileRequest;
 use App\Http\Resources\Mobile\UserResource;
@@ -42,10 +42,10 @@ class ProfileController extends Controller
 
 
     /**
-     * @param ActivateNotifcationRequest $request
+     * @param ActivateNotificationRequest $request
      * @return \Illuminate\Http\JsonResponse
      */
-     public function activateNotifcation(ActivateNotifcationRequest $request)
+     public function activateNotification(ActivateNotificationRequest $request)
     {
         auth()->user()->update([
             'is_notification' => $request->is_notification
