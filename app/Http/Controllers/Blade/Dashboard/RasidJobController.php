@@ -312,4 +312,12 @@ class RasidJobController extends Controller
 
         return $mpdf;
     }
+
+    public function getVacantJobs($id)
+    {
+        $rasid_jobs = RasidJob::where(['department_id' => $id, 'is_vacant' => true])->select('id')->ListsTranslations('name')
+            ->without(['images', 'addedBy', 'translations', 'department', 'employee'])->get()->pluck('name', 'id')->toArray();
+        $view = view('dashboard.admin.ajax.rasid_job',compact('rasid_jobs'))->render();
+        return response()->json(['view' => $view]);
+    }
 }

@@ -26,8 +26,10 @@
             'form-control select2-show-search', 'id' => 'rasid_job_id', 'data-placeholder' =>
             trans('dashboard.rasid_job.select_job')]) !!}
             @else
-            {!! Form::select('rasid_job_id', ['' => ''], null, ['class' => 'form-control select2-show-search', 'id' =>
-            'rasid_job_id', 'data-placeholder' => trans('dashboard.rasid_job.select_job')]) !!}
+            <div id="new_admin">
+                {!! Form::select('rasid_job_id', ['' => ''], null, ['class' => 'form-control select2-show-search', 'id' =>
+                    'rasid_job_id', 'data-placeholder' => trans('dashboard.rasid_job.select_job')]) !!}
+            </div>
             @endisset
             <span class="text-danger" id="rasid_job_idError"></span>
         </div>
@@ -256,14 +258,11 @@
           if (department_id != '') {
               //send ajax
               $.ajax({
-                  url: '{{ url('/dashboard/admin/all-jobs') }}' + '/' + department_id,
+                  url: '{{ url('/dashboard/rasid_job/all-jobs') }}' + '/' + department_id,
                   type: 'get',
                   success: function(data) {
-                      if (data) {
-                          $.each(data.data, function(index, job) {
-                            let newOption = new Option(job.name, job.id, false, false);
-                            $('#rasid_job_id').append(newOption).trigger('change');
-                          });
+                      if (data.view) {
+                          $('#new_admin').html(data.view);
                       }
                   }
               });
@@ -333,30 +332,30 @@
               }).change();
 
               //get users from department script
-              $("#mainDepartment").change(function(e) {
-                  e.preventDefault();
-                  let department_id = $("#mainDepartment").val();
-
-                  $('#userName').empty();
-                  $('#userName').append(new Option('', '', true, true)).trigger('change');
-
-                  if (department_id != '') {
-                      //send ajax
-                      $.ajax({
-                          url: '{{ url('/dashboard/admin/all-employees') }}' + '/' + department_id,
-                          type: 'get',
-                          success: function(data) {
-                              if (data) {
-                                  $.each(data.data, function(index, user) {
-                                    let newOption = new Option(user.fullname, user.id, false, false);
-                                    $('#userName').append(newOption).trigger('change');
-                                  });
-                              }
-                          }
-                      });
-                  }
-
-              });
+              // $("#mainDepartment").change(function(e) {
+              //     e.preventDefault();
+              //     let department_id = $("#mainDepartment").val();
+              //
+              //     $('#userName').empty();
+              //     $('#userName').append(new Option('', '', true, true)).trigger('change');
+              //
+              //     if (department_id != '') {
+              //         //send ajax
+              //         $.ajax({
+              //             url: '{{ url('/dashboard/admin/all-employees') }}' + '/' + department_id,
+              //             type: 'get',
+              //             success: function(data) {
+              //                 if (data) {
+              //                     $.each(data.data, function(index, user) {
+              //                       let newOption = new Option(user.fullname, user.id, false, false);
+              //                       $('#userName').append(newOption).trigger('change');
+              //                     });
+              //                 }
+              //             }
+              //         });
+              //     }
+              //
+              // });
 
               $("#show_hide_password a").on("click", function(event) {
                       event.preventDefault();
