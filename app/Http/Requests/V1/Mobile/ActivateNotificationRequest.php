@@ -14,7 +14,7 @@ class ActivateNotificationRequest extends ApiMasterRequest
     public function rules()
     {
         return [
-          'is_notification' => 'required|in:0,1',
+          'is_notification_enabled' => 'required|in:0,1',
         ];
     }
 
