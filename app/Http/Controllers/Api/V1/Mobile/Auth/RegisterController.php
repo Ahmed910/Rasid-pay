@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api\V1\Mobile\Auth;
 
 use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
 use App\Http\Requests\V1\Auth\CheckVerificationCodeRequest;
 use App\Http\Requests\V1\Auth\RegisterRequest;
 use App\Http\Resources\UserResource;

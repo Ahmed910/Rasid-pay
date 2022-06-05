@@ -2,9 +2,9 @@
 
 namespace App\Http\Resources\Mobile;
 
-use Illuminate\Http\Resources\Json\ResourceCollection;
+use Illuminate\Http\Resources\Json\JsonResource;
 
-class NotificationResource extends ResourceCollection
+class NotificationResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -15,9 +15,14 @@ class NotificationResource extends ResourceCollection
     public function toArray($request)
     {
         return [
-            'is_red_notifications' => (bool)auth()->user()->is_red_notifications,
-            'unreadnotifications_count' => (int)auth()->user()->unreadnotifications->count(),
-            'notifications' => NotificationResource::collection($this->collection)
+            'id' => $this->id,
+            'title' => @$this->data['title'],
+            'body' => @$this->data['body'],
+            'notify_type' => @$this->data['notify_type'] ?? 'management',
+            'created_at' => $this->created_at->diffForHumans(),
+            'read_at' => optional($this->read_at)->format("Y-m-d H:i"),
+            'logo' => setting('logo')
         ];
+
     }
 }
