@@ -447,11 +447,6 @@ function stopcopypaste(e) {
     });
 }
 
-// change English numbers to arabic
-String.prototype.toArabicUni = function () {
-    return this.replace(/\d/g, d => String.fromCharCode('0x066' + d))
-}
-
 window.onload = function () {
     $(".select2-selection__rendered").on("click", updateValue);
 
