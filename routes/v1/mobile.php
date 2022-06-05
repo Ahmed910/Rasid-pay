@@ -20,10 +20,13 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::apiResource('profile', 'ProfileController')->only('index','store');
     Route::post('update_password', 'ProfileController@updatePassword');
     Route::get('get_citizen_wallet', 'WalletController@getCitizenWallet');
+    Route::post('MoneyRequests','MoneyRequestController@store');
+
 });
 
 Route::get('slides','SlideController@index');
 Route::get('banks','BankController@index');
+
 
 Route::controller('Auth\LoginController')->group(function () {
     Route::post('login', 'login')->name('login');
