@@ -52,10 +52,10 @@
                         },
                         name : 'action_type'
                     },
-                    {
-                        data: "reason",
-                        name : 'reason'
-                    },
+                    // {
+                    //     data: "reason",
+                    //     name : 'reason'
+                    // },
 
 
 

@@ -90,7 +90,7 @@
                     <th class="border-bottom-0">@lang('dashboard.department.department_name')</th>
                     <th class="border-bottom-0">@lang('dashboard.activity_log.date')</th>
                     <th class="border-bottom-0">@lang('dashboard.activity_log.activity')</th>
-                    <th class="border-bottom-0">@lang('dashboard.general.reason')</th>
+                    <!-- <th class="border-bottom-0">@lang('dashboard.general.reason')</th> -->
                 </tr>
             </thead>
         </table>
