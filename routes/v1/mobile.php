@@ -42,5 +42,7 @@ Route::middleware('auth:sanctum')->group(function () {
 
 Route::get('slides', 'SlideController@index');
 Route::get('banks', 'BankController@index');
+Route::apiResource('clients', 'ClientController')->only('index', 'show');
+
 
 
