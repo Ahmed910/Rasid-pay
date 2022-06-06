@@ -106,6 +106,10 @@ return [
             'معطلة',
             'مفعلة',
         ],
+        "department_active_cases" => [
+            'معطل',
+            'مفعل',
+        ],
         'job_type_cases' => [
             'مشغولة',
             'شاغرة',

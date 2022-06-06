@@ -19,5 +19,4 @@ $(function(e) {
             element.focus();
         })
     });
-
 });
