@@ -11,9 +11,23 @@ use App\Models\CitizenWallet;
 
 class HomeController extends Controller
 {
+    /**
+     * @return WalletResource
+     */
     public function index()
     {
-        $wallet = CitizenWallet::with('user')->firstWhere('citizen_id',auth()->id());
+        return WalletResource::make(auth()->user()->citizenWallet)->additional(['status' => true, 'message' => '']);
+    }
+
+    /**
+     * @return WalletResource
+     */
+    public function fitchWallet()
+    {
+        $wallet = auth()->user()->citizenWallet;
+        $wallet->update([
+            'last_updated_at' => now()
+        ]);
         return WalletResource::make($wallet)->additional(['status' => true, 'message' => '']);
     }
 }
