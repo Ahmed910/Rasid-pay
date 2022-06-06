@@ -80486,9 +80486,14 @@ body{
 .w-60 {
     width: 90% !important;
 }
+#search-form .btn{
+    width: 100%;
+}
+
 }
 
 
 .border-danger + .select2 .select2-selection--single{
         border-color: #f82649 !important;
 }
+
