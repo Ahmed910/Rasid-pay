@@ -11,7 +11,7 @@ class CompleteRegisterRequest extends ApiMasterRequest
     {
         return [
             'phone'    => ['required', 'string', 'digits_between:5,20', 'starts_with:9665,05', 'regex:/^(05|9665)([0-9]{8})$/', 'exits:users,phone'],
-            'password' => 'required|min:8'
+            'password' => 'required|min:8|regex:/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{6,}$/'
         ];
     }
 }
