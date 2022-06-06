@@ -41,6 +41,10 @@ Route::controller('Auth\RegisterController')->group(function () {
     Route::post('complete-register', 'completeRegister');
 });
 
+Route::controller('Auth\ResetController')->group(function () {
+    Route::post('check-identity-number', 'checkIdentityNumber');
+    Route::post('reset-password', 'updatePassword');
+});
 Route::middleware('auth:sanctum')->group(function () {
     Route::post('logout', 'Auth\LoginController@logout');
     Route::apiResource('profile', 'ProfileController')->only('index', 'store');
@@ -57,5 +61,4 @@ Route::middleware('auth:sanctum')->group(function () {
 
 Route::get('slides', 'SlideController@index');
 Route::get('banks', 'BankController@index');
-
 
