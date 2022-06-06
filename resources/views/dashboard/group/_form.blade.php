@@ -3,9 +3,9 @@
         <div class="col-12 col-md-6">
             {!! Form::label('departmentName', trans('dashboard.group.group_name')) !!} <span class="requiredFields">*</span>
             @foreach ($locales as $locale)
-                {!! Form::text("{$locale}[name]", isset($group) ? $group->name : null, ['class' => 'form-control input-regex stop-copy-paste', 'placeholder' => trans('dashboard.general.enter_name'), 'minlength' => '2', 'maxlength' => '100', 'required' => 'required']) !!}
+                {!! Form::text("{$locale}[name]", isset($group) ? $group->name : null, ['class' => 'form-control input-regex stop-copy-paste', 'placeholder' => trans('dashboard.general.enter_name'), 'minlength' => '2', 'maxlength' => '100', 'required' => 'required','onblur'=>'validateData(this.value)']) !!}
 
-                <span class="text-danger" id="{{ $locale }}.nameError" hidden></span>
+                <span class="text-danger dd" id="{{ $locale }}.nameError" hidden></span>
 
                 @endforeach
         </div>
@@ -40,7 +40,7 @@
             <span class="text-danger" id="group_listError" hidden></span>
             <span class="text-danger" id="permission_listError" hidden></span>
         </div>
-        
+
     </div>
 </div>
 <div class="row">
@@ -72,6 +72,24 @@
                 $('[name="permission_list[]"]').append(`<option value="${item}" selected class="permission_select"></option>`);
             });
         });
+
+        function validateData(input_val)
+        {
+             let lang = '{{ app()->getLocale() }}';
+             var formData = $('#formId').serialize();
+
+            $.ajax({
+                  url: '{{ url('/dashboard/group') }}',
+                  type: 'post',
+                  data : formData,
+
+                  error:function(errors)
+                  {
+                    $('.dd').removeAttr('hidden')
+                    $('.dd').text(errors.responseJSON.errors[`${lang}.name`])
+                  }
+              });
+        }
 
         function addPermissions(selected) {
             let group_options = '';
