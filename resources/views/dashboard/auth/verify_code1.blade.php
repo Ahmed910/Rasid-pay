@@ -53,7 +53,7 @@
                     >
                   </div>
                 <div class="col-12 mt-5 text-center">
-        {!! Form::submit('إرسال',['class' => "btn btn-primary mx-2"]) !!}
+        {!! Form::submit('إرسال',['class' => "btn btn-primary me-2"]) !!}
         <a href="{!! route('dashboard.login') !!}" class="btn btn-outline-primary mx-2">
             عودة
         </a>

@@ -50,7 +50,7 @@
               @enderror
             </div>
             <div class="col-12 mt-5 text-center">
-              {!! Form::submit(trans('dashboard.general.send'), ['class' => "btn btn-primary mx-2",'id' => 'resend_btn','formaction' => route('dashboard.post_reset')]) !!}
+              {!! Form::submit(trans('dashboard.general.send'), ['class' => "btn btn-primary me-2",'id' => 'resend_btn','formaction' => route('dashboard.post_reset')]) !!}
               <a
                 href="{!! route('dashboard.login') !!}"
                 class="btn btn-outline-primary mx-2"
@@ -90,11 +90,11 @@
               <div class="input-group-text border-start-0" dir="ltr">
                 +966
               </div>
-              
+
               </div>
             </div>
             <div class="col-12 mt-5 text-center">
-              {!! Form::submit(trans('dashboard.general.send'), ['class' => "btn btn-primary mx-2",'id' => 'resend_btn','formaction' => route('dashboard.post_reset')]) !!}
+              {!! Form::submit(trans('dashboard.general.send'), ['class' => "btn btn-primary me-2",'id' => 'resend_btn','formaction' => route('dashboard.post_reset')]) !!}
               <a
                 href="{!! route('dashboard.login') !!}"
                 class="btn btn-outline-primary mx-2"
