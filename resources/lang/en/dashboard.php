@@ -200,6 +200,7 @@ return [
             'archive' => ' Groups Archive',
             'create' => 'Add Group ',
         ],
+        'sorry_group_name_is_repeated'=>'Sorry Group Name Is Repeated',
         'permissions' => array_except($permissions, ['archive', 'restore', 'force_delete']) + ['create' => 'Show side menu']
     ],
 

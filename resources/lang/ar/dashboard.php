@@ -310,7 +310,9 @@ return [
             'archive' => 'أرشيف الصلاحيات',
             'create' => 'اضافة مجموعة',
         ],
+
         'admins_count' => 'عدد المستخدمين',
+        'sorry_group_name_is_repeated'=>'عفواً اسم المجموعة متكرر',
         'permissions' => array_except($permissions, ['archive', 'restore', 'force_delete']) + ['create' => 'عرض القائمة']
     ],
     "currency" => [
