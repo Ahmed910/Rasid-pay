@@ -451,7 +451,11 @@ function stopcopypaste(e) {
 String.prototype.toArabicUni = function () {
     return this.replace(/\d/g, d => String.fromCharCode('0x066' + d))
 }
+$(window).bind('beforeunload',function(){
 
+    $('input').val("");
+    $("option:selected").prop("selected", false);
+});
 window.onload = function () {
     $(".select2-selection__rendered").on("click", updateValue);
 
