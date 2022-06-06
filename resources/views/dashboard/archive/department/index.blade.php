@@ -71,7 +71,7 @@
       </div>
     </div>
     <div class="col-12 col-md-6 my-2 d-flex justify-content-end">
-      <button class="btn btn-primary mx-2" type="submit">
+      <button class="btn btn-primary me-2" type="submit">
         <i class="mdi mdi-magnify"></i> {{ trans('dashboard.department.search') }}
       </button>
       <a href="{{ route('dashboard.department.archive') }}" class="btn btn-outline-primary">

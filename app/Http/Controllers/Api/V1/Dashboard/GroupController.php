@@ -23,7 +23,7 @@ class GroupController extends Controller
             ->search($request)
             ->sortBy($request)
             ->withCount('admins as user_count')
-            ->paginate((int)($request->per_page ?? 15));
+            ->paginate((int)($request->per_page ??  config("globals.per_page")));
 
         return GroupResource::collection($groups)->additional(['status' => true, 'message' => ""]);
     }
@@ -63,7 +63,7 @@ class GroupController extends Controller
         if (!$request->has('with_activity') || $request->with_activity) {
             $activities  = $group->activity()
                 ->sortBy($request)
-                ->paginate((int)($request->per_page ?? 15));
+                ->paginate((int)($request->per_page ??  config("globals.per_page")));
         }
         return GroupCollection::make($activities)
             ->additional([
@@ -84,7 +84,7 @@ class GroupController extends Controller
 
     public function getPermissionsOfGroup(Group $group, Request $request)
     {
-        $permissions = $group->permissions()->paginate((int)($request->per_page ?? 15));
+        $permissions = $group->permissions()->paginate((int)($request->per_page ??  config("globals.per_page")));
 
         return PermissionResource::collection($permissions)
             ->additional([

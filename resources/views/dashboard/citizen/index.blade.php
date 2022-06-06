@@ -104,7 +104,7 @@
     </div>
   </div>
   <div class="col-12 col-md-6 my-2 d-flex justify-content-end">
-    <button class="btn btn-primary mx-2" type="submit">
+    <button class="btn btn-primary me-2" type="submit">
       <i class="mdi mdi-magnify"></i> {{ trans('dashboard.general.search') }}
     </button>
 

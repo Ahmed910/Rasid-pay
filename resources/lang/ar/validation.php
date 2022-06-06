@@ -72,7 +72,15 @@ $attributes = [
     'branches.*.transfer_amount' => 'حقل القيمة المحولة  ',
     'branches.*.commercial_record' => 'حقل السجل التجاري ',
     'branches.*.tax_number' => 'حقل الرقم الضريبي ',
-    'branches.*.service_customer' => 'حقل خدمة العملاء  '
+    'branches.*.service_customer' => 'حقل خدمة العملاء  ',
+
+    // Rasid Pay
+    'parent_id'   => 'حقل القسم الرئيسي',
+    'permission_list'   => 'حقل الصلاحيات الفردية',
+    'permission_list.*'   => 'حقل الصلاحيات الفردية',
+    'group_list'   => 'حقل المجموعات',
+    'group_list.*'   => 'حقل المجموعات',
+    'code'    => 'رمز التحقق'
 ];
 
 foreach (config('translatable.locales') as $locale) {

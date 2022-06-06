@@ -87,7 +87,7 @@ class AdminController extends Controller
             if ($admin->admin) {
                 $activities = $admin->admin->activity()
                     ->sortBy($request)
-                    ->paginate((int)($request->per_page ?? 15));
+                    ->paginate((int)($request->per_page ??  config("globals.per_page")));
             }
         }
 
