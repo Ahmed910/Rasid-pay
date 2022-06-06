@@ -54,7 +54,7 @@ class ValidateController extends Controller
         return response()->json([
             'status' => true,
             'data' => null,
-            'message' => $message,
+            'message' => '',
         ], 200);
     }
 
