@@ -22,7 +22,7 @@ class HomeController extends Controller
     /**
      * @return WalletResource
      */
-    public function fitchWallet()
+    public function fetchWallet()
     {
         $wallet = auth()->user()->citizenWallet;
         $wallet->update([
