@@ -306,7 +306,9 @@ return [
             'archive' => 'أرشيف الصلاحيات',
             'create' => 'اضافة مجموعة',
         ],
+
         'admins_count' => 'عدد المستخدمين',
+        'sorry_group_name_is_repeated'=>'عفواً اسم المجموعة متكرر',
         'permissions' => array_except($permissions, ['archive', 'restore', 'force_delete']) + ['create' => 'عرض القائمة']
     ],
     "currency" => [
@@ -326,7 +328,7 @@ return [
         "department" => "القسم ",
         "departments" => "الاقسام",
         "department_image" => "صورة القسم",
-        "department_name" => " القسم",
+        "department_name" => "اسم القسم",
         "department_main" => "القسم الر ئيسي",
         "select_department" => "اختر القسم",
         "main_department" => "القسم الر ئيسي",
