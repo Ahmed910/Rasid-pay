@@ -26,13 +26,14 @@
           ignoreReadonly: true,
           minDate: '1900-01-01',
           maxDate: '2100-01-01',
-          showClear:true,
+          showClear: true,
           isRTL: "{{ LaravelLocalization::getCurrentLocaleDirection() == 'rtl' }}"
         }).on('dp.change', function () {
         table.draw();
       });
 
       var table = $("#departmentTable").DataTable({
+        responsive: true,
         sDom: "t<'domOption'lpi>",
         serverSide: true,
         processing: true,
@@ -96,8 +97,7 @@
               if (data.has_jobs) {
                 fun_modal =
                   `notArchiveItem('@lang('dashboard.department.has_jobs_cannot_delete')')`;
-              }
-              if (data.has_children) {
+              }else if (data.has_children) {
                 fun_modal =
                   `notArchiveItem('@lang('dashboard.department.department_has_relationship_cannot_delete')')`;
               } else {
@@ -143,8 +143,8 @@
         },
         pageLength: 10,
         lengthMenu: [
-            [1, 5, 10, 15, 20],
-            [1, 5, 10, 15, 20]
+          [1, 5, 10, 15, 20],
+          ["١", "٥","١٠","١٥", "٢٠"]
         ],
 
         "language": {
@@ -199,6 +199,7 @@
       });
 
       table.on('draw', function () {
+
         var tooltipTriggerList = [].slice.call(
           document.querySelectorAll('[data-bs-toggle="tooltip"]')
         );

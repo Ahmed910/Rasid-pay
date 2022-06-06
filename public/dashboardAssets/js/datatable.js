@@ -9,6 +9,7 @@ $(function(e) {
         }
     });
     $('#datatable2').DataTable({
+        responsive: true,
         bLengthChange: false,
         searching: false,
         responsive: true

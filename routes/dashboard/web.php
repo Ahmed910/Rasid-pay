@@ -52,6 +52,7 @@ Route::group(
                     Route::get('export', 'exportArchieve');
                     Route::get('exportPDF', 'exportPDFArchieve');
                 });
+                Route::get('all-jobs/{department}', 'getVacantJobs');
                 Route::post('restore/{id}', 'restore')->name('restore');
                 Route::delete('forceDelete/{id}', 'forceDelete')->name('forceDelete');
                 Route::get('export', 'export');

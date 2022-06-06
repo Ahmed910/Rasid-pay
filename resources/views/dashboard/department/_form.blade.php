@@ -1,6 +1,6 @@
 <div class="card py-7 px-7">
   <div class="row">
-    <div class="col-12 col-md-{{ isset($department) ? 4 : 6 }} mb-5">
+    <div class="col-12 col-md-{{ isset($department) ? 4 : 6 }}">
       {!! Form::label('departmentName', trans('dashboard.department.department_name')) !!}
       <span class="requiredFields">*</span>
       @foreach ($locales as $locale)
@@ -11,7 +11,7 @@
       @endforeach
     </div>
 
-    <div class="col-12 col-md-{{ isset($department) ? 4 : 6 }} mb-5">
+    <div class="col-12 col-md-{{ isset($department) ? 4 : 6 }}">
       {!! Form::label('mainDepartment', trans('dashboard.department.main_department')) !!}
       {!! Form::select('parent_id', $appendArray + $departments, null, ['class' => 'form-control select2-show-search' .
       ($errors->has('parent_id') ? ' border-danger' : null), 'data-placeholder' =>
@@ -20,11 +20,11 @@
     </div>
 
     @if (isset($department))
-    <div class="col-12 col-md-4 mb-5">
+    <div class="col-12 col-md-{{ isset($department) ? 4 : 6 }}">
       {!! Form::label('status', trans('dashboard.general.status')) !!}
       <span class="requiredFields">*</span>
       {!! Form::select('is_active', trans('dashboard.department.active_cases'), null, ['class' => 'form-control
-      select2', 'id' => 'status','placeholder' => trans('dashboard.general.select_status')]) !!}
+      select2', 'id' => 'status']) !!}
 
       <span class="text-danger" id="statusError" hidden></span>
     </div>

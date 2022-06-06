@@ -29,6 +29,7 @@
     })
     $(document).ready(function () {
       var table = $("#activitylogtable").DataTable({
+        responsive: true,
         sDom: "t<'domOption'lpi>",
         serverSide: true,
         ajax: {
@@ -113,7 +114,7 @@
         pageLength: 10,
         lengthMenu: [
           [1, 5, 10, 15, 20],
-          [1, 5, 10, 15, 20]
+          ["١", "٥","١٠","١٥", "٢٠"]
         ],
 
         "language": {

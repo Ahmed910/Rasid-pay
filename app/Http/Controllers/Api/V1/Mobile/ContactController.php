@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api\V1\Mobile;
 use App\Http\Controllers\Controller;
 use App\Models\Contact;
 use App\Http\Requests\V1\Mobile\ContactRequest;
+use Illuminate\Http\Request;
 
 class ContactController extends Controller
 {

@@ -64,11 +64,12 @@
     }
 
     var table = $('#collapsedTable').DataTable({
+        responsive: true,
             sDom: "t<'domOption'lpi>",
         pageLength: 10,
         lengthMenu: [
           [1,5, 10, 20, -1],
-          [1,5, 10, 20, "الكل"],
+          ["١", "٥","١٠", "٢٠","الكل"],
         ],
         language: {
           @include('dashboard.layouts.globals.datatable.datatable_translation')

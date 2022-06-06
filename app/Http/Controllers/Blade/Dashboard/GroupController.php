@@ -35,6 +35,7 @@ class GroupController extends Controller
             $groups = $query->skip($request->start)
                 ->take(($request->length == -1) ? $group_count : $request->length)
                 ->get();
+
             return GroupCollection::make($groups)
                 ->additional(['total_count' => $group_count]);
         }
@@ -50,8 +51,9 @@ class GroupController extends Controller
     {
         $previousUrl = url()->previous();
         (strpos($previousUrl, 'group')) ? session(['perviousPage' => 'group']) : session(['perviousPage' => 'home']);
-        $groups = Group::with('translations')
+        $groups = Group::with('translations')->active()
             ->ListsTranslations('name')->pluck('name', 'id');
+
         $permissions = Permission::permissions()->pluck('name', 'id');
         $locales = config('translatable.locales');
 
@@ -112,11 +114,11 @@ class GroupController extends Controller
         (strpos($previousUrl, 'group')) ? session(['perviousPage' => 'group']) : session(['perviousPage' => 'home']);
 
         $group = Group::where('id', "<>", auth()->user()->group_id)->findOrFail($id);
-        $groups = Group::with('translations')
+        $groups = Group::with('translations')->active()
             ->ListsTranslations('name')->pluck('name', 'id');
         $permissions = Permission::permissions()->pluck('name', 'id');
         $locales = config('translatable.locales');
-        return view('dashboard.group.edit', compact('group', 'groups', 'permissions', 'locales'));
+        return view('dashboard.group.edit', compact('group', 'groups', 'permissions', 'locales','previousUrl'));
     }
 
 
@@ -138,7 +140,7 @@ class GroupController extends Controller
             }
             $group->groups()->sync($request->group_list);
             $group->permissions()->sync($permissions);
-            return redirect()->route('dashboard.group.index')->withSuccess(__('dashboard.general.success_update'));
+            return redirect($request->previous_url ?? route('dashboard.group.index'))->withSuccess(__('dashboard.general.success_update'));
         }
     }
 
@@ -184,7 +186,7 @@ class GroupController extends Controller
                     'date_from'   => format_date($request->created_from) ?? format_date($createdFrom),
                     'date_to'     => format_date($request->created_to) ?? format_date(now()),
                     'userId'      => auth()->user()->login_id,
-                    
+
                 ]
             )
             ->export();

@@ -104,7 +104,7 @@
     </div>
   </div>
   <div class="col-12 col-md-6 my-2 d-flex justify-content-end">
-    <button class="btn btn-primary mx-2" type="submit">
+    <button class="btn btn-primary me-2" type="submit">
       <i class="mdi mdi-magnify"></i> {{ trans('dashboard.general.search') }}
     </button>
 
@@ -120,7 +120,6 @@
 <div class="row row-sm">
   <div class="col-lg-12">
     <div class="p-1">
-      <div class="table-responsive">
         <table id="citizenTable" class="table table-bordered text-nowrap shadow-sm bg-body key-buttons">
           <thead>
             <tr>
@@ -137,7 +136,6 @@
           <tbody>
           </tbody>
         </table>
-      </div>
     </div>
   </div>
 </div>

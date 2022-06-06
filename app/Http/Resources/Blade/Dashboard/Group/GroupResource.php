@@ -9,12 +9,13 @@ class GroupResource extends JsonResource
 {
     public function toArray($request)
     {
+       
         return [
             'id' => $this->id,
             'name' => $this->name,
             'is_active' => (bool)$this->is_active,
             // 'added_by' => SimpleUserResource::make($this->addedBy),
-            'admins_count' => $this->user_count,
+            'admins_count' => $this->user_count??trans(''),
             'permissions' => PermissionResource::collection($this->whenLoaded('permissions')),
             'groups' => self::collection($this->whenLoaded('groups')),
             'created_at' => $this->created_at,

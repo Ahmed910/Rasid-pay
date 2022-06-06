@@ -15,6 +15,7 @@ class PermissionResource extends JsonResource
      */
     public function toArray($request)
     {
+        
         $permission = explode('.',$this->name);
         $single_uri = str_singular($permission[0]);
         $main_prog = trans('dashboard.' . $single_uri . '.' . $permission[0]);

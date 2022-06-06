@@ -416,6 +416,7 @@ $(function(e) {
 
     //______Data-Table
     $('#data-table').DataTable({
+        responsive: true,
         "order": [
             [0, "desc"]
         ],

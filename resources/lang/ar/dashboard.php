@@ -96,7 +96,7 @@ return [
         "personalfile" => "الملف الشخص",
         "username" => "اسم المستخدم",
         "name" => "الاسم",
-        "user_name" => "أدخل اسم المستخدم",
+        "user_name" => "أدخل الاسم",
         "email" => "البريد الالكتروني",
         "enter_email" => "أدخل البريد الالكتروني",
         "phone" => "رقم الجوال",
@@ -105,6 +105,10 @@ return [
         "active_cases" => [
             'معطلة',
             'مفعلة',
+        ],
+        "department_active_cases" => [
+            'معطل',
+            'مفعل',
         ],
         'job_type_cases' => [
             'مشغولة',
@@ -306,7 +310,9 @@ return [
             'archive' => 'أرشيف الصلاحيات',
             'create' => 'اضافة مجموعة',
         ],
+
         'admins_count' => 'عدد المستخدمين',
+        'sorry_group_name_is_repeated'=>'عفواً اسم المجموعة متكرر',
         'permissions' => array_except($permissions, ['archive', 'restore', 'force_delete']) + ['create' => 'عرض القائمة']
     ],
     "currency" => [
@@ -326,7 +332,7 @@ return [
         "department" => "القسم ",
         "departments" => "الاقسام",
         "department_image" => "صورة القسم",
-        "department_name" => " القسم",
+        "department_name" => "اسم القسم",
         "department_main" => "القسم الر ئيسي",
         "select_department" => "اختر القسم",
         "main_department" => "القسم الر ئيسي",
@@ -436,7 +442,7 @@ return [
     ],
     "admin" => [
         "admin" => "اسم المستخدم",
-        "admin_name" => "أدخل اسم المستخدم",
+        "admin_name" => "أدخل الاسم",
         "login_id" => "رقم المستخدم",
         "enter_login_id" => "أدخل رقم المستخدم",
         "admins" => "المستخدمين",
@@ -560,7 +566,7 @@ return [
         'to_user_client' => 'اسم العميل',
         'transaction_amount' => 'قيمة المعاملة',
         'total_amount' => 'قيمة الفاتورة',
-        'enter_from_user' => 'أدخل اسم المستخدم',
+        'enter_from_user' => 'أدخل الاسم',
         'enter_user_identity' => 'أدخل رقم الهوية',
         'enter_to_user_client' => 'أدخل اسم العميل',
         'enter_total_amount' => 'أدخل قيمة الفاتورة',

@@ -49,7 +49,7 @@ class RasidJobController extends Controller
         if (!$request->has('with_activity') || $request->with_activity) {
             $activities  = $rasidJob->activity()
                 ->sortBy($request)
-                ->paginate((int)($request->per_page ?? 15));
+                ->paginate((int)($request->per_page ??  config("globals.per_page")));
         }
 
         return RasidJobCollection::make($activities)

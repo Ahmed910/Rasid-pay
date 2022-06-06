@@ -12,11 +12,12 @@
   <script>
     $(function () {
       $("#transaction").DataTable({
+        responsive: true,
         sDom: "t<'domOption'lpi>",
         pageLength: 10,
         lengthMenu: [
           [1, 5, 10, 20, -1],
-          [1, 5, 10, 20, "الكل"],
+          ["١", "٥","١٠", "٢٠","الكل"]
         ],
 
         language: {
@@ -46,6 +47,7 @@
           ignoreReadonly: true,
         });
       var table = $("#transaction-table").DataTable({
+        responsive: true,
         sDom: "t<'domOption'lpi>",
         serverSide: true,
         ajax: {
@@ -109,7 +111,7 @@
         pageLength: 10,
         lengthMenu: [
           [1, 5, 10, 15, 20],
-          [1, 5, 10, 15, 20]
+          ["١", "٥","١٠","١٥", "٢٠"]
         ],
 
         "language": {

@@ -7,8 +7,9 @@
             <a class="logo-horizontal" href="{{ route('dashboard.home.index') }}">
                 <img src="{{ asset('dashboardAssets/images/brand/logo.png') }}" class="header-brand-img desktop-logo"
                     alt="logo" />
-                <img src="{{ asset('dashboardAssets/images/brand/logo-3.png') }}" class="header-brand-img light-logo1"
+                                <img src="{{ asset('dashboardAssets/images/brand/fintech-logo.svg') }}" class="header-brand-img light-logo1"
                     alt="logo" />
+
             </a>
             <!-- LOGO -->
 

@@ -1,6 +1,7 @@
 $(function(e) {
 
     $("#historyTable, #groupTable").DataTable({
+        responsive: true,
       sDom: "t<'domOption'lpi>",
       pageLength: 10,
       lengthMenu: [
@@ -20,6 +21,7 @@ $(function(e) {
     });
 
     $("#table-details").DataTable({
+        responsive: true,
       sDom: "t<'domOption'lpi>",
       pageLength: 10,
       lengthMenu: [
@@ -50,7 +52,7 @@ $(function(e) {
         },
       },
     });
-    //______Select2 
+    //______Select2
     $('.select2').select2({
         minimumResultsForSearch: Infinity
     });

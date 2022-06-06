@@ -12,19 +12,19 @@
 
 {!! Form::open(['route' => 'dashboard.rasid_job.index', 'method' => 'GET', 'id' => 'search-form']) !!}
 <div class="row align-items-end mb-3">
-  <div class="col">
+  <div class="col-12 col-md-4">
     <label for="job_name">{{ trans('dashboard.rasid_job.job_name') }}</label>
     {!! Form::text('name', old('name') ?? request('name'), ['class' => 'form-control input-regex stop-copy-paste',
     'placeholder' => trans('dashboard.rasid_job.job_name'), 'id' => 'job_name']) !!}
   </div>
-  <div class="col">
+  <div class="col-12 col-md-4">
     <label for="mainDepartment"> {{ trans('dashboard.department.department') }} </label>
     {!! Form::select('department_id', ['' => '', 0 => trans('dashboard.general.all_cases')] + $departments,
     old('department_id') ?? request('department_id'), ['data-placeholder' =>
     trans('dashboard.rasid_job.select_department'), 'class' => 'form-control select2-show-search', 'id' =>
     'mainDepartment']) !!}
   </div>
-  <div class="col">
+  <div class="col-12 col-md-4">
     <label for="from-hijri-picker-custom"> {{ trans('dashboard.general.from_date') }}</label>
     <div class="input-group">
       {!! Form::text('from_date', old('from_date') ?? request('from_date'), ['class' => 'form-control', 'id' =>
@@ -35,7 +35,7 @@
       </div>
     </div>
   </div>
-  <div class="col">
+  <div class="col-12 col-md-4">
     <label for="to-hijri-picker-custom"> {{ trans('dashboard.general.to_date') }}</label>
     <div class="input-group">
       {!! Form::text('to_date', old('to_date') ?? request('to_date'), ['class' => 'form-control', 'placeholder' =>
@@ -46,14 +46,14 @@
       </div>
     </div>
   </div>
-  <div class="col">
+  <div class="col-12 col-md-4">
     <label for="status">
       {{ trans('dashboard.general.status') }}</label>
     {!! Form::select('is_active', ['' => '', -1 => trans('dashboard.general.all_cases')] +
     trans('dashboard.rasid_job.active_cases'), old('is_active') ?? request('is_active'), ['class' => 'form-control
     select2', 'data-placeholder' => trans('dashboard.general.select_status'), 'id' => 'status']) !!}
   </div>
-  <div class="col">
+  <div class="col-12 col-md-4">
     <label for="type">
       {{ trans('dashboard.general.type') }}</label>
     {!! Form::select('is_vacant', ['' => '', -1 => trans('dashboard.general.all_cases')] +
@@ -80,7 +80,7 @@
   </div>
   <div class="col-12 col-md-6 my-2 d-flex justify-content-end">
 
-    <button class="btn btn-primary mx-2" type="submit">
+    <button class="btn btn-primary me-2" type="submit">
       <i class="mdi mdi-magnify"></i> {{ trans('dashboard.general.search') }}
     </button>
 
@@ -95,7 +95,6 @@
 <div class="row row-sm">
   <div class="col-lg-12">
     <div class="p-1">
-      <div class="table-responsive">
         <table id="JobsTable" class="table table-bordered shadow-sm bg-body text-nowrap key-buttons">
           <thead>
             <tr>
@@ -111,7 +110,6 @@
           <tbody>
           </tbody>
         </table>
-      </div>
     </div>
   </div>
   <!-- End Row -->

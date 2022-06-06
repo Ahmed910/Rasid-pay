@@ -80,7 +80,7 @@
       </div>
     </div>
     <div class="col-12 col-md-6 my-3 d-flex justify-content-end">
-      <button class="btn btn-primary mx-2" type="submit">
+      <button class="btn btn-primary me-2" type="submit">
         <i class="mdi mdi-magnify"></i> بحث
       </button>
       <button class="btn btn-outline-primary" type="submit">
@@ -95,7 +95,6 @@
 <div class="row row-sm">
   <div class="col-lg-12">
     <div class="p-1">
-      <div class="table-responsive">
         <table id="transaction" class="table table-bordered text-nowrap shadow-sm bg-body key-buttons historyTable">
           <thead>
             <tr>
@@ -198,7 +197,6 @@
             </tr>
           </tbody>
         </table>
-      </div>
     </div>
   </div>
 </div>

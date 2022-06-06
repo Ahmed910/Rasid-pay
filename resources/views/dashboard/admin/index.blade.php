@@ -109,7 +109,7 @@
       </div>
     </div>
     <div class="col-12 col-md-6 my-2 d-flex justify-content-end">
-      <button class="btn btn-primary mx-2" type="submit">
+      <button class="btn btn-primary me-2" type="submit">
         <i class="mdi mdi-magnify"></i> {{ trans('dashboard.general.search') }}
       </button>
       <button class="btn btn-outline-primary" type="reset" id="reset">
@@ -122,12 +122,11 @@
 <div class="row row-sm">
   <div class="col-lg-12">
     <div class="p-1">
-      <div class="table-responsive">
       <table id="adminTable" class="table table-bordered shadow-sm bg-body text-nowrap key-buttons">
         <thead>
           <tr>
             <th class="border-bottom-0">#</th>
-            <th class="border-bottom-0">{{ trans('dashboard.admin.name') }}</th>
+            <th class="border-bottom-0">{{ trans('dashboard.admin.admin') }}</th>
             <th class="border-bottom-0">{{ trans('dashboard.admin.login_id') }}</th>
             <th class="border-bottom-0">{{ trans('dashboard.department.department') }}</th>
             <th class="border-bottom-0">{{ trans('dashboard.general.created_at') }}</th>
@@ -138,7 +137,6 @@
         <tbody>
         </tbody>
       </table>
-    </div>
   </div>
 </div>
 

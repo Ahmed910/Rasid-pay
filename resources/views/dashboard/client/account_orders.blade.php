@@ -89,7 +89,7 @@
         </div>
       </div>
       <div class="col-12 col-md-6 d-flex justify-content-end">
-        <button class="btn btn-primary mx-2" type="submit">
+        <button class="btn btn-primary me-2" type="submit">
           <i class="mdi mdi-magnify"></i> بحث
         </button>
         <button class="btn btn-outline-primary" type="reset">
@@ -105,7 +105,7 @@
   <!-- Row -->
   <div class="row row-sm">
     <div class="col-lg-12">
-      <div class="table-responsive p-1">
+      <div class="p-1">
         <table id="orderTable" class="table table-bordered shadow-sm bg-body text-nowrap key-buttons">
 
           <thead>

@@ -12,6 +12,7 @@
     <script>
         $(function() {
             var table = $("#ajaxTable").DataTable({
+        responsive: true,
                 ajax: {
                     url: "{{ route('dashboard.group.index') }}?",
                     data: function(data) {
@@ -89,7 +90,7 @@
                 pageLength: 10,
                 lengthMenu: [
                     [1, 5, 10, 15, 20],
-                    [1, 5, 10, 15, 20]
+                  ["١", "٥","١٠","١٥", "٢٠"]
                 ],
 
                 "language": {
