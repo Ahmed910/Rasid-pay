@@ -3,19 +3,17 @@
         <div class="col-12 col-md-6">
             {!! Form::label('departmentName', trans('dashboard.group.group_name')) !!} <span class="requiredFields">*</span>
             @foreach ($locales as $locale)
-                {!! Form::text("{$locale}[name]", isset($group) ? $group->name : null, ['class' => 'form-control input-regex stop-copy-paste', 'placeholder' => trans('dashboard.general.enter_name'), 'minlength' => '2', 'maxlength' => '100', 'required' => 'required']) !!}
-
-                <span class="text-danger" id="{{ $locale }}.nameError" hidden></span>
-
-                @endforeach
+            {!! Form::text("{$locale}[name]", isset($group) ? $group->name : null, ['class' => 'form-control input-regex stop-copy-paste', 'placeholder' => trans('dashboard.general.enter_name'), 'minlength' => '2', 'maxlength' => '100', 'required' => 'required']) !!}
+            <span class="text-danger" id="{{ $locale }}.nameError" hidden></span>
+            @endforeach
         </div>
         @if (request()->routeIs('dashboard.group.edit'))
-            <div class="col-12 col-md-6">
-                {!! Form::label('status', trans('dashboard.general.status')) !!}
-                {!! Form::select('is_active', trans('dashboard.general.active_cases'), null, ['class' => 'form-control select2', 'id' => 'status', 'required' => 'required']) !!}
+        <div class="col-12 col-md-6">
+            {!! Form::label('status', trans('dashboard.general.status')) !!}
+            {!! Form::select('is_active', trans('dashboard.general.active_cases'), null, ['class' => 'form-control select2', 'id' => 'status', 'required' => 'required']) !!}
 
-                <span class="text-danger" id="statusError" hidden></span>
-            </div>
+            <span class="text-danger" id="statusError" hidden></span>
+        </div>
         @endif
 
         <div class="col-12 col-md-6">
@@ -40,7 +38,8 @@
             <span class="text-danger" id="group_listError" hidden></span>
             <span class="text-danger" id="permission_listError" hidden></span>
         </div>
-        
+        <input type="hidden" name="previous_url" value="{{ $previousUrl }}">
+
     </div>
 </div>
 <div class="row">
@@ -90,4 +89,3 @@
 
     </script>
 @endsection
-

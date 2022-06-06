@@ -140,7 +140,7 @@ class GroupController extends Controller
             }
             $group->groups()->sync($request->group_list);
             $group->permissions()->sync($permissions);
-            return redirect()->route('dashboard.group.index')->withSuccess(__('dashboard.general.success_update'));
+            return redirect($request->previous_url ?? route('dashboard.group.index'))->withSuccess(__('dashboard.general.success_update'));
         }
     }
 
