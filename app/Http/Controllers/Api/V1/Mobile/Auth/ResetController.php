@@ -15,13 +15,12 @@ class ResetController extends Controller
             'identity_number' => $request->identity_number,
             'user_type'       => 'citizen'
         ]);
-
-
         if (!$user)
             return response()->json(['status' => false, 'data' => null, 'message' => trans('auth.account_not_exists')], 422);
 
-        $code = generate_unique_code(User::class, 'identity_number', 4, 'numbers');
-
+        if (setting('use_sms_service') == 'enable') {
+            $code = generate_unique_code(User::class, 'identity_number', 4, 'numbers');
+        }
         //TODO: send sms with code
         $user->update([
             'reset_code' => $code,

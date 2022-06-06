@@ -97,8 +97,7 @@
               if (data.has_jobs) {
                 fun_modal =
                   `notArchiveItem('@lang('dashboard.department.has_jobs_cannot_delete')')`;
-              }
-              if (data.has_children) {
+              }else if (data.has_children) {
                 fun_modal =
                   `notArchiveItem('@lang('dashboard.department.department_has_relationship_cannot_delete')')`;
               } else {

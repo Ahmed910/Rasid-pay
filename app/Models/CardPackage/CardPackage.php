@@ -61,7 +61,7 @@ class CardPackage extends Model implements HasAssetsInterface
 
     public function client()
     {
-        return $this->hasOne(User::class, 'id','client_id');
+        return $this->belongsTo(User::class,'client_id');
     }
     #endregion relationships
 

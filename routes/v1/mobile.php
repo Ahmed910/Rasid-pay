@@ -29,6 +29,7 @@ Route::middleware('auth:sanctum')->group(function () {
 Route::get('slides','SlideController@index');
 Route::get('banks','BankController@index');
 
+
 Route::controller('Auth\LoginController')->group(function () {
     Route::post('login', 'login')->name('login');
     Route::post('send_reset_code', 'sendResetCode');
@@ -44,18 +45,23 @@ Route::controller('Auth\ResetController')->group(function () {
     Route::post('check-identity-number', 'checkIdentityNumber');
     Route::post('reset-password', 'updatePassword');
 });
+
 Route::middleware('auth:sanctum')->group(function () {
     Route::post('logout', 'Auth\LoginController@logout');
-    Route::apiResource('profile', 'ProfileController')->only('index', 'store');
+    Route::apiResource('profiles', 'ProfileController')->only('index', 'store');
     Route::post('update_password', 'ProfileController@updatePassword');
+    // notifications
+    Route::apiResource('notifications', 'NotificationController')->only('index', 'show');
     Route::post('activate_notification', 'ProfileController@activateNotification');
-
     // home
     Route::get('home', 'HomeController@index');
-
+    // fetch wallet
+    Route::get('fetch_wallet', 'HomeController@fetchWallet');
     // citizen wallet
     Route::get('get_citizen_wallet', 'WalletController@getCitizenWallet');
 
+    //money requests
+    Route::post('MoneyRequests', 'MoneyRequestController@store');
 });
 
 Route::get('slides', 'SlideController@index');
