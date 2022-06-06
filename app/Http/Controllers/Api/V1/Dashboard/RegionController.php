@@ -72,7 +72,7 @@ class RegionController extends Controller
         $region = Region::withTrashed()->with('translations')->findOrFail($id);
         $activities  = $region->activity()
             ->sortBy($request)
-            ->paginate((int)($request->per_page ?? 15));
+            ->paginate((int)($request->per_page ??  config("globals.per_page")));
 
         return RegionCollection::make($activities)
             ->additional([

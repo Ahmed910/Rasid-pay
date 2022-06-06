@@ -6,5 +6,5 @@ return [
     | Per page pagination for all controllers
     |--------------------------------------------------------------------------
     */
-    'per_page' => 15
+    'per_page' => 10
 ];

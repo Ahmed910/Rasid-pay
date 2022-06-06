@@ -9,7 +9,7 @@
     e.preventDefault();
 
     $('span[id*="Error"]').attr("hidden", true);
-    $("*input,select").removeClass("border-danger");
+    $("*input,select,.select2-selection").removeClass("border-danger");
 
     let form = $("#formId")[0];
     let data = new FormData(form);
@@ -46,6 +46,7 @@
 
           $('input[name="' + inputName + '"]').addClass("border-danger");
           $('select[name="' + inputName + '"]').addClass("border-danger");
+          $('.select2-selection[name="' + inputName + '"]').addClass("border-danger");
           $('span[id="' + inputError + '"]').attr("hidden", false);
           $('span[id="' + inputError + '"]').html(`<small>${message}</small>`);
         });

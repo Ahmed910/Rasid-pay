@@ -92,10 +92,15 @@ class LoginController extends Controller
      */
     public function sendResetCode(SendCodeRequest $request)
     {
-        $user = User::firstWhere('phone', $request->phone);
+        $user = User::firstWhere([
+            'identity_number' => $request->identity_number,
+            'user_type'       => 'citizen'
+        ]);
+
         if (!$user) {
             return response()->json(['status' => false, 'data' => null, 'message' => trans('auth.account_not_exists')], 422);
         }
+
         try {
             $code = 111111;
             if (setting('use_sms_service') == 'enable') {
