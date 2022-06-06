@@ -92,6 +92,9 @@
   <!-- DATA TABLE JS-->
   @yield('datatable_script')
 
+  <!-- form-validation js -->
+  <script src="{{ asset('dashboardAssets/js/form-validation.js') }}"></script>
+
   <!-- Sticky js -->
   <script src="{{ asset('dashboardAssets/js/sticky.js') }}"></script>
 

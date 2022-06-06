@@ -80489,3 +80489,6 @@ body{
 }
 
 
+.border-danger + .select2 .select2-selection--single{
+        border-color: #f82649 !important;
+}
