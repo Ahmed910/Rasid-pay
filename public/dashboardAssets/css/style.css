@@ -80497,3 +80497,6 @@ body{
         border-color: #f82649 !important;
 }
 
+.dataTables_wrapper table.dataTable{
+        width: 100% !important;
+}

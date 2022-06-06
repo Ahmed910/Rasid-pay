@@ -49,9 +49,9 @@
               @include('dashboard.layouts.globals.datatable.activity_log_actions')
             }
           },
-          {
-            data: "reason",
-          },
+          // {
+          //   data: "reason",
+          // },
 
         ],
         pageLength: 10,
