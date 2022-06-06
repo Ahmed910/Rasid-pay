@@ -9,7 +9,7 @@
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
                 <li class="breadcrumb-item">
-                    <a href="{{ route('dashboard.group.index') }}">@lang('dashboard.group.groups')</a>
+                    <a href="{{ route('dashboard.group.index') }}">{{ trans('dashboard.group.sub_progs.index') }}</a>
                 </li>
                 <li class="breadcrumb-item active" aria-current="page">
                     @lang('dashboard.group.show_group')

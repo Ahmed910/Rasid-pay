@@ -15,7 +15,6 @@
             <span class="text-danger" id="statusError" hidden></span>
         </div>
         @endif
-
         <div class="col-12 col-md-6">
             <label for="permissions">{{trans('dashboard.admin.permission_system')}}</label> <span class="requiredFields">*</span>
             <select name="permission_list[]" hidden multiple></select>
@@ -59,7 +58,7 @@
     <script src="{{ asset('dashboardAssets/js/select2.js') }}"></script>
     <script src="{{ asset('dashboardAssets') }}/plugins/fileuploads/js/fileupload.js"></script>
     <script src="{{ asset('dashboardAssets') }}/plugins/fileuploads/js/file-upload.js"></script>
-
+    
     <script>
         $(function() {
             let permissions = @isset($group)  @json($group->permission_list) @else [] @endisset;
