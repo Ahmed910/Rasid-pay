@@ -65,7 +65,7 @@
     <label for="status">
       @lang('dashboard.general.status')</label>
     {!! Form::select('is_active', ['' => '', -1 => trans('dashboard.general.all_cases')] +
-    trans('dashboard.general.active_cases'), request('is_active'), ['class' => 'form-control select2',
+    trans('dashboard.general.department_active_cases'), request('is_active'), ['class' => 'form-control select2',
     'data-placeholder' => trans('dashboard.general.select_status'), 'id' => 'status']) !!}
   </div>
 
@@ -90,7 +90,7 @@
   </div>
   <div class="col-12 col-md-6 my-2 d-flex justify-content-end">
 
-    <button class="btn btn-primary mx-2" type="submit">
+    <button class="btn btn-primary me-2" type="submit">
       <i class="mdi mdi-magnify"></i> {{ trans('dashboard.general.search') }}
     </button>
 

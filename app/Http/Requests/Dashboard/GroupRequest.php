@@ -23,6 +23,7 @@ class GroupRequest extends FormRequest
      */
     public function rules()
     {
+      
         $rules =  [
             'permission_list' => 'required_without:group_list|array|min:1',
             'permission_list.*' => 'required_without:group_list|exists:permissions,id',
@@ -41,9 +42,14 @@ class GroupRequest extends FormRequest
 
     public function messages()
     {
-        return [
+        $messages = [
             'permission_list.required_without' => trans('dashboard.general.Permission_field_required'),
             'group_list.required_without' => '',
         ];
+        foreach (config('translatable.locales') as $locale) {
+            $messages["{$locale}.name.unique"] = trans('dashboard.group.sorry_group_name_is_repeated');
+        }
+        return $messages;
+
     }
 }

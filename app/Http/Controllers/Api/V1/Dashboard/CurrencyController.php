@@ -62,7 +62,7 @@ class CurrencyController extends Controller
         $currency = Currency::withTrashed()->with('translations')->findOrFail($id);
         $activities  = $currency->activity()
         ->sortBy($request)
-        ->paginate((int)($request->per_page ?? 15));
+        ->paginate((int)($request->per_page ??  config("globals.per_page")));
 
         return CurrencyCollection::make($activities)
             ->additional([

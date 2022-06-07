@@ -15,7 +15,7 @@ class CardPackageController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * //     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\Response
      */
     public function index(Request $request)
     {
@@ -119,7 +119,7 @@ class CardPackageController extends Controller
      */
     public function archive(Request $request)
     {
-        $card_packages = CardPackage::onlyTrashed()->with("translations")->latest()->paginate((int)($request->per_page ?? config("globals . per_page")));
+        $card_packages = CardPackage::onlyTrashed()->with("translations")->latest()->paginate((int)($request->per_page ?? config("globals.per_page")));
         return CardPackageResource::collection($card_packages)->additional([
             'status' => true,
             'message' => ""

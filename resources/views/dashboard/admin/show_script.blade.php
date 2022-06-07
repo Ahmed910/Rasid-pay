@@ -49,15 +49,15 @@
               @include('dashboard.layouts.globals.datatable.activity_log_actions')
             }
           },
-          {
-            data: "reason",
-          },
+          // {
+          //   data: "reason",
+          // },
 
         ],
         pageLength: 10,
         lengthMenu: [
             [1, 5, 10, 15, 20],
-            [1, 5, 10, 15, 20]
+          ["١", "٥","١٠","١٥", "٢٠"]
         ],
         "language": {
           @include('dashboard.layouts.globals.datatable.datatable_translation')

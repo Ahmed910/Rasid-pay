@@ -9,7 +9,7 @@
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
                 <li class="breadcrumb-item">
-                    <a href="{{ route('dashboard.group.index') }}">@lang('dashboard.group.groups')</a>
+                    <a href="{{ route('dashboard.group.index') }}">{{ trans('dashboard.group.sub_progs.index') }}</a>
                 </li>
                 <li class="breadcrumb-item active" aria-current="page">
                     @lang('dashboard.group.show_group')
@@ -90,7 +90,7 @@
                     <th class="border-bottom-0">@lang('dashboard.department.department_name')</th>
                     <th class="border-bottom-0">@lang('dashboard.activity_log.date')</th>
                     <th class="border-bottom-0">@lang('dashboard.activity_log.activity')</th>
-                    <th class="border-bottom-0">@lang('dashboard.general.reason')</th>
+                    <!-- <th class="border-bottom-0">@lang('dashboard.general.reason')</th> -->
                 </tr>
             </thead>
         </table>

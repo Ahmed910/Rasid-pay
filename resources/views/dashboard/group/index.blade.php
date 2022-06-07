@@ -18,18 +18,18 @@
       <label for="groupName">{!! trans('dashboard.group.group_name') !!}</label>
       <input type="text" name="name" value="{{ request('name') }}" id="name"
         class="form-control input-regex stop-copy-paste" maxlength="100" id="groupName"
-        placeholder="{!! trans('dashboard.group.group_name') !!}" />
+        placeholder="{!! trans('dashboard.general.enter_name') !!}" />
     </div>
     <div class="col-12 col-md-3">
       <label for="userNumFrom">{!! trans('dashboard.group.admins_from') !!}</label>
       <input type="number" oninput="checkNumberFieldLength(this);" name="admins_from"
-        value="{{ request('admins_from') }}" class="form-control stop-copy-paste" id="userNumFrom"
+        value="{{ request('admins_from') }}" class="form-control stop-copy-paste number-regex" id="userNumFrom"
         placeholder="{!! trans('dashboard.group.admins_from') !!}" />
     </div>
     <div class="col-12 col-md-3">
       <label for="userNumTo">{!! trans('dashboard.group.admins_to') !!}</label>
       <input type="number" oninput="checkNumberFieldLength(this);" name="admins_to" value="{{ request('admins_to') }}"
-        class="form-control stop-copy-paste" id="userNumTo" placeholder="{!! trans('dashboard.group.admins_to') !!}" />
+        class="form-control stop-copy-paste number-regex" id="userNumTo" placeholder="{!! trans('dashboard.group.admins_to') !!}" />
     </div>
     <div class="col-12 col-md-3">
       <label for="status">{{ trans('dashboard.general.status') }}</label>
@@ -53,7 +53,7 @@
       </div>
     </div>
     <div class="col-12 col-md-6 mt-5 d-flex justify-content-end">
-      <button class="btn btn-primary mx-2" type="submit">
+      <button class="btn btn-primary me-2" type="submit">
         <i class="mdi mdi-magnify"></i> {{ trans('dashboard.general.search') }}
       </button>
       <button class="btn btn-outline-primary" type="reset" id="reset">

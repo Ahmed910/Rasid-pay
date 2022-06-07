@@ -52,10 +52,10 @@
                         },
                         name : 'action_type'
                     },
-                    {
-                        data: "reason",
-                        name : 'reason'
-                    },
+                    // {
+                    //     data: "reason",
+                    //     name : 'reason'
+                    // },
 
 
 
@@ -63,7 +63,7 @@
                 pageLength: 10,
                 lengthMenu: [
                     [1, 5, 10, 15, 20],
-                    [1, 5, 10, 15, 20]
+                  ["١", "٥","١٠","١٥", "٢٠"]
                 ],
                   "language": {
                     @include('dashboard.layouts.globals.datatable.datatable_translation')

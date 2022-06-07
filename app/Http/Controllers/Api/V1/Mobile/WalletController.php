@@ -18,8 +18,7 @@ class WalletController extends Controller
      */
     public function getCitizenWallet()
     {
-        $wallet = CitizenWallet::with('user')->firstWhere('citizen_id', auth()->id());
-        return WalletResource::make($wallet)->additional(['status' => true, 'message' => '']);
+        return WalletResource::make(auth()->user()->citizenWallet)->additional(['status' => true, 'message' => '']);
     }
 
     public function chargeWallet(WalletRequest $request)

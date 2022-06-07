@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api\Mobile;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\Mobile\BankResource;
 use App\Models\Bank\Bank;
+use Illuminate\Http\Request;
 
 class BankController extends Controller
 {

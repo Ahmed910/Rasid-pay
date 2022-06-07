@@ -102,8 +102,6 @@
             <select class="form-control select2" onchange="addPermissions(this.selectedOptions)"
                 data-placeholder="{{ trans('dashboard.general.select_permissions') }}" multiple="multiple"
                 id="permissions" required>
-
-
                 <optgroup label="{{ trans('dashboard.group.groups') }}">
                     @foreach ($groups as $id => $name)
                     <option value="{{ $id }}" data-name="groups" {{ isset($admin) && in_array($id, $admin->group_list) ?
@@ -119,15 +117,11 @@
                         {{ $name }}</option>
                     @endforeach
                 </optgroup>
-
             </select>
-
-
             <span class="text-danger" id="permission_listError"></span>
             <span class="text-danger" id="group_listError"></span>
-
-
         </div>
+        
         @if (isset($admin))
         <div class="col-12 col-md-4 mt-3">
             {!! Form::label('status', trans('dashboard.general.status')) !!}
@@ -224,8 +218,6 @@
 
         </div>
         @endif
-
-
     </div>
 </div>
 <div class="row">
@@ -271,131 +263,132 @@
               });
           }
       }
-          function addPermissions(selected) {
-              let group_options = '';
-              let permission_options = '';
-              $.each(selected, (index, item) => {
-                  if (item.getAttribute('data-name') == 'groups') {
-                      group_options += `<option value="${item.value}" selected class="group_select"></option>`;
-                  }
-                  if (item.getAttribute('data-name') == 'permissions') {
-                      permission_options +=
-                          `<option value="${item.value}" selected class="permission_select"></option>`;
-                  }
-              });
-              $('[name="permission_list[]"]').html(permission_options);
-              $('[name="group_list[]"]').html(group_options);
-          }
+
+      function addPermissions(selected) {
+          let group_options = '';
+          let permission_options = '';
+          $.each(selected, (index, item) => {
+              if (item.getAttribute('data-name') == 'groups') {
+                  group_options += `<option value="${item.value}" selected class="group_select"></option>`;
+              }
+              if (item.getAttribute('data-name') == 'permissions') {
+                  permission_options +=
+                      `<option value="${item.value}" selected class="permission_select"></option>`;
+              }
+          });
+          $('[name="permission_list[]"]').html(permission_options);
+          $('[name="group_list[]"]').html(group_options);
+      }
 
 
-          (function() {
-            let permissions = @isset($admin)  @json($admin->permission_list) @else [] @endisset;
-            let groups = @isset($admin)  @json($admin->group_list) @else [] @endisset;
+      $(function() {
+        let permissions = @isset($admin)  @json($admin->permission_list) @else [] @endisset;
+        let groups = @isset($admin)  @json($admin->group_list) @else [] @endisset;
 
-              groups.forEach((item, i) => {
-                  $('[name="group_list[]"]').append(
-                      `<option value="${item}" selected class="group_select"></option>`);
-              });
-              permissions.forEach((item, i) => {
-                  $('[name="permission_list[]"]').append(
-                      `<option value="${item}" selected class="permission_select"></option>`);
-              });
+          groups.forEach((item, i) => {
+              $('[name="group_list[]"]').append(
+                  `<option value="${item}" selected class="group_select"></option>`);
+          });
+          permissions.forEach((item, i) => {
+              $('[name="permission_list[]"]').append(
+                  `<option value="${item}" selected class="permission_select"></option>`);
+          });
 
-              $("#from-hijri-unactive-picker-custom ,#to-hijri-unactive-picker-custom")
-                  .hijriDatePicker({
-                      hijri: {{ auth()->user()->is_date_hijri ? 'true' : 'false' }},
-                      showSwitcher: false,
-                      format: "YYYY-MM-DD",
-                      hijriFormat: "iYYYY-iMM-iDD",
-                      hijriDayViewHeaderFormat: "iMMMM iYYYY",
-                      dayViewHeaderFormat: "MMMM YYYY",
-                      ignoreReadonly: true,
-                  });
-
-
-              //change password checkbox
-              $("#changePassword").change(function() {
-                  if (this.checked) {
-                      $(".changePass").attr('hidden', false);
-                  } else {
-                      $(".changePass").attr('hidden', true);
-                  }
+          $("#from-hijri-unactive-picker-custom ,#to-hijri-unactive-picker-custom")
+              .hijriDatePicker({
+                  hijri: {{ auth()->user()->is_date_hijri ? 'true' : 'false' }},
+                  showSwitcher: false,
+                  format: "YYYY-MM-DD",
+                  hijriFormat: "iYYYY-iMM-iDD",
+                  hijriDayViewHeaderFormat: "iMMMM iYYYY",
+                  dayViewHeaderFormat: "MMMM YYYY",
+                  ignoreReadonly: true,
               });
 
-              // temporary status appear date
 
-              $("#status").change(function() {
-                  if (this.value == 'temporary') {
-                      $(".temporary").show();
-                  } else {
-                      $(".temporary").hide();
-                      $('#from-hijri-unactive-picker-custom').val('');
-                      $('#to-hijri-unactive-picker-custom').val('');
+          //change password checkbox
+          $("#changePassword").change(function() {
+              if (this.checked) {
+                  $(".changePass").attr('hidden', false);
+              } else {
+                  $(".changePass").attr('hidden', true);
+              }
+          });
+
+          // temporary status appear date
+
+          $("#status").change(function() {
+              if (this.value == 'temporary') {
+                  $(".temporary").show();
+              } else {
+                  $(".temporary").hide();
+                  $('#from-hijri-unactive-picker-custom').val('');
+                  $('#to-hijri-unactive-picker-custom').val('');
+              }
+          }).change();
+
+          //get users from department script
+          // $("#mainDepartment").change(function(e) {
+          //     e.preventDefault();
+          //     let department_id = $("#mainDepartment").val();
+          //
+          //     $('#userName').empty();
+          //     $('#userName').append(new Option('', '', true, true)).trigger('change');
+          //
+          //     if (department_id != '') {
+          //         //send ajax
+          //         $.ajax({
+          //             url: '{{ url('/dashboard/admin/all-employees') }}' + '/' + department_id,
+          //             type: 'get',
+          //             success: function(data) {
+          //                 if (data) {
+          //                     $.each(data.data, function(index, user) {
+          //                       let newOption = new Option(user.fullname, user.id, false, false);
+          //                       $('#userName').append(newOption).trigger('change');
+          //                     });
+          //                 }
+          //             }
+          //         });
+          //     }
+          //
+          // });
+
+          $("#show_hide_password a").on("click", function(event) {
+                  event.preventDefault();
+                  if ($("#show_hide_password input").attr("type") == "text") {
+                      $("#show_hide_password input").attr("type", "password");
+                      $("#show_hide_password i").addClass("mdi-eye-off-outline");
+                      $("#show_hide_password i").removeClass("mdi-eye-outline");
+                  } else if (
+                      $("#show_hide_password input").attr("type") == "password"
+                  ) {
+                      $("#show_hide_password input").attr("type", "text");
+                      $("#show_hide_password i").removeClass("mdi-eye-off-outline");
+                      $("#show_hide_password i").addClass("mdi-eye-outline");
                   }
-              }).change();
-
-              //get users from department script
-              // $("#mainDepartment").change(function(e) {
-              //     e.preventDefault();
-              //     let department_id = $("#mainDepartment").val();
-              //
-              //     $('#userName').empty();
-              //     $('#userName').append(new Option('', '', true, true)).trigger('change');
-              //
-              //     if (department_id != '') {
-              //         //send ajax
-              //         $.ajax({
-              //             url: '{{ url('/dashboard/admin/all-employees') }}' + '/' + department_id,
-              //             type: 'get',
-              //             success: function(data) {
-              //                 if (data) {
-              //                     $.each(data.data, function(index, user) {
-              //                       let newOption = new Option(user.fullname, user.id, false, false);
-              //                       $('#userName').append(newOption).trigger('change');
-              //                     });
-              //                 }
-              //             }
-              //         });
-              //     }
-              //
-              // });
-
-              $("#show_hide_password a").on("click", function(event) {
+              });
+              $("#show_hide_confirm_password a").on("click", function(event) {
+                  event.preventDefault();
+                  if ($("#show_hide_confirm_password input").attr("type") == "text") {
+                      $("#show_hide_confirm_password input").attr("type", "password");
+                      $("#show_hide_confirm_password i").addClass("mdi-eye-off-outline");
+                      $("#show_hide_confirm_password i").removeClass("mdi-eye-outline");
+                  } else if (
+                      $("#show_hide_confirm_password input").attr("type") == "password"
+                  ) {
+                      $("#show_hide_confirm_password input").attr("type", "text");
+                      $("#show_hide_confirm_password i").removeClass("mdi-eye-off-outline");
+                      $("#show_hide_confirm_password i").addClass("mdi-eye-outline");
+                  }
+              });
+              $('#userId').on('keypress', function(event) {
+                  var key = event.charCode ? event.charCode : event.keyCode;
+                  $("#userId").innerHTML = key;
+                  if (key == 46) {
                       event.preventDefault();
-                      if ($("#show_hide_password input").attr("type") == "text") {
-                          $("#show_hide_password input").attr("type", "password");
-                          $("#show_hide_password i").addClass("mdi-eye-off-outline");
-                          $("#show_hide_password i").removeClass("mdi-eye-outline");
-                      } else if (
-                          $("#show_hide_password input").attr("type") == "password"
-                      ) {
-                          $("#show_hide_password input").attr("type", "text");
-                          $("#show_hide_password i").removeClass("mdi-eye-off-outline");
-                          $("#show_hide_password i").addClass("mdi-eye-outline");
-                      }
-                  });
-                  $("#show_hide_confirm_password a").on("click", function(event) {
-                      event.preventDefault();
-                      if ($("#show_hide_confirm_password input").attr("type") == "text") {
-                          $("#show_hide_confirm_password input").attr("type", "password");
-                          $("#show_hide_confirm_password i").addClass("mdi-eye-off-outline");
-                          $("#show_hide_confirm_password i").removeClass("mdi-eye-outline");
-                      } else if (
-                          $("#show_hide_confirm_password input").attr("type") == "password"
-                      ) {
-                          $("#show_hide_confirm_password input").attr("type", "text");
-                          $("#show_hide_confirm_password i").removeClass("mdi-eye-off-outline");
-                          $("#show_hide_confirm_password i").addClass("mdi-eye-outline");
-                      }
-                  });
-                  $('#userId').on('keypress', function(event) {
-                      var key = event.charCode ? event.charCode : event.keyCode;
-                      $("#userId").innerHTML = key;
-                      if (key == 46) {
-                          event.preventDefault();
-                          return false;
-                      }
-                  });
-          })();
+                      return false;
+                  }
+              });
+      })();
 </script>
 @endsection
