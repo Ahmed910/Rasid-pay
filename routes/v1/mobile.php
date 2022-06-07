@@ -62,6 +62,10 @@ Route::middleware('auth:sanctum')->group(function () {
 
     //money requests
     Route::post('MoneyRequests', 'MoneyRequestController@store');
+
+    // local transfers
+    Route::post('local_transfer', 'MoneyRequestController@store');
+
 });
 
 Route::get('slides', 'SlideController@index');
