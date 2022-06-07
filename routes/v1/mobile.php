@@ -17,10 +17,22 @@ Route::post('send-message', 'ContactController@sendMessage')->name('send_message
 
 Route::middleware('auth:sanctum')->group(function () {
     Route::post('logout', 'Auth\LoginController@logout');
+
+    Route::controller('WalletController')->group(function () {
+        Route::get('get_citizen_wallet', 'getCitizenWallet');
+        Route::post('charge-wallet', 'chargeWallet');
+    });
+    
+
+    Route::apiResource('card', 'CardController')->only('index','destroy');
+    Route::controller('CardController')->name('card.')->prefix('card')->group(function () {
+        Route::post('restore/{id}', 'restore')->name('restore');
+        Route::delete('forceDelete/{id}', 'forceDelete')->name('force_delete');
+    });
+
     Route::apiResource('profiles', 'ProfileController')->only('index','store');
     Route::apiResource('notifications', 'NotificationController')->only('index','show');
     Route::post('update_password', 'ProfileController@updatePassword');
-    Route::get('get_citizen_wallet', 'WalletController@getCitizenWallet');
     Route::post('MoneyRequests','MoneyRequestController@store');
     Route::post('activate_notifcation', 'ProfileController@activateNotifcation');
     Route::controller('TransactionController')->group(function () {
@@ -30,8 +42,8 @@ Route::middleware('auth:sanctum')->group(function () {
     });
 });
 
-Route::get('slides','SlideController@index');
-Route::get('banks','BankController@index');
+Route::get('slides', 'SlideController@index');
+Route::get('banks', 'BankController@index');
 
 
 Route::controller('Auth\LoginController')->group(function () {
