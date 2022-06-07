@@ -16,6 +16,25 @@ class TransactionController extends Controller
             ->CustomDateFromTo($request)
             ->paginate($request->per_page);
 
-        return TransactionResource::collection($transactions);
+        return TransactionResource::collection($transactions)
+            ->additional([
+                'status' => true,
+                'message' => 'success'
+            ]);
+    }
+
+    /**
+     * @param  $id
+     * @return App\Http\Resources\Mobile\TransactionResource
+     */
+    public function show($id)
+    {
+        $transaction = auth('sanctum')->user()->citizenTransactions()->findOrFail($id);
+
+        return TransactionResource::make($transaction)
+            ->additional([
+                'status' => true,
+                'message' => 'success'
+            ]);
     }
 }
