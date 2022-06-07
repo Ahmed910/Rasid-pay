@@ -14,16 +14,27 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::post('send-message', 'ContactController@sendMessage')->name('send_message');
-
+Route::controller('WalletController')->group(function () {
+    Route::get('get_citizen_wallet', 'getCitizenWallet');
+    Route::post('charge-wallet', 'chargeWallet');
+});
 Route::middleware('auth:sanctum')->group(function () {
     Route::post('logout', 'Auth\LoginController@logout');
-    Route::apiResource('profile', 'ProfileController')->only('index','store');
+    Route::apiResource('profile', 'ProfileController')->only('index', 'store');
     Route::post('update_password', 'ProfileController@updatePassword');
-    Route::get('get_citizen_wallet', 'WalletController@getCitizenWallet');
+
+
+
+    Route::apiResource('card', 'CardController')->only('index','destroy');
+    Route::controller('CardController')->name('card.')->prefix('card')->group(function () {
+        Route::post('restore/{id}', 'restore')->name('restore');
+        Route::delete('forceDelete/{id}', 'forceDelete')->name('force_delete');
+    });
+
 });
 
-Route::get('slides','SlideController@index');
-Route::get('banks','BankController@index');
+Route::get('slides', 'SlideController@index');
+Route::get('banks', 'BankController@index');
 
 Route::controller('Auth\LoginController')->group(function () {
     Route::post('login', 'login')->name('login');

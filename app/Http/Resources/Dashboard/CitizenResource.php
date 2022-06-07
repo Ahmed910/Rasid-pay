@@ -3,7 +3,7 @@
 namespace App\Http\Resources\Dashboard;
 
 use Illuminate\Http\Resources\Json\JsonResource;
-use App\Http\Resources\Dashboard\CitizenCardResource;
+use App\Http\Resources\Dashboard\CitizenPackageResource;
 
 class CitizenResource extends JsonResource
 {
@@ -21,7 +21,7 @@ class CitizenResource extends JsonResource
             "lat" => $this->lat,
             "lng" => $this->lng,
             "location" => $this->location,
-            'enabled_card' => CitizenCardResource::make($this->whenLoaded('enabledCard')),
+            'enabled_card' => CitizenPackageResource::make($this->whenLoaded('enabledCard')),
             'card_end_at' => $this->enabledCard?->end_at,
             'bank_name' => $this->bankAccount?->bank?->name,
             'created_at' => $this->created_at,

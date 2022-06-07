@@ -443,7 +443,7 @@ return [
             'wallet_transfer' => 'Wallet Transfer',
             'bank_transaction' => 'Bank Transaction',
             'receive_credit' => 'Receive Credit',
-            'recharge_credit' => 'Recharge Credit',
+            'wallet_charge' => 'Wallet Charge',
             'upgrade_card' => 'Upgrade Card',
         ],
     ],

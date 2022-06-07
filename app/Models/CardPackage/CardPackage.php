@@ -2,7 +2,7 @@
 
 namespace App\Models\CardPackage;
 
-use App\Models\CitizenCard;
+use App\Models\CitizenPackage;
 use App\Traits\Uuid;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -54,9 +54,9 @@ class CardPackage extends Model implements HasAssetsInterface
     {
         return $this->belongsTo(User::class, 'added_by_id');
     }
-    public function citizenCards()
+    public function citizenPackages()
     {
-        return $this->hasMany(CitizenCard::class);
+        return $this->hasMany(CitizenPackage::class);
     }
 
     public function client()

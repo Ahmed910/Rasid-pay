@@ -595,7 +595,7 @@ return [
             'bank_transaction' => 'تحويل بنكي',
             'bank_transactoin' => 'تحويل بنكي',
             'receive_credit' => 'استلام رصيد',
-            'recharge_credit' => 'شحن رصيد',
+            'wallet_charge' => 'شحن رصيد',
             'upgrade_card' => 'ترقية بطاقات',
         ],
     ],
