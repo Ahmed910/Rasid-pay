@@ -83,8 +83,12 @@
 
                   error:function(errors)
                   {
+
+
+                    let name = $('#formId').serializeArray()[1].name;
+                    name = (name.replace("[", ".")).slice(0,-1);
                     $('.dd').removeAttr('hidden')
-                    $('.dd').text(errors.responseJSON.errors[`${lang}.name`])
+                    $('.dd').text(errors.responseJSON.errors[name])
                   }
               });
         }
