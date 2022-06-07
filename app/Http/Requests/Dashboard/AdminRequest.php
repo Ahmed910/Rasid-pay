@@ -42,7 +42,8 @@ class AdminRequest extends FormRequest
         $this->merge([
             'ban_from' =>  @$data['ban_from'] ?? null,
             'ban_to' =>  @$data['ban_to'] ?? null,
-            'password' => $data['password'] ?? null
+            'password' => $data['password'] ?? null,
+            'phone' => @$data['phone'] ? filter_mobile_number($data['phone']) : @$data['phone']
         ]);
     }
 
@@ -76,7 +77,7 @@ class AdminRequest extends FormRequest
             'rasid_job_id' => 'required|exists:rasid_jobs,id,department_id,'.$this->department_id,
             'fullname' => 'required|string|max:225|min:2',
             'email' => 'required|email|max:225|unique:users,email,' . @$this->admin->id,
-            'phone' => 'required|numeric|digits_between:10,20|unique:users,phone,' . @$this->admin->id,
+            'phone' => 'required|numeric|starts_with:05,966|digits_between:9,20|unique:users,phone,' . @$this->admin->id,
         ] + $data;
     }
 

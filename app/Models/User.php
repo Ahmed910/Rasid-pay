@@ -46,7 +46,7 @@ class User extends Authenticatable implements HasAssetsInterface
 
     public function setPhoneAttribute($value)
     {
-        if (isset($value)) $value = $value[0] == "0" ? substr($value, 1) : $value;
+        if (isset($value) && isset($this->attributes['country_code'])) $value = $value[0] == "0" ? substr($value, 1) : $value;
         $this->attributes['phone'] = isset($this->attributes['country_code']) ? $this->attributes['country_code'] . $value : $value;
     }
 
@@ -194,6 +194,10 @@ class User extends Authenticatable implements HasAssetsInterface
     public function cardPackage()
     {
         return $this->hasOne(CardPackage::class, 'client_id');
+    }
+    public function benficiaryTransfer()
+    {
+        return $this->hasOne(Beneficiary::class,'citizen_id');
     }
 
     public function setBanStatusAttribute($value)
