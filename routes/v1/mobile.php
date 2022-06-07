@@ -23,7 +23,9 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('get_citizen_wallet', 'WalletController@getCitizenWallet');
     Route::post('MoneyRequests','MoneyRequestController@store');
     Route::post('activate_notifcation', 'ProfileController@activateNotifcation');
-
+    Route::controller('TransactionController')->group(function () {
+        Route::get('transactions', 'index');
+    });
 });
 
 Route::get('slides','SlideController@index');
