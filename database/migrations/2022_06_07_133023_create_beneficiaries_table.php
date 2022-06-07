@@ -15,12 +15,17 @@ class CreateBeneficiariesTable extends Migration
     {
         Schema::create('beneficiaries', function (Blueprint $table) {
             $table->uuid("id")->primary();
-            $table->foreignUuid('country_id')->constrained('countries')->cascadeOnDelete();
-            $table->foreignUuid('citizen_id')->nullable()->constrained('users')->onDelete('set null');
+            $table->string('name');
+            $table->foreignUuid('country_id')->nullable()->constrained("countries")->onDelete('set null');
+            $table->foreignUuid('user_id')->nullable()->constrained('users')->onDelete('set null');
+            $table->foreignUuid('recieve_option_id')->nullable()->constrained('recieve_options')->onDelete('set null');
+            $table->foreignUuid('nationality_id')->nullable()->constrained('countries')->onDelete('set null');
             $table->date('date_of_birth')->nullable();
-            $table->string('nationality');
+            $table->enum('benficiar_type', ['local', 'global']);
             $table->string('iban_number')->nullable();
-            $table->text('purpose of transfer')->nullable();
+            $table->string('address');
+            $table->string('relation');
+
             $table->softDeletes();
             $table->timestamps();
         });
