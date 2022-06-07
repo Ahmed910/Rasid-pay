@@ -28,7 +28,6 @@ class WalletController extends Controller
         $walletAfter = $wallet->main_balance;
 
         // #2 Add charge information
-        $citizen = User::find($wallet->citizen_id);
         $chargeWallet = new WalletCharge;
         $chargeWallet->fill([
                 'citizen_id' => $wallet->citizen_id,
