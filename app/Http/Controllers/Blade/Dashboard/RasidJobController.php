@@ -80,7 +80,6 @@ class RasidJobController extends Controller
      */
     public function store(JobBladeRequest $request, RasidJob $RasidJob)
     {
-
         if (!request()->ajax()) {
             $RasidJob->fill($request->validated())->save();
             return redirect()->back()->with('success', __('dashboard.general.success_add'));
@@ -134,7 +133,7 @@ class RasidJobController extends Controller
 
         $rasidJob = RasidJob::withTrashed()->findOrFail($id);
         $departments = Department::with('parent.translations')->ListsTranslations('name')->where(function ($q) {
-            $q->where('parent_id', null)->where('is_active', 1);
+            $q->/*where('parent_id', null)->*/where('is_active', 1);
         })->orWhere('departments.id',$rasidJob->department_id)->pluck('name', 'id')->toArray();
         $locales = config('translatable.locales');
         return view('dashboard.rasid_job.edit', compact('departments', 'rasidJob', 'locales'));

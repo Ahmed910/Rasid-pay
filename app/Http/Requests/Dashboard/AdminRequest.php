@@ -42,7 +42,8 @@ class AdminRequest extends FormRequest
         $this->merge([
             'ban_from' =>  @$data['ban_from'] ?? null,
             'ban_to' =>  @$data['ban_to'] ?? null,
-            'password' => $data['password'] ?? null
+            'password' => $data['password'] ?? null,
+            'phone' => @$data['phone'] ? filter_mobile_number($data['phone']) : @$data['phone']
         ]);
     }
 
