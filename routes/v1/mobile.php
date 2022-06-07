@@ -35,7 +35,11 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('update_password', 'ProfileController@updatePassword');
     Route::post('MoneyRequests','MoneyRequestController@store');
     Route::post('activate_notifcation', 'ProfileController@activateNotifcation');
+    Route::controller('TransactionController')->group(function () {
+        Route::get('transactions', 'index');
+        Route::get('transactions/{id}', 'show');
 
+    });
 });
 
 Route::get('slides', 'SlideController@index');
