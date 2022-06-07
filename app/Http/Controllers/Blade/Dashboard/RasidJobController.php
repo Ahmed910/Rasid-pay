@@ -133,7 +133,7 @@ class RasidJobController extends Controller
         (strpos($previousUrl, 'rasid_job')) ? session(['perviousPage' => 'rasid_job']) : session(['perviousPage' => 'home']);
 
         $rasidJob = RasidJob::withTrashed()->findOrFail($id);
-        $departments = Department::with('parent.translations')->ListsTranslations('name')->where('parent_id', null)->where('is_active', 1)->pluck('name', 'id')->toArray();
+        $departments = Department::with('parent.translations')->ListsTranslations('name')->where('is_active', 1)->pluck('name', 'id')->toArray();
         $locales = config('translatable.locales');
         return view('dashboard.rasid_job.edit', compact('departments', 'rasidJob', 'locales'));
     }
@@ -196,10 +196,8 @@ class RasidJobController extends Controller
         $departments = Department::where('is_active', 1)
             ->has("children")
             ->orWhere(function ($q) {
-                $q->doesntHave('children')
-                    ->WhereNull('parent_id');
+                $q->doesntHave('children');
             })
-
             ->select("id")
             ->ListsTranslations("name")
             ->pluck('name', 'id')->toArray();
