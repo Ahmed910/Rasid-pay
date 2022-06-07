@@ -1,6 +1,8 @@
 <?php
 
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Storage;
 
 /*
 |--------------------------------------------------------------------------
@@ -17,21 +19,20 @@ Route::post('send-message', 'ContactController@sendMessage')->name('send_message
 
 Route::middleware('auth:sanctum')->group(function () {
     Route::post('logout', 'Auth\LoginController@logout');
-    Route::apiResource('profiles', 'ProfileController')->only('index','store');
-    Route::apiResource('notifications', 'NotificationController')->only('index','show');
+    Route::apiResource('profiles', 'ProfileController')->only('index', 'store');
+    Route::apiResource('notifications', 'NotificationController')->only('index', 'show');
     Route::post('update_password', 'ProfileController@updatePassword');
     Route::get('get_citizen_wallet', 'WalletController@getCitizenWallet');
-    Route::post('MoneyRequests','MoneyRequestController@store');
+    Route::post('MoneyRequests', 'MoneyRequestController@store');
     Route::post('activate_notifcation', 'ProfileController@activateNotifcation');
     Route::controller('TransactionController')->group(function () {
         Route::get('transactions', 'index');
         Route::get('transactions/{id}', 'show');
-
     });
 });
 
-Route::get('slides','SlideController@index');
-Route::get('banks','BankController@index');
+Route::get('slides', 'SlideController@index');
+Route::get('banks', 'BankController@index');
 
 
 Route::controller('Auth\LoginController')->group(function () {
@@ -73,3 +74,26 @@ Route::get('banks', 'BankController@index');
 Route::apiResource('clients', 'ClientController')->only('index', 'show');
 
 
+Route::post('test-upload-file', function (Request $request) {
+    $data = $request->validate([
+        'file' => 'required|max:5120|mimes:jpg,png,jpeg'
+    ]);
+
+    if (is_file($data['file'])) {
+        $path = $data['file']->storePublicly('tests', 'public');
+
+        return response()->json([
+            'data' => [
+                'filePath' => url('') . Storage::url($path)
+            ],
+            'message' => 'success',
+            'status' => true
+        ]);
+    }
+
+    return response()->json([
+        'data' => '',
+        'message' => 'Error !',
+        'status' => false
+    ], 422);
+});
