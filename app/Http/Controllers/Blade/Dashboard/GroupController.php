@@ -133,7 +133,7 @@ class GroupController extends Controller
     {
         if (!request()->ajax()) {
             $group = Group::where('id', "<>", auth()->user()->group_id)->findOrFail($id);
-            $group->fill($request->validated())->save();
+            $group->fill($request->validated() + ['updated_at' => now()])->save();
             $permissions = $request->permission_list ?? [];
             if ($request->group_list) {
                 $permissions = array_filter(array_merge($permissions, Group::find($request->group_list)->pluck('permissions')->flatten()->pluck('id')->toArray()));
