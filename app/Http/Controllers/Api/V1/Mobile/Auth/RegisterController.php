@@ -33,7 +33,7 @@ class RegisterController extends Controller
         return response()->json([
             'status' => true,
             'data'   => UserResource::make($user),
-            'message' => trans('auth.success_signup')
+            'message' => trans('auth.verify_phone')
         ]);
     }
 
@@ -59,13 +59,10 @@ class RegisterController extends Controller
         }
 
         $user->update($userData);
-        $token =  $user->createToken('RasidBackApp')->plainTextToken;
-
-        data_set($user, 'token', $token);
 
         return UserResource::make($user)->additional([
             'status' => true,
-            'message' => trans('auth.success_login', ['user' => $user->phone]),
+            'message' => trans('auth.success_verify_phone', ['user' => $user->phone]),
         ]);
     }
 
@@ -80,14 +77,18 @@ class RegisterController extends Controller
             return response()->json(['status' => false, 'data' => null, 'message' => trans('auth.account_not_exists')], 422);
         }
 
-        $user->fill($request->password)->save();
+        if ($user->verified_code) {
+            return response()->json(['status' => false, 'data' => null, 'message' => trans('auth.verify_phone_first')], 422);
+        }
+
+        $user->fill(['password' => $request->password, 'register_status' => 'completed'])->save();
         $token =  $user->createToken('RasidBackApp')->plainTextToken;
 
         data_set($user, 'token', $token);
 
         return UserResource::make($user)->additional([
             'status' => true,
-            'message' => trans('auth.success_login',),
+            'message' => trans('auth.success_signup',),
         ]);
     }
 }

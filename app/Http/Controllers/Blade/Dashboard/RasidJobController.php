@@ -146,10 +146,11 @@ class RasidJobController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(JobBladeRequest $request, RasidJob $rasid_job)
+    public function update(JobBladeRequest $request,  $rasid_job)
     {
         if (!request()->ajax()) {
-            $rasid_job->fill($request->validated() + ['updated_at' => now()])->save();
+            $job = RasidJob::withTrashed()->findOrFail($rasid_job) ;
+            $job->fill($request->validated() + ['updated_at' => now()])->save();
             return redirect()->route('dashboard.rasid_job.index')->withSuccess(__('dashboard.general.success_update'));
         }
     }
@@ -196,10 +197,8 @@ class RasidJobController extends Controller
         $departments = Department::where('is_active', 1)
             ->has("children")
             ->orWhere(function ($q) {
-                $q->doesntHave('children')
-                    ->WhereNull('parent_id');
+                $q->doesntHave('children');
             })
-
             ->select("id")
             ->ListsTranslations("name")
             ->pluck('name', 'id')->toArray();

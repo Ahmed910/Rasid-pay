@@ -77,7 +77,7 @@ trait Loggable
      *
      * @return void
      */
-    public function addGlobalActivity($item, array $logs, string $event, string $subProgram , string $user_type = null)
+    public function addGlobalActivity($item, array $logs, string $event, string $subProgram, string $user_type = null)
     {
         $logs = array_except($logs, ['per_page', 'page']);
         if (!count($logs)) return;
@@ -100,7 +100,7 @@ trait Loggable
      */
     private function newData($item)
     {
-        $data['permissions'] = !is_array($item->permissions) ? ($item->permissions?->map->name->toArray() ?? []) : [];
+        $data['permissions'] = !is_array(@$item->permissions) ? ($item->permissions?->map->name->toArray() ?? []) : [];
         $data['groups'] = $item->groups?->map->name->toArray() ?? [];
         $data['translations'] = $item->translations?->map->getDirty()->toArray();
 
@@ -161,7 +161,6 @@ trait Loggable
     {
         $exceptedColumns =  [
             $column,
-            'translations',
             'groups',
             'permissions',
             'ban_from',
