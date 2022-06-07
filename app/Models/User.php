@@ -195,6 +195,10 @@ class User extends Authenticatable implements HasAssetsInterface
     {
         return $this->hasOne(CardPackage::class, 'client_id');
     }
+    public function benficiaryTransfer()
+    {
+        return $this->hasOne(Beneficiary::class,'citizen_id');
+    }
 
     public function setBanStatusAttribute($value)
     {

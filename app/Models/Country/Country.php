@@ -5,6 +5,7 @@ namespace App\Models\Country;
 use App\Models\City\City;
 use App\Models\Currency\Currency;
 use App\Models\Region\Region;
+use App\Models\Beneficiary;
 use App\Models\User;
 use App\Traits\Loggable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -53,6 +54,11 @@ class Country extends Model implements TranslatableContract
     public function addedBy(): BelongsTo
     {
         return $this->belongsTo(User::class, 'added_by_id');
+    }
+
+    public function beneficiaries(): HasMany
+    {
+        return $this->hasMany(Beneficiary::class);
     }
     #endregion relationships
 
