@@ -33,7 +33,7 @@ class RegisterController extends Controller
         return response()->json([
             'status' => true,
             'data'   => UserResource::make($user),
-            'message' => trans('auth.success_signup')
+            'message' => trans('auth.verify_phone')
         ]);
     }
 
@@ -87,7 +87,7 @@ class RegisterController extends Controller
 
         return UserResource::make($user)->additional([
             'status' => true,
-            'message' => trans('auth.success_login',),
+            'message' => trans('auth.success_signup',),
         ]);
     }
 }
