@@ -2,7 +2,6 @@
 
 namespace App\Http\Resources\Mobile;
 
-use App\Http\Resources\Dashboard\SimpleCitizenResource;
 use Illuminate\Http\Resources\Json\JsonResource;
 use Illuminate\Support\Str;
 
@@ -18,10 +17,7 @@ class CardResource extends JsonResource
             'card_number' => Str::mask($this->card_number, '*','-16','12'),
             'card_type' => $this->card_type,
             'created_at' => $this->created_at,
-            'expires_at' => $this->expires_at,
-            'amount' => $this->amount,
-            'main_balance' => $this->amount,
-            'user' => SimpleCitizenResource::make($this->user),
+            'expire_at' => $this->expire_at,
         ];
     }
 }

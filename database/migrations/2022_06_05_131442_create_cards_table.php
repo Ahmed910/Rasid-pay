@@ -19,7 +19,7 @@ class CreateCardsTable extends Migration
             $table->string('card_name')->nullable();
             $table->string('card_number')->nullable();
             $table->string('card_type')->nullable();
-            $table->date("expires_at")->nullable();
+            $table->date("expire_at")->nullable();
             $table->foreignUuid('user_id')->constrained('users')->cascadeOnDelete()->cascadeOnUpdate();
             $table->softDeletes();
             $table->timestamps();

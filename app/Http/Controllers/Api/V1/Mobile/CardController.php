@@ -10,8 +10,7 @@ class CardController extends Controller
 {
     public function index()
     {
-
-        $cards = Card::get();
+        $cards = Card::where('user_id', auth()->user()->id)->get();
         return CardResource::collection($cards)->additional([
             'status' => true,
             'message' => ''
