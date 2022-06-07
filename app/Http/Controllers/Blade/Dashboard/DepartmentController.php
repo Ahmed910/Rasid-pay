@@ -115,7 +115,7 @@ class DepartmentController extends Controller
         $departments = array_merge([null => trans('dashboard.department.without_parent')], $departments);
 
         $locales = config('translatable.locales');
-        return view('dashboard.department.edit', compact('departments', 'department', 'locales'));
+        return view('dashboard.department.edit', compact('departments', 'department', 'locales', 'previousUrl'));
     }
 
 
