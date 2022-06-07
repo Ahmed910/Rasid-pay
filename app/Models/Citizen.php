@@ -19,10 +19,10 @@ class Citizen extends Model
 
     protected $dates = ['date_of_birth'];
     const USER_SEARCHABLE_COLUMNS = ["fullname",  "country_code", "phone", "full_phone", "identity_number", "created_at"];
-    const CITIZEN_SEARCHABLE_COLUMNS  = ["citizen_card_id"];
+    const CITIZEN_SEARCHABLE_COLUMNS  = ["citizen_package_id"];
     const ENABLEDCARD_SEARCHABLE_COLUMNS = ["enabled_card" => "card_type"];
     const CARDPKG_SORT_COLUMNS = ["enabled_card" => "card_type"];
-    const CITIZEN_CARDS_SORT_COLUMNS = ['card_end_at' => 'end_at'];
+    const CITIZEN_PACKAGES_SORT_COLUMNS = ['card_end_at' => 'end_at'];
     const ENABLEDCARD_SORTABLE_COLUMNS = ["enabled_card" => "enabledCard.cardPackage", "card_end_at" => "enabledCard.end_at"];
     const SELECT_ALL = ["enabled_card" => "id"];
     #endregion properties
@@ -83,11 +83,11 @@ class Citizen extends Model
             return $query->join('users', 'users.id', '=', 'citizens.user_id')
                 ->orderBy('users.' . $request->sort["column"], @$request->sort["dir"]);
         } else if (key_exists($request->sort["column"], self::CARDPKG_SORT_COLUMNS)) {
-            return $query->join('citizen_cards', 'citizen_cards.id', '=', 'citizens.citizen_card_id')
-                ->orderBy('citizen_cards.' . self::CARDPKG_SORT_COLUMNS[$request->sort["column"]], @$request->sort["dir"]);
-        } else if (key_exists($request->sort["column"], self::CITIZEN_CARDS_SORT_COLUMNS)) {
-            return $query->join('citizen_cards', 'citizen_cards.id', '=', 'citizens.citizen_card_id')
-                ->orderBy('citizen_cards.' . self::CITIZEN_CARDS_SORT_COLUMNS[$request->sort["column"]], @$request->sort["dir"]);
+            return $query->join('citizen_packages', 'citizen_packages.id', '=', 'citizens.citizen_package_id')
+                ->orderBy('citizen_packages.' . self::CARDPKG_SORT_COLUMNS[$request->sort["column"]], @$request->sort["dir"]);
+        } else if (key_exists($request->sort["column"], self::CITIZEN_PACKAGES_SORT_COLUMNS)) {
+            return $query->join('citizen_packages', 'citizen_packages.id', '=', 'citizens.citizen_package_id')
+                ->orderBy('citizen_packages.' . self::CITIZEN_PACKAGES_SORT_COLUMNS[$request->sort["column"]], @$request->sort["dir"]);
         }
     }
     #endregion scopes
@@ -106,7 +106,7 @@ class Citizen extends Model
 
     public function enabledCard()
     {
-        return $this->belongsTo(CitizenCard::class, 'citizen_card_id');
+        return $this->belongsTo(CitizenPackage::class, 'citizen_package_id');
     }
 
     #endregion relationships

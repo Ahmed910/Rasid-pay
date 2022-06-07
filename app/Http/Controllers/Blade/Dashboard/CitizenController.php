@@ -14,9 +14,9 @@ class CitizenController extends Controller
         if (isset($request->order[0]['column'])) {
             $request['sort'] = ['column' => $request['columns'][$request['order'][0]['column']]['name'], 'dir' => $request['order'][0]['dir']];
         }
-       
+
         if ($request->ajax()) {
-            $citizensQuery = Citizen::with(["user.citizenCards", 'enabledCard.cardPackage'])->search($request);
+            $citizensQuery = Citizen::with(["user.citizenPackages", 'enabledCard.cardPackage'])->search($request);
             $citizenCount = $citizensQuery->count();
 
             $citizens = $citizensQuery->skip($request->start)
@@ -27,7 +27,7 @@ class CitizenController extends Controller
             return CitizenCollection::make($citizens)
                 ->additional(['total_count' => $citizenCount]);
         }
-    
+
         return view('dashboard.citizen.index');
     }
 

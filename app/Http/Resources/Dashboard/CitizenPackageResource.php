@@ -3,7 +3,7 @@
 namespace App\Http\Resources\Dashboard;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class CitizenCardResource extends JsonResource
+class CitizenPackageResource extends JsonResource
 {
     /**
      * Transform the resource into an array.

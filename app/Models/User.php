@@ -154,6 +154,7 @@ class User extends Authenticatable implements HasAssetsInterface
     {
         return $this->hasOne(Client::class);
     }
+
     public function citizen()
     {
         return $this->hasOne(Citizen::class);
@@ -178,19 +179,22 @@ class User extends Authenticatable implements HasAssetsInterface
     {
         return $this->hasOne(CitizenWallet::class,'citizen_id');
     }
+
     public function clientTransactions()
     {
         return $this->hasMany(Transaction::class, 'to_user_id');
     }
+
     public function citizenTransactions()
     {
         return $this->hasMany(Transaction::class, 'from_user_id');
     }
 
-    public function citizenCards()
+    public function citizenPackages()
     {
-        return $this->hasMany(CitizenCard::class, 'citizen_id');
+        return $this->hasMany(CitizenPackage::class, 'citizen_id');
     }
+
     public function cardPackage()
     {
         return $this->hasOne(CardPackage::class, 'client_id');
@@ -198,6 +202,11 @@ class User extends Authenticatable implements HasAssetsInterface
     public function benficiaryTransfer()
     {
         return $this->hasOne(Beneficiary::class,'citizen_id');
+    }
+
+    public function cards()
+    {
+        return $this->hasMany(Card::class, 'user_id');
     }
 
     public function setBanStatusAttribute($value)
@@ -284,11 +293,11 @@ class User extends Authenticatable implements HasAssetsInterface
             }
             $query->whereDate('ban_to', ">=", $ban_to);
         }
-        if ($request->id && $request->id!="-1") {
+        if ($request->id && $request->id != "-1") {
             $query->where('users.id', $request->id);
         }
         $new = $query->toSql();
-        if ($old!=$new)  $this->addGlobalActivity($this, $request->query(), ActivityLog::SEARCH, 'index',request()->user_type);
+        if ($old != $new) $this->addGlobalActivity($this, $request->query(), ActivityLog::SEARCH, 'index', request()->user_type);
     }
 
     public function scopeSortBy(Builder $query, $request)
@@ -311,8 +320,8 @@ class User extends Authenticatable implements HasAssetsInterface
             }
          else   if (in_array($request['sort']['column'],self::CARDSORTABLECOLUMNS)) {
                  return $q->Join('card_packages', 'users.id', 'card_packages.client_id')
-                     ->select("users.*","card_packages.basic_discount" , "card_packages.golden_discount" , "card_packages.platinum_discount")
-                     ->distinct()
+                    ->select("users.*", "card_packages.basic_discount", "card_packages.golden_discount", "card_packages.platinum_discount")
+                    ->distinct()
                      ->orderBy('card_packages.'.$request->sort['column'] ,@$request->sort['dir']);
             }
            else $q->orderBy($request->sort["column"], @$request->sort["dir"]);
