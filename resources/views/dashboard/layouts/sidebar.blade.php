@@ -272,7 +272,7 @@
                         <li>
                             <a href="{{ route('dashboard.card_package.create') }}"
                                 class="slide-item px-6 {{ request()->routeIs('dashboard.card_package.create') ? 'active' : '' }}"><i
-                                    class="mdi mdi-plus-circle-outline"></i> {{ trans('dashboard.general.add') }}</a>
+                                    class="mdi mdi-plus-circle-outline"></i> {{ trans('dashboard.card_package.add') }}</a>
                         </li>
                     </ul>
                 </li>
