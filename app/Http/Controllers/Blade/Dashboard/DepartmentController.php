@@ -105,7 +105,6 @@ class DepartmentController extends Controller
 
     public function edit($id)
     {
-
         $previousUrl = url()->previous();
         (strpos($previousUrl, 'department')) ? session(['perviousPage' => 'department']) : session(['perviousPage' => 'home']);
 
