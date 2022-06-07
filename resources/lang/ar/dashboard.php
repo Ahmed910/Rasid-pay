@@ -380,6 +380,7 @@ return [
             'name_must_be_unique_on_department' => 'تم اختيار اسم الوظيفة من قبل لنفس القسم'
         ],
         "jobs_hired_deleted" => " لا يمكن حذف هذه الوظيفة لانها مشغولة ",
+        "jobs_hired_is_active_changed" => " لا يمكن تعديل حالة هذه الوظيفة لانها مشغولة ",
         "jobs_hired_archived" => " لا يمكن أرشفة هذه الوظيفة لانها مشغولة ",
         'sub_progs' => [
             'index' => 'سجل الوظائف',
