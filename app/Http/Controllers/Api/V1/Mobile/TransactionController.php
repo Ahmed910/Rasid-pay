@@ -18,4 +18,16 @@ class TransactionController extends Controller
 
         return TransactionResource::collection($transactions);
     }
+
+     /**
+     * @param  $id
+     * @return App\Http\Resources\Mobile\TransactionResource
+     */
+    public function show($id)
+    {
+        $transaction = auth('sanctum')->user()->citizenTransactions()->findOrFail($id);
+
+        return
+        TransactionResource::make($transaction)->additional(['status' => true, 'message' => ""]);
+    }
 }

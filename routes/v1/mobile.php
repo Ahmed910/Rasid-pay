@@ -25,6 +25,8 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('activate_notifcation', 'ProfileController@activateNotifcation');
     Route::controller('TransactionController')->group(function () {
         Route::get('transactions', 'index');
+        Route::get('transactions/{id}', 'show');
+
     });
 });
 
