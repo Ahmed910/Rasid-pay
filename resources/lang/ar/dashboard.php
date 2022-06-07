@@ -194,8 +194,8 @@ return [
             'searched' => 'بحث',
             'deactivated' => 'تعطيل',
             'activated' => 'تفعيل',
-            'permanent' => 'حظر دائم',
-            'temporary' => 'حظر لفترة',
+            'permanent' => 'تعطيل دائم',
+            'temporary' => 'تعطيل لفترة',
 
         ],
         'models' => [
@@ -467,9 +467,9 @@ return [
         ],
 
         'active_cases' => [
-            'active' => 'مفعلة',
-            'temporary' => 'معطلة لفترة',
-            'permanent' => 'معطلة دائم',
+            'active' => 'مفعل',
+            'temporary' => 'معطل لفترة',
+            'permanent' => 'معطل دائم',
         ],
         'permissions' => array_except($permissions, ['archive', 'restore', 'force_delete']) + ['create' => 'عرض المستخدمين']
     ],
