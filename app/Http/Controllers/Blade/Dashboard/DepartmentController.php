@@ -119,11 +119,12 @@ class DepartmentController extends Controller
     }
 
 
-    public function update(DepartmentRequest $request, Department $department)
+    public function update(DepartmentRequest $request,  $department)
     {
 
         if (!request()->ajax()) {
-            $department->fill($request->validated() + ['updated_at' => now()])->save();
+            $dep = Department::withTrashed()->findOrFail($department);
+            $dep->fill($request->validated() + ['updated_at' => now()])->save();
             return redirect()->route('dashboard.department.index')->withSuccess(__('dashboard.general.success_update'));
         }
     }
