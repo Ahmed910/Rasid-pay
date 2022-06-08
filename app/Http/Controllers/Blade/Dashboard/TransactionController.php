@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Blade\Dashboard;
 
 use App\Http\Controllers\Controller;
 use App\Http\Resources\Blade\Dashboard\Transaction\TransactionCollection;
-use App\Models\CardPackage\CardPackage;
+use App\Models\Package\CardPackage;
 use App\Models\Transaction;
 use App\Models\User;
 use Illuminate\Http\Request;

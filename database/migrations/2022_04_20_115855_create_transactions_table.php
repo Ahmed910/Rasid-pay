@@ -16,7 +16,7 @@ class CreateTransactionsTable extends Migration
     {
         Schema::create('transactions', function (Blueprint $table) {
             $table->uuid("id")->primary();
-            $table->foreignUuid("card_package_id")->nullable()->constrained()->nullOnDelete();
+            $table->foreignUuid("package_id")->nullable()->constrained()->nullOnDelete();
             $table->foreignUuid("to_user_id")->nullable()->constrained('users')->nullOnDelete();
             // $table->foreignUuid("client_id")->nullable()->constrained('users')->nullOnDelete();
             $table->unsignedbigInteger('number')->unique();

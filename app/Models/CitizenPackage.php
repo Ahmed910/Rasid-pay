@@ -5,7 +5,7 @@ namespace App\Models;
 use Carbon\Carbon;
 use App\Traits\Uuid;
 use GeniusTS\HijriDate\Hijri;
-use App\Models\CardPackage\CardPackage;
+use App\Models\Package\CardPackage;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 

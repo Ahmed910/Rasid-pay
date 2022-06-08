@@ -7,7 +7,7 @@ use App\Models\Citizen;
 use App\Models\BankAccount;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Models\CardPackage\CardPackage;
+use App\Models\Package\CardPackage;
 use App\Http\Requests\V1\Dashboard\ReasonRequest;
 use App\Http\Resources\Dashboard\CitizenResource;
 use App\Http\Requests\V1\Dashboard\CitizenRequest;

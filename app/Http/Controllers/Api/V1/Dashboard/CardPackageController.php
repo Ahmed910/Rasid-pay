@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\V1\Dashboard\CardPackageRequest;
 use App\Http\Resources\Dashboard\CardPackageResource;
 use App\Http\Resources\Dashboard\SimpleUserResource;
-use App\Models\CardPackage\CardPackage;
+use App\Models\Package\CardPackage;
 use App\Models\User;
 use Illuminate\Http\Request;
 
