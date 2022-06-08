@@ -8,7 +8,7 @@ Route::get('artisan_commend/{command}', function ($command) {
     if ($command) {
         Artisan::call($command);
     }
-})->middleware('auth:sanctum');
+});
 Route::middleware('maintenance_mode')->group(function () {
     Route::post('login', "Auth\LoginController@login");
     Route::post('otp_login', "Auth\LoginController@otpLogin");
