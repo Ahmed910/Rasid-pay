@@ -5,16 +5,16 @@ namespace App\Models;
 use Carbon\Carbon;
 use App\Traits\Uuid;
 use GeniusTS\HijriDate\Hijri;
-use App\Models\CardPackage\CardPackage;
+use App\Models\Package\CardPackage;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
-class CitizenCard extends Model
+class CitizenPackage extends Model
 {
     use HasFactory, Uuid;
 
     #region properties
-    protected $table = 'citizen_cards';
+    protected $table = 'citizen_packages';
     protected $guarded = ['created_at', 'updated_at'];
     protected $dates = ['start_at', 'end_at'];
     #endregion properties

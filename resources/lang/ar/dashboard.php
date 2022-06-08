@@ -602,7 +602,7 @@ return [
             'bank_transaction' => 'تحويل بنكي',
             'bank_transactoin' => 'تحويل بنكي',
             'receive_credit' => 'استلام رصيد',
-            'recharge_credit' => 'شحن رصيد',
+            'wallet_charge' => 'شحن رصيد',
             'upgrade_card' => 'ترقية بطاقات',
         ],
     ],
@@ -695,7 +695,8 @@ return [
             "enter_discount" => "أدخل نسبة الخصم",
             "golden_card_discount" => "نسبة خصم البطاقة الذهبية",
             "platinum_card_discount" => "نسبة خصم البطاقة البلاتينية",
-            "cards_discount_records" => "نسب خصم البطاقات",
+            "cards_discount_records" => "سجل نسب خصم البطاقات",
+        "add" => "إضافة نسب الخصم",
             "discount_success_add" => "تم إضافة نسب خصم البطاقات للعميل  :client",
             "discount_success_update" => "تم تعديل نسب خصم البطاقات للعميل  :client",
             'permissions' => array_except($permissions,['show'])

@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateCardPackagesTable extends Migration
+class CreateClientPackagesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,21 +13,14 @@ class CreateCardPackagesTable extends Migration
      */
     public function up()
     {
-        Schema::create('card_packages', function (Blueprint $table) {
+        Schema::create('client_packages', function (Blueprint $table) {
             $table->uuid("id")->primary();
-            $table->string('basic_discount')->nullable();
-            $table->string('golden_discount')->nullable();
-            $table->string('platinum_discount')->nullable();
             $table->foreignUuid("client_id")->nullable()->constrained("users")->OnDelete('set null');
-            $table->boolean('is_active')->default(true);
-            $table->softDeletes();
+            $table->foreignUuid("package_id")->nullable()->constrained("packages")->OnDelete('set null');
+            $table->string('package_discount')->nullable();
             $table->timestamps();
         });
-
-
-     
     }
-
 
     /**
      * Reverse the migrations.
@@ -36,7 +29,6 @@ class CreateCardPackagesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('card_package_translations');
-        Schema::dropIfExists('card_packages');
+        Schema::dropIfExists('client_packages');
     }
 }

@@ -1,7 +1,7 @@
             <tr>
-                <th colspan="2" style="background: #3553aa; padding-right: 1em; padding-left: 1em; text-align: center">
+                <th colspan="2" style="padding-right: 1em; padding-left: 1em; text-align: center">
 
-                    <img src="{{ public_path('dashboardAssets/images/brand/logoPay.png') }}" width="150" style="margin: auto" alt="">
+                    <img src="{{ public_path('dashboardAssets/images/brand/fintech.png') }}" width="150" style="margin: auto" alt="">
 
                 </th>
                 <th colspan="3">

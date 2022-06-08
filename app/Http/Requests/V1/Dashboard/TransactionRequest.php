@@ -3,7 +3,6 @@
 namespace App\Http\Requests\V1\Dashboard;
 
 use App\Http\Requests\ApiMasterRequest;
-use App\Models\Transaction;
 
 class TransactionRequest extends ApiMasterRequest
 {
@@ -43,7 +42,7 @@ class TransactionRequest extends ApiMasterRequest
 
 
         $rules = [
-            "type" => "nullable|in:payment,wallet_transfer,bank_transaction,receive_credit,recharge_credit,upgrade_card",
+            "type" => "nullable|in:payment,wallet_transfer,bank_transaction,receive_credit,wallet_charge,upgrade_card",
             "status" => "nullable|in:success,fail,pending,received,cancel",
             "action_type" => "nullable|string|min:2|max:255",
             "qr_code" => "nullable|string|min:2|max:255",

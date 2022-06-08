@@ -64,7 +64,8 @@
             <span class="text-danger" id="emailError" hidden></span>
         </div>
         <div class="col-12 col-md-4  mt-3">
-            <label for="phone">{{ trans('dashboard.general.phone') }} </label>
+            <label for="phone">{{ trans('dashboard.general.phone') }} </label><span
+                class="requiredFields">*</span>
             <div class="input-group">
                 <input id="phone" type="number" name="phone"
                     oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
@@ -121,7 +122,7 @@
             <span class="text-danger" id="permission_listError"></span>
             <span class="text-danger" id="group_listError"></span>
         </div>
-        
+
         @if (isset($admin))
         <div class="col-12 col-md-4 mt-3">
             {!! Form::label('status', trans('dashboard.general.status')) !!}

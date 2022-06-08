@@ -3,7 +3,7 @@
 namespace App\Models;
 
 use App\Models\Bank\Bank;
-use App\Models\CardPackage\CardPackage;
+use App\Models\Package\CardPackage;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Traits\Loggable;
@@ -45,10 +45,10 @@ class Transaction extends Model
     public static function boot()
     {
         parent::boot();
-        static::created(function ($item) {
-            $qr_code = self::createQr($item->id);
-            $item->update(['qr_code' => $qr_code]);
-        });
+       static::created(function ($item) {
+           $qr_code = self::createQr($item->id);
+           $item->update(['qr_code' => $qr_code]);
+       });
     }
 
     private static function createQr($qr_value)
@@ -161,8 +161,8 @@ class Transaction extends Model
         if (key_exists($request->sort["column"], self::ENABLED_CARD_sortable_COLUMNS)) {
             return
                 $query
-                ->leftjoin("citizen_cards", 'citizen_cards.citizen_id', '=', 'transactions.from_user_id')
-                ->orderBy('citizen_cards.' . self::ENABLED_CARD_sortable_COLUMNS[$request->sort["column"]], @$request->sort["dir"]);
+                ->leftjoin("citizen_packages", 'citizen_packages.citizen_id', '=', 'transactions.from_user_id')
+                ->orderBy('citizen_packages.' . self::ENABLED_CARD_sortable_COLUMNS[$request->sort["column"]], @$request->sort["dir"]);
         }
 
 

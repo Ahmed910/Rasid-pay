@@ -50,7 +50,7 @@ class CitizenRequest extends ApiMasterRequest
             "location" => ["nullable", "string", "max:255"],
             "lng" => ["nullable", "string", "min:3", "max:255"],
             'lat' => ["nullable", "string", "min:3", "max:255"],
-            "citizen_card_id" => "nullable|exists:citizen_cards,id"
+            "citizen_package_id" => "nullable|exists:citizen_packages,id"
         ];
     }
 }

@@ -1,11 +1,10 @@
 <?php
 
-use App\Models\CardPackage\CardPackage;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateCitizenCardsTable extends Migration
+class CreateWalletChargesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -14,14 +13,13 @@ class CreateCitizenCardsTable extends Migration
      */
     public function up()
     {
-        Schema::create('citizen_cards', function (Blueprint $table) {
+        Schema::create('wallet_charges', function (Blueprint $table) {
             $table->uuid("id")->primary();
             $table->foreignUuid("citizen_id")->nullable()->constrained("users")->OnDelete('set null');
-            $table->enum("card_type", CardPackage::CARD_TYPES)->default(CardPackage::BASIC);
-            $table->string("card_price")->nullable();
-            $table->string("upgrade_price")->nullable();
-            $table->date("start_at")->nullable();
-            $table->date("end_at")->nullable();
+            $table->string('amount');
+            $table->string('wallet_before');
+            $table->string('wallet_after');
+            $table->enum("charge_type", ['nfc', 'manual', 'sadad', 'scan']);
             $table->timestamps();
         });
     }
@@ -33,6 +31,6 @@ class CreateCitizenCardsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('citizen_cards');
+        Schema::dropIfExists('wallet_charges');
     }
 }

@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddCitizenCardIdToCitizensTable extends Migration
+class AddCitizenPackageIdToCitizensTable extends Migration
 {
     /**
      * Run the migrations.
@@ -14,7 +14,7 @@ class AddCitizenCardIdToCitizensTable extends Migration
     public function up()
     {
         Schema::table('citizens', function (Blueprint $table) {
-            $table->foreignUuid("citizen_card_id")->unique()->nullable()->constrained("citizen_cards")->OnDelete('set null');
+            $table->foreignUuid("citizen_package_id")->unique()->nullable()->constrained("citizen_packages")->OnDelete('set null');
         });
     }
 
@@ -26,8 +26,8 @@ class AddCitizenCardIdToCitizensTable extends Migration
     public function down()
     {
         Schema::table('citizens', function (Blueprint $table) {
-            $table->dropForeign(['citizen_card_id']);
-            $table->dropColumn('citizen_card_id');
+            $table->dropForeign(['citizen_package_id']);
+            $table->dropColumn('citizen_package_id');
         });
     }
 }

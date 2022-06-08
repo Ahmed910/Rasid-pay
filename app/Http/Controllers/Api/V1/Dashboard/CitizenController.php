@@ -7,7 +7,7 @@ use App\Models\Citizen;
 use App\Models\BankAccount;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Models\CardPackage\CardPackage;
+use App\Models\Package\CardPackage;
 use App\Http\Requests\V1\Dashboard\ReasonRequest;
 use App\Http\Resources\Dashboard\CitizenResource;
 use App\Http\Requests\V1\Dashboard\CitizenRequest;
@@ -41,8 +41,8 @@ class CitizenController extends Controller
 
         $user = user::create($userData);
         $bankAccount->fill($bankAccountRequest->validated())->user()->associate($user)->save();
-        $enabled_card = $user->citizenCards()->create(['card_type' => 'basic', 'start_at' => now(), 'end_at' => now()->addMonth()]);
-        $citizen->fill($clientData + ['citizen_card_id' => $enabled_card->id])->user()->associate($user);
+        $enabled_card = $user->citizenPackages()->create(['card_type' => 'basic', 'start_at' => now(), 'end_at' => now()->addMonth()]);
+        $citizen->fill($clientData + ['citizen_package_id' => $enabled_card->id])->user()->associate($user);
         $citizen->saveQuietly();
         $citizen->load("enabledCard");
         return CitizenResource::make($citizen)->additional([
