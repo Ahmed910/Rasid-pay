@@ -533,5 +533,12 @@ return [
     ],
     'permission' => [
         'permissions' => 'Permissions',
-    ]
+    ],
+    "cardpackage" => [
+        "cardpackages" => "Card Packages",
+        'basic' => 'Basic',
+        'golden' => 'Golden',
+        'platinum' => 'Platinum',
+    ],
+
 ];
