@@ -126,8 +126,8 @@
         <thead>
           <tr>
             <th class="border-bottom-0">#</th>
-            <th class="border-bottom-0">{{ trans('dashboard.admin.admin') }}</th>
             <th class="border-bottom-0">{{ trans('dashboard.admin.login_id') }}</th>
+            <th class="border-bottom-0">{{ trans('dashboard.admin.admin') }}</th>
             <th class="border-bottom-0">{{ trans('dashboard.department.department') }}</th>
             <th class="border-bottom-0">{{ trans('dashboard.general.created_at') }}</th>
             <th class="border-bottom-0"> {{ trans('dashboard.general.status') }}</th>

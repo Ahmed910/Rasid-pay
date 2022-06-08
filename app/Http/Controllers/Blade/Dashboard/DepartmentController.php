@@ -105,7 +105,6 @@ class DepartmentController extends Controller
 
     public function edit($id)
     {
-
         $previousUrl = url()->previous();
         (strpos($previousUrl, 'department')) ? session(['perviousPage' => 'department']) : session(['perviousPage' => 'home']);
 
@@ -115,15 +114,16 @@ class DepartmentController extends Controller
         $departments = array_merge([null => trans('dashboard.department.without_parent')], $departments);
 
         $locales = config('translatable.locales');
-        return view('dashboard.department.edit', compact('departments', 'department', 'locales'));
+        return view('dashboard.department.edit', compact('departments', 'department', 'locales', 'previousUrl'));
     }
 
 
-    public function update(DepartmentRequest $request, Department $department)
+    public function update(DepartmentRequest $request,  $department)
     {
 
         if (!request()->ajax()) {
-            $department->fill($request->validated() + ['updated_at' => now()])->save();
+            $dep = Department::withTrashed()->findOrFail($department);
+            $dep->fill($request->validated() + ['updated_at' => now()])->save();
             return redirect()->route('dashboard.department.index')->withSuccess(__('dashboard.general.success_update'));
         }
     }

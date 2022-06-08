@@ -41,8 +41,8 @@ class CitizenController extends Controller
 
         $user = user::create($userData);
         $bankAccount->fill($bankAccountRequest->validated())->user()->associate($user)->save();
-        $enabled_card = $user->citizenCards()->create(['card_type' => 'basic', 'start_at' => now(), 'end_at' => now()->addMonth()]);
-        $citizen->fill($clientData + ['citizen_card_id' => $enabled_card->id])->user()->associate($user);
+        $enabled_card = $user->citizenPackages()->create(['card_type' => 'basic', 'start_at' => now(), 'end_at' => now()->addMonth()]);
+        $citizen->fill($clientData + ['citizen_package_id' => $enabled_card->id])->user()->associate($user);
         $citizen->saveQuietly();
         $citizen->load("enabledCard");
         return CitizenResource::make($citizen)->additional([

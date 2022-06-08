@@ -15,6 +15,37 @@ use Illuminate\Support\Facades\Route;
 
 Route::post('send-message', 'ContactController@sendMessage')->name('send_message');
 
+Route::middleware('auth:sanctum')->group(function () {
+    Route::post('logout', 'Auth\LoginController@logout');
+
+    Route::controller('WalletController')->group(function () {
+        Route::get('get_citizen_wallet', 'getCitizenWallet');
+        Route::post('charge-wallet', 'chargeWallet');
+    });
+
+
+    Route::apiResource('card', 'CardController')->only('index','destroy');
+    Route::controller('CardController')->name('card.')->prefix('card')->group(function () {
+        Route::post('restore/{id}', 'restore')->name('restore');
+        Route::delete('forceDelete/{id}', 'forceDelete')->name('force_delete');
+    });
+
+    Route::apiResource('profiles', 'ProfileController')->only('index','store');
+    Route::apiResource('notifications', 'NotificationController')->only('index','show');
+    Route::post('update_password', 'ProfileController@updatePassword');
+    Route::post('money_request','MoneyRequestController@store');
+    Route::post('activate_notifcation', 'ProfileController@activateNotifcation');
+    Route::controller('TransactionController')->group(function () {
+        Route::get('transactions', 'index');
+        Route::get('transactions/{id}', 'show');
+
+    });
+});
+
+Route::get('slides', 'SlideController@index');
+Route::get('banks', 'BankController@index');
+
+
 Route::controller('Auth\LoginController')->group(function () {
     Route::post('login', 'login')->name('login');
     Route::post('send_reset_code', 'sendResetCode');
@@ -42,8 +73,11 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('home', 'HomeController@index');
     // fetch wallet
     Route::get('fetch_wallet', 'HomeController@fetchWallet');
+    // citizen wallet
+    Route::get('get_citizen_wallet', 'WalletController@getCitizenWallet');
+
     //money requests
-    Route::post('MoneyRequests', 'MoneyRequestController@store');
+    Route::post('money_request', 'MoneyRequestController@store');
 });
 
 Route::get('slides', 'SlideController@index');

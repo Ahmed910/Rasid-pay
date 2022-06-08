@@ -16,7 +16,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Http\Request;
 
-class Bank extends Model implements Contracts\Translatable
+class   Bank extends Model implements Contracts\Translatable
 {
     use HasFactory, SoftDeletes, Translatable, Uuid, Loggable;
 

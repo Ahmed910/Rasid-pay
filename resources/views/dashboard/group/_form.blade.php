@@ -3,8 +3,8 @@
         <div class="col-12 col-md-6">
             {!! Form::label('departmentName', trans('dashboard.group.group_name')) !!} <span class="requiredFields">*</span>
             @foreach ($locales as $locale)
-            {!! Form::text("{$locale}[name]", isset($group) ? $group->name : null, ['class' => 'form-control input-regex stop-copy-paste', 'placeholder' => trans('dashboard.general.enter_name'), 'minlength' => '2', 'maxlength' => '100', 'required' => 'required']) !!}
-            <span class="text-danger" id="{{ $locale }}.nameError" hidden></span>
+            {!! Form::text("{$locale}[name]", isset($group) ? $group->name : null, ['class' => 'form-control input-regex stop-copy-paste', 'placeholder' => trans('dashboard.general.enter_name'), 'minlength' => '2', 'maxlength' => '100', 'required' => 'required','onblur'=>'validateData()']) !!}
+            <span class="text-danger dd" id="{{ $locale }}.nameError" hidden></span>
             @endforeach
         </div>
         @if (request()->routeIs('dashboard.group.edit'))
@@ -58,7 +58,7 @@
     <script src="{{ asset('dashboardAssets/js/select2.js') }}"></script>
     <script src="{{ asset('dashboardAssets') }}/plugins/fileuploads/js/fileupload.js"></script>
     <script src="{{ asset('dashboardAssets') }}/plugins/fileuploads/js/file-upload.js"></script>
-    
+
     <script>
         $(function() {
             let permissions = @isset($group)  @json($group->permission_list) @else [] @endisset;
@@ -70,6 +70,28 @@
                 $('[name="permission_list[]"]').append(`<option value="${item}" selected class="permission_select"></option>`);
             });
         });
+
+        function validateData()
+        {
+             let lang = '{{ app()->getLocale() }}';
+             var formData = $('#formId').serialize();
+
+            $.ajax({
+                  url: '{{ url('/dashboard/group') }}',
+                  type: 'post',
+                  data : formData,
+
+                  error:function(errors)
+                  {
+
+
+                    let name = $('#formId').serializeArray()[1].name;
+                    name = (name.replace("[", ".")).slice(0,-1);
+                    $('.dd').removeAttr('hidden')
+                    $('.dd').text(errors.responseJSON.errors[name])
+                  }
+              });
+        }
 
         function addPermissions(selected) {
             let group_options = '';

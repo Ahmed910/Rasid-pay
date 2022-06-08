@@ -58,12 +58,12 @@
           class: 'admin_index'
         },
           {
-            data: "fullname",
-            name: 'fullname'
-          },
-          {
             data: "login_id",
             name: 'login_id'
+          },
+          {
+            data: "fullname",
+            name: 'fullname'
           },
           {
             data: function (data) {
