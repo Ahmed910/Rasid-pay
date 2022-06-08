@@ -82,10 +82,8 @@ class Handler extends ExceptionHandler
                         'message' => $throwable->getMessage() . " in " . $throwable->getFile(). " at line " .$throwable->getLine(),
                         'data' => null
                     ], 500);
-
             }
         }
-
         return parent::render($request, $throwable);
     }
 }
