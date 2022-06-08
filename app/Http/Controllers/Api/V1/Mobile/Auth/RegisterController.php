@@ -78,7 +78,7 @@ class RegisterController extends Controller
     public function completeRegister(CompleteRegisterRequest $request)
     {
         $user = User::firstWhere([
-            'phone' => $request->phone,
+            'identity_number' => $request->identity_number,
             'user_type' => 'citizen'
         ]);
 
