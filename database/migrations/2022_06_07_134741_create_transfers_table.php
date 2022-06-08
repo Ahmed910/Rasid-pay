@@ -30,12 +30,13 @@ class CreateTransfersTable extends Migration
             $table->softDeletes();
             $table->timestamps();
 
-            Schema::table('transfers', function (Blueprint $table) {
-                $table->bigInteger('transfer_number', true, true)->change();
-            });
 
-            DB::update("ALTER TABLE transfers AUTO_INCREMENT = 10000;");
         });
+        Schema::table('transfers', function (Blueprint $table) {
+            $table->bigInteger('transfer_number', true, true)->change();
+        });
+
+        DB::update("ALTER TABLE transfers AUTO_INCREMENT = 10000;");
     }
 
     /**
