@@ -63,7 +63,7 @@ $(function(){
             messages: {
                 reasonAction: {
                   required: 'حقل السبب مطلوب',
-                  rangelength: 'يجب ان يكون حقل السبب 10 حروفا او اكثر '
+                  rangelength: 'يجب ان يكون حقل السبب 10 حروف او اكثر '
                 },
               },
             errorClass: "is-invalid",
