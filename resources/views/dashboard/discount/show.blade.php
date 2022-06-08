@@ -81,4 +81,4 @@
 
   
 @endsection
-@include('dashboard.card_package.show_script')
+@include('dashboard.package.show_script')

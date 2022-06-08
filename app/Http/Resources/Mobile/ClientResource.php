@@ -19,7 +19,7 @@ class ClientResource extends JsonResource
             'id'          => $this->id,
             'fullname'    => $this->fullname,
             'client_type' => trans('dashboard.client.client_type.'.$this->client->client_type),
-             'discount'    => $this->cardPackage?->only('basic_discount','golden_discount','platinum_discount'),
+             'discount'    => $this->package?->only('basic_discount','golden_discount','platinum_discount'),
 
         ] ;
     }

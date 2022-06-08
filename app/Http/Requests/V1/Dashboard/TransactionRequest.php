@@ -31,7 +31,7 @@ class TransactionRequest extends ApiMasterRequest
             ];
         } else {
             $data = [
-                "card_package_id" => "required|exists:card_packages,id,deleted_at,NULL",
+                "package_id" => "required|exists:packages,id,deleted_at,NULL",
                 "from_user_id" => "required|exists:users,id,user_type,citizen,ban_status,active",
                 "to_user_id" => "nullable|exists:clients,id",
                 "amount" => "required|numeric",

@@ -110,6 +110,6 @@
 
 @include('dashboard.layouts.modals.archive')
 @include('dashboard.layouts.modals.not_archive')
-@include('dashboard.card_package.script')
+@include('dashboard.package.script')
 @endsection
 

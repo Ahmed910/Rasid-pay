@@ -51,7 +51,7 @@
         sDom: "t<'domOption'lpi>",
         serverSide: true,
         ajax: {
-          url: "{{ route('dashboard.card_package.index') }}?" + $.param(
+          url: "{{ route('dashboard.package.index') }}?" + $.param(
             @json(request()->query())),
           data: function (data) {
             data.id = $('#client_id').val();
@@ -64,7 +64,7 @@
             return parseInt(meta.row) + parseInt(data.start_from) + 1;
           },
           name: 'id',
-          class: 'card_package_index'
+          class: 'package_index'
         },
           {
             data: "fullname",
@@ -119,7 +119,7 @@
         },
         "drawCallback": function (settings, json) {
           // table sorting
-          var activityLogTableSorting = document.getElementsByClassName('card_package_index');
+          var activityLogTableSorting = document.getElementsByClassName('package_index');
           for (var i = 0; i < activityLogTableSorting.length; i++) {
             activityLogTableSorting[i].innerText = activityLogTableSorting[i].innerText.replace(activityLogTableSorting[i].innerText, activityLogTableSorting[i].innerText.toArabicUni());
           }
