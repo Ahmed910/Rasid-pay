@@ -22,12 +22,12 @@ class PackageController extends Controller
         if (isset($request->order[0]['column'])) {
             $request['sort'] = ['column' => $request['columns'][$request['order'][0]['column']]['name'], 'dir' => $request['order'][0]['dir']];
         }
-        $packages = User::has('package')->where("user_type", "client")
+        $packages = User::has('clientPackages')->where("user_type", "client")
             ->search($request)
             ->sortBy($request)
-            ->with("package")
+            ->with("clientPackages")
             ->paginate((int)($request->per_page ?? config("globals.per_page")));
-        $clients = User::has('package')->where("user_type", "client")->pluck('users.fullname', 'users.id');
+        $clients = User::has('clientPackages')->where("user_type", "client")->pluck('users.fullname', 'users.id');
         return PackageResource::collection($packages)->additional([
             'status' => true,
             'message' => ""
