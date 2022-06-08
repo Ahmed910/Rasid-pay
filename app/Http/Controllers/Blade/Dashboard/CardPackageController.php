@@ -7,7 +7,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Dashboard\CardPackageRequest;
-use App\Models\CardPackage\CardPackage;
+use App\Models\Package\CardPackage;
 
 class CardPackageController extends Controller
 {

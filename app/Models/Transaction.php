@@ -3,7 +3,7 @@
 namespace App\Models;
 
 use App\Models\Bank\Bank;
-use App\Models\CardPackage\CardPackage;
+use App\Models\Package\CardPackage;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Traits\Loggable;

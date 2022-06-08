@@ -2,7 +2,7 @@
 
 namespace App\Models;
 
-use App\Models\CardPackage\CardPackage;
+use App\Models\Package\CardPackage;
 use App\Traits\Uuid;
 use App\Models\Group\Group;
 use App\Traits\HasAssetsTrait;
