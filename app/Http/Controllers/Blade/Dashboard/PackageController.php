@@ -18,18 +18,18 @@ class PackageController extends Controller
         }
 
         if ($request->ajax()) {
-            $citizensQuery = User::has('package')->where("user_type", "client")
+            $citizensQuery = User::has('clientPackages')->where("user_type", "client")
                 ->search($request);
             $citizenCount = $citizensQuery->count();
             $clients = $citizensQuery->skip($request->start)
                 ->take(($request->length == -1) ? $citizenCount : $request->length)
                 ->sortBy($request)
-                ->with("package")
+                ->with("clientPackages")
                 ->get();
             return PackageCollection::make($clients)
                 ->additional(['total_count' => $citizenCount]);
         }
-        $clients = User::has('package')->where("user_type", "client")->pluck('users.fullname', 'users.id');
+        $clients = User::has('clientPackages')->where("user_type", "client")->pluck('users.fullname', 'users.id');
         return view('dashboard.package.index', compact('clients'));
     }
 
@@ -37,7 +37,7 @@ class PackageController extends Controller
     {
         $previousUrl = url()->previous();
         (strpos($previousUrl, 'package')) ? session(['perviousPage' => 'package']) : session(['perviousPage' => 'home']);
-        $clients = User::doesntHave('package')->where("user_type", "client")->pluck('users.fullname', 'users.id')->toArray();
+        $clients = User::doesntHave('clientPackages')->where("user_type", "client")->pluck('users.fullname', 'users.id')->toArray();
         return view('dashboard.package.create', compact('clients', 'previousUrl'));
     }
 
