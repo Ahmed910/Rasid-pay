@@ -2,9 +2,10 @@
 
 namespace Database\Seeders;
 
+use App\Models\TransferPurpose\TransferPurpose;
 use Illuminate\Database\Seeder;
 
-class RegionSeeder extends Seeder
+class TransferPurposeSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -13,8 +14,6 @@ class RegionSeeder extends Seeder
      */
     public function run()
     {
-        return [
-         
-        ];
+        TransferPurpose::factory()->count(30)->create();
     }
 }

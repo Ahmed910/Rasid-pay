@@ -2,15 +2,20 @@
 
 namespace App\Models\TransferPurpose;
 
+use App\Traits\Loggable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Traits\Uuid;
+use Astrotomic\Translatable\Translatable;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class TransferPurpose extends Model
 {
-    use HasFactory, Uuid;
+    use HasFactory, SoftDeletes, Uuid, Translatable, Loggable;
 
     #region properties
+    public $translatedAttributes = ['name','description'];
+    protected $guarded = ['created_at','updated_at','deleted_at'];
     #endregion properties
 
     #region mutators

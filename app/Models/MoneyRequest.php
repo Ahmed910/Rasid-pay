@@ -22,6 +22,10 @@ class MoneyRequest extends Model
     #endregion scopes
 
     #region relationships
+    public function transactions()
+    {
+        return $this->hasMany(Transaction::class);
+    }
     #endregion relationships
 
     #region custom Methods

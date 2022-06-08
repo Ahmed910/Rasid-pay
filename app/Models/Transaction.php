@@ -3,6 +3,8 @@
 namespace App\Models;
 
 use App\Models\Bank\Bank;
+use App\Models\BankBranch\BankBranch;
+use App\Models\CardPackage\CardPackage;
 use App\Models\Package\Package;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -171,10 +173,7 @@ class Transaction extends Model
         });
     }
 
-    public function card(): BelongsTo
-    {
-        return $this->belongsTo(Package::class, 'package_id');
-    }
+
 
     public function citizen(): BelongsTo
     {
@@ -186,8 +185,34 @@ class Transaction extends Model
         return $this->belongsTo(User::class, 'to_user_id');
     }
 
+    public function walletcharge(): BelongsTo
+    {
+        return $this->belongsTo(WalletCharge::class, 'wallet_charge_id');
+    }
+    public function payment(): BelongsTo
+    {
+        return $this->belongsTo(Payment::class, 'payment_id');
+    }
+
+    public function transfer(): BelongsTo
+    {
+        return $this->belongsTo(Transfer::class, 'transfer_id');
+    }
+    public function moneyRequest(): BelongsTo
+    {
+        return $this->belongsTo(MoneyRequest::class, 'money_request_id');
+    }
     public function bank(): BelongsTo
     {
         return $this->belongsTo(Bank::class, 'bank_id');
+    }
+    public function bankBranch(): BelongsTo
+    {
+        return $this->belongsTo(BankBranch::class, 'bank_branch_id');
+    }
+
+    public function citizenPackage(): BelongsTo
+    {
+        return $this->belongsTo(CitizenPackage::class, 'citizen_package_id');
     }
 }
