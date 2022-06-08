@@ -49,7 +49,6 @@ Route::middleware('auth:sanctum')->group(function () {
 
     // local transfers
     Route::controller('LocalTransferController')->name('local_transfer.')->prefix('local_transfer')->group(function () {
-        Route::post('/balance','getCurrentBalance')->name('current_balance');
         Route::post('/', 'store');
     });
 
