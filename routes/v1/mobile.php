@@ -22,7 +22,7 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::get('get_citizen_wallet', 'getCitizenWallet');
         Route::post('charge-wallet', 'chargeWallet');
     });
-    
+
 
     Route::apiResource('card', 'CardController')->only('index','destroy');
     Route::controller('CardController')->name('card.')->prefix('card')->group(function () {
@@ -33,7 +33,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::apiResource('profiles', 'ProfileController')->only('index','store');
     Route::apiResource('notifications', 'NotificationController')->only('index','show');
     Route::post('update_password', 'ProfileController@updatePassword');
-    Route::post('MoneyRequests','MoneyRequestController@store');
+    Route::post('money_request','MoneyRequestController@store');
     Route::post('activate_notifcation', 'ProfileController@activateNotifcation');
     Route::controller('TransactionController')->group(function () {
         Route::get('transactions', 'index');
@@ -77,7 +77,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('get_citizen_wallet', 'WalletController@getCitizenWallet');
 
     //money requests
-    Route::post('MoneyRequests', 'MoneyRequestController@store');
+    Route::post('money_request', 'MoneyRequestController@store');
 });
 
 Route::get('slides', 'SlideController@index');
