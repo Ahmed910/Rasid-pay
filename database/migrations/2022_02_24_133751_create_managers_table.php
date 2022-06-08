@@ -26,6 +26,8 @@ class CreateManagersTable extends Migration
             $table->enum('manager_marital_status', ['married', 'single'])->nullable();
             $table->date('manager_date_of_birth');
             $table->text("manager_elm_reply")->nullable();
+            $table->string('manager_country_code')->nullable();
+
             $table->timestamps();
         });
     }

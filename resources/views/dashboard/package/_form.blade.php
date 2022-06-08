@@ -17,14 +17,14 @@
         </div>
 
         <div class="col-12 col-md-6 mb-5">
-            {!! Form::label('discountRate', trans('dashboard.card_package.basic_card_discount')) !!}
+            {!! Form::label('discountRate', trans('dashboard.package.basic_card_discount')) !!}
 
             <span class="requiredFields">*</span>
             <div class="input-group">
 
                 {!! Form::number('basic_discount', null, [
                         'class' => 'form-control',
-                        'placeholder' => trans('dashboard.card_package.enter_discount'),
+                        'placeholder' => trans('dashboard.package.enter_discount'),
                         'id' => 'discountRate',
                         'onpaste' => 'return false',
                         'onCopy' => 'return false',
@@ -40,14 +40,14 @@
 
         </div>
         <div class="col-12 col-md-6 mb-5">
-            {!! Form::label('discountRate', trans('dashboard.card_package.golden_card_discount')) !!}
+            {!! Form::label('discountRate', trans('dashboard.package.golden_card_discount')) !!}
             <span class="requiredFields">*</span>
 
             <div class="input-group">
 
                 {!! Form::number('golden_discount', null, [
                         'class' => 'form-control',
-                        'placeholder' => trans('dashboard.card_package.enter_discount'),
+                        'placeholder' => trans('dashboard.package.enter_discount'),
                         'id' => 'discountRate',
                         'onpaste' => 'return false',
                         'onCopy' => 'return false',
@@ -64,14 +64,14 @@
 
         </div>
         <div class="col-12 col-md-6 mb-5">
-            {!! Form::label('discountRate', trans('dashboard.card_package.platinum_card_discount')) !!}
+            {!! Form::label('discountRate', trans('dashboard.package.platinum_card_discount')) !!}
 
             <span class="requiredFields">*</span>
             <div class="input-group">
 
                 {!! Form::number('platinum_discount', null, [
                         'class' => 'form-control',
-                        'placeholder' => trans('dashboard.card_package.enter_discount'),
+                        'placeholder' => trans('dashboard.package.enter_discount'),
                         'id' => 'discountRate',
                         'onpaste' => 'return false',
                         'onCopy' => 'return false',

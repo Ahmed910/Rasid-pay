@@ -11,8 +11,10 @@ class CreateGroupsTable extends Migration
         Schema::create('groups', function (Blueprint $table) {
             $table->uuid("id")->primary();
             $table->boolean('is_active')->default(false);
+            $table->foreignUuid("added_by_id")->nullable()->constrained('users')->nullOnDelete();
             $table->softDeletes();
             $table->timestamps();
+            $table->index(['created_at']);
         });
 
         Schema::create('group_translations', function (Blueprint $table) {

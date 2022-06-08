@@ -81,7 +81,7 @@
     }
   });
 
-  $("input,select").change(function () {
+  $("input,select,textarea").change(function () {
     validate = true;
   });
 

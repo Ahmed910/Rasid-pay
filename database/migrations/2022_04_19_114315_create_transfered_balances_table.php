@@ -28,6 +28,7 @@ class CreateTransferedBalancesTable extends Migration
             $table->enum('transfer_status',['pending','transfered','refused'])->default('pending');
             $table->enum('transfer_type',['bank','wallet']);
             $table->string('transfer_fees');
+            $table->text('refused_reason')->nullable();
             $table->timestamps();
         });
     }

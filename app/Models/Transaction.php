@@ -3,7 +3,7 @@
 namespace App\Models;
 
 use App\Models\Bank\Bank;
-use App\Models\CardPackage\CardPackage;
+use App\Models\Package\Package;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Traits\Loggable;
@@ -35,12 +35,12 @@ class Transaction extends Model
     private $sortableColumns = ["user_from", "number", "created_at", "user_identity", 'from_user_to', 'amount', 'total_amount', 'gift_balance', 'type', 'status', 'discount_percent'];
     const user_searchable_Columns = ["user_from", "email", "image", "country_code", "phone", "full_phone", "identity_number", "date_of_birth"];
     const user_sortable_Columns = ["user_from" => "fullname", "email" => "email", "image" => "email", "country_code" => "country_code", "phone" => "phone", "full_phone" => "full_phone", "identity_number" => "identity_number", "date_of_birth" => "date_of_birth"];
-    const SELECT_ALL = ["enabled_card"];
+    const SELECT_ALL = ["enabled_package"];
     const transaction_searchable_Columns = ["transaction_number", "user_identity",  "transaction_type", "transaction_status"];
-    const ENABLED_CARD_SEARCHABLE_COLUMNS = ["enabled_card" => "card_type"];
+    const ENABLED_CARD_SEARCHABLE_COLUMNS = ["enabled_package" => "card_type"];
     const client_searchable_Columns = ["user_to", "client_type", "commercial_number", "nationality", "tax_number", "transactions_done"];
     const client_sortable_Columns = ["user_to" => "fullname", "client_type" => "client_type", "commercial_number" => "commercial_number", "nationality" => "nationality", "tax_number" => "tax_number", "transactions_done" => "transactions_done"];
-    const ENABLED_CARD_sortable_COLUMNS = ["enabled_card" => "card_type"];
+    const ENABLED_CARD_sortable_COLUMNS = ["enabled_package" => "card_type"];
 
     public static function boot()
     {
@@ -82,7 +82,7 @@ class Transaction extends Model
             if ($item == -1 && in_array($key, self::SELECT_ALL)) $request->request->remove($key);
             if (key_exists($key, self::ENABLED_CARD_SEARCHABLE_COLUMNS) && isset($request->$key))
                 $query->whereHas(
-                    'citizen.citizen.enabledCard',
+                    'citizen.citizen.enabledPackage',
                     function ($q) use ($key, $item) {
                         $q->where(self::ENABLED_CARD_SEARCHABLE_COLUMNS[$key], $item);
                     }
@@ -112,9 +112,9 @@ class Transaction extends Model
         if (isset($request->transaction_value_to)) {
             $query->where("amount", '>=', $request->transaction_value_to);
         }
-        if (isset($request->card_package_id)) {
-            if ($request->card_package_id == 0) $request->card_package_id = null;
-            if ($request->card_package_id != -1) $query->whereHas('card', fn ($q) => $q->where('id', $request->card_package_id));
+        if (isset($request->package_id)) {
+            if ($request->package_id == 0) $request->package_id = null;
+            if ($request->package_id != -1) $query->whereHas('card', fn ($q) => $q->where('id', $request->package_id));
         }
         if (isset($request->client)) {
             if ($request->client == 0) $request->client = null;
@@ -132,7 +132,7 @@ class Transaction extends Model
         $new = $query->toSql();
         if ($old != $new)  $this->addGlobalActivity($this, $request->query(), ActivityLog::SEARCH, 'index');
         // if (isset($request->card_type)) {
-        //     $query->whereHas('citizen.citizen.enabledCard',
+        //     $query->whereHas('citizen.citizen.enabledPackage',
         //      fn($q) => $q->where('card_type', $request->card_type));
         // }
     }
@@ -173,7 +173,7 @@ class Transaction extends Model
 
     public function card(): BelongsTo
     {
-        return $this->belongsTo(CardPackage::class, 'card_package_id');
+        return $this->belongsTo(Package::class, 'package_id');
     }
 
     public function citizen(): BelongsTo

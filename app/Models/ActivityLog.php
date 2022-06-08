@@ -19,7 +19,7 @@ class ActivityLog extends Model
     protected $table = 'activity_logs';
     protected $with = ['user', 'auditable'];
     protected $casts = ["new_data" => "array", "old_data" => "array", 'search_params' => 'array'];
-    private $sortableColumns = ['employee', 'department', 'main_program', 'sub_program', 'created_at', 'ip_address', 'action_type'];
+    private $sortableColumns = ['employee', 'department', 'main_program', 'sub_program', 'created_at', 'ip_address', 'action_type','reason'];
 
     const CREATE = 'created';
     const UPDATE = 'updated';

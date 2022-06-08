@@ -43,7 +43,7 @@
                         data.transaction_value_from = $('#transactionValueFrom').val();
                         data.transaction_value_to = $('#transactionValueTo').val();
                         data.type = $('#type').val();
-                        data.enabled_card = $('#enabled_card').val();
+                        data.enabled_package = $('#enabled_package').val();
                         data.status = $('#status').val();
                     },
                     type: "GET",
@@ -124,8 +124,8 @@
                         // data: 'discount_percent',
                         // name: 'discount_percent'
 
-                        data: 'enabled_card',
-                        name: 'enabled_card'
+                        data: 'enabled_package',
+                        name: 'enabled_package'
 
                     },
                 ],
@@ -177,7 +177,7 @@
             $('#type').on('select2:select', function(e) {
                 table.draw();
             });
-            $('#enabled_card').on('select2:select', function(e) {
+            $('#enabled_package').on('select2:select', function(e) {
                 table.draw();
             });
 
@@ -200,7 +200,7 @@
             $('#search-form').on('reset', function(e) {
                 e.preventDefault();
                 $('#status').val(null).trigger('change');
-                $('#card_package_id').val(null).trigger('change');
+                $('#package_id').val(null).trigger('change');
                 $('#type').val(null).trigger('change');
                 $('#transactionNum').val(null);
                 $('#transactionName').val(null);
