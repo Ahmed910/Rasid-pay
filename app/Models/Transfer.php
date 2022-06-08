@@ -11,6 +11,13 @@ class Transfer extends Model
     use HasFactory, Uuid;
 
     #region properties
+    const FROM_USER = 'from_user';
+    const TO_USER = 'to_user';
+
+    const WHO_BUY_FEES = [
+        self::FROM_USER,
+        self::TO_USER
+    ];
     #endregion properties
 
     #region mutators
