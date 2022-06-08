@@ -10,6 +10,9 @@ class TransferPurposeTranslation extends Model
 {
     use HasFactory, Uuid;
 
+    public $timestamps = false;
+    protected $guarded = ['created_at', 'updated_at'];
+
     #region properties
     #endregion properties
 

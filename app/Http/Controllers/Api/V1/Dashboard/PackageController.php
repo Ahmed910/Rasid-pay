@@ -40,8 +40,8 @@ class PackageController extends Controller
             "has_card" => "required|boolean"
         ]);
         $clients = $request->has_card
-            ? User::has('package')->where("user_type", "client")->select('users.fullname', 'users.id')->get()
-            : User::doesntHave('package')->where("user_type", "client")->select('users.fullname', 'users.id')->get();;
+            ? User::has('clientPackages')->where("user_type", "client")->select('users.fullname', 'users.id')->get()
+            : User::doesntHave('clientPackages')->where("user_type", "client")->select('users.fullname', 'users.id')->get();;
         return SimpleUserResource:: collection($clients)->additional([
             'status' => true,
             'message' => ""

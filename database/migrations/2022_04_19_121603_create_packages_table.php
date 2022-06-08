@@ -19,7 +19,10 @@ class CreatePackagesTable extends Migration
             $table->string('color')->nullable();
             $table->string('discount')->default(0);
             $table->string('duration')->nullable()->comment('by months');
+            $table->tinyInteger('number_of_used')->nullable();
+            $table->string('promo_discount')->nullable();
             $table->boolean('is_active')->default(true);
+            $table->boolean('has_promo')->default(false);
             $table->boolean('is_default')->default(false);
             $table->softDeletes();
             $table->timestamps();
