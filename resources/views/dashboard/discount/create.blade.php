@@ -25,7 +25,7 @@
     <div class="invalid-feedback">اسم البنك مطلوب.</div>
 </div>
     <form action="" id="add-branch-form">
-        <fieldset class="card createBankBranch px-4 py-4" id="">       
+        <fieldset class="card createBankBranch px-4 py-4" id="">
             <a
                 role="button"
                 class="deleteBranch text-end"
@@ -73,7 +73,7 @@
                 <label for="taxNumber">الرقم الضريبي</label>
                 <input type="text" class="form-control" id="taxNumber" placeholder="أدخل الرقم الضريبي" required />
             </div>
-            
+
             <div class="col-12 col-md-4 mb-5">
                 <label for="serviceNumber">رقم خدمة العملاء</label>
                 <input type="text" class="form-control" id="serviceNumber" placeholder="أدخل رقم خدمة العملاء" required />
@@ -97,7 +97,7 @@
 <div class="row">
     <div class="col-12 mb-5 text-end">
         <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#successModal" type="submit">
-            <i class="mdi mdi-page-next-outline"></i> حفظ
+            <i class="mdi mdi-content-save-outline"></i> حفظ
         </button>
         <a href="{{ url()->previous() }}" class="btn btn-outline-primary" data-bs-toggle="modal"
             data-bs-target="#backModal">

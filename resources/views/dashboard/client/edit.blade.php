@@ -234,7 +234,7 @@
 <div class="row">
     <div class="col-12 mb-5 text-end">
         <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#successModal" type="submit">
-            <i class="mdi mdi-page-next-outline"></i> حفظ
+            <i class="mdi mdi-content-save-outline"></i> حفظ
         </button>
            <a href="{{ url()->previous() }}" class="btn btn-outline-primary">
                 <i class="mdi mdi-arrow-left"></i> {{ trans('dashboard.general.back') }}
