@@ -18,6 +18,8 @@ class CreateAttachmentFilesTable extends Migration
             $table->foreignUuid("attachment_id")->constrained("attachments")->cascadeOnDelete();
             $table->string("type");
             $table->string("path");
+            $table->string("name");
+            $table->string("size");
             $table->timestamps();
         });
     }

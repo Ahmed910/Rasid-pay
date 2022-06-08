@@ -38,9 +38,16 @@ class CreateUsersTable extends Migration
             $table->date('date_of_birth')->nullable();
             $table->date('date_of_birth_hijri')->nullable();
             $table->boolean('is_date_hijri')->default(false)->comment('1 if user want to show hijri date');
+            $table->char("user_locale", 3)->default('ar');
+            $table->string("login_id")->nullable();
+            $table->string("login_code")->nullable();
+            $table->string('reset_token',100)->nullable();
+            $table->boolean('is_notification_enabled')->default(true)->comment('check if notication is active');
+            $table->boolean('is_red_notifications')->default(false)->comment('check if notications bell is clicked');
             $table->rememberToken();
             $table->softDeletes();
             $table->timestamps();
+            $table->index(['created_at']);
         });
     }
 
