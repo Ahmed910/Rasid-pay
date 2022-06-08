@@ -27,6 +27,11 @@ class Payment extends Model
     {
         return $this->belongsTo(Citizen::class, 'citizen_id');
     }
+
+    public function transactions()
+    {
+        return $this->hasMany(Transaction::class);
+    }
     #endregion relationships
 
     #region custom Methods
