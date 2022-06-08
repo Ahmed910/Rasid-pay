@@ -3,6 +3,7 @@
 use App\Models\Transfer;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
 
 class CreateTransfersTable extends Migration
@@ -28,6 +29,12 @@ class CreateTransfersTable extends Migration
             $table->enum('wallet_transfer_method',Transfer::WALLET_TRANSFER_METHODS)->nullable();
             $table->softDeletes();
             $table->timestamps();
+
+            Schema::table('transfers', function (Blueprint $table) {
+                $table->bigInteger('transfer_number', true, true)->change();
+            });
+
+            DB::update("ALTER TABLE transfers AUTO_INCREMENT = 10000;");
         });
     }
 
