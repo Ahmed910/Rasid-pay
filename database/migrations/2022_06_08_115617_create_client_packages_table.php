@@ -13,7 +13,7 @@ class CreateClientPackagesTable extends Migration
      */
     public function up()
     {
-        Schema::create('client_packages', function (Blueprint $table) {
+        Schema::create('client_package', function (Blueprint $table) {
             $table->uuid("id")->primary();
             $table->foreignUuid("client_id")->nullable()->constrained("users")->OnDelete('set null');
             $table->foreignUuid("package_id")->nullable()->constrained("packages")->OnDelete('set null');
@@ -29,6 +29,6 @@ class CreateClientPackagesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('client_packages');
+        Schema::dropIfExists('client_package');
     }
 }

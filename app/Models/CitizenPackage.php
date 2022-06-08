@@ -14,7 +14,6 @@ class CitizenPackage extends Model
     use HasFactory, Uuid;
 
     #region properties
-    protected $table = 'citizen_packages';
     protected $guarded = ['created_at', 'updated_at'];
     protected $dates = ['start_at', 'end_at'];
     #endregion properties
@@ -57,7 +56,7 @@ class CitizenPackage extends Model
 
    public function citizen()
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class,'citizen_id');
     }
     #endregion relationships
 
