@@ -34,11 +34,8 @@ class TransactionController extends Controller
         $clients = User::where('user_type', 'client')
             ->pluck('fullname', 'id')->toArray();
 
-        $allCards = Package::CARD_TYPES;
-        foreach ($allCards as $key => $value) {
-           $cards["$value"] = __("dashboard.transaction.card_cases.$value");
-        }
+        $packages = Package::select("id")->ListsTranslations("name")->pluck('name', 'id')->toArray();
 
-        return view('dashboard.transaction.index', compact('clients', 'cards'));
+        return view('dashboard.transaction.index', compact('clients', 'packages'));
     }
 }
