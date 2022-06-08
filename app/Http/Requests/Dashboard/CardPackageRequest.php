@@ -6,7 +6,7 @@ use Illuminate\Validation\Rule;
 use Illuminate\Validation\Rules\Unique;
 use Illuminate\Foundation\Http\FormRequest;
 
-class CardPackageRequest extends FormRequest
+class PackageRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -26,7 +26,7 @@ class CardPackageRequest extends FormRequest
     public function rules()
     {
         return [
-            "client_id" => "required|exists:users,id,user_type,client|unique:card_packages,client_id,".@$this->card_package->id,
+            "client_id" => "required|exists:users,id,user_type,client|unique:packages,client_id,".@$this->package->id,
             "is_active" => "nullable|boolean",
             "basic_discount" => "required|numeric|min:0|max:100|digits_between:1,5",
             "golden_discount" => "required|numeric|min:0|max:100|digits_between:1,5",

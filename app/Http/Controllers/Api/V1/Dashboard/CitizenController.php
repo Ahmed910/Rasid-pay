@@ -7,7 +7,7 @@ use App\Models\Citizen;
 use App\Models\BankAccount;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Models\Package\CardPackage;
+use App\Models\Package\Package;
 use App\Http\Requests\V1\Dashboard\ReasonRequest;
 use App\Http\Resources\Dashboard\CitizenResource;
 use App\Http\Requests\V1\Dashboard\CitizenRequest;
@@ -22,7 +22,7 @@ class CitizenController extends Controller
             $request['sort'] = ['column' => $request['columns'][$request['order'][0]['column']]['name'], 'dir' => $request['order'][0]['dir']];
         }
 
-        $citizen = Citizen::with(['user', "enabledCard.cardPackage"])
+        $citizen = Citizen::with(['user', "enabledPackage.package"])
             ->CustomDateFromTo($request)->search($request)->sortBy($request)
             ->paginate((int)($request->per_page ?? config("globals.per_page")));
 
@@ -41,10 +41,10 @@ class CitizenController extends Controller
 
         $user = user::create($userData);
         $bankAccount->fill($bankAccountRequest->validated())->user()->associate($user)->save();
-        $enabled_card = $user->citizenPackages()->create(['card_type' => 'basic', 'start_at' => now(), 'end_at' => now()->addMonth()]);
-        $citizen->fill($clientData + ['citizen_package_id' => $enabled_card->id])->user()->associate($user);
+        $enabled_package = $user->citizenPackages()->create(['card_type' => 'basic', 'start_at' => now(), 'end_at' => now()->addMonth()]);
+        $citizen->fill($clientData + ['citizen_package_id' => $enabled_package->id])->user()->associate($user);
         $citizen->saveQuietly();
-        $citizen->load("enabledCard");
+        $citizen->load("enabledPackage");
         return CitizenResource::make($citizen)->additional([
             'status' => true, 'message' => trans("dashboard.general.success_add")
         ]);
@@ -52,7 +52,7 @@ class CitizenController extends Controller
 
     public function show(Request $request, $id)
     {
-        $citizen = Citizen::where('user_id', $id)->with("user", "enabledCard")->firstOrFail();
+        $citizen = Citizen::where('user_id', $id)->with("user", "enabledPackage")->firstOrFail();
 
 
         return CitizenResource::make($citizen)->additional(['status' => true, 'message' => ""]);
@@ -87,12 +87,12 @@ class CitizenController extends Controller
         return CitizenResource::make($citizen)->additional(['status' => true, 'message' => trans("dashboard.general.success_update")]);
     }
 
-    public function enabledCards()
+    public function enabledPackages()
     {
-        $enabledCards = CardPackage::getTransCards();
+        $enabledPackages = Package::getTransCards();
 
         return response()->json([
-            'data' => $enabledCards,
+            'data' => $enabledPackages,
             'status' => true,
             'message' =>  '',
         ]);

@@ -29,7 +29,7 @@ class ClientController extends Controller
 
     public function show($id)
     {
-        $client = User::with('cardPackage')->findOrFail($id);
+        $client = User::with('package')->findOrFail($id);
 
         return
         ClientResource::make($client)->additional(['status' => true, 'message' => ""]);

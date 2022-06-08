@@ -8,7 +8,7 @@
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
                 <li class="breadcrumb-item">
-                    <a href="{{ route('dashboard.card_package.index') }}">{{ trans('dashboard.card_package.cards_discount') }}
+                    <a href="{{ route('dashboard.package.index') }}">{{ trans('dashboard.package.cards_discount') }}
                     </a>
                 </li>
                 <li class="breadcrumb-item active" aria-current="page"> {{ trans('dashboard.general.edit') }} </li>
@@ -17,9 +17,9 @@
     </div>
     <!-- PAGE-HEADER END -->
 
-    {!! Form::model($card_package, ['route' => ['dashboard.card_package.update', $card_package->id], 'method' => 'PUT', 'id' => 'formId']) !!}
+    {!! Form::model($package, ['route' => ['dashboard.package.update', $package->id], 'method' => 'PUT', 'id' => 'formId']) !!}
 
-    @include('dashboard.card_package._form')
+    @include('dashboard.package._form')
 
     {!! Form::close() !!}
 
@@ -58,7 +58,7 @@
                 let form = $('#formId')[0];
                 let data = new FormData(form);
 
-                let originalData = {!! json_encode($card_package->only('client_id', 'basic_discount', 'golden_discount', 'platinum_discount')) !!};
+                let originalData = {!! json_encode($package->only('client_id', 'basic_discount', 'golden_discount', 'platinum_discount')) !!};
                 let originalDataArr = Object.values(originalData);
 
                 //capture users inputs
@@ -145,7 +145,7 @@
                     $('#backModal').modal('show');
                     return false;
                 } else {
-                    window.location.href = "{{ route('dashboard.card_package.index') }}";
+                    window.location.href = "{{ route('dashboard.package.index') }}";
                 }
             });
 

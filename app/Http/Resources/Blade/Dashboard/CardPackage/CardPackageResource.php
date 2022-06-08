@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Resources\Blade\Dashboard\CardPackage;
+namespace App\Http\Resources\Blade\Dashboard\Package;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class CardPackageResource extends JsonResource
+class PackageResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -16,10 +16,10 @@ class CardPackageResource extends JsonResource
     {
         return [
             "fullname" => $this->fullname,
-            "basic_discount" => $this->cardPackage?->basic_discount,
-            "golden_discount" => $this->cardPackage?->golden_discount,
-            "platinum_discount" => $this->cardPackage?->platinum_discount,
-            "edit_route" => route("dashboard.card_package.edit", $this->cardPackage?->id),
+            "basic_discount" => $this->package?->basic_discount,
+            "golden_discount" => $this->package?->golden_discount,
+            "platinum_discount" => $this->package?->platinum_discount,
+            "edit_route" => route("dashboard.package.edit", $this->package?->id),
             'start_from' => $request->start
 
         ];

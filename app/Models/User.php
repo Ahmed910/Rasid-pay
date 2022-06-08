@@ -2,7 +2,7 @@
 
 namespace App\Models;
 
-use App\Models\Package\CardPackage;
+use App\Models\Package\Package;
 use App\Traits\Uuid;
 use App\Models\Group\Group;
 use App\Traits\HasAssetsTrait;
@@ -195,9 +195,9 @@ class User extends Authenticatable implements HasAssetsInterface
         return $this->hasMany(CitizenPackage::class, 'citizen_id');
     }
 
-    public function cardPackage()
+    public function package()
     {
-        return $this->hasOne(CardPackage::class, 'client_id');
+        return $this->hasOne(Package::class, 'client_id');
     }
     public function benficiaryTransfer()
     {
@@ -319,10 +319,10 @@ class User extends Authenticatable implements HasAssetsInterface
                          ->orderBy('trans.name',@$request->sort['dir']);
             }
          else   if (in_array($request['sort']['column'],self::CARDSORTABLECOLUMNS)) {
-                 return $q->Join('card_packages', 'users.id', 'card_packages.client_id')
-                    ->select("users.*", "card_packages.basic_discount", "card_packages.golden_discount", "card_packages.platinum_discount")
+                 return $q->Join('packages', 'users.id', 'packages.client_id')
+                    ->select("users.*", "packages.basic_discount", "packages.golden_discount", "packages.platinum_discount")
                     ->distinct()
-                     ->orderBy('card_packages.'.$request->sort['column'] ,@$request->sort['dir']);
+                     ->orderBy('packages.'.$request->sort['column'] ,@$request->sort['dir']);
             }
            else $q->orderBy($request->sort["column"], @$request->sort["dir"]);
         });

@@ -1,5 +1,5 @@
 @extends('dashboard.layouts.master')
-@section('title', trans('dashboard.citizen.index'))
+@section('title', trans('dashboard.citizen.citizens'))
 
 @section('content')
 
@@ -34,13 +34,13 @@
     </div>
   </div>
   <div class="col-12 col-md-3 mb-3">
-    <label for="enabledcard">{{ trans('dashboard.citizens.enabled_card') }} </label>
-    <select class="form-control select2" id="enabledcard">
+    <label for="enabledpackage">{{ trans('dashboard.citizens.enabled_package') }} </label>
+    <select class="form-control select2" id="enabledpackage">
       <option selected disabled value="">{{ trans('dashboard.citizens.choose_card') }} </option>
       <option value="">{{ trans('dashboard.general.all_cases') }} </option>
-      <option value="basic"> {{ trans('dashboard.citizens.card_type.basic') }} </option>
-      <option value="golden"> {{ trans('dashboard.citizens.card_type.golden') }} </option>
-      <option value="platinum"> {{ trans('dashboard.citizens.card_type.platinum') }} </option>
+      @foreach($packages as $id => $package)
+        <option value="{{ $package->id }}"> {{ $package->name }} </option>
+      @endforeach
     </select>
   </div>
   <div class="col-12 col-md-3 mb-3">
@@ -127,7 +127,7 @@
               <th class="border-bottom-0">{{ trans('dashboard.citizens.name') }} </th>
               <th class="border-bottom-0">{{ trans('dashboard.citizens.identity_number') }} </th>
               <th class="border-bottom-0">{{ trans('dashboard.citizens.phone') }} </th>
-              <th class="border-bottom-0">{{ trans('dashboard.citizens.enabled_card') }} </th>
+              <th class="border-bottom-0">{{ trans('dashboard.citizens.enabled_package') }} </th>
               <th class="border-bottom-0">{{ trans('dashboard.citizens.card_end_at') }} </th>
               <th class="border-bottom-0">{{ trans('dashboard.citizens.created_at') }} </th>
               <th class="border-bottom-0 text-center">{{ trans('dashboard.general.actions') }}</th>

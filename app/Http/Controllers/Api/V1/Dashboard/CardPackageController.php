@@ -3,14 +3,14 @@
 namespace App\Http\Controllers\Api\V1\Dashboard;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\V1\Dashboard\CardPackageRequest;
-use App\Http\Resources\Dashboard\CardPackageResource;
+use App\Http\Requests\V1\Dashboard\PackageRequest;
+use App\Http\Resources\Dashboard\PackageResource;
 use App\Http\Resources\Dashboard\SimpleUserResource;
-use App\Models\Package\CardPackage;
+use App\Models\Package\Package;
 use App\Models\User;
 use Illuminate\Http\Request;
 
-class CardPackageController extends Controller
+class PackageController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -22,13 +22,13 @@ class CardPackageController extends Controller
         if (isset($request->order[0]['column'])) {
             $request['sort'] = ['column' => $request['columns'][$request['order'][0]['column']]['name'], 'dir' => $request['order'][0]['dir']];
         }
-        $card_packages = User::has('cardPackage')->where("user_type", "client")
+        $packages = User::has('package')->where("user_type", "client")
             ->search($request)
             ->sortBy($request)
-            ->with("cardPackage")
+            ->with("package")
             ->paginate((int)($request->per_page ?? config("globals.per_page")));
-        $clients = User::has('cardPackage')->where("user_type", "client")->pluck('users.fullname', 'users.id');
-        return CardPackageResource::collection($card_packages)->additional([
+        $clients = User::has('package')->where("user_type", "client")->pluck('users.fullname', 'users.id');
+        return PackageResource::collection($packages)->additional([
             'status' => true,
             'message' => ""
         ]);
@@ -40,8 +40,8 @@ class CardPackageController extends Controller
             "has_card" => "required|boolean"
         ]);
         $clients = $request->has_card
-            ? User::has('cardPackage')->where("user_type", "client")->select('users.fullname', 'users.id')->get()
-            : User::doesntHave('cardPackage')->where("user_type", "client")->select('users.fullname', 'users.id')->get();;
+            ? User::has('package')->where("user_type", "client")->select('users.fullname', 'users.id')->get()
+            : User::doesntHave('package')->where("user_type", "client")->select('users.fullname', 'users.id')->get();;
         return SimpleUserResource:: collection($clients)->additional([
             'status' => true,
             'message' => ""
@@ -54,11 +54,11 @@ class CardPackageController extends Controller
      * //     * @param \Illuminate\Http\Request $request
      * //     * @return \Illuminate\Http\Response
      */
-    public function store(CardPackageRequest $request, CardPackage $card_package)
+    public function store(PackageRequest $request, Package $package)
     {
-        $card_package->fill($request->validated() + ['added_by_id' => auth()->id()])->save();
-        $card_package->load(['images', 'addedBy']);
-        return CardPackageResource::make($card_package->client)->additional([
+        $package->fill($request->validated() + ['added_by_id' => auth()->id()])->save();
+        $package->load(['images', 'addedBy']);
+        return PackageResource::make($package->client)->additional([
             'status' => true,
             'message' => trans("dashboard.general.success_add")
         ]);
@@ -72,8 +72,8 @@ class CardPackageController extends Controller
      */
     public function show($id)
     {
-        $card_package = CardPackage::withTrashed()->findOrFail($id)->client;
-        return CardPackageResource::make($card_package)
+        $package = Package::withTrashed()->findOrFail($id)->client;
+        return PackageResource::make($package)
             ->additional([
                 'status' => true,
                 'message' => ""
@@ -83,15 +83,15 @@ class CardPackageController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param \Illuminate\Http\CardPackageRequest $request
+     * @param \Illuminate\Http\PackageRequest $request
      * @param int $id
      * @return \Illuminate\Http\Response
      */
-    public function update(CardPackageRequest $request, CardPackage $card_package)
+    public function update(PackageRequest $request, Package $package)
     {
-        $card_package->fill($request->validated() + ['updated_at' => now()])->save();
-        $card_package->load(['images', 'addedBy']);
-        return CardPackageResource::make($card_package->client)
+        $package->fill($request->validated() + ['updated_at' => now()])->save();
+        $package->load(['images', 'addedBy']);
+        return PackageResource::make($package->client)
             ->additional([
                 'status' => true,
                 'message' => trans("dashboard . general . success_update")
@@ -104,10 +104,10 @@ class CardPackageController extends Controller
      * @param int $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(CardPackage $card_package)
+    public function destroy(Package $package)
     {
-        $card_package->delete();
-        return CardPackageResource::make($card_package)
+        $package->delete();
+        return PackageResource::make($package)
             ->additional([
                 'status' => true,
                 'message' => trans('dashboard.general.success_archive'),
@@ -119,8 +119,8 @@ class CardPackageController extends Controller
      */
     public function archive(Request $request)
     {
-        $card_packages = CardPackage::onlyTrashed()->with("translations")->latest()->paginate((int)($request->per_page ?? config("globals.per_page")));
-        return CardPackageResource::collection($card_packages)->additional([
+        $packages = Package::onlyTrashed()->with("translations")->latest()->paginate((int)($request->per_page ?? config("globals.per_page")));
+        return PackageResource::collection($packages)->additional([
             'status' => true,
             'message' => ""
 
@@ -133,10 +133,10 @@ class CardPackageController extends Controller
      */
     public function restore($id)
     {
-        $card_package = CardPackage::onlyTrashed()->findOrFail($id);
-        $card_package->restore();
+        $package = Package::onlyTrashed()->findOrFail($id);
+        $package->restore();
 
-        return CardPackageResource::make($card_package)
+        return PackageResource::make($package)
             ->additional([
                 'status' => true,
                 'message' => trans('dashboard.general.restore')
@@ -149,10 +149,10 @@ class CardPackageController extends Controller
      */
     public function forceDelete($id)
     {
-        $card_package = CardPackage::onlyTrashed()->findOrFail($id);
-        $card_package->forceDelete();
+        $package = Package::onlyTrashed()->findOrFail($id);
+        $package->forceDelete();
 
-        return CardPackageResource::make($card_package)
+        return PackageResource::make($package)
             ->additional([
                 'status' => true,
                 'message' => trans("dashboard . general . success_delete")
