@@ -13,11 +13,13 @@
         responsive: true,
         sDom: "t<'domOption'lpi>",
         serverSide: true,
+        processing: true,
         ajax: {
           url: "{{ route('dashboard.department.show', $department->id) }}?" + $.param(
             @json(request()->query())),
-          dataSrc: 'data'
-        },
+          dataSrc: 'data',
+          type: "GET",
+         },
 
         columns: [{
           data: function (data, type, full, meta) {
@@ -27,7 +29,8 @@
           class:'department_show_index'
         },
           {
-            data: "user.fullname"
+            data: "user.fullname",
+            name: "employee"
           },
           {
             data: function (data) {
@@ -40,7 +43,9 @@
           },
 
           {
-            data: "created_at"
+            data: "created_at",
+            name: "created_at"
+
           },
           {
             data: function (data) {
@@ -49,11 +54,12 @@
           },
           {
             data: "reason",
+            name:"reason"
           },
 
 
         ],
-        pageLength: 10,
+          pageLength: 10,
         lengthMenu: [
             [1, 5, 10, 15, 20],
           ["١", "٥","١٠","١٥", "٢٠"]
