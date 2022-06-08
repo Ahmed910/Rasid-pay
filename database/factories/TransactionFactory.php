@@ -19,8 +19,7 @@ class TransactionFactory extends Factory
             'amount' => $this->faker->numberBetween(1,1000),
             'status' => $this->faker->randomElement($transactionStatues),
             'type' => $this->faker->randomElement($transactionTypes),
-            'transaction_id' => uniqid(),
-            'created_at' => $this->faker->date()
+            'transaction_id' => uniqid()
         ];
     }
 
