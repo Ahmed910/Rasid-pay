@@ -23,7 +23,8 @@ class PackageSeeder extends Seeder
                 'price' => '1234',
                 'duration' => '12',
                 'discount' => '10',
-                'is_active' => true
+                'is_active' => true,
+                'is_default' => true,
             ],
             [
                 'id' => '3cfb9746-9779-4lj-8371-5fjk35c9fca53',
