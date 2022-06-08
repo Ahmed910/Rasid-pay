@@ -23,6 +23,7 @@ class LocalTransferRequest extends ApiMasterRequest
      */
     public function rules()
     {
+        
         return [
             'balance_type'=>'required|in:pay,back',
             'amount'=>'required|numeric',
