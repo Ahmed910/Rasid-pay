@@ -48,7 +48,10 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('MoneyRequests', 'MoneyRequestController@store');
 
     // local transfers
-    Route::post('local_transfer', 'LocalTransferController@store');
+    Route::controller('LocalTransferController')->name('local_transfer.')->prefix('local_transfer')->group(function () {
+        Route::post('/balance','getCurrentBalance')->name('current_balance');
+        Route::post('/', 'store');
+    });
 
     Route::post('money_request', 'MoneyRequestController@store');
 
