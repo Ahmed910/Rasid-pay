@@ -23,6 +23,7 @@ class DatabaseSeeder extends Seeder
             'email' => "admin@info.com",
             'is_active' => 1,
             'ban_status' => 'active',
+            'login_id' => '123456',
             'email_verified_at' => now()->addDay(rand(1, 6)),
             'phone_verified_at' => now()->addDay(rand(1, 6)),
             'password' => '123456789', // secret
@@ -32,6 +33,7 @@ class DatabaseSeeder extends Seeder
 
         $this->call(SettingSeeder::class);
         $this->call(TransactionSeeder::class);
+        $this->call(PackageSeeder::class);
 
         Schema::disableForeignKeyConstraints();
         DB::unprepared(include database_path('Intial_data/countries.php'));

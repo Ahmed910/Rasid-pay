@@ -15,6 +15,8 @@ class AddBanStatusToUsersTable extends Migration
     {
         Schema::table('users', function (Blueprint $table) {
             $table->enum('ban_status', ['active', 'permanent', 'temporary'])->default('active');
+            $table->foreignUuid("added_by_id")->nullable()->constrained('users')->onDelete('set null');
+            $table->foreignUuid("country_id")->nullable()->constrained()->onDelete('set null');
         });
     }
 
@@ -26,7 +28,8 @@ class AddBanStatusToUsersTable extends Migration
     public function down()
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->dropColumn('ban_status');
+            $table->dropForeign(['country_id','added_by_id']);
+            $table->dropColumn('added_by_id', 'country_id', 'ban_status');
         });
     }
 }

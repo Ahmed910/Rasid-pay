@@ -30,6 +30,7 @@ class CreateActivityLogsTable extends Migration
             $table->string("user_type")->nullable();
             $table->softDeletes();
             $table->timestamps();
+            $table->index(['created_at']);
         });
     }
 
