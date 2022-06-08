@@ -7,6 +7,7 @@ $attributes = [
     'login_id'              => 'حقل رقم المستخدم',
     'email'                 => 'حقل البريد الالكتروني',
     'first_name'            => 'حقل الاسم الأول',
+    'identity_number'            => 'حقل رقم الهوية / الإقامة',
     'last_name'             => 'حقل اسم العائلة',
     'password'              => 'حقل كلمة المرور',
     'password_confirmation' => 'حقل تأكيد كلمة المرور',
