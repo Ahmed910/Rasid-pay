@@ -52,6 +52,11 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::post('charge-wallet', 'chargeWallet');
     });
 
+
+    Route::controller('PackageController')->group(function () {
+        Route::get('get_packages', 'getPackages');
+    });
+
     Route::apiResource('card', 'CardController')->only('index','destroy');
     Route::controller('CardController')->name('card.')->prefix('card')->group(function () {
         Route::post('restore/{id}', 'restore')->name('restore');
