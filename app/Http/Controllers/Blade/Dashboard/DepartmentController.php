@@ -80,8 +80,8 @@ class DepartmentController extends Controller
         $department = Department::withTrashed()->findOrFail($id);
         $sortingColumns = [
             'id',
-            'user_name',
-            'department_name',
+            'employee',
+            'main_program',
             'created_at',
             'action_type',
             'reason'
