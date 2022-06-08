@@ -45,6 +45,13 @@ Route::middleware('auth:sanctum')->group(function () {
     // citizen wallet
     Route::get('get_citizen_wallet', 'WalletController@getCitizenWallet');
     //money requests
+    Route::post('MoneyRequests', 'MoneyRequestController@store');
+
+    // local transfers
+    Route::controller('LocalTransferController')->name('local_transfer.')->prefix('local_transfer')->group(function () {
+        Route::post('/', 'store');
+    });
+
     Route::post('money_request', 'MoneyRequestController@store');
 
     Route::controller('WalletController')->group(function () {

@@ -1,17 +1,19 @@
 <?php
 
 namespace App\Models;
-use App\Traits\{Loggable,Uuid};
+
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use App\Traits\Uuid;
 
-class BankTransfer extends Model
+class Payment extends Model
 {
-    use HasFactory, Uuid, Loggable, SoftDeletes;
-    protected $guarded = ['created_at','updated_at', 'deleted_at'];
+    use HasFactory, Uuid , SoftDeletes;
 
     #region properties
+    protected $guarded = ['created_at','deleted_at'];
     #endregion properties
 
     #region mutators
@@ -21,6 +23,10 @@ class BankTransfer extends Model
     #endregion scopes
 
     #region relationships
+    public function citizen(): BelongsTo
+    {
+        return $this->belongsTo(Citizen::class, 'citizen_id');
+    }
     #endregion relationships
 
     #region custom Methods
