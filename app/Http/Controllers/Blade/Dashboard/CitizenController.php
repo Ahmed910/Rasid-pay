@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Blade\Dashboard;
 
 use App\Models\Citizen;
+use App\Models\Package\Package;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\Blade\Dashboard\Citizen\CitizenCollection;
@@ -16,7 +17,7 @@ class CitizenController extends Controller
         }
 
         if ($request->ajax()) {
-            $citizensQuery = Citizen::with(["user.citizenPackages", 'enabledCard.cardPackage'])->search($request);
+            $citizensQuery = Citizen::with(["user.citizenPackages", 'enabledPackage'])->search($request);
             $citizenCount = $citizensQuery->count();
 
             $citizens = $citizensQuery->skip($request->start)
@@ -28,7 +29,8 @@ class CitizenController extends Controller
                 ->additional(['total_count' => $citizenCount]);
         }
 
-        return view('dashboard.citizen.index');
+        $packages = Package::get();
+        return view('dashboard.citizen.index',compact('packages'));
     }
 
     public function update(Request $request, $id)

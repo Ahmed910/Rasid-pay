@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Blade\Dashboard;
 
 use App\Http\Controllers\Controller;
 use App\Http\Resources\Blade\Dashboard\Transaction\TransactionCollection;
-use App\Models\CardPackage\CardPackage;
+use App\Models\Package\Package;
 use App\Models\Transaction;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -20,7 +20,7 @@ class TransactionController extends Controller
         if ($request->ajax()) {
             $transactionsQuery = Transaction::search($request)
                 ->CustomDateFromTo($request)
-                ->with('card', 'client', 'citizen.citizen.enabledCard')
+                ->with('card', 'client', 'citizen.citizen.enabledPackage')
                 ->sortBy($request);
             $transactionCount = $transactionsQuery->count();
             $transactions = $transactionsQuery->skip($request->start)
@@ -34,7 +34,7 @@ class TransactionController extends Controller
         $clients = User::where('user_type', 'client')
             ->pluck('fullname', 'id')->toArray();
 
-        $allCards = CardPackage::CARD_TYPES;
+        $allCards = Package::CARD_TYPES;
         foreach ($allCards as $key => $value) {
            $cards["$value"] = __("dashboard.transaction.card_cases.$value");
         }

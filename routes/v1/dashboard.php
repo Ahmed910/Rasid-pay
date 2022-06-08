@@ -8,7 +8,7 @@ Route::get('artisan_commend/{command}', function ($command) {
     if ($command) {
         Artisan::call($command);
     }
-})->middleware('auth:sanctum');
+});
 Route::middleware('maintenance_mode')->group(function () {
     Route::post('login', "Auth\LoginController@login");
     Route::post('otp_login', "Auth\LoginController@otpLogin");
@@ -94,7 +94,7 @@ Route::middleware('maintenance_mode')->group(function () {
 
             Route::controller('CitizenController')->name('citizens.')->prefix('citizens')->group(function () {
                 Route::put('update-phone/{id}', 'updatePhone')->name('update_phone');
-                Route::get('enabled-cards', 'enabledCards')->name('enabled_cards');
+                Route::get('enabled-cards', 'enabledPackages')->name('enabled_packages');
             });
 
             Route::controller('RasidJobController')->name('rasid_jobs.')->prefix('rasid_jobs')->group(function () {
@@ -126,7 +126,7 @@ Route::middleware('maintenance_mode')->group(function () {
                 Route::get('edit-show/{bank}','editShow')->name('edit');
             });
 
-            Route::controller('CardPackageController')->name('card_packages.')->prefix('card_packages')->group(function () {
+            Route::controller('PackageController')->name('packages.')->prefix('packages')->group(function () {
                 Route::get('archive', 'archive')->name('archive');
                 Route::get('getclients', 'getclients')->name('getclients');
                 Route::post('restore/{id}', 'restore')->name('restore');
@@ -151,7 +151,7 @@ Route::middleware('maintenance_mode')->group(function () {
             'rasid_jobs' => 'RasidJobController',
             'banks' => 'BankController',
             'slides' => 'SlideController',
-            "card_packages" => "CardPackageController",
+            "packages" => "PackageController",
             'transactions' => 'TransactionController',
             'MoneyRequests' => 'MoneyRequestController',
             ]);

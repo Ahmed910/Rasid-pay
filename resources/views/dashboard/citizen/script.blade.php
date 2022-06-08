@@ -62,7 +62,7 @@
                 $('#from-end-at').val("").trigger('change');
                 $('#to-end-at').val("").trigger('change');
                 $('#citizenName,#idNumber,#phone').val(null);
-                $('#enabledcard').val(null).trigger('change');
+                $('#enabledpackage').val(null).trigger('change');
                 table.draw();
             });
 
@@ -74,8 +74,8 @@
                 ajax: {
                     url: "{{ route('dashboard.citizen.index') }}",
                     data: function(data) {
-                        if ($('#enabledcard').val() !== '' && $('#enabledcard').val() !== null) data
-                            .enabled_card = $('#enabledcard').val();
+                        if ($('#enabledpackage').val() !== '' && $('#enabledpackage').val() !== null) data
+                            .enabled_package = $('#enabledpackage').val();
                         if ($('#citizenName').val() !== '' && $('#citizenName').val() !== null) data
                             .fullname = $('#citizenName').val();
                         if ($('#idNumber').val() !== '' && $('#idNumber').val() !== null) data
@@ -115,8 +115,8 @@
                         name: 'phone',
                     },
                     {
-                        data: 'enabled_card',
-                        name: 'enabled_card',
+                        data: 'enabled_package',
+                        name: 'enabled_package',
                     },
                     {
                         data: 'card_end_at',
@@ -173,7 +173,7 @@
             });
 
 
-            $('#enabledcard').on('select2:select', function(e) {
+            $('#enabledpackage').on('select2:select', function(e) {
                 table.draw();
             });
 

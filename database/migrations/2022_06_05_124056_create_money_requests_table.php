@@ -15,6 +15,7 @@ class CreateMoneyRequestsTable extends Migration
     {
         Schema::create('money_requests', function (Blueprint $table) {
             $table->uuid("id")->primary();
+            $table->foreignUuid("added_by_id")->nullable()->constrained('users')->onDelete('set null');
             $table->decimal('amount_required');
             $table->string('phone')->unique()->nullable();
             $table->text('notes')->nullable();

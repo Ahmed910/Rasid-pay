@@ -16,8 +16,11 @@ class CreateTransactionsTable extends Migration
     {
         Schema::create('transactions', function (Blueprint $table) {
             $table->uuid("id")->primary();
-            $table->foreignUuid("card_package_id")->nullable()->constrained()->nullOnDelete();
+            $table->foreignUuid("package_id")->nullable()->constrained()->nullOnDelete();
             $table->foreignUuid("to_user_id")->nullable()->constrained('users')->nullOnDelete();
+            $table->foreignUuid("from_user_id")->constrained("users")->onDelete("cascade");
+            $table->foreignUuid("bank_id")->nullable()->constrained("banks")->OnDelete('set null');
+
             // $table->foreignUuid("client_id")->nullable()->constrained('users')->nullOnDelete();
             $table->unsignedbigInteger('number')->unique();
             $table->string('amount');
@@ -29,6 +32,10 @@ class CreateTransactionsTable extends Migration
             $table->string("transaction_id")->nullable()->unique();
             $table->text("transaction_data")->nullable();
             $table->string("qr_code")->nullable();
+            $table->string("total_amount")->default(0);
+            $table->string("main_balance")->default(0);
+            $table->string("gift_balance")->default(0);
+            $table->string("discount_percent")->default(0);
             $table->softDeletes();
             $table->timestamps();
         });

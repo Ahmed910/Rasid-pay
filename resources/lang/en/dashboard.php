@@ -487,7 +487,7 @@ return [
         "identity_number" => "Identity Number",
         "phone" => "Phone Number",
         "enter_phone" => "Enter Phone Number",
-        "enabled_card" => "Activated Card",
+        "enabled_package" => "Activated Card",
         "choose_card" => "Choose Card",
         'card_end_at_from' => "Card Expiry Date (from)",
         'card_end_at_to' => "Card Expiry Date (to)",
@@ -500,14 +500,10 @@ return [
 
         'edit_phone' => "Edit Phone Number",
         'new_phone' => "New Phone Number",
-        'card_type' => [
-            'basic' => 'Basic',
-            'golden' => 'Golden',
-            'platinum' => 'Platinum',
-        ]
+
     ],
 
-    'card_package' => [
+    'package' => [
 
         "cards_discount" => "Cards discount",
         "basic_card_discount" => "Basic Card Discount",

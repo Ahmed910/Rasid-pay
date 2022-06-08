@@ -666,7 +666,7 @@ return [
         "enter_identity_number" => "أدخل رقم الهوية",
         "phone" => "رقم الجوال",
         "enter_phone" => "أدخل رقم الجوال",
-        "enabled_card" => "البطاقة المفعلة",
+        "enabled_package" => "البطاقة المفعلة",
         "choose_card" => "اختر البطاقة",
         'card_end_at_from' => "تاريخ انتهاء البطاقة (من)",
         'card_end_at_to' => "تاريخ انتهاء البطاقة (إلى)",
@@ -681,15 +681,10 @@ return [
         'edit_phone' => "تعديل رقم الجوال",
         'new_phone' => "رقم الجوال الجديد",
 
-        'card_type' => [
-                'basic' => 'أساسية',
-                'golden' => 'ذهبية',
-                'platinum' => 'بلاتينية',
-            ]
         ],
-     'card_package' => [
-            "card_package" => "نسب خصم البطاقات",
-            "card_packages" => "نسب خصم البطاقات",
+     'package' => [
+            "package" => "نسب خصم البطاقات",
+            "packages" => "نسب خصم البطاقات",
             "cards_discount" => "نسب خصم البطاقات",
             "basic_card_discount" => "نسبة خصم البطاقة الأساسية",
             "enter_discount" => "أدخل نسبة الخصم",

@@ -15,16 +15,16 @@ class Citizen extends Model
 
     #region properties
     protected $guarded = ['created_at', 'updated_at'];
-    // protected $with = ['enabledCard'];
+    // protected $with = ['enabledPackage'];
 
     protected $dates = ['date_of_birth'];
     const USER_SEARCHABLE_COLUMNS = ["fullname",  "country_code", "phone", "full_phone", "identity_number", "created_at"];
     const CITIZEN_SEARCHABLE_COLUMNS  = ["citizen_package_id"];
-    const ENABLEDCARD_SEARCHABLE_COLUMNS = ["enabled_card" => "card_type"];
-    const CARDPKG_SORT_COLUMNS = ["enabled_card" => "card_type"];
+    const ENABLEDPACKAGES_SEARCHABLE_COLUMNS = ["enabled_package" => "card_type"];
+    const CARDPKG_SORT_COLUMNS = ["enabled_package" => "card_type"];
     const CITIZEN_PACKAGES_SORT_COLUMNS = ['card_end_at' => 'end_at'];
-    const ENABLEDCARD_SORTABLE_COLUMNS = ["enabled_card" => "enabledCard.cardPackage", "card_end_at" => "enabledCard.end_at"];
-    const SELECT_ALL = ["enabled_card" => "id"];
+    const ENABLEDPACKAGES_SORTABLE_COLUMNS = ["enabled_package" => "enabledPackage.package", "card_end_at" => "enabledPackage.end_at"];
+    const SELECT_ALL = ["enabled_package" => "id"];
     #endregion properties
 
     #region mutators
@@ -37,9 +37,9 @@ class Citizen extends Model
 
         foreach ($request->all() as $key => $item) {
             if ($item == -1 && in_array($key, self::SELECT_ALL)) $request->request->remove($key);
-            if (key_exists($key, self::ENABLEDCARD_SEARCHABLE_COLUMNS))
-                $query->whereHas('enabledCard', function ($q) use ($key, $item) {
-                    $q->where(self::ENABLEDCARD_SEARCHABLE_COLUMNS[$key], $item);
+            if (key_exists($key, self::ENABLEDPACKAGES_SEARCHABLE_COLUMNS))
+                $query->whereHas('enabledPackage', function ($q) use ($key, $item) {
+                    $q->where(self::ENABLEDPACKAGES_SEARCHABLE_COLUMNS[$key], $item);
                 });
         }
         foreach ($request->all() as $key => $item) {
@@ -54,12 +54,12 @@ class Citizen extends Model
         }
 
         if ($request->end_at_from) {
-            $query->wherehas("enabledCard", function ($q) use ($request) {
+            $query->wherehas("enabledPackage", function ($q) use ($request) {
                 $q->whereDate('end_at', ">=", $request->end_at_from);
             });
         }
         if ($request->end_at_to) {
-            $query->wherehas("enabledCard", function ($q) use ($request) {
+            $query->wherehas("enabledPackage", function ($q) use ($request) {
                 $q->whereDate('end_at', "<=", $request->end_at_to);
             });
         }
@@ -104,7 +104,7 @@ class Citizen extends Model
     }
 
 
-    public function enabledCard()
+    public function enabledPackage()
     {
         return $this->belongsTo(CitizenPackage::class, 'citizen_package_id');
     }

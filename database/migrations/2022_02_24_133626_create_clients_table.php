@@ -24,6 +24,8 @@ class CreateClientsTable extends Migration
             $table->string("nationality")->nullable();
             $table->string("address")->nullable();
             $table->enum('marital_status', ['married', 'single'])->nullable();
+            $table->enum('register_type', ['direct', 'delegate'])->nullable();
+            $table->string("transactions_done")->default(0);
             $table->timestamps();
         });
     }

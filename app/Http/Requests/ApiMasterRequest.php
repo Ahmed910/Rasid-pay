@@ -22,12 +22,20 @@ class ApiMasterRequest extends FormRequest
     {
         if(request()->wantsJson())
         {
+            if (auth()->check() && auth()->user()->user_type != 'citizen') {
+                $data = [
+                    'message' => trans('dashboard.error.something_went_wrong'),
+                    'errors' => request()->is("*/dashboard/*") ? $validator->errors()->toArray() : $validator->errors()->first(),
+                ];
+            }else{
+                $data = [
+                    'message' =>  $validator->errors()->first(),
+                ];
+            }
             throw new HttpResponseException(response()->json([
                 'status' => false,
-                'message' => trans('dashboard.error.something_went_wrong'),
-                'errors' => request()->is("*/dashboard/*") ? $validator->errors()->toArray() : $validator->errors()->first(),
                 'data' => null,
-            ], 422));
+            ] + $data, 422));
         }
     }
 }

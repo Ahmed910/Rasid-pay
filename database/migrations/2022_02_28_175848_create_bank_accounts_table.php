@@ -22,7 +22,8 @@ class CreateBankAccountsTable extends Migration
             $table->string('iban_number')->nullable();
             $table->enum('contract_type', ['pending', 'before_review', 'reviewed'])->default('pending');
             $table->unsignedbigInteger('order_number')->unique();
-
+            $table->enum('account_status', ['pending', 'before_review', 'reviewed','accepted','refused'])->default('pending');
+            $table->text('refused_reason')->nullable();
             $table->timestamps();
         });
 
