@@ -3,21 +3,12 @@
 
 @section('content')
 
+
 <!-- PAGE-HEADER -->
 <div class="page-header">
-  <nav aria-label="breadcrumb">
-    <ol class="breadcrumb">
-      <li class="breadcrumb-item">
-        <a href="{{ route('dashboard.card_package.index') }}">نسب خصم البطاقات
-        </a>
-      </li>
-      <li class="breadcrumb-item active" aria-current="page">
-        سجل
-      </li>
-    </ol>
-  </nav>
+  <h1 class="page-title">نسب خصم البطاقات</h1>
   <a href="{{ route('dashboard.card_package.create') }}" class="btn btn-primary">
-    <i class="mdi mdi-plus-circle-outline"></i> إضافة نسب الخصم
+    <i class="mdi mdi-plus-circle-outline"></i> إضافة نسب خصم البطاقات
   </a>
 </div>
 <!-- PAGE-HEADER END -->
@@ -38,7 +29,7 @@
     </div>
   </div>
   <div class="row">
-    <div class="col-12 col-md-6">
+    <div class="col-12 col-md-6 my-2">
       <div class="dropdown">
         <button class="btn btn-outline-primary dropdown-toggle" type="button" id="dropdownMenuButton1"
           data-bs-toggle="dropdown" aria-expanded="false">
@@ -50,7 +41,7 @@
         </ul>
       </div>
     </div>
-    <div class="col-12 col-md-6 my-3 d-flex justify-content-end">
+    <div class="col-12 col-md-6 my-2 d-flex justify-content-end">
       <button class="btn btn-primary me-2" type="submit">
         <i class="mdi mdi-magnify"></i> بحث
       </button>
