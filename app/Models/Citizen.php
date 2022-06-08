@@ -109,6 +109,11 @@ class Citizen extends Model
         return $this->belongsTo(CitizenPackage::class, 'citizen_package_id');
     }
 
+    public function payments(){
+
+        return $this->hasMany(Payment::class);
+    }
+
     #endregion relationships
 
     #region custom Methods
