@@ -35,7 +35,7 @@ class LocalTransferController extends Controller
         $main_balance_for_current_user->update(['cash_back'=> $new_cash_back,'total_balance'=>$new_total_balance]);
        }
        Transaction::create(['from_user_id'=>auth()->id(),'amount'=>$request->amount,'status'=>'success']);
-       return response()->json(['data'=>[],'message'=>trans('mobile.local_transfers.transfer_has_been_done_successfully')]);
+       return response()->json(['data'=>[],'message'=>trans('mobile.local_transfers.transfer_has_been_done_successfully'),'status'=>true]);
 
     }
 }
