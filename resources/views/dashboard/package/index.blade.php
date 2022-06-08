@@ -6,68 +6,30 @@
 
 <!-- PAGE-HEADER -->
 <div class="page-header">
-  <h1 class="page-title">سجل البنوك</h1>
-  <a href="{{ route('dashboard.bank.create') }}" class="btn btn-primary">
-    <i class="mdi mdi-plus-circle-outline"></i> إضافة بنك
+  <h1 class="page-title">نسب خصم البطاقات</h1>
+  <a href="{{ route('dashboard.package.create') }}" class="btn btn-primary">
+    <i class="mdi mdi-plus-circle-outline"></i> إضافة نسب خصم البطاقات
   </a>
 </div>
 <!-- PAGE-HEADER END -->
 
+
 <!-- FORM OPEN -->
 <form method="get" action="">
   <div class="row align-items-end mb-3">
-    <div class="col-12 col-md-3 mb-3">
-      <label for="bankName">اسم البنك</label>
-      <input type="text" class="form-control" id="bankName" placeholder="اسم البنك" />
-    </div>
-    <div class="col-12 col-md-3 mb-3">
-      <label for="bankType">نوع البنك</label>
-      <select class="form-control select2" id="bankType">
-        <option selected disabled value="">إختر النوع </option>
-        <option>بنك اسلامي</option>
-        <option>بنك استثماري</option>
-        <option>البنك المركزي</option>
+    <div class="col-12 col-md-12 mb-3">
+      <label for="clientName">اسم العميل</label>
+      <select class="form-control select2-show-search" id="client_id">
+        <option selected disabled value="">إختر العميل</option>
+        <option value="-1 "> {{trans("dashboard.general.all_cases")}}</option>
+        @foreach($clients as $key =>$value)
+        <option value="{{ $key }}">{{$value}}</option>
+        @endforeach
       </select>
-    </div>
-    <div class="col-12 col-md-3 mb-3">
-      <label for="bankCode">الكود</label>
-      <input type="text" class="form-control" id="bankCode" placeholder="الكود" />
-    </div>
-    <div class="col-12 col-md-3 mb-3">
-      <label for="bankBranchName">اسم الفرع</label>
-      <input type="text" class="form-control" id="bankBranchName" placeholder="اسم الفرع" />
-    </div>
-    <div class="col-12 col-md-3 mb-3">
-      <label for="bankLocation">الموقع</label>
-      <input type="text" class="form-control" id="bankLocation" placeholder="الموقع" />
-    </div>
-    <div class="col-12 col-md-3 mb-3">
-      <label for="transactionValueFrom">قيمة تكلفة التحويل</label>
-      <div class="input-group">
-        <input id="transactionValueFrom" type="number" placeholder="أدخل قيمة المعاملة " class="form-control" />
-        <div class="input-group-text border-start-0">
-          ر.س
-        </div>
-      </div>
-    </div>
-    <div class="col-12 col-md-3 mb-3">
-      <label for="transactionType">الحالة</label>
-      <select class="form-control select2" id="transactionType">
-        <option selected disabled value="">إختر الحالة </option>
-        <option>ناجحة</option>
-        <option>فاشلة</option>
-        <option>بانتظار الاستلام</option>
-        <option>تم الاستلام</option>
-        <option>تم الإلغاء</option>
-      </select>
-    </div>
-    <div class="col-12 col-md-3 mb-3">
-      <label for="transactionsNumber">عدد المعاملات</label>
-      <input type="number" class="form-control" id="transactionsNumber" placeholder="ادخل عدد المعاملات" />
     </div>
   </div>
   <div class="row">
-    <div class="col-12 col-md-6">
+    <div class="col-12 col-md-6 my-2">
       <div class="dropdown">
         <button class="btn btn-outline-primary dropdown-toggle" type="button" id="dropdownMenuButton1"
           data-bs-toggle="dropdown" aria-expanded="false">
@@ -79,7 +41,7 @@
         </ul>
       </div>
     </div>
-    <div class="col-12 col-md-6 my-3 d-flex justify-content-end">
+    <div class="col-12 col-md-6 my-2 d-flex justify-content-end">
       <button class="btn btn-primary me-2" type="submit">
         <i class="mdi mdi-magnify"></i> بحث
       </button>
@@ -95,106 +57,19 @@
 <div class="row row-sm">
   <div class="col-lg-12">
     <div class="p-1">
-        <table id="transaction" class="table table-bordered text-nowrap shadow-sm bg-body key-buttons historyTable">
+        <table id="transaction-table"
+          class="table table-bordered text-nowrap shadow-sm bg-body key-buttons historyTable">
           <thead>
             <tr>
               <th class="border-bottom-0">#</th>
-              <th class="border-bottom-0">اسم البنك</th>
-              <th class="border-bottom-0">النوع</th>
-              <th class="border-bottom-0">الكود</th>
-              <th class="border-bottom-0">اسم الفرع</th>
-              <th class="border-bottom-0">الموقع</th>
-              <th class="border-bottom-0">قيمة تكلفة التحويل</th>
-              <th class="border-bottom-0">عدد المعاملات</th>
-              <th class="border-bottom-0">الحالة</th>
+              <th class="border-bottom-0">اسم العميل</th>
+              <th class="border-bottom-0">البطاقة الأساسية</th>
+              <th class="border-bottom-0">البطاقة الذهبية</th>
+              <th class="border-bottom-0">البطاقة البلاتينية</th>
               <th class="border-bottom-0">العمليات</th>
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <td>1</td>
-              <td>البنك الأهلي</td>
-              <td>بنك مركزي</td>
-              <td>13254546</td>
-              <td>البنك الأهلي التجاري</td>
-              <td>حي الرياض</td>
-              <td>25.256.66 ر.س</td>
-              <td>25</td>
-              <td>
-                <span class="badge bg-success-opacity py-2 px-4">مفعل</span>
-              </td>
-              <td>
-                <a href="{{ route('dashboard.bank.show',1) }}" class="azureIcon" data-bs-toggle="tooltip"
-                  data-bs-placement="top" title="@lang('dashboard.general.show')"><i
-                    class="mdi mdi-eye-outline"></i></a>
-                <a href="{{ route('dashboard.bank.create') }}" class="warningIcon" data-bs-toggle="tooltip"
-                  data-bs-placement="top" title="@lang('dashboard.general.edit')"><i
-                    class="mdi mdi-square-edit-outline"></i></a>
-              </td>
-            </tr>
-            <tr>
-              <td>2</td>
-              <td>البنك الأهلي</td>
-              <td>بنك مركزي</td>
-              <td>13254546</td>
-              <td>البنك الأهلي التجاري</td>
-              <td>حي الرياض</td>
-              <td>25.256.66 ر.س</td>
-              <td>25</td>
-              <td>
-                <span class="badge bg-danger-opacity py-2 px-4">مفعل</span>
-              </td>
-              <td>
-                <a href="{{ route('dashboard.bank.show',1) }}" class="azureIcon" data-bs-toggle="tooltip"
-                  data-bs-placement="top" title="@lang('dashboard.general.show')"><i
-                    class="mdi mdi-eye-outline"></i></a>
-                <a href="{{ route('dashboard.bank.create') }}" class="warningIcon" data-bs-toggle="tooltip"
-                  data-bs-placement="top" title="@lang('dashboard.general.edit')"><i
-                    class="mdi mdi-square-edit-outline"></i></a>
-              </td>
-            </tr>
-            <tr>
-              <td>3</td>
-              <td>البنك الأهلي</td>
-              <td>بنك مركزي</td>
-              <td>13254546</td>
-              <td>البنك الأهلي التجاري</td>
-              <td>حي الرياض</td>
-              <td>25.256.66 ر.س</td>
-              <td>25</td>
-              <td>
-                <span class="badge bg-success-opacity py-2 px-4">مفعل</span>
-              </td>
-              <td>
-                <a href="{{ route('dashboard.bank.show',1) }}" class="azureIcon" data-bs-toggle="tooltip"
-                  data-bs-placement="top" title="@lang('dashboard.general.show')"><i
-                    class="mdi mdi-eye-outline"></i></a>
-                <a href="{{ route('dashboard.bank.create') }}" class="warningIcon" data-bs-toggle="tooltip"
-                  data-bs-placement="top" title="@lang('dashboard.general.edit')"><i
-                    class="mdi mdi-square-edit-outline"></i></a>
-              </td>
-            </tr>
-            <tr>
-              <td>4</td>
-              <td>البنك الأهلي</td>
-              <td>بنك مركزي</td>
-              <td>13254546</td>
-              <td>البنك الأهلي التجاري</td>
-              <td>حي الرياض</td>
-              <td>25.256.66 ر.س</td>
-              <td>25</td>
-              <td>
-                <span class="badge bg-danger-opacity py-2 px-4">مفعل</span>
-              </td>
-              <td>
-                <a href="{{ route('dashboard.bank.show',1) }}" class="azureIcon" data-bs-toggle="tooltip"
-                  data-bs-placement="top" title="@lang('dashboard.general.show')"><i
-                    class="mdi mdi-eye-outline"></i></a>
-                <a href="{{ route('dashboard.bank.create') }}" class="warningIcon" data-bs-toggle="tooltip"
-                  data-bs-placement="top" title="@lang('dashboard.general.edit')"><i
-                    class="mdi mdi-square-edit-outline"></i></a>
-              </td>
-            </tr>
           </tbody>
         </table>
     </div>
@@ -202,7 +77,7 @@
 </div>
 <!-- End Row -->
 
-@include('dashboard.layouts.modals.archive')
-@include('dashboard.layouts.modals.not_archive')
+@include('dashboard.layouts.modals.alert')
+
 @endsection
 @include('dashboard.package.script')

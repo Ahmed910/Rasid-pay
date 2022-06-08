@@ -29,8 +29,6 @@ class CreateTransfersTable extends Migration
             $table->enum('wallet_transfer_method',Transfer::WALLET_TRANSFER_METHODS)->nullable();
             $table->softDeletes();
             $table->timestamps();
-
-
         });
         Schema::table('transfers', function (Blueprint $table) {
             $table->bigInteger('transfer_number', true, true)->change();
