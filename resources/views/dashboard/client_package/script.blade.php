@@ -111,8 +111,8 @@
             activityLogTablePagination[i].innerText = activityLogTablePagination[i].innerText.replace(activityLogTablePagination[i].innerText, activityLogTablePagination[i].innerText.toArabicUni());
           }
           // info
-          var activityLogTableInfo = document.getElementById('activitylogtable_info').innerText;
-          document.getElementById('activitylogtable_info').innerText = activityLogTableInfo.replace(activityLogTableInfo, activityLogTableInfo.toArabicUni());
+          var packageTableInfo = document.getElementById('package-table_info').innerText;
+          document.getElementById('package-table_info').innerText = packageTableInfo.replace(packageTableInfo, packageTableInfo.toArabicUni());
         }
       });
 

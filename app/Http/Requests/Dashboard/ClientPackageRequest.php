@@ -28,6 +28,7 @@ class ClientPackageRequest extends FormRequest
         return [
             "client_id" => "required|exists:users,id,user_type,client",
             "is_active" => "nullable|boolean",
+<<<<<<< HEAD:app/Http/Requests/Dashboard/ClientPackageRequest.php
             // "basic_discount" => "required|numeric|min:0|max:100|digits_between:1,5",
             // "golden_discount" => "required|numeric|min:0|max:100|digits_between:1,5",
             // "platinum_discount" => "required|numeric|min:0|max:100|digits_between:1,5",
@@ -36,6 +37,11 @@ class ClientPackageRequest extends FormRequest
             'discounts.*' => 'required|array',
             'discounts.*.package_id' => 'required|exists:packages,id',
             'discounts.*.package_discount' => 'required|integer|gt:0|lte:100',
+=======
+            "basic_discount" => "required|numeric|min:0|max:100|digits_between:1,5",
+            "golden_discount" => "required|numeric|min:0|max:100|digits_between:1,5",
+            "platinum_discount" => "required|numeric|min:0|max:100|digits_between:1,5",
+>>>>>>> 8314ae722768886102d264fa2aaf282f711eb59c:app/Http/Requests/Dashboard/PackageRequest.php
         ];
     }
 }
