@@ -22,21 +22,28 @@ class RegisterController extends Controller
         $user->citizenWallet()->create(['wallet_number' => $wallet_number]);
         $package = Package::where(['is_active' => 1, 'is_default' => 1])->first();
         if ($package) {
-            $citizenPackage = $user->citizenPackages()->create([
+            $package_data = [
                 'package_id' => $package->id,
                 'package_price' => $package->price,
                 'package_discount' => $package->discount,
                 'start_at' => now(),
-                'end_at' => now()->addMonths($package->duration),
-                'promo_code' => generate_unique_code(CitizenPackage::class, 'promo_discount'),
-                'promo_discount' => $package->promo_discount,
-                'remaining_usage' => $package->number_of_used
+                'end_at' => now()->addMonths($package->duration)
+            ];
+
+            if ($package->has_promo) {
+                $package_data += [
+                    'promo_code' => generate_unique_code(CitizenPackage::class, 'promo_discount'),
+                    'promo_discount' => $package->promo_discount,
+                    'remaining_usage' => $package->number_of_used
+                ];
+            }
+            
+            $citizenPackage = $user->citizenPackages()->create($package_data);
+
+            $user->citizen()->create([
+                'citizen_package_id' => $citizenPackage->id
             ]);
         }
-
-        $user->citizen()->create([
-            'citizen_package_id' => $citizenPackage->id
-        ]);
         //TODO: api service for elm to verify account
         //TODO: api service for send sms to phone number
         $code = 111111;
