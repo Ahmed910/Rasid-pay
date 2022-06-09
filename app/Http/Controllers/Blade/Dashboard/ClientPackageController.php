@@ -51,19 +51,20 @@ class ClientPackageController extends Controller
         }
     }
 
-    public function edit(Package $package)
+    public function edit($client_id)
     {
         $previousUrl = url()->previous();
         (strpos($previousUrl, 'package')) ? session(['perviousPage' => 'package']) : session(['perviousPage' => 'home']);
-        $client = $package->load(['client:id,fullname'])->client;
-        return view('dashboard.client_package.edit', compact('package', 'client'));
+        $client = User::with('clientPackages')->where('user_type','client')->findOrFail($client_id);
+        $packages = Package::select('id')->listsTranslations('name')->get();
+        return view('dashboard.client_package.edit', compact('client', 'previousUrl','packages'));
     }
 
-    public function update(ClientPackageRequest $request, Package $package)
+    public function update(ClientPackageRequest $request, $client_id)
     {
         if (!request()->ajax()) {
-            $package->fill($request->validated() + ['updated_at' => now()])->save();
-            $client = $package->load(['client:id,fullname'])->client;
+            $client = User::where('user_type','client')->findOrFail($client_id);
+            $client->clientPackages()->sync($request->discounts);
             return redirect()->route('dashboard.client_package.index')->withSuccess(__('dashboard.package.discount_success_update', ['client' => $client->fullname]));
         }
     }
