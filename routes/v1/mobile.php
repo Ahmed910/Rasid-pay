@@ -75,6 +75,8 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::get('transactions/{id}', 'show');
 
     });
+    Route::apiResource('wallet_transfers', 'Transfers\WalletTransferController');
+
 });
 
 Route::get('slides', 'SlideController@index');
