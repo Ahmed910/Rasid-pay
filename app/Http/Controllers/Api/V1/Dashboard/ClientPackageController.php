@@ -10,7 +10,7 @@ use App\Models\Package\Package;
 use App\Models\User;
 use Illuminate\Http\Request;
 
-class PackageController extends Controller
+class ClientPackageController extends Controller
 {
     public function index(Request $request)
     {

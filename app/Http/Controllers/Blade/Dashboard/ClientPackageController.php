@@ -6,10 +6,10 @@ use App\Http\Resources\Blade\Dashboard\Package\PackageCollection;
 use App\Models\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Dashboard\PackageRequest;
+use App\Http\Requests\Dashboard\ClientPackageRequest;
 use App\Models\Package\Package;
 
-class PackageController extends Controller
+class ClientPackageController extends Controller
 {
     public function index(Request $request)
     {
@@ -30,7 +30,7 @@ class PackageController extends Controller
                 ->additional(['total_count' => $citizenCount]);
         }
         $clients = User::has('clientPackages')->where("user_type", "client")->pluck('users.fullname', 'users.id');
-        return view('dashboard.package.index', compact('clients'));
+        return view('dashboard.client_package.index', compact('clients'));
     }
 
     public function create()
@@ -38,15 +38,16 @@ class PackageController extends Controller
         $previousUrl = url()->previous();
         (strpos($previousUrl, 'package')) ? session(['perviousPage' => 'package']) : session(['perviousPage' => 'home']);
         $clients = User::doesntHave('clientPackages')->where("user_type", "client")->pluck('users.fullname', 'users.id')->toArray();
-        return view('dashboard.package.create', compact('clients', 'previousUrl'));
+        $packages = Package::select('id')->listsTranslations('name')->get();
+        return view('dashboard.client_package.create', compact('clients', 'previousUrl','packages'));
     }
 
-    public function store(PackageRequest $request, Package $package)
+    public function store(ClientPackageRequest $request)
     {
         if (!request()->ajax()) {
-            $package->fill($request->validated())->save();
-            $client_name = $package->load(['client:id,fullname'])->client->fullname;
-            return redirect()->route('dashboard.package.index')->withSuccess(__('dashboard.package.discount_success_add', ['client' => $client_name]));
+            $client = User::where('user_type','client')->findOrFail($request->client_id);
+            $client->clientPackages()->sync($request->discounts);
+            return redirect()->route('dashboard.client_package.index')->withSuccess(__('dashboard.package.discount_success_add', ['client' => $client->fullname]));
         }
     }
 
@@ -55,15 +56,15 @@ class PackageController extends Controller
         $previousUrl = url()->previous();
         (strpos($previousUrl, 'package')) ? session(['perviousPage' => 'package']) : session(['perviousPage' => 'home']);
         $client = $package->load(['client:id,fullname'])->client;
-        return view('dashboard.package.edit', compact('package', 'client'));
+        return view('dashboard.client_package.edit', compact('package', 'client'));
     }
 
-    public function update(PackageRequest $request, Package $package)
+    public function update(ClientPackageRequest $request, Package $package)
     {
         if (!request()->ajax()) {
             $package->fill($request->validated() + ['updated_at' => now()])->save();
             $client = $package->load(['client:id,fullname'])->client;
-            return redirect()->route('dashboard.package.index')->withSuccess(__('dashboard.package.discount_success_update', ['client' => $client->fullname]));
+            return redirect()->route('dashboard.client_package.index')->withSuccess(__('dashboard.package.discount_success_update', ['client' => $client->fullname]));
         }
     }
 }
