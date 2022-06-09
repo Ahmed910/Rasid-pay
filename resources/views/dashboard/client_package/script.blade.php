@@ -33,7 +33,7 @@
         sDom: "t<'domOption'lpi>",
         serverSide: true,
         ajax: {
-          url: "{{ route('dashboard.package.index') }}?" + $.param(
+          url: "{{ route('dashboard.client_package.index') }}?" + $.param(
             @json(request()->query())),
            data: function (data) {
             data.id = $('#client_id').val();

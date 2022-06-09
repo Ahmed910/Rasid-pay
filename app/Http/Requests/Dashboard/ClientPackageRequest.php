@@ -6,7 +6,7 @@ use Illuminate\Validation\Rule;
 use Illuminate\Validation\Rules\Unique;
 use Illuminate\Foundation\Http\FormRequest;
 
-class PackageRequest extends FormRequest
+class ClientPackageRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -28,10 +28,14 @@ class PackageRequest extends FormRequest
         return [
             "client_id" => "required|exists:users,id,user_type,client",
             "is_active" => "nullable|boolean",
-            "basic_discount" => "required|numeric|min:0|max:100|digits_between:1,5",
-            "golden_discount" => "required|numeric|min:0|max:100|digits_between:1,5",
-            "platinum_discount" => "required|numeric|min:0|max:100|digits_between:1,5",
+            // "basic_discount" => "required|numeric|min:0|max:100|digits_between:1,5",
+            // "golden_discount" => "required|numeric|min:0|max:100|digits_between:1,5",
+            // "platinum_discount" => "required|numeric|min:0|max:100|digits_between:1,5",
             "image" => "nullable|max:5120|mimes:jpg,png,jpeg",
+            'discounts' => 'required|array',
+            'discounts.*' => 'required|array',
+            'discounts.*.package_id' => 'required|exists:packages,id',
+            'discounts.*.package_discount' => 'required|integer|gt:0|lte:100',
         ];
     }
 }
