@@ -13,4 +13,9 @@ return [
         'you_can_complete_your_transaction'=>'يمكنك إستكمال العملية',
         'your_tries_have_been_expired'=>'لقد تم إنتهاء محاولاتك لإتمام العميلة'
     ],
+   
+    'global_transfers'=>[
+        'current_balance_is_not_sufficiant_to_complete_transaction'=>'الرصيد الحالي لا يكفي لإجراء عملية التحويل',
+        'transfer_has_been_done_successfully'=>'تمت عملية التحويل بنجاح'
+    ]
 ];

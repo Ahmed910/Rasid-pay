@@ -82,7 +82,12 @@ $attributes = [
     'permission_list.*'   => 'حقل الصلاحيات الفردية',
     'group_list'   => 'حقل المجموعات',
     'group_list.*'   => 'حقل المجموعات',
-    'code'    => 'رمز التحقق'
+    'code'    => 'رمز التحقق',
+    'iban_number' => 'حقل رقم الحساب ',
+    'relation' => 'حقل علاقة القرابة',
+    'recieve_option_id' => 'حقل غرض التحويل',
+    'nationality' => 'حقل الجنسية',
+    'date_of_birth' => 'حقل تاريخ الميلاد'
 ];
 
 foreach (config('translatable.locales') as $locale) {

@@ -84,7 +84,6 @@ class User extends Authenticatable implements HasAssetsInterface
         return $this->permissions->pluck('id')->toArray();
     }
 
-
     public function getGroupListAttribute()
     {
         return $this->groups->pluck('id')->toArray();
@@ -202,7 +201,7 @@ class User extends Authenticatable implements HasAssetsInterface
 
     public function benficiaryTransfer()
     {
-        return $this->hasOne(Beneficiary::class,'citizen_id');
+        return $this->hasMany(Beneficiary::class);
     }
 
     public function cards()

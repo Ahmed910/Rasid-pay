@@ -18,7 +18,7 @@ class Citizen extends Model
     // protected $with = ['enabledPackage'];
 
     protected $dates = ['date_of_birth'];
-    const USER_SEARCHABLE_COLUMNS = ["fullname",  "country_code", "phone", "full_phone", "identity_number", "created_at"];
+    const USER_SEARCHABLE_COLUMNS = ["fullname",  "country_code", "phone", "identity_number", "created_at"];
     const CITIZEN_SEARCHABLE_COLUMNS  = ["citizen_package_id"];
     const ENABLEDPACKAGES_SEARCHABLE_COLUMNS = ["enabled_package" => "card_type"];
     const CARDPKG_SORT_COLUMNS = ["enabled_package" => "card_type"];

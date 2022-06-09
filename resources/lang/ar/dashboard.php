@@ -237,7 +237,9 @@ return [
         ],
     ],
     "citizen" => [
-        "citizens" => "المواطنون",],
+        "citizens" => "المواطنون",
+        "same_citizen_transfer"=>"عفوا، لا يمكن التحويل لمحفظتك الشخصية"
+        ],
     "cardpackage" => [
         "cardpackages" => "باقات البطاقات",
         'basic' => 'اساسية',
@@ -611,6 +613,10 @@ return [
             'receive_credit' => 'استلام رصيد',
             'wallet_charge' => 'شحن رصيد',
             'upgrade_card' => 'ترقية بطاقات',
+            'pay' => 'دفع',
+            'transfer' => 'تحويل',
+            'charge' => 'شحن',
+            'money_request' => 'طلب أموال',
         ],
     ],
     "client" => [
@@ -694,11 +700,13 @@ return [
         "packages" => "نسب خصم البطاقات",
         "cards_discount" => "نسب خصم البطاقات",
         "basic_card_discount" => "نسبة خصم البطاقة الأساسية",
+        "package_title" => "نسبة خصم :name",
         "enter_discount" => "أدخل نسبة الخصم",
         "golden_card_discount" => "نسبة خصم البطاقة الذهبية",
         "platinum_card_discount" => "نسبة خصم البطاقة البلاتينية",
         "cards_discount_records" => "سجل نسب خصم البطاقات",
         "add" => "إضافة نسب الخصم",
+        "without" => "لا يوجد",
         "discount_success_add" => "تم إضافة نسب خصم البطاقات للعميل  :client",
         "discount_success_update" => "تم تعديل نسب خصم البطاقات للعميل  :client",
         'permissions' => array_except($permissions, ['show'])

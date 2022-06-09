@@ -23,7 +23,7 @@ class CreateTransfersTable extends Migration
             $table->decimal('transfer_fees')->default(0);
             $table->enum('transfer_type',Transfer::TRANSFER_TYPES);
             $table->string('transfer_status')->default('pending');
-            $table->enum('fee_upon',Transfer::FEE_UPON);
+            $table->enum('fee_upon',Transfer::FEE_UPON)->nullable();
             $table->unsignedbigInteger('transfer_number')->unique();
             $table->string('phone')->nullable();
             $table->enum('wallet_transfer_method',Transfer::WALLET_TRANSFER_METHODS)->nullable();

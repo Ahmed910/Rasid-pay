@@ -82,6 +82,15 @@ Route::middleware('auth:sanctum')->group(function () {
             Route::get('transactions/{id}', 'show');
         });
     });
+
+    Route::controller('beneficiaryController')->group(function () {
+        Route::post('beneficiaries', 'store');
+        Route::get('beneficiaries/{beneficiary}', 'show');
+    });
+
+
+    Route::apiResource('wallet_transfers', 'Transfers\WalletTransferController');
+
 });
 
 

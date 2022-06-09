@@ -35,6 +35,10 @@
       error: function (data) {
         toggleSaveButton();
 
+        if(data.status == 401) {
+          window.location.reload(true)
+        }
+
         $.each(data.responseJSON.errors, function (name, message) {
           let inputName = name;
           let inputError = name + "Error";

@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api\V1\Mobile;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\V1\Mobile\BalanceTypeRequest;
 use App\Http\Requests\V1\Mobile\LocalTransferRequest;
+use App\Http\Resources\Mobile\LocalTransferResource;
 use App\Models\{CitizenWallet, Device, Transaction, Transfer};
 
 
@@ -14,7 +15,7 @@ class LocalTransferController extends Controller
 
     public function store(LocalTransferRequest $request)
     {
-        
+
             // check main_balance is suffienct or not
             $wallet = CitizenWallet::with('citizen')->where('citizen_id', auth()->id())->firstOrFail();
 
@@ -39,4 +40,19 @@ class LocalTransferController extends Controller
             return response()->json(['data' => null, 'message' => trans('mobile.local_transfers.transfer_has_been_done_successfully'), 'status' => true]);
 
     }
+
+    public function getLocalTransfer($id)
+    {
+        $transfer = Transfer::with('bank_transfer')->findOrFail($id);
+
+        return LocalTransferResource::make($transfer)->additional(['status' => true, 'message' => ""]);
+    }
+
+
+
+
+
+
+
+
 }
