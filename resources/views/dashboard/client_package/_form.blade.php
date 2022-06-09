@@ -16,7 +16,7 @@
             @endif
         </div>
         @foreach ($packages as $package)
-            <div class="col-12 col-md-6 mb-5">
+        <div class="col-12 col-md-6 mb-5">
             {!! Form::label('discountRate_'. $package->id, trans('dashboard.package.package_title',['name' => $package->name])) !!}
 
             <span class="requiredFields">*</span>
@@ -36,12 +36,12 @@
 
                 <div class="input-group-text border-start-0"> % </div>
             </div>
-            <span class="text-danger" id="basic_discountError" hidden></span>
+            <span class="text-danger" id="discounts.{{ $loop->index }}.package_discountError" hidden></span>
 
         </div>
 
         @endforeach
-        
+
     </div>
 </div>
 
