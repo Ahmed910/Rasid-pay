@@ -126,7 +126,7 @@ Route::middleware('maintenance_mode')->group(function () {
                 Route::get('edit-show/{bank}','editShow')->name('edit');
             });
 
-            Route::controller('PackageController')->name('packages.')->prefix('packages')->group(function () {
+            Route::controller('ClientPackageController')->name('client_package.')->prefix('client_package')->group(function () {
                 Route::get('archive', 'archive')->name('archive');
                 Route::get('getclients', 'getclients')->name('getclients');
                 Route::post('restore/{id}', 'restore')->name('restore');
@@ -151,7 +151,7 @@ Route::middleware('maintenance_mode')->group(function () {
             'rasid_jobs' => 'RasidJobController',
             'banks' => 'BankController',
             'slides' => 'SlideController',
-            "packages" => "PackageController",
+            "client_package" => "ClientPackageController",
             'transactions' => 'TransactionController',
             'MoneyRequests' => 'MoneyRequestController',
             ]);

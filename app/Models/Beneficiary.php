@@ -2,11 +2,12 @@
 
 namespace App\Models;
 
-use App\Models\Country\Country;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use App\Models\RecieveOption\RecieveOption;
+use App\Models\Country\Country;
 use App\Traits\Uuid;
 
 class  Beneficiary extends Model
@@ -45,6 +46,8 @@ class  Beneficiary extends Model
     {
         return $this->hasMany(BankTransfer::class);
     }
+
+
 
 
     public function recieveOption(): BelongsTo

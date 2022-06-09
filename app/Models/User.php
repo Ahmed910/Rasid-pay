@@ -84,7 +84,6 @@ class User extends Authenticatable implements HasAssetsInterface
         return $this->permissions->pluck('id')->toArray();
     }
 
-
     public function getGroupListAttribute()
     {
         return $this->groups->pluck('id')->toArray();

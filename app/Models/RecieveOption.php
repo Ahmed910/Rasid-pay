@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 use App\Traits\Uuid;
 
-class RecieveOption extends Model
+class recieveOption extends Model
 {
     use HasFactory, Uuid , SoftDeletes;
 
