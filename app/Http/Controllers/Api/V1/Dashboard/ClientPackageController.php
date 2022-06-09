@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api\V1\Dashboard;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\V1\Dashboard\CardPackageRequest;
+use App\Http\Requests\V1\Dashboard\CardPackageUpdateRequest;
 use App\Http\Resources\Dashboard\PackageResource;
 use App\Http\Resources\Dashboard\SimpleUserResource;
 use App\Models\Package\Package;
@@ -45,28 +46,12 @@ class ClientPackageController extends Controller
 
     public function store(CardPackageRequest $request)
     {
-        $client = User::where('user_type','client')->findOrFail($request->client_id);
+        $client = User::where('user_type', 'client')->findOrFail($request->client_id);
         $client->clientPackages()->sync($request->discounts);
         return PackageResource::make($client)->additional([
             'status' => true,
             'message' => __('dashboard.package.discount_success_add', ['client' => $client->fullname])
         ]);
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * //     * @param int $id
-     * //     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        $package = Package::withTrashed()->findOrFail($id)->client;
-        return PackageResource::make($package)
-            ->additional([
-                'status' => true,
-                'message' => ""
-            ]);
     }
 
     /**
@@ -76,75 +61,13 @@ class ClientPackageController extends Controller
      * @param int $id
      * @return \Illuminate\Http\Response
      */
-    public function update(PackageRequest $request, Package $package)
+    public function update(CardPackageUpdateRequest $request,$client_id)
     {
-        $package->fill($request->validated() + ['updated_at' => now()])->save();
-        $package->load(['images', 'addedBy']);
-        return PackageResource::make($package->client)
-            ->additional([
-                'status' => true,
-                'message' => trans("dashboard . general . success_update")
-            ]);;
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param int $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Package $package)
-    {
-        $package->delete();
-        return PackageResource::make($package)
-            ->additional([
-                'status' => true,
-                'message' => trans('dashboard.general.success_archive'),
-            ]);
-    }
-
-    /**
-     * return archived card packages
-     */
-    public function archive(Request $request)
-    {
-        $packages = Package::onlyTrashed()->with("translations")->latest()->paginate((int)($request->per_page ?? config("globals.per_page")));
-        return PackageResource::collection($packages)->additional([
+        $client = User::where('user_type', 'client')->findOrFail($client_id);
+        $client->clientPackages()->sync($request->discounts);
+        return PackageResource::make($client)->additional([
             'status' => true,
-            'message' => ""
-
+            'message' => trans("dashboard.general.success_update")
         ]);
-    }
-
-    /**
-     * restore deleted card package
-     * @param int $id
-     */
-    public function restore($id)
-    {
-        $package = Package::onlyTrashed()->findOrFail($id);
-        $package->restore();
-
-        return PackageResource::make($package)
-            ->additional([
-                'status' => true,
-                'message' => trans('dashboard.general.restore')
-            ]);
-    }
-
-    /**
-     * force Delete card package
-     * @param int $id
-     */
-    public function forceDelete($id)
-    {
-        $package = Package::onlyTrashed()->findOrFail($id);
-        $package->forceDelete();
-
-        return PackageResource::make($package)
-            ->additional([
-                'status' => true,
-                'message' => trans("dashboard . general . success_delete")
-            ]);
     }
 }
