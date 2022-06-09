@@ -32,7 +32,10 @@ class LoginController extends Controller
     public function login(LoginRequest $request)
     {
         $credentials = $this->getCredentials($request);
-        $user = User::firstWhere('identity_number', $request->identity_number);
+        $user = User::firstWhere([
+            'identity_number' => $request->identity_number,
+            'user_type'       => 'citizen'
+        ]);
         if (!$user) {
             return response()->json(['status' => false, 'data' => null, 'message' => trans('auth.account_not_exists')], 422);
         }
@@ -57,6 +60,7 @@ class LoginController extends Controller
                     'ban_status' => 'permanent',
                     'ban_date' => $user->ban_to,
                 ], 'message' => trans('auth.ban_temporary')], 403);
+
         }
         if (!Auth::attempt($credentials)) {
             return response()->json(['status' => false, 'data' => null, 'message' => trans('auth.failed')], 406);

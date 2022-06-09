@@ -202,7 +202,7 @@ class User extends Authenticatable implements HasAssetsInterface
 
     public function benficiaryTransfer()
     {
-        return $this->hasOne(Beneficiary::class,'citizen_id');
+        return $this->hasMany(Beneficiary::class);
     }
 
     public function cards()
