@@ -26,7 +26,7 @@ class PackageRequest extends FormRequest
     public function rules()
     {
         return [
-            "client_id" => "required|exists:users,id,user_type,client|unique:packages,client_id,".@$this->package->id,
+            "client_id" => "required|exists:users,id,user_type,client",
             "is_active" => "nullable|boolean",
             "basic_discount" => "required|numeric|min:0|max:100|digits_between:1,5",
             "golden_discount" => "required|numeric|min:0|max:100|digits_between:1,5",
