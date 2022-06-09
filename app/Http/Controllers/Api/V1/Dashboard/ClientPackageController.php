@@ -55,22 +55,6 @@ class ClientPackageController extends Controller
     }
 
     /**
-     * Display the specified resource.
-     *
-     * //     * @param int $id
-     * //     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        $package = Package::withTrashed()->findOrFail($id)->client;
-        return PackageResource::make($package)
-            ->additional([
-                'status' => true,
-                'message' => ""
-            ]);
-    }
-
-    /**
      * Update the specified resource in storage.
      *
      * @param \Illuminate\Http\PackageRequest $request
@@ -85,66 +69,5 @@ class ClientPackageController extends Controller
             'status' => true,
             'message' => trans("dashboard.general.success_update")
         ]);
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param int $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Package $package)
-    {
-        $package->delete();
-        return PackageResource::make($package)
-            ->additional([
-                'status' => true,
-                'message' => trans('dashboard.general.success_archive'),
-            ]);
-    }
-
-    /**
-     * return archived card packages
-     */
-    public function archive(Request $request)
-    {
-        $packages = Package::onlyTrashed()->with("translations")->latest()->paginate((int)($request->per_page ?? config("globals.per_page")));
-        return PackageResource::collection($packages)->additional([
-            'status' => true,
-            'message' => ""
-
-        ]);
-    }
-
-    /**
-     * restore deleted card package
-     * @param int $id
-     */
-    public function restore($id)
-    {
-        $package = Package::onlyTrashed()->findOrFail($id);
-        $package->restore();
-
-        return PackageResource::make($package)
-            ->additional([
-                'status' => true,
-                'message' => trans('dashboard.general.restore')
-            ]);
-    }
-
-    /**
-     * force Delete card package
-     * @param int $id
-     */
-    public function forceDelete($id)
-    {
-        $package = Package::onlyTrashed()->findOrFail($id);
-        $package->forceDelete();
-
-        return PackageResource::make($package)
-            ->additional([
-                'status' => true,
-                'message' => trans("dashboard . general . success_delete")
-            ]);
     }
 }
