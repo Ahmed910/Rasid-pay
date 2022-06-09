@@ -43,13 +43,14 @@ class Transaction extends Model
     const client_searchable_Columns = ["user_to", "client_type", "commercial_number", "nationality", "tax_number", "transactions_done"];
     const client_sortable_Columns = ["user_to" => "fullname", "client_type" => "client_type", "commercial_number" => "commercial_number", "nationality" => "nationality", "tax_number" => "tax_number", "transactions_done" => "transactions_done"];
     const ENABLED_CARD_sortable_COLUMNS = ["enabled_package" => "card_type"];
+    const TRANACTION_TYPES = ['pay', 'transfer', 'charge', 'money_request'];
 
     public static function boot()
     {
         parent::boot();
        static::created(function ($item) {
            $qr_code = self::createQr($item->trans_number);
-           $item->update(['qr_code' => $qr_code]);
+           $item->update(['qr_path' => $qr_code]);
        });
     }
 
@@ -66,7 +67,7 @@ class Transaction extends Model
             ->encoding('UTF-8')
             ->merge(public_path('dashboardAssets/images/brand/logoQR.png'), .2, true)
             ->size(500)
-            ->generate($qr_value, $path);
+            ->generate((string)$qr_value, $path);
         return 'images/transactions/' . $filname;
     }
 

@@ -7,7 +7,7 @@ use App\Http\Requests\V1\Mobile\Auth\CheckVerificationCodeRequest;
 use App\Http\Requests\V1\Mobile\Auth\CompleteRegisterRequest;
 use App\Http\Requests\V1\Mobile\Auth\RegisterRequest;
 use App\Http\Resources\Mobile\UserResource;
-use App\Models\{User, CitizenWallet, Package\Package};
+use App\Models\{CitizenPackage, User, CitizenWallet, Package\Package};
 
 class RegisterController extends Controller
 {
@@ -20,15 +20,28 @@ class RegisterController extends Controller
         // Generate Wallet Number & QR
         $wallet_number = generate_unique_code(CitizenWallet::class, 'wallet_number', 11, 'numbers');
         $user->citizenWallet()->create(['wallet_number' => $wallet_number]);
-        $user->citizen()->create();
         $package = Package::where(['is_active' => 1, 'is_default' => 1])->first();
         if ($package) {
-            $user->citizenPackages()->create([
+            $package_data = [
                 'package_id' => $package->id,
                 'package_price' => $package->price,
                 'package_discount' => $package->discount,
                 'start_at' => now(),
-                'end_at' => now()->addMonths($package->duration),
+                'end_at' => now()->addMonths($package->duration)
+            ];
+
+            if ($package->has_promo) {
+                $package_data += [
+                    'promo_code' => generate_unique_code(CitizenPackage::class, 'promo_discount'),
+                    'promo_discount' => $package->promo_discount,
+                    'remaining_usage' => $package->number_of_used
+                ];
+            }
+            
+            $citizenPackage = $user->citizenPackages()->create($package_data);
+
+            $user->citizen()->create([
+                'citizen_package_id' => $citizenPackage->id
             ]);
         }
         //TODO: api service for elm to verify account

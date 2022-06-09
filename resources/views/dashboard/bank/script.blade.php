@@ -185,6 +185,9 @@
         $('#transactions_count').val(null);
         $('#name').val(null);
         table.draw();
+        if (location.href.includes('?')) {
+            history.pushState({}, null, location.href.split('?')[0]);
+          }
       });
 
       $("#search-form").submit(function (e) {

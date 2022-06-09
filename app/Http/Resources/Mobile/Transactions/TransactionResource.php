@@ -10,10 +10,10 @@ class TransactionResource extends JsonResource
     {
         return [
             'id'               => $this->id,
-            'number'           => $this->number,
-            'amount'           => $this->amount,
-            'type'             => trans("dashboard.transaction.type_cases.{$this->type}") ,
-            'status'           => trans("dashboard.transaction.status_cases.{$this->status}") ,
+            'number'           => $this->trans_number,
+            'amount'           => (float) $this->amount,
+            'type'             => trans("dashboard.transaction.type_cases.{$this->trans_type}") ,
+            'status'           => trans("dashboard.transaction.status_cases.{$this->trans_status}") ,
             'transaction_id'   => $this->transaction_id,
             'transaction_data' => $this->transaction_data,
             'qr_code'          => $this->qr_code,

@@ -142,6 +142,9 @@
                 $('#citizenName,#idNumber,#phone').val(null);
                 $('#enabledpackage').val(null).trigger('change');
                 table.draw();
+                if (location.href.includes('?')) {
+                  history.pushState({}, null, location.href.split('?')[0]);
+                }
             });
 
             $('#enabledpackage').on('select2:select', function(e) {

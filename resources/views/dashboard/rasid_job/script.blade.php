@@ -219,6 +219,9 @@
         $('#type').val(null).trigger('change');
         $('#from-hijri-picker-custom').val("").trigger('change');
         $('#to-hijri-picker-custom').val("").trigger('change');
+        if (location.href.includes('?')) {
+            history.pushState({}, null, location.href.split('?')[0]);
+          }
         table.draw();
       });
 

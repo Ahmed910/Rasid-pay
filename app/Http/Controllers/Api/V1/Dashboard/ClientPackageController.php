@@ -10,13 +10,8 @@ use App\Models\Package\Package;
 use App\Models\User;
 use Illuminate\Http\Request;
 
-class PackageController extends Controller
+class ClientPackageController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index(Request $request)
     {
         if (isset($request->order[0]['column'])) {

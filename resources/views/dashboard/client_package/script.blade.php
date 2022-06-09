@@ -33,7 +33,7 @@
         sDom: "t<'domOption'lpi>",
         serverSide: true,
         ajax: {
-          url: "{{ route('dashboard.package.index') }}?" + $.param(
+          url: "{{ route('dashboard.client_package.index') }}?" + $.param(
             @json(request()->query())),
            data: function (data) {
             data.id = $('#client_id').val();
@@ -111,8 +111,8 @@
             activityLogTablePagination[i].innerText = activityLogTablePagination[i].innerText.replace(activityLogTablePagination[i].innerText, activityLogTablePagination[i].innerText.toArabicUni());
           }
           // info
-          var activityLogTableInfo = document.getElementById('activitylogtable_info').innerText;
-          document.getElementById('activitylogtable_info').innerText = activityLogTableInfo.replace(activityLogTableInfo, activityLogTableInfo.toArabicUni());
+          var packageTableInfo = document.getElementById('package-table_info').innerText;
+          document.getElementById('package-table_info').innerText = packageTableInfo.replace(packageTableInfo, packageTableInfo.toArabicUni());
         }
       });
 
@@ -129,6 +129,9 @@
         $('#mainProgram').val(null);
         $('#branchProgram').val(null);
         table.draw();
+        if (location.href.includes('?')) {
+            history.pushState({}, null, location.href.split('?')[0]);
+          }
       });
 
       $("#search-form").submit(function (e) {

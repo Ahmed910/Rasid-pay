@@ -7,7 +7,7 @@
 <!-- PAGE-HEADER -->
 <div class="page-header">
   <h1 class="page-title">نسب خصم البطاقات</h1>
-  <a href="{{ route('dashboard.package.create') }}" class="btn btn-primary">
+  <a href="{{ route('dashboard.client_package.create') }}" class="btn btn-primary">
     <i class="mdi mdi-plus-circle-outline"></i> إضافة نسب خصم البطاقات
   </a>
 </div>
@@ -31,7 +31,7 @@
   <div class="row">
     <div class="col-12 col-md-6 my-2">
       <div class="dropdown">
-        <button class="btn btn-outline-primary dropdown-toggle" type="button" id="dropdownMenuButton1"
+        <button class="btn btn-outline-primary dropdown-toggle exportBtn" type="button" id="dropdownMenuButton1"
           data-bs-toggle="dropdown" aria-expanded="false">
           <i class="mdi mdi-tray-arrow-down"></i> تصدير
         </button>
@@ -80,4 +80,4 @@
 @include('dashboard.layouts.modals.alert')
 
 @endsection
-@include('dashboard.package.script')
+@include('dashboard.client_package.script')
