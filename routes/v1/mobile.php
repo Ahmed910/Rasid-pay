@@ -53,6 +53,13 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::get('get_local_transfer/{id}','getLocalTransfer');
     });
 
+    //global transfers
+    Route::controller('GlobalTransferController')->group(function () {
+        Route::post('global_transfer', 'store');
+
+    });
+    
+
     Route::post('money_request', 'MoneyRequestController@store');
 
     Route::controller('WalletController')->group(function () {

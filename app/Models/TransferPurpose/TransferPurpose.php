@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Traits\Uuid;
 use Astrotomic\Translatable\Translatable;
+use App\Models\BankTransfer;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class TransferPurpose extends Model
@@ -25,6 +26,10 @@ class TransferPurpose extends Model
     #endregion scopes
 
     #region relationships
+    public function bankTransfer()
+    {
+        return $this->hasMany(BankTransfer::class);
+    }
     #endregion relationships
 
     #region custom Methods

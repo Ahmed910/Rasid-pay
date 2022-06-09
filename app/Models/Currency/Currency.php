@@ -39,6 +39,10 @@ class Currency extends Model implements TranslatableContract
     {
         return $this->belongsTo(User::class, 'added_by_id');
     }
+    public function bankTransfer()
+    {
+        return $this->hasMany(BankTransfer::class);
+    }
     #endregion relationships
 
     #region custom Methods
