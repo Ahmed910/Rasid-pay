@@ -35,7 +35,7 @@ class LocalTransferController extends Controller
             }
             //$main_balance_for_current_user-
             $transaction_data = ['user_identity' => $wallet->citizen->identity_number, 'trans_type' => 'transfer', 'from_user_id' => auth()->id(), 'amount' => $request->amount, 'status' => 'success'];
-            $local_transfer->transaction()->create($transaction_data);
+           // $local_transfer->transaction()->create($transaction_data);
             //  Transaction::create(['user_identity' => $wallet->citizen->identity_number,'trans_type'=>'transfer','from_user_id'=>auth()->id(),'amount'=>$request->amount,'status'=>'success']);
             return response()->json(['data' => null, 'message' => trans('mobile.local_transfers.transfer_has_been_done_successfully'), 'status' => true]);
 
