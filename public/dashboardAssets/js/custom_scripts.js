@@ -114,3 +114,10 @@ $("#from-hijri-picker-custom").on('dp.change', function (event) {
 $("#to-hijri-picker-custom").on('dp.change', function (event) {
     insertUrlParam('created_to', $('#to-hijri-picker-custom').val());
 });
+
+$('.exportBtn').on('click',function(){
+    ul = $(this).next('ul');
+    $(ul).children().each(function(index,item){
+        $(item).find('a').attr('href',$(item).find('a').attr('href') + window.location.search);
+    });
+});

@@ -157,7 +157,9 @@
                 $('#name').val(null);
                 $('#userNumFrom').val(null);
                 $('#userNumTo').val(null);
-
+                if (location.href.includes('?')) {
+                  history.pushState({}, null, location.href.split('?')[0]);
+                }
                 table.draw();
             });
 

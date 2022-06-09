@@ -204,6 +204,9 @@
                 $('#from-hijri-picker-custom').val("").trigger('change');
                 $('#to-hijri-picker-custom').val("").trigger('change');
                 table.draw();
+                if (location.href.includes('?')) {
+                  history.pushState({}, null, location.href.split('?')[0]);
+                }
             });
             $("#search-form").submit(function(e) {
                 e.preventDefault();

@@ -38,16 +38,16 @@
     </div>
     <div class="col-12 col-md-6 mt-5">
       <div class="dropdown">
-        <button class="btn btn-outline-primary dropdown-toggle" type="button" id="dropdownMenuButton1"
+        <button class="btn btn-outline-primary dropdown-toggle exportBtn" type="button" id="dropdownMenuButton1"
           data-bs-toggle="dropdown" aria-expanded="false">
           <i class="mdi mdi-tray-arrow-down"></i> {!! trans('dashboard.general.export') !!}
         </button>
         <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
           <li><a class="dropdown-item"
-                            href="{{ url(app()->getLocale().'/dashboard/group/exportPDF')  }}?{{ http_build_query(request()->query()) }}"
+                            href="{{ url(app()->getLocale().'/dashboard/group/exportPDF')  }}"
                             target="_blank">PDF</a></li>
                     <li><a class="dropdown-item"
-                            href="{{ url(app()->getLocale().'/dashboard/group/export') }}?{{ http_build_query(request()->query()) }}"
+                            href="{{ url(app()->getLocale().'/dashboard/group/export') }}"
                             target="_blank">Excel</a></li>
         </ul>
       </div>
