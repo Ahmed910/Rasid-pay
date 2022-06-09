@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Api\V1\Dashboard;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\V1\Dashboard\PackageRequest;
+use App\Http\Requests\V1\Dashboard\CardPackageRequest;
 use App\Http\Resources\Dashboard\PackageResource;
 use App\Http\Resources\Dashboard\SimpleUserResource;
 use App\Models\Package\Package;
@@ -43,19 +43,13 @@ class ClientPackageController extends Controller
         ]);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * //     * @param \Illuminate\Http\Request $request
-     * //     * @return \Illuminate\Http\Response
-     */
-    public function store(PackageRequest $request, Package $package)
+    public function store(CardPackageRequest $request)
     {
-        $package->fill($request->validated() + ['added_by_id' => auth()->id()])->save();
-        $package->load(['images', 'addedBy']);
-        return PackageResource::make($package->client)->additional([
+        $client = User::where('user_type','client')->findOrFail($request->client_id);
+        $client->clientPackages()->sync($request->discounts);
+        return PackageResource::make($client)->additional([
             'status' => true,
-            'message' => trans("dashboard.general.success_add")
+            'message' => __('dashboard.package.discount_success_add', ['client' => $client->fullname])
         ]);
     }
 
