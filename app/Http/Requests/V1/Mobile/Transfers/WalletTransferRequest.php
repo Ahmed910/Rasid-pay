@@ -24,17 +24,18 @@ class WalletTransferRequest extends ApiMasterRequest
      *
      * @return array
      */
-    public $map = [
-        "identity_number" => "required|numeric|not_regex:/^0/|digits_between:10,20|exists:users,identity_number,user_type,citizen",
-        "wallet_number" => "required|exists:citizen_wallets,wallet_number",
-        "phone" => ["required", "starts_with:5", "numeric", "digits_between:5,9"]
-    ];
+
 
     public function rules()
     {
+        $map = [
+            "identity_number" => "required|numeric|not_regex:/^0/|digits_between:10,20|exists:users,identity_number,user_type,citizen",
+            "wallet_number" => "required|exists:citizen_wallets,wallet_number",
+            "phone" => ["required", "starts_with:5", "numeric", "digits_between:5,9"]
+        ];
         if (isset($this->wallet_transfer_method) && isset($this->transfer_type_value) && $this->wallet_transfer_method == "wallet_number") {
             $citizen = CitizenWallet::where("wallet_number", $this->transfer_type_value)->pluck("citizen_id")->first();
-            return $this->sending_to_himself($citizen);
+            $this->sending_to_himself($citizen);
         } //check if citizen is sending to himself
 
 
@@ -54,9 +55,9 @@ class WalletTransferRequest extends ApiMasterRequest
                 if ($citizen) {
                     $rules += ["transfer_status" => ["nullable", "in:accepted"]]; //  if receiver existed
 
-                    return $this->sending_to_himself($citizen); //check if citizen is sending to himself
+                    $this->sending_to_himself($citizen); //check if citizen is sending to himself
                 } else $rules += ["transfer_status" => ["required", "in:accepted,holding"]]; //  if receiver not existed
-            }
+            } else   $rules += ["transfer_status" => ["nullable", "in:accepted"]];
 
         }
         return $rules;
