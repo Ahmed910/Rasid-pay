@@ -1,6 +1,8 @@
 <?php
 
 namespace App\Models;
+
+use App\Models\TransferPurpose\TransferPurpose;
 use App\Traits\{Loggable,Uuid};
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -26,9 +28,16 @@ class BankTransfer extends Model
     {
         return $this->belongsTo(Beneficiary::class, 'beneficiary_id');
     }
+
     public function transfers()
     {
         return $this->hasMany(Transfer::class);
+    }
+
+
+    public function transferPurpose(): BelongsTo
+    {
+        return $this->belongsTo(TransferPurpose::class, 'transfer_purpose_id');
     }
     #endregion relationships
 

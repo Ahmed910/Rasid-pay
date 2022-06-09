@@ -52,6 +52,9 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::post('/', 'store');
         Route::get('get_local_transfer/{id}','getLocalTransfer');
     });
+    // invoice local transfer
+    Route::get('get_invoice_local_ransfer/{id}', 'InvoiceLocalTransferController@getInvoiceLocalTransfer');
+
 
     Route::post('money_request', 'MoneyRequestController@store');
 

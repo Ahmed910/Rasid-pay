@@ -25,6 +25,10 @@ class TransferPurpose extends Model
     #endregion scopes
 
     #region relationships
+    public function bankTransfer()
+    {
+        return $this->hasMany(BankTransfer::class);
+    }
     #endregion relationships
 
     #region custom Methods
