@@ -10,18 +10,25 @@ use App\Models\RecieveOption\RecieveOption;
 use App\Models\Country\Country;
 use App\Traits\Uuid;
 
-class Beneficiary extends Model
+class  Beneficiary extends Model
 {
-    use HasFactory, Uuid , SoftDeletes;
+    use HasFactory, Uuid, SoftDeletes;
 
     #region properties
-    protected $guarded = ['created_at','deleted_at'];
+    protected $guarded = ['created_at', 'deleted_at'];
+    const LOCAL_TYPE = 'local';
+    const GLOBAL_TYPE = 'global';
+    const TYPES = [
+        self::LOCAL_TYPE,
+        self::GLOBAL_TYPE
+    ];
     #endregion properties
 
     #region mutators
     #endregion mutators
 
     #region scopes
+
     #endregion scopes
 
     #region relationships
@@ -29,9 +36,10 @@ class Beneficiary extends Model
     {
         return $this->belongsTo(Country::class);
     }
-    public function user()
+
+    public function user(): BelongsTo
     {
-        return $this->belongsTo(User::class,'citizen_id');
+        return $this->belongsTo(User::class);
     }
 
     public function bankTransfer()
@@ -39,12 +47,13 @@ class Beneficiary extends Model
         return $this->hasMany(BankTransfer::class);
     }
 
-    public function recieveOption()
+
+
+
+    public function recieveOption(): BelongsTo
     {
-        return $this->belongsTo(RecieveOption::class,'recieve_option_id');
+        return $this->belongsTo(RecieveOption::class);
     }
-
-
     #endregion relationships
 
     #region custom Methods

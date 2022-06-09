@@ -489,6 +489,9 @@ return [
             'delete_reply' => 'حذف الرد علي رسالة دعم فني',
         ]
     ],
+    'bank_branch' => [
+        'bank_branches' => 'فروع البنوك',
+    ],
     "employee" => [
         "employee" => "الموظف",
         "employees" => "الموظفين",
@@ -691,11 +694,13 @@ return [
         "packages" => "نسب خصم البطاقات",
         "cards_discount" => "نسب خصم البطاقات",
         "basic_card_discount" => "نسبة خصم البطاقة الأساسية",
+        "package_title" => "نسبة خصم :name",
         "enter_discount" => "أدخل نسبة الخصم",
         "golden_card_discount" => "نسبة خصم البطاقة الذهبية",
         "platinum_card_discount" => "نسبة خصم البطاقة البلاتينية",
         "cards_discount_records" => "سجل نسب خصم البطاقات",
         "add" => "إضافة نسب الخصم",
+        "without" => "لا يوجد",
         "discount_success_add" => "تم إضافة نسب خصم البطاقات للعميل  :client",
         "discount_success_update" => "تم تعديل نسب خصم البطاقات للعميل  :client",
         'permissions' => array_except($permissions, ['show'])

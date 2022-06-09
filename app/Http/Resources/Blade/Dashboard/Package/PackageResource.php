@@ -14,14 +14,27 @@ class PackageResource extends JsonResource
      */
     public function toArray($request)
     {
+        $package_discount = [];
+        foreach ($this->clientPackages as $clientPackage) {
+            if ($clientPackage->id == $clientPackage->pivot->package_id) {
+                $package_discount[$clientPackage->name] = $clientPackage->pivot->package_discount;
+            }
+        }
         return [
             "fullname" => $this->fullname,
-            "basic_discount" => $this->package?->basic_discount,
-            "golden_discount" => $this->package?->golden_discount,
-            "platinum_discount" => $this->package?->platinum_discount,
-            "edit_route" => route("dashboard.package.edit", $this->package?->id),
+<<<<<<< HEAD
+            "basic_discount" => array_key_exists(trans('dashboard.cardpackage.basic'), $package_discount) ? $package_discount[trans('dashboard.cardpackage.basic')] : trans('dashboard.package.without') ,
+            "golden_discount" => array_key_exists(trans('dashboard.cardpackage.golden'), $package_discount) ? $package_discount[trans('dashboard.cardpackage.golden')] :trans('dashboard.package.without') ,
+            "platinum_discount" => array_key_exists(trans('dashboard.cardpackage.platinum'), $package_discount) ? $package_discount[trans('dashboard.cardpackage.platinum')] : trans('dashboard.package.without') ,
+            "edit_route" => route("dashboard.client_package.edit", $this->id),
+=======
+            "basic_discount" => array_key_exists(trans('dashboard.cardpackage.basic'), $package_discount) ? $package_discount[trans('dashboard.cardpackage.basic')] : 0,
+            "golden_discount" => array_key_exists(trans('dashboard.cardpackage.golden'), $package_discount) ? $package_discount[trans('dashboard.cardpackage.golden')] : 0,
+            "platinum_discount" => array_key_exists(trans('dashboard.cardpackage.platinum'), $package_discount) ? $package_discount[trans('dashboard.cardpackage.platinum')] : 0,
+            "edit_route" => route("dashboard.package.edit", $this->id),
+>>>>>>> 8314ae722768886102d264fa2aaf282f711eb59c
             'start_from' => $request->start
-
         ];
     }
+
 }

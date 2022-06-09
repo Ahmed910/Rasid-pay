@@ -1,37 +1,16 @@
 <!-- SELECT2 JS -->
 @section('datatable_script')
-    <script src="{{ asset('dashboardAssets/plugins/datatable/js/jquery.dataTables.min.js') }}"></script>
-    <script src="{{ asset('dashboardAssets/plugins/datatable/js/dataTables.bootstrap5.js') }}"></script>
-    <script src="{{ asset('dashboardAssets/plugins/datatable/dataTables.responsive.min.js') }}"></script>
-    <script src="{{ asset('dashboardAssets/plugins/datatable/responsive.bootstrap5.min.js') }}"></script>
+<script src="{{ asset('dashboardAssets/plugins/datatable/js/jquery.dataTables.min.js') }}"></script>
+<script src="{{ asset('dashboardAssets/plugins/datatable/js/dataTables.bootstrap5.js') }}"></script>
+<script src="{{ asset('dashboardAssets/plugins/datatable/dataTables.responsive.min.js') }}"></script>
+<script src="{{ asset('dashboardAssets/plugins/datatable/responsive.bootstrap5.min.js') }}"></script>
 @endsection
 @section('scripts')
-    <script src="{{ asset('dashboardAssets/js/custom_scripts.js') }}"></script>
-    <script src="{{ asset('dashboardAssets/plugins/bootstrap-hijri-datepicker/js/bootstrap-hijri-datetimepicker.js') }}">
-    </script>
-    <script>
-        $(function() {
-            $("#orderTable").DataTable({
-        responsive: true,
-                sDom: "t<'domOption'lpi>",
-                pageLength: 10,
-                lengthMenu: [
-                    [1, 5, 10, 20, -1],
-                  ["١", "٥","١٠", "٢٠","الكل"],
-                ],
-
-                language: {
-                    lengthMenu: "عرض _MENU_",
-                    zeroRecords: "لا يوجد بيانات",
-                    info: "عرض _PAGE_ من _PAGES_ عنصر",
-                    infoEmpty: "لا يوجد نتائج بحث متاحة",
-                    paginate: {
-                        previous: '<i class="mdi mdi-chevron-right"></i>',
-                        next: '<i class="mdi mdi-chevron-left"></i>',
-                    },
-                },
-            });
-
+<script src="{{ asset('dashboardAssets/js/custom_scripts.js') }}"></script>
+<script src="{{ asset('dashboardAssets/plugins/bootstrap-hijri-datepicker/js/bootstrap-hijri-datetimepicker.js') }}">
+</script>
+<script>
+  $(function() {
             /******* Calendar *******/
             $("#from-created-at, #to-created-at, #from-end-at ,#to-end-at")
                 .hijriDatePicker({
@@ -46,50 +25,26 @@
                     maxDate: '2100-01-01',
                     showClear:true,
                     isRTL: "{{ LaravelLocalization::getCurrentLocaleDirection() == 'rtl' }}"
-                }).on('dp.change', function() {
-                    table.draw();
+                  }).on('dp.change', function() {
+                      table.draw();
                 });
 
-            $("#citizen-search").submit(function(e) {
-                e.preventDefault();
-                table.draw();
-            });
-
-            $("#citizen-search").on('reset', function(e) {
-                e.preventDefault();
-                $('#from-created-at').val("").trigger('change');
-                $('#to-created-at').val("").trigger('change');
-                $('#from-end-at').val("").trigger('change');
-                $('#to-end-at').val("").trigger('change');
-                $('#citizenName,#idNumber,#phone').val(null);
-                $('#enabledpackage').val(null).trigger('change');
-                table.draw();
-            });
-
             var table = $("#citizenTable").DataTable({
-        responsive: true,
+                responsive: true,
                 sDom: "t<'domOption'lpi>",
                 serverSide: true,
                 processing: true,
                 ajax: {
                     url: "{{ route('dashboard.citizen.index') }}",
                     data: function(data) {
-                        if ($('#enabledpackage').val() !== '' && $('#enabledpackage').val() !== null) data
-                            .enabled_package = $('#enabledpackage').val();
-                        if ($('#citizenName').val() !== '' && $('#citizenName').val() !== null) data
-                            .fullname = $('#citizenName').val();
-                        if ($('#idNumber').val() !== '' && $('#idNumber').val() !== null) data
-                            .identity_number = $('#idNumber').val();
-                        if ($('#phone').val() !== '' && $('#phone').val() !== null) data.phone = $(
-                            '#phone').val();
-                        if ($('#from-created-at').val() !== '' && $('#from-created-at').val() !== null)
-                            data.created_from = $('#from-created-at').val();
-                        if ($('#to-created-at').val() !== '' && $('#to-created-at').val() !== null) data
-                            .created_to = $('#to-created-at').val();
-                        if ($('#from-end-at').val() !== '' && $('#from-end-at').val() !== null) data
-                            .end_at_from = $('#from-end-at').val();
-                        if ($('#to-end-at').val() !== '' && $('#to-end-at').val() !== null) data
-                            .end_at_to = $('#to-end-at').val();
+                        if ($('#enabledpackage').val()) data.enabled_package = $('#enabledpackage').val();
+                        if ($('#citizenName').val()) data.fullname = $('#citizenName').val();
+                        if ($('#idNumber').val()) data.identity_number = $('#idNumber').val();
+                        if ($('#phone').val()) data.phone = $('#phone').val();
+                        if ($('#from-created-at').val()) data.created_from = $('#from-created-at').val();
+                        if ($('#to-created-at').val()) data.created_to = $('#to-created-at').val();
+                        if ($('#from-end-at').val()) data.end_at_from = $('#from-end-at').val();
+                        if ($('#to-end-at').val()) data.end_at_to = $('#to-end-at').val();
                     },
                     type: "GET",
                     dataSrc: 'data',
@@ -173,27 +128,32 @@
             });
 
 
-            $('#enabledpackage').on('select2:select', function(e) {
-                table.draw();
-            });
-
-            $("#idNumber,#citizenName,#phone,#idNumber").keyup(function() {
-                table.draw();
-            });
-
-
-            $('#citizen-search').on('reset', function(e) {
+            $("#citizen-search").submit(function(e) {
                 e.preventDefault();
-                $('#phone,#citizenName').val(null);
+                table.draw();
+            });
+
+            $("#citizen-search").on('reset', function(e) {
+                e.preventDefault();
                 $('#from-created-at').val("").trigger('change');
                 $('#to-created-at').val("").trigger('change');
                 $('#from-end-at').val("").trigger('change');
                 $('#to-end-at').val("").trigger('change');
+                $('#citizenName,#idNumber,#phone').val(null);
+                $('#enabledpackage').val(null).trigger('change');
+                table.draw();
+                if (location.href.includes('?')) {
+                  history.pushState({}, null, location.href.split('?')[0]);
+                }
+            });
+
+            $('#enabledpackage').on('select2:select', function(e) {
+                insertUrlParam($(this).attr('id'), $(this).val());
                 table.draw();
             });
 
-            $("#search-form").submit(function(e) {
-                e.preventDefault();
+            $("#idNumber,#citizenName,#phone").keyup(function() {
+                insertUrlParam($(this).attr('id'), $(this).val());
                 table.draw();
             });
 
@@ -211,7 +171,7 @@
             });
 
         });
-    </script>
-    <script src="{{ asset('dashboardAssets/js/select2.js') }}"></script>
-    <script src="{{ asset('dashboardAssets/plugins/select2/select2.full.min.js') }}"></script>
+</script>
+<script src="{{ asset('dashboardAssets/js/select2.js') }}"></script>
+<script src="{{ asset('dashboardAssets/plugins/select2/select2.full.min.js') }}"></script>
 @endsection

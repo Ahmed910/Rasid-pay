@@ -100,7 +100,7 @@ Route::group(
                 // 'activity_log' => 'ActivityLogController',
                 'bank_account' => 'BankAccountController',
                 'bank' => 'BankController',
-                'package' => 'PackageController',
+                'client_package' => 'ClientPackageController',
             ]);
         });
 });

@@ -179,18 +179,23 @@
                 },
                 formatNoMatches: "Enter valid format text"
             })
+
+
             $("#job_name").keyup(function() {
+                insertUrlParam('name', $('#job_name').val());
                 table.draw();
             });
+
             $('#mainDepartment').on('select2:select', function(e) {
+                insertUrlParam('department_id', $('#mainDepartment').val());
                 table.draw();
             });
+
             $('#status').on('select2:select', function(e) {
+                insertUrlParam('is_active', $('#status').val());
                 table.draw();
             });
-            $('#type').on('select2:select', function(e) {
-                table.draw();
-            });
+
             $('#search-form').on('reset', function(e) {
                 e.preventDefault();
                 $('#job_name').val(null);
@@ -199,6 +204,9 @@
                 $('#from-hijri-picker-custom').val("").trigger('change');
                 $('#to-hijri-picker-custom').val("").trigger('change');
                 table.draw();
+                if (location.href.includes('?')) {
+                  history.pushState({}, null, location.href.split('?')[0]);
+                }
             });
             $("#search-form").submit(function(e) {
                 e.preventDefault();

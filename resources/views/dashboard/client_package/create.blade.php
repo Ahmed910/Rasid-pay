@@ -8,7 +8,7 @@
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
                 <li class="breadcrumb-item">
-                    <a href="{{ route('dashboard.package.index') }}">{{ trans('dashboard.package.cards_discount') }}
+                    <a href="{{ route('dashboard.client_package.index') }}">{{ trans('dashboard.package.cards_discount') }}
                     </a>
                 </li>
                 <li class="breadcrumb-item active" aria-current="page"> {{ trans('dashboard.general.add') }} </li>
@@ -17,9 +17,9 @@
     </div>
     <!-- PAGE-HEADER END -->
 
-    {!! Form::open(['route' => 'dashboard.package.store', 'method' => 'POST', 'id' => 'formId']) !!}
+    {!! Form::open(['route' => 'dashboard.client_package.store', 'method' => 'POST', 'id' => 'formId']) !!}
 
-         @include('dashboard.package._form')
+         @include('dashboard.client_package._form')
 
     {!! Form::close() !!}
 
@@ -124,7 +124,7 @@
                     $('#backModal').modal('show');
                     return false;
                 } else {
-                    window.location.href = "{{ route('dashboard.package.index') }}";
+                    window.location.href = "{{ route('dashboard.client_package.index') }}";
                 }
             });
 

@@ -89,8 +89,8 @@ class CitizenController extends Controller
 
     public function enabledPackages()
     {
-        $enabledPackages = Package::getTransCards();
-
+        $enabledPackages = Package::select('id')
+        ->listsTranslations('name')->get();
         return response()->json([
             'data' => $enabledPackages,
             'status' => true,

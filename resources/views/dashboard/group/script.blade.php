@@ -133,18 +133,21 @@
                 },
             });
 
-
             $('#status').on('select2:select', function(e) {
+                insertUrlParam('is_active', $('#status').val());
                 table.draw();
             });
 
             $("#name").keyup(function() {
+                insertUrlParam('name', $('#name').val());
                 table.draw();
             });
             $("#userNumFrom").keyup(function() {
+                insertUrlParam('admins_from', $('#userNumFrom').val());
                 table.draw();
             });
             $("#userNumTo").keyup(function() {
+                insertUrlParam('admins_to', $('#userNumTo').val());
                 table.draw();
             });
 
@@ -154,7 +157,9 @@
                 $('#name').val(null);
                 $('#userNumFrom').val(null);
                 $('#userNumTo').val(null);
-
+                if (location.href.includes('?')) {
+                  history.pushState({}, null, location.href.split('?')[0]);
+                }
                 table.draw();
             });
 
