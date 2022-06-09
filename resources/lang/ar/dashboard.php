@@ -699,6 +699,7 @@ return [
         "platinum_card_discount" => "نسبة خصم البطاقة البلاتينية",
         "cards_discount_records" => "سجل نسب خصم البطاقات",
         "add" => "إضافة نسب الخصم",
+        "without" => "لا يوجد",
         "discount_success_add" => "تم إضافة نسب خصم البطاقات للعميل  :client",
         "discount_success_update" => "تم تعديل نسب خصم البطاقات للعميل  :client",
         'permissions' => array_except($permissions, ['show'])

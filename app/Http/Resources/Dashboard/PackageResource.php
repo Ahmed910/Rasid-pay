@@ -16,21 +16,20 @@ class PackageResource extends JsonResource
     public function toArray($request)
     {
         $package_discount = [];
-        $default_package_discount = [];
         foreach ($this->clientPackages as $clientPackage) {
             if ($clientPackage->id == $clientPackage->pivot->package_id) {
                 $package_discount[$clientPackage->name] = $clientPackage->pivot->package_discount;
             }
         }
-        foreach (Package::all() as $package) {
-            $default_package_discount[$package->name] = $package->discount;
-        }
-        return [
-            "client" => SimpleUserResource::make($this),
-            "basic_discount" => array_key_exists(trans('dashboard.cardpackage.basic'), $package_discount) ? $package_discount[trans('dashboard.cardpackage.basic')] : $default_package_discount[trans('dashboard.cardpackage.basic')],
-            "golden_discount" => array_key_exists(trans('dashboard.cardpackage.golden'), $package_discount) ? $package_discount[trans('dashboard.cardpackage.golden')] : $default_package_discount[trans('dashboard.cardpackage.golden')],
-            "platinum_discount" => array_key_exists(trans('dashboard.cardpackage.platinum'), $package_discount) ? $package_discount[trans('dashboard.cardpackage.platinum')] : $default_package_discount[trans('dashboard.cardpackage.platinum')],
 
+        return [
+            "fullname" => $this->fullname,
+            "basic_discount" => array_key_exists(trans('dashboard.cardpackage.basic'), $package_discount) ? $package_discount[trans('dashboard.cardpackage.basic')] : trans('dashboard.package.without') ,
+            "golden_discount" => array_key_exists(trans('dashboard.cardpackage.golden'), $package_discount) ? $package_discount[trans('dashboard.cardpackage.golden')] :trans('dashboard.package.without') ,
+            "platinum_discount" => array_key_exists(trans('dashboard.cardpackage.platinum'), $package_discount) ? $package_discount[trans('dashboard.cardpackage.platinum')] : trans('dashboard.package.without') ,
+            "edit_route" => route("dashboard.package.edit", $this->id),
+            'start_from' => $request->start
         ];
     }
+
 }
