@@ -38,10 +38,11 @@ class Transfer extends Model
     #endregion scopes
 
     #region relationships
-    public function transactions()
+    public function transaction()
     {
-        return $this->hasMany(Transaction::class);
+        return $this->morphOne(Transaction::class, "transactionable");
     }
+    
     public function bank_transfer()
     {
         return $this->hasOne(BankTransfer::class,'transfer_id');

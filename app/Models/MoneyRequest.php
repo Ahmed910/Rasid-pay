@@ -22,9 +22,9 @@ class MoneyRequest extends Model
     #endregion scopes
 
     #region relationships
-    public function transactions()
+    public function transaction()
     {
-        return $this->hasMany(Transaction::class);
+        return $this->morphOne(Transaction::class, "transactionable");
     }
     #endregion relationships
 

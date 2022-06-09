@@ -28,9 +28,9 @@ class Payment extends Model
         return $this->belongsTo(Citizen::class, 'citizen_id');
     }
 
-    public function transactions()
+    public function transaction()
     {
-        return $this->hasMany(Transaction::class);
+        return $this->morphOne(Transaction::class, "transactionable");
     }
     #endregion relationships
 
