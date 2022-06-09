@@ -5,6 +5,7 @@ use App\Traits\{Loggable,Uuid};
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class BankTransfer extends Model
 {
@@ -21,6 +22,14 @@ class BankTransfer extends Model
     #endregion scopes
 
     #region relationships
+    public function benficiary(): BelongsTo
+    {
+        return $this->belongsTo(Beneficiary::class, 'beneficiary_id');
+    }
+    public function transfers()
+    {
+        return $this->hasMany(Transfer::class);
+    }
     #endregion relationships
 
     #region custom Methods

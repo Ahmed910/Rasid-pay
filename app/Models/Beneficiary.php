@@ -41,6 +41,12 @@ class  Beneficiary extends Model
         return $this->belongsTo(User::class);
     }
 
+    public function bankTransfers()
+    {
+        return $this->hasMany(BankTransfer::class);
+    }
+
+
     public function recieveOption(): BelongsTo
     {
         return $this->belongsTo(RecieveOption::class);
