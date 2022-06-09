@@ -31,7 +31,6 @@ class PackageRequest extends FormRequest
             "basic_discount" => "required|numeric|min:0|max:100|digits_between:1,5",
             "golden_discount" => "required|numeric|min:0|max:100|digits_between:1,5",
             "platinum_discount" => "required|numeric|min:0|max:100|digits_between:1,5",
-            "image" => "nullable|max:5120|mimes:jpg,png,jpeg",
         ];
     }
 }
