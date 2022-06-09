@@ -53,6 +53,11 @@ class BankTransfer extends Model
 
 
 
+   
+    public function transfers()
+    {
+        return $this->hasMany(Transfer::class);
+    }
     #endregion relationships
 
     #region custom Methods

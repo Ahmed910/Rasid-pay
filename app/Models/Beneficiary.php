@@ -42,7 +42,7 @@ class  Beneficiary extends Model
         return $this->belongsTo(User::class);
     }
 
-    public function bankTransfer()
+    public function bankTransfers()
     {
         return $this->hasMany(BankTransfer::class);
     }
