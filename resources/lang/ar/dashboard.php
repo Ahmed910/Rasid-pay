@@ -611,6 +611,10 @@ return [
             'receive_credit' => 'استلام رصيد',
             'wallet_charge' => 'شحن رصيد',
             'upgrade_card' => 'ترقية بطاقات',
+            'pay' => 'دفع',
+            'transfer' => 'تحويل',
+            'charge' => 'شحن',
+            'money_request' => 'طلب أموال',
         ],
     ],
     "client" => [
