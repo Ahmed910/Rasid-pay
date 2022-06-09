@@ -85,7 +85,7 @@
 <div class="row">
   <div class="col-12 col-md-6">
     <div class="dropdown">
-      <button class="btn btn-outline-primary dropdown-toggle" type="button" id="dropdownMenuButton1"
+      <button class="btn btn-outline-primary dropdown-toggle exportBtn" type="button" id="dropdownMenuButton1"
         data-bs-toggle="dropdown" aria-expanded="false">
         <i class="mdi mdi-tray-arrow-down"></i> تصدير
       </button>
