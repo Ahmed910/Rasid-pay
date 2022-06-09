@@ -25,5 +25,9 @@ class WalletCharge extends Model
     #endregion relationships
 
     #region custom Methods
+    public function transaction()
+    {
+        return $this->morphOne(Transaction::class, "transactionable");
+    }
     #endregion custom Methods
 }
