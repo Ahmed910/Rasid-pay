@@ -133,18 +133,21 @@
                 },
             });
 
-
             $('#status').on('select2:select', function(e) {
+                insertUrlParam('is_active', $('#status').val());
                 table.draw();
             });
 
             $("#name").keyup(function() {
+                insertUrlParam('name', $('#name').val());
                 table.draw();
             });
             $("#userNumFrom").keyup(function() {
+                insertUrlParam('admins_from', $('#userNumFrom').val());
                 table.draw();
             });
             $("#userNumTo").keyup(function() {
+                insertUrlParam('admins_to', $('#userNumTo').val());
                 table.draw();
             });
 

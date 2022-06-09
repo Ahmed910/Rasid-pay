@@ -57,7 +57,7 @@ class ActivityLog extends Model
     public function scopeSearch(Builder $query, $request)
     {
 
-        if (isset($request->action) && in_array($request->action, [1, 0])) {
+        if (isset($request->action) && !in_array($request->action, [-1])) {
             $query->where('action_type', $request->action);
         }
 
@@ -71,11 +71,11 @@ class ActivityLog extends Model
             });
         }
 
-        if (isset($request->main_program) && in_array($request->main_program, [1, 0])) {
+        if (isset($request->main_program) && !in_array($request->main_program, [-1])) {
             $query->where('auditable_type', $request->main_program);
         }
 
-        if (isset($request->sub_program) && in_array($request->sub_program, [1, 0])) {
+        if (isset($request->sub_program) && !in_array($request->sub_program, [-1])) {
             $query->where('sub_program', $request->sub_program);
         }
 

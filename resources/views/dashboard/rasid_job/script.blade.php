@@ -191,20 +191,23 @@
         formatNoMatches: "Enter valid format text"
       })
 
-
       $("#job_name").keyup(function () {
+        insertUrlParam('name', $('#job_name').val());
         table.draw();
       });
 
       $('#mainDepartment').on('select2:select', function (e) {
+        insertUrlParam('department_id', $('#mainDepartment').val());
         table.draw();
       });
 
       $('#status').on('select2:select', function (e) {
+        insertUrlParam('is_active', $('#status').val());
         table.draw();
       });
 
       $('#type').on('select2:select', function (e) {
+        insertUrlParam('is_vacant', $('#type').val());
         table.draw();
       });
 

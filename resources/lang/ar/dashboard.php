@@ -489,6 +489,9 @@ return [
             'delete_reply' => 'حذف الرد علي رسالة دعم فني',
         ]
     ],
+    'bank_branch' => [
+        'bank_branches' => 'فروع البنوك',
+    ],
     "employee" => [
         "employee" => "الموظف",
         "employees" => "الموظفين",
