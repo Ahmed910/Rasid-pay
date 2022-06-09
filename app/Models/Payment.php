@@ -5,9 +5,10 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use App\Traits\Uuid;
 
-class MoneyRequest extends Model
+class Payment extends Model
 {
     use HasFactory, Uuid , SoftDeletes;
 
@@ -22,6 +23,11 @@ class MoneyRequest extends Model
     #endregion scopes
 
     #region relationships
+    public function citizen(): BelongsTo
+    {
+        return $this->belongsTo(Citizen::class, 'citizen_id');
+    }
+
     public function transaction()
     {
         return $this->morphOne(Transaction::class, "transactionable");
@@ -30,7 +36,4 @@ class MoneyRequest extends Model
 
     #region custom Methods
     #endregion custom Methods
-
-
-
 }

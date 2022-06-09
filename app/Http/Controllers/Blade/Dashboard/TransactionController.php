@@ -16,11 +16,10 @@ class TransactionController extends Controller
         if (isset($request->order[0]['column'])) {
             $request['sort'] = ['column' => $request['columns'][$request['order'][0]['column']]['name'], 'dir' => $request['order'][0]['dir']];
         }
-
         if ($request->ajax()) {
             $transactionsQuery = Transaction::search($request)
                 ->CustomDateFromTo($request)
-                ->with('card', 'client', 'citizen.citizen.enabledPackage')
+                ->with('card', 'client', 'citizen.citizen.enabledPackage','transactionable')
                 ->sortBy($request);
             $transactionCount = $transactionsQuery->count();
             $transactions = $transactionsQuery->skip($request->start)
@@ -34,11 +33,8 @@ class TransactionController extends Controller
         $clients = User::where('user_type', 'client')
             ->pluck('fullname', 'id')->toArray();
 
-        $allCards = Package::CARD_TYPES;
-        foreach ($allCards as $key => $value) {
-           $cards["$value"] = __("dashboard.transaction.card_cases.$value");
-        }
+        $packages = Package::select("id")->ListsTranslations("name")->pluck('name', 'id')->toArray();
 
-        return view('dashboard.transaction.index', compact('clients', 'cards'));
+        return view('dashboard.transaction.index', compact('clients', 'packages'));
     }
 }

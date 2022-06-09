@@ -96,3 +96,28 @@ $(function(){
 
 
 });
+
+function insertUrlParam(key, value) {
+    if (history.pushState) {
+      let searchParams = new URLSearchParams(window.location.search);
+      searchParams.set(key, value);
+      let newurl = window.location.protocol + "//" + window.location.host + window.location.pathname + '?' + searchParams.toString();
+      window.history.pushState({path: newurl}, '', newurl);
+    }
+}
+
+
+$("#from-hijri-picker-custom").on('dp.change', function (event) {
+    insertUrlParam('created_from', $('#from-hijri-picker-custom').val());
+});
+
+$("#to-hijri-picker-custom").on('dp.change', function (event) {
+    insertUrlParam('created_to', $('#to-hijri-picker-custom').val());
+});
+
+$('.exportBtn').on('click',function(){
+    ul = $(this).next('ul');
+    $(ul).children().each(function(index,item){
+        $(item).find('a').attr('href',$(item).find('a').attr('href') + window.location.search);
+    });
+});

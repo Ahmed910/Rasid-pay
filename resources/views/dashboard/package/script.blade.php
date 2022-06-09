@@ -11,26 +11,7 @@
   {{-- Ajax DataTable --}}
   <script>
     $(function () {
-      $("#transaction").DataTable({
-        responsive: true,
-        sDom: "t<'domOption'lpi>",
-        pageLength: 10,
-        lengthMenu: [
-          [1, 5, 10, 20, -1],
-          ["١", "٥","١٠", "٢٠","الكل"]
-        ],
 
-        language: {
-          lengthMenu: "عرض _MENU_",
-          zeroRecords: "لا يوجد بيانات",
-          info: "عرض _PAGE_ من _PAGES_ عنصر",
-          infoEmpty: "لا يوجد نتائج بحث متاحة",
-          paginate: {
-            previous: '<i class="mdi mdi-chevron-right"></i>',
-            next: '<i class="mdi mdi-chevron-left"></i>',
-          },
-        },
-      });
       /******* Calendar *******/
       $("#from-hijri-picker-custom, #to-hijri-picker-custom, #from-hijri-unactive-picker-custom ,#to-hijri-unactive-picker-custom")
         .hijriDatePicker({
@@ -46,14 +27,15 @@
           isRTL: "{{ LaravelLocalization::getCurrentLocaleDirection() == 'rtl' }}",
           ignoreReadonly: true,
         });
-      var table = $("#transaction-table").DataTable({
+
+      var table = $("#package-table").DataTable({
         responsive: true,
         sDom: "t<'domOption'lpi>",
         serverSide: true,
         ajax: {
           url: "{{ route('dashboard.package.index') }}?" + $.param(
             @json(request()->query())),
-          data: function (data) {
+           data: function (data) {
             data.id = $('#client_id').val();
           },
           type: "GET",
@@ -135,6 +117,7 @@
       });
 
       $("#client_id").on('select2:select', function (e) {
+        insertUrlParam('id', $('#client_id').val());
         table.draw();
 
       });
@@ -146,6 +129,9 @@
         $('#mainProgram').val(null);
         $('#branchProgram').val(null);
         table.draw();
+        if (location.href.includes('?')) {
+            history.pushState({}, null, location.href.split('?')[0]);
+          }
       });
 
       $("#search-form").submit(function (e) {

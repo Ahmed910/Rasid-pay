@@ -150,14 +150,17 @@
         });
 
         $('#status').on('select2:select', function(e) {
+            insertUrlParam('is_active', $('#status').val());
             table.draw();
         });
 
         $('#parent_id').on('select2:select', function(e) {
+            insertUrlParam('parent_id', $('#parent_id').val());
             table.draw();
         });
 
         $("#departmentName").keyup(function() {
+            insertUrlParam('name', $('#departmentName').val());
             table.draw();
         });
 
@@ -169,6 +172,9 @@
             $('#from-hijri-picker-custom').val("").trigger('change');
             $('#to-hijri-picker-custom').val("").trigger('change');
             table.draw();
+            if (location.href.includes('?')) {
+            history.pushState({}, null, location.href.split('?')[0]);
+          }
         });
 
         $("#search-form").submit(function(e) {

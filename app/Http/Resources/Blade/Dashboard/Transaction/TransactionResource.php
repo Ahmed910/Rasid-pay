@@ -20,8 +20,8 @@ class TransactionResource extends JsonResource
             'gift_balance' => (string)$this->gift_balance,
             'type' => $this->type ? trans("dashboard.transaction.type_cases.{$this->type}") : "",
             'status' => $this->status ? trans("dashboard.transaction.status_cases.{$this->status}") : "",
-            'enabled_package' => trans('dashboard.citizens.card_type.' . $this->citizen?->citizen?->enabledPackage?->card_type),
-            'discount_percent' => $this->card->name . ' / ' . $this->discount_percent . '%',
+            'enabled_package' => $this->citizen?->citizen?->enabledPackage?->package?->name ?? trans('dashboard.citizens.without'),
+            'discount_percent' => $this->card?->name . ' / ' . $this->discount_percent . '%',
             'start_from' => $request->start
         ];
     }

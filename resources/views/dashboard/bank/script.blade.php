@@ -15,26 +15,6 @@
   {{-- Ajax DataTable --}}
   <script>
     $(function () {
-      $("#transaction").DataTable({
-        responsive: true,
-        sDom: "t<'domOption'lpi>",
-        pageLength: 10,
-        lengthMenu: [
-          [1, 5, 10, 20, -1],
-          ["١", "٥","١٠", "٢٠","الكل"]
-        ],
-
-        language: {
-          lengthMenu: "عرض _MENU_",
-          zeroRecords: "لا يوجد بيانات",
-          info: "عرض _PAGE_ من _PAGES_ عنصر",
-          infoEmpty: "لا يوجد نتائج بحث متاحة",
-          paginate: {
-            previous: '<i class="mdi mdi-chevron-right"></i>',
-            next: '<i class="mdi mdi-chevron-left"></i>',
-          },
-        },
-      });
       /******* Calendar *******/
       $("#from-hijri-picker-custom, #to-hijri-picker-custom, #from-hijri-unactive-picker-custom ,#to-hijri-unactive-picker-custom")
         .hijriDatePicker({
@@ -58,14 +38,14 @@
           url: "{{ route('dashboard.bank.index') }}?" + $.param(
             @json(request()->query())),
           data: function (data) {
-            if ($('#branch_name').val() != "" && $('#branch_name').val() != null) data.branch_name = $('#branch_name').val();
-            if ($('#code').val() != "" && $('#code').val() != null) data.code = $('#code').val();
-            if ($('#is_active').val() != "" && $('#is_active').val() != null) data.is_active = $('#is_active').val();
-            if ($('#type').val() != "" && $('#type').val() != null) data.type = $('#type').val();
-            if ($('#site').val() != "" && $('#site').val() != null) data.site = $('#site').val();
-            if ($('#transfer_amount').val() != "" && $('#transfer_amount').val() != null) data.transfer_amount = $('#transfer_amount').val();
-            if ($('#transactions_count').val() != "" && $('#transactions_count').val() != null) data.transactions_count = $('#transactions_count').val();
-            if ($('#name').val() != "" && $('#name').val() != null) data.name = $('#name').val();
+            if ($('#branch_name').val()) data.branch_name = $('#branch_name').val();
+            if ($('#code').val()) data.code = $('#code').val();
+            if ($('#is_active').val()) data.is_active = $('#is_active').val();
+            if ($('#type').val()) data.type = $('#type').val();
+            if ($('#site').val()) data.site = $('#site').val();
+            if ($('#transfer_amount').val()) data.transfer_amount = $('#transfer_amount').val();
+            if ($('#transactions_count').val()) data.transactions_count = $('#transactions_count').val();
+            if ($('#name').val()) data.name = $('#name').val();
 
           },
           type: "GET",
@@ -169,28 +149,45 @@
         }
       });
 
+      // type
+      // is_active
+
+      // branch_name
+      // code
+      // site
+      // transfer_amount
+      // transactions_count
+      // name
+
       $('#type').on('select2:select', function (e) {
-
+        insertUrlParam('type', $('#type').val());
         table.draw();
       });
+
       $("#is_active").on('select2:select', function (e) {
-        table.draw();
-
-      });
-      $('#mainProgram').on('select2:select', function (e) {
+        insertUrlParam('is_active', $('#is_active').val());
         table.draw();
       });
 
-      $('#branchProgram').on('select2:select', function (e) {
-        table.draw();
-      });
+      $("#branch_name,#code,#site,#transfer_amount,#transactions_count,#name").keyup(function() {
+         insertUrlParam($(this).attr('id'), $(this).val());
+         table.draw();
+        });
+
       $('#search-form').on('reset', function (e) {
         e.preventDefault();
-        $('#activityName').val(null).trigger('change');
-        $('#mainDepartment').val(null).trigger('change');
-        $('#mainProgram').val(null);
-        $('#branchProgram').val(null);
+        $('#type').val(null).trigger('change');
+        $('#is_active').val(null).trigger('change');
+        $('#branch_name').val(null);
+        $('#code').val(null);
+        $('#site').val(null);
+        $('#transfer_amount').val(null);
+        $('#transactions_count').val(null);
+        $('#name').val(null);
         table.draw();
+        if (location.href.includes('?')) {
+            history.pushState({}, null, location.href.split('?')[0]);
+          }
       });
 
       $("#search-form").submit(function (e) {
@@ -302,34 +299,6 @@
     // end add bank branch function
 
   </script>
-
-  {{-- <script>
-      $(document).ready(function () {
-         $("select")
-           .change(function () {
-             $(this)
-               .find("option:selected")
-               .each(function () {
-                 var optionValue = $(this).attr("value");
-                 if (optionValue) {
-                   $(".hold")
-                     .not("." + optionValue)
-                     .hide();
-                   $("." + optionValue).show();
-                 } else {
-                   $(".hold").hide();
-                 }
-               });
-           })
-           .change();
-       });
-
-
-  </script> --}}
-
-
-
-
 
   <script src="{{ asset('dashboardAssets/js/select2.js') }}"></script>
   <script src="{{ asset('dashboardAssets/plugins/select2/select2.full.min.js') }}"></script>

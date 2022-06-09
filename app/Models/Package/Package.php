@@ -18,11 +18,8 @@ class Package extends Model implements HasAssetsInterface
     use HasFactory, Uuid, SoftDeletes, HasAssetsTrait, Loggable,Translatable;
 
     protected $guarded = ['created_at', 'updated_at'];
-    protected $attributes = ["is_active" => true];
+    protected $attributes = ["is_active" => true, 'duration' => 12];
     public $translatedAttributes = ['name', 'description'];
-
-
-
 
     #region properties
     public static function boot()

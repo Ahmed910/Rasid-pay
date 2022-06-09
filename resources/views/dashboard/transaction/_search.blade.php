@@ -70,7 +70,7 @@
   </div>
   <div class="col-12 col-md-3 mb-3">
     <label for="activeCard">@lang('dashboard.transaction.active_card')</label>
-    {!! Form::select('package_id', ['' => '', -1 => trans('dashboard.general.all_cases')] + $cards, request('package_id'), ['class' => 'form-control select2', 'data-placeholder' => trans('dashboard.transaction.choose_card'), 'id' => 'enabled_package']) !!}
+    {!! Form::select('package_id', ['' => '', -1 => trans('dashboard.general.all_cases')] + $packages, request('package_id'), ['class' => 'form-control select2', 'data-placeholder' => trans('dashboard.transaction.choose_card'), 'id' => 'enabled_package']) !!}
   </div>
 
   <div class="col-12 col-md-3 mb-3">
@@ -81,7 +81,7 @@
   <div class="row">
     <div class="col-12 col-md-6 my-2">
       <div class="dropdown">
-        <button class="btn btn-outline-primary dropdown-toggle" type="button" id="dropdownMenuButton1"
+        <button class="btn btn-outline-primary dropdown-toggle exportBtn" type="button" id="dropdownMenuButton1"
                 data-bs-toggle="dropdown" aria-expanded="false">
           <i class="mdi mdi-tray-arrow-down"></i>
           @lang('dashboard.general.export')

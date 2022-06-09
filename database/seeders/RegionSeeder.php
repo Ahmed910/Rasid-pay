@@ -13,6 +13,8 @@ class RegionSeeder extends Seeder
      */
     public function run()
     {
-        //
+        return [
+         
+        ];
     }
 }

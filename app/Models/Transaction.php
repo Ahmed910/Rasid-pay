@@ -3,6 +3,8 @@
 namespace App\Models;
 
 use App\Models\Bank\Bank;
+use App\Models\BankBranch\BankBranch;
+use App\Models\CardPackage\CardPackage;
 use App\Models\Package\Package;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -31,8 +33,8 @@ class Transaction extends Model
         self::CANCELED,
     ];
 
-    protected $guarded = ['number', 'created_at', 'updated_at'];
-    private $sortableColumns = ["user_from", "number", "created_at", "user_identity", 'from_user_to', 'amount', 'total_amount', 'gift_balance', 'type', 'status', 'discount_percent'];
+    protected $guarded = ['trans_number', 'created_at', 'updated_at'];
+    private $sortableColumns = ["user_from_id", "trans_number", "created_at", "user_identity", 'from_user_to', 'amount', 'total_amount', 'gift_balance', 'type', 'status', 'discount_percent'];
     const user_searchable_Columns = ["user_from", "email", "image", "country_code", "phone", "full_phone", "identity_number", "date_of_birth"];
     const user_sortable_Columns = ["user_from" => "fullname", "email" => "email", "image" => "email", "country_code" => "country_code", "phone" => "phone", "full_phone" => "full_phone", "identity_number" => "identity_number", "date_of_birth" => "date_of_birth"];
     const SELECT_ALL = ["enabled_package"];
@@ -46,7 +48,7 @@ class Transaction extends Model
     {
         parent::boot();
        static::created(function ($item) {
-           $qr_code = self::createQr($item->id);
+           $qr_code = self::createQr($item->trans_number);
            $item->update(['qr_code' => $qr_code]);
        });
     }
@@ -171,10 +173,7 @@ class Transaction extends Model
         });
     }
 
-    public function card(): BelongsTo
-    {
-        return $this->belongsTo(Package::class, 'package_id');
-    }
+
 
     public function citizen(): BelongsTo
     {
@@ -186,8 +185,40 @@ class Transaction extends Model
         return $this->belongsTo(User::class, 'to_user_id');
     }
 
+    // public function walletcharge(): BelongsTo
+    // {
+    //     return $this->belongsTo(WalletCharge::class, 'wallet_charge_id');
+    // }
+    // public function payment(): BelongsTo
+    // {
+    //     return $this->belongsTo(Payment::class, 'payment_id');
+    // }
+    //
+    // public function transfer(): BelongsTo
+    // {
+    //     return $this->belongsTo(Transfer::class, 'transfer_id');
+    // }
+    // public function moneyRequest(): BelongsTo
+    // {
+    //     return $this->belongsTo(MoneyRequest::class, 'money_request_id');
+    // }
+
+    public function transactionable()
+    {
+        return $this->morphTo();
+    }
+
     public function bank(): BelongsTo
     {
         return $this->belongsTo(Bank::class, 'bank_id');
+    }
+    public function bankBranch(): BelongsTo
+    {
+        return $this->belongsTo(BankBranch::class, 'bank_branch_id');
+    }
+
+    public function citizenPackage(): BelongsTo
+    {
+        return $this->belongsTo(CitizenPackage::class, 'citizen_package_id');
     }
 }

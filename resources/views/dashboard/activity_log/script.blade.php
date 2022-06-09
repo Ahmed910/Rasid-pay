@@ -34,7 +34,17 @@
         serverSide: true,
         ajax: {
           url: "{{ route('dashboard.activity_log.index') }}?" + $.param(
-            @json(request()->query()))
+            @json(request()->query())),
+          data: function(data) {
+                  data.created_from = $('#from-hijri-picker-custom').val();
+                  data.created_to = $('#to-hijri-picker-custom').val();
+                  data.action = $('#activityName').val();
+                  data.department_id = $('#mainDepartment').val();
+                  data.main_program = $('#mainProgram').val();
+                  data.sub_program = $('#branchProgram').val();
+              },
+          type: "GET",
+          dataSrc: 'data'
         },
         columns: [{
           data: function (data, type, full, meta) {
@@ -165,20 +175,24 @@
       }
 
       $('#activityName').on('select2:select', function (e) {
-
         table.draw();
+        insertUrlParam('action', $('#activityName').val());
       });
       $("#mainDepartment").on('select2:select', function (e) {
         table.draw();
+        insertUrlParam('department_id', $('#mainDepartment').val());
 
       });
       $('#mainProgram').on('select2:select', function (e) {
         table.draw();
+        insertUrlParam('main_program', $('#mainProgram').val());
       });
 
       $('#branchProgram').on('select2:select', function (e) {
         table.draw();
+        insertUrlParam('sub_program', $('#branchProgram').val());
       });
+
       $('#search-form').on('reset', function (e) {
         e.preventDefault();
         $('#activityName').val(null).trigger('change');
@@ -186,6 +200,9 @@
         $('#mainProgram').val(null);
         $('#branchProgram').val(null);
         table.draw();
+        if (location.href.includes('?')) {
+            history.pushState({}, null, location.href.split('?')[0]);
+          }
       });
 
       $("#search-form").submit(function (e) {

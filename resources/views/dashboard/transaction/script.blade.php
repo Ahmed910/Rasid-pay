@@ -27,7 +27,7 @@
                 });
 
             var table = $("#transactionsTable").DataTable({
-        responsive: true,
+                responsive: true,
                 sDom: "t<'domOption'lpi>",
                 serverSide: true,
                 processing: true,
@@ -169,31 +169,40 @@
 
 
             $('#to_user_id').on('select2:select', function(e) {
+                insertUrlParam('client', $('#to_user_id').val());
                 table.draw();
             });
             $('#status').on('select2:select', function(e) {
+                insertUrlParam('status', $('#status').val());
                 table.draw();
             });
             $('#type').on('select2:select', function(e) {
+                insertUrlParam('type', $('#type').val());
                 table.draw();
             });
             $('#enabled_package').on('select2:select', function(e) {
+                insertUrlParam('enabled_package', $('#enabled_package').val());
                 table.draw();
             });
 
             $("#transactionNum").keyup(function() {
+                insertUrlParam('transaction_number', $('#transactionNum').val());
                 table.draw();
             });
             $("#transactionName").keyup(function() {
+                insertUrlParam('citizen', $('#transactionName').val());
                 table.draw();
             });
             $("#idNumber").keyup(function() {
+                insertUrlParam('user_identity', $('#idNumber').val());
                 table.draw();
             });
             $("#transactionValueFrom").keyup(function() {
+                insertUrlParam('transaction_value_from', $('#transactionValueFrom').val());
                 table.draw();
             });
             $("#transactionValueTo").keyup(function() {
+                insertUrlParam('transaction_value_to', $('#transactionValueTo').val());
                 table.draw();
             });
 
@@ -214,6 +223,9 @@
                 $('#from-hijri-unactive-picker-custom').val("").trigger('change');
                 $('#to-hijri-unactive-picker-custom').val("").trigger('change');
                 table.draw();
+                if (location.href.includes('?')) {
+                  history.pushState({}, null, location.href.split('?')[0]);
+                }
             });
 
             $("#search-form").submit(function(e) {
