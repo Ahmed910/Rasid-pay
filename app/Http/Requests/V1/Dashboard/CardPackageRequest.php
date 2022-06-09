@@ -4,7 +4,7 @@ namespace App\Http\Requests\V1\Dashboard;
 
 use App\Http\Requests\ApiMasterRequest;
 
-class PackageRequest extends ApiMasterRequest
+class CardPackageRequest extends ApiMasterRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,12 +24,13 @@ class PackageRequest extends ApiMasterRequest
     public function rules()
     {
         $rules = [
-            "client_id" => ["required", "unique:packages,client_id,".@$this->client_id.",client_id", "exists:users,id,user_type,client"],
-            "is_active" => ["nullable", "boolean"],
-            "basic_discount" => ["required", "numeric", "min:0", "max:100", "digits_between:1,5"],
-            "golden_discount" => ["required", "numeric", "min:0", "max:100", "digits_between:1,5"],
-            "platinum_discount" => ["required", "numeric", "min:0", "max:100", "digits_between:1,5"],
+            "client_id" => "required|exists:users,id,user_type,client",
+            "is_active" => "nullable|boolean",
             "image" => "nullable|max:5120|mimes:jpg,png,jpeg",
+            'discounts' => 'required|array',
+            'discounts.*' => 'required|array',
+            'discounts.*.package_id' => 'required|exists:packages,id',
+            'discounts.*.package_discount' => 'required|integer|gt:0|lte:100',
         ];
 
         return $rules;
