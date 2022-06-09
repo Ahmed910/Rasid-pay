@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api\V1\Dashboard;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\V1\Dashboard\CardPackageRequest;
+use App\Http\Requests\V1\Dashboard\CardPackageUpdateRequest;
 use App\Http\Resources\Dashboard\PackageResource;
 use App\Http\Resources\Dashboard\SimpleUserResource;
 use App\Models\Package\Package;
@@ -45,7 +46,7 @@ class ClientPackageController extends Controller
 
     public function store(CardPackageRequest $request)
     {
-        $client = User::where('user_type','client')->findOrFail($request->client_id);
+        $client = User::where('user_type', 'client')->findOrFail($request->client_id);
         $client->clientPackages()->sync($request->discounts);
         return PackageResource::make($client)->additional([
             'status' => true,
@@ -76,15 +77,14 @@ class ClientPackageController extends Controller
      * @param int $id
      * @return \Illuminate\Http\Response
      */
-    public function update(PackageRequest $request, Package $package)
+    public function update(CardPackageUpdateRequest $request,$client_id)
     {
-        $package->fill($request->validated() + ['updated_at' => now()])->save();
-        $package->load(['images', 'addedBy']);
-        return PackageResource::make($package->client)
-            ->additional([
-                'status' => true,
-                'message' => trans("dashboard . general . success_update")
-            ]);;
+        $client = User::where('user_type', 'client')->findOrFail($client_id);
+        $client->clientPackages()->sync($request->discounts);
+        return PackageResource::make($client)->additional([
+            'status' => true,
+            'message' => trans("dashboard.general.success_update")
+        ]);
     }
 
     /**
