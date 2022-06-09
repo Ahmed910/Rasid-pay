@@ -43,7 +43,7 @@ class GlobalTransferController extends Controller
         $request->balance_type === 'pay' ? $main_balance->decrement('main_balance',$request->amount) : $main_balance->decrement('cash_back',$request->amount);
 
         //add transfer in  transaction
-       Transaction::create(['from_user_id'=>auth('sanctum')->id(),'amount'=>$request->amount,'trans_type'=>'transfer','transfer_id' => $transfer->id ,'fee_amount'=>$transfer->transfer_fees ]);
+       //$transfer->transaction()->create(['from_user_id'=>auth('sanctum')->id(),'to_user_id'=>$bank_transfer->beneficiary->user_id,'amount'=>$request->amount,'trans_type'=>'transfer','transfer_id' => $transfer->id ,'fee_amount'=>$transfer->transfer_fees ]);
 
        return GLobalTransferResource::make($transfer)
             ->additional([
