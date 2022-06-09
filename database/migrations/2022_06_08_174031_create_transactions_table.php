@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Transaction;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\DB;
@@ -32,8 +33,8 @@ class CreateTransactionsTable extends Migration
             $table->string('transaction_id')->nullable();
             $table->string('transaction_data')->nullable();
             $table->unsignedbigInteger('trans_number')->unique();
-            $table->enum('trans_type', ['pay', 'transfer', 'charge', 'money_request']);
-            $table->enum('trans_status', ['success', 'fail', 'pending', 'received', 'cancel']);
+            $table->enum('trans_type', Transaction::TRANACTION_TYPES);
+            $table->enum('trans_status', Transaction::TYPES);
             $table->string("qr_path")->nullable();
             $table->string('amount');
             $table->string('fee_amount')->default(0);
