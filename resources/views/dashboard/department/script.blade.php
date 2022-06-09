@@ -168,24 +168,17 @@
       });
 
       $('#status').on('select2:select', function (e) {
+        insertUrlParam('is_active', $('#status').val());
         table.draw();
       });
 
       $('#parent_id').on('select2:select', function (e) {
+        insertUrlParam('parent_id', $('#parent_id').val());
         table.draw();
       });
 
       $("#departmentName").keyup(function () {
-        table.draw();
-      });
-
-      $('#search-form').on('reset', function (e) {
-        e.preventDefault();
-        $('#status').val(null).trigger('change');
-        $('#parent_id').val(null).trigger('change');
-        $('#departmentName').val(null);
-        $('#from-hijri-picker-custom').val("").trigger('change');
-        $('#to-hijri-picker-custom').val("").trigger('change');
+        insertUrlParam('name', $('#departmentName').val());
         table.draw();
       });
 
@@ -198,8 +191,20 @@
         minimumResultsForSearch: Infinity
       });
 
-      table.on('draw', function () {
+      $('#search-form').on('reset', function (e) {
+        e.preventDefault();
+        $('#status').val(null).trigger('change');
+        $('#parent_id').val(null).trigger('change');
+        $('#departmentName').val(null);
+        $('#from-hijri-picker-custom').val("").trigger('change');
+        $('#to-hijri-picker-custom').val("").trigger('change');
+          if (location.href.includes('?')) {
+            history.pushState({}, null, location.href.split('?')[0]);
+          }
+        table.draw();
+      });
 
+      table.on('draw', function () {
         var tooltipTriggerList = [].slice.call(
           document.querySelectorAll('[data-bs-toggle="tooltip"]')
         );
@@ -208,7 +213,8 @@
         });
       });
     });
-  </script>
-  <script src="{{ asset('dashboardAssets/js/select2.js') }}"></script>
-  <script src="{{ asset('dashboardAssets/plugins/select2/select2.full.min.js') }}"></script>
+
+</script>
+<script src="{{ asset('dashboardAssets/js/select2.js') }}"></script>
+<script src="{{ asset('dashboardAssets/plugins/select2/select2.full.min.js') }}"></script>
 @endsection
