@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources\Dashboard;
 
+use App\Models\Package\Package;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class PackageResource extends JsonResource
@@ -19,14 +20,17 @@ class PackageResource extends JsonResource
         foreach ($this->clientPackages as $clientPackage) {
             if ($clientPackage->id == $clientPackage->pivot->package_id) {
                 $package_discount[$clientPackage->name] = $clientPackage->pivot->package_discount;
-                $default_package_discount[$clientPackage->name] = $clientPackage->discount;
             }
+        }
+        foreach (Package::all() as $package) {
+            $default_package_discount[$package->name] = $package->discount;
         }
         return [
             "client" => SimpleUserResource::make($this),
-            "basic_discount" => $package_discount[trans('dashboard.cardpackage.basic')]?:$default_package_discount[trans('dashboard.cardpackage.basic')],
-            "golden_discount" => $package_discount[trans('dashboard.cardpackage.golden')]?:$default_package_discount[trans('dashboard.cardpackage.golden')],
-            "platinum_discount" => $package_discount[trans('dashboard.cardpackage.platinum')]?:$default_package_discount[trans('dashboard.cardpackage.platinum')],
+            "basic_discount" => array_key_exists(trans('dashboard.cardpackage.basic'), $package_discount) ? $package_discount[trans('dashboard.cardpackage.basic')] : $default_package_discount[trans('dashboard.cardpackage.basic')],
+            "golden_discount" => array_key_exists(trans('dashboard.cardpackage.golden'), $package_discount) ? $package_discount[trans('dashboard.cardpackage.golden')] : $default_package_discount[trans('dashboard.cardpackage.golden')],
+            "platinum_discount" => array_key_exists(trans('dashboard.cardpackage.platinum'), $package_discount) ? $package_discount[trans('dashboard.cardpackage.platinum')] : $default_package_discount[trans('dashboard.cardpackage.platinum')],
+
         ];
     }
 }
