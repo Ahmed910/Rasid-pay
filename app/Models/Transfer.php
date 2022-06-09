@@ -42,7 +42,7 @@ class Transfer extends Model
     {
         return $this->morphOne(Transaction::class, "transactionable");
     }
-    
+
     public function bank_transfer()
     {
         return $this->hasOne(BankTransfer::class,'transfer_id');

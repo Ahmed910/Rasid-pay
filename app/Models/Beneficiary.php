@@ -32,6 +32,11 @@ class Beneficiary extends Model
         return $this->belongsTo(User::class,'citizen_id');
     }
 
+    public function bankTransfers()
+    {
+        return $this->hasMany(BankTransfer::class);
+    }
+
 
     #endregion relationships
 
