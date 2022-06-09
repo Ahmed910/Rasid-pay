@@ -227,7 +227,9 @@
         $('#to-hijri-unactive-picker-custom').val("").trigger('change');
         table.draw();
         accounts_table.draw();
-
+        if (location.href.includes('?')) {
+            history.pushState({}, null, location.href.split('?')[0]);
+          }
       });
 
       var table = $("#clientTable").DataTable({
@@ -400,6 +402,9 @@
         $('#from-hijri-unactive-picker-custom').val("").trigger('change');
         $('#to-hijri-unactive-picker-custom').val("").trigger('change');
         table.draw();
+        if (location.href.includes('?')) {
+            history.pushState({}, null, location.href.split('?')[0]);
+          }
       });
 
       $("#search-form").submit(function (e) {
