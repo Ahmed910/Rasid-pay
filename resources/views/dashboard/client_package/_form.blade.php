@@ -22,7 +22,7 @@
             <span class="requiredFields">*</span>
             <div class="input-group">
                 <input type="hidden" name="discounts[{{ $loop->index }}][package_id]" value="{{ $package->id }}">
-                {!! Form::number("discounts[$loop->index][package_discount]", null, [
+                {!! Form::number("discounts[$loop->index][package_discount]", isset($client) ? $client->clientPackages->pluck('pivot')->firstWhere('package_id',$package->id)->package_discount :null, [
                         'class' => 'form-control',
                         'placeholder' => trans('dashboard.package.enter_discount'),
                         'id' => 'discountRate_'. $package->id,

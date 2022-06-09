@@ -90,6 +90,8 @@ Route::middleware('auth:sanctum')->group(function () {
     });
 
 
+    Route::apiResource('wallet_transfers', 'Transfers\WalletTransferController');
+
 });
 
 Route::get('slides', 'SlideController@index');
