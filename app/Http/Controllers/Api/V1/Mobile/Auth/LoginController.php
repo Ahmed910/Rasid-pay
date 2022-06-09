@@ -19,11 +19,10 @@ class LoginController extends Controller
      */
     private function getCredentials(Request $request)
     {
-        $credentials = [];
-        $login = 'identity_number';
-        $credentials[$login] = $request->identity_number;
-        $credentials['password'] = $request->password;
-        return $credentials;
+        return [
+            'identity_number' => $request->identity_number,
+            'password' => $request->password,
+        ];
     }
 
     /**
