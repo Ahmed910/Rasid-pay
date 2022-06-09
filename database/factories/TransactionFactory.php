@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\Transaction;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
@@ -10,16 +11,17 @@ class TransactionFactory extends Factory
 
     public function definition()
     {
-        $transactionStatues = ['success', 'fail', 'pending', 'received', 'cancel'];
-        $transactionTypes   = ['payment', 'wallet_transfer', 'bank_transaction', 'receive_credit', 'wallet_charge', 'upgrade_card'];
+        $transactionStatues = Transaction::TYPES;
+        $transactionTypes   = Transaction::TRANACTION_TYPES;
 
         return [
             'to_user_id' => $this->getRandomUserId(),
             'from_user_id' => $this->getRandomUserId(),
             'amount' => $this->faker->numberBetween(1,1000),
-            'status' => $this->faker->randomElement($transactionStatues),
-            'type' => $this->faker->randomElement($transactionTypes),
-            'transaction_id' => uniqid()
+            'trans_status' => $this->faker->randomElement($transactionStatues),
+            'trans_type' => $this->faker->randomElement($transactionTypes),
+            'transaction_id' => uniqid(),
+            'trans_number' => $this->faker->numberBetween(10000)
         ];
     }
 

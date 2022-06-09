@@ -252,7 +252,7 @@
                             class="side-menu__label">المعاملات</span></a>
                 </li>
                 <li
-                    class="slide {{ request()->routeIs('dashboard.package.*') && !request()->routeIs('dashboard.*.archive') ? 'is-expanded' : '' }} ">
+                    class="slide {{ request()->routeIs('dashboard.client_package.*') && !request()->routeIs('dashboard.client_package.archive') ? 'is-expanded' : '' }} ">
                     <a class="side-menu__item" data-bs-toggle="slide" href="javascript:void(0)"><i
                             class="mdi mdi-view-dashboard-outline"></i><span
                             class="side-menu__label">{{ trans('dashboard.package.cards_discount') }}</span><i
@@ -262,16 +262,16 @@
                             <a href="javascript:void(0)">{{ trans('dashboard.package.cards_discount') }}</a>
                         </li>
                         <li>
-                            <a href="{{ route('dashboard.package.index') }}"
-                                class="slide-item px-6 {{ request()->routeIs('dashboard.package.index') ? 'active' : '' }}"><i
+                            <a href="{{ route('dashboard.client_package.index') }}"
+                                class="slide-item px-6 {{ request()->routeIs('dashboard.client_package.index') ? 'active' : '' }}"><i
                                     class="mdi mdi-file-document-multiple-outline"></i>
                                     {{ trans('dashboard.package.cards_discount_records') }}
                                 </a>
                         </li>
 
                         <li>
-                            <a href="{{ route('dashboard.package.create') }}"
-                                class="slide-item px-6 {{ request()->routeIs('dashboard.package.create') ? 'active' : '' }}"><i
+                            <a href="{{ route('dashboard.client_package.create') }}"
+                                class="slide-item px-6 {{ request()->routeIs('dashboard.client_package.create') ? 'active' : '' }}"><i
                                     class="mdi mdi-plus-circle-outline"></i> {{ trans('dashboard.package.add') }}</a>
                         </li>
                     </ul>

@@ -50,6 +50,7 @@ Route::middleware('auth:sanctum')->group(function () {
     // local transfers
     Route::controller('LocalTransferController')->name('local_transfer.')->prefix('local_transfer')->group(function () {
         Route::post('/', 'store');
+        Route::get('get_local_transfer/{id}','getLocalTransfer');
     });
 
     Route::post('money_request', 'MoneyRequestController@store');
@@ -75,6 +76,13 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::get('transactions/{id}', 'show');
 
     });
+
+    Route::controller('beneficiaryController')->group(function () {
+        Route::post('beneficiaries', 'store');
+        Route::get('beneficiaries/{beneficiary}', 'show');
+    });
+
+
     Route::apiResource('wallet_transfers', 'Transfers\WalletTransferController');
 
 });
