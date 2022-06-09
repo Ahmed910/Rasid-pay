@@ -17,9 +17,9 @@ class TransactionFactory extends Factory
             'to_user_id' => $this->getRandomUserId(),
             'from_user_id' => $this->getRandomUserId(),
             'amount' => $this->faker->numberBetween(1,1000),
-            'status' => $this->faker->randomElement($transactionStatues),
-            'type' => $this->faker->randomElement($transactionTypes),
-            'transaction_id' => uniqid()
+            'trans_status' => $this->faker->randomElement($transactionStatues),
+            'trans_type' => $this->faker->randomElement($transactionTypes),
+            'transaction_id' => uniqid(),
         ];
     }
 
