@@ -19,7 +19,7 @@ class WalletRequest extends ApiMasterRequest
             'user_id' => 'required|exists:users,id,user_type,citizen',
 
             // in transactions
-            "type" => "nullable|in:wallet_charge",
+            "trans_type" => "nullable|in:wallet_charge",
 
             //card information
             'owner_name' => 'required_if:is_card_saved,1|string|max:255',

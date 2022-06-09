@@ -3,11 +3,9 @@
 namespace App\Http\Controllers\Api\V1\Mobile;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\V1\Mobile\ActivateNotificationRequest;
 use App\Http\Requests\V1\Mobile\Auth\UpdatePasswordRequest;
-use App\Http\Requests\V1\Mobile\UpdateProfileRequest;
+use App\Http\Requests\V1\Mobile\{WalletBinRequest,UpdateProfileRequest,ActivateNotificationRequest};
 use App\Http\Resources\Mobile\UserResource;
-use Illuminate\Http\Request;
 
 class ProfileController extends Controller
 {
@@ -54,5 +52,11 @@ class ProfileController extends Controller
             'message' => trans('auth.success_activate_notifcation'),
             'data' => null,
         ]);
+    }
+
+    public function setWalletBin(WalletBinRequest $request)
+    {
+        auth()->user()->citizenWallet()?->update(['wallet_bin'=>$request->wallet_bin,'number_of_tries'=> 0]);
+        return response()->json(['data'=>null,'status'=>true,'message'=>trans('mobile.messages.wallet_bin_has_been_updated')]);
     }
 }
