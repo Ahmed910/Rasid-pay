@@ -150,14 +150,17 @@
         });
 
         $('#status').on('select2:select', function(e) {
+            insertUrlParam('is_active', $('#status').val());
             table.draw();
         });
 
         $('#parent_id').on('select2:select', function(e) {
+            insertUrlParam('parent_id', $('#parent_id').val());
             table.draw();
         });
 
         $("#departmentName").keyup(function() {
+            insertUrlParam('name', $('#departmentName').val());
             table.draw();
         });
 

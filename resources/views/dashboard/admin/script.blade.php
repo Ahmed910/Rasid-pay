@@ -148,6 +148,7 @@
 
 
       $("#status").change(function () {
+        insertUrlParam('ban_status', $('#status').val());
         if (this.value == 'temporary') {
           $(".temporary").show();
         } else {
@@ -159,15 +160,26 @@
       }).change();
 
       $('#mainDepartment').on('select2:select', function (e) {
+        insertUrlParam('department_id', $('#mainDepartment').val());
         table.draw();
       });
 
       $("#userName").keyup(function () {
+        insertUrlParam('name', $('#userName').val());
         table.draw();
       });
       $("#userId").keyup(function () {
+        insertUrlParam('login_id', $('#userId').val());
         table.draw();
       });
+
+      $("#from-hijri-unactive-picker-custom").on('dp.change', function (event) {
+          insertUrlParam('ban_to', $('#from-hijri-unactive-picker-custom').val());
+       });
+
+      $("#to-hijri-unactive-picker-custom").on('dp.change', function (event) {
+          insertUrlParam('ban_from', $('#to-hijri-unactive-picker-custom').val());
+       });
 
       $('#search-form').on('reset', function (e) {
         e.preventDefault();
