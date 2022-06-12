@@ -110,7 +110,7 @@ class RegisterController extends Controller
 
         return UserResource::make($user)->additional([
             'status' => true,
-            'message' => trans('auth.success_signup',),
+            'message' => trans('auth.success_verify_phone_make_login'),
         ]);
     }
 }
