@@ -2,17 +2,6 @@
 
 use Illuminate\Support\Facades\Route;
 
-/*
-|--------------------------------------------------------------------------
-| API Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register API routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| is assigned the "api" middleware group. Enjoy building your API!
-|
-*/
-
 Route::post('send-message', 'ContactController@sendMessage')->name('send_message');
 
 Route::controller('Auth\LoginController')->group(function () {
@@ -34,7 +23,7 @@ Route::controller('Auth\ResetController')->group(function () {
 Route::middleware('auth:sanctum')->group(function () {
 
     Route::post('set_wallet_bin', 'ProfileController@setWalletBin');
-    Route::middleware('check_wallet_bin')->group(function () {
+    // Route::middleware('check_wallet_bin')->group(function () {
 
         Route::post('logout', 'Auth\LoginController@logout');
         Route::apiResource('profiles', 'ProfileController')->only('index', 'store');
@@ -63,7 +52,6 @@ Route::middleware('auth:sanctum')->group(function () {
             Route::post('wallet_bin','checkForWalletBin');
         });
 
-
         Route::controller('PackageController')->group(function () {
             Route::get('get_packages', 'getPackages');
         });
@@ -78,20 +66,15 @@ Route::middleware('auth:sanctum')->group(function () {
             Route::get('transactions', 'index');
             Route::get('transactions/{id}', 'show');
         });
-
-        Route::controller('PaymentController')->group(function () {
-            Route::post('payment', 'store');
-//            Route::get('payment/{id}', 'show');
-        });
+    // });
+    Route::controller('PaymentController')->group(function () {
+        Route::post('payment', 'store');
+    //            Route::get('payment/{id}', 'show');
     });
-
     Route::apiResource('beneficiaries','BeneficiaryController');
 
-
     Route::apiResource('wallet_transfers', 'Transfers\WalletTransferController');
-
 });
-
 
 Route::get('slides', 'SlideController@index');
 Route::get('banks', 'BankController@index');
