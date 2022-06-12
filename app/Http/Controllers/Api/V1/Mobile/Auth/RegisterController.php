@@ -3,9 +3,7 @@
 namespace App\Http\Controllers\Api\V1\Mobile\Auth;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\V1\Mobile\Auth\CheckVerificationCodeRequest;
-use App\Http\Requests\V1\Mobile\Auth\CompleteRegisterRequest;
-use App\Http\Requests\V1\Mobile\Auth\RegisterRequest;
+use App\Http\Requests\V1\Mobile\Auth\{VerifyPhoneCodeRequest, CompleteRegisterRequest, RegisterRequest};
 use App\Http\Resources\Mobile\UserResource;
 use App\Models\{Citizen, CitizenPackage, User, CitizenWallet, Package\Package};
 
@@ -32,7 +30,7 @@ class RegisterController extends Controller
         ]);
     }
 
-    public function checkVerificationCode(CheckVerificationCodeRequest $request)
+    public function verifyPhoneCode(VerifyPhoneCodeRequest $request)
     {
         $userData =  [
             $request->key_name  => null,

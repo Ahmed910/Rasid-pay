@@ -10,7 +10,7 @@ class ResetPasswordRequest extends ApiMasterRequest
     {
         return [
             'identity_number' => 'required|numeric|digits_between:10,20|exists:users,identity_number',
-            'password'        => 'required|min:8'
+            'password'        => 'required|min:8|regex:/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{6,}$/'
         ];
     }
 }

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Requests\V1\Mobile;
+namespace App\Http\Requests\V1\Mobile\Profile;
 
 use App\Http\Requests\ApiMasterRequest;
 

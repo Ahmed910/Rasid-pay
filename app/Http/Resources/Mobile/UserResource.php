@@ -25,9 +25,9 @@ class UserResource extends JsonResource
             'email' => $this->email,
             'whatsapp' => $this->whatsapp,
             'is_phone_verified' => (bool)$this->verified_phone_at,
-            'ban_status' => $this->ban_status,
-            'ban_from' => $this->ban_from,
-            'ban_to' => $this->ban_to,
+            // 'ban_status' => $this->ban_status,
+            // 'ban_from' => $this->ban_from,
+            // 'ban_to' => $this->ban_to,
             'created_at' => $this->created_at,
         ];
     }
