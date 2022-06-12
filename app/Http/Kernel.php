@@ -74,5 +74,6 @@ class Kernel extends HttpKernel
         'localeCookieRedirect'    => \Mcamara\LaravelLocalization\Middleware\LocaleCookieRedirect::class,
         'localeViewPath'          => \Mcamara\LaravelLocalization\Middleware\LaravelLocalizationViewPath::class,
         'maintenance_mode'        =>   \App\Http\Middleware\PreventRequestsDuringMaintenance::class,
+        'check_wallet_bin'        =>   \App\Http\Middleware\CheckWalletBin::class,
     ];
 }

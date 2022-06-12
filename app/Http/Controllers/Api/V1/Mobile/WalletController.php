@@ -1,13 +1,9 @@
 <?php
 
 namespace App\Http\Controllers\Api\V1\Mobile;
-
-use App\Models\User;
-use App\Models\CitizenWallet;
-use App\Models\Transaction;
-use App\Models\WalletCharge;
-use App\Models\Card;
+use App\Models\{Card,Device,WalletCharge,Transaction,CitizenWallet,User};
 use App\Http\Controllers\Controller;
+use App\Http\Requests\V1\Mobile\WalletBinRequest;
 use App\Http\Requests\V1\Mobile\WalletRequest;
 use App\Http\Resources\Mobile\WalletResource;
 
@@ -22,33 +18,31 @@ class WalletController extends Controller
     public function chargeWallet(WalletRequest $request)
     {
         // #1 Update wallet balance
-        $wallet = CitizenWallet::where('citizen_id', $request->user_id)->firstorfail();
+        $wallet = CitizenWallet::with('citizen')->where('citizen_id', $request->user_id)->firstOrFail();
         $walletBefore = $wallet->main_balance;
-        $wallet->update(['main_balance' => $walletBefore + $request->amount]);
-        $walletAfter = $wallet->main_balance;
+        $wallet->increment('main_balance' ,$request->amount);
 
         // #2 Add charge information
-        $chargeWallet = new WalletCharge;
-        $chargeWallet->fill([
-                'citizen_id' => $wallet->citizen_id,
-                'amount' => $request->amount,
-                'wallet_before' => $walletBefore,
-                'wallet_after' => $walletAfter
-            ]
-        )->save();
+
+       $wallet_charge = WalletCharge::create([
+            'citizen_id' => $wallet->citizen_id,
+            'amount' => $request->amount,
+            'wallet_before' => $walletBefore,
+            'wallet_after' => $wallet->main_balance
+        ]);
 
         // #3 Add a transaction
-        $citizen = User::find($wallet->citizen_id);
-        $additionalData = [];
-        $additionalData['user_identity'] = $citizen->identity_number;
-        $additionalData['from_user_id'] = $citizen->id;
-        $transaction = new Transaction;
-        $transaction->fill($request->validated() + $additionalData)->save();
+        $transaction_data = [
+            'user_identity' => $wallet->citizen->identity_number,
+            'from_user_id' => $wallet->citizen_id,
+            'trans_type' => $request->trans_type
+        ];
+        $wallet_charge->transaction()->create($transaction_data);
 
         // #4 Save card information
         if ($request->is_card_saved == 1) {
-            $card = new Card;
-            $card->fill($request->validated())->save();
+            Card::create(array_only($request->validated(),['owner_name','card_name','card_number','expire_at']));
+
         }
 
         return WalletResource::make($wallet)
@@ -57,6 +51,26 @@ class WalletController extends Controller
                 'message' => __('dashboard.general.success_add')
             ]);
 
+    }
+
+    public function checkForWalletBin(WalletBinRequest $request)
+    {
+
+        $user = auth()->user();
+        if($request->wallet_bin != $user->citizenWallet?->wallet_bin) {
+
+            $user->citizenWallet()->increment('number_of_tries', 1);
+            if ($user->citizenWallet?->number_of_tries == 3) {
+                // auth()->logout();
+                $device = Device::where('user_id', $user->id)->first();
+                if ($device) {
+                    $device->delete();
+                }
+                $user->currentAccessToken()->delete();
+               // return response()->json(['data'=>null,'status'=>false,'message'=>trans('mobile.messages.your_tries_have_been_expired')],412);
+            }
+        }
+        return response()->json(['data'=>null,'status'=>true,'message'=>trans('mobile.messages.you_can_complete_your_transaction')]);
     }
 
 
