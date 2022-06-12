@@ -111,7 +111,7 @@ class LoginController extends Controller
             if (setting('use_sms_service') == 'enable') {
                $code = generate_unique_code(User::class, 'phone', 4, 'numbers');
             }
-            $user->update(['reset_code' => $code]);
+            $user->update([$request->key_name => $code]);
             // TODO::send code for user by sms
             return response()->json(['status' => true, 'data' => null, 'message' => trans('auth.success_send_login_code')]);
         } catch (\Exception $e) {

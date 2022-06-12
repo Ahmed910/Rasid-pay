@@ -25,20 +25,20 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('set_wallet_bin', 'ProfileController@setWalletBin');
     // Route::middleware('check_wallet_bin')->group(function () {
 
-    Route::post('logout', 'Auth\LoginController@logout');
-    Route::apiResource('profiles', 'ProfileController')->only('index', 'store');
-    Route::post('update_password', 'ProfileController@updatePassword');
-    // notifications
-    Route::apiResource('notifications', 'NotificationController')->only('index', 'show');
-    Route::post('activate_notification', 'ProfileController@activateNotification');
-    // home
-    Route::get('home', 'HomeController@index');
-    // fetch wallet
-    Route::get('fetch_wallet', 'HomeController@fetchWallet');
-    // citizen wallet
-    Route::get('get_citizen_wallet', 'WalletController@getCitizenWallet');
-    //money requests
-    Route::post('money_requests', 'MoneyRequestController@store');
+        Route::post('logout', 'Auth\LoginController@logout');
+        Route::apiResource('profiles', 'ProfileController')->only('index', 'store');
+        Route::post('update_password', 'ProfileController@updatePassword');
+        // notifications
+        Route::apiResource('notifications', 'NotificationController')->only('index', 'show');
+        Route::post('active_notifications', 'ProfileController@activateNotification');
+        // home
+        Route::get('home', 'HomeController@index');
+        // fetch wallet
+        Route::get('fetch_wallet', 'HomeController@fetchWallet');
+        // citizen wallet
+        Route::get('get_citizen_wallet', 'WalletController@getCitizenWallet');
+        //money requests
+        Route::post('money_requests', 'MoneyRequestController@store');
 
     // local transfers
     Route::controller('LocalTransferController')->name('local_transfer.')->prefix('local_transfer')->group(function () {

@@ -16,11 +16,30 @@ class ProfileController extends Controller
 
     public function store(UpdateProfileRequest $request)
     {
-        $client = auth()->user();
-        $client->fill($request->validated())->save();
-        $client->citizen()->update($request->only(['lat', 'lng', 'location']));
-        // $client->bankAccount()->update(['account_number' => $request->account_number]);
-        return UserResource::make(auth()->user())->additional(['status' => true, 'message' => trans('dashboard.general.success_update')]);
+        $citizen = auth()->user();
+        $old_phone = $citizen->phone;
+        $citizen->fill($request->validated())->save();
+        $citizen->citizen()->update($request->only(['lat', 'lng', 'location']));
+        $message = trans('auth.success_update');
+        if ($old_phone != $citizen->phone) {
+            #logout_then_send_sms
+            $code = $this->sendSmsToCitizen($citizen->phone);
+            $citizen->update([
+                'verified_phone_at' => null,
+                'verified_code' => $code
+            ]);
+            $message = trans('auth.success_update_verify_phone');
+        }
+        return UserResource::make($citizen)->additional(['status' => true, 'message' => $message]);
+    }
+
+    private function sendSmsToCitizen($phone)
+    {
+        $code = 1111;
+        if (setting('use_sms_service') == 'enable') {
+           $code = generate_unique_code(User::class, 'phone', 4, 'numbers');
+        }
+        return $code;
     }
 
     /**
@@ -38,7 +57,6 @@ class ProfileController extends Controller
             'data' => null,
         ]);
     }
-
 
     /**
      * @param ActivateNotificationRequest $request
