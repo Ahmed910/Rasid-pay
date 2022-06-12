@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources\Mobile;
 
+use Carbon\Carbon;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class PaymentResource extends JsonResource
@@ -21,6 +22,10 @@ class PaymentResource extends JsonResource
             "description" => $this->description,
             "payment_type" => $this->payment_type,
             "payment_data" => $this->payment_data,
+            'trans_number' => $this->transaction?->trans_number,
+            'qr_code' => $this->transaction?->qr_code,
+            'created_at' => $this->created_at,
+            'total_amount' => $this->amount + $this->transaction?->fee_amount
         ];
     }
 }
