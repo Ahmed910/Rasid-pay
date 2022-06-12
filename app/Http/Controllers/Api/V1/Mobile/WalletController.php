@@ -22,7 +22,7 @@ class WalletController extends Controller
     public function chargeWallet(WalletRequest $request)
     {
         // #1 Update wallet balance
-        $wallet = CitizenWallet::where('citizen_id', $request->user_id)->first();
+        $wallet = CitizenWallet::where('citizen_id', $request->user_id)->firstorfail();
         $walletBefore = $wallet->main_balance;
         $wallet->update(['main_balance' => $walletBefore + $request->amount]);
         $walletAfter = $wallet->main_balance;
