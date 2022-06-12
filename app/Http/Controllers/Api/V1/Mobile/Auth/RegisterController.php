@@ -7,7 +7,7 @@ use App\Http\Requests\V1\Mobile\Auth\CheckVerificationCodeRequest;
 use App\Http\Requests\V1\Mobile\Auth\CompleteRegisterRequest;
 use App\Http\Requests\V1\Mobile\Auth\RegisterRequest;
 use App\Http\Resources\Mobile\UserResource;
-use App\Models\{CitizenPackage, User, CitizenWallet, Package\Package};
+use App\Models\{Citizen, CitizenPackage, User, CitizenWallet, Package\Package};
 
 class RegisterController extends Controller
 {
@@ -107,6 +107,9 @@ class RegisterController extends Controller
         $token =  $user->createToken('RasidBackApp')->plainTextToken;
 
         data_set($user, 'token', $token);
+
+        // save citizen data
+        Citizen::create(['user_id' => $user->id]);
 
         return UserResource::make($user)->additional([
             'status' => true,

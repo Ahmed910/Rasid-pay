@@ -56,10 +56,6 @@ Route::middleware('auth:sanctum')->group(function () {
             Route::post('/', 'store');
         });
 
-
-
-
-
         Route::controller('WalletController')->group(function () {
             Route::get('get_citizen_wallet', 'getCitizenWallet');
             Route::post('wallet_charges', 'chargeWallet');
@@ -81,6 +77,11 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::controller('TransactionController')->group(function () {
             Route::get('transactions', 'index');
             Route::get('transactions/{id}', 'show');
+        });
+
+        Route::controller('PaymentController')->group(function () {
+            Route::post('payment', 'store');
+//            Route::get('payment/{id}', 'show');
         });
     });
 
