@@ -103,7 +103,7 @@ class RegisterController extends Controller
 
             $citizen_table += [
                 'citizen_package_id' => $citizenPackage->id
-            ]);
+            ];
         }
         $user->citizen()->create($citizen_table);
 

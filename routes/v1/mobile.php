@@ -30,7 +30,7 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::post('update_password', 'ProfileController@updatePassword');
         // notifications
         Route::apiResource('notifications', 'NotificationController')->only('index', 'show');
-        Route::post('activate_notification', 'ProfileController@activateNotification');
+        Route::post('active_notifications', 'ProfileController@activateNotification');
         // home
         Route::get('home', 'HomeController@index');
         // fetch wallet
