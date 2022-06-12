@@ -28,22 +28,23 @@ class ResetController extends Controller
             'reset_code' => $code,
         ]);
 
-        return response()->json(['status' => true, 'data' => ['_token' => $code], 'message' => trans('auth.account_is_true')]);
+        return response()->json(['status' => true, 'data' => null, 'message' => trans('auth.account_is_true')]);
     }
 
     public function updatePassword(ResetPasswordRequest $request)
     {
-        $user = User::firstWhere([
+        $user = User::whereNotNull('reset_code')->firstWhere([
             'identity_number' => $request->identity_number,
             'user_type'       => 'citizen'
         ]);
 
-
-        if (!$user)
+        if (!$user){
             return response()->json(['status' => false, 'data' => null, 'message' => trans('auth.account_not_exists')], 422);
+        }
 
         $user->update([
             'password' => $request->password,
+            'reset_code' => null
         ]);
 
         return response()->json([
