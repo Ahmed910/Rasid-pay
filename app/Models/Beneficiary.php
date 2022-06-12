@@ -6,12 +6,11 @@ use App\Models\Country\Country;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\SoftDeletes;
 use App\Traits\Uuid;
 
 class  Beneficiary extends Model
 {
-    use HasFactory, Uuid, SoftDeletes;
+    use HasFactory, Uuid;
 
     #region properties
     protected $guarded = ['created_at', 'deleted_at'];

@@ -76,10 +76,7 @@ Route::middleware('auth:sanctum')->group(function () {
 
     });
 
-    Route::controller('beneficiaryController')->group(function () {
-        Route::post('beneficiaries', 'store');
-        Route::get('beneficiaries/{beneficiary}', 'show');
-    });
+    Route::apiResource('beneficiaries','BeneficiaryController');
 
 
 });
