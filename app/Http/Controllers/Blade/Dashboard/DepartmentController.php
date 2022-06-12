@@ -39,8 +39,8 @@ class DepartmentController extends Controller
                 ->additional(['total_count' => $departmentCount]);
         }
 
-        $parentDepartments = Department::where('is_active', 1)
-            ->has("children")
+        $parentDepartments = Department::/*where('is_active', 1)
+            ->*/has("children")
             ->orWhere(function ($q) {
                 $q->doesntHave('children')
                     ->WhereNull('parent_id');
@@ -59,7 +59,7 @@ class DepartmentController extends Controller
         $previousUrl = url()->previous();
         (strpos($previousUrl, 'department')) ? session(['perviousPage' => 'department']) : session(['perviousPage' => 'home']);
 
-        $departments = Department::with('parent.translations')->ListsTranslations('name')->where(['parent_id' => null, 'is_active' => 1])->pluck('name', 'id')->toArray();
+        $departments = Department::with('parent.translations')->ListsTranslations('name')->where(['is_active' => 1])->pluck('name', 'id')->toArray();
         $locales = config('translatable.locales');
 
         $departments = array_merge(['without' => trans('dashboard.department.without_parent')], $departments);
@@ -109,7 +109,7 @@ class DepartmentController extends Controller
         (strpos($previousUrl, 'department')) ? session(['perviousPage' => 'department']) : session(['perviousPage' => 'home']);
 
         $department = Department::withTrashed()->findOrFail($id);
-        $departments = Department::with('parent.translations')->ListsTranslations('name')->where(['parent_id' => null, 'is_active' => 1])->pluck('name', 'id')->toArray();
+        $departments = Department::with('parent.translations')->ListsTranslations('name')->where(['is_active' => 1])->orWhere('departments.id',$id)->pluck('name', 'id')->toArray();
 
         $departments = array_merge([null => trans('dashboard.department.without_parent')], $departments);
 

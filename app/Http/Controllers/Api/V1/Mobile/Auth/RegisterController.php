@@ -37,7 +37,7 @@ class RegisterController extends Controller
                     'remaining_usage' => $package->number_of_used
                 ];
             }
-            
+
             $citizenPackage = $user->citizenPackages()->create($package_data);
 
             $user->citizen()->create([
@@ -46,7 +46,7 @@ class RegisterController extends Controller
         }
         //TODO: api service for elm to verify account
         //TODO: api service for send sms to phone number
-        $code = 111111;
+        $code = 1111;
         if (setting('use_sms_service') == 'enable') {
             $code = generate_unique_code(User::class, 'phone', 4, 'numbers');
         }
@@ -71,7 +71,7 @@ class RegisterController extends Controller
         }
 
         $user = User::firstWhere([
-            'phone' => $request->phone,
+            'identity_number' => $request->identity_number,
             $request->key_name => $request->code,
             'user_type' => 'citizen'
         ]);
