@@ -20,9 +20,10 @@ class PaymentController extends Controller
             'from_user_id' => auth()->id(),
             'amount' => $request->amount,
             'trans_status' => 'success',
-            'transaction_id' => uniqid()
+            'transaction_id' => uniqid(),
+            'trans_number' => generate_unique_code(Transaction::class, 'trans_number', 14, 'numbers')
         ];
-//        $transaction = $payment->transaction()->create($transaction_data);
+        $transaction = $payment->transaction()->create($transaction_data);
         return PaymentResource::make($payment)
             ->additional([
                 'status' => true,
