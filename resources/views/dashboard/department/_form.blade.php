@@ -13,7 +13,7 @@
 
     <div class="col-12 col-md-{{ isset($department) ? 4 : 6 }}">
       {!! Form::label('mainDepartment', trans('dashboard.department.main_department')) !!}
-      {!! Form::select('parent_id', $appendArray + $departments, null, ['class' => 'form-control select2-show-search' .
+      {!! Form::select('parent_id', $appendArray + $departments, request()->routeIs('dashboard.department.edit') && ! $department->parent_id ? 'without' : null, ['class' => 'form-control select2-show-search' .
       ($errors->has('parent_id') ? ' border-danger' : null), 'data-placeholder' =>
       trans('dashboard.department.select_main_department'), 'id' => 'parent_id']) !!}
       <span class="text-danger" id="parent_idError" hidden></span>
@@ -25,7 +25,6 @@
       <span class="requiredFields">*</span>
       {!! Form::select('is_active', trans('dashboard.department.active_cases'), null, ['class' => 'form-control
       select2', 'id' => 'status']) !!}
-
       <span class="text-danger" id="statusError" hidden></span>
     </div>
     @endif
