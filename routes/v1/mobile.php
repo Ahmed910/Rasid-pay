@@ -25,53 +25,53 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('set_wallet_bin', 'ProfileController@setWalletBin');
     // Route::middleware('check_wallet_bin')->group(function () {
 
-        Route::post('logout', 'Auth\LoginController@logout');
-        Route::apiResource('profiles', 'ProfileController')->only('index', 'store');
-        Route::post('update_password', 'ProfileController@updatePassword');
-        // notifications
-        Route::apiResource('notifications', 'NotificationController')->only('index', 'show');
-        Route::post('activate_notification', 'ProfileController@activateNotification');
-        // home
-        Route::get('home', 'HomeController@index');
-        // fetch wallet
-        Route::get('fetch_wallet', 'HomeController@fetchWallet');
-        // citizen wallet
-        Route::get('get_citizen_wallet', 'WalletController@getCitizenWallet');
-        //money requests
-        Route::post('money_requests', 'MoneyRequestController@store');
+    Route::post('logout', 'Auth\LoginController@logout');
+    Route::apiResource('profiles', 'ProfileController')->only('index', 'store');
+    Route::post('update_password', 'ProfileController@updatePassword');
+    // notifications
+    Route::apiResource('notifications', 'NotificationController')->only('index', 'show');
+    Route::post('activate_notification', 'ProfileController@activateNotification');
+    // home
+    Route::get('home', 'HomeController@index');
+    // fetch wallet
+    Route::get('fetch_wallet', 'HomeController@fetchWallet');
+    // citizen wallet
+    Route::get('get_citizen_wallet', 'WalletController@getCitizenWallet');
+    //money requests
+    Route::post('money_requests', 'MoneyRequestController@store');
 
-        // local transfers
-        Route::controller('LocalTransferController')->name('local_transfer.')->prefix('local_transfer')->group(function () {
-            Route::post('/', 'store');
-        });
+    // local transfers
+    Route::controller('LocalTransferController')->name('local_transfer.')->prefix('local_transfer')->group(function () {
+        Route::post('/', 'store');
+    });
 
-        Route::controller('WalletController')->group(function () {
-            Route::get('get_citizen_wallet', 'getCitizenWallet');
-            Route::post('wallet_charges', 'chargeWallet');
-            // wallet bin
-            Route::post('wallet_bin','checkForWalletBin');
-        });
+    Route::controller('WalletController')->group(function () {
+        Route::get('get_citizen_wallet', 'getCitizenWallet');
+        Route::post('wallet_charges', 'chargeWallet');
+        // wallet bin
+        Route::post('wallet_bin', 'checkForWalletBin');
+    });
 
-        Route::controller('PackageController')->group(function () {
-            Route::get('get_packages', 'getPackages');
-        });
+    Route::controller('PackageController')->group(function () {
+        Route::get('get_packages', 'getPackages');
+    });
 
-        Route::apiResource('card', 'CardController')->only('index', 'destroy');
-        Route::controller('CardController')->name('card.')->prefix('card')->group(function () {
-            Route::post('restore/{id}', 'restore')->name('restore');
-            Route::delete('forceDelete/{id}', 'forceDelete')->name('force_delete');
-        });
+    Route::apiResource('card', 'CardController')->only('index', 'destroy');
+    Route::controller('CardController')->name('card.')->prefix('card')->group(function () {
+        Route::post('restore/{id}', 'restore')->name('restore');
+        Route::delete('forceDelete/{id}', 'forceDelete')->name('force_delete');
+    });
 
-        Route::controller('TransactionController')->group(function () {
-            Route::get('transactions', 'index');
-            Route::get('transactions/{id}', 'show');
-        });
+    Route::controller('TransactionController')->group(function () {
+        Route::get('transactions', 'index');
+        Route::get('transactions/{id}', 'show');
+    });
     // });
     Route::controller('PaymentController')->group(function () {
         Route::post('payment', 'store');
-    //            Route::get('payment/{id}', 'show');
+        Route::get('payment/{id}', 'show');
     });
-    Route::apiResource('beneficiaries','BeneficiaryController');
+    Route::apiResource('beneficiaries', 'BeneficiaryController');
 
     Route::apiResource('wallet_transfers', 'Transfers\WalletTransferController');
 });
