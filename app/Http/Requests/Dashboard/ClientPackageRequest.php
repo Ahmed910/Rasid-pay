@@ -32,7 +32,7 @@ class ClientPackageRequest extends FormRequest
             'discounts' => 'required|array',
             'discounts.*' => 'required|array',
             'discounts.*.package_id' => 'required|exists:packages,id',
-            'discounts.*.package_discount' => 'required|integer|gt:0|lte:100',
+            'discounts.*.package_discount' => 'required|integer|gte:0|lte:100',
 
         ];
     }

@@ -237,7 +237,9 @@ return [
         ],
     ],
     "citizen" => [
-        "citizens" => "المواطنون",],
+        "citizens" => "المواطنون",
+        "same_citizen_transfer"=>"عفوا، لا يمكن التحويل لمحفظتك الشخصية"
+        ],
     "cardpackage" => [
         "cardpackages" => "باقات البطاقات",
         'basic' => 'اساسية',

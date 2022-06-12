@@ -4,6 +4,7 @@ namespace App\Models\RecieveOption;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Astrotomic\Translatable\Translatable;
 use App\Traits\Uuid;
 
 class RecieveOptionTranslation extends Model

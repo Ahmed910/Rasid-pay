@@ -6,5 +6,9 @@ return [
         'local_transfer'=>'التحويل المحلي',
         'current_balance_is_not_sufficiant_to_complete_transaction'=>'الرصيد الحالي لا يكفي لإجراء عملية التحويل',
         'transfer_has_been_done_successfully'=>'تمت عملية التحويل بنجاح'
+    ],
+    'global_transfers'=>[
+        'current_balance_is_not_sufficiant_to_complete_transaction'=>'الرصيد الحالي لا يكفي لإجراء عملية التحويل',
+        'transfer_has_been_done_successfully'=>'تمت عملية التحويل بنجاح'
     ]
 ];
