@@ -24,6 +24,8 @@ class CreateCitizenWalletsTable extends Migration
             $table->string("transferred_balance")->default(0);
             $table->string("wallet_qr")->nullable();
             $table->string('cash_back')->default(0);
+            $table->char('wallet_bin',10)->nullable();
+            $table->tinyInteger('number_of_tries')->default(0);
             $table->timestamp('last_updated_at')->useCurrent()->useCurrentOnUpdate();
             $table->timestamps();
         });
