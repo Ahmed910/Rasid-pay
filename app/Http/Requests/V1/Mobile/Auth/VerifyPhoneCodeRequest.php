@@ -5,7 +5,7 @@ namespace App\Http\Requests\V1\Mobile\Auth;
 use App\Http\Requests\ApiMasterRequest;
 use App\Models\User;
 
-class CheckVerificationCodeRequest extends ApiMasterRequest
+class VerifyPhoneCodeRequest extends ApiMasterRequest
 {
     public function rules()
     {

@@ -3,9 +3,13 @@
 namespace App\Http\Controllers\Api\V1\Mobile;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\V1\Mobile\Auth\UpdatePasswordRequest;
-use App\Http\Requests\V1\Mobile\{WalletBinRequest,UpdateProfileRequest,ActivateNotificationRequest};
+use App\Http\Requests\V1\Mobile\{
+    WalletBinRequest,
+    UpdateProfileRequest,
+    Profile\UpdatePasswordRequest
+};
 use App\Http\Resources\Mobile\UserResource;
+use Illuminate\Http\Request;
 
 class ProfileController extends Controller
 {
@@ -62,9 +66,9 @@ class ProfileController extends Controller
      * @param ActivateNotificationRequest $request
      * @return \Illuminate\Http\JsonResponse
      */
-     public function activateNotification(ActivateNotificationRequest $request)
+     public function activateNotification(Request $request)
     {
-        auth()->user()->update($request->validated());
+        auth()->user()->update(['is_notification_enabled' => !auth()->user()->is_notification_enabled]);
         return response()->json([
             'status' => true,
             'message' => trans('auth.success_activate_notifcation'),

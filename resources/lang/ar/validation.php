@@ -45,7 +45,9 @@ $attributes = [
     'reasonAction'                  => 'حقل السبب',
     'ban_from'                  => 'حقل تاريخ من',
     'ban_to'                  => 'حقل تاريخ إلى',
-    'employee_id'       =>       'اسم الموظف',
+    'employee_id'       =>       'حقل اسم الموظف',
+    'current_password'       =>       'حقل كلمة المرور الحالية',
+    'new_password'       =>       'حقل كلمة المرور الجديدة',
 
     //card package create screen
     'client_id'          => 'اسم العميل',
@@ -126,7 +128,7 @@ return [
     'date_format'          => 'لا يتوافق  :attribute مع الشكل :format.',
     'declined'             => 'يجب رفض :attribute.',
     'declined_if'          => 'يجب رفض :attribute عندما يكون :other بقيمة :value.',
-    'different'            => 'يجب أن يكون الان :attribute و :other مُختلفين.',
+    'different'            => 'يجب أن يكون :attribute و :other مُختلفين.',
     'digits'               => 'يجب أن يحتوي  :attribute على :digits رقمًا/أرقام.',
     'digits_between'       => 'يجب أن يحتوي  :attribute بين :min و :max رقمًا/أرقام .',
     'dimensions'           => 'ال:attribute يحتوي على أبعاد صورة غير صالحة.',
@@ -194,7 +196,7 @@ return [
     'prohibited_if'        => ' :attribute محظور إذا كان :other هو :value.',
     'prohibited_unless'    => ' :attribute محظور ما لم يكن :other ضمن :values.',
     'prohibits'            => 'ال :attribute يحظر تواجد ال :other.',
-    'regex'                => 'صيغة  :attribute .غير صحيحة.',
+    'regex'                => 'صيغة :attribute غير صحيحة',
     'required'             => ' :attribute مطلوب.',
     'required_array_keys'  => 'ال :attribute يجب أن يحتوي على مدخلات لـ: :values.',
     'required_if'          => ' :attribute مطلوب في حال ما إذا كان :other يساوي :value.',
