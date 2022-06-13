@@ -21,9 +21,9 @@ class WalletResource extends JsonResource
             'wallet_number'  => (string)$this->wallet_number,
             'main_balance'   => (string)$this->main_balance,
             'cash_back'      => (string)$this->cash_back,
-            'total_balance'  => (string)$this->main_balance + $this->gift_balance,
-            'wallet_qr'      => $this->wallet_qr	,
-            'last_updated'   => Carbon::parse($this->last_updated_at)->diffForHumans(),
+            'total_balance'  => (string)$this->main_balance + $this->cash_back,
+            'wallet_qr'      => $this->wallet_qr,
+            'last_updated'   => $this->last_updated_at?->diffForHumans(),
         ];
     }
 }
