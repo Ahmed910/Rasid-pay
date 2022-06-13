@@ -153,7 +153,7 @@ if (!function_exists('transform_array_api')) {
 if (!function_exists('format_date')) {
     function format_date(?string $date)
     {
-        if (is_null($date)) return;
+        if (is_null($date)) return null;
 
         if (auth()->check() && auth()->user()->is_date_hijri) {
 
