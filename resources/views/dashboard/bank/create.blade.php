@@ -20,7 +20,7 @@
 <!-- PAGE-HEADER END -->
 
   <!-- ROW OPEN -->
-  {!! Form::open(['route' => 'dashboard.bank.store', 'method'=>'POST','class' => 'needs-validation', 'id' => 'formId', 'novalidate']) !!}
+  {!! Form::open(['route' => 'dashboard.bank.store', 'method'=>'POST','class' => 'needs-validation', 'id' => 'formId', 'novalidate' ,'autocomplete'=>"off"]) !!}
   @include('dashboard.bank._form')
   {!! Form::close() !!}
 

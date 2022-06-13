@@ -22,8 +22,8 @@
     <!-- PAGE-HEADER END -->
 
     <!-- ROW OPEN -->
-  
-    {!! Form::model($bank, ['route' => ['dashboard.bank.update', $bank->id], 'method' => 'PUT', 'class' => 'needs-validation', 'id' => 'formId', 'files' => true, 'novalidate']) !!}
+
+    {!! Form::model($bank, ['route' => ['dashboard.bank.update', $bank->id], 'method' => 'PUT', 'class' => 'needs-validation', 'id' => 'formId', 'files' => true, 'novalidate','autocomplete'=>"off"]) !!}
     @include('dashboard.bank._form')
     {!! Form::close() !!}
 

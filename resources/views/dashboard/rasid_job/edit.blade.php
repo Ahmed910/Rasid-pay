@@ -22,7 +22,7 @@
     <!-- PAGE-HEADER END -->
 
     <!-- ROW OPEN -->
-    {!! Form::model($rasidJob, ['route' => ['dashboard.rasid_job.update', $rasidJob->id], 'method' => 'PUT', 'class' => 'needs-validation', 'id' => 'formId', 'novalidate']) !!}
+    {!! Form::model($rasidJob, ['route' => ['dashboard.rasid_job.update', $rasidJob->id], 'method' => 'PUT', 'class' => 'needs-validation', 'id' => 'formId', 'novalidate','autocomplete'=>"off"]) !!}
     @include('dashboard.rasid_job._form')
     {!! Form::close() !!}
 

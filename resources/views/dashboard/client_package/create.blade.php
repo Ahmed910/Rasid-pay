@@ -17,7 +17,7 @@
     </div>
     <!-- PAGE-HEADER END -->
 
-    {!! Form::open(['route' => 'dashboard.client_package.store', 'method' => 'POST', 'id' => 'formId']) !!}
+    {!! Form::open(['route' => 'dashboard.client_package.store', 'method' => 'POST', 'id' => 'formId' , 'autocomplete'=>"off"]) !!}
 
          @include('dashboard.client_package._form')
 
