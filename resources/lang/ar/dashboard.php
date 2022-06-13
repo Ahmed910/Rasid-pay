@@ -238,7 +238,9 @@ return [
     ],
     "citizen" => [
         "citizens" => "المواطنون",
-        "same_citizen_transfer"=>"عفوا، لا يمكن التحويل لمحفظتك الشخصية"
+        "same_citizen_transfer"=>"عفوا، لا يمكن التحويل لمحفظتك الشخصية",
+         "wallet_in_black_list"=>"عفوا، رقم المحفظة خاص بهوية أوإقامة في القائمةالسوداءالسوداء",
+        "identity_in_black_list"=>"عفوا، رقم الهوية محظورمحظور"
         ],
     "cardpackage" => [
         "cardpackages" => "باقات البطاقات",
