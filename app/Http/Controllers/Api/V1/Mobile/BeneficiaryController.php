@@ -13,7 +13,7 @@ class BeneficiaryController extends Controller
 
     public function index(Request $request)
     {
-        $beneficiaries = Beneficiary::latest()->paginate((int)($request->per_page ?? config("globals.per_page")));
+        $beneficiaries = Beneficiary::search($request)->latest()->paginate((int)($request->per_page ?? config("globals.per_page")));
 
         return BeneficiaryResource::collection($beneficiaries)
             ->additional([
