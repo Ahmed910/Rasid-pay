@@ -119,6 +119,7 @@ $("#to-hijri-picker-custom").on('dp.change', function (event) {
 $('.exportBtn').on('click',function(){
     ul = $(this).next('ul');
     $(ul).children().each(function(index,item){
-        $(item).find('a').attr('href',$(item).find('a').attr('href') + window.location.search);
+        url = $(item).find("a").attr("href").split('?')[0];
+        $(item).find('a').attr('href', url + window.location.search);
     });
 });

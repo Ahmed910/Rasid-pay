@@ -12,6 +12,7 @@ class CitizenWallet extends Model
 
     #region properties
     protected $guarded = ['created_at', 'updated_at'];
+    protected $dates = ['last_updated_at'];
     #endregion properties
     public function setWalletNumberAttribute($value)
     {
@@ -24,7 +25,7 @@ class CitizenWallet extends Model
         }
     }
 
-    public function getQrcodeAttribute()
+    public function getQrCodeAttribute()
     {
         return asset('storage/'.$this->attributes['wallet_qr']);
     }

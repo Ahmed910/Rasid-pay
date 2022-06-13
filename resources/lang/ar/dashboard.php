@@ -239,7 +239,9 @@ return [
     ],
     "citizen" => [
         "citizens" => "المواطنون",
-        "same_citizen_transfer"=>"عفوا، لا يمكن التحويل لمحفظتك الشخصية"
+        "same_citizen_transfer"=>"عفوا، لا يمكن التحويل لمحفظتك الشخصية",
+         "wallet_in_black_list"=>"عفوا، رقم المحفظة خاص بهوية أوإقامة في القائمةالسوداءالسوداء",
+        "identity_in_black_list"=>"عفوا، رقم الهوية محظورمحظور"
         ],
     "cardpackage" => [
         "cardpackages" => "باقات البطاقات",
@@ -340,10 +342,10 @@ return [
         "departments" => "الاقسام",
         "department_image" => "صورة القسم",
         "department_name" => "اسم القسم",
-        "department_main" => "القسم الر ئيسي",
+        "department_main" => "القسم الرئيسي",
         "select_department" => "اختر القسم",
-        "main_department" => "القسم الر ئيسي",
-        'select_main_department' => 'اختر القسم الر ئيسي',
+        "main_department" => "القسم الرئيسي",
+        'select_main_department' => 'اختر القسم الرئيسي',
         "add_department" => "إضافة قسم",
         "edit_department" => "تعديل قسم",
         "department_count" => "عدد الاقسام",

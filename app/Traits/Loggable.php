@@ -100,7 +100,7 @@ trait Loggable
      */
     private function newData($item)
     {
-        $data['permissions'] = !is_array(@$item->permissions) && !class_basename($item == 'Permission') ? ($item->permissions?->map->name->toArray() ?? []) : [];
+        $data['permissions'] = !is_array(@$item->permissions) ? ($item->permissions?->map->name->toArray() ?? []) : [];
         $data['groups'] = $item->groups?->map->name->toArray() ?? [];
         $data['translations'] = $item->translations?->map->getDirty()->toArray();
 

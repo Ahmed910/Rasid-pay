@@ -62,7 +62,7 @@ class AdminController extends Controller
 
         $departments = Department::with('parent.translations')->ListsTranslations('name')->pluck('name', 'id')->toArray();
         $groups = Group::ListsTranslations('name')->pluck('name', 'id');
-        $permissions = Permission::permissions()->pluck('name', 'id');
+        $permissions = Permission::getPermissions()->pluck('name', 'id');
         $locales = config('translatable.locales');
         return view('dashboard.admin.create', compact('departments', 'locales', 'groups', 'permissions','previousUrl'));
     }
@@ -144,7 +144,7 @@ class AdminController extends Controller
         $departments = Department::with('parent.translations')->ListsTranslations('name')->pluck('name', 'id')->toArray();
 
         $groups = Group::with('translations')->ListsTranslations('name')->pluck('name', 'id');
-        $permissions = Permission::permissions()->pluck('name', 'id');
+        $permissions = Permission::getPermissions()->pluck('name', 'id');
         $rasid_jobs = RasidJob::select('id')->ListsTranslations('name')->where('department_id', $admin->department?->id)->setEagerLoads([])->pluck('name', 'id')->toArray();
         $locales = config('translatable.locales');
         return view('dashboard.admin.edit', compact('departments','admin', 'groups', 'permissions', 'locales','rasid_jobs'));

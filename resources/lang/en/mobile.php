@@ -12,4 +12,7 @@ return [
         'you_can_complete_your_transaction'=>'You Can Complete Your Transaction',
         'your_tries_have_been_expired'=>'Your Tries Have Been Expired For Complete This Transaction'
     ],
+    'payments' => [
+        'current_balance_is_not_sufficient_to_complete_payment'=>'Current Balance Is Not Sufficient To Complete Payment',
+    ]
 ];

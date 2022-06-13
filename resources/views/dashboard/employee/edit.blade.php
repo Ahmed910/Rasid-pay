@@ -22,7 +22,7 @@
 <!-- PAGE-HEADER END -->
 
 <!-- ROW OPEN -->
-{!! Form::model($employee, ['route' => ['dashboard.employee.update', $employee->id], 'method' => 'PUT', 'class' => 'needs-validation', 'id' => 'formId', 'files' => true, 'novalidate']) !!}
+{!! Form::model($employee, ['route' => ['dashboard.employee.update', $employee->id], 'method' => 'PUT', 'class' => 'needs-validation', 'id' => 'formId', 'files' => true, 'novalidate','autocomplete'=>"off"]) !!}
 @include('dashboard.employee._form',['btn_submit' => trans('dashboard.general.edit')])
 {!! Form::close() !!}
 

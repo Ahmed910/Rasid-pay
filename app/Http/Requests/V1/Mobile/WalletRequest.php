@@ -16,16 +16,41 @@ class WalletRequest extends ApiMasterRequest
         return [
             // in citizen wallet
             "amount" => "required|numeric|min:0",
-            'user_id' => 'required|exists:users,id,user_type,citizen',
-
-            // in transactions
-            "trans_type" => "nullable|in:wallet_charge",
-
             //card information
+            'is_card_saved' => 'required|in:0,1',
             'owner_name' => 'required_if:is_card_saved,1|string|max:255',
+            'card_type' => 'required_if:is_card_saved,1|in:visa,mastercard,american_express',
             'card_name' => 'required_if:is_card_saved,1|string|max:255',
-            'card_number' => 'required_if:is_card_saved,1|numeric|unique:cards|digits:16',
-            'expire_at' => 'required_if:is_card_saved,1|date|max:25|after:today',
+            'card_number' => 'required_if:is_card_saved,1|numeric|digits:16',
+            'expire_at' => 'required_if:is_card_saved,1|date_format:Y-m|max:25|after:today',
         ];
+    }
+
+    protected function prepareForValidation()
+    {
+        // Visa cards begin with a 4 and have 13 or 16 digits
+        // Mastercard cards begin with a 5 and has 16 digits
+        // American Express cards begin with a 3, followed by a 4 or a 7 has 15 digits
+        // Discover cards begin with a 6 and have 16 digits
+        // Diners Club and Carte Blanche cards begin with a 3, followed by a 0, 6, or 8 and have 14 digits
+
+        $data = $this->all();
+        if ($this->is_card_saved && @$data['card_number']) {
+            $card_type = 'unknown';
+            switch ($data['card_number']) {
+                case substr($data['card_number'],0,1) == 4 :
+                $card_type = 'visa';
+                break;
+                case substr($data['card_number'],0,1) == 5 :
+                $card_type = 'mastercard';
+                break;
+                case substr($data['card_number'],0,1) == 3 && in_array(substr($data['card_number'],1,1),[4,7]):
+                $card_type = 'american_express';
+                break;
+            }
+            $this->merge([
+                'card_type' =>  $card_type,
+            ]);
+        }
     }
 }

@@ -48,6 +48,7 @@ $attributes = [
     'employee_id'       =>       'حقل اسم الموظف',
     'current_password'       =>       'حقل كلمة المرور الحالية',
     'new_password'       =>       'حقل كلمة المرور الجديدة',
+    'card_type'       =>       'حقل نوع البطاقة',
 
     //card package create screen
     'client_id'          => 'اسم العميل',
@@ -89,7 +90,7 @@ $attributes = [
     'code'    => 'رمز التحقق',
     'iban_number' => 'حقل رقم الحساب ',
     'relation' => 'حقل علاقة القرابة',
-    'recieve_option_id' => 'حقل غرض التحويل',
+    'recieve_option_id' => 'حقل  خيارات الاستلام',
     'nationality' => 'حقل الجنسية',
     'date_of_birth' => 'حقل تاريخ الميلاد'
 ];
