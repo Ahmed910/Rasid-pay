@@ -147,7 +147,7 @@ class DepartmentController extends Controller
             ->searchDeletedAtFromTo($request)
             ->with('parent.translations')
             ->ListsTranslations('name')
-            ->addSelect('departments.deleted_at', 'departments.parent_id')
+            ->addSelect('departments.deleted_at', 'departments.parent_id','departments.is_active')
             ->sortBy($request);
 
         if ($request->ajax()) {
