@@ -22,7 +22,7 @@
 <!-- PAGE-HEADER END -->
 
 <!-- ROW OPEN -->
-{!! Form::model($admin, ['route' => ['dashboard.admin.update', $admin->id], 'method' => 'PUT', 'class' => 'needs-validation', 'id' => 'formId', 'files' => true, 'novalidate']) !!}
+{!! Form::model($admin, ['route' => ['dashboard.admin.update', $admin->id], 'method' => 'PUT', 'class' => 'needs-validation', 'id' => 'formId', 'files' => true, 'novalidate','autocomplete'=>"off"]) !!}
 @include('dashboard.admin._form')
 {!! Form::close() !!}
 
