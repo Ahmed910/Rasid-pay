@@ -48,10 +48,19 @@
       </div>
       <div class="col-12 col-md-3">
         <label class="d-block" for="departmentName">@lang('dashboard.general.status') :</label>
-        @if ($admin->is_active == 1)
-          <p class="badge bg-success-opacity py-2 px-4">@lang('dashboard.general.active')</p>
+        @if ($admin->ban_status == 'active')
+          <p class="badge bg-success-opacity py-2 px-4">@lang('dashboard.admin.active_cases.'.$admin->ban_status)</p>
         @else
-          <p class="badge bg-danger-opacity py-2 px-4">@lang('dashboard.general.inactive')</p>
+          <p class="badge bg-danger-opacity py-2 px-4">@lang('dashboard.admin.active_cases.'.$admin->ban_status)
+            @if($admin?->ban_from)
+              <i class="mdi mdi-calendar" data-bs-toggle="popoverRoles" tabindex="1"
+                 data-bs-placement="right" data-bs-html="true"
+                 title="<span class='tooltipRole'>{{ trans('dashboard.datatable.from')." : ".$admin?->ban_from }}
+                   <br><br> {{trans('dashboard.datatable.to')." : ". $admin?->ban_to }}
+                   </span>">
+              </i>
+            @endif
+          </p>
         @endif
 
       </div>
