@@ -21,7 +21,7 @@
 
 
 <!-- ROW OPEN -->
-{!! Form::open(['route' => 'dashboard.admin.store', 'method' => 'POST', 'class' => 'needs-validation', 'id' => 'formId', 'files' => true, 'novalidate']) !!}
+{!! Form::open(['route' => 'dashboard.admin.store', 'method' => 'POST', 'class' => 'needs-validation', 'id' => 'formId', 'files' => true, 'novalidate' ,'autocomplete'=>"off"]) !!}
 @include('dashboard.admin._form')
 {!! Form::close() !!}
 
