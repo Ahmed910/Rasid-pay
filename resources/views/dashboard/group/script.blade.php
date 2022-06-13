@@ -46,7 +46,8 @@
                     },
                     {
                         data: "admins_count",
-                        name: 'admins_count'
+                        name: 'admins_count',
+
                     },
                     {
                         data: function(data) {
@@ -90,18 +91,26 @@
                 pageLength: 10,
                 lengthMenu: [
                     [1, 5, 10, 15, 20],
-                  ["١", "٥","١٠","١٥", "٢٠"]
+                    [1, 5, 10, 15, 20]
+                 // ["١", "٥","١٠","١٥", "٢٠"]
                 ],
 
                 "language": {
                   @include('dashboard.layouts.globals.datatable.datatable_translation')
                 },
-                "drawCallback": function(settings, json) {
+                {{-- "drawCallback": function(settings, json) {
                     // table sorting
                     var groupTableSorting = document.getElementsByClassName('group_index');
                     for (var i = 0; i < groupTableSorting.length; i++) {
                         groupTableSorting[i].innerText = groupTableSorting[i].innerText.replace(
                             groupTableSorting[i].innerText, groupTableSorting[i].innerText
+                            .toArabicUni());
+                    }
+                    // admin_count
+                     var adminGroupTable = document.getElementsByClassName('admins_count');
+                    for (var i = 0; i < adminGroupTable.length; i++) {
+                        adminGroupTable[i].innerText = adminGroupTable[i].innerText.replace(
+                            adminGroupTable[i].innerText, adminGroupTable[i].innerText
                             .toArabicUni());
                     }
                     //pagination
@@ -115,7 +124,7 @@
                     var groupTableInfo = document.getElementById('ajaxTable_info').innerText;
                     document.getElementById('ajaxTable_info').innerText = groupTableInfo.replace(
                         groupTableInfo, groupTableInfo.toArabicUni());
-                },
+                }, --}}
                 createdRow: function(row, data) {
                     let span = ``;
                     $(`[data-bs-toggle="popoverRoles"]`, row).popover({

@@ -58,7 +58,7 @@ class Permission extends Model
     #endregion relationships
 
     #region custom Methods
-    public static function permissions($dashboard_type = 'dashboard_blade')
+    public static function getPermissions($dashboard_type = 'dashboard_blade')
     {
         $permissions = Permission::where('permission_on', $dashboard_type)->get();
         foreach (app()->routes->getRoutes() as $value) {

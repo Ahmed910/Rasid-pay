@@ -3,6 +3,7 @@
 namespace App\Http\Resources\Blade\Dashboard\Group;
 
 use App\Http\Resources\Dashboard\GlobalTransResource;
+use App\Models\User;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class PermissionResource extends JsonResource
@@ -15,7 +16,7 @@ class PermissionResource extends JsonResource
      */
     public function toArray($request)
     {
-        
+
         $permission = explode('.',$this->name);
         $single_uri = str_singular($permission[0]);
         $main_prog = trans('dashboard.' . $single_uri . '.' . $permission[0]);
@@ -29,6 +30,8 @@ class PermissionResource extends JsonResource
                 $sub_prog = trans('dashboard.'.$single_uri.'.sub_progs.archive');
                 break;
         }
+
+
         return [
             'id' => $this->id,
             'is_selected' => auth()->user()->permissions()->where('permissions.id',$this->id)->exists(),

@@ -24,9 +24,14 @@ class DepartmentsExport implements FromView, ShouldAutoSize
             ->with('parent.translations')
             ->ListsTranslations('name')
             ->addSelect('departments.created_at', 'departments.is_active', 'departments.parent_id', 'departments.added_by_id')->get();
-
+            if (!$this->request->has('created_from')) {
+                $createdFrom = Department::selectRaw('MIN(created_at) as min_created_at')->value('min_created_at');
+            }
         return view('dashboard.exports.department', [
-            'departments' => $departmentsQuery
+            'departments' => $departmentsQuery,
+            'date_from'   => format_date($this->request->created_from) ?? format_date($createdFrom),
+            'date_to'     => format_date($this->request->created_to) ?? format_date(now()),
+            'userId'      => auth()->user()->login_id,
         ]);
     }
 }

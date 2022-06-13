@@ -89,7 +89,7 @@ $attributes = [
     'code'    => 'رمز التحقق',
     'iban_number' => 'حقل رقم الحساب ',
     'relation' => 'حقل علاقة القرابة',
-    'recieve_option_id' => 'حقل غرض التحويل',
+    'recieve_option_id' => 'حقل  خيارات الاستلام',
     'nationality' => 'حقل الجنسية',
     'date_of_birth' => 'حقل تاريخ الميلاد'
 ];

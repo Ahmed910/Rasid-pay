@@ -16,7 +16,7 @@ class TransactionResource extends JsonResource
             'status'           => trans("dashboard.transaction.status_cases.{$this->trans_status}") ,
             'transaction_id'   => $this->transaction_id,
             'transaction_data' => $this->transaction_data,
-            'qr_code'          => $this->qr_code,
+            'qr_code'          => $this->qr_path,
             'date'             => $this->created_at
         ];
     }
