@@ -35,7 +35,7 @@ class WalletRequest extends ApiMasterRequest
         // Diners Club and Carte Blanche cards begin with a 3, followed by a 0, 6, or 8 and have 14 digits
 
         $data = $this->all();
-        if ($this->is_card_saved && $data['card_number']) {
+        if ($this->is_card_saved && @$data['card_number']) {
             $card_type = 'unknown';
             switch ($data['card_number']) {
                 case substr($data['card_number'],0,1) == 4 :
