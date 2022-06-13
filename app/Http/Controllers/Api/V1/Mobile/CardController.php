@@ -10,47 +10,20 @@ class CardController extends Controller
 {
     public function index()
     {
-        $cards = Card::where('user_id', auth()->user()->id)->get();
+        $cards = auth()->user()->cards()->latest()->get();
         return CardResource::collection($cards)->additional([
             'status' => true,
             'message' => ''
         ]);
     }
 
-    public function destroy(Card $card)
+    public function destroy($id)
     {
-        $card->delete();
+        $card = auth()->user()->cards()->findOrFail($id);
         return CardResource::make($card)
             ->additional([
                 'status' => true,
                 'message' => trans('dashboard.general.success_archive'),
             ]);
     }
-
-    public function restore($id)
-    {
-        $card = Card::onlyTrashed()->findOrFail($id);
-        $card->restore();
-
-        return CardResource::make($card)
-            ->additional([
-                'status' => true,
-                'message' => trans('dashboard.general.success_restore'),
-            ]);
-    }
-
-
-    public function forceDelete($id)
-    {
-        $card = Card::onlyTrashed()->findorfail($id);
-        $card->forceDelete();
-
-        return CardResource::make($card)
-            ->additional([
-                'status' => true,
-                'message' => trans('dashboard.general.success_delete'),
-            ]);
-    }
-
-
 }

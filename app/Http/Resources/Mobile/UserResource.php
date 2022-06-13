@@ -24,11 +24,10 @@ class UserResource extends JsonResource
             'phone' => $this->phone,
             'email' => $this->email,
             'whatsapp' => $this->whatsapp,
-            'is_phone_verified' => (bool)$this->is_active,
-            'wallet_has_bin' => (bool)$this->citizenWallet->wallet_bin,
-            'ban_status' => $this->ban_status,
-            'ban_from' => $this->ban_from,
-            'ban_to' => $this->ban_to,
+            'is_phone_verified' => (bool)$this->phone_verified_at,
+            // 'ban_status' => $this->ban_status,
+            // 'ban_from' => $this->ban_from,
+            // 'ban_to' => $this->ban_to,
             'created_at' => $this->created_at,
         ];
     }

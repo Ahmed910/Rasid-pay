@@ -17,7 +17,6 @@ use Illuminate\Support\Str;
 
 class Transaction extends Model
 {
-
     use HasFactory, Uuid, Loggable, SoftDeletes;
 
     const SUCCESS = 'success';
@@ -33,7 +32,7 @@ class Transaction extends Model
         self::CANCELED,
     ];
 
-    protected $guarded = ['trans_number', 'created_at', 'updated_at'];
+    protected $guarded = ['created_at', 'updated_at'];
     private $sortableColumns = ["user_from_id", "trans_number", "created_at", 'from_user_to', 'amount', 'fee_amount', 'trans_type', 'trans_status'];
     const user_searchable_Columns = ["user_from", "email", "image", "country_code", "phone", "full_phone", "identity_number", "date_of_birth"];
     const user_sortable_Columns = ["user_from" => "fullname", "email" => "email", "image" => "email", "country_code" => "country_code", "phone" => "phone", "full_phone" => "full_phone", "identity_number" => "identity_number", "date_of_birth" => "date_of_birth"];
@@ -44,39 +43,6 @@ class Transaction extends Model
     const client_sortable_Columns = ["user_to" => "fullname", "client_type" => "client_type", "commercial_number" => "commercial_number", "nationality" => "nationality", "tax_number" => "tax_number", "transactions_done" => "transactions_done"];
     const ENABLED_CARD_sortable_COLUMNS = ["enabled_package" => "card_type"];
     const TRANACTION_TYPES = ['pay', 'transfer', 'charge', 'money_request'];
-
-    public static function boot()
-    {
-        parent::boot();
-       static::created(function ($item) {
-           $qr_code = self::createQr($item->trans_number);
-           $item->update(['qr_path' => $qr_code]);
-       });
-    }
-
-    private static function createQr($qr_value)
-    {
-        self::checkOrCreateQrDirectory();
-        $filname = time() . "_" . $qr_value . "_qr_code.png";
-
-        $path = storage_path('app/public/images/transactions/' . $filname);
-
-
-        \QrCode::errorCorrection('H')
-            ->format('png')
-            ->encoding('UTF-8')
-            ->merge(public_path('dashboardAssets/images/brand/logoQR.png'), .2, true)
-            ->size(500)
-            ->generate((string)$qr_value, $path);
-        return 'images/transactions/' . $filname;
-    }
-
-    private static function checkOrCreateQrDirectory()
-    {
-        if (!\File::isDirectory(storage_path('app/public/images/transactions/'))) {
-            \File::makeDirectory(storage_path('app/public' . DIRECTORY_SEPARATOR . 'images' . DIRECTORY_SEPARATOR . 'transactions' . DIRECTORY_SEPARATOR), 0777, true);
-        }
-    }
 
     public function scopeSearch(Builder $query, $request)
     {

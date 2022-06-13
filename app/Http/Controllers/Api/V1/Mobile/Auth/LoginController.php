@@ -32,10 +32,12 @@ class LoginController extends Controller
     public function login(LoginRequest $request)
     {
         $credentials = $this->getCredentials($request);
+
         $user = User::firstWhere([
             'identity_number' => $request->identity_number,
             'user_type'       => 'citizen'
         ]);
+
         if (!$user) {
             return response()->json(['status' => false, 'data' => null, 'message' => trans('auth.account_not_exists')], 422);
         }
@@ -85,7 +87,7 @@ class LoginController extends Controller
         data_set($user, 'token', $token);
         return UserResource::make($user)->additional([
             'status' => true,
-            'message' => trans('auth.success_login',
+            'message' => trans('auth.success_login_mobile',
                 ['user' => $user->identity_number])]);
     }
 
@@ -105,11 +107,11 @@ class LoginController extends Controller
         }
 
         try {
-            $code = 111111;
+            $code = 1111;
             if (setting('use_sms_service') == 'enable') {
-               $code = generate_unique_code(User::class, 'phone', 6, 'numbers');
+               $code = generate_unique_code(User::class, 'phone', 4, 'numbers');
             }
-            $user->update(['reset_code' => $code]);
+            $user->update([$request->key_name => $code]);
             // TODO::send code for user by sms
             return response()->json(['status' => true, 'data' => null, 'message' => trans('auth.success_send_login_code')]);
         } catch (\Exception $e) {

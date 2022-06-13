@@ -27,7 +27,10 @@
           minDate: '1900-01-01',
           maxDate: '2100-01-01',
           showClear: true,
-          isRTL: "{{ LaravelLocalization::getCurrentLocaleDirection() == 'rtl' }}"
+          isRTL: "{{ LaravelLocalization::getCurrentLocaleDirection() == 'rtl' }}",
+          icons:{
+            clear:"{{ trans('dashboard.general.delete') }}"
+          }
         }).on('dp.change', function () {
         table.draw();
       });

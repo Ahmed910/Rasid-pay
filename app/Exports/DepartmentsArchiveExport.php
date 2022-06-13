@@ -28,8 +28,15 @@ class DepartmentsArchiveExport implements FromView, ShouldAutoSize
             ->addSelect('departments.deleted_at', 'departments.parent_id')
             ->get();
 
+            if (!$this->request->has('created_from')) {
+                $createdFrom = Department::selectRaw('MIN(created_at) as min_created_at')->value('min_created_at');
+            }
+
         return view('dashboard.exports.archive.department', [
-            'departments_archive' => $departments_archiveQuery
+            'departments_archive' => $departments_archiveQuery,
+            'date_from'   => format_date($this->request->created_from) ?? format_date($createdFrom),
+            'date_to'     => format_date($this->request->created_to) ?? format_date(now()),
+            'userId'      => auth()->user()->login_id,
         ]);
     }
 }

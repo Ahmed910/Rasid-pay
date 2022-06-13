@@ -19,15 +19,4 @@ class HomeController extends Controller
         return WalletResource::make(auth()->user()->citizenWallet)->additional(['status' => true, 'message' => '']);
     }
 
-    /**
-     * @return WalletResource
-     */
-    public function fetchWallet()
-    {
-        $wallet = auth()->user()->citizenWallet;
-        $wallet->update([
-            'last_updated_at' => now()
-        ]);
-        return WalletResource::make($wallet)->additional(['status' => true, 'message' => '']);
-    }
 }

@@ -13,7 +13,7 @@ class Card extends Model
     use HasFactory, Uuid, Loggable, SoftDeletes;
 
     protected $guarded = ['created_at', 'updated_at'];
-
+    protected $dates = ['expire_at'];
 
     #region properties
     #endregion properties

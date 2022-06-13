@@ -2,12 +2,13 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use App\Models\RecieveOption\RecieveOption;
-use App\Models\Country\Country;
 use App\Traits\Uuid;
+use App\Models\Country\Country;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Builder;
+use App\Models\RecieveOption\RecieveOption;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class  Beneficiary extends Model
 {
@@ -27,7 +28,14 @@ class  Beneficiary extends Model
     #endregion mutators
 
     #region scopes
+    public function scopeSearch(Builder $query, $request)
+    {
+        if ($request->has("name"))
+            $query->where("name", "like", "%$request->name%");
 
+        if ($request->has("benficiar_type"))
+            $query->where("benficiar_type", $request->benficiar_type);
+    }
     #endregion scopes
 
     #region relationships

@@ -54,7 +54,7 @@ class GroupController extends Controller
         $groups = Group::with('translations')->active()
             ->ListsTranslations('name')->pluck('name', 'id');
 
-        $permissions = Permission::permissions()->pluck('name', 'id');
+        $permissions = Permission::getPermissions()->pluck('name', 'id');
         $locales = config('translatable.locales');
 
         return view('dashboard.group.create', compact('groups', 'permissions', 'locales', 'previousUrl'));
@@ -116,7 +116,7 @@ class GroupController extends Controller
         $group = Group::where('id', "<>", auth()->user()->group_id)->findOrFail($id);
         $groups = Group::with('translations')->active()
             ->ListsTranslations('name')->pluck('name', 'id');
-        $permissions = Permission::permissions()->pluck('name', 'id');
+        $permissions = Permission::getPermissions()->pluck('name', 'id');
         $locales = config('translatable.locales');
         return view('dashboard.group.edit', compact('group', 'groups', 'permissions', 'locales','previousUrl'));
     }
@@ -174,6 +174,7 @@ class GroupController extends Controller
 
         if (!$request->has('created_from')) {
             $createdFrom = Group::selectRaw('MIN(created_at) as min_created_at')->value('min_created_at');
+
         }
 
 
