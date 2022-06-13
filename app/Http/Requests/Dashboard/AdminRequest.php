@@ -65,8 +65,8 @@ class AdminRequest extends FormRequest
         }
         return [
             'is_login_code' => 'in:1,0',
-            'ban_from' => 'nullable|required_if:ban_status,temporary|date|after:1900-01-01',
-            'ban_to' => 'nullable|required_if:ban_status,temporary|date|after_or_equal:ban_from',
+            'ban_from' => 'nullable|required_if:ban_status,temporary|date|after:1900-01-01|before:ban_to',
+            'ban_to' => 'nullable|required_if:ban_status,temporary|date|after_or_equal:ban_from|after:yesterday',
             'group_list' => 'required_without:permission_list|array',
             'group_list.*' => 'required_without:permission_list|exists:groups,id',
             'permission_list' => 'required_without:group_list|array',
