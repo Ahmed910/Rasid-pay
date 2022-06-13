@@ -48,6 +48,7 @@ $attributes = [
     'employee_id'       =>       'حقل اسم الموظف',
     'current_password'       =>       'حقل كلمة المرور الحالية',
     'new_password'       =>       'حقل كلمة المرور الجديدة',
+    'card_type'       =>       'حقل نوع البطاقة',
 
     //card package create screen
     'client_id'          => 'اسم العميل',

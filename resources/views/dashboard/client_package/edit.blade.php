@@ -17,7 +17,7 @@
     </div>
     <!-- PAGE-HEADER END -->
 
-    {!! Form::model($client, ['route' => ['dashboard.client_package.update', $client->id], 'method' => 'PUT', 'id' => 'formId']) !!}
+    {!! Form::model($client, ['route' => ['dashboard.client_package.update', $client->id], 'method' => 'PUT', 'id' => 'formId','autocomplete'=>"off"]) !!}
 
     @include('dashboard.client_package._form')
 
@@ -65,7 +65,7 @@
                 let userBasicDiscount = $('form').find('input[name="basic_discount"]').val();
                 let userGoldenDiscount = $('form').find('input[name="golden_discount"]').val();
                 let userPlatinumDiscount = $('form').find('input[name="platinum_discount"]').val();
-                
+
                 let userFields = [userClientID, userBasicDiscount, userGoldenDiscount, userPlatinumDiscount];
                 var is_same = (originalDataArr.length == userFields.length) && originalDataArr.every(function(element, index) {
                     return element === userFields[index];

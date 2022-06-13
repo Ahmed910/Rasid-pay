@@ -22,7 +22,7 @@
 
 
 <!-- ROW OPEN -->
-{!! Form::open(['route' => 'dashboard.employee.store', 'method' => 'POST', 'class' => 'needs-validation', 'id' => 'formId', 'files' => true, 'novalidate']) !!}
+{!! Form::open(['route' => 'dashboard.employee.store', 'method' => 'POST', 'class' => 'needs-validation', 'id' => 'formId', 'files' => true, 'novalidate' , 'autocomplete'=>"off"]) !!}
 @include('dashboard.employee._form',['btn_submit' => trans('dashboard.general.save')])
 {!! Form::close() !!}
 

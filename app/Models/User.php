@@ -95,6 +95,11 @@ class User extends Authenticatable implements HasAssetsInterface
         return $this->hasMany(Device::class);
     }
 
+    public function walletCharges()
+    {
+        return $this->hasMany(WalletCharge::class,'citizen_id');
+    }
+
     public function employee()
     {
         return $this->hasOne(Employee::class);

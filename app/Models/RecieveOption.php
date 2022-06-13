@@ -5,10 +5,9 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
-
 use App\Traits\Uuid;
 
-class recieveOption extends Model
+class RecieveOption extends Model
 {
     use HasFactory, Uuid , SoftDeletes;
 
