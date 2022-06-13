@@ -76,7 +76,7 @@ class AdminRequest extends FormRequest
             'department_id' => 'required|exists:departments,id',
             'rasid_job_id' => 'required|exists:rasid_jobs,id,department_id,'.$this->department_id,
             'fullname' => 'required|string|max:225|min:2',
-            'email' => 'required|email|max:225|unique:users,email,' . @$this->admin->id,
+            'email' => 'required|email:filter|max:225|email:filter|unique:users,email,' . @$this->admin->id,
             'phone' => 'required|numeric|starts_with:05,966|digits_between:9,20|unique:users,phone,' . @$this->admin->id,
         ] + $data;
     }

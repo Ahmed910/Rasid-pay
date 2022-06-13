@@ -21,16 +21,11 @@
         <div class="col-12 col-md-4">
             {!! Form::label('rasid_job_id', trans('dashboard.rasid_job.rasid_job')) !!} <span
                 class="requiredFields">*</span>
-            @isset($admin)
-            {!! Form::select('rasid_job_id', ['' => ''] + $rasid_jobs, $admin->employee?->rasid_job_id, ['class' =>
-            'form-control select2-show-search', 'id' => 'rasid_job_id', 'data-placeholder' =>
-            trans('dashboard.rasid_job.select_job')]) !!}
-            @else
+
             <div id="new_admin">
-                {!! Form::select('rasid_job_id', ['' => ''], null, ['class' => 'form-control select2-show-search', 'id' =>
+                {!! Form::select('rasid_job_id', isset($admin) ? ['' => ''] + $rasid_jobs :['' => ''] , isset($admin) ? $admin->employee?->rasid_job_id :null, ['class' => 'form-control select2-show-search', 'id' =>
                     'rasid_job_id', 'data-placeholder' => trans('dashboard.rasid_job.select_job')]) !!}
             </div>
-            @endisset
             <span class="text-danger" id="rasid_job_idError"></span>
         </div>
 
