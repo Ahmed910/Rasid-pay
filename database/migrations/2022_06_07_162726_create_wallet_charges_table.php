@@ -20,7 +20,6 @@ class CreateWalletChargesTable extends Migration
             $table->string('wallet_before');
             $table->string('wallet_after');
             $table->enum('charge_type', ['nfc', 'manual', 'sadad', 'scan']);
-            $table->timestamp('last_updated_at');
             $table->timestamps();
         });
     }

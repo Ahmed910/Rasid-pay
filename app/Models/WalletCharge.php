@@ -13,7 +13,6 @@ class WalletCharge extends Model
     #region properties
     protected $table = 'wallet_charges';
     protected $guarded = ['created_at', 'updated_at'];
-    protected $dates = ['last_updated_at'];
     #endregion properties
 
     #region mutators
