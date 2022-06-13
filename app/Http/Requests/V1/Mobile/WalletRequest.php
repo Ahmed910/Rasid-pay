@@ -17,6 +17,7 @@ class WalletRequest extends ApiMasterRequest
             // in citizen wallet
             "amount" => "required|numeric|min:0",
             //card information
+            'is_card_saved' => 'required|in:0,1',
             'owner_name' => 'required_if:is_card_saved,1|string|max:255',
             'card_type' => 'required_if:is_card_saved,1|in:visa,mastercard,american_express',
             'card_name' => 'required_if:is_card_saved,1|string|max:255',
@@ -34,20 +35,22 @@ class WalletRequest extends ApiMasterRequest
         // Diners Club and Carte Blanche cards begin with a 3, followed by a 0, 6, or 8 and have 14 digits
 
         $data = $this->all();
-        $card_type = 'unknown';
-        switch ($data['card_number']) {
-            case substr($data['card_number'],0,1) == 4 :
+        if ($this->is_card_saved && $data['card_number']) {
+            $card_type = 'unknown';
+            switch ($data['card_number']) {
+                case substr($data['card_number'],0,1) == 4 :
                 $card_type = 'visa';
                 break;
-            case substr($data['card_number'],0,1) == 5 :
+                case substr($data['card_number'],0,1) == 5 :
                 $card_type = 'mastercard';
                 break;
-            case substr($data['card_number'],0,1) == 3 && in_array(substr($data['card_number'],1,1),[4,7]):
+                case substr($data['card_number'],0,1) == 3 && in_array(substr($data['card_number'],1,1),[4,7]):
                 $card_type = 'american_express';
                 break;
+            }
+            $this->merge([
+                'card_type' =>  $card_type,
+            ]);
         }
-        $this->merge([
-            'card_type' =>  $card_type,
-        ]);
     }
 }
