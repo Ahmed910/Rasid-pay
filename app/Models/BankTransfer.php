@@ -1,6 +1,8 @@
 <?php
 
 namespace App\Models;
+
+use App\Models\TransferPurpose\TransferPurpose;
 use App\Traits\{Loggable,Uuid};
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -53,11 +55,14 @@ class BankTransfer extends Model
 
 
 
-   
+
     public function transfers()
     {
         return $this->hasMany(Transfer::class);
     }
+
+
+   
     #endregion relationships
 
     #region custom Methods

@@ -35,7 +35,7 @@ class WalletController extends Controller
         $transaction_data = [
             'user_identity' => $wallet->citizen->identity_number,
             'from_user_id' => $wallet->citizen_id,
-            'trans_type' => $request->trans_type
+            'trans_type' => 'charge'
         ];
         $wallet_charge->transaction()->create($transaction_data);
 

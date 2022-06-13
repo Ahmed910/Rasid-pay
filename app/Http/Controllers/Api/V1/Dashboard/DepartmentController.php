@@ -34,7 +34,7 @@ class DepartmentController extends Controller
             ->has("children")
             ->orWhere(function ($q) {
                 $q->doesntHave('children')
-                    ->WhereNull('parent_id');
+                    ->whereNull('parent_id');
             })
             ->without("images", 'addedBy')
             ->select("id")

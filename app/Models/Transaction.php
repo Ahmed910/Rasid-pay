@@ -33,8 +33,8 @@ class Transaction extends Model
         self::CANCELED,
     ];
 
-    protected $guarded = ['trans_number', 'created_at', 'updated_at'];
-    private $sortableColumns = ["user_from_id", "trans_number", "created_at", "user_identity", 'from_user_to', 'amount', 'total_amount', 'gift_balance', 'type', 'status', 'discount_percent'];
+    protected $guarded = ['created_at', 'updated_at'];
+    private $sortableColumns = ["user_from_id", "trans_number", "created_at", 'from_user_to', 'amount', 'fee_amount', 'trans_type', 'trans_status'];
     const user_searchable_Columns = ["user_from", "email", "image", "country_code", "phone", "full_phone", "identity_number", "date_of_birth"];
     const user_sortable_Columns = ["user_from" => "fullname", "email" => "email", "image" => "email", "country_code" => "country_code", "phone" => "phone", "full_phone" => "full_phone", "identity_number" => "identity_number", "date_of_birth" => "date_of_birth"];
     const SELECT_ALL = ["enabled_package"];
@@ -92,21 +92,21 @@ class Transaction extends Model
                 );
         }
         if (isset($request->transaction_number)) {
-            $query->where('number', 'like', "%$request->transaction_number%");
+            $query->where('trans_number', 'like', "%$request->transaction_number%");
         }
 
-        if (isset($request->user_identity)) {
-            $query->where("user_identity", 'like', "%$request->user_identity%");
-        }
+        // if (isset($request->user_identity)) {
+        //     $query->where("user_identity", 'like', "%$request->user_identity%");
+        // }
 
         if (isset($request->status)) {
             if ($request->status == 0) $request->status = null;
-            if ($request->status != -1) $query->where("status", $request->status);
+            if ($request->status != -1) $query->where("trans_status", $request->status);
         }
 
         if (isset($request->type)) {
             if ($request->type == 0) $request->type = null;
-            if ($request->type != -1) $query->where("type", $request->type);
+            if ($request->type != -1) $query->where("trans_type", $request->type);
         }
 
         if (isset($request->transaction_value_from)) {

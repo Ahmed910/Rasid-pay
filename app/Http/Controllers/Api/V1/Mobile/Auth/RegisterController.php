@@ -3,11 +3,9 @@
 namespace App\Http\Controllers\Api\V1\Mobile\Auth;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\V1\Mobile\Auth\CheckVerificationCodeRequest;
-use App\Http\Requests\V1\Mobile\Auth\CompleteRegisterRequest;
-use App\Http\Requests\V1\Mobile\Auth\RegisterRequest;
+use App\Http\Requests\V1\Mobile\Auth\{VerifyPhoneCodeRequest, CompleteRegisterRequest, RegisterRequest};
 use App\Http\Resources\Mobile\UserResource;
-use App\Models\{CitizenPackage, User, CitizenWallet, Package\Package};
+use App\Models\{Citizen, CitizenPackage, User, CitizenWallet, Package\Package};
 
 class RegisterController extends Controller
 {
@@ -17,36 +15,9 @@ class RegisterController extends Controller
         $userData = ['user_type' => 'citizen', 'fullname' => 'citizen_' . $data['phone']];
 
         $user->fill($data + $userData)->save();
-        // Generate Wallet Number & QR
-        $wallet_number = generate_unique_code(CitizenWallet::class, 'wallet_number', 11, 'numbers');
-        $user->citizenWallet()->create(['wallet_number' => $wallet_number]);
-        $package = Package::where(['is_active' => 1, 'is_default' => 1])->first();
-        if ($package) {
-            $package_data = [
-                'package_id' => $package->id,
-                'package_price' => $package->price,
-                'package_discount' => $package->discount,
-                'start_at' => now(),
-                'end_at' => now()->addMonths($package->duration)
-            ];
-
-            if ($package->has_promo) {
-                $package_data += [
-                    'promo_code' => generate_unique_code(CitizenPackage::class, 'promo_discount'),
-                    'promo_discount' => $package->promo_discount,
-                    'remaining_usage' => $package->number_of_used
-                ];
-            }
-            
-            $citizenPackage = $user->citizenPackages()->create($package_data);
-
-            $user->citizen()->create([
-                'citizen_package_id' => $citizenPackage->id
-            ]);
-        }
         //TODO: api service for elm to verify account
         //TODO: api service for send sms to phone number
-        $code = 111111;
+        $code = 1111;
         if (setting('use_sms_service') == 'enable') {
             $code = generate_unique_code(User::class, 'phone', 4, 'numbers');
         }
@@ -59,7 +30,7 @@ class RegisterController extends Controller
         ]);
     }
 
-    public function checkVerificationCode(CheckVerificationCodeRequest $request)
+    public function verifyPhoneCode(VerifyPhoneCodeRequest $request)
     {
         $userData =  [
             $request->key_name  => null,
@@ -71,7 +42,7 @@ class RegisterController extends Controller
         }
 
         $user = User::firstWhere([
-            'phone' => $request->phone,
+            'identity_number' => $request->identity_number,
             $request->key_name => $request->code,
             'user_type' => 'citizen'
         ]);
@@ -104,13 +75,42 @@ class RegisterController extends Controller
         }
 
         $user->fill(['password' => $request->password, 'register_status' => 'completed'])->save();
+        // Generate Wallet Number & QR
+        $wallet_number = generate_unique_code(CitizenWallet::class, 'wallet_number', 11, 'numbers');
+        $user->citizenWallet()->create(['wallet_number' => $wallet_number]);
+        $package = Package::where(['is_active' => 1, 'is_default' => 1])->first();
+        $citizen_table = ['user_id' => $user->id];
+        if ($package) {
+            $package_data = [
+                'package_id' => $package->id,
+                'package_price' => $package->price,
+                'package_discount' => $package->discount,
+                'start_at' => now(),
+                'end_at' => now()->addMonths($package->duration)
+            ];
+
+            if ($package->has_promo) {
+                $package_data += [
+                    'promo_code' => generate_unique_code(CitizenPackage::class, 'promo_discount'),
+                    'promo_discount' => $package->promo_discount,
+                    'remaining_usage' => $package->number_of_used
+                ];
+            }
+
+            $citizenPackage = $user->citizenPackages()->create($package_data);
+
+            $citizen_table += [
+                'citizen_package_id' => $citizenPackage->id
+            ];
+        }
+        $user->citizen()->create($citizen_table);
+
         $token =  $user->createToken('RasidBackApp')->plainTextToken;
 
         data_set($user, 'token', $token);
-
         return UserResource::make($user)->additional([
             'status' => true,
-            'message' => trans('auth.success_signup',),
+            'message' => trans('auth.success_verify_phone_make_login'),
         ]);
     }
 }

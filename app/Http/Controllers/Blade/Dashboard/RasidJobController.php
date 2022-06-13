@@ -48,8 +48,8 @@ class RasidJobController extends Controller
                 ->additional(['total_count' => $rasid_jobCount]);
         }
 
-        $departments = Department::where('is_active', 1)
-            ->select("id")
+        $departments = Department::/*where('is_active', 1)
+            ->*/select("id")
             ->ListsTranslations("name")
             ->pluck('name', 'id')
             ->toArray();

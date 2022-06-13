@@ -17,12 +17,13 @@ class WalletResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'citizen_name' => $this->user->fullname,
-            'wallet_number' => (string)$this->wallet_number,
-            'main_balance' => (string)$this->main_balance,
-            'cash_back' => (string)$this->cash_back,
-            'total_balance' => (string)$this->main_balance + $this->gift_balance,
-            'last_updated' => Carbon::parse($this->last_updated_at)->diffForHumans(),
+            'citizen_name'   => $this->citizen->fullname,
+            'wallet_number'  => (string)$this->wallet_number,
+            'main_balance'   => (string)$this->main_balance,
+            'cash_back'      => (string)$this->cash_back,
+            'total_balance'  => (string)$this->main_balance + $this->gift_balance,
+            'wallet_qr'      => $this->wallet_qr	,
+            'last_updated'   => Carbon::parse($this->last_updated_at)->diffForHumans(),
         ];
     }
 }

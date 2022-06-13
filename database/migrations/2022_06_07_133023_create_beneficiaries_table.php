@@ -25,8 +25,6 @@ class CreateBeneficiariesTable extends Migration
             $table->enum('benficiar_type', Beneficiary::TYPES);
             $table->string('iban_number')->nullable();
             $table->string('relation')->nullable();
-
-            $table->softDeletes();
             $table->timestamps();
         });
     }
