@@ -14,7 +14,7 @@
             $admin->employee?->department_id :
             null, ['class' => 'form-control select2-show-search', 'data-placeholder' =>
             trans('dashboard.department.select_department'),'id' => 'mainDepartment', 'onchange' =>
-            'getJobs(this.value)']) !!}
+            'getJobs(this.value)', isset($admin) ?'disabled':' ']) !!}
             <span class="text-danger" id="department_idError"></span>
 
         </div>
@@ -24,7 +24,7 @@
             @isset($admin)
             {!! Form::select('rasid_job_id', ['' => ''] + $rasid_jobs, $admin->employee?->rasid_job_id, ['class' =>
             'form-control select2-show-search', 'id' => 'rasid_job_id', 'data-placeholder' =>
-            trans('dashboard.rasid_job.select_job')]) !!}
+            trans('dashboard.rasid_job.select_job'),'disabled']) !!}
             @else
             <div id="new_admin">
                 {!! Form::select('rasid_job_id', ['' => ''], null, ['class' => 'form-control select2-show-search', 'id' =>

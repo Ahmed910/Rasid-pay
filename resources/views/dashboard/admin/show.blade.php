@@ -29,6 +29,19 @@
                 <p class="text-muted">{{ $admin->login_id }}</p>
             </div>
             <div class="col-12 col-md-3">
+              <label> {{ trans('dashboard.admin.email') }}:</label>
+              <p class="text-muted">{{ $admin->email }}</p>
+          </div>
+          <div class="col-12 col-md-3">
+            <label> {{ trans('dashboard.admin.phone') }}:</label>
+            <p class="text-muted">{{ $admin->phone }}</p>
+        </div>
+        <div class="col-12 col-md-3">
+          <label> {{ trans('dashboard.admin.job') }}:</label>
+          <p class="text-muted">{{ $admin->employee->job->name }}</p>
+      </div>
+
+            <div class="col-12 col-md-3">
                 <label>@lang('dashboard.department.department') :</label>
                 <p class="text-muted">
 
