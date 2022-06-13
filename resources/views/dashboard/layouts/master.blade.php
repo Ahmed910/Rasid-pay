@@ -117,7 +117,6 @@
         function removeValidation() {
 
             $(".dd").attr("hidden", true);
-             $('select[name="' + inputName + '"]').addClass("border-danger");
         }
 
     </script>

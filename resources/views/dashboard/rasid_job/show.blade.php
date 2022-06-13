@@ -8,7 +8,11 @@
             <ol class="breadcrumb">
                 <li class="breadcrumb-item">
                     <a href="{{ route('dashboard.rasid_job.index') }}">
+                        @if(str_contains(url()->previous(),'archive'))
+                        {{ trans('dashboard.rasid_job.sub_progs.archive') }} </a>
+                        @else
                         {{ trans('dashboard.rasid_job.sub_progs.index') }} </a>
+                        @endif
                 </li>
                 <li class="breadcrumb-item active" aria-current="page">
                     {{ trans('dashboard.rasid_job.sub_progs.show') }}
@@ -38,13 +42,13 @@
                     {{ trans('dashboard.general.job_type_cases.' . $rasidJob->is_vacant) }}
                 </p>
             </div>
-          @if ( $rasidJob->employee?->user?->fullname )
+          {{-- @if ( $rasidJob->employee?->user?->fullname )
             <div class="col-12 col-md-3">
               <label class="d-block" for="departmentName">{{ trans('dashboard.rasid_job.employee_name') }}
                 </label>
               <p> {{ $rasidJob->employee?->user?->fullname }}</p>
             </div>
-          @endif
+          @endif --}}
         @if ($rasidJob->description)
             <div class="col-12 col-md-9">
             <label class="d-block"
