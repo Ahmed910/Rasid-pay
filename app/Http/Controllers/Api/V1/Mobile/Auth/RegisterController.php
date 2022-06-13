@@ -77,7 +77,7 @@ class RegisterController extends Controller
         $user->fill(['password' => $request->password, 'register_status' => 'completed'])->save();
         // Generate Wallet Number & QR
         $wallet_number = generate_unique_code(CitizenWallet::class, 'wallet_number', 11, 'numbers');
-        $user->citizenWallet()->create(['wallet_number' => $wallet_number]);
+        $user->citizenWallet()->create(['wallet_number' => $wallet_number, 'last_updated_at' => now()]);
         $package = Package::where(['is_active' => 1, 'is_default' => 1])->first();
         $citizen_table = ['user_id' => $user->id];
         if ($package) {
