@@ -92,7 +92,14 @@ $attributes = [
     'relation' => 'حقل علاقة القرابة',
     'recieve_option_id' => 'حقل  خيارات الاستلام',
     'nationality' => 'حقل الجنسية',
-    'date_of_birth' => 'حقل تاريخ الميلاد'
+    'date_of_birth' => 'حقل تاريخ الميلاد',
+    'is_card_saved' => 'الاحتفاظ ببيانات البطاقة',
+    'amount' => 'المبلغ',
+    'owner_name' => 'الاسم على البطاقة',
+    'card_name' => 'اسم البطاقة',
+    'card_number' => 'الرقم على البطاقة',
+    'expire_at' => 'تاريخ إنتهاء البطاقة',
+    'today' => 'تاريخ غير صالح',
 ];
 
 foreach (config('translatable.locales') as $locale) {
@@ -107,7 +114,7 @@ return [
     'accepted'             => 'يجب قبول :attribute.',
     'accepted_if'          => 'يجب قبول :attribute في حالة :other يساوي :value.',
     'active_url'           => ' :attribute لا يُمثّل رابطًا صحيحًا.',
-    'after'                => 'يجب على  :attribute أن يكون تاريخًا لاحقًا للتاريخ :date.',
+    'after'                => ':attribute غير صالح',
     'after_or_equal'       => ' :attribute يجب أن يكون تاريخاً لاحقاً أو مطابقاً للتاريخ :date.',
     'alpha'                => 'يجب أن لا يحتوي  :attribute سوى على حروف.',
     'alpha_dash'           => 'يجب أن لا يحتوي  :attribute سوى على حروف، أرقام ومطّات.',
@@ -130,7 +137,7 @@ return [
     'declined'             => 'يجب رفض :attribute.',
     'declined_if'          => 'يجب رفض :attribute عندما يكون :other بقيمة :value.',
     'different'            => 'يجب أن يكون :attribute و :other مُختلفين.',
-    'digits'               => 'يجب أن يحتوي  :attribute على :digits رقمًا/أرقام.',
+    'digits'               => 'يجب أن يحتوي  :attribute على :digits رقمًا.',
     'digits_between'       => 'يجب أن يحتوي  :attribute بين :min و :max رقمًا/أرقام .',
     'dimensions'           => 'ال:attribute يحتوي على أبعاد صورة غير صالحة.',
     'distinct'             => 'لل :attribute قيمة مُكرّرة.',
