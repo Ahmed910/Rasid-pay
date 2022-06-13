@@ -20,10 +20,11 @@ class CardController extends Controller
     public function destroy($id)
     {
         $card = auth()->user()->cards()->findOrFail($id);
+        $card->delete();
         return CardResource::make($card)
             ->additional([
                 'status' => true,
-                'message' => trans('dashboard.general.success_archive'),
+                'message' => trans('dashboard.general.success_delete'),
             ]);
     }
 }

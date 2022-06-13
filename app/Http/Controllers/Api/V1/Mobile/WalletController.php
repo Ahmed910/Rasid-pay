@@ -42,7 +42,7 @@ class WalletController extends Controller
 
         // #4 Save card information
         if ($request->is_card_saved == 1) {
-            $citizen->cards()->updateOrCreate(['user_id' => $citizen->id, 'card_number' => $request->card_number],array_only($request->validated(),['owner_name','card_name','card_number','expire_at']));
+            $citizen->cards()->updateOrCreate(['user_id' => $citizen->id, 'card_number' => $request->card_number],array_only($request->validated(),['owner_name','card_name','card_number','expire_at','card_type']));
         }
 
         return WalletResource::make($wallet)
