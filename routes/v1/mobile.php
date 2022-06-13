@@ -47,11 +47,8 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::get('get_packages', 'getPackages');
     });
 
-    Route::apiResource('card', 'CardController')->only('index', 'destroy');
-    Route::controller('CardController')->name('card.')->prefix('card')->group(function () {
-        Route::post('restore/{id}', 'restore')->name('restore');
-        Route::delete('forceDelete/{id}', 'forceDelete')->name('force_delete');
-    });
+    // Cards
+    Route::apiResource('cards', 'CardController')->only('index', 'destroy');
 
     Route::controller('TransactionController')->group(function () {
         Route::get('transactions', 'index');
