@@ -20,7 +20,7 @@
     <!-- PAGE-HEADER END -->
 
     <!-- ROW OPEN -->
-    {!! Form::open(['route' => 'dashboard.department.store', 'method' => 'POST', 'class' => 'needs-validation', 'id' => 'formId', 'files' => true, 'novalidate']) !!}
+    {!! Form::open(['route' => 'dashboard.department.store', 'method' => 'POST', 'class' => 'needs-validation', 'id' => 'formId', 'files' => true, 'novalidate' , 'autocomplete'=>"off"]) !!}
     @include('dashboard.department._form', [
         'createVal' => 0,
         'appendArray' => ['' => ''],

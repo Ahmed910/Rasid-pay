@@ -21,7 +21,7 @@
 <!-- PAGE-HEADER END -->
 
 <!-- ROW OPEN -->
-{!! Form::model($group, ['route' => ['dashboard.group.update', $group->id], 'method' => 'PUT', 'class' => 'needs-validation', 'id' => 'formId', 'files' => true, 'novalidate']) !!}
+{!! Form::model($group, ['route' => ['dashboard.group.update', $group->id], 'method' => 'PUT', 'class' => 'needs-validation', 'id' => 'formId', 'files' => true, 'novalidate','autocomplete'=>"off"]) !!}
 @include('dashboard.group._form')
 {!! Form::close() !!}
 

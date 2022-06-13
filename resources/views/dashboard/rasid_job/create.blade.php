@@ -15,7 +15,7 @@
             </ol>
         </nav>
     </div>
-    {!! Form::open(['route' => 'dashboard.rasid_job.store', 'method' => 'POST', 'class' => 'needs-validation', 'id' => 'formId', 'novalidate']) !!}
+    {!! Form::open(['route' => 'dashboard.rasid_job.store', 'method' => 'POST', 'class' => 'needs-validation', 'id' => 'formId', 'novalidate', 'autocomplete'=>"off"]) !!}
     @include('dashboard.rasid_job._form')
     {!! form::close() !!}
 
