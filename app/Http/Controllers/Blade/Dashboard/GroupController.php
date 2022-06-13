@@ -174,6 +174,7 @@ class GroupController extends Controller
 
         if (!$request->has('created_from')) {
             $createdFrom = Group::selectRaw('MIN(created_at) as min_created_at')->value('min_created_at');
+
         }
 
 

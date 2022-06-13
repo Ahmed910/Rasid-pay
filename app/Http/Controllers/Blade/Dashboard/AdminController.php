@@ -202,7 +202,7 @@ class AdminController extends Controller
         $adminsQuery = User::CustomDateFromTo($request)->search($request)->where('user_type', 'admin')->has("employee")->get();
 
         if (!$request->has('created_from')) {
-            $createdFrom = Group::selectRaw('MIN(created_at) as min_created_at')->value('min_created_at');
+            $createdFrom = User::where('user_type', 'admin')->selectRaw('MIN(created_at) as min_created_at')->value('min_created_at');
         }
 
 

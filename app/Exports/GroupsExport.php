@@ -24,9 +24,16 @@ class GroupsExport implements FromView, ShouldAutoSize
         ->withCount('admins as user_count')
         ->search($this->request)
         ->get();
+        if (!$this->request->has('created_from')) {
+            $createdFrom = Group::selectRaw('MIN(created_at) as min_created_at')->value('min_created_at');
+        }
 
         return view('dashboard.exports.group', [
-            'groups' => $groupsQuery
+            'groups' => $groupsQuery,
+            'date_from'   => format_date($this->request->created_from) ?? format_date($createdFrom),
+            'date_to'     => format_date($this->request->created_to) ?? format_date(now()),
+            'userId'      => auth()->user()->login_id,
+
         ]);
     }
 }
