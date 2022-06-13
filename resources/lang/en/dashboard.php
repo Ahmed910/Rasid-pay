@@ -39,6 +39,7 @@ return [
         "index" => "Index",
         "back" => "Back",
         "edit" => "Edit",
+        'delete'=>'Delete',
         "show" => "Show",
         "archive" => "Archive",
         "restore" => "Restore",

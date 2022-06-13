@@ -8,7 +8,7 @@
     <br>
     <p>تاريخ إنشائها من ({{ $date_from ?? '' }}) إلى ({{ $date_to ?? '' }})</p>
     <br>
-    <p>رقم المستخدم: {{ $userId ?? auth()->user->login_id }}</p>
+    <p>رقم المستخدم: {{ $userId ?? auth()->user()->login_id }}</p>
     <br>
     <p>تاريخ الطباعة: {{ format_date(now()) }}</p>
     <br>
