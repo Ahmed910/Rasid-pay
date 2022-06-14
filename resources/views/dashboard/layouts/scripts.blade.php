@@ -1,4 +1,31 @@
 <script>
+
+
+  function validateData()
+        {
+
+
+             let lang = '{{ app()->getLocale() }}';
+             let resource_name = '{{ request()->segment(3) }}';
+             
+             var formData = $('#formId').serialize();
+
+            $.ajax({
+                  url: `{{ url('/dashboard/${resource_name}') }}`,
+                  type: 'post',
+                  data : formData,
+
+                  error:function(errors)
+                  {
+
+
+                    let name = $('#formId').serializeArray()[1].name;
+                    name = (name.replace("[", ".")).slice(0,-1);
+                    $('.dd').removeAttr('hidden')
+                    $('.dd').text(errors.responseJSON.errors[name])
+                  }
+              });
+        }
     (function() {
         "use strict";
 
@@ -57,6 +84,7 @@
                 }
             , });
         });
+
 
 
         function toggleSaveButton() {
