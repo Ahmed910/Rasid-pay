@@ -22,9 +22,9 @@ class PackageResource extends JsonResource
         }
         return [
             "fullname" => $this->fullname,
-            "basic_discount" => array_key_exists(trans('dashboard.cardpackage.basic'), $package_discount) ? $package_discount[trans('dashboard.cardpackage.basic')] : trans('dashboard.package.without') ,
-            "golden_discount" => array_key_exists(trans('dashboard.cardpackage.golden'), $package_discount) ? $package_discount[trans('dashboard.cardpackage.golden')] :trans('dashboard.package.without') ,
-            "platinum_discount" => array_key_exists(trans('dashboard.cardpackage.platinum'), $package_discount) ? $package_discount[trans('dashboard.cardpackage.platinum')] : trans('dashboard.package.without') ,
+            "basic_discount" => $package_discount[trans('dashboard.cardpackage.basic')] ?? trans('dashboard.package.without') ,
+            "golden_discount" => $package_discount[trans('dashboard.cardpackage.golden')] ?? trans('dashboard.package.without') ,
+            "platinum_discount" => $package_discount[trans('dashboard.cardpackage.platinum')] ?? trans('dashboard.package.without') ,
             "edit_route" => route("dashboard.client_package.edit", $this->id),
             'start_from' => $request->start
         ];
