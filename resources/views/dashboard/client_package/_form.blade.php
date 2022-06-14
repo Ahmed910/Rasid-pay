@@ -32,6 +32,9 @@
                         'onDrag' => 'return false',
                         'onDrop' => 'return false',
                         'autocomplete' => 'off',
+                        'oninput' => 'javascript: if(this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);',
+                        'min' => '0',
+                        'maxlength' => '5',
                 ]) !!}
 
                 <div class="input-group-text border-start-0"> % </div>

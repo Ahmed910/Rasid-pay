@@ -513,8 +513,9 @@ return [
         "golden_card_discount" => "Golden Card Discount",
         "platinum_card_discount" => "Platinum Card Discount",
         "cards_discount_records" => "Cards Discount Records",
-        "discount_success_add" => "Card discounts have been added to client :client",
-        "discount_success_update" => "Card discounts have been updated to client :client",
+        "discount_success_add" => "Card discounts have been added to client ",
+        "discount_success_update" => "Card discounts have been updated to client ",
+        'choose_client' => 'Choose Client'
 
     ],
 
