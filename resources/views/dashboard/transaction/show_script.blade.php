@@ -30,7 +30,7 @@
         },
           {
             data: function (data) {
-              if (data.user.fullname !== null) {
+              if (data.user !== null) {
                 return data.user.fullname;
               } else {
                 return "";
