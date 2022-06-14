@@ -155,7 +155,7 @@
             <input type="number" name="phone" class="form-control" id = "phone_value"
               oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
               pattern="^[1-9]\d*$" onkeypress="return /[0-9a-zA-Z]/i.test(event.key)" maxlength="9"
-              class="form-control stop-copy-paste" placeholder="{{ trans('dashboard.citizens.new_phone') }}" value="1115" >
+              class="form-control stop-copy-paste" placeholder="{{ trans('dashboard.citizens.new_phone') }}" value="" >
             <div class="input-group-text border-start-0">
               966+ <input type="hidden" value="966" name="country_code">
             </div>
