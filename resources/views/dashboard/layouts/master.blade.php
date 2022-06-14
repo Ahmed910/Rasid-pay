@@ -36,18 +36,18 @@
     @yield('styles')
 </head>
 
-<body class="app sidebar-mini {{ LaravelLocalization::getCurrentLocaleDirection() }} {{ request()->routeIs('dashboard.group.index')? 'popoverTooltip':'' }}">
-    <!-- GLOBAL-LOADER -->
-    <div id="global-loader">
-        <img src="{{ asset('dashboardAssets/images/loader.svg') }}" class="loader-img" alt="Loader" />
-    </div>
-    <!-- /GLOBAL-LOADER -->
-    <!-- PAGE -->
-    <div class="page">
-        <div class="page-main">
-            <!-- app-Header -->
-            @include('dashboard.layouts.header')
-            <!-- /app-Header -->
+<body class="app sidebar-mini {{ LaravelLocalization::getCurrentLocaleDirection() }} {{ request()->routeIs('dashboard.group.index')? 'popoverTooltip':'' }}" ondragstart="return false;" ondrop="return false;">
+  <!-- GLOBAL-LOADER -->
+  <div id="global-loader">
+    <img src="{{ asset('dashboardAssets/images/loader.svg') }}" class="loader-img" alt="Loader" />
+  </div>
+  <!-- /GLOBAL-LOADER -->
+  <!-- PAGE -->
+  <div class="page">
+    <div class="page-main">
+      <!-- app-Header -->
+      @include('dashboard.layouts.header')
+      <!-- /app-Header -->
 
             <!--APP-SIDEBAR-->
             @include('dashboard.layouts.sidebar')
