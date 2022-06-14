@@ -37,6 +37,7 @@ return [
         "success_add" => "تمت الإضافة بنجاح",
         "success_delete" => "تم الحذف بنجاح",
         "success_update" => "تم التعديل بنجاح",
+        "success_send" => "تم الإرسال بنجاح",
         "success_archive" => "تمت الأرشفة بنجاح",
         "success_restore" => "تم الاستعادة بنجاح",
         "Send VerificationCode" => "إرسال رمز التحقق",

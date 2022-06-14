@@ -30,20 +30,11 @@ class WalletTransferRequest extends ApiMasterRequest
         return [
             "amount" => 'required|regex:/^\d{1,5}+(\.\d{1,2})?$/',
             "citizen_id" => 'nullable|exists:users,id,user_type,citizen',
-            "transfer_status" => 'nullable|',
+            "otp_code" => 'required|exists:citizen_wallets,wallet_bin,citizen_id,'.auth()->id(),
+            "transfer_status" => 'nullable|required_without:citizen_id|in:hold,transfered',
             "wallet_transfer_method" => 'required|in:' . join(",", Transfer::WALLET_TRANSFER_METHODS),
             "transfer_method_value" => ['required',function ($attribute, $value, $fail) {
-                switch ($this->wallet_transfer_method) {
-                    case 'identity_number':
-                        $message = $this->checkUserFound('identity_number',$this->transfer_method_value);
-                        break;
-                    case 'wallet_number':
-                        $message = $this->checkUserFound('wallet_number',$this->transfer_method_value);
-                        break;
-                    default:
-                        $message = $this->checkUserFound('phone',$this->transfer_method_value);
-                        break;
-                }
+                $message = $this->checkUserFound($this->wallet_transfer_method,$this->transfer_method_value);
                 if(!is_bool($message)){
                     $fail($message);
                 }
@@ -83,7 +74,7 @@ class WalletTransferRequest extends ApiMasterRequest
 
     public function checkPhoneValid($phone)
     {
-        return preg_match('/^(:?(\+)|(00))?(:?966)?+(5|05)([503649187])([0-9]{7})$/', $phone) ? true : trans('mobile.validation.invalid_phone');
+        return check_phone_valid($phone) ? true : trans('mobile.validation.invalid_phone');
     }
 
 
