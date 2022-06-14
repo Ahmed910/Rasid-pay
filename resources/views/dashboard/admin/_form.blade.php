@@ -80,28 +80,36 @@
     <div class="col-12">
       <label for="permissions">{{ trans('dashboard.admin.permission_system') }}</label> <span
         class="requiredFields">*</span>
+        <div class="input-group permissions">
+                <div class="input-group-text input-group-start border-end-0">
+                    <label>
+                        <i class="mdi mdi-magnify tx-16 lh-0 op-6"></i></label>
+                </div>
       <select class="form-control" name="permission_list[]" hidden multiple required></select>
       <select class="form-control" name="group_list[]" hidden multiple required></select>
 
       <select class="form-control select2" onchange="addPermissions(this.selectedOptions)"
         data-placeholder="{{ trans('dashboard.general.select_permissions') }}" multiple="multiple" id="permissions"
         required>
-        <optgroup label="{{ trans('dashboard.group.groups') }}">
+
+                    <option value="all">إختر الكل</option>
           @foreach ($groups as $id => $name)
           <option value="{{ $id }}" data-name="groups" {{ isset($admin) && in_array($id, $admin->group_list) ?
             'selected' : null }}>
             {{ $name }}</option>
           @endforeach
-        </optgroup>
 
-        <optgroup label="{{ trans('dashboard.permission.permissions') }}">
           @foreach ($permissions as $id => $name)
           <option value="{{ $id }}" data-name="permissions" {{ isset($admin) && in_array($id, $admin->permission_list) ?
             'selected' : null }}>
             {{ $name }}</option>
           @endforeach
-        </optgroup>
       </select>
+      <div class="input-group-text border-start-0">
+                    <label>
+                        <b class="select-arrow"></b>
+                    </label>
+                </div>
       <span class="text-danger" id="permission_listError"></span>
       <span class="text-danger" id="group_listError"></span>
     </div>
@@ -253,6 +261,50 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Dropify/0.2.2/js/dropify.min.js"></script>
 <script src="{{ asset('dashboardAssets/js/custom_scripts.js') }}"></script>
 <script src="{{ asset('dashboardAssets/plugins/bootstrap-hijri-datepicker/js/bootstrap-hijri-datetimepicker.js') }}">
+</script>
+<script>
+  $(document).ready(function() {
+            $(".select2").select2({
+                closeOnSelect: false
+            });
+            $(".select2").select2({
+                closeOnSelect: false,
+                templateResult: formatState
+
+            });
+
+            $('.select2').on("select2:select", function(e) {
+                if ("option value=['all']") {
+                    $(".select2 > option").prop("selected", "selected");
+                    $(".select2").trigger("change");
+                }
+            });
+
+
+        });
+
+
+        function formatState(state) {
+            if (!state.id) {
+                return state.text;
+            }
+            var $state = $(
+                `<label for="${state.id}" class="d-flex justify-content-between align-items-center m-0">
+                  <div class="">
+                    <div class="custom-control custom-checkbox">
+                      <input type="checkbox" class="custom-control-input" id="${state.id}">
+                      <label class="custom-control-label m-0" for="${state.id}">${state.text}</label>
+                    </div>
+
+
+                   </div>
+                   <i class="mdi mdi-clipboard-list"  data-bs-toggle="popoverRoles" tabindex="1"
+                                    data-bs-placement="right" data-bs-html="true"
+                                    title="<span class='tooltipRole'> hesham</span>"></i>
+                   </label>`
+            );
+            return $state;
+        };
 </script>
 @include('dashboard.admin.form_script')
 @endsection
