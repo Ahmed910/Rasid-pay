@@ -151,14 +151,14 @@ return [
         'Total_employees' => 'الموظفين',
         'Total_vacant_jobs' => 'الوظائف الشاغرة ',
         'Total_unvacant_jobs' => 'الوظائف المشغولة',
-        'Permission_field_required' => 'حقل الصلاحيات مطلوب',
+        'Permission_field_required' => 'صلاحيات النظام مطلوبة',
 
     ],
     'datatable' => [
         'no_data' => 'لا توجد نتائج متاحة',
         'there_is_no_data' => 'لا يوجد نتائج بحث متاحة',
         'showing' => 'عرض',
-        'to' => 'الى',
+        'to' => 'إلى',
         'from' => 'من',
         'entries' => 'الاجمالي',
         'no_search_result' => 'لا يوجد نتائج بحث متاحة',
@@ -168,7 +168,7 @@ return [
         'not_found' => 'لم يتم العثور على بيانات',
         'page_not_found' => '404, الصفحة غير موجودة',
         'something_went_wrong' => 'البيانات المدخلة غير صحيحة',
-        'name_must_be_unique_on_department' => 'قيمة حقل الاسم موجودة من قبل لهذا القسم'
+        'name_must_be_unique_on_department' => 'الاسم موجود من قبل لهذا القسم'
     ],
     'activity_log' => [
         "activity_log" => "المتابعة",
@@ -239,7 +239,10 @@ return [
     ],
     "citizen" => [
         "citizens" => "المستخدمون",
-        "same_citizen_transfer"=>"عفوا، لا يمكن التحويل لمحفظتك الشخصية"
+        "same_citizen_transfer"=>"عفوا، لا يمكن التحويل لمحفظتك الشخصية",
+        "wallet_in_black_list"=>"عفوا، رقم المحفظة خاص بهوية أوإقامة في القائمةالسوداءالسوداء",
+        "identity_in_black_list"=>"عفوا، رقم الهوية محظورمحظور"
+
         ],
     "cardpackage" => [
         "cardpackages" => "باقات البطاقات",
@@ -251,7 +254,11 @@ return [
         "managers" => "العملاء",],
     "bank_account" => [
         "bank_accounts" => "العملاء",
-        "order_number" => "رقم الطلب"
+        "order_number" => "رقم الطلب",
+        "permissions"=>[
+            'index'=>'السجل',
+            'destroy'=>'حذف',
+        ],
     ],
     "attachment" => [
         "attachments" => "العملاء",],
@@ -319,7 +326,8 @@ return [
         ],
 
         'admins_count' => 'عدد المستخدمين',
-        'sorry_group_name_is_repeated' => 'عفواً اسم المجموعة متكرر',
+        'sorry_group_name_is_repeated' => 'الاسم موجود من قبل',
+        'group_name_required' => 'اسم المجموعة مطلوب',
         'permissions' => array_except($permissions, ['archive', 'restore', 'force_delete']) + ['create' => 'عرض القائمة']
     ],
     "currency" => [
@@ -383,8 +391,9 @@ return [
         "rasid_job_description" => "الوصف الوظيفي",
         "rasid_job_department" => "اسم القسم",
         "name" => "اسم الوظيفة",
+        "enter_name" => "أدخل الاسم",
         "validation" => [
-            'name_must_be_unique_on_department' => 'تم اختيار اسم الوظيفة من قبل لنفس القسم'
+            'name_must_be_unique_on_department' => 'الاسم موجود من قبل لهذا القسم'
         ],
         "jobs_hired_deleted" => " لا يمكن حذف هذه الوظيفة لانها مشغولة ",
         "jobs_hired_is_active_changed" => " لا يمكن تعديل حالة هذه الوظيفة لانها مشغولة ",
@@ -607,13 +616,6 @@ return [
             'platinum' => 'البطاقة البلاتينية',
         ],
         'type_cases' => [
-            'payment' => 'دفع',
-            'wallet_transfer' => 'تحويل لمحفظة',
-            'bank_transaction' => 'تحويل بنكي',
-            'bank_transactoin' => 'تحويل بنكي',
-            'receive_credit' => 'استلام رصيد',
-            'wallet_charge' => 'شحن رصيد',
-            'upgrade_card' => 'ترقية بطاقات',
             'pay' => 'دفع',
             'transfer' => 'تحويل',
             'charge' => 'شحن',
@@ -671,6 +673,14 @@ return [
         'permissions' => array_except($permissions, ['archive', 'restore', 'force_delete']) + ['create' => 'عرض العملاء']
     ],
 
+    'client_package'=>[
+        'client_packages'=>'باقات العميل',
+        'permissions'=>[
+            'index'=>'السجل',
+            'store'=>'حفظ'
+        ]
+    ],
+
     "citizens" => [
         "citizens" => "المستخدمين",
         "citizens_record" => "سجل المستخدمين",
@@ -694,7 +704,8 @@ return [
 
         'edit_phone' => "تعديل رقم الجوال",
         'new_phone' => "رقم الجوال الجديد",
-
+        "phone_required" =>"رقم الجوال مطلوب",
+        "phone_unique" =>"رقم الجوال مكرر"
     ],
     'package' => [
         "package" => "نسب خصم البطاقات",

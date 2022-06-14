@@ -37,7 +37,7 @@ class ClientPackageController extends Controller
     {
         $previousUrl = url()->previous();
         (strpos($previousUrl, 'package')) ? session(['perviousPage' => 'package']) : session(['perviousPage' => 'home']);
-        $clients = User::doesntHave('clientPackages')->where("user_type", "client")->pluck('users.fullname', 'users.id')->toArray();
+        $clients = User::doesntHave('clientPackages')->where(['user_type'=>'client','is_active'=>1])->pluck('users.fullname', 'users.id')->toArray();
         $packages = Package::select('id')->listsTranslations('name')->get();
         return view('dashboard.client_package.create', compact('clients', 'previousUrl','packages'));
     }
@@ -47,7 +47,7 @@ class ClientPackageController extends Controller
         if (!request()->ajax()) {
             $client = User::where('user_type','client')->findOrFail($request->client_id);
             $client->clientPackages()->sync($request->discounts);
-            return redirect()->route('dashboard.client_package.index')->withSuccess(__('dashboard.package.discount_success_add', ['client' => $client->fullname]));
+            return redirect()->back()->withSuccess(__('dashboard.package.discount_success_add', ['client' => $client->fullname]));
         }
     }
 

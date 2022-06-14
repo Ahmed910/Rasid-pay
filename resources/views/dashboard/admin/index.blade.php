@@ -14,9 +14,18 @@
   <div class="row align-items-end mb-3">
     <div class="col-12 col-md-3">
       <label for="userName">{{ trans('dashboard.admin.admin') }}</label>
-      <input type="text" class="form-control" id="userName" placeholder="{{ trans('dashboard.admin.admin_name') }}"
+      <input type="text" class="form-control input-regex" id="userName" placeholder="{{ trans('dashboard.admin.admin_name') }}"
         name="name" value="{{ old('name') ?? request('name') }}" />
-
+    </div>
+    <div class="col-12 col-md-3">
+      <label for="phone">{{ trans('dashboard.general.phone') }}</label>
+      <input type="text" class="form-control input-regex" id="phone" placeholder="{{ trans('dashboard.general.phone') }}"
+        name="phone" value="{{ old('phone') ?? request('phone') }}" />
+    </div>
+    <div class="col-12 col-md-3">
+      <label for="userName">{{ trans('dashboard.general.email') }}</label>
+      <input type="text" class="form-control input-regex" id="email" placeholder="{{ trans('dashboard.general.email') }}"
+        name="email" value="{{ old('email') ?? request('email') }}" />
     </div>
     <div class="col-12 col-md-3">
       <label for="userId">{{ trans('dashboard.admin.login_id') }}</label>
@@ -26,18 +35,46 @@
         class="form-control stop-copy-paste" id="userId" placeholder="{{ trans('dashboard.admin.enter_number') }}"
         name="login_id" value="{{ old('login_id') ?? request('login_id') }}" />
     </div>
-    <div class="col-12 col-md-3">
-      <label for="mainDepartment">{{ trans('dashboard.department.department') }} </label>
-      {!! Form::select('department_id', ['' => '', -1 => trans('dashboard.general.all_cases')] + $departments, null,
-      ['class' => 'form-control select2-show-search', 'id' => 'mainDepartment', 'data-placeholder' =>
-      trans('dashboard.department.select_department')]) !!}
+  </div>
+  <div class="row align-items-end mb-3">
+  <div class="col-12 col-md-3">
+    <label for="mainDepartment">{{ trans('dashboard.department.department') }} </label>
+    {!! Form::select('department_id', ['' => '', -1 => trans('dashboard.general.all_cases')] + $departments, null,
+    ['class' => 'form-control select2-show-search', 'id' => 'mainDepartment', 'data-placeholder' =>
+    trans('dashboard.department.select_department')]) !!}
+  </div>
+  <div class="col-12 col-md-3">
+    <label for="status">{{ trans('dashboard.general.status') }}</label>
+    {!! Form::select('ban_status', ['' => '', -1 => trans('dashboard.general.all_cases')] +
+    trans('dashboard.admin.active_cases'), request('ban_status'), ['class' => 'form-control select2', 'id' =>
+    'status', 'data-placeholder' => trans('dashboard.general.select_status')]) !!}
+  </div>
+  <div class="col-12 col-md-3">
+    <label for="from-hijri-picker-custom">
+      {{ trans('dashboard.general.from_date') }}</label>
+    <div class="input-group">
+      <input id="from-hijri-picker-custom" type="text" readonly
+        placeholder="{{ trans('dashboard.general.day_month_year') }}" class="form-control" name="created_from"
+        value="{{ old('created_from') ?? request('created_from') }}" />
+      <div class="input-group-text border-start-0">
+        <label for="from-hijri-picker-custom">
+          <i class="fa fa-calendar tx-16 lh-0 op-6"></i></label>
+      </div>
     </div>
-    <div class="col-12 col-md-3">
-      <label for="status">{{ trans('dashboard.general.status') }}</label>
-      {!! Form::select('ban_status', ['' => '', -1 => trans('dashboard.general.all_cases')] +
-      trans('dashboard.admin.active_cases'), request('ban_status'), ['class' => 'form-control select2', 'id' =>
-      'status', 'data-placeholder' => trans('dashboard.general.select_status')]) !!}
+  </div>
+  <div class="col-12 col-md-3">
+    <label for="to-hijri-picker-custom">
+      {{ trans('dashboard.general.to_date') }}</label>
+    <div class="input-group">
+      <input id="to-hijri-picker-custom" type="text" readonly
+        placeholder="{{ trans('dashboard.general.day_month_year') }}" class="form-control" name="created_to"
+        value="{{ old('created_to') ?? request('created_to') }}" />
+      <div class="input-group-text border-start-0">
+        <label for="to-hijri-picker-custom">
+          <i class="fa fa-calendar tx-16 lh-0 op-6"></i></label>
+      </div>
     </div>
+  </div>
   </div>
 
   <div class="row align-items-end mb-3">
@@ -63,33 +100,8 @@
         </div>
       </div>
     </div>
-    <div class="col-12 col-md-3">
-      <label for="from-hijri-picker-custom">
-        {{ trans('dashboard.general.from_date') }}</label>
-      <div class="input-group">
-        <input id="from-hijri-picker-custom" type="text" readonly
-          placeholder="{{ trans('dashboard.general.day_month_year') }}" class="form-control" name="created_from"
-          value="{{ old('created_from') ?? request('created_from') }}" />
-        <div class="input-group-text border-start-0">
-          <label for="from-hijri-picker-custom">
-            <i class="fa fa-calendar tx-16 lh-0 op-6"></i></label>
-        </div>
-      </div>
-    </div>
-    <div class="col-12 col-md-3">
-      <label for="to-hijri-picker-custom">
-        {{ trans('dashboard.general.to_date') }}</label>
-      <div class="input-group">
-        <input id="to-hijri-picker-custom" type="text" readonly
-          placeholder="{{ trans('dashboard.general.day_month_year') }}" class="form-control" name="created_to"
-          value="{{ old('created_to') ?? request('created_to') }}" />
-        <div class="input-group-text border-start-0">
-          <label for="to-hijri-picker-custom">
-            <i class="fa fa-calendar tx-16 lh-0 op-6"></i></label>
-        </div>
-      </div>
-    </div>
   </div>
+
   <div class="row">
     <div class="col-12 col-md-6 my-2">
       <div class="dropdown">
@@ -128,6 +140,8 @@
             <th class="border-bottom-0">#</th>
             <th class="border-bottom-0">{{ trans('dashboard.admin.login_id') }}</th>
             <th class="border-bottom-0">{{ trans('dashboard.admin.admin') }}</th>
+            <th class="border-bottom-0"> {{ trans('dashboard.general.phone') }}</th>
+            <th class="border-bottom-0"> {{ trans('dashboard.general.email') }}</th>
             <th class="border-bottom-0">{{ trans('dashboard.department.department') }}</th>
             <th class="border-bottom-0">{{ trans('dashboard.general.created_at') }}</th>
             <th class="border-bottom-0"> {{ trans('dashboard.general.status') }}</th>

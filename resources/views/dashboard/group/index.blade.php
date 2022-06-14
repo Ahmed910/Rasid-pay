@@ -24,17 +24,19 @@
       <label for="userNumFrom">{!! trans('dashboard.group.admins_from') !!}</label>
       <input type="number" oninput="checkNumberFieldLength(this);" name="admins_from"
         value="{{ request('admins_from') }}" class="form-control stop-copy-paste number-regex" id="userNumFrom"
-        placeholder="{!! trans('dashboard.group.admins_from') !!}" />
+        placeholder="{!! trans('dashboard.datatable.from') !!}" />
     </div>
     <div class="col-12 col-md-3">
       <label for="userNumTo">{!! trans('dashboard.group.admins_to') !!}</label>
       <input type="number" oninput="checkNumberFieldLength(this);" name="admins_to" value="{{ request('admins_to') }}"
-        class="form-control stop-copy-paste number-regex" id="userNumTo" placeholder="{!! trans('dashboard.group.admins_to') !!}" />
+        class="form-control stop-copy-paste number-regex" id="userNumTo" placeholder="{!! trans('dashboard.datatable.to') !!}" />
     </div>
     <div class="col-12 col-md-3">
-      <label for="status">{{ trans('dashboard.general.status') }}</label>
-      {!! Form::select('is_active', trans('dashboard.general.active_cases'), request('is_active'), ['class' =>
-      'form-control select2', 'placeholder' => trans('dashboard.general.select_status'), 'id' => 'status']) !!}
+     <label for="status">
+        @lang('dashboard.general.status')</label>
+      {!! Form::select('is_active', ['' => '', -1 => trans('dashboard.general.all_cases')] +
+      trans('dashboard.general.active_cases'), request('is_active'), ['class' => 'form-control select2',
+      'data-placeholder' => trans('dashboard.general.select_status'), 'id' => 'status']) !!}
     </div>
     <div class="col-12 col-md-6 mt-5">
       <div class="dropdown">

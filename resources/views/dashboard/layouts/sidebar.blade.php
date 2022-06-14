@@ -2,7 +2,7 @@
     <div class="app-sidebar__overlay" data-bs-toggle="sidebar"></div>
     <div class="app-sidebar d-flex flex-column h-100">
         <div class="side-header">
-            <a class="header-brand1" href="#!">
+            <a class="header-brand1" href="{{ setting('website_link') ?? '#!' }}">
                 <img src="{{ asset('dashboardAssets/images/brand/fintech-icon.svg') }}" class="header-brand-img desktop-logo"
                     alt="logo" />
                 <img src="{{ asset('dashboardAssets/images/brand/fintech-logo.svg') }}" class="header-brand-img toggle-logo"

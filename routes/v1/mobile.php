@@ -16,7 +16,7 @@ Route::controller('Auth\RegisterController')->group(function () {
 });
 
 Route::controller('Auth\ResetController')->group(function () {
-    Route::post('check_identity_number', 'checkIdentityNumber');
+    // Route::post('check_identity_number', 'checkIdentityNumber');
     Route::post('reset_password', 'updatePassword');
 });
 
@@ -33,10 +33,8 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::post('active_notifications', 'ProfileController@activateNotification');
         // home
         Route::get('home', 'HomeController@index');
-        // fetch wallet
-        Route::get('fetch_wallet', 'HomeController@fetchWallet');
-        // citizen wallet
-        Route::get('get_citizen_wallet', 'WalletController@getCitizenWallet');
+        // Wallet
+        Route::apiResource('wallets', 'WalletController')->only('index', 'store');
         //money requests
         Route::post('money_requests', 'MoneyRequestController@store');
 
@@ -45,22 +43,12 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::post('/', 'store');
     });
 
-    Route::controller('WalletController')->group(function () {
-        Route::get('get_citizen_wallet', 'getCitizenWallet');
-        Route::post('wallet_charges', 'chargeWallet');
-        // wallet bin
-        Route::post('wallet_bin', 'checkForWalletBin');
-    });
-
     Route::controller('PackageController')->group(function () {
         Route::get('get_packages', 'getPackages');
     });
 
-    Route::apiResource('card', 'CardController')->only('index', 'destroy');
-    Route::controller('CardController')->name('card.')->prefix('card')->group(function () {
-        Route::post('restore/{id}', 'restore')->name('restore');
-        Route::delete('forceDelete/{id}', 'forceDelete')->name('force_delete');
-    });
+    // Cards
+    Route::apiResource('cards', 'CardController')->only('index', 'destroy');
 
     Route::controller('TransactionController')->group(function () {
         Route::get('transactions', 'index');

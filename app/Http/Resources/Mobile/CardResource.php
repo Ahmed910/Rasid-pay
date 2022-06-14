@@ -17,7 +17,8 @@ class CardResource extends JsonResource
             'card_number' => Str::mask($this->card_number, '*','-16','12'),
             'card_type' => $this->card_type,
             'created_at' => $this->created_at,
-            'expire_at' => $this->expire_at,
+            'is_expired' => $this->expire_at->lt(now()),
+            'expire_at' => $this->expire_at->format("y-m"),
         ];
     }
 }

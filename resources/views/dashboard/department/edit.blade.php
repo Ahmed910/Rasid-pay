@@ -22,7 +22,7 @@
     <!-- PAGE-HEADER END -->
 
     <!-- ROW OPEN -->
-    {!! Form::model($department, ['route' => ['dashboard.department.update', $department->id], 'method' => 'PUT', 'class' => 'needs-validation', 'id' => 'formId', 'files' => true, 'novalidate']) !!}
+    {!! Form::model($department, ['route' => ['dashboard.department.update', $department->id], 'method' => 'PUT', 'class' => 'needs-validation', 'id' => 'formId', 'files' => true, 'novalidate','autocomplete'=>"off"]) !!}
     @include('dashboard.department._form', [
         'createVal' => 1,
         'appendArray' => ['' => '', 'without' => trans('dashboard.department.without_parent')],

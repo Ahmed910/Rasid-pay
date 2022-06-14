@@ -46,4 +46,13 @@ class RasidJobRequest extends ApiMasterRequest
 
         return $rules;
     }
+    public function messages()
+    {
+        return [
+
+            app()->getLocale() . ".name.required" => __('validation.job.required'),
+            // app()->getLocale() . ".name.unique" => __('validation.job.unique'),
+
+        ];
+    }
 }

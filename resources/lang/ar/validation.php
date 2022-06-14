@@ -3,9 +3,9 @@
 $attributes = [
     'name'                  => 'حقل الاسم',
     'fullname'                  => 'حقل الاسم',
-    'username'              => 'حقل رقم المستخدم',
-    'login_id'              => 'حقل رقم المستخدم',
-    'email'                 => 'حقل البريد الالكتروني',
+    'username'              => ' رقم المستخدم',
+    'login_id'              => ' رقم المستخدم',
+    'email'                 => ' البريد الالكتروني',
     'first_name'            => 'حقل الاسم الأول',
     'identity_number'            => 'حقل رقم الهوية / الإقامة',
     'last_name'             => 'حقل اسم العائلة',
@@ -15,6 +15,7 @@ $attributes = [
     'country_id'               => 'حقل الدولة',
     'address'               => 'حقل العنوان',
     'phone'                 => 'حقل الهاتف',
+    'full_phone'            => 'حقل الهاتف',
     'mobile'                => 'حقل الجوال',
     'age'                   => 'حقل العمر',
     'sex'                   => 'حقل الجنس',
@@ -39,15 +40,20 @@ $attributes = [
     'wallet_bin'                  => 'حقل رقم المحفظة',
     'ban_reason'                  => 'حقل سبب الحظر',
     'is_ban'                  => 'حقل الحالة من الحظر',
-    'is_active'                  => 'حقل الحالة من التفعيل',
+    'is_active'                  => ' الحالة مطلوبة ',
     'reset_code'                  => 'رمز التحقق',
-    'department_id'                  => 'حقل القسم ',
-    'reasonAction'                  => 'حقل السبب',
+    'department_id'                  => 'القسم ',
+    'reasonAction'                  => ' السبب',
     'ban_from'                  => 'حقل تاريخ من',
     'ban_to'                  => 'حقل تاريخ إلى',
     'employee_id'       =>       'حقل اسم الموظف',
     'current_password'       =>       'حقل كلمة المرور الحالية',
     'new_password'       =>       'حقل كلمة المرور الجديدة',
+    'card_type'       =>       'حقل نوع البطاقة',
+    'charge_type'       =>       'حقل طريقة الشحن',
+    'card_id'       =>       'حقل البطاقة',
+    'wallet_transfer_method'       => 'حقل طريقة التحويل',
+    'transfer_method_value'       => 'حقل قيمة طريقة التحويل',
 
     //card package create screen
     'client_id'          => 'اسم العميل',
@@ -71,7 +77,7 @@ $attributes = [
     'banks.*.service_customer' => 'حقل خدمة العملاء',
     'banks.*.is_active' => 'حقل is_active',
     'banks.*.ar.name'   => 'حقل اسم الفرع',
-    'rasid_job_id' => 'حقل اسم الوظيفة',
+    'rasid_job_id' => ' اسم الوظيفة',
     'branches.*.type' => 'حقل نوع البنك ',
     'branches.*.code' => 'حقل كود البنك ',
     'branches.*.site' => 'حقل موقع البنك ',
@@ -91,7 +97,17 @@ $attributes = [
     'relation' => 'حقل علاقة القرابة',
     'recieve_option_id' => 'حقل  خيارات الاستلام',
     'nationality' => 'حقل الجنسية',
-    'date_of_birth' => 'حقل تاريخ الميلاد'
+    'date_of_birth' => 'حقل تاريخ الميلاد',
+    'is_card_saved' => 'الاحتفاظ ببيانات البطاقة',
+    'amount' => 'المبلغ',
+    'owner_name' => 'الاسم على البطاقة',
+    'card_name' => 'اسم البطاقة',
+    'card_number' => 'الرقم على البطاقة',
+    'expire_at' => 'تاريخ إنتهاء البطاقة',
+    'today' => 'تاريخ غير صالح',
+    'discounts.0.package_discount' => 'حقل نسبة خصم البطاقة الأساسية ',
+    'discounts.1.package_discount' => 'حقل نسبة خصم البطاقة الذهبية',
+    'discounts.2.package_discount' => 'حقل نسبة خصم البطاقة البلاتينية',
 ];
 
 foreach (config('translatable.locales') as $locale) {
@@ -106,7 +122,7 @@ return [
     'accepted'             => 'يجب قبول :attribute.',
     'accepted_if'          => 'يجب قبول :attribute في حالة :other يساوي :value.',
     'active_url'           => ' :attribute لا يُمثّل رابطًا صحيحًا.',
-    'after'                => 'يجب على  :attribute أن يكون تاريخًا لاحقًا للتاريخ :date.',
+    'after'                => ':attribute غير صالح',
     'after_or_equal'       => ' :attribute يجب أن يكون تاريخاً لاحقاً أو مطابقاً للتاريخ :date.',
     'alpha'                => 'يجب أن لا يحتوي  :attribute سوى على حروف.',
     'alpha_dash'           => 'يجب أن لا يحتوي  :attribute سوى على حروف، أرقام ومطّات.',
@@ -129,14 +145,14 @@ return [
     'declined'             => 'يجب رفض :attribute.',
     'declined_if'          => 'يجب رفض :attribute عندما يكون :other بقيمة :value.',
     'different'            => 'يجب أن يكون :attribute و :other مُختلفين.',
-    'digits'               => 'يجب أن يحتوي  :attribute على :digits رقمًا/أرقام.',
+    'digits'               => 'يجب أن يحتوي  :attribute على :digits رقمًا.',
     'digits_between'       => 'يجب أن يحتوي  :attribute بين :min و :max رقمًا/أرقام .',
     'dimensions'           => 'ال:attribute يحتوي على أبعاد صورة غير صالحة.',
     'distinct'             => 'لل :attribute قيمة مُكرّرة.',
     'email'                => 'صيغة  :attribute غير صحيحة',
     'ends_with'            => 'يجب أن ينتهي  :attribute بأحد القيم التالية: :values',
     'enum'                 => ' :attribute المختار غير صالح.',
-    'exists'               => 'القيمة المحددة :attribute غير موجودة.',
+    'exists'               => 'القيمة المحددة ل:attribute غير موجودة.',
     'file'                 => 'ال :attribute يجب أن يكون ملفا.',
     'filled'               => ' :attribute إجباري.',
     'gt'                   => [
@@ -254,4 +270,26 @@ return [
 
     'attributes' => $attributes,
 
+    'custom' => [
+        'unique' => 'الاسم موجود من قبل'
+    ],
+
+    'department' => [
+        'required' => 'اسم القسم مطلوب',
+    ],
+
+    'job' => [
+        'required' => 'اسم الوظيفة مطلوب',
+    ],
+
+    
+    'admin' => [
+        'required_name' => 'اسم المستخدم مطلوب',
+        'required_job' => 'الوظيفة مطلوبة',
+        'required_password' => 'كلمة المرور مطلوبة',
+        'unique_login_id' => 'رقم المستخدم موجود من قبل',
+        'unique_phone' => 'رقم الجوال موجود من قبل',
+        'unique_email' => 'البريد الإلكتروني موجود من قبل',
+        
+    ]
 ];

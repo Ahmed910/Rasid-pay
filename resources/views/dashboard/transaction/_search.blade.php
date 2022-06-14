@@ -7,16 +7,8 @@
     <input type="number" class="form-control" id="transactionNum" name="transaction_number" placeholder="@lang('dashboard.transaction.enter_transaction_number')"/>
   </div>
   <div class="col-12 col-md-3 mb-3">
-    <label for="transactionName">@lang('dashboard.transaction.from_user')</label>
+    <label for="transactionName">@lang('dashboard.transaction.to_user_client')</label>
     <input type="text" class="form-control" id="transactionName"  name="citizen" placeholder="@lang('dashboard.transaction.enter_from_user')"/>
-  </div>
-  <div class="col-12 col-md-3 mb-3">
-    <label for="idNumber">@lang('dashboard.transaction.user_identity')</label>
-    <input type="number" class="form-control" id="idNumber" name="user_identity" placeholder="@lang('dashboard.transaction.enter_user_identity')"/>
-  </div>
-  <div class="col-12 col-md-3 mb-3">
-    <label for="clientName">@lang('dashboard.transaction.to_user_client')</label>
-    {!! Form::select('client', ['' => '', -1 => trans('dashboard.general.all_cases')] + $clients, request('to_user_id'), ['class' => 'form-control select2-show-search', 'data-placeholder' => trans('dashboard.transaction.choose_client_name'), 'id' => 'to_user_id']) !!}
   </div>
   <div class="col-12 col-md-3 mb-3">
     <label for="from-hijri-picker-custom"> @lang('dashboard.transaction.transaction_date_from')</label>
@@ -41,24 +33,6 @@
       <div class="input-group-text border-start-0">
         <label for="to-hijri-picker-custom">
           <i class="fa fa-calendar tx-16 lh-0 op-6"></i></label>
-      </div>
-    </div>
-  </div>
-  <div class="col-12 col-md-3 mb-3">
-    <label for="transactionValueFrom">@lang('dashboard.transaction.transaction_amount_from')</label>
-    <div class="input-group">
-      <input id="transactionValueFrom" type="number" name="transaction_value_from" placeholder="@lang('dashboard.transaction.enter_transaction_amount')" class="form-control"/>
-      <div class="input-group-text border-start-0">
-        ر.س
-      </div>
-    </div>
-  </div>
-  <div class="col-12 col-md-3 mb-3">
-    <label for="transactionValueTo">@lang('dashboard.transaction.transaction_amount_to')</label>
-    <div class="input-group">
-      <input id="transactionValueTo" type="number" name="transaction_value_to" placeholder="@lang('dashboard.transaction.enter_transaction_amount')" class="form-control"/>
-      <div class="input-group-text border-start-0">
-        ر.س
       </div>
     </div>
   </div>

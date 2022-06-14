@@ -33,7 +33,7 @@ class User extends Authenticatable implements HasAssetsInterface
     protected $dates = ['date_of_birth', 'date_of_birth_hijri'];
     public $assets = ['image'];
     protected $with = ['images','permissions'];
-    private $sortableColumns = ["login_id", "created_at", "fullname", "department", 'ban_status',"basic_discount", "golden_discount", "platinum_discount"];
+    private $sortableColumns = ["login_id", "created_at", "fullname", "department", 'ban_status',"basic_discount", "golden_discount", "platinum_discount",'phone','email'];
     const CARDSORTABLECOLUMNS = ["basic_discount", "golden_discount", "platinum_discount"];
 
     public static function boot()
@@ -93,6 +93,16 @@ class User extends Authenticatable implements HasAssetsInterface
     public function devices()
     {
         return $this->hasMany(Device::class);
+    }
+
+    public function walletCharges()
+    {
+        return $this->hasMany(WalletCharge::class,'citizen_id');
+    }
+
+    public function citizenWallet()
+    {
+        return $this->hasOne(CitizenWallet::class,'citizen_id');
     }
 
     public function employee()
@@ -174,11 +184,6 @@ class User extends Authenticatable implements HasAssetsInterface
         return $this->hasMany(Attachment::class);
     }
 
-    public function citizenWallet()
-    {
-        return $this->hasOne(CitizenWallet::class,'citizen_id');
-    }
-
     public function clientTransactions()
     {
         return $this->hasMany(Transaction::class, 'to_user_id');
@@ -254,17 +259,20 @@ class User extends Authenticatable implements HasAssetsInterface
             });
         }
 
+        if (isset($request->phone)) $query->where("phone", "like", "%$request->phone%");
+        if (isset($request->email)) $query->where("email", "like", "%$request->email%");
+
+        if (isset($request->name)) {
+            $query->where(function ($q) use ($request) {
+                $q->where("fullname", "like", "%\\$request->name%");
+            });
+        }
+
         !$request->client_type ?: $query->where("client_type", $request->client_type);
         !$request->country_id ?: $query->where("country_id", $request->country_id);
 
         if (isset($request->login_id)) {
             $query->where("login_id", "like", "%$request->login_id%");
-        }
-
-        if (isset($request->ban_status)) {
-            if (!in_array($request->ban_status, ['active', 'permanent', 'temporary'])) return;
-
-            $query->where('ban_status', $request->ban_status);
         }
 
         !$request->register_status ?: $query->where("register_status", $request->register_status);
@@ -276,7 +284,7 @@ class User extends Authenticatable implements HasAssetsInterface
             });
         }
 
-        if ($request->ban_from) {
+        if ($request->ban_from && $request->ban_status == 'temporary') {
             $ban_from = date('Y-m-d', strtotime($request->ban_from));
             if (auth()->user()->is_date_hijri == 1) {
                 $date = explode("-", $ban_from);
@@ -285,7 +293,7 @@ class User extends Authenticatable implements HasAssetsInterface
             $query->whereDate('ban_from', "<=", $ban_from);
         }
 
-        if ($request->ban_to) {
+        if ($request->ban_to && $request->ban_status == 'temporary') {
             $ban_to = date('Y-m-d', strtotime($request->ban_to));
             if (auth()->user()->is_date_hijri == 1) {
                 $date = explode("-", $ban_to);
@@ -293,9 +301,18 @@ class User extends Authenticatable implements HasAssetsInterface
             }
             $query->whereDate('ban_to', ">=", $ban_to);
         }
+
         if ($request->id && $request->id != "-1") {
             $query->where('users.id', $request->id);
         }
+
+        //NOTE: Should be the last one in search scope
+        if (isset($request->ban_status)) {
+            if (!in_array($request->ban_status, ['active', 'permanent', 'temporary'])) return;
+
+            $query->where('ban_status', $request->ban_status);
+        }
+
         $new = $query->toSql();
         if ($old != $new) $this->addGlobalActivity($this, $request->query(), ActivityLog::SEARCH, 'index', request()->user_type);
     }

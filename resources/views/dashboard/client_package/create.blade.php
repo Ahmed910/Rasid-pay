@@ -17,7 +17,7 @@
     </div>
     <!-- PAGE-HEADER END -->
 
-    {!! Form::open(['route' => 'dashboard.client_package.store', 'method' => 'POST', 'id' => 'formId']) !!}
+    {!! Form::open(['route' => 'dashboard.client_package.store', 'method' => 'POST', 'id' => 'formId' , 'autocomplete'=>"off"]) !!}
 
          @include('dashboard.client_package._form')
 
@@ -127,6 +127,12 @@
                     window.location.href = "{{ route('dashboard.client_package.index') }}";
                 }
             });
+
+          $('input[type="number"]').on('keypress', function (evt) {
+            var charCode = (evt.which) ? evt.which : evt.keyCode;
+            return !(charCode !== 46 && charCode > 31
+              && (charCode < 48 || charCode > 57));
+          });
 
         })();
     </script>

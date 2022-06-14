@@ -14,6 +14,7 @@ class CitizenResource extends JsonResource
             'fullname' => $this->user->fullname,
             'identity_number' => $this->user->identity_number,
             'phone' => $this->user->phone,
+            'phone_without_cc' => substr($this->user->phone, strlen($this->user->country_code)),
             'enabled_package' => $this->enabledPackage?->package?->name ?? trans('dashboard.citizens.without'),
             'card_end_at' => $this->enabledPackage?->end_at ?? trans('dashboard.citizens.without'),
             'show_route' => route('dashboard.citizen.show', $this->id),

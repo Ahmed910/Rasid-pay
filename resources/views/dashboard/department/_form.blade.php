@@ -5,9 +5,9 @@
       <span class="requiredFields">*</span>
       @foreach ($locales as $locale)
       {!! Form::text("{$locale}[name]", isset($department) ? $department->name : null, ['class' => 'form-control
-      input-regex stop-copy-paste', 'id' => "{$locale}[name]", 'placeholder' => trans('dashboard.general.enter_name'),
+      input-regex stop-copy-paste', 'id' => "{$locale}[name]", 'placeholder' => trans('dashboard.general.enter_name'),'onkeyup'=>'removeValidation()','onblur'=>'validateData()',
       'minlength' => '2', 'maxlength' => '100']) !!}
-      <span class="text-danger" id="{{ $locale }}.nameError" hidden></span>
+      <span class="text-danger dd" id="{{ $locale }}.nameError" hidden></span>
       @endforeach
     </div>
 
@@ -70,8 +70,9 @@
   <div class="col-12 mb-5 text-end">
     {!! Form::button('<i class="mdi mdi-content-save-outline"></i>' . trans('dashboard.general.save'), ['type' =>
     'submit', 'class' => 'btn btn-primary', 'id' => 'saveButton']) !!}
-    {!! Form::button('<i class="mdi mdi-arrow-left"></i>' . trans('dashboard.general.back'), ['type' => 'button',
-    'class' => 'btn btn-outline-primary', 'id' => 'showBack']) !!}
+    <a href="{{ url()->previous() }}" class="btn btn-outline-primary">
+      <i class="mdi mdi-arrow-left"></i> {{ trans('dashboard.general.back') }}
+  </a>
   </div>
 </div>
 
@@ -91,5 +92,6 @@
   $("#parent_id").on("select2:select", function (e) {
     $("#createStatus").val(1);
   });
+
 </script>
 @endsection

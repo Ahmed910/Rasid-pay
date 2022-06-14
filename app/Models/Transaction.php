@@ -4,7 +4,7 @@ namespace App\Models;
 
 use App\Models\Bank\Bank;
 use App\Models\BankBranch\BankBranch;
-use App\Models\CardPackage\CardPackage;
+//use App\Models\CardPackage\CardPackage;
 use App\Models\Package\Package;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -17,7 +17,6 @@ use Illuminate\Support\Str;
 
 class Transaction extends Model
 {
-
     use HasFactory, Uuid, Loggable, SoftDeletes;
 
     const SUCCESS = 'success';
@@ -44,39 +43,6 @@ class Transaction extends Model
     const client_sortable_Columns = ["user_to" => "fullname", "client_type" => "client_type", "commercial_number" => "commercial_number", "nationality" => "nationality", "tax_number" => "tax_number", "transactions_done" => "transactions_done"];
     const ENABLED_CARD_sortable_COLUMNS = ["enabled_package" => "card_type"];
     const TRANACTION_TYPES = ['pay', 'transfer', 'charge', 'money_request'];
-
-    public static function boot()
-    {
-        parent::boot();
-       static::created(function ($item) {
-           $qr_code = self::createQr($item->trans_number);
-           $item->update(['qr_path' => $qr_code]);
-       });
-    }
-
-    private static function createQr($qr_value)
-    {
-        self::checkOrCreateQrDirectory();
-        $filname = time() . "_" . $qr_value . "_qr_code.png";
-
-        $path = storage_path('app/public/images/transactions/' . $filname);
-
-
-        \QrCode::errorCorrection('H')
-            ->format('png')
-            ->encoding('UTF-8')
-            ->merge(public_path('dashboardAssets/images/brand/logoQR.png'), .2, true)
-            ->size(500)
-            ->generate((string)$qr_value, $path);
-        return 'images/transactions/' . $filname;
-    }
-
-    private static function checkOrCreateQrDirectory()
-    {
-        if (!\File::isDirectory(storage_path('app/public/images/transactions/'))) {
-            \File::makeDirectory(storage_path('app/public' . DIRECTORY_SEPARATOR . 'images' . DIRECTORY_SEPARATOR . 'transactions' . DIRECTORY_SEPARATOR), 0777, true);
-        }
-    }
 
     public function scopeSearch(Builder $query, $request)
     {
@@ -117,13 +83,13 @@ class Transaction extends Model
         }
         if (isset($request->package_id)) {
             if ($request->package_id == 0) $request->package_id = null;
-            if ($request->package_id != -1) $query->whereHas('card', fn ($q) => $q->where('id', $request->package_id));
+            if ($request->package_id != -1) $query->whereHas('citizenPackage', fn ($q) => $q->where('id', $request->package_id));
         }
         if (isset($request->client)) {
             if ($request->client == 0) $request->client = null;
             if ($request->client != -1) {
                 $query->whereHas('client', function ($query) use ($request) {
-                    $query->where('user_id', $request->client);
+                    $query->where('to_user_id', $request->client);
                 });
             }
         }

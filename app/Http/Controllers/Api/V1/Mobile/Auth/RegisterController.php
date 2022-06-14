@@ -15,8 +15,8 @@ class RegisterController extends Controller
         $userData = ['user_type' => 'citizen', 'fullname' => 'citizen_' . $data['phone']];
 
         $user->fill($data + $userData)->save();
-        //TODO: api service for elm to verify account
         //TODO: api service for send sms to phone number
+        //TODO: api service for elm to verify account
         $code = 1111;
         if (setting('use_sms_service') == 'enable') {
             $code = generate_unique_code(User::class, 'phone', 4, 'numbers');
