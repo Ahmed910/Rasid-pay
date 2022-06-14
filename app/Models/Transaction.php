@@ -4,7 +4,7 @@ namespace App\Models;
 
 use App\Models\Bank\Bank;
 use App\Models\BankBranch\BankBranch;
-use App\Models\CardPackage\CardPackage;
+//use App\Models\CardPackage\CardPackage;
 use App\Models\Package\Package;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -83,13 +83,13 @@ class Transaction extends Model
         }
         if (isset($request->package_id)) {
             if ($request->package_id == 0) $request->package_id = null;
-            if ($request->package_id != -1) $query->whereHas('card', fn ($q) => $q->where('id', $request->package_id));
+            if ($request->package_id != -1) $query->whereHas('citizenPackage', fn ($q) => $q->where('id', $request->package_id));
         }
         if (isset($request->client)) {
             if ($request->client == 0) $request->client = null;
             if ($request->client != -1) {
                 $query->whereHas('client', function ($query) use ($request) {
-                    $query->where('user_id', $request->client);
+                    $query->where('to_user_id', $request->client);
                 });
             }
         }
