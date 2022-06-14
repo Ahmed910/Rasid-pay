@@ -109,6 +109,8 @@
     });
   }
 
+
+
   // __________MODAL
   // showing modal with effect
   $(".modal-effect").on("click", function (e) {

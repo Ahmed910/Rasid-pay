@@ -3,7 +3,7 @@
         <div class="col-12 col-md-6">
             {!! Form::label('departmentName', trans('dashboard.group.group_name')) !!} <span class="requiredFields">*</span>
             @foreach ($locales as $locale)
-            {!! Form::text("{$locale}[name]", isset($group) ? $group->name : null, ['class' => 'form-control input-regex stop-copy-paste', 'placeholder' => trans('dashboard.general.enter_name'), 'minlength' => '2', 'maxlength' => '100', 'required' => 'required','onblur'=>'validateData()']) !!}
+            {!! Form::text("{$locale}[name]", isset($group) ? $group->name : null, ['class' => 'form-control input-regex stop-copy-paste', 'placeholder' => trans('dashboard.general.enter_name'),'onblur'=>'validateData()', 'minlength' => '2', 'maxlength' => '100', 'required' => 'required','onblur'=>'validateData()']) !!}
             <span class="text-danger dd" id="{{ $locale }}.nameError" hidden></span>
             @endforeach
         </div>
@@ -71,27 +71,7 @@
             });
         });
 
-        function validateData()
-        {
-             let lang = '{{ app()->getLocale() }}';
-             var formData = $('#formId').serialize();
 
-            $.ajax({
-                  url: '{{ url('/dashboard/group') }}',
-                  type: 'post',
-                  data : formData,
-
-                  error:function(errors)
-                  {
-
-
-                    let name = $('#formId').serializeArray()[1].name;
-                    name = (name.replace("[", ".")).slice(0,-1);
-                    $('.dd').removeAttr('hidden')
-                    $('.dd').text(errors.responseJSON.errors[name])
-                  }
-              });
-        }
 
         function addPermissions(selected) {
             let group_options = '';

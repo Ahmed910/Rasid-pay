@@ -100,6 +100,11 @@ class User extends Authenticatable implements HasAssetsInterface
         return $this->hasMany(WalletCharge::class,'citizen_id');
     }
 
+    public function citizenWallet()
+    {
+        return $this->hasOne(CitizenWallet::class,'citizen_id');
+    }
+
     public function employee()
     {
         return $this->hasOne(Employee::class);
@@ -177,11 +182,6 @@ class User extends Authenticatable implements HasAssetsInterface
     public function attachments()
     {
         return $this->hasMany(Attachment::class);
-    }
-
-    public function citizenWallet()
-    {
-        return $this->hasOne(CitizenWallet::class,'citizen_id');
     }
 
     public function clientTransactions()
@@ -266,12 +266,6 @@ class User extends Authenticatable implements HasAssetsInterface
             $query->where("login_id", "like", "%$request->login_id%");
         }
 
-        if (isset($request->ban_status)) {
-            if (!in_array($request->ban_status, ['active', 'permanent', 'temporary'])) return;
-
-            $query->where('ban_status', $request->ban_status);
-        }
-
         !$request->register_status ?: $query->where("register_status", $request->register_status);
         !$request->login_id ?: $query->where("login_id", "like", "%$request->login_id%");
 
@@ -281,7 +275,7 @@ class User extends Authenticatable implements HasAssetsInterface
             });
         }
 
-        if ($request->ban_from) {
+        if ($request->ban_from && $request->ban_status == 'temporary') {
             $ban_from = date('Y-m-d', strtotime($request->ban_from));
             if (auth()->user()->is_date_hijri == 1) {
                 $date = explode("-", $ban_from);
@@ -290,7 +284,7 @@ class User extends Authenticatable implements HasAssetsInterface
             $query->whereDate('ban_from', "<=", $ban_from);
         }
 
-        if ($request->ban_to) {
+        if ($request->ban_to && $request->ban_status == 'temporary') {
             $ban_to = date('Y-m-d', strtotime($request->ban_to));
             if (auth()->user()->is_date_hijri == 1) {
                 $date = explode("-", $ban_to);
@@ -298,9 +292,18 @@ class User extends Authenticatable implements HasAssetsInterface
             }
             $query->whereDate('ban_to', ">=", $ban_to);
         }
+
         if ($request->id && $request->id != "-1") {
             $query->where('users.id', $request->id);
         }
+
+        //NOTE: Should be the last one in search scope
+        if (isset($request->ban_status)) {
+            if (!in_array($request->ban_status, ['active', 'permanent', 'temporary'])) return;
+
+            $query->where('ban_status', $request->ban_status);
+        }
+
         $new = $query->toSql();
         if ($old != $new) $this->addGlobalActivity($this, $request->query(), ActivityLog::SEARCH, 'index', request()->user_type);
     }

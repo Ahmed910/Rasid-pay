@@ -253,7 +253,11 @@ return [
         "managers" => "العملاء",],
     "bank_account" => [
         "bank_accounts" => "العملاء",
-        "order_number" => "رقم الطلب"
+        "order_number" => "رقم الطلب",
+        "permissions"=>[
+            'index'=>'السجل',
+            'destroy'=>'حذف',
+        ],
     ],
     "attachment" => [
         "attachments" => "العملاء",],
@@ -385,6 +389,7 @@ return [
         "rasid_job_description" => "الوصف الوظيفي",
         "rasid_job_department" => "اسم القسم",
         "name" => "اسم الوظيفة",
+        "enter_name" => "أدخل الاسم",
         "validation" => [
             'name_must_be_unique_on_department' => 'تم اختيار اسم الوظيفة من قبل لنفس القسم'
         ],
@@ -609,13 +614,6 @@ return [
             'platinum' => 'البطاقة البلاتينية',
         ],
         'type_cases' => [
-            'payment' => 'دفع',
-            'wallet_transfer' => 'تحويل لمحفظة',
-            'bank_transaction' => 'تحويل بنكي',
-            'bank_transactoin' => 'تحويل بنكي',
-            'receive_credit' => 'استلام رصيد',
-            'wallet_charge' => 'شحن رصيد',
-            'upgrade_card' => 'ترقية بطاقات',
             'pay' => 'دفع',
             'transfer' => 'تحويل',
             'charge' => 'شحن',
@@ -671,6 +669,14 @@ return [
         ],
 
         'permissions' => array_except($permissions, ['archive', 'restore', 'force_delete']) + ['create' => 'عرض العملاء']
+    ],
+
+    'client_package'=>[
+        'client_packages'=>'باقات العميل',
+        'permissions'=>[
+            'index'=>'السجل',
+            'store'=>'حفظ'
+        ]
     ],
 
     "citizens" => [

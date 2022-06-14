@@ -29,6 +29,7 @@ class WalletController extends Controller
         // #2 Add charge information
         $wallet_charge = $citizen->walletCharges()->create([
             'amount' => $request->amount,
+            'charge_type' => $request->charge_type,
             'wallet_before' => $walletBefore,
             'wallet_after' => $wallet->main_balance
         ]);

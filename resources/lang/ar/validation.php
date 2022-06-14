@@ -50,6 +50,10 @@ $attributes = [
     'current_password'       =>       'حقل كلمة المرور الحالية',
     'new_password'       =>       'حقل كلمة المرور الجديدة',
     'card_type'       =>       'حقل نوع البطاقة',
+    'charge_type'       =>       'حقل طريقة الشحن',
+    'card_id'       =>       'حقل البطاقة',
+    'wallet_transfer_method'       => 'حقل طريقة التحويل',
+    'transfer_method_value'       => 'حقل قيمة طريقة التحويل',
 
     //card package create screen
     'client_id'          => 'اسم العميل',
@@ -101,6 +105,9 @@ $attributes = [
     'card_number' => 'الرقم على البطاقة',
     'expire_at' => 'تاريخ إنتهاء البطاقة',
     'today' => 'تاريخ غير صالح',
+    'discounts.0.package_discount' => 'حقل نسبة خصم البطاقة الأساسية ',
+    'discounts.1.package_discount' => 'حقل نسبة خصم البطاقة الذهبية',
+    'discounts.2.package_discount' => 'حقل نسبة خصم البطاقة البلاتينية',
 ];
 
 foreach (config('translatable.locales') as $locale) {
@@ -145,7 +152,7 @@ return [
     'email'                => 'صيغة  :attribute غير صحيحة',
     'ends_with'            => 'يجب أن ينتهي  :attribute بأحد القيم التالية: :values',
     'enum'                 => ' :attribute المختار غير صالح.',
-    'exists'               => 'القيمة المحددة :attribute غير موجودة.',
+    'exists'               => 'القيمة المحددة ل:attribute غير موجودة.',
     'file'                 => 'ال :attribute يجب أن يكون ملفا.',
     'filled'               => ' :attribute إجباري.',
     'gt'                   => [

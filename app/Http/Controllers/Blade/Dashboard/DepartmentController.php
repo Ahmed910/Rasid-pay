@@ -18,6 +18,7 @@ class DepartmentController extends Controller
 {
     public function index(Request $request)
     {
+
         if (isset($request->order[0]['column'])) {
             $request['sort'] = ['column' => $request['columns'][$request['order'][0]['column']]['name'], 'dir' => $request['order'][0]['dir']];
         }
@@ -160,8 +161,7 @@ class DepartmentController extends Controller
                 ->additional(['total_count' => $departmentCount]);
         }
 
-        $parentDepartments = Department::where('is_active', 1)
-            ->has("children")
+        $parentDepartments = Department::has("children")
             ->orWhere(function ($q) {
                 $q->doesntHave('children')
                     ->WhereNull('parent_id');
@@ -217,6 +217,7 @@ class DepartmentController extends Controller
 
     public function exportPDF(Request $request, GeneratePdf $pdfGenerate)
     {
+
         $departmentsQuery = Department::search($request)
             ->CustomDateFromTo($request)
             ->with('parent.translations')
