@@ -116,10 +116,10 @@
             $("#showBack").click(function() {
                 let validate = false;
                 $('#formId input').each(function() {
-                    if ($(this).attr('name') !== '_token' && ($(this).val() != '' || $(this).attr(
-                            'checked')))
+                    if ($(this).attr('name') !== '_token' && ($(this).val() != '' || $(this).attr('checked')))
                         validate = true;
                 });
+
                 if (validate) {
                     $('#backModal').modal('show');
                     return false;

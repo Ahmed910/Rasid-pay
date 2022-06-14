@@ -2,12 +2,15 @@
 
 namespace App\Http\Controllers\Blade\Dashboard;
 
+use App\Exports\ClientPackageExport;
 use App\Http\Resources\Blade\Dashboard\Package\PackageCollection;
 use App\Models\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Dashboard\ClientPackageRequest;
 use App\Models\Package\Package;
+use App\Services\GeneratePdf;
+use Maatwebsite\Excel\Facades\Excel;
 
 class ClientPackageController extends Controller
 {
@@ -37,7 +40,8 @@ class ClientPackageController extends Controller
     {
         $previousUrl = url()->previous();
         (strpos($previousUrl, 'package')) ? session(['perviousPage' => 'package']) : session(['perviousPage' => 'home']);
-        $clients = User::doesntHave('clientPackages')->where("user_type", "client")->pluck('users.fullname', 'users.id')->toArray();
+
+        $clients = User::doesntHave('clientPackages')->where(['user_type'=>'client','is_active'=>1])->pluck('users.fullname', 'users.id')->toArray();
         $packages = Package::select('id')->listsTranslations('name')->get();
         return view('dashboard.client_package.create', compact('clients', 'previousUrl','packages'));
     }
@@ -47,7 +51,7 @@ class ClientPackageController extends Controller
         if (!request()->ajax()) {
             $client = User::where('user_type','client')->findOrFail($request->client_id);
             $client->clientPackages()->sync($request->discounts);
-            return redirect()->route('dashboard.client_package.index')->withSuccess(__('dashboard.package.discount_success_add', ['client' => $client->fullname]));
+            return redirect()->back()->withSuccess(__('dashboard.package.discount_success_add', ['client' => $client->fullname]));
         }
     }
 
@@ -67,5 +71,40 @@ class ClientPackageController extends Controller
             $client->clientPackages()->sync($request->discounts);
             return redirect()->route('dashboard.client_package.index')->withSuccess(__('dashboard.package.discount_success_update', ['client' => $client->fullname]));
         }
+    }
+
+    public function export(Request $request)
+    {
+        return Excel::download(new ClientPackageExport($request), 'clientPackages.xlsx');
+    }
+
+    public function exportPDF(Request $request, GeneratePdf $pdfGenerate)
+    {
+        $packages = User::has('clientPackages')->where("user_type", "client")
+        ->search($request)
+        ->sortBy($request)
+        ->with("clientPackages")
+        ->get();
+
+
+        if (!$request->has('created_from')) {
+            $createdFrom = User::has('clientPackages')->selectRaw('MIN(created_at) as min_created_at')->value('min_created_at');
+        }
+
+
+        $mpdf = $pdfGenerate->newFile()
+            ->view(
+                'dashboard.exports.client_package',
+                [
+                    'packages' => $packages,
+                    'date_from'   => format_date($request->created_from) ?? format_date($createdFrom),
+                    'date_to'     => format_date($request->created_to) ?? format_date(now()),
+                    'userId'      => auth()->user()->login_id,
+
+                ]
+            )
+            ->export();
+
+        return $mpdf;
     }
 }

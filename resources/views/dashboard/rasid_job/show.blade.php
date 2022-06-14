@@ -70,7 +70,7 @@
             </a>
 
 
-            <a href="{{ URL::previous() }}" class="btn btn-outline-primary">
+            <a href="{{ route('dashboard.rasid_job.index') }}" class="btn btn-outline-primary">
                 <i class="mdi mdi-arrow-left"></i> {{ trans('dashboard.general.back') }}
             </a>
 

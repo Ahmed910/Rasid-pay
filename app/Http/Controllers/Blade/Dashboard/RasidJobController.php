@@ -194,8 +194,7 @@ class RasidJobController extends Controller
                 ->additional(['total_count' => $rasid_jobCount]);
         }
 
-        $departments = Department::where('is_active', 1)
-            ->has("children")
+        $departments = Department::has("children")
             ->orWhere(function ($q) {
                 $q->doesntHave('children');
             })

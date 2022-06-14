@@ -41,6 +41,8 @@
             data.ban_status = $('#status').val();
             data.department_id = $('#mainDepartment').val();
             data.name = $('#userName').val();
+            data.phone = $('#phone').val();
+            data.email = $('#email').val();
             data.login_id = $('#userId').val();
             data.created_from = $('#from-hijri-picker-custom').val();
             data.created_to = $('#to-hijri-picker-custom').val();
@@ -66,6 +68,14 @@
             name: 'fullname'
           },
           {
+            data: "phone",
+            name: 'phone'
+          },
+          {
+            data: "email",
+            name: 'email'
+          },
+          {
             data: function (data) {
               return data.department ? data.department.name :
                 "{{ trans('dashboard.department.without_parent') }}";
@@ -82,7 +92,11 @@
               if (data.ban_status == "{{trans('dashboard.admin.active_cases.active')}}") {
                 return ` <span class="badge bg-success-opacity py-2 px-4">${data.ban_status}</span>`;
               } else {
-                return ` <span class="badge bg-danger-opacity py-2 px-4">${data.ban_status}</span>`;
+                if (data.ban_from !=null ) {
+                  return `<span data-bs-toggle="tooltip" data-bs-placement="top" data-bs-html="true" title="من  ${data.ban_from} <br><br> إلى  ${data.ban_to} " class="badge bg-danger-opacity py-2 px-4">${data.ban_status}</span>`;
+                } else {
+                  return ` <span class="badge bg-danger-opacity py-2 px-4">${data.ban_status}</span>`;
+                }
               }
             },
             name: 'ban_status'
@@ -164,8 +178,8 @@
         table.draw();
       });
 
-      $("#userName").keyup(function () {
-        insertUrlParam('name', $('#userName').val());
+      $("#userName,#phone,#email").keyup(function () {
+        insertUrlParam($(this).attr('id'), $(this).val());
         table.draw();
       });
       $("#userId").keyup(function () {
@@ -186,6 +200,8 @@
         $('#status').val(null).trigger('change');
         $('#mainDepartment').val(null).trigger('change');
         $('#userName').val(null);
+        $('#email').val(null);
+        $('#phone').val(null);
         $('#userId').val(null);
         $('#from-hijri-picker-custom').val("").trigger('change');
         $('#to-hijri-picker-custom').val("").trigger('change');

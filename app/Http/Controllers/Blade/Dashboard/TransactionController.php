@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Blade\Dashboard;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\Blade\Dashboard\Activitylog\ActivityLogCollection;
 use App\Http\Resources\Blade\Dashboard\Transaction\TransactionCollection;
 use App\Models\Package\Package;
 use App\Models\Transaction;
@@ -19,7 +20,7 @@ class TransactionController extends Controller
         if ($request->ajax()) {
             $transactionsQuery = Transaction::search($request)
                 ->CustomDateFromTo($request)
-                ->with('card', 'client', 'citizen.citizen.enabledPackage','transactionable')
+                ->with('citizenPackage', 'client', 'citizen.citizen.enabledPackage','transactionable')
                 ->sortBy($request);
             $transactionCount = $transactionsQuery->count();
             $transactions = $transactionsQuery->skip($request->start)
@@ -36,5 +37,32 @@ class TransactionController extends Controller
         $packages = Package::select("id")->ListsTranslations("name")->pluck('name', 'id')->toArray();
 
         return view('dashboard.transaction.index', compact('clients', 'packages'));
+    }
+
+    public function show(Request $request, $id)
+    {
+        $transaction = Transaction::withTrashed()->findOrFail($id);
+        $sortingColumns = [
+            'id',
+            'employee',
+            'created_at',
+            'action_type',
+            'reason'
+        ];
+        if (isset($request->order[0]['column'])) {
+            $request['sort'] = ['column' => $sortingColumns[$request->order[0]['column']], 'dir' => $request->order[0]['dir']];
+        }
+
+        $activitiesQuery  = $transaction->activity()
+            ->sortBy($request);
+        if ($request->ajax()) {
+            $activityCount = $activitiesQuery->count();
+            $activities = $activitiesQuery->skip($request->start)->take($request->length == -1 ? $activityCount : $request->length)->get();
+
+            return ActivityLogCollection::make($activities)
+                ->additional(['total_count' => $activityCount]);
+        }
+
+        return view('dashboard.transaction.show', compact('transaction'));
     }
 }
