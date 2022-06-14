@@ -1,22 +1,80 @@
 <div class="card py-7 px-7">
-  <div class="row mt-3">
-    <div class="col-12 col-md-4">
-      {!! Form::label('fullname', trans('dashboard.general.username')) !!}
-      <span class="requiredFields">*</span>
-      {!! Form::text("fullname", null, ['class' => 'form-control input-regex stop-copy-paste', 'id' => "fullname",
-      'placeholder'
-      => trans('dashboard.general.user_name'), 'minlength' => '2', 'maxlength' => '100']) !!}
-      <span class="text-danger" id="fullnameError" hidden></span>
-    </div>
-    <div class="col-12 col-md-4">
-      {!! Form::label('mainDepartment', trans('dashboard.department.department_name')) !!} <span
-        class="requiredFields">*</span>
-      {!! Form::select('department_id', ['' => ''] + $departments, isset($admin) ?
-      $admin->employee?->department_id :
-      null, ['class' => 'form-control select2-show-search', 'data-placeholder' =>
-      trans('dashboard.department.select_department'),'id' => 'mainDepartment', 'onchange' =>
-      'getJobs(this.value)' , !(isset($admin)) ?: 'disabled']) !!}
-      <span class="text-danger" id="department_idError"></span>
+    <div class="row mt-3">
+        <div class="col-12 col-md-4">
+            {!! Form::label('fullname', trans('dashboard.general.username')) !!}
+            <span class="requiredFields">*</span>
+            {!! Form::text("fullname", null, ['class' => 'form-control input-regex stop-copy-paste', 'id' => "fullname", 'placeholder'
+            => trans('dashboard.general.user_name'),'onblur'=>'validateData(this.id)', 'minlength' => '2', 'maxlength' => '100']) !!}
+            <span class="text-danger" id="fullnameError" hidden></span>
+        </div>
+        <div class="col-12 col-md-4">
+            {!! Form::label('mainDepartment', trans('dashboard.department.department_name')) !!} <span
+                class="requiredFields">*</span>
+            {!! Form::select('department_id', ['' => ''] + $departments, isset($admin) ?
+            $admin->employee?->department_id :
+            null, ['class' => 'form-control select2-show-search', 'data-placeholder' =>
+            trans('dashboard.department.select_department'),'id' => 'mainDepartment','onblur'=>'validateData(this.id)', 'onchange' =>
+            'getJobs(this.value)']) !!}
+            <span class="text-danger" id="department_idError"></span>
+
+        </div>
+        <div class="col-12 col-md-4">
+            {!! Form::label('rasid_job_id', trans('dashboard.rasid_job.rasid_job')) !!} <span
+                class="requiredFields">*</span>
+
+            <div id="new_admin">
+                {!! Form::select('rasid_job_id', isset($admin) ? ['' => ''] + $rasid_jobs :['' => ''] , isset($admin) ? $admin->employee?->rasid_job_id :null, ['class' => 'form-control select2-show-search', 'id' =>
+                    'rasid_job_id', 'data-placeholder' => trans('dashboard.rasid_job.select_job')]) !!}
+            </div>
+            <span class="text-danger" id="rasid_job_idError"></span>
+        </div>
+
+        <div class="col-12 col-md-4 mt-3">
+            {!! Form::label('userId', trans('dashboard.admin.login_id')) !!} <span class="requiredFields">*</span>
+
+            @if (isset($admin))
+
+            {!! Form::number('login_id', null, ['class' => 'form-control stop-copy-paste','onblur'=>'validateData(this.id)', 'oninput' => 'javascript: if
+            (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);', 'min' => '0',
+            'maxlength'
+            => '6', 'onkeypress' => 'return /[0-9a-zA-Z]/i.test(event.key)', 'id' => 'userId', 'placeholder' =>
+            trans('dashboard.admin.enter_login_id'),'disabled' => 'disabled']) !!}
+            @else
+
+
+            {!! Form::number('login_id', null, ['class' => 'form-control stop-copy-paste', 'onblur'=>'validateData(this.id)','oninput' => 'javascript: if
+            (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);', 'min' => '0',
+            'maxlength'
+            => '6', 'onkeypress' => 'return /[0-9a-zA-Z]/i.test(event.key)', 'id' => 'userId', 'placeholder' =>
+            trans('dashboard.admin.enter_login_id')]) !!}
+            @endif
+
+            <span class="text-danger" id="login_idError"></span>
+        </div>
+        <div class="col-12 col-md-4  mt-3">
+            {!! Form::label('email', trans('dashboard.general.email')) !!}
+            <span class="requiredFields">*</span>
+            {!! Form::email("email", null, ['class' => 'form-control', 'id' => "email",'onblur'=>'validateData(this.id)' ,'placeholder' =>
+            trans('dashboard.general.enter_email'),"autocomplete"=>"off","readonly","onfocus"=>"this.removeAttribute('readonly');", 'minlength' => '2', 'maxlength' => '100']) !!}
+            <span class="text-danger" id="emailError" hidden></span>
+        </div>
+        <div class="col-12 col-md-4  mt-3">
+            <label for="phone">{{ trans('dashboard.general.phone') }} </label><span
+                class="requiredFields">*</span>
+            <div class="input-group">
+                <input id="phone" type="number" name="phone" onblur="validateData(this.id)"
+                    oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
+                    pattern="^[1-9]\d*$" onkeypress="return /[0-9a-zA-Z]/i.test(event.key)" maxlength="9"
+                    class="form-control stop-copy-paste" placeholder="{{ trans('dashboard.citizens.enter_phone') }} "
+                    class="form-control" value="{{ isset($admin) ? $admin->phone : old('phone') }}"/>
+                <div class="input-group-text border-start-0">
+                    966+
+                </div>
+            </div>
+            <span class="text-danger" id="phoneError" hidden></span>
+        </div>
+
+
 
     </div>
     <div class="col-12 col-md-4">
@@ -274,14 +332,23 @@
                 closeOnSelect: false,
                 templateResult: formatState
 
-            });
 
-            $('.select2').on("select2:select", function(e) {
-                if ("option value=['all']") {
-                    $(".select2 > option").prop("selected", "selected");
-                    $(".select2").trigger("change");
-                }
-            });
+
+      function addPermissions(selected) {
+          let group_options = '';
+          let permission_options = '';
+          $.each(selected, (index, item) => {
+              if (item.getAttribute('data-name') == 'groups') {
+                  group_options += `<option value="${item.value}" selected class="group_select"></option>`;
+              }
+              if (item.getAttribute('data-name') == 'permissions') {
+                  permission_options +=
+                      `<option value="${item.value}" selected class="permission_select"></option>`;
+              }
+          });
+          $('[name="permission_list[]"]').html(permission_options);
+          $('[name="group_list[]"]').html(group_options);
+      }
 
 
         });
