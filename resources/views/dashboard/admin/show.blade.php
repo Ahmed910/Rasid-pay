@@ -78,9 +78,25 @@
                                 >
                 @endif
                     </span>
-        @endforeach
-      </div>
-      <div class="col-12 col-md-3 d-flex align-items-end">
+                @endforeach
+                @php
+                   $allGroupPermissionIds = array_flatten($admin->groups->map->permission_list);
+                @endphp
+
+                @foreach ($admin->permissions as $item)
+                  @if (!in_array($item->id,$allGroupPermissionIds))
+                    @php
+                        $path = explode('.',$item->name);
+                        $singleAction = str_singular(@$path[0]);
+                        $action = trans('dashboard.' . $singleAction . '.permissions.' . @$path[1]);
+                    @endphp
+                  <span class="badge bg-primary-opacity d-inline-flex align-items-center py-2 px-4">
+                    {{  trans('dashboard.' . $singleAction . '.' . str_plural($path[0])) . ' (' . $action . ')' }}
+                  </span>
+                  @endif
+                @endforeach
+            </div>
+            <div class="col-12 col-md-3 d-flex align-items-end">
 
         <div class="form-check">
           <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"
