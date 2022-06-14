@@ -29,7 +29,9 @@
           class: 'transaction_show_index'
         },
           {
-            data: "user.fullname",
+            data: function (data) {
+              return data.user.fullname;
+            },
             name: "employee"
           },
           {
