@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\V1\Mobile\WalletBinRequest;
 use App\Http\Requests\V1\Mobile\WalletRequest;
 use App\Http\Resources\Mobile\WalletResource;
+use Illuminate\Http\Request;
 
 class WalletController extends Controller
 {
@@ -51,5 +52,13 @@ class WalletController extends Controller
                 'status' => true,
                 'message' => __('dashboard.general.success_add')
             ]);
+    }
+
+    public function sendWalletOtp(Request $request)
+    {
+        $otp = generate_unique_code(CitizenWallet::class, 'wallet_bin', 6);
+        auth()->user()->citizenWallet()->updateOrCreate(['citizen_id' => auth()->id()],['wallet_bin' => $otp]);
+        #send otp to auth user
+        return response()->json(['status' => true, 'message' => trans('dashboard.general.success_send'),'data' => null, 'dev_message' => $otp]);
     }
 }
