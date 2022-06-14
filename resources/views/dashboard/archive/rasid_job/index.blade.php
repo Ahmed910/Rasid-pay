@@ -14,9 +14,9 @@
 <form method="get" action="" id="search-form">
   <div class="row align-items-end mb-3">
     <div class="col-12 col-md-4">
-      <label for="job_name">{{ trans('dashboard.rasid_job.job_name') }}</label>
+      <label for="job_name">{{ trans('dashboard.rasid_job.name') }}</label>
       {!! Form::text('name', old('name') ?? request('name'), ['class' => 'form-control input-regex stop-copy-paste',
-      'placeholder' => trans('dashboard.rasid_job.job_name'), 'id' => 'job_name']) !!}
+      'placeholder' => trans('dashboard.rasid_job.enter_name'), 'id' => 'job_name']) !!}
     </div>
     <div class="col-12 col-md-4">
       <label for="mainDepartment"> {{ trans('dashboard.rasid_job.department') }} </label>

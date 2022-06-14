@@ -5,9 +5,9 @@
       <span class="requiredFields">*</span>
       @foreach ($locales as $locale)
       {!! Form::text("{$locale}[name]", isset($department) ? $department->name : null, ['class' => 'form-control
-      input-regex stop-copy-paste', 'id' => "{$locale}[name]", 'placeholder' => trans('dashboard.general.enter_name'),
+      input-regex stop-copy-paste', 'id' => "{$locale}[name]", 'placeholder' => trans('dashboard.general.enter_name'),'onkeyup'=>'removeValidation()','onblur'=>'validateData()',
       'minlength' => '2', 'maxlength' => '100']) !!}
-      <span class="text-danger" id="{{ $locale }}.nameError" hidden></span>
+      <span class="text-danger dd" id="{{ $locale }}.nameError" hidden></span>
       @endforeach
     </div>
 
@@ -92,5 +92,6 @@
   $("#parent_id").on("select2:select", function (e) {
     $("#createStatus").val(1);
   });
+
 </script>
 @endsection

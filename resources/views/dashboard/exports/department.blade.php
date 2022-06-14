@@ -5,11 +5,11 @@
  <table id="departmentTable" class="table">
           <thead>
           @include('dashboard.exports.header',['topic'=>'الأقسام'])
-          
+
             <tr>
               <th class="border-bottom-0">#</th>
               <th class="border-bottom-0">
-                @lang('dashboard.department.department')</th>
+                @lang('dashboard.department.department_name')</th>
               <th class="border-bottom-0">
                 @lang('dashboard.department.main_department')</th>
               <th class="border-bottom-0">
@@ -29,12 +29,12 @@
                 @if($department->is_active)
                 <div class="active">
                   <i class="mdi mdi-check-circle-outline"></i>
-                  {{ trans('dashboard.general.active_cases.1') }}
+                  {{ trans('dashboard.department.active_cases.1') }}
                 </div>
                 @else
                 <div class="unactive">
                   <i class="mdi mdi-cancel"></i>
-                  {{ trans('dashboard.general.active_cases.0') }}
+                  {{ trans('dashboard.department.active_cases.0') }}
                 </div>
                 @endif
               </td>
