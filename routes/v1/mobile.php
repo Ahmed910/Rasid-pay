@@ -16,7 +16,7 @@ Route::controller('Auth\RegisterController')->group(function () {
 });
 
 Route::controller('Auth\ResetController')->group(function () {
-    Route::post('check_identity_number', 'checkIdentityNumber');
+    // Route::post('check_identity_number', 'checkIdentityNumber');
     Route::post('reset_password', 'updatePassword');
 });
 

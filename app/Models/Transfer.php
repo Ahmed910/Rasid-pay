@@ -52,7 +52,7 @@ class Transfer extends Model
     #region custom Methods
     public function get_wallet_receiver($method, $val)
     {
-        if (!in_array($method, ["wallet_number", "phone", "identity_number"])) return null;
+        if (!in_array($method, self::WALLET_TRANSFER_METHODS)) return null;
         $receiver = $method == "wallet_number" ? CitizenWallet::where("wallet_number", $val)->select("id", "citizen_id")->with("citizen:id,in_black_list")->firstorfail()
             : User::where($method, $val)->where("user_type", "citizen")->select("id")->with("citizenWallet")->first()?->citizenWallet;
         return $receiver;
