@@ -90,6 +90,11 @@ Route::group(
                 Route::get('exportPDF', 'exportPDF');
             });
 
+            Route::controller('ClientPackageController')->name('client_package.')->prefix('client_package')->group(function () {
+                Route::get('export', 'export');
+                Route::get('exportPDF', 'exportPDF');
+            });
+
             Route::resources([
                 'rasid_job' => 'RasidJobController',
                 'department' => 'DepartmentController',
