@@ -716,6 +716,11 @@ return [
     'package' => [
         "package" => "نسب خصم البطاقات",
         "packages" => "نسب خصم البطاقات",
+        'basic_card' => 'البطاقة الأساسية',
+        'golden_card' => 'البطاقة الذهبية',
+        'platinum_card' => 'البطاقة البلاتينية',
+        'client_name' => 'اسم العميل',
+        'select_client_name' => 'اختر العميل',
         "cards_discount" => "نسب خصم البطاقات",
         "basic_card_discount" => "نسبة خصم البطاقة الأساسية",
         "package_title" => "نسبة خصم :name",

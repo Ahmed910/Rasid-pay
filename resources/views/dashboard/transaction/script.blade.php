@@ -58,7 +58,7 @@
         },
           {
             data: "number",
-            name: 'number'
+            name: 'trans_number'
           },
           {
             data: "created_at",
@@ -70,7 +70,7 @@
           },
           {
             data: 'type',
-            name: 'type'
+            name: 'trans_type'
           },
 
           {
@@ -91,7 +91,7 @@
                 return ` <span class="badge bg-default-opacity py-2 px-4">${data.status}</span>`;
               }
             },
-            name: 'status'
+            name: 'trans_status'
           },
 
           {
