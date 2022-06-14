@@ -85,7 +85,7 @@
                         data: function(data) {
                             return `
                   <a href="#"
-                     onclick=updatePhone('${data.id}','${data.update_route}','${'#citizenTable'}')
+                     onclick=updatePhone('${data.id}','${data.update_route}','${'#citizenTable'}',${ data.phone_without_cc})
                      class="warningIcon" data-bs-toggle="tooltip" data-bs-placement="top"
                      title="@lang('dashboard.general.edit')"><i class="mdi mdi-square-edit-outline" data-bs-toggle="modal"
                      data-bs-target="#modal_phone"></i></a>`

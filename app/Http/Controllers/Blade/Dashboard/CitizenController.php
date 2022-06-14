@@ -46,13 +46,18 @@ class CitizenController extends Controller
 
     public function updatePhone($id, Request $request)
     {
+        $messages = [
+        "phone.required"=>trans("dashboard.citizens.phone_required"),
+        "full_phone.unique"=>trans("dashboard.citizens.phone_unique")
+           ] ;
+
         $request->merge(["full_phone" => $request->country_code . $request->phone]);
         $fileds =   $this->validate($request, [
             "country_code" => "required|in:" . countries_list(),
-            "phone" => ["required", "not_regex:/^{$request->country_code}/", "numeric", "digits_between:7,20", "required_with:country_code"],
+            "phone" => ["required","starts_with:5", "not_regex:/^{$request->country_code}/", "numeric", "digits_between:7,20", "required_with:country_code"],
             "full_phone" => ["unique:users,phone," . @$id],
 
-        ]);
+        ],$messages);
         $citizen = Citizen::where('user_id', $id)->firstOrFail();
         $citizen->user->update($fileds + ['updated_at' => now()]);
 
