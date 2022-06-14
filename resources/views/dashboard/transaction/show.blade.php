@@ -23,8 +23,53 @@
         <label>{{ trans('dashboard.transaction.transaction_number') }} :</label>
         <p class="text-muted"> {!! $transaction->trans_number !!}</p>
       </div>
-    </div>
 
+      <div class="col-12 col-md-4">
+        <label>{{ trans('dashboard.transaction.transaction_date') }} :</label>
+        <p class="text-muted"> {!! $transaction->created_at !!}</p>
+      </div>
+
+      <div class="col-12 col-md-4">
+        <label>{{ trans('dashboard.transaction.from_user') }} :</label>
+        <p class="text-muted"> {!! $transaction->citizen?->fullname !!}</p>
+      </div>
+
+      @if($transaction->client)
+        <div class="col-12 col-md-4">
+          <label>{{ trans('dashboard.transaction.from_user') }} :</label>
+          <p class="text-muted"> {!! $transaction->client?->fullname !!}</p>
+        </div>
+      @endif
+
+      <div class="col-12 col-md-4">
+        <label>{{ trans('dashboard.transaction.transaction_type') }} :</label>
+        <p class="text-muted"> {!! trans("dashboard.transaction.type_cases.".$transaction->trans_type) !!}</p>
+      </div>
+
+      <div class="col-12 col-md-4">
+        <label>{{ trans('dashboard.transaction.transaction_status') }} :</label>
+        <p class="text-muted"> {!! trans("dashboard.transaction.status_cases.".$transaction->trans_status) !!}</p>
+      </div>
+
+      <div class="col-12 col-md-4">
+        <label>{{ trans('dashboard.transaction.total_amount') }} :</label>
+        <p class="text-muted"> {!! $transaction->amount !!}</p>
+      </div>
+
+      <div class="col-12 col-md-4">
+        <label>{{ trans('dashboard.transaction.transaction_amount') }} :</label>
+        <p class="text-muted"> {!! $transaction->amount + $transaction->fee_amount !!}</p>
+      </div>
+
+      <div class="col-12 col-md-4">
+        <label>{{ trans('dashboard.transaction.active_card') }} :</label>
+        <p class="text-muted"> {!! $transaction->citizen?->citizen?->enabledPackage?->package?->name ?? trans('dashboard.citizens.without') !!}</p>
+      </div>
+
+
+
+
+    </div>
   </div>
   <div class="row">
     <div class="col-12 text-end">
