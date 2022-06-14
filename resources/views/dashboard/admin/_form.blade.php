@@ -3,7 +3,7 @@
         <div class="col-12 col-md-4">
             {!! Form::label('fullname', trans('dashboard.general.username')) !!}
             <span class="requiredFields">*</span>
-            {!! Form::text("fullname", null, ['class' => 'form-control input-regex', 'id' => "fullname", 'placeholder'
+            {!! Form::text("fullname", null, ['class' => 'form-control input-regex stop-copy-paste', 'id' => "fullname", 'placeholder'
             => trans('dashboard.general.user_name'), 'minlength' => '2', 'maxlength' => '100']) !!}
             <span class="text-danger" id="fullnameError" hidden></span>
         </div>
@@ -21,16 +21,11 @@
         <div class="col-12 col-md-4">
             {!! Form::label('rasid_job_id', trans('dashboard.rasid_job.rasid_job')) !!} <span
                 class="requiredFields">*</span>
-            @isset($admin)
-            {!! Form::select('rasid_job_id', ['' => ''] + $rasid_jobs, $admin->employee?->rasid_job_id, ['class' =>
-            'form-control select2-show-search', 'id' => 'rasid_job_id', 'data-placeholder' =>
-            trans('dashboard.rasid_job.select_job')]) !!}
-            @else
+
             <div id="new_admin">
-                {!! Form::select('rasid_job_id', ['' => ''], null, ['class' => 'form-control select2-show-search', 'id' =>
+                {!! Form::select('rasid_job_id', isset($admin) ? ['' => ''] + $rasid_jobs :['' => ''] , isset($admin) ? $admin->employee?->rasid_job_id :null, ['class' => 'form-control select2-show-search', 'id' =>
                     'rasid_job_id', 'data-placeholder' => trans('dashboard.rasid_job.select_job')]) !!}
             </div>
-            @endisset
             <span class="text-danger" id="rasid_job_idError"></span>
         </div>
 
@@ -60,7 +55,7 @@
             {!! Form::label('email', trans('dashboard.general.email')) !!}
             <span class="requiredFields">*</span>
             {!! Form::email("email", null, ['class' => 'form-control', 'id' => "email", 'placeholder' =>
-            trans('dashboard.general.enter_email'), 'minlength' => '2', 'maxlength' => '100']) !!}
+            trans('dashboard.general.enter_email'),"autocomplete"=>"off","readonly","onfocus"=>"this.removeAttribute('readonly');", 'minlength' => '2', 'maxlength' => '100']) !!}
             <span class="text-danger" id="emailError" hidden></span>
         </div>
         <div class="col-12 col-md-4  mt-3">
@@ -165,7 +160,7 @@
                 <div class="input-group" id="show_hide_password">
                     {!! Form::password('password', ['class' => 'form-control stop-copy-paste', 'maxlength' => '10',
                     'oninput' => 'javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0,
-                    this.maxLength);', 'pattern' => '^[1-9]\d*$', 'onkeypress' => 'return /[0-9]/i.test(event.key)',
+                    this.maxLength);', 'pattern' => '^[1-9]\d*$', "autocomplete"=>"off","readonly","onfocus"=>"this.removeAttribute('readonly');",'onkeypress' => 'return /[0-9]/i.test(event.key)',
                     'placeholder' => trans('dashboard.admin.enter_password')]) !!}
 
                     <div class="input-group-text border-start-0">
