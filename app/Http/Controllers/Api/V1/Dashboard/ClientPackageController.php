@@ -50,7 +50,7 @@ class ClientPackageController extends Controller
         $client->clientPackages()->sync($request->discounts);
         return PackageResource::make($client)->additional([
             'status' => true,
-            'message' => __('dashboard.package.discount_success_add', ['client' => $client->fullname])
+            'message' => __('dashboard.package.discount_success_add')
         ]);
     }
 
@@ -67,7 +67,7 @@ class ClientPackageController extends Controller
         $client->clientPackages()->sync($request->discounts);
         return PackageResource::make($client)->additional([
             'status' => true,
-            'message' => trans("dashboard.general.success_update")
+            'message' => trans("dashboard.package.discount_success_update")
         ]);
     }
 }

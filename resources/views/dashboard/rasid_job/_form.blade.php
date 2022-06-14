@@ -5,7 +5,7 @@
             {!! Form::label('jobName', trans('dashboard.rasid_job.job_name')) !!}
             <span class="requiredFields">*</span>
             @foreach ($locales as $locale)
-                {!! Form::text("{$locale}[name]", isset($rasidJob) ? $rasidJob->name : null, ['class' => 'form-control input-regex stop-copy-paste' . ($errors->has("${locale}.name") ? ' is-invalid' : null), 'id' => 'jobName', 'placeholder' => trans('dashboard.general.enter_name'), 'minlength' => '2', 'maxlength' => '100']) !!}
+                {!! Form::text("{$locale}[name]", isset($rasidJob) ? $rasidJob->name : null, ['class' => 'form-control input-regex stop-copy-paste' . ($errors->has("${locale}.name") ? ' is-invalid' : null), 'id' => "{$locale}_name", 'placeholder' => trans('dashboard.general.enter_name'), 'minlength' => '2', 'maxlength' => '100','onblur'=>'validateData(this.id)']) !!}
 
                 <span class="text-danger" id="{{ $locale }}.nameError" hidden></span>
             @endforeach

@@ -267,6 +267,14 @@ return [
     | of "email". This simply helps us make our message more expressive.
     |
     */
+    'custom' => [
+        'email' => [
+            'exists' => 'هذا البريد غير مسجل بالنظام',
+        ],
+        'phone' => [
+            'exists' => ' رقم الجوال غير مسجل بالنظام',
+        ],
+    ],
 
     'attributes' => $attributes,
 
@@ -290,6 +298,7 @@ return [
         'unique_login_id' => 'رقم المستخدم موجود من قبل',
         'unique_phone' => 'رقم الجوال موجود من قبل',
         'unique_email' => 'البريد الإلكتروني موجود من قبل',
+        'confirmed_password' => 'كلمة المرور غير متطابقة',
         
     ]
 ];
