@@ -38,10 +38,10 @@ class Transaction extends Model
     const user_sortable_Columns = ["user_from" => "fullname", "email" => "email", "image" => "email", "country_code" => "country_code", "phone" => "phone", "full_phone" => "full_phone", "identity_number" => "identity_number", "date_of_birth" => "date_of_birth"];
     const SELECT_ALL = ["enabled_package"];
     const transaction_searchable_Columns = ["transaction_number", "user_identity",  "transaction_type", "transaction_status"];
-    const ENABLED_CARD_SEARCHABLE_COLUMNS = ["enabled_package" => "card_type"];
+    const ENABLED_CARD_SEARCHABLE_COLUMNS = ["enabled_package" => "package_id"];
     const client_searchable_Columns = ["user_to", "client_type", "commercial_number", "nationality", "tax_number", "transactions_done"];
     const client_sortable_Columns = ["user_to" => "fullname", "client_type" => "client_type", "commercial_number" => "commercial_number", "nationality" => "nationality", "tax_number" => "tax_number", "transactions_done" => "transactions_done"];
-    const ENABLED_CARD_sortable_COLUMNS = ["enabled_package" => "card_type"];
+    const ENABLED_CARD_sortable_COLUMNS = ["enabled_package" => "package_id"];
     const TRANACTION_TYPES = ['pay', 'transfer', 'charge', 'money_request'];
 
     public function scopeSearch(Builder $query, $request)
@@ -73,13 +73,6 @@ class Transaction extends Model
         if (isset($request->type)) {
             if ($request->type == 0) $request->type = null;
             if ($request->type != -1) $query->where("trans_type", $request->type);
-        }
-
-        if (isset($request->transaction_value_from)) {
-            $query->where("amount", '<=', $request->transaction_value_from);
-        }
-        if (isset($request->transaction_value_to)) {
-            $query->where("amount", '>=', $request->transaction_value_to);
         }
         if (isset($request->package_id)) {
             if ($request->package_id == 0) $request->package_id = null;
@@ -131,7 +124,8 @@ class Transaction extends Model
             return
                 $query
                 ->leftjoin("citizen_packages", 'citizen_packages.citizen_id', '=', 'transactions.from_user_id')
-                ->orderBy('citizen_packages.' . self::ENABLED_CARD_sortable_COLUMNS[$request->sort["column"]], @$request->sort["dir"]);
+                ->orderBy('citizen_packages.' . self::ENABLED_CARD_sortable_COLUMNS[$request->sort["column"]], @$request->sort["dir"])
+                ->select('transactions.*','citizen_packages.package_id');
         }
 
 
