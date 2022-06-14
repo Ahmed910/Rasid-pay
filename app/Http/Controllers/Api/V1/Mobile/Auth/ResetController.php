@@ -18,15 +18,15 @@ class ResetController extends Controller
         if (!$user){
             return response()->json(['status' => false, 'data' => null, 'message' => trans('auth.account_not_exists')], 422);
         }
-
-        $code = 1111;
-        if (setting('use_sms_service') == 'enable') {
-            $code = generate_unique_code(User::class, 'identity_number', 4, 'numbers');
-        }
-        //TODO: send sms with code
-        $user->update([
-            'reset_code' => $code,
-        ]);
+        //
+        // $code = 1111;
+        // if (setting('use_sms_service') == 'enable') {
+        //     $code = generate_unique_code(User::class, 'identity_number', 4, 'numbers');
+        // }
+        // //TODO: send sms with code
+        // $user->update([
+        //     'reset_code' => $code,
+        // ]);
 
         return response()->json(['status' => true, 'data' => null, 'message' => trans('auth.account_is_true')]);
     }
@@ -35,7 +35,8 @@ class ResetController extends Controller
     {
         $user = User::whereNotNull('reset_code')->firstWhere([
             'identity_number' => $request->identity_number,
-            'user_type'       => 'citizen'
+            'user_type'       => 'citizen',
+            'reset_code' => $request->reset_code
         ]);
 
         if (!$user){

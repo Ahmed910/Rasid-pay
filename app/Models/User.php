@@ -100,6 +100,11 @@ class User extends Authenticatable implements HasAssetsInterface
         return $this->hasMany(WalletCharge::class,'citizen_id');
     }
 
+    public function citizenWallet()
+    {
+        return $this->hasOne(CitizenWallet::class,'citizen_id');
+    }
+
     public function employee()
     {
         return $this->hasOne(Employee::class);
@@ -177,11 +182,6 @@ class User extends Authenticatable implements HasAssetsInterface
     public function attachments()
     {
         return $this->hasMany(Attachment::class);
-    }
-
-    public function citizenWallet()
-    {
-        return $this->hasOne(CitizenWallet::class,'citizen_id');
     }
 
     public function clientTransactions()
