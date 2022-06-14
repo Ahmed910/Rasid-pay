@@ -15,7 +15,7 @@
       $admin->employee?->department_id :
       null, ['class' => 'form-control select2-show-search', 'data-placeholder' =>
       trans('dashboard.department.select_department'),'id' => 'mainDepartment', 'onchange' =>
-      'getJobs(this.value)' , !($admin->exists()) ?: 'disabled']) !!}
+      'getJobs(this.value)' , !(isset($admin)) ?: 'disabled']) !!}
       <span class="text-danger" id="department_idError"></span>
 
     </div>
@@ -25,7 +25,7 @@
       <div id="new_admin">
         {!! Form::select('rasid_job_id', isset($admin) ? ['' => ''] + $rasid_jobs :['' => ''] , isset($admin) ?
         $admin->employee?->rasid_job_id :null, ['class' => 'form-control select2-show-search', 'id' =>
-        'rasid_job_id', 'data-placeholder' => trans('dashboard.rasid_job.select_job'),!($admin->exists()) ?: 'disabled']) !!}
+        'rasid_job_id', 'data-placeholder' => trans('dashboard.rasid_job.select_job'),!(isset($admin)) ?: 'disabled']) !!}
       </div>
       <span class="text-danger" id="rasid_job_idError"></span>
     </div>
@@ -238,8 +238,9 @@
   <div class="col-12 mb-5 text-end">
     {!! Form::button('<i class="mdi mdi-content-save-outline"></i>' . trans('dashboard.general.save'), ['type' =>
     'submit', 'class' => 'btn btn-primary', 'id' => 'saveButton']) !!}
-    {!! Form::button('<i class="mdi mdi-arrow-left"></i>' . trans('dashboard.general.back'), ['type' => 'button',
-    'class' => 'btn btn-outline-primary', 'id' => 'showBack']) !!}
+   <a href="{{ url()->previous() }}" class="btn btn-outline-primary">
+    <i class="mdi mdi-arrow-left"></i> {{ trans('dashboard.general.back') }}
+</a>
   </div>
 </div>
 
