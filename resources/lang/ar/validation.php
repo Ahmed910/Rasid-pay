@@ -267,6 +267,14 @@ return [
     | of "email". This simply helps us make our message more expressive.
     |
     */
+    'custom' => [
+        'email' => [
+            'exists' => 'هذا البريد غير مسجل بالنظام',
+        ],
+        'phone' => [
+            'exists' => ' رقم الجوال غير مسجل بالنظام',
+        ],
+    ],
 
     'attributes' => $attributes,
 
