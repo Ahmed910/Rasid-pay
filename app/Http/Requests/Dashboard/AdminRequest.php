@@ -86,6 +86,12 @@ class AdminRequest extends FormRequest
         return [
             'permission_list.required_without' => trans('dashboard.general.Permission_field_required'),
             'group_list.required_without' => '',
+            'fullname.required' => __('validation.admin.required_name'),
+            'rasid_job_id.required' => __('validation.admin.required_job'),
+            'password.required' => __('validation.admin.required_password'),
+            'login_id.unique' => __('validation.admin.unique_login_id'),
+            'phone.unique' => __('validation.admin.unique_phone'),
+            'email.unique' => __('validation.admin.unique_email'),
         ];
     }
 }

@@ -48,4 +48,14 @@ class DepartmentRequest extends ApiMasterRequest
             'parent_id' =>  @$data['parent_id'] ?? null,
         ]);
     }
+
+    public function messages()
+    {
+        return [
+
+            app()->getLocale() . ".name.required" => __('validation.department.required'),
+            app()->getLocale() . ".name.unique" => __('validation.custom.unique'),
+
+        ];
+    }
 }
