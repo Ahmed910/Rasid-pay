@@ -30,7 +30,11 @@
         },
           {
             data: function (data) {
-              return data.user.fullname;
+              if (data.user.user !== null) {
+                return data.user.fullname;
+              } else {
+                return "";
+              }
             },
             name: "employee"
           },
