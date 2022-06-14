@@ -13,8 +13,16 @@ class AddAmountTransferTransfersTable extends Migration
      */
     public function up()
     {
+        Schema::table('citizen_wallets', function (Blueprint $table) {
+            $table->decimal('hold_back_balance', 12, 2)->default(0);
+            $table->decimal('hold_main_balance', 12, 2)->default(0);
+        });
         Schema::table('transfers', function (Blueprint $table) {
-            $table->decimal('amount_transfer', 12, 2)->nullable();
+            $table->decimal('cashback_amount', 12, 2)->default(0);
+            $table->decimal('main_amount', 12, 2)->default(0);
+        });
+        Schema::table('bank_transfers', function (Blueprint $table) {
+            $table->decimal('converting_amount', 12, 2)->nullable();
         });
     }
 
@@ -25,8 +33,14 @@ class AddAmountTransferTransfersTable extends Migration
      */
     public function down()
     {
+        Schema::table('citizen_wallets', function (Blueprint $table) {
+            $table->dropColumn('hold_back_balance','hold_main_balance');
+        });
         Schema::table('transfers', function (Blueprint $table) {
-            $table->dropColumn('amount_transfer');
+            $table->dropColumn('cashback_amount','main_amount');
+        });
+        Schema::table('bank_transfers', function (Blueprint $table) {
+            $table->dropColumn('converting_amount');
         });
     }
 }

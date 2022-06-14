@@ -12,12 +12,12 @@
 <div class="row align-items-end mb-3">
   <div class="col-12 col-md-3 mb-3">
     <label for="citizenName">{{ trans('dashboard.citizens.name') }} </label>
-    <input type="text" class="form-control" id="citizenName"
+    <input type="text" class="form-control input-regex stop-copy-paste" id="citizenName" maxlength="100" ondragstart="return false;" ondrop="return false;"
       placeholder="{{ trans('dashboard.citizens.enter_name') }} " />
   </div>
   <div class="col-12 col-md-3 mb-3">
     <label for="idNumber">{{ trans('dashboard.citizens.identity_number') }} </label>
-    <input type="number" class="form-control" id="idNumber"
+    <input type="number" class="form-control" id="idNumber" maxlength="10" ondragstart="return false;" ondrop="return false;"
       placeholder="{{ trans('dashboard.citizens.enter_identity_number') }} " />
   </div>
   <div class="col-12 col-md-3 mb-3">
@@ -152,10 +152,10 @@
           </lottie-player>
           <p>{{ trans('dashboard.citizens.edit_phone') }}</p>
           <div class="mt-3 input-group">
-            <input type="number" name="phone" class="form-control"
+            <input type="number" name="phone" class="form-control" id = "phone_value"
               oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
               pattern="^[1-9]\d*$" onkeypress="return /[0-9a-zA-Z]/i.test(event.key)" maxlength="9"
-              class="form-control stop-copy-paste" placeholder="{{ trans('dashboard.citizens.new_phone') }}">
+              class="form-control stop-copy-paste" placeholder="{{ trans('dashboard.citizens.new_phone') }}" value="" >
             <div class="input-group-text border-start-0">
               966+ <input type="hidden" value="966" name="country_code">
             </div>

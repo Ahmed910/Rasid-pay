@@ -7,6 +7,12 @@ use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Schema;
 
+if (!function_exists('check_phone_valid')) {
+    function check_phone_valid($number)
+    {
+        return preg_match('/^(:?(\+)|(00))?(:?966)?+(5|05)([503649187])([0-9]{7})$/', $number);
+    }
+}
 if (!function_exists('convert_arabic_number')) {
     function convert_arabic_number($number)
     {

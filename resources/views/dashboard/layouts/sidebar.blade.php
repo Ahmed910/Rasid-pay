@@ -2,7 +2,7 @@
     <div class="app-sidebar__overlay" data-bs-toggle="sidebar"></div>
     <div class="app-sidebar d-flex flex-column h-100">
         <div class="side-header">
-            <a class="header-brand1" href="#!">
+            <a class="header-brand1" href="{{ setting('website_link') ?? '#!' }}">
                 <img src="{{ asset('dashboardAssets/images/brand/fintech-icon.svg') }}" class="header-brand-img desktop-logo"
                     alt="logo" />
                 <img src="{{ asset('dashboardAssets/images/brand/fintech-logo.svg') }}" class="header-brand-img toggle-logo"
@@ -227,6 +227,27 @@
                         </li>
                     </ul>
                 </li>
+                <li class="slide {{ request()->routeIs('dashboard.bank.*') && !request()->routeIs('dashboard.*.archive') ? 'is-expanded' : '' }} ">
+                <a class="side-menu__item" data-bs-toggle="slide" href="javascript:void(0)"><i
+                        class="mdi mdi-bank-outline"></i><span class="side-menu__label">البنوك</span><i
+                        class="angle fe fe-chevron-right"></i></a>
+                <ul class="slide-menu">
+                    <li class="side-menu-label1">
+                        <a href="javascript:void(0)">البنوك</a>
+                    </li>
+                    <li>
+                        <a href="{{ route('dashboard.bank.index') }}"
+                            class="slide-item px-6 {{ request()->routeIs('dashboard.bank.index') ? 'active' : '' }}"><i
+                                class="mdi mdi-file-document-multiple-outline"></i>
+                            سجل البنوك</a>
+                    </li>
+                    <li>
+                        <a href="{{ route('dashboard.bank.create') }}"
+                            class="slide-item px-6 {{ request()->routeIs('dashboard.bank.create') ? 'active' : '' }}"><i
+                                class="mdi mdi-plus-circle-outline"></i> إضافة</a>
+                    </li>
+                </ul>
+            </li>
                 {{-- <li class="slide">
                     <a class="side-menu__item" data-bs-toggle="slide" href="../blacklist.html"><i
                             class="mdi mdi-account-cancel-outline"></i><span
@@ -254,7 +275,7 @@
                 <li
                     class="slide {{ request()->routeIs('dashboard.client_package.*') && !request()->routeIs('dashboard.client_package.archive') ? 'is-expanded' : '' }} ">
                     <a class="side-menu__item" data-bs-toggle="slide" href="javascript:void(0)"><i
-                            class="mdi mdi-view-dashboard-outline"></i><span
+                            class="mdi mdi-sale-outline"></i><span
                             class="side-menu__label">{{ trans('dashboard.package.cards_discount') }}</span><i
                             class="angle fe fe-chevron-right"></i></a>
                     <ul class="slide-menu">
@@ -276,27 +297,7 @@
                         </li>
                     </ul>
                 </li>
-            <li class="slide {{ request()->routeIs('dashboard.bank.*') && !request()->routeIs('dashboard.*.archive') ? 'is-expanded' : '' }} ">
-                <a class="side-menu__item" data-bs-toggle="slide" href="javascript:void(0)"><i
-                        class="mdi mdi-bank-outline"></i><span class="side-menu__label">البنوك</span><i
-                        class="angle fe fe-chevron-right"></i></a>
-                <ul class="slide-menu">
-                    <li class="side-menu-label1">
-                        <a href="javascript:void(0)">البنوك</a>
-                    </li>
-                    <li>
-                        <a href="{{ route('dashboard.bank.index') }}"
-                            class="slide-item px-6 {{ request()->routeIs('dashboard.bank.index') ? 'active' : '' }}"><i
-                                class="mdi mdi-file-document-multiple-outline"></i>
-                            سجل البنوك</a>
-                    </li>
-                    <li>
-                        <a href="{{ route('dashboard.bank.create') }}"
-                            class="slide-item px-6 {{ request()->routeIs('dashboard.bank.create') ? 'active' : '' }}"><i
-                                class="mdi mdi-plus-circle-outline"></i> إضافة</a>
-                    </li>
-                </ul>
-            </li>
+
             </ul>
             <div class="slide-right" id="slide-right">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="#7b8191" width="24" height="24" viewbox="0 0 24 24">

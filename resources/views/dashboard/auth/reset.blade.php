@@ -50,10 +50,10 @@
               @enderror
             </div>
             <div class="col-12 mt-5 text-center">
-              {!! Form::submit(trans('dashboard.general.send'), ['class' => "btn btn-primary me-2",'id' => 'resend_btn','formaction' => route('dashboard.post_reset')]) !!}
+              {!! Form::submit(trans('dashboard.general.send'), ['class' => "btn btn-primary m-1",'id' => 'resend_btn','formaction' => route('dashboard.post_reset')]) !!}
               <a
                 href="{!! route('dashboard.login') !!}"
-                class="btn btn-outline-primary mx-2"
+                class="btn btn-outline-primary m-1"
               >
                 {{trans('dashboard.general.back')}}
               </a>
@@ -94,10 +94,10 @@
               </div>
             </div>
             <div class="col-12 mt-5 text-center">
-              {!! Form::submit(trans('dashboard.general.send'), ['class' => "btn btn-primary me-2",'id' => 'resend_btn','formaction' => route('dashboard.post_reset')]) !!}
+              {!! Form::submit(trans('dashboard.general.send'), ['class' => "btn btn-primary m-1",'id' => 'resend_btn','formaction' => route('dashboard.post_reset')]) !!}
               <a
                 href="{!! route('dashboard.login') !!}"
-                class="btn btn-outline-primary mx-2"
+                class="btn btn-outline-primary m-1"
               >
                 {{trans('dashboard.general.back')}}
               </a>
