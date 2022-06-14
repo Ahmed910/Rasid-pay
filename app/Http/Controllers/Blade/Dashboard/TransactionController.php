@@ -42,7 +42,13 @@ class TransactionController extends Controller
     public function show(Request $request, $id)
     {
         $transaction = Transaction::withTrashed()->findOrFail($id);
-        $sortingColumns = Transaction::client_sortable_Columns;
+        $sortingColumns = [
+            'id',
+            'employee',
+            'created_at',
+            'action_type',
+            'reason'
+        ];
         if (isset($request->order[0]['column'])) {
             $request['sort'] = ['column' => $sortingColumns[$request->order[0]['column']], 'dir' => $request->order[0]['dir']];
         }

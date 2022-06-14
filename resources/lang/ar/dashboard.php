@@ -620,6 +620,11 @@ return [
             'charge' => 'شحن',
             'money_request' => 'طلب أموال',
         ],
+        'sub_progs' => [
+            'index' => 'سجل المعاملات',
+            'archive' => 'أرشيف المعاملات',
+            'show' => 'عرض المعاملة',
+        ],
     ],
     "client" => [
         "client" => "العميل",
