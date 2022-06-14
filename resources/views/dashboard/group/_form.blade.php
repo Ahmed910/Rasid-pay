@@ -151,9 +151,12 @@
             });
 
             $('.select2').on("select2:select", function(e) {
-                if ("option value=['all']") {
+                var data = e.params.data.text;
+                if (data == 'إختر الكل') {
                     $(".select2 > option").prop("selected", "selected");
                     $(".select2").trigger("change");
+                    $(".custom-checkbox input").prop("checked", "checked");
+                    $("label[for='all'] .custom-control-label").text("إلغاء تحديد الكل")
                 }
             });
 
@@ -170,7 +173,7 @@
                 `<label for="${state.id}" class="d-flex justify-content-between align-items-center m-0">
                   <div class="">
                     <div class="custom-control custom-checkbox">
-                      <input type="checkbox" class="custom-control-input" id="${state.id}">
+                      <input type="checkbox" class="custom-control-input" id="${state.id}" />
                       <label class="custom-control-label m-0" for="${state.id}">${state.text}</label>
                     </div>
 
