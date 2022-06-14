@@ -108,7 +108,13 @@
     $("#imageStatus").val(1);
   });
 }
-
+$('[data-tooltip-toggle="test"]').popover({
+    placement: "left",
+    trigger: "focus",
+    html: true,
+    content:
+      "<span class='tooltipRole'>تعديل المستخدمين</span><span class='tooltipRole'>تعديل البيانات</span><span class='tooltipRole'>تعديل </span><span class='tooltipRole'>تعديل المستخدمين</span><span class='tooltipRole'>تعديل المستخدمين</span><span class='tooltipRole'>إضافة مستخدم </span><span class='tooltipRole'>تعديل الوظائف</span><span class='tooltipRole'>تعديل الصلاحيات</span><span class='tooltipRole'>تعديل المستخدمين</span>",
+  });
 })();
 
 </script>

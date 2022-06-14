@@ -80474,13 +80474,44 @@ body{
     .form-check-label{
         margin-top: 0 !important;
     }
-@media (max-width: 768px){
+    @media (max-width: 1440px){
 
+
+.w-60 {
+    width: 80% !important;
+}
+
+}
+ @media (max-width: 1024px){
+
+.auth{
+    padding: 2.5em !important;
+}
+
+.auth_vector  img{
+    width:100% !important
+}
+
+.w-60 {
+    width: 80% !important;
+}
+
+}
+@media (max-width: 768px){
+.tabs-menu1 ul li {
+    width: 100%;
+    margin: 0 15px;
+    border: transparent;
+}
    .form-check{
        margin-top:0 !important;
    }
      .rtl .card{padding: 1.5em !important; }.auth_vector {
     min-height: initial;
+}
+.auth_vector  img{
+    width:75% !important;
+    margin-top:2em !important;
 }
 
 .w-60 {
@@ -80500,3 +80531,40 @@ body{
 .dataTables_wrapper table.dataTable{
         width: 100% !important;
 }
+
+
+.main-content{
+min-height: 85vh;
+}
+
+.select2-container--default .select2-results__option--highlighted[aria-selected] {
+    background-color: #f9f9f9;
+    color: #000;
+}
+
+
+.select-arrow{
+    border-color: #76839a transparent transparent transparent;
+    border-style: solid;
+    border-width: 5px 4px 0 4px;
+    height: 0;
+    left: 50%;
+    margin-left: -4px;
+    margin-top: -2px;
+    position: absolute;
+    top: 50%;
+    width: 0;
+}
+
+
+.input-group-start{
+    right: 0;
+    left: auto !important;
+    z-index:1;
+}
+
+.permissions .select2-selection--multiple{
+    padding-right: 2.5em !important;
+    padding-left: 2.5em !important;
+}
+

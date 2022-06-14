@@ -63,7 +63,7 @@
                 </div>
             </div>
             <div class="col-12 col-lg-7 d-flex align-center">
-                <div class="card m-auto w-60 p-9">
+                <div class="card auth m-auto w-60 p-9">
                     <img src="{{ asset('dashboardAssets') }}/images/brand/fintech-logo.svg" width="175" alt=""
                         class="mb-5 d-block m-auto"/>
                     @yield('content')
