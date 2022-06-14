@@ -24,6 +24,7 @@
             <th class="border-bottom-0">{{ trans('dashboard.transaction.transaction_type') }}</th>
             <th class="border-bottom-0">{{ trans('dashboard.transaction.transaction_status') }}</th>
             <th class="border-bottom-0">{{ trans('dashboard.transaction.active_card') }}</th>
+            <th class="border-bottom-0">{{ trans('dashboard.general.actions') }}</th>
           </tr>
           </thead>
           <tbody>
