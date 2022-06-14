@@ -7,7 +7,7 @@
 
              let lang = '{{ app()->getLocale() }}';
              let resource_name = '{{ request()->segment(3) }}';
-             
+
              var formData = $('#formId').serialize();
 
             $.ajax({

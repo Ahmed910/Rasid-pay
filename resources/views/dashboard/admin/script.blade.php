@@ -41,6 +41,8 @@
             data.ban_status = $('#status').val();
             data.department_id = $('#mainDepartment').val();
             data.name = $('#userName').val();
+            data.phone = $('#phone').val();
+            data.email = $('#email').val();
             data.login_id = $('#userId').val();
             data.created_from = $('#from-hijri-picker-custom').val();
             data.created_to = $('#to-hijri-picker-custom').val();
@@ -64,6 +66,14 @@
           {
             data: "fullname",
             name: 'fullname'
+          },
+          {
+            data: "phone",
+            name: 'phone'
+          },
+          {
+            data: "email",
+            name: 'email'
           },
           {
             data: function (data) {
@@ -168,8 +178,8 @@
         table.draw();
       });
 
-      $("#userName").keyup(function () {
-        insertUrlParam('name', $('#userName').val());
+      $("#userName,#phone,#email").keyup(function () {
+        insertUrlParam($(this).attr('id'), $(this).val());
         table.draw();
       });
       $("#userId").keyup(function () {
@@ -190,6 +200,8 @@
         $('#status').val(null).trigger('change');
         $('#mainDepartment').val(null).trigger('change');
         $('#userName').val(null);
+        $('#email').val(null);
+        $('#phone').val(null);
         $('#userId').val(null);
         $('#from-hijri-picker-custom').val("").trigger('change');
         $('#to-hijri-picker-custom').val("").trigger('change');

@@ -232,9 +232,7 @@ return [
         'sub_progs' => [
             'index' => 'Department Records',
             'archive' => 'Archieve Department',
-            'create' => 'Add Department ',
-            'show' => 'Show Department ',
-
+            'create' => 'Add Department ', 'show' => 'Show Department ',
         ],
 
     ],
@@ -441,12 +439,15 @@ return [
             'platinum' => 'Platinum',
         ],
         'type_cases' => [
-            'payment' => 'Payment',
-            'wallet_transfer' => 'Wallet Transfer',
-            'bank_transaction' => 'Bank Transaction',
-            'receive_credit' => 'Receive Credit',
-            'wallet_charge' => 'Wallet Charge',
-            'upgrade_card' => 'Upgrade Card',
+            'pay' => 'Pay',
+            'transfer' => 'Transfer',
+            'charge' => 'Charge',
+            'money_request' => 'Money Request',
+        ],
+        'sub_progs' => [
+            'index' => 'Transaction Records',
+            'archive' => 'Archive Transaction',
+            'show' => 'Show Transaction ',
         ],
     ],
     "client" => [

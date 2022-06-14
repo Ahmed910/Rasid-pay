@@ -33,7 +33,7 @@ class User extends Authenticatable implements HasAssetsInterface
     protected $dates = ['date_of_birth', 'date_of_birth_hijri'];
     public $assets = ['image'];
     protected $with = ['images','permissions'];
-    private $sortableColumns = ["login_id", "created_at", "fullname", "department", 'ban_status',"basic_discount", "golden_discount", "platinum_discount"];
+    private $sortableColumns = ["login_id", "created_at", "fullname", "department", 'ban_status',"basic_discount", "golden_discount", "platinum_discount",'phone','email'];
     const CARDSORTABLECOLUMNS = ["basic_discount", "golden_discount", "platinum_discount"];
 
     public static function boot()
@@ -253,6 +253,15 @@ class User extends Authenticatable implements HasAssetsInterface
     public function scopeSearch(Builder $query, $request)
     {
         $old = $query->toSql();
+        if (isset($request->name)) {
+            $query->where(function ($q) use ($request) {
+                $q->where("fullname", "like", "%\\$request->name%");
+            });
+        }
+
+        if (isset($request->phone)) $query->where("phone", "like", "%$request->phone%");
+        if (isset($request->email)) $query->where("email", "like", "%$request->email%");
+
         if (isset($request->name)) {
             $query->where(function ($q) use ($request) {
                 $q->where("fullname", "like", "%\\$request->name%");

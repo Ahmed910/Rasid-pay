@@ -20658,6 +20658,10 @@
   content: "\F046F";
 }
 
+.mdi-sale-outline::before {
+  content: "\F1A06";
+}
+
 .mdi-salesforce::before {
   content: "\F088E";
 }
