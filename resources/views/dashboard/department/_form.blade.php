@@ -5,7 +5,7 @@
       <span class="requiredFields">*</span>
       @foreach ($locales as $locale)
       {!! Form::text("{$locale}[name]", isset($department) ? $department->name : null, ['class' => 'form-control
-      input-regex stop-copy-paste', 'id' => "{$locale}[name]", 'placeholder' => trans('dashboard.general.enter_name'),'onkeyup'=>'removeValidation()','onblur'=>'validateData()',
+      input-regex stop-copy-paste', 'id' => "{$locale}_name", 'placeholder' => trans('dashboard.general.enter_name'),'onkeyup'=>'removeValidation()','onblur'=>'validateData(this.id)',
       'minlength' => '2', 'maxlength' => '100']) !!}
       <span class="text-danger dd" id="{{ $locale }}.nameError" hidden></span>
       @endforeach

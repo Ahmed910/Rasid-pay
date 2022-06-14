@@ -1,31 +1,59 @@
 <script>
+    function validateData(id) {
 
+        if (id !== undefined) {
+            var currentElement = $(`#${id}`).attr('name');
 
-  function validateData()
-        {
-
-
-             let lang = '{{ app()->getLocale() }}';
-             let resource_name = '{{ request()->segment(3) }}';
-             
-             var formData = $('#formId').serialize();
-
-            $.ajax({
-                  url: `{{ url('/dashboard/${resource_name}') }}`,
-                  type: 'post',
-                  data : formData,
-
-                  error:function(errors)
-                  {
-
-
-                    let name = $('#formId').serializeArray()[1].name;
-                    name = (name.replace("[", ".")).slice(0,-1);
-                    $('.dd').removeAttr('hidden')
-                    $('.dd').text(errors.responseJSON.errors[name])
-                  }
-              });
         }
+        // var finalCurrentElement = currentElement.includes("[") ? (currentElement.replace("[", ".")).slice(0,-1) : currentElement;
+        if (currentElement.includes("[")) {
+            finalCurrentElement = (currentElement.replaceAll("[", ".")).slice(0, -1)
+            if (finalCurrentElement.includes("]")) {
+                finalCurrentElement = (finalCurrentElement.replaceAll("]", ""))
+            }
+        } else {
+            finalCurrentElement = currentElement
+        }
+
+        let lang = '{{ app()->getLocale() }}';
+        let resource_name = '{{ request()->segment(3) }}';
+        var firstSpan = $(`#${id}`).parent().hasClass("input-group") ? $(`#${id}`).parent().nextAll('span:first') : $(`#${id}`).nextAll('span:first')
+
+        var formData = $('#formId').serialize();
+
+        $.ajax({
+            url: `{{ url('/dashboard/${resource_name}') }}`
+            , type: 'post'
+            , data: formData,
+
+            error: function(errors) {
+
+                var errs = errors.responseJSON.errors;
+                var formvalues = $('#formId').serializeArray();
+
+                formvalues.forEach(function(item, index) {
+                    name = item.name
+
+                    finalItem = name.includes("[") ? (name.replaceAll("[", ".")).slice(0, -1) : name;
+                    if (name.includes("[")) {
+                        finalItem = (name.replaceAll("[", ".")).slice(0, -1)
+                        if (finalItem.includes("]")) {
+                            finalItem = (finalItem.replaceAll("]", ""))
+                        }
+                    } else {
+                        finalItem = name
+                    }
+                    
+                    if (finalItem == finalCurrentElement) {
+
+                        firstSpan.removeAttr('hidden')
+                        firstSpan.text(errs[finalCurrentElement][0])
+                        // console.log(currentElement)
+                    }
+                })
+            }
+        });
+    }
     (function() {
         "use strict";
 

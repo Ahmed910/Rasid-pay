@@ -118,13 +118,13 @@
         pageLength: 10,
         lengthMenu: [
           [1, 5, 10, 15, 20],
-          ["١", "٥","١٠","١٥", "٢٠"]
+          [1, 5, 10, 15, 20]
         ],
 
         "language": {
           @include('dashboard.layouts.globals.datatable.datatable_translation')
         },
-        "drawCallback": function (settings, json) {
+        {{-- "drawCallback": function (settings, json) {
           // table sorting
           var adminTableSorting = document.getElementsByClassName('admin_index');
           for (var i = 0; i < adminTableSorting.length; i++) {
@@ -143,7 +143,7 @@
           var adminTableInfo = document.getElementById('adminTable_info').innerText;
           document.getElementById('adminTable_info').innerText = adminTableInfo.replace(
             adminTableInfo, adminTableInfo.toArabicUni());
-        }
+        } --}}
       });
 
 
