@@ -53,13 +53,13 @@ class AdminRequest extends FormRequest
             $data = [
                 'change_password' => 'nullable|in:1,0',
                 'ban_status' => 'required|in:active,permanent,temporary',
-                'password' => 'nullable|required_if:change_password,1|regex:/^[A-Za-z0-9()\]\[#%&*_=~{}^:`.,$!@+\/-]+$/|min:6|max:100'
+                'password' => 'nullable|required_if:change_password,1|confirmed|regex:/^[A-Za-z0-9()\]\[#%&*_=~{}^:`.,$!@+\/-]+$/|min:6|max:100'
             ];
         } else {
             $data = [
                 // 'department_id' => 'required|exists:departments,id',
                 // 'employee_id' =>  'required|exists:users,id,user_type,employee',
-                'password' => 'required|regex:/^[A-Za-z0-9()\]\[#%&*_=~{}^:`.,$!@+\/-]+$/|min:6|max:100',
+                'password' => 'required|confirmed|regex:/^[A-Za-z0-9()\]\[#%&*_=~{}^:`.,$!@+\/-]+$/|min:6|max:100',
                 'login_id' => 'required|digits:6|numeric|unique:users,login_id,' . @$this->admin->id . ',id,user_type,admin',
             ];
         }
