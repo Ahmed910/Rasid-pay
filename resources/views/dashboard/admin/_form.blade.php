@@ -184,9 +184,7 @@
       <label for="validationCustom02"> {{ trans('dashboard.admin.ban_from') }}</label>
       <div class="input-group">
         {!! Form::text('ban_from', null, ['class' => 'form-control ', 'readonly' => 'readonly', 'id' =>
-        'from-hijri-unactive-picker-custom', 'placeholder' => trans('dashboard.general.day_month_year'), 'value'
-        =>
-        "old('ban_from')"]) !!}
+        'from-hijri-unactive-picker-custom', 'placeholder' => trans('dashboard.general.day_month_year'), 'value' =>"old('ban_from')"]) !!}
         <div class="input-group-text border-start-0">
           <i class="fa fa-calendar tx-16 lh-0 op-6"></i>
         </div>
@@ -197,9 +195,7 @@
       <label for="validationCustom02">{{ trans('dashboard.admin.ban_to') }}</label>
       <div class="input-group">
         {!! Form::text('ban_to', null, ['class' => 'form-control ', 'readonly' => 'readonly', 'id' =>
-        'to-hijri-unactive-picker-custom', 'placeholder' => trans('dashboard.general.day_month_year'), 'value'
-        =>
-        "old('ban_to')"]) !!}
+        'to-hijri-unactive-picker-custom', 'placeholder' => trans('dashboard.general.day_month_year'), 'value'=>"old('ban_to')"]) !!}
         <div class="input-group-text border-start-0">
           <i class="fa fa-calendar tx-16 lh-0 op-6"></i>
         </div>
@@ -207,6 +203,7 @@
       <span class="text-danger" id="ban_toError"></span>
     </div>
     @endif
+    
     @if (request()->routeIs('dashboard.admin.create'))
     <div class="col-12 col-md-4 mt-3 changePass" @if (isset($admin)) hidden @endif>
       {!! Form::label('newPassword', trans('dashboard.admin.password')) !!} <span class="requiredFields">*</span>

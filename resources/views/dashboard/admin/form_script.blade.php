@@ -50,6 +50,7 @@
                   `<option value="${item}" selected class="permission_select"></option>`);
           });
 
+          var minDate = new Date();
           $("#from-hijri-unactive-picker-custom ,#to-hijri-unactive-picker-custom")
               .hijriDatePicker({
                   hijri: {{ auth()->user()->is_date_hijri ? 'true' : 'false' }},
@@ -59,6 +60,8 @@
                   hijriDayViewHeaderFormat: "iMMMM iYYYY",
                   dayViewHeaderFormat: "MMMM YYYY",
                   ignoreReadonly: true,
+                  minDate:  minDate.setDate(minDate.getDate() - 1 ),
+                  maxDate: '2100-01-01',
               });
 
 
