@@ -47,7 +47,7 @@ class ClientPackageController extends Controller
         if (!request()->ajax()) {
             $client = User::where('user_type','client')->findOrFail($request->client_id);
             $client->clientPackages()->sync($request->discounts);
-            return redirect()->route('dashboard.client_package.index')->withSuccess(__('dashboard.package.discount_success_add', ['client' => $client->fullname]));
+            return redirect()->back()->withSuccess(__('dashboard.package.discount_success_add', ['client' => $client->fullname]));
         }
     }
 

@@ -3,9 +3,9 @@
 $attributes = [
     'name'                  => 'حقل الاسم',
     'fullname'                  => 'حقل الاسم',
-    'username'              => 'حقل رقم المستخدم',
-    'login_id'              => 'حقل رقم المستخدم',
-    'email'                 => 'حقل البريد الالكتروني',
+    'username'              => ' رقم المستخدم',
+    'login_id'              => ' رقم المستخدم',
+    'email'                 => ' البريد الالكتروني',
     'first_name'            => 'حقل الاسم الأول',
     'identity_number'            => 'حقل رقم الهوية / الإقامة',
     'last_name'             => 'حقل اسم العائلة',
@@ -14,7 +14,7 @@ $attributes = [
     'city_id'                  => 'حقل المدينة',
     'country_id'               => 'حقل الدولة',
     'address'               => 'حقل العنوان',
-    'phone'                 => 'حقل الهاتف',
+    'phone'                 => 'رقم الجوال',
     'mobile'                => 'حقل الجوال',
     'age'                   => 'حقل العمر',
     'sex'                   => 'حقل الجنس',
@@ -39,10 +39,10 @@ $attributes = [
     'wallet_bin'                  => 'حقل رقم المحفظة',
     'ban_reason'                  => 'حقل سبب الحظر',
     'is_ban'                  => 'حقل الحالة من الحظر',
-    'is_active'                  => 'حقل الحالة من التفعيل',
+    'is_active'                  => ' الحالة مطلوبة ',
     'reset_code'                  => 'رمز التحقق',
-    'department_id'                  => 'حقل القسم ',
-    'reasonAction'                  => 'حقل السبب',
+    'department_id'                  => 'القسم ',
+    'reasonAction'                  => ' السبب',
     'ban_from'                  => 'حقل تاريخ من',
     'ban_to'                  => 'حقل تاريخ إلى',
     'employee_id'       =>       'حقل اسم الموظف',
@@ -72,7 +72,7 @@ $attributes = [
     'banks.*.service_customer' => 'حقل خدمة العملاء',
     'banks.*.is_active' => 'حقل is_active',
     'banks.*.ar.name'   => 'حقل اسم الفرع',
-    'rasid_job_id' => 'حقل اسم الوظيفة',
+    'rasid_job_id' => ' اسم الوظيفة',
     'branches.*.type' => 'حقل نوع البنك ',
     'branches.*.code' => 'حقل كود البنك ',
     'branches.*.site' => 'حقل موقع البنك ',
@@ -262,4 +262,26 @@ return [
 
     'attributes' => $attributes,
 
+    'custom' => [
+        'unique' => 'الاسم موجود من قبل'
+    ],
+
+    'department' => [
+        'required' => 'اسم القسم مطلوب',
+    ],
+
+    'job' => [
+        'required' => 'اسم الوظيفة مطلوب',
+    ],
+
+    
+    'admin' => [
+        'required_name' => 'اسم المستخدم مطلوب',
+        'required_job' => 'الوظيفة مطلوبة',
+        'required_password' => 'كلمة المرور مطلوبة',
+        'unique_login_id' => 'رقم المستخدم موجود من قبل',
+        'unique_phone' => 'رقم الجوال موجود من قبل',
+        'unique_email' => 'البريد الإلكتروني موجود من قبل',
+        
+    ]
 ];

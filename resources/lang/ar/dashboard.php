@@ -151,14 +151,14 @@ return [
         'Total_employees' => 'الموظفين',
         'Total_vacant_jobs' => 'الوظائف الشاغرة ',
         'Total_unvacant_jobs' => 'الوظائف المشغولة',
-        'Permission_field_required' => 'حقل الصلاحيات مطلوب',
+        'Permission_field_required' => 'صلاحيات النظام مطلوبة',
 
     ],
     'datatable' => [
         'no_data' => 'لا توجد نتائج متاحة',
         'there_is_no_data' => 'لا يوجد نتائج بحث متاحة',
         'showing' => 'عرض',
-        'to' => 'الى',
+        'to' => 'إلى',
         'from' => 'من',
         'entries' => 'الاجمالي',
         'no_search_result' => 'لا يوجد نتائج بحث متاحة',
@@ -168,7 +168,7 @@ return [
         'not_found' => 'لم يتم العثور على بيانات',
         'page_not_found' => '404, الصفحة غير موجودة',
         'something_went_wrong' => 'البيانات المدخلة غير صحيحة',
-        'name_must_be_unique_on_department' => 'قيمة حقل الاسم موجودة من قبل لهذا القسم'
+        'name_must_be_unique_on_department' => 'الاسم موجود من قبل لهذا القسم'
     ],
     'activity_log' => [
         "activity_log" => "المتابعة",
@@ -321,7 +321,8 @@ return [
         ],
 
         'admins_count' => 'عدد المستخدمين',
-        'sorry_group_name_is_repeated' => 'عفواً اسم المجموعة متكرر',
+        'sorry_group_name_is_repeated' => 'الاسم موجود من قبل',
+        'group_name_required' => 'اسم المجموعة مطلوب',
         'permissions' => array_except($permissions, ['archive', 'restore', 'force_delete']) + ['create' => 'عرض القائمة']
     ],
     "currency" => [
@@ -386,7 +387,7 @@ return [
         "rasid_job_department" => "اسم القسم",
         "name" => "اسم الوظيفة",
         "validation" => [
-            'name_must_be_unique_on_department' => 'تم اختيار اسم الوظيفة من قبل لنفس القسم'
+            'name_must_be_unique_on_department' => 'الاسم موجود من قبل لهذا القسم'
         ],
         "jobs_hired_deleted" => " لا يمكن حذف هذه الوظيفة لانها مشغولة ",
         "jobs_hired_is_active_changed" => " لا يمكن تعديل حالة هذه الوظيفة لانها مشغولة ",

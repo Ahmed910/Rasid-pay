@@ -13,7 +13,7 @@
     <input oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" type="number" pattern="^[1-9]\d*$" onkeypress="return /[0-9a-zA-Z]/i.test(event.key)" maxlength="10" class="form-control stop-copy-paste number-regex @error('username') is-invalid @enderror"
            id="userId" name="username"
     value="{{ old('username') }}"
-    placeholder="{{ trans('auth.userID')}}"
+    placeholder="{{ trans('auth.your_userID')}}"
     />
     <span class="text-danger" id="username_error"></span>
   @if($errors->has('username'))
