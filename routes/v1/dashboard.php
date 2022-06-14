@@ -153,7 +153,7 @@ Route::middleware('maintenance_mode')->group(function () {
             'slides' => 'SlideController',
             "client_package" => "ClientPackageController",
             'transactions' => 'TransactionController',
-            'MoneyRequests' => 'MoneyRequestController',
+            // 'MoneyRequests' => 'MoneyRequestController', // TODO: Not Found
             ]);
 
             Route::apiResource('settings', 'SettingController')->only(['index', 'store']);
