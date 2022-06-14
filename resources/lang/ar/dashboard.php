@@ -253,7 +253,11 @@ return [
         "managers" => "العملاء",],
     "bank_account" => [
         "bank_accounts" => "العملاء",
-        "order_number" => "رقم الطلب"
+        "order_number" => "رقم الطلب",
+        "permissions"=>[
+            'index'=>'السجل',
+            'destroy'=>'حذف',
+        ],
     ],
     "attachment" => [
         "attachments" => "العملاء",],
@@ -386,6 +390,7 @@ return [
         "rasid_job_description" => "الوصف الوظيفي",
         "rasid_job_department" => "اسم القسم",
         "name" => "اسم الوظيفة",
+        "enter_name" => "أدخل الاسم",
         "validation" => [
             'name_must_be_unique_on_department' => 'الاسم موجود من قبل لهذا القسم'
         ],
@@ -672,6 +677,14 @@ return [
         ],
 
         'permissions' => array_except($permissions, ['archive', 'restore', 'force_delete']) + ['create' => 'عرض العملاء']
+    ],
+
+    'client_package'=>[
+        'client_packages'=>'باقات العميل',
+        'permissions'=>[
+            'index'=>'السجل',
+            'store'=>'حفظ'
+        ]
     ],
 
     "citizens" => [

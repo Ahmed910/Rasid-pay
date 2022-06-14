@@ -10,18 +10,17 @@ class TransactionResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'number' => $this->number,
+            'number' => $this->trans_number,
             'created_at' => $this->created_at,
             'user_from' => $this->citizen?->fullname,
-            'user_identity' => $this->user_identity,
+            'user_identity' => $this->citizen?->identity_number,
             'user_to' => $this->client?->fullname,
             'amount' => (string)$this->amount,
-            'total_amount' => (string)$this->total_amount,
-            'gift_balance' => (string)$this->gift_balance,
-            'type' => $this->type ? trans("dashboard.transaction.type_cases.{$this->type}") : "",
-            'status' => $this->status ? trans("dashboard.transaction.status_cases.{$this->status}") : "",
+            'total_amount' => (string)$this->amount + (string)$this->fee_amount,
+            'cash_back' => (string)$this->cash_back,
+            'type' => $this->trans_type ? trans("dashboard.transaction.type_cases.{$this->trans_type}") : "",
+            'status' => $this->trans_status ? trans("dashboard.transaction.status_cases.{$this->trans_status}") : "",
             'enabled_package' => $this->citizen?->citizen?->enabledPackage?->package?->name ?? trans('dashboard.citizens.without'),
-            'discount_percent' => $this->card?->name . ' / ' . $this->discount_percent . '%',
             'start_from' => $request->start
         ];
     }
