@@ -703,7 +703,8 @@ return [
 
         'edit_phone' => "تعديل رقم الجوال",
         'new_phone' => "رقم الجوال الجديد",
-
+        "phone_required" =>"رقم الجوال مطلوب",
+        "phone_unique" =>"رقم الجوال مكرر"
     ],
     'package' => [
         "package" => "نسب خصم البطاقات",

@@ -29,9 +29,10 @@ function unArchiveItem(itemId, route,tableId) {
     // $("#modal_not_archive #message").text(message);
 }
 
-function updatePhone(itemId, route,tableId) {
+function updatePhone(itemId, route,tableId,value) {
     $("#modal_phone").modal('show');
     $('#item').attr('item-id', itemId);
+    $('#phone_value').attr('value', value);
     $('#item').attr('action', route);
     datatableId =tableId
 }
