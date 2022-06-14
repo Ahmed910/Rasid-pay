@@ -98,6 +98,22 @@
             data: 'enabled_package',
             name: 'enabled_package'
           },
+
+          {
+            class: "text-center",
+            data: function (data) {
+              return `<a
+                    href="${data.show_route}"
+                    class="azureIcon"
+                    data-bs-toggle="tooltip"
+                    data-bs-placement="top"
+                    title="@lang('dashboard.general.show')"
+                    ><i class="mdi mdi-eye-outline"></i
+                        ></a>`;
+            },
+            orderable: false,
+            searchable: false
+          }
         ],
 
         pageLength: 10,

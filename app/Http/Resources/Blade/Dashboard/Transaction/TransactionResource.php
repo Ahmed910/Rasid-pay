@@ -17,7 +17,8 @@ class TransactionResource extends JsonResource
             'type' => $this->trans_type ? trans("dashboard.transaction.type_cases.{$this->trans_type}") : "",
             'status' => $this->trans_status ? trans("dashboard.transaction.status_cases.{$this->trans_status}") : "",
             'enabled_package' => $this->citizen?->citizen?->enabledPackage?->package?->name ?? trans('dashboard.citizens.without'),
-            'start_from' => $request->start
+            'start_from' => $request->start,
+            'show_route' => route('dashboard.transaction.show', $this->id),
         ];
     }
 }
