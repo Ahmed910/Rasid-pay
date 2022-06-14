@@ -232,9 +232,7 @@ return [
         'sub_progs' => [
             'index' => 'Department Records',
             'archive' => 'Archieve Department',
-            'create' => 'Add Department ',
-            'show' => 'Show Department ',
-
+            'create' => 'Add Department ', 'show' => 'Show Department ',
         ],
 
     ],
@@ -445,6 +443,11 @@ return [
             'transfer' => 'Transfer',
             'charge' => 'Charge',
             'money_request' => 'Money Request',
+        ],
+        'sub_progs' => [
+            'index' => 'Transaction Records',
+            'archive' => 'Archive Transaction',
+            'show' => 'Show Transaction ',
         ],
     ],
     "client" => [
