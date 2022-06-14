@@ -104,6 +104,9 @@ $attributes = [
     'card_number' => 'الرقم على البطاقة',
     'expire_at' => 'تاريخ إنتهاء البطاقة',
     'today' => 'تاريخ غير صالح',
+    'discounts.0.package_discount' => 'حقل نسبة خصم البطاقة الأساسية ',
+    'discounts.1.package_discount' => 'حقل نسبة خصم البطاقة الذهبية',
+    'discounts.2.package_discount' => 'حقل نسبة خصم البطاقة البلاتينية',
 ];
 
 foreach (config('translatable.locales') as $locale) {
