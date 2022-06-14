@@ -710,9 +710,10 @@ return [
         "cards_discount_records" => "سجل نسب خصم البطاقات",
         "add" => "إضافة نسب الخصم",
         "without" => "لا يوجد",
-        "discount_success_add" => "تم إضافة نسب خصم البطاقات للعميل  :client",
-        "discount_success_update" => "تم تعديل نسب خصم البطاقات للعميل  :client",
-        'permissions' => array_except($permissions, ['show'])
+        "discount_success_add" => "تم إضافة نسب خصم البطاقات للعميل ",
+        "discount_success_update" => "تم تعديل نسب خصم البطاقات للعميل ",
+        'permissions' => array_except($permissions, ['show']),
+        'choose_client' => 'اختار العميل',
     ],
 
     'user' => [

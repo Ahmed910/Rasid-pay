@@ -19,9 +19,9 @@
   <div class="row align-items-end mb-3">
     <div class="col-12 col-md-12 mb-3">
       <label for="clientName">اسم العميل</label>
-      <select class="form-control select2-show-search" id="client_id">
-        <option selected disabled value="">إختر العميل</option>
-        <option value="-1 "> {{trans("dashboard.general.all_cases")}}</option>
+      <select class="form-control select2-show-search"  id="client_id"  data-placeholder ="{{ trans('dashboard.package.choose_client') }}">
+        <option value="" > {{ trans('dashboard.package.choose_client') }}</option>
+        <option value="-1"> {{trans("dashboard.general.all_cases")}}</option>
         @foreach($clients as $key =>$value)
         <option value="{{ $key }}">{{$value}}</option>
         @endforeach
