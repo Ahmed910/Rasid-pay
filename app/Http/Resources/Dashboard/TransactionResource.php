@@ -30,10 +30,11 @@ class TransactionResource extends JsonResource
             'type' => $this->trans_type ? trans("dashboard.transaction.type_cases.{$this->trans_type}") : "",
             'status' => $this->trans_status ? trans("dashboard.transaction.status_cases.{$this->trans_status}") : "",
             'status_code' => $status_codes[$this->trans_status],
+            'amount' => $this->amount + $this->fee_amount,
             'enabled_package' => $this->citizen?->citizen?->enabledPackage?->package?->name ?? trans('dashboard.citizens.without'),
             'actions' => $this->when($request->routeIs('transactions.index'), [
                 'show' => auth()->user()->hasPermissions('transactions.show'),
-            ])
+            ]),
         ];
     }
 }
