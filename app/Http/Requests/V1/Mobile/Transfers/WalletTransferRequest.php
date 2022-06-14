@@ -10,6 +10,7 @@ use App\Models\User;
 class WalletTransferRequest extends ApiMasterRequest
 {
     private $user_object;
+    private $message;
     /**
      * Determine if the user is authorized to make this request.
      *
@@ -34,9 +35,8 @@ class WalletTransferRequest extends ApiMasterRequest
             "transfer_status" => 'nullable|required_without:citizen_id|in:hold,transfered',
             "wallet_transfer_method" => 'required|in:' . join(",", Transfer::WALLET_TRANSFER_METHODS),
             "transfer_method_value" => ['required',function ($attribute, $value, $fail) {
-                $message = $this->checkUserFound($this->wallet_transfer_method,$this->transfer_method_value);
-                if(!is_bool($message)){
-                    $fail($message);
+                if(!is_bool($this->message)){
+                    $fail($this->message);
                 }
             }]
         ];
@@ -45,7 +45,7 @@ class WalletTransferRequest extends ApiMasterRequest
     public function prepareForValidation()
     {
         $data = $this->all();
-
+        $this->message = $this->checkUserFound($this->wallet_transfer_method,$this->transfer_method_value);
         return $this->merge([
             'citizen_id' => $this->user_object?->id,
         ]);
