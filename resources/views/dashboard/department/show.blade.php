@@ -63,7 +63,7 @@
             <a href="{{ route('dashboard.department.edit', $department->id) }}" class="btn btn-primary">
                 <i class="mdi mdi-square-edit-outline"></i> {{ trans('dashboard.general.edit') }}
             </a>
-            <a href="{{ url()->previous() }}" class="btn btn-outline-primary">
+            <a href="{{ route('dashboard.department.index') }}" class="btn btn-outline-primary">
                 <i class="mdi mdi-arrow-left"></i> {{ trans('dashboard.general.back') }}
             </a>
         </div>

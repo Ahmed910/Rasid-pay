@@ -41,6 +41,7 @@
     </div>
     <label>@lang('dashboard.group.group_data')</label>
     <div class="p-1">
+  
         <table id="groupTable" class="table table-bordered text-nowrap shadow-sm bg-body key-buttons historyTable">
             <thead>
                 <tr>

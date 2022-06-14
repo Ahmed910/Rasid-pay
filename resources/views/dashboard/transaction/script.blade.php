@@ -90,8 +90,8 @@
                     },
 
                     {
-                        data: 'gift_balance',
-                        name: 'gift_balance'
+                        data: 'cash_back',
+                        name: 'cash_back'
                     },
 
                     {
@@ -121,12 +121,8 @@
                     },
 
                     {
-                        // data: 'discount_percent',
-                        // name: 'discount_percent'
-
                         data: 'enabled_package',
                         name: 'enabled_package'
-
                     },
                 ],
 

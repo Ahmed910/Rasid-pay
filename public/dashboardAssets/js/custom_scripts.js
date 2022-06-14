@@ -39,6 +39,7 @@ function updatePhone(itemId, route,tableId) {
 
 
 
+
 $(function(){
 
     //close FormButton
@@ -122,3 +123,16 @@ $('.exportBtn').on('click',function(){
         $(item).find('a').attr('href', url + window.location.search);
     });
 });
+
+
+if (performance.navigation.type == 1) {
+    let uri = window.location.toString();
+    if (uri.indexOf("?") > 0) {
+        let clean_uri = uri.substring(0, uri.indexOf("?"));
+        window.history.replaceState({}, document.title, clean_uri);
+        $('#search-form input').val('');
+        $('#search-form select').val('');
+    }
+
+}
+

@@ -194,8 +194,7 @@ class RasidJobController extends Controller
                 ->additional(['total_count' => $rasid_jobCount]);
         }
 
-        $departments = Department::where('is_active', 1)
-            ->has("children")
+        $departments = Department::has("children")
             ->orWhere(function ($q) {
                 $q->doesntHave('children');
             })
@@ -314,7 +313,7 @@ class RasidJobController extends Controller
 
     public function getVacantJobs($id)
     {
-        $rasid_jobs = RasidJob::where(['department_id' => $id, 'is_vacant' => true])->select('id')->ListsTranslations('name')
+        $rasid_jobs = RasidJob::where(['department_id' => $id, 'is_vacant' => true,'is_active' => 1])->select('id')->ListsTranslations('name')
             ->without(['images', 'addedBy', 'translations', 'department', 'employee'])->get()->pluck('name', 'id')->toArray();
         $view = view('dashboard.admin.ajax.rasid_job',compact('rasid_jobs'))->render();
         return response()->json(['view' => $view]);

@@ -19,7 +19,7 @@ class TransactionController extends Controller
         if ($request->ajax()) {
             $transactionsQuery = Transaction::search($request)
                 ->CustomDateFromTo($request)
-                ->with('card', 'client', 'citizen.citizen.enabledPackage','transactionable')
+                ->with('citizenPackage', 'client', 'citizen.citizen.enabledPackage','transactionable')
                 ->sortBy($request);
             $transactionCount = $transactionsQuery->count();
             $transactions = $transactionsQuery->skip($request->start)
