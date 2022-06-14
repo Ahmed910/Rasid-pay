@@ -64,7 +64,7 @@ $(function(){
             },
             messages: {
                 reasonAction: {
-                  required: 'حقل السبب مطلوب',
+                  required: ' السبب مطلوب',
                   rangelength: 'يجب ان يكون حقل السبب 10 حروف او اكثر '
                 },
               },

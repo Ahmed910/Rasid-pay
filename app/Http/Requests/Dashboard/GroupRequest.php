@@ -48,6 +48,7 @@ class GroupRequest extends FormRequest
         ];
         foreach (config('translatable.locales') as $locale) {
             $messages["{$locale}.name.unique"] = trans('dashboard.group.sorry_group_name_is_repeated');
+            $messages["{$locale}.name.required"] =  trans('dashboard.group.group_name_required');
         }
         return $messages;
 
