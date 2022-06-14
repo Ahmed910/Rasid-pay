@@ -32,9 +32,11 @@
         class="form-control stop-copy-paste number-regex" id="userNumTo" placeholder="{!! trans('dashboard.group.admins_to') !!}" />
     </div>
     <div class="col-12 col-md-3">
-      <label for="status">{{ trans('dashboard.general.status') }}</label>
-      {!! Form::select('is_active', trans('dashboard.general.active_cases'), request('is_active'), ['class' =>
-      'form-control select2', 'placeholder' => trans('dashboard.general.select_status'), 'id' => 'status']) !!}
+     <label for="status">
+        @lang('dashboard.general.status')</label>
+      {!! Form::select('is_active', ['' => '', -1 => trans('dashboard.general.all_cases')] +
+      trans('dashboard.general.active_cases'), request('is_active'), ['class' => 'form-control select2',
+      'data-placeholder' => trans('dashboard.general.select_status'), 'id' => 'status']) !!}
     </div>
     <div class="col-12 col-md-6 mt-5">
       <div class="dropdown">
