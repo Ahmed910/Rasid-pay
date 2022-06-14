@@ -17,7 +17,7 @@ use Illuminate\Support\Facades\Route;
 Route::get('host_url/{type}', function ($type) {
     $host = \DB::table('vue_domains')->where(['is_active' => 1, 'domain_type' => $type])->latest()->first();
     return response()->json([
-        'data' => ['host' => $host->domain, 'website' => setting('website_link') ?? '/'],
+        'data' => ['host' => $host->domain, 'website' => setting('website_link') ?? 'https://www.google.com'],
         'message' => '',
         'status' => true,
         ]);
