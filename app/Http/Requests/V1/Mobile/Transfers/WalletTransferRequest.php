@@ -28,18 +28,22 @@ class WalletTransferRequest extends ApiMasterRequest
      */
     public function rules()
     {
+        if (!$this->citizen_id && $this->wallet_transfer_method == 'phone') {
+            $data = [
+                "transfer_status" => 'required|in:hold,transfered'
+            ];
+        }
         return [
             "amount" => 'required|regex:/^\d{1,5}+(\.\d{1,2})?$/',
             "citizen_id" => 'nullable|exists:users,id,user_type,citizen',
             "otp_code" => 'required|exists:citizen_wallets,wallet_bin,citizen_id,'.auth()->id(),
-            "transfer_status" => 'nullable|required_without:citizen_id|in:hold,transfered',
             "wallet_transfer_method" => 'required|in:' . join(",", Transfer::WALLET_TRANSFER_METHODS),
             "transfer_method_value" => ['required',function ($attribute, $value, $fail) {
                 if(!is_bool($this->message)){
                     $fail($this->message);
                 }
             }]
-        ];
+        ] + $data;
     }
 
     public function prepareForValidation()
