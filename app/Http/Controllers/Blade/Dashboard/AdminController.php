@@ -42,8 +42,7 @@ class AdminController extends Controller
         }
 
 
-        $departments = Department::where('is_active', 1)
-            ->select("id")
+        $departments = Department::select("id")
             ->ListsTranslations("name")
             ->pluck('name', 'id')->toArray();
 
@@ -60,7 +59,7 @@ class AdminController extends Controller
         $previousUrl = url()->previous();
         (strpos($previousUrl, 'admin')) ? session(['perviousPage' => 'admin']) : session(['perviousPage' => 'home']);
 
-        $departments = Department::with('parent.translations')->ListsTranslations('name')->pluck('name', 'id')->toArray();
+        $departments = Department::where('is_active',1)->with('parent.translations')->ListsTranslations('name')->pluck('name', 'id')->toArray();
         $groups = Group::ListsTranslations('name')->pluck('name', 'id');
         $permissions = Permission::getPermissions()->pluck('name', 'id');
         $locales = config('translatable.locales');
@@ -141,7 +140,7 @@ class AdminController extends Controller
             $query->with('parent.translations')
                 ->ListsTranslations('name');
         }])->findOrFail($id);
-        $departments = Department::with('parent.translations')->ListsTranslations('name')->pluck('name', 'id')->toArray();
+        $departments = Department::where('is_active',1)->with('parent.translations')->ListsTranslations('name')->pluck('name', 'id')->toArray();
 
         $groups = Group::with('translations')->ListsTranslations('name')->pluck('name', 'id');
         $permissions = Permission::getPermissions()->pluck('name', 'id');
