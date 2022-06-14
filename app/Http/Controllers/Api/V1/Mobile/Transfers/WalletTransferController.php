@@ -41,7 +41,7 @@ class WalletTransferController extends Controller
         $citizen_wallet_data =  ["cash_back" => \DB::raw('cash_back - '.$cashback_amount), 'main_balance' => \DB::raw('main_balance - '.$main_amount)];
 
         if ($request->transfer_status == 'hold') {
-            $citizen_wallet_data +=  ['hold_back_balance' =>  $cashback_amount, 'hold_main_balance' => $main_amount];
+            $citizen_wallet_data +=  ['hold_back_balance' => \DB::raw('hold_back_balance + ' . $cashback_amount), 'hold_main_balance' => \DB::raw('hold_main_balance + ' . $main_amount)];
         }
         $citizen_wallet->update($citizen_wallet_data);
         if ($receiver_citizen_wallet) {
