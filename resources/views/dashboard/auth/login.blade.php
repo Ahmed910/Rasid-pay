@@ -1,10 +1,10 @@
 @extends('dashboard.auth.master')
 
 @section('content')
-<h3 class="text-center mt-5">{{ trans('auth.login_title') }}</h3>
-<p class="text-center">
-  {{ trans('auth.login_subtitle')}}
-</p>
+    <h3 class="text-center mt-5">{{ trans('auth.login_title') }}</h3>
+    <p class="text-center">
+        {{ trans('auth.login_subtitle') }}
+    </p>
 
 <form method="post" action="{{ route('dashboard.post_login') }}" class="needs-validation" id="login-form" novalidate>
   @csrf
@@ -53,9 +53,9 @@
 @endsection
 
 @section('styles')
-  <style>
-    #login-id{
-      border-color: transparent !important;
-    }
-  </style>
+    <style>
+        #login-id {
+            border-color: transparent !important;
+        }
+    </style>
 @endsection

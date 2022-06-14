@@ -8,14 +8,14 @@
 <div class="page-header">
   <h1 class="page-title">نسب خصم البطاقات</h1>
   <a href="{{ route('dashboard.client_package.create') }}" class="btn btn-primary">
-    <i class="mdi mdi-plus-circle-outline"></i> إضافة نسب خصم البطاقات
+    <i class="mdi mdi-plus-circle-outline"></i> إضافة نسب خصم
   </a>
 </div>
 <!-- PAGE-HEADER END -->
 
 
 <!-- FORM OPEN -->
-<form method="get" action="">
+<form method="get" action=""  id="search-form">
   <div class="row align-items-end mb-3">
     <div class="col-12 col-md-12 mb-3">
       <label for="clientName">اسم العميل</label>
