@@ -42,9 +42,17 @@ class LoginController extends Controller
             return response()->json(['status' => false, 'data' => null, 'message' => trans('auth.account_not_exists')], 422);
         }
         switch ($user) {
+            case $user->register_status != 'completed':
+                return response()->json(['status' => false, 'data' => [
+                    'is_register_completed' => false,
+                    'is_active' => null,
+                    'ban_status' => null,
+                    'ban_date' => null,
+                ], 'message' => trans('auth.verify_phone')], 403);
             case $user->is_active == 0 :
                 return response()->json(['status' => false, 'data' => [
                     'is_active' => false,
+                    'is_register_completed' => null,
                     'ban_status' => null,
                     'ban_date' => null,
                 ], 'message' => trans('auth.verify_phone')], 403);
@@ -52,6 +60,7 @@ class LoginController extends Controller
             case $user->ban_status == 'permanent' :
                 return response()->json(['status' => false, 'data' => [
                     'is_active' => null,
+                    'is_register_completed' => null,
                     'ban_status' => 'permanent',
                     'ban_date' => null,
                 ], 'message' => trans('auth.ban_permanent')], 403);
@@ -59,6 +68,7 @@ class LoginController extends Controller
             case $user->ban_status == 'temporary' :
                 return response()->json(['status' => false, 'data' => [
                     'is_active' => null,
+                    'is_register_completed' => null,
                     'ban_status' => 'permanent',
                     'ban_date' => $user->ban_to,
                 ], 'message' => trans('auth.ban_temporary')], 403);
