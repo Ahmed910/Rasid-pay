@@ -54,8 +54,14 @@
 <div class="row">
     <div class="col-12 mb-5 text-end">
         {!! Form::button('<i class="mdi mdi-content-save-outline"></i>' . trans('dashboard.general.save'), ['type' => 'submit', 'class' => 'btn btn-primary', 'data-bs-toggle' => 'modal', 'id' => 'submitButton']) !!}
-        <a href="{{ url()->previous() }}" class="btn btn-outline-primary">
+        <a href="{{ url()->previous() }}" class="btn btn-outline-primary" id="showBack">
           <i class="mdi mdi-arrow-left"></i> {{ trans('dashboard.general.back') }}
       </a>
     </div>
 </div>
+
+@include('dashboard.layouts.modals.confirm')
+@include('dashboard.layouts.scripts')
+@include('dashboard.layouts.modals.back')
+@include('dashboard.layouts.modals.alert')
+

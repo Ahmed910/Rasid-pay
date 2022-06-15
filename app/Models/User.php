@@ -74,10 +74,10 @@ class User extends Authenticatable implements HasAssetsInterface
         return date('Y-m-d', strtotime($date));
     }
 
-    public function getImageAttribute()
-    {
-        return asset($this->images()->first()?->media) ?? 'https://picsum.photos/200';
-    }
+    // public function getImageAttribute()
+    // {
+    //     return asset($this->images()->first()?->media) ?? 'https://picsum.photos/200';
+    // }
 
     public function getPermissionListAttribute()
     {

@@ -198,7 +198,7 @@
         <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#successModal" type="submit">
             <i class="mdi mdi-content-save-outline"></i> استكمال
         </button>
-        <a href="departments-record.html" class="btn btn-outline-primary" data-bs-toggle="modal"
+        <a href="departments-record.html" class="btn btn-outline-primary" data-bs-toggle="modal" id="showBack"
             data-bs-target="#backModal">
             <i class="mdi mdi-arrow-left"></i> عودة
         </a>

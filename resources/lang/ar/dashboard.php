@@ -619,7 +619,9 @@ return [
         ],
         'type_cases' => [
             'pay' => 'دفع',
-            'transfer' => 'تحويل',
+            'transfer_wallet' => 'تحويل لمحفظة',
+            'transfer_local' => 'تحويل محلي',
+            'transfer_global' => 'تحويل دولي',
             'charge' => 'شحن',
             'money_request' => 'طلب أموال',
         ],
