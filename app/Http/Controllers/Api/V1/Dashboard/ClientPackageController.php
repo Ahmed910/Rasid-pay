@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\V1\Dashboard\CardPackageRequest;
 use App\Http\Requests\V1\Dashboard\CardPackageUpdateRequest;
 use App\Http\Resources\Dashboard\PackageResource;
-use App\Http\Resources\Mobile\PackageResource as MainPackageResource;
+use App\Http\Resources\Dashboard\MainPackageResource;
 use App\Http\Resources\Dashboard\SimpleUserResource;
 use App\Models\Package\Package;
 use App\Models\User;
