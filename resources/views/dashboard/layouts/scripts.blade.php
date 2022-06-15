@@ -1,8 +1,11 @@
 <script>
-    function validateData(id) {
+  function validateData(item) {
 
-        if (id !== undefined) {
-            var currentElement = $(`#${id}`).attr('name');
+      let itemId = $(item).attr('id');
+      let form   = $(item).closest('form');
+
+        if (item !== undefined) {
+            var currentElement = $(`#${itemId}`).attr('name');
 
         }
         // var finalCurrentElement = currentElement.includes("[") ? (currentElement.replace("[", ".")).slice(0,-1) : currentElement;
@@ -14,17 +17,15 @@
         } else {
             finalCurrentElement = currentElement
         }
-
         let lang = '{{ app()->getLocale() }}';
-        let resource_name = '{{ request()->segment(3) }}';
-        var firstSpan = $(`#${id}`).parent().hasClass("input-group") ? $(`#${id}`).parent().nextAll('span:first') : $(`#${id}`).nextAll('span:first')
+        let resource_name = form.attr('action');
 
-        var formData = $('#formId').serialize();
+        var firstSpan = $(`#${itemId}`).parent().hasClass("input-group") ? $(`#${itemId}`).parent().nextAll('span:first') : $(`#${itemId}`).nextAll('span:first')
 
         $.ajax({
-            url: `{{ url('/dashboard/${resource_name}') }}`
+            url: resource_name
             , type: 'post'
-            , data: formData,
+            , data: form.serialize(),
 
             error: function(errors) {
 
@@ -45,7 +46,7 @@
                     }
 
                     if (finalItem == finalCurrentElement) {
-                      
+
                          if(errs[finalCurrentElement] == undefined){
                            firstSpan.attr('hidden')
                            firstSpan.text('')
