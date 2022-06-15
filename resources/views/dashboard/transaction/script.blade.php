@@ -40,11 +40,9 @@
             data.client = $('#to_user_id').val();
             data.created_from = $('#from-hijri-picker-custom').val();
             data.created_to = $('#to-hijri-picker-custom').val();
-            data.transaction_value_from = $('#transactionValueFrom').val();
-            data.transaction_value_to = $('#transactionValueTo').val();
-            data.type = $('#type').val();
+            data.trans_type = $('#type').val();
+            data.trans_status = $('#status').val();
             data.enabled_package = $('#enabled_package').val();
-            data.status = $('#status').val();
           },
           type: "GET",
           dataSrc: 'data'
@@ -57,7 +55,7 @@
           class: 'transaction_index'
         },
           {
-            data: "number",
+            data: "trans_number",
             name: 'trans_number'
           },
           {
@@ -69,26 +67,26 @@
             name: 'user_from'
           },
           {
-            data: 'type',
+            data: 'trans_type',
             name: 'trans_type'
           },
 
           {
             data: function(data) {
-              if (data.status ===
+              if (data.trans_status ===
                 "{{ trans('dashboard.transaction.status_cases.success') }}") {
-                return ` <span class="badge bg-success-opacity py-2 px-4">${data.status}</span>`;
-              } else if (data.status ===
+                return ` <span class="badge bg-success-opacity py-2 px-4">${data.trans_status}</span>`;
+              } else if (data.trans_status ===
                 "{{ trans('dashboard.transaction.status_cases.fail') }}") {
-                return ` <span class="badge bg-danger-opacity py-2 px-4">${data.status}</span>`;
-              } else if (data.status ===
+                return ` <span class="badge bg-danger-opacity py-2 px-4">${data.trans_status}</span>`;
+              } else if (data.trans_status ===
                 "{{ trans('dashboard.transaction.status_cases.pending') }}") {
-                return ` <span class="badge bg-warning-opacity py-2 px-4">${data.status}</span>`;
-              } else if (data.status ===
+                return ` <span class="badge bg-warning-opacity py-2 px-4">${data.trans_status}</span>`;
+              } else if (data.trans_status ===
                 "{{ trans('dashboard.transaction.status_cases.received') }}") {
-                return ` <span class="badge bg-primary-opacity py-2 px-4">${data.status}</span>`;
+                return ` <span class="badge bg-primary-opacity py-2 px-4">${data.trans_status}</span>`;
               } else {
-                return ` <span class="badge bg-default-opacity py-2 px-4">${data.status}</span>`;
+                return ` <span class="badge bg-default-opacity py-2 px-4">${data.trans_status}</span>`;
               }
             },
             name: 'trans_status'
@@ -202,8 +200,6 @@
         $('#idNumber').val(null);
         $('#from_user_id').val(null);
         $('#to_user_id').val(null);
-        $('#transactionValueFrom').val(null);
-        $('#transactionValueTo').val(null);
         $('#from-hijri-picker-custom').val("").trigger('change');
         $('#to-hijri-picker-custom').val("").trigger('change');
         $('#from-hijri-unactive-picker-custom').val("").trigger('change');
