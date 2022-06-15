@@ -14,13 +14,12 @@ class ClientResource extends JsonResource
      */
     public function toArray($request)
     {
-
         return [
             'id'          => $this->id,
             'fullname'    => $this->fullname,
-            'client_type' => trans('dashboard.client.client_type.'.$this->client->client_type),
-             'discount'    => $this->package?->only('basic_discount','golden_discount','platinum_discount'),
-
+            'image'    => $this->image,
+            'client_type' => $this->client ? trans('dashboard.client.client_type.'.$this->client->client_type) : null,
+            'discounts'   => ClientDiscountResource::collection($this->whenLoaded('clientPackages')),
         ] ;
     }
 }
