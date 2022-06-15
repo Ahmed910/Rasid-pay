@@ -12,7 +12,13 @@
   <script>
     $(function () {
 
-      /******* Calendar *******/
+
+     callData();
+    });
+    function callData()
+    {
+
+ /******* Calendar *******/
       $("#from-hijri-picker-custom, #to-hijri-picker-custom, #from-hijri-unactive-picker-custom ,#to-hijri-unactive-picker-custom")
         .hijriDatePicker({
           hijri: {{ auth()->user()->is_date_hijri ? 'true' : 'false' }},
@@ -132,13 +138,13 @@
         pageLength: 10,
         lengthMenu: [
           [1, 5, 10, 15, 20],
-          ["١", "٥","١٠","١٥", "٢٠"]
+          [1, 5, 10, 15, 20]
         ],
 
         "language": {
           @include('dashboard.layouts.globals.datatable.datatable_translation')
         },
-        "drawCallback": function (settings, json) {
+        {{-- "drawCallback": function (settings, json) {
           // table sorting
           var adminTableSorting = document.getElementsByClassName('admin_index');
           for (var i = 0; i < adminTableSorting.length; i++) {
@@ -157,7 +163,7 @@
           var adminTableInfo = document.getElementById('adminTable_info').innerText;
           document.getElementById('adminTable_info').innerText = adminTableInfo.replace(
             adminTableInfo, adminTableInfo.toArabicUni());
-        }
+        } --}}
       });
 
 
@@ -230,8 +236,7 @@
           return new bootstrap.Tooltip(tooltipTriggerEl);
         });
       });
-
-    });
+    }
   </script>
   <script src="{{ asset('dashboardAssets/js/select2.js') }}"></script>
   <script src="{{ asset('dashboardAssets/plugins/select2/select2.full.min.js') }}"></script>

@@ -19,6 +19,7 @@ class WalletTransferController extends Controller
     public function store(WalletTransferRequest $request, Transfer $transfer)
     {
         $citizen_wallet = CitizenWallet::with('citizen')->where('citizen_id', auth()->id())->firstOrFail();
+        $citizen_wallet->update(['wallet_bin' => null]);
         $receiver_citizen_wallet = null;
         $phone = null;
         if ($request->citizen_id) {
@@ -40,7 +41,7 @@ class WalletTransferController extends Controller
         $citizen_wallet_data =  ["cash_back" => \DB::raw('cash_back - '.$cashback_amount), 'main_balance' => \DB::raw('main_balance - '.$main_amount)];
 
         if ($request->transfer_status == 'hold') {
-            $citizen_wallet_data +=  ['hold_back_balance' =>  $cashback_amount, 'hold_main_balance' => $main_amount];
+            $citizen_wallet_data +=  ['hold_back_balance' => \DB::raw('hold_back_balance + ' . $cashback_amount), 'hold_main_balance' => \DB::raw('hold_main_balance + ' . $main_amount)];
         }
         $citizen_wallet->update($citizen_wallet_data);
         if ($receiver_citizen_wallet) {
@@ -58,7 +59,6 @@ class WalletTransferController extends Controller
             'main_amount' => $main_amount,
         ];
         $transfer->fill($request->validated() + $data)->save();
-        $citizen_wallet->update(['wallet_bin' => null]);
         $transfer->transaction()->create([
             'from_user_id' => auth()->id(),
             'to_user_id' => $request->citizen_id,

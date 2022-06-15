@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Models\Bank\Bank;
 use App\Models\BankBranch\BankBranch;
+
 //use App\Models\CardPackage\CardPackage;
 use App\Models\Package\Package;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -36,8 +37,8 @@ class Transaction extends Model
     private $sortableColumns = ["user_from_id", "trans_number", "created_at", 'from_user_to', 'amount', 'fee_amount', 'trans_type', 'trans_status'];
     const user_searchable_Columns = ["user_from", "email", "image", "country_code", "phone", "full_phone", "identity_number", "date_of_birth"];
     const user_sortable_Columns = ["user_from" => "fullname", "email" => "email", "image" => "email", "country_code" => "country_code", "phone" => "phone", "full_phone" => "full_phone", "identity_number" => "identity_number", "date_of_birth" => "date_of_birth"];
-    const SELECT_ALL = ["enabled_package"];
-    const transaction_searchable_Columns = ["transaction_number", "user_identity",  "transaction_type", "transaction_status"];
+    const SELECT_ALL = ["enabled_package", 'trans_status'];
+    const transaction_searchable_Columns = ["trans_number", "user_identity", "transaction_type", "transaction_status"];
     const ENABLED_CARD_SEARCHABLE_COLUMNS = ["enabled_package" => "package_id"];
     const client_searchable_Columns = ["user_to", "client_type", "commercial_number", "nationality", "tax_number", "transactions_done"];
     const client_sortable_Columns = ["user_to" => "fullname", "client_type" => "client_type", "commercial_number" => "commercial_number", "nationality" => "nationality", "tax_number" => "tax_number", "transactions_done" => "transactions_done"];
@@ -57,27 +58,20 @@ class Transaction extends Model
                     }
                 );
         }
-        if (isset($request->transaction_number)) {
+        if (isset($request->trans_number)) {
             $query->where('trans_number', 'like', "%$request->transaction_number%");
         }
-
-        // if (isset($request->user_identity)) {
-        //     $query->where("user_identity", 'like', "%$request->user_identity%");
-        // }
-
-        if (isset($request->status)) {
-            if ($request->status == 0) $request->status = null;
-            if ($request->status != -1) $query->where("trans_status", $request->status);
+        if (isset($request->trans_status) && !in_array(-1, $request->trans_status)) {
+            $query->whereIn("trans_status", $request->trans_status);
+        }
+        if (isset($request->trans_type)) {
+            if ($request->trans_type == 0) $request->trans_type = null;
+            if ($request->trans_type != -1) $query->where("trans_type", $request->type);
+        }
+        if (isset($request->enabled_package) && !in_array(-1, $request->enabled_package)) {
+            $query->whereHas('citizenPackage', fn($q) => $q->whereIn('package_id', $request->enabled_package));
         }
 
-        if (isset($request->type)) {
-            if ($request->type == 0) $request->type = null;
-            if ($request->type != -1) $query->where("trans_type", $request->type);
-        }
-        if (isset($request->package_id)) {
-            if ($request->package_id == 0) $request->package_id = null;
-            if ($request->package_id != -1) $query->whereHas('citizenPackage', fn ($q) => $q->where('id', $request->package_id));
-        }
         if (isset($request->client)) {
             if ($request->client == 0) $request->client = null;
             if ($request->client != -1) {
@@ -86,17 +80,13 @@ class Transaction extends Model
                 });
             }
         }
-
+//
         if (isset($request->citizen)) {
-            $query->whereHas('citizen', fn ($q) => $q->where('fullname', 'like', "%$request->citizen%"));
+            $query->whereHas('citizen', fn($q) => $q->where('fullname', 'like', "%$request->citizen%"));
         }
 
         $new = $query->toSql();
-        if ($old != $new)  $this->addGlobalActivity($this, $request->query(), ActivityLog::SEARCH, 'index');
-        // if (isset($request->card_type)) {
-        //     $query->whereHas('citizen.citizen.enabledPackage',
-        //      fn($q) => $q->where('card_type', $request->card_type));
-        // }
+        if ($old != $new) $this->addGlobalActivity($this, $request->query(), ActivityLog::SEARCH, 'index');
     }
 
     public function scopeSortBy(Builder $query, $request)
@@ -105,7 +95,7 @@ class Transaction extends Model
 
         if (
             //  !in_array(Str::lower($request->sort["column"]), $this->sortableColumns) ||
-            !in_array(Str::lower($request->sort["dir"]), ["asc", "desc"])
+        !in_array(Str::lower($request->sort["dir"]), ["asc", "desc"])
         ) {
             return $query->latest('transactions.created_at');
         } else if (in_array($request->sort["column"], self::transaction_searchable_Columns)) {
@@ -120,20 +110,19 @@ class Transaction extends Model
             return $query->join('users', 'users.id', '=', 'transactions.to_user_id')
                 ->orderBy('users.' . self::client_sortable_Columns[$request->sort["column"]], @$request->sort["dir"]);
         } else
-        if (key_exists($request->sort["column"], self::ENABLED_CARD_sortable_COLUMNS)) {
-            return
-                $query
-                ->leftjoin("citizen_packages", 'citizen_packages.citizen_id', '=', 'transactions.from_user_id')
-                ->orderBy('citizen_packages.' . self::ENABLED_CARD_sortable_COLUMNS[$request->sort["column"]], @$request->sort["dir"])
-                ->select('transactions.*','citizen_packages.package_id');
-        }
+            if (key_exists($request->sort["column"], self::ENABLED_CARD_sortable_COLUMNS)) {
+                return
+                    $query
+                        ->leftjoin("citizen_packages", 'citizen_packages.citizen_id', '=', 'transactions.from_user_id')
+                        ->orderBy('citizen_packages.' . self::ENABLED_CARD_sortable_COLUMNS[$request->sort["column"]], @$request->sort["dir"])
+                        ->select('transactions.*', 'citizen_packages.package_id');
+            }
 
 
         $query->when($request->sort, function ($q) use ($request) {
             $q->orderBy($request->sort["column"], @$request->sort["dir"]);
         });
     }
-
 
 
     public function citizen(): BelongsTo
@@ -173,6 +162,7 @@ class Transaction extends Model
     {
         return $this->belongsTo(Bank::class, 'bank_id');
     }
+
     public function bankBranch(): BelongsTo
     {
         return $this->belongsTo(BankBranch::class, 'bank_branch_id');
@@ -180,6 +170,6 @@ class Transaction extends Model
 
     public function citizenPackage(): BelongsTo
     {
-        return $this->belongsTo(CitizenPackage::class, 'citizen_package_id');
+        return $this->belongsTo(CitizenPackage::class, 'citizen_package_id', 'id');
     }
 }
