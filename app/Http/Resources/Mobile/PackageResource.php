@@ -18,6 +18,7 @@ class PackageResource extends JsonResource
         return [
             'id' => $this->id,
             'name' => $this->name,
+            'type' => $this->translate('en')->name,
             'description' => $this->description,
             'color' => $this->color,
             'price' => $this->price,
