@@ -61,10 +61,7 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::get('transactions/{id}', 'show');
     });
     // });
-    Route::controller('PaymentController')->group(function () {
-        Route::post('payment', 'store');
-        Route::get('payment/{id}', 'show');
-    });
+    Route::apiResource('payment', 'PaymentController');
 
 
 });
