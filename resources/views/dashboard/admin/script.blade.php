@@ -90,12 +90,12 @@
           {
             data: function (data) {
               if (data.ban_status == "{{trans('dashboard.admin.active_cases.active')}}") {
-                return ` <span class="badge bg-success-opacity py-2 px-4">${data.ban_status}</span>`;
+                return ` <span class="badge bg-success-opacity py-3 w-50">${data.ban_status}</span>`;
               } else {
                 if (data.ban_from !=null ) {
-                  return `<span data-bs-toggle="tooltip" data-bs-placement="top" data-bs-html="true" title="من  ${data.ban_from} <br><br> إلى  ${data.ban_to} " class="badge bg-danger-opacity py-2 px-4">${data.ban_status}</span>`;
+                  return `<span data-bs-toggle="tooltip" data-bs-placement="top" data-bs-html="true" title="من  ${data.ban_from} <br><br> إلى  ${data.ban_to} " class="badge bg-danger-opacity py-3 w-50">${data.ban_status}</span>`;
                 } else {
-                  return ` <span class="badge bg-danger-opacity py-2 px-4">${data.ban_status}</span>`;
+                  return ` <span class="badge bg-danger-opacity py-3 w-50">${data.ban_status}</span>`;
                 }
               }
             },
