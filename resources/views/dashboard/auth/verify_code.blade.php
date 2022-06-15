@@ -74,6 +74,9 @@
                     if (msLeft < 1000) {
                         element.innerHTML = "تم انتهاء صلاحية الكود!";
                         $(".resend").removeClass("disable").attr('href',"{{ route('dashboard.resend_code',request('token')) }}");
+                        $(".inputs-code").attr('disabled',true);
+                        $('#code-submit').addClass('disable');
+                        $('form').addClass('disable_form');
                     } else {
                         time = new Date(msLeft);
                         hours = time.getUTCHours();
