@@ -20,8 +20,8 @@ class PackageResource extends JsonResource
                 $package_discount[$clientPackage->name] = $clientPackage->pivot->package_discount;
             }
         }
-
         return [
+            'id' => $this->id,
             "fullname" => $this->fullname,
             "basic_discount" => $package_discount[trans('dashboard.cardpackage.basic')] ?? trans('dashboard.package.without'),
             "golden_discount" =>  $package_discount[trans('dashboard.cardpackage.golden')] ?? trans('dashboard.package.without'),

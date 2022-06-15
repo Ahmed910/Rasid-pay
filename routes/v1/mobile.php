@@ -36,20 +36,25 @@ Route::middleware('auth:sanctum')->group(function () {
         // Wallet
         Route::apiResource('wallets', 'WalletController')->only('index', 'store');
         Route::post('need_to_transfers', 'WalletController@sendWalletOtp');
+        // Beneficiaries
+        Route::apiResource('beneficiaries', 'BeneficiaryController');
         //money requests
         Route::post('money_requests', 'MoneyRequestController@store');
+        // Cards
+        Route::apiResource('cards', 'CardController')->only('index', 'destroy');
+        // Transfer
+        Route::namespace('Transfers')->group(function () {
+            // Wallet Transfers
+            Route::apiResource('wallet_transfers', 'WalletTransferController');
+            Route::get('check_phone_wallets/{phone}', 'WalletTransferController@checkIfPhoneExists');
+            // Local Transfers
+            Route::post('local_transfers', 'LocalTransferController@store');
+        });
 
-    // local transfers
-    Route::controller('LocalTransferController')->name('local_transfer.')->prefix('local_transfer')->group(function () {
-        Route::post('/', 'store');
-    });
+        Route::controller('PackageController')->group(function () {
+            Route::get('get_packages', 'getPackages');
+        });
 
-    Route::controller('PackageController')->group(function () {
-        Route::get('get_packages', 'getPackages');
-    });
-
-    // Cards
-    Route::apiResource('cards', 'CardController')->only('index', 'destroy');
 
     Route::controller('TransactionController')->group(function () {
         Route::get('transactions', 'index');
@@ -60,10 +65,8 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::post('payment', 'store');
         Route::get('payment/{id}', 'show');
     });
-    Route::apiResource('beneficiaries', 'BeneficiaryController');
 
-    Route::apiResource('wallet_transfers', 'Transfers\WalletTransferController');
-    Route::get('check_phone_wallets/{phone}', 'Transfers\WalletTransferController@checkIfPhoneExists');
+
 });
 
 Route::get('slides', 'SlideController@index');

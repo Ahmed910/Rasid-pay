@@ -184,7 +184,7 @@
         $('#transfer_amount').val(null);
         $('#transactions_count').val(null);
         $('#name').val(null);
-        table.draw();
+        table.column('').order('asc' ).search('').draw();
         if (location.href.includes('?')) {
             history.pushState({}, null, location.href.split('?')[0]);
           }

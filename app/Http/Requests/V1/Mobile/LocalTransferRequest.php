@@ -3,6 +3,7 @@
 namespace App\Http\Requests\V1\Mobile;
 
 use App\Http\Requests\ApiMasterRequest;
+use App\Models\Transfer;
 
 class LocalTransferRequest extends ApiMasterRequest
 {
@@ -23,13 +24,13 @@ class LocalTransferRequest extends ApiMasterRequest
      */
     public function rules()
     {
-        
+
         return [
-            'balance_type'=>'required|in:pay,back',
-            'amount'=>'required|numeric',
-            'transfer_fees'=>'nullable|numeric',
-            'transfer_purpose_id'=>'required|exists:transfer_purposes,id',
-            'beneficiary_id'=>'required|exists:beneficiaries,id',
+            'balance_type' => 'required|in:main,back',
+            'amount' => 'required|numeric|gte:'.setting('min_local_transfer_amount') ?? 10,
+            'fee_upon' => 'required|in:'.join(',', Transfer::FEE_UPON),
+            'transfer_purpose_id' => 'required|exists:transfer_purposes,id',
+            'beneficiary_id' => 'required|exists:beneficiaries,id',
         ];
     }
 }

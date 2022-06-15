@@ -204,7 +204,7 @@ class User extends Authenticatable implements HasAssetsInterface
         return $this->belongsToMany(Package::class, 'client_package','client_id','package_id')->withPivot('package_discount');
     }
 
-    public function benficiaryTransfer()
+    public function benficiaryTransfers()
     {
         return $this->hasMany(Beneficiary::class);
     }
