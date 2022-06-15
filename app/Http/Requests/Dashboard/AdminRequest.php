@@ -53,7 +53,8 @@ class AdminRequest extends FormRequest
             $data = [
                 'change_password' => 'nullable|in:1,0',
                 'ban_status' => 'required|in:active,permanent,temporary',
-                'password' => 'nullable|required_if:change_password,1|confirmed|regex:/^[A-Za-z0-9()\]\[#%&*_=~{}^:`.,$!@+\/-]+$/|min:6|max:100'
+                'password' => 'nullable|required_if:change_password,1|confirmed|regex:/^[A-Za-z0-9()\]\[#%&*_=~{}^:`.,$!@+\/-]+$/|min:6|max:100',
+                
             ];
         } else {
             $data = [
