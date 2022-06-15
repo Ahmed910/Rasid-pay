@@ -76,9 +76,4 @@ class ProfileController extends Controller
         ]);
     }
 
-    public function setWalletBin(WalletBinRequest $request)
-    {
-        auth()->user()->citizenWallet()?->update(['wallet_bin'=>$request->wallet_bin,'number_of_tries'=> 0]);
-        return response()->json(['data'=>null,'status'=>true,'message'=>trans('mobile.messages.wallet_bin_has_been_updated')]);
-    }
 }

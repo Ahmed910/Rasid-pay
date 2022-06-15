@@ -15,6 +15,7 @@ return [
     ],
     'validation' => [
         'invalid_phone' => 'صيغة رقم الجوال غير صحيحة',
+        'invalid_iban' => 'رقم الأيبان غير صحيح',
     ],
 
     'global_transfers'=>[
