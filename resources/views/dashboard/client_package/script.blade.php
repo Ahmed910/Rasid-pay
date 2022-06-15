@@ -99,22 +99,25 @@
         "language": {
           @include('dashboard.layouts.globals.datatable.datatable_translation')
         },
-        "drawCallback": function (settings, json) {
-          // table sorting
-          var activityLogTableSorting = document.getElementsByClassName('package_index');
-          for (var i = 0; i < activityLogTableSorting.length; i++) {
-            activityLogTableSorting[i].innerText = activityLogTableSorting[i].innerText.replace(activityLogTableSorting[i].innerText, activityLogTableSorting[i].innerText.toArabicUni());
-          }
-          //pagination
-          var activityLogTablePagination = document.getElementsByClassName('page-link');
-          for (var i = 1; i < activityLogTablePagination.length - 1; i++) {
-            activityLogTablePagination[i].innerText = activityLogTablePagination[i].innerText.replace(activityLogTablePagination[i].innerText, activityLogTablePagination[i].innerText.toArabicUni());
-          }
-          // info
-          var packageTableInfo = document.getElementById('package-table_info').innerText;
-          document.getElementById('package-table_info').innerText = packageTableInfo.replace(packageTableInfo, packageTableInfo.toArabicUni());
-        }
       });
+
+        // "drawCallback": function (settings, json) {
+        //   // table sorting
+        //   var activityLogTableSorting = document.getElementsByClassName('package_index');
+        //   for (var i = 0; i < activityLogTableSorting.length; i++) {
+        //     activityLogTableSorting[i].innerText = activityLogTableSorting[i].innerText.replace(activityLogTableSorting[i].innerText, activityLogTableSorting[i].innerText.toArabicUni());
+        //   }
+        //   //pagination
+        //   var activityLogTablePagination = document.getElementsByClassName('page-link');
+        //   for (var i = 1; i < activityLogTablePagination.length - 1; i++) {
+        //     activityLogTablePagination[i].innerText = activityLogTablePagination[i].innerText.replace(activityLogTablePagination[i].innerText, activityLogTablePagination[i].innerText.toArabicUni());
+        //   }
+        //   // info
+        //   var packageTableInfo = document.getElementById('package-table_info').innerText;
+        //   document.getElementById('package-table_info').innerText = packageTableInfo.replace(packageTableInfo, packageTableInfo.toArabicUni());
+        // }
+      // });
+
 
       $("#client_id").on('select2:select', function (e) {
         insertUrlParam('id', $('#client_id').val());

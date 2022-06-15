@@ -24,6 +24,7 @@ class CreatePackagesTable extends Migration
             $table->boolean('is_active')->default(true);
             $table->boolean('has_promo')->default(false);
             $table->boolean('is_default')->default(false);
+            $table->integer('order')->nullable();
             $table->softDeletes();
             $table->timestamps();
         });
