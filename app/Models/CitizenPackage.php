@@ -27,7 +27,9 @@ class CitizenPackage extends Model
             Uuid::changeDateLocale($locale);
             return Hijri::convertToHijri($date)->format('d F o');
         }
-        return Carbon::parse($date)->locale($locale)->translatedFormat('j F Y');
+
+        return $date;
+        // return Carbon::parse($date)->locale($locale)->translatedFormat('j F Y');
     }
 
     public function getEndAtAttribute($date)
@@ -37,7 +39,8 @@ class CitizenPackage extends Model
             Uuid::changeDateLocale($locale);
             return Hijri::convertToHijri($date)->format('d F o');
         }
-        return Carbon::parse($date)->locale($locale)->translatedFormat('j F Y');
+        return $date;
+        // return Carbon::parse($date)->locale($locale)->translatedFormat('j F Y');
     }
     #region scopes
     public function setPackageIdAttribute($value){
