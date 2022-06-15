@@ -62,23 +62,23 @@
         "language": {
           @include('dashboard.layouts.globals.datatable.datatable_translation')
         },
-        "drawCallback": function (settings, json) {
-          // admin history table sorting
-          var adminHistoryTableSorting = document.getElementsByClassName('admin_show_index');
-          for (var i = 0; i < adminHistoryTableSorting.length; i++) {
-            adminHistoryTableSorting[i].innerText = adminHistoryTableSorting[i].innerText.replace(adminHistoryTableSorting[i].innerText, adminHistoryTableSorting[i].innerText.toArabicUni());
-          }
+      //   "drawCallback": function (settings, json) {
+      //     // admin history table sorting
+      //     var adminHistoryTableSorting = document.getElementsByClassName('admin_show_index');
+      //     for (var i = 0; i < adminHistoryTableSorting.length; i++) {
+      //       adminHistoryTableSorting[i].innerText = adminHistoryTableSorting[i].innerText.replace(adminHistoryTableSorting[i].innerText, adminHistoryTableSorting[i].innerText.toArabicUni());
+      //     }
 
-          //pagination
-          var adminHistoryTablePagination = document.getElementsByClassName('page-link');
-          for (var i = 1; i < adminHistoryTablePagination.length - 1; i++) {
-            adminHistoryTablePagination[i].innerText = adminHistoryTablePagination[i].innerText.replace(adminHistoryTablePagination[i].innerText, adminHistoryTablePagination[i].innerText.toArabicUni());
-          }
+      //     //pagination
+      //     var adminHistoryTablePagination = document.getElementsByClassName('page-link');
+      //     for (var i = 1; i < adminHistoryTablePagination.length - 1; i++) {
+      //       adminHistoryTablePagination[i].innerText = adminHistoryTablePagination[i].innerText.replace(adminHistoryTablePagination[i].innerText, adminHistoryTablePagination[i].innerText.toArabicUni());
+      //     }
 
-          // admin history table show info
-          var adminHistoryTableInfo = document.getElementById('historyTableadmin_info').innerText;
-          document.getElementById('historyTableadmin_info').innerText = adminHistoryTableInfo.replace(adminHistoryTableInfo, adminHistoryTableInfo.toArabicUni());
-        }
+      //     // admin history table show info
+      //     var adminHistoryTableInfo = document.getElementById('historyTableadmin_info').innerText;
+      //     document.getElementById('historyTableadmin_info').innerText = adminHistoryTableInfo.replace(adminHistoryTableInfo, adminHistoryTableInfo.toArabicUni());
+      //   }
       });
 
       $('.select2').select2({
