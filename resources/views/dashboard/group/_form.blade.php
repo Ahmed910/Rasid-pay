@@ -76,7 +76,7 @@
     <script src="{{ asset('dashboardAssets/js/select2.js') }}"></script>
     <script src="{{ asset('dashboardAssets') }}/plugins/fileuploads/js/fileupload.js"></script>
     <script src="{{ asset('dashboardAssets') }}/plugins/fileuploads/js/file-upload.js"></script>
-
+    
     <script>
         $(function() {
             let permissions =
@@ -154,13 +154,16 @@
                     $(".select2 > option").prop("selected", "selected");
                     $(".select2").trigger("change");
                     $(".custom-checkbox input").prop("checked", "checked");
-                    $("label[for='all'] .custom-control-label").text("إلغاء تحديد الكل")
+                    $("label[for='all'] .custom-control-label").text("إلغاء تحديد الكل");
                 }
+                // elseif (data == 'إلغاء تحديد الكل') {
+                //     $(".select2 > option").prop("selected", "");
+                //     $(".select2").trigger("change");
+                //     $(".custom-checkbox input").prop("checked", "");
+                //     $("label[for='all'] .custom-control-label").text("إختر الكل");
+                // }
             });
-
-
         });
-
 
         function formatState(state) {
             console.log(state, 'state')
@@ -202,15 +205,6 @@
             //             </span>
 
 
-            // <div class="tooltip-container">
-            //             <i class="mdi mdi-clipboard-list"></i>
-            //             <div class="tooltip-content">
-            //                 <ul>
-            //                     <li>first item</li>
-            //                     <li>second item</li>
-            //                 </ul>
-            //             </div>
-            //         </div>
         };
     </script>
 @endsection
