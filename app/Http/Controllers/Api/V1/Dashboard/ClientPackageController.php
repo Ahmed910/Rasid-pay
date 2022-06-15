@@ -55,6 +55,15 @@ class ClientPackageController extends Controller
         ]);
     }
 
+    public function show($id)
+    {
+        $client = User::where('user_type', 'client')->findOrFail($id);
+        return PackageResource::make($client)->additional([
+            'status' => true,
+            'message' => ""
+        ]);
+    }
+
     /**
      * Update the specified resource in storage.
      *
@@ -75,7 +84,7 @@ class ClientPackageController extends Controller
 
     public function getMainPackages()
     {
-        $packages = Package::where('is_active',1)->get();
+        $packages = Package::where('is_active', 1)->get();
         return MainPackageResource::collection($packages)->additional([
             'status' => true,
             'message' => ""
