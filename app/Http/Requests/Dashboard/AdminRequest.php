@@ -89,6 +89,7 @@ class AdminRequest extends FormRequest
             'fullname.required' => __('validation.admin.required_name'),
             'rasid_job_id.required' => __('validation.admin.required_job'),
             'password.required' => __('validation.admin.required_password'),
+            'password.confirmed' => __('validation.admin.confirmed_password'),
             'login_id.unique' => __('validation.admin.unique_login_id'),
             'phone.unique' => __('validation.admin.unique_phone'),
             'email.unique' => __('validation.admin.unique_email'),

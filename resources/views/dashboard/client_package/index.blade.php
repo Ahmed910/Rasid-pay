@@ -19,13 +19,9 @@
   <div class="row align-items-end mb-3">
     <div class="col-12 col-md-12 mb-3">
       <label for="clientName">@lang('dashboard.package.client_name')</label>
-      <select class="form-control select2-show-search" id="client_id">
-        <option selected disabled value="">@lang('dashboard.package.select_client_name')</option>
-        <option value="-1 "> {{trans("dashboard.general.all_cases")}}</option>
-        @foreach($clients as $key =>$value)
-        <option value="{{ $key }}">{{$value}}</option>
-        @endforeach
-      </select>
+      {!! Form::select('client_id', ['' => '', -1 => trans('dashboard.general.all_cases')] +
+     $clients->toArray(), request('client_id'), ['class' => 'form-control select2',
+      'data-placeholder' => trans('dashboard.package.select_client_name'), 'id' => 'client_id']) !!}
     </div>
   </div>
   <div class="row">
