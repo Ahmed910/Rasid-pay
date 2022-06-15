@@ -13,7 +13,8 @@
     $(function() {
 
       /******* Calendar *******/
-      $("#from-hijri-picker-custom, #to-hijri-picker-custom, #from-hijri-unactive-picker-custom ,#to-hijri-unactive-picker-custom")
+    
+ $("#from-hijri-picker-custom, #to-hijri-picker-custom, #from-hijri-unactive-picker-custom ,#to-hijri-unactive-picker-custom")
         .hijriDatePicker({
           hijri: {{ auth()->user()->is_date_hijri ? 'true' : 'false' }},
           showSwitcher: false,
@@ -22,10 +23,13 @@
           hijriDayViewHeaderFormat: "iMMMM iYYYY",
           dayViewHeaderFormat: "MMMM YYYY",
           ignoreReadonly: true,
-        }).on('dp.change', function() {
+          minDate: '1900-01-01',
+          maxDate: '2100-01-01',
+          showClear:true,
+          isRTL: "{{ LaravelLocalization::getCurrentLocaleDirection() == 'rtl' }}"
+        }).on('dp.change', function () {
         table.draw();
       });
-
       var table = $("#transactionsTable").DataTable({
         responsive: true,
         sDom: "t<'domOption'lpi>",
