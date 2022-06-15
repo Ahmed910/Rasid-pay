@@ -26,7 +26,7 @@ class AddInBlackListToUsersTable extends Migration
     public function down()
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->dropColumn("in_black_list") ;
+            $table->dropColumn("in_black_list");
         });
     }
 }

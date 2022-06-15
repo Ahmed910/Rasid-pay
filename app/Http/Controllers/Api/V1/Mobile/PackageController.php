@@ -10,7 +10,7 @@ class PackageController extends Controller
 {
     public function index()
     {
-        $packages = Package::where('is_active', true)->get();
+        $packages = Package::where('is_active', true)->paginate((int)($request->per_page ?? config("globals.per_page")));
         return PackageResource::collection($packages)->additional([
             'status' => true,
             'message' => ''
