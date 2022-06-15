@@ -8,12 +8,21 @@ use App\Http\Controllers\Controller;
 
 class PackageController extends Controller
 {
-
-    public function getPackages()
+    public function index()
     {
-        $packages = Package::where('is_active', true)->get();
-        return PackageResource::collection($packages)->additional(
-            ['status' => true,
-                'message' => '']);
+        $packages = Package::where('is_active', true)->paginate((int)($request->per_page ?? config("globals.per_page")));
+        return PackageResource::collection($packages)->additional([
+            'status' => true,
+            'message' => ''
+        ]);
+    }
+
+    public function show($id)
+    {
+        $package = Package::where('is_active', true)->findOrFail($id);
+        return PackageResource::make($package)->additional([
+            'status' => true,
+            'message' => ''
+        ]);
     }
 }

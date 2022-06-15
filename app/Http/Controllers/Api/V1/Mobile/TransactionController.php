@@ -10,11 +10,9 @@ class TransactionController extends Controller
 {
     public function index(TransactionRequest $request)
     {
-        $user = auth('sanctum')->user();
-
-        $transactions = $user->citizenTransactions()
+        $transactions = auth()->user()->citizenTransactions()
             ->CustomDateFromTo($request)
-            ->paginate($request->per_page);
+            ->paginate((int)($request->per_page ?? config("globals.per_page")));
 
         return TransactionResource::collection($transactions)
             ->additional([
@@ -29,7 +27,7 @@ class TransactionController extends Controller
      */
     public function show($id)
     {
-        $transaction = auth('sanctum')->user()->citizenTransactions()->findOrFail($id);
+        $transaction = auth()->user()->citizenTransactions()->findOrFail($id);
 
         return TransactionResource::make($transaction)
             ->additional([

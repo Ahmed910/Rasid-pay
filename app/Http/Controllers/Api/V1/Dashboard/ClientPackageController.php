@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\V1\Dashboard\CardPackageRequest;
 use App\Http\Requests\V1\Dashboard\CardPackageUpdateRequest;
 use App\Http\Resources\Dashboard\PackageResource;
+use App\Http\Resources\Dashboard\MainPackageResource;
 use App\Http\Resources\Dashboard\SimpleUserResource;
 use App\Models\Package\Package;
 use App\Models\User;
@@ -54,6 +55,15 @@ class ClientPackageController extends Controller
         ]);
     }
 
+    public function show($id)
+    {
+        $client = User::where('user_type', 'client')->findOrFail($id);
+        return PackageResource::make($client)->additional([
+            'status' => true,
+            'message' => ""
+        ]);
+    }
+
     /**
      * Update the specified resource in storage.
      *
@@ -74,9 +84,8 @@ class ClientPackageController extends Controller
 
     public function getMainPackages()
     {
-        $packages = Package::select('id')->ListsTranslations('name')->get();
-        return response()->json([
-            'data' => $packages,
+        $packages = Package::where('is_active', 1)->get();
+        return MainPackageResource::collection($packages)->additional([
             'status' => true,
             'message' => ""
         ]);
