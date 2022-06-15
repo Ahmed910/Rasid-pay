@@ -57,8 +57,14 @@ class ClientPackageController extends Controller
 
     public function show($id)
     {
-        $client = User::where('user_type', 'client')->findOrFail($id);
-        return PackageResource::make($client)->additional([
+        $client_package = [];
+        $client = User::has('clientPackages')->where("user_type", "client")->findOrFail($id);
+        foreach ($client->clientPackages as $key => $clientPackage) {
+            $client_package[$key]['package_id'] = $clientPackage->pivot->package_id;
+            $client_package[$key]['package_discount'] = $clientPackage->pivot->package_discount;
+        }
+        return response()->json([
+            'discounts' => $client_package,
             'status' => true,
             'message' => ""
         ]);
