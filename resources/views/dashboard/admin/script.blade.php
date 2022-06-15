@@ -12,12 +12,6 @@
   <script>
     $(function () {
 
-
-     callData();
-    });
-    function callData()
-    {
-
  /******* Calendar *******/
       $("#from-hijri-picker-custom, #to-hijri-picker-custom, #from-hijri-unactive-picker-custom ,#to-hijri-unactive-picker-custom")
         .hijriDatePicker({
@@ -143,27 +137,8 @@
 
         "language": {
           @include('dashboard.layouts.globals.datatable.datatable_translation')
-        },
-        {{-- "drawCallback": function (settings, json) {
-          // table sorting
-          var adminTableSorting = document.getElementsByClassName('admin_index');
-          for (var i = 0; i < adminTableSorting.length; i++) {
-            adminTableSorting[i].innerText = adminTableSorting[i].innerText.replace(
-              adminTableSorting[i].innerText, adminTableSorting[i].innerText
-                .toArabicUni());
-          }
-          //pagination
-          var adminTablePagination = document.getElementsByClassName('page-link');
-          for (var i = 1; i < adminTablePagination.length - 1; i++) {
-            adminTablePagination[i].innerText = adminTablePagination[i].innerText.replace(
-              adminTablePagination[i].innerText, adminTablePagination[i].innerText
-                .toArabicUni());
-          }
-          // info
-          var adminTableInfo = document.getElementById('adminTable_info').innerText;
-          document.getElementById('adminTable_info').innerText = adminTableInfo.replace(
-            adminTableInfo, adminTableInfo.toArabicUni());
-        } --}}
+        }
+
       });
 
 
@@ -213,7 +188,7 @@
         $('#to-hijri-picker-custom').val("").trigger('change');
         $('#from-hijri-unactive-picker-custom').val("").trigger('change');
         $('#to-hijri-unactive-picker-custom').val("").trigger('change');
-        table.draw();
+        table.column('').order('asc' ).search('').draw();
         if (location.href.includes('?')) {
             history.pushState({}, null, location.href.split('?')[0]);
           }
@@ -236,7 +211,7 @@
           return new bootstrap.Tooltip(tooltipTriggerEl);
         });
       });
-    }
+    });
   </script>
   <script src="{{ asset('dashboardAssets/js/select2.js') }}"></script>
   <script src="{{ asset('dashboardAssets/plugins/select2/select2.full.min.js') }}"></script>

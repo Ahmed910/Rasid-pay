@@ -44,7 +44,7 @@ class ClientPackageController extends Controller
         ]);
     }
 
-    public function store(CardPackageRequest $request)
+    public function store(CardPackageUpdateRequest $request)
     {
         $client = User::where('user_type', 'client')->findOrFail($request->client_id);
         $client->clientPackages()->sync($request->discounts);
@@ -61,13 +61,24 @@ class ClientPackageController extends Controller
      * @param int $id
      * @return \Illuminate\Http\Response
      */
-    public function update(CardPackageUpdateRequest $request,$client_id)
+    public function update(CardPackageUpdateRequest $request, $client_id)
     {
         $client = User::where('user_type', 'client')->findOrFail($client_id);
         $client->clientPackages()->sync($request->discounts);
         return PackageResource::make($client)->additional([
             'status' => true,
             'message' => trans("dashboard.package.discount_success_update")
+        ]);
+    }
+
+
+    public function getMainPackages()
+    {
+        $packages = Package::select('id')->ListsTranslations('name')->get();
+        return response()->json([
+            'data' => $packages,
+            'status' => true,
+            'message' => ""
         ]);
     }
 }

@@ -141,7 +141,7 @@
                 $('#to-end-at').val("").trigger('change');
                 $('#citizenName,#idNumber,#phone').val(null);
                 $('#enabledpackage').val(null).trigger('change');
-                table.draw();
+                table.column('').order('asc' ).search('').draw();
                 if (location.href.includes('?')) {
                   history.pushState({}, null, location.href.split('?')[0]);
                 }
