@@ -5,7 +5,7 @@
             {!! Form::label('jobName', trans('dashboard.rasid_job.job_name')) !!}
             <span class="requiredFields">*</span>
             @foreach ($locales as $locale)
-                {!! Form::text("{$locale}[name]", isset($rasidJob) ? $rasidJob->name : null, ['class' => 'form-control input-regex stop-copy-paste' . ($errors->has("${locale}.name") ? ' is-invalid' : null), 'id' => "{$locale}_name", 'placeholder' => trans('dashboard.general.enter_name'), 'minlength' => '2', 'maxlength' => '100','onblur'=>'validateData(this.id)']) !!}
+                {!! Form::text("{$locale}[name]", isset($rasidJob) ? $rasidJob->name : null, ['class' => 'form-control input-regex stop-copy-paste' . ($errors->has("${locale}.name") ? ' is-invalid' : null), 'id' => "{$locale}_name", 'placeholder' => trans('dashboard.general.enter_name'), 'minlength' => '2', 'maxlength' => '100','onblur'=>'validateData(this)']) !!}
 
                 <span class="text-danger" id="{{ $locale }}.nameError" hidden></span>
             @endforeach
@@ -63,7 +63,7 @@
 <div class="row">
     <div class="col-12 mb-5 text-end">
         {!! Form::button('<i class="mdi mdi-content-save-outline"></i>' . trans('dashboard.general.save'), ['type' => 'submit', 'class' => 'btn btn-primary', 'id' => 'saveButton']) !!}
-        <a href="{{ url()->previous() }}" class="btn btn-outline-primary">
+        <a href="{{ url()->previous() }}" class="btn btn-outline-primary" id="showBack">
           <i class="mdi mdi-arrow-left"></i> {{ trans('dashboard.general.back') }}
       </a>
     </div>

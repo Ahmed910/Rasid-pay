@@ -128,6 +128,9 @@
 
 
         function submitForm(formId) {
+            if($(formId).hasClass('disable_form')) {
+                return false;
+            }
             let form = $(formId)[0];
             let data = new FormData(form);
             let btn_submit = $(formId).find('a.a-submit');

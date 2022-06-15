@@ -6,7 +6,7 @@
 
             {{-- edit input --}}
             @if (isset($client))
-                {!! Form::text('fullname', $client->fullname, ['class' => 'form-control', 'disabled', 'dir' => 'rtl','onblur'=>'validateData(this.id)','id'=>'fullname', 'data-placeholder' => trans('dashboard.client.select_client')]) !!}
+                {!! Form::text('fullname', $client->fullname, ['class' => 'form-control', 'disabled', 'dir' => 'rtl','onblur'=>'validateData(this)','id'=>'fullname', 'data-placeholder' => trans('dashboard.client.select_client')]) !!}
                 {!! Form::hidden('client_id', $client->id) !!}
 
             {{-- create input --}}
@@ -33,7 +33,7 @@
                         'onDrag' => 'return false',
                         'onDrop' => 'return false',
                         'autocomplete' => 'off',
-                        'onblur'=>'validateData(this.id)',
+                        'onblur'=>'validateData(this)',
                         'oninput' => 'javascript: if(this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);',
                         'min' => '0',
                         'maxlength' => '5',
@@ -54,8 +54,14 @@
 <div class="row">
     <div class="col-12 mb-5 text-end">
         {!! Form::button('<i class="mdi mdi-content-save-outline"></i>' . trans('dashboard.general.save'), ['type' => 'submit', 'class' => 'btn btn-primary', 'data-bs-toggle' => 'modal', 'id' => 'submitButton']) !!}
-        <a href="{{ url()->previous() }}" class="btn btn-outline-primary">
+        <a href="{{ url()->previous() }}" class="btn btn-outline-primary" id="showBack">
           <i class="mdi mdi-arrow-left"></i> {{ trans('dashboard.general.back') }}
       </a>
     </div>
 </div>
+
+@include('dashboard.layouts.modals.confirm')
+@include('dashboard.layouts.scripts')
+@include('dashboard.layouts.modals.back')
+@include('dashboard.layouts.modals.alert')
+

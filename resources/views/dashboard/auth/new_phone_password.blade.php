@@ -38,7 +38,7 @@
       <a onclick="submitForm('#phone-form')" class="btn btn-primary a-submit">{{ trans('dashboard.general.confirm') }}</a>
 
         {{-- {!! Form::submit('تأكيد',['class' => "btn btn-primary"]) !!} --}}
-        <a href="{!! route('dashboard.check_sms_code_form',$reset_token) !!}" class="btn btn-outline-primary">
+        <a href="{{ route('dashboard.login') }}" class="btn btn-outline-primary">
           {{ trans('dashboard.general.back') }}
         </a>
     </div>

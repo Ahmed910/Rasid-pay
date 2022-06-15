@@ -44,7 +44,6 @@ trait Uuid
     public function getImageAttribute()
     {
         $image = $this->images()->first()?->media;
-
         if ($image == null && !request()->has('with_activity') && !request()->routeIs('dashboard.*')) {
             return asset('dashboardAssets/images/brand/no-img.png');
         } elseif ($image == null && request()->routeIs('dashboard.*.edit')) {
