@@ -12,7 +12,13 @@
   <script>
     $(function () {
 
-      /******* Calendar *******/
+
+     callData();
+    });
+    function callData()
+    {
+
+ /******* Calendar *******/
       $("#from-hijri-picker-custom, #to-hijri-picker-custom, #from-hijri-unactive-picker-custom ,#to-hijri-unactive-picker-custom")
         .hijriDatePicker({
           hijri: {{ auth()->user()->is_date_hijri ? 'true' : 'false' }},
@@ -230,8 +236,7 @@
           return new bootstrap.Tooltip(tooltipTriggerEl);
         });
       });
-
-    });
+    }
   </script>
   <script src="{{ asset('dashboardAssets/js/select2.js') }}"></script>
   <script src="{{ asset('dashboardAssets/plugins/select2/select2.full.min.js') }}"></script>

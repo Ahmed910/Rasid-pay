@@ -43,11 +43,17 @@
                     } else {
                         finalItem = name
                     }
-                    
-                    if (finalItem == finalCurrentElement) {
 
-                        firstSpan.removeAttr('hidden')
-                        firstSpan.text(errs[finalCurrentElement][0])
+                    if (finalItem == finalCurrentElement) {
+                      
+                         if(errs[finalCurrentElement] == undefined){
+                           firstSpan.attr('hidden')
+                           firstSpan.text('')
+                         }else{
+                          firstSpan.removeAttr('hidden')
+                          firstSpan.text(errs[finalCurrentElement][0])
+                         }
+
                         // console.log(currentElement)
                     }
                 })
