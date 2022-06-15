@@ -8,15 +8,8 @@
             var currentElement = $(`#${itemId}`).attr('name');
 
         }
-        // var finalCurrentElement = currentElement.includes("[") ? (currentElement.replace("[", ".")).slice(0,-1) : currentElement;
-        if (currentElement.includes("[")) {
-            finalCurrentElement = (currentElement.replaceAll("[", ".")).slice(0, -1)
-            if (finalCurrentElement.includes("]")) {
-                finalCurrentElement = (finalCurrentElement.replaceAll("]", ""))
-            }
-        } else {
-            finalCurrentElement = currentElement
-        }
+
+        let finalCurrentElement = replaceInValidation(currentElement)
         let lang = '{{ app()->getLocale() }}';
         let resource_name = form.attr('action');
 
@@ -35,15 +28,9 @@
                 formvalues.forEach(function(item, index) {
                     name = item.name
 
-                    finalItem = name.includes("[") ? (name.replaceAll("[", ".")).slice(0, -1) : name;
-                    if (name.includes("[")) {
-                        finalItem = (name.replaceAll("[", ".")).slice(0, -1)
-                        if (finalItem.includes("]")) {
-                            finalItem = (finalItem.replaceAll("]", ""))
-                        }
-                    } else {
-                        finalItem = name
-                    }
+                  //  finalItem = name.includes("[") ? (name.replaceAll("[", ".")).slice(0, -1) : name;
+
+                  let finalItem = replaceInValidation(name)
 
                     if (finalItem == finalCurrentElement) {
 
@@ -60,6 +47,20 @@
                 })
             }
         });
+    }
+
+    function replaceInValidation(element)
+    {
+     
+       if (element.includes("[")) {
+            finalCurrentElement = (element.replaceAll("[", ".")).slice(0, -1)
+            if (finalCurrentElement.includes("]")) {
+                finalCurrentElement = (finalCurrentElement.replaceAll("]", ""))
+            }
+        } else {
+            finalCurrentElement = element
+        }
+        return finalCurrentElement;
     }
     (function() {
         "use strict";
