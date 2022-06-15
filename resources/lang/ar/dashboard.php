@@ -242,7 +242,8 @@ return [
         "citizens" => "المستخدمون",
         "same_citizen_transfer"=>"عفوا، لا يمكن التحويل لمحفظتك الشخصية",
         "wallet_in_black_list"=>"عفوا، رقم المحفظة خاص بهوية أوإقامة في القائمةالسوداءالسوداء",
-        "identity_in_black_list"=>"عفوا، رقم الهوية محظورمحظور"
+        "identity_in_black_list"=>"عفوا، رقم الهوية محظورمحظور",
+        "update_phone_has-transations"=>"عفوا لا يمكن تعديل رقم الجوال نظرا لوجود عمليات تحويل جارية"
 
         ],
     "cardpackage" => [
