@@ -64,7 +64,10 @@ class ClientPackageController extends Controller
             $client_package[$key]['package_discount'] = $clientPackage->pivot->package_discount;
         }
         return response()->json([
-            'discounts' => $client_package,
+            'data' => [
+                'discounts' => $client_package,
+                'fullname' => $client->fullname,
+            ],
             'status' => true,
             'message' => ""
         ]);
