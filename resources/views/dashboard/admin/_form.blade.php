@@ -12,7 +12,7 @@
                 class="requiredFields">*</span>
             {!! Form::select('department_id', ['' => ''] + $departments, isset($admin) ?
             $admin->employee?->department_id :
-            null, ['class' => 'form-control select2-show-search', 'data-placeholder' =>
+            null, ['class' => 'form-control input-regex stop-copy-paste select2-show-search ', 'data-placeholder' =>
             trans('dashboard.department.select_department'),'id' => 'mainDepartment','onblur'=>'validateData(this.id)', 'onchange' =>
             'getJobs(this.value)']) !!}
             <span class="text-danger" id="department_idError"></span>
@@ -22,7 +22,7 @@
             {!! Form::label('rasid_job_id', trans('dashboard.rasid_job.rasid_job')) !!} <span
                 class="requiredFields">*</span>
             <div id="new_admin">
-                {!! Form::select('rasid_job_id', isset($admin) ? ['' => ''] + $rasid_jobs :['' => ''] , isset($admin) ? $admin->employee?->rasid_job_id :null, ['class' => 'form-control select2-show-search', 'id' =>
+                {!! Form::select('rasid_job_id', isset($admin) ? ['' => ''] + $rasid_jobs :['' => ''] , isset($admin) ? $admin->employee?->rasid_job_id :null, ['class' => 'form-control input-regex stop-copy-paste select2-show-search ', 'id' =>
                     'rasid_job_id', 'data-placeholder' => trans('dashboard.rasid_job.select_job')]) !!}
             </div>
             <span class="text-danger" id="rasid_job_idError"></span>
@@ -53,7 +53,7 @@
         <div class="col-12 col-md-4  mt-3">
             {!! Form::label('email', trans('dashboard.general.email')) !!}
             <span class="requiredFields">*</span>
-            {!! Form::email("email", null, ['class' => 'form-control', 'id' => "email",'onblur'=>'validateData(this.id)' ,'placeholder' =>
+            {!! Form::email("email", null, ['class' => 'form-control input-regex stop-copy-paste', 'id' => "email",'onblur'=>'validateData(this.id)' ,'placeholder' =>
             trans('dashboard.general.enter_email'),"autocomplete"=>"off","readonly","onfocus"=>"this.removeAttribute('readonly');", 'minlength' => '2', 'maxlength' => '100']) !!}
             <span class="text-danger" id="emailError" hidden></span>
         </div>
@@ -112,7 +112,7 @@
     <div class="col-12 col-md-4  mt-3">
       {!! Form::label('email', trans('dashboard.general.email')) !!}
       <span class="requiredFields">*</span>
-      {!! Form::email("email", null, ['class' => 'form-control', 'id' => "email", 'placeholder' =>
+      {!! Form::email("email", null, ['class' => 'form-control input-regex stop-copy-paste', 'id' => "email", 'placeholder' =>
       trans('dashboard.general.enter_email'),"autocomplete"=>"off","readonly","onfocus"=>"this.removeAttribute('readonly');",
       'minlength' => '2', 'maxlength' => '100']) !!}
       <span class="text-danger" id="emailError" hidden></span>

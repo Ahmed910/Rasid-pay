@@ -39,7 +39,7 @@ class ClientPackageController extends Controller
     public function create()
     {
         $previousUrl = url()->previous();
-        (strpos($previousUrl, 'package')) ? session(['perviousPage' => 'package']) : session(['perviousPage' => 'home']);
+        (strpos($previousUrl, 'package')) ? session(['perviousPage' => 'client_package']) : session(['perviousPage' => 'home']);
 
         $clients = User::doesntHave('clientPackages')->where(['user_type'=>'client','is_active'=>1])->pluck('users.fullname', 'users.id')->toArray();
         $packages = Package::select('id')->listsTranslations('name')->get();
