@@ -44,6 +44,8 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::apiResource('cards', 'CardController')->only('index', 'destroy');
         // Clients
         Route::apiResource('clients', 'ClientController')->only('index', 'show');
+        // Packages
+        Route::apiResource('packages', 'PackageController')->only('index', 'show');
         // Transfer
         Route::namespace('Transfers')->group(function () {
             // Wallet Transfers
@@ -52,11 +54,6 @@ Route::middleware('auth:sanctum')->group(function () {
             // Local Transfers
             Route::post('local_transfers', 'LocalTransferController@store');
         });
-
-        Route::controller('PackageController')->group(function () {
-            Route::get('get_packages', 'getPackages');
-        });
-
 
     Route::controller('TransactionController')->group(function () {
         Route::get('transactions', 'index');
