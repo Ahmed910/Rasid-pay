@@ -1,30 +1,24 @@
 <script>
-    function validateData(id) {
+  function validateData(item) {
 
-        if (id !== undefined) {
-            var currentElement = $(`#${id}`).attr('name');
+      let itemId = $(item).attr('id');
+      let form   = $(item).closest('form');
+
+        if (item !== undefined) {
+            var currentElement = $(`#${itemId}`).attr('name');
 
         }
-        // var finalCurrentElement = currentElement.includes("[") ? (currentElement.replace("[", ".")).slice(0,-1) : currentElement;
-        if (currentElement.includes("[")) {
-            finalCurrentElement = (currentElement.replaceAll("[", ".")).slice(0, -1)
-            if (finalCurrentElement.includes("]")) {
-                finalCurrentElement = (finalCurrentElement.replaceAll("]", ""))
-            }
-        } else {
-            finalCurrentElement = currentElement
-        }
 
+        let finalCurrentElement = replaceInValidation(currentElement)
         let lang = '{{ app()->getLocale() }}';
-        let resource_name = '{{ request()->segment(3) }}';
-        var firstSpan = $(`#${id}`).parent().hasClass("input-group") ? $(`#${id}`).parent().nextAll('span:first') : $(`#${id}`).nextAll('span:first')
+        let resource_name = form.attr('action');
 
-        var formData = $('#formId').serialize();
+        var firstSpan = $(`#${itemId}`).parent().hasClass("input-group") ? $(`#${itemId}`).parent().nextAll('span:first') : $(`#${itemId}`).nextAll('span:first')
 
         $.ajax({
-            url: `{{ url('/dashboard/${resource_name}') }}`
+            url: resource_name
             , type: 'post'
-            , data: formData,
+            , data: form.serialize(),
 
             error: function(errors) {
 
@@ -34,25 +28,39 @@
                 formvalues.forEach(function(item, index) {
                     name = item.name
 
-                    finalItem = name.includes("[") ? (name.replaceAll("[", ".")).slice(0, -1) : name;
-                    if (name.includes("[")) {
-                        finalItem = (name.replaceAll("[", ".")).slice(0, -1)
-                        if (finalItem.includes("]")) {
-                            finalItem = (finalItem.replaceAll("]", ""))
-                        }
-                    } else {
-                        finalItem = name
-                    }
-                    
+                  //  finalItem = name.includes("[") ? (name.replaceAll("[", ".")).slice(0, -1) : name;
+
+                  let finalItem = replaceInValidation(name)
+
                     if (finalItem == finalCurrentElement) {
 
-                        firstSpan.removeAttr('hidden')
-                        firstSpan.text(errs[finalCurrentElement][0])
+                         if(errs[finalCurrentElement] == undefined){
+                           firstSpan.attr('hidden')
+                           firstSpan.text('')
+                         }else{
+                          firstSpan.removeAttr('hidden')
+                          firstSpan.text(errs[finalCurrentElement][0])
+                         }
+
                         // console.log(currentElement)
                     }
                 })
             }
         });
+    }
+
+    function replaceInValidation(element)
+    {
+     
+       if (element.includes("[")) {
+            finalCurrentElement = (element.replaceAll("[", ".")).slice(0, -1)
+            if (finalCurrentElement.includes("]")) {
+                finalCurrentElement = (finalCurrentElement.replaceAll("]", ""))
+            }
+        } else {
+            finalCurrentElement = element
+        }
+        return finalCurrentElement;
     }
     (function() {
         "use strict";

@@ -6,7 +6,7 @@
 
             {{-- edit input --}}
             @if (isset($client))
-                {!! Form::text('fullname', $client->fullname, ['class' => 'form-control', 'disabled', 'dir' => 'rtl','onblur'=>'validateData(this.id)','id'=>'fullname', 'data-placeholder' => trans('dashboard.client.select_client')]) !!}
+                {!! Form::text('fullname', $client->fullname, ['class' => 'form-control', 'disabled', 'dir' => 'rtl','onblur'=>'validateData(this)','id'=>'fullname', 'data-placeholder' => trans('dashboard.client.select_client')]) !!}
                 {!! Form::hidden('client_id', $client->id) !!}
 
             {{-- create input --}}
@@ -33,7 +33,7 @@
                         'onDrag' => 'return false',
                         'onDrop' => 'return false',
                         'autocomplete' => 'off',
-                        'onblur'=>'validateData(this.id)',
+                        'onblur'=>'validateData(this)',
                         'oninput' => 'javascript: if(this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);',
                         'min' => '0',
                         'maxlength' => '5',

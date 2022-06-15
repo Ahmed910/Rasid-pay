@@ -74,6 +74,24 @@
         </div>
 
 
+  <div class="row mt-3">
+    <div class="col-12 col-md-4">
+      {!! Form::label('fullname', trans('dashboard.general.username')) !!}
+      <span class="requiredFields">*</span>
+      {!! Form::text("fullname", null, ['class' => 'form-control input-regex stop-copy-paste', 'id' => "fullname",'onblur'=>'validateData(this)',
+      'placeholder'
+      => trans('dashboard.general.user_name'), 'minlength' => '2', 'maxlength' => '100']) !!}
+      <span class="text-danger" id="fullnameError" hidden></span>
+    </div>
+    <div class="col-12 col-md-4">
+      {!! Form::label('mainDepartment', trans('dashboard.department.department_name')) !!} <span
+        class="requiredFields">*</span>
+      {!! Form::select('department_id', ['' => ''] + $departments, isset($admin) ?
+      $admin->employee?->department_id :
+      null, ['class' => 'form-control select2-show-search', 'data-placeholder' =>
+      trans('dashboard.department.select_department'),'id' => 'mainDepartment', 'onchange' =>
+      'getJobs(this.value)' , !(isset($admin)) ?: 'disabled']) !!}
+      <span class="text-danger" id="department_idError"></span>
 
     </div>
     <div class="col-12 col-md-4">
@@ -93,7 +111,7 @@
       @if (isset($admin))
 
       {!! Form::number('login_id', null, ['class' => 'form-control stop-copy-paste', 'oninput' => 'javascript: if
-      (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);', 'min' => '0',
+      (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);', 'min' => '0','onblur'=>'validateData(this)',
       'maxlength'
       => '6', 'onkeypress' => 'return /[0-9a-zA-Z]/i.test(event.key)', 'id' => 'userId', 'placeholder' =>
       trans('dashboard.admin.enter_login_id'),'disabled' => 'disabled']) !!}
@@ -101,7 +119,7 @@
 
 
       {!! Form::number('login_id', null, ['class' => 'form-control stop-copy-paste', 'oninput' => 'javascript: if
-      (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);', 'min' => '0',
+      (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);', 'min' => '0','onblur'=>'validateData(this)',
       'maxlength'
       => '6', 'onkeypress' => 'return /[0-9a-zA-Z]/i.test(event.key)', 'id' => 'userId', 'placeholder' =>
       trans('dashboard.admin.enter_login_id')]) !!}
@@ -120,7 +138,7 @@
     <div class="col-12 col-md-4  mt-3">
       <label for="phone">{{ trans('dashboard.general.phone') }} </label><span class="requiredFields">*</span>
       <div class="input-group">
-        <input id="phone" type="number" name="phone"
+        <input id="phone" type="number" name="phone" onblur='validateData(this)',
           oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
           pattern="^[1-9]\d*$" onkeypress="return /[0-9a-zA-Z]/i.test(event.key)" maxlength="9"
           class="form-control stop-copy-paste" placeholder="{{ trans('dashboard.citizens.enter_phone') }} "
@@ -137,36 +155,28 @@
     <div class="col-12">
       <label for="permissions">{{ trans('dashboard.admin.permission_system') }}</label> <span
         class="requiredFields">*</span>
-        <div class="input-group permissions">
-                <div class="input-group-text input-group-start border-end-0">
-                    <label>
-                        <i class="mdi mdi-magnify tx-16 lh-0 op-6"></i></label>
-                </div>
       <select class="form-control" name="permission_list[]" hidden multiple required></select>
       <select class="form-control" name="group_list[]" hidden multiple required></select>
 
       <select class="form-control select2" onchange="addPermissions(this.selectedOptions)"
         data-placeholder="{{ trans('dashboard.general.select_permissions') }}" multiple="multiple" id="permissions"
         required>
-
-                    <option value="all">إختر الكل</option>
+        <optgroup label="{{ trans('dashboard.group.groups') }}">
           @foreach ($groups as $id => $name)
           <option value="{{ $id }}" data-name="groups" {{ isset($admin) && in_array($id, $admin->group_list) ?
             'selected' : null }}>
             {{ $name }}</option>
           @endforeach
+        </optgroup>
 
+        <optgroup label="{{ trans('dashboard.permission.permissions') }}">
           @foreach ($permissions as $id => $name)
           <option value="{{ $id }}" data-name="permissions" {{ isset($admin) && in_array($id, $admin->permission_list) ?
             'selected' : null }}>
             {{ $name }}</option>
           @endforeach
+        </optgroup>
       </select>
-      <div class="input-group-text border-start-0">
-                    <label>
-                        <b class="select-arrow"></b>
-                    </label>
-                </div>
       <span class="text-danger" id="permission_listError"></span>
       <span class="text-danger" id="group_listError"></span>
     </div>
@@ -183,7 +193,9 @@
       <label for="validationCustom02"> {{ trans('dashboard.admin.ban_from') }}</label>
       <div class="input-group">
         {!! Form::text('ban_from', null, ['class' => 'form-control ', 'readonly' => 'readonly', 'id' =>
-        'from-hijri-unactive-picker-custom', 'placeholder' => trans('dashboard.general.day_month_year'), 'value' =>"old('ban_from')"]) !!}
+        'from-hijri-unactive-picker-custom', 'placeholder' => trans('dashboard.general.day_month_year'), 'value'
+        =>
+        "old('ban_from')"]) !!}
         <div class="input-group-text border-start-0">
           <i class="fa fa-calendar tx-16 lh-0 op-6"></i>
         </div>
@@ -194,7 +206,9 @@
       <label for="validationCustom02">{{ trans('dashboard.admin.ban_to') }}</label>
       <div class="input-group">
         {!! Form::text('ban_to', null, ['class' => 'form-control ', 'readonly' => 'readonly', 'id' =>
-        'to-hijri-unactive-picker-custom', 'placeholder' => trans('dashboard.general.day_month_year'), 'value'=>"old('ban_to')"]) !!}
+        'to-hijri-unactive-picker-custom', 'placeholder' => trans('dashboard.general.day_month_year'), 'value'
+        =>
+        "old('ban_to')"]) !!}
         <div class="input-group-text border-start-0">
           <i class="fa fa-calendar tx-16 lh-0 op-6"></i>
         </div>
@@ -202,15 +216,14 @@
       <span class="text-danger" id="ban_toError"></span>
     </div>
     @endif
-
     @if (request()->routeIs('dashboard.admin.create'))
     <div class="col-12 col-md-4 mt-3 changePass" @if (isset($admin)) hidden @endif>
       {!! Form::label('newPassword', trans('dashboard.admin.password')) !!} <span class="requiredFields">*</span>
       <div class="input-group" id="show_hide_password">
-        {!! Form::password('password', ['class' => 'form-control stop-copy-paste', 'maxlength' => '10',
+        {!! Form::password('password', ['class' => 'form-control stop-copy-paste', 'maxlength' => '10', 'onblur'=>'validateData(this)',
         'oninput' => 'javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0,
         this.maxLength);', 'pattern' => '^[1-9]\d*$',
-        "autocomplete"=>"off","readonly","onfocus"=>"this.removeAttribute('readonly');",'onkeypress' => 'return
+        "autocomplete"=>"off",'id'=>'password',"readonly","onfocus"=>"this.removeAttribute('readonly');",'onkeypress' => 'return
         /[0-9]/i.test(event.key)',
         'placeholder' => trans('dashboard.admin.enter_password')]) !!}
 
@@ -223,7 +236,7 @@
     <div class="col-12 col-md-4 mt-3 changePass" @if (isset($admin)) hidden @endif>
       {!! Form::label('newPassword', trans('dashboard.admin.confirmed_password')) !!} <span class="requiredFields">*</span>
       <div class="input-group" id="show_hide_password">
-        {!! Form::password('password_confirmation', ['class' => 'form-control stop-copy-paste', 'maxlength' => '10',
+        {!! Form::password('password_confirmation', ['class' => 'form-control stop-copy-paste', 'maxlength' => '10','onblur'=>'validateData(this)',
         'oninput' => 'javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0,
         this.maxLength);', 'pattern' => '^[1-9]\d*$',
         "autocomplete"=>"off","readonly","onfocus"=>"this.removeAttribute('readonly');",'onkeypress' => 'return
@@ -234,6 +247,7 @@
           <a href=""><i class="mdi mdi-eye-off-outline d-flex"></i></a>
         </div>
       </div>
+       <span class="text-danger" id="password_confirmation_error"></span>
     </div>
 
     @endif
@@ -318,59 +332,6 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Dropify/0.2.2/js/dropify.min.js"></script>
 <script src="{{ asset('dashboardAssets/js/custom_scripts.js') }}"></script>
 <script src="{{ asset('dashboardAssets/plugins/bootstrap-hijri-datepicker/js/bootstrap-hijri-datetimepicker.js') }}">
-</script>
-<script>
-  $(document).ready(function() {
-            $(".select2").select2({
-                closeOnSelect: false
-            });
-            $(".select2").select2({
-                closeOnSelect: false,
-                templateResult: formatState
-
-
-
-      function addPermissions(selected) {
-          let group_options = '';
-          let permission_options = '';
-          $.each(selected, (index, item) => {
-              if (item.getAttribute('data-name') == 'groups') {
-                  group_options += `<option value="${item.value}" selected class="group_select"></option>`;
-              }
-              if (item.getAttribute('data-name') == 'permissions') {
-                  permission_options +=
-                      `<option value="${item.value}" selected class="permission_select"></option>`;
-              }
-          });
-          $('[name="permission_list[]"]').html(permission_options);
-          $('[name="group_list[]"]').html(group_options);
-      }
-
-
-        });
-
-
-        function formatState(state) {
-            if (!state.id) {
-                return state.text;
-            }
-            var $state = $(
-                `<label for="${state.id}" class="d-flex justify-content-between align-items-center m-0">
-                  <div class="">
-                    <div class="custom-control custom-checkbox">
-                      <input type="checkbox" class="custom-control-input" id="${state.id}">
-                      <label class="custom-control-label m-0" for="${state.id}">${state.text}</label>
-                    </div>
-
-
-                   </div>
-                   <i class="mdi mdi-clipboard-list"  data-bs-toggle="popoverRoles" tabindex="1"
-                                    data-bs-placement="right" data-bs-html="true"
-                                    title="<span class='tooltipRole'> hesham</span>"></i>
-                   </label>`
-            );
-            return $state;
-        };
 </script>
 @include('dashboard.admin.form_script')
 @endsection

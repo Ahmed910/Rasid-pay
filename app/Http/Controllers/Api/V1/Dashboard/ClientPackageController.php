@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\V1\Dashboard\CardPackageRequest;
 use App\Http\Requests\V1\Dashboard\CardPackageUpdateRequest;
 use App\Http\Resources\Dashboard\PackageResource;
+use App\Http\Resources\Mobile\PackageResource as MainPackageResource;
 use App\Http\Resources\Dashboard\SimpleUserResource;
 use App\Models\Package\Package;
 use App\Models\User;
@@ -44,7 +45,7 @@ class ClientPackageController extends Controller
         ]);
     }
 
-    public function store(CardPackageRequest $request)
+    public function store(CardPackageUpdateRequest $request)
     {
         $client = User::where('user_type', 'client')->findOrFail($request->client_id);
         $client->clientPackages()->sync($request->discounts);
@@ -61,13 +62,23 @@ class ClientPackageController extends Controller
      * @param int $id
      * @return \Illuminate\Http\Response
      */
-    public function update(CardPackageUpdateRequest $request,$client_id)
+    public function update(CardPackageUpdateRequest $request, $client_id)
     {
         $client = User::where('user_type', 'client')->findOrFail($client_id);
         $client->clientPackages()->sync($request->discounts);
         return PackageResource::make($client)->additional([
             'status' => true,
             'message' => trans("dashboard.package.discount_success_update")
+        ]);
+    }
+
+
+    public function getMainPackages()
+    {
+        $packages = Package::where('is_active',1)->get();
+        return MainPackageResource::collection($packages)->additional([
+            'status' => true,
+            'message' => ""
         ]);
     }
 }

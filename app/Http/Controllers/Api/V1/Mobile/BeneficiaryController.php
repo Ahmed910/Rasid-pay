@@ -13,7 +13,7 @@ class BeneficiaryController extends Controller
 
     public function index(Request $request)
     {
-        $beneficiaries = Beneficiary::search($request)->latest()->paginate((int)($request->per_page ?? config("globals.per_page")));
+        $beneficiaries = Beneficiary::where('user_id',auth()->id())->search($request)->latest()->paginate((int)($request->per_page ?? config("globals.per_page")));
 
         return BeneficiaryResource::collection($beneficiaries)
             ->additional([
@@ -24,8 +24,7 @@ class BeneficiaryController extends Controller
 
     public function store(BeneficiaryRequest $request)
     {
-        $user = auth('sanctum')->user();
-        $beneficiary = $user->benficiaryTransfer()->create($request->validated());
+        $beneficiary = auth()->user()->benficiaryTransfers()->create($request->validated());
 
         return BeneficiaryResource::make($beneficiary)->additional([
             'status' => true,
@@ -33,22 +32,19 @@ class BeneficiaryController extends Controller
         ]);
     }
 
-    public function show(Beneficiary $beneficiary)
+    public function show($id)
     {
-        $beneficiary->load([
-            'country',
-            'user',
-            'recieveOption'
-        ]);
-
+        $beneficiary = auth()->user()->benficiaryTransfers()->with('country','user','recieveOption')->findOrFail($id);
         return BeneficiaryResource::make($beneficiary)->additional([
             'status' => true,
             'message' => ''
         ]);
     }
 
-    public function destroy(Beneficiary $beneficiary)
+    public function destroy($id)
     {
+        $beneficiary = auth()->user()->benficiaryTransfers()->findOrFail($id);
+
         $beneficiary->delete();
         return BeneficiaryResource::make($beneficiary)
             ->additional([
