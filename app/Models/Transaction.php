@@ -59,7 +59,7 @@ class Transaction extends Model
                 );
         }
         if (isset($request->trans_number)) {
-            $query->where('trans_number', 'like', "%$request->transaction_number%");
+            $query->where('trans_number', 'like', "%$request->trans_number%");
         }
         if (isset($request->trans_status) && !in_array(-1, $request->trans_status)) {
             $query->whereIn("trans_status", $request->trans_status);
@@ -70,7 +70,8 @@ class Transaction extends Model
         }
         if (isset($request->enabled_package) && !in_array(-1, $request->enabled_package)) {
             $query->whereHas('citizenPackage', fn($q) => $q->whereIn('package_id', $request->enabled_package));
-        }
+        }else
+            $request->enabled_package = null;
 
         if (isset($request->client)) {
             if ($request->client == 0) $request->client = null;

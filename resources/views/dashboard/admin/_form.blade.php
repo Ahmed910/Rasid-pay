@@ -3,7 +3,7 @@
     <div class="col-12 col-md-4">
       {!! Form::label('fullname', trans('dashboard.general.username')) !!}
       <span class="requiredFields">*</span>
-      {!! Form::text("fullname", null, ['class' => 'form-control input-regex stop-copy-paste', 'id' => "fullname",
+      {!! Form::text("fullname", null, ['class' => 'form-control input-regex stop-copy-paste', 'id' => "fullname",'onblur'=>'validateData(this)',
       'placeholder'
       => trans('dashboard.general.user_name'), 'minlength' => '2', 'maxlength' => '100']) !!}
       <span class="text-danger" id="fullnameError" hidden></span>
@@ -36,7 +36,7 @@
       @if (isset($admin))
 
       {!! Form::number('login_id', null, ['class' => 'form-control stop-copy-paste', 'oninput' => 'javascript: if
-      (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);', 'min' => '0',
+      (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);', 'min' => '0','onblur'=>'validateData(this)',
       'maxlength'
       => '6', 'onkeypress' => 'return /[0-9a-zA-Z]/i.test(event.key)', 'id' => 'userId', 'placeholder' =>
       trans('dashboard.admin.enter_login_id'),'disabled' => 'disabled']) !!}
@@ -44,7 +44,7 @@
 
 
       {!! Form::number('login_id', null, ['class' => 'form-control stop-copy-paste', 'oninput' => 'javascript: if
-      (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);', 'min' => '0',
+      (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);', 'min' => '0','onblur'=>'validateData(this)',
       'maxlength'
       => '6', 'onkeypress' => 'return /[0-9a-zA-Z]/i.test(event.key)', 'id' => 'userId', 'placeholder' =>
       trans('dashboard.admin.enter_login_id')]) !!}
@@ -56,14 +56,14 @@
       {!! Form::label('email', trans('dashboard.general.email')) !!}
       <span class="requiredFields">*</span>
       {!! Form::email("email", null, ['class' => 'form-control', 'id' => "email", 'placeholder' =>
-      trans('dashboard.general.enter_email'),"autocomplete"=>"off","readonly","onfocus"=>"this.removeAttribute('readonly');",
+      trans('dashboard.general.enter_email'),"autocomplete"=>"off","readonly","onfocus"=>"this.removeAttribute('readonly');",'onblur'=>'validateData(this)',
       'minlength' => '2', 'maxlength' => '100']) !!}
       <span class="text-danger" id="emailError" hidden></span>
     </div>
     <div class="col-12 col-md-4  mt-3">
       <label for="phone">{{ trans('dashboard.general.phone') }} </label><span class="requiredFields">*</span>
       <div class="input-group">
-        <input id="phone" type="number" name="phone"
+        <input id="phone" type="number" name="phone" onblur='validateData(this)',
           oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
           pattern="^[1-9]\d*$" onkeypress="return /[0-9a-zA-Z]/i.test(event.key)" maxlength="9"
           class="form-control stop-copy-paste" placeholder="{{ trans('dashboard.citizens.enter_phone') }} "
@@ -152,10 +152,10 @@
     <div class="col-12 col-md-4 mt-3 changePass" @if (isset($admin)) hidden @endif>
       {!! Form::label('newPassword', trans('dashboard.admin.password')) !!} <span class="requiredFields">*</span>
       <div class="input-group" id="show_hide_password">
-        {!! Form::password('password', ['class' => 'form-control stop-copy-paste', 'maxlength' => '10',
+        {!! Form::password('password', ['class' => 'form-control stop-copy-paste', 'maxlength' => '10', 'onblur'=>'validateData(this)',
         'oninput' => 'javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0,
         this.maxLength);', 'pattern' => '^[1-9]\d*$',
-        "autocomplete"=>"off","readonly","onfocus"=>"this.removeAttribute('readonly');",'onkeypress' => 'return
+        "autocomplete"=>"off",'id'=>'password',"readonly","onfocus"=>"this.removeAttribute('readonly');",'onkeypress' => 'return
         /[0-9]/i.test(event.key)',
         'placeholder' => trans('dashboard.admin.enter_password')]) !!}
 
@@ -168,7 +168,7 @@
     <div class="col-12 col-md-4 mt-3 changePass" @if (isset($admin)) hidden @endif>
       {!! Form::label('newPassword', trans('dashboard.admin.confirmed_password')) !!} <span class="requiredFields">*</span>
       <div class="input-group" id="show_hide_password">
-        {!! Form::password('password_confirmation', ['class' => 'form-control stop-copy-paste', 'maxlength' => '10',
+        {!! Form::password('password_confirmation', ['class' => 'form-control stop-copy-paste', 'maxlength' => '10','onblur'=>'validateData(this)',
         'oninput' => 'javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0,
         this.maxLength);', 'pattern' => '^[1-9]\d*$',
         "autocomplete"=>"off","readonly","onfocus"=>"this.removeAttribute('readonly');",'onkeypress' => 'return
@@ -179,6 +179,7 @@
           <a href=""><i class="mdi mdi-eye-off-outline d-flex"></i></a>
         </div>
       </div>
+       <span class="text-danger" id="password_confirmation_error"></span>
     </div>
 
     @endif
