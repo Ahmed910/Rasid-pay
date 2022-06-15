@@ -154,31 +154,38 @@
   <div class="row mt-3">
     <div class="col-12">
       <label for="permissions">{{ trans('dashboard.admin.permission_system') }}</label> <span
-        class="requiredFields">*</span>
-      <select class="form-control" name="permission_list[]" hidden multiple required></select>
-      <select class="form-control" name="group_list[]" hidden multiple required></select>
+          class="requiredFields">*</span>
+      <div class="input-group permissions">
+          <div class="input-group-text input-group-start border-end-0">
+              <label>
+                  <i class="mdi mdi-magnify tx-16 lh-0 op-6"></i></label>
+          </div>
+          <select name="permission_list[]" hidden multiple></select>
+          <select name="group_list[]" hidden multiple></select>
 
-      <select class="form-control select2" onchange="addPermissions(this.selectedOptions)"
-        data-placeholder="{{ trans('dashboard.general.select_permissions') }}" multiple="multiple" id="permissions"
-        required>
-        <optgroup label="{{ trans('dashboard.group.groups') }}">
-          @foreach ($groups as $id => $name)
-          <option value="{{ $id }}" data-name="groups" {{ isset($admin) && in_array($id, $admin->group_list) ?
-            'selected' : null }}>
-            {{ $name }}</option>
-          @endforeach
-        </optgroup>
-
-        <optgroup label="{{ trans('dashboard.permission.permissions') }}">
-          @foreach ($permissions as $id => $name)
-          <option value="{{ $id }}" data-name="permissions" {{ isset($admin) && in_array($id, $admin->permission_list) ?
-            'selected' : null }}>
-            {{ $name }}</option>
-          @endforeach
-        </optgroup>
-      </select>
-      <span class="text-danger" id="permission_listError"></span>
-      <span class="text-danger" id="group_listError"></span>
+          <select class="form-control select2" onchange="addPermissions(this.selectedOptions)"
+              data-placeholder="{{ trans('dashboard.general.select_permissions') }}" multiple="multiple"
+              id="permissions" required>
+              <option value="all">إختر الكل</option>
+              @foreach ($groups as $id => $name)
+                  <option value="{{ $id }}" data-name="groups"
+                      {{ isset($group) && in_array($id, $group->group_list) ? 'selected' : null }}>
+                      {{ $name }}</option>
+              @endforeach
+              @foreach ($permissions as $id => $name)
+                  <option value="{{ $id }}" data-name="permissions"
+                      {{ isset($group) && in_array($id, $group->permission_list) ? 'selected' : null }}>
+                      {{ $name }}</option>
+              @endforeach
+          </select>
+          <div class="input-group-text border-start-0">
+              <label>
+                  <b class="select-arrow"></b>
+              </label>
+          </div>
+      </div>
+      <span class="text-danger" id="group_listError" hidden></span>
+      <span class="text-danger" id="permission_listError" hidden></span>
     </div>
 
     @if (isset($admin))
