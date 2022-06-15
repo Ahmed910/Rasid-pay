@@ -93,7 +93,11 @@
 
             countdown("countdown", 0, 30);
 
-            $(".resend").click(function() {
+            $(".resend").click(function(e) {
+                if($(this).hasClass('disable')) {
+                  return e.preventDefault();
+                }
+
                 countdown("countdown", 0, 30);
                 $(this).addClass("disable");
             });
