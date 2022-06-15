@@ -34,7 +34,7 @@
         ajax: {
           url: "{{ route('dashboard.transaction.index') }}",
           data: function(data) {
-            data.transaction_number = $('#transactionNum').val();
+            data.trans_number = $('#transactionNum').val();
             data.citizen = $('#transactionName').val();
             data.user_identity = $('#idNumber').val();
             data.client = $('#to_user_id').val();
@@ -157,11 +157,11 @@
         table.draw();
       });
       $('#status').on('select2:select', function(e) {
-        insertUrlParam('status', $('#status').val());
+        insertUrlParam('trans_status', $('#status').val());
         table.draw();
       });
       $('#type').on('select2:select', function(e) {
-        insertUrlParam('type', $('#type').val());
+        insertUrlParam('trans_type', $('#type').val());
         table.draw();
       });
       $('#enabled_package').on('select2:select', function(e) {
@@ -170,30 +170,18 @@
       });
 
       $("#transactionNum").keyup(function() {
-        insertUrlParam('transaction_number', $('#transactionNum').val());
+        insertUrlParam('trans_number', $('#transactionNum').val());
         table.draw();
       });
       $("#transactionName").keyup(function() {
         insertUrlParam('citizen', $('#transactionName').val());
         table.draw();
       });
-      $("#idNumber").keyup(function() {
-        insertUrlParam('user_identity', $('#idNumber').val());
-        table.draw();
-      });
-      $("#transactionValueFrom").keyup(function() {
-        insertUrlParam('transaction_value_from', $('#transactionValueFrom').val());
-        table.draw();
-      });
-      $("#transactionValueTo").keyup(function() {
-        insertUrlParam('transaction_value_to', $('#transactionValueTo').val());
-        table.draw();
-      });
 
       $('#search-form').on('reset', function(e) {
         e.preventDefault();
         $('#status').val(null).trigger('change');
-        $('#package_id').val(null).trigger('change');
+        $('#enabled_package').val(null).trigger('change');
         $('#type').val(null).trigger('change');
         $('#transactionNum').val(null);
         $('#transactionName').val(null);
