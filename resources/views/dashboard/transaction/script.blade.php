@@ -192,7 +192,7 @@
         $('#to-hijri-picker-custom').val("").trigger('change');
         $('#from-hijri-unactive-picker-custom').val("").trigger('change');
         $('#to-hijri-unactive-picker-custom').val("").trigger('change');
-        table.draw();
+        table.column('').order('asc' ).search('').draw();
         if (location.href.includes('?')) {
           history.pushState({}, null, location.href.split('?')[0]);
         }
