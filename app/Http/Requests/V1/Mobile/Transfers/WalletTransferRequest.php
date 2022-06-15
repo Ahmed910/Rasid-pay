@@ -9,6 +9,8 @@ use App\Models\User;
 
 class WalletTransferRequest extends ApiMasterRequest
 {
+    private $user_object;
+    private $message;
     /**
      * Determine if the user is authorized to make this request.
      *
@@ -24,97 +26,60 @@ class WalletTransferRequest extends ApiMasterRequest
      *
      * @return array
      */
-
-
     public function rules()
     {
-        $map = [
-            "identity_number" => "required|numeric|not_regex:/^0/|digits_between:10,20|exists:users,identity_number,user_type,citizen",
-            "wallet_number" => "required|exists:citizen_wallets,wallet_number",
-            "phone" => ["required", "starts_with:5", "numeric", "digits_between:5,9"]
-        ];
-
-        $tt = join(",", Transfer::WALLET_TRANSFER_METHODS);
-        $rules = [
-            "amount" => ["required", 'regex:/^\d{1,5}+(\.\d{1,2})?$/'],
-            "wallet_transfer_method" => ["required", "in:" . $tt],
-        ];
-
-        //check if citizen is sending to himself or in black list
-        if (isset($this->wallet_transfer_method) && isset($this->transfer_type_value) && $this->wallet_transfer_method == "wallet_number") {
-            $citizen = CitizenWallet::where("wallet_number", $this->transfer_type_value)->select("citizen_id")->with("citizen:id,in_black_list")->first();
-            if ($citizen == null) return ["transfer_type_value" => function ($attribute, $value, $fail) {
-                $fail(trans("validation.exists"));
-            }];
-            $citizen = $citizen->citizen;
-            $res = $this->in_black_list($citizen);
-            if (count($res)) return $res;
-            $res = $this->sending_to_himself($citizen);
-            if (count($res  ["transfer_type_value"])) return $res;
+        if (!$this->citizen_id && $this->wallet_transfer_method == 'phone') {
+            $data = [
+                "transfer_status" => 'required|in:hold,transfered'
+            ];
         }
-
-
-        // filling wallet_transfer_method validation
-        if (isset($this->wallet_transfer_method)) {
-            if (isset($map[$this->wallet_transfer_method]))
-                $rules += ["transfer_type_value" => $map[$this->wallet_transfer_method]];
-        }
-
-        // filling transfer_status validation
-        if (isset($this->wallet_transfer_method) && isset($this->transfer_type_value)) {
-
-            if (in_array($this->wallet_transfer_method, ["phone", "identity_number"])) {
-                $citizen = User::where($this->wallet_transfer_method, $this->transfer_type_value)->where("user_type", "citizen")->select("id", "in_black_list")->first();
-                if ($citizen) {
-                    $rules += ["transfer_status" => ["nullable", "in:accepted"]]; //  if receiver existed
-
-                    //check if citizen is sending to himself or in_black_list
-                    $res = $this->in_black_list($citizen);
-                    if (count($res)) return $res;
-                    $res = $this->sending_to_himself($citizen);
-                    if (count($res  ["transfer_type_value"])) return $res;
-
-                } else $rules += ["transfer_status" => ["required", "in:accepted,holding"]]; //  if receiver not existed
-            } else   $rules += ["transfer_status" => ["nullable", "in:accepted"]];  // method is wallet number
-
-        }
-        return $rules;
+        return [
+            "amount" => 'required|regex:/^\d{1,5}+(\.\d{1,2})?$/',
+            "citizen_id" => 'nullable|exists:users,id,user_type,citizen',
+            "otp_code" => 'required|exists:citizen_wallets,wallet_bin,citizen_id,'.auth()->id(),
+            "wallet_transfer_method" => 'required|in:' . join(",", Transfer::WALLET_TRANSFER_METHODS),
+            "transfer_method_value" => ['required',function ($attribute, $value, $fail) {
+                if(!is_bool($this->message)){
+                    $fail($this->message);
+                }
+            }]
+        ] + $data;
     }
 
-    public function receiverexisted()
+    public function prepareForValidation()
     {
-
+        $data = $this->all();
+        $this->message = $this->checkUserFound($this->wallet_transfer_method,$this->transfer_method_value);
+        return $this->merge([
+            'citizen_id' => $this->user_object?->id,
+        ]);
     }
 
-    public function receiver_not_existed()
+    public function checkUserFound($key, $value)
     {
+        switch ($key) {
+            case 'wallet_number':
+                $user = User::where('id',"<>",auth()->id())->whereRelation('citizenWallet', 'wallet_number', $value)->first();
+                break;
+            case 'identity_number':
+                $user = User::where('id',"<>",auth()->id())->firstWhere(['user_type' => 'citizen', 'identity_number' => $value]);
+                break;
 
-    }
-
-    public function sending_to_himself($citizen)
-    {
-        $rules = ["transfer_type_value" => []];
-        if ($citizen && $citizen->id == auth()->id()) {
-            array_push($rules  ["transfer_type_value"], function ($attribute, $value, $fail) {
-                $fail(trans("dashboard.citizen.same_citizen_transfer"));
-            });
-
+            default:
+                $user = User::where('id',"<>",auth()->id())->firstWhere(['user_type' => 'citizen', 'phone' => $value]);
+                if (!$user) {
+                    return $this->checkPhoneValid($value);
+                }
+                break;
         }
-        return $rules;
+        $this->user_object = $user;
+        return $user?->in_black_list ? trans('dashboard.citizen.wallet_in_black_list') : trans('validation.exists');
     }
 
-    public function in_black_list($citizen)
+    public function checkPhoneValid($phone)
     {
-        $r = [];
-        if ($citizen->in_black_list) {
-            $r = ["transfer_type_value" => function ($attribute, $value, $fail) {
-                $fail(trans("dashboard.citizen.wallet_in_black_list"));
-            }];
-
-        }
-        return $r;
+        return check_phone_valid($phone) ? true : trans('mobile.validation.invalid_phone');
     }
 
 
 }
-

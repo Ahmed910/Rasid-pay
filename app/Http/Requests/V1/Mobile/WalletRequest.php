@@ -16,8 +16,10 @@ class WalletRequest extends ApiMasterRequest
         return [
             // in citizen wallet
             "amount" => "required|numeric|min:0",
+            'charge_type' => 'required_without:card_id|in:nfc,manual,sadad,scan',
+            'card_id' => 'nullable|required_without:charge_type|exists:cards,id,user_id,'.auth()->id(),
             //card information
-            'is_card_saved' => 'required|in:0,1',
+            'is_card_saved' => 'required_without:card_id|in:0,1',
             'owner_name' => 'required_if:is_card_saved,1|string|max:255',
             'card_type' => 'required_if:is_card_saved,1|in:visa,mastercard,american_express',
             'card_name' => 'required_if:is_card_saved,1|string|max:255',

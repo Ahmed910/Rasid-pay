@@ -16,7 +16,7 @@ Route::controller('Auth\RegisterController')->group(function () {
 });
 
 Route::controller('Auth\ResetController')->group(function () {
-    Route::post('check_identity_number', 'checkIdentityNumber');
+    // Route::post('check_identity_number', 'checkIdentityNumber');
     Route::post('reset_password', 'updatePassword');
 });
 
@@ -35,6 +35,7 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::get('home', 'HomeController@index');
         // Wallet
         Route::apiResource('wallets', 'WalletController')->only('index', 'store');
+        Route::post('need_to_transfers', 'WalletController@sendWalletOtp');
         //money requests
         Route::post('money_requests', 'MoneyRequestController@store');
 
@@ -62,6 +63,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::apiResource('beneficiaries', 'BeneficiaryController');
 
     Route::apiResource('wallet_transfers', 'Transfers\WalletTransferController');
+    Route::get('check_phone_wallets/{phone}', 'Transfers\WalletTransferController@checkIfPhoneExists');
 });
 
 Route::get('slides', 'SlideController@index');

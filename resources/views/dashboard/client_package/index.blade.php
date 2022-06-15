@@ -18,9 +18,9 @@
 <form method="get" action="">
   <div class="row align-items-end mb-3">
     <div class="col-12 col-md-12 mb-3">
-      <label for="clientName">اسم العميل</label>
-      <select class="form-control select2-show-search" id="client_id">
-        <option selected disabled value="">إختر العميل</option>
+      <label for="clientName">@lang('dashboard.package.client_name')</label>
+      <select class="form-control select2-show-search" id="client_id" data-placeholder="@lang('dashboard.package.select_client_name')">
+        <option selected disabled value="">@lang('dashboard.package.select_client_name')</option>
         <option value="-1 "> {{trans("dashboard.general.all_cases")}}</option>
         @foreach($clients as $key =>$value)
         <option value="{{ $key }}">{{$value}}</option>
@@ -67,10 +67,8 @@
               <th class="border-bottom-0">البطاقة الذهبية</th>
               <th class="border-bottom-0">البطاقة البلاتينية</th>
               <th class="border-bottom-0">العمليات</th>
-            </tr>
-          </thead>
-          <tbody>
-          </tbody>
+)</th>
+ody>
         </table>
     </div>
   </div>

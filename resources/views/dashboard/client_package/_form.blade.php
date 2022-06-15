@@ -6,7 +6,7 @@
 
             {{-- edit input --}}
             @if (isset($client))
-                {!! Form::text('fullname', $client->fullname, ['class' => 'form-control', 'disabled', 'dir' => 'rtl', 'data-placeholder' => trans('dashboard.client.select_client')]) !!}
+                {!! Form::text('fullname', $client->fullname, ['class' => 'form-control', 'disabled', 'dir' => 'rtl','onblur'=>'validateData(this.id)','id'=>'fullname', 'data-placeholder' => trans('dashboard.client.select_client')]) !!}
                 {!! Form::hidden('client_id', $client->id) !!}
 
             {{-- create input --}}
@@ -23,6 +23,7 @@
             <div class="input-group">
                 <input type="hidden" name="discounts[{{ $loop->index }}][package_id]" value="{{ $package->id }}">
                 {!! Form::number("discounts[$loop->index][package_discount]", isset($client) ? $client->clientPackages->pluck('pivot')->firstWhere('package_id',$package->id)->package_discount :null, [
+
                         'class' => 'form-control',
                         'placeholder' => trans('dashboard.package.enter_discount'),
                         'id' => 'discountRate_'. $package->id,
@@ -32,6 +33,10 @@
                         'onDrag' => 'return false',
                         'onDrop' => 'return false',
                         'autocomplete' => 'off',
+                        'onblur'=>'validateData(this.id)',
+                        'oninput' => 'javascript: if(this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);',
+                        'min' => '0',
+                        'maxlength' => '5',
                 ]) !!}
 
                 <div class="input-group-text border-start-0"> % </div>
@@ -49,6 +54,8 @@
 <div class="row">
     <div class="col-12 mb-5 text-end">
         {!! Form::button('<i class="mdi mdi-content-save-outline"></i>' . trans('dashboard.general.save'), ['type' => 'submit', 'class' => 'btn btn-primary', 'data-bs-toggle' => 'modal', 'id' => 'submitButton']) !!}
-        {!! Form::button('<i class="mdi mdi-arrow-left"></i>' . trans('dashboard.general.back'), ['type' => 'button', 'class' => 'btn btn-outline-primary', 'id' => 'showBack']) !!}
+        <a href="{{ url()->previous() }}" class="btn btn-outline-primary">
+          <i class="mdi mdi-arrow-left"></i> {{ trans('dashboard.general.back') }}
+      </a>
     </div>
 </div>

@@ -15,6 +15,7 @@
         responsive: true,
                 sDom: "t<'domOption'lpi>",
                 serverSide: true,
+                
                 ajax: {
                     url: "{{ route('dashboard.group.show', $group->id) }}?" + $.param(
                         @json(request()->query())),

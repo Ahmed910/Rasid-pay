@@ -1,10 +1,10 @@
 @extends('dashboard.auth.master')
 
 @section('content')
-<h3 class="text-center mt-5">{{ trans('auth.login_title') }}</h3>
-<p class="text-center">
-  {{ trans('auth.login_subtitle')}}
-</p>
+    <h3 class="text-center mt-5">{{ trans('auth.login_title') }}</h3>
+    <p class="text-center">
+        {{ trans('auth.login_subtitle') }}
+    </p>
 
 <form method="post" action="{{ route('dashboard.post_login') }}" class="needs-validation" id="login-form" novalidate>
   @csrf
@@ -13,7 +13,7 @@
     <input oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" type="number" pattern="^[1-9]\d*$" onkeypress="return /[0-9a-zA-Z]/i.test(event.key)" maxlength="10" class="form-control stop-copy-paste number-regex @error('username') is-invalid @enderror"
            id="userId" name="username"
     value="{{ old('username') }}"
-    placeholder="{{ trans('auth.userID')}}"
+    placeholder="{{ trans('auth.your_userID')}}"
     />
     <span class="text-danger" id="username_error"></span>
   @if($errors->has('username'))
@@ -53,9 +53,9 @@
 @endsection
 
 @section('styles')
-  <style>
-    #login-id{
-      border-color: transparent !important;
-    }
-  </style>
+    <style>
+        #login-id {
+            border-color: transparent !important;
+        }
+    </style>
 @endsection

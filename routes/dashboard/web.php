@@ -29,6 +29,7 @@ Route::group(
         Route::middleware('auth')->prefix('dashboard')->group(function () {
             Route::get('/', "HomeController@index")->name("home.index");
             Route::get('transaction', "TransactionController@index")->name("transaction.index");
+            Route::get('transaction/{id}', "TransactionController@show")->name("transaction.show");
             Route::get('citizen', "CitizenController@index")->name("citizen.index");
             Route::put('update-phone/{id}', 'CitizenController@updatePhone')->name('citizen.update_phone');
 
@@ -85,6 +86,11 @@ Route::group(
             });
 
             Route::controller('GroupController')->name('group.')->prefix('group')->group(function () {
+                Route::get('export', 'export');
+                Route::get('exportPDF', 'exportPDF');
+            });
+
+            Route::controller('ClientPackageController')->name('client_package.')->prefix('client_package')->group(function () {
                 Route::get('export', 'export');
                 Route::get('exportPDF', 'exportPDF');
             });

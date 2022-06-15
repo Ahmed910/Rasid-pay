@@ -69,4 +69,19 @@ class AdminRequest extends ApiMasterRequest
             'phone' => 'required|numeric|digits_between:10,20|unique:users,phone,' . @$this->admin->id,
         ] + $data;
     }
+
+    public function messages()
+    {
+        return [
+            'permission_list.required_without' => trans('dashboard.general.Permission_field_required'),
+            'group_list.required_without' => '',
+            'fullname.required' => __('validation.admin.required_name'),
+            'rasid_job_id.required' => __('validation.admin.required_job'),
+            'password.required' => __('validation.admin.required_password'),
+            'password.confirmed' => __('validation.admin.confirmed_password'),
+            'login_id.unique' => __('validation.admin.unique_login_id'),
+            'phone.unique' => __('validation.admin.unique_phone'),
+            'email.unique_email' => __('validation.admin.unique_email'),
+        ];
+    }
 }

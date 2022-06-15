@@ -37,6 +37,7 @@ return [
         "success_add" => "تمت الإضافة بنجاح",
         "success_delete" => "تم الحذف بنجاح",
         "success_update" => "تم التعديل بنجاح",
+        "success_send" => "تم الإرسال بنجاح",
         "success_archive" => "تمت الأرشفة بنجاح",
         "success_restore" => "تم الاستعادة بنجاح",
         "Send VerificationCode" => "إرسال رمز التحقق",
@@ -63,7 +64,7 @@ return [
         'sent_successfully' => 'تم الارسال بنجاح',
         'success_send_login_code' => 'تم ارسال كود التحقق الى رقم الجوال',
         'phone' => 'رقم الجوال',
-        "enter_phone" => "أدخل رقم الجوال",
+        "enter_phone" => "أدخل الرقم",
         'phone_code' => "حقل رقم الجوال مطلوب",
         'phoneCode_registeration' => "رقم الجوال غير مسجل بالنظام",
         'digits_between' => "يجب أن يحتوي حقل الجوال بين 5 و 20 رقمًا/أرقام .
@@ -102,7 +103,7 @@ return [
         "enter_email" => "أدخل البريد الالكتروني",
         "phone" => "رقم الجوال",
         "enter_email" => "أدخل البريد الالكتروني",
-        "enter_phone" => "أدخل رقم الجوال",
+        "enter_phone" => "أدخل الرقم",
         "active_cases" => [
             'معطلة',
             'مفعلة',
@@ -151,14 +152,14 @@ return [
         'Total_employees' => 'الموظفين',
         'Total_vacant_jobs' => 'الوظائف الشاغرة ',
         'Total_unvacant_jobs' => 'الوظائف المشغولة',
-        'Permission_field_required' => 'حقل الصلاحيات مطلوب',
+        'Permission_field_required' => 'صلاحيات النظام مطلوبة',
 
     ],
     'datatable' => [
         'no_data' => 'لا توجد نتائج متاحة',
         'there_is_no_data' => 'لا يوجد نتائج بحث متاحة',
         'showing' => 'عرض',
-        'to' => 'الى',
+        'to' => 'إلى',
         'from' => 'من',
         'entries' => 'الاجمالي',
         'no_search_result' => 'لا يوجد نتائج بحث متاحة',
@@ -168,7 +169,7 @@ return [
         'not_found' => 'لم يتم العثور على بيانات',
         'page_not_found' => '404, الصفحة غير موجودة',
         'something_went_wrong' => 'البيانات المدخلة غير صحيحة',
-        'name_must_be_unique_on_department' => 'قيمة حقل الاسم موجودة من قبل لهذا القسم'
+        'name_must_be_unique_on_department' => 'الاسم موجود من قبل لهذا القسم'
     ],
     'activity_log' => [
         "activity_log" => "المتابعة",
@@ -203,7 +204,7 @@ return [
             'department' => 'القسم',
             'group' => 'المجموعة',
             'rasidjob' => 'الوظيفة',
-            'type_job_name' => 'أدخل اسم الوظيفة',
+            'type_job_name' => 'أدخل الاسم',
             'bank' => 'البنك',
             'admin' => 'المستخدم',
             'attachment' => 'المرفق',
@@ -217,14 +218,14 @@ return [
             "attachments" => "المرفقات",
             "attachmentfile" => " ملف المرفقات",
             "cardpackage" => "باقة البطاقة",
-            "citizen" => "المواطن"
+            "citizen" => "المستخدم"
 
         ],
         'permissions' => array_only($permissions, ['index', 'show']),
         'sub_progs' => [
             'index' => 'المتابعة',
             'show' => 'عرض المتابعة',
-            'create' => 'اضافة',
+            'create' => 'إضافة',
             'ban_status' => 'حظر',
             'archive' => 'أرشفة'
 
@@ -238,10 +239,11 @@ return [
         ],
     ],
     "citizen" => [
-        "citizens" => "المواطنون",
+        "citizens" => "المستخدمون",
         "same_citizen_transfer"=>"عفوا، لا يمكن التحويل لمحفظتك الشخصية",
-         "wallet_in_black_list"=>"عفوا، رقم المحفظة خاص بهوية أوإقامة في القائمةالسوداءالسوداء",
+        "wallet_in_black_list"=>"عفوا، رقم المحفظة خاص بهوية أوإقامة في القائمةالسوداءالسوداء",
         "identity_in_black_list"=>"عفوا، رقم الهوية محظورمحظور"
+
         ],
     "cardpackage" => [
         "cardpackages" => "باقات البطاقات",
@@ -253,7 +255,11 @@ return [
         "managers" => "العملاء",],
     "bank_account" => [
         "bank_accounts" => "العملاء",
-        "order_number" => "رقم الطلب"
+        "order_number" => "رقم الطلب",
+        "permissions"=>[
+            'index'=>'السجل',
+            'destroy'=>'حذف',
+        ],
     ],
     "attachment" => [
         "attachments" => "العملاء",],
@@ -263,39 +269,39 @@ return [
     "country" => [
         "country" => "الدولة",
         "countries" => "الدول",
-        "add_country" => "اضافة دولة",
+        "add_country" => "إضافة دولة",
         "edit_country" => "تعديل دولة",
         "country_count" => "عدد الدول",
         'permissions' => $permissions,
         'sub_progs' => [
             'index' => 'سجل الدول',
             'archive' => 'أرشيف الدول',
-            'create' => 'اضافة دولة',
+            'create' => 'إضافة دولة',
         ],
     ],
     "region" => [
         "region" => "المنطقة ",
         "regions" => "المناطق",
-        "add_region" => "اضافة منطقة",
+        "add_region" => "إضافة منطقة",
         "edit_region" => "تعديل المنطقه",
         "region_count" => "عدد المناطق",
         'permissions' => $permissions,
         'sub_progs' => [
             'index' => 'سجل المناطق',
             'archive' => 'أرشيف المناطق',
-            'create' => 'اضافة منطقة',
+            'create' => 'إضافة منطقة',
         ],
     ],
     "city" => [
         "city" => "المدينة",
         "cities" => "المدن",
-        "add_city" => "اضافة مدينة",
+        "add_city" => "إضافة مدينة",
         "edit_city" => "تعديل المدينة",
         "city_count" => "عدد المدن",
         'sub_progs' => [
             'index' => 'سجل المدن',
             'archive' => 'أرشيف المدن',
-            'create' => 'اضافة مدينة',
+            'create' => 'إضافة مدينة',
         ],
         'permissions' => $permissions
     ],
@@ -307,7 +313,7 @@ return [
         "sub_program" => 'البرنامج الفرعي',
         "group" => "المجموعة الادارية",
         "chosen_groups" => "الصلاحيات المختارة",
-        "add_group" => "اضافة مجموعة",
+        "add_group" => "إضافة مجموعة",
         "edit_group" => "تعديل المجموعة",
         'show_group' => 'عرض مجموعة',
         "admins_from" => "عدد المستخدمين من",
@@ -317,23 +323,24 @@ return [
         'sub_progs' => [
             'index' => 'سجل الصلاحيات',
             'archive' => 'أرشيف الصلاحيات',
-            'create' => 'اضافة مجموعة',
+            'create' => 'إضافة مجموعة',
         ],
 
         'admins_count' => 'عدد المستخدمين',
-        'sorry_group_name_is_repeated' => 'عفواً اسم المجموعة متكرر',
+        'sorry_group_name_is_repeated' => 'الاسم موجود من قبل',
+        'group_name_required' => 'اسم المجموعة مطلوب',
         'permissions' => array_except($permissions, ['archive', 'restore', 'force_delete']) + ['create' => 'عرض القائمة']
     ],
     "currency" => [
         "currency" => "العملة ",
         "currencies" => "العملات",
-        "add_currency" => "اضافة عملة",
+        "add_currency" => "إضافة عملة",
         "edit_currency" => "تعديل العملة",
         "currency_count" => "عدد العملات",
         'sub_progs' => [
             'index' => 'سجل العملات',
             'archive' => 'أرشيف العملات',
-            'create' => 'اضافة عملة',
+            'create' => 'إضافة عملة',
         ],
         'permissions' => $permissions
     ],
@@ -379,14 +386,15 @@ return [
     "rasid_job" => [
         "select_job" => "اختر الوظيفة",
         "rasid_jobs" => "الوظائف",
-        "add_rasid_job" => "اضافة وظيفة",
+        "add_rasid_job" => "إضافة وظيفة",
         "edit_rasid_job" => "تعديل الوظيفة",
         "rasid_job_count" => "عدد الوظائف",
         "rasid_job_description" => "الوصف الوظيفي",
         "rasid_job_department" => "اسم القسم",
         "name" => "اسم الوظيفة",
+        "enter_name" => "أدخل الاسم",
         "validation" => [
-            'name_must_be_unique_on_department' => 'تم اختيار اسم الوظيفة من قبل لنفس القسم'
+            'name_must_be_unique_on_department' => 'الاسم موجود من قبل لهذا القسم'
         ],
         "jobs_hired_deleted" => " لا يمكن حذف هذه الوظيفة لانها مشغولة ",
         "jobs_hired_is_active_changed" => " لا يمكن تعديل حالة هذه الوظيفة لانها مشغولة ",
@@ -394,13 +402,13 @@ return [
         'sub_progs' => [
             'index' => 'سجل الوظائف',
             'archive' => 'أرشيف الوظائف',
-            'create' => 'اضافة وظيفة',
+            'create' => 'إضافة وظيفة',
             'show' => 'عرض وظيفة',
         ],
         "rasid_job" => "الوظيفة",
         "choose_rasid_job" => "اختر الوظيفة",
         "jobs" => "الوظائف",
-        "add_job" => "اضافة وظيفة",
+        "add_job" => "إضافة وظيفة",
         "edit_job" => "تعديل وظيفة",
         "job_count" => "عدد الوظائف",
         "department" => "القسم",
@@ -440,7 +448,7 @@ return [
         'sub_progs' => [
             'index' => 'سجل الاعدادات',
             'archive' => 'أرشيف الاعدادات',
-            'create' => 'اضافة إعداد',
+            'create' => 'إضافة إعداد',
         ],
         'permissions' => $permissions
     ],
@@ -454,16 +462,13 @@ return [
         "admin" => "اسم المستخدم",
         "admin_name" => "أدخل الاسم",
         "login_id" => "رقم المستخدم",
-        "enter_login_id" => "أدخل رقم المستخدم",
-        "email"=>"البريد الالكتروني",
-        "phone" =>"رقم الجوال",
-        "job" =>"الوظيفة",
+        "enter_login_id" => "أدخل الرقم",
         "admins" => "المستخدمين",
-        "add_admin" => "اضافة مستخدم",
+        "add_admin" => "إضافة مستخدم",
         "edit_admin" => "تعديل المستخدم",
         "admin_count" => "عدد المستخدمين",
         'name' => 'الموظف',
-        'enter_number' => 'أدخل رقم المستخدم',
+        'enter_number' => 'أدخل الرقم',
         "ban_from" => "معطل لفترة (من)",
         "ban_to" => "معطل لفترة (إلى)",
         'permission_system' => 'صلاحيات النظام',
@@ -475,7 +480,7 @@ return [
         'sub_progs' => [
             'index' => 'سجل المستخدمين',
             'archive' => 'أرشيف المستخدمين',
-            'create' => 'اضافة مستخدم',
+            'create' => 'إضافة مستخدم',
             'show' => 'عرض مستخدم'
         ],
 
@@ -503,13 +508,13 @@ return [
     "employee" => [
         "employee" => "الموظف",
         "employees" => "الموظفين",
-        "add_employee" => "اضافة موظف",
+        "add_employee" => "إضافة موظف",
         "edit_employee" => "تعديل موظف",
         "employee_count" => "عدد الموظفين",
         'sub_progs' => [
             'index' => 'سجل الموظفين',
             'archive' => 'أرشيف الموظفين',
-            'create' => 'اضافة موظف',
+            'create' => 'إضافة موظف',
         ],
         'permissions' => array_except($permissions, ['archive', 'restore', 'force_delete']) + ['create' => 'عرض الموظفين']
 
@@ -519,13 +524,13 @@ return [
         "bank" => "البنك",
         "banks" => "البنوك",
         "bank_name" => "اسم البنك",
-        "Enter_Bank_name" => "أدخل اسم البنك",
-        "add_bank" => "اضافة بنك",
+        "Enter_Bank_name" => "أدخل الاسم",
+        "add_bank" => "إضافة بنك",
         "edit_bank" => "تعديل بنك",
         "select_bank" => "اختر البنك",
         "bank_count" => "عدد البنوك",
         "BranchName" => "اسم الفرع",
-        "Enter_Bank_branch_name" => "أدخل اسم الفرع",
+        "Enter_Bank_branch_name" => "أدخل الاسم",
         "Enter_bank_code" => "ادخل الكود ",
         "Enter_bank_location" => "ادخل الموقع",
         "transaction_Value_From" => "قيمة تكلفة التحويل",
@@ -557,7 +562,7 @@ return [
         'sub_progs' => [
             'index' => 'سجل البنوك',
             'archive' => 'أرشيف البنوك',
-            'create' => 'اضافة بنك',
+            'create' => 'إضافة بنك',
             'show' => 'عرض البنك',
             'edit' => 'تعديل بنك',
 
@@ -574,7 +579,7 @@ return [
         'transactions' => 'سجل المعاملات',
         'transaction' => 'المعاملة',
         'transaction_number' => 'رقم المعاملة',
-        'enter_transaction_number' => 'أدخل رقم المعاملة',
+        'enter_transaction_number' => 'أدخل الرقم',
         'transaction_date' => 'تاريخ المعاملة',
         'enter_transaction_date' => 'أدخل تاريخ المعاملة',
         'from_user' => 'اسم المستخدم',
@@ -583,8 +588,8 @@ return [
         'transaction_amount' => 'قيمة المعاملة',
         'total_amount' => 'قيمة الفاتورة',
         'enter_from_user' => 'أدخل الاسم',
-        'enter_user_identity' => 'أدخل رقم الهوية',
-        'enter_to_user_client' => 'أدخل اسم العميل',
+        'enter_user_identity' => 'أدخل الرقم',
+        'enter_to_user_client' => 'أدخل الاسم',
         'enter_total_amount' => 'أدخل قيمة الفاتورة',
         'gift_balance' => 'المكافآت',
         'transaction_type' => 'نوع المعاملة',
@@ -612,23 +617,21 @@ return [
             'platinum' => 'البطاقة البلاتينية',
         ],
         'type_cases' => [
-            'payment' => 'دفع',
-            'wallet_transfer' => 'تحويل لمحفظة',
-            'bank_transaction' => 'تحويل بنكي',
-            'bank_transactoin' => 'تحويل بنكي',
-            'receive_credit' => 'استلام رصيد',
-            'wallet_charge' => 'شحن رصيد',
-            'upgrade_card' => 'ترقية بطاقات',
             'pay' => 'دفع',
             'transfer' => 'تحويل',
             'charge' => 'شحن',
             'money_request' => 'طلب أموال',
         ],
+        'sub_progs' => [
+            'index' => 'سجل المعاملات',
+            'archive' => 'أرشيف المعاملات',
+            'show' => 'عرض المعاملة',
+        ],
     ],
     "client" => [
         "client" => "العميل",
         "clients" => "العملاء",
-        "add_client" => "اضافة عميل",
+        "add_client" => "إضافة عميل",
         "select_client" => "اختر العميل",
         "edit_client" => "تعديل عميل",
         "admin_client" => "عدد العملاء",
@@ -676,15 +679,23 @@ return [
         'permissions' => array_except($permissions, ['archive', 'restore', 'force_delete']) + ['create' => 'عرض العملاء']
     ],
 
+    'client_package'=>[
+        'client_packages'=>'باقات العميل',
+        'permissions'=>[
+            'index'=>'السجل',
+            'store'=>'حفظ'
+        ]
+    ],
+
     "citizens" => [
-        "citizens" => "المواطنين",
-        "citizens_record" => "سجل المواطنين",
-        "name" => "اسم المواطن",
+        "citizens" => "المستخدمين",
+        "citizens_record" => "سجل المستخدمين",
+        "name" => "اسم المستخدم",
         "identity_number" => "رقم الهوية",
-        "enter_name" => "أدخل اسم المواطن",
-        "enter_identity_number" => "أدخل رقم الهوية",
+        "enter_name" => "أدخل الاسم",
+        "enter_identity_number" => "أدخل الرقم",
         "phone" => "رقم الجوال",
-        "enter_phone" => "أدخل رقم الجوال",
+        "enter_phone" => "أدخل الرقم",
         "enabled_package" => "البطاقة المفعلة",
         "choose_card" => "اختر البطاقة",
         'card_end_at_from' => "تاريخ انتهاء البطاقة (من)",
@@ -699,11 +710,17 @@ return [
 
         'edit_phone' => "تعديل رقم الجوال",
         'new_phone' => "رقم الجوال الجديد",
-
+        "phone_required" =>"رقم الجوال مطلوب",
+        "phone_unique" =>"رقم الجوال مكرر"
     ],
     'package' => [
         "package" => "نسب خصم البطاقات",
         "packages" => "نسب خصم البطاقات",
+        'basic_card' => 'البطاقة الأساسية',
+        'golden_card' => 'البطاقة الذهبية',
+        'platinum_card' => 'البطاقة البلاتينية',
+        'client_name' => 'اسم العميل',
+        'select_client_name' => 'اختر العميل',
         "cards_discount" => "نسب خصم البطاقات",
         "basic_card_discount" => "نسبة خصم البطاقة الأساسية",
         "package_title" => "نسبة خصم :name",
@@ -713,9 +730,10 @@ return [
         "cards_discount_records" => "سجل نسب خصم البطاقات",
         "add" => "إضافة نسب الخصم",
         "without" => "لا يوجد",
-        "discount_success_add" => "تم إضافة نسب خصم البطاقات للعميل  :client",
-        "discount_success_update" => "تم تعديل نسب خصم البطاقات للعميل  :client",
-        'permissions' => array_except($permissions, ['show'])
+        "discount_success_add" => "تم إضافة نسب خصم البطاقات للعميل ",
+        "discount_success_update" => "تم تعديل نسب خصم البطاقات للعميل ",
+        'permissions' => array_except($permissions, ['show']),
+        'choose_client' => 'اختار العميل',
     ],
 
     'user' => [
@@ -723,7 +741,7 @@ return [
         'sub_progs' => [
             'index' => 'سجل المستخدمين',
             'archive' => 'أرشيف المستخدمين',
-            'create' => 'اضافة مستخدم',
+            'create' => 'إضافة مستخدم',
         ],
     ],
     'chat' => [
@@ -748,7 +766,7 @@ return [
             'show_all messages' => "مشاهدة
         كل
         الرسائل",
-            'create' => 'اضافة رسالة',
+            'create' => 'إضافة رسالة',
         ],
     ],
     'permission' => [
@@ -757,7 +775,7 @@ return [
         'sub_progs' => [
             'index' => 'سجل الصلاحيات',
             'archive' => 'أرشيف الصلاحيات',
-            'create' => 'اضافة صلاحية',
+            'create' => 'إضافة صلاحية',
         ],
     ],
 ];

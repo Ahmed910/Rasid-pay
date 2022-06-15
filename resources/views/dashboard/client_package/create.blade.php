@@ -116,10 +116,10 @@
             $("#showBack").click(function() {
                 let validate = false;
                 $('#formId input').each(function() {
-                    if ($(this).attr('name') !== '_token' && ($(this).val() != '' || $(this).attr(
-                            'checked')))
+                    if ($(this).attr('name') !== '_token' && ($(this).val() != '' || $(this).attr('checked')))
                         validate = true;
                 });
+
                 if (validate) {
                     $('#backModal').modal('show');
                     return false;
@@ -127,6 +127,12 @@
                     window.location.href = "{{ route('dashboard.client_package.index') }}";
                 }
             });
+
+          $('input[type="number"]').on('keypress', function (evt) {
+            var charCode = (evt.which) ? evt.which : evt.keyCode;
+            return !(charCode !== 46 && charCode > 31
+              && (charCode < 48 || charCode > 57));
+          });
 
         })();
     </script>

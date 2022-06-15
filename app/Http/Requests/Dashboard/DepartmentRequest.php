@@ -53,4 +53,15 @@ class DepartmentRequest extends FormRequest
 
         return $rules;
     }
+
+
+    public function messages()
+    {
+        return [
+
+            app()->getLocale() . ".name.required" => __('validation.department.required'),
+            app()->getLocale() . ".name.unique" => __('validation.custom.unique'),
+
+        ];
+    }
 }

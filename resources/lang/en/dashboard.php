@@ -232,9 +232,7 @@ return [
         'sub_progs' => [
             'index' => 'Department Records',
             'archive' => 'Archieve Department',
-            'create' => 'Add Department ',
-            'show' => 'Show Department ',
-
+            'create' => 'Add Department ', 'show' => 'Show Department ',
         ],
 
     ],
@@ -444,12 +442,15 @@ return [
             'platinum' => 'Platinum',
         ],
         'type_cases' => [
-            'payment' => 'Payment',
-            'wallet_transfer' => 'Wallet Transfer',
-            'bank_transaction' => 'Bank Transaction',
-            'receive_credit' => 'Receive Credit',
-            'wallet_charge' => 'Wallet Charge',
-            'upgrade_card' => 'Upgrade Card',
+            'pay' => 'Pay',
+            'transfer' => 'Transfer',
+            'charge' => 'Charge',
+            'money_request' => 'Money Request',
+        ],
+        'sub_progs' => [
+            'index' => 'Transaction Records',
+            'archive' => 'Archive Transaction',
+            'show' => 'Show Transaction ',
         ],
     ],
     "client" => [
@@ -515,8 +516,9 @@ return [
         "golden_card_discount" => "Golden Card Discount",
         "platinum_card_discount" => "Platinum Card Discount",
         "cards_discount_records" => "Cards Discount Records",
-        "discount_success_add" => "Card discounts have been added to client :client",
-        "discount_success_update" => "Card discounts have been updated to client :client",
+        "discount_success_add" => "Card discounts have been added to client ",
+        "discount_success_update" => "Card discounts have been updated to client ",
+        'choose_client' => 'Choose Client'
 
     ],
 
