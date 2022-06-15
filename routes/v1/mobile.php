@@ -49,6 +49,8 @@ Route::middleware('auth:sanctum')->group(function () {
             Route::get('check_phone_wallets/{phone}', 'WalletTransferController@checkIfPhoneExists');
             // Local Transfers
             Route::post('local_transfers', 'LocalTransferController@store');
+            // All Transfers
+            Route::get('transfers','TransferController@index');
         });
 
         Route::controller('PackageController')->group(function () {
