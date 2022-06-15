@@ -10,7 +10,7 @@ use App\Models\RecieveOption\RecieveOption;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
-class  Beneficiary extends Model
+class Beneficiary extends Model
 {
     use HasFactory, Uuid;
 
