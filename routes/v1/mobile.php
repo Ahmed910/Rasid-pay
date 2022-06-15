@@ -42,6 +42,8 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::post('money_requests', 'MoneyRequestController@store');
         // Cards
         Route::apiResource('cards', 'CardController')->only('index', 'destroy');
+        // Clients
+        Route::apiResource('clients', 'ClientController')->only('index', 'show');
         // Transfer
         Route::namespace('Transfers')->group(function () {
             // Wallet Transfers
@@ -71,4 +73,3 @@ Route::middleware('auth:sanctum')->group(function () {
 
 Route::get('slides', 'SlideController@index');
 Route::get('banks', 'BankController@index');
-Route::apiResource('clients', 'ClientController')->only('index', 'show');
