@@ -15,6 +15,7 @@ class PackageResource extends JsonResource
      */
     public function toArray($request)
     {
+        $current_package = auth()->user()->citizen()->with('enabledPackage.package')->first();
         return [
             'id' => $this->id,
             'name' => $this->name,
@@ -23,7 +24,12 @@ class PackageResource extends JsonResource
             'color' => $this->color,
             'price' => $this->price,
             'discount' => $this->discount,
-            'expire_at' => Carbon::now()->addMonths($this->duration)->format('Y/m/d'),
+            'duration_type' => 'month',
+            'duration' => $this->duration,
+            'is_default' => (bool)$this->is_default,
+            'is_current' => $current_package->enabledPackage->package_id == $this->id,
+            'start_at' => $current_package->enabledPackage->package_id == $this->id ? $current_package->enabledPackage?->start_at : null,
+            'end_at' => $current_package->enabledPackage->package_id == $this->id ? $current_package->enabledPackage?->end_at : null,
         ];
     }
 }
