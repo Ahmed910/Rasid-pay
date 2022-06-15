@@ -199,7 +199,7 @@
         $('#mainDepartment').val(null).trigger('change');
         $('#mainProgram').val(null);
         $('#branchProgram').val(null);
-        table.draw();
+        table.column('').order('asc' ).search('').draw();
         if (location.href.includes('?')) {
             history.pushState({}, null, location.href.split('?')[0]);
           }

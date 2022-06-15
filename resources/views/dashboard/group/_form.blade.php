@@ -3,7 +3,7 @@
         <div class="col-12 col-md-6">
             {!! Form::label('departmentName', trans('dashboard.group.group_name')) !!} <span class="requiredFields">*</span>
             @foreach ($locales as $locale)
-            {!! Form::text("{$locale}[name]", isset($group) ? $group->name : null, ['class' => 'form-control input-regex stop-copy-paste', 'placeholder' => trans('dashboard.general.enter_name'), 'minlength' => '2', 'maxlength' => '100', 'required' => 'required','onblur'=>'validateData(this.id)','id'=>"{$locale}_name"]) !!}
+            {!! Form::text("{$locale}[name]", isset($group) ? $group->name : null, ['class' => 'form-control input-regex stop-copy-paste', 'placeholder' => trans('dashboard.general.enter_name'), 'minlength' => '2', 'maxlength' => '100', 'required' => 'required','onblur'=>'validateData(this)','id'=>"{$locale}_name"]) !!}
             <span class="text-danger dd" id="{{ $locale }}.nameError" hidden></span>
             @endforeach
         </div>
@@ -15,8 +15,6 @@
                 <span class="text-danger" id="statusError" hidden></span>
             </div>
         @endif
-
-
 
         <div class="col-12 col-md-6">
             <label for="permissions">{{ trans('dashboard.admin.permission_system') }}</label> <span
@@ -169,6 +167,7 @@
             if (!state.id) {
                 return state.text;
             }
+
             var $state = $(
                 `<label for="${state.id}" class="d-flex justify-content-between align-items-center m-0">
                   <div class="">
@@ -176,15 +175,42 @@
                       <input type="checkbox" class="custom-control-input" id="${state.id}" />
                       <label class="custom-control-label m-0" for="${state.id}">${state.text}</label>
                     </div>
+                   </div>                                       
 
-
-                   </div>
-                   <i class="mdi mdi-clipboard-list"  data-bs-toggle="popoverRoles" tabindex="1"
-                                    data-bs-placement="right" data-bs-html="true"
-                                    title="<span class='tooltipRole'> hesham</span>"></i>
+                    <div class="tooltip-container">
+                        <i class="mdi mdi-clipboard-list"></i>
+                        <div class="tooltip-content">
+                            <ul>
+                                <li class="tooltipRole">المجموعة الاولي</li>
+                                <li class="tooltipRole">المجموعة الثانية</li>
+                            </ul>
+                        </div>
+                    </div>
+                        
                    </label>`
             );
             return $state;
+
+
+            //    <i class="mdi mdi-clipboard-list"  data-bs-toggle="popoverRoles" tabindex="1"
+            //                         data-bs-placement="right" data-bs-html="true"
+            //                         title="<span class='tooltipRole'> hesham</span>"></i>
+
+
+            //             <span  title="tooltip text goes here"><i class="mdi mdi-clipboard-list"  data-bs-toggle="popoverRoles" tabindex="1"
+            //              data-bs-placement="right" data-bs-html="true"></i>
+            //             </span>
+
+
+            // <div class="tooltip-container">
+            //             <i class="mdi mdi-clipboard-list"></i>
+            //             <div class="tooltip-content">
+            //                 <ul>
+            //                     <li>first item</li>
+            //                     <li>second item</li>
+            //                 </ul>
+            //             </div>
+            //         </div>
         };
     </script>
 @endsection

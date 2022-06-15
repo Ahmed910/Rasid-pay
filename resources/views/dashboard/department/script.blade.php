@@ -204,7 +204,7 @@
           if (location.href.includes('?')) {
             history.pushState({}, null, location.href.split('?')[0]);
           }
-        table.draw();
+          table.column('').order('asc' ).search('').draw();
       });
 
       table.on('draw', function () {
