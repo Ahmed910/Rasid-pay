@@ -17,8 +17,9 @@ class BeneficiaryRequest extends ApiMasterRequest
             'recieve_option_id' => 'nullable|required_if:benficiar_type,' . Beneficiary::GLOBAL_TYPE . '|exists:recieve_options,id',
             'nationality'       => 'nullable|string',
             'date_of_birth'     => 'nullable|date|after_or_equal:1920-01-01',
-            'iban_number'       => ['required_if:benficiar_type,' . Beneficiary::LOCAL_TYPE,function ($attribute, $value, $fail) {
-                if (!check_iban_valid($value, 'sa')) {
+            'iban_number'       => ['required_if:benficiar_type,' . Beneficiary::TYPES ,function ($attribute, $value, $fail) {
+                if (!check_iban_valid($value, ($this->benficiar_type == Beneficiary::LOCAL ? 'sa' : null))) {
+                    dd($value);
                     $fail(trans('mobile.validation.invalid_iban'));
                 }
             }],
