@@ -38,6 +38,8 @@
           url: "{{ route('dashboard.bank.index') }}?" + $.param(
             @json(request()->query())),
           data: function (data) {
+            insertUrlParam('sort[column]', data.columns[data.order[0].column].name);
+            insertUrlParam('sort[dir]',data.order[0].dir);
             if ($('#branch_name').val()) data.branch_name = $('#branch_name').val();
             if ($('#code').val()) data.code = $('#code').val();
             if ($('#is_active').val()) data.is_active = $('#is_active').val();

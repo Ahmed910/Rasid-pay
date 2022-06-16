@@ -86,6 +86,8 @@
           url: "{{ route('dashboard.bank_account.index') }}",
           data:
             function (data) {
+              insertUrlParam('sort[column]', data.columns[data.order[0].column].name);
+              insertUrlParam('sort[dir]',data.order[0].dir);
               if ($('#bank_id').val()) data.bank_id = $('#bank_id').val();
               if ($('#client_type').val()) data.client_type = $('#client_type').val();
               if ($('#clientName').val()) data.fullname = $('#clientName').val();
@@ -241,6 +243,8 @@
           url: "{{ route('dashboard.client.index') }}",
           data:
             function (data) {
+              insertUrlParam('sort[column]', data.columns[data.order[0].column].name);
+              insertUrlParam('sort[dir]',data.order[0].dir);
               if ($('#bank_id').val() !== '' && $('#bank_id').val() !== null) data.bank_id = $('#bank_id').val();
               if ($('#client_type').val() !== '' && $('#client_type').val() !== null) data.client_type = $('#client_type').val();
               if ($('#clientName').val() !== '' && $('#clientName').val() !== null) data.fullname = $('#clientName').val();

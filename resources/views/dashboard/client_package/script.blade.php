@@ -39,7 +39,11 @@
             data.id = $('#client_id').val();
           },
           type: "GET",
-          dataSrc: 'data'
+          dataSrc: 'data',
+          data : function(data){
+            insertUrlParam('sort[column]', data.columns[data.order[0].column].name);
+            insertUrlParam('sort[dir]',data.order[0].dir);
+          }
         },
         columns: [{
           data: function (data, type, full, meta) {
