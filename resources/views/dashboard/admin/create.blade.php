@@ -1,5 +1,6 @@
 @extends('dashboard.layouts.master')
 @section('title', trans('dashboard.admin.sub_progs.create'))
+@include('dashboard.admin.style')
 
 @section('content')
 <!-- PAGE-HEADER -->
