@@ -1,5 +1,5 @@
 <style>
-  .select2-results__options li:nth-child(2) {
+  .select2-results__options li[id$='unselectAll']{
     display: none;
   }
 </style>
