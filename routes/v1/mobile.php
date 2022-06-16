@@ -48,7 +48,7 @@ Route::middleware('auth:sanctum')->group(function () {
         // Clients
         Route::apiResource('clients', 'ClientController')->only('index', 'show');
         // Packages
-        Route::apiResource('packages', 'PackageController')->only('index', 'show');
+        Route::apiResource('packages', 'PackageController')->only('index', 'show','update');
         // Transfer
         Route::namespace('Transfers')->group(function () {
             // Wallet Transfers

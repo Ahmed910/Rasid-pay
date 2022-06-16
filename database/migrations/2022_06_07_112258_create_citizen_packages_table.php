@@ -21,8 +21,8 @@ class CreateCitizenPackagesTable extends Migration
             $table->string('package_price')->nullable();
             $table->string('package_discount',30)->nullable();
             $table->string('promo_discount',30)->nullable();
-            $table->string('promo_code',30)->nullable();
-            $table->tinyInteger('remaining_usage')->nullable();
+//            $table->string('promo_code',30)->nullable();
+//            $table->tinyInteger('remaining_usage')->nullable();
             $table->date("start_at")->nullable();
             $table->date("end_at")->nullable();
             $table->timestamps();
