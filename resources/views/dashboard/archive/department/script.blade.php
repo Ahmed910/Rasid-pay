@@ -35,6 +35,8 @@
             ajax: {
                 url: "{{ route('dashboard.department.archive') }}?",
                 data: function(data) {
+                    insertUrlParam('sort[column]', data.columns[data.order[0].column].name);
+                    insertUrlParam('sort[dir]',data.order[0].dir);
                     data.name = $('#departmentName').val();
                     data.created_from = $('#from-hijri-picker-custom').val();
                     data.created_to = $('#to-hijri-picker-custom').val();

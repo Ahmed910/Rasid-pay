@@ -38,6 +38,8 @@
         ajax: {
           url: "{{ route('dashboard.admin.index') }}",
           data: function (data) {
+            insertUrlParam('sort[column]', data.columns[data.order[0].column].name);
+            insertUrlParam('sort[dir]',data.order[0].dir);
             data.ban_status = $('#status').val();
             data.department_id = $('#mainDepartment').val();
             data.name = $('#userName').val();

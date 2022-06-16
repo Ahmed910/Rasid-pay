@@ -222,6 +222,7 @@ class DepartmentController extends Controller
             ->CustomDateFromTo($request)
             ->with('parent.translations')
             ->ListsTranslations('name')
+            ->sortBy($request)
             ->addSelect('departments.created_at', 'departments.is_active', 'departments.parent_id', 'departments.added_by_id')->get();
 
         if (!$request->has('created_from')) {

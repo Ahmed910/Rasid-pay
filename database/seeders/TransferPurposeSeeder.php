@@ -14,6 +14,6 @@ class TransferPurposeSeeder extends Seeder
      */
     public function run()
     {
-        TransferPurpose::factory()->count(30)->create();
+        TransferPurpose::factory()->count(10)->create();
     }
 }

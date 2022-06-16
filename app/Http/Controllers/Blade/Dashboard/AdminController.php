@@ -201,7 +201,9 @@ class AdminController extends Controller
 
     public function exportPDF(Request $request, GeneratePdf $pdfGenerate)
     {
-        $adminsQuery = User::CustomDateFromTo($request)->search($request)->where('user_type', 'admin')->has("employee")->get();
+        $adminsQuery = User::CustomDateFromTo($request)
+            ->sortBy($request)
+            ->search($request)->where('user_type', 'admin')->has("employee")->get();
 
         if (!$request->has('created_from')) {
             $createdFrom = User::where('user_type', 'admin')->selectRaw('MIN(created_at) as min_created_at')->value('min_created_at');

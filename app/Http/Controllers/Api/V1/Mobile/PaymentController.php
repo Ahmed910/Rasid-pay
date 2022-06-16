@@ -16,7 +16,7 @@ class PaymentController extends Controller
         $citizen_wallet = auth()->user()->citizenWallet;
         if ($request->amount > ($citizen_wallet->main_balance + $citizen_wallet->cash_back)) {
             return response()->json(['status' => false, 'data' => null, 'message' => trans('mobile.payments.current_balance_is_not_sufficient_to_complete_payment')], 422);
-        } else {
+        }
             $payment->fill($request->validated() + ['citizen_id' => auth()->user()->citizen->id])->save();
             $transaction_data = [
                 'trans_type' => 'pay',
@@ -45,7 +45,6 @@ class PaymentController extends Controller
                     'status' => true,
                     'message' => trans("dashboard.general.success_add")
                 ]);
-        }
     }
 
 

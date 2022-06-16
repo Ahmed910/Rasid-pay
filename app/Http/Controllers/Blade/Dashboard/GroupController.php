@@ -173,6 +173,7 @@ class GroupController extends Controller
         ->withTranslation()
         ->withCount('admins as user_count')
         ->search($request)
+        ->sortBy($request)
         ->get();
 
         if (!$request->has('created_from')) {

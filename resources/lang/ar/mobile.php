@@ -24,5 +24,24 @@ return [
     ],
     'payments' => [
         'current_balance_is_not_sufficient_to_complete_payment'=>'الرصيد الحالي لا يكفي لإجراء عملية الدفع',
-    ]
+    ],
+    'promotion'=>[
+        'promo_code_is_used'=>'كود التخفيض مستخدم من قبل',
+        'promo_code_is_not_found'=>'كود التخفيض غير صحيح',
+    ],
+    'transaction' => [
+        'transaction_types' => [
+            'local_transfer' => 'تحويل محلي',
+            'global_transfer' => 'تحويل دولي',
+            'charge' => 'شحن',
+            'money_request' => 'طلب أموال',
+        ],
+        'status_cases' => [
+            'success' => 'ناجحة',
+            'fail' => 'فاشلة',
+            'pending' => 'بانتظار الاستلام',
+            'received' => 'تم الاستلام',
+            'cancel' => 'تم الالغاء',
+        ],
+    ],
 ];
