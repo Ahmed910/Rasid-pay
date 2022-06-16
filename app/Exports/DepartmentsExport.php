@@ -22,6 +22,7 @@ class DepartmentsExport implements FromView, ShouldAutoSize
         $departmentsQuery = Department::search($this->request)
             ->CustomDateFromTo($this->request)
             ->with('parent.translations')
+            ->sortBy($this->request)
             ->ListsTranslations('name')
             ->addSelect('departments.created_at', 'departments.is_active', 'departments.parent_id', 'departments.added_by_id')->get();
             if (!$this->request->has('created_from')) {

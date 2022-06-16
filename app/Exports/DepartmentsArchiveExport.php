@@ -26,6 +26,7 @@ class DepartmentsArchiveExport implements FromView, ShouldAutoSize
             ->with('parent.translations')
             ->ListsTranslations('name')
             ->addSelect('departments.deleted_at', 'departments.parent_id')
+            ->sortBy($this->request)
             ->get();
 
             if (!$this->request->has('created_from')) {

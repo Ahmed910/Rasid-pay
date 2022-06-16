@@ -23,6 +23,7 @@ class GroupsExport implements FromView, ShouldAutoSize
         ->withTranslation()
         ->withCount('admins as user_count')
         ->search($this->request)
+        ->sortBy($this->request)
         ->get();
         if (!$this->request->has('created_from')) {
             $createdFrom = Group::selectRaw('MIN(created_at) as min_created_at')->value('min_created_at');
