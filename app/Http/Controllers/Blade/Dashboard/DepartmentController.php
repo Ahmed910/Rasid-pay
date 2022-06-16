@@ -149,7 +149,7 @@ class DepartmentController extends Controller
             ->with('parent.translations')
             ->ListsTranslations('name')
             ->addSelect('departments.deleted_at', 'departments.parent_id','departments.is_active')
-            ->sortBy($request);
+            ->orderBy('deleted_at','desc')->sortBy($request);
 
         if ($request->ajax()) {
             $departmentCount = $departmentsQuery->count();

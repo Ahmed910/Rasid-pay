@@ -23,13 +23,13 @@
     <div class="col-12 col-md-3">
       <label for="userNumFrom">{!! trans('dashboard.group.admins_from') !!}</label>
       <input type="number" oninput="checkNumberFieldLength(this);" name="admins_from"
-        value="{{ request('admins_from') }}" class="form-control stop-copy-paste number-regex" id="userNumFrom"
+        value="{{ request('admins_from') }}" class="form-control stop-copy-paste" onkeypress = 'return /[0-9]/i.test(event.key)'  id="userNumFrom"
         placeholder="{!! trans('dashboard.datatable.from') !!}" />
     </div>
     <div class="col-12 col-md-3">
       <label for="userNumTo">{!! trans('dashboard.group.admins_to') !!}</label>
       <input type="number" oninput="checkNumberFieldLength(this);" name="admins_to" value="{{ request('admins_to') }}"
-        class="form-control stop-copy-paste number-regex" id="userNumTo" placeholder="{!! trans('dashboard.datatable.to') !!}" />
+        class="form-control stop-copy-paste" onkeypress = 'return /[0-9]/i.test(event.key)' id="userNumTo" placeholder="{!! trans('dashboard.datatable.to') !!}" />
     </div>
     <div class="col-12 col-md-3">
      <label for="status">
