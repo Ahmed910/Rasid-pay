@@ -39,10 +39,10 @@ class ClientPackageController extends Controller
     public function create()
     {
         $previousUrl = url()->previous();
-        (strpos($previousUrl, 'package')) ? session(['perviousPage' => 'package']) : session(['perviousPage' => 'home']);
+        (strpos($previousUrl, 'client_package')) ? session(['perviousPage' => 'client_package']) : session(['perviousPage' => 'home']);
 
         $clients = User::doesntHave('clientPackages')->where(['user_type'=>'client','is_active'=>1])->pluck('users.fullname', 'users.id')->toArray();
-        $packages = Package::select('id')->listsTranslations('name')->get();
+        $packages = Package::orderBy('order')->select('id')->listsTranslations('name')->get();
         return view('dashboard.client_package.create', compact('clients', 'previousUrl','packages'));
     }
 
@@ -58,9 +58,9 @@ class ClientPackageController extends Controller
     public function edit($client_id)
     {
         $previousUrl = url()->previous();
-        (strpos($previousUrl, 'package')) ? session(['perviousPage' => 'package']) : session(['perviousPage' => 'home']);
+        (strpos($previousUrl, 'client_package')) ? session(['perviousPage' => 'client_package']) : session(['perviousPage' => 'home']);
         $client = User::with('clientPackages')->where('user_type','client')->findOrFail($client_id);
-        $packages = Package::select('id')->listsTranslations('name')->get();
+        $packages = Package::orderBy('order')->select('id')->listsTranslations('name')->get();
         return view('dashboard.client_package.edit', compact('client', 'previousUrl','packages'));
     }
 

@@ -30,6 +30,6 @@ class GeneralMail extends Mailable
      */
     public function build()
     {
-        return $this->view($optional['view'],['data' => $this->data])->subject(@$optional['subject'])->cc();
+        return $this->view($this->optional['view'],['data' => $this->data])->subject(@$this->optional['subject']);
     }
 }

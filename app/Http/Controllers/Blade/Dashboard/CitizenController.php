@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Blade\Dashboard;
 
 use App\Models\Citizen;
 use App\Models\Package\Package;
+use App\Models\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\Blade\Dashboard\Citizen\CitizenCollection;
@@ -58,8 +59,10 @@ class CitizenController extends Controller
             "full_phone" => ["unique:users,phone," . @$id],
 
         ],$messages);
-        $citizen = Citizen::where('user_id', $id)->firstOrFail();
-        $citizen->user->update($fileds + ['updated_at' => now()]);
+        $citizen = User::where('user_type', "citizen")->with(["citizenTransactions"=>function($q){$q->where("trans_status","pending");}])->findOrFail($id);
+        if(count($citizen->citizenTransactions))
+            return redirect()->route('dashboard.citizen.index')->withErrors(__('dashboard.citizen.update_phone_has-transations'));
+        $citizen->update($fileds + ['updated_at' => now()]);
 
         return redirect()->route('dashboard.citizen.index')->withSuccess(__('dashboard.general.success_update'));
     }

@@ -5,17 +5,18 @@ namespace App\Http\Controllers\Api\V1\Mobile;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\V1\Mobile\{
     WalletBinRequest,
-    UpdateProfileRequest,
+    Profile\UpdateProfileRequest,
     Profile\UpdatePasswordRequest
 };
 use App\Http\Resources\Mobile\UserResource;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class ProfileController extends Controller
 {
     public function index()
     {
-        return UserResource::make(auth()->user())->additional(['status' => true, 'message' => '']);
+        return UserResource::make(auth()->user()->load('citizen'))->additional(['status' => true, 'message' => '']);
     }
 
     public function store(UpdateProfileRequest $request)
@@ -24,7 +25,7 @@ class ProfileController extends Controller
         $old_phone = $citizen->phone;
         $citizen->fill($request->validated())->save();
         $citizen->citizen()->update($request->only(['lat', 'lng', 'location']));
-        $message = trans('auth.success_update');
+        $message = trans('dashboard.general.success_update');
         if ($old_phone != $citizen->phone) {
             #logout_then_send_sms
             $code = $this->sendSmsToCitizen($citizen->phone);
@@ -34,7 +35,7 @@ class ProfileController extends Controller
             ]);
             $message = trans('auth.success_update_verify_phone');
         }
-        return UserResource::make($citizen)->additional(['status' => true, 'message' => $message]);
+        return UserResource::make($citizen->load('citizen'))->additional(['status' => true, 'message' => $message]);
     }
 
     private function sendSmsToCitizen($phone)

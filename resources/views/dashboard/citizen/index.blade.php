@@ -18,7 +18,8 @@
   <div class="col-12 col-md-3 mb-3">
     <label for="idNumber">{{ trans('dashboard.citizens.identity_number') }} </label>
     <input type="number" class="form-control" id="idNumber" maxlength="10" ondragstart="return false;" ondrop="return false;"
-      placeholder="{{ trans('dashboard.citizens.enter_identity_number') }} " />
+           oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
+           placeholder="{{ trans('dashboard.citizens.enter_identity_number') }} " />
   </div>
   <div class="col-12 col-md-3 mb-3">
     <label for="phone">{{ trans('dashboard.citizens.phone') }} </label>

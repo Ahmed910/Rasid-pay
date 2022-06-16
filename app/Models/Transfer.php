@@ -6,6 +6,7 @@ use App\Traits\Loggable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Traits\Uuid;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Transfer extends Model
@@ -46,6 +47,16 @@ class Transfer extends Model
     public function bank_transfer()
     {
         return $this->hasOne(BankTransfer::class, 'transfer_id');
+    }
+
+    public function from_user() : BelongsTo
+    {
+      return $this->belongsTo(User::class,'from_user_id');
+    }
+
+    public function to_user() : BelongsTo
+    {
+      return $this->belongsTo(User::class,'to_user_id');
     }
     #endregion relationships
 

@@ -108,10 +108,29 @@
                 }
             });
 
+             $("#show_hide_confirm_password a").on("click", function(event) {
+                  event.preventDefault();
+                  if ($("#show_hide_confirm_password input").attr("type") == "text") {
+                      $("#show_hide_confirm_password input").attr("type", "password");
+                      $("#show_hide_confirm_password i").addClass("mdi-eye-off-outline");
+                      $("#show_hide_confirm_password i").removeClass("mdi-eye-outline");
+                  } else if (
+                      $("#show_hide_confirm_password input").attr("type") == "password"
+                  ) {
+                      $("#show_hide_confirm_password input").attr("type", "text");
+                      $("#show_hide_confirm_password i").removeClass("mdi-eye-off-outline");
+                      $("#show_hide_confirm_password i").addClass("mdi-eye-outline");
+                  }
+              });
+
         });
 
 
+
         function submitForm(formId) {
+            if($(formId).hasClass('disable_form')) {
+                return false;
+            }
             let form = $(formId)[0];
             let data = new FormData(form);
             let btn_submit = $(formId).find('a.a-submit');

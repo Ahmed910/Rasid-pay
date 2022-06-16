@@ -267,19 +267,18 @@ return [
     | of "email". This simply helps us make our message more expressive.
     |
     */
+   
+
+    'attributes' => $attributes,
+
     'custom' => [
+        'unique' => 'الاسم موجود من قبل',
         'email' => [
             'exists' => 'هذا البريد غير مسجل بالنظام',
         ],
         'phone' => [
             'exists' => ' رقم الجوال غير مسجل بالنظام',
         ],
-    ],
-
-    'attributes' => $attributes,
-
-    'custom' => [
-        'unique' => 'الاسم موجود من قبل'
     ],
 
     'department' => [
@@ -290,7 +289,7 @@ return [
         'required' => 'اسم الوظيفة مطلوب',
     ],
 
-    
+
     'admin' => [
         'required_name' => 'اسم المستخدم مطلوب',
         'required_job' => 'الوظيفة مطلوبة',
@@ -299,6 +298,11 @@ return [
         'unique_phone' => 'رقم الجوال موجود من قبل',
         'unique_email' => 'البريد الإلكتروني موجود من قبل',
         'confirmed_password' => 'كلمة المرور غير متطابقة',
-        
+    ],
+
+    'client_package' => [
+
+        'gold_gt_basic' => 'يرجى ادخال نسبة اكبر من نسبة البطاقة الاساسية',
+        'platinum_gt_golden' => 'يرجى ادخال نسبة اكبر من نسبة البطاقة الذهبية',
     ]
 ];

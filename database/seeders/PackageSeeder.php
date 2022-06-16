@@ -18,21 +18,24 @@ class PackageSeeder extends Seeder
     {
         $packages = [
             [
-                'id' => '3cfb9746-9779-4lj-8371-12545c9fca53',
+                'id' => '1cfb9746-9779-4lj-6688-12545c3hca53',
                 'color' => '#fff',
                 'price' => '1234',
                 'duration' => '12',
                 'discount' => '10',
                 'is_active' => true,
                 'is_default' => true,
+                'order' => 1,
             ],
             [
-                'id' => '3cfb9746-9779-4lj-8371-5fjk35c9fca53',
+                'id' => '2cfb9746-9779-4lj-8371-5fjk35c9fca53',
                 'color' => '#fff',
                 'price' => '2345',
                 'duration' => '12',
                 'discount' => '15',
-                'is_active' => true
+                'is_active' => true,
+                'is_default' => false,
+                'order' => 2
             ],
             [
                 'id' => '3cfb9746-9779-4lj-6688-12545c3hca53',
@@ -40,7 +43,10 @@ class PackageSeeder extends Seeder
                 'price' => '6455',
                 'duration' => '12',
                 'discount' => '20',
-                'is_active' => true
+                'is_active' => true,
+                'is_default' => false,
+                'order' => 3
+
             ]
         ];
 
@@ -51,7 +57,9 @@ class PackageSeeder extends Seeder
                 'price' => $package['price'],
                 'duration' => $package['duration'],
                 'discount' => $package['discount'],
-                'is_active' => $package['is_active']
+                'is_active' => $package['is_active'],
+                'is_default' => $package['is_default'],
+                'order' => $package['order']
             ]);
         }
 
@@ -59,14 +67,14 @@ class PackageSeeder extends Seeder
         $package_translation = [
             [
                 'id' => '3cfb9746-2yd9-4lj-8371-12178c9fca53',
-                'package_id' => '3cfb9746-9779-4lj-8371-12545c9fca53',
+                'package_id' => '1cfb9746-9779-4lj-6688-12545c3hca53',
                 'name' => 'اساسية',
                 'description' => 'وصف البطاقة الاساسية',
                 'locale' => 'ar',
             ],
             [
                 'id' => '3cfb9746-9779-4lj-8371-12178c9fca53',
-                'package_id' => '3cfb9746-9779-4lj-8371-12545c9fca53',
+                'package_id' => '1cfb9746-9779-4lj-6688-12545c3hca53',
                 'name' => 'Basic',
                 'description' => 'basic package description',
                 'locale' => 'en',
@@ -74,14 +82,14 @@ class PackageSeeder extends Seeder
 
             [
                 'id' => '3cfb9746-31p9-4lj-1478-12178c9fca53',
-                'package_id' => '3cfb9746-9779-4lj-8371-5fjk35c9fca53',
+                'package_id' => '2cfb9746-9779-4lj-8371-5fjk35c9fca53',
                 'name' => 'ذهبية',
                 'description' => 'وصف البطاقة الذهبية',
                 'locale' => 'ar',
             ],
             [
                 'id' => '3cfb9746-1188-4lj-8371-12178c9fca53',
-                'package_id' => '3cfb9746-9779-4lj-8371-5fjk35c9fca53',
+                'package_id' => '2cfb9746-9779-4lj-8371-5fjk35c9fca53',
                 'name' => 'Gold',
                 'description' => 'gold package description',
                 'locale' => 'en',
