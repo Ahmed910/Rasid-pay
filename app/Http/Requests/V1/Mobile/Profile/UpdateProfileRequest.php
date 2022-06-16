@@ -22,7 +22,7 @@ class UpdateProfileRequest extends ApiMasterRequest
             // 'email' => 'nullable|email|unique:users,email,' . auth()->id(),
             'lat' => 'nullable|string|max:15',
             'lng' => 'nullable|string|max:15',
-            'location' => 'nullable|string|between:10,20',
+            'location' => 'nullable|string|between:3,100',
             'device_token' => 'nullable|string|between:2,1000',
             'device_type' => 'nullable|in:ios,android',
         ];

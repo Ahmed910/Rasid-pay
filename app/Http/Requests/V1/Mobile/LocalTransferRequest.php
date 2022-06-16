@@ -27,7 +27,7 @@ class LocalTransferRequest extends ApiMasterRequest
 
         return [
             'balance_type' => 'required|in:main,back',
-            'amount' => 'required|numeric|gte:'.setting('min_local_transfer_amount') ?? 10,
+            'amount' => 'required|numeric|gte:'. (float)setting('min_local_transfer_amount') ?? 10,
             'fee_upon' => 'required|in:'.join(',', Transfer::FEE_UPON),
             'transfer_purpose_id' => 'required|exists:transfer_purposes,id',
             'beneficiary_id' => 'required|exists:beneficiaries,id',

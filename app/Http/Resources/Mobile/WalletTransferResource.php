@@ -19,7 +19,6 @@ class WalletTransferResource extends JsonResource
             'transfer_fees' => $this->transfer_fees,
             'transfer_number' => $this->transaction?->trans_number,
             'wallet_transfer_method' => $this->wallet_transfer_method,
-
         ];
     }
 }
