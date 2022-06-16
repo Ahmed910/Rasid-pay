@@ -95,7 +95,7 @@ class Citizen extends Model
     #region relationships
     public function user()
     {
-        return $this->belongsTo(user::class);
+        return $this->belongsTo(User::class);
     }
 
     public function bankAccount()
