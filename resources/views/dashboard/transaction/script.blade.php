@@ -13,7 +13,7 @@
     $(function() {
 
       /******* Calendar *******/
-    
+
  $("#from-hijri-picker-custom, #to-hijri-picker-custom, #from-hijri-unactive-picker-custom ,#to-hijri-unactive-picker-custom")
         .hijriDatePicker({
           hijri: {{ auth()->user()->is_date_hijri ? 'true' : 'false' }},
@@ -38,6 +38,8 @@
         ajax: {
           url: "{{ route('dashboard.transaction.index') }}",
           data: function(data) {
+            insertUrlParam('sort[column]', data.columns[data.order[0].column].name);
+            insertUrlParam('sort[dir]',data.order[0].dir);
             data.trans_number = $('#transactionNum').val();
             data.citizen = $('#transactionName').val();
             data.user_identity = $('#idNumber').val();

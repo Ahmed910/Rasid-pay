@@ -38,6 +38,8 @@
         ajax: {
           url: "{{ route('dashboard.rasid_job.index') }}",
           data: function (data) {
+            insertUrlParam('sort[column]', data.columns[data.order[0].column].name);
+            insertUrlParam('sort[dir]',data.order[0].dir);
             data.name = $('#job_name').val();
             data.created_from = $('#from-hijri-picker-custom').val();
             data.created_to = $('#to-hijri-picker-custom').val();
