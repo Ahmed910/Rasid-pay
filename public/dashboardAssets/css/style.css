@@ -80198,7 +80198,7 @@ label {
 }
 
 
-.select2-results__options> li:nth-child(2){
+.multipleSelect .select2-results__options> li:nth-child(2){
     display: none;
 }
 
