@@ -45,7 +45,7 @@ class ClientPackageController extends Controller
         ]);
     }
 
-    public function store(CardPackageUpdateRequest $request)
+    public function store(CardPackageRequest $request)
     {
         $client = User::where('user_type', 'client')->findOrFail($request->client_id);
         $client->clientPackages()->sync($request->discounts);
@@ -57,11 +57,13 @@ class ClientPackageController extends Controller
 
     public function show($id)
     {
+
         $client_package = [];
         $client = User::has('clientPackages')->where("user_type", "client")->findOrFail($id);
         foreach ($client->clientPackages as $key => $clientPackage) {
             $client_package[$key]['package_id'] = $clientPackage->pivot->package_id;
             $client_package[$key]['package_discount'] = $clientPackage->pivot->package_discount;
+            $client_package[$key]['type'] = lcfirst($clientPackage->translate('en')->name . '_card');
         }
         return response()->json([
             'data' => [

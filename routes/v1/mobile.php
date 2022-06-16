@@ -41,6 +41,8 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::apiResource('beneficiaries', 'BeneficiaryController');
         //money requests
         Route::post('money_requests', 'MoneyRequestController@store');
+        //Transfer Purposes
+        Route::get('transfer_purposes', 'TransferPurposeController@index');
         // Cards
         Route::apiResource('cards', 'CardController')->only('index', 'destroy');
         // Clients

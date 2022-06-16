@@ -19,7 +19,10 @@ class AdminsExport implements FromView, ShouldAutoSize
     public function view(): View
     {
 
-        $adminsQuery = User::CustomDateFromTo($this->request)->search($this->request)->where('user_type', 'admin')->has("employee")->get();
+        $adminsQuery = User::CustomDateFromTo($this->request)
+        ->search($this->request)->where('user_type', 'admin')->has("employee")
+        ->sortBy($this->request)
+        ->get();
         if (!$this->request->has('created_from')) {
             $createdFrom = User::selectRaw('MIN(created_at) as min_created_at')->value('min_created_at');
         }

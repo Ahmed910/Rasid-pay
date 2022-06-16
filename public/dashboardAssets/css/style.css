@@ -80197,6 +80197,11 @@ label {
     border: 1px solid #f7f7f7;
 }
 
+
+.select2-results__options li:nth-child(2){
+    display: none;
+}
+
 .modal-footer> :not(:first-child) {
     margin-left: 0;
 }

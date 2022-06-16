@@ -37,22 +37,29 @@
         }
 
         $(document).ready(function() {
-            $(".select2").select2({
+            $(".multipleSelect").select2({
                 closeOnSelect: false
             });
-            $(".select2").select2({
+            $(".multipleSelect").select2({
                 closeOnSelect: false,
                 templateResult: formatState
-
             });
-
-            $('.select2').on("select2:select", function(e) {
+            
+            $('.multipleSelect').on("select2:select", function(e) {
                 var data = e.params.data.text;
-                if (data == 'إختر الكل') {
-                    $(".select2 > option").prop("selected", "selected");
-                    $(".select2").trigger("change");
+                if (data == 'إختر الكل'){
+                    $(".multipleSelect > option").prop("selected", "selected");
+                    $(".multipleSelect").trigger("change");
                     $(".custom-checkbox input").prop("checked", "checked");
-                    $("label[for='all'] .custom-control-label").text("إلغاء تحديد الكل");
+                    $("label[for='selectAll']").parent().hide();
+                    $("label[for='unselectAll']").parent().show();
+                }
+                else if (data == 'إلغاء تحديد الكل'){
+                    $(".multipleSelect > option").prop("selected", "");
+                    $(".multipleSelect").trigger("change");
+                    $(".custom-checkbox input").prop("checked", "");
+                    $("label[for='unselectAll']").parent().hide();
+                    $("label[for='selectAll']").parent().show();
                 }
             });
         });

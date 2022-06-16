@@ -22,6 +22,7 @@ class UserResource extends JsonResource
             'fullname' => $this->fullname,
             'identity_number' =>  $this->identity_number,
             'phone' => $this->phone,
+            'image' => $this->image,
             //  'email' => $this->email,
             //  'whatsapp' => $this->whatsapp,
             'is_phone_verified' => (bool)$this->phone_verified_at,
@@ -29,6 +30,7 @@ class UserResource extends JsonResource
             // 'ban_from' => $this->ban_from,
             // 'ban_to' => $this->ban_to,
             'created_at' => $this->created_at,
+            'address' => AddressResource::make($this->whenLoaded('citizen'))
         ];
     }
 }

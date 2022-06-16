@@ -315,7 +315,7 @@ return [
         "group" => "المجموعة الادارية",
         "chosen_groups" => "الصلاحيات المختارة",
         "add_group" => "إضافة مجموعة",
-        "edit_group" => "تعديل المجموعة",
+        "edit_group" => "تعديل مجموعة",
         'show_group' => 'عرض مجموعة',
         "admins_from" => "عدد المستخدمين من",
         "admins_to" => "عدد المستخدمين إلى",
@@ -398,7 +398,7 @@ return [
             'name_must_be_unique_on_department' => 'الاسم موجود من قبل لهذا القسم'
         ],
         "jobs_hired_deleted" => " لا يمكن حذف هذه الوظيفة لانها مشغولة ",
-        "jobs_hired_is_active_changed" => " لا يمكن تعديل حالة هذه الوظيفة لانها مشغولة ",
+        "jobs_hired_is_active_changed" => " لا يمكن تعطيل  هذه الوظيفة لانها مشغولة ",
         "jobs_hired_archived" => " لا يمكن أرشفة هذه الوظيفة لانها مشغولة ",
         'sub_progs' => [
             'index' => 'سجل الوظائف',

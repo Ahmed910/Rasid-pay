@@ -37,6 +37,8 @@
                 ajax: {
                     url: "{{ route('dashboard.citizen.index') }}",
                     data: function(data) {
+                        insertUrlParam('sort[column]', data.columns[data.order[0].column].name);
+                        insertUrlParam('sort[dir]',data.order[0].dir);
                         if ($('#enabledpackage').val()) data.enabled_package = $('#enabledpackage').val();
                         if ($('#citizenName').val()) data.fullname = $('#citizenName').val();
                         if ($('#idNumber').val()) data.identity_number = $('#idNumber').val();
