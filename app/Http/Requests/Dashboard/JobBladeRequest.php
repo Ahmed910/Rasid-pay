@@ -31,7 +31,7 @@ class JobBladeRequest extends FormRequest
          if ($this->rasid_job) {
              $job = RasidJob::withTrashed()->findOrFail($this->rasid_job) ;
              if($job->is_vacant) $rules+=["is_active"=>"in:0,1"];
-             else {if ($this->is_active!=$job->is_active)
+             else {if (!$this->is_active&&($this->is_active!=$job->is_active))
                  $rules+=["is_active" => function ($attribute, $value, $fail) {
                      $fail(trans("dashboard.rasid_job.jobs_hired_is_active_changed"));
                  } ] ;
@@ -39,7 +39,7 @@ class JobBladeRequest extends FormRequest
          }
         foreach (config('translatable.locales') as $locale) {
             $rules["$locale.name"] = ["required","regex:/^[\pL\pN\s\-\_]+$/u","between:2,100",function ($attribute, $value, $fail) use($locale){
-                $job = RasidJob::whereTranslation('name',$value,$locale)->where('department_id',$this->department_id)->when($this->rasid_job,function ($q) {
+                $job = RasidJob::withTrashed()->whereTranslation('name',$value,$locale)->where('department_id',$this->department_id)->when($this->rasid_job,function ($q) {
                     $q->where('rasid_jobs.id',"<>",$this->rasid_job);
                 })->count();
                 if ($job) {

@@ -33,6 +33,7 @@ class RasidJobController extends Controller
         if ($request->ajax()) {
 
             $rasid_jobsQuery = RasidJob::without('employee')->search($request)
+                ->has("department")
                 ->CustomDateFromTo($request)
                 ->ListsTranslations('name')
                 ->addSelect('rasid_jobs.created_at', 'rasid_jobs.is_active', 'rasid_jobs.department_id', 'rasid_jobs.is_vacant')
