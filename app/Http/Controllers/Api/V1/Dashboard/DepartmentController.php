@@ -103,12 +103,13 @@ class DepartmentController extends Controller
             ]);
     }
 
-    public function update(DepartmentRequest $request, Department $department)
+    public function update(DepartmentRequest $request,  $department)
     {
-        $department->fill($request->validated() + ['updated_at' => now()])->save();
+        $dep = Department::withTrashed()->findOrFail($department);
+        $dep->fill($request->validated() + ['updated_at' => now()])->save();
 
 
-        return DepartmentResource::make($department)
+        return DepartmentResource::make($dep)
             ->additional([
                 'status' => true,
                 'message' => trans("dashboard.general.success_update")
@@ -150,7 +151,7 @@ class DepartmentController extends Controller
             ->ListsTranslations('name')
             ->CustomDateFromTo($request)
             ->with('parent.translations')
-            ->addSelect('departments.created_at', 'departments.is_active', 'departments.parent_id', 'departments.added_by_id')
+            ->addSelect('departments.created_at', 'departments.deleted_at','departments.is_active', 'departments.parent_id', 'departments.added_by_id')
             ->sortBy($request)
             ->paginate((int)($request->per_page ?? config("globals.per_page")));
 

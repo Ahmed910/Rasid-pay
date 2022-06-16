@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests\Dashboard;
+namespace App\Http\Requests\V1\Dashboard;
 
-use Illuminate\Foundation\Http\FormRequest;
+use App\Http\Requests\ApiMasterRequest;
 
-class ClientPackageRequest extends FormRequest
+class ClientPackageRequest extends ApiMasterRequest
 {
    
     public function authorize()
@@ -12,6 +12,7 @@ class ClientPackageRequest extends FormRequest
         return true;
     }
 
+ 
     public function rules()
     {
         return [
@@ -35,5 +36,4 @@ class ClientPackageRequest extends FormRequest
             'discounts.2.package_discount.gt' => __('validation.client_package.platinum_gt_golden')
         ];
     }
-
 }

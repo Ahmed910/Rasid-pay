@@ -146,7 +146,7 @@ return [
     'declined_if'          => 'يجب رفض :attribute عندما يكون :other بقيمة :value.',
     'different'            => 'يجب أن يكون :attribute و :other مُختلفين.',
     'digits'               => 'يجب أن يحتوي  :attribute على :digits رقمًا.',
-    'digits_between'       => 'يجب أن يحتوي  :attribute بين :min و :max رقمًا/أرقام .',
+    'digits_between'       => 'يجب أن يحتوي  :attribute بين :min و :max رقمًا.',
     'dimensions'           => 'ال:attribute يحتوي على أبعاد صورة غير صالحة.',
     'distinct'             => 'لل :attribute قيمة مُكرّرة.',
     'email'                => 'صيغة  :attribute غير صحيحة',
