@@ -163,10 +163,11 @@
           <select name="permission_list[]" hidden multiple></select>
           <select name="group_list[]" hidden multiple></select>
 
-          <select class="form-control select2" onchange="addPermissions(this.selectedOptions)"
+          <select class="form-control select2 multipleSelect" onchange="addPermissions(this.selectedOptions)"
               data-placeholder="{{ trans('dashboard.general.select_permissions') }}" multiple="multiple"
               id="permissions" required>
-              <option value="all">إختر الكل</option>
+                <option value="selectAll" class="selectAll">إختر الكل</option>
+                <option value="unselectAll" class="unselectAll" >إلغاء تحديد الكل</option>
               @foreach ($groups as $id => $name)
                   <option value="{{ $id }}" data-name="groups"
                       {{ isset($group) && in_array($id, $group->group_list) ? 'selected' : null }}>
