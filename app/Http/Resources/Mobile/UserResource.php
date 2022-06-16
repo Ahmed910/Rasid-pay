@@ -29,6 +29,7 @@ class UserResource extends JsonResource
             // 'ban_from' => $this->ban_from,
             // 'ban_to' => $this->ban_to,
             'created_at' => $this->created_at,
+            'address' => AddressResource::make($this->whenLoaded('citizen'))
         ];
     }
 }
