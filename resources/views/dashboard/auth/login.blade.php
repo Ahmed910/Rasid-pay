@@ -65,7 +65,7 @@
 
 @section('scripts')
    <script>
-   // trends form validation
+   
         $("#login-form").validate({
         onfocusout: function(element) {$(element).css('color', 'black').valid()},
         errorPlacement: function errorPlacement(error, element) {
