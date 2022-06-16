@@ -25,7 +25,7 @@ class ProfileController extends Controller
         $old_phone = $citizen->phone;
         $citizen->fill($request->validated())->save();
         $citizen->citizen()->update($request->only(['lat', 'lng', 'location']));
-        $message = trans('auth.success_update');
+        $message = trans('dashboard.general.success_update');
         if ($old_phone != $citizen->phone) {
             #logout_then_send_sms
             $code = $this->sendSmsToCitizen($citizen->phone);
