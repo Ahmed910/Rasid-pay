@@ -103,8 +103,9 @@ class DepartmentController extends Controller
             ]);
     }
 
-    public function update(DepartmentRequest $request, Department $department)
+    public function update(DepartmentRequest $request,  $department)
     {
+        $department = $request->department;
         $department->fill($request->validated() + ['updated_at' => now()])->save();
 
 
@@ -150,7 +151,7 @@ class DepartmentController extends Controller
             ->ListsTranslations('name')
             ->CustomDateFromTo($request)
             ->with('parent.translations')
-            ->addSelect('departments.created_at', 'departments.is_active', 'departments.parent_id', 'departments.added_by_id')
+            ->addSelect('departments.created_at', 'departments.deleted_at','departments.is_active', 'departments.parent_id', 'departments.added_by_id')
             ->sortBy($request)
             ->paginate((int)($request->per_page ?? config("globals.per_page")));
 

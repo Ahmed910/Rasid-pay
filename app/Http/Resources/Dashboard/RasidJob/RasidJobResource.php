@@ -29,6 +29,7 @@ class RasidJobResource extends JsonResource
             'is_active' => $this->is_active,
             'is_vacant' => $this->is_vacant,
             'created_at' => $this->created_at,
+            'deleted_at' => $this->deleted_at,
             'added_by' => SimpleUserResource::make($this->whenLoaded('addedBy')),
             'employee' => SimpleEmployeeResource::make($this->whenLoaded('employee')),
             'department' => DepartmentResource::make($this->whenLoaded('department')),
