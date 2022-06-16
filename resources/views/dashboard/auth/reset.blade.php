@@ -31,6 +31,7 @@
             action=""
             method="post"
             class="needs-validation"
+            id="email-reset-password"
             novalidate
           >
             @csrf
@@ -48,6 +49,7 @@
               @error('email')
               <div class="invalid-feedback">{{ $message }}</div>
               @enderror
+              <span class="text-danger" id="email_error"></span>
             </div>
             <div class="col-12 mt-5 text-center">
               {!! Form::submit(trans('dashboard.general.send'), ['class' => "btn btn-primary m-1",'id' => 'resend_btn','formaction' => route('dashboard.post_reset')]) !!}
@@ -66,6 +68,7 @@
           <form
             action=""
             method="post"
+            id="phone-reset-password"
             class="needs-validation"
             novalidate
           >
@@ -85,14 +88,14 @@
               />
 
               @error('phone')
-              <div class="invalid-feedback">{{ $message }}</div>
+              <div class="invalid-feedback reset-phone">{{ $message }}</div>
 
               @enderror
               <div class="input-group-text border-start-0" dir="ltr" style="position:absolute;z-index:3 ;">
                 +966
               </div>
-
               </div>
+               <span class="text-danger" id="phone_error"></span>
             </div>
             <div class="col-12 mt-5 text-center">
               {!! Form::submit(trans('dashboard.general.send'), ['class' => "btn btn-primary m-1",'id' => 'resend_btn','formaction' => route('dashboard.post_reset')]) !!}
@@ -116,4 +119,48 @@
       border-color: transparent !important;
     }
   </style>
+@endsection
+@section('scripts')
+<script>
+   $("#phone-reset-password").validate({
+        onfocusout: function(element) {$(element).css('color', 'black').valid()},
+        errorPlacement: function errorPlacement(error, element) {
+           span = element.parent().nextAll('span:first')
+            span.text(error[0].innerText)
+        },
+        rules: {
+                phone: {required:true,number:true,minlength:5,maxlength:20},
+
+            },
+        messages: {
+                phone: {
+                    required: '{{__('validation.required', ['attribute' => __('dashboard.general.phone')])}}',
+                    number: '{{__('validation.numeric', ['attribute' => __('dashboard.general.phone')])}}',
+                    minlength: '{{__('validation.min.numeric', ['attribute' => __('dashboard.general.phone'),'min'=>'5'])}}',
+                    maxlength: '{{__('validation.max.numeric', ['attribute' => __('dashboard.general.phone'),'max'=>'20'])}}'
+                },
+
+           }
+        });
+
+         $("#email-reset-password").validate({
+        onfocusout: function(element) {$(element).css('color', 'black').valid()},
+        errorPlacement: function errorPlacement(error, element) {
+
+           span = element.nextAll('span:first')
+            span.text(error[0].innerText)
+        },
+        rules: {
+                email: {required:true,email:true},
+            },
+        messages: {
+                email: {
+                    required: '{{__('validation.required', ['attribute' => __('dashboard.general.email')])}}',
+                    email: '{{__('validation.email', ['attribute' => __('dashboard.general.email')])}}',
+
+                },
+
+           }
+        });
+</script>
 @endsection

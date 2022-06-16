@@ -41,12 +41,14 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::apiResource('beneficiaries', 'BeneficiaryController');
         //money requests
         Route::post('money_requests', 'MoneyRequestController@store');
+        //Transfer Purposes
+        Route::get('transfer_purposes', 'TransferPurposeController@index');
         // Cards
         Route::apiResource('cards', 'CardController')->only('index', 'destroy');
         // Clients
         Route::apiResource('clients', 'ClientController')->only('index', 'show');
         // Packages
-        Route::apiResource('packages', 'PackageController')->only('index', 'show');
+        Route::apiResource('packages', 'PackageController')->only('index', 'show','update');
         // Transfer
         Route::namespace('Transfers')->group(function () {
             // Wallet Transfers

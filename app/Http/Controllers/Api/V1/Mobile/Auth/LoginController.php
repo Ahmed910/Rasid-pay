@@ -32,7 +32,6 @@ class LoginController extends Controller
     public function login(LoginRequest $request)
     {
         $credentials = $this->getCredentials($request);
-
         $user = User::firstWhere([
             'identity_number' => $request->identity_number,
             'user_type'       => 'citizen'
@@ -41,38 +40,9 @@ class LoginController extends Controller
         if (!$user) {
             return response()->json(['status' => false, 'data' => null, 'message' => trans('auth.account_not_exists')], 422);
         }
-        switch ($user) {
-            case $user->register_status != 'completed':
-                return response()->json(['status' => false, 'data' => [
-                    'is_register_completed' => false,
-                    'is_active' => null,
-                    'ban_status' => null,
-                    'ban_date' => null,
-                ], 'message' => trans('auth.verify_phone')], 403);
-            case $user->is_active == 0 :
-                return response()->json(['status' => false, 'data' => [
-                    'is_active' => false,
-                    'is_register_completed' => null,
-                    'ban_status' => null,
-                    'ban_date' => null,
-                ], 'message' => trans('auth.verify_phone')], 403);
-
-            case $user->ban_status == 'permanent' :
-                return response()->json(['status' => false, 'data' => [
-                    'is_active' => null,
-                    'is_register_completed' => null,
-                    'ban_status' => 'permanent',
-                    'ban_date' => null,
-                ], 'message' => trans('auth.ban_permanent')], 403);
-
-            case $user->ban_status == 'temporary' :
-                return response()->json(['status' => false, 'data' => [
-                    'is_active' => null,
-                    'is_register_completed' => null,
-                    'ban_status' => 'permanent',
-                    'ban_date' => $user->ban_to,
-                ], 'message' => trans('auth.ban_temporary')], 403);
-
+        $response = $this->checkIsUserValid($user);
+        if ($response) {
+            return response()->json($response['response'],403);
         }
         if (!Auth::attempt($credentials)) {
             return response()->json(['status' => false, 'data' => null, 'message' => trans('auth.failed')], 406);
@@ -80,7 +50,6 @@ class LoginController extends Controller
         return $this->makeLogin($request, $user);
 
     }
-
     /**
      * @param $request
      * @param $user
@@ -107,6 +76,7 @@ class LoginController extends Controller
      */
     public function sendResetCode(SendCodeRequest $request)
     {
+
         $user = User::firstWhere([
             'identity_number' => $request->identity_number,
             'user_type'       => 'citizen'
@@ -116,17 +86,21 @@ class LoginController extends Controller
             return response()->json(['status' => false, 'data' => null, 'message' => trans('auth.account_not_exists')], 422);
         }
 
-        try {
+        // try {
             $code = 1111;
             if (setting('use_sms_service') == 'enable') {
                $code = generate_unique_code(User::class, 'phone', 4, 'numbers');
             }
             $user->update([$request->key_name => $code]);
             // TODO::send code for user by sms
+            $response = $this->checkIsUserValid($user);
+            if ($response) {
+                return response()->json(array_except($response['response'],['message']) + ['message' => trans('auth.success_send_login_code')],403);
+            }
             return response()->json(['status' => true, 'data' => null, 'message' => trans('auth.success_send_login_code')]);
-        } catch (\Exception $e) {
-            return response()->json(['status' => false, 'data' => null, 'message' => trans('auth.fail_send')], 422);
-        }
+        // } catch (\Exception $e) {
+        //     return response()->json(['status' => false, 'data' => null, 'message' => trans('auth.fail_send')], 422);
+        // }
     }
 
     /**
@@ -146,5 +120,59 @@ class LoginController extends Controller
         }
         $user->currentAccessToken()->delete();
         return response()->json(['status' => true, 'data' => null, 'message' => trans('auth.logout_waiting_u_another_time')]);
+    }
+
+
+    public function checkIsUserValid($user)
+    {
+        switch ($user) {
+            case $user->register_status != 'completed':
+                return [
+                        'response' => [
+                            'status' => false, 'data' => [
+                            'is_register_completed' => false,
+                            'is_active' => null,
+                            'ban_status' => null,
+                            'ban_date' => null,
+                        ], 'message' => trans('auth.verify_phone')
+                    ]
+                ];
+            case $user->is_active == 0 :
+                return [
+                        'response' => [
+                            'status' => false, 'data' => [
+                            'is_active' => false,
+                            'is_register_completed' => null,
+                            'ban_status' => null,
+                            'ban_date' => null,
+                        ], 'message' => trans('auth.verify_phone')]
+                    ];
+
+            case $user->ban_status == 'permanent' :
+                return [
+                        'response' => [
+                            'status' => false, 'data' => [
+                            'is_active' => null,
+                            'is_register_completed' => null,
+                            'ban_status' => 'permanent',
+                            'ban_date' => null,
+                        ], 'message' => trans('auth.ban_permanent')
+                    ]
+                ];
+
+            case $user->ban_status == 'temporary' :
+                return [
+                        'response' => [
+                            'status' => false, 'data' => [
+                            'is_active' => null,
+                            'is_register_completed' => null,
+                            'ban_status' => 'permanent',
+                            'ban_date' => $user->ban_to,
+                        ], 'message' => trans('auth.ban_temporary')
+                    ]
+                ];
+
+        }
+        return false;
     }
 }

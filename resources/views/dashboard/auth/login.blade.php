@@ -47,8 +47,8 @@
       <a href="{!! route('dashboard.reset') !!}">{{ trans('auth.reset_password')}}</a>
     </div>
   </div>
-  <a onclick="submitForm('#login-form')" class="btn btn-primary w-100 mt-5 a-submit">{{ trans('auth.login_title') }}</a>
-  {{-- {!! Form::submit(trans('auth.login_title'),['class' => "btn btn-primary w-100 mt-5"  , 'id' =>"login-id"]) !!} --}}
+  {{-- <a onclick="submitForm('#login-form')" class="btn btn-primary w-100 mt-5 a-submit">{{ trans('auth.login_title') }}</a> --}}
+  {!! Form::submit(trans('auth.login_title'),['class' => "btn btn-primary w-100 mt-5" ]) !!}
 </form>
 @endsection
 
@@ -56,6 +56,42 @@
     <style>
         #login-id {
             border-color: transparent !important;
-        }
+        },
+        .error {
+            color: red;
+         }
     </style>
+@endsection
+
+@section('scripts')
+   <script>
+   
+        $("#login-form").validate({
+        onfocusout: function(element) {$(element).css('color', 'black').valid()},
+        errorPlacement: function errorPlacement(error, element) {
+           if (element.attr("type") == "password") {
+            span = element.parent().nextAll('span:first')
+        } else {
+             span = element.nextAll('span:first')
+        }
+
+            span.removeAttr('hidden')
+            span.text(error[0].innerText)
+        },
+        rules: {
+                password: {required:true},
+                username: {required:true,number: true},
+            },
+        messages: {
+                password: {
+                    required: '{{__('validation.required', ['attribute' => __('dashboard.admin.password')])}}'
+
+                },
+                 username: {
+                    required: '{{__('validation.required', ['attribute' => __('dashboard.admin.login_id')])}}',
+                    numeric: '{{__('validation.string', ['attribute' => __('dashboard.admin.login_id')])}}',
+                },
+           }
+        });
+   </script>
 @endsection

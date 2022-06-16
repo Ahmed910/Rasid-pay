@@ -44,17 +44,17 @@ class Transfer extends Model
         return $this->morphOne(Transaction::class, "transactionable");
     }
 
-    public function bank_transfer()
+    public function bankTransfer()
     {
         return $this->hasOne(BankTransfer::class, 'transfer_id');
     }
 
-    public function from_user() : BelongsTo
+    public function fromUser()
     {
       return $this->belongsTo(User::class,'from_user_id');
     }
 
-    public function to_user() : BelongsTo
+    public function toUser()
     {
       return $this->belongsTo(User::class,'to_user_id');
     }
