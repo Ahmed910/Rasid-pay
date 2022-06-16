@@ -33,6 +33,16 @@ class LoginController extends Controller
     {
         $credentials = $this->getCredentials($request);
 
+        return $this->checkIsUserValid($request);
+        if (!Auth::attempt($credentials)) {
+            return response()->json(['status' => false, 'data' => null, 'message' => trans('auth.failed')], 406);
+        }
+        return $this->makeLogin($request, $user);
+
+    }
+
+    public function checkIsUserValid($request)
+    {
         $user = User::firstWhere([
             'identity_number' => $request->identity_number,
             'user_type'       => 'citizen'
@@ -74,11 +84,7 @@ class LoginController extends Controller
                 ], 'message' => trans('auth.ban_temporary')], 403);
 
         }
-        if (!Auth::attempt($credentials)) {
-            return response()->json(['status' => false, 'data' => null, 'message' => trans('auth.failed')], 406);
-        }
-        return $this->makeLogin($request, $user);
-
+        return true;
     }
 
     /**
@@ -107,6 +113,7 @@ class LoginController extends Controller
      */
     public function sendResetCode(SendCodeRequest $request)
     {
+        return $this->checkIsUserValid($request);
         $user = User::firstWhere([
             'identity_number' => $request->identity_number,
             'user_type'       => 'citizen'
