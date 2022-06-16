@@ -21,8 +21,8 @@ class NotificationController extends Controller
     public function show(Request $request,$id)
     {
         $notification = auth()->user()->notifications()->findOrFail($id);
-        $notication->markAsRead();
-        return NotificationResource::make($notifications)->additional([
+        $notification->markAsRead();
+        return NotificationResource::make($notification)->additional([
             'status'=>true,
             'message'=>''
          ]);

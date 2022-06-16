@@ -4,11 +4,15 @@
 <div class="row align-items-end mb-3">
   <div class="col-12 col-md-3 mb-3">
     <label for="transactionNum">@lang('dashboard.transaction.transaction_number')</label>
-    <input type="number" class="form-control" id="transactionNum" name="transaction_number" placeholder="@lang('dashboard.transaction.enter_transaction_number')"/>
+    <input type="number" class="form-control stop-copy-paste" id="transactionNum" name="transaction_number"  oninput = 'javascript: if
+      (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);' min ='0',
+      maxlength = '10' onkeypress = 'return /[0-9]/i.test(event.key)' onDrag="return false" onDrop="return false" placeholder="@lang('dashboard.transaction.enter_transaction_number')"/>
   </div>
   <div class="col-12 col-md-3 mb-3">
     <label for="transactionName">@lang('dashboard.transaction.to_user_client')</label>
-    <input type="text" class="form-control" id="transactionName"  name="citizen" placeholder="@lang('dashboard.transaction.enter_from_user')"/>
+    <input type="text" class="form-control input-regex stop-copy-paste" id="transactionName"  oninput = 'javascript: if
+      (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);' min ='1',
+      maxlength = '100'onDrag="return false" onDrop="return false"  name="citizen" placeholder="@lang('dashboard.transaction.enter_from_user')"/>
   </div>
   <div class="col-12 col-md-3 mb-3">
     <label for="from-hijri-picker-custom"> @lang('dashboard.transaction.transaction_date_from')</label>

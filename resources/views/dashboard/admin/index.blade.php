@@ -14,7 +14,7 @@
   <div class="row align-items-end mb-3">
     <div class="col-12 col-md-3">
       <label for="userName">{{ trans('dashboard.admin.admin') }}</label>
-      <input type="text" class="form-control input-regex" id="userName" placeholder="{{ trans('dashboard.admin.admin_name') }}"
+      <input type="text" class="form-control input-regex stop-copy-paste" id="userName" placeholder="{{ trans('dashboard.admin.admin_name') }}"
         name="name" value="{{ old('name') ?? request('name') }}" />
     </div>
     <div class="col-12 col-md-3">

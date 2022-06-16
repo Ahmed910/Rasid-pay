@@ -15,27 +15,23 @@
     <div class="form-group">
         <label>كلمة المرور الجديدة</label>
         <div class="input-group" id="show_hide_password">
-            <input class="form-control @error('password') is-invalid @enderror" placeholder="كلمة المرور" type="password" name="password"/>
-                <span class="text-danger" id="password_error"></span>
-                @error('password')
-                    <div class="invalid-feedback">{{ $message }}</div>
-                @enderror
-            <div class="input-group-text border-start-0">
-                <a href=""><i class="mdi mdi-eye-off-outline d-flex"></i></a>
-            </div>
+            <input class="form-control stop-copy-paste @error('password') is-invalid @enderror" placeholder="كلمة المرور" type="password" name="password"/>
+             <div class="input-group-text border-start-0">
+               <a href=""><i class="mdi mdi-eye-off-outline d-flex"></i></a>
+             </div>
+             <span class="text-danger" id="password_error"></span>
+
         </div>
     </div>
     <input type="hidden" name="reset_token" value="{{ $reset_token }}">
     <div class="form-group">
         <label>تأكيد كلمة المرور </label>
         <div class="input-group" id="show_hide_confirm_password">
-            <input class="form-control @error('password_confirmation') is-invalid @enderror" placeholder="كلمة المرور" type="password" name="password_confirmation"/>
-            @error('password_confirmation')
-                <div class="invalid-feedback">{{ $message }}</div>
-            @enderror
-            <div class="input-group-text border-start-0">
-                <a href=""><i class="mdi mdi-eye-off-outline d-flex"></i></a>
-            </div>
+            <input class="form-control stop-copy-paste @error('password_confirmation') is-invalid @enderror" placeholder="كلمة المرور" type="password" name="password_confirmation"/>
+             <div class="input-group-text border-start-0">
+               <a href=""><i class="mdi mdi-eye-off-outline d-flex"></i></a>
+             </div>
+             <span class="text-danger" id="password_confirmation_error"></span>
         </div>
     </div>
     <div class="col-12 mt-5 text-center">

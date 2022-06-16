@@ -30,6 +30,25 @@ class RegisterController extends Controller
         ]);
     }
 
+    public function checkUserCode(VerifyPhoneCodeRequest $request)
+    {
+        $user = User::firstWhere([
+            'identity_number' => $request->identity_number,
+            $request->key_name => $request->code,
+            'user_type' => 'citizen'
+        ]);
+
+        if (!$user) {
+            return response()->json(['status' => false, 'data' => null, 'message' => trans('auth.account_not_exists')], 422);
+        }
+
+        return response()->json([
+            'status' => true,
+            'data' => null,
+            'message' => trans('auth.success_verify_phone', ['user' => $user->phone]),
+        ]);
+    }
+
     public function verifyPhoneCode(VerifyPhoneCodeRequest $request)
     {
         $userData =  [

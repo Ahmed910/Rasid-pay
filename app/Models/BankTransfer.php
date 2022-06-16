@@ -8,7 +8,6 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use App\Models\TransferPurpose\TransferPurpose;
 use App\Models\RecieveOption\RecieveOption;
 use App\Models\Currency\Currency;
 
@@ -62,7 +61,7 @@ class BankTransfer extends Model
     }
 
 
-   
+
     #endregion relationships
 
     #region custom Methods
