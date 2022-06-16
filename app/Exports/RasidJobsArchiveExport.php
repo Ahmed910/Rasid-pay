@@ -23,6 +23,7 @@ class RasidJobsArchiveExport implements FromView, ShouldAutoSize
         ->search($this->request)
         ->searchDeletedAtFromTo($this->request)
         ->ListsTranslations('name')
+        ->sortBy($this->request)
         ->addSelect('rasid_jobs.department_id', 'rasid_jobs.deleted_at', 'rasid_jobs.is_active')
         ->get();
         if (!$this->request->has('created_from')) {

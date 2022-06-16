@@ -57,6 +57,7 @@ trait Uuid
 
     public function getCreatedAtAttribute($date)
     {
+        if ($date==null) return $date ;
         $locale = app()->getLocale();
         if (auth()->check() && auth()->user()->is_date_hijri) {
             $this->changeDateLocale($locale);
@@ -67,6 +68,7 @@ trait Uuid
 
     public function getUpdatedAtAttribute($date)
     {
+        if ($date==null) return $date ;
         $locale = app()->getLocale();
         if (auth()->check() && auth()->user()->is_date_hijri) {
             $this->changeDateLocale($locale);
@@ -77,6 +79,7 @@ trait Uuid
 
     public function getDeletedAtAttribute($date)
     {
+        if ($date==null) return $date ;
         $locale = app()->getLocale();
         if (auth()->check() && auth()->user()->is_date_hijri) {
             $this->changeDateLocale($locale);

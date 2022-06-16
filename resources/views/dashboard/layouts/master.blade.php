@@ -69,7 +69,7 @@
         <!-- Modal END -->
 
         <!-- FOOTER -->
-
+        @include('dashboard.layouts.modals.not_change')
         @include('dashboard.layouts.footer')
         <!-- FOOTER END -->
     </div>

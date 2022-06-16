@@ -15,13 +15,13 @@ class LocalTransferResource extends JsonResource
     public function toArray($request)
     {
         return [
-            'id'              => $this->id,
-           'beneficiary_name'      => $this->bank_transfer->benficiary->name,
-            'transfer_type'    =>$this->transfer_type,
-            'amount'           =>$this->amount,
-            'transfer_fees'    => $this->transfer_fees,
-            'total_amount'     =>(string)($this->amount+$this->transfer_fees) ,
-
+            'id' => $this->id,
+            'beneficiary_name' => $this->bankTransfer?->benficiary->name,
+            'transfer_type'   => $this->transfer_type,
+            'transfer_type_trans' => trans('mobile.transaction.transaction_types.' . $this->transfer_type),
+            'amount'  => $this->amount,
+            'transfer_fee'    => $this->fee_amount,
+            'total_amount'    => (string) ($this->amount + $this->fee_amount),
         ] ;
     }
 }

@@ -51,7 +51,7 @@
 
     function replaceInValidation(element)
     {
-     
+
        if (element.includes("[")) {
             finalCurrentElement = (element.replaceAll("[", ".")).slice(0, -1)
             if (finalCurrentElement.includes("]")) {
@@ -69,6 +69,11 @@
         let saveButton = true;
 
         $("#saveButton").on("click", function(e) {
+            if(!validate) {
+              $("#notChangeModal").modal("show");
+                return false;
+            };
+
             e.preventDefault();
 
             $('span[id*="Error"]').attr("hidden", true);

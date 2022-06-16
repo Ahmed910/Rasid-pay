@@ -15,6 +15,7 @@ class RasidJobController extends Controller
     public function index(Request $request)
     {
         $rasidJobs = RasidJob::search($request)
+            ->has("department")
             ->ListsTranslations('name')
             ->select('rasid_jobs.*')
             ->CustomDateFromTo($request)
@@ -60,10 +61,11 @@ class RasidJobController extends Controller
     }
 
 
-    public function update(RasidJobRequest $request, RasidJob $rasidJob)
+    public function update( RasidJobRequest $request, $rasid_job)
     {
-        $rasidJob->fill($request->validated() + ['updated_at' => now()])->save();
 
+        $rasidJob = RasidJob::withTrashed()->findOrFail($rasid_job) ;
+        $rasidJob->fill($request->validated() + ['updated_at' => now()])->save();
 
         return RasidJobResource::make($rasidJob)
             ->additional([

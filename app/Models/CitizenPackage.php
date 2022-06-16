@@ -45,7 +45,7 @@ class CitizenPackage extends Model
     #region scopes
     public function setPackageIdAttribute($value){
         $this->attributes['package_id'] = $value;
-        $this->attributes['card_data'] = Package::select('id','price','offer','cash_back','promo_cash_back','discount_promo_code')->listsTranslations('name')->find($value)->toJson();
+        // $this->attributes['card_data'] = Package::select('id','price','offer','cash_back','promo_cash_back','discount_promo_code')->listsTranslations('name')->find($value)->toJson();
 
     }
     #endregion scopes

@@ -21,7 +21,9 @@ class ClientsExport implements FromView, ShouldAutoSize
 
         $clientsQuery = Client::whereHas("user.bankAccount", function ($q) {
             $q->whereIn("account_status", ["pending", "accepted", "reviewed"]);
-        })->search($this->request)->get();
+        })->search($this->request)
+        ->sortBy($this->request)
+        ->get();
         return view('dashboard.client.export', [
             'clients' => $clientsQuery
         ]);
