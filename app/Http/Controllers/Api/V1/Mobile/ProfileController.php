@@ -5,10 +5,11 @@ namespace App\Http\Controllers\Api\V1\Mobile;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\V1\Mobile\{
     WalletBinRequest,
-    UpdateProfileRequest,
+    Profile\UpdateProfileRequest,
     Profile\UpdatePasswordRequest
 };
 use App\Http\Resources\Mobile\UserResource;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class ProfileController extends Controller

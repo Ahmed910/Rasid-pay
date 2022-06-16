@@ -13,7 +13,7 @@ class AppServiceProvider extends ServiceProvider
 {
     const MORPH_MAP = [
         'Department' => \App\Models\Department\Department::class,
-        'User'       => \App\Models\user::class,
+        'User'       => \App\Models\User::class,
         'Chat'       => \App\Models\Chat::class,
         'Device'     => \App\Models\Device::class,
         'Message'    => \App\Models\Message::class,

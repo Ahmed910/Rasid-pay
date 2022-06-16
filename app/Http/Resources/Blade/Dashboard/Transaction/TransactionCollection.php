@@ -2,7 +2,7 @@
 
 namespace App\Http\Resources\Blade\Dashboard\Transaction;
 
-use App\Http\Resources\Blade\Dashboard\transaction\TransactionResource;
+use App\Http\Resources\Blade\Dashboard\Transaction\TransactionResource;
 use Illuminate\Http\Resources\Json\ResourceCollection;
 
 class TransactionCollection extends ResourceCollection
