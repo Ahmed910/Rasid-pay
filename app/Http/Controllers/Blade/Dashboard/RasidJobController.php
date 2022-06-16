@@ -288,6 +288,7 @@ class RasidJobController extends Controller
         $rasid_jobs_archiveQuery = RasidJob::onlyTrashed()
             ->without('employee')
             ->search($request)
+            ->sortBy($request)
             ->searchDeletedAtFromTo($request)
             ->ListsTranslations('name')
             ->addSelect('rasid_jobs.department_id', 'rasid_jobs.deleted_at', 'rasid_jobs.is_active')
