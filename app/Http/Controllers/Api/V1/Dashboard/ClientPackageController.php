@@ -45,7 +45,7 @@ class ClientPackageController extends Controller
         ]);
     }
 
-    public function store(CardPackageUpdateRequest $request)
+    public function store(CardPackageRequest $request)
     {
         $client = User::where('user_type', 'client')->findOrFail($request->client_id);
         $client->clientPackages()->sync($request->discounts);
