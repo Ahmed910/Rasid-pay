@@ -83,11 +83,12 @@
                       value="{{ old('phone') }}"
                       placeholder="{{trans('dashboard.general.phone')}}"
               />
+
               @error('phone')
               <div class="invalid-feedback">{{ $message }}</div>
 
               @enderror
-              <div class="input-group-text border-start-0" dir="ltr">
+              <div class="input-group-text border-start-0" dir="ltr" style="position:absolute;z-index:3 ;">
                 +966
               </div>
 

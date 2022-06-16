@@ -77,6 +77,7 @@
                         $(".inputs-code").attr('disabled',true);
                         $('#code-submit').addClass('disable');
                         $('form').addClass('disable_form');
+                        $(".a-submit").attr('disabled',true);
                     } else {
                         time = new Date(msLeft);
                         hours = time.getUTCHours();

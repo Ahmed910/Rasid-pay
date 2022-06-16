@@ -24,8 +24,9 @@ class ResetPasswordRequest extends FormRequest
     public function rules()
     {
         return [
-            'reset_token' => 'required|exists:users,reset_token,ban_status,active',
-            'password' => 'required|confirmed|min:6'
+            'reset_token'           => 'required|exists:users,reset_token,ban_status,active',
+            'password'              => 'required|min:6',
+            'password_confirmation' => 'required|same:password',
         ];
     }
 
