@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 use App\Traits\Uuid;
 use Astrotomic\Translatable\Translatable;
 use App\Models\BankTransfer;
+use App\Models\Beneficiary;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class RecieveOption extends Model

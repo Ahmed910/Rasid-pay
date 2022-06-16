@@ -11,6 +11,7 @@ Route::controller('Auth\LoginController')->group(function () {
 
 Route::controller('Auth\RegisterController')->group(function () {
     Route::post('register', 'register');
+    Route::post('check_code', 'checkUserCode');
     Route::post('verify_phone_code', 'verifyPhoneCode');
     Route::post('complete_register', 'completeRegister');
 });
@@ -53,6 +54,8 @@ Route::middleware('auth:sanctum')->group(function () {
             Route::get('check_phone_wallets/{phone}', 'WalletTransferController@checkIfPhoneExists');
             // Local Transfers
             Route::post('local_transfers', 'LocalTransferController@store');
+            // All Transfers
+            Route::get('transfers','TransferController@index');
         });
 
     Route::controller('TransactionController')->group(function () {

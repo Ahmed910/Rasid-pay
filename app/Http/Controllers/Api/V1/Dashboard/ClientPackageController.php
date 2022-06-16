@@ -45,13 +45,33 @@ class ClientPackageController extends Controller
         ]);
     }
 
-    public function store(CardPackageUpdateRequest $request)
+    public function store(CardPackageRequest $request)
     {
         $client = User::where('user_type', 'client')->findOrFail($request->client_id);
         $client->clientPackages()->sync($request->discounts);
         return PackageResource::make($client)->additional([
             'status' => true,
             'message' => __('dashboard.package.discount_success_add')
+        ]);
+    }
+
+    public function show($id)
+    {
+
+        $client_package = [];
+        $client = User::has('clientPackages')->where("user_type", "client")->findOrFail($id);
+        foreach ($client->clientPackages as $key => $clientPackage) {
+            $client_package[$key]['package_id'] = $clientPackage->pivot->package_id;
+            $client_package[$key]['package_discount'] = $clientPackage->pivot->package_discount;
+            $client_package[$key]['type'] = lcfirst($clientPackage->translate('en')->name . '_card');
+        }
+        return response()->json([
+            'data' => [
+                'discounts' => $client_package,
+                'fullname' => $client->fullname,
+            ],
+            'status' => true,
+            'message' => ""
         ]);
     }
 
@@ -75,7 +95,7 @@ class ClientPackageController extends Controller
 
     public function getMainPackages()
     {
-        $packages = Package::where('is_active',1)->get();
+        $packages = Package::where('is_active', 1)->get();
         return MainPackageResource::collection($packages)->additional([
             'status' => true,
             'message' => ""

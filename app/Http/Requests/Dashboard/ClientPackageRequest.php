@@ -2,27 +2,16 @@
 
 namespace App\Http\Requests\Dashboard;
 
-use Illuminate\Validation\Rule;
-use Illuminate\Validation\Rules\Unique;
 use Illuminate\Foundation\Http\FormRequest;
 
 class ClientPackageRequest extends FormRequest
 {
-    /**
-     * Determine if the user is authorized to make this request.
-     *
-     * @return bool
-     */
+   
     public function authorize()
     {
         return true;
     }
 
-    /**
-     * Get the validation rules that apply to the request.
-     *
-     * @return array
-     */
     public function rules()
     {
         return [
@@ -32,8 +21,19 @@ class ClientPackageRequest extends FormRequest
             'discounts' => 'required|array',
             'discounts.*' => 'required|array',
             'discounts.*.package_id' => 'required|exists:packages,id',
-            'discounts.*.package_discount' => 'required|integer|gte:0|lte:100',
+            'discounts.1.package_discount' => 'gt:discounts.0.package_discount',
+            'discounts.2.package_discount' => 'gt:discounts.1.package_discount',
+            'discounts.*.package_discount' => 'required|gte:0|lte:100',
 
         ];
     }
+
+    public function messages()
+    {
+        return [
+            'discounts.1.package_discount.gt' => __('validation.client_package.gold_gt_basic'),
+            'discounts.2.package_discount.gt' => __('validation.client_package.platinum_gt_golden')
+        ];
+    }
+
 }
