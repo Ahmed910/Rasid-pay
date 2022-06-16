@@ -16,6 +16,8 @@
                 ajax: {
                     url: "{{ route('dashboard.group.index') }}?",
                     data: function(data) {
+                        insertUrlParam('sort[column]', data.columns[data.order[0].column].name);
+                        insertUrlParam('sort[dir]',data.order[0].dir);
                         data.is_active = $('#status').val();
                         data.name = $('#name').val();
                         data.admins_from = $('#userNumFrom').val();
