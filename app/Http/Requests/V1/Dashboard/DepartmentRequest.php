@@ -24,6 +24,7 @@ class DepartmentRequest extends ApiMasterRequest
      */
     public function rules()
     {
+        $this->department =$this->department ?Department::withTrashed()->findOrFail($this->department):$this->department ;
         $igonredDepartment = $this->department ?  implode(',', Department::flattenChildren($this->department)) : "";
         $rules = [
             "image"         => "nullable|max:5120|mimes:jpg,png,jpeg",

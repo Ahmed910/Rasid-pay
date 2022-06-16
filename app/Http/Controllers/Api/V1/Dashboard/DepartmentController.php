@@ -103,8 +103,9 @@ class DepartmentController extends Controller
             ]);
     }
 
-    public function update(DepartmentRequest $request, Department $department)
+    public function update(DepartmentRequest $request,  $department)
     {
+        $department = $request->department;
         $department->fill($request->validated() + ['updated_at' => now()])->save();
 
 
