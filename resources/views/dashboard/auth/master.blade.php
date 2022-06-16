@@ -108,7 +108,23 @@
                 }
             });
 
+             $("#show_hide_confirm_password a").on("click", function(event) {
+                  event.preventDefault();
+                  if ($("#show_hide_confirm_password input").attr("type") == "text") {
+                      $("#show_hide_confirm_password input").attr("type", "password");
+                      $("#show_hide_confirm_password i").addClass("mdi-eye-off-outline");
+                      $("#show_hide_confirm_password i").removeClass("mdi-eye-outline");
+                  } else if (
+                      $("#show_hide_confirm_password input").attr("type") == "password"
+                  ) {
+                      $("#show_hide_confirm_password input").attr("type", "text");
+                      $("#show_hide_confirm_password i").removeClass("mdi-eye-off-outline");
+                      $("#show_hide_confirm_password i").addClass("mdi-eye-outline");
+                  }
+              });
+
         });
+
 
 
         function submitForm(formId) {
