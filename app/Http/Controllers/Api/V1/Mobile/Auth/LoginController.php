@@ -127,6 +127,11 @@ class LoginController extends Controller
     {
         switch ($user) {
             case $user->register_status && $user->register_status != 'completed':
+                $code = 1111;
+                if (setting('use_sms_service') == 'enable') {
+                   $code = generate_unique_code(User::class, 'phone', 4, 'numbers');
+                }
+                $user->update([$request->key_name => $code]);
                 return [
                         'response' => [
                             'status' => false, 'data' => [
