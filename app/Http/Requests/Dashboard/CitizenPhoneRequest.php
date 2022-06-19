@@ -3,7 +3,6 @@
 namespace App\Http\Requests\Dashboard;
 
 use Illuminate\Foundation\Http\FormRequest;
-use GeniusTS\HijriDate\Hijri;
 
 class CitizenPhoneRequest extends FormRequest
 {
@@ -38,10 +37,8 @@ class CitizenPhoneRequest extends FormRequest
       */
      public function rules()
      {
-         $list = countries_list();
          return [
-             "country_code" => "required|in:" . $list,
-             "phone" => ["required", "numeric", "digits_between:7,20", function ($attribute, $value, $fail) {
+             "phone" => ["required", "numeric", "digits_between:7,20", 'starts_with:9665,05', function ($attribute, $value, $fail) {
                  if(!check_phone_valid($value)){
                      $fail(trans('mobile.validation.invalid_phone'));
                  }

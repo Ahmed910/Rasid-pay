@@ -93,7 +93,7 @@ Route::middleware('maintenance_mode')->group(function () {
             });
 
             Route::controller('CitizenController')->name('citizens.')->prefix('citizens')->group(function () {
-                Route::put('update-phone/{id}', 'updatePhone')->name('update_phone');
+            //     Route::put('update-phone/{id}', 'updatePhone')->name('update_phone');
                 Route::get('enabled-cards', 'enabledPackages')->name('enabled_packages');
             });
 
@@ -148,7 +148,7 @@ Route::middleware('maintenance_mode')->group(function () {
             'admins' => 'AdminController',
             'employees' => 'EmployeeController',
             'clients' => 'ClientController',
-            'citizens' => 'CitizenController',
+            // 'citizens' => 'CitizenController',
             'rasid_jobs' => 'RasidJobController',
             'banks' => 'BankController',
             'slides' => 'SlideController',
@@ -157,6 +157,7 @@ Route::middleware('maintenance_mode')->group(function () {
             // 'MoneyRequests' => 'MoneyRequestController', // TODO: Not Found
             ]);
 
+            Route::apiResource('citizens', 'CitizenController')->only('index', 'show','update');
             Route::apiResource('settings', 'SettingController')->only(['index', 'store']);
             Route::apiResource('activity_logs', 'ActivityController')->only(['index', 'show']);
 
