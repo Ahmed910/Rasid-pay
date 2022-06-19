@@ -20,6 +20,7 @@ class GlobalTransferController extends Controller
             ($request->balance_type === 'back' && ($wallet->cash_back < $request->amount))) {
             return response()->json(['data' => null, 'message' => trans('mobile.local_transfers.current_balance_is_not_sufficiant_to_complete_transaction'), 'status' => false], 422);
         }
+        $wallet->update(['wallet_bin' => null]);
         // TODO: Calc transfer fee
 
         // Set transfer data

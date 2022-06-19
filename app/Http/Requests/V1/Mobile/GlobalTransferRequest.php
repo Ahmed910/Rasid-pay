@@ -10,6 +10,7 @@ class GlobalTransferRequest extends ApiMasterRequest
     public function rules()
     {
         return [
+            "otp_code" => 'required|exists:citizen_wallets,wallet_bin,citizen_id,'.auth()->id(),
             'balance_type'        => 'required|in:back,main',
             'amount'              => 'required|numeric|gte:'. (float)setting('min_global_transfer_amount') ?? 10,
             'amount_transfer'     => 'required|numeric',
