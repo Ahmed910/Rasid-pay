@@ -52,7 +52,7 @@ class DepartmentController extends Controller
     {
         return response()->json([
             'data' => Department::select('id')->when($request->department_id, function ($q) use ($request) {
-                    $children = Department::flattenChildren(Department::find($request->department_id));
+                    $children = Department::flattenChildren(Department::withTrashed()->findOrFail($request->department_id));
                     $q->whereNotIn('departments.id', $children);
                 })->when($request->department_type == 'children', function ($q) {
                     $q->where(function ($q) {
