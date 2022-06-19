@@ -66,7 +66,7 @@ class AdminRequest extends ApiMasterRequest
             'rasid_job_id' => 'required|exists:rasid_jobs,id,department_id,'.$this->department_id,
             'fullname' => 'required|string|max:225|min:2',
             'email' => 'required|email|max:225|unique:users,email,' . @$this->admin->id,
-            'phone' => ["required", "numeric", "digits_between:9,20", 'starts_with:9665,05', function ($attribute, $value, $fail) {
+            'phone' => ["required", "numeric", "digits_between:9,20", 'starts_with:9665,5', function ($attribute, $value, $fail) {
                 if(!check_phone_valid($value)){
                     $fail(trans('mobile.validation.invalid_phone'));
                 }
