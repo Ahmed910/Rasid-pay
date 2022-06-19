@@ -211,14 +211,10 @@
           }
           table.column('').order('asc' ).search('').draw();
       });
-      settings = table.settings();
-      $("#reset").click(function (){
-         settings[0]._iDisplayLength = settings[0].fnRecordsTotal();
-   //set display length of dataTables settings to the total records available
-
-           table.draw();
-
-         });
+   
+          $("#reset").click(function (){
+            showAll(table)
+            });
 
       table.on('draw', function () {
         var tooltipTriggerList = [].slice.call(

@@ -80251,6 +80251,48 @@ input[type=number] {
     max-height: 250px;
     overflow: scroll;
     position: relative;
+    overflow-x: hidden;
+}
+
+/* width */
+.select2::-webkit-scrollbar {
+    width: 3px;
+}
+/* Track */
+.select2::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+
+/* Handle */
+.select2::-webkit-scrollbar-thumb {
+    background: transparent;
+}
+/* Handle on hover */
+.select2::-webkit-scrollbar-thumb:hover {
+    background: #033053;
+}
+
+/* ////////////////////////////////////////////////////////// */
+/* width */
+.select2-results__options::-webkit-scrollbar {
+    width: 3px;
+}
+
+/* Track */
+.select2-results__options::-webkit-scrollbar-track {
+    box-shadow: inset 0 0 5px transparent;
+
+}
+
+/* Handle */
+.select2-results__options::-webkit-scrollbar-thumb {
+    background: #033053;
+
+}
+
+/* Handle on hover */
+.select2-results__options::-webkit-scrollbar-thumb:hover {
+    background: #014A83;
 }
 
 .select2-container--default .select2-selection--multiple {

@@ -35,6 +35,7 @@ return [
             'global_transfer' => 'تحويل دولي',
             'charge' => 'شحن',
             'money_request' => 'طلب أموال',
+            'payment' => 'دفع فاتورة',
         ],
         'status_cases' => [
             'success' => 'ناجحة',

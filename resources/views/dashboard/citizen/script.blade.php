@@ -98,14 +98,14 @@
 
                 pageLength: 10,
                 lengthMenu: [
-                    [1, 5, 10, 15, 20],
-                  ["١", "٥","١٠","١٥", "٢٠"]
+                    [-1, 1, 5, 10, 15, 20],
+                    ["All",1, 5, 10, 15, 20]
                 ],
 
                 "language": {
                   @include('dashboard.layouts.globals.datatable.datatable_translation')
                 },
-                "drawCallback": function(settings, json) {
+                {{-- "drawCallback": function(settings, json) {
                     // table sorting
                     var citizenTableSorting = document.getElementsByClassName('citizen_index');
                     for (var i = 0; i < citizenTableSorting.length; i++) {
@@ -125,10 +125,12 @@
                     var citizenTableInfo = document.getElementById('citizenTable_info').innerText;
                     document.getElementById('citizenTable_info').innerText = citizenTableInfo.replace(
                         citizenTableInfo, citizenTableInfo.toArabicUni());
-                }
+                } --}}
             });
 
-
+ $("#reset").click(function (){
+            showAll(table)
+      });
             $("#citizen-search").submit(function(e) {
                 e.preventDefault();
                 table.draw();
@@ -189,19 +191,26 @@
                 },
                 data: $(this).serialize(),
                 success: function(data) {
+                    btn_submit.html('{{ trans('dashboard.general.save') }}');
                     toast('success',data.message ,"{{ LaravelLocalization::getCurrentLocaleDirection() == 'rtl' }}");
                     $('#citizenTable').DataTable().ajax.reload();
                     $('#modal_phone').modal('hide');
                 },
                 error: function (data) {
                     btn_submit.html('{{ trans('dashboard.general.save') }}');
-                    $.each(data.responseJSON.errors, function(name, message) {
-                        $('input[name="' + name + '"]').addClass('border-danger');
-                        $('#' + name + '_error').html(`<small class='text-danger'>${message}</small>`);
-
+                    $.each(data.responseJSON.errors, function(input, errors) {
+                        $('input[name="' + input + '"]').addClass('border-danger');
+                        $.each(errors, function(name, message) {
+                            $('#' + input + '_error').append(`<small class='text-danger'>${message}</small><br/>`);
+                        });
                     });
                 }
             });
+        });
+
+        $("#modal_phone").on("hidden.bs.modal", function () {
+            $('#phone_error').html('');
+            $('input[name="phone"]').removeClass('border-danger');
         });
 </script>
 <script src="{{ asset('dashboardAssets/js/select2.js') }}"></script>
