@@ -49,6 +49,11 @@ class Transfer extends Model
         return $this->hasOne(BankTransfer::class, 'transfer_id');
     }
 
+    public function beneficiary()
+    {
+        return $this->hasOneThrough(Beneficiary::class,bankTransfer::class,'transfer_id','id','id','beneficiary_id');
+    }
+
     public function fromUser()
     {
       return $this->belongsTo(User::class,'from_user_id');

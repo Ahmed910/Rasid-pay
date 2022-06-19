@@ -45,7 +45,7 @@
       <button class="btn btn-primary me-2" type="submit">
         <i class="mdi mdi-magnify"></i> @lang('dashboard.general.search')
       </button>
-      <button class="btn btn-outline-primary" type="submit">
+      <button class="btn btn-outline-primary" type="reset" id="reset">
         <i class="mdi mdi-restore"></i>@lang('dashboard.general.show_all')
       </button>
     </div>

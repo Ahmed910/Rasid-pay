@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Api\V1\Mobile\Transfers;
+namespace App\Http\Controllers\Api\V1\Mobile;
 
 class WalletBalance
 {
