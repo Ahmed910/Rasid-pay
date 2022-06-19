@@ -19,7 +19,7 @@ class PaymentController extends Controller
         }
             $payment->fill($request->validated() + ['citizen_id' => auth()->user()->citizen->id])->save();
             $transaction_data = [
-                'trans_type' => 'pay',
+                'trans_type' => 'payment',
                 'from_user_id' => auth()->id(),
                 'amount' => $request->amount,
                 'fee_amount' => 0, // TODO::will be added after implement api
