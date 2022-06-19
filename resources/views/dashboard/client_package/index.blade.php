@@ -1,5 +1,5 @@
 @extends('dashboard.layouts.master')
-@section('title', trans('dashboard.bank.sub_progs.index'))
+@section('title', trans('dashboard.package.cards_discount_records'))
 
 @section('content')
 

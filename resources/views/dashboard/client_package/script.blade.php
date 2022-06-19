@@ -35,12 +35,10 @@
         ajax: {
           url: "{{ route('dashboard.client_package.index') }}?" + $.param(
             @json(request()->query())),
-           data: function (data) {
-            data.id = $('#client_id').val();
-          },
           type: "GET",
           dataSrc: 'data',
           data : function(data){
+            data.client_id = $('#client_id').val(),
             insertUrlParam('sort[column]', data.columns[data.order[0].column].name);
             insertUrlParam('sort[dir]',data.order[0].dir);
           }
@@ -127,7 +125,7 @@
             showAll(table)
       });
       $("#client_id").on('select2:select', function (e) {
-        insertUrlParam('id', $('#client_id').val());
+        insertUrlParam('client_id', $('#client_id').val());
         table.draw();
 
       });
