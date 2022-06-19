@@ -5,8 +5,8 @@ $(function(e) {
       sDom: "t<'domOption'lpi>",
       pageLength: 10,
       lengthMenu: [
-        [1,5, 10, 20, -1],
-        [1,5, 10, 20, "الكل"],
+        [1,5, 10, 20],
+        [1,5, 10, 20],
       ],
       language: {
         lengthMenu: "عرض _MENU_",

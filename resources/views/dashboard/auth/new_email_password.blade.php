@@ -15,29 +15,24 @@
     <div class="form-group">
         <label>كلمة المرور الجديدة</label>
         <div class="input-group" id="show_hide_password">
-            <input class="form-control @error('password') is-invalid @enderror" placeholder="كلمة المرور" type="password" name="password"/>
-                @error('password')
-                    <div class="invalid-feedback">{{ $message }}</div>
-                @enderror
-                <span class="text-danger" id="password_error"></span>
+            <input class="form-control stop-copy-paste @error('password') is-invalid @enderror" placeholder="كلمة المرور" type="password" name="password"/>
             <div class="input-group-text border-start-0">
                 <a href=""><i class="mdi mdi-eye-off-outline d-flex"></i></a>
             </div>
         </div>
+        <span class="text-danger" id="password_error"></span>
     </div>
     <input type="hidden" name="token" value="{{ $token }}">
     <input type="hidden" name="email" value="{{ $email }}">
     <div class="form-group">
         <label>تأكيد كلمة المرور </label>
         <div class="input-group" id="show_hide_confirm_password">
-            <input class="form-control @error('password_confirmation') is-invalid @enderror" placeholder="كلمة المرور" type="password" name="password_confirmation"/>
-                @error('password_confirmation')
-                    <div class="invalid-feedback">{{ $message }}</div>
-                @enderror
+            <input class="form-control stop-copy-paste @error('password_confirmation') is-invalid @enderror" placeholder="كلمة المرور" type="password" name="password_confirmation"/>
             <div class="input-group-text border-start-0">
                 <a href=""><i class="mdi mdi-eye-off-outline d-flex"></i></a>
             </div>
         </div>
+        <span class="text-danger" id="password_confirmation_error"></span>
     </div>
     <div class="col-12 mt-5 text-center">
       <a onclick="submitForm('#email-form')" class="btn btn-primary a-submit">{{ trans('dashboard.general.confirm') }}</a>
@@ -49,4 +44,9 @@
     </div>
 
 </form>
+@endsection
+@section('scripts')
+<script>
+     toastr.options.target = null
+</script>
 @endsection

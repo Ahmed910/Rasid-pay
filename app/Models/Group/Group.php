@@ -34,12 +34,6 @@ class Group extends Model implements TranslatableContract
             $query->whereTranslationLike('name',"%$request->name%");
         }
 
-        if (isset($request->is_active)) {
-            if (!in_array($request->is_active, [1, 0])) return;
-
-            $query->where('is_active', $request->is_active);
-        }
-
         if (!is_null($request->admins_from) && $request->admins_from >= 0) {
             $query->having('user_count',">=" , (int)$request->admins_from);
         }
@@ -47,6 +41,13 @@ class Group extends Model implements TranslatableContract
         if (!is_null($request->admins_to) && $request->admins_to >= 0) {
             $query->having('user_count',"<=" , (int)$request->admins_to);
         }
+
+        if (isset($request->is_active)) {
+            if (!in_array($request->is_active, [1, 0])) return;
+
+            $query->where('is_active', $request->is_active);
+        }
+        
         $new = $query->toSql() ;
         if ($old!=$new)  $this->addGlobalActivity($this, $request->query(), ActivityLog::SEARCH, 'index');
     }

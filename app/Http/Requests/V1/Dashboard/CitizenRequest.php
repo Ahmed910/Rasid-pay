@@ -19,14 +19,11 @@ class CitizenRequest extends ApiMasterRequest
     protected function prepareForValidation()
     {
         $data = $this->all();
-        $this->phone = convert_arabic_number($this->phone);
-//        isset( $this->phone[0])
-        $forvalidation = isset($this->phone[0]) && $this->phone[0] == "0" ? substr($this->phone, 1) : $this->phone;
+
         $this->merge([
             'date_of_birth' => @$data['date_of_birth'] ? date('Y-m-d', strtotime($data['date_of_birth'])) : null,
             'country_code' => @$data['country_code'] ? convert_arabic_number($data['country_code']) : null,
-            'phone' => @$data['phone'] ? convert_arabic_number($data['phone']) : null,
-            'full_phone' => $this->country_code . $forvalidation
+            'phone' => @$data['phone'] ? filter_mobile_number($data['phone']) : @$data['phone']
         ]);
     }
 
@@ -43,7 +40,11 @@ class CitizenRequest extends ApiMasterRequest
             "email" => ["nullable", "max:255", "email", "unique:users,email," . @$this->citizen],
             "image" => "nullable|max:5120|mimes:jpg,png,jpeg",
             "country_code" => "nullable|in:" . $list,
-            "phone" => ["nullable", "not_regex:/^{$this->country_code}/", "numeric", "digits_between:7,20", "required_with:country_code"],
+            "phone" => ["nullable", "numeric", "digits_between:7,20", "required_with:country_code", function ($attribute, $value, $fail) {
+                if(!check_phone_valid($value)){
+                    $fail(trans('mobile.validation.invalid_phone'));
+                }
+            }],
             "full_phone" => ["unique:users,phone," . @$this->client],
             "identity_number" => ["nullable", "numeric", "digits_between:10,20", "unique:users,identity_number," . @$this->citizen],
             "date_of_birth" => ["nullable", "date"],

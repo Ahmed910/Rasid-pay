@@ -86,7 +86,7 @@ class LoginController extends Controller
             return response()->json(['status' => false, 'data' => null, 'message' => trans('auth.account_not_exists')], 422);
         }
 
-        // try {
+        try {
             $code = 1111;
             if (setting('use_sms_service') == 'enable') {
                $code = generate_unique_code(User::class, 'phone', 4, 'numbers');
@@ -98,9 +98,9 @@ class LoginController extends Controller
                 return response()->json(array_except($response['response'],['message']) + ['message' => trans('auth.success_send_login_code')],403);
             }
             return response()->json(['status' => true, 'data' => null, 'message' => trans('auth.success_send_login_code')]);
-        // } catch (\Exception $e) {
-        //     return response()->json(['status' => false, 'data' => null, 'message' => trans('auth.fail_send')], 422);
-        // }
+        } catch (\Exception $e) {
+            return response()->json(['status' => false, 'data' => null, 'message' => trans('auth.fail_send')], 422);
+        }
     }
 
     /**
