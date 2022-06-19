@@ -20,7 +20,7 @@
      </script>
  @endsection
  @endif
- @if(count($errors) > 0)
+ {{-- @if(count($errors) > 0)
  @section('toast')
      <script>
         @foreach($errors->all() as $error)
@@ -28,4 +28,4 @@
          @endforeach
      </script>
  @endsection
- @endif
+ @endif --}}

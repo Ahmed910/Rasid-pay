@@ -52,7 +52,7 @@ class DepartmentController extends Controller
     {
         return response()->json([
             'data' => Department::select('id')->when($request->department_id, function ($q) use ($request) {
-                    $children = Department::flattenChildren(Department::find($request->department_id));
+                    $children = Department::flattenChildren(Department::withTrashed()->findOrFail($request->department_id));
                     $q->whereNotIn('departments.id', $children);
                 })->when($request->department_type == 'children', function ($q) {
                     $q->where(function ($q) {
@@ -105,11 +105,11 @@ class DepartmentController extends Controller
 
     public function update(DepartmentRequest $request,  $department)
     {
-        $department = $request->department;
-        $department->fill($request->validated() + ['updated_at' => now()])->save();
+        $dep = Department::withTrashed()->findOrFail($department);
+        $dep->fill($request->validated() + ['updated_at' => now()])->save();
 
 
-        return DepartmentResource::make($department)
+        return DepartmentResource::make($dep)
             ->additional([
                 'status' => true,
                 'message' => trans("dashboard.general.success_update")

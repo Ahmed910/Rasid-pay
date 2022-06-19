@@ -5,7 +5,7 @@ use Closure;
 use Symfony\Component\HttpFoundation\Response;
 use Illuminate\Support\Facades\DB;
 
-class UseTransaction 
+class UseTransaction
 {
     /**
      * Handle an incoming request.

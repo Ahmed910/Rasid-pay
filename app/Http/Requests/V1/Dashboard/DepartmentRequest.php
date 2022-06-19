@@ -24,8 +24,9 @@ class DepartmentRequest extends ApiMasterRequest
      */
     public function rules()
     {
-        $this->department =$this->department ?Department::withTrashed()->findOrFail($this->department):$this->department ;
-        $igonredDepartment = $this->department ?  implode(',', Department::flattenChildren($this->department)) : "";
+        $igonredDepartment = $this->department ?  implode(',', Department::flattenChildren(
+            Department::withTrashed()->findOrFail($this->department)
+        )) : "";
         $rules = [
             "image"         => "nullable|max:5120|mimes:jpg,png,jpeg",
             "parent_id"     => "nullable|exists:departments,id,deleted_at,NULL|not_in:$igonredDepartment",
@@ -34,7 +35,7 @@ class DepartmentRequest extends ApiMasterRequest
         ];
         foreach (config('translatable.locales') as $locale) {
             $rules["$locale"]               = "array";
-            $rules["$locale.name"]          = "required|between:2,100|regex:/^[\pL\pN\s\-\_]+$/u|unique:department_translations,name," . $this->department?->id  . ",department_id";
+            $rules["$locale.name"]          = "required|between:2,100|regex:/^[\pL\pN\s\-\_]+$/u|unique:department_translations,name," . @$this->department  . ",department_id";
             $rules["$locale.description"]   = "nullable|string|max:300";
         }
 

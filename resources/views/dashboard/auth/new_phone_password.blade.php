@@ -19,9 +19,8 @@
              <div class="input-group-text border-start-0">
                <a href=""><i class="mdi mdi-eye-off-outline d-flex"></i></a>
              </div>
-             <span class="text-danger" id="password_error"></span>
-
         </div>
+        <span class="text-danger" id="password_error"></span>
     </div>
     <input type="hidden" name="reset_token" value="{{ $reset_token }}">
     <div class="form-group">
@@ -31,8 +30,8 @@
              <div class="input-group-text border-start-0">
                <a href=""><i class="mdi mdi-eye-off-outline d-flex"></i></a>
              </div>
-             <span class="text-danger" id="password_confirmation_error"></span>
         </div>
+        <span class="text-danger" id="password_confirmation_error"></span>
     </div>
     <div class="col-12 mt-5 text-center">
       <a onclick="submitForm('#phone-form')" class="btn btn-primary a-submit">{{ trans('dashboard.general.confirm') }}</a>
@@ -44,4 +43,9 @@
     </div>
 
 </form>
+@endsection
+@section('scripts')
+<script>
+     toastr.options.target = null
+</script>
 @endsection

@@ -8,6 +8,7 @@ use GeniusTS\HijriDate\Hijri;
 use App\Models\Package\Package;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use phpDocumentor\Reflection\DocBlock\Tags\Deprecated;
 
 class CitizenPackage extends Model
 {
@@ -42,8 +43,10 @@ class CitizenPackage extends Model
         return $date;
         // return Carbon::parse($date)->locale($locale)->translatedFormat('j F Y');
     }
+
     #region scopes
-    public function setPackageIdAttribute($value){
+    public function setPackageIdAttribute($value)
+    {
         $this->attributes['package_id'] = $value;
         // $this->attributes['card_data'] = Package::select('id','price','offer','cash_back','promo_cash_back','discount_promo_code')->listsTranslations('name')->find($value)->toJson();
 
@@ -57,14 +60,19 @@ class CitizenPackage extends Model
         return $this->belongsTo(Package::class, 'package_id');
     }
 
-   public function citizen()
+    public function citizen()
     {
-        return $this->belongsTo(User::class,'citizen_id');
+        return $this->belongsTo(User::class, 'citizen_id');
     }
 
     public function transactions()
     {
         return $this->hasMany(Transaction::class);
+    }
+
+    public function citizenPackagePromoCodes()
+    {
+        return $this->hasMany(CitizenPackagePromoCode::class);
     }
     #endregion relationships
 
