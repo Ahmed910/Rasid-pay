@@ -18,7 +18,7 @@ class TransactionController extends Controller
         $transactions = Transaction::search($request)
             ->CustomDateFromTo($request)
             ->sortBy($request)
-            ->with('citizenPackage', 'client', 'citizen.citizen.enabledPackage','transactionable')
+            ->with('citizenPackage', 'toUser', 'fromUser.citizen.enabledPackage', 'transactionable')
             ->paginate((int)($request->per_page ?? config("globals.per_page")));
 
         return TransactionResource::collection($transactions)
@@ -31,7 +31,7 @@ class TransactionController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
     public function store(TransactionRequest $request, Transaction $transaction)
@@ -52,19 +52,19 @@ class TransactionController extends Controller
         return TransactionResource::make($transaction)
             ->additional([
                 'status' => true,
-                'message' =>  __('dashboard.general.success_add')
+                'message' => __('dashboard.general.success_add')
             ]);
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function show($id)
     {
-        $transaction  = Transaction::findOrFail($id);
+        $transaction = Transaction::findOrFail($id);
 
         return TransactionResource::make($transaction)
             ->additional([
@@ -77,8 +77,8 @@ class TransactionController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param \Illuminate\Http\Request $request
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function update($id)
@@ -89,7 +89,7 @@ class TransactionController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function destroy(Transaction $transaction)
@@ -98,7 +98,7 @@ class TransactionController extends Controller
         return TransactionResource::make($transaction)
             ->additional([
                 'status' => true,
-                'message' =>  trans('dashboard.general.success_archive'),
+                'message' => trans('dashboard.general.success_archive'),
             ]);
     }
 
