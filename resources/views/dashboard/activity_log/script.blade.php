@@ -125,14 +125,14 @@
         },
         pageLength: 10,
         lengthMenu: [
-          [1, 5, 10, 15, 20],
-          ["١", "٥","١٠","١٥", "٢٠"]
+          [-1, 1, 5, 10, 15, 20],
+          ["All", 1, 5, 10, 15, 20],
         ],
 
         "language": {
           @include('dashboard.layouts.globals.datatable.datatable_translation')
         },
-        "drawCallback": function (settings, json) {
+        {{-- "drawCallback": function (settings, json) {
           // table sorting
           var activityLogTableSorting = document.getElementsByClassName('activity_log_index');
           for (var i = 0; i < activityLogTableSorting.length; i++) {
@@ -146,9 +146,13 @@
           // info
           var activityLogTableInfo = document.getElementById('activitylogtable_info').innerText;
           document.getElementById('activitylogtable_info').innerText = activityLogTableInfo.replace(activityLogTableInfo, activityLogTableInfo.toArabicUni());
-        }
+        } --}}
 
       });
+
+       $("#reset").click(function (){
+            showAll(table)
+            });
       var detailRows = [];
 
       $('#activitylogtable tbody').on('click', 'td.dt-control', function () {
