@@ -310,6 +310,10 @@ class User extends Authenticatable implements HasAssetsInterface
             $query->where('users.id', $request->id);
         }
 
+        if($request->client_id && !in_array($request->client_id , [-1])){
+            $query->where('id',$request->client_id);
+        }
+
         //NOTE: Should be the last one in search scope
         if (isset($request->ban_status)) {
             if (!in_array($request->ban_status, ['active', 'permanent', 'temporary'])) return;
