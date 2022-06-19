@@ -20,6 +20,7 @@ class ClientResource extends JsonResource
             'image'    => $this->image,
             'client_type' => $this->client ? trans('dashboard.client.client_type.'.$this->client->client_type) : null,
             'discounts'   => ClientDiscountResource::collection($this->whenLoaded('clientPackages')),
+            //TODO::add provider branches after implementing it
         ] ;
     }
 }

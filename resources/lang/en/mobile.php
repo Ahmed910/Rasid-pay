@@ -14,5 +14,25 @@ return [
     ],
     'payments' => [
         'current_balance_is_not_sufficient_to_complete_payment'=>'Current Balance Is Not Sufficient To Complete Payment',
-    ]
+    ],
+    'promotion'=>[
+        'promo_code_is_used'=>'Promo Code Is Used Before',
+        'promo_code_is_not_found'=>'Promo Code Is Not Found',
+    ],
+    'transaction' => [
+        'transaction_types' => [
+            'local_transfer' => 'Local Transfer',
+            'global_transfer' => 'Global Transfer',
+            'charge' => 'Charge',
+            'money_request' => 'Money Request',
+            'pay' => 'Pay'
+        ],
+        'status_cases' => [
+            'success' => 'Success',
+            'fail' => 'Fail',
+            'pending' => 'Pending',
+            'received' => 'Received',
+            'cancel' => 'Cancel',
+        ],
+    ],
 ];
