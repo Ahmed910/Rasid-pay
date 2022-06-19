@@ -4,7 +4,7 @@ namespace App\Http\Resources\Mobile;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class GLobalTransferResource extends JsonResource
+class GlobalTransferResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
