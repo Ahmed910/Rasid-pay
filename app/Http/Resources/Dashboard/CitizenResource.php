@@ -16,7 +16,6 @@ class CitizenResource extends JsonResource
     public function toArray($request)
     {
         return [
-
             'user' => SimpleCitizenResource::make($this->whenLoaded('user')),
             "lat" => $this->lat,
             "lng" => $this->lng,
