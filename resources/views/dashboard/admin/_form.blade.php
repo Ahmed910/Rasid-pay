@@ -4,7 +4,7 @@
             {!! Form::label('fullname', trans('dashboard.general.username')) !!}
             <span class="requiredFields">*</span>
             {!! Form::text("fullname", null, ['class' => 'form-control input-regex stop-copy-paste', 'id' => "fullname", 'placeholder'
-            => trans('dashboard.general.user_name'),'onblur'=>'validateData(this.id)', 'minlength' => '2', 'maxlength' => '100']) !!}
+            => trans('dashboard.general.user_name'),'onblur'=>'validateData(this)', 'minlength' => '2', 'maxlength' => '100']) !!}
             <span class="text-danger" id="fullnameError" hidden></span>
         </div>
         <div class="col-12 col-md-4">
@@ -13,7 +13,7 @@
             {!! Form::select('department_id', ['' => ''] + $departments, isset($admin) ?
             $admin->employee?->department_id :
             null, ['class' => 'form-control input-regex stop-copy-paste select2-show-search ', 'data-placeholder' =>
-            trans('dashboard.department.select_department'),'id' => 'mainDepartment','onblur'=>'validateData(this.id)', 'onchange' =>
+            trans('dashboard.department.select_department'),'id' => 'mainDepartment','onblur'=>'validateData(this)', 'onchange' =>
             'getJobs(this.value)' , (isset($admin) ? 'disabled' : '') ]) !!}
             <span class="text-danger" id="department_idError"></span>
 
@@ -21,10 +21,10 @@
         <div class="col-12 col-md-4">
             {!! Form::label('rasid_job_id', trans('dashboard.rasid_job.rasid_job')) !!} <span
                 class="requiredFields">*</span>
-            <div id="new_admin">
+
                 {!! Form::select('rasid_job_id', isset($admin) ? ['' => ''] + $rasid_jobs :['' => ''] , isset($admin) ? $admin->employee?->rasid_job_id :null, ['class' => 'form-control input-regex stop-copy-paste select2-show-search ', 'id' =>
                     'rasid_job_id', 'data-placeholder' => trans('dashboard.rasid_job.select_job'),(isset($admin) ? 'disabled' : '')]) !!}
-            </div>
+
             <span class="text-danger" id="rasid_job_idError"></span>
         </div>
 
@@ -33,7 +33,7 @@
 
             @if (isset($admin))
 
-            {!! Form::number('login_id', null, ['class' => 'form-control stop-copy-paste','onblur'=>'validateData(this.id)', 'oninput' => 'javascript: if
+            {!! Form::number('login_id', null, ['class' => 'form-control stop-copy-paste','onblur'=>'validateData(this)', 'oninput' => 'javascript: if
             (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);', 'min' => '0',
             'maxlength'
             => '6', 'onkeypress' => 'return /[0-9a-zA-Z]/i.test(event.key)', 'id' => 'userId', 'placeholder' =>
@@ -41,7 +41,7 @@
             @else
 
 
-            {!! Form::number('login_id', null, ['class' => 'form-control stop-copy-paste', 'onblur'=>'validateData(this.id)','oninput' => 'javascript: if
+            {!! Form::number('login_id', null, ['class' => 'form-control stop-copy-paste', 'onblur'=>'validateData(this)','oninput' => 'javascript: if
             (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);', 'min' => '0',
             'maxlength'
             => '6', 'onkeypress' => 'return /[0-9a-zA-Z]/i.test(event.key)', 'id' => 'userId', 'placeholder' =>
@@ -53,7 +53,7 @@
         <div class="col-12 col-md-4  mt-3">
             {!! Form::label('email', trans('dashboard.general.email')) !!}
             <span class="requiredFields">*</span>
-            {!! Form::email("email", null, ['class' => 'form-control input-regex stop-copy-paste', 'id' => "email",'onblur'=>'validateData(this.id)' ,'placeholder' =>
+            {!! Form::email("email", null, ['class' => 'form-control input-regex stop-copy-paste', 'id' => "email",'onblur'=>'validateData(this)' ,'placeholder' =>
             trans('dashboard.general.enter_email'),"autocomplete"=>"off","readonly","onfocus"=>"this.removeAttribute('readonly');", 'minlength' => '2', 'maxlength' => '100']) !!}
             <span class="text-danger" id="emailError" hidden></span>
         </div>
@@ -61,7 +61,7 @@
             <label for="phone">{{ trans('dashboard.general.phone') }} </label><span
                 class="requiredFields">*</span>
             <div class="input-group">
-                <input id="phone" type="number" name="phone" onblur="validateData(this.id)"
+                <input id="phone" type="number" name="phone" onblur="validateData(this)"
                     oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
                     pattern="^[1-9]\d*$" onkeypress="return /[0-9a-zA-Z]/i.test(event.key)" maxlength="9"
                     class="form-control stop-copy-paste" placeholder="{{ trans('dashboard.citizens.enter_phone') }} "
@@ -166,7 +166,7 @@
     <div class="col-12 col-md-4 mt-3 changePass" @if (isset($admin)) hidden @endif>
       {!! Form::label('newPassword', trans('dashboard.admin.confirmed_password')) !!} <span class="requiredFields">*</span>
       <div class="input-group" id="show_hide_password">
-        {!! Form::password('password_confirmation', ['class' => 'form-control stop-copy-paste', 'maxlength' => '10','onblur'=>'validateData(this)',
+        {!! Form::password('password_confirmation', ['class' => 'form-control stop-copy-paste', 'maxlength' => '10',
         'oninput' => 'javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0,
         this.maxLength);', 'pattern' => '^[1-9]\d*$',
         "autocomplete"=>"off","readonly","onfocus"=>"this.removeAttribute('readonly');",'onkeypress' => 'return
@@ -176,8 +176,9 @@
         <div class="input-group-text border-start-0">
           <a href=""><i class="mdi mdi-eye-off-outline d-flex"></i></a>
         </div>
+
       </div>
-       <span class="text-danger" id="password_confirmation_error"></span>
+<span class="text-danger" id="password_confirmation_error"></span>
     </div>
 
     @endif
