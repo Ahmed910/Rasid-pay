@@ -26,6 +26,7 @@ class LocalTransferRequest extends ApiMasterRequest
     {
 
         return [
+            "otp_code" => 'required|exists:citizen_wallets,wallet_bin,citizen_id,'.auth()->id(),
             'balance_type' => 'required|in:main,back',
             'amount' => 'required|numeric|gte:'. (float)setting('min_local_transfer_amount') ?? 10,
             'fee_upon' => 'required|in:'.join(',', Transfer::FEE_UPON),

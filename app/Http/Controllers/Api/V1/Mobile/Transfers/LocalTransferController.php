@@ -7,7 +7,7 @@ use App\Http\Requests\V1\Mobile\BalanceTypeRequest;
 use App\Http\Requests\V1\Mobile\LocalTransferRequest;
 use App\Http\Resources\Mobile\{LocalTransferResource, Transactions\TransactionResource};
 use App\Models\{CitizenWallet, Device, Transaction, Transfer};
-use App\Http\Controllers\Api\V1\Mobile\WalletBalance;
+use App\Services\WalletBalance;
 
 class LocalTransferController extends Controller
 {
@@ -21,6 +21,7 @@ class LocalTransferController extends Controller
             ($request->balance_type === 'back' && ($wallet->cash_back < $request->amount))) {
             return response()->json(['data' => null, 'message' => trans('mobile.local_transfers.current_balance_is_not_sufficiant_to_complete_transaction'), 'status' => false], 422);
         }
+        $wallet->update(['wallet_bin' => null]);
         // TODO: Calc transfer fee
 
         // Set transfer data

@@ -90,6 +90,17 @@
               } --}}
             });
 
+            $("#groupTable").DataTable({
+                  responsive: true,
+                  sDom: "t<'domOption'lpi>",
+                  pageLength: 10,
+                  lengthMenu: [
+                    [1, 5, 10, 15, 20],
+                    [1, 5, 10, 15, 20]
+                  ],
+                  language:    {@include('dashboard.layouts.globals.datatable.datatable_translation')} ,
+            });
+
             $('.select2').select2({
                 minimumResultsForSearch: Infinity
             });

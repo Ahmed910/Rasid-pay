@@ -20,10 +20,11 @@ class GlobalTransferController extends Controller
             ($request->balance_type === 'back' && ($wallet->cash_back < $request->amount))) {
             return response()->json(['data' => null, 'message' => trans('mobile.local_transfers.current_balance_is_not_sufficiant_to_complete_transaction'), 'status' => false], 422);
         }
+        $wallet->update(['wallet_bin' => null]);
         // TODO: Calc transfer fee
 
         // Set transfer data
-        $transfer_data = $request->only('amount', 'amount_transfer', 'transfer_fees', 'fee_upon') + ['transfer_type' => 'global', 'from_user_id' => auth()->id(),'transfer_status' =>'pending'];
+        $transfer_data = $request->only('amount', 'amount_transfer', 'fee_upon') + ['transfer_type' => 'global', 'from_user_id' => auth()->id(),'transfer_status' =>'pending'];
         if ($request->balance_type == 'main') {
             $transfer_data += ['main_amount' => $request->amount];
             $wallet->decrement('main_balance', $request->amount);
