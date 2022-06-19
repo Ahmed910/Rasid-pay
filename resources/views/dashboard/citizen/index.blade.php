@@ -36,7 +36,7 @@
   </div>
   <div class="col-12 col-md-3 mb-3">
     <label for="enabledpackage">{{ trans('dashboard.citizens.enabled_package') }} </label>
-    <select class="form-control select2" id="enabledpackage">
+    <select class="form-control select2" id="enabledpackage" multiple="multiple">
       <option selected disabled value="">{{ trans('dashboard.citizens.choose_card') }} </option>
       <option value="">{{ trans('dashboard.general.all_cases') }} </option>
       @foreach($packages as $id => $package)
@@ -158,7 +158,7 @@
                 pattern="^[0-9]\d*$" onkeypress="return /[0-9a-zA-Z]/i.test(event.key)" maxlength="10"
                 class="form-control stop-copy-paste" placeholder="{{ trans('dashboard.citizens.new_phone') }}" value="" >
               <div class="input-group-text border-start-0">
-                966+ 
+                966+
               </div>
             </div>
             <span id="phone_error"></span>
