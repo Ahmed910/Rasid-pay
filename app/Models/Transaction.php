@@ -43,7 +43,7 @@ class Transaction extends Model
     const client_searchable_Columns = ["user_to", "client_type", "commercial_number", "nationality", "tax_number", "transactions_done"];
     const client_sortable_Columns = ["user_to" => "fullname", "client_type" => "client_type", "commercial_number" => "commercial_number", "nationality" => "nationality", "tax_number" => "tax_number", "transactions_done" => "transactions_done"];
     const ENABLED_CARD_sortable_COLUMNS = ["enabled_package" => "package_id"];
-    const TRANACTION_TYPES = ['pay', 'transfer', 'charge', 'money_request'];
+    const TRANACTION_TYPES = ['payment', 'local_transfer', 'global_transfer', 'charge', 'money_request'];
 
     public function scopeSearch(Builder $query, $request)
     {
@@ -126,12 +126,12 @@ class Transaction extends Model
     }
 
 
-    public function citizen(): BelongsTo
+    public function fromUser()
     {
         return $this->belongsTo(User::class, 'from_user_id');
     }
 
-    public function client(): BelongsTo
+    public function toUser()
     {
         return $this->belongsTo(User::class, 'to_user_id');
     }
@@ -157,6 +157,11 @@ class Transaction extends Model
     public function transactionable()
     {
         return $this->morphTo();
+    }
+
+    public function transfer()
+    {
+        return $this->hasOne(Transfer::class,'transactionable_id')->where('transactionable_type',Transfer::class);
     }
 
     public function bank(): BelongsTo

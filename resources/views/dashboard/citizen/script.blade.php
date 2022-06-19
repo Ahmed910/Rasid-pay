@@ -87,10 +87,9 @@
                         data: function(data) {
                             return `
                   <a href="#"
-                     onclick=updatePhone('${data.id}','${data.update_route}','${'#citizenTable'}',${ data.phone_without_cc})
+                     onclick=setCitizenPhoneModal('${data.phone}','${data.update_route}')
                      class="warningIcon" data-bs-toggle="tooltip" data-bs-placement="top"
-                     title="@lang('dashboard.general.edit')"><i class="mdi mdi-square-edit-outline" data-bs-toggle="modal"
-                     data-bs-target="#modal_phone"></i></a>`
+                     title="@lang('dashboard.general.edit')"><i class="mdi mdi-square-edit-outline"></i></a>`
                         },
                         orderable: false,
                         searchable: false
@@ -172,6 +171,37 @@
                 });
             });
 
+        });
+
+        function setCitizenPhoneModal(phone, route) {
+            $('#update-phone').attr('action',route);
+            $('#update-phone').find('input[name=phone]').val(phone);
+            $('#modal_phone').modal('show');
+        }
+        $('#update-phone').on('submit',function (e) {
+            e.preventDefault();
+            var btn_submit = $('#btn-submit');
+            $.ajax({
+                url: $('#update-phone').attr('action'),
+                type: 'POST',
+                beforeSend: function () {
+                    btn_submit.html(`<span class="spinner-border text-light" style="width: 1rem; height: 1rem;" role="status"></span>`);
+                },
+                data: $(this).serialize(),
+                success: function(data) {
+                    toast('success',data.message ,"{{ LaravelLocalization::getCurrentLocaleDirection() == 'rtl' }}");
+                    $('#citizenTable').DataTable().ajax.reload();
+                    $('#modal_phone').modal('hide');
+                },
+                error: function (data) {
+                    btn_submit.html('{{ trans('dashboard.general.save') }}');
+                    $.each(data.responseJSON.errors, function(name, message) {
+                        $('input[name="' + name + '"]').addClass('border-danger');
+                        $('#' + name + '_error').html(`<small class='text-danger'>${message}</small>`);
+
+                    });
+                }
+            });
         });
 </script>
 <script src="{{ asset('dashboardAssets/js/select2.js') }}"></script>

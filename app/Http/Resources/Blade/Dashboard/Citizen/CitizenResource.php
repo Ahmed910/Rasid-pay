@@ -18,8 +18,8 @@ class CitizenResource extends JsonResource
             'enabled_package' => $this->enabledPackage?->package?->name ?? trans('dashboard.citizens.without'),
             'card_end_at' => $this->enabledPackage?->end_at ?? trans('dashboard.citizens.without'),
             'show_route' => route('dashboard.citizen.show', $this->id),
-            'edit_route' => route('dashboard.citizen.edit', $this->id),
-            'update_route' => route('dashboard.citizen.update_phone', $this->user->id),
+            // 'edit_route' => route('dashboard.citizen.edit', $this->id),
+            'update_route' => route('dashboard.citizen.update', $this->user->id),
             'created_at' => $this->created_at,
             'start_from' => $request->start
         ];

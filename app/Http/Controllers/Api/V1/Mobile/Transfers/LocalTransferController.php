@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Api\V1\Mobile\Transfers;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\V1\Mobile\BalanceTypeRequest;
 use App\Http\Requests\V1\Mobile\LocalTransferRequest;
-use App\Http\Resources\Mobile\LocalTransferResource;
+use App\Http\Resources\Mobile\{LocalTransferResource, Transactions\TransactionResource};
 use App\Models\{CitizenWallet, Device, Transaction, Transfer};
 
 
@@ -40,15 +40,15 @@ class LocalTransferController extends Controller
         $local_transfer->bankTransfer()->create($request->except('amount', 'transfer_fees','balance_type'));
 
         $transaction = $local_transfer->transaction()->create([
-            'amount' => $request->amount
+            'amount' => $request->amount,
             'transfer_type' => 'local_transfer',
             "fee_upon" => $request->fee_upon,
             'from_user_id' => auth()->id(),
-            'fee_amount' => $local_transfer->transfer_fees,
+            'fee_amount' => $local_transfer->transfer_fees ?? 0,
             'cashback_amount' => $local_transfer->cashback_amount,
             'main_amount' => $local_transfer->main_amount,
         ]);
-        
+
        return TransactionResource::make($transaction)->additional([
            'message' => trans('mobile.local_transfers.transfer_has_been_done_successfully'),
            'status' => true
