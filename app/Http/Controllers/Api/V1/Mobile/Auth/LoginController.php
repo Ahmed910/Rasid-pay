@@ -40,7 +40,7 @@ class LoginController extends Controller
         if (!$user) {
             return response()->json(['status' => false, 'data' => null, 'message' => trans('auth.account_not_exists')], 422);
         }
-        $response = $this->checkIsUserValid($user);
+        $response = self::checkIsUserValid($user);
         if ($response) {
             return response()->json($response['response'],403);
         }
@@ -93,7 +93,7 @@ class LoginController extends Controller
             }
             $user->update([$request->key_name => $code]);
             // TODO::send code for user by sms
-            $response = $this->checkIsUserValid($user);
+            $response = self::checkIsUserValid($user);
             if ($response) {
                 return response()->json(array_except($response['response'],['message']) + ['message' => trans('auth.success_send_login_code')],403);
             }
@@ -123,10 +123,10 @@ class LoginController extends Controller
     }
 
 
-    public function checkIsUserValid($user)
+    public static function checkIsUserValid($user)
     {
         switch ($user) {
-            case $user->register_status != 'completed':
+            case $user->register_status && $user->register_status != 'completed':
                 return [
                         'response' => [
                             'status' => false, 'data' => [
@@ -137,7 +137,7 @@ class LoginController extends Controller
                         ], 'message' => trans('auth.verify_phone')
                     ]
                 ];
-            case $user->is_active == 0 :
+            case $user->is_active && $user->is_active == 0 :
                 return [
                         'response' => [
                             'status' => false, 'data' => [
@@ -148,7 +148,7 @@ class LoginController extends Controller
                         ], 'message' => trans('auth.verify_phone')]
                     ];
 
-            case $user->ban_status == 'permanent' :
+            case $user->ban_status && $user->ban_status == 'permanent' :
                 return [
                         'response' => [
                             'status' => false, 'data' => [
@@ -160,7 +160,7 @@ class LoginController extends Controller
                     ]
                 ];
 
-            case $user->ban_status == 'temporary' :
+            case $user->ban_status && $user->ban_status == 'temporary' :
                 return [
                         'response' => [
                             'status' => false, 'data' => [
