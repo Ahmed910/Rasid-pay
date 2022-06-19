@@ -36,7 +36,7 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::get('home', 'HomeController@index');
         // Wallet
         Route::apiResource('wallets', 'WalletController')->only('index', 'store');
-        Route::post('need_to_transfers', 'WalletController@sendWalletOtp');
+        Route::post('send_wallet_otp', 'WalletController@sendWalletOtp');
         // Beneficiaries
         Route::apiResource('beneficiaries', 'BeneficiaryController');
         //money requests
