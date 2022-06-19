@@ -24,7 +24,7 @@ class GlobalTransferController extends Controller
         // TODO: Calc transfer fee
 
         // Set transfer data
-        $transfer_data = $request->only('amount', 'amount_transfer', 'transfer_fees', 'fee_upon') + ['transfer_type' => 'global', 'from_user_id' => auth()->id(),'transfer_status' =>'pending'];
+        $transfer_data = $request->only('amount', 'amount_transfer', 'fee_upon') + ['transfer_type' => 'global', 'from_user_id' => auth()->id(),'transfer_status' =>'pending'];
         if ($request->balance_type == 'main') {
             $transfer_data += ['main_amount' => $request->amount];
             $wallet->decrement('main_balance', $request->amount);
