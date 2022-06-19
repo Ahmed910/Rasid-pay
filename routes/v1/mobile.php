@@ -60,6 +60,8 @@ Route::middleware('auth:sanctum')->group(function () {
             Route::get('check_phone_wallets/{phone}', 'WalletTransferController@checkIfPhoneExists');
             // Local Transfers
             Route::post('local_transfers', 'LocalTransferController@store');
+            // Global Transfers
+            Route::post('global_transfers', 'GlobalTransferController@store');
             // All Transfers
             Route::get('transfers','TransferController@index');
         });
