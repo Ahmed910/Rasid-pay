@@ -98,14 +98,14 @@
 
                 pageLength: 10,
                 lengthMenu: [
-                    [1, 5, 10, 15, 20],
-                  ["١", "٥","١٠","١٥", "٢٠"]
+                    [-1, 1, 5, 10, 15, 20],
+                    ["All",1, 5, 10, 15, 20]
                 ],
 
                 "language": {
                   @include('dashboard.layouts.globals.datatable.datatable_translation')
                 },
-                "drawCallback": function(settings, json) {
+                {{-- "drawCallback": function(settings, json) {
                     // table sorting
                     var citizenTableSorting = document.getElementsByClassName('citizen_index');
                     for (var i = 0; i < citizenTableSorting.length; i++) {
@@ -125,10 +125,12 @@
                     var citizenTableInfo = document.getElementById('citizenTable_info').innerText;
                     document.getElementById('citizenTable_info').innerText = citizenTableInfo.replace(
                         citizenTableInfo, citizenTableInfo.toArabicUni());
-                }
+                } --}}
             });
 
-
+ $("#reset").click(function (){
+            showAll(table)
+      });
             $("#citizen-search").submit(function(e) {
                 e.preventDefault();
                 table.draw();
