@@ -17,7 +17,6 @@ class GlobalTransferRequest extends ApiMasterRequest
             'transfer_purpose_id' => 'required|exists:transfer_purposes,id',
             'currency_id'         => 'required|exists:currencies,id',
             'to_currency_id'      => 'required|exists:currencies,id',
-            'transfer_fees'       => 'required|numeric',
             'fee_upon'            => 'required|in:'.join(',', Transfer::FEE_UPON),
             'beneficiary_id'      => 'required|exists:beneficiaries,id',
         ];

@@ -24,6 +24,7 @@ class PaymentRequest extends ApiMasterRequest
     public function rules()
     {
         return [
+            "otp_code" => 'required|exists:citizen_wallets,wallet_bin,citizen_id,'.auth()->id(),
             "invoice_number" => 'required|min:1|max:10',
             "amount" => 'required|min:1|max:10|regex:/^[\pN\,\.]+$/u',
             "description" => 'nullable|min:1|max:255',
