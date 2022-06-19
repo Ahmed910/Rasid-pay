@@ -6,14 +6,15 @@
 
         if (item !== undefined) {
             var currentElement = $(`#${itemId}`).attr('name');
-
         }
-
+        
         let finalCurrentElement = replaceInValidation(currentElement)
         let lang = '{{ app()->getLocale() }}';
         let resource_name = form.attr('action');
 
-        var firstSpan = $(`#${itemId}`).parent().hasClass("input-group") ? $(`#${itemId}`).parent().nextAll('span:first') : $(`#${itemId}`).nextAll('span:first')
+
+        let firstSpan = getSpanError(itemId);
+
 
         $.ajax({
             url: resource_name
@@ -35,6 +36,7 @@
                     if (finalItem == finalCurrentElement) {
 
                          if(errs[finalCurrentElement] == undefined){
+
                            firstSpan.attr('hidden')
                            firstSpan.text('')
                          }else{
@@ -49,6 +51,7 @@
         });
     }
 
+
     function replaceInValidation(element)
     {
 
@@ -61,6 +64,16 @@
             finalCurrentElement = element
         }
         return finalCurrentElement;
+    }
+    let getSpanError = itemId => {
+       if($(`#${itemId}`).parent().hasClass("input-group")){
+          span = $(`#${itemId}`).parent().nextAll('span:first')
+        }else if($(`#${itemId}`).is("select")){
+         span = $(`#${itemId}`).nextAll('span:last')
+        }else{
+          span = $(`#${itemId}`).nextAll('span:first')
+        }
+        return span;
     }
 
     let showAll = table => {
