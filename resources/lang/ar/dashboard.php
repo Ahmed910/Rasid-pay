@@ -230,12 +230,21 @@ return [
             'archive' => 'أرشفة'
 
         ],
+        'sub_programs' => [
+            'index' => 'المتابعة',
+            'show' => 'عرض المتابعة',
+            'create' => 'إضافة',
+            'ban_status' => 'حظر',
+            'archive' => 'أرشفة'
+
+        ],
 
     ],
     'home' => [
         'home' => 'الرئيسية',
         'permissions' => [
             "show" => "عرض",
+            'index' =>  'الرئيسية'
         ],
     ],
     "citizen" => [
@@ -257,10 +266,7 @@ return [
     "bank_account" => [
         "bank_accounts" => "العملاء",
         "order_number" => "رقم الطلب",
-        "permissions"=>[
-            'index'=>'السجل',
-            'destroy'=>'حذف',
-        ],
+        'permissions' => $permissions,
     ],
     "attachment" => [
         "attachments" => "العملاء",],
@@ -342,6 +348,18 @@ return [
             'index' => 'سجل العملات',
             'archive' => 'أرشيف العملات',
             'create' => 'إضافة عملة',
+        ],
+        'permissions' => $permissions
+    ],
+    "citizen" => [
+        "citizen" => "المستخدم ",
+        "citizens" => "المستخدمين",
+        "add_citizen" => "إضافة مستخدم",
+        "edit_citizen" => "تعديل مستخدم",
+        "citizen_count" => "عدد المستخدمين",
+        'sub_progs' => [
+            'index' => 'سجل المستخدمين',
+            'create' => 'إضافة مستخدم',
         ],
         'permissions' => $permissions
     ],
