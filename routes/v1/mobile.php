@@ -49,6 +49,10 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::apiResource('clients', 'ClientController')->only('index', 'show');
         // Packages
         Route::apiResource('packages', 'PackageController')->only('index', 'show','update');
+        // Transaction
+        Route::apiResource('transactions', 'TransactionController')->only('index', 'show');
+        // Payment
+        Route::apiResource('payments', 'PaymentController')->only('store', 'show');
         // Transfer
         Route::namespace('Transfers')->group(function () {
             // Wallet Transfers
@@ -60,17 +64,7 @@ Route::middleware('auth:sanctum')->group(function () {
             Route::get('transfers','TransferController@index');
         });
 
-    Route::controller('TransactionController')->group(function () {
-        Route::get('transactions', 'index');
-        Route::get('transactions/{id}', 'show');
-    });
     // });
-    Route::controller('PaymentController')->group(function () {
-        Route::post('payment', 'store');
-        Route::get('payment/{id}', 'show');
-    });
-
-
 });
 
 Route::get('slides', 'SlideController@index');

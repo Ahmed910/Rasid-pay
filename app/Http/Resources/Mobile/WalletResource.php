@@ -24,6 +24,7 @@ class WalletResource extends JsonResource
             'total_balance'  => (string)$this->main_balance + $this->cash_back,
             'wallet_qr'      => $this->qr_code,
             'last_updated'   => $this->last_updated_at?->diffForHumans(),
+            'avatar'         => $this->citizen->image
         ];
     }
 }

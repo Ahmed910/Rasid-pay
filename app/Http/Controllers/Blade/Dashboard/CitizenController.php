@@ -41,7 +41,7 @@ class CitizenController extends Controller
             $q->where("trans_status","pending");
         }])->findOrFail($id);
         if($citizen->citizenTransactions->count()){
-            return redirect()->route('dashboard.citizen.index')->withErrors(__('dashboard.citizen.update_phone_has-transations'));
+            return response()->json(['status' => false, 'message' => trans("dashboard.general.cant_update_phone_related_with_hold_transactions"),'data' => null],422);
         }
         $citizen->update($request->validated());
         return response()->json(['message' => __('dashboard.general.success_update')]);
