@@ -7,7 +7,7 @@ use App\Http\Requests\V1\Mobile\BalanceTypeRequest;
 use App\Http\Requests\V1\Mobile\LocalTransferRequest;
 use App\Http\Resources\Mobile\{LocalTransferResource, Transactions\TransactionResource};
 use App\Models\{CitizenWallet, Device, Transaction, Transfer};
-use App\Http\Controllers\Api\V1\Mobile\WalletBalance;
+use App\Services\WalletBalance;
 
 class LocalTransferController extends Controller
 {
