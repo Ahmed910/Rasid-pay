@@ -34,11 +34,12 @@ class PackageController extends Controller
     public function update(Request $request, $package_id)
     {
         $package = Package::where('is_active', 1)->findOrFail($package_id);
-        if ($package->price > (auth()->user()->citizenWallet->main_balance + auth()->user()->citizenWallet->cash_back)) {
+        $citizen_wallet = auth()->user()->citizenWallet;
+        if ($package->price > ($citizen_wallet->main_balance + $citizen_wallet->cash_back)) {
             return response()->json(['status' => false, 'data' => null, 'message' => trans('mobile.payments.current_balance_is_not_sufficient_to_complete_payment')], 422);
         }
-        $citizen_package = PromotePackage::createCitizenPackage($package);
         if (!$request->promo_code) {
+            $citizen_package = PromotePackage::createCitizenPackage($package);
             $citizen_package_promo_codes = [
                 'citizen_package_id' => $citizen_package->id,
                 'promo_discount' => $package->promo_discount
@@ -53,7 +54,6 @@ class PackageController extends Controller
             UpdateCitizenWallet::updateCitizenWallet($package->price);
         } else {
             $citizen_package_promo_code = CitizenPackagePromoCode::where('promo_code', $request->promo_code)->first();
-            $citizen_wallet = auth()->user()->citizenWallet;
             if (!$citizen_package_promo_code) {
                 return response()->json(['status' => false, 'data' => null, 'message' => trans('mobile.promotion.promo_code_is_not_found')], 422);
             }
@@ -65,6 +65,7 @@ class PackageController extends Controller
             if ($package_price > ($citizen_wallet->main_balance + $citizen_wallet->cash_back)) {
                 return response()->json(['status' => false, 'data' => null, 'message' => trans('mobile.payments.current_balance_is_not_sufficient_to_complete_payment')], 422);
             }
+            PromotePackage::createCitizenPackage($package);
             UpdateCitizenWallet::updateCitizenWallet($package_price);
             $citizen_package_promo_code->update(['is_used' => true]);
             // add cash back to citizen wallet
