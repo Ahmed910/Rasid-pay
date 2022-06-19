@@ -80189,7 +80189,7 @@ label {
     visibility: hidden;
     opacity: 0;
     position: absolute;
-    top:0;
+    top: 0;
     color: #000000;
     left: 2em;
     background: #FFFFFF;
@@ -80197,6 +80197,9 @@ label {
     border: 1px solid #f7f7f7;
 }
 
+.select2-results__options li[id$='unselectAll'] {
+    display: none;
+}
 
 .modal-footer> :not(:first-child) {
     margin-left: 0;
