@@ -30,8 +30,8 @@ Route::group(
             Route::get('/', "HomeController@index")->name("home.index");
             Route::get('transaction', "TransactionController@index")->name("transaction.index");
             Route::get('transaction/{id}', "TransactionController@show")->name("transaction.show");
-            Route::get('citizen', "CitizenController@index")->name("citizen.index");
-            Route::put('update-phone/{id}', 'CitizenController@updatePhone')->name('citizen.update_phone');
+            // Route::get('citizen', "CitizenController@index")->name("citizen.index");
+            // Route::put('update-phone/{id}', 'CitizenController@updatePhone')->name('citizen.update_phone');
 
             Route::get('/backButton', "HomeController@backButton")->name("backButton");
             Route::post('logout', "Auth\LoginController@logout")->name("session.logout");
