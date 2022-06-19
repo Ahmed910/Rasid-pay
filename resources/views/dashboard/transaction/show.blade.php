@@ -31,13 +31,13 @@
 
       <div class="col-12 col-md-4">
         <label>{{ trans('dashboard.transaction.from_user') }} :</label>
-        <p class="text-muted"> {!! $transaction->citizen?->fullname !!}</p>
+        <p class="text-muted"> {!! $transaction->fromUser?->fullname !!}</p>
       </div>
 
-      @if($transaction->client)
+      @if($transaction->toUser)
         <div class="col-12 col-md-4">
-          <label>{{ trans('dashboard.transaction.from_user') }} :</label>
-          <p class="text-muted"> {!! $transaction->client?->fullname !!}</p>
+          <label>{{ trans('dashboard.transaction.to_user_client') }} :</label>
+          <p class="text-muted"> {!! $transaction->toUser?->fullname !!}</p>
         </div>
       @endif
 
@@ -63,7 +63,7 @@
 
       <div class="col-12 col-md-4">
         <label>{{ trans('dashboard.transaction.active_card') }} :</label>
-        <p class="text-muted"> {!! $transaction->citizen?->citizen?->enabledPackage?->package?->name ?? trans('dashboard.citizens.without') !!}</p>
+        <p class="text-muted"> {!! $transaction->fromUser?->citizen?->enabledPackage?->package?->name ?? trans('dashboard.citizens.without') !!}</p>
       </div>
 
 
