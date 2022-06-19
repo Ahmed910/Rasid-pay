@@ -18,7 +18,7 @@ class TransactionController extends Controller
         $transactions = Transaction::search($request)
             ->CustomDateFromTo($request)
             ->sortBy($request)
-            ->with('citizenPackage', 'toUser.user', 'fromUser.citizen.enabledPackage', 'transactionable')
+            ->with('citizenPackage', 'toUser', 'fromUser.citizen.enabledPackage', 'transactionable')
             ->paginate((int)($request->per_page ?? config("globals.per_page")));
 
         return TransactionResource::collection($transactions)
