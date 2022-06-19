@@ -158,11 +158,10 @@
                 pattern="^[0-9]\d*$" onkeypress="return /[0-9a-zA-Z]/i.test(event.key)" maxlength="10"
                 class="form-control stop-copy-paste" placeholder="{{ trans('dashboard.citizens.new_phone') }}" value="" >
               <div class="input-group-text border-start-0">
-                966+ <input type="hidden" value="966" name="country_code">
+                966+ 
               </div>
             </div>
             <span id="phone_error"></span>
-            <span id="country_code_error"></span>
           </div>
           <div class="modal-footer justify-content-end mt-5 p-0">
             <button type="submit" class="btn btn-primary mx-3" id="btn-submit">{{ trans('dashboard.general.save') }}</button>

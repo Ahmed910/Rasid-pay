@@ -191,19 +191,26 @@
                 },
                 data: $(this).serialize(),
                 success: function(data) {
+                    btn_submit.html('{{ trans('dashboard.general.save') }}');
                     toast('success',data.message ,"{{ LaravelLocalization::getCurrentLocaleDirection() == 'rtl' }}");
                     $('#citizenTable').DataTable().ajax.reload();
                     $('#modal_phone').modal('hide');
                 },
                 error: function (data) {
                     btn_submit.html('{{ trans('dashboard.general.save') }}');
-                    $.each(data.responseJSON.errors, function(name, message) {
-                        $('input[name="' + name + '"]').addClass('border-danger');
-                        $('#' + name + '_error').html(`<small class='text-danger'>${message}</small>`);
-
+                    $.each(data.responseJSON.errors, function(input, errors) {
+                        $('input[name="' + input + '"]').addClass('border-danger');
+                        $.each(errors, function(name, message) {
+                            $('#' + input + '_error').append(`<small class='text-danger'>${message}</small><br/>`);
+                        });
                     });
                 }
             });
+        });
+
+        $("#modal_phone").on("hidden.bs.modal", function () {
+            $('#phone_error').html('');
+            $('input[name="phone"]').removeClass('border-danger');
         });
 </script>
 <script src="{{ asset('dashboardAssets/js/select2.js') }}"></script>
