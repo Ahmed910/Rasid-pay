@@ -138,6 +138,7 @@
         if (msLeft < 1000) {
           element.innerHTML = "تم انتهاء صلاحية الكود!";
           $(".resend").removeClass("disable");
+          $(".a-submit").attr('disabled',true);
         } else {
           time = new Date(msLeft);
           hours = time.getUTCHours();
