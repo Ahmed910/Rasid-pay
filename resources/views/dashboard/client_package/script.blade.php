@@ -96,8 +96,9 @@
         },
         pageLength: 10,
         lengthMenu: [
-          [1, 5, 10, 15, 20],
-          ["١", "٥","١٠","١٥", "٢٠"]
+          [-1, 1, 5, 10, 15, 20],
+          ["All",1, 5, 10, 15, 20],
+
         ],
 
         "language": {
@@ -122,7 +123,9 @@
         // }
       // });
 
-
+      $("#reset").click(function (){
+            showAll(table)
+      });
       $("#client_id").on('select2:select', function (e) {
         insertUrlParam('id', $('#client_id').val());
         table.draw();

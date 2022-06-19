@@ -74,9 +74,9 @@
       <button class="btn btn-primary me-2" type="submit">
         <i class="mdi mdi-magnify"></i> {{ trans('dashboard.department.search') }}
       </button>
-      <a href="{{ route('dashboard.department.archive') }}" class="btn btn-outline-primary">
-        <i class="mdi mdi-restore"></i>{{ trans('dashboard.department.show_all') }}
-      </a>
+       <button class="btn btn-outline-primary" type="reset" id="reset">
+      <i class="mdi mdi-restore"></i> عرض الكل
+    </button>
     </div>
   </div>
 </form>
