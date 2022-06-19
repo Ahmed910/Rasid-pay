@@ -9,7 +9,6 @@ use App\Models\{Payment, Transaction};
 
 class PaymentController extends Controller
 {
-
     public function store(PaymentRequest $request, Payment $payment)
     {
         $citizen_wallet = auth()->user()->citizenWallet;
@@ -40,8 +39,6 @@ class PaymentController extends Controller
                 'message' => trans("dashboard.general.success_add")
             ]);
     }
-
-
     public function show($id)
     {
         $payment = Payment::findOrFail($id);
