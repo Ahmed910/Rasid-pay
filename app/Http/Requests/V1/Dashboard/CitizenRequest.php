@@ -28,7 +28,7 @@ class CitizenRequest extends ApiMasterRequest
      public function rules()
      {
          return [
-             "phone" => ["required", "numeric", "digits_between:9,20", 'starts_with:9665,05', function ($attribute, $value, $fail) {
+             "phone" => ["required", "numeric", "digits_between:9,20", 'starts_with:9665,5', function ($attribute, $value, $fail) {
                  if(!check_phone_valid($value)){
                      $fail(trans('mobile.validation.invalid_phone'));
                  }
