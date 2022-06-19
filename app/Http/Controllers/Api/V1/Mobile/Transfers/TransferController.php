@@ -19,10 +19,9 @@ class TransferController extends Controller
                     $query->with('from_user')->where('from_user_id', auth()->id());
                     break;
                 default:
-                    
                     $query->with('to_user')->where('to_user_id', auth()->id());
             }
-        })->get();
+        })->paginate((int)($request->per_page ?? config("globals.per_page")));
 
         return TransferResource::collection($transfers)->additional(
             [
