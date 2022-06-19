@@ -15,8 +15,8 @@ class WalletTransferResource extends JsonResource
         return [
             'id' => $this->id,
             'transfer_type' => $this->transfer_type,
-            'amount' => $this->amount,
-            'transfer_fees' => $this->transfer_fees,
+            'amount' => (string) $this->amount,
+            'transfer_fees' => (string) $this->transfer_fees,
             'transfer_number' => $this->transaction?->trans_number,
             'wallet_transfer_method' => $this->wallet_transfer_method,
         ];
