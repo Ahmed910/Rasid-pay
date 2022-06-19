@@ -53,12 +53,12 @@
         pageLength: 10,
         lengthMenu: [
             [1, 5, 10, 15, 20],
-          ["١", "٥","١٠","١٥", "٢٠"]
+          [1, 5, 10, 15, 20]
         ],
         "language": {
           @include('dashboard.layouts.globals.datatable.datatable_translation')
         },
-        "drawCallback": function (settings, json) {
+        {{-- "drawCallback": function (settings, json) {
           var jobHistoryTableSorting = document.getElementsByClassName('rasid_job_show_index');
           for (var i = 0; i < jobHistoryTableSorting.length; i++) {
             jobHistoryTableSorting[i].innerText = jobHistoryTableSorting[i].innerText.replace(jobHistoryTableSorting[i].innerText, jobHistoryTableSorting[i].innerText.toArabicUni());
@@ -70,8 +70,9 @@
           }
           var jobHistoryTableInfo = document.getElementById('historyTable_info').innerText;
           document.getElementById('historyTable_info').innerText = jobHistoryTableInfo.replace(jobHistoryTableInfo, jobHistoryTableInfo.toArabicUni());
-        }
+        } --}}
       });
+
       $('.select2').select2({
         minimumResultsForSearch: Infinity
       });

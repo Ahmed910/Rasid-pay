@@ -87,10 +87,9 @@
                         data: function(data) {
                             return `
                   <a href="#"
-                     onclick=updatePhone('${data.id}','${data.update_route}','${'#citizenTable'}',${ data.phone_without_cc})
+                     onclick=setCitizenPhoneModal('${data.phone}','${data.update_route}')
                      class="warningIcon" data-bs-toggle="tooltip" data-bs-placement="top"
-                     title="@lang('dashboard.general.edit')"><i class="mdi mdi-square-edit-outline" data-bs-toggle="modal"
-                     data-bs-target="#modal_phone"></i></a>`
+                     title="@lang('dashboard.general.edit')"><i class="mdi mdi-square-edit-outline"></i></a>`
                         },
                         orderable: false,
                         searchable: false
@@ -99,14 +98,14 @@
 
                 pageLength: 10,
                 lengthMenu: [
-                    [1, 5, 10, 15, 20],
-                  ["١", "٥","١٠","١٥", "٢٠"]
+                    [-1, 1, 5, 10, 15, 20],
+                    ["All",1, 5, 10, 15, 20]
                 ],
 
                 "language": {
                   @include('dashboard.layouts.globals.datatable.datatable_translation')
                 },
-                "drawCallback": function(settings, json) {
+                {{-- "drawCallback": function(settings, json) {
                     // table sorting
                     var citizenTableSorting = document.getElementsByClassName('citizen_index');
                     for (var i = 0; i < citizenTableSorting.length; i++) {
@@ -126,10 +125,12 @@
                     var citizenTableInfo = document.getElementById('citizenTable_info').innerText;
                     document.getElementById('citizenTable_info').innerText = citizenTableInfo.replace(
                         citizenTableInfo, citizenTableInfo.toArabicUni());
-                }
+                } --}}
             });
 
-
+ $("#reset").click(function (){
+            showAll(table)
+      });
             $("#citizen-search").submit(function(e) {
                 e.preventDefault();
                 table.draw();
@@ -172,6 +173,44 @@
                 });
             });
 
+        });
+
+        function setCitizenPhoneModal(phone, route) {
+            $('#update-phone').attr('action',route);
+            $('#update-phone').find('input[name=phone]').val(phone);
+            $('#modal_phone').modal('show');
+        }
+        $('#update-phone').on('submit',function (e) {
+            e.preventDefault();
+            var btn_submit = $('#btn-submit');
+            $.ajax({
+                url: $('#update-phone').attr('action'),
+                type: 'POST',
+                beforeSend: function () {
+                    btn_submit.html(`<span class="spinner-border text-light" style="width: 1rem; height: 1rem;" role="status"></span>`);
+                },
+                data: $(this).serialize(),
+                success: function(data) {
+                    btn_submit.html('{{ trans('dashboard.general.save') }}');
+                    toast('success',data.message ,"{{ LaravelLocalization::getCurrentLocaleDirection() == 'rtl' }}");
+                    $('#citizenTable').DataTable().ajax.reload();
+                    $('#modal_phone').modal('hide');
+                },
+                error: function (data) {
+                    btn_submit.html('{{ trans('dashboard.general.save') }}');
+                    $.each(data.responseJSON.errors, function(input, errors) {
+                        $('input[name="' + input + '"]').addClass('border-danger');
+                        $.each(errors, function(name, message) {
+                            $('#' + input + '_error').append(`<small class='text-danger'>${message}</small><br/>`);
+                        });
+                    });
+                }
+            });
+        });
+
+        $("#modal_phone").on("hidden.bs.modal", function () {
+            $('#phone_error').html('');
+            $('input[name="phone"]').removeClass('border-danger');
         });
 </script>
 <script src="{{ asset('dashboardAssets/js/select2.js') }}"></script>

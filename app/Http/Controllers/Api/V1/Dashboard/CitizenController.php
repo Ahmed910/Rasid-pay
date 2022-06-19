@@ -33,56 +33,23 @@ class CitizenController extends Controller
     }
 
 
-    public function store(CitizenRequest $citizenRequest, BankAccountRequest $bankAccountRequest, BankAccount $bankAccount, Citizen $citizen)
-    {
-
-        $userData = $citizenRequest->validated() + ["user_type" => "citizen", 'added_by_id' => auth()->id()];
-        $clientData = $citizenRequest->validated();
-
-        $user = user::create($userData);
-        $bankAccount->fill($bankAccountRequest->validated())->user()->associate($user)->save();
-        $enabled_package = $user->citizenPackages()->create(['card_type' => 'basic', 'start_at' => now(), 'end_at' => now()->addMonth()]);
-        $citizen->fill($clientData + ['citizen_package_id' => $enabled_package->id])->user()->associate($user);
-        $citizen->saveQuietly();
-        $citizen->load("enabledPackage");
-        return CitizenResource::make($citizen)->additional([
-            'status' => true, 'message' => trans("dashboard.general.success_add")
-        ]);
-    }
 
     public function show(Request $request, $id)
     {
         $citizen = Citizen::where('user_id', $id)->with("user", "enabledPackage")->firstOrFail();
 
-
         return CitizenResource::make($citizen)->additional(['status' => true, 'message' => ""]);
     }
 
-
-    public function update($id, CitizenRequest $request, BankAccountRequest $bankAccountRequest)
+    public function update(CitizenRequest $request, $id)
     {
-        $citizen = Citizen::where('user_id', $id)->firstOrFail();
-
-        $citizen->user->update($request->validated() + ['updated_at' => now()]);
-        !$citizen->user->wasChanged() ? $citizen->update($request->validated()) : $citizen->fill($request->validated())->saveQuietly();
-        $citizen->user->bankAccount->update($bankAccountRequest->validated());
-
-
-        return CitizenResource::make($citizen)->additional(['status' => true, 'message' => trans("dashboard.general.success_update")]);
-    }
-
-    public function updatePhone($id, Request $request)
-    {
-        $request->merge(["full_phone" => $request->country_code . $request->phone]);
-        $fileds =   $this->validate($request, [
-            "country_code" => "required|in:" . countries_list(),
-            "phone" => ["required", "not_regex:/^{$request->country_code}/", "numeric", "digits_between:7,20", "required_with:country_code"],
-            "full_phone" => ["unique:users,phone," . @$id],
-
-        ]);
-
-        $citizen = Citizen::where('user_id', $id)->firstOrFail();
-        $citizen->user->update($fileds + ['updated_at' => now()]);
+        $citizen = User::where('user_type', "citizen")->with(["citizenTransactions" => function($q){
+            $q->where("trans_status","pending");
+        }])->findOrFail($id);
+        if($citizen->citizenTransactions->count()){
+            return response()->json(['status' => true, 'message' => trans("dashboard.general.success_update"),'data' => null],422);
+        }
+        $citizen->update($request->validated());
 
         return CitizenResource::make($citizen)->additional(['status' => true, 'message' => trans("dashboard.general.success_update")]);
     }
@@ -98,42 +65,4 @@ class CitizenController extends Controller
         ]);
     }
 
-
-    public function forceDestroy(ReasonRequest $request, $id)
-    {
-        $user = User::onlyTrashed()->findorfail($id);
-        $user->forceDelete();
-
-        return CitizenResource::make($user)
-            ->additional([
-                'status' => true,
-                'message' => trans('dashboard.general.success_delete'),
-            ]);
-    }
-
-
-    public function destroy(ReasonRequest $request, User $user)
-    {
-
-        $user->delete();
-
-        return CitizenResource::make($user)
-            ->additional([
-                'status' => true,
-                'message' => trans('dashboard.general.success_archive'),
-            ]);
-    }
-
-
-    public function restore(ReasonRequest $request, $id)
-    {
-        $user = User::onlyTrashed()->findOrFail($id);
-        $user->restore();
-
-        return CitizenResource::make($user)
-            ->additional([
-                'status' => true,
-                'message' => trans('dashboard.general.success_restore'),
-            ]);
-    }
 }

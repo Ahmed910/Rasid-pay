@@ -144,31 +144,33 @@
 <div class="modal fade" id="modal_phone">
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content border-0">
-      <form method="post" action="#" class="needs-validation" id="item" novalidate>
-        @csrf
-        @method('PUT')
-        <div class="modal-body text-center p-0">
-          <lottie-player autoplay loop mode="normal" src="{{ asset('dashboardAssets/images/lottie/alert.json') }}"
-            style="width: 55%; display: block; margin: 0 auto 1em">
-          </lottie-player>
-          <p>{{ trans('dashboard.citizens.edit_phone') }}</p>
-          <div class="mt-3 input-group">
-            <input type="number" name="phone" class="form-control" id = "phone_value"
-              oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
-              pattern="^[1-9]\d*$" onkeypress="return /[0-9a-zA-Z]/i.test(event.key)" maxlength="9"
-              class="form-control stop-copy-paste" placeholder="{{ trans('dashboard.citizens.new_phone') }}" value="" >
-            <div class="input-group-text border-start-0">
-              966+ <input type="hidden" value="966" name="country_code">
+        <form method="post" action="" class="needs-validation" id="update-phone" novalidate>
+          @csrf
+          @method('PUT')
+          <div class="modal-body text-center p-0">
+            <lottie-player autoplay loop mode="normal" src="{{ asset('dashboardAssets/images/lottie/alert.json') }}"
+              style="width: 55%; display: block; margin: 0 auto 1em">
+            </lottie-player>
+            <p>{{ trans('dashboard.citizens.edit_phone') }}</p>
+            <div class="mt-3 input-group">
+              <input type="number" name="phone" class="form-control" id = "phone_value"
+                oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
+                pattern="^[0-9]\d*$" onkeypress="return /[0-9a-zA-Z]/i.test(event.key)" maxlength="10"
+                class="form-control stop-copy-paste" placeholder="{{ trans('dashboard.citizens.new_phone') }}" value="" >
+              <div class="input-group-text border-start-0">
+                966+ 
+              </div>
             </div>
+            <span id="phone_error"></span>
           </div>
-        </div>
-        <div class="modal-footer justify-content-end mt-5 p-0">
-          <button type="submit" class="btn btn-primary mx-3">{{ trans('dashboard.general.save') }}</button>
-          <button type="button" class="btn btn-outline-primary" data-bs-dismiss="modal">
-            {{ trans('dashboard.general.back') }}
-          </button>
-        </div>
-      </form>
+          <div class="modal-footer justify-content-end mt-5 p-0">
+            <button type="submit" class="btn btn-primary mx-3" id="btn-submit">{{ trans('dashboard.general.save') }}</button>
+            <button type="button" class="btn btn-outline-primary" data-bs-dismiss="modal">
+              {{ trans('dashboard.general.back') }}
+            </button>
+          </div>
+        </form>
+
     </div>
   </div>
 </div>

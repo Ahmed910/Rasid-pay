@@ -62,6 +62,13 @@
         }
         return finalCurrentElement;
     }
+
+    let showAll = table => {
+     let settings = table.settings();
+      settings[0]._iDisplayLength = settings[0].fnRecordsTotal();
+      table.draw();
+      $('.select2-selection__rendered').text('All')
+    }
     (function() {
         "use strict";
 

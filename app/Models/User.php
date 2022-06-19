@@ -46,8 +46,12 @@ class User extends Authenticatable implements HasAssetsInterface
 
     public function setPhoneAttribute($value)
     {
-        if (isset($value) && isset($this->attributes['country_code'])) $value = $value[0] == "0" ? substr($value, 1) : $value;
-        $this->attributes['phone'] = isset($this->attributes['country_code']) ? $this->attributes['country_code'] . $value : $value;
+        // if (isset($value) && @$this->attributes['country_code'] == 966){
+        //     $this->attributes['phone'] = $this->attributes['country_code'] . $value;
+        // }else {
+            $this->attributes['phone'] = substr($value,0,3) == 966 ? Str::of($value)->replaceFirst('966','0') : $value;
+        // }
+
     }
 
     public function setPasswordAttribute($value)
