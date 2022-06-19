@@ -131,7 +131,7 @@ class LoginController extends Controller
                 if (setting('use_sms_service') == 'enable') {
                    $code = generate_unique_code(User::class, 'phone', 4, 'numbers');
                 }
-                $user->update([$request->key_name => $code]);
+                $user->update(['verified_code' => $code]);
                 return [
                         'response' => [
                             'status' => false, 'data' => [
