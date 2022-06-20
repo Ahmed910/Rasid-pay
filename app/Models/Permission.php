@@ -44,7 +44,7 @@ class Permission extends Model
     {
         $permission = explode('.',$value);
         $this->attributes['main_program'] = $permission[0];
-        $this->attributes['action'] = $permission[1];
+        $this->attributes['action'] = @$permission[1];
         $sub_prog = null;
         switch ($permission) {
             case in_array(@$permission[1],['update','show','destroy']):
