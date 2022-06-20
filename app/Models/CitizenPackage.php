@@ -65,9 +65,9 @@ class CitizenPackage extends Model
         return $this->belongsTo(User::class, 'citizen_id');
     }
 
-    public function transactions()
+    public function transaction()
     {
-        return $this->hasMany(Transaction::class);
+        return $this->morphOne(Transaction::class, "transactionable");
     }
 
     public function citizenPackagePromoCodes()

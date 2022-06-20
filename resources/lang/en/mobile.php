@@ -25,7 +25,8 @@ return [
             'global_transfer' => 'Global Transfer',
             'charge' => 'Charge',
             'money_request' => 'Money Request',
-            'pay' => 'Pay'
+            'payment' => 'Payment',
+            'promote_package' => 'Promote Package',
         ],
         'status_cases' => [
             'success' => 'Success',
