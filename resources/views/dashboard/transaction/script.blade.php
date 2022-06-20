@@ -170,7 +170,7 @@
         table.draw();
       });
       $('#status').on('select2:unselect', function(e) {
-        removetUrlParam('trans_status', $('#status').val());
+        insertUrlParam('trans_status', $('#status').val(),true);
         table.draw();
       });
       $('#type').on('select2:select', function(e) {
@@ -182,7 +182,7 @@
         table.draw();
       });
       $('#enabled_package').on('select2:unselect', function(e) {
-        removetUrlParam('enabled_package', $('#enabled_package').val());
+        insertUrlParam('enabled_package', $('#enabled_package').val(),true);
         table.draw();
       });
 
