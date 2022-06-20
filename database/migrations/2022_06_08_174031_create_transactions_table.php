@@ -38,6 +38,7 @@ class CreateTransactionsTable extends Migration
             $table->string("qr_path")->nullable();
             $table->string('amount');
             $table->string('fee_amount')->default(0);
+            $table->string('summary_path')->nullable();
             $table->softDeletes();
             $table->timestamps();
         });
