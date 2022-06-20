@@ -50,9 +50,10 @@
       padding: 1px;
     }
 
-    tr{
+    tr {
       border-bottom: 1px solid gray;
     }
+
     .hm-p p {
       text-align: left;
       padding: 1px;
@@ -130,58 +131,58 @@
                 ">
 
       <p style="font-weight: bold; color: blue; margin-top: 15px; font-size: 18px;">
-       تم التحويل بنجاح
+        تم التحويل بنجاح
       </p>
     </div>
     <table style="width: 100%; table-layout: fixed;margin-top:30px;">
       <thead>
         <tr>
           <th style="width: 220px;color:blue;">نوع العملية</th>
-          <th>تحويل ويسترن يونيون</th>
+          <th>{{ $transaction->trans_type ?? '' }}</th>
         </tr>
         <tr>
           <th style="width: 220px;color:blue;">تاريخ العملية</th>
-          <th>10/03/2022</th>
+          <th>{{ $transaction->created_at ?? '' }}</th>
         </tr>
         <tr>
           <th style="width: 220px;color:blue;">رقم MTCN</th>
-          <th>#124567890</th>
+          <th>#{{ $transaction?->transactionable->transfer_type ?? '' }}</th>
         </tr>
         <tr>
           <th style="width: 220px;color:blue;">الرقم المرجعي</th>
-          <th>#1256445654</th>
+          <th>#{{ $transaction->trans_number ?? '' }}</th>
         </tr>
         <tr>
           <th style="width: 220px;color:blue;">مبلغ التحويل</th>
-          <th>123 (USD)</th>
+          <th>{{ $transaction->amount ?? '' }} (USD)</th>
         </tr>
         <tr>
           <th style="width: 220px;color:blue;">رسوم التحويل</th>
-          <th>567 ر.س</th>
+          <th>{{ $transaction->fee_amount ?? '' }} ر.س</th>
         </tr>
         <tr>
           <th style="width: 220px;color:blue;">سعر الصرف</th>
-          <th>5.25</th>
+          <th>0</th>
         </tr>
         <tr>
           <th style="width: 220px;color:blue;">من حساب رقم</th>
-          <th>رصيد باي</th>
+          <th>{{ $transaction?->fromUser->fullname ?? '' }}</th>
         </tr>
         <tr>
           <th style="width: 220px;color:blue;">إجمالي المبلغ</th>
-          <th>5.23.25 ر.س</th>
+          <th>{{ $transaction->trans_number ?? '' }} ر.س</th>
         </tr>
         <tr>
           <th style="width: 220px;color:blue;">اسم المستفيد</th>
-          <th>محمد عبد الله</th>
+          <th> {{ $transaction?->toUser->fullname }}</th>
         </tr>
         <tr>
           <th style="width: 220px;color:blue;">عنوان المستفيد</th>
-          <th>الرياض</th>
+          <th></th>
         </tr>
         <tr>
           <th style="width: 220px;color:blue;">الغرض من الحوالة</th>
-          <th>دعم الأسرة </th>
+          <th> {{ $transaction?->transactionable?->bankTransfer?->transferPurpose->name  ?? '' }} </th>
         </tr>
       </thead>
       <tbody></tbody>

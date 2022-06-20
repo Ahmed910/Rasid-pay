@@ -48,7 +48,7 @@ class TransactionController extends Controller
             return Storage::download($transaction->summary_path);
 
         $path =  $generatePdfFile->newFile()
-            ->view('dashboard.exports.mobile.invoice', ['invoice' => $transaction])
+            ->view('dashboard.exports.mobile.invoice', ['transaction' => $transaction])
             ->storeOnLocal('invoices/');
 
         $transaction->update(['summary_path' => $path]);
