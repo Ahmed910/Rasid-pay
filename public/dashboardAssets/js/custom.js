@@ -435,7 +435,7 @@ $(document).ready(function () {
 });
 
 function getRegex(e) {
-    (regex = /[^a-zA-Z0-9-_ \u0621-\u064A\u0660-\u0669g]/g),
+    (regex = /[^a-zA-Z0-9-_@ \u0621-\u064A\u0660-\u0669g]/g),
         (value = $(e).val());
 
     if (regex.test(value)) {

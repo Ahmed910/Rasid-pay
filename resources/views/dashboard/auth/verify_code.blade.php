@@ -53,7 +53,7 @@
                 id="code-submit">{{ trans('dashboard.general.confirm') }}</a>
 
             {{-- {!! Form::submit(trans('dashboard.general.confirm'), ['class' => 'btn btn-primary', 'id' => 'code-submit']) !!} --}}
-            <a href="{!! route('dashboard.login') !!}" class="btn btn-outline-primary">
+            <a href="{!! url()->previous() !!}" class="btn btn-outline-primary">
                 {{ trans('dashboard.general.back') }}
             </a>
         </div>
