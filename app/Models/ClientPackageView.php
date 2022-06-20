@@ -33,6 +33,9 @@ class ClientPackageView extends Model
             if ($request->sort['column'] == 'fullname')
                 return $query->orderBy('name', @$request->sort['dir']);
 
+            if ($request->sort['column'] == 'platinum_discount')
+                return $query->orderBy('palatinum_discount', @$request->sort['dir']);
+
             $query->orderBy($request->sort['column'], $request->sort['dir'] ?? 'asc');
         }
     }
