@@ -2,7 +2,9 @@
 
 namespace App\Services;
 
+use Illuminate\Support\Facades\Storage;
 use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
+use Illuminate\Support\Str;
 
 class GeneratePdf
 {
@@ -59,12 +61,15 @@ class GeneratePdf
     }
 
     /**
-     * Store PDF File On Storage Public
+     * Store On Local
      * @param string $filePath
      */
-    public function store(string $filePath): string
+    public function storeOnLocal($folder): string
     {
-        $path = $this->mpdf->Output($filePath, \Mpdf\Output\Destination::FILE);
+        $basePath = base_path('storage/app/');
+        $path = $basePath . $folder . uniqid() . ".pdf";
+        $this->mpdf->Output($path, 'F');
+        $path = Str::replaceFirst($basePath, '', $path);
 
         return $path;
     }
