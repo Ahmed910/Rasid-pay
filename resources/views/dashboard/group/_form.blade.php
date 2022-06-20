@@ -3,7 +3,7 @@
         <div class="col-12 col-md-6">
             {!! Form::label('departmentName', trans('dashboard.group.group_name')) !!} <span class="requiredFields">*</span>
             @foreach ($locales as $locale)
-            {!! Form::text("{$locale}[name]", isset($group) ? $group->name : null, ['class' => 'form-control input-regex stop-copy-paste', 'placeholder' => trans('dashboard.general.enter_name'), 'minlength' => '2', 'maxlength' => '100', 'required' => 'required','onblur'=>'validateData(this)','id'=>"{$locale}_name"]) !!}
+            {!! Form::text("{$locale}[name]", isset($group) ? $group->name : null, ['class' => 'form-control input-regex stop-copy-paste', 'placeholder' => trans('dashboard.general.enter_name'),'onkeyup'=>'removeValidation()', 'minlength' => '2', 'maxlength' => '100', 'required' => 'required','onblur'=>'validateData(this)','id'=>"{$locale}_name"]) !!}
             <span class="text-danger dd" id="{{ $locale }}.nameError" hidden></span>
             @endforeach
         </div>
@@ -77,7 +77,7 @@
     <script src="{{ asset('dashboardAssets/js/select2.js') }}"></script>
     <script src="{{ asset('dashboardAssets') }}/plugins/fileuploads/js/fileupload.js"></script>
     <script src="{{ asset('dashboardAssets') }}/plugins/fileuploads/js/file-upload.js"></script>
-    
+
     <script>
         $(function() {
             let permissions =
@@ -147,15 +147,15 @@
                 closeOnSelect: false,
                 templateResult: formatState
             });
-            
+
             $('.multipleSelect').on("select2:select", function(e) {
                 var data = e.params.data.text;
                 if (data == 'إختر الكل'){
                     $(".multipleSelect > option").prop("selected", "selected");
                     $(".multipleSelect").trigger("change");
                     $(".custom-checkbox input").prop("checked", "checked");
-                    $("label[for='selectAll']").parent().hide();
-                    $("label[for='unselectAll']").parent().show();
+                    // $("label[for='selectAll']").parent().hide();
+                    // $("label[for='unselectAll']").parent().show();
                 }
                 else if (data == 'إلغاء تحديد الكل'){
                     $(".multipleSelect > option").prop("selected", "");
@@ -180,7 +180,7 @@
                       <input type="checkbox" class="custom-control-input" id="${state.id}" />
                       <label class="custom-control-label m-0" for="${state.id}">${state.text}</label>
                     </div>
-                   </div>                                       
+                   </div>
 
                     <div class="tooltip-container">
                         <i class="mdi mdi-clipboard-list"></i>
@@ -191,7 +191,7 @@
                             </ul>
                         </div>
                     </div>
-                        
+
                    </label>`
             );
             return $state;
