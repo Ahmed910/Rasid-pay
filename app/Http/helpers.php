@@ -224,3 +224,10 @@ if (!function_exists('format_date')) {
         return Carbon::parse($date)->locale(app()->getLocale())->translatedFormat('j F Y');
     }
 }
+
+if (!function_exists('getPercentOfNumber')) {
+    function getPercentOfNumber($number, $percent)
+    {
+        return ($percent / 100) * $number;
+    }
+}
