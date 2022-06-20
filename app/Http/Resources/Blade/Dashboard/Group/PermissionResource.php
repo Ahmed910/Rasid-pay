@@ -16,30 +16,14 @@ class PermissionResource extends JsonResource
      */
     public function toArray($request)
     {
-
-        $permission = explode('.',$this->name);
-        $single_uri = str_singular($permission[0]);
-        $main_prog = trans('dashboard.' . $single_uri . '.' . $permission[0]);
-        $action = trans('dashboard.' . $single_uri . '.permissions.' . @$permission[1]);
-        $sub_prog = '---';
-        switch ($permission) {
-            case in_array(@$permission[1],['update','show','destroy']):
-                $sub_prog = trans('dashboard.'.$single_uri.'.sub_progs.index');
-                break;
-            case in_array(@$permission[1],['restore','force_delete']):
-                $sub_prog = trans('dashboard.'.$single_uri.'.sub_progs.archive');
-                break;
-        }
-
-
         return [
             'id' => $this->id,
             'is_selected' => auth()->user()->permissions()->where('permissions.id',$this->id)->exists(),
-            'main_prog' => $main_prog,
-            'sub_prog' => $sub_prog,
-            'action' => $action,
+            'main_prog' => $this->main_program,
+            'sub_prog' => $this->sub_program,
+            'action' => $this->action,
             'uri' => $this->name,
-            'name' => $main_prog . ' (' . $action . ')',
+            'name' => $this->main_program . ' (' . $this->action . ')',
             'created_at' => $this->created_at
         ];
     }
