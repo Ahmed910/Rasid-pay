@@ -30,6 +30,7 @@ class Permission extends Model
         "activity_logs.main_programs",
         "activity_logs.sub_programs",
         "activity_logs.events",
+        "citizens.enabled_packages",
         "image_delete",
         "send_message",
         "validate",
@@ -58,17 +59,17 @@ class Permission extends Model
         $this->attributes['name'] = $value;
     }
 
-    public function getActionAttribute()
+    public function getActionTransAttribute()
     {
         return trans('dashboard.'. str_singular($this->attributes['main_program']) . ".permissions." . $this->attributes['action']);
     }
 
-    public function getMainProgramAttribute()
+    public function getMainProgramTransAttribute()
     {
         return trans('dashboard.'. str_singular($this->attributes['main_program']) . "." . $this->attributes['main_program']);
     }
 
-    public function getSubProgramAttribute()
+    public function getSubProgramTransAttribute()
     {
         if ($this->attributes['sub_program']) {
             return trans('dashboard.' . str_singular($this->attributes['main_program']) . '.sub_progs.' . $this->attributes['sub_program']);
@@ -123,13 +124,11 @@ class Permission extends Model
 
     private static function getTransPermission($item)
     {
-        $path = explode('.',$item->name);
-        $action = trans('dashboard.' . @$path[0] . '.permissions.' . @$path[1]);
         $data['id'] = $item->id;
-        $data['uri'] = $path[0];
+        $data['uri'] = $item->main_program;
         $data['named_uri'] = $item->name;
-        $data['name'] = trans('dashboard.' . @$path[0] . '.' . str_plural($path[0])) . ' (' . $action . ')';
-        $data['action'] = $action;
+        $data['name'] = $item->main_program_trans . ' (' . $item->action_trans . ')';
+        $data['action'] = $item->action_trans;
         return $data;
     }
     #endregion custom Methods
