@@ -58,7 +58,7 @@ class PackageController extends Controller
                 return response()->json(['status' => false, 'data' => null, 'message' => trans('mobile.promotion.promo_code_is_used')], 422);
             }
             // take 50% of price from citizen wallet
-            $package_price = $package->price * 0.5;
+            $package_price = $package->price * ($package->promo_discount/100);
             if ($package_price > ($citizen_wallet->main_balance + $citizen_wallet->cash_back)) {
                 return response()->json(['status' => false, 'data' => null, 'message' => trans('mobile.payments.current_balance_is_not_sufficient_to_complete_payment')], 422);
             }
