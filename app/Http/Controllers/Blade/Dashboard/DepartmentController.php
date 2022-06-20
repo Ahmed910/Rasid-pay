@@ -108,9 +108,8 @@ class DepartmentController extends Controller
     {
         $previousUrl = url()->previous();
         (strpos($previousUrl, 'department')) ? session(['perviousPage' => 'department']) : session(['perviousPage' => 'home']);
-
         $department = Department::withTrashed()->findOrFail($id);
-        $departments = Department::with('parent.translations')->ListsTranslations('name')->where(['is_active' => 1])->orWhere('departments.id',$id)->pluck('name', 'id')->toArray();
+        $departments = Department::with('parent.translations')->ListsTranslations('name')->where(['is_active' => 1])->where('departments.id','!=',$id)->pluck('name', 'id')->toArray();
 
         $departments = array_merge([null => trans('dashboard.department.without_parent')], $departments);
 
