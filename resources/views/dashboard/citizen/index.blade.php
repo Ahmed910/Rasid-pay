@@ -27,8 +27,7 @@
       <input id="phone" type="number"
         oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
         pattern="^[1-9]\d*$" onkeypress="return /[0-9a-zA-Z]/i.test(event.key)" maxlength="9"
-        class="form-control stop-copy-paste" placeholder="{{ trans('dashboard.citizens.enter_phone') }} "
-        class="form-control" />
+        class="form-control stop-copy-paste" placeholder="{{ trans('dashboard.citizens.enter_phone') }} "/>
       <div class="input-group-text border-start-0">
         966+
       </div>
@@ -153,10 +152,10 @@
             </lottie-player>
             <p>{{ trans('dashboard.citizens.edit_phone') }}</p>
             <div class="mt-3 input-group">
-              <input type="number" name="phone" class="form-control" id = "phone_value"
+              <input type="number" name="phone"  id = "phone_value"
                 oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
-                pattern="^[0-9]\d*$" onkeypress="return /[0-9a-zA-Z]/i.test(event.key)" maxlength="10"
-                class="form-control stop-copy-paste" placeholder="{{ trans('dashboard.citizens.new_phone') }}" value="" >
+                 onkeypress="return /[0-9]/i.test(event.key)" maxlength="9"
+                class="form-control stop-copy-paste" placeholder="{{ trans('dashboard.citizens.new_phone') }}" value="" />
               <div class="input-group-text border-start-0">
                 966+
               </div>
@@ -164,9 +163,9 @@
             <span id="phone_error"></span>
           </div>
           <div class="modal-footer justify-content-end mt-5 p-0">
-            <button type="submit" class="btn btn-primary mx-3" id="btn-submit">{{ trans('dashboard.general.save') }}</button>
+            <button type="submit" class="btn btn-primary mx-3" id="btn-submit">{{ trans('dashboard.general.yes') }}</button>
             <button type="button" class="btn btn-outline-primary" data-bs-dismiss="modal">
-              {{ trans('dashboard.general.back') }}
+              {{ trans('dashboard.general.no') }}
             </button>
           </div>
         </form>
