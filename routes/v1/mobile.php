@@ -34,9 +34,11 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::post('active_notifications', 'ProfileController@activateNotification');
         // home
         Route::get('home', 'HomeController@index');
+        // Currency
+        Route::get('currencies', 'CurrencyController@index');
         // Wallet
         Route::apiResource('wallets', 'WalletController')->only('index', 'store');
-        Route::post('need_to_transfers', 'WalletController@sendWalletOtp');
+        Route::post('send_wallet_otp', 'WalletController@sendWalletOtp');
         // Beneficiaries
         Route::apiResource('beneficiaries', 'BeneficiaryController');
         //money requests
@@ -56,10 +58,12 @@ Route::middleware('auth:sanctum')->group(function () {
         // Transfer
         Route::namespace('Transfers')->group(function () {
             // Wallet Transfers
-            Route::apiResource('wallet_transfers', 'WalletTransferController');
+            Route::post('wallet_transfers', 'WalletTransferController@store');
             Route::get('check_phone_wallets/{phone}', 'WalletTransferController@checkIfPhoneExists');
             // Local Transfers
             Route::post('local_transfers', 'LocalTransferController@store');
+            // Global Transfers
+            Route::post('global_transfers', 'GlobalTransferController@store');
             // All Transfers
             Route::get('transfers','TransferController@index');
         });

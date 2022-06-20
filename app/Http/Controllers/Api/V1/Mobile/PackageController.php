@@ -2,13 +2,10 @@
 
 namespace App\Http\Controllers\Api\V1\Mobile;
 
-use App\Http\Resources\Mobile\PackageResource;
-use App\Models\CitizenPackage;
-use App\Models\CitizenPackagePromoCode;
-use App\Models\Package\Package;
+use App\Http\Resources\Api\V1\Mobile\PackageResource;
+use App\Models\{CitizenPackage, CitizenPackagePromoCode, Package\Package};
 use App\Http\Controllers\Controller;
-use App\Services\PromotePackage;
-use App\Services\UpdateCitizenWallet;
+use App\Services\{PromotePackage, UpdateCitizenWallet};
 use Illuminate\Http\Request;
 
 class PackageController extends Controller

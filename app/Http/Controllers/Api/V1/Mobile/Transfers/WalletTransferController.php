@@ -4,8 +4,8 @@ namespace App\Http\Controllers\Api\V1\Mobile\Transfers;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\V1\Mobile\Transfers\WalletTransferRequest;
-use App\Http\Resources\Mobile\{LocalTransferResource, WalletTransferResource};
-use App\Http\Controllers\Api\V1\Mobile\WalletBalance;
+use App\Http\Resources\Api\V1\Mobile\{LocalTransferResource, WalletTransferResource};
+use App\Services\WalletBalance;
 use App\Models\{CitizenWallet, User,Transfer};
 use Illuminate\Http\Request;
 

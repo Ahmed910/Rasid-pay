@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Api\V1\Mobile\Auth;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\V1\Mobile\Auth\LoginRequest;
 use App\Http\Requests\V1\Mobile\Auth\SendCodeRequest;
-use App\Http\Resources\Mobile\UserResource;
+use App\Http\Resources\Api\V1\Mobile\UserResource;
 use App\Models\Device;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -40,7 +40,7 @@ class LoginController extends Controller
         if (!$user) {
             return response()->json(['status' => false, 'data' => null, 'message' => trans('auth.account_not_exists')], 422);
         }
-        $response = $this->checkIsUserValid($user);
+        $response = self::checkIsUserValid($user);
         if ($response) {
             return response()->json($response['response'],403);
         }
@@ -93,7 +93,7 @@ class LoginController extends Controller
             }
             $user->update([$request->key_name => $code]);
             // TODO::send code for user by sms
-            $response = $this->checkIsUserValid($user);
+            $response = self::checkIsUserValid($user);
             if ($response) {
                 return response()->json(array_except($response['response'],['message']) + ['message' => trans('auth.success_send_login_code')],403);
             }
@@ -123,51 +123,60 @@ class LoginController extends Controller
     }
 
 
-    public function checkIsUserValid($user)
+    public static function checkIsUserValid($user)
     {
         switch ($user) {
-            case $user->register_status != 'completed':
+            case $user->register_status && $user->register_status != 'completed':
+                $code = 1111;
+                if (setting('use_sms_service') == 'enable') {
+                   $code = generate_unique_code(User::class, 'phone', 4, 'numbers');
+                }
+                $user->update(['verified_code' => $code]);
                 return [
                         'response' => [
-                            'status' => false, 'data' => [
+                            'status' => true, 'data' => [
                             'is_register_completed' => false,
                             'is_active' => null,
                             'ban_status' => null,
                             'ban_date' => null,
+                            'phone' => $user->phone
                         ], 'message' => trans('auth.verify_phone')
                     ]
                 ];
-            case $user->is_active == 0 :
+            case $user->is_active && $user->is_active == 0 :
                 return [
                         'response' => [
-                            'status' => false, 'data' => [
+                            'status' => true, 'data' => [
                             'is_active' => false,
                             'is_register_completed' => null,
                             'ban_status' => null,
                             'ban_date' => null,
+                            'phone' => $user->phone
                         ], 'message' => trans('auth.verify_phone')]
                     ];
 
-            case $user->ban_status == 'permanent' :
+            case $user->ban_status && $user->ban_status == 'permanent' :
                 return [
                         'response' => [
-                            'status' => false, 'data' => [
+                            'status' => true, 'data' => [
                             'is_active' => null,
                             'is_register_completed' => null,
                             'ban_status' => 'permanent',
                             'ban_date' => null,
+                            'phone' => null
                         ], 'message' => trans('auth.ban_permanent')
                     ]
                 ];
 
-            case $user->ban_status == 'temporary' :
+            case $user->ban_status && $user->ban_status == 'temporary' :
                 return [
                         'response' => [
-                            'status' => false, 'data' => [
+                            'status' => true, 'data' => [
                             'is_active' => null,
                             'is_register_completed' => null,
                             'ban_status' => 'permanent',
                             'ban_date' => $user->ban_to,
+                            'phone' => null
                         ], 'message' => trans('auth.ban_temporary')
                     ]
                 ];

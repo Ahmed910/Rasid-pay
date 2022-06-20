@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Resources\Mobile;
+namespace App\Http\Resources\Api\V1\Mobile;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class GLobalTransferResource extends JsonResource
+class GlobalTransferResource extends JsonResource
 {
     /**
      * Transform the resource into an array.

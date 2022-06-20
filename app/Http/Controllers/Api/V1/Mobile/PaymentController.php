@@ -4,18 +4,19 @@ namespace App\Http\Controllers\Api\V1\Mobile;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\V1\Mobile\PaymentRequest;
-use App\Http\Resources\Mobile\{PaymentResource, Transactions\TransactionResource};
-use App\Models\{Payment, Transaction};
+use App\Http\Resources\Api\V1\Mobile\{PaymentResource, Transactions\TransactionResource};
+use App\Models\{CitizenWallet, Payment, Transaction};
+use App\Services\WalletBalance;
 
 class PaymentController extends Controller
 {
-
     public function store(PaymentRequest $request, Payment $payment)
     {
-        $citizen_wallet = auth()->user()->citizenWallet;
+        $citizen_wallet = CitizenWallet::with('citizen')->where('citizen_id', auth()->id())->firstOrFail();
         if ($request->amount > ($citizen_wallet->main_balance + $citizen_wallet->cash_back)) {
             return response()->json(['status' => false, 'data' => null, 'message' => trans('mobile.payments.current_balance_is_not_sufficient_to_complete_payment')], 422);
         }
+        $citizen_wallet->update(['wallet_bin' => null]);
         $payment->fill($request->validated() + ['citizen_id' => auth()->id()])->save();
         $transaction_data = [
             'trans_type' => 'payment',
@@ -40,8 +41,6 @@ class PaymentController extends Controller
                 'message' => trans("dashboard.general.success_add")
             ]);
     }
-
-
     public function show($id)
     {
         $payment = Payment::findOrFail($id);

@@ -1,9 +1,7 @@
 <?php
 
-namespace App\Http\Resources\Mobile;
+namespace App\Http\Resources\Api\V1\Mobile;
 
-use App\Http\Resources\Dashboard\Department\DepartmentResource;
-use App\Http\Resources\Dashboard\Group\{GroupResource, PermissionResource};
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class UserResource extends JsonResource

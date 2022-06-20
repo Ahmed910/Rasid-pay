@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Api\V1\Mobile;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\V1\Mobile\TransactionRequest;
-use App\Http\Resources\Mobile\Transactions\TransactionResource;
+use App\Http\Resources\Api\V1\Mobile\Transactions\TransactionResource;
 
 class TransactionController extends Controller
 {

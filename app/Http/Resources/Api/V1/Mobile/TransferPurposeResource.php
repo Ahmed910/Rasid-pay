@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Resources\Mobile;
+namespace App\Http\Resources\Api\V1\Mobile;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class AddressResource extends JsonResource
+class TransferPurposeResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -15,9 +15,8 @@ class AddressResource extends JsonResource
     public function toArray($request)
     {
         return [
-            'lat' => $this->lat,
-            'lng' => $this->lng,
-            'location' => $this->location,
+            'id' => $this->id,
+            'name' => $this->name,
         ] ;
     }
 }

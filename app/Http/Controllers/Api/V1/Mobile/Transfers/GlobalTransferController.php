@@ -3,19 +3,18 @@
 namespace App\Http\Controllers\Api\V1\Mobile\Transfers;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\V1\Mobile\BalanceTypeRequest;
-use App\Http\Requests\V1\Mobile\LocalTransferRequest;
-use App\Http\Resources\Api\V1\Mobile\{LocalTransferResource, Transactions\TransactionResource};
-use App\Models\{CitizenWallet, Device, Transaction, Transfer};
-use App\Services\WalletBalance;
+use App\Http\Requests\V1\Mobile\GLobalTransferRequest;
+use App\Http\Resources\Api\V1\Mobile\Transactions\TransactionResource;
+use App\Models\{CitizenWallet, Transfer};
 
-class LocalTransferController extends Controller
+
+class GlobalTransferController extends Controller
 {
-    public function store(LocalTransferRequest $request)
-    {
-        // check main_balance is suffienct or not
-        $wallet = CitizenWallet::with('citizen')->where('citizen_id', auth()->id())->firstOrFail();
 
+    public function store(GlobalTransferRequest $request, Transfer $transfer)
+    {
+        // check main_balance is suffienct or not (This will change after this phase (clean code))
+        $wallet = CitizenWallet::with('citizen')->where('citizen_id', auth()->id())->firstOrFail();
         if (
             ($request->balance_type === 'main' && ($wallet->main_balance < $request->amount)) ||
             ($request->balance_type === 'back' && ($wallet->cash_back < $request->amount))) {
@@ -25,7 +24,7 @@ class LocalTransferController extends Controller
         // TODO: Calc transfer fee
 
         // Set transfer data
-        $transfer_data = $request->only('amount', 'fee_upon') + ['transfer_type' => 'local', 'from_user_id' => auth()->id()];
+        $transfer_data = $request->only('amount', 'amount_transfer', 'fee_upon') + ['transfer_type' => 'global', 'from_user_id' => auth()->id(),'transfer_status' =>'pending'];
         if ($request->balance_type == 'main') {
             $transfer_data += ['main_amount' => $request->amount];
             $wallet->decrement('main_balance', $request->amount);
@@ -37,37 +36,26 @@ class LocalTransferController extends Controller
             $transfer_data += (array) $balance;
             $wallet->update(['cash_back', \DB::raw('cash_back - '. $balance->cashback_amount),'main_balance', \DB::raw('main_balance - '. $balance->main_amount)]);
         }
-        $local_transfer = Transfer::create($transfer_data);
-        $local_transfer->bankTransfer()->create($request->except('amount', 'transfer_fees','balance_type'));
+        // create global transfer
+        $global_transfer = Transfer::create($transfer_data);
+        $global_transfer->bankTransfer()
+            ->create($request->only(['currency_id', 'to_currency_id', 'beneficiary_id', 'transfer_purpose_id', 'balance_type']));
+        $global_transfer->update(['recieve_option_id'=> $global_transfer->beneficiary->recieve_option_id]);
 
-        $transaction = $local_transfer->transaction()->create([
+        //add transfer in  transaction
+        $transaction = $global_transfer->transaction()->create([
             'amount' => $request->amount,
-            'transfer_type' => 'local_transfer',
+            'transfer_type' => 'global_transfer',
             "fee_upon" => $request->fee_upon,
             'from_user_id' => auth()->id(),
-            'fee_amount' => $local_transfer->transfer_fees ?? 0,
-            'cashback_amount' => $local_transfer->cashback_amount,
-            'main_amount' => $local_transfer->main_amount,
+            'fee_amount' => $global_transfer->transfer_fees ?? 0,
+            'cashback_amount' => $global_transfer->cashback_amount,
+            'main_amount' => $global_transfer->main_amount,
         ]);
 
-       return TransactionResource::make($transaction)->additional([
-           'message' => trans('mobile.local_transfers.transfer_has_been_done_successfully'),
-           'status' => true
-           ]);
+        return TransactionResource::make($transaction)->additional([
+            'message' => trans('mobile.local_transfers.transfer_has_been_done_successfully'),
+            'status' => true
+        ]);
     }
-
-    public function getLocalTransfer($id)
-    {
-        $transfer = Transfer::with('bank_transfer')->findOrFail($id);
-
-        return LocalTransferResource::make($transfer)->additional(['status' => true, 'message' => ""]);
-    }
-
-
-
-
-
-
-
-
 }

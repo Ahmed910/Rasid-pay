@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Resources\Mobile;
+namespace App\Http\Resources\Api\V1\Mobile;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class SlideResource extends JsonResource
+class AddressResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -15,10 +15,9 @@ class SlideResource extends JsonResource
     public function toArray($request)
     {
         return [
-            'id'=>$this->id,
-            'name' => $this->name,
-            'description' => $this->description,
-            'image' => $this->image,
+            'lat' => $this->lat,
+            'lng' => $this->lng,
+            'location' => $this->location,
         ] ;
     }
 }

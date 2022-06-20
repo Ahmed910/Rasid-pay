@@ -4,16 +4,29 @@ namespace App\Http\Controllers\Api\V1\Mobile\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\V1\Mobile\Auth\{VerifyPhoneCodeRequest, CompleteRegisterRequest, RegisterRequest};
-use App\Http\Resources\Mobile\UserResource;
+use App\Http\Resources\Api\V1\Mobile\UserResource;
 use App\Models\{Citizen, CitizenPackage, User, CitizenWallet, Package\Package};
 
 class RegisterController extends Controller
 {
-    public function register(RegisterRequest $request, User $user)
+    public function register(RegisterRequest $request)
     {
         $data = $request->validated();
         $userData = ['user_type' => 'citizen', 'fullname' => 'citizen_' . $data['phone']];
-
+        $user = User::firstOrNew([
+            'identity_number' => $request->identity_number,
+            'user_type'       => 'citizen'
+        ]);
+        if (!$user->phone) {
+            $user = User::firstOrNew([
+                'phone' => $request->phone,
+                'user_type'       => 'citizen'
+            ]);
+        }
+        $response = LoginController::checkIsUserValid($user);
+        if ($response) {
+            return response()->json($response['response'],403);
+        }
         $user->fill($data + $userData)->save();
         //TODO: api service for send sms to phone number
         //TODO: api service for elm to verify account
