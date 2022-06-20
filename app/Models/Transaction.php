@@ -43,7 +43,7 @@ class Transaction extends Model
     const client_searchable_Columns = ["user_to", "client_type", "commercial_number", "nationality", "tax_number", "transactions_done"];
     const client_sortable_Columns = ["user_to" => "fullname", "client_type" => "client_type", "commercial_number" => "commercial_number", "nationality" => "nationality", "tax_number" => "tax_number", "transactions_done" => "transactions_done"];
     const ENABLED_CARD_sortable_COLUMNS = ["enabled_package" => "package_id"];
-    const TRANACTION_TYPES = ['payment', 'local_transfer', 'global_transfer', 'charge', 'money_request'];
+    const TRANACTION_TYPES = ['payment', 'local_transfer', 'global_transfer', 'charge', 'money_request','promote_package'];
 
     public function scopeSearch(Builder $query, $request)
     {
