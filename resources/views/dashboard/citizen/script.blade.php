@@ -208,10 +208,14 @@
             });
         });
 
-        $("#modal_phone").on("hidden.bs.modal", function () {
+       var disappearError = function() {
             $('#phone_error').html('');
             $('input[name="phone"]').removeClass('border-danger');
-        });
+       }
+
+        $("#modal_phone").on("hidden.bs.modal", disappearError);
+        $('#phone_value').focus(disappearError);
+        
 </script>
 <script src="{{ asset('dashboardAssets/js/select2.js') }}"></script>
 <script src="{{ asset('dashboardAssets/plugins/select2/select2.full.min.js') }}"></script>

@@ -28,7 +28,7 @@ class ClientPackageView extends Model
 
     public function scopeSortBy(Builder $query, $request)
     {
-        if (isset($request->sort['column']) && in_array($request->sort['column'], ['palatinum_discount', 'basic_discount', 'golden_discount', 'fullname'])) {
+        if (isset($request->sort['column']) && in_array($request->sort['column'], ['platinum_discount', 'basic_discount', 'golden_discount', 'fullname'])) {
 
             if ($request->sort['column'] == 'fullname')
                 return $query->orderBy('name', @$request->sort['dir']);
