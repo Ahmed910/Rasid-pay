@@ -3,10 +3,8 @@
 namespace App\Http\Controllers\Api\V1\Mobile;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\V1\Mobile\Auth\UpdatePasswordRequest;
-use App\Http\Requests\V1\Mobile\UpdateProfileRequest;
-use App\Http\Resources\Mobile\UserResource;
-use App\Http\Resources\Mobile\WalletResource;
+use App\Http\Requests\V1\Mobile\{UpdateProfileRequest, Auth\UpdatePasswordRequest};
+use App\Http\Resources\Api\V1\Mobile\{UserResource, WalletResource};
 use App\Models\CitizenWallet;
 
 class HomeController extends Controller

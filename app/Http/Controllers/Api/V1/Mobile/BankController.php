@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Api\V1\Mobile;
 
 use App\Http\Controllers\Controller;
-use App\Http\Resources\Mobile\BankResource;
+use App\Http\Resources\Api\V1\Mobile\BankResource;
 use App\Models\Bank\Bank;
 use Illuminate\Http\Request;
 

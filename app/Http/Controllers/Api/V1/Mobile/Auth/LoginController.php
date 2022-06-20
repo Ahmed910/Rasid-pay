@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Api\V1\Mobile\Auth;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\V1\Mobile\Auth\LoginRequest;
 use App\Http\Requests\V1\Mobile\Auth\SendCodeRequest;
-use App\Http\Resources\Mobile\UserResource;
+use App\Http\Resources\Api\V1\Mobile\UserResource;
 use App\Models\Device;
 use App\Models\User;
 use Illuminate\Http\Request;

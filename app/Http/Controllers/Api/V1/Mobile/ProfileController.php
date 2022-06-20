@@ -8,7 +8,7 @@ use App\Http\Requests\V1\Mobile\{
     Profile\UpdateProfileRequest,
     Profile\UpdatePasswordRequest
 };
-use App\Http\Resources\Mobile\UserResource;
+use App\Http\Resources\Api\V1\Mobile\UserResource;
 use App\Models\User;
 use Illuminate\Http\Request;
 
