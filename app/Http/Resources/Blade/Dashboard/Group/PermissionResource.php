@@ -19,11 +19,11 @@ class PermissionResource extends JsonResource
         return [
             'id' => $this->id,
             'is_selected' => auth()->user()->permissions()->where('permissions.id',$this->id)->exists(),
-            'main_prog' => $this->main_program,
-            'sub_prog' => $this->sub_program,
-            'action' => $this->action,
+            'main_prog' => $this->main_program_trans,
+            'sub_prog' => $this->sub_program_trans,
+            'action' => $this->action_trans,
             'uri' => $this->name,
-            'name' => $this->main_program . ' (' . $this->action . ')',
+            'name' => $this->main_program_trans . ' (' . $this->action_trans . ')',
             'created_at' => $this->created_at
         ];
     }
