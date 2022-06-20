@@ -43,7 +43,7 @@ class AdminRequest extends FormRequest
             'ban_from' =>  @$data['ban_from'] ?? null,
             'ban_to' =>  @$data['ban_to'] ?? null,
             'password' => $data['password'] ?? null,
-            'phone' => @$data['phone'] ? filter_mobile_number($data['phone']) : @$data['phone']
+            'phone' => @$data['phone'] ? convert_arabic_number($data['phone']) : @$data['phone']
         ]);
     }
 
@@ -54,7 +54,6 @@ class AdminRequest extends FormRequest
                 'change_password' => 'nullable|in:1,0',
                 'ban_status' => 'required|in:active,permanent,temporary',
                 'password' => 'nullable|required_if:change_password,1|confirmed|regex:/^[A-Za-z0-9()\]\[#%&*_=~{}^:`.,$!@+\/-]+$/|min:6|max:100',
-             
             ];
         } else {
             $data = [
@@ -78,7 +77,11 @@ class AdminRequest extends FormRequest
             // New Data
             'fullname' => 'required|string|max:225|min:2',
             'email' => 'required|email:filter|max:225|email:filter|unique:users,email,' . @$this->admin->id,
-            'phone' => 'required|numeric|starts_with:05,966|digits_between:9,20|unique:users,phone,' . @$this->admin->id,
+            'phone' => ["required", "numeric", "digits_between:9,20", 'starts_with:9665,5', function ($attribute, $value, $fail) {
+                if(!check_phone_valid($value)){
+                    $fail(trans('mobile.validation.invalid_phone'));
+                }
+            },'unique:users,phone,'.@$this->admin->id],
         ] + $data;
     }
 

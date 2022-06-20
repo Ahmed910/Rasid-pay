@@ -3,13 +3,11 @@
 namespace App\Http\Controllers\Api\V1\Mobile\Auth;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\V1\Mobile\Auth\LoginRequest;
-use App\Http\Requests\V1\Mobile\Auth\SendCodeRequest;
-use App\Http\Resources\Mobile\UserResource;
-use App\Models\Device;
-use App\Models\User;
-use Illuminate\Http\Request;
+use App\Http\Requests\V1\Mobile\Auth\{LoginRequest, SendCodeRequest};
+use App\Http\Resources\Api\V1\Mobile\UserResource;
 use Illuminate\Support\Facades\Auth;
+use App\Models\{Device, User};
+use Illuminate\Http\Request;
 
 class LoginController extends Controller
 {
@@ -64,7 +62,7 @@ class LoginController extends Controller
             $user->devices()->firstOrCreate($request->only(['device_token', 'device_type']));
         }
         data_set($user, 'token', $token);
-        return UserResource::make($user)->additional([
+        return UserResource::make($user->load('citizen'))->additional([
             'status' => true,
             'message' => trans('auth.success_login_mobile',
                 ['user' => $user->identity_number])]);
@@ -97,7 +95,7 @@ class LoginController extends Controller
             if ($response) {
                 return response()->json(array_except($response['response'],['message']) + ['message' => trans('auth.success_send_login_code')],403);
             }
-            return response()->json(['status' => true, 'data' => null, 'message' => trans('auth.success_send_login_code')]);
+            return response()->json(['status' => true, 'data' => ['phone' => '**********' . substr($user->phone, -4)], 'message' => trans('auth.success_send_login_code')]);
         } catch (\Exception $e) {
             return response()->json(['status' => false, 'data' => null, 'message' => trans('auth.fail_send')], 422);
         }
@@ -139,7 +137,7 @@ class LoginController extends Controller
                             'is_active' => null,
                             'ban_status' => null,
                             'ban_date' => null,
-                            'phone' => $user->phone
+                            'phone' => '**********' . substr($user->phone, -4)
                         ], 'message' => trans('auth.verify_phone')
                     ]
                 ];
@@ -151,7 +149,7 @@ class LoginController extends Controller
                             'is_register_completed' => null,
                             'ban_status' => null,
                             'ban_date' => null,
-                            'phone' => $user->phone
+                            'phone' => '**********' . substr($user->phone, -4)
                         ], 'message' => trans('auth.verify_phone')]
                     ];
 

@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\MoneyRequest;
 use App\Models\User;
 use App\Http\Requests\V1\Mobile\MoneyReqRequest;
-use App\Http\Resources\Mobile\MoneyRequestResource;
+use App\Http\Resources\Api\V1\Mobile\MoneyRequestResource;
 
 class MoneyRequestController extends Controller
 {
@@ -20,7 +20,7 @@ class MoneyRequestController extends Controller
         $money->fill($request->validated() + ['added_by_id' => auth()->id()])->save();
 
        $from_user = User::where('phone',$request->phone)->first();
-       
+
         $transaction = $money->transaction()->create([
             'amount' => $request->amount_required,
             'transfer_type' => 'money_request',

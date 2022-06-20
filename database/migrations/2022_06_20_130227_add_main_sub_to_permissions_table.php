@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddDashboradTypeToPermissionsTable extends Migration
+class AddMainSubToPermissionsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -14,8 +14,9 @@ class AddDashboradTypeToPermissionsTable extends Migration
     public function up()
     {
         Schema::table('permissions', function (Blueprint $table) {
-            $table->string('permission_on')->default('dashboard_api');
-            $table->unique(['name', 'permission_on']);
+            $table->string('main_program',30)->nullable();
+            $table->string('sub_program',30)->nullable();
+            $table->string('action',30)->nullable();
         });
     }
 
@@ -27,8 +28,7 @@ class AddDashboradTypeToPermissionsTable extends Migration
     public function down()
     {
         Schema::table('permissions', function (Blueprint $table) {
-            $table->dropUnique(['name', 'permission_on']);
-            $table->dropColumn('permission_on');
+            $table->dropColumn('main_program','sub_program');
         });
     }
 }

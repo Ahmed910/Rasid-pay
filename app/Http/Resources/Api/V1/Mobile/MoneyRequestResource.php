@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Resources\Mobile;
+namespace App\Http\Resources\Api\V1\Mobile;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class BankResource extends JsonResource
+class MoneyRequestResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -15,8 +15,10 @@ class BankResource extends JsonResource
     public function toArray($request)
     {
         return [
-            'id' => $this->id,
-            'name' => $this->name,
+            'id'=>$this->id,
+            'amount_required' => $this->amount_required,
+            'phone' => $this->phone,
+            "notes"    => $this->notes,
         ] ;
     }
 }

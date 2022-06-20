@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Api\V1\Mobile;
 
 use App\Http\Controllers\Controller;
-use App\Http\Resources\Mobile\{NotificationCollection,NotificationResource};
+use App\Http\Resources\Api\V1\Mobile\{NotificationCollection,NotificationResource};
 use Illuminate\Http\Request;
 
 class NotificationController extends Controller

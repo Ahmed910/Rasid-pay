@@ -170,6 +170,10 @@
 
                         toast('error',message ,"{{ LaravelLocalization::getCurrentLocaleDirection() == 'rtl' }}");
                     });
+                    if($(formId).attr('id') == 'verify-form')
+                    {
+                       $(formId)[0].reset();
+                    }
                     // if (data.responseJSON.message) toastr.error("{{ trans('auth.failed') }}");
                 }
             })

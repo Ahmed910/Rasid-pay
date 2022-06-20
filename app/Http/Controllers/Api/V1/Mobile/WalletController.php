@@ -1,11 +1,10 @@
 <?php
 
 namespace App\Http\Controllers\Api\V1\Mobile;
-use App\Models\{Card,Device,WalletCharge,Transaction,CitizenWallet,User};
+use App\Models\CitizenWallet;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\V1\Mobile\WalletBinRequest;
-use App\Http\Requests\V1\Mobile\WalletRequest;
-use App\Http\Resources\Mobile\WalletResource;
+use App\Http\Requests\V1\Mobile\{WalletBinRequest, WalletRequest};
+use App\Http\Resources\Api\V1\Mobile\WalletResource;
 use Illuminate\Http\Request;
 
 class WalletController extends Controller

@@ -1,6 +1,6 @@
 $(function(e) {
 
-    $("#historyTable, #groupTable").DataTable({
+    $("#historyTable").DataTable({
         responsive: true,
       sDom: "t<'domOption'lpi>",
       pageLength: 10,

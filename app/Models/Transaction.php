@@ -43,20 +43,20 @@ class Transaction extends Model
     const client_searchable_Columns = ["user_to", "client_type", "commercial_number", "nationality", "tax_number", "transactions_done"];
     const client_sortable_Columns = ["user_to" => "fullname", "client_type" => "client_type", "commercial_number" => "commercial_number", "nationality" => "nationality", "tax_number" => "tax_number", "transactions_done" => "transactions_done"];
     const ENABLED_CARD_sortable_COLUMNS = ["enabled_package" => "package_id"];
-    const TRANACTION_TYPES = ['payment', 'local_transfer', 'global_transfer', 'charge', 'money_request'];
+    const TRANACTION_TYPES = ['payment', 'local_transfer', 'global_transfer', 'charge', 'money_request','promote_package'];
 
     public function scopeSearch(Builder $query, $request)
     {
         $old = $query->toSql();
         foreach ($request->all() as $key => $item) {
             if ($item == -1 && in_array($key, self::SELECT_ALL)) $request->request->remove($key);
-            if (key_exists($key, self::ENABLED_CARD_SEARCHABLE_COLUMNS) && isset($request->$key))
-                $query->whereHas(
-                    'citizen.citizen.enabledPackage',
-                    function ($q) use ($key, $item) {
-                        $q->where(self::ENABLED_CARD_SEARCHABLE_COLUMNS[$key], $item);
-                    }
-                );
+//            if (key_exists($key, self::ENABLED_CARD_SEARCHABLE_COLUMNS) && isset($request->$key))
+//                $query->whereHas(
+//                    'fromUser.citizen.enabledPackage',
+//                    function ($q) use ($key, $item) {
+//                        $q->where(self::ENABLED_CARD_SEARCHABLE_COLUMNS[$key], $item);
+//                    }
+//                );
         }
         if (isset($request->trans_number)) {
             $query->where('trans_number', 'like', "%$request->trans_number%");
@@ -66,24 +66,22 @@ class Transaction extends Model
         }
         if (isset($request->trans_type)) {
             if ($request->trans_type == 0) $request->trans_type = null;
-            if ($request->trans_type != -1) $query->where("trans_type", $request->type);
+            if ($request->trans_type != -1) $query->where("trans_type", $request->trans_type);
         }
         if (isset($request->enabled_package) && !in_array(-1, $request->enabled_package)) {
             $query->whereHas('citizenPackage', fn($q) => $q->whereIn('package_id', $request->enabled_package));
-        }else
-            $request->enabled_package = null;
-
+        }
         if (isset($request->client)) {
             if ($request->client == 0) $request->client = null;
             if ($request->client != -1) {
-                $query->whereHas('client', function ($query) use ($request) {
+                $query->whereHas('toUser', function ($query) use ($request) {
                     $query->where('to_user_id', $request->client);
                 });
             }
         }
 //
         if (isset($request->citizen)) {
-            $query->whereHas('citizen', fn($q) => $q->where('fullname', 'like', "%$request->citizen%"));
+            $query->whereHas('fromUser', fn($q) => $q->where('fullname', 'like', "%$request->citizen%"));
         }
 
         $new = $query->toSql();

@@ -34,7 +34,7 @@ class DatabaseSeeder extends Seeder
         $this->call(SettingSeeder::class);
         $this->call(TransactionSeeder::class);
         $this->call(PackageSeeder::class);
-    
+
 
         Schema::disableForeignKeyConstraints();
         DB::unprepared(include database_path('Intial_data/countries.php'));
@@ -44,7 +44,6 @@ class DatabaseSeeder extends Seeder
         DB::unprepared(include database_path('Intial_data/admins.php'));
         DB::unprepared(include database_path('Intial_data/citizens.php'));
         DB::unprepared(include database_path('Intial_data/clients.php'));
-        DB::unprepared(include database_path('Intial_data/permissions.php'));
         DB::unprepared(include database_path('Intial_data/banks.php'));
         DB::unprepared(include database_path('Intial_data/bank_accounts.php'));
         DB::unprepared(include database_path('Intial_data/app_media.php'));

@@ -36,6 +36,7 @@ return [
             'charge' => 'شحن',
             'money_request' => 'طلب أموال',
             'payment' => 'دفع فاتورة',
+            'promote_package' => 'ترقية بطاقة',
         ],
         'status_cases' => [
             'success' => 'ناجحة',

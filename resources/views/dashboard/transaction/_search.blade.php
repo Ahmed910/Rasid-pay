@@ -82,5 +82,5 @@
     </div>
   </div>
 {!! form::close() !!}
-
+</div>
 <!-- FORM CLOSED -->

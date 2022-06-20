@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Resources\Mobile;
+namespace App\Http\Resources\Api\V1\Mobile;
 
 use Carbon\Carbon;
 use Illuminate\Http\Resources\Json\JsonResource;

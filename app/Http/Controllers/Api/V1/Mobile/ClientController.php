@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Api\V1\Mobile;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Http\Resources\Mobile\ClientResource;
+use App\Http\Resources\Api\V1\Mobile\ClientResource;
 use App\Models\User;
 
 class ClientController extends Controller
