@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Api\V1\Mobile\Transfers;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\V1\Mobile\GLobalTransferRequest;
-use App\Http\Resources\Mobile\Transactions\TransactionResource;
+use App\Http\Resources\Api\V1\Mobile\Transactions\TransactionResource;
 use App\Models\{CitizenWallet, Transfer};
 
 

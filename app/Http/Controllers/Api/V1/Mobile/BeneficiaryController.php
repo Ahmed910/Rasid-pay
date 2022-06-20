@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Api\V1\Mobile;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\V1\Mobile\BeneficiaryRequest;
-use App\Http\Resources\Mobile\BeneficiaryResource;
+use App\Http\Resources\Api\V1\Mobile\BeneficiaryResource;
 use App\Models\Beneficiary;
 use Illuminate\Http\Request;
 

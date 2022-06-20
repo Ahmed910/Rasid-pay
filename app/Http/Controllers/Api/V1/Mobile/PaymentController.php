@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Api\V1\Mobile;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\V1\Mobile\PaymentRequest;
-use App\Http\Resources\Mobile\{PaymentResource, Transactions\TransactionResource};
+use App\Http\Resources\Api\V1\Mobile\{PaymentResource, Transactions\TransactionResource};
 use App\Models\{CitizenWallet, Payment, Transaction};
 use App\Services\WalletBalance;
 
