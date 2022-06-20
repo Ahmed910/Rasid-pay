@@ -107,6 +107,14 @@ function insertUrlParam(key, value) {
       window.history.pushState({path: newurl}, '', newurl);
     }
 }
+function removetUrlParam(key, value) {
+    if (history.pushState) {
+        let searchParams = new URLSearchParams(window.location.search);
+        searchParams.set(key, "");
+        let newurl = window.location.protocol + "//" + window.location.host + window.location.pathname + '?' + searchParams.toString();
+        window.history.pushState({path: newurl}, '', newurl);
+    }
+}
 
 
 $("#from-hijri-picker-custom").on('dp.change', function (event) {

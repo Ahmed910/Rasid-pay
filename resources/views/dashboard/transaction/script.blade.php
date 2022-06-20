@@ -169,12 +169,20 @@
         insertUrlParam('trans_status', $('#status').val());
         table.draw();
       });
+      $('#status').on('select2:unselect', function(e) {
+        removetUrlParam('trans_status', $('#status').val());
+        table.draw();
+      });
       $('#type').on('select2:select', function(e) {
         insertUrlParam('trans_type', $('#type').val());
         table.draw();
       });
       $('#enabled_package').on('select2:select', function(e) {
         insertUrlParam('enabled_package', $('#enabled_package').val());
+        table.draw();
+      });
+      $('#enabled_package').on('select2:unselect', function(e) {
+        removetUrlParam('enabled_package', $('#enabled_package').val());
         table.draw();
       });
 
