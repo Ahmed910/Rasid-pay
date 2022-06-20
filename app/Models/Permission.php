@@ -94,42 +94,32 @@ class Permission extends Model
     #endregion relationships
 
     #region custom Methods
-    public static function getPermissions($dashboard_type = 'dashboard_blade')
+    public static function getPermissions()
     {
-        $permissions = Permission::where('permission_on', $dashboard_type)->get();
+        $permissions = Permission::latest()->get();
         foreach (app()->routes->getRoutes() as $value) {
-            if(str_contains($value->getPrefix(),'dashboard') && !str_contains($value->getPrefix(),'api')){
-                if($value->getName() != 'dashboard.' && !is_null($value->getName())){
-                    $path = str_after($value->getName(),'.');
-                    $uri = str_replace(['create','edit'],['store','update'],$path);
-                    if (!$uri || ($permissions->contains('name',$uri) && $permissions->contains('permission_on',$dashboard_type)) || in_array($uri,self::PUBLIC_ROUTES)) {
-                        continue;
-                    }
-                    $permissions->push(self::create(['name' => $uri,'permission_on' => $dashboard_type]));
-                }
+            $route_name = $value->getName();
+            $name = str_replace(['create','edit'],['store','update'],$route_name);
+            if (in_array($name, Permission::PUBLIC_ROUTES) || is_null($name) || in_array(str_before($name, '.'), ['ignition', 'debugbar']) || !str_contains($value->getPrefix(),'api/v1/dashboard') || $permissions->contains('name',$name) ) {
+                continue;
             }
+            $permissions->push(self::create(['name' => $name]));
         }
         $permissions->transform(function ($item) {
             return self::getTransPermission($item);
         });
-
-        // $permissions = $permissions->groupBy('uri')->map(function ($item,$key) {
-        //     $data['program'] = trans('dashboard.'.$key.".".str_plural($key));
-        //     $data['permissions'] = $item;
-        //     return $data;
-        // });
-
         return $permissions;
     }
 
     private static function getTransPermission($item)
     {
-        $data['id'] = $item->id;
-        $data['uri'] = $item->main_program;
-        $data['named_uri'] = $item->name;
-        $data['name'] = $item->main_program_trans . ' (' . $item->action_trans . ')';
-        $data['action'] = $item->action_trans;
-        return $data;
+        return [
+            'id' => $item->id,
+            'uri' => $item->main_program,
+            'named_uri' => $item->name,
+            'name' => $item->main_program_trans . ' (' . $item->action_trans . ')',
+            'action' => $item->action_trans
+        ];
     }
     #endregion custom Methods
 }

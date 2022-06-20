@@ -47,7 +47,7 @@ class Group extends Model implements TranslatableContract
 
             $query->where('is_active', $request->is_active);
         }
-        
+
         $new = $query->toSql() ;
         if ($old!=$new)  $this->addGlobalActivity($this, $request->query(), ActivityLog::SEARCH, 'index');
     }
@@ -122,35 +122,20 @@ class Group extends Model implements TranslatableContract
 
     public static function getGroupPermissions(self $group)
     {
+        $group_data = [];
         foreach ($group->permissions as $permission) {
-            $permissionObj = explode('.', $permission->name);
-            $single_uri = str_singular($permissionObj[0]);
-            $main_prog = trans('dashboard.' . $single_uri . '.' . $permissionObj[0]);
-            $action = trans('dashboard.' . $single_uri . '.permissions.' . @$permissionObj[1]);
-            $sub_prog = '---';
-
-            switch ($permissionObj) {
-                case in_array(@$permissionObj[1], ['update', 'show', 'destroy']):
-                    $sub_prog = trans('dashboard.' . $single_uri . '.sub_progs.index');
-                    break;
-                case in_array(@$permissionObj[1], ['restore', 'force_delete']):
-                    $sub_prog = trans('dashboard.' . $single_uri . '.sub_progs.archive');
-                    break;
-            }
-
-            $groupData[] = [
+            $group_data[] = [
                 'id' => $permission->id,
                 'is_selected' => auth()->user()->permissions()->where('permissions.id',$permission->id)->exists(),
-                'main_prog' => $main_prog,
-                'sub_prog' => $sub_prog,
-                'action' => $action,
+                'main_prog' => $permission->main_program_trans,
+                'sub_prog' => $permission->sub_program_trans,
+                'action' => $permission->action_trans,
                 'uri' => $permission->name,
-                'name' => $main_prog . ' (' . $action . ')',
+                'name' => $permission->main_program_trans . ' (' . $permission->action_trans . ')',
                 'created_at' => $permission->created_at
             ];
         }
-
-        return $groupData;
+        return $group_data;
     }
     #endregion custom Methods
 }
