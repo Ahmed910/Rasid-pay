@@ -24,6 +24,7 @@ class AdminRequest extends FormRequest
      */
     protected function prepareForValidation()
     {
+    
         $data = $this->all();
         if (auth()->check() && auth()->user()->is_date_hijri) {
             if (@$data['ban_from']) {
@@ -76,7 +77,7 @@ class AdminRequest extends FormRequest
             'delete_image'  => "in:0,1",
             // New Data
             'fullname' => 'required|string|max:225|min:2',
-            'email' => 'required|email:filter|max:225|email:filter|unique:users,email,' . @$this->admin->id,
+            'email' => 'required|email:filter|max:225|unique:users,email,' . @$this->admin->id,
             'phone' => ["required", "numeric", "digits_between:9,20", 'starts_with:9665,5', function ($attribute, $value, $fail) {
                 if(!check_phone_valid($value)){
                     $fail(trans('mobile.validation.invalid_phone'));
