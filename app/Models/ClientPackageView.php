@@ -33,7 +33,7 @@ class ClientPackageView extends Model
             if ($request->sort['column'] == 'fullname')
                 return $query->orderBy('name', @$request->sort['dir']);
 
-            $query->orderBy($request->sort['column'], @$request->sort['dir']);
+            $query->orderBy($request->sort['column'], $request->sort['dir'] ?? 'asc');
         }
     }
     #endregion scopes
