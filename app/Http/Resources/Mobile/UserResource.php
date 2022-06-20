@@ -5,6 +5,7 @@ namespace App\Http\Resources\Mobile;
 use App\Http\Resources\Dashboard\Department\DepartmentResource;
 use App\Http\Resources\Dashboard\Group\{GroupResource, PermissionResource};
 use Illuminate\Http\Resources\Json\JsonResource;
+use App\Http\Resources\Api\V1\Mobile\AddressResource;
 
 class UserResource extends JsonResource
 {

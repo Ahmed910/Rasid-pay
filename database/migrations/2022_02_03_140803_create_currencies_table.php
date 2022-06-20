@@ -15,7 +15,6 @@ class CreateCurrenciesTable extends Migration
     {
         Schema::create('currencies', function (Blueprint $table) {
             $table->uuid("id")->primary();
-            $table->float('value', 8, 2);
             $table->foreignUuid("added_by_id")->nullable()->constrained('users')->nullOnDelete();
             $table->softDeletes();
             $table->timestamps();
