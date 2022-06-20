@@ -40,6 +40,41 @@ class Permission extends Model
     #endregion properties
 
     #region mutators
+    public function setNameAttribute($value)
+    {
+        $permission = explode('.',$value);
+        $this->attributes['main_program'] = $permission[0];
+        $this->attributes['action'] = $permission[1];
+        $sub_prog = null;
+        switch ($permission) {
+            case in_array(@$permission[1],['update','show','destroy']):
+                $sub_prog = 'index';
+                break;
+            case in_array(@$permission[1],['restore','force_delete']):
+                $sub_prog = 'archive';
+                break;
+        }
+        $this->attributes['sub_program'] = $sub_prog;
+        $this->attributes['name'] = $value;
+    }
+
+    public function getActionAttribute()
+    {
+        return trans('dashboard.'. str_singular($this->attributes['main_program']) . ".permissions." . $this->attributes['action']);
+    }
+
+    public function getMainProgramAttribute()
+    {
+        return trans('dashboard.'. str_singular($this->attributes['main_program']) . "." . $this->attributes['main_program']);
+    }
+
+    public function getSubProgramAttribute()
+    {
+        if ($this->attributes['sub_program']) {
+            return trans('dashboard.' . str_singular($this->attributes['main_program']) . '.sub_progs.' . $this->attributes['sub_program']);
+        }
+        return '---';
+    }
     #endregion mutators
 
     #region scopes
