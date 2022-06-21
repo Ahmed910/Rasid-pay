@@ -153,7 +153,7 @@ class GroupController extends Controller
         return GroupResource::make($group)->additional(['status' => true, 'message' => trans('dashboard.general.success_delete')]);
     }
 
-    public function permissions()
+    public function permissions(Request $request)
     {
         return UriResource::collection(Permission::getPermissions())->additional(['status' => true, 'message' => '']);
     }

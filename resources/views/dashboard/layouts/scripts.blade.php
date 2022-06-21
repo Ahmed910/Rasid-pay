@@ -65,6 +65,18 @@
         }
         return finalCurrentElement;
     }
+
+    let getSpanError = itemId => {
+       if($(`#${itemId}`).parent().hasClass("input-group")){
+          span = $(`#${itemId}`).parent().nextAll('span:first')
+        }else if($(`#${itemId}`).is("select")){
+         span = $(`#${itemId}`).nextAll('span:last')
+        }else{
+          span = $(`#${itemId}`).nextAll('span:first')
+        }
+        return span;
+    }
+    
     (function() {
         "use strict";
 
