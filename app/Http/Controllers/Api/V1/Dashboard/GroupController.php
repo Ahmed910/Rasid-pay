@@ -153,9 +153,9 @@ class GroupController extends Controller
         return GroupResource::make($group)->additional(['status' => true, 'message' => trans('dashboard.general.success_delete')]);
     }
 
-    public function permissions()
+    public function permissions(Request $request)
     {
-        $saved_permissions = $this->savedPermissions()->except('uri')->toArray();
+        $saved_permissions = $this->savedPermissions($request)->except('uri')->toArray();
         $saved_names = array_column($saved_permissions, 'named_uri');
         foreach (app()->routes->getRoutes() as $value) {
             $name = $value->getName();
