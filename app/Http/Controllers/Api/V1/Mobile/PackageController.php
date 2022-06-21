@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api\V1\Mobile;
 
+use App\Http\Resources\Api\V1\Mobile\PackagePromoCodesResource;
 use App\Http\Resources\Api\V1\Mobile\PackageResource;
 use App\Http\Resources\Api\V1\Mobile\Transactions\TransactionResource;
 use App\Models\{CitizenPackage, CitizenPackagePromoCode, Package\Package};
@@ -22,8 +23,11 @@ class PackageController extends Controller
 
     public function show($id)
     {
-        $package = Package::where('is_active', true)->findOrFail($id);
-        return PackageResource::make($package)->additional([
+        $promo_codes = CitizenPackage::with('citizenPackagePromoCodes')->where([
+            'package_id' => $id,
+            'citizen_id' => auth()->id()
+        ])->first();
+        return PackagePromoCodesResource::collection($promo_codes->citizenPackagePromoCodes)->additional([
             'status' => true,
             'message' => ''
         ]);
@@ -49,7 +53,7 @@ class PackageController extends Controller
                 $citizen_package->citizenPackagePromoCodes()->create($citizen_package_promo_codes);
                 unset($citizen_package_promo_codes['promo_code']);
             }
-            $back_main_balance = WalletBalance::calcWalletMainBackBalance($citizen_wallet, $package->price);
+            $back_main_balance = WalletB - alance::calcWalletMainBackBalance($citizen_wallet, $package->price);
         } else {
             $citizen_package_promo_code = CitizenPackagePromoCode::where('promo_code', $request->promo_code)->first();
             if (!$citizen_package_promo_code) {
@@ -74,7 +78,7 @@ class PackageController extends Controller
                 'cash_back' => $promo_code_owner_wallet->cash_back + $promo_code_discount,
             ]);
         }
-        $citizen_wallet->update(["cash_back" => \DB::raw('cash_back - '.$back_main_balance->cashback_amount), 'main_balance' => \DB::raw('main_balance - '.$back_main_balance->main_amount)]);
+        $citizen_wallet->update(["cash_back" => \DB::raw('cash_back - ' . $back_main_balance->cashback_amount), 'main_balance' => \DB::raw('main_balance - ' . $back_main_balance->main_amount)]);
 
         // TODO::create transaction and notification
         $transaction_data = [
