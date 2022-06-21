@@ -15,13 +15,17 @@ class HomeResource extends JsonResource
      */
     public function toArray($request)
     {
+        $app_mode = setting('home_card_cover_day') ?? asset('dashboardAssets/images/app_images/home_card_day.png');
+        if ($request->night_mode) {
+            $app_mode = setting('home_card_cover_night') ?? asset('dashboardAssets/images/app_images/home_card_night.png');
+        }
         return [
             'wallet_number'  => (string)$this->wallet_number,
             'main_balance'   => (string)$this->main_balance,
             'cash_back'      => (string)$this->cash_back,
             'total_balance'  => (string)$this->main_balance + $this->cash_back,
             'last_updated'   => $this->last_updated_at?->diffForHumans(),
-            'card_cover'     => ''
+            'card_cover'     => $app_mode,
         ];
     }
 }
