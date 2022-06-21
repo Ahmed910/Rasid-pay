@@ -74,7 +74,7 @@ class PackageController extends Controller
                 'cash_back' => $promo_code_owner_wallet->cash_back + $promo_code_discount,
             ]);
         }
-        $citizen_wallet->update(["cash_back" => \DB::raw('cash_back + '.$back_main_balance->cashback_amount), 'main_balance' => \DB::raw('main_balance + '.$back_main_balance->main_amount)]);
+        $citizen_wallet->update(["cash_back" => \DB::raw('cash_back - '.$back_main_balance->cashback_amount), 'main_balance' => \DB::raw('main_balance - '.$back_main_balance->main_amount)]);
 
         // TODO::create transaction and notification
         $transaction_data = [

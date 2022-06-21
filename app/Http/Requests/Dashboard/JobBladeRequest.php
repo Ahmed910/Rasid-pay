@@ -27,7 +27,7 @@ class JobBladeRequest extends FormRequest
         $rules = [
             "department_id" => "required|exists:departments,id,deleted_at,NULL",
            // "is_vacant" => "in:1,0",
-            'is_active' => 'required|in:0,1'
+           // 'is_active' => 'required|in:0,1'
         ];
         //  if ($this->rasid_job) {
         //      $job = RasidJob::withTrashed()->findOrFail($this->rasid_job) ;

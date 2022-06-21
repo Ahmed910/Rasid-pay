@@ -9,9 +9,9 @@ use Illuminate\Http\Request;
 
 class CardController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $cards = auth()->user()->cards()->latest()->get();
+        $cards = auth()->user()->cards()->latest()->paginate((int)($request->per_page ?? config("globals.per_page")));
         return CardResource::collection($cards)->additional([
             'status' => true,
             'message' => ''

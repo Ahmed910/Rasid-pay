@@ -84,11 +84,6 @@ class Permission extends Model
 
     #region scopes
 
-    public function scopeBlade($query)
-    {
-        $query->where('permission_on', 'blade');
-    }
-
     public function scopeSortBy(Builder $query, $request)
     {
         if (!isset($request->sort["column"]) || !isset($request->sort["dir"])) return $query->latest('created_at');

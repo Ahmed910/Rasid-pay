@@ -51,7 +51,7 @@ class Transfer extends Model
 
     public function beneficiary()
     {
-        return $this->hasOneThrough(Beneficiary::class,bankTransfer::class,'transfer_id','id','id','beneficiary_id');
+        return $this->hasOneThrough(Beneficiary::class,BankTransfer::class,'transfer_id','id','id','beneficiary_id');
     }
 
     public function fromUser()

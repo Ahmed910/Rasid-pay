@@ -317,6 +317,7 @@ class RasidJobController extends Controller
     {
         $rasid_jobs = RasidJob::where(['department_id' => $id, 'is_vacant' => true,'is_active' => 1])->select('id')->ListsTranslations('name')
             ->without(['images', 'addedBy', 'translations', 'department', 'employee'])->get()->pluck('name', 'id')->toArray();
+            // dd($rasid_jobs);
         $view = view('dashboard.admin.ajax.rasid_job',compact('rasid_jobs'))->render();
         return response()->json(['view' => $view]);
     }
