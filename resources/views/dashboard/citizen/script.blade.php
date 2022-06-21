@@ -98,39 +98,16 @@
 
                 pageLength: 10,
                 lengthMenu: [
-                    [-1, 1, 5, 10, 15, 20],
-                    ["All",1, 5, 10, 15, 20]
+                    [1, 5, 10, 15, 20],
+                    [1, 5, 10, 15, 20]
                 ],
 
                 "language": {
                   @include('dashboard.layouts.globals.datatable.datatable_translation')
-                },
-                {{-- "drawCallback": function(settings, json) {
-                    // table sorting
-                    var citizenTableSorting = document.getElementsByClassName('citizen_index');
-                    for (var i = 0; i < citizenTableSorting.length; i++) {
-                        citizenTableSorting[i].innerText = citizenTableSorting[i].innerText.replace(
-                            citizenTableSorting[i].innerText, citizenTableSorting[i].innerText
-                            .toArabicUni());
-                    }
-                    //pagination
-                    var citizenTablePagination = document.getElementsByClassName('page-link');
-                    for (var i = 1; i < citizenTablePagination.length - 1; i++) {
-                        citizenTablePagination[i].innerText = citizenTablePagination[i].innerText
-                            .replace(
-                                citizenTablePagination[i].innerText, citizenTablePagination[i].innerText
-                                .toArabicUni());
-                    }
-                    // info
-                    var citizenTableInfo = document.getElementById('citizenTable_info').innerText;
-                    document.getElementById('citizenTable_info').innerText = citizenTableInfo.replace(
-                        citizenTableInfo, citizenTableInfo.toArabicUni());
-                } --}}
+                }
             });
 
- $("#reset").click(function (){
-            showAll(table)
-      });
+
             $("#citizen-search").submit(function(e) {
                 e.preventDefault();
                 table.draw();
@@ -215,7 +192,7 @@
 
         $("#modal_phone").on("hidden.bs.modal", disappearError);
         $('#phone_value').focus(disappearError);
-        
+
 </script>
 <script src="{{ asset('dashboardAssets/js/select2.js') }}"></script>
 <script src="{{ asset('dashboardAssets/plugins/select2/select2.full.min.js') }}"></script>

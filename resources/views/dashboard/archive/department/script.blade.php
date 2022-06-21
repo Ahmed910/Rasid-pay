@@ -123,36 +123,14 @@
             ],
             pageLength: 10,
             lengthMenu: [
-                [-1 , 1, 5, 10, 15, 20],
-              ["All", 1, 5, 10, 15, 20]
+                [1, 5, 10, 15, 20],
+                [1, 5, 10, 15, 20]
             ],
             "language": {
               @include('dashboard.layouts.globals.datatable.datatable_translation')
-            },
-            {{-- "drawCallback": function(settings, json) {
-                // table sorting
-                var departmentTableSorting = document.getElementsByClassName('department_index');
-                for (var i = 0; i < departmentTableSorting.length; i++) {
-                    departmentTableSorting[i].innerText = departmentTableSorting[i].innerText
-                        .replace(departmentTableSorting[i].innerText, departmentTableSorting[i]
-                            .innerText.toArabicUni());
-                }
-                //pagination
-                var departmentTablePagination = document.getElementsByClassName('page-link');
-                for (var i = 1; i < departmentTablePagination.length - 1; i++) {
-                    departmentTablePagination[i].innerText = departmentTablePagination[i].innerText
-                        .replace(departmentTablePagination[i].innerText, departmentTablePagination[
-                            i].innerText.toArabicUni());
-                }
-                // info
-                var departmentTableInfo = document.getElementById('departmentTable_info').innerText;
-                document.getElementById('departmentTable_info').innerText = departmentTableInfo
-                    .replace(departmentTableInfo, departmentTableInfo.toArabicUni());
-            } --}}
+            }
         });
- $("#reset").click(function (){
-            showAll(table)
-           });
+
         $('#status').on('select2:select', function(e) {
             insertUrlParam('is_active', $('#status').val());
             table.draw();

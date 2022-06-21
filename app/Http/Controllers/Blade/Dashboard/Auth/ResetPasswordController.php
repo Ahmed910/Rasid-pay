@@ -44,6 +44,7 @@ class ResetPasswordController extends Controller
 
     public function checkSmsCode(CheckSmsCodeRequest $request)
     {
+        dd($request);
         $user = User::whereIn('user_type',['admin','superadmin'])->where(['reset_token' => $request->reset_token, 'reset_code' => $request->reset_code])->first();
         if (!$user) {
             return back()->withInput()->withFalse(trans('auth.account_not_exists'));

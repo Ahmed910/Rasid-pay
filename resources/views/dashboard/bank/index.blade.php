@@ -88,8 +88,8 @@
           <i class="mdi mdi-magnify"></i> {{trans("dashboard.general.search")}}
         </button>
         <button class="btn btn-outline-primary" type="reset" id="reset">
-          <i class="mdi mdi-restore"></i> {{trans("dashboard.general.show_all")}}
-        </button>
+      <i class="mdi mdi-restore"></i>{{ trans('dashboard.general.show_all') }}
+    </button>
       </div>
     </div>
   </form>

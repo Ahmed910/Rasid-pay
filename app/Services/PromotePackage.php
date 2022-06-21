@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\Models\CitizenPackage;
+use Carbon\Carbon;
 
 class PromotePackage
 {
@@ -12,7 +13,7 @@ class PromotePackage
             ->where('citizen_id', auth()->id())->first();
         if ($citizen_package_check) {
             $citizen_package_check->update([
-                'end_at' => $citizen_package_check->end_at->addMonths($package->duration),
+                'end_at' => Carbon::parse($citizen_package_check->end_at)->addMonths($package->duration),
                 'number_of_purchase' => \DB::raw('number_of_purchase + 1')
             ]);
             return $citizen_package_check;

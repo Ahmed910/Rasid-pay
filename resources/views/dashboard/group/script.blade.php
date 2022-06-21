@@ -92,41 +92,15 @@
                 ],
                 pageLength: 10,
                 lengthMenu: [
-                    [-1, 1, 5, 10, 15, 20],
-                    ["All",1, 5, 10, 15, 20]
+                    [1, 5, 10, 15, 20],
+                    [1, 5, 10, 15, 20]
                  // ["١", "٥","١٠","١٥", "٢٠"]
                 ],
 
                 "language": {
                   @include('dashboard.layouts.globals.datatable.datatable_translation')
                 },
-                {{-- "drawCallback": function(settings, json) {
-                    // table sorting
-                    var groupTableSorting = document.getElementsByClassName('group_index');
-                    for (var i = 0; i < groupTableSorting.length; i++) {
-                        groupTableSorting[i].innerText = groupTableSorting[i].innerText.replace(
-                            groupTableSorting[i].innerText, groupTableSorting[i].innerText
-                            .toArabicUni());
-                    }
-                    // admin_count
-                     var adminGroupTable = document.getElementsByClassName('admins_count');
-                    for (var i = 0; i < adminGroupTable.length; i++) {
-                        adminGroupTable[i].innerText = adminGroupTable[i].innerText.replace(
-                            adminGroupTable[i].innerText, adminGroupTable[i].innerText
-                            .toArabicUni());
-                    }
-                    //pagination
-                    var groupTablePagination = document.getElementsByClassName('page-link');
-                    for (var i = 1; i < groupTablePagination.length - 1; i++) {
-                        groupTablePagination[i].innerText = groupTablePagination[i].innerText.replace(
-                            groupTablePagination[i].innerText, groupTablePagination[i].innerText
-                            .toArabicUni());
-                    }
-                    // info
-                    var groupTableInfo = document.getElementById('ajaxTable_info').innerText;
-                    document.getElementById('ajaxTable_info').innerText = groupTableInfo.replace(
-                        groupTableInfo, groupTableInfo.toArabicUni());
-                }, --}}
+
                 createdRow: function(row, data) {
                     let span = ``;
                     $(`[data-bs-toggle="popoverRoles"]`, row).popover({
@@ -143,9 +117,6 @@
                     });
                 },
             });
-             $("#reset").click(function (){
-                showAll(table)
-              });
 
             $('#status').on('select2:select', function(e) {
                 insertUrlParam('is_active', $('#status').val());

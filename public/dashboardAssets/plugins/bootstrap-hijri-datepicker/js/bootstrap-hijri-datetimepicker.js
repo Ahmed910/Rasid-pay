@@ -14890,7 +14890,7 @@
         previous: "<i class='mdi mdi-chevron-left'></i>",
         next: "<i class='mdi mdi-chevron-right'></i>",
         today: "اليوم",
-        clear: "مسح",
+        clear: "حذف",
         close: "اغلاق",
       },
       tooltips: {

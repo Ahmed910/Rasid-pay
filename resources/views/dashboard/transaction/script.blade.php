@@ -122,45 +122,16 @@
 
         pageLength: 10,
         lengthMenu: [
-          [-1, 1, 5, 10, 15, 20],
-          ["All",1, 5, 10, 15, 20],
-
+          [1, 5, 10, 15, 20],
+           [1, 5, 10, 15, 20]
         ],
 
         "language": {
           @include('dashboard.layouts.globals.datatable.datatable_translation')
-        },
-        {{-- "drawCallback": function(settings, json) {
-          // table sorting
-          var transactionTableSorting = document.getElementsByClassName('transaction_index');
-          for (var i = 0; i < transactionTableSorting.length; i++) {
-            transactionTableSorting[i].innerText = transactionTableSorting[i].innerText
-              .replace(
-                transactionTableSorting[i].innerText, transactionTableSorting[i]
-                  .innerText
-                  .toArabicUni());
-          }
-          //pagination
-          var transactionTablePagination = document.getElementsByClassName('page-link');
-          for (var i = 1; i < transactionTablePagination.length - 1; i++) {
-            transactionTablePagination[i].innerText = transactionTablePagination[i]
-              .innerText.replace(
-                transactionTablePagination[i].innerText, transactionTablePagination[i]
-                  .innerText
-                  .toArabicUni());
-          }
-          // info
-          var transactionTableInfo = document.getElementById('transactionsTable_info')
-            .innerText;
-          document.getElementById('transactionsTable_info').innerText = transactionTableInfo
-            .replace(
-              transactionTableInfo, transactionTableInfo.toArabicUni());
-        } --}}
+        }
       });
 
-    $("#reset").click(function (){
-            showAll(table)
-      });
+
       $('#to_user_id').on('select2:select', function(e) {
         insertUrlParam('client', $('#to_user_id').val());
         table.draw();

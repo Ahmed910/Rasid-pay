@@ -7,7 +7,7 @@
         if (item !== undefined) {
             var currentElement = $(`#${itemId}`).attr('name');
         }
-        
+
         let finalCurrentElement = replaceInValidation(currentElement)
         let lang = '{{ app()->getLocale() }}';
         let resource_name = form.attr('action');
@@ -65,6 +65,7 @@
         }
         return finalCurrentElement;
     }
+
     let getSpanError = itemId => {
        if($(`#${itemId}`).parent().hasClass("input-group")){
           span = $(`#${itemId}`).parent().nextAll('span:first')
@@ -75,13 +76,7 @@
         }
         return span;
     }
-
-    let showAll = table => {
-     let settings = table.settings();
-      settings[0]._iDisplayLength = settings[0].fnRecordsTotal();
-      table.draw();
-      $('.select2-selection__rendered').text('All')
-    }
+    
     (function() {
         "use strict";
 

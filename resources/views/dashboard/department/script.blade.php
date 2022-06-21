@@ -211,10 +211,7 @@
           }
           table.column('').order('asc' ).search('').draw();
       });
-   
-          $("#reset").click(function (){
-            showAll(table)
-            });
+    
 
       table.on('draw', function () {
         var tooltipTriggerList = [].slice.call(
