@@ -155,12 +155,6 @@ class GroupController extends Controller
 
     public function permissions()
     {
-<<<<<<< HEAD
-        return UriResource::collection(Permission::getPermissions())->additional(['status' => true, 'message' => '']);
-    }
-    
-    public function getGroups(Request $request,$group_id = null)
-=======
         $saved_permissions = $this->savedPermissions()->except('uri')->toArray();
         $saved_names = array_column($saved_permissions, 'named_uri');
         foreach (app()->routes->getRoutes() as $value) {
@@ -199,7 +193,6 @@ class GroupController extends Controller
     }
 
     public function getGroups(Request $request, $group_id = null)
->>>>>>> 7116b2de1899f6706df0e2bc7fa92b4ae51baa45
     {
         $groups = Group::when($group_id, function ($q) use ($group_id) {
             $q->where('groups.id', "<>", $group_id);
