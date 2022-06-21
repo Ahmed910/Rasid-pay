@@ -50,13 +50,13 @@ class Transaction extends Model
         $old = $query->toSql();
         foreach ($request->all() as $key => $item) {
             if ($item == -1 && in_array($key, self::SELECT_ALL)) $request->request->remove($key);
-//            if (key_exists($key, self::ENABLED_CARD_SEARCHABLE_COLUMNS) && isset($request->$key))
-//                $query->whereHas(
-//                    'fromUser.citizen.enabledPackage',
-//                    function ($q) use ($key, $item) {
-//                        $q->where(self::ENABLED_CARD_SEARCHABLE_COLUMNS[$key], $item);
-//                    }
-//                );
+            if (key_exists($key, self::ENABLED_CARD_SEARCHABLE_COLUMNS) && isset($request->$key) && !in_array(-1, $request->enabled_package))
+                $query->whereHas(
+                    'fromUser.citizen.enabledPackage',
+                    function ($q) use ($key, $item) {
+                        $q->where(self::ENABLED_CARD_SEARCHABLE_COLUMNS[$key], $item);
+                    }
+                );
         }
         if (isset($request->trans_number)) {
             $query->where('trans_number', 'like', "%$request->trans_number%");
@@ -68,9 +68,7 @@ class Transaction extends Model
             if ($request->trans_type == 0) $request->trans_type = null;
             if ($request->trans_type != -1) $query->where("trans_type", $request->trans_type);
         }
-        if (isset($request->enabled_package) && !in_array(-1, $request->enabled_package)) {
-            $query->whereHas('citizenPackage', fn($q) => $q->whereIn('package_id', $request->enabled_package));
-        }
+
         if (isset($request->client)) {
             if ($request->client == 0) $request->client = null;
             if ($request->client != -1) {
