@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\V1\Mobile\GLobalTransferRequest;
 use App\Http\Resources\Api\V1\Mobile\Transactions\TransactionResource;
 use App\Models\{CitizenWallet, Transfer};
-
+use App\Services\WalletBalance;
 
 class GlobalTransferController extends Controller
 {

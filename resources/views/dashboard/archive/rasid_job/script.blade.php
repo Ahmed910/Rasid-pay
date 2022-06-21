@@ -144,30 +144,10 @@
                 pageLength: 10,
                 lengthMenu: [
                     [1, 5, 10, 15, 20],
-                  ["١", "٥","١٠","١٥", "٢٠"]
+                    [1, 5, 10, 15, 20]
                 ],
                 "language": {
                   @include('dashboard.layouts.globals.datatable.datatable_translation')
-                },
-                "drawCallback": function(settings, json) {
-                    // table sorting
-                    var jobTableSorting = document.getElementsByClassName('archive_job_index');
-                    for (var i = 0; i < jobTableSorting.length; i++) {
-                        jobTableSorting[i].innerText = jobTableSorting[i].innerText.replace(
-                            jobTableSorting[i].innerText, jobTableSorting[i].innerText.toArabicUni()
-                            );
-                    }
-                    //pagination
-                    var jobTablePagination = document.getElementsByClassName('page-link');
-                    for (var i = 1; i < jobTablePagination.length - 1; i++) {
-                        jobTablePagination[i].innerText = jobTablePagination[i].innerText.replace(
-                            jobTablePagination[i].innerText, jobTablePagination[i].innerText
-                            .toArabicUni());
-                    }
-                    // info
-                    var jobTableInfo = document.getElementById('jobTable_info').innerText;
-                    document.getElementById('jobTable_info').innerText = jobTableInfo.replace(
-                        jobTableInfo, jobTableInfo.toArabicUni());
                 }
             });
             $('.select2').select2({

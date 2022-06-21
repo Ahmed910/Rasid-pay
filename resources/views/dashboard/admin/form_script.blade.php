@@ -1,6 +1,7 @@
 <script>
   //get users from department script
      function getJobs(department_id) {
+
           $('#rasid_job_id').empty();
           $('#rasid_job_id').append(new Option('', '', true, true)).trigger('change');
           if (department_id != '') {
@@ -9,10 +10,13 @@
                   url: '{{ url('/dashboard/rasid_job/all-jobs') }}' + '/' + department_id,
                   type: 'get',
                   beforeSend: function () {
+
                       $('#new_admin').html(`<span class="spinner-border text-light" style="width: 1rem; height: 1rem;" role="status"></span>`);
                   },
                   success: function(data) {
+
                       if (data.view) {
+                          $('#rasid_job_div').remove()
                           $('#new_admin').html(data.view);
                       }
                   }
@@ -44,7 +48,7 @@
                 closeOnSelect: false,
                 templateResult: formatState
             });
-            
+
             $('.multipleSelect').on("select2:select", function(e) {
                 var data = e.params.data.text;
                 if (data == 'إختر الكل'){
@@ -76,7 +80,7 @@
                       <input type="checkbox" class="custom-control-input" id="${state.id}" />
                       <label class="custom-control-label m-0" for="${state.id}">${state.text}</label>
                     </div>
-                   </div>                                       
+                   </div>
 
                     <div class="tooltip-container">
                         <i class="mdi mdi-clipboard-list"></i>
@@ -87,7 +91,7 @@
                             </ul>
                         </div>
                     </div>
-                        
+
                    </label>`
             );
             return $state;
