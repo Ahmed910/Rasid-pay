@@ -26,6 +26,7 @@ class PackageResource extends JsonResource
             'duration_type' => 'month',
             'duration' => $this->duration,
             'is_default' => (bool)$this->is_default,
+            'has_promo' => (bool)$this->has_promo,
             'is_current' => $current_package->enabledPackage->package_id == $this->id,
             'start_at' => $current_package->enabledPackage->package_id == $this->id ? $current_package->enabledPackage?->start_at : null,
             'end_at' => $current_package->enabledPackage->package_id == $this->id ? $current_package->enabledPackage?->end_at : null,
