@@ -85,7 +85,7 @@
           <select name="permission_list[]" hidden multiple></select>
           <select name="group_list[]" hidden multiple></select>
 
-          <select class="form-control select2 multipleSelect" onchange="addPermissions(this.selectedOptions)"
+          <select class="form-control select2 multipleSelect select2-show-search" name="permission_list[]" onchange="addPermissions(this.selectedOptions)"
               data-placeholder="{{ trans('dashboard.general.select_permissions') }}" multiple="multiple"
               id="permissions" required>
                 <option value="selectAll" class="selectAll">إختر الكل</option>
