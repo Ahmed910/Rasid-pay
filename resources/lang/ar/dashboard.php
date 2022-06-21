@@ -636,12 +636,12 @@ return [
             'platinum' => 'البطاقة البلاتينية',
         ],
         'type_cases' => [
-            'pay' => 'دفع',
-            'transfer_wallet' => 'تحويل لمحفظة',
-            'transfer_local' => 'تحويل محلي',
-            'transfer_global' => 'تحويل دولي',
+            'local_transfer' => 'تحويل محلي',
+            'global_transfer' => 'تحويل دولي',
             'charge' => 'شحن',
             'money_request' => 'طلب أموال',
+            'payment' => 'دفع فاتورة',
+            'promote_package' => 'ترقية بطاقة',
         ],
         'sub_progs' => [
             'index' => 'سجل المعاملات',
