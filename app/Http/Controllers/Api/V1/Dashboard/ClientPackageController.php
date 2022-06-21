@@ -57,18 +57,20 @@ class ClientPackageController extends Controller
 
     public function show($id)
     {
-
         $client_package = [];
         $client = User::has('clientPackages')->where("user_type", "client")->findOrFail($id);
+
         foreach ($client->clientPackages as $key => $clientPackage) {
             $client_package[$key]['package_id'] = $clientPackage->pivot->package_id;
             $client_package[$key]['package_discount'] = $clientPackage->pivot->package_discount;
             $client_package[$key]['type'] = lcfirst($clientPackage->translate('en')->name . '_card');
         }
+
         return response()->json([
             'data' => [
                 'discounts' => $client_package,
                 'fullname' => $client->fullname,
+                'client_id' => $client->id,
             ],
             'status' => true,
             'message' => ""
@@ -86,6 +88,7 @@ class ClientPackageController extends Controller
     {
         $client = User::where('user_type', 'client')->findOrFail($client_id);
         $client->clientPackages()->sync($request->discounts);
+
         return PackageResource::make($client)->additional([
             'status' => true,
             'message' => trans("dashboard.package.discount_success_update")
