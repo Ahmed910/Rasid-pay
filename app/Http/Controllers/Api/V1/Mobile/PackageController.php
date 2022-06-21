@@ -6,7 +6,7 @@ use App\Http\Resources\Api\V1\Mobile\PackageResource;
 use App\Http\Resources\Api\V1\Mobile\Transactions\TransactionResource;
 use App\Models\{CitizenPackage, CitizenPackagePromoCode, Package\Package};
 use App\Http\Controllers\Controller;
-use App\Services\{PromotePackage, UpdateCitizenWallet};
+use App\Services\{PromotePackage, WalletBalance};
 use Illuminate\Http\Request;
 
 class PackageController extends Controller
@@ -49,7 +49,7 @@ class PackageController extends Controller
                 $citizen_package->citizenPackagePromoCodes()->create($citizen_package_promo_codes);
                 unset($citizen_package_promo_codes['promo_code']);
             }
-            UpdateCitizenWallet::updateCitizenWallet($package->price);
+            $back_main_balance = WalletBalance::calcWalletMainBackBalance($citizen_wallet, $package->price);
         } else {
             $citizen_package_promo_code = CitizenPackagePromoCode::where('promo_code', $request->promo_code)->first();
             if (!$citizen_package_promo_code) {
@@ -65,7 +65,7 @@ class PackageController extends Controller
             }
 
             $citizen_package = PromotePackage::createCitizenPackage($package);
-            UpdateCitizenWallet::updateCitizenWallet($package_price);
+            $back_main_balance = WalletBalance::calcWalletMainBackBalance($citizen_wallet, $package_price);
             $citizen_package_promo_code->update(['is_used' => true]);
             // add cash back to citizen wallet
             $promo_code_discount = getPercentOfNumber($package->price, $citizen_package_promo_code->promo_discount);
@@ -74,6 +74,7 @@ class PackageController extends Controller
                 'cash_back' => $promo_code_owner_wallet->cash_back + $promo_code_discount,
             ]);
         }
+        $citizen_wallet->update(["cash_back" => \DB::raw('cash_back + '.$back_main_balance->cashback_amount), 'main_balance' => \DB::raw('main_balance + '.$back_main_balance->main_amount)]);
 
         // TODO::create transaction and notification
         $transaction_data = [
