@@ -26,6 +26,7 @@
                     'rasid_job_id', 'data-placeholder' => trans('dashboard.rasid_job.select_job'),(isset($admin) ? 'disabled' : '')]) !!}
                  </div>
             <span class="text-danger" id="rasid_job_idError"></span>
+
         </div>
 
         <div class="col-12 col-md-4 mt-3">
