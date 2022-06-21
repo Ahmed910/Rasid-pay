@@ -6,15 +6,13 @@
 
         if (item !== undefined) {
             var currentElement = $(`#${itemId}`).attr('name');
+
         }
 
         let finalCurrentElement = replaceInValidation(currentElement)
         let lang = '{{ app()->getLocale() }}';
         let resource_name = form.attr('action');
-
-
         let firstSpan = getSpanError(itemId);
-
 
         $.ajax({
             url: resource_name
@@ -30,8 +28,9 @@
                     name = item.name
 
                   //  finalItem = name.includes("[") ? (name.replaceAll("[", ".")).slice(0, -1) : name;
-
                   let finalItem = replaceInValidation(name)
+
+
 
                     if (finalItem == finalCurrentElement) {
 
@@ -40,11 +39,15 @@
                            firstSpan.attr('hidden')
                            firstSpan.text('')
                          }else{
+                          console.log('ahed')
                           firstSpan.removeAttr('hidden')
                           firstSpan.text(errs[finalCurrentElement][0])
                          }
 
-                        // console.log(currentElement)
+                      
+                    }else{
+                       firstSpan.removeAttr('hidden')
+                       firstSpan.text(errs[finalCurrentElement][0])
                     }
                 })
             }
@@ -56,7 +59,8 @@
     {
 
        if (element.includes("[")) {
-            finalCurrentElement = (element.replaceAll("[", ".")).slice(0, -1)
+            finalCurrentElement = element.slice(0, -1);
+            finalCurrentElement = finalCurrentElement.endsWith('[') ? finalCurrentElement.slice(0, -1) : finalCurrentElement.replaceAll("[", ".")
             if (finalCurrentElement.includes("]")) {
                 finalCurrentElement = (finalCurrentElement.replaceAll("]", ""))
             }
@@ -76,7 +80,7 @@
         }
         return span;
     }
-    
+
     (function() {
         "use strict";
 
