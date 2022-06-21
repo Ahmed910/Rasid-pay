@@ -132,22 +132,6 @@
         "language": {
           @include('dashboard.layouts.globals.datatable.datatable_translation')
         },
-        {{-- "drawCallback": function (settings, json) {
-          // table sorting
-          var activityLogTableSorting = document.getElementsByClassName('activity_log_index');
-          for (var i = 0; i < activityLogTableSorting.length; i++) {
-            activityLogTableSorting[i].innerText = activityLogTableSorting[i].innerText.replace(activityLogTableSorting[i].innerText, activityLogTableSorting[i].innerText.toArabicUni());
-          }
-          //pagination
-          var activityLogTablePagination = document.getElementsByClassName('page-link');
-          for (var i = 1; i < activityLogTablePagination.length - 1; i++) {
-            activityLogTablePagination[i].innerText = activityLogTablePagination[i].innerText.replace(activityLogTablePagination[i].innerText, activityLogTablePagination[i].innerText.toArabicUni());
-          }
-          // info
-          var activityLogTableInfo = document.getElementById('activitylogtable_info').innerText;
-          document.getElementById('activitylogtable_info').innerText = activityLogTableInfo.replace(activityLogTableInfo, activityLogTableInfo.toArabicUni());
-        } --}}
-
       });
       var detailRows = [];
 
@@ -172,7 +156,6 @@
           '<tr>' +
           '<td>' + d.discription + '</td>' +
           '</tr>' +
-
           '</table>';
       }
 
@@ -215,61 +198,11 @@
       $('.select2').select2({
         minimumResultsForSearch: Infinity
       });
-      //get subprogs from activity_logs script
-      $("#mainProgram").change(function (e) {
-        e.preventDefault();
-        let mainprog_id = $("#mainProgram").val();
-        $('#branchProgram').empty();
-        $("#branchProgram").append('<option value=""> {{ trans('dashboard.activity_log.select_subprogram') }} </option>')
-        if (mainprog_id != '') {
-          //send ajax
-          $.ajax({
-            url: '{{ url('dashboard/activity_log/sub-programs') }}' + '/' + mainprog_id,
-            type: 'get',
-            success: function (data) {
-              if (data) {
-                $.each(data.data, function (index, subprogram) {
-                  $("#branchProgram").append('<option value="' + subprogram.name +
-                    '">' + subprogram.name + '</option>')
-                });
-              }
-            }
-          });
-        }
-
-      });
-      //get employees from Department
-      $("#mainDepartment").change(function (e) {
-        e.preventDefault();
-        let maindep_id = $("#mainDepartment").val();
-        $('#employee').empty();
-        $("#employee").append('<option value=""> {{ trans('dashboard.activity_log.select_employee') }} </option>')
-        if (maindep_id != '') {
-
-
-          //send ajax
-          $.ajax({
-            url: '/dashboard/activity_log/all-employees/' + maindep_id,
-            type: 'get',
-            success: function (data) {
-              if (data) {
-                $.each(data.data, function (index, user_id) {
-                  $("#employee").append('<option value="' + user_id.id +
-                    '">' + user_id.fullname + '</option>')
-                });
-
-              }
-            }
-          });
-        }
-
-      });
-
     })
 
 
 </script>
-
+@include('dashboard.activity_log.ajax_script')
 <script src="{{ asset('dashboardAssets/js/select2.js') }}"></script>
 <script src="{{ asset('dashboardAssets/plugins/select2/select2.full.min.js') }}"></script>
 @endsection
