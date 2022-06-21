@@ -1,11 +1,11 @@
 @extends('dashboard.layouts.master')
-@section('title', trans('dashboard.activity_log.sub_progs.index'))
+@section('title', trans('dashboard.activity_log.activity_log_records'))
 
 @section('content')
 
 <!-- PAGE-HEADER -->
 <div class="page-header">
-  <h1 class="page-title">{{ trans('dashboard.activity_log.sub_progs.index') }}</h1>
+  <h1 class="page-title">{{ trans('dashboard.activity_log.activity_log_records') }}</h1>
 </div>
 <!-- PAGE-HEADER END -->
 <!-- FORM OPEN -->
