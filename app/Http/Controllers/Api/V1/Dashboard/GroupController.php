@@ -155,41 +155,7 @@ class GroupController extends Controller
 
     public function permissions()
     {
-        $saved_permissions = $this->savedPermissions()->except('uri')->toArray();
-        $saved_names = array_column($saved_permissions, 'named_uri');
-        foreach (app()->routes->getRoutes() as $value) {
-            $name = $value->getName();
-            if (in_array($name, Permission::PUBLIC_ROUTES) || is_null($name) || in_array(str_before($name, '.'), ['ignition', 'debugbar']) || !str_contains($value->getPrefix(), 'api/v1/dashboard')) {
-                continue;
-            }
-            if (!in_array($name, $saved_names)) {
-                $route = Permission::create(['name' => $name]);
-                $saved_permissions[] = $this->getTransPermission($route);
-            }
-        }
-        return UriResource::collection(array_except($saved_permissions, ['name', 'named_uri']))->additional(['status' => true, 'message' => '']);
-    }
-
-
-    private function savedPermissions(Request $request)
-    {
-        return Permission::where('permission_on', 'dashboard_api')->select('id', 'name')
-            ->sortBy($request)->get()->transform(function ($item) {
-                return $this->getTransPermission($item);
-            });
-    }
-
-    public function getTransPermission($item)
-    {
-        $path = explode('.', $item->name);
-        $single_uri = str_singular(@$path[0]);
-        $action = trans('dashboard.' . $single_uri . '.permissions.' . @$path[1]);
-        $item['id'] = $item->id;
-        $item['uri'] = $path[0];
-        $item['named_uri'] = $item->name;
-        $item['name'] = trans('dashboard.' . $single_uri . '.' . $path[0]) . ' (' . $action . ')';
-        $item['action'] = $action;
-        return $item;
+        return UriResource::collection(Permission::getPermissions())->additional(['status' => true, 'message' => '']);
     }
 
     public function getGroups(Request $request, $group_id = null)
