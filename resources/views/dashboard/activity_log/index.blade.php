@@ -66,21 +66,20 @@
   </div>
 </div>
 <div class="row">
-   <div class="col-12 col-md-6 mt-5">
-      <div class="dropdown">
-        <button class="btn btn-outline-primary dropdown-toggle exportBtn" type="button" id="dropdownMenuButton1"
-          data-bs-toggle="dropdown" aria-expanded="false">
-          <i class="mdi mdi-tray-arrow-down"></i> {!! trans('dashboard.general.export') !!}
-        </button>
-        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-          <li><a class="dropdown-item"
-                            href="{{ url(app()->getLocale().'/dashboard/activity_log/exportPDF')  }}" target="_blank">PDF</a></li>
-                    <li><a class="dropdown-item"
-                            href="{{ url(app()->getLocale().'/dashboard/activity_log/export') }}"
-                            target="_blank">Excel</a></li>
-        </ul>
-      </div>
+  <div class="col-12 col-md-6 mt-5">
+    <div class="dropdown">
+      <button class="btn btn-outline-primary dropdown-toggle exportBtn" type="button" id="dropdownMenuButton1"
+        data-bs-toggle="dropdown" aria-expanded="false">
+        <i class="mdi mdi-tray-arrow-down"></i> {!! trans('dashboard.general.export') !!}
+      </button>
+      <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+        <li><a class="dropdown-item" href="{{ url(app()->getLocale().'/dashboard/activity_log/exportPDF')  }}"
+            target="_blank">PDF</a></li>
+        <li><a class="dropdown-item" href="{{ url(app()->getLocale().'/dashboard/activity_log/export') }}"
+            target="_blank">Excel</a></li>
+      </ul>
     </div>
+  </div>
   <div class="col-12 col-md-6 my-2 d-flex justify-content-end">
     <button class="btn btn-primary me-2" type="submit">
       <i class="mdi mdi-magnify">
@@ -97,24 +96,24 @@
 <div class="row row-sm">
   <div class="col-lg-12">
     <div class="p-1">
-        <table id="activitylogtable"
-          class="table table-bordered dt-responsive nowrap shadow-sm bg-body key-buttons historyTable ">
-          <thead>
-            <tr>
-              <th class="border-bottom-0">#</th>
-              <th class="border-bottom-0">{{ trans('dashboard.employee.employee') }}</th>
-              <th class="border-bottom-0">{{ trans('dashboard.department.department') }}</th>
-              <th class="border-bottom-0">{{ trans('dashboard.activity_log.main_program') }} </th>
-              <th class="border-bottom-0">{{ trans('dashboard.activity_log.sub_program') }} </th>
-              <th class="border-bottom-0">{{ trans('dashboard.general.created_at') }}</th>
-              <th class="border-bottom-0">{{ trans('dashboard.activity_log.ip_address') }}</th>
-              <th class="border-bottom-0 text-center">{{ trans('dashboard.activity_log.activity') }}</th>
-              <th class="border-bottom-0 text-center">{{ trans('dashboard.general.actions') }}</th>
-            </tr>
-          </thead>
-          <tbody>
-          </tbody>
-        </table>
+      <table id="activitylogtable"
+        class="table table-bordered dt-responsive nowrap shadow-sm bg-body key-buttons historyTable ">
+        <thead>
+          <tr>
+            <th class="border-bottom-0">#</th>
+            <th class="border-bottom-0">{{ trans('dashboard.employee.employee') }}</th>
+            <th class="border-bottom-0">{{ trans('dashboard.department.department') }}</th>
+            <th class="border-bottom-0">{{ trans('dashboard.activity_log.main_program') }} </th>
+            <th class="border-bottom-0">{{ trans('dashboard.activity_log.sub_program') }} </th>
+            <th class="border-bottom-0">{{ trans('dashboard.general.created_at') }}</th>
+            <th class="border-bottom-0">{{ trans('dashboard.activity_log.ip_address') }}</th>
+            <th class="border-bottom-0 text-center">{{ trans('dashboard.activity_log.activity') }}</th>
+            <th class="border-bottom-0 text-center">{{ trans('dashboard.general.actions') }}</th>
+          </tr>
+        </thead>
+        <tbody>
+        </tbody>
+      </table>
     </div>
   </div>
 </div>
