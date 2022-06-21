@@ -85,9 +85,9 @@
       <i class="mdi mdi-magnify">
       </i> {{ trans('dashboard.general.search') }}
     </button>
-    <a href="{{ route('dashboard.activity_log.index') }}" class="btn btn-outline-primary">
+   <button class="btn btn-outline-primary" type="reset" id="reset">
       <i class="mdi mdi-restore"></i>{{ trans('dashboard.general.show_all') }}
-    </a>
+    </button>
   </div>
 </div>
 </form>
