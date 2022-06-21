@@ -226,11 +226,9 @@
         $('#branchProgram').empty();
         $("#branchProgram").append('<option value=""> {{ trans('dashboard.activity_log.select_subprogram') }} </option>')
         if (mainprog_id != '') {
-
-
           //send ajax
           $.ajax({
-            url: '{{ url('dashboard/activitylog/sub-programs') }}' + '/' + mainprog_id,
+            url: '{{ url('dashboard/activity_log/sub-programs') }}' + '/' + mainprog_id,
             type: 'get',
             success: function (data) {
               if (data) {
@@ -255,7 +253,7 @@
 
           //send ajax
           $.ajax({
-            url: '/dashboard/activitylog/all-employees/' + maindep_id,
+            url: '/dashboard/activity_log/all-employees/' + maindep_id,
             type: 'get',
             success: function (data) {
               if (data) {
