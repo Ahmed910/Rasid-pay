@@ -39,12 +39,12 @@
                            firstSpan.attr('hidden')
                            firstSpan.text('')
                          }else{
-                          console.log('ahed')
+                         
                           firstSpan.removeAttr('hidden')
                           firstSpan.text(errs[finalCurrentElement][0])
                          }
 
-                      
+
                     }else{
                        firstSpan.removeAttr('hidden')
                        firstSpan.text(errs[finalCurrentElement][0])
