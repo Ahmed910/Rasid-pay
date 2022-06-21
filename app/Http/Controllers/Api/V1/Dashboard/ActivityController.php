@@ -118,6 +118,7 @@ class ActivityController extends Controller
     public function getEvents()
     {
         $data['events'] = ActivityLog::EVENTS;
+        data_set($data['events'], 10, 'all');
 
         return OnlyResource::make($data)->additional([
             'status' => true,

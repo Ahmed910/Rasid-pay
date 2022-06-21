@@ -87,7 +87,7 @@
         <button class="btn btn-primary me-2" type="submit">
           <i class="mdi mdi-magnify"></i> {{trans("dashboard.general.search")}}
         </button>
-        <button class="btn btn-outline-primary" type="reset" id="reset">
+        <button class="btn btn-outline-primary" type="submit">
           <i class="mdi mdi-restore"></i> {{trans("dashboard.general.show_all")}}
         </button>
       </div>

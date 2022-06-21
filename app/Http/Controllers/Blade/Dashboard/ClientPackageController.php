@@ -8,6 +8,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Dashboard\ClientPackageRequest;
+use App\Models\ClientPackageView;
 use App\Models\Package\Package;
 use App\Services\GeneratePdf;
 use Maatwebsite\Excel\Facades\Excel;
@@ -21,17 +22,18 @@ class ClientPackageController extends Controller
         }
 
         if ($request->ajax()) {
-            $citizensQuery = User::has('clientPackages')->where("user_type", "client")
-                ->search($request);
+            $citizensQuery = ClientPackageView::query()->search($request);
             $citizenCount = $citizensQuery->count();
+
             $clients = $citizensQuery->skip($request->start)
                 ->take(($request->length == -1) ? $citizenCount : $request->length)
                 ->sortBy($request)
-                ->with("clientPackages")
                 ->get();
+
             return PackageCollection::make($clients)
                 ->additional(['total_count' => $citizenCount]);
         }
+
         $clients = User::has('clientPackages')->where("user_type", "client")->pluck('users.fullname', 'users.id');
         return view('dashboard.client_package.index', compact('clients'));
     }

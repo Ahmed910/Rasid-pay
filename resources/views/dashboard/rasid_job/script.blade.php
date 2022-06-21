@@ -159,13 +159,13 @@
         },
         pageLength: 10,
         lengthMenu: [
-          [-1, 1, 5, 10, 15, 20],
-          ["All",1, 5, 10, 15, 20]
+          [1, 5, 10, 15, 20],
+          ["١", "٥","١٠","١٥", "٢٠"]
         ],
         "language": {
           @include('dashboard.layouts.globals.datatable.datatable_translation')
         },
-        {{-- "drawCallback": function (settings, json) {
+        "drawCallback": function (settings, json) {
           // table sorting
           var jobTableSorting = document.getElementsByClassName('rasid_job_index');
           for (var i = 0; i < jobTableSorting.length; i++) {
@@ -179,7 +179,7 @@
           // info
           var jobTableInfo = document.getElementById('JobsTable_info').innerText;
           document.getElementById('JobsTable_info').innerText = jobTableInfo.replace(jobTableInfo, jobTableInfo.toArabicUni());
-        } --}}
+        }
       });
       $('.select2').select2({
         minimumResultsForSearch: Infinity,
@@ -192,10 +192,6 @@
         },
         formatNoMatches: "Enter valid format text"
       })
-
-       $("#reset").click(function (){
-            showAll(table)
-            });
 
       $("#job_name").keyup(function () {
         insertUrlParam('name', $('#job_name').val());

@@ -62,7 +62,7 @@ class LoginController extends Controller
             $user->devices()->firstOrCreate($request->only(['device_token', 'device_type']));
         }
         data_set($user, 'token', $token);
-        return UserResource::make($user)->additional([
+        return UserResource::make($user->load('citizen'))->additional([
             'status' => true,
             'message' => trans('auth.success_login_mobile',
                 ['user' => $user->identity_number])]);

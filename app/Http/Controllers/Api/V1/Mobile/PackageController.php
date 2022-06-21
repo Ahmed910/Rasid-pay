@@ -3,9 +3,10 @@
 namespace App\Http\Controllers\Api\V1\Mobile;
 
 use App\Http\Resources\Api\V1\Mobile\PackageResource;
+use App\Http\Resources\Api\V1\Mobile\Transactions\TransactionResource;
 use App\Models\{CitizenPackage, CitizenPackagePromoCode, Package\Package};
 use App\Http\Controllers\Controller;
-use App\Services\{PromotePackage, UpdateCitizenWallet};
+use App\Services\{PromotePackage, WalletBalance};
 use Illuminate\Http\Request;
 
 class PackageController extends Controller
@@ -43,12 +44,12 @@ class PackageController extends Controller
             ];
             for ($i = 0; $i < $package->number_of_used; $i++) {
                 $citizen_package_promo_codes += [
-                    'promo_code' => generate_unique_code(CitizenPackage::class, 'promo_discount', '6'),
+                    'promo_code' => generate_unique_code(CitizenPackage::class, 'promo_discount', 6),
                 ];
                 $citizen_package->citizenPackagePromoCodes()->create($citizen_package_promo_codes);
                 unset($citizen_package_promo_codes['promo_code']);
             }
-            UpdateCitizenWallet::updateCitizenWallet($package->price);
+            $back_main_balance = WalletBalance::calcWalletMainBackBalance($citizen_wallet, $package->price);
         } else {
             $citizen_package_promo_code = CitizenPackagePromoCode::where('promo_code', $request->promo_code)->first();
             if (!$citizen_package_promo_code) {
@@ -57,23 +58,34 @@ class PackageController extends Controller
             if ($citizen_package_promo_code->is_used == 1) {
                 return response()->json(['status' => false, 'data' => null, 'message' => trans('mobile.promotion.promo_code_is_used')], 422);
             }
-            // take 50% of price from citizen wallet
-            $package_price = $package->price * ($package->promo_discount/100);
+            // take discount of price from citizen wallet
+            $package_price = $package->price - getPercentOfNumber($package->price, $package->discount);
             if ($package_price > ($citizen_wallet->main_balance + $citizen_wallet->cash_back)) {
                 return response()->json(['status' => false, 'data' => null, 'message' => trans('mobile.payments.current_balance_is_not_sufficient_to_complete_payment')], 422);
             }
-            PromotePackage::createCitizenPackage($package);
-            UpdateCitizenWallet::updateCitizenWallet($package_price);
+
+            $citizen_package = PromotePackage::createCitizenPackage($package);
+            $back_main_balance = WalletBalance::calcWalletMainBackBalance($citizen_wallet, $package_price);
             $citizen_package_promo_code->update(['is_used' => true]);
             // add cash back to citizen wallet
-            $promo_code_discount = $package->price * ($citizen_package_promo_code->promo_discount / 100);
-            $citizen_package_promo_code->citizenPackage->citizen->citizenWallet->cash_back += $promo_code_discount;
+            $promo_code_discount = getPercentOfNumber($package->price, $citizen_package_promo_code->promo_discount);
+            $promo_code_owner_wallet = $citizen_package_promo_code->citizenPackage->citizen->citizenWallet;
+            $promo_code_owner_wallet->update([
+                'cash_back' => $promo_code_owner_wallet->cash_back + $promo_code_discount,
+            ]);
         }
-
+        $citizen_wallet->update(["cash_back" => \DB::raw('cash_back + '.$back_main_balance->cashback_amount), 'main_balance' => \DB::raw('main_balance + '.$back_main_balance->main_amount)]);
 
         // TODO::create transaction and notification
+        $transaction_data = [
+            'trans_type' => 'promote_package',
+            'from_user_id' => auth()->id(),
+            'amount' => isset($package_price) ?: $package->price,
+            'trans_status' => 'success', // TODO::will be changed after implement api
+        ];
+        $transaction = $citizen_package->transaction()->create($transaction_data);
 
-        return PackageResource::make($package)->additional([
+        return TransactionResource::make($transaction)->additional([
             'status' => true,
             'message' => ''
         ]);

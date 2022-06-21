@@ -122,15 +122,14 @@
 
         pageLength: 10,
         lengthMenu: [
-          [-1, 1, 5, 10, 15, 20],
-          ["All",1, 5, 10, 15, 20],
-
+          [1, 5, 10, 15, 20],
+          ["١", "٥","١٠","١٥", "٢٠"]
         ],
 
         "language": {
           @include('dashboard.layouts.globals.datatable.datatable_translation')
         },
-        {{-- "drawCallback": function(settings, json) {
+        "drawCallback": function(settings, json) {
           // table sorting
           var transactionTableSorting = document.getElementsByClassName('transaction_index');
           for (var i = 0; i < transactionTableSorting.length; i++) {
@@ -155,12 +154,10 @@
           document.getElementById('transactionsTable_info').innerText = transactionTableInfo
             .replace(
               transactionTableInfo, transactionTableInfo.toArabicUni());
-        } --}}
+        }
       });
 
-    $("#reset").click(function (){
-            showAll(table)
-      });
+
       $('#to_user_id').on('select2:select', function(e) {
         insertUrlParam('client', $('#to_user_id').val());
         table.draw();
@@ -169,12 +166,20 @@
         insertUrlParam('trans_status', $('#status').val());
         table.draw();
       });
+      $('#status').on('select2:unselect', function(e) {
+        insertUrlParam('trans_status', $('#status').val(),true);
+        table.draw();
+      });
       $('#type').on('select2:select', function(e) {
         insertUrlParam('trans_type', $('#type').val());
         table.draw();
       });
       $('#enabled_package').on('select2:select', function(e) {
         insertUrlParam('enabled_package', $('#enabled_package').val());
+        table.draw();
+      });
+      $('#enabled_package').on('select2:unselect', function(e) {
+        insertUrlParam('enabled_package', $('#enabled_package').val(),true);
         table.draw();
       });
 

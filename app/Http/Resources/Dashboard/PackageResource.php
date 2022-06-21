@@ -14,18 +14,12 @@ class PackageResource extends JsonResource
      */
     public function toArray($request)
     {
-        $package_discount = [];
-        foreach ($this->clientPackages as $clientPackage) {
-            if ($clientPackage->id == $clientPackage->pivot->package_id) {
-                $package_discount[$clientPackage->name] = $clientPackage->pivot->package_discount;
-            }
-        }
         return [
             'id' => $this->id,
-            "fullname" => $this->fullname,
-            "basic_discount" => $package_discount[trans('dashboard.cardpackage.basic')] ?? trans('dashboard.package.without'),
-            "golden_discount" =>  $package_discount[trans('dashboard.cardpackage.golden')] ?? trans('dashboard.package.without'),
-            "platinum_discount" =>  $package_discount[trans('dashboard.cardpackage.platinum')] ?? trans('dashboard.package.without'),
+            "fullname" => $this->name,
+            "basic_discount" => $this->basic_discount ?? trans('dashboard.package.without'),
+            "golden_discount" => $this->golden_discount ?? trans('dashboard.package.without') ,
+            "platinum_discount" => $this->palatinum_discount ?? trans('dashboard.package.without') ,
         ];
     }
 }

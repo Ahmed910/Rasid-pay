@@ -15,7 +15,7 @@
         responsive: true,
                 sDom: "t<'domOption'lpi>",
                 serverSide: true,
-
+                
                 ajax: {
                     url: "{{ route('dashboard.group.show', $group->id) }}?" + $.param(
                         @json(request()->query())),
@@ -64,12 +64,12 @@
                 pageLength: 10,
                 lengthMenu: [
                     [1, 5, 10, 15, 20],
-                  [1, 5, 10, 15, 20]
+                  ["١", "٥","١٠","١٥", "٢٠"]
                 ],
                   "language": {
                     @include('dashboard.layouts.globals.datatable.datatable_translation')
                 },
-              {{-- "drawCallback": function (settings, json) {
+              "drawCallback": function (settings, json) {
                 // admin history table sorting
                 var groupHistoryTableSorting = document.getElementsByClassName('group_show_index');
                 for (var i = 0; i < groupHistoryTableSorting.length; i++) {
@@ -87,7 +87,7 @@
                 var groupActivityHistoryTableInfo = document.getElementById('activityTable_info').innerText;
                 document.getElementById('groupTable_info').innerText = groupHistoryTableInfo.replace(groupHistoryTableInfo, groupHistoryTableInfo.toArabicUni());
                 document.getElementById('activityTable_info').innerText = groupActivityHistoryTableInfo.replace(groupActivityHistoryTableInfo, groupActivityHistoryTableInfo.toArabicUni());
-              } --}}
+              }
             });
 
             $("#groupTable").DataTable({

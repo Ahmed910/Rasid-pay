@@ -29,7 +29,7 @@ class CreateTransactionsTable extends Migration
 
             $table->foreignUuid("bank_id")->nullable()->constrained("banks")->nullOnDelete();
             $table->foreignUuid("bank_branch_id")->nullable()->constrained("bank_branches")->nullOnDelete();
-            $table->foreignUuid("citizen_package_id")->nullable()->constrained("citizen_packages")->nullOnDelete();
+//            $table->foreignUuid("citizen_package_id")->nullable()->constrained("citizen_packages")->nullOnDelete();
             $table->string('transaction_id')->nullable();
             $table->string('transaction_data')->nullable();
             $table->unsignedbigInteger('trans_number')->unique();
@@ -38,6 +38,7 @@ class CreateTransactionsTable extends Migration
             $table->string("qr_path")->nullable();
             $table->string('amount');
             $table->string('fee_amount')->default(0);
+            $table->string('summary_path')->nullable();
             $table->softDeletes();
             $table->timestamps();
         });

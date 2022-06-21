@@ -38,14 +38,14 @@ class GroupController extends Controller
     {
         $group->fill($request->validated() + ['added_by_id' => auth()->id()])->save();
         $permissions = $request->permission_list ?? [];
-        $all_permissions = Permission::select('id','name')->get();
-        $permissions_collect = $all_permissions->whereIn('id',$request->permission_list);
+        $all_permissions = Permission::select('id', 'name')->get();
+        $permissions_collect = $all_permissions->whereIn('id', $request->permission_list);
         foreach ($permissions_collect as $permission) {
-            $action = explode('.',$permission->name);
-            if (in_array($action[1],['update','store','destroy','show']) && !$permissions_collect->contains('name',$action[0].'.index')) {
-                $permissions[] = $all_permissions->where('name',$action[0].'.index')->first()?->id;
-            }elseif (in_array($action[1],['restore','force_delete']) && !$permissions_collect->contains('name',$action[0].'.archive')) {
-                $permissions[] = $all_permissions->where('name',$action[0].'.archive')->first()?->id;
+            $action = explode('.', $permission->name);
+            if (in_array($action[1], ['update', 'store', 'destroy', 'show']) && !$permissions_collect->contains('name', $action[0] . '.index')) {
+                $permissions[] = $all_permissions->where('name', $action[0] . '.index')->first()?->id;
+            } elseif (in_array($action[1], ['restore', 'force_delete']) && !$permissions_collect->contains('name', $action[0] . '.archive')) {
+                $permissions[] = $all_permissions->where('name', $action[0] . '.archive')->first()?->id;
             }
         }
         if ($request->group_list) {
@@ -72,19 +72,19 @@ class GroupController extends Controller
             ]);
     }
 
-    public function checkIfUserHasPermission(Request $request,$route_name)
+    public function checkIfUserHasPermission(Request $request, $route_name)
     {
         $has_access = auth()->user()->hasPermissions($route_name);
         return response()->json([
-                'data' => null,
-                'status' => $has_access,
-                'message' => ''
-            ],$has_access ? 200 : 403);
+            'data' => null,
+            'status' => $has_access,
+            'message' => ''
+        ], $has_access ? 200 : 403);
     }
 
     public function getPermissionsOfGroup(Group $group, Request $request)
     {
-        $permissions = $group->permissions()->paginate((int)($request->per_page ??  config("globals.per_page")));
+        $permissions = $group->permissions()->sortBy($request)->paginate((int)($request->per_page ??  config("globals.per_page")));
 
         return PermissionResource::collection($permissions)
             ->additional([
@@ -102,31 +102,31 @@ class GroupController extends Controller
     public function update(GroupRequest $request, Group $group)
     {
         $old_permissions = $group->permission_list;
-        $group->fill($request->validated()+['updated_at' => now()])->save();
+        $group->fill($request->validated() + ['updated_at' => now()])->save();
         $permissions = $request->permission_list ?? [];
-        $all_permissions = Permission::select('id','name')->get();
-        $permissions_collect = $all_permissions->whereIn('id',$request->permission_list);
+        $all_permissions = Permission::select('id', 'name')->get();
+        $permissions_collect = $all_permissions->whereIn('id', $request->permission_list);
         foreach ($permissions_collect as $permission) {
-            $action = explode('.',$permission->name);
-            if (in_array($action[1],['update','store','destroy','show']) && !$permissions_collect->contains('name',$action[0].'.index')) {
-                $permissions[] = $all_permissions->where('name',$action[0].'.index')->first()?->id;
-            }elseif (in_array($action[1],['restore','force_delete']) && !$permissions_collect->contains('name',$action[0].'.archive')) {
-                $permissions[] = $all_permissions->where('name',$action[0].'.archive')->first()?->id;
+            $action = explode('.', $permission->name);
+            if (in_array($action[1], ['update', 'store', 'destroy', 'show']) && !$permissions_collect->contains('name', $action[0] . '.index')) {
+                $permissions[] = $all_permissions->where('name', $action[0] . '.index')->first()?->id;
+            } elseif (in_array($action[1], ['restore', 'force_delete']) && !$permissions_collect->contains('name', $action[0] . '.archive')) {
+                $permissions[] = $all_permissions->where('name', $action[0] . '.archive')->first()?->id;
             }
         }
         if ($request->group_list) {
             $permissions = array_filter(array_merge($permissions, Group::find($request->group_list)->pluck('permissions')->flatten()->pluck('id')->toArray()));
         }
 
-        $shared_permissions = array_intersect($old_permissions,$permissions);
-        $attached_permissions = array_diff($permissions,$shared_permissions);
-        $detached_permissions = array_diff($old_permissions,$shared_permissions);
+        $shared_permissions = array_intersect($old_permissions, $permissions);
+        $attached_permissions = array_diff($permissions, $shared_permissions);
+        $detached_permissions = array_diff($old_permissions, $shared_permissions);
         if ($attached_permissions || $detached_permissions) {
-            $group->admins?->each(function ($admin) use($attached_permissions,$detached_permissions){
+            $group->admins?->each(function ($admin) use ($attached_permissions, $detached_permissions) {
                 if ($detached_permissions) {
                     $admin->permissions()->detach($detached_permissions);
                 }
-                $new_permissions = array_diff($attached_permissions,$admin->permission_list);
+                $new_permissions = array_diff($attached_permissions, $admin->permission_list);
                 if ($new_permissions) {
                     $admin->permissions()->syncWithoutDetaching($new_permissions);
                 }
@@ -159,7 +159,7 @@ class GroupController extends Controller
         $saved_names = array_column($saved_permissions, 'named_uri');
         foreach (app()->routes->getRoutes() as $value) {
             $name = $value->getName();
-            if (in_array($name, Permission::PUBLIC_ROUTES) || is_null($name) || in_array(str_before($name, '.'), ['ignition', 'debugbar']) || !str_contains($value->getPrefix(),'api')) {
+            if (in_array($name, Permission::PUBLIC_ROUTES) || is_null($name) || in_array(str_before($name, '.'), ['ignition', 'debugbar']) || !str_contains($value->getPrefix(), 'api/v1/dashboard')) {
                 continue;
             }
             if (!in_array($name, $saved_names)) {
@@ -171,16 +171,17 @@ class GroupController extends Controller
     }
 
 
-    private function savedPermissions()
+    private function savedPermissions(Request $request)
     {
-        return Permission::where('permission_on', 'dashboard_api')->select('id','name')->get()->transform(function($item){
-            return $this->getTransPermission($item);
-        });
+        return Permission::where('permission_on', 'dashboard_api')->select('id', 'name')
+            ->sortBy($request)->get()->transform(function ($item) {
+                return $this->getTransPermission($item);
+            });
     }
 
     public function getTransPermission($item)
     {
-        $path = explode('.',$item->name);
+        $path = explode('.', $item->name);
         $single_uri = str_singular(@$path[0]);
         $action = trans('dashboard.' . $single_uri . '.permissions.' . @$path[1]);
         $item['id'] = $item->id;
@@ -191,11 +192,11 @@ class GroupController extends Controller
         return $item;
     }
 
-    public function getGroups(Request $request,$group_id = null)
+    public function getGroups(Request $request, $group_id = null)
     {
         $groups = Group::when($group_id, function ($q) use ($group_id) {
             $q->where('groups.id', "<>", $group_id);
-        })->when($request->activate_case, function ($q) use($request){
+        })->when($request->activate_case, function ($q) use ($request) {
             switch ($request->activate_case) {
                 case 'active':
                     $q->where('is_active', 1);
