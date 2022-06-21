@@ -87,7 +87,7 @@ class RegisterController extends Controller
 
         return UserResource::make($user)->additional([
             'status' => true,
-            'message' => trans('auth.success_verify_phone', ['user' => $user->phone]),
+            'message' => trans('auth.success_verify_phone', ['user' => '**********' . substr($user->phone, -4)]),
         ]);
     }
 
@@ -137,9 +137,9 @@ class RegisterController extends Controller
         }
         $user->citizen()->create($citizen_table);
 
-        $token =  $user->createToken('RasidBackApp')->plainTextToken;
+        // $token =  $user->createToken('RasidBackApp')->plainTextToken;
 
-        data_set($user, 'token', $token);
+        // data_set($user, 'token', $token);
         return UserResource::make($user)->additional([
             'status' => true,
             'message' => trans('auth.success_verify_phone_make_login'),

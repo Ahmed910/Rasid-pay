@@ -21,7 +21,7 @@ class SendCodeRequest extends ApiMasterRequest
         $keyName = 'verified_code';
         $identity_number = @$data['identity_number'] ? convert_arabic_number($data['identity_number']) : @$data['identity_number'];
         $user = User::firstWhere(['identity_number' => $identity_number , 'user_type' => 'citizen']);
-        if ($user && $user->phone_verified_at) {
+        if ($user && $user->phone_verified_at && $user->password) {
             $keyName = 'reset_code';
         }
 
