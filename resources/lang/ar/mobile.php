@@ -27,7 +27,7 @@ return [
     ],
     'promotion'=>[
         'promo_code_is_used'=>'كود التخفيض مستخدم من قبل',
-        'promo_code_is_not_found'=>'كود التخفيض غير صحيح',
+        'promo_code_is_not_found'=>'كود التخفيض غير موجود',
     ],
     'transaction' => [
         'transaction_types' => [

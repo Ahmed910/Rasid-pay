@@ -27,6 +27,9 @@ class PackageController extends Controller
             'package_id' => $id,
             'citizen_id' => auth()->id()
         ])->first();
+        if (!$promo_codes) {
+            return response()->json(['status' => false, 'data' => null, 'message' => trans('mobile.promotion.promo_code_is_not_found')], 422);
+        }
         return PackagePromoCodesResource::collection($promo_codes->citizenPackagePromoCodes)->additional([
             'status' => true,
             'message' => ''
