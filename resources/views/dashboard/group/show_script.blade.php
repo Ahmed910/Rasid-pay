@@ -15,7 +15,7 @@
         responsive: true,
                 sDom: "t<'domOption'lpi>",
                 serverSide: true,
-                
+
                 ajax: {
                     url: "{{ route('dashboard.group.show', $group->id) }}?" + $.param(
                         @json(request()->query())),
@@ -64,30 +64,12 @@
                 pageLength: 10,
                 lengthMenu: [
                     [1, 5, 10, 15, 20],
-                  ["١", "٥","١٠","١٥", "٢٠"]
+                  [1, 5, 10, 15, 20]
                 ],
                   "language": {
                     @include('dashboard.layouts.globals.datatable.datatable_translation')
                 },
-              "drawCallback": function (settings, json) {
-                // admin history table sorting
-                var groupHistoryTableSorting = document.getElementsByClassName('group_show_index');
-                for (var i = 0; i < groupHistoryTableSorting.length; i++) {
-                  groupHistoryTableSorting[i].innerText = groupHistoryTableSorting[i].innerText.replace(groupHistoryTableSorting[i].innerText, groupHistoryTableSorting[i].innerText.toArabicUni());
-                }
-
-                //pagination
-                var groupHistoryTablePagination = document.getElementsByClassName('page-link');
-                for (var i = 1; i < groupHistoryTablePagination.length - 1; i++) {
-                  groupHistoryTablePagination[i].innerText = groupHistoryTablePagination[i].innerText.replace(groupHistoryTablePagination[i].innerText, groupHistoryTablePagination[i].innerText.toArabicUni());
-                }
-
-                // admin history table show info
-                var groupHistoryTableInfo = document.getElementById('groupTable_info').innerText;
-                var groupActivityHistoryTableInfo = document.getElementById('activityTable_info').innerText;
-                document.getElementById('groupTable_info').innerText = groupHistoryTableInfo.replace(groupHistoryTableInfo, groupHistoryTableInfo.toArabicUni());
-                document.getElementById('activityTable_info').innerText = groupActivityHistoryTableInfo.replace(groupActivityHistoryTableInfo, groupActivityHistoryTableInfo.toArabicUni());
-              }
+              
             });
 
             $("#groupTable").DataTable({

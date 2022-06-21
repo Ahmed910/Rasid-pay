@@ -13,18 +13,18 @@
             {!! Form::select('department_id', ['' => ''] + $departments, isset($admin) ?
             $admin->employee?->department_id :
             null, ['class' => 'form-control input-regex stop-copy-paste select2-show-search ', 'data-placeholder' =>
-            trans('dashboard.department.select_department'),'id' => 'mainDepartment','onblur'=>'validateData(this)', 'onchange' =>
+            trans('dashboard.department.select_department'),'id' => 'mainDepartment', 'onchange' =>
             'getJobs(this.value)' , (isset($admin) ? 'disabled' : '') ]) !!}
             <span class="text-danger" id="department_idError"></span>
 
         </div>
         <div class="col-12 col-md-4">
             {!! Form::label('rasid_job_id', trans('dashboard.rasid_job.rasid_job')) !!} <span
-                class="requiredFields">*</span>
-
+                class="requiredFields" id="new_admin">*</span>
+                <div id="rasid_job_div">
                 {!! Form::select('rasid_job_id', isset($admin) ? ['' => ''] + $rasid_jobs :['' => ''] , isset($admin) ? $admin->employee?->rasid_job_id :null, ['class' => 'form-control input-regex stop-copy-paste select2-show-search ', 'id' =>
                     'rasid_job_id', 'data-placeholder' => trans('dashboard.rasid_job.select_job'),(isset($admin) ? 'disabled' : '')]) !!}
-
+                 </div>
             <span class="text-danger" id="rasid_job_idError"></span>
         </div>
 
