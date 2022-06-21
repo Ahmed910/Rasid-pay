@@ -58,25 +58,10 @@
         pageLength: 10,
         lengthMenu: [
           [1, 5, 10, 15, 20],
-          ["١", "٥", "١٠", "١٥", "٢٠"]
+          [1, 5, 10, 15, 20]
         ],
         "language": {
           @include('dashboard.layouts.globals.datatable.datatable_translation')
-        },
-        "drawCallback": function (settings, json) {
-          // transaction history table sorting
-          var transactionHistoryTableSorting = document.getElementsByClassName('transaction_show_index');
-          for (var i = 0; i < transactionHistoryTableSorting.length; i++) {
-            transactionHistoryTableSorting[i].innerText = transactionHistoryTableSorting[i].innerText.replace(transactionHistoryTableSorting[i].innerText, transactionHistoryTableSorting[i].innerText.toArabicUni());
-          }
-          //pagination
-          var transactionHistoryTablePagination = document.getElementsByClassName('page-link');
-          for (var i = 1; i < transactionHistoryTablePagination.length - 1; i++) {
-            transactionHistoryTablePagination[i].innerText = transactionHistoryTablePagination[i].innerText.replace(transactionHistoryTablePagination[i].innerText, transactionHistoryTablePagination[i].innerText.toArabicUni());
-          }
-          // transaction history table show info
-          var transactionHistoryTableInfo = document.getElementById('historyTable_info').innerText;
-          document.getElementById('historyTable_info').innerText = transactionHistoryTableInfo.replace(transactionHistoryTableInfo, transactionHistoryTableInfo.toArabicUni());
         }
       });
     });
