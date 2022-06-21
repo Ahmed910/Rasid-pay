@@ -53,7 +53,7 @@ class PackageController extends Controller
                 $citizen_package->citizenPackagePromoCodes()->create($citizen_package_promo_codes);
                 unset($citizen_package_promo_codes['promo_code']);
             }
-            $back_main_balance = WalletB - alance::calcWalletMainBackBalance($citizen_wallet, $package->price);
+            $back_main_balance = WalletBalance::calcWalletMainBackBalance($citizen_wallet, $package->price);
         } else {
             $citizen_package_promo_code = CitizenPackagePromoCode::where('promo_code', $request->promo_code)->first();
             if (!$citizen_package_promo_code) {
