@@ -92,8 +92,8 @@
                 ],
                 pageLength: 10,
                 lengthMenu: [
-                    [-1, 1, 5, 10, 15, 20],
-                    ["All",1, 5, 10, 15, 20]
+                    [1, 5, 10, 15, 20],
+                    [1, 5, 10, 15, 20]
                  // ["١", "٥","١٠","١٥", "٢٠"]
                 ],
 
@@ -143,9 +143,6 @@
                     });
                 },
             });
-             $("#reset").click(function (){
-                showAll(table)
-              });
 
             $('#status').on('select2:select', function(e) {
                 insertUrlParam('is_active', $('#status').val());

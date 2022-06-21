@@ -165,16 +165,14 @@
 
         pageLength: 10,
         lengthMenu: [
-          [-1, 1, 5, 10, 15, 20],
-          ["All", 1, 5, 10, 15, 20]
+          [1, 5, 10, 15, 20],
+          ["١", "٥","١٠","١٥", "٢٠"]
         ],
-
-
 
         "language": {
           @include('dashboard.layouts.globals.datatable.datatable_translation')
         },
-        {{-- "drawCallback": function (settings, json) {
+        "drawCallback": function (settings, json) {
           // table sorting
           var clientTableSorting = document.getElementsByClassName('client_index');
           for (var i = 0; i < clientTableSorting.length; i++) {
@@ -193,11 +191,8 @@
           var clientTableInfo = document.getElementById('clientTable_info').innerText;
           document.getElementById('clientTable_info').innerText = clientTableInfo.replace(
             clientTableInfo, clientTableInfo.toArabicUni());
-        } --}}
+        }
       });
-       $("#reset").click(function (){
-            showAll(accounts_table)
-           });
       accounts_table.draw();
       /******* Calendar *******/
       $("#from-hijri-picker-custom, #to-hijri-picker-custom, #from-hijri-unactive-picker-custom ,#to-hijri-unactive-picker-custom")
@@ -330,14 +325,14 @@
 
         pageLength: 10,
         lengthMenu: [
-          [-1, 1, 5, 10, 15, 20],
-          ["All", 1, 5, 10, 15, 20]
+          [1, 5, 10, 15, 20],
+          ["١", "٥","١٠","١٥", "٢٠"]
         ],
 
         "language": {
           @include('dashboard.layouts.globals.datatable.datatable_translation')
         },
-        {{-- "drawCallback": function (settings, json) {
+        "drawCallback": function (settings, json) {
           // table sorting
           var clientTableSorting = document.getElementsByClassName('client_index');
           for (var i = 0; i < clientTableSorting.length; i++) {
@@ -356,12 +351,10 @@
           var clientTableInfo = document.getElementById('clientTable_info').innerText;
           document.getElementById('clientTable_info').innerText = clientTableInfo.replace(
             clientTableInfo, clientTableInfo.toArabicUni());
-        } --}}
+        }
       });
 
-          $("#reset").click(function (){
-            showAll(table)
-           });
+
       $("#status").change(function () {
         insertUrlParam('ban_status', $('#status').val());
         if (this.value == 'temporary') {

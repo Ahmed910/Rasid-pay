@@ -133,8 +133,8 @@
 
         pageLength: 10,
         lengthMenu: [
-          [-1, 1, 5, 10, 15, 20],
-          ["All",1, 5, 10, 15, 20]
+          [1, 5, 10, 15, 20],
+          [1, 5, 10, 15, 20]
         ],
 
         "language": {
@@ -143,9 +143,7 @@
 
       });
 
-          $("#reset").click(function (){
-            showAll(table)
-            });
+
       $("#status").change(function () {
         insertUrlParam('ban_status', $('#status').val());
         if (this.value == 'temporary') {
