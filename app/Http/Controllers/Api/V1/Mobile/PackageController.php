@@ -44,7 +44,7 @@ class PackageController extends Controller
             ];
             for ($i = 0; $i < $package->number_of_used; $i++) {
                 $citizen_package_promo_codes += [
-                    'promo_code' => generate_unique_code(CitizenPackage::class, 'promo_discount', '6'),
+                    'promo_code' => generate_unique_code(CitizenPackage::class, 'promo_discount', 6),
                 ];
                 $citizen_package->citizenPackagePromoCodes()->create($citizen_package_promo_codes);
                 unset($citizen_package_promo_codes['promo_code']);
