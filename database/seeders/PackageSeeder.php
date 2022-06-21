@@ -20,32 +20,35 @@ class PackageSeeder extends Seeder
             [
                 'id' => '1cfb9746-9779-4lj-6688-12545c3hca53',
                 'color' => '#fff',
-                'price' => '1234',
+                'price' => '1000',
                 'duration' => '12',
                 'discount' => '10',
                 'is_active' => true,
                 'is_default' => true,
                 'order' => 1,
+                'number_of_used' => null,
             ],
             [
                 'id' => '2cfb9746-9779-4lj-8371-5fjk35c9fca53',
                 'color' => '#fff',
-                'price' => '2345',
+                'price' => '2000',
                 'duration' => '12',
                 'discount' => '15',
                 'is_active' => true,
                 'is_default' => false,
-                'order' => 2
+                'order' => 2,
+                'number_of_used' => null,
             ],
             [
                 'id' => '3cfb9746-9779-4lj-6688-12545c3hca53',
                 'color' => '#fff',
-                'price' => '6455',
+                'price' => '6000',
                 'duration' => '12',
                 'discount' => '20',
                 'is_active' => true,
                 'is_default' => false,
-                'order' => 3
+                'order' => 3,
+                'number_of_used' => 5,
 
             ]
         ];
