@@ -3,8 +3,6 @@
 namespace App\Services;
 
 use App\Models\CitizenPackage;
-use Carbon\Carbon;
-use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 
 class PromotePackage
 {
@@ -14,12 +12,11 @@ class PromotePackage
             ->where('citizen_id', auth()->id())->first();
         if ($citizen_package_check) {
             $citizen_package_check->update([
-                'end_at' => Carbon::parse($citizen_package_check->end_at)->addMonths($package->duration),
+                'end_at' => $citizen_package_check->end_at->addMonths($package->duration),
+                'number_of_purchase' => \DB::raw('number_of_purchase + 1')
             ]);
-            $citizen_package_check->increment('number_of_purchase');
             return $citizen_package_check;
         }
-        $citizen_table = ['user_id' => auth()->id()];
         $package_data = [
             'package_id' => $package->id,
             'package_price' => $package->price,
@@ -34,11 +31,7 @@ class PromotePackage
         }
         $citizenPackage = auth()->user()->citizenPackages()->create($package_data);
 
-
-        $citizen_table += [
-            'citizen_package_id' => $citizenPackage->id
-        ];
-        auth()->user()->citizen()->update($citizen_table);
+        auth()->user()->citizen()->update(['citizen_package_id' => $citizenPackage->id]);
         return $citizenPackage;
     }
 }
