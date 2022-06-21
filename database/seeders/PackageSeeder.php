@@ -27,6 +27,8 @@ class PackageSeeder extends Seeder
                 'is_default' => true,
                 'order' => 1,
                 'number_of_used' => null,
+                'has_promo' => false,
+                'promo_discount' => null,
             ],
             [
                 'id' => '2cfb9746-9779-4lj-8371-5fjk35c9fca53',
@@ -38,6 +40,8 @@ class PackageSeeder extends Seeder
                 'is_default' => false,
                 'order' => 2,
                 'number_of_used' => null,
+                'has_promo' => false,
+                'promo_discount' => null,
             ],
             [
                 'id' => '3cfb9746-9779-4lj-6688-12545c3hca53',
@@ -49,6 +53,8 @@ class PackageSeeder extends Seeder
                 'is_default' => false,
                 'order' => 3,
                 'number_of_used' => 5,
+                'has_promo' => true,
+                'promo_discount' => '10',
 
             ]
         ];

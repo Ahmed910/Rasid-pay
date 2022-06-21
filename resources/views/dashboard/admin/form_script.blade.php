@@ -10,13 +10,11 @@
                   url: '{{ url('/dashboard/rasid_job/all-jobs') }}' + '/' + department_id,
                   type: 'get',
                   beforeSend: function () {
-
                       $('#new_admin').html(`<span class="spinner-border text-light" style="width: 1rem; height: 1rem;" role="status"></span>`);
                   },
                   success: function(data) {
-
                       if (data.view) {
-                          $('#rasid_job_div').remove()
+                          $('#rasid_job_id').remove();
                           $('#new_admin').html(data.view);
                       }
                   }
@@ -69,7 +67,6 @@
         });
 
         function formatState(state) {
-            console.log(state, 'state')
             if (!state.id) {
                 return state.text;
             }
@@ -183,9 +180,5 @@
                       return false;
                   }
               });
-      })();
-
-
-
-
+      });
 </script>

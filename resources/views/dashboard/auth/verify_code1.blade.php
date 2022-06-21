@@ -176,5 +176,26 @@
       ele[val - 2].focus()
     }
   }
+
+     $("#form_sms").validate({
+            onfocusout: function(element) {$(element).css('color', 'black').valid()},
+
+            errorPlacement: function errorPlacement(error, element) {
+               $('#reset_code_error').text(error[0].innerText)
+            },
+            success: function(label,element) {
+                $('#reset_code_error').text("");
+            },
+            rules: {
+                    "reset_code[]": {required:true,number:true},
+                },
+            messages: {
+                    "reset_code[]": {
+                        required: '{{__('validation.required', ['attribute' => __('dashboard.general.reset_code')])}}',
+                        number: '{{__('validation.numeric', ['attribute' => __('dashboard.general.reset_code')])}}',
+                    },
+              }
+
+        });
 </script>
 @endsection
