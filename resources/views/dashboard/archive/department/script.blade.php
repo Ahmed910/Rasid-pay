@@ -123,13 +123,13 @@
             ],
             pageLength: 10,
             lengthMenu: [
-                [-1 , 1, 5, 10, 15, 20],
-              ["All", 1, 5, 10, 15, 20]
+                [1, 5, 10, 15, 20],
+              ["١", "٥","١٠","١٥", "٢٠"]
             ],
             "language": {
               @include('dashboard.layouts.globals.datatable.datatable_translation')
             },
-            {{-- "drawCallback": function(settings, json) {
+            "drawCallback": function(settings, json) {
                 // table sorting
                 var departmentTableSorting = document.getElementsByClassName('department_index');
                 for (var i = 0; i < departmentTableSorting.length; i++) {
@@ -148,11 +148,9 @@
                 var departmentTableInfo = document.getElementById('departmentTable_info').innerText;
                 document.getElementById('departmentTable_info').innerText = departmentTableInfo
                     .replace(departmentTableInfo, departmentTableInfo.toArabicUni());
-            } --}}
+            }
         });
- $("#reset").click(function (){
-            showAll(table)
-           });
+
         $('#status').on('select2:select', function(e) {
             insertUrlParam('is_active', $('#status').val());
             table.draw();

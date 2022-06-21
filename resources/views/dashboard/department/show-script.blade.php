@@ -62,12 +62,12 @@
           pageLength: 10,
         lengthMenu: [
             [1, 5, 10, 15, 20],
-            [1, 5, 10, 15, 20]
+          ["١", "٥","١٠","١٥", "٢٠"]
         ],
         "language": {
           @include('dashboard.layouts.globals.datatable.datatable_translation')
         },
-        {{-- "drawCallback": function (settings, json) {
+        "drawCallback": function (settings, json) {
           // department history table sorting
           var departmentHistoryTableSorting = document.getElementsByClassName('department_show_index');
           for (var i = 0; i < departmentHistoryTableSorting.length; i++) {
@@ -81,7 +81,7 @@
           // department history table show info
           var departmentHistoryTableInfo = document.getElementById('historyTable_info').innerText;
           document.getElementById('historyTable_info').innerText = departmentHistoryTableInfo.replace(departmentHistoryTableInfo, departmentHistoryTableInfo.toArabicUni());
-        } --}}
+        }
       });
     });
 

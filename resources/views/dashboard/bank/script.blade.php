@@ -127,15 +127,14 @@
         },
         pageLength: 10,
         lengthMenu: [
-          [-1, 1, 5, 10, 15, 20],
-          ["All",1, 5, 10, 15, 20],
-
+          [1, 5, 10, 15, 20],
+          ["١", "٥","١٠","١٥", "٢٠"]
         ],
 
         "language": {
           @include('dashboard.layouts.globals.datatable.datatable_translation')
         },
-        {{-- "drawCallback": function (settings, json) {
+        "drawCallback": function (settings, json) {
           // table sorting
           var activityLogTableSorting = document.getElementsByClassName('activity_log_index');
           for (var i = 0; i < activityLogTableSorting.length; i++) {
@@ -149,7 +148,7 @@
           // info
           var activityLogTableInfo = document.getElementById('activitylogtable_info').innerText;
           document.getElementById('activitylogtable_info').innerText = activityLogTableInfo.replace(activityLogTableInfo, activityLogTableInfo.toArabicUni());
-        } --}}
+        }
       });
 
       // type
@@ -161,9 +160,7 @@
       // transfer_amount
       // transactions_count
       // name
-      $("#reset").click(function (){
-            showAll(table)
-      });
+
       $('#type').on('select2:select', function (e) {
         insertUrlParam('type', $('#type').val());
         table.draw();

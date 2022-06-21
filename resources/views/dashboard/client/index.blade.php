@@ -99,7 +99,7 @@
     <button class="btn btn-primary me-2" type="submit">
       <i class="mdi mdi-magnify"></i> بحث
     </button>
-    <button class="btn btn-outline-primary" type="reset" id="reset">
+    <button class="btn btn-outline-primary" type="reset">
       <i class="mdi mdi-restore"></i> عرض الكل
     </button>
   </div>
