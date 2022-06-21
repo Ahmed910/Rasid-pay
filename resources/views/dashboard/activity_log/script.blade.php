@@ -126,27 +126,13 @@
         pageLength: 10,
         lengthMenu: [
           [1, 5, 10, 15, 20],
-          ["١", "٥","١٠","١٥", "٢٠"]
+         [1, 5, 10, 15, 20]
         ],
 
         "language": {
           @include('dashboard.layouts.globals.datatable.datatable_translation')
         },
-        {{-- "drawCallback": function (settings, json) {
-          // table sorting
-          var activityLogTableSorting = document.getElementsByClassName('activity_log_index');
-          for (var i = 0; i < activityLogTableSorting.length; i++) {
-            activityLogTableSorting[i].innerText = activityLogTableSorting[i].innerText.replace(activityLogTableSorting[i].innerText, activityLogTableSorting[i].innerText.toArabicUni());
-          }
-          //pagination
-          var activityLogTablePagination = document.getElementsByClassName('page-link');
-          for (var i = 1; i < activityLogTablePagination.length - 1; i++) {
-            activityLogTablePagination[i].innerText = activityLogTablePagination[i].innerText.replace(activityLogTablePagination[i].innerText, activityLogTablePagination[i].innerText.toArabicUni());
-          }
-          // info
-          var activityLogTableInfo = document.getElementById('activitylogtable_info').innerText;
-          document.getElementById('activitylogtable_info').innerText = activityLogTableInfo.replace(activityLogTableInfo, activityLogTableInfo.toArabicUni());
-        } --}}
+
 
       });
       var detailRows = [];
