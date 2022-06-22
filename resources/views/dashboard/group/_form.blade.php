@@ -30,7 +30,7 @@
                     data-placeholder="{{ trans('dashboard.general.select_permissions') }}" multiple="multiple"
                     id="permissions" required>
 
-                  
+
                     <option value="selectAll" class="selectAll">إختر الكل</option>
                     <option value="unselectAll" class="unselectAll" >إلغاء تحديد الكل</option>
                     @foreach ($groups as $id => $name)
@@ -44,6 +44,8 @@
                             {{ $name }}</option>
                     @endforeach
                 </select>
+                <select name="permission_list[]" id="permission_list" hidden multiple></select>
+                <select name="group_list[]" id="group_list" hidden multiple></select>
                 <div class="input-group-text border-start-0">
                     <label>
                         <b class="select-arrow"></b>
@@ -94,11 +96,11 @@
                     []
                 @endisset ;
             groups.forEach((item, i) => {
-                $('[name="group_list[]"]').append(
+                $('#group_list').append(
                     `<option value="${item}" selected class="group_select"></option>`);
             });
             permissions.forEach((item, i) => {
-                $('[name="permission_list[]"]').append(
+                $('#permission_list').append(
                     `<option value="${item}" selected class="permission_select"></option>`);
             });
         });
@@ -117,8 +119,8 @@
                         `<option value="${item.value}" selected class="permission_select"></option>`;
                 }
             });
-            $('[name="permission_list[]"]').html(permission_options);
-            $('[name="group_list[]"]').html(group_options);
+            $('#permission_list').html(permission_options);
+            $('#group_list').html(group_options);
         }
 
 
