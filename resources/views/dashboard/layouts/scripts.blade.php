@@ -90,8 +90,9 @@
         let validate = false;
         let saveButton = true;
 
+
         $("#saveButton").on("click", function(e) {
-            if (!validate) {
+            if (!validate && window.location.href.indexOf("edit") > -1) {
                 $("#notChangeModal").modal("show");
                 return false;
             };
