@@ -16,6 +16,8 @@ return [
     'validation' => [
         'invalid_phone' => 'صيغة رقم الجوال غير صحيحة',
         'invalid_iban' => 'رقم الأيبان غير صحيح',
+        'invalid_password'=>'كلمة المرور يجب أن تحتوي على حروف كبيرة وصغيرة وأرقام',
+        'phone_digits'    =>'رقم الجوال يجب أن يكون 9 أرقام'
     ],
 
     'global_transfers'=>[
@@ -46,4 +48,6 @@ return [
             'cancel' => 'تم الالغاء',
         ],
     ],
+
+
 ];
