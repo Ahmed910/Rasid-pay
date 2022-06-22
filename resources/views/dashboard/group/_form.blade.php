@@ -24,12 +24,13 @@
                     <label>
                         <i class="mdi mdi-magnify tx-16 lh-0 op-6"></i></label>
                 </div>
-                <select name="permission_list[]" hidden multiple></select>
-                <select name="group_list[]" hidden multiple></select>
 
-                <select class="form-control select2 multipleSelect" onchange="addPermissions(this.selectedOptions)"
+
+                <select class="form-control select2 multipleSelect select2-show-search" name="permission_list[]" onchange="addPermissions(this.selectedOptions)"
                     data-placeholder="{{ trans('dashboard.general.select_permissions') }}" multiple="multiple"
                     id="permissions" required>
+
+                  
                     <option value="selectAll" class="selectAll">إختر الكل</option>
                     <option value="unselectAll" class="unselectAll" >إلغاء تحديد الكل</option>
                     @foreach ($groups as $id => $name)
@@ -102,25 +103,7 @@
             });
         });
 
-        function validateData() {
-            let lang = '{{ app()->getLocale() }}';
-            var formData = $('#formId').serialize();
 
-            $.ajax({
-                url: '{{ url('/dashboard/group') }}',
-                type: 'post',
-                data: formData,
-
-                error: function(errors) {
-
-
-                    let name = $('#formId').serializeArray()[1].name;
-                    name = (name.replace("[", ".")).slice(0, -1);
-                    $('.dd').removeAttr('hidden')
-                    $('.dd').text(errors.responseJSON.errors[name])
-                }
-            });
-        }
 
         function addPermissions(selected) {
             let group_options = '';
@@ -169,7 +152,7 @@
 
 
         function formatState(state) {
-            console.log(state, 'state')
+
             if (!state.id) {
                 return state.text;
             }

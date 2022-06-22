@@ -14,6 +14,7 @@ $(function(e) {
         width: '100%',
         language: { noResults: () => "لاتوجد نتائج متاحة"}
     }).on("select2:closing", function(e) {
+      
         validateData(this)
       });
     $('.select2').on('click', () => {
