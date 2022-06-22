@@ -146,7 +146,7 @@
         </tr>
         <tr>
           <th style="width: 220px;color:blue;">رقم MTCN</th>
-          <th>#{{ $transaction?->transactionable->transfer_type ?? '' }}</th>
+          <th>#{{ $transaction?->transactionable?->transfer_type ?? '' }}</th>
         </tr>
         <tr>
           <th style="width: 220px;color:blue;">الرقم المرجعي</th>
@@ -166,7 +166,7 @@
         </tr>
         <tr>
           <th style="width: 220px;color:blue;">من حساب رقم</th>
-          <th>{{ $transaction?->fromUser->fullname ?? '' }}</th>
+          <th>{{ $transaction?->fromUser?->fullname ?? '' }}</th>
         </tr>
         <tr>
           <th style="width: 220px;color:blue;">إجمالي المبلغ</th>
@@ -174,7 +174,7 @@
         </tr>
         <tr>
           <th style="width: 220px;color:blue;">اسم المستفيد</th>
-          <th> {{ $transaction?->toUser->fullname }}</th>
+          <th> {{ $transaction?->toUser?->fullname }}</th>
         </tr>
         <tr>
           <th style="width: 220px;color:blue;">عنوان المستفيد</th>
@@ -182,7 +182,7 @@
         </tr>
         <tr>
           <th style="width: 220px;color:blue;">الغرض من الحوالة</th>
-          <th> {{ $transaction?->transactionable?->bankTransfer?->transferPurpose->name  ?? '' }} </th>
+          <th> {{ $transaction?->transactionable?->bankTransfer?->transferPurpose?->name  ?? '' }} </th>
         </tr>
       </thead>
       <tbody></tbody>

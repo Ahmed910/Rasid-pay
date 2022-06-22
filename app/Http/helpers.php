@@ -12,6 +12,16 @@ if (!function_exists('check_phone_valid')) {
     {
         return preg_match('/^(:?(\+)|(00))?(:?966)?+(5|05)([503649187])([0-9]{7})$/', $number);
     }
+
+}
+
+if (!function_exists('check_password_vaild')) {
+    function check_password_vaild($password)
+    {
+        return preg_match('/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{6,}$/', $password);
+    }
+
+
 }
 
 if (!function_exists('check_iban_valid')) {

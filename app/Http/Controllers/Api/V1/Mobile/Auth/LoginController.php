@@ -38,7 +38,8 @@ class LoginController extends Controller
         $credentials = $this->getCredentials($request);
         $user = User::firstWhere([
             'identity_number' => $request->identity_number,
-            'user_type'       => 'citizen'
+            'user_type'       => 'citizen',
+
         ]);
 
         if (!$user) {
@@ -103,7 +104,7 @@ class LoginController extends Controller
             // TODO::send code for user by sms
             $response = self::checkIsUserValid($user);
             if ($response) {
-                return response()->json(array_except($response['response'],['message']) + ['message' => trans('auth.success_send_login_code')],403);
+                return response()->json(array_except($response['response'],['message']) + ['message' => trans('auth.success_send_login_code')]);
             }
             return response()->json(['status' => true, 'data' => ['phone' => '**********' . substr($user->phone, -4)], 'message' => trans('auth.success_send_login_code')]);
         } catch (\Exception $e) {
