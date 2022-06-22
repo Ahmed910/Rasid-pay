@@ -24,7 +24,7 @@ class LoginRequest extends ApiMasterRequest
     public function rules()
     {
         return [
-          'identity_number' => 'required|numeric|digits:10|regex:/^[1-9][0-9]*$/',
+          'identity_number' => 'required|numeric|regex:/^[1-9][0-9]*$/',
           'password' => 'required',
           'device_token' => 'nullable|string|between:2,1000',
           'device_type' => 'nullable|in:ios,android',
