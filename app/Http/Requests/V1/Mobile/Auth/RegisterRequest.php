@@ -15,24 +15,11 @@ class RegisterRequest extends ApiMasterRequest
                     $fail(trans('mobile.validation.invalid_phone'));
                 }
             }, 'unique:users,phone,NULL,uuid,register_status,completed'],
-            'date_of_birth' => 'required|date_format:Y-m-d|after_or_equal:1920-01-01|before:today',
+            'date_of_birth' => 'required|date_format:Y-m-d|after_or_equal:1920-01-01|before_or_equal:today',
             'image' => 'nullable|max:5120|mimes:jpg,png,jpeg',
-            'password'        => ["required","min:8",function($attribute,$value,$fail){
-
-                if(!check_password_vaild($value)){
-                    $fail(trans('mobile.validation.invalid_password'));
-
-                }
-
-            }
-            ]
         ];
-
-
-
     }
 
-  
 
     protected function prepareForValidation()
     {
