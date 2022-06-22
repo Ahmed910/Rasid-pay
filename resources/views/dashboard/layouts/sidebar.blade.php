@@ -56,7 +56,7 @@
                         </li>
                         <li>
                             <a href="{{ route('dashboard.department.index') }}"
-                                class="slide-item px-6 {{ request()->routeIs('dashboard.department.index') ? 'active' : '' }}"><i
+                                class="slide-item px-6 showBack {{ request()->routeIs('dashboard.department.index') ? 'active' : '' }}"><i
                                     class="mdi mdi-file-document-multiple-outline"></i>
                                 {{ trans('dashboard.department.sub_progs.index') }}</a>
                         </li>
@@ -79,7 +79,7 @@
                         </li>
                         <li>
                             <a href="{{ route('dashboard.rasid_job.index') }}"
-                                class="slide-item px-6 {{ request()->routeIs('dashboard.rasid_job.index') ? 'active' : '' }}"><i
+                                class="slide-item px-6 showBack {{ request()->routeIs('dashboard.rasid_job.index') ? 'active' : '' }}"><i
                                     class="mdi mdi-file-document-multiple-outline"></i>
                                 {{ trans('dashboard.rasid_job.sub_progs.index') }}</a>
                         </li>
@@ -123,8 +123,8 @@
                             <a href="javascript:void(0)">{!! trans('dashboard.group.all_groups') !!}</a>
                         </li>
                         <li>
-                            <a href="{{ route('dashboard.group.index') }}"  id="showBack"
-                                class="slide-item px-6 {{ request()->routeIs('dashboard.group.index') ? 'active' : '' }}"><i
+                            <a href="{{ route('dashboard.group.index') }}"
+                                class="slide-item px-6 showBack {{ request()->routeIs('dashboard.group.index') ? 'active' : '' }}"><i
                                     class="mdi mdi-file-document-multiple-outline"></i>
                                 {!! trans('dashboard.group.sub_progs.index') !!}</a>
                         </li>
@@ -146,7 +146,7 @@
                         </li>
                         <li>
                             <a href="{{ route('dashboard.admin.index') }}"
-                                class="slide-item px-6 {{ request()->routeIs('dashboard.admin.index') ? 'active' : '' }}"><i
+                                class="slide-item px-6 showBack {{ request()->routeIs('dashboard.admin.index') ? 'active' : '' }}"><i
                                     class="mdi mdi-file-document-multiple-outline"></i>
                                 {!! trans('dashboard.admin.sub_progs.index') !!}</a>
                         </li>
@@ -168,13 +168,13 @@
                         </li>
                         <li>
                             <a href="{{ route('dashboard.client.index') }}"
-                                class="slide-item px-6 {{ request()->routeIs('dashboard.client.index') ? 'active' : '' }}"><i
+                                class="slide-item px-6 showBack {{ request()->routeIs('dashboard.client.index') ? 'active' : '' }}"><i
                                     class="mdi mdi-file-document-multiple-outline"></i>
                                 {!! trans('dashboard.client.sub_progs.index') !!}</a>
                         </li>
                         <li>
                             <a href="{{ route('dashboard.bank_account.index') }}"
-                                class="slide-item px-6 {{ request()->routeIs('dashboard.bank_account.index') ? 'active' : '' }}"><i
+                                class="slide-item px-6 showBack {{ request()->routeIs('dashboard.bank_account.index') ? 'active' : '' }}"><i
                                     class="mdi mdi-badge-account-horizontal-outline"></i> {!!
                                 trans('dashboard.client.sub_progs.account_order') !!}</a>
                         </li>
@@ -284,7 +284,7 @@
                         </li>
                         <li>
                             <a href="{{ route('dashboard.client_package.index') }}"
-                                class="slide-item px-6 {{ request()->routeIs('dashboard.client_package.index') ? 'active' : '' }}"><i
+                                class="slide-item px-6 showback {{ request()->routeIs('dashboard.client_package.index') ? 'active' : '' }}"><i
                                     class="mdi mdi-file-document-multiple-outline"></i>
                                     {{ trans('dashboard.package.cards_discount_records') }}
                                 </a>
