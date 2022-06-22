@@ -168,7 +168,7 @@ return [
         'string'  => 'يجب أن يكون طول نص  :attribute على الأقل :value حروفٍ/حرفًا.',
     ],
     'image'                => 'يجب أن يكون  :attribute صورةً.',
-    'in'                   => ' :attribute غير موجود.',
+    'in'                   => ' :attribute يجب ان يكون ضمن القيم الآتية: :values.',
     'in_array'             => ' :attribute غير موجود في :other.',
     'integer'              => 'يجب أن يكون  :attribute عددًا صحيحًا.',
     'ip'                   => 'يجب أن يكون  :attribute عنوان IP صحيحًا.',
@@ -236,27 +236,6 @@ return [
     'url'                  => 'صيغة رابط  :attribute غير صحيحة.',
     'uuid'                 => ' :attribute يجب أن يكون بصيغة UUID سليمة.',
 
-
-    'custom'               => [
-        'email' => [
-            'exists' => 'هذا البريد غير مسجل بالنظام',
-        ],
-    ],
-
-    'custom'               => [
-        'phone' => [
-            'exists' => ' رقم الجوال غير مسجل بالنظام',
-        ],
-    ],
-    'values' => [
-        'code_type' => [
-            'reset_code' => 'كود استعادة',
-            'verified_code' => 'كود تفعيل',
-            'login_code' => 'كود الدخول',
-        ]
-    ],
-
-
     /*
     |--------------------------------------------------------------------------
     | Custom Validation Attributes
@@ -267,7 +246,7 @@ return [
     | of "email". This simply helps us make our message more expressive.
     |
     */
-   
+
 
     'attributes' => $attributes,
 
@@ -278,6 +257,21 @@ return [
         ],
         'phone' => [
             'exists' => ' رقم الجوال غير مسجل بالنظام',
+        ],
+        'identity_number'=>[
+            'regex'  => 'رقم الهوية/ الاقامة  يجب ان لا يبدا بصفر'
+        ],
+    ],
+    'values' => [
+        'code_type' => [
+            'reset_code' => 'كود استعادة',
+            'verified_code' => 'كود تفعيل',
+            'login_code' => 'كود الدخول',
+        ],
+        'card_type' => [
+            'visa' => 'فيزا',
+            'mastercard' => 'ماستر كارد',
+            'american_express' => 'امريكان اكسبريس',
         ],
     ],
 

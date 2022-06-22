@@ -23,14 +23,18 @@ class PackageController extends Controller
 
     public function show($id)
     {
-        $promo_codes = CitizenPackage::with('citizenPackagePromoCodes')->where([
-            'package_id' => $id,
-            'citizen_id' => auth()->id()
-        ])->first();
-        if (!$promo_codes) {
-            return response()->json(['status' => false, 'data' => null, 'message' => trans('mobile.promotion.promo_code_is_not_found')], 422);
-        }
-        return PackagePromoCodesResource::collection($promo_codes->citizenPackagePromoCodes)->additional([
+        $package = Package::where('is_active', true)->findOrFail($id);
+        return PackageResource::make($package)->additional([
+            'status' => true,
+            'message' => ''
+        ]);
+    }
+
+
+    public function getPromoCodes()
+    {
+        $promo_codes = auth()->user()->citizen->enabledPackage->citizenPackagePromoCodes()->paginate((int)($request->per_page ?? config("globals.per_page")));
+        return PackagePromoCodesResource::collection($promo_codes)->additional([
             'status' => true,
             'message' => ''
         ]);

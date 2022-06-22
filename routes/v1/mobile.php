@@ -46,10 +46,11 @@ Route::middleware('auth:sanctum')->group(function () {
         //Transfer Purposes
         Route::get('transfer_purposes', 'TransferPurposeController@index');
         // Cards
-        Route::apiResource('cards', 'CardController')->only('index', 'destroy');
+        Route::apiResource('cards', 'CardController')->only('index','update', 'destroy');
         // Clients
         Route::apiResource('clients', 'ClientController')->only('index', 'show');
         // Packages
+        Route::get('packages/promo_codes','PackageController@getPromoCodes');
         Route::apiResource('packages', 'PackageController')->only('index', 'show','update');
         // Transaction
         Route::get('download_transaction_file/{id}','TransactionController@generatePdfFile');

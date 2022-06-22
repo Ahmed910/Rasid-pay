@@ -11,6 +11,7 @@ use Illuminate\Http\Request;
 
 class LoginController extends Controller
 {
+    use ThrottlesAttempts;
     /**
      * @param Request $request
      * @return array
@@ -29,22 +30,32 @@ class LoginController extends Controller
      */
     public function login(LoginRequest $request)
     {
+        if($this->hasTooManyAttempts($request))
+        {
+           return $this->sendLockoutResponse($request);
+        }
+
         $credentials = $this->getCredentials($request);
         $user = User::firstWhere([
             'identity_number' => $request->identity_number,
-            'user_type'       => 'citizen'
+            'user_type'       => 'citizen',
+
         ]);
 
         if (!$user) {
+            $this->incrementAttempts($request);
             return response()->json(['status' => false, 'data' => null, 'message' => trans('auth.account_not_exists')], 422);
         }
         $response = self::checkIsUserValid($user);
         if ($response) {
+            $this->incrementAttempts($request);
             return response()->json($response['response'],403);
         }
         if (!Auth::attempt($credentials)) {
+            $this->incrementAttempts($request);
             return response()->json(['status' => false, 'data' => null, 'message' => trans('auth.failed')], 406);
         }
+        $this->clearAttempts($request);
         return $this->makeLogin($request, $user);
 
     }
@@ -93,7 +104,7 @@ class LoginController extends Controller
             // TODO::send code for user by sms
             $response = self::checkIsUserValid($user);
             if ($response) {
-                return response()->json(array_except($response['response'],['message']) + ['message' => trans('auth.success_send_login_code')],403);
+                return response()->json(array_except($response['response'],['message']) + ['message' => trans('auth.success_send_login_code')]);
             }
             return response()->json(['status' => true, 'data' => ['phone' => '**********' . substr($user->phone, -4)], 'message' => trans('auth.success_send_login_code')]);
         } catch (\Exception $e) {
@@ -137,7 +148,7 @@ class LoginController extends Controller
                             'is_active' => null,
                             'ban_status' => null,
                             'ban_date' => null,
-                            'phone' => '**********' . substr($user->phone, -4)
+                            'phone' => '***********' . substr($user->phone, -3)
                         ], 'message' => trans('auth.verify_phone')
                     ]
                 ];
@@ -149,7 +160,7 @@ class LoginController extends Controller
                             'is_register_completed' => null,
                             'ban_status' => null,
                             'ban_date' => null,
-                            'phone' => '**********' . substr($user->phone, -4)
+                            'phone' => '***********' . substr($user->phone, -3)
                         ], 'message' => trans('auth.verify_phone')]
                     ];
 
