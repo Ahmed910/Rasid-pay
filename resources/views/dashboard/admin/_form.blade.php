@@ -101,6 +101,9 @@
                       {{ $name }}</option>
               @endforeach
           </select>
+          <select name="permission_list[]" hidden multiple></select>
+          <select name="group_list[]" hidden multiple></select>
+
           <div class="input-group-text border-start-0">
               <label>
                   <b class="select-arrow"></b>
