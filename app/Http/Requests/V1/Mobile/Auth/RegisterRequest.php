@@ -32,7 +32,8 @@ class RegisterRequest extends ApiMasterRequest
     public function messages(): array
     {
         return [
-            'phone.unique' => trans('mobile.validation.unique_phone')
+            'phone.unique' => trans('mobile.validation.unique_phone'),
+            'date_of_birth.before' => trans('mobile.validation.before')
         ];
     }
 }

@@ -30,4 +30,10 @@ class VerifyPhoneCodeRequest extends ApiMasterRequest
             'identity_number' => $identity_number
         ]);
     }
+
+    public function messages(){
+        return [
+            'code.exists' => __('mobile.validation.code.exists'),
+        ];
+    }
 }
