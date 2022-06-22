@@ -46,7 +46,7 @@ Route::middleware('auth:sanctum')->group(function () {
         //Transfer Purposes
         Route::get('transfer_purposes', 'TransferPurposeController@index');
         // Cards
-        Route::apiResource('cards', 'CardController')->only('index', 'destroy');
+        Route::apiResource('cards', 'CardController')->only('index','update', 'destroy');
         // Clients
         Route::apiResource('clients', 'ClientController')->only('index', 'show');
         // Packages

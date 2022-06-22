@@ -267,7 +267,7 @@ return [
     | of "email". This simply helps us make our message more expressive.
     |
     */
-   
+
 
     'attributes' => $attributes,
 
@@ -278,6 +278,9 @@ return [
         ],
         'phone' => [
             'exists' => ' رقم الجوال غير مسجل بالنظام',
+        ],
+        'identity_number'=>[
+            'regex'  => 'رقم الهوية/ الاقامة  يجب ان لا يبدا بصفر'
         ],
     ],
 

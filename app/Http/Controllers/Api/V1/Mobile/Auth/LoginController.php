@@ -138,7 +138,7 @@ class LoginController extends Controller
                             'is_active' => null,
                             'ban_status' => null,
                             'ban_date' => null,
-                            'phone' => '**********' . substr($user->phone, -4)
+                            'phone' => '***********' . substr($user->phone, -3)
                         ], 'message' => trans('auth.verify_phone')
                     ]
                 ];
@@ -150,7 +150,7 @@ class LoginController extends Controller
                             'is_register_completed' => null,
                             'ban_status' => null,
                             'ban_date' => null,
-                            'phone' => '**********' . substr($user->phone, -4)
+                            'phone' => '***********' . substr($user->phone, -3)
                         ], 'message' => trans('auth.verify_phone')]
                     ];
 
