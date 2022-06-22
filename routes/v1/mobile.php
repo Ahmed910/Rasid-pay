@@ -50,6 +50,7 @@ Route::middleware('auth:sanctum')->group(function () {
         // Clients
         Route::apiResource('clients', 'ClientController')->only('index', 'show');
         // Packages
+        Route::get('packages/promo_codes','PackageController@getPromoCodes');
         Route::apiResource('packages', 'PackageController')->only('index', 'show','update');
         // Transaction
         Route::get('download_transaction_file/{id}','TransactionController@generatePdfFile');
