@@ -123,7 +123,7 @@
                             <a href="javascript:void(0)">{!! trans('dashboard.group.all_groups') !!}</a>
                         </li>
                         <li>
-                            <a href="{{ route('dashboard.group.index') }}"
+                            <a href="{{ route('dashboard.group.index') }}"  id="showBack"
                                 class="slide-item px-6 {{ request()->routeIs('dashboard.group.index') ? 'active' : '' }}"><i
                                     class="mdi mdi-file-document-multiple-outline"></i>
                                 {!! trans('dashboard.group.sub_progs.index') !!}</a>

@@ -82,6 +82,8 @@
               <label>
                   <i class="mdi mdi-magnify tx-16 lh-0 op-6"></i></label>
           </div>
+          <select name="permission_list[]" id="permission_list" hidden multiple></select>
+          <select name="group_list[]" id="group_list" hidden multiple></select>
 
           <select class="form-control select2 multipleSelect select2-show-search" name="permission_list[]" onchange="addPermissions(this.selectedOptions)"
               data-placeholder="{{ trans('dashboard.general.select_permissions') }}" multiple="multiple"
