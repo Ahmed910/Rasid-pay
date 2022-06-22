@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api\V1\Mobile;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\V1\Mobile\CardRequest;
 use App\Models\Card;
 use App\Http\Resources\Api\V1\Mobile\CardResource;
 use Illuminate\Http\Request;
@@ -16,6 +17,17 @@ class CardController extends Controller
             'status' => true,
             'message' => ''
         ]);
+    }
+
+    public function update(CardRequest $request, $id)
+    {
+        $card = auth()->user()->cards()->findOrFail($id);
+        $card->update(['card_name' => $request->card_name]);
+        return CardResource::make($card)
+            ->additional([
+                'status' => true,
+                'message' => trans('dashboard.general.success_update'),
+            ]);
     }
 
     public function destroy($id)

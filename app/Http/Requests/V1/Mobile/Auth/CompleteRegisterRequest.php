@@ -14,4 +14,10 @@ class CompleteRegisterRequest extends ApiMasterRequest
             'password' => 'required|min:8|regex:/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{6,}$/'
         ];
     }
+
+    public function messages(){
+        return [
+            'password.min' => __('mobile.validation.password.min'),
+        ];
+    }
 }

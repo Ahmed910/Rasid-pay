@@ -34,8 +34,8 @@
                       `<option value="${item.value}" selected class="permission_select"></option>`;
               }
           });
-          $('[name="permission_list[]"]').html(permission_options);
-          $('[name="group_list[]"]').html(group_options);
+          $('#permission_list').html(permission_options);
+          $('#group_list').html(group_options);
         }
 
         $(document).ready(function() {
@@ -100,11 +100,11 @@
         let groups = @isset($admin)  @json($admin->group_list) @else [] @endisset;
 
           groups.forEach((item, i) => {
-              $('[name="group_list[]"]').append(
+              $('#group_list').append(
                   `<option value="${item}" selected class="group_select"></option>`);
           });
           permissions.forEach((item, i) => {
-              $('[name="permission_list[]"]').append(
+              $('#permission_list').append(
                   `<option value="${item}" selected class="permission_select"></option>`);
           });
 
