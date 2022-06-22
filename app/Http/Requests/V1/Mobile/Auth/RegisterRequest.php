@@ -9,8 +9,8 @@ class RegisterRequest extends ApiMasterRequest
     public function rules()
     {
         return [
-            'identity_number' => 'required|numeric|digits:10|unique:users,identity_number,NULL,uuid,register_status,completed',
-            'phone' => ["required", "numeric", "digits_between:7,20", 'starts_with:9665,05', function ($attribute, $value, $fail) {
+            'identity_number' => 'required|numeric|digits_between:10,20|unique:users,identity_number,NULL,uuid,register_status,completed',
+            'phone' => ["required", "numeric", "digits_between:7,20", 'starts_with:9665,05', 'unique:users,phone,NULL,uuid,register_status,completed', function ($attribute, $value, $fail) {
                 if (!check_phone_valid($value)) {
                     $fail(trans('mobile.validation.invalid_phone'));
                 }
@@ -27,5 +27,12 @@ class RegisterRequest extends ApiMasterRequest
         $this->merge([
             'phone' => @$data['phone'] ? convert_arabic_number($data['phone']) : $data['phone']
         ]);
+    }
+
+    public function messages(): array
+    {
+        return [
+            'phone.unique' => trans('mobile.validation.unique_phone')
+        ];
     }
 }
