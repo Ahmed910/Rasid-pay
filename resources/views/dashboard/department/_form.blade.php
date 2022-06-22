@@ -70,7 +70,7 @@
   <div class="col-12 mb-5 text-end">
     {!! Form::button('<i class="mdi mdi-content-save-outline"></i>' . trans('dashboard.general.save'), ['type' =>
     'submit', 'class' => 'btn btn-primary', 'id' => 'saveButton']) !!}
-    <a href="{{ url()->previous() }}" class="btn btn-outline-primary" id="showBack">
+    <a href="{{ url()->previous() }}" class="btn btn-outline-primary showBack">
       <i class="mdi mdi-arrow-left"></i> {{ trans('dashboard.general.back') }}
   </a>
   </div>
