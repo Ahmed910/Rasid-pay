@@ -520,7 +520,13 @@ return [
             'reply' => 'الرد علي رسالة دعم فني',
             'delete_contact' => 'حذف رسالة دعم فني',
             'delete_reply' => 'حذف الرد علي رسالة دعم فني',
-        ]
+        ],
+        'types' => [
+            'complain' => 'شكوى',
+            'inquiries' => 'استعلامات',
+            'suggestions' => 'اقتراحات',
+        ],
+
     ],
     'bank_branch' => [
         'bank_branches' => 'فروع البنوك',

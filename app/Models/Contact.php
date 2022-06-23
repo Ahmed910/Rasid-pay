@@ -49,6 +49,11 @@ class Contact extends Model
     {
         return $this->belongsTo(User::class, 'user_id');
     }
+
+    public function admin(): BelongsTo
+    {
+        return $this->belongsTo(User::class, 'admin_id');
+    }
     #endregion relationships
 
     #region custom Methods

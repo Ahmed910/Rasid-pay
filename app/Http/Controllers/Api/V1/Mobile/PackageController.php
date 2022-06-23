@@ -87,7 +87,6 @@ class PackageController extends Controller
         }
         $citizen_wallet->update(["cash_back" => \DB::raw('cash_back - ' . $back_main_balance->cashback_amount), 'main_balance' => \DB::raw('main_balance - ' . $back_main_balance->main_amount)]);
 
-        // TODO::create transaction and notification
         $transaction_data = [
             'trans_type' => 'promote_package',
             'from_user_id' => auth()->id(),
@@ -95,6 +94,8 @@ class PackageController extends Controller
             'trans_status' => 'success', // TODO::will be changed after implement api
         ];
         $transaction = $citizen_package->transaction()->create($transaction_data);
+
+        // TODO::create notification
 
         return TransactionResource::make($transaction)->additional([
             'status' => true,
