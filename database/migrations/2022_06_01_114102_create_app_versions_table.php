@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateVueDomainsTable extends Migration
+class CreateAppVersionsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,9 @@ class CreateVueDomainsTable extends Migration
      */
     public function up()
     {
-        Schema::create('vue_domains', function (Blueprint $table) {
+        Schema::create('app_versions', function (Blueprint $table) {
             $table->id();
-            $table->string('domain');
-            $table->string('domain_type')->nullable();//test - live
-            $table->boolean('is_active')->default(true);
+            $table->char('version',15);
             $table->timestamps();
         });
     }
@@ -29,6 +27,6 @@ class CreateVueDomainsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('vue_domains');
+        Schema::dropIfExists('app_versions');
     }
 }
