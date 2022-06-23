@@ -1,8 +1,8 @@
 <script>
   function validateData(item) {
 
-      let itemId = $(item).attr('id');
-      let form   = $(item).closest('form');
+        let itemId = $(item).attr('id');
+        let form = $(item).closest('form');
 
         if (item !== undefined) {
             var currentElement = $(`#${itemId}`).attr('name');
@@ -27,38 +27,41 @@
                 formvalues.forEach(function(item, index) {
                     name = item.name
 
-                  //  finalItem = name.includes("[") ? (name.replaceAll("[", ".")).slice(0, -1) : name;
-                  let finalItem = replaceInValidation(name)
-
-
+                    //  finalItem = name.includes("[") ? (name.replaceAll("[", ".")).slice(0, -1) : name;
+                    let finalItem = replaceInValidation(name)
 
                     if (finalItem == finalCurrentElement) {
-
-                         if(errs[finalCurrentElement] == undefined){
-
-                           firstSpan.attr('hidden')
-                           firstSpan.text('')
-                         }else{
-                         
-                          firstSpan.removeAttr('hidden')
-                          firstSpan.text(errs[finalCurrentElement][0])
-                         }
-
-
+                          checkInputValidaty(errs[finalCurrentElement],firstSpan)
                     }else{
-                       firstSpan.removeAttr('hidden')
-                       firstSpan.text(errs[finalCurrentElement][0])
+                       checkInputValidaty(errs[finalCurrentElement],firstSpan)
                     }
+
+
                 })
+            },
+            success: function(){
+               firstSpan.attr('hidden')
+               firstSpan.text('')
             }
+
         });
     }
 
 
-    function replaceInValidation(element)
-    {
+    function checkInputValidaty(validatedElement, span) {
+        if (validatedElement == undefined) {
+            span.attr('hidden')
+            span.text('')
+        } else {
 
-       if (element.includes("[")) {
+            span.removeAttr('hidden')
+            span.text(validatedElement[0])
+        }
+    }
+
+    function replaceInValidation(element) {
+
+        if (element.includes("[")) {
             finalCurrentElement = element.slice(0, -1);
             finalCurrentElement = finalCurrentElement.endsWith('[') ? finalCurrentElement.slice(0, -1) : finalCurrentElement.replaceAll("[", ".")
             if (finalCurrentElement.includes("]")) {
@@ -71,12 +74,12 @@
     }
 
     let getSpanError = itemId => {
-       if($(`#${itemId}`).parent().hasClass("input-group")){
-          span = $(`#${itemId}`).parent().nextAll('span:first')
-        }else if($(`#${itemId}`).is("select")){
-         span = $(`#${itemId}`).nextAll('span:last')
-        }else{
-          span = $(`#${itemId}`).nextAll('span:first')
+        if ($(`#${itemId}`).parent().hasClass("input-group")) {
+            span = $(`#${itemId}`).parent().nextAll('span:first')
+        } else if ($(`#${itemId}`).is("select")) {
+            span = $(`#${itemId}`).nextAll('span:last')
+        } else {
+            span = $(`#${itemId}`).nextAll('span:first')
         }
         return span;
     }
@@ -87,9 +90,10 @@
         let validate = false;
         let saveButton = true;
 
+
         $("#saveButton").on("click", function(e) {
-            if(!validate) {
-              $("#notChangeModal").modal("show");
+            if (!validate && window.location.href.indexOf("edit") > -1) {
+                $("#notChangeModal").modal("show");
                 return false;
             };
 
@@ -165,7 +169,7 @@
             }
         }
 
-        $("#showBack").click(function() {
+        $(".showBack").click(function() {
             if (validate) {
                 $("#backModal").modal("show");
                 return false;
@@ -176,6 +180,11 @@
 
         $("input,select,textarea").change(function() {
             validate = true;
+        });
+
+
+        $("input,select,textarea").not('.dropify').on('drop dragstart',function(event) {
+            event.preventDefault();
         });
 
         if ($(".dropify").length) {

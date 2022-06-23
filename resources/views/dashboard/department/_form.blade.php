@@ -7,7 +7,7 @@
       {!! Form::text("{$locale}[name]", isset($department) ? $department->name : null, ['class' => 'form-control
       input-regex stop-copy-paste', 'id' => "{$locale}_name", 'placeholder' => trans('dashboard.general.enter_name'),'onkeyup'=>'removeValidation()','onblur'=>'validateData(this)',
       'minlength' => '2', 'maxlength' => '100']) !!}
-      <span class="text-danger dd" id="{{ $locale }}.nameError" hidden></span>
+      <span class="text-danger" id="{{ $locale }}.nameError" hidden></span>
       @endforeach
     </div>
 
@@ -70,7 +70,7 @@
   <div class="col-12 mb-5 text-end">
     {!! Form::button('<i class="mdi mdi-content-save-outline"></i>' . trans('dashboard.general.save'), ['type' =>
     'submit', 'class' => 'btn btn-primary', 'id' => 'saveButton']) !!}
-    <a href="{{ url()->previous() }}" class="btn btn-outline-primary" id="showBack">
+    <a href="{{ url()->previous() }}" class="btn btn-outline-primary showBack">
       <i class="mdi mdi-arrow-left"></i> {{ trans('dashboard.general.back') }}
   </a>
   </div>
