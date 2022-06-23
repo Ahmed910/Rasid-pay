@@ -15,7 +15,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('version', function () {
-    $host = \DB::table('vue_domains')->latest()->first();
+    $host = \DB::table('app_versions')->latest()->first();
     return response()->json([
         'data' => ['version' => $host->version, 'website' => setting('website_link') ?? '/'],
         'message' => '',
