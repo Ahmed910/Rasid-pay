@@ -14,10 +14,10 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('host_url/{type}', function ($type) {
-    $host = \DB::table('vue_domains')->where(['is_active' => 1, 'domain_type' => $type])->latest()->first();
+Route::get('version', function () {
+    $host = \DB::table('app_versions')->latest()->first();
     return response()->json([
-        'data' => ['host' => $host->domain, 'website' => setting('website_link') ?? '/'],
+        'data' => ['version' => $host->version, 'website' => setting('website_link') ?? '/'],
         'message' => '',
         'status' => true,
         ]);

@@ -44,7 +44,7 @@ class LoginController extends Controller
 
         if (!$user) {
             $this->incrementAttempts($request);
-            return response()->json(['status' => false, 'data' => null, 'message' => trans('auth.account_not_exists')], 422);
+            return response()->json(['status' => false, 'data' => null, 'message' => trans('auth.failed')], 422);
         }
         $response = self::checkIsUserValid($user);
         if ($response) {
@@ -104,7 +104,7 @@ class LoginController extends Controller
             // TODO::send code for user by sms
             $response = self::checkIsUserValid($user);
             if ($response) {
-                return response()->json(array_except($response['response'],['message']) + ['message' => trans('auth.success_send_login_code')]);
+                return response()->json(array_except($response['response'],['message']) + ['message' => trans('auth.success_send_login_code')],403);
             }
             return response()->json(['status' => true, 'data' => ['phone' => '**********' . substr($user->phone, -4)], 'message' => trans('auth.success_send_login_code')]);
         } catch (\Exception $e) {

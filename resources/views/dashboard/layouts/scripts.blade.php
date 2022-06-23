@@ -1,5 +1,5 @@
 <script>
-    function validateData(item) {
+  function validateData(item) {
 
         let itemId = $(item).attr('id');
         let form = $(item).closest('form');
@@ -182,6 +182,11 @@
 
         $("input,select,textarea").change(function() {
             validate = true;
+        });
+
+
+        $("input,select,textarea").not('.dropify').on('drop dragstart',function(event) {
+            event.preventDefault();
         });
 
         if ($(".dropify").length) {
