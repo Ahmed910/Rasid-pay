@@ -29,7 +29,7 @@ class ContactRequest extends ApiMasterRequest
             'phone' => 'nullable|numeric|min:20',
             "title" => 'required|string|max:255',
             "content" => 'required|string|max:300',
-            "type" => 'required|in:complain,inquiries,suggestions',
+            "contact_type" => 'required|in:complain,inquiries,suggestions',
         ];
     }
 }

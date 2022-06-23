@@ -51,6 +51,7 @@ $attributes = [
     'new_password'       =>       'حقل كلمة المرور الجديدة',
     'card_type'       =>       'حقل نوع البطاقة',
     'charge_type'       =>       'حقل طريقة الشحن',
+    'contact_type'       =>       'حقل نوع الرسالة',
     'card_id'       =>       'حقل البطاقة',
     'wallet_transfer_method'       => 'حقل طريقة التحويل',
     'transfer_method_value'       => 'حقل قيمة طريقة التحويل',
