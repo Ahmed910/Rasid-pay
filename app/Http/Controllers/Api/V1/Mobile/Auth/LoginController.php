@@ -44,7 +44,7 @@ class LoginController extends Controller
 
         if (!$user) {
             $this->incrementAttempts($request);
-            return response()->json(['status' => false, 'data' => null, 'message' => trans('auth.account_not_exists')], 422);
+            return response()->json(['status' => false, 'data' => null, 'message' => trans('auth.failed')], 422);
         }
         $response = self::checkIsUserValid($user);
         if ($response) {
