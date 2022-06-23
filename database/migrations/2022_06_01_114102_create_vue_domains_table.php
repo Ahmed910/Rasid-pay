@@ -15,9 +15,10 @@ class CreateVueDomainsTable extends Migration
     {
         Schema::create('vue_domains', function (Blueprint $table) {
             $table->id();
-            $table->string('domain');
+            $table->string('domain')->nullable();
             $table->string('domain_type')->nullable();//test - live
             $table->boolean('is_active')->default(true);
+            $table->char('version',15);
             $table->timestamps();
         });
     }

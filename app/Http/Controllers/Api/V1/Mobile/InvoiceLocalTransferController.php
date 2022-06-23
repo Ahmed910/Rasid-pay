@@ -9,15 +9,10 @@ use Illuminate\Http\Request;
 class InvoiceLocalTransferController extends Controller
 {
     //
-
-
     public function getInvoiceLocalTransfer($id)
     {
         $transfer = Transfer::with('bank_transfer')->findOrFail($id);
         return
         InvoiceLocalTransferResource::make($transfer)->additional(['status' => true, 'message' => ""]);
     }
-
-
-
 }

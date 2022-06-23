@@ -11,17 +11,13 @@ use App\Http\Resources\Api\V1\Mobile\MoneyRequestResource;
 
 class MoneyRequestController extends Controller
 {
-
-
-
     public function store(MoneyReqRequest $request, MoneyRequest $money)
     {
-
-        $money->fill($request->validated() + ['added_by_id' => auth()->id()])->save();
+       $money->fill($request->validated() + ['added_by_id' => auth()->id()])->save();
 
        $from_user = User::where('phone',$request->phone)->first();
 
-        $transaction = $money->transaction()->create([
+       $transaction = $money->transaction()->create([
             'amount' => $request->amount_required,
             'transfer_type' => 'money_request',
             'to_user_id' => auth()->id(),
