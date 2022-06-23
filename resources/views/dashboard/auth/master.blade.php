@@ -10,8 +10,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="description" content="Rasid Jack Dashboard" />
     <meta name="author" content="Spruko Technologies Private Limited" />
-    <meta name="keywords"
-        content="admin,admin dashboard,admin panel,admin template,bootstrap,clean,dashboard,flat,jquery,modern,responsive,premium admin templates,responsive admin,ui,ui kit." />
+    <meta name="keywords" content="admin,admin dashboard,admin panel,admin template,bootstrap,clean,dashboard,flat,jquery,modern,responsive,premium admin templates,responsive admin,ui,ui kit." />
 
     <!-- FAVICON -->
     <link rel="shortcut icon" type="image/x-icon" href="{{ asset('dashboardAssets') }}/images/brand/favicon.ico" />
@@ -21,16 +20,14 @@
 
     @yield('styles')
     <!-- BOOTSTRAP CSS -->
-    <link rel="stylesheet" type="text/css" media="all"
-        href="{{ asset('dashboardAssets') }}/plugins/bootstrap/css/bootstrap{{ LaravelLocalization::getCurrentLocaleDirection() == 'rtl' ? '.rtl' : null }}.min.css" />
+    <link rel="stylesheet" type="text/css" media="all" href="{{ asset('dashboardAssets') }}/plugins/bootstrap/css/bootstrap{{ LaravelLocalization::getCurrentLocaleDirection() == 'rtl' ? '.rtl' : null }}.min.css" />
     <!-- STYLE CSS -->
     <link href="{{ asset('dashboardAssets') }}/css/style.css" rel="stylesheet" />
     <!--- FONT-ICONS CSS -->
     <link href="{{ asset('dashboardAssets') }}/css/icons.css" rel="stylesheet" />
 
     <!-- COLOR SKIN CSS -->
-    <link id="theme" rel="stylesheet" type="text/css" media="all"
-        href="{{ asset('dashboardAssets/colors/color1.css') }}" />
+    <link id="theme" rel="stylesheet" type="text/css" media="all" href="{{ asset('dashboardAssets/colors/color1.css') }}" />
     <link href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css" rel="stylesheet">
 </head>
 
@@ -50,22 +47,21 @@
                 <div class="auth_vector d-flex align-items-center">
                     {{-- <lottie-player autoplay loop mode="normal"
                         src="{{ asset('dashboardAssets') }}/images/lottie/login.json"
-                        style="display: block; margin: auto">
+                    style="display: block; margin: auto">
                     </lottie-player> --}}
 
 
                     @if (request()->routeIs('dashboard.login'))
-                        <img src="{{ asset('dashboardAssets') }}/images/login.png" style="width: 90%;margin: auto; height: fit-content;" />
-                        @else
-                        <img src="{{ asset('dashboardAssets') }}/images/reset.png" style="width: 75%;margin: auto; height: fit-content;" />
+                    <img src="{{ asset('dashboardAssets') }}/images/login.png" style="width: 90%;margin: auto; height: fit-content;" />
+                    @else
+                    <img src="{{ asset('dashboardAssets') }}/images/reset.png" style="width: 75%;margin: auto; height: fit-content;" />
                     @endif
 
                 </div>
             </div>
             <div class="col-12 col-lg-7 d-flex align-center">
                 <div class="card auth m-auto w-60 p-9">
-                    <img src="{{ asset('dashboardAssets') }}/images/brand/fintech-logo.svg" width="175" alt=""
-                        class="mb-5 d-block m-auto"/>
+                    <img src="{{ asset('dashboardAssets') }}/images/brand/fintech-logo.svg" width="175" alt="" class="mb-5 d-block m-auto" />
                     @yield('content')
                 </div>
             </div>
@@ -109,27 +105,28 @@
                 }
             });
 
-             $("#show_hide_confirm_password a").on("click", function(event) {
-                  event.preventDefault();
-                  if ($("#show_hide_confirm_password input").attr("type") == "text") {
-                      $("#show_hide_confirm_password input").attr("type", "password");
-                      $("#show_hide_confirm_password i").addClass("mdi-eye-off-outline");
-                      $("#show_hide_confirm_password i").removeClass("mdi-eye-outline");
-                  } else if (
-                      $("#show_hide_confirm_password input").attr("type") == "password"
-                  ) {
-                      $("#show_hide_confirm_password input").attr("type", "text");
-                      $("#show_hide_confirm_password i").removeClass("mdi-eye-off-outline");
-                      $("#show_hide_confirm_password i").addClass("mdi-eye-outline");
-                  }
-              });
+            $("#show_hide_confirm_password a").on("click", function(event) {
+                event.preventDefault();
+                if ($("#show_hide_confirm_password input").attr("type") == "text") {
+                    $("#show_hide_confirm_password input").attr("type", "password");
+                    $("#show_hide_confirm_password i").addClass("mdi-eye-off-outline");
+                    $("#show_hide_confirm_password i").removeClass("mdi-eye-outline");
+                } else if (
+                    $("#show_hide_confirm_password input").attr("type") == "password"
+                ) {
+                    $("#show_hide_confirm_password input").attr("type", "text");
+                    $("#show_hide_confirm_password i").removeClass("mdi-eye-off-outline");
+                    $("#show_hide_confirm_password i").addClass("mdi-eye-outline");
+                }
+            });
 
         });
 
 
 
         function submitForm(formId) {
-            if($(formId).hasClass('disable_form')) {
+
+            if ($(formId).hasClass('disable_form')) {
                 return false;
             }
             let form = $(formId)[0];
@@ -143,22 +140,23 @@
             });
 
             $.ajax({
-                url: $(formId).attr('action'),
-                type: $(formId).attr('method'),
-                processData: false,
-                contentType: false,
-                cache: false,
-                data: data,
-                beforeSend: function () {
+                url: $(formId).attr('action')
+                , type: $(formId).attr('method')
+                , processData: false
+                , contentType: false
+                , cache: false
+                , data: data
+                , beforeSend: function() {
                     btn_submit.html(`<span class="spinner-border text-light" style="width: 1rem; height: 1rem;" role="status"></span> &nbsp; رجاء الإنتظار...`);
                     btn_submit.addClass('disable');
                 },
 
 
                 success: function(data) {
+                    $("#successModal").modal("show");
                     $(formId).submit();
-                },
-                error: function(data) {
+                }
+                , error: function(data) {
                     btn_submit.removeClass('disable');
 
 
@@ -168,16 +166,22 @@
                         $('select[name="' + name + '"]').addClass('is-invalid');
                         $('#' + name + '_error').html(`<small>${message}</small>`);
 
-                        toast('error',message ,"{{ LaravelLocalization::getCurrentLocaleDirection() == 'rtl' }}");
+                        toast('error', message, "{{ LaravelLocalization::getCurrentLocaleDirection() == 'rtl' }}");
                     });
-                    if($(formId).attr('id') == 'verify-form')
-                    {
-                       $(formId)[0].reset();
+                    if ($(formId).attr('id') == 'verify-form') {
+                        $(formId)[0].reset();
                     }
                     // if (data.responseJSON.message) toastr.error("{{ trans('auth.failed') }}");
                 }
             })
         }
+
+          $("#saveButton").on("click", function(e) {
+
+                $("#successModal").modal("show");
+                return false;
+           });
+
     </script>
 </body>
 
