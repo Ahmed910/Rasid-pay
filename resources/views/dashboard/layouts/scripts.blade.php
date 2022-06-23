@@ -42,6 +42,7 @@
             success: function(){
                firstSpan.attr('hidden')
                firstSpan.text('')
+               $("*input,select,.select2-selection").removeClass("border-danger");
             }
 
         });
@@ -52,6 +53,7 @@
         if (validatedElement == undefined) {
             span.attr('hidden')
             span.text('')
+            $("*input,select,.select2-selection").removeClass("border-danger");
         } else {
 
             span.removeAttr('hidden')

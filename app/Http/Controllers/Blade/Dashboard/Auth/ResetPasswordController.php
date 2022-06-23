@@ -44,8 +44,8 @@ class ResetPasswordController extends Controller
 
     public function checkSmsCode(CheckSmsCodeRequest $request)
     {
-
         $user = User::whereIn('user_type',['admin','superadmin'])->where(['reset_token' => $request->reset_token, 'reset_code' => $request->reset_code])->first();
+
         if (!$user) {
             return back()->withInput()->withFalse(trans('auth.account_not_exists'));
         }
@@ -74,10 +74,13 @@ class ResetPasswordController extends Controller
     public function resetUsingPhone(ResetPasswordRequest $request, $reset_token)
     {
         $user = User::whereIn('user_type',['admin','superadmin'])->firstWhere('reset_token', $reset_token);
+
         if (!$user) {
+
             return back()->withInput()->withFalse(trans('auth.account_not_exists'));
         }
         $user->update(['password' => $request->password,'reset_token' => null, 'reset_code' => null]);
+      
         return redirect()->route('dashboard.login')->withTrue(trans('auth.success_change_password'));
     }
 

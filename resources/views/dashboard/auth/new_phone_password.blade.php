@@ -34,14 +34,14 @@
         <span class="text-danger" id="password_confirmation_error"></span>
     </div>
     <div class="col-12 mt-5 text-center">
-      <a onclick="submitForm('#phone-form')" class="btn btn-primary a-submit">{{ trans('dashboard.general.confirm') }}</a>
+     {!! Form::submit(trans('dashboard.general.confirm'),['class' => "btn btn-primary",'id'=>'saveButton' ]) !!}
 
         {{-- {!! Form::submit('تأكيد',['class' => "btn btn-primary"]) !!} --}}
         <a href="{{ route('dashboard.login') }}" class="btn btn-outline-primary">
           {{ trans('dashboard.general.back') }}
         </a>
     </div>
-
+  @include('dashboard.auth.confirm')
 </form>
 @endsection
 @section('scripts')
