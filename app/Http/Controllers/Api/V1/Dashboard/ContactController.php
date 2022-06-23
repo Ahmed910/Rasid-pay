@@ -38,7 +38,7 @@ class ContactController extends Controller
 
     public function show($id)
     {
-        $contact = Contact::with('replies', 'user')->withTrashed()->findOrFail($id);
+        $contact = Contact::with('replies', 'user','admin')->withTrashed()->findOrFail($id);
         $contact->update(['read_at' => now()]);
 
         return ContactResource::make($contact)
