@@ -7,7 +7,7 @@
       {!! Form::text("{$locale}[name]", isset($department) ? $department->name : null, ['class' => 'form-control
       input-regex stop-copy-paste', 'id' => "{$locale}_name", 'placeholder' => trans('dashboard.general.enter_name'),'onkeyup'=>'removeValidation()','onblur'=>'validateData(this)',
       'minlength' => '2', 'maxlength' => '100']) !!}
-      <span class="text-danger dd" id="{{ $locale }}.nameError" hidden></span>
+      <span class="text-danger" id="{{ $locale }}.nameError" hidden></span>
       @endforeach
     </div>
 
