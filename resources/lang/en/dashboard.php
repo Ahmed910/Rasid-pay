@@ -394,11 +394,19 @@ return [
     'contact' => [
         'contact' => 'Support',
         'contacts' => 'Support',
-        'index' => 'Support Messages',
-        'show' => 'Show Support Message',
-        'reply' => 'Reply On Support Message',
-        'delete_contact' => 'Delete Support Message',
-        'delete_reply' => 'Delete Support Reply',
+        'permissions' => [
+            'index' => 'contact messages',
+            'show' => 'show contact message',
+            'reply' => 'reply on contact message',
+            'delete_contact' => 'delete contact message',
+            'delete_reply' => 'delete reply on contact message',
+        ],
+        'types' => [
+            'complain' => 'Complain',
+            'inquiries' => 'Inquiries',
+            'suggestions' => 'Suggestions',
+        ],
+
     ],
     'transaction' => [
         'transactions' => 'Transactions',
