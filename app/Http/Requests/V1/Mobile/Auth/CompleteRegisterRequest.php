@@ -18,6 +18,7 @@ class CompleteRegisterRequest extends ApiMasterRequest
     public function messages(){
         return [
             'password.min' => __('mobile.validation.password.min'),
+            'password.regex' => __('mobile.validation.password.regex')
         ];
     }
 }

@@ -1,5 +1,5 @@
 <script>
-    function validateData(item) {
+  function validateData(item) {
 
         let itemId = $(item).attr('id');
         let form = $(item).closest('form');
@@ -90,8 +90,9 @@
         let validate = false;
         let saveButton = true;
 
+
         $("#saveButton").on("click", function(e) {
-            if (!validate) {
+            if (!validate && window.location.href.indexOf("edit") > -1) {
                 $("#notChangeModal").modal("show");
                 return false;
             };
@@ -179,6 +180,11 @@
 
         $("input,select,textarea").change(function() {
             validate = true;
+        });
+
+
+        $("input,select,textarea").not('.dropify').on('drop dragstart',function(event) {
+            event.preventDefault();
         });
 
         if ($(".dropify").length) {
