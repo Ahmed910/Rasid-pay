@@ -10,7 +10,7 @@ class RegisterRequest extends ApiMasterRequest
     {
         return [
             'identity_number' => 'required|numeric|digits:10|regex:/^[1-9][0-9]*$/|unique:users,identity_number,NULL,uuid,register_status,completed',
-            'phone' => ["required", "numeric", "digits_between:7,20", 'starts_with:9665,05', 'unique:users,phone,NULL,uuid,register_status,completed', function ($attribute, $value, $fail) {
+            'phone' => ["required", "numeric", "digits_between:9,20", 'starts_with:9665,05', 'unique:users,phone,NULL,uuid,register_status,completed', function ($attribute, $value, $fail) {
                 if (!check_phone_valid($value)) {
                     $fail(trans('mobile.validation.invalid_phone'));
                 }
