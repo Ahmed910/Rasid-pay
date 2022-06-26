@@ -49,7 +49,7 @@ class WalletController extends Controller
         return WalletResource::make($wallet)
             ->additional([
                 'status' => true,
-                'message' => __('dashboard.general.success_add')
+                'message' => __('mobile.messages.success_charge')
             ]);
     }
 
