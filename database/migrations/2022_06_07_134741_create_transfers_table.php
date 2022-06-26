@@ -23,6 +23,7 @@ class CreateTransfersTable extends Migration
             $table->decimal('transfer_fees')->default(0);
             $table->enum('transfer_type',Transfer::TRANSFER_TYPES);
             $table->string('transfer_status')->default('pending');
+            $table->foreignUuid('transfer_purpose_id')->nullable()->constrained("transfer_purposes")->onDelete('set null');
             $table->enum('fee_upon',Transfer::FEE_UPON)->nullable();
             $table->unsignedbigInteger('transfer_number')->unique();
             $table->string('phone')->nullable();

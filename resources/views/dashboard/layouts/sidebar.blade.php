@@ -124,7 +124,7 @@
                         </li>
                         <li>
                             <a href="{{ route('dashboard.group.index') }}"
-                                class="slide-item px-6 {{ request()->routeIs('dashboard.group.index') ? 'active' : '' }}"><i
+                                class="slide-item px-6 {{ request()->routeIs('dashboard.group.index') ? 'active' : '' }} showBack"><i
                                     class="mdi mdi-file-document-multiple-outline"></i>
                                 {!! trans('dashboard.group.sub_progs.index') !!}</a>
                         </li>

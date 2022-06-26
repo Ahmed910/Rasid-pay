@@ -3,7 +3,6 @@
 namespace App\Http\Requests\V1\Mobile\Transfers;
 
 use App\Http\Requests\ApiMasterRequest;
-use App\Models\CitizenWallet;
 use App\Models\Transfer;
 use App\Models\User;
 
@@ -38,6 +37,7 @@ class WalletTransferRequest extends ApiMasterRequest
             "citizen_id" => 'nullable|exists:users,id,user_type,citizen',
             "otp_code" => 'required|exists:citizen_wallets,wallet_bin,citizen_id,'.auth()->id(),
             "wallet_transfer_method" => 'required|in:' . join(",", Transfer::WALLET_TRANSFER_METHODS),
+            'transfer_purpose_id' => 'required|exists:transfer_purposes,id',
             "transfer_method_value" => ['required',function ($attribute, $value, $fail) {
                 if(!is_bool($this->message)){
                     $fail($this->message);
