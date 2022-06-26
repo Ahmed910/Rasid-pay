@@ -26,7 +26,7 @@ Route::get('version', function () {
 
 Route::post('upload-image/', function (Request $request) {
     $data = $request->validate([
-        'image' => 'nullable|max:5120|mimes:jpg,png,jpeg'
+        'image' => 'required|max:5120|mimes:jpg,png,jpeg'
     ]);
 
     $path = $data['image']->storePublicly('images-test', 'public');
