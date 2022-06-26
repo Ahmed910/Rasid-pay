@@ -46,7 +46,7 @@ class Package extends Model implements HasAssetsInterface
 
     public function clients()
     {
-        return $this->belongsToMany(User::class,'client_package','client_id','package_id')->withPivot('package_discount');
+        return $this->belongsToMany(User::class,'client_package','package_id','client_id')->withPivot('package_discount');
     }
     #endregion relationships
 
