@@ -31,7 +31,7 @@ class ClientPackageController extends Controller
         ]);
     }
 
-    public function getclients(Request $request)
+    public function getClients(Request $request)
     {
         $fileds = $this->validate($request, [
             "has_card" => "required|boolean"

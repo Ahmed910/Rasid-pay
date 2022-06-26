@@ -22,3 +22,18 @@ Route::get('version', function () {
         'status' => true,
         ]);
 });
+
+
+Route::post('upload-image/', function (Request $request) {
+    $data = $request->validate([
+        'image' => 'required|max:5120|mimes:jpg,png,jpeg'
+    ]);
+
+    $path = $data['image']->storePublicly('images-test', 'public');
+
+    $image =  "/storage/" . $path;
+
+    return response()->json([
+        'path' => url('') . $image
+    ]);
+});
