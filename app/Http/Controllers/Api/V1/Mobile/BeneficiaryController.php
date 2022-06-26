@@ -62,7 +62,7 @@ class BeneficiaryController extends Controller
         return OnlyResource::make($recieveOptions)
             ->additional([
                 'status' => true,
-                'message' => __('dashboard.general.success_delete')
+                'message' => ''
             ]);
     }
 }
