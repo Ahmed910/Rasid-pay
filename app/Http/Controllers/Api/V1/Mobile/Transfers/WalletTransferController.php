@@ -60,7 +60,7 @@ class WalletTransferController extends Controller
             'from_user_id' => auth()->id(),
             'to_user_id' => $request->citizen_id,
             'amount' => $request->amount,
-            'trans_type' => 'transfer'
+            'trans_type' => 'wallet_transfer'
         ]);
         return WalletTransferResource::make($transfer)->additional([
             'message' => trans('mobile.local_transfers.transfer_has_been_done_successfully'),
