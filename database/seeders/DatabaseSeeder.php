@@ -36,6 +36,7 @@ class DatabaseSeeder extends Seeder
         $this->call(TransactionSeeder::class);
         $this->call(PackageSeeder::class);
         $this->call(ReceiveOptionSeeder::class);
+        $this->call(TransferRelationSeeder::class);
 
         Schema::disableForeignKeyConstraints();
         DB::unprepared(include database_path('Intial_data/countries.php'));
