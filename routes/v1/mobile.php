@@ -40,6 +40,7 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::apiResource('wallets', 'WalletController')->only('index', 'store');
         Route::post('send_wallet_otp', 'WalletController@sendWalletOtp');
         // Beneficiaries
+        Route::get('get_receive_options','BeneficiaryController@getReceiveOptions');
         Route::apiResource('beneficiaries', 'BeneficiaryController');
         //money requests
         Route::post('money_requests', 'MoneyRequestController@store');
