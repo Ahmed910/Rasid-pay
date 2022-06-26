@@ -135,7 +135,7 @@ Route::middleware('maintenance_mode')->group(function () {
 
             Route::controller('ClientPackageController')->name('client_package.')->prefix('client_package')->group(function () {
                 Route::get('archive', 'archive')->name('archive');
-                Route::get('getclients', 'getclients')->name('getclients');
+                Route::get('get_clients', 'getClients')->name('get_clients');
                 Route::get('get_main_packages', 'getMainPackages')->name('getMainPackages');
                 Route::post('restore/{id}', 'restore')->name('restore');
                 Route::delete('forceDelete/{id}', 'forceDelete')->name('force_delete');
@@ -143,7 +143,7 @@ Route::middleware('maintenance_mode')->group(function () {
 
             Route::controller('TransactionController')->name('transactions.')->prefix('transactions')->group(function () {
                 Route::delete('forceDelete/{id}', 'forceDelete')->name('force_delete');
-                Route::get('/get-transactions-statuses','trasactionsStatues')->name('transactions__statues');
+                Route::get('/get-transactions-statuses','transactionsStatues')->name('transactions_statues');
             });
 
             Route::apiResources([
