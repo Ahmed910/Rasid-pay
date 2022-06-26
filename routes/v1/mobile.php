@@ -33,6 +33,8 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('home', 'HomeController@index');
     // Currency
     Route::get('currencies', 'CurrencyController@index');
+    // Country
+    Route::get('countries', 'CountryController@index');
     // Wallet
     Route::post('set_wallet_bin', 'ProfileController@setWalletBin');
     Route::apiResource('wallets', 'WalletController')->only('index', 'store');
