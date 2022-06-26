@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use Database\Seeders\ReceiveOptionSeeder;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
@@ -31,9 +32,25 @@ class DatabaseSeeder extends Seeder
             'gender' => 'male', // secret
         ]);
 
+        \App\Models\User::create([
+            'fullname' => "Citizen",
+            'phone' => "0555227711",
+            'identity_number' => '1234567891',
+            'is_active' => 1,
+            'ban_status' => 'active',
+            'register_status' => 'completed',
+            'email_verified_at' => now()->addDay(rand(1, 6)),
+            'phone_verified_at' => now()->addDay(rand(1, 6)),
+            'password' => 'Aa@100200300', // secret
+            'user_type' => 'citizen', // secret
+            'gender' => 'male', // secret
+        ]);
+
         $this->call(SettingSeeder::class);
         $this->call(TransactionSeeder::class);
         $this->call(PackageSeeder::class);
+        $this->call(ReceiveOptionSeeder::class);
+        $this->call(TransferRelationSeeder::class);
 
         Schema::disableForeignKeyConstraints();
         DB::unprepared(include database_path('Intial_data/countries.php'));

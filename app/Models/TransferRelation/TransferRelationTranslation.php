@@ -1,18 +1,18 @@
 <?php
 
-namespace App\Models;
+namespace App\Models\TransferRelation;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\SoftDeletes;
 use App\Traits\Uuid;
 
-class RecieveOption extends Model
+class TransferRelationTranslation extends Model
 {
-    use HasFactory, Uuid , SoftDeletes;
+    use HasFactory, Uuid;
 
     #region properties
-    protected $guarded = ['created_at','deleted_at'];
+    public $timestamps = false;
+    protected $guarded = ['created_at', 'updated_at'];
     #endregion properties
 
     #region mutators

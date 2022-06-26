@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api\V1\Mobile;
 
+use App\Http\Resources\Api\V1\Mobile\ClientDiscountsResource;
 use App\Http\Resources\Api\V1\Mobile\PackagePromoCodesResource;
 use App\Http\Resources\Api\V1\Mobile\PackageResource;
 use App\Http\Resources\Api\V1\Mobile\Transactions\TransactionResource;
@@ -98,6 +99,16 @@ class PackageController extends Controller
         // TODO::create notification
 
         return TransactionResource::make($transaction)->additional([
+            'status' => true,
+            'message' => ''
+        ]);
+    }
+
+    public function getClientDiscounts($package_id)
+    {
+        $package = Package::with('clients')->findOrFail($package_id);
+        $clients = $package->clients()->paginate((int)($request->per_page ?? config("globals.per_page")));
+        return ClientDiscountsResource::collection($clients)->additional([
             'status' => true,
             'message' => ''
         ]);

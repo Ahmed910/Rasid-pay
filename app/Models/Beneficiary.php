@@ -7,6 +7,7 @@ use App\Models\Country\Country;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Builder;
 use App\Models\RecieveOption\RecieveOption;
+use App\Models\TransferRelation\TransferRelation;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
@@ -54,12 +55,19 @@ class Beneficiary extends Model
         return $this->hasMany(BankTransfer::class);
     }
 
-
-
-
     public function recieveOption(): BelongsTo
     {
         return $this->belongsTo(RecieveOption::class);
+    }
+
+    public function transferRelation()
+    {
+        return $this->belongsTo(TransferRelation::class);
+    }
+
+    public function nationality()
+    {
+        return $this->belongsTo(Country::class, 'nationality_id');
     }
     #endregion relationships
 

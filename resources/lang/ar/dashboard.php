@@ -4,6 +4,7 @@ $permissions = [
     'index' => 'السجل',
     'show' => 'عرض',
     'store' => 'حفظ',
+    'create'=>'انشاء',
     'update' => 'تعديل',
     'destroy' => 'أرشفة',
     'archive' => 'عرض أرشيف',
@@ -594,7 +595,7 @@ return [
             'edit' => 'تعديل بنك',
 
         ],
-        'permissions' => $permissions
+        'permissions' => $permissions + ['banks_types' => 'انواع البنوك'],
     ],
     "notification" => [
         "notification" => "تنبيه",
@@ -656,7 +657,25 @@ return [
             'archive' => 'أرشيف المعاملات',
             'show' => 'عرض المعاملة',
         ],
+        'permissions' => $permissions + ['transactions_statues' => 'حالات التحويلات'],
     ],
+    "slide" => [
+        "slide" => "الاسلايد",
+        "slides" => "الاسلايدز",
+        "add_slide" => "إضافة اسلايد",
+        "select_slide" => "اختر اسلايد",
+        "edit_slide" => "تعديل اسلايد",
+        "admin_slide" => "عدد الاسلايدز",
+        'sub_progs' => [
+            'index' => 'سجل الاسلايدز',
+            'archive' => 'أرشيف الاسلايدز',
+            'create' => 'تسجيل اسلايد',
+            "show" => " عرض اسلايد",
+            'edit' => 'تعديل اسلايد',
+        ],
+        'permissions' => $permissions
+    ],
+
     "client" => [
         "client" => "العميل",
         "clients" => "العملاء",
@@ -705,15 +724,13 @@ return [
 
         ],
 
-        'permissions' => array_except($permissions, ['archive', 'restore', 'force_delete']) + ['create' => 'عرض العملاء']
+        'permissions' => $permissions
     ],
 
     'client_package'=>[
         'client_packages'=>'باقات العميل',
-        'permissions'=>[
-            'index'=>'السجل',
-            'store'=>'حفظ'
-        ]
+        'client_package'=>'باقات العميل',
+        'permissions' => $permissions + ['getMainPackages' => 'عرض الباقات الاساسية','get_clients' => 'عرض العملاء'],
     ],
 
     "citizens" => [
