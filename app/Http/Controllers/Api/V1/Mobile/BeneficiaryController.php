@@ -8,6 +8,7 @@ use App\Http\Resources\Api\V1\Mobile\BeneficiaryResource;
 use App\Http\Resources\Dashboard\OnlyResource;
 use App\Models\Beneficiary;
 use App\Models\RecieveOption\RecieveOption;
+use App\Models\TransferRelation\TransferRelation;
 use Illuminate\Http\Request;
 
 class BeneficiaryController extends Controller
@@ -60,6 +61,17 @@ class BeneficiaryController extends Controller
         $recieveOptions = RecieveOption::select('id')->ListsTranslations('name')->get();
 
         return OnlyResource::make($recieveOptions)
+            ->additional([
+                'status' => true,
+                'message' => ''
+            ]);
+    }
+
+    public function getTransferRelation()
+    {
+        $transferRelationships = TransferRelation::select('id')->ListsTranslations('name')->get();
+
+        return OnlyResource::make($transferRelationships)
             ->additional([
                 'status' => true,
                 'message' => ''

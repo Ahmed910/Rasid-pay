@@ -15,9 +15,7 @@ class GlobalTransferController extends Controller
     {
         // check main_balance is suffienct or not (This will change after this phase (clean code))
         $wallet = CitizenWallet::with('citizen')->where('citizen_id', auth()->id())->firstOrFail();
-        if (
-            ($request->balance_type === 'main' && ($wallet->main_balance < $request->amount)) ||
-            ($request->balance_type === 'back' && ($wallet->cash_back < $request->amount))) {
+        if ($request->amount > ($wallet->main_balance + $wallet->cash_back)) {
             return response()->json(['data' => null, 'message' => trans('mobile.local_transfers.current_balance_is_not_sufficiant_to_complete_transaction'), 'status' => false], 422);
         }
         $wallet->update(['wallet_bin' => null]);
@@ -25,17 +23,10 @@ class GlobalTransferController extends Controller
 
         // Set transfer data
         $transfer_data = $request->only('amount', 'amount_transfer', 'fee_upon','transfer_purpose_id') + ['transfer_type' => 'global', 'from_user_id' => auth()->id(),'transfer_status' =>'pending'];
-        if ($request->balance_type == 'main') {
-            $transfer_data += ['main_amount' => $request->amount];
-            $wallet->decrement('main_balance', $request->amount);
-        }elseif ($request->balance_type == 'back') {
-            $transfer_data += ['cashback_amount' => $request->amount];
-            $wallet->decrement('cash_back', $request->amount);
-        }else{
-            $balance = WalletBalance::calcWalletMainBackBalance($wallet, $request->amount);
-            $transfer_data += (array) $balance;
-            $wallet->update(['cash_back', \DB::raw('cash_back - '. $balance->cashback_amount),'main_balance', \DB::raw('main_balance - '. $balance->main_amount)]);
-        }
+
+        $balance = WalletBalance::calcWalletMainBackBalance($wallet, $request->amount);
+        $transfer_data += (array) $balance;
+        $wallet->update(['cash_back', \DB::raw('cash_back - '. $balance->cashback_amount),'main_balance', \DB::raw('main_balance - '. $balance->main_amount)]);
         // create global transfer
         $global_transfer = Transfer::create($transfer_data);
         $global_transfer->bankTransfer()->create($request->only([
