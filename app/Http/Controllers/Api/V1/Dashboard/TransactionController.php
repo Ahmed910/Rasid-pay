@@ -118,7 +118,7 @@ class TransactionController extends Controller
             ]);
     }
 
-    public function trasactionsStatues()
+    public function transactionsStatues()
     {
         $data = transform_array_api(Transaction::TYPES, 'dashboard.transaction.status_cases');
 

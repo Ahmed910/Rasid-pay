@@ -43,6 +43,7 @@ return [
     ],
     'transaction' => [
         'transaction_types' => [
+            'wallet_transfer' => 'تحويل محفظة',
             'local_transfer' => 'تحويل محلي',
             'global_transfer' => 'تحويل دولي',
             'charge' => 'شحن',
