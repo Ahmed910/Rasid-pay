@@ -16,7 +16,7 @@ class UpdateProfileRequest extends ApiMasterRequest
         return [
             'image' => 'nullable|max:5120|mimes:jpg,png,jpeg',
             // 'fullname' => 'required|string|max:100',
-            'phone' => ["required", "numeric", "digits_between:7,20", 'starts_with:9665,05', function ($attribute, $value, $fail) {
+            'phone' => ["required", "numeric", "digits_between:7,10", 'starts_with:9665,05', function ($attribute, $value, $fail) {
                 if(!check_phone_valid($value)){
                     $fail(trans('mobile.validation.invalid_phone'));
                 }
@@ -36,7 +36,7 @@ class UpdateProfileRequest extends ApiMasterRequest
     {
         $data = $this->all();
         $this->merge([
-            'phone' => @$data['phone'] ? filter_mobile_number($data['phone']) : $data['phone']
+            'phone' => @$data['phone'] ? convert_arabic_number($data['phone']) : @$data['phone']
         ]);
     }
 }

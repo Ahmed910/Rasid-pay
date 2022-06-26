@@ -56,13 +56,13 @@
                         </li>
                         <li>
                             <a href="{{ route('dashboard.department.index') }}"
-                                class="slide-item px-6 showBack {{ request()->routeIs('dashboard.department.index') ? 'active' : '' }}"><i
+                                class="slide-item px-6 {{ request()->routeIs('dashboard.department.index') ? 'active' : '' }}"><i
                                     class="mdi mdi-file-document-multiple-outline"></i>
                                 {{ trans('dashboard.department.sub_progs.index') }}</a>
                         </li>
                         <li>
                             <a href="{{ route('dashboard.department.create') }}"
-                                class="slide-item px-6 showback {{ request()->routeIs('dashboard.department.create') ? 'active' : '' }}"><i
+                                class="slide-item px-6 {{ request()->routeIs('dashboard.department.create') ? 'active' : '' }}"><i
                                     class="mdi mdi-plus-circle-outline"></i> {!!
                                 trans('dashboard.department.sub_progs.create') !!}</a>
                         </li>
@@ -79,13 +79,13 @@
                         </li>
                         <li>
                             <a href="{{ route('dashboard.rasid_job.index') }}"
-                                class="slide-item px-6 showBack {{ request()->routeIs('dashboard.rasid_job.index') ? 'active' : '' }}"><i
+                                class="slide-item px-6 {{ request()->routeIs('dashboard.rasid_job.index') ? 'active' : '' }}"><i
                                     class="mdi mdi-file-document-multiple-outline"></i>
                                 {{ trans('dashboard.rasid_job.sub_progs.index') }}</a>
                         </li>
                         <li>
                             <a href="{{ route('dashboard.rasid_job.create') }}"
-                                class="slide-item px-6 showback {{ request()->routeIs('dashboard.rasid_job.create') ? 'active' : '' }}"><i
+                                class="slide-item px-6 {{ request()->routeIs('dashboard.rasid_job.create') ? 'active' : '' }}"><i
                                     class="mdi mdi-plus-circle-outline"></i> {!!
                                 trans('dashboard.rasid_job.sub_progs.create') !!}</a>
                         </li>
@@ -124,13 +124,13 @@
                         </li>
                         <li>
                             <a href="{{ route('dashboard.group.index') }}"
-                                class="slide-item px-6 showBack {{ request()->routeIs('dashboard.group.index') ? 'active' : '' }}"><i
+                                class="slide-item px-6 {{ request()->routeIs('dashboard.group.index') ? 'active' : '' }}"><i
                                     class="mdi mdi-file-document-multiple-outline"></i>
                                 {!! trans('dashboard.group.sub_progs.index') !!}</a>
                         </li>
                         <li>
                             <a href="{{ route('dashboard.group.create') }}"
-                                class="slide-item px-6 showback {{ request()->routeIs('dashboard.group.create') ? 'active' : '' }}"><i
+                                class="slide-item px-6 {{ request()->routeIs('dashboard.group.create') ? 'active' : '' }}"><i
                                     class="mdi mdi-plus-circle-outline"></i> {!!
                                 trans('dashboard.group.sub_progs.create') !!}</a>
                         </li>
@@ -146,13 +146,13 @@
                         </li>
                         <li>
                             <a href="{{ route('dashboard.admin.index') }}"
-                                class="slide-item px-6 showBack {{ request()->routeIs('dashboard.admin.index') ? 'active' : '' }}"><i
+                                class="slide-item px-6 {{ request()->routeIs('dashboard.admin.index') ? 'active' : '' }}"><i
                                     class="mdi mdi-file-document-multiple-outline"></i>
                                 {!! trans('dashboard.admin.sub_progs.index') !!}</a>
                         </li>
                         <li>
                             <a href="{{ route('dashboard.admin.create') }}"
-                                class="slide-item px-6 showback {{ request()->routeIs('dashboard.admin.create') ? 'active' : '' }}"><i
+                                class="slide-item px-6 {{ request()->routeIs('dashboard.admin.create') ? 'active' : '' }}"><i
                                     class="mdi mdi-plus-circle-outline"></i> {!!
                                 trans('dashboard.admin.sub_progs.create') !!}</a>
                         </li>
@@ -168,19 +168,19 @@
                         </li>
                         <li>
                             <a href="{{ route('dashboard.client.index') }}"
-                                class="slide-item px-6 showBack {{ request()->routeIs('dashboard.client.index') ? 'active' : '' }}"><i
+                                class="slide-item px-6 {{ request()->routeIs('dashboard.client.index') ? 'active' : '' }}"><i
                                     class="mdi mdi-file-document-multiple-outline"></i>
                                 {!! trans('dashboard.client.sub_progs.index') !!}</a>
                         </li>
                         <li>
                             <a href="{{ route('dashboard.bank_account.index') }}"
-                                class="slide-item px-6 showBack {{ request()->routeIs('dashboard.bank_account.index') ? 'active' : '' }}"><i
+                                class="slide-item px-6 {{ request()->routeIs('dashboard.bank_account.index') ? 'active' : '' }}"><i
                                     class="mdi mdi-badge-account-horizontal-outline"></i> {!!
                                 trans('dashboard.client.sub_progs.account_order') !!}</a>
                         </li>
                         <li>
                             <a href="{{ route('dashboard.client.create') }}"
-                                class="slide-item px-6 showback {{ request()->routeIs('dashboard.client.create') ? 'active' : '' }}"><i
+                                class="slide-item px-6 {{ request()->routeIs('dashboard.client.create') ? 'active' : '' }}"><i
                                     class="mdi mdi-plus-circle-outline"></i> {!!
                                 trans('dashboard.client.sub_progs.create') !!}</a>
                         </li>
@@ -198,13 +198,13 @@
                         <li>
 
                             <a href="{{ route('dashboard.department.archive') }}"
-                                class="slide-item px-6 showback {{ request()->routeIs('dashboard.department.archive') ? 'active' : '' }}"><i
+                                class="slide-item px-6 {{ request()->routeIs('dashboard.department.archive') ? 'active' : '' }}"><i
                                     class="mdi mdi-view-dashboard-edit-outline"></i>
                                 {{ trans('dashboard.department.department_archive') }}</a>
                         </li>
                         <li>
                             <a href="{{ route('dashboard.rasid_job.archive') }}"
-                                class="slide-item px-6 showback {{ request()->routeIs('dashboard.rasid_job.archive') ? 'active' : '' }}"><i
+                                class="slide-item px-6 {{ request()->routeIs('dashboard.rasid_job.archive') ? 'active' : '' }}"><i
                                     class="mdi mdi-briefcase-edit-outline"></i>
                                 {{ trans('dashboard.rasid_job.sub_progs.archive') }}</a>
                         </li>
@@ -221,7 +221,7 @@
                         </li>
                         <li>
                             <a href="{{ route('dashboard.activity_log.index') }}"
-                                class="slide-item px-6 showback {{ request()->routeIs('dashboard.activity_log.index') ? 'active' : '' }}"><i
+                                class="slide-item px-6 {{ request()->routeIs('dashboard.activity_log.index') ? 'active' : '' }}"><i
                                     class="mdi mdi-file-document-multiple-outline"></i>
                                 {{ trans('dashboard.activity_log.activity_log_records') }}</a>
                         </li>
@@ -237,13 +237,13 @@
                     </li>
                     <li>
                         <a href="{{ route('dashboard.bank.index') }}"
-                            class="slide-item px-6 showback {{ request()->routeIs('dashboard.bank.index') ? 'active' : '' }}"><i
+                            class="slide-item px-6 {{ request()->routeIs('dashboard.bank.index') ? 'active' : '' }}"><i
                                 class="mdi mdi-file-document-multiple-outline"></i>
                             سجل البنوك</a>
                     </li>
                     <li>
                         <a href="{{ route('dashboard.bank.create') }}"
-                            class="slide-item px-6 showback {{ request()->routeIs('dashboard.bank.create') ? 'active' : '' }}"><i
+                            class="slide-item px-6 {{ request()->routeIs('dashboard.bank.create') ? 'active' : '' }}"><i
                                 class="mdi mdi-plus-circle-outline"></i> إضافة</a>
                     </li>
                 </ul>
@@ -263,12 +263,12 @@
                 </li>
 
                 <li class="slide">
-                    <a class="side-menu__item showback {{ request()->routeIs('dashboard.citizen.index') ? 'active' : '' }}" data-bs-toggle="slide" href="{{ route('dashboard.citizen.index') }}"><i
+                    <a class="side-menu__item {{ request()->routeIs('dashboard.citizen.index') ? 'active' : '' }}" data-bs-toggle="slide" href="{{ route('dashboard.citizen.index') }}"><i
                             class="mdi mdi-account-multiple-check-outline"></i><span
                             class="side-menu__label">{{ trans('dashboard.citizens.citizens') }}</span></a>
                 </li>
                 <li class="slide">
-                    <a class="side-menu__item showback {{ request()->routeIs('dashboard.transaction.index') ? 'active' : '' }}" data-bs-toggle="slide" href="{{ route('dashboard.transaction.index') }}"><i
+                    <a class="side-menu__item {{ request()->routeIs('dashboard.transaction.index') ? 'active' : '' }}" data-bs-toggle="slide" href="{{ route('dashboard.transaction.index') }}"><i
                             class="mdi mdi-bank-transfer"></i><span
                             class="side-menu__label">المعاملات</span></a>
                 </li>
@@ -284,7 +284,7 @@
                         </li>
                         <li>
                             <a href="{{ route('dashboard.client_package.index') }}"
-                                class="slide-item px-6 showback {{ request()->routeIs('dashboard.client_package.index') ? 'active' : '' }}"><i
+                                class="slide-item px-6 {{ request()->routeIs('dashboard.client_package.index') ? 'active' : '' }}"><i
                                     class="mdi mdi-file-document-multiple-outline"></i>
                                     {{ trans('dashboard.package.cards_discount_records') }}
                                 </a>
@@ -292,7 +292,7 @@
 
                         <li>
                             <a href="{{ route('dashboard.client_package.create') }}"
-                                class="slide-item px-6 showback {{ request()->routeIs('dashboard.client_package.create') ? 'active' : '' }}"><i
+                                class="slide-item px-6 {{ request()->routeIs('dashboard.client_package.create') ? 'active' : '' }}"><i
                                     class="mdi mdi-plus-circle-outline"></i> {{ trans('dashboard.package.add') }}</a>
                         </li>
                     </ul>
