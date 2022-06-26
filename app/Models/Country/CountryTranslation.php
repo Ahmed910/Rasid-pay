@@ -11,6 +11,5 @@ class CountryTranslation extends Model
     use HasFactory, Uuid;
 
     public $timestamps = false;
-//    protected $fillable = ['name', 'nationality', 'currency', 'phone_code'];
-protected $guarded =  ['created_at','deleted_at'];
+    protected $guarded =  ['created_at','deleted_at'];
 }
