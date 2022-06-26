@@ -15,28 +15,19 @@ class LocalTransferController extends Controller
     {
         // check main_balance is suffienct or not
         $wallet = CitizenWallet::with('citizen')->where('citizen_id', auth()->id())->firstOrFail();
-
-        if (
-            ($request->balance_type === 'main' && ($wallet->main_balance < $request->amount)) ||
-            ($request->balance_type === 'back' && ($wallet->cash_back < $request->amount))) {
+        if ($request->amount > ($wallet->main_balance + $wallet->cash_back)) {
             return response()->json(['data' => null, 'message' => trans('mobile.local_transfers.current_balance_is_not_sufficiant_to_complete_transaction'), 'status' => false], 422);
         }
         $wallet->update(['wallet_bin' => null]);
         // TODO: Calc transfer fee
 
         // Set transfer data
-        $transfer_data = $request->only('amount', 'fee_upon') + ['transfer_type' => 'local', 'from_user_id' => auth()->id()];
-        if ($request->balance_type == 'main') {
-            $transfer_data += ['main_amount' => $request->amount];
-            $wallet->decrement('main_balance', $request->amount);
-        }elseif ($request->balance_type == 'back') {
-            $transfer_data += ['cashback_amount' => $request->amount];
-            $wallet->decrement('cash_back', $request->amount);
-        }else{
-            $balance = WalletBalance::calcWalletMainBackBalance($wallet, $request->amount);
-            $transfer_data += (array) $balance;
-            $wallet->update(['cash_back', \DB::raw('cash_back - '. $balance->cashback_amount),'main_balance', \DB::raw('main_balance - '. $balance->main_amount)]);
-        }
+        $transfer_data = $request->only('amount', 'fee_upon','transfer_purpose_id') + ['transfer_type' => 'local', 'from_user_id' => auth()->id()];
+
+        $balance = WalletBalance::calcWalletMainBackBalance($wallet, $request->amount);
+        $transfer_data += (array) $balance;
+        $wallet->update(['cash_back', \DB::raw('cash_back - '. $balance->cashback_amount),'main_balance', \DB::raw('main_balance - '. $balance->main_amount)]);
+
         $local_transfer = Transfer::create($transfer_data);
         $local_transfer->bankTransfer()->create($request->except('amount', 'transfer_fees','balance_type'));
 

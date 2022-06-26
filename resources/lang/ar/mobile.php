@@ -11,7 +11,8 @@ return [
         'wallet_bin_has_been_updated' => 'تم تحديث الرقم الخاص بالمحفظة',
         'firstly_add_wallet_bin' => 'يجب إضافة رقم المحفظة أولاً',
         'you_can_complete_your_transaction' => 'يمكنك إستكمال العملية',
-        'your_tries_have_been_expired' => 'لقد تم إنتهاء محاولاتك لإتمام العميلة'
+        'your_tries_have_been_expired' => 'لقد تم إنتهاء محاولاتك لإتمام العميلة',
+        'success_charge' => 'تم الشحن بنجاح'
     ],
     'validation' => [
         'invalid_phone' => 'صيغة رقم الجوال غير صحيحة',

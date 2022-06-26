@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use Database\Seeders\ReceiveOptionSeeder;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
@@ -34,6 +35,8 @@ class DatabaseSeeder extends Seeder
         $this->call(SettingSeeder::class);
         $this->call(TransactionSeeder::class);
         $this->call(PackageSeeder::class);
+        $this->call(ReceiveOptionSeeder::class);
+        $this->call(TransferRelationSeeder::class);
 
         Schema::disableForeignKeyConstraints();
         DB::unprepared(include database_path('Intial_data/countries.php'));

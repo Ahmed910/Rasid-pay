@@ -18,7 +18,6 @@ class CreateBankTransfersTable extends Migration
             $table->foreignUuid('currency_id')->nullable()->constrained("currencies")->onDelete('set null');
             $table->foreignUuid('to_currency_id')->nullable()->constrained("currencies")->onDelete('set null');
             $table->foreignUuid('beneficiary_id')->nullable()->constrained("beneficiaries")->onDelete('set null');
-            $table->foreignUuid('transfer_purpose_id')->nullable()->constrained("transfer_purposes")->onDelete('set null');
             $table->foreignUuid('recieve_option_id')->nullable()->constrained("recieve_options")->onDelete('set null');
             $table->foreignUuid('transfer_id')->nullable()->constrained("transfers")->onDelete('cascade');
             $table->enum('balance_type',['pay','back']);
