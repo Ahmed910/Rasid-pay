@@ -17,7 +17,7 @@ class CreateContactsTable extends Migration
             $table->string("title");
             $table->longText("content");
             $table->enum('contact_type',['complain','inquiries','suggestions'])->default('inquiries');
-            $table->foreignUuid("admin_id")->nullable()->constrained()->nullOnDelete();
+            $table->foreignUuid("admin_id")->nullable()->constrained('users')->nullOnDelete();
             $table->softDeletes();
 
             $table->timestamp("read_at")->nullable();
