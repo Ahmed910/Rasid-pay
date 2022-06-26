@@ -24,7 +24,7 @@ class AdminRequest extends FormRequest
      */
     protected function prepareForValidation()
     {
-    
+
         $data = $this->all();
         if (auth()->check() && auth()->user()->is_date_hijri) {
             if (@$data['ban_from']) {

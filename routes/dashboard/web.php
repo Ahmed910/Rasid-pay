@@ -21,6 +21,8 @@ Route::group(
         Route::post('password/phone_reset', 'Auth\ResetPasswordController@checkSmsCode')->name('check_sms_code');
         Route::get('password/phone_reset/{token}', 'Auth\ResetPasswordController@showResetPhoneForm')->name('get_phone_password_reset');
         Route::post('password/phone_reset/{token}', 'Auth\ResetPasswordController@resetUsingPhone')->name('reset_to_new');
+        Route::get('login/code_check/{token}', 'Auth\LoginController@showCodeCheckForm')->name('check_sms_code_form_login');
+        Route::post('login/phone_reset', 'Auth\LoginController@checkSmsCode')->name('check_sms_code_login');
 
         Route::get('password/reset/{token}', 'Auth\ResetPasswordController@showResetForm')->name('passwords.reset.email');
         Route::post('password/reset', 'Auth\ResetPasswordController@reset')->name('resetToNew');

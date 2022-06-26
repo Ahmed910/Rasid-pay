@@ -5,39 +5,39 @@
     <p class="text-center">
         من فضلك قم بإدخال رمز التحقق المرسل على رقم جوالك<br />
         <span style="direction: ltr; display: block">{{ $phone }}</span>
-       
+
     </p>
     <!-- FORM OPEN -->
     @error('reset_token')
         <div class="alert alert-danger">{{ $message }}</div>
     @enderror
-    <form method="POST" id="verify-form" action="{!! route('dashboard.check_sms_code') !!}" class="needs-validation" id="form_sms" novalidate>
+    <form method="POST" id="verify-form" action="{!! route('dashboard.check_sms_code_login') !!}" class="needs-validation" id="form_sms" novalidate>
         @csrf
         <input type="hidden" name="reset_token" value="{{ $reset_token }}">
         <div class="row col-12 col-md-8 m-auto" dir="ltr">
             <div class="col">
                 <input type="text" oninput='digitValidate(this)' onkeyup='tabChange(1)'
-                    class="inputs-code form-control text-center stop-copy-paste @error('reset_code') border-danger @enderror"
-                    name="reset_code[]" required maxlength="1" />
+                    class="inputs-code form-control text-center stop-copy-paste @error('login_code') border-danger @enderror"
+                    name="login_code[]" required maxlength="1" />
             </div>
             <div class="col">
                 <input type="text" oninput='digitValidate(this)' onkeyup='tabChange(2)'
-                    class="inputs-code form-control text-center stop-copy-paste  @error('reset_code') border-danger @enderror"
-                    name="reset_code[]" required maxlength="1" />
+                    class="inputs-code form-control text-center stop-copy-paste  @error('login_code') border-danger @enderror"
+                    name="login_code[]" required maxlength="1" />
             </div>
             <div class="col">
                 <input type="text" oninput='digitValidate(this)' onkeyup='tabChange(3)'
-                    class="inputs-code form-control text-center stop-copy-paste @error('reset_code') border-danger @enderror"
-                    name="reset_code[]" required maxlength="1" />
+                    class="inputs-code form-control text-center stop-copy-paste @error('login_code') border-danger @enderror"
+                    name="login_code[]" required maxlength="1" />
             </div>
             <div class="col">
                 <input type="text" oninput='digitValidate(this)' onkeyup='tabChange(4)'
-                    class="inputs-code form-control text-center  stop-copy-paste  @error('reset_code') border-danger @enderror"
-                    name="reset_code[]" required maxlength="1" />
+                    class="inputs-code form-control text-center  stop-copy-paste  @error('login_code') border-danger @enderror"
+                    name="login_code[]" required maxlength="1" />
             </div>
         </div>
-        <span class="text-danger" id="reset_code_error"></span>
-        @error('reset_code')
+        <span class="text-danger" id="login_code_error"></span>
+        @error('login_code')
             <div class="text-danger">{{ $message }}</div>
         @enderror
 
@@ -125,18 +125,18 @@
             onfocusout: function(element) {$(element).css('color', 'black').valid()},
 
             errorPlacement: function errorPlacement(error, element) {
-               $('#reset_code_error').text(error[0].innerText)
+               $('#login_code_error').text(error[0].innerText)
             },
             success: function(label,element) {
-                $('#reset_code_error').text("");
+                $('#login_code_error').text("");
             },
             rules: {
-                    "reset_code[]": {required:true,number:true},
+                    "login_code[]": {required:true,number:true},
                 },
             messages: {
-                    "reset_code[]": {
-                        required: '{{__('validation.required', ['attribute' => __('dashboard.general.reset_code')])}}',
-                        number: '{{__('validation.numeric', ['attribute' => __('dashboard.general.reset_code')])}}',
+                    "login_code[]": {
+                        required: '{{__('validation.required', ['attribute' => __('dashboard.general.login_code')])}}',
+                        number: '{{__('validation.numeric', ['attribute' => __('dashboard.general.login_code')])}}',
                     },
               }
 

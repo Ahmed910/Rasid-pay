@@ -103,6 +103,7 @@ return [
         "enter_email" => "أدخل البريد الالكتروني",
         "phone" => "رقم الجوال",
         'reset_code'=> 'رمز التحقق',
+        'login_code' => 'رمز التحقق',
         "enter_email" => "أدخل البريد الالكتروني",
         "enter_phone" => "أدخل الرقم",
         "active_cases" => [
