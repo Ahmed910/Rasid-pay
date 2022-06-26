@@ -12,7 +12,7 @@ class BeneficiaryRequest extends ApiMasterRequest
         return [
             'name'                 => 'required|string|max:255',
             'benficiar_type'       => 'required|in:' . implode(',', Beneficiary::TYPES),
-            'transfer_relation_id' => 'nullable|required_if:benficiar_type,' . Beneficiary::GLOBAL_TYPE . '|string|max:20',
+            'transfer_relation_id' => 'nullable|required_if:benficiar_type,' . Beneficiary::GLOBAL_TYPE,
             'country_id'           => 'nullable|required_if:benficiar_type,' . Beneficiary::GLOBAL_TYPE . '|exists:countries,id',
             'recieve_option_id'    => 'nullable|required_if:benficiar_type,' . Beneficiary::GLOBAL_TYPE . '|exists:recieve_options,id',
             'nationality_id'       => 'nullable|exists:countries,id',
