@@ -24,7 +24,7 @@ class GlobalTransferController extends Controller
         // TODO: Calc transfer fee
 
         // Set transfer data
-        $transfer_data = $request->only('amount', 'amount_transfer', 'fee_upon') + ['transfer_type' => 'global', 'from_user_id' => auth()->id(),'transfer_status' =>'pending'];
+        $transfer_data = $request->only('amount', 'amount_transfer', 'fee_upon','transfer_purpose_id') + ['transfer_type' => 'global', 'from_user_id' => auth()->id(),'transfer_status' =>'pending'];
         if ($request->balance_type == 'main') {
             $transfer_data += ['main_amount' => $request->amount];
             $wallet->decrement('main_balance', $request->amount);
@@ -38,8 +38,9 @@ class GlobalTransferController extends Controller
         }
         // create global transfer
         $global_transfer = Transfer::create($transfer_data);
-        $global_transfer->bankTransfer()
-            ->create($request->only(['currency_id', 'to_currency_id', 'beneficiary_id', 'transfer_purpose_id', 'balance_type']));
+        $global_transfer->bankTransfer()->create($request->only([
+            'currency_id', 'to_currency_id', 'beneficiary_id', 'balance_type']
+        ));
         $global_transfer->update(['recieve_option_id'=> $global_transfer->beneficiary->recieve_option_id]);
 
         //add transfer in  transaction
