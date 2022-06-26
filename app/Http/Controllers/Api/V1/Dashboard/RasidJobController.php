@@ -83,6 +83,7 @@ class RasidJobController extends Controller
             ->ListsTranslations('name')
             ->select('rasid_jobs.*')
             ->CustomDateFromTo($request)
+            ->latest("deleted_at")
             ->sortBy($request)
             ->paginate((int)($request->per_page ?? config("globals.per_page")));
 
