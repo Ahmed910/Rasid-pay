@@ -14,11 +14,11 @@ class BeneficiaryResource extends JsonResource
             'country' => $this->country?->name,
             'user_id' => $this->user?->fullname,
             'recieve_option' => $this->recieveOption?->name,
-            'nationality' => $this->nationality,
+            'nationality' => $this->nationality?->nationality,
             'date_of_birth' => format_date($this->date_of_birth),
             'benficiar_type' => $this->benficiar_type,
             'iban_number' => $this->iban_number,
-            'relation' => $this->relation,
+            'relation' => TransferRelationResource::make($this->transferRelation),
         ];
     }
 }
