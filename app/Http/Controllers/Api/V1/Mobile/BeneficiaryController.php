@@ -16,7 +16,7 @@ class BeneficiaryController extends Controller
 
     public function index(Request $request)
     {
-        $beneficiaries = Beneficiary::where([['user_id', auth()->id()] , ['is_saved', true] ])->search($request)->latest()->paginate((int)($request->per_page ?? config("globals.per_page")));
+        $beneficiaries = Beneficiary::where(['user_id' => auth()->id(),'is_saved' => true])->search($request)->latest()->paginate((int)($request->per_page ?? config("globals.per_page")));
         return BeneficiaryResource::collection($beneficiaries)
             ->additional([
                 'status' => true,
