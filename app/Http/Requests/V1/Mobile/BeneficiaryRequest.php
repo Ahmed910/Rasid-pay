@@ -22,6 +22,7 @@ class BeneficiaryRequest extends ApiMasterRequest
                     $fail(trans('mobile.validation.invalid_iban'));
                 }
             }],
+            'is_saved' => 'required|in:1,0'
         ];
     }
 }
