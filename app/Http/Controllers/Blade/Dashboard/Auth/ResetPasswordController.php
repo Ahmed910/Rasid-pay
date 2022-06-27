@@ -80,7 +80,7 @@ class ResetPasswordController extends Controller
             return back()->withInput()->withFalse(trans('auth.account_not_exists'));
         }
         $user->update(['password' => $request->password,'reset_token' => null, 'reset_code' => null]);
-      
+
         return redirect()->route('dashboard.login')->withTrue(trans('auth.success_change_password'));
     }
 
