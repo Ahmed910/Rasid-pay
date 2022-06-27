@@ -17,7 +17,7 @@ class BeneficiaryResource extends JsonResource
             'date_of_birth' => format_date($this->date_of_birth),
             'benficiar_type' => $this->benficiar_type,
             'iban_number' => $this->iban_number,
-            'relation' => TransferRelationResource::make($this->transferRelation),
+            'relation' => $this->transferRelation?->name,
         ];
     }
 }
