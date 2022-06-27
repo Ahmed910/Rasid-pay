@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Models\Department;
+namespace App\Models\StaticPage;
 
 use App\Traits\Uuid;
 use Illuminate\Database\Eloquent\Factories\HasFactory;

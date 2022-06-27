@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Models\Department;
+namespace App\Models\StaticPage;
 
 use App\Contracts\HasAssetsInterface;
 use App\Traits\HasAssetsTrait;
