@@ -12,7 +12,6 @@ class BeneficiaryResource extends JsonResource
             'id' => $this->id,
             'name' => $this->name,
             'country' => $this->country?->name,
-            'user_id' => $this->user?->fullname,
             'recieve_option' => $this->recieveOption?->name,
             'nationality' => $this->nationality?->nationality,
             'date_of_birth' => format_date($this->date_of_birth),
