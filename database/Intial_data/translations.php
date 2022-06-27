@@ -11,6 +11,9 @@ $mobileEn = Arr::dot(include resource_path('lang/en/mobile.php'));
 $validationAr = Arr::dot(include resource_path('lang/ar/validation.php'));
 $validationEn = Arr::dot(include resource_path('lang/en/validation.php'));
 
+$vueAr = Arr::dot(include resource_path('lang/ar/vue_static.php'));
+$vueEn = Arr::dot(include resource_path('lang/en/vue_static.php'));
+
 foreach ($dashboardAr as $key => $value) {
     $allTrans[] = ['locale' => 'ar', 'file' => 'dashboard', 'key' => $key, 'value' => $value];
 }
@@ -33,6 +36,14 @@ foreach ($validationAr as $key => $value) {
 
 foreach ($validationEn as $key => $value) {
     $allTrans[] = ['locale' => 'en', 'file' => 'validation', 'key' => $key, 'value' => $value];
+}
+
+foreach ($vueAr as $key => $value) {
+    $allTrans[] = ['locale' => 'ar', 'file' => 'vue_static', 'key' => $key, 'value' => $value];
+}
+
+foreach ($vueEn as $key => $value) {
+    $allTrans[] = ['locale' => 'en', 'file' => 'vue_static', 'key' => $key, 'value' => $value];
 }
 
 return [
