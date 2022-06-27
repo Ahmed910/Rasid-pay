@@ -145,6 +145,7 @@ Route::middleware('maintenance_mode')->group(function () {
                 Route::delete('forceDelete/{id}', 'forceDelete')->name('force_delete');
                 Route::get('/get-transactions-statuses','transactionsStatues')->name('transactions_statues');
             });
+            Route::apiResource('translations', 'LocalizationController');
 
             Route::apiResources([
             //            'countries' => 'CountryController',
