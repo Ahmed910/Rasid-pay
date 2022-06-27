@@ -26,7 +26,7 @@ class WalletTransferController extends Controller
         if ($request->citizen_id) {
             // TODO: Check if citizen has wallet if not create one
             $receiver_citizen_wallet = CitizenWallet::with('citizen')->where('citizen_id', $request->citizen_id)->firstOrFail();
-        }elseif (!$request->citizen_id && in_array($request->transfer_status,['hold','transfered'])) {
+        }elseif (!$request->citizen_id && $request->wallet_transfer_method == Transfer::PHONE) {
             $phone = $request->transfer_method_value;
         }
 
@@ -37,9 +37,9 @@ class WalletTransferController extends Controller
 
         $citizen_wallet_data =  ["cash_back" => \DB::raw('cash_back - '.$back_main_balance->cashback_amount), 'main_balance' => \DB::raw('main_balance - '.$back_main_balance->main_amount)];
 
-        if ($request->transfer_status == 'hold') {
-            $citizen_wallet_data +=  ['hold_back_balance' => \DB::raw('hold_back_balance + ' . $back_main_balance->cashback_amount), 'hold_main_balance' => \DB::raw('hold_main_balance + ' . $back_main_balance->main_amount)];
-        }
+        // if ($request->transfer_status == 'hold') {
+        //     $citizen_wallet_data +=  ['hold_back_balance' => \DB::raw('hold_back_balance + ' . $back_main_balance->cashback_amount), 'hold_main_balance' => \DB::raw('hold_main_balance + ' . $back_main_balance->main_amount)];
+        // }
         $citizen_wallet->update($citizen_wallet_data);
         if ($receiver_citizen_wallet) {
             $receiver_citizen_wallet->update(["cash_back" => \DB::raw('cash_back + '.$back_main_balance->cashback_amount), 'main_balance' => \DB::raw('main_balance + '.$back_main_balance->main_amount)]);
@@ -47,13 +47,14 @@ class WalletTransferController extends Controller
         // create a transfer
         $data = [
             'transfer_type' => 'wallet',
-            'transfer_status' => $request->transfer_status ?? 'transfered',
+            'transfer_status' => !$citizen_id ? 'hold' : 'transfered',
             "fee_upon" => null,
             'from_user_id' => auth()->id(),
             "to_user_id" => $request->citizen_id,
             'phone' => $phone,
             'cashback_amount' => $back_main_balance->cashback_amount,
             'main_amount' => $back_main_balance->main_amount,
+            'notes' =>$request->notes
         ];
         $transfer->fill($request->validated() + $data)->save();
         $transfer->transaction()->create([

@@ -11,39 +11,30 @@ class WalletTransferRequest extends ApiMasterRequest
     private $user_object;
     private $message;
     /**
-     * Determine if the user is authorized to make this request.
-     *
-     * @return bool
-     */
-    public function authorize()
-    {
-        return true;
-    }
-
-    /**
      * Get the validation rules that apply to the request.
      *
      * @return array
      */
     public function rules()
     {
-        if (!$this->citizen_id && $this->wallet_transfer_method == 'phone') {
-            $data = [
-                "transfer_status" => 'required|in:hold,transfered'
-            ];
-        }
+        // if (!$this->citizen_id && $this->wallet_transfer_method == 'phone') {
+        //     $data = [
+        //         "transfer_status" => 'required|in:hold,transfered'
+        //     ];
+        // }
         return [
             "amount" => 'required|regex:/^\d{1,5}+(\.\d{1,2})?$/',
             "citizen_id" => 'nullable|exists:users,id,user_type,citizen',
             "otp_code" => 'required|exists:citizen_wallets,wallet_bin,citizen_id,'.auth()->id(),
             "wallet_transfer_method" => 'required|in:' . join(",", Transfer::WALLET_TRANSFER_METHODS),
-            'transfer_purpose_id' => 'required|exists:transfer_purposes,id',
+            'transfer_purpose_id' => 'nullable|exists:transfer_purposes,id',
+            'notes'               => 'nullable|required_without:transfer_purpose_id|max:1000',
             "transfer_method_value" => ['required',function ($attribute, $value, $fail) {
                 if(!is_bool($this->message)){
                     $fail($this->message);
                 }
             }]
-        ] + $data;
+        ];
     }
 
     public function prepareForValidation()

@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Api\V1\Mobile\Transfers;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\V1\Mobile\BalanceTypeRequest;
-use App\Http\Requests\V1\Mobile\LocalTransferRequest;
+use App\Http\Requests\V1\Mobile\Transfers\LocalTransferRequest;
 use App\Http\Resources\Api\V1\Mobile\{LocalTransferResource, Transactions\TransactionResource};
 use App\Models\{CitizenWallet, Device, Transaction, Transfer};
 use App\Services\WalletBalance;
@@ -22,7 +22,7 @@ class LocalTransferController extends Controller
         // TODO: Calc transfer fee
 
         // Set transfer data
-        $transfer_data = $request->only('amount', 'fee_upon','transfer_purpose_id') + ['transfer_type' => 'local', 'from_user_id' => auth()->id()];
+        $transfer_data = $request->only('amount', 'fee_upon','transfer_purpose_id','notes') + ['transfer_type' => 'local', 'from_user_id' => auth()->id()];
 
         $balance = WalletBalance::calcWalletMainBackBalance($wallet, $request->amount);
         $transfer_data += (array) $balance;

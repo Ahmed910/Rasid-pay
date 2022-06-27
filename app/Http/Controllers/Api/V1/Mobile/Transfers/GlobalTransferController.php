@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Api\V1\Mobile\Transfers;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\V1\Mobile\GLobalTransferRequest;
+use App\Http\Requests\V1\Mobile\Transfers\GLobalTransferRequest;
 use App\Http\Resources\Api\V1\Mobile\Transactions\TransactionResource;
 use App\Models\{CitizenWallet, Transfer};
 use App\Services\WalletBalance;
@@ -22,7 +22,7 @@ class GlobalTransferController extends Controller
         // TODO: Calc transfer fee
 
         // Set transfer data
-        $transfer_data = $request->only('amount', 'amount_transfer', 'fee_upon','transfer_purpose_id') + ['transfer_type' => 'global', 'from_user_id' => auth()->id(),'transfer_status' =>'pending'];
+        $transfer_data = $request->only('amount', 'amount_transfer', 'fee_upon','transfer_purpose_id','notes') + ['transfer_type' => 'global', 'from_user_id' => auth()->id(),'transfer_status' =>'pending'];
 
         $balance = WalletBalance::calcWalletMainBackBalance($wallet, $request->amount);
         $transfer_data += (array) $balance;
