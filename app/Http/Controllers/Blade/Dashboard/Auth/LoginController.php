@@ -133,13 +133,12 @@ class LoginController extends Controller
             auth()->logout();
 
             return redirect()->route('dashboard.check_sms_code_form_login',['token'=>$reset_token]);
-        }
-        /*else{
+        }else{
 
             $user->update(['login_code'=>null,'reset_token'=>null]);
             auth()->logout();
             return redirect()->route('dashboard.login');
-        }*/
+        }
     }
     /**
      * Show the application's login form.
