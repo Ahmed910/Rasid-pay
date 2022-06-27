@@ -24,8 +24,7 @@ class LocalizationRequest extends ApiMasterRequest
     public function rules()
     {
         return [
-            "locale" => "required|in:ar,en|max:3|min:2",
-            "key" => "required|exists:translations,key,id,".@$this->translation."|max:255",
+            "key" => "required|exists:translations,key,id," . @$this->translation . "|max:255",
             "value" => "required|max:255",
         ];
     }
