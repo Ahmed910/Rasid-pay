@@ -54,7 +54,7 @@ class LocalizationController extends Controller
     public function update($id, LocalizationRequest $request)
     {
         $trans = Translation::findorfail($id);
-        $trans->update($request->only(["value", "desc"]));
+        $trans->update($request->validated());
         return response()->json(['status' => true,
             'message' => __('dashboard.general.success_update')]);
     }
