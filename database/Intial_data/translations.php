@@ -1,5 +1,40 @@
 <?php
 
+use Illuminate\Support\Arr;
+
+$dashboardAr = Arr::dot(include resource_path('lang/ar/dashboard.php'));
+$dashboardEn = Arr::dot(include resource_path('lang/en/dashboard.php'));
+
+$mobileAr = Arr::dot(include resource_path('lang/ar/mobile.php'));
+$mobileEn = Arr::dot(include resource_path('lang/en/mobile.php'));
+
+$validationAr = Arr::dot(include resource_path('lang/ar/validation.php'));
+$validationEn = Arr::dot(include resource_path('lang/en/validation.php'));
+
+foreach ($dashboardAr as $key => $value) {
+    $allTrans[] = ['locale' => 'ar', 'file' => 'dashboard', 'key' => $key, 'value' => $value];
+}
+
+foreach ($dashboardEn as $key => $value) {
+    $allTrans[] = ['locale' => 'en', 'file' => 'dashboard', 'key' => $key, 'value' => $value];
+}
+
+foreach ($mobileAr as $key => $value) {
+    $allTrans[] = ['locale' => 'ar', 'file' => 'mobile', 'key' => $key, 'value' => $value];
+}
+
+foreach ($mobileEn as $key => $value) {
+    $allTrans[] = ['locale' => 'en', 'file' => 'mobile', 'key' => $key, 'value' => $value];
+}
+
+foreach ($validationAr as $key => $value) {
+    $allTrans[] = ['locale' => 'ar', 'file' => 'validation', 'key' => $key, 'value' => $value];
+}
+
+foreach ($validationEn as $key => $value) {
+    $allTrans[] = ['locale' => 'en', 'file' => 'validation', 'key' => $key, 'value' => $value];
+}
+
 return [
     ['locale' => 'ar', 'file' => 'auth', 'key' => 'failed', 'value' => 'محاولة غير صالحة لتسجيل الدخول'],
     ['locale' => 'ar', 'file' => 'auth', 'key' => 'password', 'value' => 'كلمة المرور  غير صحيحة'],
@@ -43,5 +78,6 @@ return [
     ['locale' => 'en', 'file' => 'auth', 'key' => 'success_login', 'value' => 'تم تسجيل الدخول بنجاح'],
     ['locale' => 'en', 'file' => 'auth', 'key' => 'unauth', 'value' => 'قم بتسجيل الدخول أولا'],
     ['locale' => 'en', 'file' => 'auth', 'key' => 'login_title', 'value' => 'login'],
-    ['locale' => 'en', 'file' => 'auth', 'key' => 'user_banned', 'value' => 'User Banned'],
-];
+    ['locale' => 'en', 'file' => 'auth', 'key' => 'user_banned', 'value' => 'User Banned']
+
+] + $allTrans;
