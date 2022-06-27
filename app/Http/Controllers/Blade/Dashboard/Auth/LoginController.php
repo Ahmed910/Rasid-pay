@@ -3,10 +3,12 @@
 namespace App\Http\Controllers\Blade\Dashboard\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Dashboard\Auth\CheckSmsCodeLoginRequest;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
 use App\Http\Requests\Dashboard\Auth\LoginRequest;
+use App\Models\User;
 
 class LoginController extends Controller
 {
@@ -111,11 +113,27 @@ class LoginController extends Controller
      */
     public function redirectPath()
     {
-        if ((auth()->user()->user_type == 'superadmin' && !auth()->user()->permissions()->exists()) || (auth()->user()->permissions()->exists() && auth()->user()->user_type == 'admin')) {
+        $user  = auth()->user();
+        if (($user->user_type == 'superadmin' && !$user->permissions()->exists()) || ($user->permissions()->exists() && $user->user_type == 'admin')) {
+
             $this->redirectTo = 'dashboard/';
             return $this->redirectTo;
         }
-        return property_exists($this, 'redirectTo') ? $this->redirectTo : '/';
+
+       return property_exists($this, 'redirectTo') ? $this->redirectTo : '/';
+    }
+
+    protected function authenticated(Request $request, $user)
+    {
+        if ($user->is_login_code && is_null($user->login_code)) {
+
+            $code = $this->generateCode(['send_type' => 'phone'], $user, 'login_code');
+            $reset_token = generate_unique_code(User::class, 'reset_token', 100);
+            $user->update(['login_code' => $code, 'reset_token' => $reset_token]);
+            auth()->logout();
+
+            return redirect()->route('dashboard.check_sms_code_form_login',['token'=>$reset_token]);
+        }
     }
     /**
      * Show the application's login form.
@@ -129,11 +147,58 @@ class LoginController extends Controller
 
     public function logout(Request $request)
     {
+
         if (auth()->check() && in_array(auth()->user()->user_type, ['superadmin', 'admin'])) {
+            auth()->user()->update(['login_code'=>null,'reset_token'=>null]);
             $this->guard()->logout();
             $request->session()->invalidate();
             session()->flash('success', trans('auth.logout_waiting_u_another_time'));
             return redirect()->route('dashboard.login');
         }
     }
+
+    private function generateCode($request, $user, $col)
+    {
+
+        $code = 1111;
+        if ($request['send_type'] == 'phone') {
+            $code = generate_unique_code(User::class, $col, 4, 'numbers');
+            $message = trans("auth.{$col}_is", ['code' => $code]);
+            //   $response = send_sms($user->phone, $message);
+        } elseif ($request['send_type'] == 'email') {
+            $code = generate_unique_code(User::class, $col, 4, 'numbers');
+            $message = trans("auth.{$col}_is", ['code' => $code]);
+            // send email
+        }
+        // ExpireCodeJob::dispatch($user, $col)->delay((int)setting('erp_code_ttl') ?? 1);
+        return $code;
+    }
+
+    public function showCodeCheckForm($token)
+    {
+
+        $user = User::whereIn('user_type',['admin','superadmin'])->firstWhere('reset_token',$token);
+        if (!$user) {
+            return back()->withFalse(trans('auth.account_not_exists'));
+        }
+        $phone =  '(+996)' . str_repeat("*", strlen($user->phone)-4) . substr($user->phone, -3);
+        return view('dashboard.auth.verify_code_login',['reset_token' => $user->reset_token, 'phone' => $phone]);
+    }
+
+    public function checkSmsCode(CheckSmsCodeLoginRequest $request)
+    {
+
+        $user = User::whereIn('user_type',['admin','superadmin'])->where(['reset_token' => $request->reset_token, 'login_code' => $request->login_code])->first();
+
+        if (!$user) {
+            return back()->withInput()->withFalse(trans('auth.account_not_exists'));
+        }
+        auth()->login($user);
+
+        return redirect('/dashboard');
+      //  return redirect()->route('dashboard.get_phone_password_reset',$user->reset_token)->withTrue(trans('auth.success_code_plz_add_new_password'));
+
+    }
+
+
 }

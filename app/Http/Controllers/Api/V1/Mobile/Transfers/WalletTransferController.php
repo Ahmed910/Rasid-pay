@@ -54,6 +54,7 @@ class WalletTransferController extends Controller
             'phone' => $phone,
             'cashback_amount' => $back_main_balance->cashback_amount,
             'main_amount' => $back_main_balance->main_amount,
+            'notes' =>$request->notes
         ];
         $transfer->fill($request->validated() + $data)->save();
         $transfer->transaction()->create([

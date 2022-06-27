@@ -48,7 +48,7 @@ return [
     'success_verify_phone_make_login' => 'تم إنشاء الحساب بنجاح',
     'success_login_mobile' => 'تسجيل دخول إلى التطبيق برقم هوية :user',
     'success_update_verify_phone' => 'تم تحديث بياناتك بنجاح رجاء تأكيد رقم الجوال الجديد',
-    '' => '',
+    'password_used_before' => 'كلمة المرور مستخدمة من قبل',
     '' => '',
     '' => '',
     '' => '',

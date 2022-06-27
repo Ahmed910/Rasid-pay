@@ -25,6 +25,7 @@ class TransactionResource extends JsonResource
             'from_user' => UserResource::make($this->fromUser),
             'to_user' => UserResource::make($this->toUser),
             'beneficiary' => BeneficiaryResource::make($this->transactionable?->beneficiary),
+            'notes'       => $this->transactionable?->notes
         ];
     }
 }

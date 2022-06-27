@@ -22,7 +22,7 @@ class GlobalTransferController extends Controller
         // TODO: Calc transfer fee
 
         // Set transfer data
-        $transfer_data = $request->only('amount', 'amount_transfer', 'fee_upon','transfer_purpose_id') + ['transfer_type' => 'global', 'from_user_id' => auth()->id(),'transfer_status' =>'pending'];
+        $transfer_data = $request->only('amount', 'amount_transfer', 'fee_upon','transfer_purpose_id','notes') + ['transfer_type' => 'global', 'from_user_id' => auth()->id(),'transfer_status' =>'pending'];
 
         $balance = WalletBalance::calcWalletMainBackBalance($wallet, $request->amount);
         $transfer_data += (array) $balance;

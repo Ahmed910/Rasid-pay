@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\V1\Mobile\Auth\ResetPasswordRequest;
 use App\Http\Requests\V1\Mobile\Auth\ResetRequest;
 use App\Models\User;
+use Illuminate\Support\Facades\Hash;
 
 class ResetController extends Controller
 {
@@ -41,6 +42,10 @@ class ResetController extends Controller
 
         if (!$user){
             return response()->json(['status' => false, 'data' => null, 'message' => trans('auth.account_not_exists')], 422);
+        }
+
+        if (Hash::check($request->password, $user->password)) {
+            return response()->json(['status' => false, 'data' => null, 'message' => trans('auth.password_used_before')], 422);
         }
 
         $user->update([
