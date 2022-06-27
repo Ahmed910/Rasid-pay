@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Requests\V1\Mobile;
+namespace App\Http\Requests\V1\Mobile\Transfers;
 
 use App\Http\Requests\ApiMasterRequest;
 use App\Models\Transfer;
