@@ -4,22 +4,25 @@ namespace App\Http\Controllers\Api\V1\Dashboard;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\V1\Dashboard\LocalizationRequest;
-use App\Models\Transaction;
+use App\Http\Resources\Dashboard\TranslationResource;
 use App\Models\Translation;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Cache;
 
 class LocalizationController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+//     * @return \Illuminate\Http\Response
      */
     public function index()
     {
-        $res = File::get(base_path("resources/lang/vue-static") . '/ar.json');
-        return $res;
+        return TranslationResource::collection( db_translations(file: "auth"))
+            ->additional([
+                'status' => true,
+                'message' => ''
+            ]);
     }
 
     /**
@@ -55,6 +58,9 @@ class LocalizationController extends Controller
     {
         $trans = Translation::findorfail($id);
         $trans->update($request->validated());
+        if ($trans->wasChanged()) {
+            Cache::forget("translations_".app()->getLocale());
+        }
         return response()->json(['status' => true,
             'message' => __('dashboard.general.success_update')]);
     }
