@@ -22,7 +22,7 @@ class LocalTransferController extends Controller
         // TODO: Calc transfer fee
 
         // Set transfer data
-        $transfer_data = $request->only('amount', 'fee_upon','transfer_purpose_id') + ['transfer_type' => 'local', 'from_user_id' => auth()->id()];
+        $transfer_data = $request->only('amount', 'fee_upon','transfer_purpose_id','notes') + ['transfer_type' => 'local', 'from_user_id' => auth()->id()];
 
         $balance = WalletBalance::calcWalletMainBackBalance($wallet, $request->amount);
         $transfer_data += (array) $balance;
