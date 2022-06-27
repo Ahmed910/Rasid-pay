@@ -14,7 +14,7 @@ class AddNotesColumnToTransfersTable extends Migration
     public function up()
     {
         Schema::table('transfers', function (Blueprint $table) {
-            $table->text('notes');
+            $table->text('notes')->nullable();
         });
     }
 
