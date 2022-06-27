@@ -175,6 +175,28 @@ if (!function_exists('setting')) {
         }
         return;
     }
+}if (!function_exists('translations')) {
+    ;
+    function db_translations(string $local =null , $file=null)
+    {
+        if (Schema::hasTable('translations')) {
+            if (!$local) $local =app()->getLocale();
+                      $translation = (Cache::has('translations_'.$local)) ? Cache::get('translations_'.$local)
+                : Cache::rememberForever('translations_'.$local, function () use ($local,$file) {
+                if($file)  return \App\Models\Translation::where(['locale'=>$local,"file"=>$file])->get();
+                         return \App\Models\Translation::where('locale', $local)->get();
+            });
+
+
+            if (is_string($translation)) {
+                (array)json_decode($translation);
+            }
+
+
+            return $translation;
+        }
+        return;
+    }
 }
 
 
