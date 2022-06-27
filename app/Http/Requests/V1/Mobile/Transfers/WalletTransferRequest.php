@@ -27,11 +27,11 @@ class WalletTransferRequest extends ApiMasterRequest
      */
     public function rules()
     {
-        if (!$this->citizen_id && $this->wallet_transfer_method == 'phone') {
-            $data = [
-                "transfer_status" => 'required|in:hold,transfered'
-            ];
-        }
+        // if (!$this->citizen_id && $this->wallet_transfer_method == 'phone') {
+        //     $data = [
+        //         "transfer_status" => 'required|in:hold,transfered'
+        //     ];
+        // }
         return [
             "amount" => 'required|regex:/^\d{1,5}+(\.\d{1,2})?$/',
             "citizen_id" => 'nullable|exists:users,id,user_type,citizen',
@@ -43,7 +43,7 @@ class WalletTransferRequest extends ApiMasterRequest
                     $fail($this->message);
                 }
             }]
-        ] + $data;
+        ];
     }
 
     public function prepareForValidation()
