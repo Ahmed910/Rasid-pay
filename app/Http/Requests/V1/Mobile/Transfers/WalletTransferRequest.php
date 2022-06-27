@@ -37,7 +37,8 @@ class WalletTransferRequest extends ApiMasterRequest
             "citizen_id" => 'nullable|exists:users,id,user_type,citizen',
             "otp_code" => 'required|exists:citizen_wallets,wallet_bin,citizen_id,'.auth()->id(),
             "wallet_transfer_method" => 'required|in:' . join(",", Transfer::WALLET_TRANSFER_METHODS),
-            'transfer_purpose_id' => 'required|exists:transfer_purposes,id',
+            'transfer_purpose_id' => 'nullable|exists:transfer_purposes,id',
+            'notes'               => 'nullable|required_without:transfer_purpose_id|max:1000',
             "transfer_method_value" => ['required',function ($attribute, $value, $fail) {
                 if(!is_bool($this->message)){
                     $fail($this->message);
