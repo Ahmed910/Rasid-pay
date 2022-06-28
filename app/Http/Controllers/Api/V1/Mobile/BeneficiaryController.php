@@ -30,7 +30,7 @@ class BeneficiaryController extends Controller
 
         return BeneficiaryResource::make($beneficiary)->additional([
             'status' => true,
-            'message' => ''
+            'message' => __('dashboard.general.success_add')
         ]);
     }
 
