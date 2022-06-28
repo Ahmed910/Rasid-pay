@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Api\V1\Dashboard;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\V1\Dashboard\LocalizationRequest;
 use App\Http\Resources\Dashboard\TranslationResource;
-use App\Models\Translation;
+use App\Models\Locale\Locale;
 use Illuminate\Support\Facades\Cache;
 
 class LocalizationController extends Controller
@@ -21,7 +21,7 @@ class LocalizationController extends Controller
 
     public function update($id, LocalizationRequest $request)
     {
-        $trans = Translation::findorfail($id);
+        $trans = Locale::findorfail($id);
         $trans->update($request->validated());
 
         if ($trans->wasChanged()) {

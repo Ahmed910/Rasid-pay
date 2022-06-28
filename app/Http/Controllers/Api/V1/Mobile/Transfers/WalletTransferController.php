@@ -47,7 +47,7 @@ class WalletTransferController extends Controller
         // create a transfer
         $data = [
             'transfer_type' => 'wallet',
-            'transfer_status' => !$citizen_id ? 'hold' : 'transfered',
+            'transfer_status' => !$request->citizen_id ? 'hold' : 'transfered',
             "fee_upon" => null,
             'from_user_id' => auth()->id(),
             "to_user_id" => $request->citizen_id,

@@ -28,7 +28,7 @@ class CreateTransactionsTable extends Migration
             $table->nullableUuidMorphs("transactionable"); //wallet_charges - transfers - payments - money_requests
 
             $table->foreignUuid("bank_id")->nullable()->constrained("banks")->nullOnDelete();
-            $table->foreignUuid("bank_branch_id")->nullable()->constrained("bank_branches")->nullOnDelete();
+//            $table->foreignUuid("bank_branch_id")->nullable()->constrained("bank_branches")->nullOnDelete();
 //            $table->foreignUuid("citizen_package_id")->nullable()->constrained("citizen_packages")->nullOnDelete();
             $table->string('transaction_id')->nullable();
             $table->string('transaction_data')->nullable();

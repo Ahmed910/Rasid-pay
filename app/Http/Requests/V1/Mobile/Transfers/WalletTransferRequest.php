@@ -49,10 +49,10 @@ class WalletTransferRequest extends ApiMasterRequest
     public function checkUserFound($key, $value)
     {
         switch ($key) {
-            case 'wallet_number':
+            case Transfer::WALLET_NUMBER:
                 $user = User::where('id',"<>",auth()->id())->whereRelation('citizenWallet', 'wallet_number', $value)->first();
                 break;
-            case 'identity_number':
+            case Transfer::IDENTITY_NUMBER:
                 $user = User::where('id',"<>",auth()->id())->firstWhere(['user_type' => 'citizen', 'identity_number' => $value]);
                 break;
 
@@ -63,13 +63,23 @@ class WalletTransferRequest extends ApiMasterRequest
                 }
                 break;
         }
-        $this->user_object = $user;
-        return $user?->in_black_list ? trans('dashboard.citizen.wallet_in_black_list') : trans('validation.exists');
+        return $this->checkBlackList($user);
     }
 
-    public function checkPhoneValid($phone)
+    private function checkPhoneValid($phone)
     {
         return check_phone_valid($phone) ? true : trans('mobile.validation.invalid_phone');
+    }
+
+    private function checkBlackList($user)
+    {
+        $this->user_object = $user;
+        if ($user?->in_black_list) {
+            return trans('dashboard.citizen.wallet_in_black_list');
+        }elseif (!$user) {
+            return trans('validation.exists');
+        }
+        return true;
     }
 
 
