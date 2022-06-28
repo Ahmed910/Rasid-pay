@@ -12,6 +12,7 @@ class TranslationResource extends JsonResource
             "id" => $this->id,
             "key" => $this->key,
             "value" => $this->value,
+            "locale" => $this->locale,
             "desc" => $this->desc,
         ];
     }
