@@ -81,7 +81,7 @@ class WalletTransferController extends Controller
         return response()->json([
             'status' => true,
             'data' => [
-                'phone_exists' => User::where('id',"<>",auth()->id())->where(['user_type' => 'citizen', 'phone' => $phone])->exists()
+                'phone_exists' => User::where('id',"<>",auth()->id())->where(['user_type' => 'citizen', 'phone' => $phone, 'register_status' => 'completed'])->exists()
             ],
             'message' => ''
         ]);

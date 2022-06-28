@@ -181,7 +181,7 @@ if (!function_exists('db_translations')) {;
             //TODO: Add Cache
             $translation = \App\Models\Locale\Locale::join('locale_translations', 'locale_translations.locale_id', '=', 'locales.id')
                 ->where('locale', $locale)
-                ->addSelect('locales.id', 'key', 'locale', 'value', 'desc')
+                ->addSelect('key', 'locale', 'value', 'desc','locale_id')
                 ->when($file != null, fn ($q) => $q->where('file', $file))
                 ->get();
 
