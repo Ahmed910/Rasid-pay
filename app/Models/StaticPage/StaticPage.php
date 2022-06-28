@@ -28,7 +28,7 @@ class StaticPage extends Model implements TranslatableContract, HasAssetsInterfa
     protected $guarded = ['created_at', 'deleted_at'];
     public $translatedAttributes = ['name', 'description'];
     public $assets = ["image"];
-    public $with = ["images", "addedBy" ,"activity"];
+    public $with = ["images", "addedBy" ];
 
     #endregion properties
 
@@ -54,6 +54,7 @@ class StaticPage extends Model implements TranslatableContract, HasAssetsInterfa
         }
         if (isset($request->is_active) && in_array($request->is_active, [1, 0])) {
             $query->where('is_active', $request->is_active);
+            
         }
         $new = $query->toSql() ;
         if ($old!=$new)  $this->addGlobalActivity($this, $request->query(), ActivityLog::SEARCH, 'index');
