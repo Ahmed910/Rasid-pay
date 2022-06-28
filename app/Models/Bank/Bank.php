@@ -2,9 +2,10 @@
 
 namespace App\Models\Bank;
 
+use App\Contracts\HasAssetsInterface;
 use App\Models\ActivityLog;
-use App\Models\BankBranch\BankBranch;
 use App\Models\Transaction;
+use App\Traits\HasAssetsTrait;
 use App\Traits\Loggable;
 use App\Traits\Uuid;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -16,14 +17,23 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Http\Request;
 
-class   Bank extends Model implements Contracts\Translatable
-{
-    use HasFactory, SoftDeletes, Translatable, Uuid, Loggable;
+class   Bank extends Model implements Contracts\Translatable ,  HasAssetsInterface
 
+{
+    use HasFactory, SoftDeletes, Translatable, Uuid, Loggable , HasAssetsTrait;
+
+    public static function boot()
+    {
+        parent::boot();
+        static::saved(function ($model) {
+            $model->saveAssets($model, request());
+        });
+    }
     #region properties
     protected $guarded = ['created_at', 'deleted_at'];
     public $translatedAttributes = ['name'];
-
+    public $assets = ["image"];
+    public $with   = ["images"];
     #endregion properties
 
     #region mutators
@@ -51,10 +61,7 @@ class   Bank extends Model implements Contracts\Translatable
     #endregion scopes
 
     #region relationships
-    public function branches(): HasMany
-    {
-        return $this->hasMany(BankBranch::class);
-    }
+
 
     public function transactions(): HasMany
     {
