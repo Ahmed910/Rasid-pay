@@ -170,7 +170,7 @@ Route::middleware('maintenance_mode')->group(function () {
             Route::apiResource('citizens', 'CitizenController')->only('index', 'show', 'update');
             Route::apiResource('settings', 'SettingController')->only(['index', 'store']);
             Route::apiResource('activity_logs', 'ActivityController')->only(['index', 'show']);
-            Route::apiResource('localizations', 'LocalizationController')->only(['update']);
+            Route::apiResource('localizations', 'LocalizationController')->only(['update','store']);
 
 
             Route::resource('groups', 'GroupController')->except('create', 'edit', 'destroy');
