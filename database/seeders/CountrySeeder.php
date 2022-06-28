@@ -16,11 +16,13 @@ class CountrySeeder extends Seeder
     {
         $countries = config("country");
         foreach ($countries as $country) {
-            $currentcountry = Country::create([
+            Country::create([
                 "phone_code" => $country["phone"],
+                "currency_code" => $country["currency_code"],
                 'ar' => [
                     'name' => $country['name_ar'],
                     'nationality' => $country['name_ar'],
+                    'currency' => $country['currency_ar'],
                 ]
             ]);
         }

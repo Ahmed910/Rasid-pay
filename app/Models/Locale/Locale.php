@@ -13,6 +13,7 @@ class Locale extends Model
 
     #region properties
     protected $guarded = ["created_at", "created_at"];
+    protected $with = ["translations"];
     public $translatedAttributes = ['value', 'desc'];
     #endregion properties
 
