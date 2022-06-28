@@ -24,7 +24,7 @@ class Country extends Model implements TranslatableContract
 
     #region properties
     protected $guarded = ['created_at','deleted_at'];
-    public $translatedAttributes = ['name', 'nationality'];
+    public $translatedAttributes = ['name', 'nationality','currency'];
     #endregion properties
 
     #region mutators
@@ -46,10 +46,10 @@ class Country extends Model implements TranslatableContract
 
     }
 
-    public function currency(): BelongsTo
-    {
-        return $this->belongsTo(Currency::class);
-    }
+//    public function currency(): BelongsTo
+//    {
+//        return $this->belongsTo(Currency::class);
+//    }
 
     public function addedBy(): BelongsTo
     {
