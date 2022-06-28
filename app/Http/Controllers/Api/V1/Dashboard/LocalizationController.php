@@ -12,7 +12,7 @@ class LocalizationController extends Controller
 {
     public function index()
     {
-        return TranslationResource::collection(db_translations(file: "auth"))
+        return TranslationResource::collection(db_translations(file: "vue_static"))
             ->additional([
                 'status' => true,
                 'message' => ''
