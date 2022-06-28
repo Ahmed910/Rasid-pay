@@ -173,7 +173,7 @@ if (!function_exists('setting')) {
 }
 
 if (!function_exists('db_translations')) {;
-    function db_translations(array $locale = [], $file = null): Collection
+    function db_translations( $locale = [], $file = null): Collection
     {
         if (Schema::hasTable('locales')) {
             //TODO: Add Cache
