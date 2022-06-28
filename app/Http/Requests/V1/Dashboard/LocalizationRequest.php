@@ -23,9 +23,15 @@ class LocalizationRequest extends ApiMasterRequest
      */
     public function rules()
     {
-        return [
-            "value" => "required|max:255",
-            "desc" => "nullable",
+        $rules = [
+            "local" => "required|in:en,ar|exists:locale_translations,locale,locale_id," . @$this->localization,
         ];
+
+        $locale = $this->local;
+        $rules["$locale"] = "array";
+        $rules["$locale.value"] = "required|between:1,255";
+        $rules["$locale.desc"] = "nullable|string|max:300";
+
+        return $rules;
     }
 }
