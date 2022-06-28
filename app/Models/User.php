@@ -11,6 +11,7 @@ use Illuminate\Database\Eloquent\Builder;
 use Laravel\Sanctum\HasApiTokens;
 use App\Contracts\HasAssetsInterface;
 use App\Models\Department\Department;
+use App\Models\StaticPage\StaticPage;
 use App\Traits\Loggable;
 use GeniusTS\HijriDate\Hijri;
 use Illuminate\Notifications\Notifiable;
@@ -158,6 +159,11 @@ class User extends Authenticatable implements HasAssetsInterface
     {
         return $this->belongsTo(Country::class);
     }
+    public function staticPage()
+    {
+        return $this->hasMany(StaticPage::class);
+    }
+
 
     public function department()
     {
