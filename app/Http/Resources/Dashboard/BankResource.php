@@ -22,22 +22,21 @@ class BankResource extends JsonResource
             }
         }
         return [
-            'id' => $this->id,
-            'created_at' => $this->created_at,
-            'transactions_count' => $this->transactions_count ?? 0,
-            'actions' => $this->when($request->routeIs('banks.index') || $request->routeIs('banks.archive'), [
-                'show' => auth()->user()->hasPermissions('banks.show'),
+            'id'               => $this->id,
+            'name'             => $this->name,
+            'is_active'        => (bool)$this->is_active,
+            "image"            => $this->image,
+            'created_at'       => $this->created_at,
+            'added_by_id'      => $this->whenLoaded('addedBy', SimpleUserResource::make($this->addedBy)),
+            'actions'          => $this->when($request->routeIs('static_pages.index') || $request->routeIs('static_pages.archive'), [
+                'show' => auth()->user()->hasPermissions('static_pages.show'),
                 $this->mergeWhen($request->route()->getActionMethod() == 'index', [
-                    'create' => auth()->user()->hasPermissions('banks.store'),
-                    'update' => auth()->user()->hasPermissions('banks.update'),
-                    'destroy' => auth()->user()->hasPermissions('banks.destroy'),
+                    'create'  => auth()->user()->hasPermissions('static_pages.store'),
+                    'update'  => auth()->user()->hasPermissions('static_pages.update'),
+                    'destroy' => auth()->user()->hasPermissions('static_pages.destroy'),
                 ]),
-                $this->mergeWhen($request->route()->getActionMethod() == 'archive', [
-                    'restore' => auth()->user()->hasPermissions('banks.restore'),
-                    'forceDelete' => auth()->user()->hasPermissions('banks.force_delete')
-                ]),
-            ])
 
+            ])
         ] + $locales;
     }
 }
