@@ -2,32 +2,31 @@
 
 namespace App\Http\Controllers\Api\V1\Dashboard;
 
-use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
 use App\Models\Bank\Bank;
-use App\Http\Requests\V1\Dashboard\ReasonRequest;
-use App\Http\Requests\V1\Dashboard\BankRequest;
-use App\Http\Resources\Dashboard\BankResource;
-use App\Http\Resources\Dashboard\Banks\BankBranchResource;
-use App\Http\Resources\Dashboard\Banks\BankForEditResource;
+use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 use App\Models\BankBranch\BankBranch;
+use App\Http\Requests\V1\Dashboard\BankRequest;
+use App\Http\Requests\V1\Dashboard\ReasonRequest;
+use App\Http\Resources\Dashboard\Banks\BankResource;
+use App\Http\Resources\Dashboard\Banks\BankCollection;
+use App\Http\Resources\Dashboard\Banks\BankForEditResource;
 
 class BankController extends Controller
 {
     public function index(Request $request)
     {
-        $bankBranches = BankBranch::with('bank.translations', 'translations')
-            ->with(['bank' => fn ($q) => $q->withCount('transactions')])
-            ->search($request)
-            ->sortBy($request)
-            ->latest()
-            ->paginate((int)($request->per_page ?? config("globals.per_page")));
+        $banks = Bank::with('translations')
+        ->search($request)
+        ->sortBy($request)
+        ->latest()
+        ->paginate((int)($request->per_page ?? config("globals.per_page")));
 
-        return BankBranchResource::collection($bankBranches)
-            ->additional([
-                'status' => true,
-                'message' => ''
-            ]);
+        return BankResource::collection($banks)
+        ->additional([
+            'status' => true,
+            'message' => ''
+        ]);
     }
 
     public function store(BankRequest $request, Bank $bank)
@@ -44,13 +43,17 @@ class BankController extends Controller
     }
 
 
-    public function show($bankBranchId)
+    public function show(Request $request, $id)
     {
-        $branch = BankBranch::with('bank.translations', 'translations')
-            ->withTrashed()
-            ->findOrFail($bankBranchId);
+        $bank = Bank::withTrashed()->findOrFail($id);
+        $activities = [];
+        if (!$request->has('with_activity') || $request->with_activity) {
+            $activities  = $bank->activity()
+                ->sortBy($request)
+                ->paginate((int)($request->per_page ??  config("globals.per_page")));
+        }
 
-        return BankBranchResource::make($branch)
+        return BankCollection::make($activities)
             ->additional([
                 'status' => true,
                 'message' => ''
