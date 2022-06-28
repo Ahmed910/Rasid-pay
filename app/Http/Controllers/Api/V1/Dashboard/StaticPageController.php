@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\Dashboard\StaticPages\StaticPageResource;
 use App\Http\Requests\V1\Dashboard\StaticPageRequest;
+use App\Http\Resources\Dashboard\StaticPages\StaticPageCollection;
 use App\Models\StaticPage\StaticPage;
 
 class StaticPageController extends Controller
@@ -47,7 +48,7 @@ class StaticPageController extends Controller
                 ->paginate((int)($request->per_page ??  config("globals.per_page")));
         }
 
-        return StaticPageResource::make($activities)->additional([
+        return StaticPageCollection::make($activities)->additional([
             'status' => true,
             'message' => ''
         ]);

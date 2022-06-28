@@ -31,7 +31,6 @@ class StaticPageResource extends JsonResource
             'is_active'        => (bool)$this->is_active,
             "image"            => $this->image,
             'created_at'       => $this->created_at,
-            'deleted_at'       => $this->deleted_at,
             'added_by_id'      => $this->whenLoaded('addedBy', SimpleUserResource::make($this->addedBy)),
             'actions'          => $this->when($request->routeIs('static_pages.index') || $request->routeIs('static_pages.archive'), [
                 'show' => auth()->user()->hasPermissions('static_pages.show'),
