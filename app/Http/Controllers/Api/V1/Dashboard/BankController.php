@@ -17,10 +17,9 @@ class BankController extends Controller
     public function index(Request $request)
     {
         $banks = Bank::with('translations')
-        ->search($request)
-        ->sortBy($request)
-        ->latest()
-        ->paginate((int)($request->per_page ?? config("globals.per_page")));
+                    ->search($request)
+                    ->sortBy($request)
+                    ->paginate((int)($request->per_page ?? config("globals.per_page")));
 
         return BankResource::collection($banks)
         ->additional([

@@ -9,7 +9,7 @@ class TranslationResource extends JsonResource
     public function toArray($request)
     {
         return [
-            "id" => $this->id,
+            "id" => $this->locale_id,
             "key" => $this->key,
             "value" => $this->value,
             "locale" => $this->locale,
