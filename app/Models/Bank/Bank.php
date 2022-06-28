@@ -2,20 +2,21 @@
 
 namespace App\Models\Bank;
 
-use App\Contracts\HasAssetsInterface;
+use App\Traits\Uuid;
+use App\Traits\Loggable;
 use App\Models\ActivityLog;
 use App\Models\Transaction;
+use Illuminate\Support\Str;
+use Illuminate\Http\Request;
 use App\Traits\HasAssetsTrait;
-use App\Traits\Loggable;
-use App\Traits\Uuid;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Contracts\HasAssetsInterface;
+use Astrotomic\Translatable\Contracts;
 use Illuminate\Database\Eloquent\Model;
 use Astrotomic\Translatable\Translatable;
-use Astrotomic\Translatable\Contracts;
 use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Illuminate\Http\Request;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class   Bank extends Model implements Contracts\Translatable ,  HasAssetsInterface
 
@@ -34,6 +35,7 @@ class   Bank extends Model implements Contracts\Translatable ,  HasAssetsInterfa
     public $translatedAttributes = ['name'];
     public $assets = ["image"];
     public $with   = ["images"];
+    private $sortableColumns = ["name", "is_active", "created_at"];
     #endregion properties
 
     #region mutators
@@ -47,16 +49,37 @@ class   Bank extends Model implements Contracts\Translatable ,  HasAssetsInterfa
         if ($request->has('name'))
             $query->whereTranslationLike('name', "%$request->name%");
 
-        if ($request->has('transactions_count')) {
-            $query->where(function ($q) {
-                $q->selectRaw('COUNT(*) as transaction_count')
-                    ->from('transactions')
-                    ->where('banks.id', 'transactions.bank_id');
-            }, $request->transactions_count);
-        }
+        if ($request->has('is_active')) 
+            $query->where('is_active', $request->is_active);
 
         $new = $query->toSql();
         if ($old != $new) $this->addGlobalActivity($this, $request->query(), ActivityLog::SEARCH, 'index');
+    }
+
+    public function scopeSortBy(Builder $query, $request)
+    {
+        if (!isset($request->sort["column"]) || !isset($request->sort["dir"])) return $query->latest('created_at');
+
+        if (
+            !in_array(Str::lower($request->sort["column"]), $this->sortableColumns) ||
+            !in_array(Str::lower($request->sort["dir"]), ["asc", "desc"])
+        ) {
+            return $query->latest('created_at');
+        }
+
+
+        $query->when($request->sort, function ($q) use ($request) {
+            if ($request->sort["column"]  == "name") {
+                return $q->has('translations')
+                    ->orderByTranslation($request->sort["column"], @$request->sort["dir"]);
+            }
+
+            if ($request->sort["column"] == "is_active") {
+                $q->orderBy($request->sort["column"], @$request->sort["dir"]);
+            }
+
+            $q->orderBy($request->sort["column"], @$request->sort["dir"]);
+        });
     }
     #endregion scopes
 
