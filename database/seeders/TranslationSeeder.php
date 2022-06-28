@@ -4,7 +4,6 @@ namespace Database\Seeders;
 
 use App\Models\Translation;
 use Illuminate\Database\Seeder;
-use Illuminate\Support\Arr;
 
 class TranslationSeeder extends Seeder
 {
@@ -15,10 +14,6 @@ class TranslationSeeder extends Seeder
      */
     public function run()
     {
-        $translations = include database_path('Intial_data/translations.php');
-
-        foreach ($translations as $translation) {
-            Translation::create($translation);
-        }
+        Translation::insert(include database_path('Intial_data/translations.php'));
     }
 }
