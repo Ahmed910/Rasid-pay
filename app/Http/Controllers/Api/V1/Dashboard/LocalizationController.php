@@ -13,7 +13,9 @@ class LocalizationController extends Controller
 {
     public function index(Request $request)
     {
-        return TranslationResource::collection(db_translations($request->local, file: "vue_static"))
+        $locale = $request->local ?? app()->getLocale();
+
+        return TranslationResource::collection(db_translations($locale, file: "vue_static"))
             ->additional([
                 'status' => true,
                 'message' => ''
