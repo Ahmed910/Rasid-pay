@@ -2,8 +2,11 @@
 
 namespace Database\Seeders;
 
-use App\Models\Translation;
 use Illuminate\Database\Seeder;
+use App\Models\Locale\Locale;
+use App\Models\Locale\LocaleTranslation;
+use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\DB;
 
 class TranslationSeeder extends Seeder
 {
@@ -14,6 +17,7 @@ class TranslationSeeder extends Seeder
      */
     public function run()
     {
-        Translation::insert(include database_path('Intial_data/translations.php'));
+        Locale::insert(include database_path('Intial_data/locales.php'));
+        LocaleTranslation::insert(include database_path('Intial_data/locale_trans.php'));
     }
 }
