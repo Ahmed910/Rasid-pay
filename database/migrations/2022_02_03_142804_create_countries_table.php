@@ -28,7 +28,6 @@ class CreateCountriesTable extends Migration
             $table->string('name');
             $table->string('nationality');
             $table->string('locale')->index();
-
             $table->unique(['country_id', 'locale']);
         });
     }
