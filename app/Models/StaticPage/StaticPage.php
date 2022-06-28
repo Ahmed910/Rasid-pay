@@ -3,6 +3,7 @@
 namespace App\Models\StaticPage;
 
 use App\Contracts\HasAssetsInterface;
+use App\Models\User;
 use App\Traits\HasAssetsTrait;
 use App\Traits\Loggable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -15,6 +16,7 @@ use Astrotomic\Translatable\Translatable;
 use App\Models\ActivityLog;
 use Illuminate\Support\Str;
 
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class StaticPage extends Model implements TranslatableContract, HasAssetsInterface
 {
@@ -26,6 +28,8 @@ class StaticPage extends Model implements TranslatableContract, HasAssetsInterfa
     protected $guarded = ['created_at', 'deleted_at'];
     public $translatedAttributes = ['name', 'description'];
     public $assets = ["image"];
+    public $with = ["images", "addedBy" ,"activity"];
+
     #endregion properties
 
     public static function boot()
@@ -84,6 +88,10 @@ class StaticPage extends Model implements TranslatableContract, HasAssetsInterfa
     #endregion scopes
 
     #region relationships
+    public function addedBy(): BelongsTo
+    {
+        return $this->belongsTo(User::class, 'added_by_id');
+    }
     #endregion relationships
 
     #region custom Methods

@@ -16,6 +16,7 @@ class CreateStaticPagesTable extends Migration
         Schema::create('static_pages', function (Blueprint $table) {
             $table->uuid("id")->primary();
             $table->boolean('is_active')->default(true);
+            $table->foreignUuid("added_by_id")->nullable()->constrained('users')->nullOnDelete();
             $table->softDeletes();
             $table->timestamps();
         });
