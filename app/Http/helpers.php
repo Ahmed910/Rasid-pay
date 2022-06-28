@@ -175,13 +175,11 @@ if (!function_exists('setting')) {
 if (!function_exists('db_translations')) {;
     function db_translations(string $locale = null, $file = null): Collection
     {
-        if (!$locale) $locale = app()->getLocale();
-
         if (Schema::hasTable('locales')) {
             //TODO: Add Cache
             $translation = \App\Models\Locale\Locale::join('locale_translations', 'locale_translations.locale_id', '=', 'locales.id')
-                ->where('locale', $locale)
-                ->addSelect('key', 'locale', 'value', 'desc','locale_id')
+                ->when($locale != null, fn($q) => $q->where('locale', $locale))
+                ->addSelect('locale_id', 'key', 'locale', 'value', 'desc')
                 ->when($file != null, fn ($q) => $q->where('file', $file))
                 ->get();
 
