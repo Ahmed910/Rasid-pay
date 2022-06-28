@@ -34,7 +34,7 @@ class BankController extends Controller
     {
         $data = $request->validated();
         $bank->fill($data + ['added_by_id' => auth()->id()])->save();
-        $bank->branches()->createMany($data['banks']);
+
 
         return BankResource::make($bank)
             ->additional([
@@ -69,23 +69,9 @@ class BankController extends Controller
 
     public function update(BankRequest $request, Bank $bank)
     {
+
         $data  = $request->validated();
         $bank->fill($data + ['updated_at' => now()])->save();
-        $branchesIds = $bank->branches()->pluck('id')->toArray();
-        $newBranchesIds = collect($data['banks'])->pluck('id')->toArray();
-
-        foreach ($branchesIds as $id) {
-            if (!in_array($id, $newBranchesIds)) {
-                BankBranch::find($id)->delete();
-            }
-        }
-
-        foreach ($data['banks'] as $key => $values) {
-            BankBranch::updateOrCreate(
-                ['id' => $data['banks'][$key]['id'] ?? ''],
-                $values + ['bank_id' => $bank->id]
-            );
-        }
 
         return BankResource::make($bank)
             ->additional([
@@ -105,8 +91,7 @@ class BankController extends Controller
         ], 200);
     }
 
-    #region Delete
-    // TODO:: Check If Delete On Branch Or Main
+
     public function destroy(ReasonRequest $request, Bank $bank)
     {
         $bank->delete();
