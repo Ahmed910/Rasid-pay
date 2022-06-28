@@ -10,14 +10,13 @@ class BankResource extends JsonResource
 {
     public function toArray($request)
     {
-     
+
 
         return [
             'id'   => $this->id,
             'name' => $this->name,
             'is_active' => (bool) $this->is_active,
             'created_at' => $this->created_at,
-            'deleted_at' => $this->deleted_at,
             "images" => ImagesResource::collection($this->whenLoaded("images")),
             'activity' => ActivityLogResource::collection($this->whenLoaded('activity')),
             'actions' => $this->when($request->routeIs('banks.index') || $request->routeIs('banks.archive'), [
@@ -26,11 +25,7 @@ class BankResource extends JsonResource
                     'create' => auth()->user()->hasPermissions('banks.store'),
                     'update' => auth()->user()->hasPermissions('banks.update'),
                     'destroy' => auth()->user()->hasPermissions('banks.destroy'),
-                ]),
-                $this->mergeWhen($request->route()->getActionMethod() == 'archive', [
-                    'restore' => auth()->user()->hasPermissions('banks.restore'),
-                    'forceDelete' => auth()->user()->hasPermissions('banks.force_delete')
-                ]),
+                ])
             ])
         ];
     }
