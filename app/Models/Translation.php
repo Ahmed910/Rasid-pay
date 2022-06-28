@@ -9,7 +9,7 @@ use App\Traits\Uuid;
 class Translation extends Model
 {
     use HasFactory, Uuid;
-
+     protected $guarded = ["created_at","created_at"] ;
     #region properties
     #endregion properties
 

@@ -100,7 +100,7 @@ Route::middleware('maintenance_mode')->group(function () {
             });
 
             Route::controller('CitizenController')->name('citizens.')->prefix('citizens')->group(function () {
-            //     Route::put('update-phone/{id}', 'updatePhone')->name('update_phone');
+                //     Route::put('update-phone/{id}', 'updatePhone')->name('update_phone');
                 Route::get('enabled-cards', 'enabledPackages')->name('enabled_packages');
             });
 
@@ -129,8 +129,8 @@ Route::middleware('maintenance_mode')->group(function () {
                 Route::get('archive', 'archive')->name('archive');
                 Route::post('restore/{id}', 'restore')->name('restore');
                 Route::delete('forceDelete/{id}', 'forceDelete')->name('force_delete');
-                Route::get('banks-types','bankTypes')->name('banks_types');
-                Route::get('edit-show/{bank}','editShow')->name('edit');
+                Route::get('banks-types', 'bankTypes')->name('banks_types');
+                Route::get('edit-show/{bank}', 'editShow')->name('edit');
             });
 
             Route::controller('ClientPackageController')->name('client_package.')->prefix('client_package')->group(function () {
@@ -143,31 +143,32 @@ Route::middleware('maintenance_mode')->group(function () {
 
             Route::controller('TransactionController')->name('transactions.')->prefix('transactions')->group(function () {
                 Route::delete('forceDelete/{id}', 'forceDelete')->name('force_delete');
-                Route::get('/get-transactions-statuses','transactionsStatues')->name('transactions_statues');
+                Route::get('/get-transactions-statuses', 'transactionsStatues')->name('transactions_statues');
             });
 
             Route::apiResources([
-            //            'countries' => 'CountryController',
-            // 'currencies' => 'CurrencyController',
-            // "cities" => "CityController",
-            // "regions" => "RegionController",
-            "departments" => "DepartmentController",
-            'admins' => 'AdminController',
-            'employees' => 'EmployeeController',
-            'clients' => 'ClientController',
-            // 'citizens' => 'CitizenController',
-            'rasid_jobs' => 'RasidJobController',
-            'banks' => 'BankController',
-            'slides' => 'SlideController',
-            "client_package" => "ClientPackageController",
-            'transactions' => 'TransactionController',
-            'static_pages' => 'StaticPageController',
-            // 'MoneyRequests' => 'MoneyRequestController', // TODO: Not Found
+                //            'countries' => 'CountryController',
+                // 'currencies' => 'CurrencyController',
+                // "cities" => "CityController",
+                // "regions" => "RegionController",
+                "departments" => "DepartmentController",
+                'admins' => 'AdminController',
+                'employees' => 'EmployeeController',
+                'clients' => 'ClientController',
+                // 'citizens' => 'CitizenController',
+                'rasid_jobs' => 'RasidJobController',
+                'banks' => 'BankController',
+                'slides' => 'SlideController',
+                "client_package" => "ClientPackageController",
+                'transactions' => 'TransactionController',
+                'static_pages' => 'StaticPageController',
+                // 'MoneyRequests' => 'MoneyRequestController', // TODO: Not Found
             ]);
 
-            Route::apiResource('citizens', 'CitizenController')->only('index', 'show','update');
+            Route::apiResource('citizens', 'CitizenController')->only('index', 'show', 'update');
             Route::apiResource('settings', 'SettingController')->only(['index', 'store']);
             Route::apiResource('activity_logs', 'ActivityController')->only(['index', 'show']);
+            Route::apiResource('localizations', 'LocalizationController')->only(['index', 'update']);
 
 
             Route::resource('groups', 'GroupController')->except('create', 'edit', 'destroy');

@@ -14,10 +14,6 @@ class TranslationSeeder extends Seeder
      */
     public function run()
     {
-        $authTranslations = include database_path('Intial_data/translations.php');
-
-        foreach ($authTranslations as $translation) {
-            Translation::create($translation);
-        }
+        Translation::insert(include database_path('Intial_data/translations.php'));
     }
 }

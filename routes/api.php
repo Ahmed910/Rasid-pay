@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Resources\Dashboard\SimpleUserResource;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -20,7 +22,7 @@ Route::get('version', function () {
         'data' => ['version' => $host?->version, 'website' => setting('website_link') ?? 'alfintech.com.eg'],
         'message' => '',
         'status' => true,
-        ]);
+    ]);
 });
 
 
@@ -36,4 +38,15 @@ Route::post('upload-image/', function (Request $request) {
     return response()->json([
         'path' => url('') . $image
     ]);
+});
+
+
+Route::get('test-pagination', function () {
+    $departments = User::paginate(3);
+
+    return SimpleUserResource::collection($departments)
+        ->additional([
+            'message' => '',
+            'status' => true,
+        ]);
 });
