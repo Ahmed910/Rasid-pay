@@ -161,6 +161,7 @@ Route::middleware('maintenance_mode')->group(function () {
             'slides' => 'SlideController',
             "client_package" => "ClientPackageController",
             'transactions' => 'TransactionController',
+            'static_pages' => 'StaticPageController',
             // 'MoneyRequests' => 'MoneyRequestController', // TODO: Not Found
             ]);
 
