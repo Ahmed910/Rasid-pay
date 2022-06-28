@@ -22,14 +22,13 @@ class LocalizationController extends Controller
 
     public function update($id, LocalizationRequest $request)
     {
-        $trans = Locale::wherehas('translations', function ($q) use ($request) {
-            $q->where("locale", $request->local);
-        })->findorfail($id);
-        $data = $request->except(["Local"]);
+        $trans = Locale::whereHas('translations', fn ($q) => $q->where("locale", $request->local))->findorfail($id);
         $trans->update($request->except(["Local"]));
+
         if ($trans->wasChanged()) {
             Cache::forget("translations_" . app()->getLocale());
         }
+
         return response()->json([
             'status' => true,
             'message' => __('dashboard.general.success_update')
