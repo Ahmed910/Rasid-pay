@@ -181,7 +181,7 @@ if (!function_exists('db_translations')) {;
             $translation = (Cache::has('translations_' . $local))
                 ? Cache::get('translations_' . $local)
                 : Cache::rememberForever('translations_' . $local, function () use ($local) {
-                    return \App\Models\Translation::where('locale', $local)->get();
+                    return \App\Models\Locale\Locale::where('locale', $local)->get();
                 });
 
             if ($file)  return $translation->where('file', $file);

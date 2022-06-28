@@ -1,16 +1,18 @@
 <?php
 
-namespace App\Models;
+namespace App\Models\Locale;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Traits\Uuid;
 
-class Translation extends Model
+class Locale extends Model
 {
     use HasFactory, Uuid;
-     protected $guarded = ["created_at","created_at"] ;
+
     #region properties
+    protected $guarded = ["created_at", "created_at"];
+    public $translatedAttributes = ['value', 'desc'];
     #endregion properties
 
     #region mutators
