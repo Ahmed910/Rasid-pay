@@ -165,6 +165,7 @@ Route::middleware('maintenance_mode')->group(function () {
                 'transactions' => 'TransactionController',
                 'static_pages' => 'StaticPageController',
                 // 'MoneyRequests' => 'MoneyRequestController', // TODO: Not Found
+                'faqs' => 'FaqController',
             ]);
 
             Route::apiResource('citizens', 'CitizenController')->only('index', 'show', 'update');
