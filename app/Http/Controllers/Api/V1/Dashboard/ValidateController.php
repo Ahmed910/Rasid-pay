@@ -25,6 +25,9 @@ class ValidateController extends Controller
                     case 'permission':
                     $rules += $this->validatePermission($request,$locale);
                     break;
+                    case 'static_page' :
+                        $rules += $this->validateStaticPage($request,$locale);
+                        break;
                 }
             }
         }
@@ -90,6 +93,12 @@ class ValidateController extends Controller
     public function validateAdmin($request)
     {
         $rules['login_id'] = 'required|digits:6|numeric|unique:users,login_id,' . $request->admin_id;
+        return $rules;
+    }
+
+    public function validateStaticPage($request, $locale)
+    {
+        $rules["$locale.name"] = "unique:static_page_translations,name," . $request->static_page . ',static_page_id';
         return $rules;
     }
 }

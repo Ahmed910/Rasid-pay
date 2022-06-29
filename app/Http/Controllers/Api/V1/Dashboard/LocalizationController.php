@@ -67,7 +67,7 @@ class LocalizationController extends Controller
         $this->validate($request, $rules);
         $locale = Locale::create([
             "key" => $request->key,
-            "file" => "vue_static"
+            "file" => $request->file ?? "vue_static"
         ]);
 
         foreach ($request->translations as $lang => $trans) {
