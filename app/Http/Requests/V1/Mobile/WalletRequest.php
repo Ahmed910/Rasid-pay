@@ -7,18 +7,26 @@ class WalletRequest extends ApiMasterRequest
 {
     public function rules()
     {
+
         return [
             // in citizen wallet
             "amount" => 'required|numeric|gte:'. (setting('min_charge_amount') ?? 10) . '|lte:' . (setting('max_charge_amount') ?? 10000),
-            'charge_type' => 'required_without:card_id|in:nfc,manual,sadad,scan',
-            'card_id' => 'nullable|required_without:charge_type|exists:cards,id,user_id,'.auth()->id(),
+            // 'charge_type' => 'required_without:card_id|in:nfc,manual,sadad,scan',
+            // 'card_id' => 'nullable|required_without:charge_type|exists:cards,id,user_id,'.auth()->id(),
             //card information
-            'is_card_saved' => 'required_without:card_id|in:0,1',
+            // 'is_card_saved' => 'required_without:card_id|in:0,1',
             'owner_name' => 'required_if:is_card_saved,1|string|max:255',
-            'card_type' => 'required_if:is_card_saved,1|in:visa,mastercard,american_express',
+            // 'card_type' => 'required_if:is_card_saved,1|in:visa,mastercard,american_express',
             'card_name' => 'required_if:is_card_saved,1|string|max:255',
             'card_number' => 'required_if:is_card_saved,1|numeric|digits:16',
             'expire_at' => 'required_if:is_card_saved,1|date_format:m/y|max:25|after:today',
+        ];
+    }
+
+    public function messages()
+    {
+        return [
+            'card_name.required_if'=> trans('validation.attributes.card_name'),
         ];
     }
 
