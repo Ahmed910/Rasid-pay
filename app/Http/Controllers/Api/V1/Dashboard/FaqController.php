@@ -27,7 +27,6 @@ class FaqController extends Controller
     }
 
 
-
     public function show(Request $request , $id)
     {
         $faq  = Faq::withTrashed()->findOrFail($id);
@@ -44,7 +43,15 @@ class FaqController extends Controller
         ]);
     }
 
-
+    public function destroy(Faq $faq)
+    {
+        $faq->delete();
+        return FaqResource::make($faq)
+            ->additional([
+                'status' => true,
+                'message' =>  __('dashboard.general.success_delete')
+            ]);
+    }
 
 
 }
