@@ -2,4 +2,4 @@
 
 use Illuminate\Support\Arr;
 
-return Arr::undot(db_translations('ar', 'mobile')->pluck('value', 'key'));
+return Arr::undot(db_translations('ar', 'mobile'));
