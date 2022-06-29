@@ -15,6 +15,37 @@ class LocalizationController extends Controller
 {
     public function index(Request $request)
     {
+        $departments = Locale::query()
+            ->ListsTranslations('value')
+            ->addSelect('locale_id', 'key', 'value', 'locale', 'desc')
+            ->search($request)
+            ->sortBy($request)
+            ->paginate((int)($request->per_page ?? config("globals.per_page")));
+
+        return TranslationResource::collection($departments)
+            ->additional([
+                'status' => true,
+                'message' => "",
+            ]);
+    }
+
+    public function updateTranslation(LocalizationRequest $request)
+    {
+        $localeTranslation = LocaleTranslation::findOrFail($request->id);
+        $localeTranslation->fill($request->validated())->save();
+
+        if ($localeTranslation->wasChanged()) {
+            Cache::forget("translations_" . app()->getLocale());
+        }
+
+        return response()->json([
+            'status' => true,
+            'message' => __('dashboard.general.success_update')
+        ]);
+    }
+
+    public function getAllTranslations(Request $request)
+    {
         $locale = $request->local ?? app()->getLocale();
 
         return response()->json(
@@ -50,28 +81,6 @@ class LocalizationController extends Controller
         return response()->json([
             'status' => true,
             'message' => __('dashboard.general.success_add')
-        ]);
-    }
-
-    public function update($id, LocalizationRequest $request)
-    {
-        $locale = $request->local;
-        $trans = Locale::wherehas('translations', function ($q) use ($request) {
-            $q->where("locale", $request->local);
-        })->findorfail($id);
-        $data = $request->only(["value", "desc",]);
-        $trans->translations()->where("locale", $request->local)->update(
-            [
-                "desc" => @$request[$locale]["desc"],
-                "value" => $request[$locale]["value"]
-            ]
-        );
-        if ($trans->wasChanged()) {
-            Cache::forget("translations_" . app()->getLocale());
-        }
-        return response()->json([
-            'status' => true,
-            'message' => __('dashboard.general.success_update')
         ]);
     }
 }
