@@ -18,7 +18,7 @@ class BeneficiaryResource extends JsonResource
             'benficiar_type' => $this->benficiar_type,
             'iban_number' => $this->iban_number,
             'relation' => $this->transferRelation?->name,
-            'total_balance' =>(string) ($this->user->citizenWallet->main_balance + $this->user->citizenWallet->cash_back)
+            'total_balance' =>(string) (auth()->user()->citizenWallet->main_balance + auth()->user()->citizenWallet->cash_back)
         ];
     }
 }
