@@ -13,6 +13,10 @@ class CardController extends Controller
     public function index(Request $request)
     {
         $cards = auth()->user()->cards()->latest()->paginate((int)($request->per_page ?? config("globals.per_page")));
+        if(auth()->user()->cards()->count() == 0)
+        {
+            return response()->json([ 'data' => null,'status' => false, 'message' => trans('mobile.card.without_cards')]);
+        }
         return CardResource::collection($cards)->additional([
             'status' => true,
             'message' => ''
