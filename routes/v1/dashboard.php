@@ -24,7 +24,7 @@ Route::middleware('maintenance_mode')->group(function () {
     Route::post('resend_code', "Auth\LoginController@resendCode");
     Route::post('check_code', "Auth\ResetPasswordController@CheckResetCode");
     Route::post('reset_password', "Auth\ResetPasswordController@resetPassword");
-    Route::get('localizations','LocalizationController@index');
+    Route::get('get_all_trans', 'LocalizationController@getAllTranslations');
 
     Route::get('countries', 'CountryController@index');
     Route::get("/files/client/{file}", [\App\Http\Controllers\Api\V1\Dashboard\PrivateController::class, "downloadfile"]);
@@ -170,7 +170,8 @@ Route::middleware('maintenance_mode')->group(function () {
             Route::apiResource('citizens', 'CitizenController')->only('index', 'show', 'update');
             Route::apiResource('settings', 'SettingController')->only(['index', 'store']);
             Route::apiResource('activity_logs', 'ActivityController')->only(['index', 'show']);
-            Route::apiResource('localizations', 'LocalizationController')->only(['update','store']);
+            Route::post('localizations_update','LocalizationController@updateTranslation')->name('localizations_update');
+            Route::apiResource('localizations', 'LocalizationController')->only(['store', 'index']);
 
 
             Route::resource('groups', 'GroupController')->except('create', 'edit', 'destroy');
