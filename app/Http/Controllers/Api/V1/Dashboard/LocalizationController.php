@@ -59,8 +59,8 @@ class LocalizationController extends Controller
     public function store(Request $request)
     {
         $rules = [
-            'key'                 => 'required',
-            'translations'        => 'array',
+            'key'                   => 'required',
+            'translations'          => 'array|required',
             'translations.*.value'  => 'required|between:1,255',
             'translations.*.desc'   => 'nullable|string|max:300',
         ];
