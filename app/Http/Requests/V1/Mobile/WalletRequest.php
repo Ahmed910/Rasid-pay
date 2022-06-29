@@ -9,7 +9,7 @@ class WalletRequest extends ApiMasterRequest
     {
         return [
             // in citizen wallet
-            "amount" => 'required|numeric|gte:'. (float) setting('min_charge_amount') ?? 10 . '|lte:' . (float) setting('max_charge_amount') ?? 10000,
+            "amount" => 'required|numeric|gte:'. setting('min_charge_amount') ?? 10 . '|lte:' . setting('max_charge_amount') ?? 10000,
             'charge_type' => 'required_without:card_id|in:nfc,manual,sadad,scan',
             'card_id' => 'nullable|required_without:charge_type|exists:cards,id,user_id,'.auth()->id(),
             //card information
