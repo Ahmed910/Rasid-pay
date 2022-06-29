@@ -49,7 +49,7 @@ class   Bank extends Model implements Contracts\Translatable ,  HasAssetsInterfa
         if ($request->has('name'))
             $query->whereTranslationLike('name', "%$request->name%");
 
-        if ($request->has('is_active')) 
+        if ($request->has('is_active') && !in_array($request->is_active, [-1]))
             $query->where('is_active', $request->is_active);
 
         $new = $query->toSql();
