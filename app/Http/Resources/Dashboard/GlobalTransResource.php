@@ -20,7 +20,8 @@ class GlobalTransResource extends JsonResource
             'locale' => $this->locale,
             'name' => $this->name,
             'description' => $this->when(array_key_exists('description', $allAttributes), $this->description),
-            'nationality' => $this->when(array_key_exists('nationality', $allAttributes), $this->nationality)
+            'nationality' => $this->when(array_key_exists('nationality', $allAttributes), $this->nationality),
+            'value'       => $this->when(array_key_exists('value', $allAttributes), $this->value),
         ];
     }
 }
