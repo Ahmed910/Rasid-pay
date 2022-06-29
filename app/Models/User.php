@@ -12,6 +12,7 @@ use Laravel\Sanctum\HasApiTokens;
 use App\Contracts\HasAssetsInterface;
 use App\Models\Department\Department;
 use App\Models\StaticPage\StaticPage;
+use App\Models\Faq\Faq;
 use App\Traits\Loggable;
 use GeniusTS\HijriDate\Hijri;
 use Illuminate\Notifications\Notifiable;
@@ -164,7 +165,10 @@ class User extends Authenticatable implements HasAssetsInterface
         return $this->hasMany(StaticPage::class);
     }
 
-
+    public function faq()
+    {
+        return $this->hasMany(Faq::class);
+    }
     public function department()
     {
         return $this->hasOneThrough(Department::class, Employee::class, 'user_id', 'id', 'id', 'department_id');

@@ -8,6 +8,7 @@ use App\Http\Resources\Dashboard\TranslationResource;
 use App\Models\Locale\Locale;
 use App\Models\Locale\LocaleTranslation;
 use Illuminate\Http\Request;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Cache;
 
 class LocalizationController extends Controller
@@ -16,11 +17,12 @@ class LocalizationController extends Controller
     {
         $locale = $request->local ?? app()->getLocale();
 
-        return TranslationResource::collection(db_translations($locale, file: "vue_static"))
-            ->additional([
-                'status' => true,
-                'message' => ''
-            ]);
+        return response()->json(
+            Arr::undot(\App\Models\Locale\Locale::join('locale_translations', 'locale_translations.locale_id', '=', 'locales.id')
+                ->when($locale != null, fn ($q) => $q->where('locale', $locale))
+                ->where('file', 'vue_static')
+                ->pluck('value', 'key'))
+        );
     }
 
     public function store(Request $request, Locale $locale, LocaleTranslation $localeTranslation)
