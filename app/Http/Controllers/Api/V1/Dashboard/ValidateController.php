@@ -98,7 +98,7 @@ class ValidateController extends Controller
 
     public function validateStaticPage($request, $locale)
     {
-        $rules["$locale.name"] = "unique:static_page_translations,name," . $request->static_page . ',static_page_id';
+        $rules["$locale.name"] = "unique:static_page_translations,name," . $request->static_page_id . ',static_page_id';
         return $rules;
     }
 }
