@@ -6,6 +6,8 @@ use App\Http\Requests\ApiMasterRequest;
 
 class FaqRequest extends ApiMasterRequest
 {
+    private array $rules = [];
+
     /**
      * Determine if the user is authorized to make this request.
      *
@@ -23,12 +25,21 @@ class FaqRequest extends ApiMasterRequest
      */
     public function rules()
     {
+       
+        if (isset($this->faq) && $this->faq) {
+            return array_merge($this->validateMainDataForFaq(), ['is_active' => 'required|in:0,1']);
+        } else {
+            return $this->validateMainDataForFaq();
+        }
+    }
 
-
-        return [
-            'question'=>'required|string|between:5,1000',
-            'order'=>'nullable|numeric',
+    private function validateMainDataForFaq(): array
+    {
+        $this->rules = [
+            'question' => 'required|string|between:5,1000',
+            'order' => 'nullable|numeric',
             'answer' => 'required|string|between:5,10000'
         ];
+        return $this->rules;
     }
 }

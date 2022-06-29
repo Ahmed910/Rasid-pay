@@ -54,7 +54,6 @@ class DatabaseSeeder extends Seeder
         $this->call(TranslationSeeder::class);
 
         Schema::disableForeignKeyConstraints();
-        DB::unprepared(include database_path('Intial_data/countries.php'));
         DB::unprepared(include database_path('Intial_data/departments.php'));
         DB::unprepared(include database_path('Intial_data/rasid_jobs.php'));
         DB::unprepared(include database_path('Intial_data/users.php'));

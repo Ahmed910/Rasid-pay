@@ -56,28 +56,29 @@ class LocalizationController extends Controller
         );
     }
 
-    public function store(Request $request, Locale $locale, LocaleTranslation $localeTranslation)
+    public function store(Request $request)
     {
         $rules = [
-            "local" => "required|in:en,ar"
+            'key'                   => 'required',
+            'translations'          => 'array|required',
+            'translations.*.value'  => 'required|between:1,255',
+            'translations.*.desc'   => 'nullable|string|max:300',
         ];
-        $requestlocale = $request->local;
-        $rules["$requestlocale"] = "array";
-        $rules["$requestlocale.value"] = "required|between:1,255";
-        $rules["$requestlocale.desc"] = "nullable|string|max:300";
         $this->validate($request, $rules);
+        $locale = Locale::create([
+            "key" => $request->key,
+            "file" => "vue_static"
+        ]);
 
-        $locale->fill(["key" => $request->key, "file" => "vue_static"])->save();
-        $data = $request->only(["value", "desc"]);
+        foreach ($request->translations as $lang => $trans) {
+            LocaleTranslation::create([
+                'locale_id' => $locale->id,
+                'locale'    => $lang,
+                'value'     => $trans['value'],
+                'desc'      => $trans['desc'] ?? null
+            ]);
+        }
 
-        $trans = $localeTranslation->fill(
-            [
-                "locale" => $requestlocale,
-                "desc" => @$request[$requestlocale]["desc"],
-                "value" => $request[$requestlocale]["value"]
-            ]
-        );
-        $locale->translations()->save($trans);
         return response()->json([
             'status' => true,
             'message' => __('dashboard.general.success_add')
