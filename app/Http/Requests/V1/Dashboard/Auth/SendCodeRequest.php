@@ -7,16 +7,6 @@ use App\Http\Requests\ApiMasterRequest;
 class SendCodeRequest extends ApiMasterRequest
 {
     /**
-     * Determine if the user is authorized to make this request.
-     *
-     * @return bool
-     */
-    public function authorize()
-    {
-        return true;
-    }
-
-    /**
      * Get the validation rules that apply to the request.
      *
      * @return array
@@ -29,7 +19,7 @@ class SendCodeRequest extends ApiMasterRequest
         }elseif($this->send_type == 'phone'){
             $rules['username'] = 'required|numeric|digits_between:5,20|exists:users,phone,deleted_at,NULL';
         }
-        return $rules;  
+        return $rules;
     }
 
     protected function prepareForValidation()
