@@ -5,12 +5,6 @@ use App\Http\Requests\ApiMasterRequest;
 
 class WalletRequest extends ApiMasterRequest
 {
-
-    public function authorize()
-    {
-        return true;
-    }
-
     public function rules()
     {
         return [
