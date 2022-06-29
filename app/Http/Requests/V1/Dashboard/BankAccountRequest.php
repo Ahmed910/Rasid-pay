@@ -16,7 +16,6 @@ class BankAccountRequest extends ApiMasterRequest
     public function rules()
     {
         return [
-
             "iban_number" => ["required", "min:6", "max:24", function ($attribute, $value, $fail) {
                 $bankacc = BankAccount::where("bank_id", $this->bank_id)->where("iban_number", $this->iban_number)?->get();
                 $thisuser = $this->citizen ?? $this->client;

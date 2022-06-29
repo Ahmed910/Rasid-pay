@@ -6,7 +6,6 @@ use App\Contracts\HasAssetsInterface;
 use App\Models\User;
 use App\Traits\HasAssetsTrait;
 use App\Traits\Loggable;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Traits\Uuid;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -20,9 +19,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class StaticPage extends Model implements TranslatableContract, HasAssetsInterface
 {
-    use HasFactory, Uuid, HasAssetsTrait, Translatable, SoftDeletes, Loggable;
-
-
+    use Uuid, HasAssetsTrait, Translatable, SoftDeletes, Loggable;
     #region properties
     protected $appends = ['image'];
     protected $guarded = ['created_at', 'deleted_at'];
@@ -54,7 +51,7 @@ class StaticPage extends Model implements TranslatableContract, HasAssetsInterfa
         }
         if (isset($request->is_active) && in_array($request->is_active, [1, 0])) {
             $query->where('is_active', $request->is_active);
-            
+
         }
         $new = $query->toSql() ;
         if ($old!=$new)  $this->addGlobalActivity($this, $request->query(), ActivityLog::SEARCH, 'index');

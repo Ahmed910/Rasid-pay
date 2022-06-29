@@ -181,7 +181,7 @@ if (!function_exists('db_translations')) {;
                 ->when($locale != null, fn($q) => $q->where('locale', $locale))
                 ->addSelect('locale_id', 'key', 'locale', 'value', 'desc')
                 ->when($file != null, fn ($q) => $q->where('file', $file))
-                ->get();
+                ->pluck('value', 'key');
 
             return $translation;
         }

@@ -23,7 +23,7 @@ class WalletTransferRequest extends ApiMasterRequest
         //     ];
         // }
         return [
-            'amount'  => 'required|numeric|gte:'. setting('min_wallet_transfer_amount') ?? 10 . '|lte:' . setting('max_wallet_transfer_amount') ?? 10000,
+            'amount'  => 'required|numeric|gte:'. (setting('min_wallet_transfer_amount') ?? 10) . '|lte:' . (setting('max_wallet_transfer_amount') ?? 10000),
             "citizen_id" => 'nullable|exists:users,id,user_type,citizen,register_status,completed',
             "otp_code" => 'required|exists:citizen_wallets,wallet_bin,citizen_id,'.auth()->id(),
             "wallet_transfer_method" => 'required|in:' . join(",", Transfer::WALLET_TRANSFER_METHODS),
