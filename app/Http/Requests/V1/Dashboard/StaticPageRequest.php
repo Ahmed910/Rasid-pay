@@ -20,7 +20,7 @@ class StaticPageRequest extends ApiMasterRequest
         foreach (config('translatable.locales') as $locale) {
             $rules["$locale"]               = "array";
             $rules["$locale.name"]          = "required|max:100|regex:/^[\pL\pN\s\-\_]+$/u|unique:static_page_translations,name," . @$this->static_page . ',static_page_id';
-            $rules["$locale.description"]   = "required|string|max:5000";
+            $rules["$locale.description"]   = "required|string|max:200000";
         }
 
         return $rules;
