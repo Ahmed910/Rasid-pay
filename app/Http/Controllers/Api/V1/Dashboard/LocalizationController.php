@@ -15,14 +15,15 @@ class LocalizationController extends Controller
 {
     public function index(Request $request)
     {
-        $departments = Locale::query()
+        $translations = Locale::query()
             ->ListsTranslations('value')
+            ->where('file', 'vue_static')
             ->addSelect('locale_id', 'key', 'value', 'locale', 'desc')
             ->search($request)
             ->sortBy($request)
             ->paginate((int)($request->per_page ?? config("globals.per_page")));
 
-        return TranslationResource::collection($departments)
+        return TranslationResource::collection($translations)
             ->additional([
                 'status' => true,
                 'message' => "",
