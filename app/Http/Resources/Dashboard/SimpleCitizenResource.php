@@ -19,7 +19,7 @@ class SimpleCitizenResource extends JsonResource
             'fullname' => $this->fullname,
             'identity_number' => $this->identity_number,
             "phone" => substr($this->phone, strlen($this->country_code)),
-            "country_code" => $this->country_code,
+            "country_code" => $this->country_code ?? 966,
             'user_type' => $this->user_type,
             'date_of_birth' => $this->date_of_birth,
             'images' => ImagesResource::collection($this->whenLoaded('images')),
