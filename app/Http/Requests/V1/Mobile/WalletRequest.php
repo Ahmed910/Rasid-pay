@@ -54,8 +54,8 @@ class WalletRequest extends ApiMasterRequest
     public function messages()
     {
         return [
-            'expire_at.after' => trans('mobile.validation.after_today'),
-            'expire_at.date_format' => trans('mobile.validation.date_format'),
+            'expire_at.date_format' => trans('mobile.validation.card_date_format'),
+            'expire_at.after' => trans('mobile.validation.card_after_today'),
         ];
     }
 }
