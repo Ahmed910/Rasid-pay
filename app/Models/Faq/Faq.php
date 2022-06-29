@@ -37,7 +37,7 @@ class Faq extends Model implements TranslatableContract
 
         if (isset($request->question)) {
             $query->where(function ($q) use ($request) {
-                $q->whereTranslationLike('name', "%$request->question%");
+                $q->whereTranslationLike('question', "%$request->question%");
             });
         }
         if (isset($request->is_active) && in_array($request->is_active, [1, 0])) {
