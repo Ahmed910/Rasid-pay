@@ -11,7 +11,7 @@ class GlobalTransferRequest extends ApiMasterRequest
     {
         return [
            "otp_code" => 'required|exists:citizen_wallets,wallet_bin,citizen_id,'.auth()->id(),
-            'amount'              => 'required|numeric|gte:'. setting('min_global_transfer_amount') ?? 10 . '|lte:' . setting('max_global_transfer_amount') ?? 10000,
+            'amount'              => 'required|numeric|gte:'. (setting('min_global_transfer_amount') ?? 10) . '|lte:' . (setting('max_global_transfer_amount') ?? 10000),
             'amount_transfer'     => 'required|numeric',
             'transfer_purpose_id' => 'nullable|exists:transfer_purposes,id',
             'currency_id'         => 'required|exists:currencies,id',
