@@ -27,7 +27,7 @@ class CreateStaticPagesTable extends Migration
             $table->foreignUuid('static_page_id')->constrained('static_pages')->cascadeOnDelete();
             $table->string('locale')->index();
             $table->string('name');
-            $table->longText('description');
+            $table->longText('description')->nullable();
             $table->unique(['static_page_id', 'locale']);
         });
     }
