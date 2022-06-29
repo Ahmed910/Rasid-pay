@@ -164,6 +164,7 @@ Route::middleware('maintenance_mode')->group(function () {
                 "client_package" => "ClientPackageController",
                 'transactions' => 'TransactionController',
                 'static_pages' => 'StaticPageController',
+                'faqs'         => 'FaqController',
                 // 'MoneyRequests' => 'MoneyRequestController', // TODO: Not Found
             ]);
 
