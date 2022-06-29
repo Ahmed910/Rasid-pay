@@ -5,12 +5,10 @@ namespace App\Http\Controllers\Api\V1\Dashboard;
 use App\Models\Bank\Bank;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Models\BankBranch\BankBranch;
 use App\Http\Requests\V1\Dashboard\BankRequest;
 use App\Http\Requests\V1\Dashboard\ReasonRequest;
 use App\Http\Resources\Dashboard\Banks\BankResource;
 use App\Http\Resources\Dashboard\Banks\BankCollection;
-use App\Http\Resources\Dashboard\Banks\BankForEditResource;
 
 class BankController extends Controller
 {
@@ -32,7 +30,6 @@ class BankController extends Controller
     {
         $data = $request->validated();
         $bank->fill($data + ['added_by_id' => auth()->id()])->save();
-
 
         return BankResource::make($bank)
             ->additional([
@@ -59,11 +56,8 @@ class BankController extends Controller
             ]);
     }
 
- 
-
     public function update(BankRequest $request, Bank $bank)
     {
-
         $data  = $request->validated();
         $bank->fill($data + ['updated_at' => now()])->save();
 
@@ -73,18 +67,6 @@ class BankController extends Controller
                 'message' => __('dashboard.general.success_update')
             ]);
     }
-
-    public function bankTypes()
-    {
-        $data = transform_array_api(BankBranch::TYPES, 'dashboard.bank.types');
-
-        return response()->json([
-            'data' => $data,
-            'status' => true,
-            'message' => ' '
-        ], 200);
-    }
-
 
     public function destroy(ReasonRequest $request, Bank $bank)
     {
