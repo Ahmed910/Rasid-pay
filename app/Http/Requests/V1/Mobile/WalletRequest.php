@@ -19,7 +19,7 @@ class WalletRequest extends ApiMasterRequest
             'card_type' => 'required_if:is_card_saved,1|in:visa,mastercard,american_express',
             'card_name' => 'required_if:is_card_saved,1|string|max:255',
             'card_number' => 'required_if:is_card_saved,1|numeric|digits:16',
-            'expire_at' => 'required_if:is_card_saved,1|after:today|date_format:m/y|max:25',
+            'expire_at' => 'required_if:is_card_saved,1|date_format:m/y|after:today|max:25',
         ];
     }
 
