@@ -2,7 +2,6 @@
 
 namespace App\Http\Resources\Dashboard\Faq;
 
-use App\Http\Resources\Dashboard\ActivityLogResource;
 use Illuminate\Http\Resources\Json\JsonResource;
 use App\Http\Resources\Dashboard\GlobalTransResource;
 use App\Http\Resources\Dashboard\SimpleUserResource;
