@@ -14,7 +14,7 @@ class BankRequest extends ApiMasterRequest
         ];
         foreach (config('translatable.locales') as $locale) {
             $rules["$locale"]  = "array";
-            $rules["$locale.name"] = "required|between:2,100|regex:/^[\pL\pN\s\-\_]+$/u|unique:bank_translations,name," . @$this->bank->id  . ',bank_id';
+            $rules["$locale.name"] = "required|between:2,100|regex:/^[\pL\pN\s\-\_]+$/u"; //|unique:bank_translations,name," . @$this->bank->id  . ',bank_id'
         }
         return $rules;
     }

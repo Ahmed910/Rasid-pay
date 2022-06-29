@@ -6,7 +6,7 @@ use App\Http\Resources\Dashboard\ActivityLogResource;
 use Illuminate\Http\Resources\Json\JsonResource;
 use App\Http\Resources\Dashboard\GlobalTransResource;
 use App\Http\Resources\Dashboard\SimpleUserResource;
-
+use App\Http\Resources\Dashboard\ImagesResource;
 
 class StaticPageResource extends JsonResource
 {
@@ -29,7 +29,7 @@ class StaticPageResource extends JsonResource
             'name'             => $this->name,
             'description'      => $this->description,
             'is_active'        => (bool)$this->is_active,
-            "image"            => $this->image,
+            "images"           => ImagesResource::collection($this->whenLoaded("images")),
             'created_at'       => $this->created_at,
             'added_by_id'      => $this->whenLoaded('addedBy', SimpleUserResource::make($this->addedBy)),
             'actions'          => $this->when($request->routeIs('static_pages.index') || $request->routeIs('static_pages.archive'), [

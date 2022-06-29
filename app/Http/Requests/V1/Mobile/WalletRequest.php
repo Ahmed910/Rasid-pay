@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Requests\V1\Mobile;
+
 use App\Http\Requests\ApiMasterRequest;
 
 class WalletRequest extends ApiMasterRequest
@@ -9,16 +10,16 @@ class WalletRequest extends ApiMasterRequest
     {
         return [
             // in citizen wallet
-            "amount" => 'required|numeric|gte:'. (setting('min_charge_amount') ?? 10) . '|lte:' . (setting('max_charge_amount') ?? 10000),
+            "amount" => 'required|numeric|gte:' . (setting('min_charge_amount') ?? 10) . '|lte:' . (setting('max_charge_amount') ?? 10000),
             'charge_type' => 'required_without:card_id|in:nfc,manual,sadad,scan',
-            'card_id' => 'nullable|required_without:charge_type|exists:cards,id,user_id,'.auth()->id(),
+            'card_id' => 'nullable|required_without:charge_type|exists:cards,id,user_id,' . auth()->id(),
             //card information
             'is_card_saved' => 'required_without:card_id|in:0,1',
             'owner_name' => 'required_if:is_card_saved,1|string|max:255',
             'card_type' => 'required_if:is_card_saved,1|in:visa,mastercard,american_express',
             'card_name' => 'required_if:is_card_saved,1|string|max:255',
             'card_number' => 'required_if:is_card_saved,1|numeric|digits:16',
-            'expire_at' => 'required_if:is_card_saved,1|date_format:m/y|max:25|after:today',
+            'expire_at' => 'required_if:is_card_saved,1|date_format:m/y|after:today|max:25',
         ];
     }
 
@@ -34,19 +35,27 @@ class WalletRequest extends ApiMasterRequest
         if ($this->is_card_saved && @$data['card_number']) {
             $card_type = 'unknown';
             switch ($data['card_number']) {
-                case substr($data['card_number'],0,1) == 4 :
-                $card_type = 'visa';
-                break;
-                case substr($data['card_number'],0,1) == 5 :
-                $card_type = 'mastercard';
-                break;
-                case substr($data['card_number'],0,1) == 3 && in_array(substr($data['card_number'],1,1),[4,7]):
-                $card_type = 'american_express';
-                break;
+                case substr($data['card_number'], 0, 1) == 4 :
+                    $card_type = 'visa';
+                    break;
+                case substr($data['card_number'], 0, 1) == 5 :
+                    $card_type = 'mastercard';
+                    break;
+                case substr($data['card_number'], 0, 1) == 3 && in_array(substr($data['card_number'], 1, 1), [4, 7]):
+                    $card_type = 'american_express';
+                    break;
             }
             $this->merge([
-                'card_type' =>  $card_type,
+                'card_type' => $card_type,
             ]);
         }
+    }
+
+    public function messages()
+    {
+        return [
+            'expire_at.after' => trans('mobile.validation.after_today'),
+            'expire_at.date_format' => trans('mobile.validation.date_format'),
+        ];
     }
 }

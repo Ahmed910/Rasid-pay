@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api\V1\Dashboard;
 
 use App\Models\Faq\Faq;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\V1\Dashboard\FaqRequest;
 use App\Http\Resources\Dashboard\Faq\FaqResource;
 use App\Http\Resources\Dashboard\Faq\FaqCollection;
 use Illuminate\Http\Request;
@@ -25,6 +26,22 @@ class  FaqController extends Controller
         ]);
 
     }
+
+    public function store(FaqRequest $request)
+    {
+        $faq = Faq::create($request->validated());
+
+        return FaqResource::make($faq->refresh())->additional(['status' => true,'message' => trans('dashboard.general.success_add')]);
+    }
+
+
+    public function update(FaqRequest $request,Faq $faq)
+    {
+        $faq->update($request->validated());
+        return FaqResource::make($faq->refresh())->additional(['status' => true,'message' => trans('dashboard.general.success_update')]);
+    }
+
+
 
 
     public function show(Request $request , $id)
