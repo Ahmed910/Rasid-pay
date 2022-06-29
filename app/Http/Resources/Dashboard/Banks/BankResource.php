@@ -5,12 +5,18 @@ namespace App\Http\Resources\Dashboard\Banks;
 use App\Http\Resources\Dashboard\ImagesResource;
 use Illuminate\Http\Resources\Json\JsonResource;
 use App\Http\Resources\Dashboard\ActivityLogResource;
+use App\Http\Resources\Dashboard\GlobalTransResource;
 
 class BankResource extends JsonResource
 {
     public function toArray($request)
     {
-
+        $locales = [];
+        if ($this->relationLoaded('translations')) {
+            foreach (config('translatable.locales') as $locale) {
+                $locales['translations'][$locale] = GlobalTransResource::make($this->translations->firstWhere('locale',$locale));
+            }
+        }
 
         return [
             'id'   => $this->id,
@@ -27,6 +33,6 @@ class BankResource extends JsonResource
                     'destroy' => auth()->user()->hasPermissions('banks.destroy'),
                 ])
             ])
-        ];
+        ] + $locales;
     }
 }

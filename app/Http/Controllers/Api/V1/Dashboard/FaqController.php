@@ -2,13 +2,13 @@
 
 namespace App\Http\Controllers\Api\V1\Dashboard;
 
-use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
-use App\Http\Resources\Dashboard\Faq\FaqCollection;
-use App\Http\Resources\Dashboard\Faq\FaqResource;
 use App\Models\Faq\Faq;
+use App\Http\Controllers\Controller;
+use App\Http\Resources\Dashboard\Faq\FaqResource;
+use App\Http\Resources\Dashboard\Faq\FaqCollection;
+use Illuminate\Http\Request;
 
-class FaqController extends Controller
+class  FaqController extends Controller
 {
     public function index(Request $request)
     {

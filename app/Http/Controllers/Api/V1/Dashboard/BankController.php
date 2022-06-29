@@ -44,7 +44,7 @@ class BankController extends Controller
 
     public function show(Request $request, $id)
     {
-        $bank = Bank::withTrashed()->findOrFail($id);
+        $bank = Bank::withTrashed()->with('translations')->findOrFail($id);
         $activities = [];
         if (!$request->has('with_activity') || $request->with_activity) {
             $activities  = $bank->activity()
@@ -59,15 +59,7 @@ class BankController extends Controller
             ]);
     }
 
-    public function editShow(Bank $bank)
-    {
-        $bank->load('branches.translations', 'translations');
-
-        return BankForEditResource::make($bank)->additional([
-            'status' => true,
-            'message' => ''
-        ]);
-    }
+ 
 
     public function update(BankRequest $request, Bank $bank)
     {
