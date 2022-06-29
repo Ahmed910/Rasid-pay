@@ -16,6 +16,7 @@ class StaticPageController extends Controller
         $staticPages = StaticPage::search($request)
             ->ListsTranslations('name')
             ->CustomDateFromTo($request)
+            ->addSelect('static_pages.created_at', 'static_pages.is_active')
             ->sortBy($request)
             ->paginate((int)($request->per_page ?? config("globals.per_page")));
 

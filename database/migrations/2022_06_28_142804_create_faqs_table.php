@@ -18,7 +18,6 @@ class CreateFaqsTable extends Migration
             $table->boolean('is_active')->default(true);
             $table->integer('order')->default(1);
             $table->foreignUuid("added_by_id")->nullable()->constrained('users')->nullOnDelete();
-            $table->softDeletes();
             $table->timestamps();
         });
 

@@ -2,14 +2,11 @@
 
 namespace App\Models\Faq;
 
-use App\Contracts\HasAssetsInterface;
 use App\Models\User;
-use App\Traits\HasAssetsTrait;
 use App\Traits\Loggable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Traits\Uuid;
-use Illuminate\Database\Eloquent\SoftDeletes;
 use Astrotomic\Translatable\Contracts\Translatable as TranslatableContract;
 use Illuminate\Database\Eloquent\Builder;
 use Astrotomic\Translatable\Translatable;
@@ -18,24 +15,18 @@ use Illuminate\Support\Str;
 
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
-class Faq extends Model implements TranslatableContract, HasAssetsInterface
+class Faq extends Model implements TranslatableContract
 {
-    use HasFactory, Uuid, HasAssetsTrait, Translatable, SoftDeletes, Loggable;
+    use HasFactory, Uuid, Translatable, Loggable;
 
 
     #region properties
-    protected $guarded = ['created_at', 'deleted_at'];
+    protected $guarded = ['created_at'];
     public $translatedAttributes = ['question', 'answer'];
 
     #endregion properties
 
-    public static function boot()
-    {
-        parent::boot();
-        static::saved(function ($model) {
-            $model->saveAssets($model, request());
-        });
-    }
+
     #region mutators
     #endregion mutators
 
@@ -46,7 +37,7 @@ class Faq extends Model implements TranslatableContract, HasAssetsInterface
 
         if (isset($request->question)) {
             $query->where(function ($q) use ($request) {
-                $q->whereTranslationLike('name', "%$request->question%");
+                $q->whereTranslationLike('question', "%$request->question%");
             });
         }
         if (isset($request->is_active) && in_array($request->is_active, [1, 0])) {
