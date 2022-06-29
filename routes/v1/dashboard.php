@@ -127,13 +127,13 @@ Route::middleware('maintenance_mode')->group(function () {
                 Route::delete('delete-contact/{id}', 'deleteContact')->name('delete_contact');
                 Route::delete('delete-reply/{id}', 'deleteReply')->name('delete_reply');
             });
-            Route::controller('BankController')->name('banks.')->prefix('banks')->group(function () {
-                Route::get('archive', 'archive')->name('archive');
-                Route::post('restore/{id}', 'restore')->name('restore');
-                Route::delete('forceDelete/{id}', 'forceDelete')->name('force_delete');
-                Route::get('banks-types', 'bankTypes')->name('banks_types');
-                Route::get('edit-show/{bank}', 'editShow')->name('edit');
-            });
+            // Route::controller('BankController')->name('banks.')->prefix('banks')->group(function () {
+            //     Route::get('archive', 'archive')->name('archive');
+            //     Route::post('restore/{id}', 'restore')->name('restore');
+            //     Route::delete('forceDelete/{id}', 'forceDelete')->name('force_delete');
+            //     Route::get('banks-types', 'bankTypes')->name('banks_types');
+            //     Route::get('edit-show/{bank}', 'editShow')->name('edit');
+            // });
 
             Route::controller('ClientPackageController')->name('client_package.')->prefix('client_package')->group(function () {
                 Route::get('archive', 'archive')->name('archive');

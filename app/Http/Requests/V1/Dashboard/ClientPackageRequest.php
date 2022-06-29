@@ -6,13 +6,6 @@ use App\Http\Requests\ApiMasterRequest;
 
 class ClientPackageRequest extends ApiMasterRequest
 {
-   
-    public function authorize()
-    {
-        return true;
-    }
-
- 
     public function rules()
     {
         return [
