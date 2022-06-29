@@ -25,7 +25,7 @@ class BankResource extends JsonResource
             'id'               => $this->id,
             'name'             => $this->name,
             'is_active'        => (bool)$this->is_active,
-            "image"            => $this->image,
+            "images"           => ImagesResource::collection($this->whenLoaded("images")),
             'created_at'       => $this->created_at,
             'added_by_id'      => $this->whenLoaded('addedBy', SimpleUserResource::make($this->addedBy)),
             'actions'          => $this->when($request->routeIs('static_pages.index') || $request->routeIs('static_pages.archive'), [
