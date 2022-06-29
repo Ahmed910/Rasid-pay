@@ -16,7 +16,7 @@ class FaqCollection extends ResourceCollection
      */
     public function toArray($request)
     {
-        $faq = Faq::withTrashed()->with('translations')->findOrFail(@$request->route()->parameters['faq']);
+        $faq = Faq::with('translations')->findOrFail(@$request->route()->parameters['faq']);
 
         return [
             'faq'         => FaqResource::make($faq),

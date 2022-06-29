@@ -2,13 +2,13 @@
 
 namespace App\Http\Controllers\Api\V1\Dashboard;
 
-use App\Models\Faq\Faq;
-use App\Http\Controllers\Controller;
-use App\Http\Resources\Dashboard\Faq\FaqResource;
-use App\Http\Resources\Dashboard\Faq\FaqCollection;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use App\Http\Resources\Dashboard\Faq\FaqCollection;
+use App\Http\Resources\Dashboard\Faq\FaqResource;
+use App\Models\Faq\Faq;
 
-class  FaqController extends Controller
+class FaqController extends Controller
 {
     public function index(Request $request)
     {
@@ -29,7 +29,7 @@ class  FaqController extends Controller
 
     public function show(Request $request , $id)
     {
-        $faq  = Faq::withTrashed()->findOrFail($id);
+        $faq  = Faq::findOrFail($id);
         $activities = [];
         if (!$request->has('with_activity') || $request->with_activity) {
             $activities  = $faq->activity()
