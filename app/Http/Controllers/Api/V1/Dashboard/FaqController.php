@@ -29,7 +29,7 @@ class FaqController extends Controller
 
     public function show(Request $request , $id)
     {
-        $faq  = Faq::withTrashed()->findOrFail($id);
+        $faq  = Faq::findOrFail($id);
         $activities = [];
         if (!$request->has('with_activity') || $request->with_activity) {
             $activities  = $faq->activity()
