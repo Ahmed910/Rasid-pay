@@ -11,7 +11,7 @@ class LocaleTranslation extends Model
     use HasFactory, Uuid;
 
     #region properties
-    protected $fillable = ['value', 'desc','locale'];
+    protected $fillable = ['value', 'desc', 'locale', 'locale_id'];
     public $timestamps = false;
     #endregion properties
 
