@@ -13,7 +13,7 @@ class CurrencyController extends Controller
     public function index(Request $request)
     {
         $currencies = Currency::orderBy('currency_code')->get();
-        if ($currencies->first()->last_updated_at->diffInDays(Carbon::now()) == 0) {
+        if ($currencies->first() && $currencies->first()->last_updated_at->diffInDays(Carbon::now()) == 0) {
             return CurrencyResource::collection($currencies)->additional(['status' => true, 'message' => '']);
         }
         // Fetching JSON
