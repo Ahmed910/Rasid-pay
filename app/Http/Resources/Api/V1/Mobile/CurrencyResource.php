@@ -15,10 +15,10 @@ class CurrencyResource extends JsonResource
     public function toArray($request)
     {
         return [
-            'id'=>$this->id,
+            'id' => $this->country->id
+            'currency_name' => $this->country->currency_name
             'currency_code' => $this->currency_code,
             'currency_value' => $this->currency_value,
-            'last_updated_at' =>format_date($this->last_updated_at),
         ] ;
     }
 }

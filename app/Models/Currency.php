@@ -23,4 +23,9 @@ class Currency extends Model
 
     protected $dates = ['last_updated_at'];
     #endregion properties
+
+    public function country()
+    {
+        return $this->belongsTo(Country::class,'currency_code','currency_code');
+    }
 }
