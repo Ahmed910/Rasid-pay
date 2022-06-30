@@ -3187,5 +3187,7 @@ return  [
     ['id' => 'c5ef67fa-8ec1-4462-aaa3-98b2b4dca177' ,'key' => 'card.without_cards', 'file' =>'mobile', 'created_at' =>'2022-06-29 16:53:27', 'updated_at' =>'2022-06-29 16:53:27'],
     ['id' => 'c5ef67fa-8ec1-4462-aaa3-9122b4dca177' ,'key' => 'validation.card_number_digits', 'file' =>'mobile', 'created_at' =>'2022-06-29 16:53:27', 'updated_at' =>'2022-06-29 16:53:27'],
     ['id' => 'c5ef67fa-8ec1-4475-aaa3-9122b4dca177' ,'key' => 'validation.expire_at', 'file' =>'mobile', 'created_at' =>'2022-06-29 16:53:27', 'updated_at' =>'2022-06-29 16:53:27'],
-    ['id' => 'c5ef67fa-3ec1-4475-aaa3-9122b4dca177' ,'key' => 'validation.required_card_number', 'file' =>'mobile', 'created_at' =>'2022-06-29 16:53:27', 'updated_at' =>'2022-06-29 16:53:27']
+    ['id' => 'c5ef67fa-3ec1-4475-aaa3-9122b4dca177' ,'key' => 'validation.required_card_number', 'file' =>'mobile', 'created_at' =>'2022-06-29 16:53:27', 'updated_at' =>'2022-06-29 16:53:27'],
+    ['id' => 'c5ef67fa-3ec1-4475-aaa3-9122b4dca178' ,'key' => 'validation.mobile.otp_vaild', 'file' =>'mobile', 'created_at' =>'2022-06-29 16:53:27', 'updated_at' =>'2022-06-29 16:53:27'],
+    ['id' => 'c5ef67fa-3ec1-4475-aaa3-9122b4dca179' ,'key' => 'validation.mobile.otp_invaild', 'file' =>'mobile', 'created_at' =>'2022-06-29 16:53:27', 'updated_at' =>'2022-06-29 16:53:27']
 ];
