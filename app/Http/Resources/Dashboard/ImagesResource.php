@@ -8,9 +8,11 @@ class ImagesResource extends JsonResource
 {
     public function toArray($request)
     {
+        $filePath = url('') . $this->media;
+
         return [
             "id"    => $this->id,
-            "media" => (file_exists(url('') . $this->media)) ? url('') . $this->media : asset('dashboardAssets/images/brand/no-img.png'),
+            "media" => (file_exists($filePath)) ? $filePath : asset('dashboardAssets/images/brand/no-img.png'),
             "name"  => $this->option,
         ];
     }
