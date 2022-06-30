@@ -60,7 +60,7 @@ class WalletRequest extends ApiMasterRequest
             'expire_at.date_format' => trans('mobile.validation.date_format'),
             'card_name.required_if'=> trans('mobile.validation.card_name'),
             'card_number.required_if'=> trans('mobile.validation.required_card_number'),
-            'card_number.digits'=>  trans('mobile.validation.card_number'),
+            'card_number.digits'=>  trans('mobile.validation.card_number_digits'),
             'expire_at.required_if'=>  trans('mobile.validation.expire_at'),
         ];
     }
