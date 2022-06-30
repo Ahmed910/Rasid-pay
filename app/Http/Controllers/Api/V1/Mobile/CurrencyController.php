@@ -10,7 +10,7 @@ use Illuminate\Http\Request;
 
 class CurrencyController extends Controller
 {
-    public function store(Request $request)
+    public function index(Request $request)
     {
         $currencies = Currency::orderBy('currency_code')->get();
         if ($currencies->first()->last_updated_at->diffInDays(Carbon::now()) == 0) {
