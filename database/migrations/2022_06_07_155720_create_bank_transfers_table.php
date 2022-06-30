@@ -15,8 +15,8 @@ class CreateBankTransfersTable extends Migration
     {
         Schema::create('bank_transfers', function (Blueprint $table) {
             $table->uuid("id")->primary();
-            $table->foreignUuid('currency_id')->nullable()->constrained("currencies")->onDelete('set null');
-            $table->foreignUuid('to_currency_id')->nullable()->constrained("currencies")->onDelete('set null');
+            $table->foreignUuid('currency_id')->nullable()->constrained("countries")->onDelete('set null');
+            $table->foreignUuid('to_currency_id')->nullable()->constrained("countries")->onDelete('set null');
             $table->foreignUuid('beneficiary_id')->nullable()->constrained("beneficiaries")->onDelete('set null');
             $table->foreignUuid('recieve_option_id')->nullable()->constrained("recieve_options")->onDelete('set null');
             $table->foreignUuid('transfer_id')->nullable()->constrained("transfers")->onDelete('cascade');

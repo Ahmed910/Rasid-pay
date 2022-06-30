@@ -60,4 +60,13 @@ class WalletController extends Controller
         #send otp to auth user
         return response()->json(['status' => true, 'message' => trans('dashboard.general.success_send'),'data' => ['dev_message' => $otp]]);
     }
+
+    public function checkOtp(Request $request)
+    {
+        $this->validate($request , ["otp"=>"required|max:10"]);
+
+        $result = [ "is_opt_vaild" => auth()->user()->citizenWallet->wallet_bin === $request->otp ];
+
+        return response()->json(['status' => true, 'message' =>"",'data' => $result]);
+    }
 }

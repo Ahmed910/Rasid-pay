@@ -14,8 +14,8 @@ class GlobalTransferRequest extends ApiMasterRequest
             'amount'              => 'required|numeric|gte:'. (setting('min_global_transfer_amount') ?? 10) . '|lte:' . (setting('max_global_transfer_amount') ?? 10000),
             'amount_transfer'     => 'required|numeric',
             'transfer_purpose_id' => 'nullable|exists:transfer_purposes,id',
-            'currency_id'         => 'required|exists:currencies,id',
-            'to_currency_id'      => 'required|exists:currencies,id',
+            'currency_id'         => 'required|exists:countries,id',
+            'to_currency_id'      => 'required|exists:countries,id',
             'fee_upon'            => 'required|in:'.join(',', Transfer::FEE_UPON),
             'beneficiary_id'      => 'nullable|exists:beneficiaries,id',
             'notes'               => 'nullable|required_without:transfer_purpose_id|max:1000'

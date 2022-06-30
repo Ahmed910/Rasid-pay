@@ -15,18 +15,11 @@ class CreateCurrenciesTable extends Migration
     {
         Schema::create('currencies', function (Blueprint $table) {
             $table->uuid("id")->primary();
-            $table->foreignUuid("added_by_id")->nullable()->constrained('users')->nullOnDelete();
+            $table->string("currency_code");
+            $table->string("currency_value");
+            $table->timestamp("last_updated_at")->nullable();
             $table->softDeletes();
             $table->timestamps();
-        });
-
-        Schema::create('currency_translations', function (Blueprint $table) {
-            $table->uuid('id')->primary();
-            $table->foreignUuid('currency_id')->constrained('currencies')->onDelete('cascade');
-            $table->string('name');
-            $table->string('locale')->index();
-
-            $table->unique(['currency_id', 'locale']);
         });
     }
 
@@ -37,7 +30,6 @@ class CreateCurrenciesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('currency_translations');
         Schema::dropIfExists('currencies');
     }
 }
