@@ -10,7 +10,7 @@ class ImagesResource extends JsonResource
     {
         return [
             "id"    => $this->id,
-            "media" => url('') . $this->media,
+            "media" => (file_exists(url('') . $this->media)) ? url('') . $this->media : asset('dashboardAssets/images/brand/no-img.png'),
             "name"  => $this->option,
         ];
     }
