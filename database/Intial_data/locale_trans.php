@@ -3188,5 +3188,7 @@ return
     ['id' => 'ff8eeb90-fef2-44c0-a2ce-4e2ac0f3ee13','locale_id' => '4cdf2de5-f495-4153-b922-d57d462a5892','locale' => 'en','value' => 'Before_review','desc' => NULL],
     ['id' => 'ff9ca966-aa08-4a8d-b4af-a537c4936b9b','locale_id' => 'a93df844-6e74-4ade-93e0-b9d25f109d34','locale' => 'ar','value' => 'التخصص','desc' => NULL],
     ['id' => 'ffa373f0-fc13-4922-af72-0e7587a119c6','locale_id' => '6c64f5c1-4b0c-42e0-a85c-13c8b9af9ed6','locale' => 'ar','value' => 'اختر برنامج رئيسي','desc' => NULL],
-    ['id' => 'ffbb9330-a161-4c09-a27b-301f7962bc3a','locale_id' => '2f9e71f4-e247-4387-97f7-192d71f33cdc','locale' => 'en','value' => 'entries','desc' => NULL]
-  ];
+    ['id' => 'ffbb9330-a161-4c09-a27b-301f7962bc3a','locale_id' => '2f9e71f4-e247-4387-97f7-192d71f33cdc','locale' => 'en','value' => 'entries','desc' => NULL],
+    ['id' => 'f1e868f3-8e6d-4b2b-9bc2-0a33d1b8a889','locale_id' =>'c5ef67fa-8ec1-4462-aaa3-98b2b4dca177', 'locale' => 'en','value' =>'There is no saved card','desc' => NULL],
+    ['id' => '19cb96df-91ea-4ebc-af6c-f574bf4d5860','locale_id' =>'c5ef67fa-8ec1-4462-aaa3-98b2b4dca177', 'locale' =>'ar', 'value' =>'لا يوجد بطاقات محفوظة','desc' => NULL],
+];

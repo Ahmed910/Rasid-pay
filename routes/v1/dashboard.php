@@ -157,7 +157,6 @@ Route::middleware('maintenance_mode')->group(function () {
                 'admins' => 'AdminController',
                 'employees' => 'EmployeeController',
                 'clients' => 'ClientController',
-                // 'citizens' => 'CitizenController',
                 'rasid_jobs' => 'RasidJobController',
                 'banks' => 'BankController',
                 'slides' => 'SlideController',
@@ -165,8 +164,6 @@ Route::middleware('maintenance_mode')->group(function () {
                 'transactions' => 'TransactionController',
                 'static_pages' => 'StaticPageController',
                 'faqs'         => 'FaqController',
-                // 'MoneyRequests' => 'MoneyRequestController', // TODO: Not Found
-                'faqs' => 'FaqController',
             ]);
 
             Route::apiResource('citizens', 'CitizenController')->only('index', 'show', 'update');

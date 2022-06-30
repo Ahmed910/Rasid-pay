@@ -13,14 +13,16 @@ class StaticPageController extends Controller
 {
     public function index(Request $request)
     {
-        $staticPages = StaticPage::search($request)
+        $static_pages = StaticPage::search($request)
             ->ListsTranslations('name')
             ->CustomDateFromTo($request)
+            ->with('translations')
+            ->addSelect('static_pages.created_at', 'static_pages.is_active')
             ->sortBy($request)
             ->paginate((int)($request->per_page ?? config("globals.per_page")));
 
 
-        return StaticPageResource::collection($staticPages)->additional([
+        return StaticPageResource::collection($static_pages)->additional([
             'status'=>true,
             'message'=>''
         ]);
@@ -40,10 +42,10 @@ class StaticPageController extends Controller
 
     public function show(Request $request ,$id)
     {
-        $staticPage  = StaticPage::withTrashed()->findOrFail($id);
+        $static_page  = StaticPage::withTrashed()->findOrFail($id);
         $activities = [];
         if (!$request->has('with_activity') || $request->with_activity) {
-            $activities  = $staticPage->activity()
+            $activities  = $static_page->activity()
                 ->sortBy($request)
                 ->paginate((int)($request->per_page ??  config("globals.per_page")));
         }
@@ -54,24 +56,22 @@ class StaticPageController extends Controller
         ]);
     }
 
-    public function update(StaticPageRequest $request, $id)
+    public function update(StaticPageRequest $request, StaticPage $static_page)
     {
-        $staticPage = StaticPage::findOrFail($id);
-        $staticPage->fill($request->validated() + ['updated_at' => now()])->save();
+        $static_page->fill($request->validated() + ['updated_at' => now()])->save();
 
-
-        return StaticPageResource::make($staticPage)
+        return StaticPageResource::make($static_page)
             ->additional([
                 'status'  => true,
                 'message' => trans("dashboard.general.success_update")
             ]);;
     }
 
-    public function destroy(StaticPage $staticPage)
+    public function destroy(StaticPage $static_page)
     {
-        $staticPage->delete();
+        $static_page->delete();
 
-        return StaticPageResource::make($staticPage)->additional([
+        return StaticPageResource::make($static_page)->additional([
             'status' => true,
             'message' => trans('dashboard.general.success_archive'),
         ]);

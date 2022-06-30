@@ -7,11 +7,6 @@ use App\Models\Setting;
 
 class CreateSetting extends ApiMasterRequest
 {
-    public function authorize()
-    {
-        return true;
-    }
-
     public function rules()
     {
         return [

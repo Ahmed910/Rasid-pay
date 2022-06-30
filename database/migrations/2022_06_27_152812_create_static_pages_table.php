@@ -16,6 +16,8 @@ class CreateStaticPagesTable extends Migration
         Schema::create('static_pages', function (Blueprint $table) {
             $table->uuid("id")->primary();
             $table->boolean('is_active')->default(true);
+            $table->boolean('show_in_app')->default(false);
+            $table->string('link')->nullable();
             $table->foreignUuid("added_by_id")->nullable()->constrained('users')->nullOnDelete();
             $table->softDeletes();
             $table->timestamps();
@@ -25,8 +27,8 @@ class CreateStaticPagesTable extends Migration
             $table->uuid('id')->primary();
             $table->foreignUuid('static_page_id')->constrained('static_pages')->cascadeOnDelete();
             $table->string('locale')->index();
-            $table->string('name',100);
-            $table->longText('description');
+            $table->string('name');
+            $table->longText('description')->nullable();
             $table->unique(['static_page_id', 'locale']);
         });
     }
@@ -42,4 +44,3 @@ class CreateStaticPagesTable extends Migration
         Schema::dropIfExists('static_pages');
     }
 }
-

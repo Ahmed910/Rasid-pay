@@ -9,16 +9,6 @@ use Illuminate\Validation\Rule;
 class BankAccountRequest extends ApiMasterRequest
 {
     /**
-     * Determine if the user is authorized to make this request.
-     *
-     * @return bool
-     */
-    public function authorize()
-    {
-        return true;
-    }
-
-    /**
      * Get the validation rules that apply to the request.
      *
      * @return array
@@ -26,7 +16,6 @@ class BankAccountRequest extends ApiMasterRequest
     public function rules()
     {
         return [
-
             "iban_number" => ["required", "min:6", "max:24", function ($attribute, $value, $fail) {
                 $bankacc = BankAccount::where("bank_id", $this->bank_id)->where("iban_number", $this->iban_number)?->get();
                 $thisuser = $this->citizen ?? $this->client;
