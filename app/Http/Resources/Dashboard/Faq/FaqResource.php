@@ -6,7 +6,6 @@ use Illuminate\Http\Resources\Json\JsonResource;
 use App\Http\Resources\Dashboard\GlobalTransResource;
 use App\Http\Resources\Dashboard\SimpleUserResource;
 
-
 class FaqResource extends JsonResource
 {
     /**
