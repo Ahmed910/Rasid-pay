@@ -3193,5 +3193,9 @@ return
     ['id' => '19cb96df-91ea-4ebc-af6c-f574bf4d5860','locale_id' =>'c5ef67fa-8ec1-4462-aaa3-98b2b4dca177', 'locale' =>'ar', 'value' =>'لا يوجد بطاقات محفوظة','desc' => NULL],
     ['id' => '56cb96df-91ea-4ebc-af6c-f574bf4d5860','locale_id' =>'c5ef67fa-8ec1-4462-aaa3-9122b4dca177', 'locale' =>'ar', 'value' =>'الرقم علي البطاقة يجب ان يكون مكون من 16 رقما','desc' => NULL],
     ['id' => '56cb96df-912a-4ebc-af6c-f574bf4d5860','locale_id' =>'c5ef67fa-8ec1-4475-aaa3-9122b4dca177', 'locale' =>'ar', 'value' =>'تاريخ الانتهاء مطلوب','desc' => NULL],
-    ['id' => '56cb96df-212a-4ebc-af6c-f574bf4d5860','locale_id' =>'c5ef67fa-3ec1-4475-aaa3-9122b4dca177', 'locale' =>'ar', 'value' =>'رقم البطاقة مطلوب','desc' => NULL]
+    ['id' => '56cb96df-212a-4ebc-af6c-f574bf4d5860','locale_id' =>'c5ef67fa-3ec1-4475-aaa3-9122b4dca177', 'locale' =>'ar', 'value' =>'رقم البطاقة مطلوب','desc' => NULL],
+    ['id' => '56cb96df-212a-4ebc-af6c-f574bf4d5861','locale_id' =>'c5ef67fa-3ec1-4475-aaa3-9122b4dca178', 'locale' =>'ar', 'value' =>'رمز التحقق صالح','desc' => NULL],
+    ['id' => '56cb96df-212a-4ebc-af6c-f574bf4d5862','locale_id' =>'c5ef67fa-3ec1-4475-aaa3-9122b4dca178', 'locale' =>'en', 'value' =>'otp is valid','desc' => NULL],
+    ['id' => '56cb96df-212a-4ebc-af6c-f574bf4d5863','locale_id' =>'c5ef67fa-3ec1-4475-aaa3-9122b4dca179', 'locale' =>'ar', 'value' =>'رمز التحقق غير صالح','desc' => NULL],
+    ['id' => '56cb96df-212a-4ebc-af6c-f574bf4d5864','locale_id' =>'c5ef67fa-3ec1-4475-aaa3-9122b4dca179', 'locale' =>'en', 'value' =>'otp is invalid','desc' => NULL]
 ];
