@@ -32,7 +32,7 @@ Route::middleware('auth:sanctum')->group(function () {
     // home
     Route::get('home', 'HomeController@index');
     // Currency
-    Route::get('currencies', 'CurrencyController@index');
+    Route::apiResource('currencies', 'CurrencyController')->only('store');
     // Country
     Route::get('countries', 'CountryController@index');
     // Wallet
@@ -40,7 +40,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::apiResource('wallets', 'WalletController')->only('index', 'store');
     Route::post('send_wallet_otp', 'WalletController@sendWalletOtp');
     // Beneficiaries
-    Route::get('get_transfer_relation','BeneficiaryController@getTransferRelation');
+    Route::get('get_transfer_relation', 'BeneficiaryController@getTransferRelation');
     Route::get('get_receive_options', 'BeneficiaryController@getReceiveOptions');
     Route::apiResource('beneficiaries', 'BeneficiaryController');
     //money requests
