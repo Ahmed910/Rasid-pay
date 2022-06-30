@@ -14,11 +14,11 @@ class  FaqController extends Controller
     public function index(Request $request)
     {
         $faq = Faq::search($request)
-            ->ListsTranslations('question')
-            ->CustomDateFromTo($request)
-            ->addSelect('faqs.created_at', 'faqs.is_active','faqs.order','faqs.added_by_id')
-            ->sortBy($request)
-            ->paginate((int)($request->per_page ?? config("globals.per_page")));
+                    ->ListsTranslations('question')
+                    ->CustomDateFromTo($request)
+                    ->addSelect('faqs.created_at', 'faqs.is_active','faqs.order','faqs.added_by_id')
+                    ->sortBy($request)
+                    ->paginate((int)($request->per_page ?? config("globals.per_page")));
 
         return FaqResource::collection($faq)->additional([
             'status'=>true,
@@ -40,8 +40,6 @@ class  FaqController extends Controller
         $faq->update($request->validated());
         return FaqResource::make($faq->refresh())->additional(['status' => true,'message' => trans('dashboard.general.success_update')]);
     }
-
-
 
 
     public function show(Request $request , $id)
@@ -69,6 +67,4 @@ class  FaqController extends Controller
                 'message' =>  __('dashboard.general.success_delete')
             ]);
     }
-
-
 }
