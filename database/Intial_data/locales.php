@@ -3184,5 +3184,8 @@ return  [
     ['id' => 'ffed940f-3904-4ae2-a7f9-f627037be426', 'key' => 'between.array', 'file' => 'validation', 'created_at' => '2022-06-28 13:05:08', 'updated_at' => '2022-06-28 13:05:08'],
     ['id' => 'fff3bb07-9f28-4d14-b0f1-d01f748a0be1', 'key' => 'labels.permission_name', 'file' => 'vue_static', 'created_at' => '2022-06-28 13:07:23', 'updated_at' => '2022-06-28 13:07:23'],
     ['id' => 'fff9ad48-58ad-4270-b814-72bc56b124fc', 'key' => 'region.regions', 'file' => 'dashboard', 'created_at' => '2022-06-28 13:08:04', 'updated_at' => '2022-06-28 13:08:04'],
-    ['id' => 'c5ef67fa-8ec1-4462-aaa3-98b2b4dca177' ,'key' => 'card.without_cards', 'file' =>'mobile', 'created_at' =>'2022-06-29 16:53:27', 'updated_at' =>'2022-06-29 16:53:27']
+    ['id' => 'c5ef67fa-8ec1-4462-aaa3-98b2b4dca177' ,'key' => 'card.without_cards', 'file' =>'mobile', 'created_at' =>'2022-06-29 16:53:27', 'updated_at' =>'2022-06-29 16:53:27'],
+    ['id' => 'c5ef67fa-8ec1-4462-aaa3-9122b4dca177' ,'key' => 'validation.card_number', 'file' =>'mobile', 'created_at' =>'2022-06-29 16:53:27', 'updated_at' =>'2022-06-29 16:53:27'],
+    ['id' => 'c5ef67fa-8ec1-4475-aaa3-9122b4dca177' ,'key' => 'validation.expire_at', 'file' =>'mobile', 'created_at' =>'2022-06-29 16:53:27', 'updated_at' =>'2022-06-29 16:53:27'],
+    ['id' => 'c5ef67fa-3ec1-4475-aaa3-9122b4dca177' ,'key' => 'validation.required_card_number', 'file' =>'mobile', 'created_at' =>'2022-06-29 16:53:27', 'updated_at' =>'2022-06-29 16:53:27']
 ];
