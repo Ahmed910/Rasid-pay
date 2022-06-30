@@ -8,20 +8,22 @@ class WalletRequest extends ApiMasterRequest
 {
     public function rules()
     {
+
         return [
             // in citizen wallet
-            "amount" => 'required|numeric|gte:' . (setting('min_charge_amount') ?? 10) . '|lte:' . (setting('max_charge_amount') ?? 10000),
+            "amount" => 'required|numeric|gte:'. (setting('min_charge_amount') ?? 10) . '|lte:' . (setting('max_charge_amount') ?? 10000),
             'charge_type' => 'required_without:card_id|in:nfc,manual,sadad,scan',
             'card_id' => 'nullable|required_without:charge_type|exists:cards,id,user_id,' . auth()->id(),
             //card information
             'is_card_saved' => 'required_without:card_id|in:0,1',
             'owner_name' => 'required_if:is_card_saved,1|string|max:255',
-            'card_type' => 'required_if:is_card_saved,1|in:visa,mastercard,american_express',
+            // 'card_type' => 'required_if:is_card_saved,1|in:visa,mastercard,american_express',
             'card_name' => 'required_if:is_card_saved,1|string|max:255',
             'card_number' => 'required_if:is_card_saved,1|numeric|digits:16',
             'expire_at' => 'required_if:is_card_saved,1|date_format:m/y|after:today|max:25',
         ];
     }
+
 
     protected function prepareForValidation()
     {
@@ -54,8 +56,9 @@ class WalletRequest extends ApiMasterRequest
     public function messages()
     {
         return [
-            'expire_at.date_format' => trans('mobile.validation.card_date_format'),
-            'expire_at.after' => trans('mobile.validation.card_after_today'),
+            'expire_at.after' => trans('mobile.validation.after_today'),
+            'expire_at.date_format' => trans('mobile.validation.date_format'),
+            'card_name.required_if'=> trans('mobile.validation.card_name'),
         ];
     }
 }

@@ -16,6 +16,7 @@ class StaticPageController extends Controller
         $static_pages = StaticPage::search($request)
             ->ListsTranslations('name')
             ->CustomDateFromTo($request)
+            ->with('translations')
             ->addSelect('static_pages.created_at', 'static_pages.is_active')
             ->sortBy($request)
             ->paginate((int)($request->per_page ?? config("globals.per_page")));
@@ -55,9 +56,8 @@ class StaticPageController extends Controller
         ]);
     }
 
-    public function update(StaticPageRequest $request, $id)
+    public function update(StaticPageRequest $request, StaticPage $static_page)
     {
-        $static_page = StaticPage::findOrFail($id);
         $static_page->fill($request->validated() + ['updated_at' => now()])->save();
 
         return StaticPageResource::make($static_page)

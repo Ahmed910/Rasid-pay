@@ -15,9 +15,6 @@ class addCurrencyColumnToCountriesTable extends Migration
     {
         Schema::table('countries', function (Blueprint $table) {
             $table->char('currency_code',5)->nullable()->after('phone_code');
-
-            $table->dropForeign('countries_currency_id_foreign');
-            $table->dropColumn('currency_id');
         });
         Schema::table('country_translations', function (Blueprint $table) {
             $table->string('currency')->nullable()->after('name');

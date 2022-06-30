@@ -157,7 +157,6 @@ Route::middleware('maintenance_mode')->group(function () {
                 'admins' => 'AdminController',
                 'employees' => 'EmployeeController',
                 'clients' => 'ClientController',
-                'faqs' => 'FaqController',
                 'rasid_jobs' => 'RasidJobController',
                 'banks' => 'BankController',
                 'slides' => 'SlideController',
