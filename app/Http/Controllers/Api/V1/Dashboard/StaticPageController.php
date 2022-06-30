@@ -56,9 +56,8 @@ class StaticPageController extends Controller
         ]);
     }
 
-    public function update(StaticPageRequest $request, $id)
+    public function update(StaticPageRequest $request, StaticPage $static_page)
     {
-        $static_page = StaticPage::findOrFail($id);
         $static_page->fill($request->validated() + ['updated_at' => now()])->save();
 
         return StaticPageResource::make($static_page)
