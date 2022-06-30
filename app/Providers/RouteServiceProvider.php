@@ -50,6 +50,11 @@ class RouteServiceProvider extends ServiceProvider
                 ->namespace($this->blade_dashboard_namespace)
                 ->group(base_path('routes/dashboard/web.php'));
 
+            Route::prefix('api/v1005/mobile')
+                ->middleware('api','setLocale') //
+                ->namespace($this->mobile_v1_namespace)
+                ->group(base_path('routes/v1/mobile.php'));
+                
             Route::prefix('api/v1/mobile')
                 ->middleware('api','setLocale') //
                 ->namespace($this->mobile_v1_namespace)

@@ -41,7 +41,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('send_wallet_otp', 'WalletController@sendWalletOtp');
     Route::get('check_wallet_otp', 'WalletController@checkOtp');
     // Beneficiaries
-    Route::get('get_transfer_relation','BeneficiaryController@getTransferRelation');
+    Route::get('get_transfer_relation', 'BeneficiaryController@getTransferRelation');
     Route::get('get_receive_options', 'BeneficiaryController@getReceiveOptions');
     Route::apiResource('beneficiaries', 'BeneficiaryController');
     //money requests

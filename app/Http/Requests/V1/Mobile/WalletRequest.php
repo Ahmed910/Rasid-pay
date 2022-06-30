@@ -15,7 +15,7 @@ class WalletRequest extends ApiMasterRequest
             //card information
             'is_card_saved' => 'required_without:card_id|in:0,1',
             'owner_name' => 'required_if:is_card_saved,1|string|max:255',
-            // 'card_type' => 'required_if:is_card_saved,1|in:visa,mastercard,american_express',
+            'card_type' => 'required_if:is_card_saved,1|in:visa,mastercard,american_express',
             'card_name' => 'required_if:is_card_saved,1|string|max:255',
             'card_number' => 'required_if:is_card_saved,1|numeric|digits:16',
             'expire_at' => 'required_if:is_card_saved,1|date_format:m/y|after:today|max:25',
@@ -60,7 +60,7 @@ class WalletRequest extends ApiMasterRequest
             'expire_at.date_format' => trans('mobile.validation.date_format'),
             'card_name.required_if'=> trans('mobile.validation.card_name'),
             'card_number.required_if'=> trans('mobile.validation.required_card_number'),
-            'card_number.digits'=>  trans('mobile.validation.card_number'),
+            'card_number.digits'=>  trans('mobile.validation.card_number_digits'),
             'expire_at.required_if'=>  trans('mobile.validation.expire_at'),
         ];
     }
