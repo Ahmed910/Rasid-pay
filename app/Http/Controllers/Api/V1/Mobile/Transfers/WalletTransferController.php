@@ -63,7 +63,7 @@ class WalletTransferController extends Controller
             'amount' => $request->amount,
             'trans_type' => 'wallet_transfer'
         ]);
-        return WalletTransferResource::make($transfer->refresh())->additional([
+        return WalletTransferResource::make($transfer)->additional([
             'message' => trans('mobile.local_transfers.transfer_has_been_done_successfully'),
             'status' => true
             ]);
