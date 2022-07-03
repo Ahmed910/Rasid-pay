@@ -4,8 +4,9 @@ namespace App\Http\Controllers\Api\V1\Mobile\Transfers;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\V1\Mobile\Transfers\GlobalTransferRequest;
+use App\Http\Resources\Api\V1\Mobile\GlobalTransferResource;
 use App\Http\Resources\Api\V1\Mobile\Transactions\TransactionResource;
-use App\Models\{CitizenWallet, Transfer};
+use App\Models\{CitizenWallet, Country\Country, RecieveOption, Transfer};
 use App\Services\WalletBalance;
 
 class GlobalTransferController extends Controller
@@ -22,30 +23,31 @@ class GlobalTransferController extends Controller
         // TODO: Calc transfer fee
 
         // Set transfer data
-        $transfer_data = $request->only('amount', 'amount_transfer', 'fee_upon','transfer_purpose_id','notes') + ['transfer_type' => 'global', 'from_user_id' => auth()->id(),'transfer_status' =>'pending'];
+        $transfer_data = $request->only('amount', 'amount_transfer', 'fee_upon', 'transfer_purpose_id', 'notes') + ['transfer_type' => 'global', 'from_user_id' => auth()->id(), 'transfer_status' => 'pending'];
 
         $balance = WalletBalance::calcWalletMainBackBalance($wallet, $request->amount);
-        $transfer_data += (array) $balance;
-        $wallet->update(['cash_back', \DB::raw('cash_back - '. $balance->cashback_amount),'main_balance', \DB::raw('main_balance - '. $balance->main_amount)]);
+        $transfer_data += (array)$balance;
+        $wallet->update(['cash_back', \DB::raw('cash_back - ' . $balance->cashback_amount), 'main_balance', \DB::raw('main_balance - ' . $balance->main_amount)]);
         // create global transfer
         $global_transfer = Transfer::create($transfer_data);
+        $exchange_rate = Country::find($request->to_currency_id)->countryCurrency->currency_value;
         $global_transfer->bankTransfer()->create($request->only([
-            'currency_id', 'to_currency_id', 'beneficiary_id', 'balance_type']
-        ));
-        $global_transfer->update(['recieve_option_id'=> $global_transfer->beneficiary->recieve_option_id]);
+                'currency_id', 'to_currency_id', 'beneficiary_id', 'balance_type']
+        )+['exchange_rate' => $exchange_rate, 'recieve_option_id' => $global_transfer->beneficiary?->recieve_option_id]);
+
 
         //add transfer in  transaction
         $transaction = $global_transfer->transaction()->create([
             'amount' => $request->amount,
-            'transfer_type' => 'global_transfer',
+            'trans_type' => 'global_transfer',
             "fee_upon" => $request->fee_upon,
             'from_user_id' => auth()->id(),
+            'to_user_id' => $request->beneficiary_id,
             'fee_amount' => $global_transfer->transfer_fees ?? 0,
             'cashback_amount' => $global_transfer->cashback_amount,
             'main_amount' => $global_transfer->main_amount,
         ]);
-
-        return TransactionResource::make($transaction)->additional([
+        return GlobalTransferResource::make($global_transfer)->additional([
             'message' => trans('mobile.local_transfers.transfer_has_been_done_successfully'),
             'status' => true
         ]);

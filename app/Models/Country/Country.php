@@ -3,7 +3,7 @@
 namespace App\Models\Country;
 
 use App\Models\City\City;
-use App\Models\Currency\Currency;
+use App\Models\Currency;
 use App\Models\Region\Region;
 use App\Models\Beneficiary;
 use App\Models\User;
@@ -23,8 +23,8 @@ class Country extends Model implements TranslatableContract
     use HasFactory, Uuid, Translatable, SoftDeletes, Loggable;
 
     #region properties
-    protected $guarded = ['created_at','deleted_at'];
-    public $translatedAttributes = ['name', 'nationality','currency'];
+    protected $guarded = ['created_at', 'deleted_at'];
+    public $translatedAttributes = ['name', 'nationality', 'currency'];
     #endregion properties
 
     #region mutators
@@ -59,6 +59,11 @@ class Country extends Model implements TranslatableContract
     public function beneficiaries(): HasMany
     {
         return $this->hasMany(Beneficiary::class);
+    }
+
+    public function countryCurrency()
+    {
+        return $this->hasOne(Currency::class,'currency_code','currency_code');
     }
     #endregion relationships
 

@@ -33,7 +33,7 @@ class LocalTransferController extends Controller
 
         $transaction = $local_transfer->transaction()->create([
             'amount' => $request->amount,
-            'transfer_type' => 'local_transfer',
+            'trans_type' => 'local_transfer',
             "fee_upon" => $request->fee_upon,
             'from_user_id' => auth()->id(),
             'fee_amount' => $local_transfer->transfer_fees ?? 0,

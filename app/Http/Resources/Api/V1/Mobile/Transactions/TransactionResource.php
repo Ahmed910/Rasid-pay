@@ -20,12 +20,12 @@ class TransactionResource extends JsonResource
             'trans_status_translate' => trans("mobile.transaction.status_cases.{$this->trans_status}"),
             'transaction_id' => $this->transaction_id,
             'transaction_data' => $this->transaction_data,
-            'qr_code' => $this->qr_path,
+            'qr_code' => asset($this->qr_path),
             'date' => $this->created_at,
             'from_user' => UserResource::make($this->fromUser),
             'to_user' => UserResource::make($this->toUser),
             'beneficiary' => BeneficiaryResource::make($this->transactionable?->beneficiary),
-            'notes'       => $this->transactionable?->notes
+            'notes' => $this->transactionable?->notes
         ];
     }
 }
