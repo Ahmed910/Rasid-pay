@@ -24,7 +24,7 @@ class PaymentController extends Controller
             'amount' => $request->amount,
             'fee_amount' => 0, // TODO::will be added after implement api
             'trans_status' => 'success', // TODO::will be changed after implement api
-            // 'transaction_id' => ,// TODO::will be changed after implement api (return from api)
+            'trans_number' => generate_unique_code(Transaction::class,'trans_number',10,'numbers')
         ];
         $transaction = $payment->transaction()->create($transaction_data);
         // if transaction saved successfully, change wallet

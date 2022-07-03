@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api\V1\Mobile;
 use App\Models\CitizenWallet;
 use App\Http\Controllers\Controller;
+use App\Models\Transaction;
 use App\Http\Requests\V1\Mobile\{WalletBinRequest, WalletRequest};
 use App\Http\Resources\Api\V1\Mobile\WalletResource;
 use Illuminate\Http\Request;
@@ -37,7 +38,8 @@ class WalletController extends Controller
         $transaction_data = [
             'from_user_id' => $wallet->citizen_id,
             'amount' => $request->amount,
-            'trans_type' => 'charge'
+            'trans_type' => 'charge',
+            'trans_number' => generate_unique_code(Transaction::class,'trans_number',10,'numbers')
         ];
         $wallet_charge->transaction()->create($transaction_data);
 

@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\V1\Mobile\Transfers\WalletTransferRequest;
 use App\Http\Resources\Api\V1\Mobile\{LocalTransferResource, Transactions\TransactionResource, WalletTransferResource};
 use App\Services\WalletBalance;
-use App\Models\{CitizenWallet, User,Transfer};
+use App\Models\{CitizenWallet, Transaction, User, Transfer};
 use Illuminate\Http\Request;
 
 class WalletTransferController extends Controller
@@ -61,7 +61,8 @@ class WalletTransferController extends Controller
             'from_user_id' => auth()->id(),
             'to_user_id' => $request->citizen_id,
             'amount' => $request->amount,
-            'trans_type' => 'wallet_transfer'
+            'trans_type' => 'wallet_transfer',
+            'trans_number' => generate_unique_code(Transaction::class,'trans_number',10,'numbers')
         ]);
 
         return TransactionResource::make($transaction)->additional([

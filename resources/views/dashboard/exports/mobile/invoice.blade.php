@@ -155,11 +155,11 @@
         </tr>
         <tr>
           <th style="width: 220px;color:blue;">مبلغ التحويل</th>
-          <th>{{ $transaction->amount ?? '' }} (USD)</th>
+          <th>{{ $transaction->amount ?? '' }} ({{ $transaction->transactionable?->bankTransfer?->currency?->currency_code }})</th>
         </tr>
         <tr>
           <th style="width: 220px;color:blue;">رسوم التحويل</th>
-          <th>{{ $transaction->fee_amount ?? '' }} ر.س</th>
+          <th>{{ $transaction->fee_amount ?? '' }} ({{ $transaction->transactionable?->bankTransfer?->toCurrency?->currency_code }})</th>
         </tr>
         <tr>
           <th style="width: 220px;color:blue;">سعر الصرف</th>
