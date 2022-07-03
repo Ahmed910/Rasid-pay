@@ -43,7 +43,7 @@ class Transaction extends Model
     const client_searchable_Columns = ["user_to", "client_type", "commercial_number", "nationality", "tax_number", "transactions_done"];
     const client_sortable_Columns = ["user_to" => "fullname", "client_type" => "client_type", "commercial_number" => "commercial_number", "nationality" => "nationality", "tax_number" => "tax_number", "transactions_done" => "transactions_done"];
     const ENABLED_CARD_sortable_COLUMNS = ["enabled_package" => "package_id"];
-    const TRANACTION_TYPES = ['payment', 'wallet_transfer', 'local_transfer', 'global_transfer', 'charge', 'money_request','promote_package'];
+    const TRANACTION_TYPES = ['payment', 'wallet_transfer', 'local_transfer', 'global_transfer', 'charge', 'money_request', 'promote_package'];
 
     public function scopeSearch(Builder $query, $request)
     {
@@ -123,7 +123,7 @@ class Transaction extends Model
 
     public function getQrPathAttribute()
     {
-        return @$this->attributes['qr_path'] ? asset($this->attributes['qr_path']) : null;
+        return @$this->attributes['qr_path'] ? asset('storage/' . $this->attributes['qr_path']) : null;
     }
 
 
@@ -162,7 +162,7 @@ class Transaction extends Model
 
     public function transfer()
     {
-        return $this->hasOne(Transfer::class,'transactionable_id')->where('transactionable_type',Transfer::class);
+        return $this->hasOne(Transfer::class, 'transactionable_id')->where('transactionable_type', Transfer::class);
     }
 
     public function bank(): BelongsTo
