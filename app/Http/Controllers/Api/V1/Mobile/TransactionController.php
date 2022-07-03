@@ -21,7 +21,7 @@ class TransactionController extends Controller
         return TransactionResource::collection($transactions)
             ->additional([
                 'status' => true,
-                'message' => 'success'
+                'message' => ''
             ]);
     }
 
@@ -36,7 +36,7 @@ class TransactionController extends Controller
         return TransactionResource::make($transaction)
             ->additional([
                 'status' => true,
-                'message' => 'success'
+                'message' => ''
             ]);
     }
 
