@@ -106,7 +106,7 @@ class LoginController extends Controller
             if ($response) {
                 return response()->json(array_except($response['response'],['message']) + ['message' => trans('auth.success_send_login_code')],403);
             }
-            return response()->json(['status' => true, 'data' => ['phone' => '**********' . substr($user->phone, -4)], 'message' => trans('auth.success_send_login_code')]);
+            return response()->json(['status' => true, 'data' => ['phone' => '**********' . substr($user->phone, -3)], 'message' => trans('auth.success_send_login_code')]);
         } catch (\Exception $e) {
             return response()->json(['status' => false, 'data' => null, 'message' => trans('auth.fail_send')], 422);
         }
