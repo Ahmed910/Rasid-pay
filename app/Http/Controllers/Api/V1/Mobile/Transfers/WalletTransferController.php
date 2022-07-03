@@ -57,14 +57,14 @@ class WalletTransferController extends Controller
             'notes' =>$request->notes
         ];
         $transfer->fill($request->validated() + $data)->save();
-        $transfer->transaction()->create([
+        $transaction = $transfer->transaction()->create([
             'from_user_id' => auth()->id(),
             'to_user_id' => $request->citizen_id,
             'amount' => $request->amount,
             'trans_type' => 'wallet_transfer'
         ]);
 
-        return TransactionResource::make($transfer->transaction)->additional([
+        return TransactionResource::make($transaction)->additional([
             'message' => trans('mobile.local_transfers.transfer_has_been_done_successfully'),
             'status' => true
         ]);
