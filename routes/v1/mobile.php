@@ -59,6 +59,7 @@ Route::middleware('auth:sanctum')->group(function () {
     });
     Route::apiResource('packages', 'PackageController')->only('index', 'show', 'update');
     // Transaction
+    Route::get('generate_transaction_file/{id}', 'TransactionController@generatePdfLink');
     Route::get('download_transaction_file/{id}', 'TransactionController@generatePdfFile');
     Route::apiResource('transactions', 'TransactionController')->only('index', 'show');
     // Payment

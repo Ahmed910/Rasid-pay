@@ -66,7 +66,7 @@ class GeneratePdf
      */
     public function storeOnLocal($folder): string
     {
-        $basePath = base_path('storage/app/');
+        $basePath = base_path('storage/app/public/');
         $path = $basePath . $folder . uniqid() . ".pdf";
         $this->mpdf->Output($path, 'F');
         $path = Str::replaceFirst($basePath, '', $path);
