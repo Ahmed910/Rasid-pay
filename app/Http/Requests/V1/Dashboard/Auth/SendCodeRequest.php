@@ -31,4 +31,16 @@ class SendCodeRequest extends ApiMasterRequest
         ]);
     }
 
+    public function messages()
+    {
+        if($this->send_type == 'email'){
+            return [
+                'username.exists' => trans('validation.custom.email.exists'),
+                'username.email' =>  trans('dashboard.validation.email')
+            ];
+        }elseif($this->send_type == 'phone'){
+            return ['username.exists' => trans('dashboard.general.phoneCode_registeration')];
+        }
+    }
+
 }
