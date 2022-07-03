@@ -123,7 +123,7 @@ class Transaction extends Model
 
     public function getQrPathAttribute()
     {
-        return @$this->attributes['qr_path'] ? asset($this->attributes['qr_path']) : null;
+        return @$this->attributes['qr_path'] ? 'storage/' . $this->attributes['qr_path'] : null;
     }
 
 
