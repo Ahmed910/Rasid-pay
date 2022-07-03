@@ -148,6 +148,20 @@ if (!function_exists('generate_unique_code')) {
         return $generate_random_code;
     }
 }
+if (!function_exists('number_with_starts')) {
+    function number_with_starts($number="", $length = 4)
+    {
+       if (strlen($number)<=$length) return generatestars($number , strlen($number)) ;
+        return generatestars($number ,$length) ;
+    }
+    function generatestars($string ,  $length = 4)
+    {
+       for ($i = 0; $i<$length ; $i++ ) {
+           $string[$i] = '*' ;
+       }
+       return $string ;
+    }
+}
 
 if (!function_exists('setting')) {
     function setting(string $attr, string $dashboard = Setting::ERP)
