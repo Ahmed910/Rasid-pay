@@ -33,8 +33,8 @@ class GlobalTransferController extends Controller
         $exchange_rate = Country::find($request->to_currency_id)->countryCurrency->currency_value;
         $global_transfer->bankTransfer()->create($request->only([
                 'currency_id', 'to_currency_id', 'beneficiary_id', 'balance_type']
-        )+['exchange_rate' => $exchange_rate, 'recieve_option_id' => $global_transfer->beneficiary?->recieve_option_id]);
-
+        )+['exchange_rate' => $exchange_rate]);
+        $global_transfer->update(['recieve_option_id' => $global_transfer->beneficiary->recieve_option_id]);
 
         //add transfer in  transaction
         $transaction = $global_transfer->transaction()->create([
@@ -42,7 +42,7 @@ class GlobalTransferController extends Controller
             'trans_type' => 'global_transfer',
             "fee_upon" => $request->fee_upon,
             'from_user_id' => auth()->id(),
-            'to_user_id' => $request->beneficiary_id,
+            'to_user_id' => $request->beneficiary_id??null,
             'fee_amount' => $global_transfer->transfer_fees ?? 0,
             'cashback_amount' => $global_transfer->cashback_amount,
             'main_amount' => $global_transfer->main_amount,
