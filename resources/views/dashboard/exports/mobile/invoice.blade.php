@@ -130,6 +130,7 @@
                   color: #4a4a4a;
                 ">
 
+      <img src="{{ public_path($transaction->qr_path) }}" alt="" width="150">
       <p style="font-weight: bold; color: blue; margin-top: 15px; font-size: 18px;">
         تم التحويل بنجاح
       </p>
@@ -138,7 +139,7 @@
       <thead>
         <tr>
           <th style="width: 220px;color:blue;">نوع العملية</th>
-          <th>{{ $transaction->trans_type ?? '' }}</th>
+          <th>{{  trans("dashboard.transaction.type_cases.{$transaction->trans_type}") ?? '' }}</th>
         </tr>
         <tr>
           <th style="width: 220px;color:blue;">تاريخ العملية</th>
@@ -146,7 +147,7 @@
         </tr>
         <tr>
           <th style="width: 220px;color:blue;">رقم MTCN</th>
-          <th>#{{ $transaction?->transactionable?->transfer_type ?? '' }}</th>
+          <th>#{{ $transaction?->transactionable?->bankTransfer?->mtcn_number ?? '' }}</th>
         </tr>
         <tr>
           <th style="width: 220px;color:blue;">الرقم المرجعي</th>
@@ -162,7 +163,7 @@
         </tr>
         <tr>
           <th style="width: 220px;color:blue;">سعر الصرف</th>
-          <th>0</th>
+          <th>{{ $transaction->transactionable?->bankTransfer?->exchange_rate }}</th>
         </tr>
         <tr>
           <th style="width: 220px;color:blue;">من حساب رقم</th>
@@ -170,7 +171,7 @@
         </tr>
         <tr>
           <th style="width: 220px;color:blue;">إجمالي المبلغ</th>
-          <th>{{ $transaction->trans_number ?? '' }} ر.س</th>
+          <th>{{ $transaction->amount ?? '' }} ر.س</th>
         </tr>
         <tr>
           <th style="width: 220px;color:blue;">اسم المستفيد</th>
