@@ -49,3 +49,9 @@ Route::get('test-pagination', function () {
             'status' => true,
         ]);
 });
+
+Route::get('download-file', function () {
+    $file = public_path('test.pdf');
+
+    return response()->download($file);
+});
