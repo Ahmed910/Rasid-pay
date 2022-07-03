@@ -45,7 +45,7 @@ class GlobalTransferController extends Controller
             'main_amount' => $global_transfer->main_amount,
         ]);
 
-        return TransactionResource::make($transaction)->additional([
+        return TransactionResource::make($transaction->refresh())->additional([
             'message' => trans('mobile.local_transfers.transfer_has_been_done_successfully'),
             'status' => true
         ]);
