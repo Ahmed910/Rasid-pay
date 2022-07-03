@@ -791,7 +791,7 @@ return
     ['id' => '3dffc57f-ff09-415d-8988-a15678a172b7','locale_id' => '67459655-9bd9-49d6-bfc1-80d0a81fb3f0','locale' => 'ar','value' => 'أدخل رقم الهوية','desc' => NULL],
     ['id' => '3e345038-2141-47d7-a4c6-011efc5d1c90','locale_id' => 'ea5483d6-aed3-4e29-a992-2a9c31c27a68','locale' => 'en','value' => 'Show archive','desc' => NULL],
     ['id' => '3e582456-f3df-4689-a0b6-047d17bdda2a','locale_id' => '82ec205f-f573-440f-b98f-84f085f14f7f','locale' => 'en','value' => 'Pending','desc' => NULL],
-    ['id' => '3e5b6c41-3856-4d6e-a582-77d8da00ef2a','locale_id' => 'c4aead29-0b6a-4388-81d2-8720e3c158b3','locale' => 'ar','value' => 'هذا البريد غير مسجل بالنظام','desc' => NULL],
+    ['id' => '3e5b6c41-3856-4d6e-a582-77d8da00ef2a','locale_id' => 'c4aead29-0b6a-4388-81d2-8720e3c158b3','locale' => 'ar','value' => 'البريد غير مسجل بالنظام','desc' => NULL],
     ['id' => '3e644bdc-ab4f-4841-8e5c-e674915e0a8a','locale_id' => 'f0c0174d-4cb6-4eb4-b984-90ccba1999a5','locale' => 'ar','value' => 'حفظ','desc' => NULL],
     ['id' => '3e90728e-c04d-491a-91f8-b5c5cae2ee6c','locale_id' => '5e757a4d-23bb-430f-b558-47c6e1501040','locale' => 'en','value' => 'Category','desc' => NULL],
     ['id' => '3ecdb066-10f6-4295-8e4d-4fb6b1e58257','locale_id' => 'c7019265-12dc-4251-a853-2bbc535eefed','locale' => 'ar','value' => 'شركات','desc' => NULL],
@@ -3197,5 +3197,6 @@ return
     ['id' => '56cb96df-212a-4ebc-af6c-f574bf4d5861','locale_id' =>'c5ef67fa-3ec1-4475-aaa3-9122b4dca178', 'locale' =>'ar', 'value' =>'رمز التحقق صالح','desc' => NULL],
     ['id' => '56cb96df-212a-4ebc-af6c-f574bf4d5862','locale_id' =>'c5ef67fa-3ec1-4475-aaa3-9122b4dca178', 'locale' =>'en', 'value' =>'otp is valid','desc' => NULL],
     ['id' => '56cb96df-212a-4ebc-af6c-f574bf4d5863','locale_id' =>'c5ef67fa-3ec1-4475-aaa3-9122b4dca179', 'locale' =>'ar', 'value' =>'رمز التحقق غير صالح','desc' => NULL],
-    ['id' => '56cb96df-212a-4ebc-af6c-f574bf4d5864','locale_id' =>'c5ef67fa-3ec1-4475-aaa3-9122b4dca179', 'locale' =>'en', 'value' =>'otp is invalid','desc' => NULL]
+    ['id' => '56cb96df-212a-4ebc-af6c-f574bf4d5864','locale_id' =>'c5ef67fa-3ec1-4475-aaa3-9122b4dca179', 'locale' =>'en', 'value' =>'otp is invalid','desc' => NULL],
+    ['id' => '56cb96df-512a-4ebc-af6c-f574bf4d5864','locale_id' =>'c5ef67fa-3ec1-4475-aaa3-9452b4dca179', 'locale' =>'ar', 'value' =>'صيغة البريد الإلكتروني غير صحيحة','desc' => NULL],
 ];
