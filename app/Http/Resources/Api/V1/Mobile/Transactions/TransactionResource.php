@@ -11,15 +11,15 @@ class TransactionResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'number' => $this->trans_number,
+            'trans_number' => $this->trans_number,
             'invoice_number' => $this->transactionable?->invoice_number,
             'amount' => $this->amount,
             'trans_type' => $this->trans_type,
             'trans_type_translate' => trans("mobile.transaction.transaction_types.{$this->trans_type}"),
             'trans_status' => $this->trans_status,
             'trans_status_translate' => trans("mobile.transaction.status_cases.{$this->trans_status}"),
-            'to_currency' => $this->transactionable?->bankTransfer->toCurrency->currency_code,
-            'exchange_rate' => $this->transactionable?->bankTransfer->exchange_rate,
+            'to_currency' => $this->transactionable?->bankTransfer?->toCurrency?->currency_code,
+            'exchange_rate' => $this->transactionable?->bankTransfer?->exchange_rate,
             'transfer_fees' => $this->transactionable?->transfer_fees ?? 0,
             'transfer_purpose' => $this->transactionable?->transferPurpose?->name,
             'recieve_option' => $this->transactionable?->bankTransfer?->recieveOption?->name,
