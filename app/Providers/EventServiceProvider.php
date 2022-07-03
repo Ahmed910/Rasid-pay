@@ -29,6 +29,6 @@ class EventServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        Transaction::observe(TransactionObserver::class);
+//        Transaction::observe(TransactionObserver::class);
     }
 }

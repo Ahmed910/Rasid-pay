@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\V1\Mobile\Transfers\GlobalTransferRequest;
 use App\Http\Resources\Api\V1\Mobile\GlobalTransferResource;
 use App\Http\Resources\Api\V1\Mobile\Transactions\TransactionResource;
-use App\Models\{CitizenWallet, Country\Country, RecieveOption, Transfer};
+use App\Models\{CitizenWallet, Country\Country, RecieveOption, Transaction, Transfer};
 use App\Services\WalletBalance;
 
 class GlobalTransferController extends Controller
@@ -46,6 +46,7 @@ class GlobalTransferController extends Controller
             'fee_amount' => $global_transfer->transfer_fees ?? 0,
             'cashback_amount' => $global_transfer->cashback_amount,
             'main_amount' => $global_transfer->main_amount,
+            'trans_number' => generate_unique_code(Transaction::class,'trans_number',10,'numbers')
         ]);
         return GlobalTransferResource::make($global_transfer)->additional([
             'message' => trans('mobile.local_transfers.transfer_has_been_done_successfully'),

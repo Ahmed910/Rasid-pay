@@ -42,14 +42,7 @@ class CreateTransactionsTable extends Migration
             $table->softDeletes();
             $table->timestamps();
         });
-
-        Schema::table('transactions', function (Blueprint $table) {
-            $table->bigInteger('trans_number', true, true)->change();
-        });
-
-        DB::update("ALTER TABLE transactions AUTO_INCREMENT = 10000;");
     }
-
 
     /**
      * Reverse the migrations.

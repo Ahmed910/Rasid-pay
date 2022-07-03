@@ -126,6 +126,34 @@ class Transaction extends Model
         return @$this->attributes['qr_path'] ? 'storage/' . $this->attributes['qr_path'] : null;
     }
 
+    public function setTransNumberAttribute($value)
+    {
+        $this->attributes['trans_number'] = $value;
+        $this->attributes['qr_path'] = createQr($value);
+    }
+
+    private static function createQr($qr_value)
+    {
+        self::checkOrCreateQrDirectory();
+        $filname = time() . "_" . $qr_value . "_qr_code.png";
+
+        $path = storage_path('app/public/images/transactions/' . $filname);
+        \QrCode::errorCorrection('H')
+            ->format('png')
+            ->encoding('UTF-8')
+            ->merge(public_path('dashboardAssets/images/brand/logoQR.png'), .2, true)
+            ->size(500)
+            ->generate((string)$qr_value, $path);
+        return 'images/transactions/' . $filname;
+    }
+
+    private static function checkOrCreateQrDirectory()
+    {
+        if (!\File::isDirectory(storage_path('app/public/images/transactions/'))) {
+            \File::makeDirectory(storage_path('app/public' . DIRECTORY_SEPARATOR . 'images' . DIRECTORY_SEPARATOR . 'transactions' . DIRECTORY_SEPARATOR), 0777, true);
+        }
+    }
+
 
     public function fromUser()
     {
@@ -136,24 +164,6 @@ class Transaction extends Model
     {
         return $this->belongsTo(User::class, 'to_user_id');
     }
-
-    // public function walletcharge(): BelongsTo
-    // {
-    //     return $this->belongsTo(WalletCharge::class, 'wallet_charge_id');
-    // }
-    // public function payment(): BelongsTo
-    // {
-    //     return $this->belongsTo(Payment::class, 'payment_id');
-    // }
-    //
-    // public function transfer(): BelongsTo
-    // {
-    //     return $this->belongsTo(Transfer::class, 'transfer_id');
-    // }
-    // public function moneyRequest(): BelongsTo
-    // {
-    //     return $this->belongsTo(MoneyRequest::class, 'money_request_id');
-    // }
 
     public function transactionable()
     {

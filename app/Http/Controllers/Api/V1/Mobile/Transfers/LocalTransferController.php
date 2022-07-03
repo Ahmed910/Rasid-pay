@@ -39,6 +39,7 @@ class LocalTransferController extends Controller
             'fee_amount' => $local_transfer->transfer_fees ?? 0,
             'cashback_amount' => $local_transfer->cashback_amount,
             'main_amount' => $local_transfer->main_amount,
+            'trans_number' => generate_unique_code(Transaction::class,'trans_number',10,'numbers')
         ]);
 
        return TransactionResource::make($transaction)->additional([

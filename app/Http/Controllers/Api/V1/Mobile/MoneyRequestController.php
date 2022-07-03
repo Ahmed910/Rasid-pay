@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api\V1\Mobile;
 
 use App\Http\Controllers\Controller;
+use App\Models\Transaction;
 use Illuminate\Http\Request;
 use App\Models\MoneyRequest;
 use App\Models\User;
@@ -22,6 +23,7 @@ class MoneyRequestController extends Controller
             'transfer_type' => 'money_request',
             'to_user_id' => auth()->id(),
             'from_user_id'=> $from_user ? $from_user->id : "",
+           'trans_number' => generate_unique_code(Transaction::class,'trans_number',10,'numbers')
         ]);
 
         return MoneyRequestResource::make($money)
