@@ -63,10 +63,14 @@ class WalletController extends Controller
 
     public function checkOtp(Request $request)
     {
-        $this->validate($request , ["otp"=>"required|max:10"]);
+        $this->validate($request, ["otp" => "required|max:10"]);
 
-        $result = [ "is_opt_vaild" => auth()->user()->citizenWallet->wallet_bin === $request->otp ];
+        $result = auth()->user()->citizenWallet->wallet_bin === $request->otp;
 
-        return response()->json(['status' => true, 'message' =>"",'data' => $result]);
+        $data = ["is_opt_vaild" => $result];
+
+        return response()->json(['status' => true,
+            'message' => trans($result ? "mobile.validation.mobile.otp_vaild" : "mobile.validation.mobile.otp_invaild"),
+            'data' => $data]);
     }
 }
