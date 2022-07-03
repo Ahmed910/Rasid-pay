@@ -68,6 +68,7 @@ class TransactionController extends Controller
 
     public function generatePdfLink($id)
     {
+        $this->checkInvoicesFolderExists();
         $transaction = auth()->user()->citizenTransactions()->findOrFail($id);
 
         if ($transaction->summary_path && is_file(storage_path($transaction->summary_path))) {
