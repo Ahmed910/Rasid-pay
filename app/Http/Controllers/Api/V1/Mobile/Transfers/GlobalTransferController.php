@@ -42,7 +42,6 @@ class GlobalTransferController extends Controller
             'trans_type' => 'global_transfer',
             "fee_upon" => $request->fee_upon,
             'from_user_id' => auth()->id(),
-            'to_user_id' => $request->beneficiary_id??null,
             'fee_amount' => $global_transfer->transfer_fees ?? 0,
             'cashback_amount' => $global_transfer->cashback_amount,
             'main_amount' => $global_transfer->main_amount,
