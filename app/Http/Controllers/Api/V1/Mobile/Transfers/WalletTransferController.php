@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Api\V1\Mobile\Transfers;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\V1\Mobile\Transfers\WalletTransferRequest;
-use App\Http\Resources\Api\V1\Mobile\{LocalTransferResource, WalletTransferResource};
+use App\Http\Resources\Api\V1\Mobile\{LocalTransferResource, Transactions\TransactionResource, WalletTransferResource};
 use App\Services\WalletBalance;
 use App\Models\{CitizenWallet, User,Transfer};
 use Illuminate\Http\Request;
@@ -63,10 +63,11 @@ class WalletTransferController extends Controller
             'amount' => $request->amount,
             'trans_type' => 'wallet_transfer'
         ]);
-        return WalletTransferResource::make($transfer)->additional([
+
+        return TransactionResource::make($transfer->transaction)->additional([
             'message' => trans('mobile.local_transfers.transfer_has_been_done_successfully'),
             'status' => true
-            ]);
+        ]);
     }
 
     public function checkIfPhoneExists($phone)
