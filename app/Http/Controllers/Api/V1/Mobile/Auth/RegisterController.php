@@ -57,7 +57,7 @@ class RegisterController extends Controller
         return response()->json([
             'status' => true,
             'data' => null,
-            'message' => trans('auth.success_verify_phone', ['user' => $user->phone]),
+            'message' => trans('auth.success_verify_phone', ['user' => '***********' . substr($user->phone, -3)]),
         ]);
     }
 
@@ -86,7 +86,7 @@ class RegisterController extends Controller
 
         return UserResource::make($user)->additional([
             'status' => true,
-            'message' => trans('auth.success_verify_phone', ['user' => '**********' . substr($user->phone, -4)]),
+            'message' => trans('auth.success_verify_phone', ['user' => '**********' . substr($user->phone, -3)]),
         ]);
     }
 
