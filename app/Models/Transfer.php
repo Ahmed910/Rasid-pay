@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\TransferPurpose\TransferPurpose;
 use App\Traits\Loggable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -62,6 +63,11 @@ class Transfer extends Model
     public function toUser()
     {
       return $this->belongsTo(User::class,'to_user_id');
+    }
+
+    public function transferPurpose(): BelongsTo
+    {
+        return $this->belongsTo(TransferPurpose::class, 'transfer_purpose_id');
     }
     #endregion relationships
 
