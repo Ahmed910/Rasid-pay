@@ -3205,4 +3205,7 @@ return  [
     ['id' => 'c5ef67fa-3ec1-4475-aaa3-9452b4dca191' ,'key' => 'invoice.benefeciary_name', 'file' =>'mobile', 'created_at' =>'2022-06-29 16:53:27', 'updated_at' =>'2022-06-29 16:53:27'],
     ['id' => 'c5ef67fa-3ec1-4475-aaa3-9452b4dca192' ,'key' => 'invoice.benefeciary_address', 'file' =>'mobile', 'created_at' =>'2022-06-29 16:53:27', 'updated_at' =>'2022-06-29 16:53:27'],
     ['id' => 'c5ef67fa-3ec1-4475-aaa3-9452b4dca193' ,'key' => 'invoice.transfer_purpose', 'file' =>'mobile', 'created_at' =>'2022-06-29 16:53:27', 'updated_at' =>'2022-06-29 16:53:27'],
+    ['id' => 'c5ef67fa-3ec1-4475-aaa3-9452b4dca194' ,'key' => 'transaction.transfer', 'file' =>'mobile', 'created_at' =>'2022-06-29 16:53:27', 'updated_at' =>'2022-06-29 16:53:27'],
+    ['id' => 'c5ef67fa-3ec1-4475-aaa3-9452b4dca195' ,'key' => 'transaction.payment', 'file' =>'mobile', 'created_at' =>'2022-06-29 16:53:27', 'updated_at' =>'2022-06-29 16:53:27'],
+    ['id' => 'c5ef67fa-3ec1-4475-aaa3-9452b4dca196' ,'key' => 'transaction.charge', 'file' =>'mobile', 'created_at' =>'2022-06-29 16:53:27', 'updated_at' =>'2022-06-29 16:53:27'],
 ];
