@@ -7,6 +7,8 @@ use App\Models\BankBranch\BankBranch;
 
 //use App\Models\CardPackage\CardPackage;
 use App\Models\Package\Package;
+use Carbon\Carbon;
+use GeniusTS\HijriDate\Hijri;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Traits\Loggable;
@@ -43,7 +45,7 @@ class Transaction extends Model
     const client_searchable_Columns = ["user_to", "client_type", "commercial_number", "nationality", "tax_number", "transactions_done"];
     const client_sortable_Columns = ["user_to" => "fullname", "client_type" => "client_type", "commercial_number" => "commercial_number", "nationality" => "nationality", "tax_number" => "tax_number", "transactions_done" => "transactions_done"];
     const ENABLED_CARD_sortable_COLUMNS = ["enabled_package" => "package_id"];
-    const TRANACTION_TYPES = ['payment', 'wallet_transfer', 'local_transfer', 'global_transfer', 'charge', 'money_request','promote_package'];
+    const TRANACTION_TYPES = ['payment', 'wallet_transfer', 'local_transfer', 'global_transfer', 'charge', 'money_request', 'promote_package'];
 
     public function scopeSearch(Builder $query, $request)
     {
@@ -84,6 +86,17 @@ class Transaction extends Model
 
         $new = $query->toSql();
         if ($old != $new) $this->addGlobalActivity($this, $request->query(), ActivityLog::SEARCH, 'index');
+    }
+
+    public function getCreatedAtAttribute($date)
+    {
+        if ($date == null) return $date;
+        $locale = app()->getLocale();
+        if (auth()->check() && auth()->user()->is_date_hijri) {
+            $this->changeDateLocale($locale);
+            return Hijri::convertToHijri($date)->format('d F o h:i A');
+        }
+        return Carbon::parse($date)->locale($locale)->translatedFormat('d/m/Y - h:i A');
     }
 
     public function scopeSortBy(Builder $query, $request)
@@ -172,7 +185,7 @@ class Transaction extends Model
 
     public function transfer()
     {
-        return $this->hasOne(Transfer::class,'transactionable_id')->where('transactionable_type',Transfer::class);
+        return $this->hasOne(Transfer::class, 'transactionable_id')->where('transactionable_type', Transfer::class);
     }
 
     public function bank(): BelongsTo
