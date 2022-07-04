@@ -40,48 +40,19 @@ class TransactionController extends Controller
             ]);
     }
 
-    public function createOrGetPdfFile($transaction)
-    {
-        $generatePdfFile = new GeneratePdf();
-        $path =  $generatePdfFile->newFile()
-            ->view('dashboard.exports.mobile.invoice', ['transaction' => $transaction])
-            ->storeOnLocal('invoices/');
-
-        $transaction->update(['summary_path' => $path]);
-
-        return asset('app/public/' . $path);
-    }
-
     public function generatePdfFile($id)
     {
         $this->checkInvoicesFolderExists();
-        $transaction = auth()->user()->citizenTransactions()->findOrFail($id);
+        $file = $this->createOrGetPdfFile($id);
 
-        if ($transaction->summary_path && is_file(storage_path('app/public/' . $transaction->summary_path)))
-            return response()->download(public_path('storage/' . $transaction->summary_path));
-
-
-        $file = $this->createOrGetPdfFile($transaction);
-
-        return response()->download($file);
+        return response()->download(Str::replace(url('app/public/'), 'storage', $file));
     }
 
     public function generatePdfLink($id)
     {
         $this->checkInvoicesFolderExists();
-        $transaction = auth()->user()->citizenTransactions()->findOrFail($id);
 
-        if ($transaction->summary_path && is_file(storage_path($transaction->summary_path))) {
-            return response()->json([
-                'status' => true,
-                'message' => 'Pdf File',
-                'data' => [
-                    'file' => asset(Str::replace('app/public/', 'storage/', $transaction->summary_path))
-                ]
-            ]);
-        }
-
-        $path = $this->createOrGetPdfFile($transaction);
+        $path = $this->createOrGetPdfFile($id);
 
         return response()->json([
             'status' => true,
@@ -97,5 +68,22 @@ class TransactionController extends Controller
         if (!File::isDirectory(storage_path('app/public/invoices'))) {
             File::makeDirectory(storage_path('app/public/invoices'), 0777, true);
         }
+    }
+
+    private function createOrGetPdfFile($userId)
+    {
+        $generatePdfFile = new GeneratePdf();
+        $transaction = auth()->user()->citizenTransactions()->findOrFail($userId);
+
+        if ($transaction->summary_path && is_file(storage_path('app/public/' . $transaction->summary_path)))
+            return asset('app/public/' . $transaction->summary_path);
+
+        $path =  $generatePdfFile->newFile()
+            ->view('dashboard.exports.mobile.invoice', ['transaction' => $transaction])
+            ->storeOnLocal('invoices/');
+
+        $transaction->update(['summary_path' => $path]);
+
+        return asset('app/public/' . $path);
     }
 }
