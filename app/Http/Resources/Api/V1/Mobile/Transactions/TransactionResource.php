@@ -15,7 +15,7 @@ class TransactionResource extends JsonResource
             'amount' => $this->amount,
             'trans_type' => $this->trans_type,
             'invoice_number' => $this->when($this->trans_type == 'payment', $this->transactionable?->invoice_number),
-            'transaction_id' => $this->when(in_array($this->trans_type, ['global_transfer','local_transfer']), $this->transactionable?->bankTransfer?->mtcn_number),
+            'mtcn_number' => $this->when(in_array($this->trans_type, ['global_transfer','local_transfer']), $this->transactionable?->bankTransfer?->mtcn_number),
             'trans_type_translate' => trans("mobile.transaction.transaction_types.{$this->trans_type}"),
             'trans_status' => $this->trans_status,
             'trans_status_translate' => trans("mobile.transaction.status_cases.{$this->trans_status}"),
