@@ -44,7 +44,10 @@ class Transaction extends Model
     const ENABLED_CARD_SEARCHABLE_COLUMNS = ["enabled_package" => "package_id"];
     const CLIENT_SORTABLE_COLUMNS = ["user_to" => "fullname", "client_type" => "client_type", "commercial_number" => "commercial_number", "nationality" => "nationality", "tax_number" => "tax_number", "transactions_done" => "transactions_done"];
     const ENABLED_CARD_sortable_COLUMNS = ["enabled_package" => "package_id"];
-    const TRANACTION_TYPES = ['payment', 'wallet_transfer', 'local_transfer', 'global_transfer', 'charge', 'money_request', 'promote_package'];
+    const TRANSFERS = ['wallet_transfer', 'local_transfer', 'global_transfer'];
+    const PAYMENTS = ['payment', 'promote_package'];
+    const CHARGE = ['charge', 'money_request'];
+    const TRANACTION_TYPES = self::TRANSFERS + self::PAYMENTS + self::CHARGE ;
 
     public function scopeSearch(Builder $query, $request)
     {

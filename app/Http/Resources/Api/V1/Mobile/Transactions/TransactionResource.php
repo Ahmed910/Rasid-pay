@@ -4,6 +4,7 @@ namespace App\Http\Resources\Api\V1\Mobile\Transactions;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 use App\Http\Resources\Api\V1\Mobile\{Beneficiary\BeneficiaryResource, UserResource};
+use App\Models\Transaction;
 
 class TransactionResource extends JsonResource
 {
@@ -12,8 +13,9 @@ class TransactionResource extends JsonResource
 
         return [
             'id' => $this->id,
-            'trans_number' => (string)$this->trans_number,
-            'amount' => (string)$this->amount,
+            'trans_number' => $this->trans_number,
+            'amount' => $this->amount,
+            'main_label' => $this->getMainlabels(), 
             'trans_type' => $this->trans_type,
             'invoice_number' => $this->when($this->trans_type == 'payment', (string)$this->transactionable?->invoice_number),
             'mtcn_number' => $this->when(in_array($this->trans_type, ['global_transfer', 'local_transfer']), (string)$this->transactionable?->bankTransfer?->mtcn_number),
@@ -36,5 +38,16 @@ class TransactionResource extends JsonResource
             'beneficiary' => BeneficiaryResource::make($this->transactionable?->beneficiary),
             'notes' => $this->transactionable?->notes,
         ];
+    }
+
+    private function getMainlabels() : string
+    {
+        if(in_array($this->trans_type,Transaction::TRANSFERS)){
+            return trans('mobile.transaction.transfer');
+        }elseif(in_array($this->trans_type,Transaction::PAYMENTS)){
+            return trans('mobile.transaction.payment');
+        }elseif(in_array($this->trans_type,Transaction::CHARGE)){
+            return trans('mobile.transaction.charge');
+        }
     }
 }
