@@ -12,7 +12,7 @@ class TransactionResource extends JsonResource
         return [
             'id' => $this->id,
             'trans_number' =>(string) $this->trans_number,
-            'amount' => $this->amount,
+            'amount' => (string)$this->amount,
             'trans_type' => $this->trans_type,
             'invoice_number' => $this->when($this->trans_type == 'payment', (string)$this->transactionable?->invoice_number),
             'mtcn_number' => $this->when(in_array($this->trans_type, ['global_transfer','local_transfer']), (string)$this->transactionable?->bankTransfer?->mtcn_number),
@@ -21,7 +21,7 @@ class TransactionResource extends JsonResource
             'trans_status_translate' => trans("mobile.transaction.status_cases.{$this->trans_status}"),
             'to_currency' => $this->transactionable?->bankTransfer?->toCurrency?->currency_code,
             'exchange_rate' => $this->transactionable?->bankTransfer?->exchange_rate,
-            'to_amount' => $this->amount * $this->transactionable?->bankTransfer?->exchange_rate,
+            'to_amount' => (string)($this->amount * $this->transactionable?->bankTransfer?->exchange_rate),
             'transfer_fees' => $this->transactionable?->transfer_fees ?? 0,
             'total_amount' => (string)($this->amount + $this->transfer_fees),
             'transfer_purpose' => $this->transactionable?->transferPurpose?->name,
