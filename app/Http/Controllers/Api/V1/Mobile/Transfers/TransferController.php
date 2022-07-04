@@ -16,10 +16,10 @@ class TransferController extends Controller
         $transfers = Transfer::when($request->transfer_type, function ($query) use ($request) {
             switch ($request->transfer_type) {
                 case 'outgoing_transfers':
-                    $query->with('from_user')->where('from_user_id', auth()->id());
+                    $query->with('fromUser')->where('from_user_id', auth()->id());
                     break;
                 default:
-                    $query->with('to_user')->where('to_user_id', auth()->id());
+                    $query->with('toUser')->where('to_user_id', auth()->id());
             }
         })->paginate((int)($request->per_page ?? config("globals.per_page")));
 
