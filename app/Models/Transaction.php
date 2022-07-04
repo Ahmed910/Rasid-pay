@@ -7,6 +7,8 @@ use App\Models\BankBranch\BankBranch;
 
 //use App\Models\CardPackage\CardPackage;
 use App\Models\Package\Package;
+use Carbon\Carbon;
+use GeniusTS\HijriDate\Hijri;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Traits\Loggable;
@@ -35,13 +37,12 @@ class Transaction extends Model
 
     protected $guarded = ['created_at', 'updated_at'];
     private $sortableColumns = ["user_from_id", "trans_number", "created_at", 'from_user_to', 'amount', 'fee_amount', 'trans_type', 'trans_status'];
-    const user_searchable_Columns = ["user_from", "email", "image", "country_code", "phone", "full_phone", "identity_number", "date_of_birth"];
-    const user_sortable_Columns = ["user_from" => "fullname", "email" => "email", "image" => "email", "country_code" => "country_code", "phone" => "phone", "full_phone" => "full_phone", "identity_number" => "identity_number", "date_of_birth" => "date_of_birth"];
+    const USER_SEARCHABLE_COLUMNS = ["user_from", "email", "image", "country_code", "phone", "full_phone", "identity_number", "date_of_birth"];
+    const USER_SORTABLE_COLUMNS = ["user_from" => "fullname", "email" => "email", "image" => "email", "country_code" => "country_code", "phone" => "phone", "full_phone" => "full_phone", "identity_number" => "identity_number", "date_of_birth" => "date_of_birth"];
     const SELECT_ALL = ["enabled_package", 'trans_status'];
-    const transaction_searchable_Columns = ["trans_number", "user_identity", "transaction_type", "transaction_status"];
+    const TRANSACTION_SEARCHABLE_COLUMNS = ["trans_number", "user_identity", "transaction_type", "transaction_status"];
     const ENABLED_CARD_SEARCHABLE_COLUMNS = ["enabled_package" => "package_id"];
-    const client_searchable_Columns = ["user_to", "client_type", "commercial_number", "nationality", "tax_number", "transactions_done"];
-    const client_sortable_Columns = ["user_to" => "fullname", "client_type" => "client_type", "commercial_number" => "commercial_number", "nationality" => "nationality", "tax_number" => "tax_number", "transactions_done" => "transactions_done"];
+    const CLIENT_SORTABLE_COLUMNS = ["user_to" => "fullname", "client_type" => "client_type", "commercial_number" => "commercial_number", "nationality" => "nationality", "tax_number" => "tax_number", "transactions_done" => "transactions_done"];
     const ENABLED_CARD_sortable_COLUMNS = ["enabled_package" => "package_id"];
     const TRANSFERS = ['wallet_transfer', 'local_transfer', 'global_transfer'];
     const PAYMENTS = ['payment', 'promote_package'];
@@ -89,6 +90,17 @@ class Transaction extends Model
         if ($old != $new) $this->addGlobalActivity($this, $request->query(), ActivityLog::SEARCH, 'index');
     }
 
+    public function getCreatedAtAttribute($date)
+    {
+        if ($date == null) return $date;
+        $locale = app()->getLocale();
+        if (auth()->check() && auth()->user()->is_date_hijri) {
+            $this->changeDateLocale($locale);
+            return Hijri::convertToHijri($date)->format('d F o h:i A');
+        }
+        return Carbon::parse($date)->locale($locale)->translatedFormat('d/m/Y - h:i A');
+    }
+
     public function scopeSortBy(Builder $query, $request)
     {
         if (!isset($request->sort["column"]) || !isset($request->sort["dir"])) return $query->latest('transactions.created_at');
@@ -98,17 +110,17 @@ class Transaction extends Model
         !in_array(Str::lower($request->sort["dir"]), ["asc", "desc"])
         ) {
             return $query->latest('transactions.created_at');
-        } else if (in_array($request->sort["column"], self::transaction_searchable_Columns)) {
+        } else if (in_array($request->sort["column"], self::TRANSACTION_SEARCHABLE_COLUMNS)) {
 
             return $query
                 ->orderBy($request->sort["column"], @$request->sort["dir"]);
-        } else if (in_array($request->sort["column"], self::user_searchable_Columns)) {
+        } else if (in_array($request->sort["column"], self::USER_SEARCHABLE_COLUMNS)) {
 
             return $query->join('users', 'users.id', '=', 'transactions.from_user_id')
-                ->orderBy('users.' . self::user_sortable_Columns[$request->sort["column"]], @$request->sort["dir"]);
-        } else if (key_exists($request->sort["column"], self::client_sortable_Columns)) {
+                ->orderBy('users.' . self::USER_SORTABLE_COLUMNS[$request->sort["column"]], @$request->sort["dir"]);
+        } else if (key_exists($request->sort["column"], self::CLIENT_SORTABLE_COLUMNS)) {
             return $query->join('users', 'users.id', '=', 'transactions.to_user_id')
-                ->orderBy('users.' . self::client_sortable_Columns[$request->sort["column"]], @$request->sort["dir"]);
+                ->orderBy('users.' . self::CLIENT_SORTABLE_COLUMNS[$request->sort["column"]], @$request->sort["dir"]);
         } else
             if (key_exists($request->sort["column"], self::ENABLED_CARD_sortable_COLUMNS)) {
                 return
@@ -175,7 +187,7 @@ class Transaction extends Model
 
     public function transfer()
     {
-        return $this->hasOne(Transfer::class,'transactionable_id')->where('transactionable_type',Transfer::class);
+        return $this->hasOne(Transfer::class, 'transactionable_id')->where('transactionable_type', Transfer::class);
     }
 
     public function bank(): BelongsTo
