@@ -11,7 +11,7 @@ class TransactionResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'trans_number' => $this->trans_number,
+            'trans_number' =>(string) $this->trans_number,
             'amount' => $this->amount,
             'trans_type' => $this->trans_type,
             'invoice_number' => $this->when($this->trans_type == 'payment', (string)$this->transactionable?->invoice_number),
@@ -33,7 +33,8 @@ class TransactionResource extends JsonResource
             'from_user' => UserResource::make($this->fromUser),
             'to_user' => UserResource::make($this->toUser),
             'beneficiary' => BeneficiaryResource::make($this->transactionable?->beneficiary),
-            'notes' => $this->transactionable?->notes
+            'notes' => $this->transactionable?->notes,
+
         ];
     }
 }
