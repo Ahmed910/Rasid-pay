@@ -40,12 +40,14 @@ class TransactionResource extends JsonResource
         ];
     }
 
-    private function getMainlabels(): string
+    private function getMainlabels() : string
     {
-        return  match ($this->trans_type) {
-            in_array($this->trans_type, Transaction::TRANSFERS)  => trans('mobile.transaction.transfer'),
-            in_array($this->trans_type, Transaction::PAYMENTS)   => trans('mobile.transaction.payment'),
-            in_array($this->trans_type, Transaction::CHARGE)     => trans('mobile.transaction.charge'),
-        };
+        if(in_array($this->trans_type,Transaction::TRANSFERS)){
+            return trans('mobile.transaction.transfer');
+        }elseif(in_array($this->trans_type,Transaction::PAYMENTS)){
+            return trans('mobile.transaction.payment');
+        }elseif(in_array($this->trans_type,Transaction::CHARGE)){
+            return trans('mobile.transaction.charge');
+        }
     }
 }
