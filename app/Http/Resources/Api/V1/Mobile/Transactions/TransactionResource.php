@@ -15,7 +15,7 @@ class TransactionResource extends JsonResource
             'id' => $this->id,
             'trans_number' => $this->trans_number,
             'amount' => $this->amount,
-            'main_label' => $this->getMainlabels(), 
+            'main_label' => $this->getMainlabels(),
             'trans_type' => $this->trans_type,
             'invoice_number' => $this->when($this->trans_type == 'payment', (string)$this->transactionable?->invoice_number),
             'mtcn_number' => $this->when(in_array($this->trans_type, ['global_transfer', 'local_transfer']), (string)$this->transactionable?->bankTransfer?->mtcn_number),
@@ -40,14 +40,12 @@ class TransactionResource extends JsonResource
         ];
     }
 
-    private function getMainlabels() : string
+    private function getMainlabels(): string
     {
-        if(in_array($this->trans_type,Transaction::TRANSFERS)){
-            return trans('mobile.transaction.transfer');
-        }elseif(in_array($this->trans_type,Transaction::PAYMENTS)){
-            return trans('mobile.transaction.payment');
-        }elseif(in_array($this->trans_type,Transaction::CHARGE)){
-            return trans('mobile.transaction.charge');
-        }
+        return  match ($this->trans_type) {
+            in_array($this->trans_type, Transaction::TRANSFERS)  => trans('mobile.transaction.transfer'),
+            in_array($this->trans_type, Transaction::PAYMENTS)   => trans('mobile.transaction.payment'),
+            in_array($this->trans_type, Transaction::CHARGE)     => trans('mobile.transaction.charge'),
+        };
     }
 }
