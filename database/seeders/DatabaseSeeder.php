@@ -52,6 +52,7 @@ class DatabaseSeeder extends Seeder
         $this->call(ReceiveOptionSeeder::class);
         $this->call(TransferRelationSeeder::class);
         $this->call(TranslationSeeder::class);
+        $this->call(NotificationSeeder::class);
 
         Schema::disableForeignKeyConstraints();
         DB::unprepared(include database_path('Intial_data/departments.php'));
