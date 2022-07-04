@@ -3,7 +3,7 @@
 namespace App\Http\Resources\Api\V1\Mobile\Transactions;
 
 use Illuminate\Http\Resources\Json\JsonResource;
-use App\Http\Resources\Api\V1\Mobile\{UserResource, BeneficiaryResource};
+use App\Http\Resources\Api\V1\Mobile\{Beneficiary\BeneficiaryResource, UserResource};
 
 class TransactionResource extends JsonResource
 {
