@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Resources\Api\V1\Mobile;
+namespace App\Http\Resources\Api\V1\Mobile\Beneficiary;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
