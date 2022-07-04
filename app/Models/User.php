@@ -51,7 +51,7 @@ class User extends Authenticatable implements HasAssetsInterface
         // if (isset($value) && @$this->attributes['country_code'] == 966){
         //     $this->attributes['phone'] = $this->attributes['country_code'] . $value;
         // }else {
-            $this->attributes['phone'] = substr($value,0,3) == 966 ? Str::of($value)->replaceFirst('966','0') : $value;
+            $this->attributes['phone'] = filter_mobile_number($value);
         // }
 
     }
