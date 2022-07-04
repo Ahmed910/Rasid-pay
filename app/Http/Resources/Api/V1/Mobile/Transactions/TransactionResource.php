@@ -9,9 +9,10 @@ class TransactionResource extends JsonResource
 {
     public function toArray($request)
     {
+
         return [
             'id' => $this->id,
-            'trans_number' => (string) $this->trans_number,
+            'trans_number' => (string)$this->trans_number,
             'amount' => (string)$this->amount,
             'trans_type' => $this->trans_type,
             'invoice_number' => $this->when($this->trans_type == 'payment', (string)$this->transactionable?->invoice_number),
@@ -29,12 +30,11 @@ class TransactionResource extends JsonResource
             'qr_code' => asset($this->qr_path),
             'created_at' => $this->created_at,
             'wallet_transfer_method' => $this->when($this->trans_type == 'wallet_transfer', $this->transactionable?->wallet_transfer_method),
-            'wallet_transfer_value' => $this->when($this->trans_type == 'wallet_transfer', $this->toUser?->{$this->transactionable?->wallet_transfer_method}),
+            'wallet_transfer_value' => (string)$this->when($this->trans_type == 'wallet_transfer', $this->toUser?->{$this->transactionable?->wallet_transfer_method} ?? $this->toUser?->citizenWallet?->wallet_number),
             'from_user' => UserResource::make($this->fromUser),
             'to_user' => UserResource::make($this->toUser),
             'beneficiary' => BeneficiaryResource::make($this->transactionable?->beneficiary),
             'notes' => $this->transactionable?->notes,
-
         ];
     }
 }
