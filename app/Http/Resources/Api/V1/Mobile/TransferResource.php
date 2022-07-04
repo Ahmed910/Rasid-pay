@@ -17,8 +17,8 @@ class TransferResource extends JsonResource
         return [
              'id'=> $this->id,
              'amount' => (double)$this->amount,
-             'transfer_from_user'=>  UserResource::make($this->whenLoaded('from_user')),
-             'transfer_to_user'=>  UserResource::make($this->whenLoaded('to_user')),
+             'transfer_from_user'=>  UserResource::make($this->whenLoaded('fromUser')),
+             'transfer_to_user'=>  UserResource::make($this->whenLoaded('toUser')),
              'created_at' => $this->created_at,
              'transfer_status' => $this->transfer_status
         ];
