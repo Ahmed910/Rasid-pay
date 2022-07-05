@@ -59,7 +59,8 @@ trait Uuid
     {
         if ($date==null) return $date ;
         $locale = app()->getLocale();
-        if (auth()->check() && auth()->user()->is_date_hijri) {
+        // if (auth()->check() && auth()->user()->is_date_hijri) {
+        if ((bool)setting('rasid_date_type')) {
             $this->changeDateLocale($locale);
             return Hijri::convertToHijri($date)->format('d F o');
         }
@@ -70,7 +71,8 @@ trait Uuid
     {
         if ($date==null) return $date ;
         $locale = app()->getLocale();
-        if (auth()->check() && auth()->user()->is_date_hijri) {
+        // if (auth()->check() && auth()->user()->is_date_hijri) {
+        if ((bool)setting('rasid_date_type')) {
             $this->changeDateLocale($locale);
             return Hijri::convertToHijri($date)->format('d F o');
         }
@@ -81,7 +83,8 @@ trait Uuid
     {
         if ($date==null) return $date ;
         $locale = app()->getLocale();
-        if (auth()->check() && auth()->user()->is_date_hijri) {
+        // if (auth()->check() && auth()->user()->is_date_hijri) {
+        if ((bool)setting('rasid_date_type')) {
             $this->changeDateLocale($locale);
             return Hijri::convertToHijri($date)->format('d F o');
         }

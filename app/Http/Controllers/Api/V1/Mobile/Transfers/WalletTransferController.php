@@ -26,23 +26,18 @@ class WalletTransferController extends Controller
         if ($request->citizen_id) {
             // TODO: Check if citizen has wallet if not create one
             $receiver_citizen_wallet = CitizenWallet::with('citizen')->where('citizen_id', $request->citizen_id)->firstOrFail();
-        }elseif (!$request->citizen_id && $request->wallet_transfer_method == Transfer::PHONE) {
+        } elseif (!$request->citizen_id && $request->wallet_transfer_method == Transfer::PHONE) {
             $phone = $request->transfer_method_value;
         }
 
-        if ($request->amount > $citizen_wallet->main_balance + $citizen_wallet->cash_back){
+        if ($request->amount > $citizen_wallet->main_balance + $citizen_wallet->cash_back) {
             return response()->json(['data' => null, 'message' => trans('mobile.local_transfers.current_balance_is_not_sufficiant_to_complete_transaction'), 'status' => false], 422);
         }
         $back_main_balance = WalletBalance::calcWalletMainBackBalance($citizen_wallet, $request->amount);
-
-        $citizen_wallet_data =  ["cash_back" => \DB::raw('cash_back - '.$back_main_balance->cashback_amount), 'main_balance' => \DB::raw('main_balance - '.$back_main_balance->main_amount)];
-
-        // if ($request->transfer_status == 'hold') {
-        //     $citizen_wallet_data +=  ['hold_back_balance' => \DB::raw('hold_back_balance + ' . $back_main_balance->cashback_amount), 'hold_main_balance' => \DB::raw('hold_main_balance + ' . $back_main_balance->main_amount)];
-        // }
+        $citizen_wallet_data = ["cash_back" => \DB::raw('cash_back - ' . $back_main_balance->cashback_amount), 'main_balance' => \DB::raw('main_balance - ' . $back_main_balance->main_amount)];
         $citizen_wallet->update($citizen_wallet_data);
         if ($receiver_citizen_wallet) {
-            $receiver_citizen_wallet->update(["cash_back" => \DB::raw('cash_back + '.$back_main_balance->cashback_amount), 'main_balance' => \DB::raw('main_balance + '.$back_main_balance->main_amount)]);
+            $receiver_citizen_wallet->update(["cash_back" => \DB::raw('cash_back + ' . $back_main_balance->cashback_amount), 'main_balance' => \DB::raw('main_balance + ' . $back_main_balance->main_amount)]);
         }
         // create a transfer
         $data = [
@@ -54,7 +49,7 @@ class WalletTransferController extends Controller
             'phone' => $phone,
             'cashback_amount' => $back_main_balance->cashback_amount,
             'main_amount' => $back_main_balance->main_amount,
-            'notes' =>$request->notes
+            'notes' => $request->notes
         ];
         $transfer->fill($request->validated() + $data)->save();
         $transaction = $transfer->transaction()->create([
@@ -62,7 +57,8 @@ class WalletTransferController extends Controller
             'to_user_id' => $request->citizen_id,
             'amount' => $request->amount,
             'trans_type' => 'wallet_transfer',
-            'trans_number' => generate_unique_code(Transaction::class,'trans_number',10,'numbers')
+            'trans_status' => $transfer->transfer_status == 'transfered' ? Transaction::SUCCESS : Transaction::PENDING,
+            'trans_number' => generate_unique_code(Transaction::class, 'trans_number', 10, 'numbers')
         ]);
 
         return TransactionResource::make($transaction)->additional([
@@ -78,12 +74,12 @@ class WalletTransferController extends Controller
                 'status' => false,
                 'data' => null,
                 'message' => trans('mobile.validation.invalid_phone')
-            ],422);
+            ], 422);
         }
         return response()->json([
             'status' => true,
             'data' => [
-                'phone_exists' => User::where('id',"<>",auth()->id())->where(['user_type' => 'citizen', 'phone' => $phone, 'register_status' => 'completed'])->exists()
+                'phone_exists' => User::where('id', "<>", auth()->id())->where(['user_type' => 'citizen', 'phone' => $phone, 'register_status' => 'completed'])->exists()
             ],
             'message' => ''
         ]);

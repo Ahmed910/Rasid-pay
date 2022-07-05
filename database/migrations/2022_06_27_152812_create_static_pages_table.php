@@ -17,6 +17,7 @@ class CreateStaticPagesTable extends Migration
             $table->uuid("id")->primary();
             $table->boolean('is_active')->default(true);
             $table->boolean('show_in_app')->default(false);
+            $table->boolean('show_in_website')->default(true);
             $table->string('link')->nullable();
             $table->foreignUuid("added_by_id")->nullable()->constrained('users')->nullOnDelete();
             $table->softDeletes();

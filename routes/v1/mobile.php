@@ -59,11 +59,14 @@ Route::middleware('auth:sanctum')->group(function () {
     });
     Route::apiResource('packages', 'PackageController')->only('index', 'show', 'update');
     // Transaction
+    Route::get('transactions_types', 'TransactionController@getTransTypes');
     Route::get('generate_transaction_file/{id}', 'TransactionController@generatePdfLink');
     Route::get('download_transaction_file/{id}', 'TransactionController@generatePdfFile');
     Route::apiResource('transactions', 'TransactionController')->only('index', 'show');
     // Payment
     Route::apiResource('payments', 'PaymentController')->only('store', 'show');
+    // side_menues
+    Route::apiResource('side_menues', 'SideMenueController')->only("index","show") ;
     // Transfer
     Route::namespace('Transfers')->group(function () {
         // Wallet Transfers
@@ -74,10 +77,12 @@ Route::middleware('auth:sanctum')->group(function () {
         // Global Transfers
         Route::post('global_transfers', 'GlobalTransferController@store');
         // All Transfers
+        Route::delete('transfers/{id}', 'TransferController@delete');
         Route::get('transfers', 'TransferController@index');
+        Route::get('transfers/{transfer_id}', 'TransferController@cancelTransfer');
     });
 });
 
-Route::post('send-message', 'ContactController@sendMessage')->name('send_message');
+Route::post('contacts/send_message', 'ContactController@sendMessage')->name('send_message');
 Route::get('slides', 'SlideController@index');
 Route::get('banks', 'BankController@index');

@@ -45,7 +45,7 @@ class Citizen extends Model
         foreach ($request->all() as $key => $item) {
             if (in_array($key, self::USER_SEARCHABLE_COLUMNS))
                 $query->whereHas('user', function ($q) use ($key, $item) {
-                    !$key == "fullname" ? $q->where($key, $item) : $q->where($key, "like", "%$item%");
+                    !($key == "fullname") ? $q->where($key, $item) : $q->where($key, "like", "%$item%");
                 });
         }
 

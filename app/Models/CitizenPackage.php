@@ -44,6 +44,28 @@ class CitizenPackage extends Model
         // return Carbon::parse($date)->locale($locale)->translatedFormat('j F Y');
     }
 
+    public function getEndAtDashboardAttribute()
+    {
+        $locale = app()->getLocale();
+        if (auth()->check() && auth()->user()->is_date_hijri) {
+            Uuid::changeDateLocale($locale);
+            return Hijri::convertToHijri($this->attributes['end_at'])->format('d F o');
+        }
+
+        return Carbon::parse($this->attributes['end_at'])->locale($locale)->translatedFormat('j F Y');
+    }
+
+    public function getStartAtDashboardAttribute()
+    {
+        $locale = app()->getLocale();
+        if (auth()->check() && auth()->user()->is_date_hijri) {
+            Uuid::changeDateLocale($locale);
+            return Hijri::convertToHijri($this->attributes['end_at'])->format('d F o');
+        }
+
+        return Carbon::parse($this->attributes['end_at'])->locale($locale)->translatedFormat('j F Y');
+    }
+
     #region scopes
     public function setPackageIdAttribute($value)
     {

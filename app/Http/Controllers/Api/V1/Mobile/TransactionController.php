@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api\V1\Mobile;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\V1\Mobile\TransactionRequest;
 use App\Http\Resources\Api\V1\Mobile\Transactions\TransactionResource;
+use App\Models\Transaction;
 use App\Services\GeneratePdf;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Storage;
@@ -15,6 +16,8 @@ class TransactionController extends Controller
     public function index(TransactionRequest $request)
     {
         $transactions = auth()->user()->citizenTransactions()
+            ->search($request)
+            ->whereNotNull('transactionable_type')
             ->CustomDateFromTo($request)
             ->paginate((int)($request->per_page ?? config("globals.per_page")));
 
@@ -31,7 +34,7 @@ class TransactionController extends Controller
      */
     public function show($id)
     {
-        $transaction = auth()->user()->citizenTransactions()->findOrFail($id);
+        $transaction = auth()->user()->citizenTransactions()->whereNotNull('transactionable_type')->findOrFail($id);
 
         return TransactionResource::make($transaction)
             ->additional([
@@ -85,5 +88,16 @@ class TransactionController extends Controller
         $transaction->update(['summary_path' => $path]);
 
         return asset('app/public/' . $path);
+    }
+
+    public function getTransTypes()
+    {
+        $data = transform_array_api(Transaction::TRANACTION_TYPES, 'mobile.transaction.transaction_types');
+
+        return response()->json([
+            'data' => $data,
+            'status' => true,
+            'message' => ' '
+        ], 200);
     }
 }

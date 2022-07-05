@@ -40,7 +40,7 @@ class Client extends Model
 
             if (in_array($key, self::user_searchable_Columns))
                 $query->whereHas('user', function ($q) use ($key, $item) {
-                    !$key == "fullname" ? $q->where($key, $item) : $q->where($key, "like", "%$item%");
+                    !($key == "fullname") ? $q->where($key, $item) : $q->where($key, "like", "%$item%");
                 });
         }
         foreach ($request->all() as $key => $item) {
