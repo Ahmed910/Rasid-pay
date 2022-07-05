@@ -18,8 +18,8 @@ class CitizenPackageResource extends JsonResource
             'name' => $this->package?->name,
             'package_price' => $this->package_price,
             'package_discount' => $this->package_discount,
-            'start_at' => $this->start_at,
-            'end_at' => $this->end_at,
+            'start_at' => $this->start_at_dashboard,
+            'end_at' => $this->end_at_dashboard,
         ];
     }
 }
