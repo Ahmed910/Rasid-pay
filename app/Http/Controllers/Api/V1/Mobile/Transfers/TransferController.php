@@ -14,7 +14,7 @@ class TransferController extends Controller
 {
     public function index(TransferTypeRequest $request)
     {
-        $transfers = Transfer::when($request->transfer_type, function ($query) use ($request) {
+        $transfers = Transfer::where('transfer_type','wallet')->when($request->transfer_type, function ($query) use ($request) {
             switch ($request->transfer_type) {
                 case 'outgoing_transfers':
                     $query->with('fromUser')->where('from_user_id', auth()->id());
