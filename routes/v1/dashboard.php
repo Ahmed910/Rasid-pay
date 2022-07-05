@@ -121,8 +121,6 @@ Route::middleware('maintenance_mode')->group(function () {
             // });
 
             Route::controller('ContactController')->name('contacts.')->prefix('contacts')->group(function () {
-                Route::get('/', 'index')->name('index');
-                Route::get('/{id}', 'show')->name('show');
                 Route::post('reply', 'reply')->name('reply');
                 Route::delete('delete-contact/{id}', 'deleteContact')->name('delete_contact');
                 Route::delete('delete-reply/{id}', 'deleteReply')->name('delete_reply');
@@ -164,6 +162,7 @@ Route::middleware('maintenance_mode')->group(function () {
                 'transactions' => 'TransactionController',
                 'static_pages' => 'StaticPageController',
                 'faqs'         => 'FaqController',
+                'contacts'     => 'ContactController',
             ]);
 
             Route::apiResource('citizens', 'CitizenController')->only('index', 'show', 'update');

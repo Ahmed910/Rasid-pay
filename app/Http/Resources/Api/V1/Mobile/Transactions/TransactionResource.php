@@ -30,7 +30,7 @@ class TransactionResource extends JsonResource
             'transfer_purpose' => $this->transactionable?->transferPurpose?->name,
             'recieve_option' => $this->transactionable?->bankTransfer?->recieveOption?->name,
             'qr_code' => asset($this->qr_path),
-            'created_at' => $this->created_at,
+            'created_at' => $this->created_at_mobile,
             'wallet_transfer_method' => $this->when($this->trans_type == 'wallet_transfer', $this->transactionable?->wallet_transfer_method),
             'wallet_transfer_value' => $this->when($this->trans_type == 'wallet_transfer', $this->toUser?->{$this->transactionable?->wallet_transfer_method} ?? (string)$this->toUser?->citizenWallet?->wallet_number),
             'from_user' => UserResource::make($this->fromUser),
