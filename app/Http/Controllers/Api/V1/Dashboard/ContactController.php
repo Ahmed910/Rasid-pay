@@ -30,8 +30,9 @@ class ContactController extends Controller
 
 
     public function reply(ContactReplyRequest $request, ContactReply $contactReply)
-    { //TODO change contact message_status"=>"replied"
+    {
         $contactReply->fill($request->validated()+['updated_at'=>now()])->save();
+        $contactReply->contact->update(["message_status" => "replied"]);
 
         return ContactReplyResource::make($contactReply->load('contact'))
             ->additional([
