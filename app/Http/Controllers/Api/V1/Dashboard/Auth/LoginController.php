@@ -150,7 +150,7 @@ class LoginController extends Controller
             $message = trans("auth.{$col}_is", ['code' => $code]);
             // send email
         }
-        // ExpireCodeJob::dispatch($user, $col)->delay((int)setting('erp_code_ttl') ?? 1);
+        // ExpireCodeJob::dispatch($user, $col)->delay((int)setting('rasidpay_verificatoin_code') ?? 1);
         return $code;
     }
 
