@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\CitizenWallet;
+use App\Models\Contact;
 use Database\Seeders\ReceiveOptionSeeder;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
@@ -58,7 +59,7 @@ class DatabaseSeeder extends Seeder
         $this->call(TransferRelationSeeder::class);
         $this->call(TranslationSeeder::class);
         $this->call(NotificationSeeder::class);
-
+        Contact::factory(50)->create();
         Schema::disableForeignKeyConstraints();
         DB::unprepared(include database_path('Intial_data/departments.php'));
         DB::unprepared(include database_path('Intial_data/rasid_jobs.php'));
