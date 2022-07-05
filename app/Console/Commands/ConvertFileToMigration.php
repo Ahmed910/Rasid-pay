@@ -45,7 +45,7 @@ class ConvertFileToMigration extends Command
         $fileName = $this->argument('file');
 
         foreach (['ar', 'en'] as $locale) {
-            $file = resource_path("lang/$locale/$fileName.php");
+            $file = resource_path("lang/$locale/Temp/$fileName.php");
             $content  = include $file;
 
             if (!is_file($file)) return $this->error('File Not Found');

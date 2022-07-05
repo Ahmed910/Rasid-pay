@@ -3237,5 +3237,20 @@ return
     ['id' => 'f6cb96df-512a-4ebc-af6c-f574bf4d5838','locale_id' =>'t5ef67fa-3ec1-4475-aaa3-9452b4dca196', 'locale' =>'ar', 'value' =>'تم تحويل مبلغ :amount ر.س  من المحفظة الخاصة بك إلى محفظة المستخدم   :wallet_transfer_method','desc' => NULL],
     ['id' => '58cb96df-532a-4ebc-af6c-f574bf4d5820','locale_id' =>'t3ef67fa-3ec1-4475-aaa3-9452b4dca296', 'locale' =>'ar', 'value' =>'برقم جوال ','desc' => NULL],
       ['id' => '50cb96df-532a-4ebc-af6c-f574bf4d5820','locale_id' =>'t4ef67fa-3ec1-4475-aaa3-9452b4dca296', 'locale' =>'ar', 'value' =>'برقم هوية ','desc' => NuLL],
+    ['id' => '56cb96df-512a-4ebc-af6c-f574bf4d5839','locale_id' =>'c5ef67fa-3ec1-4475-aaa3-9452b4dca197', 'locale' =>'ar', 'value' =>'تمت عملية إلغاء طلب التحويل بنجاح','desc' => NULL],
+    ['id' => '56cb96df-512a-4ebc-af6c-f574bf4d5840','locale_id' =>'c5ef67fa-3ec1-4475-aaa3-9452b4dca197', 'locale' =>'en', 'value' =>'Transfer has been canceled successfully and amount returned back to your wallet','desc' => NULL],
+
+    ['id' => '56cb96df-512a-4ebc-af6c-f574bf4d5839','locale_id' =>'fadd86a3-48fe-4ea5-8086-e46860c0c197', 'locale' =>'ar', 'value' =>'سجل الصفحات الثابتة ','desc' => NULL],
+    ['id' => '56cb96df-512a-4ebc-af6c-f574bf4d5840','locale_id' =>'fb5bb695-b115-4dd6-8463-7fa34882c998', 'locale' =>'ar', 'value' =>'حذف الصفحات الثابتة','desc' => NULL],
+    ['id' => '56cb96df-512a-4ebc-af6c-f574bf4d5841','locale_id' =>'fbe84935-bb67-4e8b-8161-5f09d5c19299', 'locale' =>'ar', 'value' =>'حفظ الصفحات الثابتة','desc' => NULL],
+    ['id' => '56cb96df-512a-4ebc-af6c-f574bf4d5842','locale_id' =>'fcaee83c-b7e4-4661-a30f-145eac419b10', 'locale' =>'ar', 'value' =>'تعديل الصفحات الثابتة','desc' => NULL],
+    ['id' => '56cb96df-512a-4ebc-af6c-f574bf4d5843','locale_id' =>'fcaee83c-b7e4-4661-a30f-145eac459b10', 'locale' =>'ar', 'value' =>'سجل الترجمات','desc' => NULL],
+    ['id' => '56cb96df-512a-4ebc-af6c-f574bf4d5844','locale_id' =>'fcaee83c-b7e4-4661-a30f-145eac429b10', 'locale' =>'ar', 'value' =>'تعديل الترجمات','desc' => NULL],
+    ['id' => '56cb96df-512a-4ebc-af6c-f574bf4d5845','locale_id' =>'fd04cdde-a2d1-4279-95a2-0073e5875102', 'locale' =>'ar', 'value' =>'الصفحات الثابتة','desc' => NULL],
+    ['id' => '56cb96df-512a-4ebc-af6c-f574bf4d5846','locale_id' =>'fd04cdde-a2d1-4279-95a2-0073e6875101', 'locale' =>'ar', 'value' =>'الترجمات','desc' => NULL],
+
+
+
+
 
 ];

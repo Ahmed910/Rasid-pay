@@ -65,6 +65,8 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::apiResource('transactions', 'TransactionController')->only('index', 'show');
     // Payment
     Route::apiResource('payments', 'PaymentController')->only('store', 'show');
+    // side_menues
+    Route::apiResource('side_menues', 'SideMenueController')->only("index","show") ;
     // Transfer
     Route::namespace('Transfers')->group(function () {
         // Wallet Transfers
@@ -77,6 +79,7 @@ Route::middleware('auth:sanctum')->group(function () {
         // All Transfers
         Route::delete('transfers/{id}', 'TransferController@delete');
         Route::get('transfers', 'TransferController@index');
+        Route::get('transfers/{transfer_id}', 'TransferController@cancelTransfer');
     });
 });
 

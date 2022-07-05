@@ -177,8 +177,11 @@ if (!function_exists('setting')) {
                 (array)json_decode($setting);
             }
 
-            if ($attr == 'erp_logo')
-                $setting = isset($setting[app()->getLocale()]) ? asset('storage/images/setting') . "/" . $setting[app()->getLocale()] : asset('dashboardAsset/global/images/logo/cover_sm.png');
+            if ($attr == 'erp_logo') {        $setting = isset($setting[app()->getLocale()]) ?
+                asset('storage/images/setting') . "/" . $setting[app()->getLocale()] :
+                asset('dashboardAssets/images/brand/no-img.png');
+            return $setting ; }
+
 
             return $setting[app()->getLocale()] ?? array_first($setting);
         }
