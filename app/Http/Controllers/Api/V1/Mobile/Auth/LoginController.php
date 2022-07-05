@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\V1\Mobile\Auth\{LoginRequest, SendCodeRequest};
 use App\Http\Resources\Api\V1\Mobile\UserResource;
 use Illuminate\Support\Facades\Auth;
+use App\Jobs\ExpireCodeJob;
 use App\Models\{Device, User};
 use Illuminate\Http\Request;
 
@@ -106,6 +107,7 @@ class LoginController extends Controller
             if ($response) {
                 return response()->json(array_except($response['response'],['message']) + ['message' => trans('auth.success_send_login_code')],403);
             }
+            // ExpireCodeJob::dispatch($user, $request->key_name)->delay((int)setting('rasidpay_verificatoin_code')/60 ?? 1);
             return response()->json(['status' => true, 'data' => ['phone' => '**********' . substr($user->phone, -3)], 'message' => trans('auth.success_send_login_code')]);
         } catch (\Exception $e) {
             return response()->json(['status' => false, 'data' => null, 'message' => trans('auth.fail_send')], 422);
