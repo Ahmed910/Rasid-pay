@@ -24,7 +24,7 @@ class TransactionResource extends JsonResource
             'trans_status_translate' => trans("mobile.transaction.status_cases.{$this->trans_status}"),
             'to_currency' => $this->transactionable?->bankTransfer?->toCurrency?->currency_code,
             'exchange_rate' => (string) $this->transactionable?->bankTransfer?->exchange_rate,
-            'toTal_amount' => (string) ($this->amount * $this->transactionable?->bankTransfer?->exchange_rate),
+            'to_amount' => $this->amount * $this->transactionable?->bankTransfer?->exchange_rate,
             'transfer_fees' => (string) $this->transactionable?->transfer_fees ?? 0,
             'total_amount' =>$this->when($request->is('*/transactions'), (string)($this->amount + $this->transfer_fees)),
             'transfer_purpose' => $this->transactionable?->transferPurpose?->name,
