@@ -90,7 +90,7 @@ class Transaction extends Model
         if ($old != $new) $this->addGlobalActivity($this, $request->query(), ActivityLog::SEARCH, 'index');
     }
 
-    public function getCreatedAtAttribute($date)
+    public function getCreatedAtMobileAttribute($date)
     {
         if ($date == null) return $date;
         $locale = app()->getLocale();
