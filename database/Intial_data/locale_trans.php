@@ -3233,4 +3233,6 @@ return
     ['id' => '56cb96df-512a-4ebc-af6c-f574bf4d5836','locale_id' =>'c5ef67fa-3ec1-4475-aaa3-9452b4dca194', 'locale' =>'en', 'value' =>'Transfer','desc' => NULL],
     ['id' => '56cb96df-512a-4ebc-af6c-f574bf4d5837','locale_id' =>'c5ef67fa-3ec1-4475-aaa3-9452b4dca195', 'locale' =>'en', 'value' =>'Payment','desc' => NULL],
     ['id' => '56cb96df-512a-4ebc-af6c-f574bf4d5838','locale_id' =>'c5ef67fa-3ec1-4475-aaa3-9452b4dca196', 'locale' =>'en', 'value' =>'Charge','desc' => NULL],
+    ['id' => '56cb96df-512a-4ebc-af6c-f574bf4d5839','locale_id' =>'c5ef67fa-3ec1-4475-aaa3-9452b4dca197', 'locale' =>'ar', 'value' =>'تم إلغاء التحويل وإعادة المبلغ المُحول','desc' => NULL],
+    ['id' => '56cb96df-512a-4ebc-af6c-f574bf4d5840','locale_id' =>'c5ef67fa-3ec1-4475-aaa3-9452b4dca197', 'locale' =>'en', 'value' =>'Transfer has been canceled successfully and amount returned back to your wallet','desc' => NULL],
 ];
