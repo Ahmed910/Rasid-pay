@@ -3209,4 +3209,7 @@ return  [
     ['id' => 'c5ef67fa-3ec1-4475-aaa3-9452b4dca194' ,'key' => 'transaction.transfer', 'file' =>'mobile', 'created_at' =>'2022-06-29 16:53:27', 'updated_at' =>'2022-06-29 16:53:27'],
     ['id' => 'c5ef67fa-3ec1-4475-aaa3-9452b4dca195' ,'key' => 'transaction.payment', 'file' =>'mobile', 'created_at' =>'2022-06-29 16:53:27', 'updated_at' =>'2022-06-29 16:53:27'],
     ['id' => 'c5ef67fa-3ec1-4475-aaa3-9452b4dca196' ,'key' => 'transaction.charge', 'file' =>'mobile', 'created_at' =>'2022-06-29 16:53:27', 'updated_at' =>'2022-06-29 16:53:27'],
+    ['id' => 't5ef67fa-3ec1-4475-aaa3-9452b4dca196' ,'key' => 'transfers.transfer_details', 'file' =>'mobile', 'created_at' =>'2022-06-29 16:53:27', 'updated_at' =>'2022-06-29 16:53:27'],
+    ['id' => 't3ef67fa-3ec1-4475-aaa3-9452b4dca296' ,'key' => 'transfers.by_mobile', 'file' =>'mobile', 'created_at' =>'2022-06-29 16:53:27', 'updated_at' =>'2022-06-29 16:53:27'],
+    ['id' => 't4ef67fa-3ec1-4475-aaa3-9452b4dca296' ,'key' => 'transfers.by_identity_number', 'file' =>'mobile', 'created_at' =>'2022-06-29 16:53:27', 'updated_at' =>'2022-06-29 16:53:27'],
 ];
