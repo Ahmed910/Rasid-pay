@@ -3210,5 +3210,16 @@ return  [
     ['id' => 'c5ef67fa-3ec1-4475-aaa3-9452b4dca195' ,'key' => 'transaction.payment', 'file' =>'mobile', 'created_at' =>'2022-06-29 16:53:27', 'updated_at' =>'2022-06-29 16:53:27'],
     ['id' => 'c5ef67fa-3ec1-4475-aaa3-9452b4dca196' ,'key' => 'transaction.charge', 'file' =>'mobile', 'created_at' =>'2022-06-29 16:53:27', 'updated_at' =>'2022-06-29 16:53:27'],
     ['id' => 'c5ef67fa-3ec1-4475-aaa3-9452b4dca197' ,'key' => 'transfer.transfer_canceled_successfully_and_money_back_to_your_wallet', 'file' =>'mobile', 'created_at' =>'2022-07-05 16:53:27', 'updated_at' =>'2022-07-05 16:53:27'],
-    
+
+    ['id' => 'fadd86a3-48fe-4ea5-8086-e46860c0c197', 'key' => 'static_page.static_pages.permissions.index', 'file' => 'dashboard', 'created_at' => '2022-06-28 13:03:36', 'updated_at' => '2022-06-28 13:03:36'],
+    ['id' => 'fb5bb695-b115-4dd6-8463-7fa34882c998', 'key' => 'static_page.static_pages.permissions.destroy', 'file' => 'dashboard', 'created_at' => '2022-06-28 13:03:34', 'updated_at' => '2022-06-28 13:03:34'],
+    ['id' => 'fbe84935-bb67-4e8b-8161-5f09d5c19299', 'key' => 'static_page.static_pages.permissions.store', 'file' => 'dashboard', 'created_at' => '2022-06-28 13:03:32', 'updated_at' => '2022-06-28 13:03:32'],
+    ['id' => 'fcaee83c-b7e4-4661-a30f-145eac419b10', 'key' => 'static_page.static_pages.permissions.update', 'file' => 'dashboard', 'created_at' => '2022-06-28 13:08:03', 'updated_at' => '2022-06-28 13:08:03'],
+
+    ['id' => 'fcaee83c-b7e4-4661-a30f-145eac459b10', 'key' => 'localization.permissions.index', 'file' => 'dashboard', 'created_at' => '2022-06-28 13:08:03', 'updated_at' => '2022-06-28 13:08:03'],
+    ['id' => 'fcaee83c-b7e4-4661-a30f-145eac429b10', 'key' => 'localization.permissions.update', 'file' => 'dashboard', 'created_at' => '2022-06-28 13:08:03', 'updated_at' => '2022-06-28 13:08:03'],
+
+    ['id' => 'fd04cdde-a2d1-4279-95a2-0073e5875102', 'key' => 'static_page.static_pages', 'file' => 'dashboard', 'created_at' => '2022-06-28 13:08:04', 'updated_at' => '2022-06-28 13:08:04'],
+    ['id' => 'fd04cdde-a2d1-4279-95a2-0073e6875101', 'key' => 'localization.localizations', 'file' => 'dashboard', 'created_at' => '2022-06-28 13:08:04', 'updated_at' => '2022-06-28 13:08:04'],
+
 ];

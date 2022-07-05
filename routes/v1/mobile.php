@@ -65,6 +65,8 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::apiResource('transactions', 'TransactionController')->only('index', 'show');
     // Payment
     Route::apiResource('payments', 'PaymentController')->only('store', 'show');
+    // side_menues
+    Route::apiResource('side_menues', 'SideMenueController')->only("index","show") ;
     // Transfer
     Route::namespace('Transfers')->group(function () {
         // Wallet Transfers

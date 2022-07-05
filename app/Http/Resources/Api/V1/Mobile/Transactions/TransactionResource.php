@@ -8,9 +8,26 @@ use App\Models\Transaction;
 
 class TransactionResource extends JsonResource
 {
+
     public function toArray($request)
     {
+        $wallet_transfer_method = [
+            'phone'          => $this->transactionable?->wallet_transfer_method =='phone' ? $this->toUser->phone :"" ,
+            'identity_number'=> $this->transactionable?->wallet_transfer_method =='identity_number' ? $this->toUser->identity_number :"",
+            'wallet_number'  => $this->transactionable?->wallet_transfer_method =='wallet_number' ? $this->toUser->citizenWallet?->wallet_number :"" ,
+        ];
 
+        $transaction_details =
+        [
+            'payment'          => $this->trans_type == "payment"  ? trans("mobile.transaction.payment_status", [ 'amount' => $this->amount, 'refund_amount' => $this->amount ]) : "",
+            'wallet_transfer'  => $this->trans_type == "wallet_transfer"  ? trans("mobile.transaction.wallet_transfer_status",  [ 'amount' => $this->amount,'to_user_identity_or_mobile_or_wallet_number' => $wallet_transfer_method[$this->transactionable?->wallet_transfer_method] ]) : "",
+            'local_transfer'   => $this->trans_type == "local_transfer"  ? trans("mobile.transaction.local_transfer_status", [ 'amount' => $this->amount, 'beneficiary' => $this->transactionable?->beneficiary->name, 'iban' => $this->transactionable?->beneficiary->iban_number ]): "" ,
+            'global_transfer'  => $this->trans_type == "global_transfer"  ? trans("mobile.transaction.global_transfer_status", [ 'amount' => $this->amount, 'currency' =>$this->transactionable?->bankTransfer?->toCurrency?->currency_code,'beneficiary' => $this->transactionable?->beneficiary?->name, 'country' =>$this->transactionable?->beneficiary?->country?->name , 'recieve_option'=>$this->transactionable?->bankTransfer?->recieveOption?->name ,'mtcn' =>$this->transactionable?->bankTransfer?->mtcn_number ]) : "",
+            'charge'           => $this->trans_type == "charge"  ? trans("mobile.transaction.charge_status", [ 'amount' => $this->amount ,'method' =>$this->transactionable?->charge_type ]) : "",
+            'money_request'    => $this->trans_type == "money_request" ? trans("mobile.transaction.money_request_status", [ 'amount' => $this->amount, 'to_user_identity_or_mobile_or_wallet_number' =>  $wallet_transfer_method[$this->transactionable?->wallet_transfer_method] ]):"" ,
+            'promote_package'  => $this->trans_type == "promote_package" ? trans("mobile.transaction.promote_package_status", [ 'amount' => $this->amount,'package_name' => $this->fromUser->citizenPackages->package->name, 'expired_date' => $this->fromUser->citizenPackages->end_at->format('y/m/d') ]):"" ,
+
+        ];
         return [
             'id' => $this->id,
             'trans_number' =>(string)$this->trans_number,
@@ -40,6 +57,8 @@ class TransactionResource extends JsonResource
                 'beneficiary' =>  BeneficiaryResource::make($this->transactionable?->beneficiary),
                 'notes' =>  $this->transactionable?->notes,
             // ])
+               'transaction_details' => (string)$transaction_details[$this->trans_type] ,
+
         ];
     }
 
