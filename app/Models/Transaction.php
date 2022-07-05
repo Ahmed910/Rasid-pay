@@ -92,13 +92,12 @@ class Transaction extends Model
 
     public function getCreatedAtMobileAttribute($date)
     {
-        if ($date == null) return $date;
         $locale = app()->getLocale();
         if (auth()->check() && auth()->user()->is_date_hijri) {
             $this->changeDateLocale($locale);
-            return Hijri::convertToHijri($date)->format('d F o h:i A');
+            return Hijri::convertToHijri($this->attributes['created_at'])->format('d F o h:i A');
         }
-        return Carbon::parse($date)->locale($locale)->translatedFormat('d/m/Y - h:i A');
+        return Carbon::parse($this->attributes['created_at'])->locale($locale)->translatedFormat('d/m/Y - h:i A');
     }
 
     public function scopeSortBy(Builder $query, $request)
