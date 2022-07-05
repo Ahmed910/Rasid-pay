@@ -15,7 +15,11 @@ class ContactController extends Controller
 
     public function index(Request $request)
     {
-        $contact = Contact::with('replies', 'user')->latest()->paginate((int)($request->per_page ?? config("globals.per_page")));
+        $contact = Contact::with('replies', 'user')
+            ->CustomDateFromTo($request)
+            ->search($request)
+            ->sortby($request)
+            ->paginate((int)($request->per_page ?? config("globals.per_page")));
 
         return ContactResource::collection($contact)
             ->additional([
@@ -26,7 +30,7 @@ class ContactController extends Controller
 
 
     public function reply(ContactReplyRequest $request, ContactReply $contactReply)
-    {
+    { //TODO change contact message_status"=>"replied"
         $contactReply->fill($request->validated()+['updated_at'=>now()])->save();
 
         return ContactReplyResource::make($contactReply->load('contact'))
@@ -39,7 +43,7 @@ class ContactController extends Controller
     public function show($id)
     {
         $contact = Contact::with('replies', 'user','admin')->withTrashed()->findOrFail($id);
-        $contact->update(['read_at' => now()]);
+        $contact->update(['read_at' => now(),"message_status"=>$contact->message_status=="new"?"pending":$contact->message_status]);
 
         return ContactResource::make($contact)
             ->additional([
