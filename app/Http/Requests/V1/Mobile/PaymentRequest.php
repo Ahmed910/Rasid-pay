@@ -19,7 +19,7 @@ class PaymentRequest extends ApiMasterRequest
             "description" => 'nullable|min:1|max:255',
             'payment_type' => 'required',
             "payment_data" => 'nullable|string|max:255',
-
+            "otp_code" => 'required|exists:citizen_wallets,wallet_bin,citizen_id,'.auth()->id(),
         ];
     }
 }
