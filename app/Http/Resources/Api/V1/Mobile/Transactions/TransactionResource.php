@@ -21,7 +21,7 @@ class TransactionResource extends JsonResource
             'total_amount' =>(string)($this->amount + $this->transfer_fees),
             'created_at' =>$this->created_at_mobile,
 
-            $this->mergeWhen($request->is('*/transactions'),[
+            $this->mergeWhen(!$request->is('*/transactions'),[
                 'amount' =>(string)$this->amount,
                 'invoice_number' => $this->when($this->trans_type == 'payment', (string)$this->transactionable?->invoice_number),
                 'mtcn_number' => $this->when(in_array($this->trans_type, ['global_transfer', 'local_transfer']), (string)$this->transactionable?->bankTransfer?->mtcn_number),
