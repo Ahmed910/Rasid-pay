@@ -68,11 +68,10 @@ class Transaction extends Model
         if (isset($request->trans_status) && !in_array(-1, $request->trans_status)) {
             $query->whereIn("trans_status", $request->trans_status);
         }
-        if (isset($request->trans_type)) {
-            if ($request->trans_type == 0) $request->trans_type = null;
-            if ($request->trans_type != -1) $query->where("trans_type", $request->trans_type);
+        if (isset($request->trans_type) && !in_array(-1, $request->trans_type)) {
+            $query->whereIn("trans_type", $request->trans_type);
         }
-
+     
         if (isset($request->client)) {
             if ($request->client == 0) $request->client = null;
             if ($request->client != -1) {
