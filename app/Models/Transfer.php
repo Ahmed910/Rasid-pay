@@ -2,13 +2,15 @@
 
 namespace App\Models;
 
-use App\Models\TransferPurpose\TransferPurpose;
-use App\Traits\Loggable;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
+use Carbon\Carbon;
 use App\Traits\Uuid;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use App\Traits\Loggable;
+use GeniusTS\HijriDate\Hijri;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use App\Models\TransferPurpose\TransferPurpose;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Transfer extends Model
 {
@@ -38,6 +40,26 @@ class Transfer extends Model
     #endregion properties
 
     #region mutators
+    public function getCreatedAtDateMobileAttribute($date)
+    {
+        $locale = app()->getLocale();
+        if (auth()->check() && auth()->user()->is_date_hijri) {
+            $this->changeDateLocale($locale);
+            return Hijri::convertToHijri($this->attributes['created_at'])->format('d F o');
+        }
+        return Carbon::parse($this->attributes['created_at'])->locale($locale)->translatedFormat('j F Y');
+    }
+
+     public function getCreatedAtTimeMobileAttribute($date)
+    {
+        $locale = app()->getLocale();
+        if (auth()->check() && auth()->user()->is_date_hijri) {
+            $this->changeDateLocale($locale);
+            return Hijri::convertToHijri($this->attributes['created_at'])->format('h:i A');
+        }
+        return Carbon::parse($this->attributes['created_at'])->locale($locale)->translatedFormat('h:i A');
+    }
+
     #endregion mutators
 
     #region scopes
