@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\CitizenWallet;
 use Database\Seeders\ReceiveOptionSeeder;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
@@ -32,7 +33,7 @@ class DatabaseSeeder extends Seeder
             'gender' => 'male', // secret
         ]);
 
-        \App\Models\User::create([
+        $user = \App\Models\User::create([
             'fullname' => "Citizen",
             'phone' => "0555227711",
             'identity_number' => '1234567891',
@@ -44,6 +45,10 @@ class DatabaseSeeder extends Seeder
             'password' => 'Aa@100200300', // secret
             'user_type' => 'citizen', // secret
             'gender' => 'male', // secret
+        ]);
+
+        $user->citizenWallet()->create([
+            'wallet_number' => generate_unique_code(CitizenWallet::class, 'wallet_number', 10,'numbers')
         ]);
 
         $this->call(SettingSeeder::class);
