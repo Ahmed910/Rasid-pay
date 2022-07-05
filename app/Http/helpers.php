@@ -179,7 +179,7 @@ if (!function_exists('setting')) {
 
             if ($attr == 'erp_logo') {        $setting = isset($setting[app()->getLocale()]) ?
                 asset('storage/images/setting') . "/" . $setting[app()->getLocale()] :
-                asset('dashboardAsset/global/images/logo/cover_sm.png');
+                asset('dashboardAssets/images/brand/no-img.png');
             return $setting ; }
 
 
