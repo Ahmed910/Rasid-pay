@@ -14,13 +14,15 @@ class StaticPageRequest extends ApiMasterRequest
     public function rules()
     {
         $rules = [
-            "image"         => "nullable|max:5120|mimes:jpg,png,jpeg",
-            "is_active"     => "in:0,1",
+            "image"           => "nullable|max:5120|mimes:jpg,png,jpeg",
+            "is_active"       => "in:0,1",
+            "show_in_website" => "in:0,1",
+            "show_in_app"     => "in:0,1",
         ];
         foreach (config('translatable.locales') as $locale) {
             $rules["$locale"]               = "array";
             $rules["$locale.name"]          = "required|max:100|regex:/^[\pL\pN\s\-\_]+$/u|unique:static_page_translations,name," . @$this->static_page . ',static_page_id';
-            $rules["$locale.description"]   = "required|string|max:50000|regex:/^[\pL\pN\s\-\_]+$/u";
+            $rules["$locale.description"]   = "required|string|max:50000";
         }
 
         return $rules;
