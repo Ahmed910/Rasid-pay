@@ -47,7 +47,7 @@ class Transaction extends Model
     const TRANSFERS = ['wallet_transfer', 'local_transfer', 'global_transfer'];
     const PAYMENTS = ['payment', 'promote_package'];
     const CHARGE = ['charge', 'money_request'];
-    const TRANACTION_TYPES = self::TRANSFERS + self::PAYMENTS + self::CHARGE ;
+    const TRANACTION_TYPES = ['wallet_transfer', 'local_transfer', 'global_transfer', 'payment', 'promote_package', 'charge', 'money_request'];
 
     public function scopeSearch(Builder $query, $request)
     {
@@ -81,9 +81,9 @@ class Transaction extends Model
                 });
             }
         }
-//
+        //
         if (isset($request->citizen)) {
-            $query->whereHas('fromUser', fn($q) => $q->where('fullname', 'like', "%$request->citizen%"));
+            $query->whereHas('fromUser', fn ($q) => $q->where('fullname', 'like', "%$request->citizen%"));
         }
 
         $new = $query->toSql();
@@ -106,7 +106,7 @@ class Transaction extends Model
 
         if (
             //  !in_array(Str::lower($request->sort["column"]), $this->sortableColumns) ||
-        !in_array(Str::lower($request->sort["dir"]), ["asc", "desc"])
+            !in_array(Str::lower($request->sort["dir"]), ["asc", "desc"])
         ) {
             return $query->latest('transactions.created_at');
         } else if (in_array($request->sort["column"], self::TRANSACTION_SEARCHABLE_COLUMNS)) {
@@ -122,12 +122,12 @@ class Transaction extends Model
                 ->orderBy('users.' . self::CLIENT_SORTABLE_COLUMNS[$request->sort["column"]], @$request->sort["dir"]);
         } else
             if (key_exists($request->sort["column"], self::ENABLED_CARD_sortable_COLUMNS)) {
-                return
-                    $query
-                        ->leftjoin("citizen_packages", 'citizen_packages.citizen_id', '=', 'transactions.from_user_id')
-                        ->orderBy('citizen_packages.' . self::ENABLED_CARD_sortable_COLUMNS[$request->sort["column"]], @$request->sort["dir"])
-                        ->select('transactions.*', 'citizen_packages.package_id');
-            }
+            return
+                $query
+                ->leftjoin("citizen_packages", 'citizen_packages.citizen_id', '=', 'transactions.from_user_id')
+                ->orderBy('citizen_packages.' . self::ENABLED_CARD_sortable_COLUMNS[$request->sort["column"]], @$request->sort["dir"])
+                ->select('transactions.*', 'citizen_packages.package_id');
+        }
 
 
         $query->when($request->sort, function ($q) use ($request) {

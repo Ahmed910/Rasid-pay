@@ -120,9 +120,10 @@ trait ThrottlesAttempts
      */
     public function maxAttempts(): int
     {
-        return property_exists($this, 'maxAttempts')
-            ? $this->maxAttempts
-            : 5;
+        // return property_exists($this, 'maxAttempts')
+        //     ? $this->maxAttempts
+        //     : 5;
+        return setting('rasidpay_login_times') ? (int)setting('rasidpay_login_times') : 3;
     }
 
     /**

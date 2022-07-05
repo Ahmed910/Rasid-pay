@@ -22,7 +22,9 @@ class ContactFactory extends Factory
             'phone' => $user->phone,
             'title' => $this->faker->sentence,
             'content' => $this->faker->paragraph,
-            'contact_type' => $this->faker->randomElement(['complain','inquiries','suggestions']),
+            'message_source' => $this->faker->randomElement(['website','app',]),
+            'message_status' => $this->faker->randomElement(['pending','new',"replied"]),
+            'contact_type' => $this->faker->randomElement(['complain', 'inquiries', 'suggestions']),
             'admin_id' => $this->getRandomUser()->id,
         ];
     }

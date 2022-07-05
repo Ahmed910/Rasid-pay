@@ -59,6 +59,7 @@ Route::middleware('auth:sanctum')->group(function () {
     });
     Route::apiResource('packages', 'PackageController')->only('index', 'show', 'update');
     // Transaction
+    Route::get('transactions_types', 'TransactionController@getTransTypes');
     Route::get('generate_transaction_file/{id}', 'TransactionController@generatePdfLink');
     Route::get('download_transaction_file/{id}', 'TransactionController@generatePdfFile');
     Route::apiResource('transactions', 'TransactionController')->only('index', 'show');
@@ -78,6 +79,7 @@ Route::middleware('auth:sanctum')->group(function () {
         // All Transfers
         Route::delete('transfers/{id}', 'TransferController@delete');
         Route::get('transfers', 'TransferController@index');
+        Route::get('transfers/{transfer_id}', 'TransferController@cancelTransfer');
     });
 });
 
