@@ -43,7 +43,7 @@ class ContactController extends Controller
     public function show($id)
     {
         $contact = Contact::with('replies', 'user','admin')->withTrashed()->findOrFail($id);
-        $contact->update(['read_at' => now(),"message_status"=>"pending"]);
+        $contact->update(['read_at' => now(),"message_status"=>$contact->message_status=="new"?"pending":$contact->message_status]);
 
         return ContactResource::make($contact)
             ->additional([
