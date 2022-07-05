@@ -2,6 +2,8 @@
 
 namespace Database\Seeders;
 
+use App\Models\CitizenWallet;
+use App\Models\Contact;
 use Database\Seeders\ReceiveOptionSeeder;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
@@ -32,7 +34,7 @@ class DatabaseSeeder extends Seeder
             'gender' => 'male', // secret
         ]);
 
-        \App\Models\User::create([
+        $user = \App\Models\User::create([
             'fullname' => "Citizen",
             'phone' => "0555227711",
             'identity_number' => '1234567891',
@@ -46,6 +48,10 @@ class DatabaseSeeder extends Seeder
             'gender' => 'male', // secret
         ]);
 
+        $user->citizenWallet()->create([
+            'wallet_number' => generate_unique_code(CitizenWallet::class, 'wallet_number', 10,'numbers')
+        ]);
+
         $this->call(SettingSeeder::class);
         $this->call(TransactionSeeder::class);
         $this->call(PackageSeeder::class);
@@ -53,7 +59,7 @@ class DatabaseSeeder extends Seeder
         $this->call(TransferRelationSeeder::class);
         $this->call(TranslationSeeder::class);
         $this->call(NotificationSeeder::class);
-
+        Contact::factory(50)->create();
         Schema::disableForeignKeyConstraints();
         DB::unprepared(include database_path('Intial_data/departments.php'));
         DB::unprepared(include database_path('Intial_data/rasid_jobs.php'));

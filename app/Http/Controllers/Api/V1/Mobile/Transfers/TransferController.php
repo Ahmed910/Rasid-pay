@@ -12,7 +12,6 @@ class TransferController extends Controller
 {
     public function index(TransferTypeRequest $request)
     {
-
         $transfers = Transfer::when($request->transfer_type, function ($query) use ($request) {
             switch ($request->transfer_type) {
                 case 'outgoing_transfers':
@@ -29,5 +28,16 @@ class TransferController extends Controller
                 'status' => true
             ]
         );
+    }
+
+    public function destroy($id)
+    {
+        $trasfer = Transfer::find($id)->delete();
+
+        return TransferResource::make($trasfer)
+            ->additional([
+                'status' => true,
+                'message' => __('dashboard.general.success_delete')
+            ]);
     }
 }

@@ -3191,6 +3191,7 @@ return  [
     ['id' => 'c5ef67fa-3ec1-4475-aaa3-9122b4dca178' ,'key' => 'validation.mobile.otp_vaild', 'file' =>'mobile', 'created_at' =>'2022-06-29 16:53:27', 'updated_at' =>'2022-06-29 16:53:27'],
     ['id' => 'c5ef67fa-3ec1-4475-aaa3-9122b4dca179' ,'key' => 'validation.mobile.otp_invaild', 'file' =>'mobile', 'created_at' =>'2022-06-29 16:53:27', 'updated_at' =>'2022-06-29 16:53:27'],
     ['id' => 'c5ef67fa-3ec1-4475-aaa3-9452b4dca179' ,'key' => 'validation.email', 'file' =>'dashboard', 'created_at' =>'2022-06-29 16:53:27', 'updated_at' =>'2022-06-29 16:53:27'],
+    ['id' => 'z5ef67fa-3ec1-4475-aaa3-9452b4dca179' ,'key' => 'general.cant_update_phone_related_with_hold_transactions', 'file' =>'dashboard', 'created_at' =>'2022-06-29 16:53:27', 'updated_at' =>'2022-06-29 16:53:27'],
     ['id' => 'c5ef67fa-3ec1-4475-aaa3-9452b4dca180' ,'key' => 'invoice.invoice', 'file' =>'mobile', 'created_at' =>'2022-06-29 16:53:27', 'updated_at' =>'2022-06-29 16:53:27'],
     ['id' => 'c5ef67fa-3ec1-4475-aaa3-9452b4dca181' ,'key' => 'invoice.successfully_Transfered', 'file' =>'mobile', 'created_at' =>'2022-06-29 16:53:27', 'updated_at' =>'2022-06-29 16:53:27'],
     ['id' => 'c5ef67fa-3ec1-4475-aaa3-9452b4dca182' ,'key' => 'invoice.transaction_type', 'file' =>'mobile', 'created_at' =>'2022-06-29 16:53:27', 'updated_at' =>'2022-06-29 16:53:27'],

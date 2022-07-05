@@ -3199,6 +3199,7 @@ return
     ['id' => '56cb96df-212a-4ebc-af6c-f574bf4d5863','locale_id' =>'c5ef67fa-3ec1-4475-aaa3-9122b4dca179', 'locale' =>'ar', 'value' =>'رمز التحقق غير صالح','desc' => NULL],
     ['id' => '56cb96df-212a-4ebc-af6c-f574bf4d5864','locale_id' =>'c5ef67fa-3ec1-4475-aaa3-9122b4dca179', 'locale' =>'en', 'value' =>'otp is invalid','desc' => NULL],
     ['id' => '56cb96df-512a-4ebc-af6c-f574bf4d5864','locale_id' =>'c5ef67fa-3ec1-4475-aaa3-9452b4dca179', 'locale' =>'ar', 'value' =>'صيغة البريد الإلكتروني غير صحيحة','desc' => NULL],
+    ['id' => '56cb96df-512a-4ebc-af6c-f574bf4d5834','locale_id' =>'z5ef67fa-3ec1-4475-aaa3-9452b4dca179', 'locale' =>'ar', 'value' =>'عفوا، لا يمكن تعديل رقم الجوال نظرا لوجود عمليات تحويل جارية','desc' => NULL],
     ['id' => '56cb96df-512a-4ebc-af6c-f574bf4d5865','locale_id' =>'c5ef67fa-3ec1-4475-aaa3-9452b4dca180', 'locale' =>'ar', 'value' =>'فاتورة','desc' => NULL],
     ['id' => '56cb96df-512a-4ebc-af6c-f574bf4d5866','locale_id' =>'c5ef67fa-3ec1-4475-aaa3-9452b4dca181', 'locale' =>'ar', 'value' =>'تم التحويل بنجاح','desc' => NULL],
     ['id' => '56cb96df-512a-4ebc-af6c-f574bf4d5867','locale_id' =>'c5ef67fa-3ec1-4475-aaa3-9452b4dca182', 'locale' =>'ar', 'value' =>'نوع العملية','desc' => NULL],
