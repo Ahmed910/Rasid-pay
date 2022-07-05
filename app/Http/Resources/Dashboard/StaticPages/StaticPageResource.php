@@ -32,6 +32,8 @@ class StaticPageResource extends JsonResource
             "images"           => ImagesResource::collection($this->whenLoaded("images")),
             'created_at'       => $this->created_at,
             'added_by_id'      => $this->whenLoaded('addedBy', SimpleUserResource::make($this->addedBy)),
+            'show_in_app'      =>(bool)$this->show_in_app,
+            'show_in_website'      =>(bool)$this->show_in_website,
             'actions'          => $this->when($request->routeIs('static_pages.index') || $request->routeIs('static_pages.archive'), [
                 'show' => auth()->user()->hasPermissions('static_pages.show'),
                 $this->mergeWhen($request->route()->getActionMethod() == 'index', [
