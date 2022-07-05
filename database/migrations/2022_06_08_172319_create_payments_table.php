@@ -15,7 +15,7 @@ class CreatePaymentsTable extends Migration
     {
         Schema::create('payments', function (Blueprint $table) {
             $table->uuid("id")->primary();
-            $table->foreignUuid('citizen_id')->nullable()->constrained('citizens')->onDelete('set null');
+            $table->foreignUuid('citizen_id')->nullable()->constrained('users')->onDelete('set null');
             $table->string('invoice_number');
             $table->decimal('amount',12,2);
             $table->text('description')->nullable();
