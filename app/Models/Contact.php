@@ -45,7 +45,7 @@ class Contact extends Model
     public function scopeSearch ($query, $request){
 
         foreach ($request->all() as $key => $item) {
-            if ($item == -1 && in_array($key, self::SELECT_ALL)) $request->request->remove($key);
+            if ($item == -1 && in_array($key, self::SELECT_ALL))   { $request->request->remove($key) ; continue ;  }
 
             if (in_array($key, self::USER_COLUMNS))
                 !($key == "fullname") ? $query->where('contacts.'.$key, $item) : $query->where('contacts.'.$key, "like", "%$item%");
