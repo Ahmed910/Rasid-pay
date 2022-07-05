@@ -4,14 +4,11 @@ namespace App\Http\Controllers\Api\V1\Dashboard;
 
 use App\Models\User;
 use App\Models\Citizen;
-use App\Models\BankAccount;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Package\Package;
-use App\Http\Requests\V1\Dashboard\ReasonRequest;
 use App\Http\Resources\Dashboard\CitizenResource;
 use App\Http\Requests\V1\Dashboard\CitizenRequest;
-use App\Http\Requests\V1\Dashboard\BankAccountRequest;
 
 class CitizenController extends Controller
 {
@@ -46,8 +43,17 @@ class CitizenController extends Controller
         $citizen = User::where('user_type', "citizen")->with(["citizenTransactions" => function($q){
             $q->where("trans_status","pending");
         }])->findOrFail($id);
-        if($citizen->citizenTransactions->count()){
-            return response()->json(['status' => false, 'message' => trans("dashboard.general.cant_update_phone_related_with_hold_transactions"),'data' => null],422);
+        if ($citizen->citizenTransactions->count()) {
+            $data = [
+                'status' => false,
+                'data' => null,
+                'message' => trans('dashboard.error.something_went_wrong'),
+                'errors' => [
+                    'phone' => [trans('dashboard.general.cant_update_phone_related_with_hold_transactions')]
+                ],
+            ];
+
+            return response()->json( $data, 422);
         }
         $citizen->update($request->validated());
 
@@ -57,12 +63,11 @@ class CitizenController extends Controller
     public function enabledPackages()
     {
         $enabledPackages = Package::select('id')
-        ->listsTranslations('name')->get();
+            ->listsTranslations('name')->get();
         return response()->json([
             'data' => $enabledPackages,
             'status' => true,
             'message' =>  '',
         ]);
     }
-
 }

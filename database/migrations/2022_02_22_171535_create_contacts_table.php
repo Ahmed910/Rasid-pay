@@ -8,6 +8,7 @@ class CreateContactsTable extends Migration
 {
     public function up()
     {
+
         Schema::create('contacts', function (Blueprint $table) {
             $table->uuid("id")->primary();
             $table->foreignUuid("user_id")->nullable()->constrained()->nullOnDelete();
@@ -17,12 +18,15 @@ class CreateContactsTable extends Migration
             $table->string("title");
             $table->longText("content");
             $table->enum('contact_type',['complain','inquiries','suggestions'])->default('inquiries');
+            $table->enum('message_source',['website','app',])->nullable()->default('app');;
+            $table->enum('message_status',['pending','new',"replied"])->nullable()->default('new');;
             $table->foreignUuid("admin_id")->nullable()->constrained('users')->nullOnDelete();
             $table->softDeletes();
 
             $table->timestamp("read_at")->nullable();
             $table->timestamps();
         });
+
     }
 
     public function down()

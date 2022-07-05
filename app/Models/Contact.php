@@ -3,11 +3,13 @@
 namespace App\Models;
 
 use App\Traits\Uuid;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Support\Str;
 
 class Contact extends Model
 {
@@ -15,6 +17,9 @@ class Contact extends Model
 
     #region properties
     protected $guarded = ['created_at', 'updated_at', 'deleted_at'];
+    const ADMINCOLUMNS = ["admin_fullname"=>"fullname"];
+    const USER_COLUMNS = ["fullname","email","phone","contact_type","message_source","message_status"];
+    const SELECT_ALL = ["contact_type","message_source","message_status"];
     #endregion properties
 
     #region mutators
@@ -37,6 +42,41 @@ class Contact extends Model
     #endregion mutators
 
     #region scopes
+    public function scopeSearch ($query, $request){
+
+        foreach ($request->all() as $key => $item) {
+            if ($item == -1 && in_array($key, self::SELECT_ALL))   { $request->request->remove($key) ; continue ;  }
+
+            if (in_array($key, self::USER_COLUMNS))
+                !($key == "fullname") ? $query->where('contacts.'.$key, $item) : $query->where('contacts.'.$key, "like", "%$item%");
+
+            if (key_exists($key, self::ADMINCOLUMNS))
+                $query->whereHas('admin', function ($q) use ($key, $item) {
+                    $key = self::ADMINCOLUMNS[$key]  ;
+                    !($key == "fullname") ? $q->where($key, $item) : $q->where($key, "like", "%$item%");
+                });
+        }
+
+}
+
+    public function scopeSortBy(Builder $query, $request)
+    {
+        if (!isset($request->sort["column"]) || !isset($request->sort["dir"])
+            || !in_array(Str::lower($request->sort["dir"]), ["asc", "desc"])
+           )  return $query->latest('contacts.created_at');
+
+
+        if (in_array($request->sort["column"], self::USER_COLUMNS)) {
+            return $query
+                ->orderBy('contacts.'.$request->sort["column"], @$request->sort["dir"]);
+        }
+        if (key_exists($request->sort["column"], self::ADMINCOLUMNS)) {
+            return $query->leftJoin('users', 'users.id', '=', 'contacts.admin_id')
+                ->select("contacts.*","users.fullname as admin.")
+                ->orderBy('users.' . self::ADMINCOLUMNS[$request->sort["column"]], @$request->sort["dir"]);
+        }
+
+        }
     #endregion scopes
 
     #region relationships
