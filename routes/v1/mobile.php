@@ -77,9 +77,9 @@ Route::middleware('auth:sanctum')->group(function () {
         // Global Transfers
         Route::post('global_transfers', 'GlobalTransferController@store');
         // All Transfers
-        Route::delete('transfers/{id}', 'TransferController@delete');
+        Route::delete('transfers/{id}', 'TransferController@destroy');
         Route::get('transfers', 'TransferController@index');
-        Route::get('transfers/{transfer_id}', 'TransferController@cancelTransfer');
+        Route::post('transfers/{transfer_id}', 'TransferController@cancelTransfer');
     });
 });
 
