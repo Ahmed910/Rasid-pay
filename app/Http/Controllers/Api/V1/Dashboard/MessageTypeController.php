@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api\V1\Dashboard;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\V1\Dashboard\MessageTypeRequest;
 use App\Http\Resources\Dashboard\MessageTypeResource;
 use App\Models\MessageType\MessageType;
 use Illuminate\Http\Request;
@@ -24,14 +25,17 @@ class MessageTypeController extends Controller
             ]);
     }
 
-    public function create()
+    public function store(MessageTypeRequest $request, MessageType $messageType)
     {
-        //
-    }
+        $data = $request->validated();
+        $messageType->fill($data)->save();
+        $messageType->admins()->sync($data['admins']);
 
-    public function store(Request $request)
-    {
-        //
+        return MessageTypeResource::make($messageType)
+            ->additional([
+                'status' => true,
+                'message' => trans("dashboard.general.success_add")
+            ]);
     }
 
     public function show($id)
@@ -44,14 +48,17 @@ class MessageTypeController extends Controller
             ]);
     }
 
-    public function edit($id)
+    public function update(MessageTypeRequest $request, MessageType $messageType)
     {
-        //
-    }
+        $data = $request->validated();
+        $messageType->fill($data)->save();
+        $messageType->admins()->sync($data['admins']);
 
-    public function update(Request $request, $id)
-    {
-        //
+        return MessageTypeResource::make($messageType)
+            ->additional([
+                'status' => true,
+                'message' => trans("dashboard.general.success_add")
+            ]);
     }
 
     public function destroy($id)
