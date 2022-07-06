@@ -3,6 +3,7 @@
 namespace App\Models\Vendor;
 
 use App\Contracts\HasAssetsInterface;
+use App\Models\VendorBranches\VendorBranch;
 use App\Traits\HasAssetsTrait;
 use App\Traits\Loggable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -97,7 +98,7 @@ public function scopeSortBy(Builder $query, $request)
 #endregion scopes
 
     #region relationships
-    public function vendorBranches()
+    public function branches()
     {
         return $this->hasMany(VendorBranch::class);
     }
