@@ -81,4 +81,12 @@ return [
         'local_transfer' => 'التحويل المحلي',
         'transfer_has_been_done_successfully' => 'تمت عملية التحويل بنجاح',
     ],
+
+    'transfers' => [
+        'transfer_details' => 'تم تحويل مبلغ :amount ر.س  من المحفظة الخاصة بك إلى محفظة المستخدم :wallet_transfer_method',
+        'by_phone' => 'برقم جوال ',
+        'by_identity_number' => 'برقم هوية ',
+        'by_wallet_number' => 'برقم ',
+
+    ]
 ];
