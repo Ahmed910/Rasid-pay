@@ -1,16 +1,18 @@
 <?php
 
-namespace App\Models;
+namespace App\Models\VendorBranches;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Traits\Uuid;
 
-class ClientBranch extends Model
+class VendorBranchTranslation extends Model
 {
     use HasFactory, Uuid;
 
     #region properties
+    public $timestamps = false;
+    protected $fillable = ['name'];
     #endregion properties
 
     #region mutators
