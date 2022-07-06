@@ -41,13 +41,13 @@ class WalletController extends Controller
             'trans_type' => 'charge',
             'trans_number' => generate_unique_code(Transaction::class,'trans_number',10,'numbers')
         ];
-        $wallet_charge->transaction()->create($transaction_data);
+        $transaction = $wallet_charge->transaction()->create($transaction_data);
 
         // #4 Save card information
         if ($request->is_card_saved == 1) {
             $citizen->cards()->updateOrCreate(['user_id' => $citizen->id, 'card_number' => $request->card_number],array_only($request->validated(),['owner_name','card_name','card_number','expire_at','card_type']));
         }
-
+        data_set($wallet,'trans_number',$transaction->trans_number);
         return WalletResource::make($wallet)
             ->additional([
                 'status' => true,
