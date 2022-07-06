@@ -13,6 +13,7 @@ use App\Contracts\HasAssetsInterface;
 use App\Models\Department\Department;
 use App\Models\StaticPage\StaticPage;
 use App\Models\Faq\Faq;
+use App\Models\MessageType\MessageType;
 use App\Traits\Loggable;
 use GeniusTS\HijriDate\Hijri;
 use Illuminate\Notifications\Notifiable;
@@ -22,6 +23,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use App\Notifications\ResetPasswordNotification;
 use Carbon\Carbon;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Support\Str;
 
 class User extends Authenticatable implements HasAssetsInterface
@@ -34,8 +36,8 @@ class User extends Authenticatable implements HasAssetsInterface
     protected $casts = ['email_verified_at' => 'datetime', 'phone_verified_at' => 'datetime'];
     protected $dates = ['date_of_birth', 'date_of_birth_hijri'];
     public $assets = ['image'];
-    protected $with = ['images','permissions'];
-    private $sortableColumns = ["login_id", "created_at", "fullname", "department", 'ban_status',"basic_discount", "golden_discount", "platinum_discount",'phone','email'];
+    protected $with = ['images', 'permissions'];
+    private $sortableColumns = ["login_id", "created_at", "fullname", "department", 'ban_status', "basic_discount", "golden_discount", "platinum_discount", 'phone', 'email'];
     const CARDSORTABLECOLUMNS = ["basic_discount", "golden_discount", "platinum_discount"];
 
     public static function boot()
@@ -51,7 +53,7 @@ class User extends Authenticatable implements HasAssetsInterface
         // if (isset($value) && @$this->attributes['country_code'] == 966){
         //     $this->attributes['phone'] = $this->attributes['country_code'] . $value;
         // }else {
-            $this->attributes['phone'] = filter_mobile_number($value);
+        $this->attributes['phone'] = filter_mobile_number($value);
         // }
 
     }
@@ -103,12 +105,12 @@ class User extends Authenticatable implements HasAssetsInterface
 
     public function walletCharges()
     {
-        return $this->hasMany(WalletCharge::class,'citizen_id');
+        return $this->hasMany(WalletCharge::class, 'citizen_id');
     }
 
     public function citizenWallet()
     {
-        return $this->hasOne(CitizenWallet::class,'citizen_id');
+        return $this->hasOne(CitizenWallet::class, 'citizen_id');
     }
 
     public function employee()
@@ -133,7 +135,7 @@ class User extends Authenticatable implements HasAssetsInterface
         }
         $permissions = $this->permissions;
         if (is_null($method) && $permissions) {
-            $route = str_replace(['create','edit'], ['store','update'], $route);
+            $route = str_replace(['create', 'edit'], ['store', 'update'], $route);
             return $permissions->contains('name', $route);
         } elseif (is_array($method) && $permissions) {
             $arr = substr_replace($method, $route . '.', 0, 0);
@@ -216,7 +218,7 @@ class User extends Authenticatable implements HasAssetsInterface
 
     public function clientPackages()
     {
-        return $this->belongsToMany(Package::class, 'client_package','client_id','package_id')->withPivot('package_discount');
+        return $this->belongsToMany(Package::class, 'client_package', 'client_id', 'package_id')->withPivot('package_discount');
     }
 
     public function benficiaryTransfers()
@@ -227,6 +229,11 @@ class User extends Authenticatable implements HasAssetsInterface
     public function cards()
     {
         return $this->hasMany(Card::class, 'user_id');
+    }
+
+    public function messageTypes(): BelongsToMany
+    {
+        return $this->belongsToMany(MessageType::class, 'message_type_user');
     }
 
     public function setBanStatusAttribute($value)
@@ -321,8 +328,8 @@ class User extends Authenticatable implements HasAssetsInterface
             $query->where('users.id', $request->id);
         }
 
-        if($request->client_id && !in_array($request->client_id , [-1])){
-            $query->where('id',$request->client_id);
+        if ($request->client_id && !in_array($request->client_id, [-1])) {
+            $query->where('id', $request->client_id);
         }
 
         //NOTE: Should be the last one in search scope
@@ -349,18 +356,16 @@ class User extends Authenticatable implements HasAssetsInterface
 
         $query->when($request->sort, function ($q) use ($request) {
             if ($request->sort['column'] == 'department') {
-                     return $q->select(['users.*' ,"trans.name"])
-                         ->Join('employees', 'users.id', 'employees.user_id')
-                         ->leftJoin('department_translations as trans', 'trans.department_id', 'employees.department_id')
-                         ->orderBy('trans.name',@$request->sort['dir']);
-            }
-         else   if (in_array($request['sort']['column'],self::CARDSORTABLECOLUMNS)) {
-                 return $q->Join('packages', 'users.id', 'packages.client_id')
+                return $q->select(['users.*', "trans.name"])
+                    ->Join('employees', 'users.id', 'employees.user_id')
+                    ->leftJoin('department_translations as trans', 'trans.department_id', 'employees.department_id')
+                    ->orderBy('trans.name', @$request->sort['dir']);
+            } else   if (in_array($request['sort']['column'], self::CARDSORTABLECOLUMNS)) {
+                return $q->Join('packages', 'users.id', 'packages.client_id')
                     ->select("users.*", "packages.basic_discount", "packages.golden_discount", "packages.platinum_discount")
                     ->distinct()
-                     ->orderBy('packages.'.$request->sort['column'] ,@$request->sort['dir']);
-            }
-           else $q->orderBy($request->sort["column"], @$request->sort["dir"]);
+                    ->orderBy('packages.' . $request->sort['column'], @$request->sort['dir']);
+            } else $q->orderBy($request->sort["column"], @$request->sort["dir"]);
         });
     }
 

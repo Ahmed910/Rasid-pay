@@ -65,10 +65,10 @@ class Transaction extends Model
         if (isset($request->trans_number)) {
             $query->where('trans_number', 'like', "%$request->trans_number%");
         }
-        if (isset($request->trans_status) && !in_array($request->trans_status, [-1])) {
+        if (isset($request->trans_status) && !in_array(-1, $request->trans_status)) {
             $query->whereIn("trans_status", $request->trans_status);
         }
-        if (isset($request->trans_type) && !in_array($request->trans_type, [-1])) {
+        if (isset($request->trans_type) && !in_array(-1, $request->trans_type)) {
             $query->whereIn("trans_type", $request->trans_type);
         }
 
