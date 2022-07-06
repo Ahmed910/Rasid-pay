@@ -40,7 +40,6 @@ class Vendor extends Model implements HasAssetsInterface
      {
          return asset($this->images()->where('option','logo')->first()?->media);
      }
-    #endregion mutators
 
 #region scopes
     public function scopeSearch(Builder $query, Request $request)
