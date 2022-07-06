@@ -11,7 +11,7 @@ class MessageTypeController extends Controller
 {
     public function index(Request $request)
     {
-        $messageTypes = MessageType::with('employees')
+        $messageTypes = MessageType::withCount('admins')
             ->search($request)
             ->ListsTranslations('name')
             ->CustomDateFromTo($request)
