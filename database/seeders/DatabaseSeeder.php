@@ -58,7 +58,7 @@ class DatabaseSeeder extends Seeder
         $this->call(ReceiveOptionSeeder::class);
         $this->call(TransferRelationSeeder::class);
         $this->call(NotificationSeeder::class);
-        Contact::factory(50)->create();
+        // Contact::factory(50)->create();
         Schema::disableForeignKeyConstraints();
         DB::unprepared(include database_path('Intial_data/departments.php'));
         DB::unprepared(include database_path('Intial_data/rasid_jobs.php'));

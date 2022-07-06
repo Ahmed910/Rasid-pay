@@ -42,7 +42,7 @@ class RouteServiceProvider extends ServiceProvider
 
         $this->routes(function () {
             Route::prefix('api/v1/dashboard')
-                ->middleware('api','setLocale') //adminPermission
+                ->middleware('api', 'setLocale') //adminPermission
                 ->namespace($this->dashboard_v1_namespace)
                 ->group(base_path('routes/v1/dashboard.php'));
 
@@ -51,17 +51,17 @@ class RouteServiceProvider extends ServiceProvider
                 ->group(base_path('routes/dashboard/web.php'));
 
             Route::prefix('api/v1005/mobile')
-                ->middleware('api','setLocale') //
+                ->middleware('api', 'setLocale') //
                 ->namespace($this->mobile_v1_namespace)
                 ->group(base_path('routes/v1/mobile.php'));
 
             Route::prefix('api/v1006/mobile')
-                ->middleware('api','setLocale') //
+                ->middleware('api', 'setLocale') //
                 ->namespace($this->mobile_v1_namespace)
                 ->group(base_path('routes/v1/mobile.php'));
 
             Route::prefix('api/v1/mobile')
-                ->middleware('api','setLocale') //
+                ->middleware('api', 'setLocale') //
                 ->namespace($this->mobile_v1_namespace)
                 ->group(base_path('routes/v1/mobile.php'));
 

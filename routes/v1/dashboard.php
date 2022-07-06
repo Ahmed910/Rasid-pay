@@ -147,7 +147,7 @@ Route::middleware('maintenance_mode')->group(function () {
             });
 
             Route::controller('VendorBranchController')->name('vendor_branches.')->prefix('vendor_branches')->group(function () {
-                
+
                 Route::get('get_vendors', 'getVendors')->name('get_vendors');
             });
 
@@ -160,6 +160,7 @@ Route::middleware('maintenance_mode')->group(function () {
                 'admins' => 'AdminController',
                 'employees' => 'EmployeeController',
                 'clients' => 'ClientController',
+                'vendors' => 'vendorController',
                 'rasid_jobs' => 'RasidJobController',
                 'banks' => 'BankController',
                 'transfer_purposes' => 'TransferPurposeController',
@@ -170,6 +171,7 @@ Route::middleware('maintenance_mode')->group(function () {
                 'faqs'         => 'FaqController',
                 'contacts'     => 'ContactController',
                 'vendor_branches'     => 'VendorBranchController',
+                'message_types' => 'MessageTypeController'
             ]);
 
             Route::apiResource('citizens', 'CitizenController')->only('index', 'show', 'update');

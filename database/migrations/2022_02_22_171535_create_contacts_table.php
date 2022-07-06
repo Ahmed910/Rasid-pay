@@ -17,16 +17,17 @@ class CreateContactsTable extends Migration
             $table->string("phone")->nullable();
             $table->string("title");
             $table->longText("content");
-            $table->enum('contact_type',['complain','inquiries','suggestions'])->default('inquiries');
-            $table->enum('message_source',['website','app',])->nullable()->default('app');;
-            $table->enum('message_status',['pending','new',"replied"])->nullable()->default('new');;
+            $table->text("notes")->nullable();
+
+            $table->enum('message_source', ['website', 'app',])->nullable()->default('app');;
+            $table->enum('message_status', ['pending', 'new', "replied"])->nullable()->default('new');
             $table->foreignUuid("admin_id")->nullable()->constrained('users')->nullOnDelete();
+
             $table->softDeletes();
 
             $table->timestamp("read_at")->nullable();
             $table->timestamps();
         });
-
     }
 
     public function down()
