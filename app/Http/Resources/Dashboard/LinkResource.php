@@ -10,6 +10,7 @@ class LinkResource extends JsonResource
     {
         return [
             'key'   => $this->key,
+            'translation' => trans('dashboard.links.'.$this->key),
             'static_page_id' => $this->static_page_id
         ];
     }
