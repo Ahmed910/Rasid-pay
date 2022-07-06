@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers\Api\V1\Mobile;
 
+use App\Http\Resources\Api\V1\Mobile\VendorBranchResource;
+use App\Models\VendorBranches\VendorBranch;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\Api\V1\Mobile\ClientResource;
@@ -11,13 +13,12 @@ class ClientController extends Controller
 {
     public function index(Request $request)
     {
-        $clients = User::where(['user_type'=>'client', 'ban_status' => 'active'])
-            ->has('clientPackages')->with('clientPackages','client')
+        $clients = VendorBranch::where(['is_active' => true])->with("vendor")
             ->search($request)
-        ->paginate((int)($request->per_page ?? config("globals.per_page")));
-        return ClientResource::collection($clients)->additional([
-            'status'=>true,
-            'message'=>''
+            ->paginate((int)($request->per_page ?? config("globals.per_page")));
+        return VendorBranchResource::collection($clients)->additional([
+            'status' => true,
+            'message' => ''
         ]);
 
     }
