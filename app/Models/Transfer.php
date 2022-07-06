@@ -23,9 +23,10 @@ class Transfer extends Model
     const IDENTITY_NUMBER = 'identity_number';
     const WALLET_NUMBER = 'wallet_number';
     const CANCELED = 'canceled';
+    const TRANSFERED = 'transfered';
     const PENDING = 'pending';
-    const HOLD = 'hold';
-    const STATUSES = [self::CANCELED,self::PENDING,self::HOLD];
+
+    const STATUSES = [self::CANCELED,self::PENDING,self::TRANSFERED];
 
     const WALLET_TRANSFER_METHODS = [self::PHONE, self::IDENTITY_NUMBER, self::WALLET_NUMBER];
     // Transfer Types
