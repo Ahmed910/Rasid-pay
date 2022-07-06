@@ -17,7 +17,6 @@ class MessageTypeController extends Controller
             ->CustomDateFromTo($request)
             ->sortBy($request)
             ->paginate((int)($request->per_page ?? config("globals.per_page")));
-
         return MessageTypeResource::collection($messageTypes)
             ->additional([
                 'status' => true,
@@ -37,7 +36,12 @@ class MessageTypeController extends Controller
 
     public function show($id)
     {
-        //
+        $messageType = MessageType::withCount('admins')->with('admins')->findOrFail($id);
+        return MessageTypeResource::make($messageType)
+            ->additional([
+                'status' => true,
+                'message' => "",
+            ]);
     }
 
     public function edit($id)
