@@ -49,7 +49,7 @@ class DatabaseSeeder extends Seeder
         ]);
 
         $user->citizenWallet()->create([
-            'wallet_number' => generate_unique_code(CitizenWallet::class, 'wallet_number', 10,'numbers')
+            'wallet_number' => generate_unique_code(CitizenWallet::class, 'wallet_number', 10, 'numbers')
         ]);
 
         $this->call(SettingSeeder::class);
@@ -57,7 +57,6 @@ class DatabaseSeeder extends Seeder
         $this->call(PackageSeeder::class);
         $this->call(ReceiveOptionSeeder::class);
         $this->call(TransferRelationSeeder::class);
-        $this->call(TranslationSeeder::class);
         $this->call(NotificationSeeder::class);
         Contact::factory(50)->create();
         Schema::disableForeignKeyConstraints();
