@@ -3,6 +3,7 @@
 namespace App\Models\Vendor;
 
 use App\Contracts\HasAssetsInterface;
+use App\Models\VendorBranches\VendorBranch;
 use App\Traits\HasAssetsTrait;
 use App\Traits\Loggable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -49,8 +50,10 @@ public function scopeSearch(Builder $query, Request $request)
     if (isset($request->tax_number))
         $query->where('tax_number', "%$request->tax_number%");
 
-    if (isset($request->type) && in_array($request->type, self::TYPES) )
-        $query->where('type', "%$request->type%");
+    if (isset($request->type) && in_array($request->type, self::TYPES) ){
+        $query->where('type','like' ,"%$request->type%");
+
+    }
 
     if (isset($request->is_active) && in_array($request->is_active, [0,1]))
         $query->where('is_active', $request->is_active);
@@ -97,7 +100,7 @@ public function scopeSortBy(Builder $query, $request)
 #endregion scopes
 
     #region relationships
-    public function vendorBranches()
+    public function branches()
     {
         return $this->hasMany(VendorBranch::class);
     }

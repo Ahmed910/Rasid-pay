@@ -14,33 +14,32 @@ class VendorResource extends JsonResource
         $locales = [];
         if ($this->relationLoaded('translations')) {
             foreach (config('translatable.locales') as $locale) {
-                $locales['translations'][$locale] = GlobalTransResource::make($this->translations->firstWhere('locale',$locale));
+                $locales['translations'][$locale] = GlobalTransResource::make($this->translations->firstWhere('locale', $locale));
             }
         }
-
         return [
-            'id'               => $this->id,
-            'name'             => $this->name,
-            'type'             => $this->type,
-            'commercial_record'=> $this->commercial_record,
-            'tax_number'       => $this->tax_number,
-            'iban'             => $this->iban,
-            'is_active'        => (bool) $this->is_active,
-            'is_support_maak'  => (bool)$this->is_support_maak,
-            'email'            => $this->email,
-            'phone'            => $this->phone,
-           // 'branch_numbers'  => (string)$this->branches->count(),
-            'created_at'       => $this->created_at,
-            "images"           => ImagesResource::collection($this->whenLoaded("images")),
-            'activity'         => ActivityLogResource::collection($this->whenLoaded('activity')),
-            'actions'          => $this->when($request->routeIs('Vendors.index'), [
-                'show'   => auth()->user()->hasPermissions('Vendors.show'),
+                'id' => $this->id,
+                'branches_count' => $this->branches_count,
+                'name' => $this->name,
+                'type' => $this->type,
+                'commercial_record' => $this->commercial_record,
+                'tax_number' => $this->tax_number,
+                'iban' => $this->iban,
+                'is_active' => (bool)$this->is_active,
+                'is_support_maak' => (bool)$this->is_support_maak,
+                'email' => $this->email,
+                'phone' => $this->phone,
+                'created_at' => $this->created_at,
+                "images" => ImagesResource::collection($this->whenLoaded("images")),
+                'activity' => ActivityLogResource::collection($this->whenLoaded('activity')),
+                'actions' => $this->when($request->routeIs('Vendors.index'), [
+                    'show' => auth()->user()->hasPermissions('Vendors.show'),
                     $this->mergeWhen($request->route()->getActionMethod() == 'index', [
                         'create' => auth()->user()->hasPermissions('Vendors.store'),
                         'update' => auth()->user()->hasPermissions('Vendors.update'),
                         'destroy' => auth()->user()->hasPermissions('Vendors.destroy'),
                     ])
-            ])
-        ] + $locales;
+                ])
+            ] + $locales;
     }
 }

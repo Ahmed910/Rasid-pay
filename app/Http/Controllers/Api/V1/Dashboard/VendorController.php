@@ -11,25 +11,22 @@ use Illuminate\Http\Request;
 
 class VendorController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index(Request $request)
     {
         $vendors = Vendor::search($request)
-        ->CustomDateFromTo($request)
-        ->with('translations')
-        ->sortBy($request)
-        ->paginate((int)($request->per_page ?? config("globals.per_page")));
-
+            ->ListsTranslations('name')
+            ->addSelect('vendors.type', 'vendors.is_active', 'vendors.commercial_record', 'vendors.tax_number','vendors.iban')
+            ->withCount('branches')
+            ->CustomDateFromTo($request)
+            ->sortBy($request)
+            ->paginate((int)($request->per_page ?? config("globals.per_page")));
         return VendorResource::collection($vendors)
             ->additional([
                 'status' => true,
                 'message' => "",
             ]);
     }
+
     /**
      * Store a newly created resource in storage.
      *
@@ -58,9 +55,9 @@ class VendorController extends Controller
         $vendor = Vendor::findOrFail($id);
         $activities = [];
         if (!$request->has('with_activity') || $request->with_activity) {
-            $activities  = $vendor->activity()
+            $activities = $vendor->activity()
                 ->sortBy($request)
-                ->paginate((int)($request->per_page ??  config("globals.per_page")));
+                ->paginate((int)($request->per_page ?? config("globals.per_page")));
 
         }
         return VendorCollection::make($activities)
