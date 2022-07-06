@@ -14,7 +14,7 @@ class VendorRequest extends ApiMasterRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -27,17 +27,18 @@ class VendorRequest extends ApiMasterRequest
         $ruls = [
             'type' => "required|in:" . join(",", Vendor::TYPES),
             'commercial_record' => ["string", "max:10", "unique:vendors,commercial_record," . @$this->vendor],
-            'tax_number' => "required|max:15|string|unique:vendors,tax_number," . @$this->client . ",user_id",
+            'tax_number' => "required|max:15|string|unique:vendors,tax_number," . @$this->client ,
             'is_support_maak' => "required|in:1,0",
             'is_active' => "nullable|in:1,0",
-            "iban" => "", // TODO
+//            "iban" => "", // TODO
             "email" => ["nullable", "max:255", "email", "unique:vendors,email," . @$this->vendor],
-            "phone" => ["nullable", "required", "numeric", "digits_between:9,20", 'starts_with:9665,05', 'unique:vendor,phone,' . $this->vendor]
+            "phone" => ["nullable", "required", "numeric", "digits_between:9,20", 'starts_with:9665,05', 'unique:vendors,phone,' . $this->vendor]
         ];
         foreach (config('translatable.locales') as $locale) {
             $rules["$locale"] = "array";
             $rules["$locale.name"] = "required|between:2,100|regex:/^[\pL\pN\s\-\_]+$/u|unique:vendor_translations,name," . @$this->vendor . ",vendor_id";
         }
+        return $ruls ;
 
     }
 }
