@@ -4,7 +4,8 @@ namespace App\Http\Controllers\Api\V1\Dashboard;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\V1\Dashboard\VendorRequest;
-use App\Http\Resources\Dashboard\VendorResource;
+use App\Http\Resources\Dashboard\Vendors\VendorCollection;
+use App\Http\Resources\Dashboard\Vendors\VendorResource;
 use App\Models\Vendor\Vendor;
 use Illuminate\Http\Request;
 
@@ -15,11 +16,20 @@ class VendorController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
-    }
+        $vendors = Vendor::search($request)
+        ->CustomDateFromTo($request)
+        ->with('translations')
+        ->sortBy($request)
+        ->paginate((int)($request->per_page ?? config("globals.per_page")));
 
+        return VendorResource::collection($vendors)
+            ->additional([
+                'status' => true,
+                'message' => "",
+            ]);
+    }
     /**
      * Store a newly created resource in storage.
      *
@@ -42,9 +52,22 @@ class VendorController extends Controller
      * @param int $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Request $request, $id)
     {
-        //
+
+        $vendor = Vendor::findOrFail($id);
+        $activities = [];
+        if (!$request->has('with_activity') || $request->with_activity) {
+            $activities  = $vendor->activity()
+                ->sortBy($request)
+                ->paginate((int)($request->per_page ??  config("globals.per_page")));
+
+        }
+        return VendorCollection::make($activities)
+            ->additional([
+                'status' => true,
+                'message' => ''
+            ]);
     }
 
     /**
