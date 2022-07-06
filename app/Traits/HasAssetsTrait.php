@@ -18,9 +18,11 @@ trait HasAssetsTrait
             $self->deleteAssets($self);
         });
 
-        static::restored(function (self $self) {
-            $self->restoreAssets($self);
-        });
+        if (in_array(SoftDeletes::class, class_uses(static::class))) {
+            static::restored(function (self $self) {
+                $self->restoreAssets($self);
+            });
+        }
     }
 
     private function saveAsset($model, Request $request, string $key, string $uploadPath)
