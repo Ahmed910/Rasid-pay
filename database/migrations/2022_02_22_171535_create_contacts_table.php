@@ -22,7 +22,6 @@ class CreateContactsTable extends Migration
             $table->enum('message_source', ['website', 'app',])->nullable()->default('app');;
             $table->enum('message_status', ['pending', 'new', "replied"])->nullable()->default('new');
             $table->foreignUuid("admin_id")->nullable()->constrained('users')->nullOnDelete();
-            $table->foreignUuid("message_type_id")->nullable()->constrained()->nullOnDelete();
 
             $table->softDeletes();
 
