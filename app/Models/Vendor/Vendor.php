@@ -34,6 +34,10 @@ class Vendor extends Model implements HasAssetsInterface
         });
     }
     #region mutators
+     public function getLogoAttribute()
+     {
+         return asset($this->images()->where('option','logo')->first()?->media);
+     }
     #endregion mutators
 
 #region scopes
