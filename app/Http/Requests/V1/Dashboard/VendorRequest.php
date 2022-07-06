@@ -36,10 +36,10 @@ class VendorRequest extends ApiMasterRequest
                 }
             }],  // TODO
             "email" => ["nullable", "max:255", "email", "unique:vendors,email," . @$this->vendor],
-            "phone" => ["nullable", "required", "numeric", "digits_between:9,20", 'starts_with:9665,05', 'unique:vendors,phone,' . $this->vendor],
+            "phone" => ["nullable", "numeric", "digits_between:9,20", 'starts_with:9665,05', 'unique:vendors,phone,' . $this->vendor],
             'logo' => (!$this->isMethod('put')) ? "required|" : "nullable|" . 'mimes:jpeg,jpg,png,suv,heic',
             'commercial_record_image' => (!$this->isMethod('put')) ? "required|" : "nullable|" . 'mimes:jpeg,jpg,png,suv,heic',
-            'tax_number_image' => 'mimes:jpeg,jpg,png,suv,heic',
+            'tax_number_image' => 'nullable|mimes:jpeg,jpg,png,suv,heic',
         ];
         foreach (config('translatable.locales') as $locale) {
             $rules["$locale"] = "array";
