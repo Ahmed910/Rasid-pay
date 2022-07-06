@@ -80,9 +80,13 @@ class VendorBranchController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(VendorBranchRequest $request,VendorBranch $vendor_branch)
     {
-        //
+        $vendor_branch->update($request->validated());
+        return VendorBranchResource::make($vendor_branch)->additional([
+            'status' => true,
+            'message' => trans('dashboard.general.success_update'),
+        ]);
     }
 
     /**
