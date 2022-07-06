@@ -44,10 +44,7 @@ class SlideController extends Controller
 
     public function destroy(Slide $slide)
     {
-
-
         $slide->delete();
-
         return SlideResource::make($slide)
             ->additional([
                 'status' => true,
