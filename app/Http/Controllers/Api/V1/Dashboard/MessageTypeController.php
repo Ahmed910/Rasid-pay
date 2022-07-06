@@ -11,9 +11,9 @@ class MessageTypeController extends Controller
 {
     public function index(Request $request)
     {
-        $messageTypes = MessageType::withCount('admins')
+        $messageTypes = MessageType::ListsTranslations('name')
+            ->withCount('admins')
             ->search($request)
-            ->ListsTranslations('name')
             ->CustomDateFromTo($request)
             ->sortBy($request)
             ->paginate((int)($request->per_page ?? config("globals.per_page")));
@@ -56,6 +56,13 @@ class MessageTypeController extends Controller
 
     public function destroy($id)
     {
-        //
+        $messageType = MessageType::findOrFail($id);
+        $messageType->delete();
+        return MessageTypeResource::make($messageType)
+            ->additional([
+                'status' => true,
+                'message' => trans("dashboard.general.success_delete")
+            ]);
+
     }
 }
