@@ -30,8 +30,8 @@ class AppServiceProvider extends ServiceProvider
         'Client' => \App\Models\Client::class,
         'Citizen' => \App\Models\Citizen::class,
         "BankBranch"=>\App\Models\BankBranch\BankBranch::class,
-        "Package"  => \App\Models\Package\Package::class
-
+        "Package"  => \App\Models\Package\Package::class,
+        'Vendor'   => \App\Models\Vendor\Vendor::class,
     ];
 
     public function register()
