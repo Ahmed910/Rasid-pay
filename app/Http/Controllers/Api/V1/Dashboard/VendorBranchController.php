@@ -28,7 +28,7 @@ class VendorBranchController extends Controller
         ->sortBy($request)
         ->paginate((int)($request->per_page ?? config("globals.per_page")));
 
-      
+
 
         return VendorBranchResource::collection($vendorBranches)->additional([
             'status' => true,
@@ -57,7 +57,11 @@ class VendorBranchController extends Controller
      */
     public function store(VendorBranchRequest $request)
     {
-        //
+        $vendor_branch = VendorBranch::create($request->validated());
+        return VendorBranchResource::make($vendor_branch)->additional([
+            'status' => true,
+            'message' => trans('dashboard.general.success_add'),
+        ]);
     }
 
     /**
