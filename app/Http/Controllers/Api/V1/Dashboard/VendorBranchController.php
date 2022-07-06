@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api\V1\Dashboard;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\V1\Dashboard\VendorBranchRequest;
 use App\Models\Vendor\Vendor;
 use App\Http\Resources\Dashboard\VendorBranches\VendorBranchCollection;
 use App\Http\Resources\Dashboard\VendorBranches\VendorBranchResource;
@@ -54,7 +55,7 @@ class VendorBranchController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(VendorBranchRequest $request)
     {
         //
     }

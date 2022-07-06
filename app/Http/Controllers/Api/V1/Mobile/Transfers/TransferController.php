@@ -58,7 +58,8 @@ class TransferController extends Controller
 
     public function destroy($id)
     {
-        $transfer = Transfer::findOrFail($id)->delete();
+        $transfer = Transfer::findOrFail($id);
+        $transfer->delete();
 
         return TransferResource::make($transfer)
             ->additional([
