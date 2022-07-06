@@ -29,11 +29,11 @@ class VendorController extends Controller
     public function store(VendorRequest $request)
     {
         $vendor = Vendor::create($request->validated());
-
+        $vendor->load("images");
         return VendorResource::make($vendor)->additional([
-            "status"=>true,
-             "message" =>trans("dashboard.success_add")
-            ]);
+            "status" => true,
+            "message" => trans("dashboard.success_add")
+        ]);
     }
 
     /**
@@ -56,9 +56,10 @@ class VendorController extends Controller
      */
     public function update(VendorRequest $request, $id)
     {
-        $vendor = Vendor::findorfail($id) ;
-        $vendor->update($request->validated()) ;
-        return  VendorResource::make($vendor) ;
+        $vendor = Vendor::findorfail($id);
+        $vendor->update($request->validated());
+        $vendor->load("translations");
+        return VendorResource::make($vendor);
     }
 
     /**
