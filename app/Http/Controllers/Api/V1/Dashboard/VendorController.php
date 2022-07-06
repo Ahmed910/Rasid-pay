@@ -26,9 +26,9 @@ class VendorController extends Controller
      * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
-    public function store(VendorRequest $request)
+    public function store(VendorRequest $request, Vendor $vendor)
     {
-        $vendor = Vendor::create($request->validated());
+        $vendor->fill($request->validated() + ["added_by" => auth()->id()])->save();
         $vendor->load("images");
         return VendorResource::make($vendor)->additional([
             "status" => true,
@@ -57,7 +57,7 @@ class VendorController extends Controller
     public function update(VendorRequest $request, $id)
     {
         $vendor = Vendor::findorfail($id);
-        $vendor->update($request->validated());
+        $vendor->fill($request->validated() + ["updated_at" => now()])->save();
         $vendor->load("translations");
         return VendorResource::make($vendor);
     }
