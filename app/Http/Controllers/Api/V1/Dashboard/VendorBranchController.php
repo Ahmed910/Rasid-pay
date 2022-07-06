@@ -12,29 +12,16 @@ use App\Models\VendorBranches\VendorBranch;
 
 class VendorBranchController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index(Request $request)
     {
-        if (isset($request->order[0]['column'])) {
-            $request['sort'] = ['column' => $request['columns'][$request['order'][0]['column']]['name'], 'dir' => $request['order'][0]['dir']];
-        }
-
         $vendorBranches = VendorBranch::query()
         ->search($request)
         ->sortBy($request)
         ->paginate((int)($request->per_page ?? config("globals.per_page")));
-
-
-
         return VendorBranchResource::collection($vendorBranches)->additional([
             'status' => true,
             'message' => ""
         ]);
-
 
     }
 /**
@@ -45,7 +32,6 @@ class VendorBranchController extends Controller
     public function getVendors()
     {
        $vendors = Vendor::get()->pluck('name','id');
-
        return response()->json(['data' => $vendors,'status' =>true,'message' =>'']);
     }
 
@@ -94,9 +80,13 @@ class VendorBranchController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(VendorBranchRequest $request,VendorBranch $vendor_branch)
     {
-        //
+        $vendor_branch->update($request->validated());
+        return VendorBranchResource::make($vendor_branch)->additional([
+            'status' => true,
+            'message' => trans('dashboard.general.success_update'),
+        ]);
     }
 
     /**

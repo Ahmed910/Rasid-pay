@@ -147,7 +147,6 @@ Route::middleware('maintenance_mode')->group(function () {
             });
 
             Route::controller('VendorBranchController')->name('vendor_branches.')->prefix('vendor_branches')->group(function () {
-
                 Route::get('get_vendors', 'getVendors')->name('get_vendors');
             });
 
@@ -160,7 +159,8 @@ Route::middleware('maintenance_mode')->group(function () {
                 'admins' => 'AdminController',
                 'employees' => 'EmployeeController',
                 'clients' => 'ClientController',
-                'vendors' => 'vendorController',
+                'vendors' => 'VendorController',
+                'vendor_branches' => 'VendorBranchController',
                 'rasid_jobs' => 'RasidJobController',
                 'banks' => 'BankController',
                 'transfer_purposes' => 'TransferPurposeController',
@@ -170,12 +170,11 @@ Route::middleware('maintenance_mode')->group(function () {
                 'static_pages' => 'StaticPageController',
                 'faqs'         => 'FaqController',
                 'contacts'     => 'ContactController',
-                'vendor_branches'     => 'VendorBranchController',
-                'message_types' => 'MessageTypeController'
             ]);
 
             Route::apiResource('citizens', 'CitizenController')->only('index', 'show', 'update');
             Route::apiResource('settings', 'SettingController')->only(['index', 'store']);
+            Route::apiResource('links', 'LinkController');
             Route::apiResource('activity_logs', 'ActivityController')->only(['index', 'show']);
             Route::post('localizations_update','LocalizationController@updateTranslation')->name('localizations_update');
             Route::apiResource('localizations', 'LocalizationController')->only(['store', 'index']);

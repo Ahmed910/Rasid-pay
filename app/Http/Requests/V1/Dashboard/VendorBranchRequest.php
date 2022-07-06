@@ -14,21 +14,28 @@ class VendorBranchRequest extends ApiMasterRequest
      */
     public function rules()
     {
+
         $vendor_branch = $this->vendor_branch ? $this->vendor_branch : null;
+
 
         $rules = [
             'vendor_id' => 'required|exists:vendors,id',
             'location'  =>  'required|string|between:3,250',
             'address_details'  =>  'required|string|between:3,250',
             'branch_image' =>'required|image|mimes:jpg,jpeg,png,gif,svg|max:5120',
-            'email' => 'required|email|unique:vendor_branches,email,' . $vendor_branch,
-            'phone' => 'required|numeric|digits_between:5,20|starts_with:9665,05|unique:vendor_branches,phone,' . $vendor_branch,
+            'email' => 'required|email|unique:vendor_branches,email,' . $vendor_branch->id,
+            'phone' => 'required|numeric|digits_between:5,20|starts_with:9665,05|unique:vendor_branches,phone,' . $vendor_branch->id,
             'lat' => 'required|numeric',
             'lng' => 'required|numeric',
         ];
+        if(isset($vendor_branch) && $vendor_branch)
+        {
+            $rules['is_active'] = 'required|in:0,1';
+        }
         foreach (config('translatable.locales') as $locale) {
             $rules["$locale.name"]   = "required|string|between:2,200";
         }
+        // dd($rules);
 
         return $rules;
     }
@@ -36,6 +43,7 @@ class VendorBranchRequest extends ApiMasterRequest
     public function messages()
     {
         $validation = 'dashboard.vendor_branch.validation';
+
         $validation_messages = [
             'vendor_id.required' => trans($validation.'.vendor_id.required'),
             'vendor_id.exists' => trans($validation.'.vendor_id.exists'),
@@ -61,7 +69,8 @@ class VendorBranchRequest extends ApiMasterRequest
             'phone.digits_between' => trans($validation.'.phone.digits_between'),
             'phone.starts_with' => trans($validation.'.phone.starts_with'),
             'phone.unique' => trans($validation.'.phone.unique'),
-
+            'is_active.required' => trans($validation.'.is_active.required'),
+            'is_active.in' => trans($validation.'.is_active.in'),
         ];
         foreach (config('translatable.locales') as $locale) {
             $validation_messages["$locale.name.required"]  = trans("$validation.$locale.name.required");

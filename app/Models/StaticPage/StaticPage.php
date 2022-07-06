@@ -25,7 +25,8 @@ class StaticPage extends Model implements TranslatableContract, HasAssetsInterfa
     protected $guarded = ['created_at', 'deleted_at'];
     public $translatedAttributes = ['name', 'description'];
     public $assets = ["image"];
-    public $with = ["images", "addedBy" ];
+    public $with = ["images", "addedBy"];
+    public $sortableColumns = ['name', 'is_active', 'created_at'];
 
     #endregion properties
 
@@ -42,7 +43,7 @@ class StaticPage extends Model implements TranslatableContract, HasAssetsInterfa
     #region scopes
     public function scopeSearch(Builder $query, $request)
     {
-        $old = $query->toSql() ;
+        $old = $query->toSql();
 
         if (isset($request->name)) {
             $query->where(function ($q) use ($request) {
@@ -51,16 +52,13 @@ class StaticPage extends Model implements TranslatableContract, HasAssetsInterfa
         }
         if (isset($request->is_active) && in_array($request->is_active, [1, 0])) {
             $query->where('is_active', $request->is_active);
-
         }
-        $new = $query->toSql() ;
-        if ($old!=$new)  $this->addGlobalActivity($this, $request->query(), ActivityLog::SEARCH, 'index');
-
+        $new = $query->toSql();
+        if ($old != $new)  $this->addGlobalActivity($this, $request->query(), ActivityLog::SEARCH, 'index');
     }
 
     public function scopeSortBy(Builder $query, $request)
     {
-
         if (!isset($request->sort["column"]) || !isset($request->sort["dir"])) return $query->latest('static_pages.created_at');
 
         if (
@@ -75,6 +73,7 @@ class StaticPage extends Model implements TranslatableContract, HasAssetsInterfa
                 return $q->has('translations')
                     ->orderBy($request->sort["column"], @$request->sort["dir"]);
             }
+
             if ($request->sort["column"] == "is_active") {
                 return $q->orderBy('is_active', $request->sort['dir']);
             }
