@@ -1046,6 +1046,11 @@ return [
     ],
 
     'links' => [
-        
+        'mobile' => [
+            'register_policy' => 'الشروط والأحكام (تسجيل جديد)',
+            'charge_policy' => 'الشروط والأحكام (شحن)',
+            'local_transfer_policy' => 'الشروط والأحكام (التحويل المحلي)',
+            'global_transfer_policy' => 'الشروط والأحكام (التحويل الدولي)'
+        ]
     ]
 ];

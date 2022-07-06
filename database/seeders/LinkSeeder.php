@@ -15,9 +15,10 @@ class LinkSeeder extends Seeder
     public function run()
     {
         $links = [
-            'key' => 'mobile',
-            'key' => 'mobile_register_term_conditions',
-            'key' => 'global_transfers',
+            ['key' => 'mobile.register_policy'],
+            ['key' => 'mobile.charge_policy'],
+            ['key' => 'mobile.local_transfer_policy'],
+            ['key' => 'mobile.global_transfer_policy'],
         ];
 
 
