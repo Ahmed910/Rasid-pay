@@ -19,7 +19,6 @@ class TransferPurposeResource extends JsonResource
             'name' => $this->name,
             'is_active' => (bool)$this->is_active,
             'is_default_value' => (bool)$this->is_default_value,
-            'created_at' => $this->created_at,
             'actions' => $this->when($request->routeIs('transfer_purposes.index'), [
                 'update' => auth()->user()->hasPermissions('transfer_purposes.update'),
                 'show' => auth()->user()->hasPermissions('transfer_purposes.show')
