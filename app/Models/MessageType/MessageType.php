@@ -78,9 +78,9 @@ class MessageType extends Model
     #endregion scopes
 
     #region relationships
-    public function employees(): BelongsToMany
+    public function admins(): BelongsToMany
     {
-        return $this->belongsToMany(User::class, 'message_type_user');
+        return $this->belongsToMany(User::class, 'message_type_user','message_type_id','admin_id');
     }
     #endregion relationships
 
