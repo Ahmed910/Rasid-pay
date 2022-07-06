@@ -24,6 +24,7 @@ class UserResource extends JsonResource
             'wallet_number' => (string)$this->citizenWallet?->wallet_number,
             'is_phone_verified' => (bool)$this->phone_verified_at,
             'created_at' => $this->created_at,
+            'is_notification_enabled'=> (bool)$this->is_notification_enabled,
             'address' => AddressResource::make($this->whenLoaded('citizen'))
         ];
     }

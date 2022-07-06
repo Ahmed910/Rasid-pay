@@ -20,6 +20,7 @@ class CreateVendorBranchesTable extends Migration
             $table->string('lng')->nullable();
             $table->string('location')->nullable();
             $table->string('address_details')->nullable();
+            $table->boolean('is_active')->default(true);
             $table->string('email')->nullable();
             $table->string('phone')->nullable();
             $table->timestamps();
