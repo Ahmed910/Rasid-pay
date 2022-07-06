@@ -233,7 +233,7 @@ class User extends Authenticatable implements HasAssetsInterface
 
     public function messageTypes(): BelongsToMany
     {
-        return $this->belongsToMany(MessageType::class, 'message_type_user');
+        return $this->belongsToMany(MessageType::class, 'message_type_user','admin_id','message_type_id');
     }
 
     public function setBanStatusAttribute($value)

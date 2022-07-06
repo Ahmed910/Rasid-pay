@@ -9,10 +9,9 @@ class CreateMessageTypeUserTable extends Migration
     public function up()
     {
         Schema::create('message_type_user', function (Blueprint $table) {
-            $table->foreignUuid('employee_id')->constrained('users')->onDelete('cascade');
-            $table->foreignUuid('message_type_id')->constrained()->onDelete('cascade');
-
-            $table->unique(['employee_id', 'message_type_id']);
+            $table->foreignUuid('admin_id')->constrained('users')->onDelete('cascade');
+            $table->foreignUuid('message_type_id')->constrained('message_types')->onDelete('cascade');
+            $table->unique(['admin_id', 'message_type_id']);
         });
     }
 
