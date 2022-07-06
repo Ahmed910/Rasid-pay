@@ -32,6 +32,7 @@ class AppServiceProvider extends ServiceProvider
         "BankBranch"=>\App\Models\BankBranch\BankBranch::class,
         "Package"  => \App\Models\Package\Package::class,
         'Vendor'   => \App\Models\Vendor\Vendor::class,
+        'MessageType' => \App\Models\MessageType\MessageType::class,
     ];
 
     public function register()
