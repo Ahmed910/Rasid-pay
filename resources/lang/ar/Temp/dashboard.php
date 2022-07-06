@@ -991,4 +991,8 @@ return [
     'localizations_update' =>  [
         'localizations_update' => 'تعديل الترجمات',
     ],
+
+    'links' => [
+        
+    ]
 ];
