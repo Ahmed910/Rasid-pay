@@ -8,6 +8,7 @@ use App\Traits\Loggable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Traits\Uuid;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Astrotomic\Translatable\Translatable;
 
 class Vendor extends Model implements HasAssetsInterface
@@ -34,6 +35,10 @@ class Vendor extends Model implements HasAssetsInterface
     #endregion scopes
 
     #region relationships
+    public function vendorBranches()
+    {
+        return $this->hasMany(VendorBranch::class);
+    }
     #endregion relationships
 
     #region custom Methods
