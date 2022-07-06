@@ -15,7 +15,7 @@ class TransactionController extends Controller
 
     public function index(Request $request)
     {
-        $transactions = Transaction::mobileSearch($request)
+        $transactions = Transaction::search($request)
             ->CustomDateFromTo($request)
             ->sortBy($request)
             ->with('citizenPackage', 'toUser', 'fromUser.citizen.enabledPackage', 'transactionable')
