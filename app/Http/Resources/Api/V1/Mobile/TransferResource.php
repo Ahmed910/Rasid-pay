@@ -14,16 +14,15 @@ class TransferResource extends JsonResource
      */
     public function toArray($request)
     {
-
         switch ($this->wallet_transfer_method) {
         case "phone":
-            $wallet_transfer_method = trans('mobile.transfers.by_mobile').$this->toUser?->phone;
+            $wallet_transfer_method = trans('mobile.transfers.by_phone').$this->toUser?->phone;
             break;
         case "identity_number":
             $wallet_transfer_method = trans('mobile.transfers.by_identity_number').$this->toUser?->identity_number;
             break;
-        case "wallet":
-            $wallet_transfer_method = $this->toUser?->citizenWallet?->wallet_number;
+        case "wallet_number":
+            $wallet_transfer_method = trans('mobile.transfers.by_wallet_number').$this->toUser?->citizenWallet?->wallet_number;
             break;
         default:
              $wallet_transfer_method = '';
