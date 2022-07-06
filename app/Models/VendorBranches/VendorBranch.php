@@ -1,23 +1,20 @@
 <?php
 
-namespace App\Models\Vendor;
+namespace App\Models\VendorBranches;
 
 use App\Contracts\HasAssetsInterface;
-use App\Traits\HasAssetsTrait;
-use App\Traits\Loggable;
+use App\Traits\{HasAssetsTrait,Loggable,Uuid};
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use App\Traits\Uuid;
 use Astrotomic\Translatable\Translatable;
 
-class Vendor extends Model implements HasAssetsInterface
+class VendorBranch extends Model implements HasAssetsInterface
 {
     use HasFactory, Uuid, HasAssetsTrait, Loggable, Translatable;
 
     #region properties
-    const TYPES = ['company', 'institution', 'member', 'freelance_doc', 'famous', 'other'];
-    public $assets = ['logo', 'commercial_record_image', 'tax_number_image'];
-    protected $guarded = ['created_at'];
+    public $assets = ['branch_image'];
+    protected $guarded = ['created_at', 'deleted_at'];
     public $translatedAttributes = ['name'];
     #endregion properties
     public static function boot()
@@ -27,6 +24,7 @@ class Vendor extends Model implements HasAssetsInterface
             $model->saveAssets($model, request());
         });
     }
+
     #region mutators
     #endregion mutators
 
@@ -34,6 +32,10 @@ class Vendor extends Model implements HasAssetsInterface
     #endregion scopes
 
     #region relationships
+    public function vendor()
+    {
+        return $this->belongsTo(Vendor::class);
+    }
     #endregion relationships
 
     #region custom Methods
