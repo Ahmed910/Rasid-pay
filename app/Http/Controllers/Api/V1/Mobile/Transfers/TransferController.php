@@ -14,15 +14,7 @@ class TransferController extends Controller
 {
     public function index(TransferTypeRequest $request)
     {
-        $transfers = Transfer::where('transfer_type','wallet')->when($request->transfer_type, function ($query) use ($request) {
-            switch ($request->transfer_type) {
-                case 'outgoing_transfers':
-                    $query->with('fromUser')->where('from_user_id', auth()->id());
-                    break;
-                default:
-                    $query->with('toUser')->where('to_user_id', auth()->id());
-            }
-        })->paginate((int)($request->per_page ?? config("globals.per_page")));
+        $transfers = Transfer::where('from_user_id', auth()->id())->where('transfer_type','wallet')->with('fromUser')->latest()->paginate((int)($request->per_page ?? config("globals.per_page")));
 
         return TransferResource::collection($transfers)->additional(
             [
@@ -37,7 +29,7 @@ class TransferController extends Controller
     {
         $user_id = auth()->id();
 
-        $transfer = Transfer::where(['from_user_id'=>$user_id,'transfer_status'=>Transfer::HOLD,'transfer_type'=>Transfer::WALLET])->findOrFail($transfer_id);
+        $transfer = Transfer::where(['from_user_id'=>$user_id,'transfer_status'=>Transfer::PENDING,'transfer_type'=>Transfer::WALLET])->findOrFail($transfer_id);
         $current_user_wallet = CitizenWallet::where('citizen_id',$transfer->from_user_id)->firstOrFail();
         $transfer->update(['transfer_status' => Transfer::CANCELED]);
         $citizen_wallet_data = ["cash_back" => \DB::raw('cash_back + ' . $transfer->cashback_amount), 'main_balance' => \DB::raw('main_balance + ' . $transfer->main_amount)];
