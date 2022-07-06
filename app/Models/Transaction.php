@@ -65,7 +65,7 @@ class Transaction extends Model
         if (isset($request->trans_number)) {
             $query->where('trans_number', 'like', "%$request->trans_number%");
         }
-        if (isset($request->trans_status) && !in_array(-1, $request->trans_status)) {
+        if (isset($request->trans_status) && !in_array($request->trans_status, [-1])) {
             $query->whereIn("trans_status", $request->trans_status);
         }
         if (isset($request->trans_type) && !in_array($request->trans_type, [-1])) {
@@ -91,7 +91,7 @@ class Transaction extends Model
 
     public function scopeMobileSearch(Builder $query, $request)
     {
-        return $query->where('trans_type', $request->trans_type);
+        return $query->where('trans_type', 'like', "%$request->trans_type%");
     }
 
     public function getCreatedAtMobileAttribute($date)
