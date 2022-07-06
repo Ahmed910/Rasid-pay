@@ -65,13 +65,13 @@ class Transaction extends Model
         if (isset($request->trans_number)) {
             $query->where('trans_number', 'like', "%$request->trans_number%");
         }
-        if (isset($request->trans_status) && !in_array(-1, $request->trans_status)) {
+        if (isset($request->trans_status) && !in_array($request->trans_status, [-1])) {
             $query->whereIn("trans_status", $request->trans_status);
         }
-        if (isset($request->trans_type) && !in_array(-1, $request->trans_type)) {
+        if (isset($request->trans_type) && !in_array($request->trans_type, [-1])) {
             $query->whereIn("trans_type", $request->trans_type);
         }
-     
+
         if (isset($request->client)) {
             if ($request->client == 0) $request->client = null;
             if ($request->client != -1) {
@@ -87,6 +87,11 @@ class Transaction extends Model
 
         $new = $query->toSql();
         if ($old != $new) $this->addGlobalActivity($this, $request->query(), ActivityLog::SEARCH, 'index');
+    }
+
+    public function scopeMobileSearch(Builder $query, $request)
+    {
+        return $query->where('trans_type', 'like', "%$request->trans_type%");
     }
 
     public function getCreatedAtMobileAttribute($date)

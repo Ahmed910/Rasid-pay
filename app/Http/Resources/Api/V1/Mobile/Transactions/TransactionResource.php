@@ -12,9 +12,9 @@ class TransactionResource extends JsonResource
     public function toArray($request)
     {
         $wallet_transfer_method = [
-            'phone'          => $this->transactionable?->wallet_transfer_method =='phone' ? $this->toUser->phone :"" ,
-            'identity_number'=> $this->transactionable?->wallet_transfer_method =='identity_number' ? $this->toUser->identity_number :"",
-            'wallet_number'  => $this->transactionable?->wallet_transfer_method =='wallet_number' ? $this->toUser->citizenWallet?->wallet_number :"" ,
+            'phone'          => $this->transactionable?->wallet_transfer_method =='phone'  ? ($this->toUser?->phone ?? $this->transactionable->phone) :"" ,
+            'identity_number'=> $this->transactionable?->wallet_transfer_method =='identity_number'  ? $this->toUser->identity_number :"",
+            'wallet_number'  => $this->transactionable?->wallet_transfer_method =='wallet_number'  ? $this->toUser->citizenWallet?->wallet_number :"" ,
         ];
 
         $transaction_details =

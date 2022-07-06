@@ -16,8 +16,8 @@ class NotificationResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'title' => @$this->data['title'],
-            'body' => @$this->data['body'],
+            'title' => @$this->data['title'] ?? 'Test',
+            'body' => @$this->data['body'] ?? 'إذا كان لديك بالفعل مجال عمل مخصص (Niche) وكنت على استعداد للبدء في تجارتك الإلكترونية، فقنوات توفر آلاف المنتجات التي تناسب تجارتك والتي يمكنك استيرادها بضغطة زر.',
             'notify_type' => @$this->data['notify_type'] ?? 'management',
             'created_at' => $this->created_at->diffForHumans(),
             'read_at' => optional($this->read_at)->format("Y-m-d H:i"),

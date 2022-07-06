@@ -16,7 +16,7 @@ class TransactionController extends Controller
     public function index(TransactionRequest $request)
     {
         $transactions = auth()->user()->citizenTransactions()
-            ->search($request)
+            ->mobileSearch($request)
             ->whereNotNull('transactionable_type')
             ->CustomDateFromTo($request)
             ->paginate((int)($request->per_page ?? config("globals.per_page")));
