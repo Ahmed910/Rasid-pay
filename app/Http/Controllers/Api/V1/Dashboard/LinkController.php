@@ -11,15 +11,15 @@ class LinkController extends Controller
 {
    public function index()
    {
-        
+    return LinkResource::collection(Link::latest()->get())->additional(['status' => true, 'message' => '']);
+
    }
 
    public function show(Link $link)
    {
-    
        return LinkResource::make($link)
        ->additional([
-           'message' => 'success',
+           'message' => '',
            'status' => true
        ]);
    } 
@@ -30,7 +30,7 @@ class LinkController extends Controller
 
        return LinkResource::make($links)
        ->additional([
-           'message' => 'success',
+           'message' => '',
            'status' => true
        ]);
    }
@@ -41,7 +41,7 @@ class LinkController extends Controller
 
        return LinkResource::make($link)
        ->additional([
-           'message' => 'success',
+           'message' => '',
            'status' => true
        ]);
    }

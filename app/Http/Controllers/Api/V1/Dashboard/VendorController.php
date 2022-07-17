@@ -52,14 +52,12 @@ class VendorController extends Controller
      */
     public function show(Request $request, $id)
     {
-
-        $vendor = Vendor::findOrFail($id);
+        $vendor = Vendor::with('images')->findOrFail($id);
         $activities = [];
         if (!$request->has('with_activity') || $request->with_activity) {
             $activities = $vendor->activity()
                 ->sortBy($request)
                 ->paginate((int)($request->per_page ?? config("globals.per_page")));
-
         }
         return VendorCollection::make($activities)
             ->additional([

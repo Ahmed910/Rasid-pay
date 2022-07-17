@@ -74,7 +74,7 @@ class StaticPageController extends Controller
 
         return StaticPageResource::make($staticPage)->additional([
             'status' => true,
-            'message' => trans('dashboard.general.success_archive'),
+            'message' => trans('dashboard.general.success_delete'),
         ]);
     }
 

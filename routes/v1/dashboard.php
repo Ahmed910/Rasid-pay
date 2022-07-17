@@ -146,6 +146,10 @@ Route::middleware('maintenance_mode')->group(function () {
                 Route::get('/get-transactions-statuses', 'transactionsStatues')->name('transactions_statues');
             });
 
+            Route::controller('VendorBranchController')->name('vendor_branches.')->prefix('vendor_branches')->group(function () {
+                Route::get('get_vendors', 'getVendors')->name('get_vendors');
+            });
+
             Route::apiResources([
                 //            'countries' => 'CountryController',
                 // 'currencies' => 'CurrencyController',
@@ -156,6 +160,7 @@ Route::middleware('maintenance_mode')->group(function () {
                 'employees' => 'EmployeeController',
                 'clients' => 'ClientController',
                 'vendors' => 'VendorController',
+                'vendor_branches' => 'VendorBranchController',
                 'rasid_jobs' => 'RasidJobController',
                 'banks' => 'BankController',
                 'transfer_purposes' => 'TransferPurposeController',
