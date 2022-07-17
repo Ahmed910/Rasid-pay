@@ -177,7 +177,7 @@ Route::middleware('maintenance_mode')->group(function () {
 
             Route::apiResource('citizens', 'CitizenController')->only('index', 'show', 'update');
             Route::apiResource('settings', 'SettingController')->only(['index', 'store']);
-            Route::apiResource('links', 'LinkController');
+            Route::apiResource('links', 'LinkController')->except('store');
             Route::apiResource('activity_logs', 'ActivityController')->only(['index', 'show']);
             Route::post('localizations_update','LocalizationController@updateTranslation')->name('localizations_update');
             Route::apiResource('localizations', 'LocalizationController')->only(['store', 'index']);
