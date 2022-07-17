@@ -35,7 +35,6 @@ class TransactionResource extends JsonResource
             'invoice_amount' => $this->amount,
             'cash_back' => $this->fromUser?->citizenWallet?->cash_back ?? 0,
             'enabled_package' => trans('dashboard.package_types.'.$this->fromUser?->citizen?->enabledPackage?->package_type)  ?? trans('dashboard.citizens.without'),
-            'enabled_package_discount' => $this->fromUser?->citizen?->enabledPackage?->package?->discount ?? 0,
             'actions' => $this->when($request->routeIs('transactions.index'), [
                 'show' => auth()->user()->hasPermissions('transactions.show'),
             ]),
