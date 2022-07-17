@@ -3,6 +3,7 @@
 namespace App\Http\Resources\Dashboard\VendorBranches;
 
 use Illuminate\Http\Resources\Json\JsonResource;
+use App\Http\Resources\Dashboard\ActivityLogResource;
 use App\Http\Resources\Dashboard\GlobalTransResource;
 
 class VendorBranchResource extends JsonResource
@@ -22,7 +23,16 @@ class VendorBranchResource extends JsonResource
            'name'          =>$this->vendor?->name,
            'branch_name' =>$this->name,
            'vendor_number'=>$this->vendor?->is_support_maak,
-           'type'          =>$this->vendor?->type
+           'type'          =>$this->vendor?->type,
+           'address_details'=>$this->address_details,
+           'phone'          =>$this->phone,
+           'activity' => ActivityLogResource::collection($this->whenLoaded('activity')),
+           'actions' => $this->when($request->routeIs('vendor_branches.index'), [
+               'show' => auth()->user()->hasPermissions('vendor_branches.show'),
+               $this->mergeWhen($request->route()->getActionMethod() == 'index', [
+                   'destroy' => auth()->user()->hasPermissions('vendor_branches.destroy'),
+               ])
+           ])
         ];
     }
 }

@@ -25,8 +25,10 @@ class ClientController extends Controller
 
     public function show($id)
     {
-        $client = User::has('clientPackages')->where(['user_type'=>'client', 'ban_status' => 'active'])->with('clientPackages','client')->findOrFail($id);
-        return ClientResource::make($client)->additional([
+        $client = VendorBranch::where(['is_active' => true])
+            ->where(['is_active' => true])
+            ->with('vendor')->findOrFail($id);
+        return VendorBranchResource::make($client)->additional([
             'status' => true,
             'message' => ''
         ]);

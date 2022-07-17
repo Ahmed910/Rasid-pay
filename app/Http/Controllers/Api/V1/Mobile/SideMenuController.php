@@ -7,7 +7,7 @@ use App\Http\Resources\Api\V1\Mobile\StaticPageResource;
 use App\Models\StaticPage\StaticPage;
 use Illuminate\Http\Request;
 
-class SideMenueController extends Controller
+class SideMenuController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,10 +16,14 @@ class SideMenueController extends Controller
      */
     public function index()
     {
-        $sidemenues = StaticPage::where(["show_in_app" => true, "is_active" => true])
+        $side_menus = StaticPage::where(["show_in_app" => true, "is_active" => true])
             ->ListsTranslations("name", "description")
             ->get();
-        return StaticPageResource::collection($sidemenues);
+        return StaticPageResource::collection($side_menus)->additional([
+                'status' => true,
+                'message' => '']
+        );
+
     }
 
     /**
@@ -41,8 +45,11 @@ class SideMenueController extends Controller
      */
     public function show($id)
     {
-        $sidemenue = StaticPage::where(["show_in_app" => true, "is_active" => true])->findorfail($id);
-        return StaticPageResource::make($sidemenue);
+        $sidemenu = StaticPage::where(["show_in_app" => true, "is_active" => true])->findorfail($id);
+        return StaticPageResource::make($sidemenu)->additional([
+                'status' => true,
+                'message' => '']
+        );;
     }
 
     /**

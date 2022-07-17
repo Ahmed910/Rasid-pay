@@ -18,7 +18,7 @@ class StaticPageResource extends JsonResource
             "id" => $this->id,
             "image" => $this->image,
             "name" => $this->name,
-            "description" => $this->when($request->routeIs('side_menues.*'), $this->description)
+            "description" => $this->when($request->routeIs('side_menus.*'), $this->description)
 
         ];
     }

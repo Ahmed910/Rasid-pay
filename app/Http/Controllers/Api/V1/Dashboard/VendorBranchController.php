@@ -15,23 +15,23 @@ class VendorBranchController extends Controller
     public function index(Request $request)
     {
         $vendorBranches = VendorBranch::query()
-        ->search($request)
-        ->sortBy($request)
-        ->paginate((int)($request->per_page ?? config("globals.per_page")));
+                                    ->ListsTranslations('name')
+                                    ->search($request)
+                                    ->sortBy($request)
+                                    ->paginate((int)($request->per_page ?? config("globals.per_page")));
         return VendorBranchResource::collection($vendorBranches)->additional([
             'status' => true,
             'message' => ""
         ]);
-
     }
-/**
+    /**
      * pluck vendors in independent service.
      *
      * @return \Illuminate\Http\Response
      */
     public function getVendors()
     {
-       $vendors = Vendor::get()->pluck('name','id');
+       $vendors = Vendor::select('id')->listsTranslations('name')->latest()->get();
        return response()->json(['data' => $vendors,'status' =>true,'message' =>'']);
     }
 
@@ -56,9 +56,10 @@ class VendorBranchController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Request $request, $id)
+    public function show(Request $request ,$id)
     {
-        $vendorBranch  = VendorBranch::withTrashed()->findOrFail($id);
+        
+        $vendorBranch  = VendorBranch::findOrFail($id);
         $activities = [];
         if (!$request->has('with_activity') || $request->with_activity) {
             $activities  = $vendorBranch->activity()
