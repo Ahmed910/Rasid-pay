@@ -53,6 +53,8 @@ Route::middleware('maintenance_mode')->group(function () {
         Route::get('all-employees/{department}', 'EmployeeController@getEmployeesByDepartment');
         Route::get('all-groups/{except_id?}', 'GroupController@getGroups');
         Route::get('all-jobs/{department}', 'RasidJobController@getVacantJobs');
+        Route::get('all_static_pages', 'StaticPageController@getAllStaticPages');
+
 
         Route::controller('ActivityController')->name('activity_logs.')->prefix('activity_logs')->group(function () {
             Route::get('employees', 'getEmployees')->name('employees');
