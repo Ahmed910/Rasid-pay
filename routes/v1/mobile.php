@@ -52,6 +52,8 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::apiResource('cards', 'CardController')->only('index', 'update', 'destroy');
     // Clients
     Route::apiResource('clients', 'ClientController')->only('index', 'show');
+    // Faqs
+    Route::get('faqs', 'FaqController@index');
     // Packages
     Route::prefix('packages')->group(function () {
         Route::get('promo_codes', 'PackageController@getPromoCodes');
