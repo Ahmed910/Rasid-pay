@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Http\Resources\Dashboard;
+namespace App\Http\Resources\Dashboard\Admin;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class CitizenPackageResource extends JsonResource
+class AllAdminResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -15,10 +15,8 @@ class CitizenPackageResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'name' => trans('dashboard.package_types.'. $this->package_type),
-            'package_price' => $this->package_price,
-            'start_at' => $this->start_at_dashboard,
-            'end_at' => $this->end_at_dashboard,
+            'fullname' => $this->fullname,
+
         ];
     }
 }

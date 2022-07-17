@@ -30,10 +30,8 @@ class PaymentController extends Controller
         // if transaction saved successfully, change wallet
         if ($transaction->trans_status = 'success') {
             $back_main_balance = WalletBalance::calcWalletMainBackBalance($citizen_wallet, $request->amount);
-            $citizen_wallet->update([
-                'cash_back' => $back_main_balance->cashback_amount,
-                'main_balance' => $back_main_balance->main_amount,
-            ]);
+            $citizen_wallet_data = ["cash_back" => \DB::raw('cash_back - ' . $back_main_balance->cashback_amount), 'main_balance' => \DB::raw('main_balance - ' . $back_main_balance->main_amount)];
+            $citizen_wallet->update($citizen_wallet_data);
         }
         return TransactionResource::make($transaction)
             ->additional([
