@@ -13,11 +13,13 @@ class MessageTypeController extends Controller
     public function index(Request $request)
     {
         $messageTypes = MessageType::ListsTranslations('name')
+            ->addSelect('created_at')
             ->withCount('admins')
             ->search($request)
             ->CustomDateFromTo($request)
             ->sortBy($request)
             ->paginate((int)($request->per_page ?? config("globals.per_page")));
+
         return MessageTypeResource::collection($messageTypes)
             ->additional([
                 'status' => true,
@@ -70,6 +72,5 @@ class MessageTypeController extends Controller
                 'status' => true,
                 'message' => trans("dashboard.general.success_delete")
             ]);
-
     }
 }
