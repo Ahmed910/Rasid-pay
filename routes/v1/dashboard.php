@@ -53,6 +53,7 @@ Route::middleware('maintenance_mode')->group(function () {
         Route::get('all-employees/{department}', 'EmployeeController@getEmployeesByDepartment');
         Route::get('all-groups/{except_id?}', 'GroupController@getGroups');
         Route::get('all-jobs/{department}', 'RasidJobController@getVacantJobs');
+        Route::get('all-admins/{admin}', 'AdminController@getAllAdmins');
         Route::get('all_static_pages', 'StaticPageController@getAllStaticPages');
 
 
@@ -135,7 +136,7 @@ Route::middleware('maintenance_mode')->group(function () {
             //     Route::get('edit-show/{bank}', 'editShow')->name('edit');
             // });
 
-            Route::controller('ClientPackageController')->name('client_package.')->prefix('client_package')->group(function () {
+            Route::controller('VendorPackageController')->name('client_package.')->prefix('client_package')->group(function () {
                 Route::get('archive', 'archive')->name('archive');
                 Route::get('get_clients', 'getClients')->name('get_clients');
                 Route::get('get_main_packages', 'getMainPackages')->name('getMainPackages');
@@ -162,21 +163,22 @@ Route::middleware('maintenance_mode')->group(function () {
                 'employees' => 'EmployeeController',
                 'clients' => 'ClientController',
                 'vendors' => 'VendorController',
-                'vendor_branches' => 'VendorBranchController',
+                'vendor_branches'=>'VendorBranchController',
                 'rasid_jobs' => 'RasidJobController',
                 'banks' => 'BankController',
                 'transfer_purposes' => 'TransferPurposeController',
                 'slides' => 'SlideController',
-                "client_package" => "ClientPackageController",
+                "client_package" => "VendorPackageController",
                 'transactions' => 'TransactionController',
                 'static_pages' => 'StaticPageController',
                 'faqs'         => 'FaqController',
                 'contacts'     => 'ContactController',
+                'message_types' => 'MessageTypeController'
             ]);
 
             Route::apiResource('citizens', 'CitizenController')->only('index', 'show', 'update');
             Route::apiResource('settings', 'SettingController')->only(['index', 'store']);
-            Route::apiResource('links', 'LinkController');
+            Route::apiResource('links', 'LinkController')->except('store');
             Route::apiResource('activity_logs', 'ActivityController')->only(['index', 'show']);
             Route::post('localizations_update','LocalizationController@updateTranslation')->name('localizations_update');
             Route::apiResource('localizations', 'LocalizationController')->only(['store', 'index']);
