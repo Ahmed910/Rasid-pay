@@ -17,7 +17,10 @@ class CitizenPackage extends Model
     #region properties
     protected $guarded = ['created_at', 'updated_at'];
     protected $dates = ['start_at', 'end_at'];
-    const PACKAGE_TYPES = ["basic" => "أساسية", "golden" => "ذهبية", "platinum" => "بلاتينية"];
+    const BASIC = 'basic';
+    const GOLDEN = 'golden';
+    const PLATINUM = 'platinum';
+    const PACKAGE_TYPES = [self::BASIC, self::GOLDEN, self::PLATINUM];
 
     #endregion properties
 
