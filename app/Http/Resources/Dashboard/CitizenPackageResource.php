@@ -15,9 +15,8 @@ class CitizenPackageResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'name' => $this->package?->name,
+            'name' => trans('dashboard.package_types.'. $this->package_type),
             'package_price' => $this->package_price,
-            'package_discount' => $this->package_discount,
             'start_at' => $this->start_at_dashboard,
             'end_at' => $this->end_at_dashboard,
         ];
