@@ -19,7 +19,7 @@ class CitizenController extends Controller
             $request['sort'] = ['column' => $request['columns'][$request['order'][0]['column']]['name'], 'dir' => $request['order'][0]['dir']];
         }
 
-        $citizen = Citizen::with(['user', "enabledPackage.package"])
+        $citizen = Citizen::with(['user', "enabledPackage"])
             ->CustomDateFromTo($request)->search($request)->sortBy($request)
             ->paginate((int)($request->per_page ?? config("globals.per_page")));
 
