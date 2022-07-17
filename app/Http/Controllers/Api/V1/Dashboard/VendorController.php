@@ -51,7 +51,7 @@ class VendorController extends Controller
      */
     public function show(Request $request, $id)
     {
-        $vendor = Vendor::with('images')->findOrFail($id);
+        $vendor = Vendor::findOrFail($id);
         $activities = [];
         if (!$request->has('with_activity') || $request->with_activity) {
             $activities = $vendor->activity()
