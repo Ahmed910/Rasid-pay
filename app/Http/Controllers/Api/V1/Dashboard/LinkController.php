@@ -11,7 +11,9 @@ class LinkController extends Controller
 {
    public function index()
    {
-    return LinkResource::collection(Link::latest()->get())->additional(['status' => true, 'message' => '']);
+    $links = Link::latest()->paginate((int)($request->per_page ?? config("globals.per_page")));
+    return LinkResource::collection($links)
+    ->additional(['status' => true, 'message' => '']);
 
    }
 
