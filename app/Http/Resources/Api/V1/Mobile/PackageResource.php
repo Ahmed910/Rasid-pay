@@ -15,7 +15,7 @@ class PackageResource extends JsonResource
      */
     public function toArray($request)
     {
-        $current_package = auth()->user()->citizen()->with('enabledPackage.package')->first();
+        $current_package = auth()->user()->citizen()->with('enabledPackage')->first();
         return [
             'id' => $this->id,
             'name' => $this->name,
