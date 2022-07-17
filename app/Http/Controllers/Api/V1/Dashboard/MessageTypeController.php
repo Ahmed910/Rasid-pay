@@ -13,7 +13,6 @@ class MessageTypeController extends Controller
     public function index(Request $request)
     {
         $messageTypes = MessageType::ListsTranslations('name')
-            ->with('activity')
             ->addSelect('created_at')
             ->withCount('admins')
             ->search($request)
@@ -43,7 +42,7 @@ class MessageTypeController extends Controller
 
     public function show($id)
     {
-        $messageType = MessageType::withCount('admins')->with('admins')->findOrFail($id);
+        $messageType = MessageType::withCount('admins')->with('admins','activity')->findOrFail($id);
         return MessageTypeResource::make($messageType)
             ->additional([
                 'status' => true,
