@@ -55,6 +55,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::apiResource('clients', 'ClientController')->only('index', 'show');
     // Faqs
     Route::get('faqs', 'FaqController@index');
+    Route::get('links/{static_page}', 'LinkController@show');
     // Packages
     Route::prefix('packages')->group(function () {
         Route::get('promo_codes', 'PackageController@getPromoCodes');
