@@ -167,13 +167,13 @@ class AdminController extends Controller
     {
 
         $users = User::where('user_type', 'admin')
-            ->paginate((int)($request->per_page ?? config("globals.per_page")));
+            ->get();
 
         return AllAdminResource::collection($users)
             ->additional([
                 'status' => true,
                 'message' => '',
-                
+
             ]);
     }
 }
