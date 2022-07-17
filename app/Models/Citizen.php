@@ -39,7 +39,7 @@ class Citizen extends Model
             if ($item == -1 && in_array($key, self::SELECT_ALL)) $request->request->remove($key);
             if (key_exists($key, self::ENABLEDPACKAGES_SEARCHABLE_COLUMNS) && isset($request->$key) && !in_array(-1, $request->enabled_package))
                 $query->whereHas(
-                    'fromUser.citizen.enabledPackage',
+                    'user.citizen.enabledPackage',
                     function ($q) use ($key, $item) {
                         $q->where(self::ENABLEDPACKAGES_SEARCHABLE_COLUMNS[$key], $item);
                     }
