@@ -28,7 +28,7 @@ class VendorResource extends JsonResource
                 'is_active' => (bool)$this->is_active,
                 'is_support_maak' => (bool)$this->is_support_maak,
                 'email' => $this->email,
-                'phone_code' => substr($this->phone, 0, 4),
+                'country_code' => substr($this->phone, 0, 4),
                 'phone' => substr($this->phone, 4),
                 'created_at' => $this->created_at,
                 'logo'=> $this->logo,
