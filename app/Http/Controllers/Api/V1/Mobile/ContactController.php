@@ -10,7 +10,7 @@ use Illuminate\Http\Request;
 class ContactController extends Controller
 {
 
-    public function sendMessage(ContactRequest $request, Contact $contact)
+    public function sendMessage(ContactRequest $request , Contact $contact)
     {
         $contact->fill($request->validated()+['updated_at'=>now()])->save();
 
