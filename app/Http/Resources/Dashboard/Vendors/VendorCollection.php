@@ -16,7 +16,7 @@ class VendorCollection extends ResourceCollection
      */
     public function toArray($request)
     {
-        $vendor = Vendor::with('translations')->findOrFail(@$request->route()->parameters['vendor']);
+        $vendor = Vendor::with('translations','images')->findOrFail(@$request->route()->parameters['vendor']);
         return [
             'vendor'   => VendorResource::make($vendor),
             'activity' => ActivityLogResource::collection($this->collection)

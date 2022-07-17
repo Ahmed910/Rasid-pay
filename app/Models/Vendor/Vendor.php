@@ -45,10 +45,10 @@ public function scopeSearch(Builder $query, Request $request)
         $query->whereTranslationLike('name', "%$request->name%");
 
     if (isset($request->commercial_record))
-        $query->where('commercial_record', "%$request->commercial_record%");
+        $query->where('commercial_record','like' , "%$request->commercial_record%");
 
     if (isset($request->tax_number))
-        $query->where('tax_number', "%$request->tax_number%");
+        $query->where('tax_number','like' , "%$request->tax_number%");
 
     if (isset($request->type) && in_array($request->type, self::TYPES) ){
         $query->where('type','like' ,"%$request->type%");

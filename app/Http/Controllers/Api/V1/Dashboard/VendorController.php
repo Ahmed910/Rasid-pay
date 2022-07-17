@@ -15,7 +15,8 @@ class VendorController extends Controller
     {
         $vendors = Vendor::search($request)
             ->ListsTranslations('name')
-            ->addSelect('vendors.type', 'vendors.is_active', 'vendors.commercial_record', 'vendors.tax_number','vendors.iban')
+            ->with('translations','images')
+            ->addSelect('vendors.*')
             ->withCount('branches')
             ->CustomDateFromTo($request)
             ->sortBy($request)
