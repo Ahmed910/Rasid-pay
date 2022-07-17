@@ -29,6 +29,7 @@ class Permission extends Model
         'menus.destroy',
         'session.logout',
         "activity_logs.employees",
+        "activity_logs.update",
         "activity_logs.main_programs",
         "activity_logs.sub_programs",
         "activity_logs.events",
