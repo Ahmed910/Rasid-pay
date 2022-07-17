@@ -35,8 +35,8 @@ class VendorRequest extends ApiMasterRequest
                     $fail(trans('mobile.validation.invalid_iban'));
                 }
             }],  // TODO
-            "email" => ["nullable", "max:255", "email", "unique:vendors,email," . @$this->vendor],
-            "phone" => ["nullable", "numeric", "digits_between:9,20", 'starts_with:9665,05', 'unique:vendors,phone,' . $this->vendor],
+            "email" => ["required", "max:255", "email", "unique:vendors,email," . @$this->vendor],
+            "phone" => ["required", "numeric", 'starts_with:966', "digits_between:9,20", 'unique:vendors,phone,' . $this->vendor],
             'logo' => (!$this->isMethod('put')) ? "required|" : "nullable|" . 'mimes:jpeg,jpg,png,suv,heic',
             'commercial_record_image' => (!$this->isMethod('put')) ? "required|" : "nullable|" . 'mimes:jpeg,jpg,png,suv,heic',
             'tax_number_image' => 'nullable|mimes:jpeg,jpg,png,suv,heic',
