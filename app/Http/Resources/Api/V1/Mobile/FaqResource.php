@@ -4,21 +4,20 @@ namespace App\Http\Resources\Api\V1\Mobile;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class StaticPageResource extends JsonResource
+class FaqResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
      *
-     * @param \Illuminate\Http\Request $request
+     * @param  \Illuminate\Http\Request  $request
      * @return array|\Illuminate\Contracts\Support\Arrayable|\JsonSerializable
      */
     public function toArray($request)
     {
         return [
-            "id" => $this->id,
-            "image" => $this->image,
-            "name" => $this->name,
-            "description" => $this->when($request->routeIs('side_menus.*'), $this->description)
+            'id'               => $this->id,
+            'question'         => $this->question,
+            'answer'           => $this->answer
         ];
     }
 }
