@@ -779,6 +779,16 @@ return [
             ],
         ]
     ],
+
+    'transfer_purposes' => [
+        'validation' => [
+            'ar' => [
+                'name'=> [
+                    'unique' => 'حقل الغرض من التحويل لا يجب أن يتكرر',
+                ]
+            ],
+        ]
+    ],
     'city' =>
     [
         'edit_city' => 'تعديل المدينة',
