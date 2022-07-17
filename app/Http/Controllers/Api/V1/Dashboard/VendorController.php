@@ -15,7 +15,8 @@ class VendorController extends Controller
     {
         $vendors = Vendor::search($request)
             ->ListsTranslations('name')
-            ->addSelect('vendors.type', 'vendors.is_active', 'vendors.commercial_record', 'vendors.tax_number','vendors.iban')
+            ->with('translations','images')
+            ->addSelect('vendors.*')
             ->withCount('branches')
             ->CustomDateFromTo($request)
             ->sortBy($request)
@@ -51,14 +52,12 @@ class VendorController extends Controller
      */
     public function show(Request $request, $id)
     {
-
         $vendor = Vendor::findOrFail($id);
         $activities = [];
         if (!$request->has('with_activity') || $request->with_activity) {
             $activities = $vendor->activity()
                 ->sortBy($request)
                 ->paginate((int)($request->per_page ?? config("globals.per_page")));
-
         }
         return VendorCollection::make($activities)
             ->additional([
