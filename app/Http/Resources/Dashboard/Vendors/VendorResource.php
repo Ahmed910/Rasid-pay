@@ -19,7 +19,7 @@ class VendorResource extends JsonResource
         }
         return [
                 'id' => $this->id,
-                'branches_count' => $this->branches_count,
+                'branches_count' => $this->branches_count??0,
                 'name' => $this->name,
                 'type' => $this->type,
                 'commercial_record' => $this->commercial_record,
@@ -30,6 +30,7 @@ class VendorResource extends JsonResource
                 'email' => $this->email,
                 'phone' => $this->phone,
                 'created_at' => $this->created_at,
+                'logo'=> $this->logo,
                 "images" => ImagesResource::collection($this->whenLoaded("images")),
                 'activity' => ActivityLogResource::collection($this->whenLoaded('activity')),
                 'actions' => $this->when($request->routeIs('Vendors.index'), [
