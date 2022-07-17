@@ -1,10 +1,9 @@
 <?php
 
-namespace App\Http\Resources\Api\V1\Mobile;
-
+namespace App\Http\Resources\Dashboard\Admin;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class StaticPageResource extends JsonResource
+class AllAdminResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -15,10 +14,9 @@ class StaticPageResource extends JsonResource
     public function toArray($request)
     {
         return [
-            "id" => $this->id,
-            "image" => $this->image,
-            "name" => $this->name,
-            "description" => $this->when($request->routeIs('side_menus.*'), $this->description)
+            'id' => $this->id,
+            'fullname' => $this->fullname,
+
         ];
     }
 }

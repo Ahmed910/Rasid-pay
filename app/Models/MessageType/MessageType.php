@@ -38,6 +38,7 @@ class MessageType extends Model
             });
         }
 
+        //employee_count
         if ($request->employee_id) {
             if (!is_array($request->employee_id))
                 $employeeIds = Arr::wrap($request->employee);
@@ -66,10 +67,8 @@ class MessageType extends Model
                     ->orderBy($request->sort["column"], @$request->sort["dir"]);
             }
 
-            if ($request->sort["column"] == "employee") {
-                return $q->whereHas('employees', function ($q) use ($request) {
-                    return $q->orderBy('employee_id', $request->sort['dir']);
-                });
+            if ($request->sort["column"] == "employee_count") {
+                return $q->withCount('admins')->orderBy('admins_count');
             }
 
             $q->orderBy($request->sort["column"], @$request->sort["dir"]);

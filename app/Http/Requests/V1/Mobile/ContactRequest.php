@@ -17,9 +17,10 @@ class ContactRequest extends ApiMasterRequest
             "fullname" => 'nullable|string|max:255',
             'email' => 'nullable|email|max:225',
             'phone' => 'nullable|numeric|min:20',
-            "title" => 'required|string|max:255',
+            "title" => 'nullable|string|max:255',
             "content" => 'required|string|max:300',
-            "contact_type" => 'required|in:complain,inquiries,suggestions',
+            "contact_type" => 'nullable|in:complain,inquiries,suggestions',
+            "message_type_id" => 'required|exists:message_types,id',
         ];
     }
 }
