@@ -17,7 +17,7 @@ class VendorBranchCollection extends ResourceCollection
      */
     public function toArray($request)
     {
-        $vendor_branch = VendorBranch::withTrashed()->with('translations')
+        $vendor_branch = VendorBranch::with('translations')
         ->findOrFail(@$request->route()->parameters['vendor_branch']);
 
         return [
