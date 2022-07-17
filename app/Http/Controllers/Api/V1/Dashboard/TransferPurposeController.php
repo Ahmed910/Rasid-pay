@@ -40,20 +40,24 @@ class TransferPurposeController extends Controller
         ]);
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param int $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
+    public function show(Request $request, $id)
     {
-        $transfer_purpose = TransferPurpose::findOrFail($id);
-        return TransferPurposeResource::make($transfer_purpose)->additional([
-            'message' => '',
-            'status' => true
-        ]);
+        $rasidJob  = TransferPurpose::findOrFail($id);
+        $activities = [];
+        if (!$request->has('with_activity') || $request->with_activity) {
+            $activities  = $rasidJob->activity()
+                ->sortBy($request)
+                ->paginate((int)($request->per_page ??  config("globals.per_page")));
+        }
+
+        return TransferPurposeCollection::make($activities)
+            ->additional([
+                'status' => true,
+                'message' => trans("dashboard.general.show")
+            ]);
     }
+
+
 
     /**
      * Update the specified resource in storage.
