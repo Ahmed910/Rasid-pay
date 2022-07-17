@@ -19,7 +19,6 @@ class MessageType extends Model
     use HasFactory, Uuid, Loggable, Translatable;
 
     #region properties
-    public $with = ['activity'];
     protected $guarded = ['created_at'];
     public $translatedAttributes = ['name'];
     private $sortableColumns = ['name', 'employee', 'created_at'];
