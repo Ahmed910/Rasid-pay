@@ -85,6 +85,6 @@ Route::middleware('auth:sanctum')->group(function () {
     });
 });
 
-Route::post('contacts/send_message', 'ContactController@sendMessage')->name('send_message');
+Route::post('contacts', 'ContactController@sendMessage')->name('send_message');
 Route::get('slides', 'SlideController@index');
 Route::get('banks', 'BankController@index');
