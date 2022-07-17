@@ -14,13 +14,12 @@ class VendorController extends Controller
     public function index(Request $request)
     {
         $vendors = Vendor::search($request)
-            ->ListsTranslations('name')
-            ->with('translations','images')
-            ->addSelect('vendors.*')
-            ->withCount('branches')
-            ->CustomDateFromTo($request)
-            ->sortBy($request)
-            ->paginate((int)($request->per_page ?? config("globals.per_page")));
+                            ->ListsTranslations('name')
+                            ->addSelect('vendors.type', 'vendors.is_active', 'vendors.commercial_record', 'vendors.tax_number','vendors.iban')
+                            ->withCount('branches')
+                            ->CustomDateFromTo($request)
+                            ->sortBy($request)
+                            ->paginate((int)($request->per_page ?? config("globals.per_page")));
         return VendorResource::collection($vendors)
             ->additional([
                 'status' => true,
