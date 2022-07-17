@@ -18,10 +18,10 @@ class Citizen extends Model
     // protected $with = ['enabledPackage'];
 
     protected $dates = ['date_of_birth'];
-    const USER_SEARCHABLE_COLUMNS = ["fullname",  "country_code", "phone", "identity_number", "created_at"];
-    const CITIZEN_SEARCHABLE_COLUMNS  = ["citizen_package_id"];
-    const ENABLEDPACKAGES_SEARCHABLE_COLUMNS = ["enabled_package" => "card_type"];
-    const CARDPKG_SORT_COLUMNS = ["enabled_package" => "card_type"];
+    const USER_SEARCHABLE_COLUMNS = ["fullname", "country_code", "phone", "identity_number", "created_at"];
+    const CITIZEN_SEARCHABLE_COLUMNS = ["citizen_package_id"];
+    const ENABLEDPACKAGES_SEARCHABLE_COLUMNS = ["enabled_package" => "package_id"];
+    const CARDPKG_SORT_COLUMNS = ["enabled_package" => "package_id"];
     const CITIZEN_PACKAGES_SORT_COLUMNS = ['card_end_at' => 'end_at'];
     const ENABLEDPACKAGES_SORTABLE_COLUMNS = ["enabled_package" => "enabledPackage.package", "card_end_at" => "enabledPackage.end_at"];
     const SELECT_ALL = ["enabled_package" => "id"];
@@ -33,14 +33,17 @@ class Citizen extends Model
     #region scopes
     public function scopeSearch($query, $request)
     {
-        $old = $query->toSql() ;
+        $old = $query->toSql();
 
         foreach ($request->all() as $key => $item) {
             if ($item == -1 && in_array($key, self::SELECT_ALL)) $request->request->remove($key);
-            if (key_exists($key, self::ENABLEDPACKAGES_SEARCHABLE_COLUMNS))
-                $query->whereHas('enabledPackage', function ($q) use ($key, $item) {
-                    $q->where(self::ENABLEDPACKAGES_SEARCHABLE_COLUMNS[$key], $item);
-                });
+            if (key_exists($key, self::ENABLEDPACKAGES_SEARCHABLE_COLUMNS) && isset($request->$key) && !in_array(-1, $request->enabled_package))
+                $query->whereHas(
+                    'user.citizen.enabledPackage',
+                    function ($q) use ($key, $item) {
+                        $q->where(self::ENABLEDPACKAGES_SEARCHABLE_COLUMNS[$key], $item);
+                    }
+                );
         }
         foreach ($request->all() as $key => $item) {
             if (in_array($key, self::USER_SEARCHABLE_COLUMNS))
@@ -63,8 +66,8 @@ class Citizen extends Model
                 $q->whereDate('end_at', "<=", $request->end_at_to);
             });
         }
-        $new = $query->toSql() ;
-        if ($old!=$new)  $this->addGlobalActivity($this, $request->query(), ActivityLog::SEARCH, 'index');
+        $new = $query->toSql();
+        if ($old != $new) $this->addGlobalActivity($this, $request->query(), ActivityLog::SEARCH, 'index');
     }
 
     public function scopeSortBy(Builder $query, $request)
@@ -109,7 +112,8 @@ class Citizen extends Model
         return $this->belongsTo(CitizenPackage::class, 'citizen_package_id');
     }
 
-    public function payments(){
+    public function payments()
+    {
 
         return $this->hasMany(Payment::class);
     }

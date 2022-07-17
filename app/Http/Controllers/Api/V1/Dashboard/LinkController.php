@@ -6,12 +6,15 @@ use App\Models\Link;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\Dashboard\LinkResource;
 use App\Http\Requests\V1\Dashboard\LinkRequest;
+use Illuminate\Http\Request;
 
 class LinkController extends Controller
 {
-   public function index()
+   public function index(Request $request)
    {
-    return LinkResource::collection(Link::latest()->get())->additional(['status' => true, 'message' => '']);
+    $links = Link::latest()->paginate((int)($request->per_page ?? config("globals.per_page")));
+    return LinkResource::collection($links)
+    ->additional(['status' => true, 'message' => '']);
 
    }
 
@@ -24,16 +27,6 @@ class LinkController extends Controller
        ]);
    } 
    
-   public function store(LinkRequest $request)
-   {
-       $links = Link::create($request->validated());
-
-       return LinkResource::make($links)
-       ->additional([
-           'message' => '',
-           'status' => true
-       ]);
-   }
 
    public function update(LinkRequest $request, Link $link)
    {

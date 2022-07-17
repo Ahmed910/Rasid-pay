@@ -56,9 +56,10 @@ class VendorBranchController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Request $request, $id)
+    public function show(Request $request ,$id)
     {
-        $vendorBranch  = VendorBranch::withTrashed()->findOrFail($id);
+        
+        $vendorBranch  = VendorBranch::findOrFail($id);
         $activities = [];
         if (!$request->has('with_activity') || $request->with_activity) {
             $activities  = $vendorBranch->activity()
