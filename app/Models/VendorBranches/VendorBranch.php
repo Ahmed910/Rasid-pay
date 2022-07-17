@@ -39,23 +39,30 @@ class VendorBranch extends Model implements HasAssetsInterface
 
         if (isset($request->name)) {
             $query->where(function ($q) use ($request) {
-                $q->whereTranslationLike('name', "%\\$request->name%");
+                $q->whereTranslationLike('name', "%$request->name%");
             });
         }
+        $types = Vendor::TYPES;
 
-       if (isset($request->branch_name) ) {
-       $query->where("branch_name", $request->branch_name);
-           }
-
-        if (isset($request->type) && in_array($request->type, Vendor::TYPES)) {
-            $query->where('type', $request->type);
-        }
-
+        if (isset($request->type) && in_array($request->type, $types))
+        $query->whereHas("vendor", function ($q) use ($request) {
+            $q->where('type','like' ,"%$request->type%");
+        });
 
       if (isset($request->address_details)) {
 
        $query->where('address_details', $request->address_details);
       }
+
+      if (isset($request->branch_name))
+      $query->whereHas("vendor", function ($q) use ($request) {
+        $q->whereTranslationLike('name', "%$request->branch_name%");
+      });
+
+      if (isset($request->phone)) {
+
+        $query->where('phone', $request->phone);
+       }
 
 
         $new = $query->toSql() ;
@@ -65,7 +72,7 @@ class VendorBranch extends Model implements HasAssetsInterface
     public function scopeSortBy(Builder $query, $request)
     {
 
-        if (!isset($request->sort["column"]) || !isset($request->sort["dir"])) return $query->latest('departments.created_at');
+        if (!isset($request->sort["column"]) || !isset($request->sort["dir"])) return $query->latest('vendor_branches.created_at');
 
         if (
             !in_array(Str::lower($request->sort["column"]), $this->sortableColumns) ||
@@ -85,8 +92,8 @@ class VendorBranch extends Model implements HasAssetsInterface
                 return $q->orderBy('branch_name', $request->sort['dir']);
             }
 
-            if ($request->sort["column"] == "is_support_maak") {
-                return $q->orderBy('is_support_maak', $request->sort['dir']);
+            if ($request->sort["column"] == "phone") {
+                return $q->orderBy('phone', $request->sort['dir']);
             }
 
             if ($request->sort["column"] == "type") {
