@@ -9,6 +9,7 @@ class LinkResource extends JsonResource
     public function toArray($request)
     {
         return [
+            'id'   => $this->id,
             'key'   => $this->key,
             'translation' => trans('dashboard.links.'.$this->key),
             'static_page_id' => $this->static_page_id
