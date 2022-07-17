@@ -161,4 +161,13 @@ class AdminController extends Controller
     //             'message' =>  __('dashboard.general.success_delete'),
     //         ]);
     // }
+
+    public function getAllAdmins()
+    {
+        return response()->json([
+            'data' => User::where('user_type','admin')->get(),
+            'status' => true,
+            'message' =>  '',
+        ]);
+    }
 }
