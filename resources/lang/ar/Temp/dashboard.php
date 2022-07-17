@@ -55,7 +55,7 @@ return [
         'no_reasons' => 'لايوجد',
         'no' => 'غير موافق',
         'Total_unvacant_jobs' => 'الوظائف المشغولة',
-        'restore' => 'استعادة',
+        'restore' => 'تمت الاستعادة بنجاح',
         'unactivited' => 'تعطيل',
         'phoneCode_registeration' => 'رقم الجوال غير مسجل بالنظام',
         'create' => 'إضافة',

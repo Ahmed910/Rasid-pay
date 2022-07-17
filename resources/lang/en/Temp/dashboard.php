@@ -176,7 +176,7 @@ return [
         'type' => 'Type',
         'to_date' => 'Creation Date (To]',
         'enter_description' => 'Enter Description',
-        'restore' => 'Restore',
+        'restore' => 'Restored Successfully',
         'yes' => 'Yes',
         'upload_file_max' => 'File size is large',
         'created_at' => 'Creation Date',
