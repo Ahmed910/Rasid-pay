@@ -13,6 +13,7 @@ class StaticPageRequest extends ApiMasterRequest
      */
     public function rules()
     {
+        
         $rules = [
             "image"           => "nullable|max:5120|mimes:jpg,png,jpeg",
             "is_active"       => "in:0,1",

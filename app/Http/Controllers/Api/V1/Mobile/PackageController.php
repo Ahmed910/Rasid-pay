@@ -15,17 +15,17 @@ class PackageController extends Controller
 {
     public function index()
     {
-        $packages = Package::where('is_active', true)->paginate((int)($request->per_page ?? config("globals.per_page")));
-        return PackageResource::collection($packages)->additional([
+        $packageTypes = CitizenPackage::PACKAGE_TYPES;
+        return PackageResource::collection($packageTypes)->additional([
             'status' => true,
             'message' => ''
         ]);
     }
 
-    public function show($id)
+    public function show($package_type)
     {
-        $package = Package::where('is_active', true)->findOrFail($id);
-        return PackageResource::make($package)->additional([
+        $packageTypes = CitizenPackage::PACKAGE_TYPES[$package_type];
+        return PackageResource::make($packageTypes)->additional([
             'status' => true,
             'message' => ''
         ]);
@@ -104,7 +104,7 @@ class PackageController extends Controller
         ]);
     }
 
-    public function getClientDiscounts($package_id)
+    public function getVendorsDiscounts($package_type)
     {
         $package = Package::with('clients')->findOrFail($package_id);
         $clients = $package->clients()->paginate((int)($request->per_page ?? config("globals.per_page")));

@@ -18,13 +18,16 @@ class MessageTypeResource extends JsonResource
                 'id' => $this->id,
                 'message_type' => $this->name,
                 'admins' => SimpleUserResource::collection($this->whenLoaded('admins')),
+                'admin_names' => $this->admins()->pluck('fullname')->join(','),
                 'admins_count' => $this->admins_count,
-                'actions' => $this->when($request->routeIs('massage_types.index') || $request->routeIs('massage_types.archive'), [
-                    'show' => auth()->user()->hasPermissions('massage_types.show'),
+                'created_at' => $this->created_at,
+                'activity' => ActivityLogResource::collection($this->whenLoaded('activity')),
+                'actions' => $this->when($request->routeIs('message_types.index') || $request->routeIs('message_types.archive'), [
+                    'show' => auth()->user()->hasPermissions('message_types.show'),
                     $this->mergeWhen($request->route()->getActionMethod() == 'index', [
-                        'create' => auth()->user()->hasPermissions('massage_types.store'),
-                        'update' => auth()->user()->hasPermissions('massage_types.update'),
-                        'destroy' => auth()->user()->hasPermissions('massage_types.destroy'),
+                        'create' => auth()->user()->hasPermissions('message_types.store'),
+                        'update' => auth()->user()->hasPermissions('message_types.update'),
+                        'destroy' => auth()->user()->hasPermissions('message_types.destroy'),
                     ]),
 
                 ])

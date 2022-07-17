@@ -3,9 +3,9 @@
 namespace App\Http\Controllers\Api\V1\Mobile\Auth;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\V1\Mobile\Auth\{VerifyPhoneCodeRequest, CompleteRegisterRequest, RegisterRequest};
+use App\Http\Requests\V1\Mobile\Auth\{CompleteRegisterRequest, RegisterRequest, VerifyPhoneCodeRequest};
 use App\Http\Resources\Api\V1\Mobile\UserResource;
-use App\Models\{Citizen, CitizenPackage, User, CitizenWallet, Package\Package};
+use App\Models\{CitizenPackage, CitizenWallet, User};
 
 class RegisterController extends Controller
 {
@@ -15,17 +15,17 @@ class RegisterController extends Controller
         $userData = ['user_type' => 'citizen', 'fullname' => 'citizen_' . $data['phone']];
         $user = User::firstOrNew([
             'identity_number' => $request->identity_number,
-            'user_type'       => 'citizen'
+            'user_type' => 'citizen'
         ]);
         if (!$user->phone) {
             $user = User::firstOrNew([
                 'phone' => $request->phone,
-                'user_type'       => 'citizen'
+                'user_type' => 'citizen'
             ]);
         }
         $response = LoginController::checkIsUserValid($user);
         if ($response) {
-            return response()->json($response['response'],403);
+            return response()->json($response['response'], 403);
         }
         $user->fill($data + $userData)->save();
         //TODO: api service for send sms to phone number
@@ -63,9 +63,9 @@ class RegisterController extends Controller
 
     public function verifyPhoneCode(VerifyPhoneCodeRequest $request)
     {
-        $userData =  [
-            $request->key_name  => null,
-            'is_active'         => true
+        $userData = [
+            $request->key_name => null,
+            'is_active' => true
         ];
 
         if ($request->key_name == 'verified_code') {
@@ -109,36 +109,19 @@ class RegisterController extends Controller
         // Generate Wallet Number & QR
         $wallet_number = generate_unique_code(CitizenWallet::class, 'wallet_number', 11, 'numbers');
         $user->citizenWallet()->create(['wallet_number' => $wallet_number, 'last_updated_at' => now()]);
-        $package = Package::where(['is_active' => 1, 'is_default' => 1])->first();
         $citizen_table = ['user_id' => $user->id];
-        if ($package) {
-            $package_data = [
-                'package_id' => $package->id,
-                'package_price' => $package->price,
-                'package_discount' => $package->discount,
-                'start_at' => now(),
-                'end_at' => now()->addMonths($package->duration)
-            ];
-
-            if ($package->has_promo) {
-                $package_data += [
-                    'promo_code' => generate_unique_code(CitizenPackage::class, 'promo_discount'),
-                    'promo_discount' => $package->promo_discount,
-                    'remaining_usage' => $package->number_of_used
-                ];
-            }
-
-            $citizenPackage = $user->citizenPackages()->create($package_data);
-
-            $citizen_table += [
-                'citizen_package_id' => $citizenPackage->id
-            ];
-        }
+        $package_data = [
+            'citizen_id' => $user->id,
+            'package_type' => CitizenPackage::BASIC,
+            'package_price' => setting('rasidpay_cards_basic_price'),
+            'start_at' => now(),
+            'end_at' => now()->addMonths(12)
+        ];
+        $citizenPackage = $user->citizenPackages()->create($package_data);
+        $citizen_table += [
+            'citizen_package_id' => $citizenPackage->id
+        ];
         $user->citizen()->create($citizen_table);
-
-        // $token =  $user->createToken('RasidBackApp')->plainTextToken;
-
-        // data_set($user, 'token', $token);
         return UserResource::make($user)->additional([
             'status' => true,
             'message' => trans('auth.success_verify_phone_make_login'),
