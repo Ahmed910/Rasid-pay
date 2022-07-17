@@ -70,9 +70,19 @@ class ProfileController extends Controller
      public function activateNotification(Request $request)
     {
         auth()->user()->update(['is_notification_enabled' => !auth()->user()->is_notification_enabled]);
+
         return response()->json([
             'status' => true,
-            'message' => trans('auth.success_activate_notifcation'),
+            'message' => auth()->user()->is_notification_enabled == 1 ? trans('auth.success_activate_notifcation') : trans('auth.success_unactivate_notifcation'),
+            'data' => null,
+        ]);
+    }
+     public function archiveCitizen()
+    {
+        auth()->user()->delete() ;
+        return response()->json([
+            'status' => true,
+            'message' => trans('auth.success_archive'),
             'data' => null,
         ]);
     }

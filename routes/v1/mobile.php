@@ -37,6 +37,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('countries', 'CountryController@index');
     // Wallet
     Route::post('set_wallet_bin', 'ProfileController@setWalletBin');
+    Route::post('archive_citizen', 'ProfileController@archiveCitizen');
     Route::apiResource('wallets', 'WalletController')->only('index', 'store');
     Route::post('send_wallet_otp', 'WalletController@sendWalletOtp');
     Route::get('check_wallet_otp', 'WalletController@checkOtp');
@@ -52,6 +53,8 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::apiResource('cards', 'CardController')->only('index', 'update', 'destroy');
     // Clients
     Route::apiResource('clients', 'ClientController')->only('index', 'show');
+    // Faqs
+    Route::get('faqs', 'FaqController@index');
     // Packages
     Route::prefix('packages')->group(function () {
         Route::get('promo_codes', 'PackageController@getPromoCodes');
@@ -85,6 +88,6 @@ Route::middleware('auth:sanctum')->group(function () {
     });
 });
 
-Route::post('contacts/send_message', 'ContactController@sendMessage')->name('send_message');
+Route::post('contacts', 'ContactController@sendMessage')->name('send_message');
 Route::get('slides', 'SlideController@index');
 Route::get('banks', 'BankController@index');

@@ -53,7 +53,7 @@ Route::middleware('maintenance_mode')->group(function () {
         Route::get('all-employees/{department}', 'EmployeeController@getEmployeesByDepartment');
         Route::get('all-groups/{except_id?}', 'GroupController@getGroups');
         Route::get('all-jobs/{department}', 'RasidJobController@getVacantJobs');
-        Route::get('all-admins/{admin}', 'AdminController@getAllAdmins');
+        Route::get('all-admins', 'AdminController@getAllAdmins');
         Route::get('all_static_pages', 'StaticPageController@getAllStaticPages');
 
 
@@ -164,6 +164,7 @@ Route::middleware('maintenance_mode')->group(function () {
                 'clients' => 'ClientController',
                 'vendors' => 'VendorController',
                 'vendor_branches'=>'VendorBranchController',
+                'our_apps'=>'AppController',
                 'rasid_jobs' => 'RasidJobController',
                 'banks' => 'BankController',
                 'transfer_purposes' => 'TransferPurposeController',

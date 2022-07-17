@@ -932,6 +932,11 @@ return [
         'basic' => 'اساسية',
         'platinum' => 'بلاتينية',
     ],
+    'package_types' => [
+        "basic" => "أساسية",
+        "golden" => "ذهبية",
+        "platinum" => "بلاتينية"
+    ],
     'message' =>  [
         'sub_progs' =>  [
             'index' => 'سجل الرسائل',

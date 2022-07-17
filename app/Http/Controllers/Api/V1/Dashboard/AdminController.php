@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\V1\Dashboard\AdminRequest;
 use App\Http\Requests\V1\Dashboard\ReasonRequest;
 use App\Http\Resources\Dashboard\{UserResource, Admin\AdminCollection};
+use App\Http\Resources\Dashboard\Admin\AllAdminResource;
 use App\Models\{Admin, User, Group\Group, Employee};
 use App\Models\Department\Department;
 use Illuminate\Http\Request;
@@ -161,4 +162,18 @@ class AdminController extends Controller
     //             'message' =>  __('dashboard.general.success_delete'),
     //         ]);
     // }
+
+    public function getAllAdmins(Request $request)
+    {
+
+        $users = User::where('user_type', 'admin')
+            ->get();
+
+        return AllAdminResource::collection($users)
+            ->additional([
+                'status' => true,
+                'message' => '',
+
+            ]);
+    }
 }
