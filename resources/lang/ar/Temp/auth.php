@@ -31,6 +31,7 @@ return [
     "account_is_true" => "البيانات المدخلة صحيحة",
     "reset_subtitle" => "من فضلك أدخل بريدك الإلكتروني أو رقم جوالك لإرسال رمز التحقق",
     "success_change_password" => "تم تغيير كلمة المرور بنجاح",
+    "success_archive" => "تمت الأرشفة بنجاح",
     "fail_send" => "فشل عملية الارسال",
     "your_userID" => "أدخل الرقم",
     "code_not_true" => "الكود غير صحيح",

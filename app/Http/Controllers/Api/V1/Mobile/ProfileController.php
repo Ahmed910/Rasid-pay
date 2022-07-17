@@ -76,5 +76,14 @@ class ProfileController extends Controller
             'data' => null,
         ]);
     }
+     public function archiveCitizen()
+    {
+        auth()->user()->delete() ;
+        return response()->json([
+            'status' => true,
+            'message' => trans('auth.success_archive'),
+            'data' => null,
+        ]);
+    }
 
 }

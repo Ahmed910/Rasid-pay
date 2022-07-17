@@ -37,6 +37,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('countries', 'CountryController@index');
     // Wallet
     Route::post('set_wallet_bin', 'ProfileController@setWalletBin');
+    Route::post('archive_citizen', 'ProfileController@archiveCitizen');
     Route::apiResource('wallets', 'WalletController')->only('index', 'store');
     Route::post('send_wallet_otp', 'WalletController@sendWalletOtp');
     Route::get('check_wallet_otp', 'WalletController@checkOtp');
