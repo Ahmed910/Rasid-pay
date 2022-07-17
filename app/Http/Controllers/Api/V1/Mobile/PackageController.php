@@ -8,7 +8,7 @@ use App\Http\Resources\Api\V1\Mobile\ClientDiscountsResource;
 use App\Http\Resources\Api\V1\Mobile\PackagePromoCodesResource;
 use App\Http\Resources\Api\V1\Mobile\PackageResource;
 use App\Http\Resources\Api\V1\Mobile\Transactions\TransactionResource;
-use App\Models\{CitizenPackage, CitizenPackagePromoCode, Package\Package, Transaction};
+use App\Models\{CitizenPackage, CitizenPackagePromoCode, Transaction};
 use App\Services\{PromotePackage, WalletBalance};
 use Illuminate\Http\Request;
 
@@ -51,25 +51,28 @@ class PackageController extends Controller
         $activateBonus = ['rasidpay_platinum_firstcode_activatebonus', 'rasidpay_platinum_secondcode_activatebonus',
             'rasidpay_platinum_thirdcode_activatebonus', 'rasidpay_platinum_fourthcode_activatebonus'];
 
-        $package_price = setting('rasidpay_cards_' . $package_type . '_price')??500;
+        $package_price = setting('rasidpay_cards_' . $package_type . '_price') ?? 500;
         $citizen_wallet = auth()->user()->citizenWallet;
         if ($package_price > ($citizen_wallet->main_balance + $citizen_wallet->cash_back)) {
             return response()->json(['status' => false, 'data' => null, 'message' => trans('mobile.payments.current_balance_is_not_sufficient_to_complete_payment')], 422);
         }
         if (!$request->promo_code) {
             $citizen_package = PromotePackage::createCitizenPackage($package_type);
-            $citizen_package_promo_codes = [
-                'citizen_package_id' => $citizen_package->id,
-            ];
-            for ($i = 0; $i < 4; $i++) {
-                $citizen_package_promo_codes += [
-                    'promo_code' => generate_unique_code(CitizenPackage::class, 'promo_discount', 6),
-                    'promo_discount' => setting($activateBonus[$i])??10,
-                ];
-                $citizen_package->citizenPackagePromoCodes()->create($citizen_package_promo_codes);
-                unset($citizen_package_promo_codes['promo_code'],$citizen_package_promo_codes['promo_discount']);
-            }
             $back_main_balance = WalletBalance::calcWalletMainBackBalance($citizen_wallet, $package_price);
+            // generate promo codes for platinum package
+            if ($package_type == CitizenPackage::PLATINUM){
+                $citizen_package_promo_codes = [
+                    'citizen_package_id' => $citizen_package->id,
+                ];
+                for ($i = 0; $i < 4; $i++) {
+                    $citizen_package_promo_codes += [
+                        'promo_code' => generate_unique_code(CitizenPackage::class, 'promo_discount', 6),
+                        'promo_discount' => setting($activateBonus[$i]) ?? 10,
+                    ];
+                    $citizen_package->citizenPackagePromoCodes()->create($citizen_package_promo_codes);
+                    unset($citizen_package_promo_codes['promo_code'], $citizen_package_promo_codes['promo_discount']);
+                }
+            }
         } else {
             $citizen_package_promo_code = CitizenPackagePromoCode::where('promo_code', $request->promo_code)->first();
             if (!$citizen_package_promo_code) {
@@ -90,6 +93,10 @@ class PackageController extends Controller
             // add cash back to citizen wallet
             $promo_code_discount = getPercentOfNumber($package_price, $citizen_package_promo_code->promo_discount);
             $promo_code_owner_wallet = $citizen_package_promo_code->citizenPackage->citizen->citizenWallet;
+            $citizen_package->update([
+                'promo_code' => $citizen_package_promo_code->promo_code,
+                'promo_discount' => $citizen_package_promo_code->promo_discount,
+            ]);
             $promo_code_owner_wallet->update([
                 'cash_back' => $promo_code_owner_wallet->cash_back + $promo_code_discount,
             ]);
@@ -97,7 +104,7 @@ class PackageController extends Controller
         $citizen_wallet->update(["cash_back" => \DB::raw('cash_back - ' . $back_main_balance->cashback_amount), 'main_balance' => \DB::raw('main_balance - ' . $back_main_balance->main_amount)]);
 
         $transaction_data = [
-            'trans_number' => generate_unique_code(Transaction::class,'trans_number',10,'numbers'),
+            'trans_number' => generate_unique_code(Transaction::class, 'trans_number', 10, 'numbers'),
             'trans_type' => 'promote_package',
             'from_user_id' => auth()->id(),
             'amount' => isset($new_package_price) ?: $package_price,
@@ -113,11 +120,12 @@ class PackageController extends Controller
         ]);
     }
 
-    public function getVendorsDiscounts($package_type)
+    public function getVendorsDiscounts()
     {
-        $package = Package::with('clients')->findOrFail($package_id);
-        $clients = $package->clients()->paginate((int)($request->per_page ?? config("globals.per_page")));
-        return ClientDiscountsResource::collection($clients)->additional([
+        $type = @auth()->user()->citizen->enabledPackage->package_type."_discount" ;
+        $packages = VendorPackage::select($type,"vendor_id")->with('vendor.translations') ->get();
+        request()->package_discount = $type ;
+        return ClientDiscountsResource::collection($packages)->additional([
             'status' => true,
             'message' => ''
         ]);
