@@ -17,14 +17,12 @@ class CreateCitizenPackagesTable extends Migration
         Schema::create('citizen_packages', function (Blueprint $table) {
             $table->uuid("id")->primary();
             $table->foreignUuid("citizen_id")->nullable()->constrained("users")->OnDelete('set null');
-            $table->foreignUuid("package_id")->nullable()->constrained("packages")->OnDelete('set null');
+            $table->enum('package_type', ['basic', 'golden', 'platinum'])->default('basic');
             $table->string('package_price')->nullable();
-            $table->string('package_discount',30)->nullable();
-            $table->string('promo_discount',30)->nullable();
-//            $table->string('promo_code',30)->nullable();
-//            $table->tinyInteger('remaining_usage')->nullable();
             $table->date("start_at")->nullable();
             $table->date("end_at")->nullable();
+            $table->string('promo_code')->nullable();
+            $table->string('promo_discount',30)->nullable();
             $table->timestamps();
         });
     }

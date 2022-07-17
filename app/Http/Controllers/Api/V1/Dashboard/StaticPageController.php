@@ -78,5 +78,18 @@ class StaticPageController extends Controller
         ]);
     }
 
+    public function getAllStaticPages(Request $request){
+        $staticPages = StaticPage::search($request)
+        ->ListsTranslations('name')
+        ->CustomDateFromTo($request)
+        ->with('translations')
+        ->addSelect('static_pages.created_at', 'static_pages.is_active')
+        ->sortBy($request)->get();
+
+    return StaticPageResource::collection($staticPages)->additional([
+        'status'=>true,
+        'message'=>''
+    ]);
+    }
 
 }
