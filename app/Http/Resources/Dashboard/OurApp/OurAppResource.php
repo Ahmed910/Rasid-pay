@@ -30,7 +30,7 @@ class OurAppResource extends JsonResource
             'is_active'        => (bool)$this->is_active,
             'android_link'     => $this->android_link,
             'ios_link'         => $this->ios_link,
-            "images"           => ImagesResource::collection($this->whenLoaded("images")),
+            'image'            => $this->image,
             'created_at'       => $this->created_at,
             'added_by_id'      => $this->whenLoaded('addedBy', SimpleUserResource::make($this->addedBy)),
             'actions'          => $this->when($request->routeIs('our_apps.index') || $request->routeIs('our_apps.archive'), [
