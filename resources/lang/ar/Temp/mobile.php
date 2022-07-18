@@ -64,6 +64,7 @@ return [
     'promotion' => [
         'promo_code_is_not_found' => 'كود التخفيض غير موجود',
         'promo_code_is_used' => 'كود التخفيض مستخدم من قبل',
+        'package_is_not_found' => 'الباقة غير موجودة',
     ],
     'mobile' =>
     [
