@@ -168,8 +168,11 @@ class AdminController extends Controller
     {
 
         $users = User::where('user_type', 'admin')
-        ->when($request->has_permission_on ,is_array($request->has_permission_on),function($q) use($request){
-            $q->whereIn('main_program',$request->has_permission_on)->where('id','!=',auth()->id());
+        ->when($request->has_permission_on && is_array($request->has_permission_on),function($q) use($request){
+            $q->whereHas('permissions',function($q) use($request){
+                $q->whereIn('main_program',$request->has_permission_on);
+
+            })->where('users.id','!=',auth()->id());
         })
             ->get();
 
