@@ -16,12 +16,16 @@ class ContactController extends Controller
 
     public function index(Request $request)
     {
-        $contact = Contact::with('replies', 'user')
+        $contact = Contact::when(auth()->user()->user_type == 'admin', function ($q) {
+            $q->whereHas('messageType.admins',function($query){
+                $query->where('admin_id',auth()->user()->id);
+            });
+        })
+            ->with('replies', 'user')
             ->CustomDateFromTo($request)
             ->search($request)
             ->sortby($request)
             ->paginate((int)($request->per_page ?? config("globals.per_page")));
-
         return ContactResource::collection($contact)
             ->additional([
                 'status' => true,
@@ -44,7 +48,14 @@ class ContactController extends Controller
 
     public function show($id)
     {
-        $contact = Contact::with('replies', 'user','admin')->withTrashed()->findOrFail($id);
+        $contact = Contact::when(auth()->user()->user_type == 'admin', function ($q) {
+            $q->whereHas('messageType.admins',function($query){
+                $query->where('admin_id',auth()->user()->id);
+            });
+        })
+        ->with('replies', 'user','admin')
+        ->withTrashed()
+        ->findOrFail($id);
         $contact->update(['read_at' => now(),"message_status"=>$contact->message_status=="new"?"pending":$contact->message_status]);
 
         return ContactResource::make($contact)
@@ -66,7 +77,12 @@ class ContactController extends Controller
 
     public function deleteContact($id)
     {
-        $contact = Contact::findorfail($id);
+        $contact = Contact::when(auth()->user()->user_type == 'admin', function ($q) {
+            $q->whereHas('messageType.admins',function($query){
+                $query->where('admin_id',auth()->user()->id);
+            });
+        })
+        ->findorfail($id);
         $contact->delete();
 
         return response()->json([
@@ -78,7 +94,12 @@ class ContactController extends Controller
 
     public function deleteReply($id)
     {
-        $contact = ContactReply::findorfail($id);
+        $contact = ContactReply::when(auth()->user()->user_type == 'admin', function ($q) {
+            $q->whereHas('contact.messageType.admins',function($query){
+                $query->where('admin_id',auth()->user()->id);
+            });
+        })
+        ->findorfail($id);
         $contact->delete();
 
         return response()->json([
