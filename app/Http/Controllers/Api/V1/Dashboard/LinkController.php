@@ -27,8 +27,8 @@ class LinkController extends Controller
 
        return LinkResource::make($link)
        ->additional([
-           'message' => '',
-           'status' => true
+        'message' => trans('dashboard.general.success_update'),
+        'status' => true
        ]);
    }
 

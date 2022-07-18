@@ -38,8 +38,10 @@ class SendCodeRequest extends ApiMasterRequest
                 'username.exists' => trans('validation.custom.email.exists'),
                 'username.email' =>  trans('dashboard.validation.email')
             ];
-        }elseif($this->send_type == 'phone'){
+        } elseif($this->send_type == 'phone'){
             return ['username.exists' => trans('dashboard.general.phoneCode_registeration')];
+        } else {
+            return [];
         }
     }
 
