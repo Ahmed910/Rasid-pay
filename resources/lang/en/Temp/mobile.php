@@ -57,4 +57,11 @@ return [
     'payments' => [
         'current_balance_is_not_sufficient_to_complete_payment' => 'Current Balance Is Not Sufficient To Complete Payment',
     ],
+    'transfers' => [
+        'transfer_details' => 'تم تحويل مبلغ :amount ر.س  من المحفظة الخاصة بك إلى محفظة المستخدم :wallet_transfer_method',
+        'by_phone' => 'By Phone',
+        'by_identity_number' => 'By Identity Number',
+        'by_wallet_number' => 'By Wallet Number',
+        'cancel_transfer' => 'Transfer has been canceled successfully and money is back to your wallet'
+    ]
 ];
