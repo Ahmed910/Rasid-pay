@@ -628,4 +628,9 @@ return [
     'device' =>   [
         'devices' => 'Devices',
     ],
+    'package_types' => [
+        "basic" => "Basic",
+        "golden" => "Golden",
+        "platinum" => "Platinum",
+    ],
 ];
