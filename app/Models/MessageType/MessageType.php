@@ -38,12 +38,22 @@ class MessageType extends Model
             });
         }
 
-        if ($request->employee_id) {
-            if (!is_array($request->employee_id))
-                $employeeIds = Arr::wrap($request->employee);
+        //employee_count
+        // if ($request->employee_id) {
+        //     if (!is_array($request->employee_id))
+        //         $employeeIds = Arr::wrap($request->employee);
 
-            if (!in_array(-1, $employeeIds))  $query->employees()->whereIn("employee_id", $employeeIds);
-        }
+        //     if (!in_array(-1, $employeeIds))  $query->employees()->whereIn("employee_id", $employeeIds);
+        // }
+
+        if ($request->employee_id) $query->whereHas("admins", function ($q) use ($request) {
+            if (!is_array($request->employee_id))
+                 $adminsIDs = Arr::wrap($request->employee_id);
+                 
+            if (!in_array(-1, $adminsIDs)) 
+                $q->whereIn('admin_id', $adminsIDs);
+        });
+
 
         $new = $query->toSql();
         if ($old != $new)  $this->addGlobalActivity($this, $request->query(), ActivityLog::SEARCH, 'index');
@@ -66,10 +76,8 @@ class MessageType extends Model
                     ->orderBy($request->sort["column"], @$request->sort["dir"]);
             }
 
-            if ($request->sort["column"] == "employee") {
-                return $q->whereHas('employees', function ($q) use ($request) {
-                    return $q->orderBy('employee_id', $request->sort['dir']);
-                });
+            if ($request->sort["column"] == "employee_count") {
+                return $q->withCount('admins')->orderBy('admins_count');
             }
 
             $q->orderBy($request->sort["column"], @$request->sort["dir"]);

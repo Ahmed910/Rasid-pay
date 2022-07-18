@@ -18,8 +18,10 @@ class MessageTypeResource extends JsonResource
                 'id' => $this->id,
                 'message_type' => $this->name,
                 'admins' => SimpleUserResource::collection($this->whenLoaded('admins')),
+                'admin_names' => $this->admins()->pluck('fullname')->join(','),
                 'admins_count' => $this->admins_count,
                 'created_at' => $this->created_at,
+                'activity' => ActivityLogResource::collection($this->whenLoaded('activity')),
                 'actions' => $this->when($request->routeIs('message_types.index') || $request->routeIs('message_types.archive'), [
                     'show' => auth()->user()->hasPermissions('message_types.show'),
                     $this->mergeWhen($request->route()->getActionMethod() == 'index', [

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api\V1\Dashboard;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\V1\Dashboard\TransferPurposeRequest;
+use App\Http\Resources\Dashboard\TransferPurpose\TransferPurposeCollection;
 use App\Http\Resources\Dashboard\TransferPurpose\TransferPurposeResource;
 use App\Models\TransferPurpose\TransferPurpose;
 use Illuminate\Http\Request;
@@ -40,20 +41,24 @@ class TransferPurposeController extends Controller
         ]);
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param int $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
+    public function show(Request $request, $id)
     {
-        $transfer_purpose = TransferPurpose::findOrFail($id);
-        return TransferPurposeResource::make($transfer_purpose)->additional([
-            'message' => '',
-            'status' => true
-        ]);
+        $transferPurpose  = TransferPurpose::findOrFail($id);
+        $activities = [];
+        if (!$request->has('with_activity') || $request->with_activity) {
+            $activities  = $transferPurpose->activity()
+                ->sortBy($request)
+                ->paginate((int)($request->per_page ??  config("globals.per_page")));
+        }
+
+        return TransferPurposeCollection::make($activities)
+            ->additional([
+                'status' => true,
+                'message' => trans("dashboard.general.show")
+            ]);
     }
+
+
 
     /**
      * Update the specified resource in storage.
