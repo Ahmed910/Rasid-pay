@@ -53,8 +53,8 @@ class VendorPackageController extends Controller
 
     public function store(ClientPackageRequest $request)
     {
-        $client = Vendor::findOrFail($request->client_id);
-        $client->packages()->create($request->discounts);
+        $client = Vendor::findOrFail($request->vendor_id);
+        $client->packages()->create($request->validated());
 
         return PackageResource::make($client)->additional([
             'status' => true,
@@ -72,10 +72,10 @@ class VendorPackageController extends Controller
         ]);
     }
 
-    public function update(ClientPackageRequest $request, $client_id)
+    public function update(ClientPackageRequest $request)
     {
-        $client = User::where('user_type', 'client')->findOrFail($client_id);
-        // $client->clientPackages()->sync($request->discounts);
+        $client = Vendor::findOrFail($request->vendor_id);
+        $client->packages()->create($request->validated());
 
         return PackageResource::make($client)->additional([
             'status' => true,

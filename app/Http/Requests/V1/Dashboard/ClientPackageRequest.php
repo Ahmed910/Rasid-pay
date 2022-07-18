@@ -9,10 +9,10 @@ class ClientPackageRequest extends ApiMasterRequest
     public function rules()
     {
         return [
-            "client_id" => "required|exists:users,id,user_type,client",
+            "vendor_id" => "required|exists:vendors,id",
             'basic_discount' => 'required|numeric|gte:0|lte:100|regex:/^\d{1,3}+(\.\d{0,2})?$/',
-            'golden_discount' => 'required|gt:basic_discount',
-            'platinum_discount' => 'required|gt:golden_discount',
+            'golden_discount' => 'required|gt:basic_discount|lte:100',
+            'platinum_discount' => 'required|gt:golden_discount|lte:100',
 
         ];
     }
