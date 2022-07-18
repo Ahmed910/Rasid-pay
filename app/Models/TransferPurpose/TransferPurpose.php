@@ -19,10 +19,20 @@ class TransferPurpose extends Model
 
     #region properties
     public $translatedAttributes = ['name','description'];
+    protected $attributes = ['is_active' => true];
     protected $guarded = ['created_at','updated_at','deleted_at'];
     #endregion properties
 
     #region mutators
+
+    public function setIsDefaultValueAttribute($value)
+    {
+        if($value){
+            self::where('is_default_value',1)->update(['is_default_value' => 0]);
+        }
+        $this->attributes['is_default_value'] = $value;
+
+    }
 
     #endregion mutators
 

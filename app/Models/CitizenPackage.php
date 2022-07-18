@@ -82,11 +82,6 @@ class CitizenPackage extends Model
 
     #region relationships
 
-    public function package()
-    {
-        return $this->belongsTo(Package::class, 'package_id');
-    }
-
     public function citizen()
     {
         return $this->belongsTo(User::class, 'citizen_id');

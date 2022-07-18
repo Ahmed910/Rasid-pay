@@ -2,9 +2,9 @@
 
 namespace App\Http\Resources\Api\V1\Mobile\Transactions;
 
-use Illuminate\Http\Resources\Json\JsonResource;
 use App\Http\Resources\Api\V1\Mobile\{Beneficiary\BeneficiaryResource, UserResource};
 use App\Models\Transaction;
+use Illuminate\Http\Resources\Json\JsonResource;
 
 class TransactionResource extends JsonResource
 {
@@ -27,7 +27,7 @@ class TransactionResource extends JsonResource
             'global_transfer'  => $this->trans_type == "global_transfer"  ? trans("mobile.transaction.global_transfer_status", [ 'amount' => $this->amount, 'currency' =>$this->transactionable?->bankTransfer?->toCurrency?->currency_code,'beneficiary' => $this->transactionable?->beneficiary?->name, 'country' =>$this->transactionable?->beneficiary?->country?->name , 'recieve_option'=>$this->transactionable?->bankTransfer?->recieveOption?->name ,'mtcn' =>$this->transactionable?->bankTransfer?->mtcn_number ]) : "",
             'charge'           => $this->trans_type == "charge"  ? trans("mobile.transaction.charge_status", [ 'amount' => $this->amount ,'method' =>$this->transactionable?->charge_type ]) : "",
             'money_request'    => $this->trans_type == "money_request" ? trans("mobile.transaction.money_request_status", [ 'amount' => $this->amount, 'to_user_identity_or_mobile_or_wallet_number' =>  $wallet_transfer_method[$this->transactionable?->wallet_transfer_method] ]):"" ,
-            'promote_package'  => $this->trans_type == "promote_package" ? trans("mobile.transaction.promote_package_status", [ 'amount' => $this->amount,'package_name' => $this->fromUser->citizenPackages->package->name, 'expired_date' => $this->fromUser->citizenPackages->end_at->format('y/m/d') ]):"" ,
+            'promote_package'  => $this->trans_type == "promote_package" ? trans("mobile.transaction.promote_package_status", [ 'amount' => $this->amount,'package_name' => $this->fromUser->citizen->enabledPackage->package_type, 'expired_date' => $this->fromUser->citizen->enabledPackage->end_at ]):"" ,
 
         ];
         return [

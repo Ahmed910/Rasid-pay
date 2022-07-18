@@ -25,6 +25,7 @@ class OurAppRequest extends ApiMasterRequest
             'android_link' =>'required',
             'ios_link' => 'required',
             'image' => 'required|image|mimes:jpg,jpeg,png,gif,svg|max:5120',
+            'is_active' => 'required|in:0,1'
 
         ];
 
@@ -49,6 +50,8 @@ class OurAppRequest extends ApiMasterRequest
              'ios_link.required' => trans($validation.'.ios_link.required'),
              'image.image' => trans($validation.'.image.image'),
             'image.mimes' => trans($validation.'.image.mimes'),
+            'is_active.required' => trans($validation.'.is_active.required'),
+            'is_active.in' => trans($validation.'.is_active.in')
 
         ];
         foreach (config('translatable.locales') as $locale) {
