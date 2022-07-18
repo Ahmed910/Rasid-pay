@@ -27,6 +27,8 @@ class ContactResource extends JsonResource
             'user' =>  SimpleUserResource::make($this->whenLoaded('user')),
             'admin' =>  SimpleUserResource::make($this->whenLoaded('admin')),
             'replies' => ContactReplyResource::collection($this->whenLoaded('replies')),
+            'activity' => ActivityLogResource::collection($this->whenLoaded('activity'))
+
         ];
     }
 }

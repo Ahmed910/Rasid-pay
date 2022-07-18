@@ -53,7 +53,7 @@ class ContactController extends Controller
                 $query->where('admin_id',auth()->user()->id);
             });
         })
-        ->with('replies', 'user','admin')
+        ->with('replies', 'user','admin','activity')
         ->withTrashed()
         ->findOrFail($id);
         $contact->update(['read_at' => now(),"message_status"=>$contact->message_status=="new"?"pending":$contact->message_status]);

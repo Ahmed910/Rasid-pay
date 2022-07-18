@@ -33,6 +33,7 @@ class AppServiceProvider extends ServiceProvider
         "Package"  => \App\Models\Package\Package::class,
         'Vendor'   => \App\Models\Vendor\Vendor::class,
         'MessageType' => \App\Models\MessageType\MessageType::class,
+        'Contact' => \App\Models\Contact::class
     ];
 
     public function register()
