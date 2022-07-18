@@ -30,9 +30,9 @@ class AppServiceProvider extends ServiceProvider
         'Client' => \App\Models\Client::class,
         'Citizen' => \App\Models\Citizen::class,
         "BankBranch"=>\App\Models\BankBranch\BankBranch::class,
-        "Package"  => \App\Models\Package\Package::class,
         'Vendor'   => \App\Models\Vendor\Vendor::class,
         'MessageType' => \App\Models\MessageType\MessageType::class,
+        'VendorPackage' => \App\Models\VendorPackage::class,
         'Contact' => \App\Models\Contact::class
     ];
 

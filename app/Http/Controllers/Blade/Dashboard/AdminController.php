@@ -80,7 +80,7 @@ class AdminController extends Controller
                     'user_type' => 'admin', 'added_by_id' => auth()->id(),
                 ] + $request->validated())->save();
             $employee = Employee::create($request->safe()->only(['department_id', 'rasid_job_id']) + ['user_id' => $admin->id]);
-            $employee->job()->update(['is_vacant' => 1]);
+            $employee->job()->update(['is_vacant' => 0]);
             $admin->admin()->create();
             $permissions = $request->permission_list ?? [];
             if ($request->group_list) {
@@ -167,6 +167,7 @@ class AdminController extends Controller
             if ($request->has('is_login_code') && $request->is_login_code == 1) $is_login_code = 1;
             $admin->fill($request->validated() + ['updated_at' => now(), 'is_login_code' => $is_login_code])->save();
             $admin->employee->update($request->safe()->only(['department_id', 'rasid_job_id']));
+            $admin->employee->job()->update(['is_vacant' => 0]);
             $permissions = $request->permission_list ?? [];
             if ($request->group_list) {
                 $admin->groups()->sync($request->group_list);

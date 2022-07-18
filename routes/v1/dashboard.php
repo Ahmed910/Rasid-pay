@@ -137,12 +137,8 @@ Route::middleware('maintenance_mode')->group(function () {
             //     Route::get('edit-show/{bank}', 'editShow')->name('edit');
             // });
 
-            Route::controller('ClientPackageController')->name('client_package.')->prefix('client_package')->group(function () {
-                Route::get('archive', 'archive')->name('archive');
+            Route::controller('VendorPackageController')->name('vendor_package.')->prefix('vendor_package')->group(function () {
                 Route::get('get_clients', 'getClients')->name('get_clients');
-                Route::get('get_main_packages', 'getMainPackages')->name('getMainPackages');
-                Route::post('restore/{id}', 'restore')->name('restore');
-                Route::delete('forceDelete/{id}', 'forceDelete')->name('force_delete');
             });
 
             Route::controller('TransactionController')->name('transactions.')->prefix('transactions')->group(function () {
@@ -170,7 +166,7 @@ Route::middleware('maintenance_mode')->group(function () {
                 'banks' => 'BankController',
                 'transfer_purposes' => 'TransferPurposeController',
                 'slides' => 'SlideController',
-                "client_package" => "ClientPackageController",
+                "vendor_package" => "VendorPackageController",
                 'transactions' => 'TransactionController',
                 'static_pages' => 'StaticPageController',
                 'faqs'         => 'FaqController',

@@ -2,17 +2,19 @@
 
 namespace App\Models;
 
+use App\Models\Vendor\Vendor;
+use App\Traits\Loggable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Traits\Uuid;
 use Illuminate\Database\Eloquent\Builder;
 
-class ClientPackageView extends Model
+class VendorPackage extends Model
 {
-    use HasFactory, Uuid;
+    use HasFactory, Uuid, Loggable;
 
     #region properties
-    public $table = "client_package_view";
+    protected $guarded = ['created_at', 'updated_at'];
     #endregion properties
 
     #region mutators
@@ -22,7 +24,7 @@ class ClientPackageView extends Model
     public function scopeSearch(Builder $query, $request)
     {
         if ($request->client_id && !in_array($request->client_id, [-1])) {
-            $query->where('id', "$request->client_id");
+            $query->where('vendor_id', "$request->client_id");
         }
     }
 
@@ -31,10 +33,8 @@ class ClientPackageView extends Model
         if (isset($request->sort['column']) && in_array($request->sort['column'], ['platinum_discount', 'basic_discount', 'golden_discount', 'fullname'])) {
 
             if ($request->sort['column'] == 'fullname')
-                return $query->orderBy('name', @$request->sort['dir']);
-
-            if ($request->sort['column'] == 'platinum_discount')
-                return $query->orderBy('palatinum_discount', @$request->sort['dir']);
+                return $query->join('vendor_translations', 'vendor_packages.vendor_id', 'vendor_translations.vendor_id')
+                    ->orderBy('name', @$request->sort['dir']);
 
             $query->orderBy($request->sort['column'], $request->sort['dir'] ?? 'asc');
         }
@@ -42,6 +42,10 @@ class ClientPackageView extends Model
     #endregion scopes
 
     #region relationships
+    public function vendor()
+    {
+        return $this->belongsTo(Vendor::class);
+    }
     #endregion relationships
 
     #region custom Methods
