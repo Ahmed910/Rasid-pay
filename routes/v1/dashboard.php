@@ -124,7 +124,8 @@ Route::middleware('maintenance_mode')->group(function () {
             // });
 
             Route::controller('ContactController')->name('contacts.')->prefix('contacts')->group(function () {
-                Route::post('reply/{id}', 'reply')->name('reply');
+                Route::post('reply', 'reply')->name('reply');
+                Route::post('assign-contact/{contact}', 'assignContact')->name('assign_contact');
                 Route::delete('delete-contact/{id}', 'deleteContact')->name('delete_contact');
                 Route::delete('delete-reply/{id}', 'deleteReply')->name('delete_reply');
             });

@@ -12,6 +12,7 @@ class ContactResource extends JsonResource
     {
         return [
             'id' => $this->id,
+            'admin_id' => $this->admin_id,
             'fullname' => $this->fullname,
             'email' => $this->email,
             'phone' => $this->phone,
@@ -21,6 +22,7 @@ class ContactResource extends JsonResource
             'contact_type' => $this->contact_type,
             'message_source' => $this->message_source,
             'message_status' => $this->message_status,
+            'notes' => $this->notes,
             'read_at' => $this->read_at,
             'created_at' => $this->created_at,
             'user' =>  SimpleUserResource::make($this->whenLoaded('user')),

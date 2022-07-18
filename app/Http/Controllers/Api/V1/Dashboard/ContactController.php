@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api\V1\Dashboard;
 
+use App\Http\Requests\V1\dashboard\ContactAdminAssignRequest;
 use App\Models\Contact;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -51,6 +52,16 @@ class ContactController extends Controller
                 'status' => true,
                 'message' => ''
             ]);
+    }
+    public function assignContact(ContactAdminAssignRequest $contactAdminAssignRequest , Contact $contact){
+
+      $contact->update($contactAdminAssignRequest->validated()) ;
+        return ContactResource::make($contact)
+            ->additional([
+                'status' => true,
+                'message' =>  trans('dashboard.general.success_update')
+            ]);
+
     }
 
     public function deleteContact($id)
