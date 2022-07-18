@@ -20,7 +20,6 @@ class Citizen extends Model
     protected $dates = ['date_of_birth'];
     const USER_SEARCHABLE_COLUMNS = ["fullname", "country_code", "phone", "identity_number", "created_at"];
     const CITIZEN_SEARCHABLE_COLUMNS = ["citizen_package_id"];
-    const ENABLEDPACKAGES_SEARCHABLE_COLUMNS = ["enabled_package" => "package_type"];
     const CARDPKG_SORT_COLUMNS = ["enabled_package" => "package_type"];
     const CITIZEN_PACKAGES_SORT_COLUMNS = ['card_end_at' => 'end_at'];
     const ENABLEDPACKAGES_SORTABLE_COLUMNS = ["enabled_package" => "enabledPackage.package", "card_end_at" => "enabledPackage.end_at"];
@@ -35,16 +34,13 @@ class Citizen extends Model
     {
         $old = $query->toSql();
 
-        foreach ($request->all() as $key => $item) {
-            if ($item == -1 && in_array($key, self::SELECT_ALL)) $request->request->remove($key);
-            if (key_exists($key, self::ENABLEDPACKAGES_SEARCHABLE_COLUMNS) && isset($request->$key) && !in_array(-1, $request->enabled_package))
-                $query->whereHas(
-                    'user.citizen.enabledPackage',
-                    function ($q) use ($key, $item) {
-                        $q->where(self::ENABLEDPACKAGES_SEARCHABLE_COLUMNS[$key], $item);
-                    }
-                );
+        if ($request->enabled_package && !in_array(-1, $request->enabled_package)) {
+            $query->whereHas(
+                'user.citizen.enabledPackage',
+                fn ($q) => $q->whereIn('package_type', $request->enabled_package)
+            );
         }
+
         foreach ($request->all() as $key => $item) {
             if (in_array($key, self::USER_SEARCHABLE_COLUMNS))
                 $query->whereHas('user', function ($q) use ($key, $item) {
