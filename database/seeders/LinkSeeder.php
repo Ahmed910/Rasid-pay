@@ -19,6 +19,12 @@ class LinkSeeder extends Seeder
             ['key' => 'mobile.charge_policy'],
             ['key' => 'mobile.local_transfer_policy'],
             ['key' => 'mobile.global_transfer_policy'],
+            ['key' => 'mobile.page1'],
+            ['key' => 'mobile.page2'],
+            ['key' => 'mobile.page3'],
+            ['key' => 'mobile.page4'],
+            ['key' => 'mobile.page5'],
+            ['key' => 'mobile.page6'],
         ];
 
 
