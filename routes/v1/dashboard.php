@@ -55,6 +55,8 @@ Route::middleware('maintenance_mode')->group(function () {
         Route::get('all-jobs/{department}', 'RasidJobController@getVacantJobs');
         Route::get('all-admins', 'AdminController@getAllAdmins');
         Route::get('all_static_pages', 'StaticPageController@getAllStaticPages');
+        Route::get('all-message-types', 'MessageTypeController@getAllMessageTypes');
+
 
 
         Route::controller('ActivityController')->name('activity_logs.')->prefix('activity_logs')->group(function () {
