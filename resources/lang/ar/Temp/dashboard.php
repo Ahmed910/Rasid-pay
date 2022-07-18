@@ -142,6 +142,7 @@ return [
         'want_restore' => 'هل تريد إتمام عملية الاستعادة؟',
         'enter_phone' => 'أدخل الرقم',
         'export' => 'تصدير',
+        'cant_update_phone_related_with_hold_transactions' => 'عفوا، لا يمكن تعديل رقم الجوال نظرا لوجود عمليات تحويل جارية'
     ],
     'setting' => [
         'sub_progs' =>  [
