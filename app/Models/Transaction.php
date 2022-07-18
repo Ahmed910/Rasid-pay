@@ -41,9 +41,9 @@ class Transaction extends Model
     const USER_SORTABLE_COLUMNS = ["user_from" => "fullname", "email" => "email", "image" => "email", "country_code" => "country_code", "phone" => "phone", "full_phone" => "full_phone", "identity_number" => "identity_number", "date_of_birth" => "date_of_birth"];
     const SELECT_ALL = ["enabled_package", 'trans_status'];
     const TRANSACTION_SEARCHABLE_COLUMNS = ["trans_number", "user_identity", "transaction_type", "transaction_status"];
-    const ENABLED_CARD_SEARCHABLE_COLUMNS = ["enabled_package" => "package_id"];
+    const ENABLED_CARD_SEARCHABLE_COLUMNS = ["enabled_package" => "package_type"];
     const CLIENT_SORTABLE_COLUMNS = ["user_to" => "fullname", "client_type" => "client_type", "commercial_number" => "commercial_number", "nationality" => "nationality", "tax_number" => "tax_number", "transactions_done" => "transactions_done"];
-    const ENABLED_CARD_sortable_COLUMNS = ["enabled_package" => "package_id"];
+    const ENABLED_CARD_sortable_COLUMNS = ["enabled_package" => "package_type"];
     const TRANSFERS = ['wallet_transfer', 'local_transfer', 'global_transfer'];
     const PAYMENTS = ['payment', 'promote_package'];
     const CHARGE = ['charge', 'money_request'];
