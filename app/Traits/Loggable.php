@@ -40,7 +40,7 @@ trait Loggable
 
     public function activity()
     {
-        return $this->morphMany(ActivityLog::class, 'auditable');
+        return $this->morphMany(ActivityLog::class, 'auditable')->withTrashed();
     }
 
     /**
