@@ -67,9 +67,9 @@ class ContactController extends Controller
             ]);
     }
 
-    public function assignContact(ContactAdminAssignRequest $contactAdminAssignRequest, Contact $contact)
+    public function assignContact(ContactAdminAssignRequest $request, Contact $contact)
     {
-        $contact->update($contactAdminAssignRequest->validated());
+        $contact->update($request->validated());
         return ContactResource::make($contact->load("admin"))
             ->additional([
                 'status' => true,
