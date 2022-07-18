@@ -61,13 +61,14 @@ class OurApp extends Model implements TranslatableContract, HasAssetsInterface
     public function scopeSortBy(Builder $query, $request)
     {
 
-        if (!isset($request->sort["column"]) || !isset($request->sort["dir"])) return $query->orderBy('our_apps.order');
+        if (!isset($request->sort["column"]) || !isset($request->sort["dir"]))
+         return $query->orderBy('our_apps.order');
 
         if (
             !in_array(Str::lower($request->sort["column"]), $this->sortableColumns) ||
-            !in_array(Str::lower($request->sort["dir"]), ["asc", "name"])
+            !in_array(Str::lower($request->sort["dir"]), ["asc", "desc"])
         ) {
-            return $query->orderBy('our_app.order');
+            return $query->orderBy('our_apps.order');
         }
 
         $query->when($request->sort, function ($q) use ($request) {
@@ -75,6 +76,11 @@ class OurApp extends Model implements TranslatableContract, HasAssetsInterface
                 return $q->has('translations')
                     ->orderBy($request->sort["column"], @$request->sort["dir"]);
             }
+
+            if ($request->sort["column"] == "created_at") {
+                return $q->orderBy('created_at', $request->sort['dir']);
+            }
+
             if ($request->sort["column"] == "is_active") {
                 return $q->orderBy('is_active', $request->sort['dir']);
             }
