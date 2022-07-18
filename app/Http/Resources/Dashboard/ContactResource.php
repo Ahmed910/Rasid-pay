@@ -3,8 +3,6 @@
 namespace App\Http\Resources\Dashboard;
 
 use Illuminate\Http\Resources\Json\JsonResource;
-use App\Http\Resources\Dashboard\SimpleUserResource;
-use App\Http\Resources\Dashboard\ContactReplyResource;
 
 class ContactResource extends JsonResource
 {
@@ -18,7 +16,7 @@ class ContactResource extends JsonResource
             'type' => $this->type? trans("dashboard.contact.types.{$this->type}") : "",
             'title' => $this->title,
             'content' => $this->content,
-            'contact_type' => $this->contact_type,
+            'contact_type' => $this->messageType->name,
             'message_source' => $this->message_source,
             'message_status' => $this->message_status,
             'notes' => $this->notes,
