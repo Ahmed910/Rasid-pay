@@ -20,7 +20,7 @@ class ContactController extends Controller
                 $query->where('admin_id', auth()->user()->id);
             });
         })
-            ->with('replies', 'user')
+            ->with('replies', 'user', 'admin')
             ->CustomDateFromTo($request)
             ->search($request)
             ->sortby($request)
