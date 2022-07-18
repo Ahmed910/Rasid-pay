@@ -67,11 +67,11 @@ class TransactionResource extends JsonResource
     private function getMainlabels() : string
     {
         if(in_array($this->trans_type,Transaction::TRANSFERS)){
-            return trans('mobile.transaction.transfer');
+            return trans('mobile.transaction.transaction_types.transfer');
         }elseif(in_array($this->trans_type,Transaction::PAYMENTS)){
-            return trans('mobile.transaction.payment');
+            return trans('mobile.transaction.transaction_types.payment');
         }elseif(in_array($this->trans_type,Transaction::CHARGE)){
-            return trans('mobile.transaction.charge');
+            return trans('mobile.transaction.transaction_types.charge');
         }
     }
 }

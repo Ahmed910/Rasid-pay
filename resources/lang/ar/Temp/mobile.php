@@ -42,6 +42,7 @@ return [
             'global_transfer' => 'تحويل دولي',
             'wallet_transfer' => 'تحويل محفظة',
             'money_request' => 'طلب أموال',
+            'transfer' => 'تحويل',
         ],
     ],
     'messages' => [
