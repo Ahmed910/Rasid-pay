@@ -59,7 +59,7 @@ Route::middleware('auth:sanctum')->group(function () {
     // Packages
     Route::prefix('packages')->group(function () {
         Route::get('promo_codes', 'PackageController@getPromoCodes');
-        Route::get('get_vendors_discounts/{package_type}', 'PackageController@getVendorsDiscounts');
+        Route::get('get_vendors_discounts', 'PackageController@getVendorsDiscounts');
     });
     Route::apiResource('packages', 'PackageController')->only('index', 'show', 'update');
     // Transaction
