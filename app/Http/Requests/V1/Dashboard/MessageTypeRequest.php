@@ -16,7 +16,7 @@ class MessageTypeRequest extends ApiMasterRequest
 
         foreach (config('translatable.locales') as $locale) {
             $rules["$locale"]         = "array";
-            $rules["$locale.name"]    = "required|between:2,100|regex:/^[\pL\pN\s\-\_]+$/u|unique:message_type_translations,name," . $this->messageType?->id  . ",message_type_id";
+            $rules["$locale.name"]    = "required|between:2,100|regex:/^[\pL\pN\s\-\_]+$/u|unique:message_type_translations,name," . $this->message_type?->id  . ",message_type_id";
         }
 
         return $rules;
