@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api\V1\Dashboard;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\V1\Dashboard\TransferPurposeRequest;
+use App\Http\Resources\Dashboard\TransferPurpose\TransferPurposeCollection;
 use App\Http\Resources\Dashboard\TransferPurpose\TransferPurposeResource;
 use App\Models\TransferPurpose\TransferPurpose;
 use Illuminate\Http\Request;
@@ -42,10 +43,10 @@ class TransferPurposeController extends Controller
 
     public function show(Request $request, $id)
     {
-        $rasidJob  = TransferPurpose::findOrFail($id);
+        $transferPurpose  = TransferPurpose::findOrFail($id);
         $activities = [];
         if (!$request->has('with_activity') || $request->with_activity) {
-            $activities  = $rasidJob->activity()
+            $activities  = $transferPurpose->activity()
                 ->sortBy($request)
                 ->paginate((int)($request->per_page ??  config("globals.per_page")));
         }

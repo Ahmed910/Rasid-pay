@@ -25,6 +25,15 @@ class TransferPurpose extends Model
 
     #region mutators
 
+    public function setIsDefaultValueAttribute($value)
+    {
+        if($value){
+            self::where('is_default_value',1)->update(['is_default_value' => 0]);
+        }
+        $this->attributes['is_default_value'] = $value;
+
+    }
+
     #endregion mutators
 
     #region scopes

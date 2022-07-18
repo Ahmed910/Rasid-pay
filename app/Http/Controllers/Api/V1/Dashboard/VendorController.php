@@ -88,6 +88,12 @@ class VendorController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $vendor = Vendor::findorfail($id);
+        $vendor->delete();
+        return VendorResource::make($vendor)
+            ->additional([
+                'status' => true,
+                'message' =>  __('dashboard.general.success_delete')
+            ]);
     }
 }
