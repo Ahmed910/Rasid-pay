@@ -9,6 +9,7 @@ return [
             'money_request' => 'Money Request',
             'charge' => 'Charge',
             'local_transfer' => 'Local Transfer',
+            'transfer' => 'Transfer',
         ],
         'status_cases' => [
             'received' => 'Received',
