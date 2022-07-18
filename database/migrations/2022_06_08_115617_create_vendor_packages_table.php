@@ -16,7 +16,7 @@ class CreateVendorPackagesTable extends Migration
             $table->string('platinum_discount');
 
             $table->foreignIdFor(Vendor::class)->nullable();
-
+            $table->timestamps();
         });
     }
 

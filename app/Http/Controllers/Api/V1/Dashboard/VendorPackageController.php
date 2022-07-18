@@ -7,24 +7,28 @@ use App\Http\Requests\V1\Dashboard\ClientPackageRequest;
 use App\Http\Resources\Dashboard\PackageResource;
 use App\Http\Resources\Dashboard\MainPackageResource;
 use App\Http\Resources\Dashboard\SimpleUserResource;
+use App\Http\Resources\Dashboard\Vendors\VendorResource;
 use App\Models\ClientPackageView;
 use App\Models\Package\Package;
 use App\Models\User;
+use App\Models\Vendor\Vendor;
+use App\Models\VendorPackage;
 use Illuminate\Http\Request;
 
-class ClientPackageController extends Controller
+class VendorPackageController extends Controller
 {
     public function index(Request $request)
     {
         if (isset($request->order[0]['column'])) {
             $request['sort'] = ['column' => $request['columns'][$request['order'][0]['column']]['name'], 'dir' => $request['order'][0]['dir']];
         }
-        $packages = ClientPackageView::query()
+
+        $packages = VendorPackage::query()
+            ->with('vendor')
             ->search($request)
             ->sortBy($request)
             ->paginate((int)($request->per_page ?? config("globals.per_page")));
 
-        $clients = User::has('clientPackages')->where("user_type", "client")->pluck('users.fullname', 'users.id');
         return PackageResource::collection($packages)->additional([
             'status' => true,
             'message' => ""
@@ -36,10 +40,12 @@ class ClientPackageController extends Controller
         $fileds = $this->validate($request, [
             "has_card" => "required|boolean"
         ]);
+
         $clients = $request->has_card
-            ? User::has('clientPackages')->where("user_type", "client")->select('users.fullname', 'users.id')->get()
-            : User::doesntHave('clientPackages')->where("user_type", "client")->select('users.fullname', 'users.id')->get();;
-        return SimpleUserResource::collection($clients)->additional([
+            ? Vendor::with('translations')->has('packages')->get()
+            : Vendor::with('translations')->doesntHave('packages')->get();
+
+        return VendorResource::collection($clients)->additional([
             'status' => true,
             'message' => ""
         ]);
@@ -47,8 +53,9 @@ class ClientPackageController extends Controller
 
     public function store(ClientPackageRequest $request)
     {
-        $client = User::where('user_type', 'client')->findOrFail($request->client_id);
-        $client->clientPackages()->sync($request->discounts);
+        $client = Vendor::findOrFail($request->client_id);
+        $client->packages()->create($request->discounts);
+
         return PackageResource::make($client)->additional([
             'status' => true,
             'message' => __('dashboard.package.discount_success_add')
@@ -57,37 +64,18 @@ class ClientPackageController extends Controller
 
     public function show($id)
     {
-        $client_package = [];
-        $client = User::has('clientPackages')->where("user_type", "client")->findOrFail($id);
+        $vendor = VendorPackage::with('vendor')->findOrFail($id);
 
-        foreach ($client->clientPackages as $key => $clientPackage) {
-            $client_package[$key]['package_id'] = $clientPackage->pivot->package_id;
-            $client_package[$key]['package_discount'] = $clientPackage->pivot->package_discount;
-            $client_package[$key]['type'] = lcfirst($clientPackage->translate('en')->name . '_card');
-        }
-
-        return response()->json([
-            'data' => [
-                'discounts' => $client_package,
-                'fullname' => $client->fullname,
-                'client_id' => $client->id,
-            ],
+        return PackageResource::make($vendor)->additional([
             'status' => true,
-            'message' => ""
+            'message' => __('')
         ]);
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param \Illuminate\Http\PackageRequest $request
-     * @param int $id
-     * @return \Illuminate\Http\Response
-     */
     public function update(ClientPackageRequest $request, $client_id)
     {
         $client = User::where('user_type', 'client')->findOrFail($client_id);
-        $client->clientPackages()->sync($request->discounts);
+        // $client->clientPackages()->sync($request->discounts);
 
         return PackageResource::make($client)->additional([
             'status' => true,

@@ -15,6 +15,8 @@ use Illuminate\Http\Request;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Str;
 use App\Models\ActivityLog;
+use App\Models\Package\Package;
+use App\Models\VendorPackage;
 
 class Vendor extends Model implements HasAssetsInterface
 {
@@ -36,12 +38,12 @@ class Vendor extends Model implements HasAssetsInterface
         });
     }
     #region mutators
-     public function getLogoAttribute()
-     {
-         return asset($this->images()->where('option','logo')->first()?->media);
-     }
+    public function getLogoAttribute()
+    {
+        return asset($this->images()->where('option', 'logo')->first()?->media);
+    }
 
-#region scopes
+    #region scopes
     public function scopeSearch(Builder $query, Request $request)
     {
         $old = $query->toSql();
@@ -95,12 +97,17 @@ class Vendor extends Model implements HasAssetsInterface
             $q->orderBy($request->sort["column"], @$request->sort["dir"]);
         });
     }
-#endregion scopes
+    #endregion scopes
 
     #region relationships
     public function branches()
     {
         return $this->hasMany(VendorBranch::class);
+    }
+
+    public function packages()
+    {
+        return $this->hasMany(VendorPackage::class, 'vendor_id');
     }
     #endregion relationships
 
