@@ -6,7 +6,6 @@ use App\Models\Bank\Bank;
 use App\Models\BankBranch\BankBranch;
 
 //use App\Models\CardPackage\CardPackage;
-use App\Models\Package\Package;
 use Carbon\Carbon;
 use GeniusTS\HijriDate\Hijri;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -39,7 +38,6 @@ class Transaction extends Model
     private $sortableColumns = ["user_from_id", "trans_number", "created_at", 'from_user_to', 'amount', 'fee_amount', 'trans_type', 'trans_status'];
     const USER_SEARCHABLE_COLUMNS = ["user_from", "email", "image", "country_code", "phone", "full_phone", "identity_number", "date_of_birth"];
     const USER_SORTABLE_COLUMNS = ["user_from" => "fullname", "email" => "email", "image" => "email", "country_code" => "country_code", "phone" => "phone", "full_phone" => "full_phone", "identity_number" => "identity_number", "date_of_birth" => "date_of_birth"];
-    const SELECT_ALL = ["enabled_package", 'trans_status'];
     const TRANSACTION_SEARCHABLE_COLUMNS = ["trans_number", "user_identity", "transaction_type", "transaction_status"];
     const CLIENT_SORTABLE_COLUMNS = ["user_to" => "fullname", "client_type" => "client_type", "commercial_number" => "commercial_number", "nationality" => "nationality", "tax_number" => "tax_number", "transactions_done" => "transactions_done"];
     const ENABLED_CARD_sortable_COLUMNS = ["enabled_package" => "package_type"];
