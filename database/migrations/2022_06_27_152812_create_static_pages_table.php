@@ -15,7 +15,7 @@ class CreateStaticPagesTable extends Migration
     {
         Schema::create('static_pages', function (Blueprint $table) {
             $table->uuid("id")->primary();
-            $table->boolean('p')->default(true);
+            $table->boolean('is_active')->default(true);
             $table->boolean('show_in_app')->default(false);
             $table->boolean('show_in_website')->default(true);
             $table->string('link')->nullable();

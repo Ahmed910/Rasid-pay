@@ -55,6 +55,8 @@ Route::middleware('maintenance_mode')->group(function () {
         Route::get('all-jobs/{department}', 'RasidJobController@getVacantJobs');
         Route::get('all-admins', 'AdminController@getAllAdmins');
         Route::get('all_static_pages', 'StaticPageController@getAllStaticPages');
+        Route::get('all-message-types', 'MessageTypeController@getAllMessageTypes');
+
 
 
         Route::controller('ActivityController')->name('activity_logs.')->prefix('activity_logs')->group(function () {
@@ -137,12 +139,8 @@ Route::middleware('maintenance_mode')->group(function () {
             //     Route::get('edit-show/{bank}', 'editShow')->name('edit');
             // });
 
-            Route::controller('ClientPackageController')->name('client_package.')->prefix('client_package')->group(function () {
-                Route::get('archive', 'archive')->name('archive');
+            Route::controller('VendorPackageController')->name('vendor_package.')->prefix('vendor_package')->group(function () {
                 Route::get('get_clients', 'getClients')->name('get_clients');
-                Route::get('get_main_packages', 'getMainPackages')->name('getMainPackages');
-                Route::post('restore/{id}', 'restore')->name('restore');
-                Route::delete('forceDelete/{id}', 'forceDelete')->name('force_delete');
             });
 
             Route::controller('TransactionController')->name('transactions.')->prefix('transactions')->group(function () {
@@ -170,7 +168,7 @@ Route::middleware('maintenance_mode')->group(function () {
                 'banks' => 'BankController',
                 'transfer_purposes' => 'TransferPurposeController',
                 'slides' => 'SlideController',
-                "client_package" => "ClientPackageController",
+                "vendor_package" => "VendorPackageController",
                 'transactions' => 'TransactionController',
                 'static_pages' => 'StaticPageController',
                 'faqs'         => 'FaqController',

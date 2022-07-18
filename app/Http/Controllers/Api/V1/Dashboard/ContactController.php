@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Api\V1\Dashboard;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\V1\dashboard\ContactAdminAssignRequest;
+use App\Http\Requests\V1\Dashboard\ContactAdminAssignRequest;
 use App\Http\Requests\V1\Dashboard\ContactReplyRequest;
 use App\Http\Resources\Dashboard\ContactReplyResource;
 use App\Http\Resources\Dashboard\ContactResource;
@@ -20,7 +20,7 @@ class ContactController extends Controller
                 $query->where('admin_id', auth()->user()->id);
             });
         })
-            ->with('replies', 'user')
+            ->with('replies', 'user', 'admin','activity')
             ->CustomDateFromTo($request)
             ->search($request)
             ->sortby($request)
@@ -52,7 +52,7 @@ class ContactController extends Controller
                 $query->where('admin_id', auth()->user()->id);
             });
         })
-            ->with('replies', 'user', 'admin')
+            ->with('replies', 'user', 'admin','activity')
             ->withTrashed()
             ->findOrFail($id);
         $contact->update([
@@ -67,9 +67,9 @@ class ContactController extends Controller
             ]);
     }
 
-    public function assignContact(ContactAdminAssignRequest $contactAdminAssignRequest, Contact $contact)
+    public function assignContact(ContactAdminAssignRequest $request, Contact $contact)
     {
-        $contact->update($contactAdminAssignRequest->validated());
+        $contact->update($request->validated());
         return ContactResource::make($contact->load("admin"))
             ->additional([
                 'status' => true,

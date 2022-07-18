@@ -142,6 +142,7 @@ return [
         'want_restore' => 'هل تريد إتمام عملية الاستعادة؟',
         'enter_phone' => 'أدخل الرقم',
         'export' => 'تصدير',
+        'cant_update_phone_related_with_hold_transactions' => 'عفوا، لا يمكن تعديل رقم الجوال نظرا لوجود عمليات تحويل جارية'
     ],
     'setting' => [
         'sub_progs' =>  [
@@ -1087,8 +1088,19 @@ return [
             'register_policy' => 'الشروط والأحكام (تسجيل جديد)',
             'charge_policy' => 'الشروط والأحكام (شحن)',
             'local_transfer_policy' => 'الشروط والأحكام (التحويل المحلي)',
-            'global_transfer_policy' => 'الشروط والأحكام (التحويل الدولي)'
-        ]
+            'global_transfer_policy' => 'الشروط والأحكام (التحويل الدولي)',
+            'page1' => 'الصفحة الأولى',
+            'page2' => 'الصفحة الثانية',
+            'page3' => 'الصفحة الثالثة',
+            'page4' => 'الصفحة الرابعة',
+            'page5' => 'الصفحة الخامسة',
+            'page6' => 'الصفحة السادسة',
+
+
+
+
+        ],
+ 
         ],
         'our_app' => [
             'validation' => [
