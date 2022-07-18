@@ -15,8 +15,25 @@ class ContactReplyRequest extends ApiMasterRequest
     {
         return [
             "contact_id" => ["required", "exists:contacts,id"],
-            "admin_id" => ["required", "exists:users,id"],
             "reply" => ["required", "string"],
         ];
+    }
+
+    public function messages()
+    {
+        $validation = 'dashboard.contact.validation';
+
+        $validation_messages = [
+
+            'contact_id.required' => trans($validation.'.contact_id.required'),
+            'contact_id.unique' => trans($validation.'.contact_id.unique'),
+             'reply.required' => trans($validation.'.reply.required'),
+             'reply.string' => trans($validation.'.reply.string'),
+
+        ];
+
+
+
+        return $validation_messages;
     }
 }

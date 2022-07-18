@@ -11,7 +11,7 @@ class CreateContactRepliesTable extends Migration
         Schema::create('contact_replies', function (Blueprint $table) {
             $table->uuid("id")->primary();
             $table->foreignUuid("contact_id")->constrained("contacts")->cascadeOnDelete();
-            $table->foreignUuid("admin_id")->nullable()->constrained("users")->nullOnDelete();
+            $table->foreignUuid("added_by_id")->nullable()->constrained("users")->nullOnDelete();
             $table->longText("reply");
             $table->softDeletes();
 
