@@ -5,7 +5,7 @@ return [
         'card_date_format' => 'أدخل التاريخ بصيغة صحيحة',
         'after' => 'يجب ادخال تاريخ مستقبلي',
         'date_format' => 'يجب ادخال تاريخ مستقبلي',
-        'code' =>  [
+        'code' => [
             'exists' => 'رمز التحقق غير صحيح',
         ],
         'password' => [
@@ -16,7 +16,7 @@ return [
         'after_today' => 'يجب ادخال تاريخ مستقبلي',
         'card_after_today' => 'يجب ادخال تاريخ مستقبلي',
         'invalid_phone' => 'صيغة رقم الجوال غير صحيحة',
-        'mobile' =>  [
+        'mobile' => [
             'otp_invaild' => 'رمز التحقق غير صالح',
             'otp_vaild' => 'رمز التحقق صالح',
         ],
@@ -58,7 +58,7 @@ return [
         'current_balance_is_not_sufficiant_to_complete_transaction' => 'الرصيد الحالي لا يكفي لإجراء عملية التحويل',
         'transfer_has_been_done_successfully' => 'تمت عملية التحويل بنجاح',
     ],
-    'min' =>  [
+    'min' => [
         'string' => 'كلمة المرور يجب ان لا تقل عن 8 حروف',
     ],
     'promotion' => [
@@ -67,16 +67,16 @@ return [
         'package_is_not_found' => 'الباقة غير موجودة',
     ],
     'mobile' =>
-    [
-        'validation' =>
         [
-            'mobile' =>
-            [
-                'otp_vaild' => 'رمز التحقق صالح',
-            ],
+            'validation' =>
+                [
+                    'mobile' =>
+                        [
+                            'otp_vaild' => 'رمز التحقق صالح',
+                        ],
+                ],
         ],
-    ],
-    'local_transfers' =>  [
+    'local_transfers' => [
         'local_transfers' => 'التحويلات المحلية',
         'current_balance_is_not_sufficiant_to_complete_transaction' => 'الرصيد الحالي لا يكفي لإجراء عملية التحويل',
         'local_transfer' => 'التحويل المحلي',
@@ -88,6 +88,5 @@ return [
         'by_phone' => 'برقم جوال ',
         'by_identity_number' => 'برقم هوية ',
         'by_wallet_number' => 'برقم ',
-
-    ]
+        'cancel_transfer' => 'تم الالغاء واسترجاع الاموال بنجاح',]
 ];

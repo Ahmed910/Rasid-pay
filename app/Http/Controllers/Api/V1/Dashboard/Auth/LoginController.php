@@ -3,9 +3,12 @@
 namespace App\Http\Controllers\Api\V1\Dashboard\Auth;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\V1\Dashboard\Auth\{LoginRequest, SendCodeRequest, LogoutRequest, OTPLoginRequest, ResendCodeRequest};
+use App\Http\Requests\V1\Dashboard\Auth\{LoginRequest,
+    LogoutRequest,
+    OTPLoginRequest,
+    ResendCodeRequest,
+    SendCodeRequest};
 use App\Http\Resources\Dashboard\UserResource;
-use App\Jobs\ExpireCodeJob;
 use App\Models\{Device, User};
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -16,66 +19,68 @@ class LoginController extends Controller
     public function login(LoginRequest $request)
     {
         $credentials = $this->getCredentials($request);
-        $user = User::whereIn('user_type' , ['admin' , 'superadmin'])->when(array_key_exists('login_id' , $credentials),function ($q) use($request) {
-            $q->where('login_id' , $request->username);
-        })->when(array_key_exists('phone' , $credentials),function ($q) use($request) {
-            $q->where('phone' , $request->username);
+        $user = User::whereIn('user_type', ['admin', 'superadmin'])->when(array_key_exists('login_id', $credentials), function ($q) use ($request) {
+            $q->where('login_id', $request->username);
+        })->when(array_key_exists('phone', $credentials), function ($q) use ($request) {
+            $q->where('phone', $request->username);
         })->first();
-
-        if ($user && $user->is_login_code && \Hash::check($request->password , $user->password)) {
-            $code = $this->generateCode(['send_type' => 'phone'], $user,'login_code');
+        if ($user && $user->user_type == 'admin' && !$user->permissions()->exists()) {
+            return response()->json(['status' => false, 'data' => null, 'message' => trans('auth.failed')], 401);
+        }
+        if ($user && $user->is_login_code && \Hash::check($request->password, $user->password)) {
+            $code = $this->generateCode(['send_type' => 'phone'], $user, 'login_code');
             $reset_token = generate_unique_code(User::class, 'reset_token', 100);
             $user->update(['login_code' => $code, 'reset_token' => $reset_token]);
             // Send SMS CODE
-            return response()->json(['status' => true, 'data' => ['_token' => $user->reset_token], 'message' => trans('auth.success_send_login_code'), 'dev_message' => $code , 'login_code_required' => true]);
+            return response()->json(['status' => true, 'data' => ['_token' => $user->reset_token], 'message' => trans('auth.success_send_login_code'), 'dev_message' => $code, 'login_code_required' => true]);
         }
 
         if ($user && $user->ban_status == 'permanent') {
             return response()->json([
-                'status' => false,
-                'data' => null,
-                'message' => trans('auth.ban_permanent')]
-                 , 401);
+                    'status' => false,
+                    'data' => null,
+                    'message' => trans('auth.ban_permanent')]
+                , 401);
         }
 
-        if($user && $user->ban_status == 'temporary'){
+        if ($user && $user->ban_status == 'temporary') {
             return response()->json([
-                'status' => false,
-                'data' => null,
-                'message' => trans('auth.ban_temporary',['ban_from' => $user->ban_from,'ban_to' => $user->ban_to])]
-                 , 401);
+                    'status' => false,
+                    'data' => null,
+                    'message' => trans('auth.ban_temporary', ['ban_from' => $user->ban_from, 'ban_to' => $user->ban_to])]
+                , 401);
         }
 
         if (!Auth::attempt($credentials)) {
             return response()->json(['status' => false, 'data' => null, 'message' => trans('auth.failed')], 401);
         }
         $user = Auth::user();
-        return $this->makeLogin($request ,$user , false);
+        return $this->makeLogin($request, $user, false);
     }
 
     public function otpLogin(OTPLoginRequest $request)
     {
-        $user = User::whereIn('user_type' , ['admin' , 'superadmin'])->where(['login_code' => $request->code , 'reset_token' => $request->_token])->first();
+        $user = User::whereIn('user_type', ['admin', 'superadmin'])->where(['login_code' => $request->code, 'reset_token' => $request->_token])->first();
 
-        if (! $user) {
+        if (!$user) {
             return response()->json(['status' => false, 'data' => null, 'message' => trans('auth.failed')], 401);
         }
         $user->update(['reset_token' => null, 'login_code' => null]);
         Auth::login($user);
-        return $this->makeLogin($request ,$user);
+        return $this->makeLogin($request, $user);
     }
 
     private function makeLogin($request, $user, $login_code_required = true)
     {
-        $user->devices()->where('device_token',"<>",$request->device_token)->delete();
+        $user->devices()->where('device_token', "<>", $request->device_token)->delete();
         // $user->tokens()->delete();
         // \Config::set('sanctum.expiration',setting('expiration_ttl') ?? (1*(60*24*365)));
-        $token =  $user->createToken('RaseedJakDashboard')->plainTextToken;
+        $token = $user->createToken('RaseedJakDashboard')->plainTextToken;
         if ($request->only(['device_token', 'device_type'])) {
             $user->devices()->firstOrCreate($request->only(['device_token', 'device_type']));
         }
         data_set($user, 'token', $token);
-        return UserResource::make($user)->additional(['status' => true, 'message' => trans('auth.success_login', ['user' => $user->login_id]) , 'login_code_required' => $login_code_required]);
+        return UserResource::make($user)->additional(['status' => true, 'message' => trans('auth.success_login', ['user' => $user->login_id]), 'login_code_required' => $login_code_required]);
     }
 
     public function resendCode(ResendCodeRequest $request)
@@ -86,15 +91,15 @@ class LoginController extends Controller
         }
         try {
             if ($request->code_type == 'reset_code') {
-                $code = $this->generateCode($request, $user,'reset_code');
+                $code = $this->generateCode($request, $user, 'reset_code');
                 $user->update(['reset_code' => $code]);
                 return response()->json(['status' => true, 'data' => ['_token' => $user->reset_token], 'message' => trans('dashboard.general.success_send'), 'dev_message' => $code]);
-            } elseif($request->code_type == 'verified_code') {
-                $code = $this->generateCode($request, $user,'verified_code');
+            } elseif ($request->code_type == 'verified_code') {
+                $code = $this->generateCode($request, $user, 'verified_code');
                 $user->update(['verified_code' => $code, 'is_active' => false]);
                 return response()->json(['status' => true, 'data' => ['_token' => $user->reset_token], 'message' => trans('dashboard.general.success_send'), 'dev_message' => $code]);
-            }else {
-                $code = $this->generateCode($request, $user,'verified_code');
+            } else {
+                $code = $this->generateCode($request, $user, 'verified_code');
                 $user->update(['verified_code' => $code, 'is_active' => false]);
                 return response()->json(['status' => true, 'data' => ['_token' => $user->reset_token], 'message' => trans('dashboard.general.success_send'), 'dev_message' => $code]);
             }
@@ -112,11 +117,11 @@ class LoginController extends Controller
         try {
             $reset_token = generate_unique_code(User::class, 'reset_token', 100);
             if ($user->phone_verified_at || $user->email_verified_at) {
-                $code = $this->generateCode($request, $user,'reset_code');
+                $code = $this->generateCode($request, $user, 'reset_code');
                 $user->update(['reset_code' => $code, 'reset_token' => $reset_token]);
                 return response()->json(['status' => true, 'data' => ['_token' => $user->reset_token], 'message' => trans('dashboard.general.success_send'), 'dev_message' => $code]);
             } else {
-                $code = $this->generateCode($request, $user,'verified_code');
+                $code = $this->generateCode($request, $user, 'verified_code');
                 $user->update(['verified_code' => $code, 'is_active' => false, 'reset_token' => $reset_token]);
                 return response()->json(['status' => true, 'data' => ['_token' => $user->reset_token], 'message' => trans('dashboard.general.success_send'), 'dev_message' => $code]);
             }
@@ -145,7 +150,7 @@ class LoginController extends Controller
             $code = generate_unique_code(User::class, $col, 4, 'numbers');
             $message = trans("auth.{$col}_is", ['code' => $code]);
             //   $response = send_sms($user->phone, $message);
-        }elseif ($request['send_type'] == 'email') {
+        } elseif ($request['send_type'] == 'email') {
             $code = generate_unique_code(User::class, $col, 4, 'numbers');
             $message = trans("auth.{$col}_is", ['code' => $code]);
             // send email

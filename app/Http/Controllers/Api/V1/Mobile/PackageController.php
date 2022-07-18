@@ -45,7 +45,7 @@ class PackageController extends Controller
     public function update(Request $request, $package_type)
     {
         if (!in_array($package_type, CitizenPackage::PACKAGE_TYPES)) {
-            return response()->json(['status' => false, 'data' => null, 'message' => 'Package type not found'], 422);
+            return response()->json(['status' => false, 'data' => null, 'message' => trans('mobile.promotion.package_is_not_found')], 422);
         }
 
         $activateBonus = ['rasidpay_platinum_firstcode_activatebonus', 'rasidpay_platinum_secondcode_activatebonus',
@@ -60,7 +60,7 @@ class PackageController extends Controller
             $citizen_package = PromotePackage::createCitizenPackage($package_type);
             $back_main_balance = WalletBalance::calcWalletMainBackBalance($citizen_wallet, $package_price);
             // generate promo codes for platinum package
-            if ($package_type == CitizenPackage::PLATINUM){
+            if ($package_type == CitizenPackage::PLATINUM) {
                 $citizen_package_promo_codes = [
                     'citizen_package_id' => $citizen_package->id,
                 ];
@@ -122,9 +122,9 @@ class PackageController extends Controller
 
     public function getVendorsDiscounts()
     {
-        $type = @auth()->user()->citizen->enabledPackage->package_type."_discount" ;
-        $packages = VendorPackage::select($type,"vendor_id")->with('vendor.translations') ->get();
-        request()->package_discount = $type ;
+        $type = @auth()->user()->citizen->enabledPackage->package_type . "_discount";
+        $packages = VendorPackage::select($type, "vendor_id")->with('vendor.translations')->get();
+        request()->package_discount = $type;
         return ClientDiscountsResource::collection($packages)->additional([
             'status' => true,
             'message' => ''
