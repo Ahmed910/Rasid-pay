@@ -79,4 +79,16 @@ class MessageTypeController extends Controller
                 'message' => trans("dashboard.general.success_delete")
             ]);
     }
+
+
+    public function getAllMessageTypes(Request $request)
+    {
+        return response()->json([
+            'data' => MessageType::select('id')
+                ->ListsTranslations('name')
+                ->get(),
+            'status' => true,
+            'message' =>  '',
+        ]);
+    }
 }

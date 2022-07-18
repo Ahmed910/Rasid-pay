@@ -64,7 +64,7 @@ class AdminController extends Controller
             'user_type' => 'admin', 'added_by_id' => auth()->id(),
         ] + $request->validated())->save();
         $employee = Employee::create($request->safe()->only(['department_id', 'rasid_job_id']) + ['user_id' => $admin->id]);
-        $employee->job()->update(['is_vacant' => 1]);
+        $employee->job()->update(['is_vacant' => 0]);
         $admin->admin()->create();
         //TODO::send sms with password
         $permissions = $request->permission_list ?? [];
@@ -108,6 +108,7 @@ class AdminController extends Controller
         };
         $admin->admin()->updateOrCreate(['user_id' => $admin->id], $request->only(['ban_status', 'ban_from', 'ban_to']) + ['updated_at' => now()]);
         $admin->employee->update($request->safe()->only(['department_id', 'rasid_job_id']));
+        $admin->employee->job()->update(['is_vacant' => 0]);
 
         //TODO::send sms with password
         // if($request->('password_change'))

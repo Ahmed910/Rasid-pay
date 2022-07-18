@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Models\MessageType\MessageType;
+use App\Traits\Loggable;
 use App\Traits\Uuid;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
@@ -14,7 +15,7 @@ use Illuminate\Support\Str;
 
 class Contact extends Model
 {
-    use HasFactory, Uuid, SoftDeletes;
+    use HasFactory, Uuid, SoftDeletes , Loggable;
 
     #region properties
     protected $guarded = ['created_at', 'updated_at', 'deleted_at'];
