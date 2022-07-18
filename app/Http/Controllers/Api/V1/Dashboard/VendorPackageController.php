@@ -56,7 +56,7 @@ class VendorPackageController extends Controller
         $client = Vendor::findOrFail($request->vendor_id);
         $client->packages()->create($request->validated());
 
-        return PackageResource::make($client)->additional([
+        return VendorResource::make($client)->additional([
             'status' => true,
             'message' => __('dashboard.package.discount_success_add')
         ]);
@@ -77,19 +77,9 @@ class VendorPackageController extends Controller
         $client = Vendor::findOrFail($request->vendor_id);
         $client->packages()->create($request->validated());
 
-        return PackageResource::make($client)->additional([
+        return VendorResource::make($client)->additional([
             'status' => true,
             'message' => trans("dashboard.package.discount_success_update")
-        ]);
-    }
-
-
-    public function getMainPackages()
-    {
-        $packages = Package::where('is_active', 1)->get();
-        return MainPackageResource::collection($packages)->additional([
-            'status' => true,
-            'message' => ""
         ]);
     }
 }

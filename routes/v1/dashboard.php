@@ -140,7 +140,6 @@ Route::middleware('maintenance_mode')->group(function () {
             Route::controller('ClientPackageController')->name('client_package.')->prefix('client_package')->group(function () {
                 Route::get('archive', 'archive')->name('archive');
                 Route::get('get_clients', 'getClients')->name('get_clients');
-                Route::get('get_main_packages', 'getMainPackages')->name('getMainPackages');
                 Route::post('restore/{id}', 'restore')->name('restore');
                 Route::delete('forceDelete/{id}', 'forceDelete')->name('force_delete');
             });
