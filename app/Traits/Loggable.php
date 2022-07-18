@@ -16,10 +16,18 @@ trait Loggable
         });
 
         static::updated(function (self $self) {
-            if (in_array(class_basename($self), ['User', 'Admin']))
-                return $self->checkIfHasIsActiveOnly($self, 'ban_status');
+            if ($self->isDirty('deleted_at')) {
+                if (in_array(SoftDeletes::class, class_uses(static::class))) {
+                    static::restored(function (self $self) {
+                        return $self->addUserActivity($self, ActivityLog::RESTORE, 'archive');
+                    });
+                }
+            } else {
+                if (in_array(class_basename($self), ['User', 'Admin']))
+                    return $self->checkIfHasIsActiveOnly($self, 'ban_status');
 
-            $self->checkIfHasIsActiveOnly($self, 'is_active');
+                $self->checkIfHasIsActiveOnly($self, 'is_active');
+            }
         });
 
         static::deleted(function (self $self) {
@@ -28,17 +36,11 @@ trait Loggable
 
             $self->addUserActivity($self, ActivityLog::DESTROY, 'index');
         });
-
-        if (in_array(SoftDeletes::class, class_uses(static::class))) {
-            static::restored(function (self $self) {
-                $self->addUserActivity($self, ActivityLog::RESTORE, 'archive');
-            });
-        }
     }
 
     public function activity()
     {
-        return $this->morphMany(ActivityLog::class, 'auditable');
+        return $this->morphMany(ActivityLog::class, 'auditable')->withTrashed();
     }
 
     /**

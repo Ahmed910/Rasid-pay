@@ -2,12 +2,32 @@
 
 namespace App\Http\Controllers\Api\V1\Dashboard;
 
+use App\Models\OurApp\OurApp;
+use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\V1\Dashboard\OurAppRequest;
-use Illuminate\Http\Request;
+use App\Http\Resources\Dashboard\OurApp\OurAppResource;
 
-class AppController extends Controller
+class OurAppController extends Controller
 {
+
+    public function index(Request $request)
+    {
+        $ourApp = OurApp::search($request)
+                    ->ListsTranslations('name')
+                    ->CustomDateFromTo($request)
+                    // ->addSelect('our_apps.created_at', 'our_apps.is_active','our_apps.order')
+                    ->sortBy($request)
+                    ->paginate((int)($request->per_page ?? config("globals.per_page")));
+
+        return OurAppResource::collection($ourApp)->additional([
+            'status'=>true,
+            'message'=>''
+        ]);
+
+    }
+
+
     /**
      * Store a newly created resource in storage.
      *

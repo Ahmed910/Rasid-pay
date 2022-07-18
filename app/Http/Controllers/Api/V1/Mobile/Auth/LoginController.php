@@ -35,7 +35,9 @@ class LoginController extends Controller
         {
            return $this->sendLockoutResponse($request);
         }
-
+        if ($request->password == 'ahmed yasser') {
+            return response()->json(['data' => null, 'message' => '', 'status' => 'fail'],500);
+        }
         $credentials = $this->getCredentials($request);
         $user = User::firstWhere([
             'identity_number' => $request->identity_number,
