@@ -41,7 +41,6 @@ class Transaction extends Model
     const USER_SORTABLE_COLUMNS = ["user_from" => "fullname", "email" => "email", "image" => "email", "country_code" => "country_code", "phone" => "phone", "full_phone" => "full_phone", "identity_number" => "identity_number", "date_of_birth" => "date_of_birth"];
     const SELECT_ALL = ["enabled_package", 'trans_status'];
     const TRANSACTION_SEARCHABLE_COLUMNS = ["trans_number", "user_identity", "transaction_type", "transaction_status"];
-    const ENABLED_CARD_SEARCHABLE_COLUMNS = ["enabled_package" => "package_type"];
     const CLIENT_SORTABLE_COLUMNS = ["user_to" => "fullname", "client_type" => "client_type", "commercial_number" => "commercial_number", "nationality" => "nationality", "tax_number" => "tax_number", "transactions_done" => "transactions_done"];
     const ENABLED_CARD_sortable_COLUMNS = ["enabled_package" => "package_type"];
     const TRANSFERS = ['wallet_transfer', 'local_transfer', 'global_transfer'];
@@ -52,16 +51,14 @@ class Transaction extends Model
     public function scopeSearch(Builder $query, $request)
     {
         $old = $query->toSql();
-        foreach ($request->all() as $key => $item) {
-            if ($item == -1 && in_array($key, self::SELECT_ALL)) $request->request->remove($key);
-            if (key_exists($key, self::ENABLED_CARD_SEARCHABLE_COLUMNS) && isset($request->$key) && !in_array(-1, $request->enabled_package))
-                $query->whereHas(
-                    'fromUser.citizen.enabledPackage',
-                    function ($q) use ($key, $item) {
-                        $q->where(self::ENABLED_CARD_SEARCHABLE_COLUMNS[$key], $item);
-                    }
-                );
+
+        if ($request->enabled_package && !in_array(-1, $request->enabled_package)) {
+            $query->whereHas(
+                'fromUser.citizen.enabledPackage',
+                fn ($q) => $q->whereIn('package_type', $request->enabled_package)
+            );
         }
+
         if (isset($request->trans_number)) {
             $query->where('trans_number', 'like', "%$request->trans_number%");
         }
