@@ -49,8 +49,13 @@ class Contact extends Model
         foreach ($request->all() as $key => $item) {
             if ($item == -1 && in_array($key, self::SELECT_ALL))   { $request->request->remove($key) ; continue ;  }
 
-            if (in_array($key, self::USER_COLUMNS))
+            if (in_array($key, self::USER_COLUMNS)){
                 !($key == "fullname") ? $query->where('contacts.'.$key, $item) : $query->where('contacts.'.$key, "like", "%$item%");
+            }
+
+           if($request->message_types && is_array($request->message_types)){
+            $query->whereIn('message_type_id',$request->message_types);
+           }
 
             if (key_exists($key, self::ADMINCOLUMNS))
                 $query->whereHas('admin', function ($q) use ($key, $item) {
