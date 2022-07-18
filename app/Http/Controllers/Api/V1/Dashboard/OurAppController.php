@@ -77,10 +77,11 @@ class OurAppController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(OurAppRequest $request, OurApp $our_app)
+    public function update(OurAppRequest $request,  $our_app)
     {
-        $our_app->update($request->validated());
-        return OurAppResource::make($our_app)->additional([
+        $ourApp =OurApp::findOrFail($our_app);
+        $ourApp->update($request->validated());
+        return OurAppResource::make($ourApp)->additional([
             'status' => true,
             'message' => trans('dashboard.general.success_update'),
         ]);
