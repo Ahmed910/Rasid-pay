@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\MessageType\MessageType;
 use App\Traits\Uuid;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
@@ -93,6 +94,10 @@ class Contact extends Model
     public function admin(): BelongsTo
     {
         return $this->belongsTo(User::class, 'admin_id');
+    }
+    public function messageType(): BelongsTo
+    {
+        return $this->belongsTo(MessageType::class, 'message_type_id');
     }
     #endregion relationships
 

@@ -16,11 +16,11 @@ class UpdateProfileRequest extends ApiMasterRequest
         return [
             'image' => 'nullable|max:5120|mimes:jpg,png,jpeg',
             // 'fullname' => 'required|string|max:100',
-            'phone' => ["required", "numeric", "digits_between:7,10", 'starts_with:9665,05', function ($attribute, $value, $fail) {
-                if(!check_phone_valid($value)){
+            'phone' => ["required", "numeric", 'starts_with:9665,05', "digits_between:9,20", function ($attribute, $value, $fail) {
+                if (!check_phone_valid($value)) {
                     $fail(trans('mobile.validation.invalid_phone'));
                 }
-            },'unique:users,phone,' . auth()->id()],
+            }, 'unique:users,phone,' . auth()->id()],
             // 'whatsapp' => 'nullable|starts_with:9665,05|unique:users,whatsapp,' . auth()->id(),
             // 'identity_number' => 'required|numeric|digits_between:10,20|unique:users,identity_number,' . auth()->id(),
             // 'email' => 'nullable|email|unique:users,email,' . auth()->id(),

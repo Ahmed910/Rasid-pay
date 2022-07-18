@@ -3,9 +3,8 @@
 namespace App\Http\Resources\Dashboard\TransferPurpose;
 
 use App\Http\Resources\Dashboard\ActivityLogResource;
-use Illuminate\Http\Resources\Json\ResourceCollection;
-
 use App\Models\TransferPurpose\TransferPurpose;
+use Illuminate\Http\Resources\Json\ResourceCollection;
 
 class TransferPurposeCollection extends ResourceCollection
 {
@@ -17,7 +16,7 @@ class TransferPurposeCollection extends ResourceCollection
      */
     public function toArray($request)
     {
-        $transferPurpose  = TransferPurpose::with('translations')->findOrFail($request->route()->parameters['rasid_job']);
+        $transferPurpose  = TransferPurpose::with('translations')->findOrFail($request->route()->parameters['transfer_purpose']);
         return [
             'transfer_purpose' => TransferPurposeResource::make($transferPurpose),
             'activity' => ActivityLogResource::collection($this->collection)
