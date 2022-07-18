@@ -84,7 +84,7 @@ class ContactController extends Controller
     public function deleteReply($id)
     {
         $contact = ContactReply::when(auth()->user()->user_type == 'admin', function ($q) {
-            $q->whereHas('messageType.admins',function($query){
+            $q->whereHas('contact.messageType.admins',function($query){
                 $query->where('admin_id',auth()->user()->id);
             });
         })
