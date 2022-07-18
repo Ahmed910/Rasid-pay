@@ -14,10 +14,10 @@ class CreateClientPackagesTable extends Migration
     public function up()
     {
         Schema::create('client_package', function (Blueprint $table) {
-            $table->foreignUuid("client_id")->nullable()->constrained("users")->OnDelete('set null');
+            $table->foreignUuid("vendor_id")->nullable()->constrained("vendors")->OnDelete('set null');
             $table->foreignUuid("package_id")->nullable()->constrained("packages")->OnDelete('set null');
             $table->string('package_discount')->nullable();
-            $table->primary(['client_id', 'package_id']);
+            $table->primary(['vendor_id', 'package_id']);
         });
     }
 
