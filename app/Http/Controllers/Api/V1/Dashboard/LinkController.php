@@ -18,15 +18,8 @@ class LinkController extends Controller
 
    }
 
-   public function show(Link $link)
-   {
-       return LinkResource::make($link)
-       ->additional([
-           'message' => '',
-           'status' => true
-       ]);
-   } 
-   
+
+
 
    public function update(LinkRequest $request, Link $link)
    {
@@ -38,12 +31,12 @@ class LinkController extends Controller
            'status' => true
        ]);
    }
-   
 
 
-  
 
- 
 
- 
+
+
+
+
 }
