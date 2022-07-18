@@ -12,7 +12,6 @@ class ContactResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'admin_id' => $this->admin_id,
             'fullname' => $this->fullname,
             'email' => $this->email,
             'phone' => $this->phone,
@@ -26,6 +25,7 @@ class ContactResource extends JsonResource
             'read_at' => $this->read_at,
             'created_at' => $this->created_at,
             'user' =>  SimpleUserResource::make($this->whenLoaded('user')),
+            'admin' =>  SimpleUserResource::make($this->whenLoaded('admin')),
             'replies' => ContactReplyResource::collection($this->whenLoaded('replies')),
         ];
     }
