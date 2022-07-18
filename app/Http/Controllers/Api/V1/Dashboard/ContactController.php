@@ -67,7 +67,7 @@ class ContactController extends Controller
     public function assignContact(ContactAdminAssignRequest $contactAdminAssignRequest , Contact $contact){
 
       $contact->update($contactAdminAssignRequest->validated()) ;
-        return ContactResource::make($contact)
+        return ContactResource::make($contact->load("admin"))
             ->additional([
                 'status' => true,
                 'message' =>  trans('dashboard.general.success_update')
