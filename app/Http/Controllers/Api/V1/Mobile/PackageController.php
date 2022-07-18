@@ -8,7 +8,7 @@ use App\Http\Resources\Api\V1\Mobile\ClientDiscountsResource;
 use App\Http\Resources\Api\V1\Mobile\PackagePromoCodesResource;
 use App\Http\Resources\Api\V1\Mobile\PackageResource;
 use App\Http\Resources\Api\V1\Mobile\Transactions\TransactionResource;
-use App\Models\{CitizenPackage, CitizenPackagePromoCode, Transaction};
+use App\Models\{CitizenPackage, CitizenPackagePromoCode,VendorPackage};
 use App\Services\{PromotePackage, WalletBalance};
 use Illuminate\Http\Request;
 
