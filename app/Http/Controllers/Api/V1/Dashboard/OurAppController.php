@@ -6,6 +6,7 @@ use App\Models\OurApp\OurApp;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\V1\Dashboard\OurAppRequest;
+use App\Http\Resources\Dashboard\OurApp\OurAppCollection;
 use App\Http\Resources\Dashboard\OurApp\OurAppResource;
 
 class OurAppController extends Controller
@@ -32,6 +33,25 @@ class OurAppController extends Controller
             'message' => ''
         ]);
     }
+
+
+    public function show(Request $request, $id)
+    {
+        $ourApp  = OurApp::findOrFail($id);
+        $activities = [];
+        if (!$request->has('with_activity') || $request->with_activity) {
+            $activities  = $ourApp->activity()
+                ->sortBy($request)
+                ->paginate((int)($request->per_page ??  config("globals.per_page")));
+        }
+
+        return OurAppCollection::make($activities)
+            ->additional([
+                'status' => true,
+                'message' => trans("dashboard.general.show")
+            ]);
+    }
+
 
 
     /**
@@ -64,5 +84,15 @@ class OurAppController extends Controller
             'status' => true,
             'message' => trans('dashboard.general.success_update'),
         ]);
+    }
+
+    public function destroy($id){
+        $ourApp = OurApp::findOrFail($id);
+        $ourApp->delete();
+        return OurAppResource::make($ourApp)
+            ->additional([
+                'status' => true,
+                'message' => trans("dashboard.general.success_delete")
+            ]);
     }
 }
