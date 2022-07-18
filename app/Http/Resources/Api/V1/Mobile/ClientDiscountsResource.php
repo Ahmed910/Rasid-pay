@@ -16,10 +16,9 @@ class ClientDiscountsResource extends JsonResource
     public function toArray($request)
     {
         return [
-            'user_id' => $this->id,
-            'fullname' => $this->fullname,
-            'avatar' => $this->image,
-            'discount' => $this->pivot?->package_discount
+            'name' => $this->vendor->translation?->name,
+            'avatar' => $this->vendor?->image,
+            'discount' => $this[(request()->package_discount)]
         ];
     }
 }
