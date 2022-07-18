@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Api\V1\Dashboard;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\V1\dashboard\ContactAdminAssignRequest;
+use App\Http\Requests\V1\Dashboard\ContactAdminAssignRequest;
 use App\Http\Requests\V1\Dashboard\ContactReplyRequest;
 use App\Http\Resources\Dashboard\ContactReplyResource;
 use App\Http\Resources\Dashboard\ContactResource;
