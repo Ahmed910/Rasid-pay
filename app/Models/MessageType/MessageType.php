@@ -3,6 +3,7 @@
 namespace App\Models\MessageType;
 
 use App\Models\ActivityLog;
+use App\Models\Contact;
 use App\Models\User;
 use App\Traits\Loggable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -81,6 +82,11 @@ class MessageType extends Model
     {
         return $this->belongsToMany(User::class, 'message_type_user','message_type_id','admin_id');
     }
+    public function contact()
+    {
+        return $this->hasMany(Contact::class, 'message_type_id');
+    }
+
     #endregion relationships
 
     #region custom Methods
