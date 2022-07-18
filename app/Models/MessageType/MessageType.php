@@ -39,12 +39,21 @@ class MessageType extends Model
         }
 
         //employee_count
-        if ($request->employee_id) {
-            if (!is_array($request->employee_id))
-                $employeeIds = Arr::wrap($request->employee);
+        // if ($request->employee_id) {
+        //     if (!is_array($request->employee_id))
+        //         $employeeIds = Arr::wrap($request->employee);
 
-            if (!in_array(-1, $employeeIds))  $query->employees()->whereIn("employee_id", $employeeIds);
-        }
+        //     if (!in_array(-1, $employeeIds))  $query->employees()->whereIn("employee_id", $employeeIds);
+        // }
+
+        if ($request->employee_id) $query->whereHas("admins", function ($q) use ($request) {
+            if (!is_array($request->employee_id))
+                 $adminsIDs = Arr::wrap($request->employee_id);
+                 
+            if (!in_array(-1, $adminsIDs)) 
+                $q->whereIn('admin_id', $adminsIDs);
+        });
+
 
         $new = $query->toSql();
         if ($old != $new)  $this->addGlobalActivity($this, $request->query(), ActivityLog::SEARCH, 'index');
