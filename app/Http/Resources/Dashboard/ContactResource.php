@@ -15,7 +15,7 @@ class ContactResource extends JsonResource
             'phone' => $this->phone,
             'title' => $this->title,
             'content' => $this->content,
-            'contact_type' => $this->messageType->name,
+            'message_type' => ['id'=>$this->messageType->id,'name'=>$this->messageType->name],
             'message_source' => $this->message_source,
             'message_status' => $this->message_status,
             'notes' => $this->notes,
