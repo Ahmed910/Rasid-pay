@@ -9,8 +9,6 @@ use Illuminate\Http\Request;
 
 class SlideController extends Controller
 {
-    //
-
     public function index()
     {
         $sliders = Slide::where('is_active',true)->orderBy('ordering','asc')->get();
@@ -18,6 +16,4 @@ class SlideController extends Controller
             ['status'=>true,
             'message'=>'']);
     }
-
-
 }
