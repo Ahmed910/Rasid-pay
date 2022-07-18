@@ -165,7 +165,7 @@ Route::middleware('maintenance_mode')->group(function () {
                 'clients' => 'ClientController',
                 'vendors' => 'VendorController',
                 'vendor_branches'=>'VendorBranchController',
-                'our_apps'=>'AppController',
+                'our_apps'=>'OurAppController',
                 'rasid_jobs' => 'RasidJobController',
                 'banks' => 'BankController',
                 'transfer_purposes' => 'TransferPurposeController',
