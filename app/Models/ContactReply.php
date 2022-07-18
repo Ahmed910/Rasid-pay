@@ -3,10 +3,10 @@
 namespace App\Models;
 
 use App\Traits\Uuid;
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\SoftDeletes;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class ContactReply extends Model
 {
@@ -23,12 +23,17 @@ class ContactReply extends Model
     #endregion scopes
 
     #region relationships
-    #endregion relationships
-
-    #region custom Methods
     public function contact(): BelongsTo
     {
         return $this->belongsTo(Contact::class);
     }
+
+    public function admin(): BelongsTo
+    {
+        return $this->belongsTo(User::class, 'admin_id');
+    }
+    #endregion relationships
+
+    #region custom Methods
     #endregion custom Methods
 }

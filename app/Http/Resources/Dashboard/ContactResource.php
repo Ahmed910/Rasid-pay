@@ -13,7 +13,6 @@ class ContactResource extends JsonResource
             'fullname' => $this->fullname,
             'email' => $this->email,
             'phone' => $this->phone,
-            'type' => $this->type? trans("dashboard.contact.types.{$this->type}") : "",
             'title' => $this->title,
             'content' => $this->content,
             'contact_type' => $this->messageType->name,
