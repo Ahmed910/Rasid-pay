@@ -32,7 +32,7 @@ class ContactController extends Controller
 
     public function reply(ContactReplyRequest $request, ContactReply $contactReply)
     {
-        $contactReply->fill($request->validated()+['updated_at'=>now()])->save();
+        $contactReply->fill($request->validated()+['added_by_id' => auth()->id()]+['updated_at'=>now()])->save();
         $contactReply->contact->update(["message_status" => "replied"]);
 
         return ContactReplyResource::make($contactReply->load('contact'))

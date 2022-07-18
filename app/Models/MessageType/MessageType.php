@@ -5,13 +5,12 @@ namespace App\Models\MessageType;
 use App\Models\ActivityLog;
 use App\Models\User;
 use App\Traits\Loggable;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
 use App\Traits\Uuid;
 use Astrotomic\Translatable\Translatable;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
-use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
 
 class MessageType extends Model
@@ -38,25 +37,15 @@ class MessageType extends Model
             });
         }
 
-        //employee_count
-        // if ($request->employee_id) {
-        //     if (!is_array($request->employee_id))
-        //         $employeeIds = Arr::wrap($request->employee);
-
-        //     if (!in_array(-1, $employeeIds))  $query->employees()->whereIn("employee_id", $employeeIds);
-        // }
-
-        if ($request->employee_id) $query->whereHas("admins", function ($q) use ($request) {
-            if (!is_array($request->employee_id))
-                 $adminsIDs = Arr::wrap($request->employee_id);
-                 
-            if (!in_array(-1, $adminsIDs)) 
-                $q->whereIn('admin_id', $adminsIDs);
-        });
+        if ($request->employee_list) {
+            $query->whereHas("admins", function ($q) use ($request) {
+                $q->whereIn('admin_id', $request->employee_list);
+            });
+        }
 
 
         $new = $query->toSql();
-        if ($old != $new)  $this->addGlobalActivity($this, $request->query(), ActivityLog::SEARCH, 'index');
+        if ($old != $new) $this->addGlobalActivity($this, $request->query(), ActivityLog::SEARCH, 'index');
     }
 
     public function scopeSortBy(Builder $query, $request)
@@ -88,7 +77,7 @@ class MessageType extends Model
     #region relationships
     public function admins(): BelongsToMany
     {
-        return $this->belongsToMany(User::class, 'message_type_user','message_type_id','admin_id');
+        return $this->belongsToMany(User::class, 'message_type_user', 'message_type_id', 'admin_id');
     }
     #endregion relationships
 
