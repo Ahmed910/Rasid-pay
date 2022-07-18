@@ -88,5 +88,11 @@ return [
         'by_phone' => 'برقم جوال ',
         'by_identity_number' => 'برقم هوية ',
         'by_wallet_number' => 'برقم ',
-        'cancel_transfer' => 'تم الالغاء واسترجاع الاموال بنجاح',]
+        'cancel_transfer' => 'تم الالغاء واسترجاع الاموال بنجاح',
+    ],
+    'package_types' => [
+        'basic' => 'أساسي',
+        'golden' => 'ذهبي',
+        'platinum' => 'بلاتيني',
+    ]
 ];
