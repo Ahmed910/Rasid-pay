@@ -105,9 +105,9 @@ class Vendor extends Model implements HasAssetsInterface
         return $this->hasMany(VendorBranch::class);
     }
 
-    public function packages()
+    public function package()
     {
-        return $this->hasMany(VendorPackage::class, 'vendor_id');
+        return $this->hasOne(VendorPackage::class, 'vendor_id');
     }
     #endregion relationships
 

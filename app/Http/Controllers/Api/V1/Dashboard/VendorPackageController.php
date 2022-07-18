@@ -42,8 +42,8 @@ class VendorPackageController extends Controller
         ]);
 
         $clients = $request->has_card
-            ? Vendor::with('translations')->has('packages')->get()
-            : Vendor::with('translations')->doesntHave('packages')->get();
+            ? Vendor::with('translations')->has('package')->get()
+            : Vendor::with('translations')->doesntHave('package')->get();
 
         return VendorResource::collection($clients)->additional([
             'status' => true,
@@ -54,9 +54,9 @@ class VendorPackageController extends Controller
     public function store(ClientPackageRequest $request)
     {
         $client = Vendor::findOrFail($request->vendor_id);
-        $client->packages()->create($request->validated());
+        $client->package()->create($request->validated());
 
-        return VendorResource::make($client)->additional([
+        return PackageResource::make($client->package)->additional([
             'status' => true,
             'message' => __('dashboard.package.discount_success_add')
         ]);
@@ -64,20 +64,19 @@ class VendorPackageController extends Controller
 
     public function show($id)
     {
-        $vendor = VendorPackage::with('vendor')->findOrFail($id);
+        $package = VendorPackage::with('vendor')->findOrFail($id);
 
-        return PackageResource::make($vendor)->additional([
+        return PackageResource::make($package)->additional([
             'status' => true,
             'message' => __('')
         ]);
     }
 
-    public function update(ClientPackageRequest $request)
+    public function update(ClientPackageRequest $request, VendorPackage $vendorPackage)
     {
-        $client = Vendor::findOrFail($request->vendor_id);
-        $client->packages()->create($request->validated());
+        $vendorPackage->update($request->validated());
 
-        return VendorResource::make($client)->additional([
+        return PackageResource::make($vendorPackage)->additional([
             'status' => true,
             'message' => trans("dashboard.package.discount_success_update")
         ]);
