@@ -52,7 +52,7 @@ class ContactController extends Controller
                 $query->where('admin_id', auth()->user()->id);
             });
         })
-            ->with('replies', 'user', 'admin')
+            ->with('replies', 'user', 'admin','activity')
             ->withTrashed()
             ->findOrFail($id);
         $contact->update([
