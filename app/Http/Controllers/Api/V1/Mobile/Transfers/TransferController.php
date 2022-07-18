@@ -42,7 +42,7 @@ class TransferController extends Controller
         ]);
 
         return TransferResource::make($transfer->refresh())->additional([
-            'message' => trans('mobile.transfer.transfer_canceled_successfully_and_money_back_to_your_wallet'),
+            'message' => trans('mobile.transfer.cancel_transfer'),
             'status' => true
         ]);
 
