@@ -127,7 +127,7 @@ class Transaction extends Model
                 $query
                 ->leftjoin("citizen_packages", 'citizen_packages.citizen_id', '=', 'transactions.from_user_id')
                 ->orderBy('citizen_packages.' . self::ENABLED_CARD_sortable_COLUMNS[$request->sort["column"]], @$request->sort["dir"])
-                ->select('transactions.*', 'citizen_packages.package_id');
+                ->select('transactions.*', 'citizen_packages.package_type');
         }
 
 
