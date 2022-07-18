@@ -58,6 +58,7 @@ class OurAppRequest extends ApiMasterRequest
             $validation_messages["$locale.name.required"]  = trans("$validation.$locale.name.required");
             $validation_messages["$locale.name.string"]  = trans("$validation.$locale.name.string");
             $validation_messages["$locale.name.between"]  = trans("$validation.$locale.name.between");
+            $validation_messages["$locale.name.unique"]  = trans("$validation.$locale.name.unique");
             $validation_messages["$locale.description.string"]  = trans("$validation.$locale.description.string");
         }
 
