@@ -57,12 +57,14 @@ class PackageController extends Controller
             return response()->json(['status' => false, 'data' => null, 'message' => trans('mobile.payments.current_balance_is_not_sufficient_to_complete_payment')], 422);
         }
         if (!$request->promo_code) {
-            $citizen_package = PromotePackage::createCitizenPackage($package_type);
-            $back_main_balance = WalletBalance::calcWalletMainBackBalance($citizen_wallet, $package_price);
-            // generate promo codes for platinum package
-            if ($package_type == CitizenPackage::PLATINUM) {
-                $citizen_package_promo_codes = [
-                    'citizen_package_id' => $citizen_package->id,
+            $citizen_package = PromotePackage::createCitizenPackage($package);
+            $citizen_package_promo_codes = [
+                'citizen_package_id' => $citizen_package->id,
+                'promo_discount' => $package->promo_discount
+            ];
+            for ($i = 0; $i < 4; $i++) {
+                $citizen_package_promo_codes += [
+                    'promo_code' => generate_unique_code(CitizenPackage::class, 'promo_discount', 6),
                 ];
                 for ($i = 0; $i < 4; $i++) {
                     $citizen_package_promo_codes += [

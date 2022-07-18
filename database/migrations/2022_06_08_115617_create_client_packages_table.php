@@ -1,33 +1,27 @@
 <?php
 
+use App\Models\Vendor\Vendor;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateClientPackagesTable extends Migration
+class CreateVendorPackagesTable extends Migration
 {
-    /**
-     * Run the migrations.
-     *
-     * @return void
-     */
     public function up()
     {
-        Schema::create('client_package', function (Blueprint $table) {
-            $table->foreignUuid("vendor_id")->nullable()->constrained("vendors")->OnDelete('set null');
-            $table->foreignUuid("package_id")->nullable()->constrained("packages")->OnDelete('set null');
-            $table->string('package_discount')->nullable();
-            $table->primary(['vendor_id', 'package_id']);
+        Schema::create('vendor_packages', function (Blueprint $table) {
+            $table->uuid("id")->primary();
+            $table->string('basic_discount');
+            $table->string('golden_discount');
+            $table->string('platinum_discount');
+
+            $table->foreignIdFor(Vendor::class)->nullable();
+
         });
     }
 
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
     public function down()
     {
-        Schema::dropIfExists('client_package');
+        Schema::dropIfExists('vendor_packages');
     }
 }
