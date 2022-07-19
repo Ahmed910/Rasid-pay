@@ -16,7 +16,7 @@ class VendorController extends Controller
             $query->whereTranslationLike('name',"%{$request->name}%",'ar')
                 ->orWhereTranslationLike('name',"%{$request->name}%",'en')
             ;
-        })->get();
+        })->paginate((int)($request->per_page ?? config("globals.per_page")));
 
         return VendorResource::collection($vendors)->additional(['status' => true,'message'=>'']);
      }
