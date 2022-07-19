@@ -2,7 +2,7 @@
 
 namespace App\Http\Resources\Api\V1\Mobile;
 
-use Carbon\Carbon;
+use App\Models\CitizenPackage;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class PackageResource extends JsonResource
@@ -23,6 +23,7 @@ class PackageResource extends JsonResource
             'is_current' => $current_package->enabledPackage->package_type == $this->resource,
             'end_at' => $current_package->enabledPackage->package_type == $this->resource ? $current_package->enabledPackage?->end_at : null,
             'start_at' => $current_package->enabledPackage->package_type == $this->resource ? $current_package->enabledPackage?->start_at : null,
+            'has_promo_codes' => $this->resource== CitizenPackage::PLATINUM,
         ];
     }
 }
