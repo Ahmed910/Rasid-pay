@@ -59,11 +59,12 @@ Route::middleware('auth:sanctum')->group(function () {
     // Packages
     Route::prefix('packages')->group(function () {
         Route::get('promo_codes', 'PackageController@getPromoCodes');
+        Route::post('promote_package', 'PackageController@PromotePackage');
         Route::post('get_vendors_discounts', 'PackageController@getVendorsDiscounts');
     });
     // Vendor
     Route::apiResource('vendors', 'VendorController')->only('index', 'show');
-    Route::apiResource('packages', 'PackageController')->only('index', 'show', 'update');
+    Route::apiResource('packages', 'PackageController')->only('index');
     // Transaction
     Route::get('transactions_types', 'TransactionController@getTransTypes');
     Route::get('generate_transaction_file/{id}', 'TransactionController@generatePdfLink');
