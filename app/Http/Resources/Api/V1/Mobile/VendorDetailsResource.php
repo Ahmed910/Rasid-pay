@@ -14,12 +14,13 @@ class VendorDetailsResource extends JsonResource
      */
     public function toArray($request)
     {
-        $currentPackageDiscount = auth()->user()->citizen?->enabledPackage?->package_discount;
+        $currentPackageDiscount = auth()->user()->citizen?->enabledPackage?->package_type;
         return [
             'vendor' => VendorResource::make($this),
-            'current_package_discount' => $currentPackageDiscount,
             'branches' => VendorBranchResource::collection($this->branches),
-            'package' => VendorPackageResource::make($this->package)
+            'current_package_type' => $currentPackageDiscount,
+            'current_package_discount' => $this->package->{$currentPackageDiscount . '_discount'},
+            'packages' => VendorPackageResource::make($this->package)
         ];
     }
 }
