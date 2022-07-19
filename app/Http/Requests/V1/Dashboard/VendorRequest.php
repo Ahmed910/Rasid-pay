@@ -30,6 +30,7 @@ class VendorRequest extends ApiMasterRequest
             'tax_number' => "required|max:15|string|unique:vendors,tax_number," . @$this->vendor,
             'is_support_maak' => "required|in:1,0",
             'is_active' => "nullable|in:1,0",
+            'iban' => 'nullable',
 //            "iban" => ['required', "unique:vendors,iban," . @$this->vendor, function ($attribute, $value, $fail) {
 //                if (!check_iban_valid($value, ('sa'))) {
 //                    $fail(trans('mobile.validation.invalid_iban'));
