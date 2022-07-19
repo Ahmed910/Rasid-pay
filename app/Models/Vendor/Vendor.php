@@ -9,13 +9,11 @@ use App\Traits\Loggable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Traits\Uuid;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Astrotomic\Translatable\Translatable;
 use Illuminate\Http\Request;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Str;
 use App\Models\ActivityLog;
-use App\Models\Package\Package;
 use App\Models\VendorPackage;
 
 class Vendor extends Model implements HasAssetsInterface
