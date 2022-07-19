@@ -4,7 +4,7 @@ namespace App\Http\Resources\Api\V1\Mobile;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class VendorBranchResource extends JsonResource
+class BranchResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
