@@ -34,7 +34,7 @@ class PackageController extends Controller
 
     public function getPromoCodes()
     {
-        $promo_codes = auth()->user()->citizen->enabledPackage->citizenPackagePromoCodes()->paginate((int)($request->per_page ?? config("globals.per_page")));
+        $promo_codes = auth()->user()->citizen->enabledPackage->citizenPackagePromoCodes()->get();
         return PackagePromoCodesResource::collection($promo_codes)->additional([
             'status' => true,
             'message' => ''
