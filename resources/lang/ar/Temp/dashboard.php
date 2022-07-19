@@ -990,21 +990,17 @@ return [
     ],
     'contact' =>  [
         'contacts' => 'الدعم الفني',
+        'contact' => 'الدعم الفني',
+        'can_not_delete_contact' => 'لا يمكن حذف نوع رسالة مرتبط برسائل',
         'validation' => [
-
             'contact_id' => [
                 'required' => 'مطلوب حقل رقم الرسالة',
                 'unique' => 'حقل   رقم الرسالة يجب أن لا يتكرر'
-
             ],
-
             'reply' => [
                 'required' => 'حقل الرد مطلوب',
                 'string' => 'حقل الرد  يجب أن يكون قيمة نصية',
-
             ],
-
-
         ],
 
         'permissions' =>
@@ -1021,7 +1017,7 @@ return [
             'suggestions' => 'اقتراحات',
             'inquiries' => 'استعلامات',
         ],
-        'contact' => 'الدعم الفني',
+
     ],
     'attributes' =>   [
         'description' => 'الوصف',
@@ -1100,7 +1096,7 @@ return [
 
 
         ],
- 
+
         ],
         'our_app' => [
             'validation' => [
