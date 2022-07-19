@@ -35,7 +35,7 @@ class VendorResource extends JsonResource
                 'logo'=> $this->logo,
                 "images" => ImagesResource::collection($this->whenLoaded("images")),
                 'activity' => ActivityLogResource::collection($this->whenLoaded('activity')),
-                'packages' => PackageResource::collection($this->whenLoaded('packages')),
+                'package' => PackageResource::collection($this->whenLoaded('package')),
                 'actions' => $this->when($request->routeIs('Vendors.index'), [
                     'show' => auth()->user()->hasPermissions('Vendors.show'),
                     $this->mergeWhen($request->route()->getActionMethod() == 'index', [
