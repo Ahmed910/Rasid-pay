@@ -3,13 +3,13 @@
 namespace App\Models\VendorBranches;
 
 use App\Contracts\HasAssetsInterface;
-use App\Traits\{HasAssetsTrait, Loggable, Uuid};
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
-use Astrotomic\Translatable\Translatable;
 use App\Models\ActivityLog;
 use App\Models\Vendor\Vendor;
+use App\Traits\{HasAssetsTrait, Loggable, Uuid};
+use Astrotomic\Translatable\Translatable;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
 
 class VendorBranch extends Model implements HasAssetsInterface
@@ -20,6 +20,7 @@ class VendorBranch extends Model implements HasAssetsInterface
     public $assets = ['branch_image'];
     protected $guarded = ['created_at', 'deleted_at'];
     public $translatedAttributes = ['name'];
+
     #endregion properties
     public static function boot()
     {
@@ -66,7 +67,7 @@ class VendorBranch extends Model implements HasAssetsInterface
 
 
         $new = $query->toSql();
-        if ($old != $new)  $this->addGlobalActivity($this, $request->query(), ActivityLog::SEARCH, 'index');
+        if ($old != $new) $this->addGlobalActivity($this, $request->query(), ActivityLog::SEARCH, 'index');
     }
 
     public function scopeSortBy(Builder $query, $request)
@@ -106,14 +107,15 @@ class VendorBranch extends Model implements HasAssetsInterface
 
     public function scopeNearest($query, $lat, $lng)
     {
-    
-      return $query->selectRaw('( 6371 * acos( cos( radians(?) )
-         * cos( radians( lat ) )
-         * cos( radians( lng ) - radians(?))
-         + sin( radians(?) )
-         * sin( radians( lat ) ) ) )
-         AS distance', [$lat, $lng, $lat])
-         ->havingRaw("distance < ?", [10]);
+        $space_search_by_kilos = setting('space_search_by_kilos');
+        return $query->select(\DB::raw("*,
+                (6371 * ACOS(COS(RADIANS($lat))
+                * COS(RADIANS(lat))
+                * COS(RADIANS($lng) - RADIANS(lng))
+                + SIN(RADIANS($lat))
+                * SIN(RADIANS(lat)))) AS distance"))
+            ->having('distance', '<=', $space_search_by_kilos??10)
+            ->orderBy('distance', 'asc');
     }
     #endregion scopes
 

@@ -28,8 +28,9 @@ class VendorController extends Controller
             $query->whereHas('branches',fn($query) =>
                 $query->nearest($request->lat,$request->lng)
             )
-         )->whereHas('branches',fn($query) => $query->latest())
+         )->with(['branches'=>fn($query) => $query->latest()])
          ->findOrFail($id);
+
          return VendorDetailsResource::make($vendor)->additional([
             'status' => true,
             'message' => '',
