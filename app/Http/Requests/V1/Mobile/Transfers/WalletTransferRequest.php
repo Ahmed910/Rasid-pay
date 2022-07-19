@@ -4,7 +4,6 @@ namespace App\Http\Requests\V1\Mobile\Transfers;
 
 use App\Http\Requests\ApiMasterRequest;
 use App\Models\Transfer;
-use App\Models\TransferPurpose\TransferPurpose;
 use App\Models\User;
 
 class WalletTransferRequest extends ApiMasterRequest
@@ -23,21 +22,13 @@ class WalletTransferRequest extends ApiMasterRequest
         //         "transfer_status" => 'required|in:hold,transfered'
         //     ];
         // }
-
-        $transferPurpose = TransferPurpose::find($this->transfer_purpose_id);
-        $notes = 'nullable';
-
-        if ($transferPurpose->is_another) {
-            $notes = 'required|string|max:1000';
-        }
-
         return [
             'amount'  => 'required|numeric|gte:'. (setting('min_wallet_transfer_amount') ?? 10) . '|lte:' . (setting('max_wallet_transfer_amount') ?? 10000),
             "citizen_id" => 'nullable|exists:users,id,user_type,citizen,register_status,completed',
             "otp_code" => 'required|exists:citizen_wallets,wallet_bin,citizen_id,'.auth()->id(),
             "wallet_transfer_method" => 'required|in:' . join(",", Transfer::WALLET_TRANSFER_METHODS),
             'transfer_purpose_id' => 'nullable|exists:transfer_purposes,id',
-            'notes'   => $notes,
+            'notes'   => 'nullable|required_without:transfer_purpose_id|max:1000',
             "transfer_method_value" => ['required',function ($attribute, $value, $fail) {
                 if(!is_bool($this->message)){
                     $fail($this->message);
