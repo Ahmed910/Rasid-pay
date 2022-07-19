@@ -26,7 +26,7 @@ class RegisterRequest extends ApiMasterRequest
         $data = $this->all();
 
         $this->merge([
-            'phone' => @$data['phone'] ? convert_arabic_number($data['phone']) : @$data['phone']
+            'phone' => @$data['phone'] ? filter_mobile_number($data['phone']) : @$data['phone']
         ]);
     }
 
