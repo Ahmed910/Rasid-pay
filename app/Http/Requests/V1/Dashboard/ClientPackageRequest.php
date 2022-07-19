@@ -16,7 +16,7 @@ class ClientPackageRequest extends ApiMasterRequest
         ];
 
         if (request()->isMethod('POST')) {
-            $rules["vendor_id"] = "required|exists:vendors,id";
+            $rules["vendor_id"] = "required|exists:vendors,id|unique:vendor_packages,vendor_id";
         }
 
         return $rules;
