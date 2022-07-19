@@ -14,17 +14,14 @@ class VendorBranchRequest extends ApiMasterRequest
      */
     public function rules()
     {
-
         $vendor_branch = $this->vendor_branch ? $this->vendor_branch : null;
-
-
         $rules = [
             'vendor_id' => 'required|exists:vendors,id',
             'location'  =>  'required|string|between:3,250',
             'address_details'  =>  'required|string|between:3,250',
             'branch_image' =>'required|image|mimes:jpg,jpeg,png,gif,svg|max:5120',
-            'email' => 'required|email|unique:vendor_branches,email,' . $vendor_branch->id,
-            'phone' => 'required|numeric|digits_between:5,20|starts_with:9665,05|unique:vendor_branches,phone,' . $vendor_branch->id,
+            'email' => 'required|email|unique:vendor_branches,email,' . $this->vendor_branch?->id ?? null,
+            'phone' => 'required|numeric|digits_between:5,20|starts_with:9665,05|unique:vendor_branches,phone,' . $this->vendor_branch?->id ?? null,
             'lat' => 'required|numeric',
             'lng' => 'required|numeric',
         ];

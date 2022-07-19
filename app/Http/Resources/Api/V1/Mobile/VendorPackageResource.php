@@ -16,9 +16,9 @@ class VendorPackageResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'basic_discount' => $this->basic_discount,
-            'golden_discount' => $this->golden_discount,
-            'platinum_discount' => $this->platinum_discount,
+            'basic_discount' => $this->basic_discount??0,
+            'golden_discount' => $this->golden_discount??0,
+            'platinum_discount' => $this->platinum_discount??0,
         ];
     }
 }

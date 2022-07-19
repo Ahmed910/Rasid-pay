@@ -21,13 +21,15 @@ class VendorController extends Controller
         return VendorResource::collection($vendors)->additional(['status' => true,'message'=>'']);
      }
      public function show(Request $request,$id){
+
          $vendor = Vendor::with(['branches','package'])->when($request->lat && $request->lng,
          fn($query) =>
             $query->whereHas('branches',fn($query) =>
                 $query->nearest($request->lat,$request->lng)
             )
-         )->whereHas('branches',fn($query) => $query->latest())
+         )->with(['branches'=>fn($query) => $query->latest()])
          ->findOrFail($id);
+
          return VendorDetailsResource::make($vendor)->additional([
             'status' => true,
             'message' => '',
