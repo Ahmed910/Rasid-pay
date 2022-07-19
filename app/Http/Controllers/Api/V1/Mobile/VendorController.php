@@ -10,17 +10,19 @@ use Illuminate\Http\Request;
 
 class VendorController extends Controller
 {
-     public function index(Request $request){
-
+     public function index(Request $request)
+     {
         $vendors = Vendor::when($request->name,function ($query) use($request){
             $query->whereTranslationLike('name',"%{$request->name}%",'ar')
-                ->orWhereTranslationLike('name',"%{$request->name}%",'en')
-            ;
+                ->orWhereTranslationLike('name',"%{$request->name}%",'en');
         })->paginate((int)($request->per_page ?? config("globals.per_page")));
 
         return VendorResource::collection($vendors)->additional(['status' => true,'message'=>'']);
      }
-     public function show(Request $request,$id){
+
+
+     public function show(Request $request,$id)
+     {
          $vendor = Vendor::with(['branches','package'])->when($request->lat && $request->lng,
          fn($query) =>
             $query->whereHas('branches',fn($query) =>
@@ -32,6 +34,5 @@ class VendorController extends Controller
             'status' => true,
             'message' => '',
          ]);
-
      }
 }
