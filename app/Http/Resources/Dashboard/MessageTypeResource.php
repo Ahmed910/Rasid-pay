@@ -21,6 +21,7 @@ class MessageTypeResource extends JsonResource
                 'admin_names' => $this->admins()->pluck('fullname')->join(','),
                 'admins_count' => $this->admins_count,
                 'created_at' => $this->created_at,
+                'is_active' => (bool) $this->is_active,
                 'activity' => ActivityLogResource::collection($this->whenLoaded('activity')),
                 'actions' => $this->when($request->routeIs('message_types.index') || $request->routeIs('message_types.archive'), [
                     'show' => auth()->user()->hasPermissions('message_types.show'),

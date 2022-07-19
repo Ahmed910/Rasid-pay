@@ -14,7 +14,7 @@ class MessageTypeController extends Controller
     public function index(Request $request)
     {
         $messageTypes = MessageType::ListsTranslations('name')
-            ->addSelect('created_at')
+            ->addSelect('created_at', 'is_active')
             ->withCount('admins')
             ->search($request)
             ->CustomDateFromTo($request)
