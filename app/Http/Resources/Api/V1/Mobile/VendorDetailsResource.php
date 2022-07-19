@@ -14,13 +14,32 @@ class VendorDetailsResource extends JsonResource
      */
     public function toArray($request)
     {
+
         $currentPackageDiscount = auth()->user()->citizen?->enabledPackage?->package_type;
+        $discounts = [
+            [
+                'type' => 'basic',
+                'discount' => $this->package?->basic_discount,
+                'is_current' => $currentPackageDiscount == 'basic',
+                'name' => trans('mobile.package_types.basic')
+            ],
+            [
+                'type' => 'golden',
+                'discount' => $this->package?->golden_discount,
+                'is_current' => $currentPackageDiscount == 'golden',
+                'name' => trans('mobile.package_types.golden')
+            ],
+            [
+                'type' => 'platinum',
+                'discount' => $this->package?->platinum_discount,
+                'is_current' => $currentPackageDiscount == 'platinum',
+                'name' => trans('mobile.package_types.platinum')
+            ],
+        ];
         return [
             'vendor' => VendorResource::make($this),
             'branches' => VendorBranchResource::collection($this->branches),
-            'current_package_type' => $currentPackageDiscount,
-            'current_package_discount' => $this->package->{$currentPackageDiscount . '_discount'},
-            'packages' => VendorPackageResource::make($this->package)
+            'packages' => $discounts
         ];
     }
 }
