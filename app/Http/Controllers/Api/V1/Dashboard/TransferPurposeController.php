@@ -69,6 +69,14 @@ class TransferPurposeController extends Controller
      */
     public function update(TransferPurposeRequest $request, TransferPurpose $transfer_purpose)
     {
+        if($transfer_purpose->is_another){
+            return response()->json([
+                'data'    => null,
+                'message' => trans('dashboard.general.cannot_update'),
+                'status'  => true
+            ]);
+        }
+
         $transfer_purpose->update($request->validated());
         return TransferPurposeResource::make($transfer_purpose)->additional([
             'message' => trans('dashboard.general.success_update'),
