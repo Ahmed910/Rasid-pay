@@ -8,16 +8,6 @@ use App\Models\Vendor\Vendor;
 class VendorRequest extends ApiMasterRequest
 {
     /**
-     * Determine if the user is authorized to make this request.
-     *
-     * @return bool
-     */
-    public function authorize()
-    {
-        return true;
-    }
-
-    /**
      * Get the validation rules that apply to the request.
      *
      * @return array
@@ -31,7 +21,7 @@ class VendorRequest extends ApiMasterRequest
             'is_support_maak' => "required|in:1,0",
             'is_active' => "nullable|in:1,0",
             "iban" => ['required', "unique:vendors,iban," . @$this->vendor, function ($attribute, $value, $fail) {
-                if (!check_iban_valid($value, ('sa'))) {
+                if (!check_iban_valid($value, 'sa')) {
                     $fail(trans('mobile.validation.invalid_iban'));
                 }
             }],

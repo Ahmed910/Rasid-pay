@@ -34,15 +34,13 @@ class VendorResource extends JsonResource
                 'created_at' => $this->created_at,
                 'logo'=> $this->logo,
                 "images" => ImagesResource::collection($this->whenLoaded("images")),
-                'activity' => ActivityLogResource::collection($this->whenLoaded('activity')),
+                // 'activity' => ActivityLogResource::collection($this->whenLoaded('activity')),
                 'package' => PackageResource::collection($this->whenLoaded('package')),
-                'actions' => $this->when($request->routeIs('Vendors.index'), [
-                    'show' => auth()->user()->hasPermissions('Vendors.show'),
-                    $this->mergeWhen($request->route()->getActionMethod() == 'index', [
-                        'create' => auth()->user()->hasPermissions('Vendors.store'),
-                        'update' => auth()->user()->hasPermissions('Vendors.update'),
-                        'destroy' => auth()->user()->hasPermissions('Vendors.destroy'),
-                    ])
+                'actions' => $this->when($request->routeIs('vendors.index'), [
+                    'show' => auth()->user()->hasPermissions('vendors.show'),
+                    'create' => auth()->user()->hasPermissions('vendors.store'),
+                    'update' => auth()->user()->hasPermissions('vendors.update'),
+                    'destroy' => auth()->user()->hasPermissions('vendors.destroy'),
                 ])
             ] + $locales;
     }
