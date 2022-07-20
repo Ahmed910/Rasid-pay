@@ -26,7 +26,7 @@ class SettingSeeder extends Seeder
             // statics
             ["key" => "rasidpay_setting_aboutapp", "value" => ["en" => "rasidpay_setting_aboutapp", "ar" => "rasidpay_setting_aboutapp"], "input_type" => "editor"],
             ["key" => "rasidpay_setting_usagepolicy", "value" => ["en" => "rasidpay_setting_usagepolicy", "ar" => "rasidpay_setting_usagepolicy"], "input_type" => "editor"],
-            ["key" => "rasid_date_type", "value" => ["en" => 1, "ar" => 1], "input_type" => "select"],
+            ["key" => "rasid_date_type", "value" => ["en" => 0], "input_type" => "select"],
             ["key" => "rasidpay_localtransfer_creditchoice_active", "value" => ["en" => 0], "input_type" => "select"],
             ["key" => "rasidpay_inttransfer_creditchoice_active", "value" => ["en" => 0], "input_type" => "select"],
 
@@ -67,8 +67,8 @@ class SettingSeeder extends Seeder
             ["key" => "rasidpay_cards_basic_color", "value" => ["en" => "#3553AA"], "input_type" => "text"],
             ["key" => "rasidpay_cards_golden_color", "value" => ["en" => "#D5AB42"], "input_type" => "text"],
             ["key" => "rasidpay_cards_platinum_color", "value" => ["en" => "#2D2D2D"], "input_type" => "text"],
-            ["key" => "asidpay_cards_basic_bgimg", "value" => ["en" => "/images/packages/blue_card.png"], "input_type" => "text"],
-            ["key" => "rasidpay_cards_platinum_bgimg", "value" => ["en" => "/images/packages/yellow_card.png"], "input_type" => "text"],
+            ["key" => "rasidpay_cards_basic_bgimg", "value" => ["en" => "/images/packages/blue_card.png"], "input_type" => "text"],
+            ["key" => "rasidpay_cards_golden_bgimg", "value" => ["en" => "/images/packages/yellow_card.png"], "input_type" => "text"],
             ["key" => "rasidpay_cards_platinum_bgimg", "value" => ["en" => "/images/packages/black_card.png"], "input_type" => "text"],
             ["key" => "rasidpay_marketingemp_commissionrate", "value" => ["en" => "20"], "input_type" => "text"],
             ["key" => "rasidpay_platinum_firstcode_activatebonus", "value" => ["en" => "10"], "input_type" => "text"],
