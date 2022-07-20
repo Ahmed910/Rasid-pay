@@ -70,6 +70,7 @@ return [
         'package_is_not_found' => 'الباقة غير موجودة',
         'promo_code_is_used' => 'كود التخفيض مستخدم من قبل',
         'promo_code_is_not_found' => 'كود التخفيض غير صالح',
+        'promoted_successfully' => 'تم ترقية الباقة بنجاح',
     ],
     'mobile' =>
         [
