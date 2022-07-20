@@ -22,6 +22,8 @@ class PackageResource extends JsonResource
             'name' => $this->resource,
             'price' => setting('rasidpay_cards_' . $this->resource . '_price') ?? "",
             'description' => setting('rasidpay_cards_' . $this->resource . '_desc') ?? $default_desc,
+            'color' => setting('rasidpay_cards_' . $this->resource . '_color') ?? "",
+            'image' => setting('rasidpay_cards_' . $this->resource . '_bgimg') ?? "",
             'is_current' => $current_package->enabledPackage->package_type == $this->resource,
             'end_at' => $current_package->enabledPackage->package_type == $this->resource ? $current_package->enabledPackage?->end_at : null,
             'start_at' => $current_package->enabledPackage->package_type == $this->resource ? $current_package->enabledPackage?->start_at : null,
