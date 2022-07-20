@@ -28,12 +28,12 @@ class BankResource extends JsonResource
             "images"           => ImagesResource::collection($this->whenLoaded("images")),
             'created_at'       => $this->created_at,
             'added_by_id'      => $this->whenLoaded('addedBy', SimpleUserResource::make($this->addedBy)),
-            'actions'          => $this->when($request->routeIs('static_pages.index') || $request->routeIs('static_pages.archive'), [
-                'show' => auth()->user()->hasPermissions('static_pages.show'),
+            'actions'          => $this->when($request->routeIs('banks.index') || $request->routeIs('banks.archive'), [
+                'show' => auth()->user()->hasPermissions('banks.show'),
                 $this->mergeWhen($request->route()->getActionMethod() == 'index', [
-                    'create'  => auth()->user()->hasPermissions('static_pages.store'),
-                    'update'  => auth()->user()->hasPermissions('static_pages.update'),
-                    'destroy' => auth()->user()->hasPermissions('static_pages.destroy'),
+                    'create'  => auth()->user()->hasPermissions('banks.store'),
+                    'update'  => auth()->user()->hasPermissions('banks.update'),
+                    'destroy' => auth()->user()->hasPermissions('banks.destroy'),
                 ]),
 
             ])

@@ -4,11 +4,11 @@ namespace App\Http\Controllers\Api\V1\Dashboard;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\V1\Dashboard\VendorBranchRequest;
-use App\Models\Vendor\Vendor;
 use App\Http\Resources\Dashboard\VendorBranches\VendorBranchCollection;
 use App\Http\Resources\Dashboard\VendorBranches\VendorBranchResource;
-use Illuminate\Http\Request;
+use App\Models\Vendor\Vendor;
 use App\Models\VendorBranches\VendorBranch;
+use Illuminate\Http\Request;
 
 class VendorBranchController extends Controller
 {
@@ -18,12 +18,14 @@ class VendorBranchController extends Controller
                                     ->ListsTranslations('name')
                                     ->search($request)
                                     ->sortBy($request)
+                                    ->addSelect('vendor_branches.*')
                                     ->paginate((int)($request->per_page ?? config("globals.per_page")));
         return VendorBranchResource::collection($vendorBranches)->additional([
-            'status' => true,
-            'message' => ""
-        ]);
+                                        'status' => true,
+                                        'message' => ""
+                                    ]);
     }
+
     /**
      * pluck vendors in independent service.
      *
@@ -31,14 +33,14 @@ class VendorBranchController extends Controller
      */
     public function getVendors()
     {
-       $vendors = Vendor::select('id')->listsTranslations('name')->latest()->get();
-       return response()->json(['data' => $vendors,'status' =>true,'message' =>'']);
+        $vendors = Vendor::select('id')->listsTranslations('name')->latest()->get();
+        return response()->json(['data' => $vendors, 'status' => true, 'message' => '']);
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
     public function store(VendorBranchRequest $request)
@@ -53,20 +55,18 @@ class VendorBranchController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Request $request ,$id)
+    public function show(Request $request, $id)
     {
-        
-        $vendorBranch  = VendorBranch::findOrFail($id);
+        $vendorBranch = VendorBranch::findOrFail($id);
         $activities = [];
         if (!$request->has('with_activity') || $request->with_activity) {
-            $activities  = $vendorBranch->activity()
+            $activities = $vendorBranch->activity()
                 ->sortBy($request)
-                ->paginate((int)($request->per_page ??  config("globals.per_page")));
+                ->paginate((int)($request->per_page ?? config("globals.per_page")));
         }
-
         return VendorBranchCollection::make($activities)
             ->additional([
                 'status' => true,
@@ -77,11 +77,11 @@ class VendorBranchController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param \Illuminate\Http\Request $request
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
-    public function update(VendorBranchRequest $request,VendorBranch $vendor_branch)
+    public function update(VendorBranchRequest $request, VendorBranch $vendor_branch)
     {
         $vendor_branch->update($request->validated());
         return VendorBranchResource::make($vendor_branch)->additional([
@@ -93,7 +93,7 @@ class VendorBranchController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function destroy(VendorBranch $vendorBranch)
@@ -102,7 +102,7 @@ class VendorBranchController extends Controller
         return VendorBranchResource::make($vendorBranch)
             ->additional([
                 'status' => true,
-                'message' =>  __('dashboard.general.success_delete')
+                'message' => __('dashboard.general.success_delete')
             ]);
     }
 }

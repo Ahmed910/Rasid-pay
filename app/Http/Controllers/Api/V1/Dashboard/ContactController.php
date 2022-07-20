@@ -5,8 +5,9 @@ namespace App\Http\Controllers\Api\V1\Dashboard;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\V1\Dashboard\ContactAdminAssignRequest;
 use App\Http\Requests\V1\Dashboard\ContactReplyRequest;
+use App\Http\Resources\Dashboard\Contact\ContactCollection;
 use App\Http\Resources\Dashboard\ContactReplyResource;
-use App\Http\Resources\Dashboard\ContactResource;
+use App\Http\Resources\Dashboard\Contact\ContactResource;
 use App\Models\Contact;
 use App\Models\ContactReply;
 use Illuminate\Http\Request;
@@ -15,19 +16,19 @@ class ContactController extends Controller
 {
     public function index(Request $request)
     {
-        $contact = Contact::when(auth()->user()->user_type == 'admin', function ($q) {
+        $contacts = Contact::when(auth()->user()->user_type == 'admin', function ($q) {
             $q->where(function($query)
             {
                 $query->where('admin_id', auth()->user()->id)
-                ->orWhere('assigned_to_id',auth()->user()->id);
+                    ->orWhere('assigned_to_id', auth()->user()->id);
             });
         })
-            ->with('replies', 'user', 'admin','activity')
+            ->with('replies', 'user', 'admin', 'activity')
             ->CustomDateFromTo($request)
             ->search($request)
             ->sortby($request)
             ->paginate((int)($request->per_page ?? config("globals.per_page")));
-        return ContactResource::collection($contact)
+        return ContactResource::collection($contacts)
             ->additional([
                 'status' => true,
                 'message' => ''
@@ -40,35 +41,43 @@ class ContactController extends Controller
         $contactReply->fill($request->validated() + ['added_by_id' => auth()->id()] + ['updated_at' => now()])->save();
         $contactReply->contact->update(["message_status" => "replied"]);
         // TODO: Send to user email
-        return ContactReplyResource::make($contactReply->load('contact','admin'))
+        return ContactReplyResource::make($contactReply->load('contact', 'admin'))
             ->additional([
                 'status' => true,
                 'message' => trans('dashboard.general.success_add')
             ]);
     }
 
-    public function show($id)
+    public function show(Request $request,$id)
     {
         $contact = Contact::when(auth()->user()->user_type == 'admin', function ($q) {
-            $q->where(function($query)
-            {
+            $q->where(function ($query) {
                 $query->where('admin_id', auth()->user()->id)
-                ->orWhere('assigned_to_id',auth()->user()->id);
+                    ->orWhere('assigned_to_id', auth()->user()->id);
             });
         })
-            ->with('replies', 'user', 'admin','activity')
+            ->with('replies', 'user', 'admin', 'activity')
             ->withTrashed()
             ->findOrFail($id);
+
         $contact->update([
             'read_at' => now(),
             "message_status" => $contact->message_status == "new" ? "pending" : $contact->message_status
         ]);
+        $activities = [];
+        if (!$request->has('with_activity') || $request->with_activity) {
+            $activities  = $contact->activity()
+                ->sortBy($request)
+                ->paginate((int)($request->per_page ??  config("globals.per_page")));
+        }
 
-        return ContactResource::make($contact)
-            ->additional([
-                'status' => true,
-                'message' => ''
-            ]);
+        return ContactCollection::make($activities)
+        ->additional([
+            'status' => true,
+            'message' => trans("dashboard.general.show")
+        ]);
+
+
     }
 
     public function assignContact(ContactAdminAssignRequest $request, Contact $contact)

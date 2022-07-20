@@ -17,8 +17,8 @@ class SimpleUserResource extends JsonResource
         return [
             'id' => $this->id,
             'fullname' => $this->fullname ?? '',
-            "phone" => $this->phone,
-            "country_code" => $this->country_code ?? 966,
+            'country_code' => substr($this->phone, 0, 4),
+            'phone' => substr($this->phone, 4),
             "gender" => $this->gender,
             'user_type' => $this->user_type,
             'date_of_birth' => $this->date_of_birth,

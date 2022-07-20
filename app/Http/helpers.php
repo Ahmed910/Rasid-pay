@@ -149,26 +149,26 @@ if (!function_exists('generate_unique_code')) {
     }
 }
 if (!function_exists('number_with_starts')) {
-    function number_with_starts($number="", $length = 4)
+    function number_with_starts($number = "", $length = 4)
     {
-       if (strlen($number)<=$length) return generatestars($number , strlen($number)) ;
-        return generatestars($number ,$length) ;
+        if (strlen($number) <= $length) return generatestars($number, strlen($number));
+        return generatestars($number, $length);
     }
-    function generatestars($string ,  $length = 4)
+    function generatestars($string,  $length = 4)
     {
-       for ($i = 0; $i<$length ; $i++ ) {
-           $string[$i] = '*' ;
-       }
-       return $string ;
+        for ($i = 0; $i < $length; $i++) {
+            $string[$i] = '*';
+        }
+        return $string;
     }
 }
 
 if (!function_exists('setting')) {
-    function setting(string $attr, string $dashboard = Setting::ERP)
+    function setting(string $attr)
     {
         if (Schema::hasTable('settings')) {
-            $settings = (Cache::has('settings')) ? Cache::get('settings') : Cache::rememberForever('settings', function () use ($dashboard) {
-                return Setting::where('dashboard', $dashboard)->get();
+            $settings = (Cache::has('settings')) ? Cache::get('settings') : Cache::rememberForever('settings', function () {
+                return Setting::get();
             });
 
             $setting = $settings->firstWhere('key', $attr)?->value;
@@ -177,10 +177,12 @@ if (!function_exists('setting')) {
                 (array)json_decode($setting);
             }
 
-            if ($attr == 'erp_logo') {        $setting = isset($setting[app()->getLocale()]) ?
-                asset('storage/images/setting') . "/" . $setting[app()->getLocale()] :
-                asset('dashboardAssets/images/brand/no-img.png');
-            return $setting ; }
+            if ($attr == 'erp_logo') {
+                $setting = isset($setting[app()->getLocale()]) ?
+                    asset('storage/images/setting') . "/" . $setting[app()->getLocale()] :
+                    asset('dashboardAssets/images/brand/no-img.png');
+                return $setting;
+            }
 
 
             return $setting[app()->getLocale()] ?? array_first($setting);
@@ -195,7 +197,7 @@ if (!function_exists('db_translations')) {;
         if (Schema::hasTable('locales')) {
             //TODO: Add Cache
             $translation = \App\Models\Locale\Locale::join('locale_translations', 'locale_translations.locale_id', '=', 'locales.id')
-                ->when($locale != null, fn($q) => $q->where('locale', $locale))
+                ->when($locale != null, fn ($q) => $q->where('locale', $locale))
                 ->addSelect('locale_id', 'key', 'locale', 'value', 'desc')
                 ->when($file != null, fn ($q) => $q->where('file', $file))
                 ->pluck('value', 'key');
