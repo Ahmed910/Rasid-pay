@@ -60,6 +60,7 @@ return [
     ],
     'payments' => [
         'current_balance_is_not_sufficient_to_complete_payment' => 'Current Balance Is Not Sufficient To Complete Payment',
+        'is_paid_before' => 'This invoice has been paid before.'
     ],
     'transfers' => [
         'transfer_details' => 'تم تحويل مبلغ :amount ر.س  من المحفظة الخاصة بك إلى محفظة المستخدم :wallet_transfer_method',

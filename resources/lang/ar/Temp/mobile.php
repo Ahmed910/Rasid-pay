@@ -56,6 +56,7 @@ return [
     ],
     'payments' => [
         'current_balance_is_not_sufficient_to_complete_payment' => 'الرصيد الحالي لا يكفي لإجراء عملية الدفع',
+        'is_paid_before' => 'تم دفع هذه الفاتورة من قبل.'
     ],
     'global_transfers' => [
         'current_balance_is_not_sufficiant_to_complete_transaction' => 'الرصيد الحالي لا يكفي لإجراء عملية التحويل',

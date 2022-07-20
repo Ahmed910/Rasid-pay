@@ -22,4 +22,11 @@ class PaymentRequest extends ApiMasterRequest
             "otp_code" => 'required|exists:citizen_wallets,wallet_bin,citizen_id,'.auth()->id(),
         ];
     }
+
+    public function messages()
+    {
+      return [
+          'invoice_number.unique' => trans('mobile.payment.is_paid_before'),
+      ];
+    }
 }
