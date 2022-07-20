@@ -20,10 +20,10 @@ class VendorBranchRequest extends ApiMasterRequest
             'location'  =>  'required|string|between:3,250',
             'address_details'  =>  'required|string|between:3,250',
             'branch_image' =>'required|image|mimes:jpg,jpeg,png,gif,svg|max:5120',
-            'email' => 'required|email|unique:vendor_branches,email,' . $this->vendor_branch?->id ?? null,
+            'email' => 'required|email|unique:vendor_branches,email,' . $this->vendor_branch?->id,
             'phone' => 'required|numeric|digits_between:5,20|starts_with:9665,05|unique:vendor_branches,phone,' . $this->vendor_branch?->id,
-            'lat' => 'required|numeric',
-            'lng' => 'required|numeric',
+            'lat' => 'required|numeric|max:20',
+            'lng' => 'required|numeric|max:20',
         ];
         if(isset($vendor_branch) && $vendor_branch)
         {
