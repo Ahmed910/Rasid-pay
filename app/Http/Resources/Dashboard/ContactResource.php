@@ -25,9 +25,10 @@ class ContactResource extends JsonResource
             'admin' => SimpleUserResource::make($this->whenLoaded('admin')),
             'replies' => ContactReplyResource::collection($this->whenLoaded('replies')),
             'activity' => ActivityLogResource::collection($this->whenLoaded('activity')),
-            'actions' => $this->when($request->routeIs('messages.index'), [
-                'show' => auth()->user()->hasPermissions('messages.show'),
-                'update' => auth()->user()->hasPermissions('messages.update'),
+            'actions' => $this->when($request->routeIs('contacts.index'), [
+                'show' => auth()->user()->hasPermissions('contacts.show'),
+                'reply' => auth()->user()->hasPermissions('contacts.reply'),
+                'assign_contact' => auth()->user()->hasPermissions('contacts.assign_contact')
             ])
         ];
     }
