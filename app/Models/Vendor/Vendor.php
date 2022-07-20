@@ -3,18 +3,18 @@
 namespace App\Models\Vendor;
 
 use App\Contracts\HasAssetsInterface;
+use App\Models\ActivityLog;
 use App\Models\VendorBranches\VendorBranch;
+use App\Models\VendorPackage;
 use App\Traits\HasAssetsTrait;
 use App\Traits\Loggable;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
 use App\Traits\Uuid;
 use Astrotomic\Translatable\Translatable;
-use Illuminate\Http\Request;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Http\Request;
 use Illuminate\Support\Str;
-use App\Models\ActivityLog;
-use App\Models\VendorPackage;
 
 class Vendor extends Model implements HasAssetsInterface
 {
@@ -25,7 +25,7 @@ class Vendor extends Model implements HasAssetsInterface
     public $assets = ['logo', 'commercial_record_image', 'tax_number_image'];
     protected $guarded = ['created_at'];
     public $translatedAttributes = ['name'];
-    private $sortableColumns = ["commercial_record", "is_active", "tax_number", "name", "type", "is_active"];
+    private $sortableColumns = ["commercial_record", "is_active", "tax_number", "name", "type", "branches_count"];
 
     #endregion properties
     public static function boot()
