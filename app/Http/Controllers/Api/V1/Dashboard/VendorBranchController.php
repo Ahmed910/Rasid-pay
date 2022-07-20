@@ -15,15 +15,15 @@ class VendorBranchController extends Controller
     public function index(Request $request)
     {
         $vendorBranches = VendorBranch::query()
-            ->ListsTranslations('name')
-            ->search($request)
-            ->sortBy($request)
-            ->addSelect('vendor_branches.*')
-            ->paginate((int)($request->per_page ?? config("globals.per_page")));
+                                    ->ListsTranslations('name')
+                                    ->search($request)
+                                    ->sortBy($request)
+                                    ->addSelect('vendor_branches.*')
+                                    ->paginate((int)($request->per_page ?? config("globals.per_page")));
         return VendorBranchResource::collection($vendorBranches)->additional([
-            'status' => true,
-            'message' => ""
-        ]);
+                                        'status' => true,
+                                        'message' => ""
+                                    ]);
     }
 
     /**
