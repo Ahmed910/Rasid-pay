@@ -22,8 +22,8 @@ class VendorBranchRequest extends ApiMasterRequest
             'branch_image' =>'required|image|mimes:jpg,jpeg,png,gif,svg|max:5120',
             'email' => 'required|email|unique:vendor_branches,email,' . $this->vendor_branch?->id,
             'phone' => 'required|numeric|digits_between:5,20|starts_with:9665,05|unique:vendor_branches,phone,' . $this->vendor_branch?->id,
-            'lat' => 'required|numeric|size:10',
-            'lng' => 'required|numeric|size:10',
+            'lat' => 'required|numeric',
+            'lng' => 'required|numeric',
         ];
         if(isset($vendor_branch) && $vendor_branch)
         {
