@@ -15,7 +15,7 @@ class ContactReplyResource extends JsonResource
             'reply' => $this->reply,
             'created_at' => $this->created_at,
             'admin' =>  SimpleUserResource::make($this->whenLoaded('admin')),
-            'contact' =>  ContactResource::make($this->whenLoaded('contact')),
+            // 'contact' =>  ContactResource::make($this->whenLoaded('contact')),
         ];
     }
 }

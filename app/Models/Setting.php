@@ -19,20 +19,14 @@ class Setting extends Model
     const TEXT      = "text";
     const FILE      = "file";
     const NUMBER    = "number";
+    const SELECT    = "select";
 
     const TYPES = [
         self::TEXT_AREA,
         self::EDITOR,
         self::TEXT,
         self::FILE,
-        self::NUMBER
-    ];
-
-    const ERP = "erp";
-    const RASID_PAY = "rasid_pay";
-
-    const DASHBOARD_TYPES = [
-        self::ERP,
-        self::RASID_PAY
+        self::NUMBER,
+        self::SELECT
     ];
 }
