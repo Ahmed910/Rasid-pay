@@ -31,6 +31,10 @@ class ActivityLog extends Model
     const ACTIVE = 'activated';
     const PERMANENT = 'permanent';
     const TEMPORARY = 'temporary';
+    const PENDING = 'pending';
+    const SHOWN = 'shown';
+    const ASSIGNED = 'assigned';
+    const REPLIED = 'replied';
 
     const EVENTS = [
         self::CREATE,

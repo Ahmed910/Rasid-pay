@@ -26,6 +26,9 @@ trait Loggable
                 if (in_array(class_basename($self), ['User', 'Admin']))
                     return $self->checkIfHasIsActiveOnly($self, 'ban_status');
 
+                if (in_array(class_basename($self), ['Contact']))
+                    return $self->checkIfHasIsActiveOnly($self, 'message_status');
+
                 $self->checkIfHasIsActiveOnly($self, 'is_active');
             }
         });
@@ -155,12 +158,29 @@ trait Loggable
                 if (request($column) == 'active' && $column == 'ban_status') {
                     $model->addUserActivity($model, ActivityLog::ACTIVE, 'index', $newData);
                 }
+
+                if (request($column) == 'pending' && $column == 'message_status') {
+                    $model->addUserActivity($model, ActivityLog::PENDING, 'index', $newData);
+                }
+
+                if (request($column) == 'shown' && $column == 'message_status') {
+                    $model->addUserActivity($model, ActivityLog::SHOWN, 'index', $newData);
+                }
+                if (request($column) == 'assigned' && $column == 'message_status') {
+                    $model->addUserActivity($model, ActivityLog::ASSIGNED, 'index', $newData);
+                }
+                if (request($column) == 'replied' && $column == 'message_status') {
+                    $model->addUserActivity($model, ActivityLog::REPLIED , 'index', $newData);
+                }
             }
         }
     }
 
     private function checkIfHasIsActiveOnly($self, string $column)
     {
+
+        // user => ban_status (only ban status)
+        // rest of models => is_active (only is_active)
         $exceptedColumns =  [
             $column,
             'groups',
