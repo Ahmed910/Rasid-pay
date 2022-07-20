@@ -8,22 +8,19 @@ use Illuminate\Http\Resources\Json\ResourceCollection;
 
 class ContactCollection extends ResourceCollection
 {
+    /**
+     * Transform the resource collection into an array.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return array|\Illuminate\Contracts\Support\Arrayable|\JsonSerializable
+     */
     public function toArray($request)
     {
-        $contact = Contact::when(auth()->user()->user_type == 'admin', function ($q) {
-            $q->where(function ($query) {
-                $query->where('admin_id', auth()->id())
-                    ->orWhere('assigned_to_id', auth()->id());
-            });
-        })
-            ->with('replies', 'user', 'admin', 'activity')
-            ->withTrashed()
-            ->findOrFail($request->route()->parameters['contact']);
-
+        $contact = Contact::findOrFail(@$request->route()->parameters['contact']);
 
         return [
-            'contact' => ContactResource::make($contact),
-            'activity' => ActivityLogResource::collection($this->collection)
+            'contact'         => ContactResource::make($contact),
+            'activity'    => ActivityLogResource::collection($this->collection)
         ];
     }
 }

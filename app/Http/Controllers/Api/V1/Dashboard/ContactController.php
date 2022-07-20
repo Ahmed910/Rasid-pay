@@ -16,8 +16,9 @@ class ContactController extends Controller
 {
     public function index(Request $request)
     {
-        $contact = Contact::when(auth()->user()->user_type == 'admin', function ($q) {
-            $q->where(function ($query) {
+        $contacts = Contact::when(auth()->user()->user_type == 'admin', function ($q) {
+            $q->where(function($query)
+            {
                 $query->where('admin_id', auth()->user()->id)
                     ->orWhere('assigned_to_id', auth()->user()->id);
             });
@@ -27,7 +28,7 @@ class ContactController extends Controller
             ->search($request)
             ->sortby($request)
             ->paginate((int)($request->per_page ?? config("globals.per_page")));
-        return ContactResource::collection($contact)
+        return ContactResource::collection($contacts)
             ->additional([
                 'status' => true,
                 'message' => ''
@@ -47,7 +48,7 @@ class ContactController extends Controller
             ]);
     }
 
-    public function show($id, Request $request)
+    public function show(Request $request,$id)
     {
         $contact = Contact::when(auth()->user()->user_type == 'admin', function ($q) {
             $q->where(function ($query) {
@@ -59,6 +60,10 @@ class ContactController extends Controller
             ->withTrashed()
             ->findOrFail($id);
 
+        $contact->update([
+            'read_at' => now(),
+            "message_status" => $contact->message_status == "new" ? "pending" : $contact->message_status
+        ]);
         $activities = [];
         if (!$request->has('with_activity') || $request->with_activity) {
             $activities  = $contact->activity()
@@ -66,16 +71,13 @@ class ContactController extends Controller
                 ->paginate((int)($request->per_page ??  config("globals.per_page")));
         }
 
-        $contact->update([
-            'read_at' => now(),
-            "message_status" => $contact->message_status == "new" ? "pending" : $contact->message_status
+        return ContactCollection::make($activities)
+        ->additional([
+            'status' => true,
+            'message' => trans("dashboard.general.show")
         ]);
 
-        return ContactCollection::make($activities)
-            ->additional([
-                'status' => true,
-                'message' => ''
-            ]);
+
     }
 
     public function assignContact(ContactAdminAssignRequest $request, Contact $contact)
