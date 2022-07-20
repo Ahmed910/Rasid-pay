@@ -96,7 +96,7 @@ class TransferPurposeController extends Controller
         return TransferPurposeResource::make($transfer_purpose)
             ->additional([
                 'status' => true,
-                'message' => trans("dashboard.general.success_archive")
+                'message' => trans("dashboard.general.success_delete")
             ]);
     }
 }
