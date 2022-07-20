@@ -57,6 +57,7 @@ return [
         'package_is_not_found' => 'Package Is Not Found',
         'promo_code_is_used' => 'Promo Code Is Used',
         'promo_code_is_not_found' => 'Promo Code Is Not Found',
+        'promoted_successfully' => 'Promoted Successfully',
     ],
     'payments' => [
         'current_balance_is_not_sufficient_to_complete_payment' => 'Current Balance Is Not Sufficient To Complete Payment',
