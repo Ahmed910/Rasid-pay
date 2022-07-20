@@ -6,6 +6,7 @@ use App\Http\Resources\Dashboard\ActivityLogResource;
 use App\Http\Resources\Dashboard\GlobalTransResource;
 use App\Http\Resources\Dashboard\ImagesResource;
 use App\Http\Resources\Dashboard\PackageResource;
+use App\Http\Resources\Dashboard\VendorBranches\branchCooridnatesResource;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class VendorResource extends JsonResource
@@ -36,6 +37,7 @@ class VendorResource extends JsonResource
                 "images" => ImagesResource::collection($this->whenLoaded("images")),
                 // 'activity' => ActivityLogResource::collection($this->whenLoaded('activity')),
                 'package' => PackageResource::collection($this->whenLoaded('package')),
+                'branch_coordinates' => branchCooridnatesResource::collection($this->whenLoaded('branches')),
                 'actions' => $this->when($request->routeIs('vendors.index'), [
                     'show' => auth()->user()->hasPermissions('vendors.show'),
                     'create' => auth()->user()->hasPermissions('vendors.store'),
