@@ -26,7 +26,7 @@ class PaymentRequest extends ApiMasterRequest
     public function messages()
     {
       return [
-          'invoice_number.unique' => trans('mobile.payment.is_paid_before'),
+          'invoice_number.unique' => trans('mobile.payments.is_paid_before'),
       ];
     }
 }
