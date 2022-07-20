@@ -39,7 +39,7 @@ class ContactController extends Controller
     public function reply(ContactReplyRequest $request, ContactReply $contactReply)
     {
         $contactReply->fill($request->validated() + ['added_by_id' => auth()->id()] + ['updated_at' => now()])->save();
-        $contactReply->contact->update(["message_status" => "replied"]);
+        $contactReply->contact->update(["message_status" => Contact::REPLIED]);
         // TODO: Send to user email
         return ContactReplyResource::make($contactReply->load('contact', 'admin'))
             ->additional([
@@ -62,7 +62,7 @@ class ContactController extends Controller
 
         $contact->update([
             'read_at' => now(),
-            "message_status" => $contact->message_status == "new" ? "pending" : $contact->message_status
+            "message_status" => $contact->message_status == Contact::PENDING ? Contact::SHOWN : $contact->message_status
         ]);
         $activities = [];
         if (!$request->has('with_activity') || $request->with_activity) {
