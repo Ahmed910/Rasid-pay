@@ -12,24 +12,18 @@ class LinkController extends Controller
 {
    public function index(Request $request)
    {
-    $links = Link::latest()->paginate((int)($request->per_page ?? config("globals.per_page")));
-    return LinkResource::collection($links)
-    ->additional(['status' => true, 'message' => '']);
-
+        $links = Link::latest()->paginate((int)($request->per_page ?? config("globals.per_page")));
+        return LinkResource::collection($links)->additional(['status' => true, 'message' => '']);
    }
-
-
-
 
    public function update(LinkRequest $request, Link $link)
    {
        $link->update($request->validated());
-
        return LinkResource::make($link)
-       ->additional([
-        'message' => trans('dashboard.general.success_update'),
-        'status' => true
-       ]);
+                           ->additional([
+                            'message' => trans('dashboard.general.success_update'),
+                            'status' => true
+                           ]);
    }
 
 
