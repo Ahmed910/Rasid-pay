@@ -20,6 +20,8 @@ class TransferPurposeRequest extends ApiMasterRequest
             $rules["$locale.name"]   = "required|string|between:2,200|unique:transfer_purpose_translations,name,".$this->transfer_purpose?->id.',transfer_purpose_id';
         }
         $rules['is_default_value'] = 'nullable|in:0,1';
+        $rules['is_active'] = 'nullable|in:0,1';
+
         return $rules;
     }
 
