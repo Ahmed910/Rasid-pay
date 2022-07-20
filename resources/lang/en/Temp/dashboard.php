@@ -313,6 +313,39 @@ return [
         'new_password' => 'New Password',
     ],
     'static_page' =>   [
+
+        'validation' => [
+
+
+            'is_active' => [
+                'in' => 'Status field must be between these values: values',
+
+            ],
+            'show_in_website' => [
+                'in' => 'show in website  field must be between these :values',
+            ],
+
+            'show_in_app' => [
+                'in' => 'show in app field must be between these values: values',
+
+            ],
+
+            'image' => [
+                'mimes' => 'image field must be of type :values',
+                'max' => ' image field must be at most :max mega',
+            ],
+            'ar' => [
+                'name'=> [
+                    'required' => 'name field is required',
+                    'max' => 'Name field must be at most :max '
+                ],
+                'description'=> [
+                    'required' => ' description field is required',
+                    'string' => ' description field must be a text value',
+                    'max' => ' description field must be at most :max'                ]
+            ],
+        ],
+
         'permissions' =>  [
             'update' => 'Update Static Pages',
             'store' => 'Store Static Pages',
