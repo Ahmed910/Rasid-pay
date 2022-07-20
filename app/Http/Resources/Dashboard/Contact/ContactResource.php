@@ -1,7 +1,9 @@
 <?php
 
-namespace App\Http\Resources\Dashboard;
+namespace App\Http\Resources\Dashboard\Contact;
 
+use App\Http\Resources\Dashboard\ContactReplyResource;
+use App\Http\Resources\Dashboard\SimpleUserResource;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class ContactResource extends JsonResource
@@ -24,12 +26,12 @@ class ContactResource extends JsonResource
             'user' => SimpleUserResource::make($this->whenLoaded('user')),
             'admin' => SimpleUserResource::make($this->whenLoaded('admin')),
             'replies' => ContactReplyResource::collection($this->whenLoaded('replies')),
-            'activity' => ActivityLogResource::collection($this->whenLoaded('activity')),
+            // 'activity' => ActivityLogResource::collection($this->whenLoaded('activity')),
             'actions' => $this->when($request->routeIs('contacts.index'), [
                 'show' => auth()->user()->hasPermissions('contacts.show'),
                 'reply' => auth()->user()->hasPermissions('contacts.reply') && $this->message_status != 'replied' ,
             ]),
-            'assign_contact' => $this->when($request->routeIs('contacts.show') || $request->routeIs('contacts.reply'),auth()->user()->hasPermissions('contacts.assign_contact')  && $this->message_status != 'replied') 
+            'assign_contact' => $this->when($request->routeIs('contacts.show') || $request->routeIs('contacts.reply'),auth()->user()->hasPermissions('contacts.assign_contact')  && $this->message_status != 'replied')
 
         ];
     }
