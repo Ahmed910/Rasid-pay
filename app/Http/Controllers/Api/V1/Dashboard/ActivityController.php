@@ -62,7 +62,7 @@ class ActivityController extends Controller
                     $employees->where('department_id', request('department_id'));
                 });
             })->get();
-
+        dd($employees);
         return SimpleEmployeeResource::collection($employees)
             ->additional([
                 'status' => true,
