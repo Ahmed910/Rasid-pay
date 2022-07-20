@@ -62,7 +62,11 @@ class VendorBranch extends Model implements HasAssetsInterface
 
         if (isset($request->address_details)) {
 
-            $query->where('address_details', $request->address_details);
+            $query->where('address_details','like', '%$request->address_details%');
+        }
+
+        if (isset($request->is_active) && in_array($request->is_active, [1, 0])) {
+            $query->where('is_active', $request->is_active);
         }
 
         if (isset($request->branch_name))
