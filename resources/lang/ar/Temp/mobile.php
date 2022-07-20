@@ -63,9 +63,10 @@ return [
         'string' => 'كلمة المرور يجب ان لا تقل عن 8 حروف',
     ],
     'promotion' => [
-        'promo_code_is_not_found' => 'كود التخفيض غير موجود',
-        'promo_code_is_used' => 'كود التخفيض مستخدم من قبل',
+        'package_is_required' => 'يجب إختيار باقة',
         'package_is_not_found' => 'الباقة غير موجودة',
+        'promo_code_is_used' => 'كود التخفيض مستخدم من قبل',
+        'promo_code_is_not_found' => 'كود التخفيض غير صالح',
     ],
     'mobile' =>
         [
@@ -95,5 +96,5 @@ return [
         'basic' => 'أساسي',
         'golden' => 'ذهبي',
         'platinum' => 'بلاتيني',
-    ]
+    ],
 ];

@@ -4,7 +4,7 @@ namespace App\Http\Resources\Api\V1\Mobile;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class VendorBranchResource extends JsonResource
+class VendorResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -17,10 +17,8 @@ class VendorBranchResource extends JsonResource
         return [
             'id' => $this->id,
             'name' => $this->name,
-            'lat' => $this->lat,
-            'lng' => $this->lng,
-            'location' => $this->location,
-            'address_details' => $this->address_details,
+            'type' => $this->type,
+            'logo' => $this->logo
         ];
     }
 }

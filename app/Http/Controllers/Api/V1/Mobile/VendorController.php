@@ -10,26 +10,30 @@ use Illuminate\Http\Request;
 
 class VendorController extends Controller
 {
-     public function index(Request $request){
-
+     public function index(Request $request)
+     {
         $vendors = Vendor::when($request->name,function ($query) use($request){
             $query->whereTranslationLike('name',"%{$request->name}%",'ar')
-                ->orWhereTranslationLike('name',"%{$request->name}%",'en')
-            ;
-        })->get();
+                ->orWhereTranslationLike('name',"%{$request->name}%",'en');
+        })->paginate((int)($request->per_page ?? config("globals.per_page")));
 
         return VendorResource::collection($vendors)->additional(['status' => true,'message'=>'']);
      }
-     public function show(Request $request,$id){
-         $vendor = Vendor::with('branches')->when($request->lat && $request->lng,
+
+
+     public function show(Request $request,$id)
+     {
+         $vendor = Vendor::with(['branches','package'])->when($request->lat && $request->lng,
          fn($query) =>
             $query->whereHas('branches',fn($query) =>
                 $query->nearest($request->lat,$request->lng)
             )
-         )->whereHas('branches',fn($query) => $query->latest())
-        //  ->addSelect(\DB::raw('select citizen_packages.'))
+         )->with(['branches'=>fn($query) => $query->latest()])
          ->findOrFail($id);
-         return VendorDetailsResource::make($vendor);
 
+         return VendorDetailsResource::make($vendor)->additional([
+            'status' => true,
+            'message' => '',
+         ]);
      }
 }

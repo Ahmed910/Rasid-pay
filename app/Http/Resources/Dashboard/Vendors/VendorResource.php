@@ -2,11 +2,11 @@
 
 namespace App\Http\Resources\Dashboard\Vendors;
 
-use App\Http\Resources\Dashboard\ImagesResource;
-use Illuminate\Http\Resources\Json\JsonResource;
 use App\Http\Resources\Dashboard\ActivityLogResource;
 use App\Http\Resources\Dashboard\GlobalTransResource;
+use App\Http\Resources\Dashboard\ImagesResource;
 use App\Http\Resources\Dashboard\PackageResource;
+use Illuminate\Http\Resources\Json\JsonResource;
 
 class VendorResource extends JsonResource
 {
@@ -29,13 +29,13 @@ class VendorResource extends JsonResource
                 'is_active' => (bool)$this->is_active,
                 'is_support_maak' => (bool)$this->is_support_maak,
                 'email' => $this->email,
-                'country_code' => substr($this->phone, 0, 3),
-                'phone' => substr($this->phone, 3),
+                'country_code' => substr($this->phone, 0, 4),
+                'phone' => substr($this->phone, 4),
                 'created_at' => $this->created_at,
                 'logo'=> $this->logo,
                 "images" => ImagesResource::collection($this->whenLoaded("images")),
                 'activity' => ActivityLogResource::collection($this->whenLoaded('activity')),
-                'packages' => PackageResource::collection($this->whenLoaded('packages')),
+                'package' => PackageResource::collection($this->whenLoaded('package')),
                 'actions' => $this->when($request->routeIs('Vendors.index'), [
                     'show' => auth()->user()->hasPermissions('Vendors.show'),
                     $this->mergeWhen($request->route()->getActionMethod() == 'index', [

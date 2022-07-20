@@ -16,11 +16,22 @@ class ContactRequest extends ApiMasterRequest
         return [
             "fullname" => 'nullable|string|max:255',
             'email' => 'nullable|email|max:225',
-            'phone' => 'nullable|numeric|min:20',
-            "title" => 'nullable|string|max:255',
-            "content" => 'required|string|max:300',
-            "contact_type" => 'nullable|in:complain,inquiries,suggestions',
+            'phone' => ["nullable", "numeric", "digits_between:9,20", 'starts_with:9665,05', function ($attribute, $value, $fail) {
+                if (!check_phone_valid($value)) {
+                    $fail(trans('mobile.validation.invalid_phone'));
+                }
+            }],
+            "content" => 'required|string|min:10|max:500',
             "message_type_id" => 'required|exists:message_types,id',
         ];
+    }
+
+    protected function prepareForValidation()
+    {
+        $data = $this->all();
+
+        $this->merge([
+            'phone' => @$data['phone'] ? convert_arabic_number($data['phone']) : @$data['phone']
+        ]);
     }
 }

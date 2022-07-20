@@ -51,9 +51,10 @@ return [
         ],
     ],
     'promotion' => [
-        'promo_code_is_not_found' => 'Promo Code Is Not Found',
-        'promo_code_is_used' => 'Promo Code Is Used Before',
+        'package_is_required' => 'Package is required',
         'package_is_not_found' => 'Package Is Not Found',
+        'promo_code_is_used' => 'Promo Code Is Used',
+        'promo_code_is_not_found' => 'Promo Code Is Not Found',
     ],
     'payments' => [
         'current_balance_is_not_sufficient_to_complete_payment' => 'Current Balance Is Not Sufficient To Complete Payment',

@@ -3,7 +3,6 @@
 namespace App\Http\Resources\Dashboard;
 
 use App\Http\Resources\Dashboard\Department\DepartmentResource;
-use App\Models\Department\Department;
 use App\Http\Resources\Dashboard\Group\{GroupResource, PermissionResource};
 use App\Http\Resources\Dashboard\RasidJob\RasidJobResource;
 use Illuminate\Http\Resources\Json\JsonResource;
@@ -22,7 +21,8 @@ class UserResource extends JsonResource
             'id' => $this->id,
             'fullname' => $this->fullname,
             'email' => $this->email,
-            'phone' => $this->phone,
+            'country_code' => substr($this->phone, 0, 4),
+            'phone' => substr($this->phone, 4),
             'whatsapp' => $this->whatsapp,
             'gender' => $this->gender,
             'is_phone_verified' => (bool)$this->is_active,

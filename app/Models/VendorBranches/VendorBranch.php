@@ -3,13 +3,13 @@
 namespace App\Models\VendorBranches;
 
 use App\Contracts\HasAssetsInterface;
-use App\Traits\{HasAssetsTrait,Loggable,Uuid};
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
-use Astrotomic\Translatable\Translatable;
 use App\Models\ActivityLog;
 use App\Models\Vendor\Vendor;
+use App\Traits\{HasAssetsTrait, Loggable, Uuid};
+use Astrotomic\Translatable\Translatable;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
 
 class VendorBranch extends Model implements HasAssetsInterface
@@ -20,6 +20,7 @@ class VendorBranch extends Model implements HasAssetsInterface
     public $assets = ['branch_image'];
     protected $guarded = ['created_at', 'deleted_at'];
     public $translatedAttributes = ['name'];
+
     #endregion properties
     public static function boot()
     {
@@ -35,7 +36,7 @@ class VendorBranch extends Model implements HasAssetsInterface
     #region scopes
     public function scopeSearch(Builder $query, $request)
     {
-        $old = $query->toSql() ;
+        $old = $query->toSql();
 
         if (isset($request->name)) {
             $query->where(function ($q) use ($request) {
@@ -45,28 +46,28 @@ class VendorBranch extends Model implements HasAssetsInterface
         $types = Vendor::TYPES;
 
         if (isset($request->type) && in_array($request->type, $types))
-        $query->whereHas("vendor", function ($q) use ($request) {
-            $q->where('type','like' ,"%$request->type%");
-        });
+            $query->whereHas("vendor", function ($q) use ($request) {
+                $q->where('type', 'like', "%$request->type%");
+            });
 
-      if (isset($request->address_details)) {
+        if (isset($request->address_details)) {
 
-       $query->where('address_details', $request->address_details);
-      }
+            $query->where('address_details', $request->address_details);
+        }
 
-      if (isset($request->branch_name))
-      $query->whereHas("vendor", function ($q) use ($request) {
-        $q->whereTranslationLike('name', "%$request->branch_name%");
-      });
+        if (isset($request->branch_name))
+            $query->whereHas("vendor", function ($q) use ($request) {
+                $q->whereTranslationLike('name', "%$request->branch_name%");
+            });
 
-      if (isset($request->phone)) {
+        if (isset($request->phone)) {
 
-        $query->where('phone', $request->phone);
-       }
+            $query->where('phone', $request->phone);
+        }
 
 
-        $new = $query->toSql() ;
-        if ($old!=$new)  $this->addGlobalActivity($this, $request->query(), ActivityLog::SEARCH, 'index');
+        $new = $query->toSql();
+        if ($old != $new) $this->addGlobalActivity($this, $request->query(), ActivityLog::SEARCH, 'index');
     }
 
     public function scopeSortBy(Builder $query, $request)
@@ -102,6 +103,19 @@ class VendorBranch extends Model implements HasAssetsInterface
 
             $q->orderBy($request->sort["column"], @$request->sort["dir"]);
         });
+    }
+
+    public function scopeNearest($query, $lat, $lng)
+    {
+        $space_search_by_kilos = setting('space_search_by_kilos');
+        return $query->select(\DB::raw("*,
+                (6371 * ACOS(COS(RADIANS($lat))
+                * COS(RADIANS(lat))
+                * COS(RADIANS($lng) - RADIANS(lng))
+                + SIN(RADIANS($lat))
+                * SIN(RADIANS(lat)))) AS distance"))
+            ->having('distance', '<=', $space_search_by_kilos??10)
+            ->orderBy('distance', 'asc');
     }
     #endregion scopes
 
