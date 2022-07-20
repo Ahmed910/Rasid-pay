@@ -2,13 +2,11 @@
 
 namespace App\Models;
 
-use Carbon\Carbon;
 use App\Traits\Uuid;
+use Carbon\Carbon;
 use GeniusTS\HijriDate\Hijri;
-use App\Models\Package\Package;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use phpDocumentor\Reflection\DocBlock\Tags\Deprecated;
+use Illuminate\Database\Eloquent\Model;
 
 class CitizenPackage extends Model
 {
@@ -65,10 +63,10 @@ class CitizenPackage extends Model
         $locale = app()->getLocale();
         if (auth()->check() && auth()->user()->is_date_hijri) {
             Uuid::changeDateLocale($locale);
-            return Hijri::convertToHijri($this->attributes['end_at'])->format('d F o');
+            return Hijri::convertToHijri($this->attributes['start_at'])->format('d F o');
         }
 
-        return Carbon::parse($this->attributes['end_at'])->locale($locale)->translatedFormat('j F Y');
+        return Carbon::parse($this->attributes['start_at'])->locale($locale)->translatedFormat('j F Y');
     }
 
     #region scopes
