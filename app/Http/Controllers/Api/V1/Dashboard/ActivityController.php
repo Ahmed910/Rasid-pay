@@ -56,14 +56,14 @@ class ActivityController extends Controller
 
     public function getEmployees()
     {
-        $employees = User::whereIn('user_type', ['admin', 'superadmin'])
+        $employees = User::select('id', 'fullname')->whereIn('user_type', ['admin', 'superadmin'])
             ->when(request('department_id'), function ($employees) {
                 $employees->whereHas('employee', function ($employees) {
                     $employees->where('department_id', request('department_id'));
                 });
             })->get();
-        dd($employees);
-        return SimpleEmployeeResource::collection($employees)
+
+        return OnlyResource::collection($employees)
             ->additional([
                 'status' => true,
                 'message' => "",
