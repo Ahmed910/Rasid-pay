@@ -19,7 +19,6 @@ class CreateSettingsTable extends Migration
             $table->string('key');
             $table->text('value');
             $table->enum('input_type', Setting::TYPES);
-            $table->enum("dashboard", Setting::DASHBOARD_TYPES);
             $table->timestamps();
         });
     }
