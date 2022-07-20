@@ -26,7 +26,7 @@ class SettingSeeder extends Seeder
             // statics
             ["key" => "rasidpay_setting_aboutapp", "value" => ["en" => "rasidpay_setting_aboutapp", "ar" => "rasidpay_setting_aboutapp"], "input_type" => "editor"],
             ["key" => "rasidpay_setting_usagepolicy", "value" => ["en" => "rasidpay_setting_usagepolicy", "ar" => "rasidpay_setting_usagepolicy"], "input_type" => "editor"],
-            ["key" => "rasid_date_type", "value" => ["en" => 1, "ar" => 1], "input_type" => "select"],
+            ["key" => "rasid_date_type", "value" => ["en" => 0], "input_type" => "select"],
             ["key" => "rasidpay_localtransfer_creditchoice_active", "value" => ["en" => 0], "input_type" => "select"],
             ["key" => "rasidpay_inttransfer_creditchoice_active", "value" => ["en" => 0], "input_type" => "select"],
 
