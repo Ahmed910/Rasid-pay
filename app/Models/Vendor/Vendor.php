@@ -91,7 +91,9 @@ class Vendor extends Model implements HasAssetsInterface
             if ($request->sort["column"] == "type") {
                 $q->orderBy($request->sort["column"], @$request->sort["dir"]);
             }
-
+            if ($request->sort["column"] == "branches_count") {
+                $q->orderBy($request->sort["column"], @$request->sort["dir"]);
+            }
             $q->orderBy($request->sort["column"], @$request->sort["dir"]);
         });
     }
