@@ -14,6 +14,10 @@ class TransferPurposeSeeder extends Seeder
      */
     public function run()
     {
-        TransferPurpose::factory()->count(10)->create();
+        TransferPurpose::create([
+            'ar' => ['name' => 'أخرى'],
+            'is_another' => true,
+            'is_active'  => true
+        ]);
     }
 }

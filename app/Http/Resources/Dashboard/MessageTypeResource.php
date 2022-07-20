@@ -30,7 +30,6 @@ class MessageTypeResource extends JsonResource
                         'update' => auth()->user()->hasPermissions('message_types.update'),
                         'destroy' => auth()->user()->hasPermissions('message_types.destroy'),
                     ]),
-
                 ])
             ] + $locales;
     }

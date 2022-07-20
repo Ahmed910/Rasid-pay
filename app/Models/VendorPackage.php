@@ -15,6 +15,7 @@ class VendorPackage extends Model
 
     #region properties
     protected $guarded = ['created_at', 'updated_at'];
+    protected $attributes = ['basic_discount' => 0, 'golden_discount' => 0,'platinum_discount' => 0];
     #endregion properties
 
     #region mutators

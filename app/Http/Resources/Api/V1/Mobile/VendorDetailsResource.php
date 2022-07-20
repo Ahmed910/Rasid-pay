@@ -19,19 +19,19 @@ class VendorDetailsResource extends JsonResource
         $discounts = [
             [
                 'type' => 'basic',
-                'discount' => $this->package?->basic_discount,
+                'discount' => number_format($this->package?->basic_discount),
                 'is_current' => $currentPackageDiscount == 'basic',
                 'name' => trans('mobile.package_types.basic')
             ],
             [
                 'type' => 'golden',
-                'discount' => $this->package?->golden_discount,
+                'discount' => number_format($this->package?->golden_discount),
                 'is_current' => $currentPackageDiscount == 'golden',
                 'name' => trans('mobile.package_types.golden')
             ],
             [
                 'type' => 'platinum',
-                'discount' => $this->package?->platinum_discount,
+                'discount' => number_format($this->package?->platinum_discount),
                 'is_current' => $currentPackageDiscount == 'platinum',
                 'name' => trans('mobile.package_types.platinum')
             ],
