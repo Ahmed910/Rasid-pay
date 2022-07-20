@@ -55,6 +55,7 @@ class LoginController extends Controller
             return response()->json(['status' => false, 'data' => null, 'message' => trans('auth.failed')], 401);
         }
         $user = Auth::user();
+        dd(setting('rasid_date_type'));
         return $this->makeLogin($request, $user, false);
     }
 
