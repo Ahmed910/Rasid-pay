@@ -31,6 +31,16 @@ class VendorBranch extends Model implements HasAssetsInterface
     }
 
     #region mutators
+    #region mutators
+    public function getLogoAttribute()
+    {
+        return asset($this->images()->where('option', 'branch_image')->first()?->media);
+    }
+
+    public function getVendorLogoAttribute()
+    {
+        return asset($this->vendor->images()->where('option', 'logo')->first()?->media);
+    }
     #endregion mutators
 
     #region scopes
