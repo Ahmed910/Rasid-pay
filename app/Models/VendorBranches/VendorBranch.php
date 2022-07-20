@@ -62,7 +62,7 @@ class VendorBranch extends Model implements HasAssetsInterface
 
         if (isset($request->address_details)) {
 
-            $query->where('address_details','like', '%$request->address_details%');
+            $query->where('address_details', 'like', "%$request->address_details%");
         }
 
         if (isset($request->is_active) && in_array($request->is_active, [1, 0])) {
@@ -128,7 +128,7 @@ class VendorBranch extends Model implements HasAssetsInterface
                 * COS(RADIANS($lng) - RADIANS(lng))
                 + SIN(RADIANS($lat))
                 * SIN(RADIANS(lat)))) AS distance"))
-            ->having('distance', '<=', $space_search_by_kilos??10)
+            ->having('distance', '<=', $space_search_by_kilos ?? 10)
             ->orderBy('distance', 'asc');
     }
     #endregion scopes
