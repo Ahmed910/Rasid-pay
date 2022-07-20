@@ -16,11 +16,11 @@ class ContactController extends Controller
     public function index(Request $request)
     {
         $contact = Contact::when(auth()->user()->user_type == 'admin', function ($q) {
-            $q->whereHas('messageType.admins', function ($query) {
-                $query->where('admin_id', auth()->user()->id);
-            })
-            ->where('admin_id', auth()->user()->id)
-            ->orWhere('assigned_to_id',auth()->user()->id);
+            $q->where(function($query)
+            {
+                $query->where('admin_id', auth()->user()->id)
+                ->orWhere('assigned_to_id',auth()->user()->id);
+            });
         })
             ->with('replies', 'user', 'admin','activity')
             ->CustomDateFromTo($request)
@@ -50,11 +50,11 @@ class ContactController extends Controller
     public function show($id)
     {
         $contact = Contact::when(auth()->user()->user_type == 'admin', function ($q) {
-            $q->whereHas('messageType.admins', function ($query) {
-                $query->where('admin_id', auth()->user()->id);
-            })
-            ->where('admin_id', auth()->user()->id)
-            ->orWhere('assigned_to_id',auth()->user()->id);
+            $q->where(function($query)
+            {
+                $query->where('admin_id', auth()->user()->id)
+                ->orWhere('assigned_to_id',auth()->user()->id);
+            });
         })
             ->with('replies', 'user', 'admin','activity')
             ->withTrashed()
