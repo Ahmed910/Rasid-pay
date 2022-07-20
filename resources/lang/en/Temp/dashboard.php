@@ -391,6 +391,7 @@ return [
             'show' => 'show contact message',
         ],
         'contacts' => 'Support',
+        'can_not_delete_contact' => 'Can not delete contact message related to contacts',
         'types' => [
             'suggestions' => 'Suggestions',
             'inquiries' => 'Inquiries',

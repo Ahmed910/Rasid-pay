@@ -45,9 +45,9 @@ class MessageTypeController extends Controller
     {
         $messageType = MessageType::withCount('admins')->with('admins', 'activity')->findOrFail($id);
         $activities = [];
-        $activities  = $messageType->activity()
+        $activities = $messageType->activity()
             ->sortBy($request)
-            ->paginate((int)($request->per_page ??  config("globals.per_page")));
+            ->paginate((int)($request->per_page ?? config("globals.per_page")));
 
         return MessageTypeCollection::make($activities)
             ->additional([
@@ -72,12 +72,19 @@ class MessageTypeController extends Controller
     public function destroy($id)
     {
         $messageType = MessageType::findOrFail($id);
-        $messageType->delete();
-        return MessageTypeResource::make($messageType)
-            ->additional([
-                'status' => true,
-                'message' => trans("dashboard.general.success_delete")
-            ]);
+        if (!$messageType->contact()->exists()) {
+            $messageType->delete();
+            return MessageTypeResource::make($messageType)
+                ->additional([
+                    'status' => true,
+                    'message' => trans("dashboard.general.success_delete")
+                ]);
+        }
+        return response()->json([
+            'data' => "",
+            'status' => true,
+            'message' => trans("dashboard.contact.can_not_delete_contact"),
+        ]);
     }
 
 
@@ -88,7 +95,7 @@ class MessageTypeController extends Controller
                 ->ListsTranslations('name')
                 ->get(),
             'status' => true,
-            'message' =>  '',
+            'message' => '',
         ]);
     }
 }

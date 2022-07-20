@@ -142,7 +142,8 @@ return [
         'want_restore' => 'هل تريد إتمام عملية الاستعادة؟',
         'enter_phone' => 'أدخل الرقم',
         'export' => 'تصدير',
-        'cant_update_phone_related_with_hold_transactions' => 'عفوا، لا يمكن تعديل رقم الجوال نظرا لوجود عمليات تحويل جارية'
+        'cant_update_phone_related_with_hold_transactions' => 'عفوا، لا يمكن تعديل رقم الجوال نظرا لوجود عمليات تحويل جارية',
+        'cannot_update' => 'لا يمكن التعديل',
     ],
     'setting' => [
         'sub_progs' =>  [
@@ -990,21 +991,17 @@ return [
     ],
     'contact' =>  [
         'contacts' => 'الدعم الفني',
+        'contact' => 'الدعم الفني',
+        'can_not_delete_contact' => 'لا يمكن حذف نوع رسالة مرتبط برسائل',
         'validation' => [
-
             'contact_id' => [
                 'required' => 'مطلوب حقل رقم الرسالة',
                 'unique' => 'حقل   رقم الرسالة يجب أن لا يتكرر'
-
             ],
-
             'reply' => [
                 'required' => 'حقل الرد مطلوب',
                 'string' => 'حقل الرد  يجب أن يكون قيمة نصية',
-
             ],
-
-
         ],
 
         'permissions' =>
@@ -1021,7 +1018,7 @@ return [
             'suggestions' => 'اقتراحات',
             'inquiries' => 'استعلامات',
         ],
-        'contact' => 'الدعم الفني',
+
     ],
     'attributes' =>   [
         'description' => 'الوصف',
@@ -1100,7 +1097,7 @@ return [
 
 
         ],
- 
+
         ],
         'our_app' => [
             'validation' => [

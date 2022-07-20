@@ -26,6 +26,7 @@ class VendorBranchResource extends JsonResource
            'type'          =>$this->vendor?->type,
            'address_details'=>$this->address_details,
            'phone'          =>$this->phone,
+           'is_active'          =>$this->is_active,
            'activity' => ActivityLogResource::collection($this->whenLoaded('activity')),
            'actions' => $this->when($request->routeIs('vendor_branches.index'), [
                'show' => auth()->user()->hasPermissions('vendor_branches.show'),
