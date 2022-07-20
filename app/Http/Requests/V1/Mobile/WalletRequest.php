@@ -11,7 +11,7 @@ class WalletRequest extends ApiMasterRequest
 
         return [
             // in citizen wallet
-            "amount" => 'required|numeric|gte:'. (float)(setting('min_charge_amount') ?? 10) . '|lte:' . (float)(setting('max_charge_amount') ?? 10000),
+            "amount" => 'required|regex:/^\d{1,5}$|^\d{1,5}\.\d{0,2}$/|numeric|gte:'. (float)(setting('min_charge_amount') ?? 10) . '|lte:' . (float)(setting('max_charge_amount') ?? 10000),
             //card information
             'is_card_saved' => 'required_without:card_id|in:0,1',
             'owner_name' => 'required_if:is_card_saved,1|string|max:255',

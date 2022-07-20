@@ -80,7 +80,7 @@ class PackageController extends Controller
 
         return TransactionResource::make($transaction)->additional([
             'status' => true,
-            'message' => trans('mobile.packages.promoted_successfully')
+            'message' => trans('mobile.promotion.promoted_successfully')
         ]);
     }
 
