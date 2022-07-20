@@ -41,7 +41,7 @@ class AppServiceProvider extends ServiceProvider
         Builder::macro("CustomDateFromTo",  function ($request) {
             if (isset($request->created_from)) {
                 $created_from = date('Y-m-d', strtotime($request->created_from));
-                if (auth()->user()->is_date_hijri == 1) {
+                if (setting('rasid_date_type')) {
                     $date = explode("-", $created_from);
                     $created_from = Hijri::convertToGregorian($date[2], $date[1], $date[0])->format('Y-m-d');
                 }
@@ -50,7 +50,7 @@ class AppServiceProvider extends ServiceProvider
 
             if (isset($request->created_to)) {
                 $created_to = date('Y-m-d', strtotime($request->created_to));
-                if (auth()->user()->is_date_hijri == 1) {
+                if (setting('rasid_date_type')) {
                     $date = explode("-", $created_to);
                     $created_to = Hijri::convertToGregorian($date[2], $date[1], $date[0])->format('Y-m-d');
                 }
@@ -61,7 +61,7 @@ class AppServiceProvider extends ServiceProvider
         Builder::macro("searchDeletedAtFromTo",  function ($request) {
               if (isset($request->deleted_from)) {
                 $deleted_from = date('Y-m-d', strtotime($request->deleted_from));
-                if (auth()->user()->is_date_hijri == 1) {
+                if (setting('rasid_date_type')) {
                     $date = explode("-", $deleted_from);
                     $deleted_from = Hijri::convertToGregorian($date[2], $date[1], $date[0])->format('Y-m-d');
                 }
@@ -70,7 +70,7 @@ class AppServiceProvider extends ServiceProvider
 
             if (isset($request->deleted_to)) {
                 $deleted_to = date('Y-m-d', strtotime($request->deleted_to));
-                if (auth()->user()->is_date_hijri == 1) {
+                if (setting('rasid_date_type')) {
                     $date = explode("-", $deleted_to);
                     $deleted_to = Hijri::convertToGregorian($date[2], $date[1], $date[0])->format('Y-m-d');
                 }

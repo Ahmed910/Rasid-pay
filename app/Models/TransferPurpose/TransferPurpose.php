@@ -21,6 +21,7 @@ class TransferPurpose extends Model
     public $translatedAttributes = ['name','description'];
     protected $attributes = ['is_active' => true];
     protected $guarded = ['created_at','updated_at','deleted_at'];
+    private $sortableColumns = [ 'name','is_active',];
     #endregion properties
 
     #region mutators
