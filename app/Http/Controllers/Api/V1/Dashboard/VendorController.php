@@ -21,10 +21,10 @@ class VendorController extends Controller
                             ->sortBy($request)
                             ->paginate((int)($request->per_page ?? config("globals.per_page")));
         return VendorResource::collection($vendors)
-            ->additional([
-                'status' => true,
-                'message' => "",
-            ]);
+                            ->additional([
+                                'status' => true,
+                                'message' => "",
+                            ]);
     }
 
     /**
@@ -39,7 +39,7 @@ class VendorController extends Controller
         $vendor->load("images");
         return VendorResource::make($vendor)->additional([
             "status" => true,
-            "message" => trans("dashboard.success_add")
+            "message" => __("dashboard.general.success_add")
         ]);
     }
 
@@ -74,10 +74,13 @@ class VendorController extends Controller
      */
     public function update(VendorRequest $request, $id)
     {
-        $vendor = Vendor::findorfail($id);
+        $vendor = Vendor::with("translations")->findorfail($id);
         $vendor->fill($request->validated() + ["updated_at" => now()])->save();
-        $vendor->load("translations");
-        return VendorResource::make($vendor);
+        return VendorResource::make($vendor)
+            ->additional([
+                "status" => true,
+                "message" => __("dashboard.general.success_update")
+            ]);
     }
 
     /**

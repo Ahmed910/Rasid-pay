@@ -19,7 +19,7 @@ use Illuminate\Support\Facades\Route;
 Route::get('version', function () {
     $host = \DB::table('app_versions')->latest()->first();
     return response()->json([
-        'data' => ['version' => $host?->version, 'website' => setting('website_link') ?? 'alfintech.com.eg'],
+        'data' => ['version' => $host?->version, 'website' => setting('website_link') ?? 'https://www.alfintech.com.eg'],
         'message' => '',
         'status' => true,
     ]);

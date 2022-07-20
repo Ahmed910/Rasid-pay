@@ -31,9 +31,7 @@ class VendorBranchResource extends JsonResource
             'email' => $this->email,
             'actions' => $this->when($request->routeIs('vendor_branches.index'), [
                 'show' => auth()->user()->hasPermissions('vendor_branches.show'),
-                $this->mergeWhen($request->route()->getActionMethod() == 'index', [
-                    'destroy' => auth()->user()->hasPermissions('vendor_branches.destroy'),
-                ])
+                'destroy' => auth()->user()->hasPermissions('vendor_branches.destroy'),
             ])
         ];
     }

@@ -26,6 +26,7 @@ class ContactResource extends JsonResource
             'user' => SimpleUserResource::make($this->whenLoaded('user')),
             'admin' => SimpleUserResource::make($this->whenLoaded('admin')),
             'replies' => ContactReplyResource::collection($this->whenLoaded('replies')),
+            // 'activity' => ActivityLogResource::collection($this->whenLoaded('activity')),
             'actions' => $this->when($request->routeIs('contacts.index'), [
                 'show' => auth()->user()->hasPermissions('contacts.show'),
                 'reply' => auth()->user()->hasPermissions('contacts.reply') && $this->message_status != 'replied' ,
