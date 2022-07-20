@@ -15,7 +15,7 @@ class PaymentRequest extends ApiMasterRequest
     {
         return [
             "invoice_number" => 'required|min:1|max:10',
-            "amount" => 'required|min:1|max:10|regex:/^[\pN\,\.]+$/u',
+            "amount" => 'required|min:1|max:10|gt:0|regex:/^[\pN\,\.]+$/u',
             "description" => 'nullable|min:1|max:255',
             'payment_type' => 'required',
             "payment_data" => 'nullable|string|max:255',
