@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Contact;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -20,7 +21,7 @@ class CreateContactsTable extends Migration
             $table->text("notes")->nullable();
 
             $table->enum('message_source', ['website', 'app',])->nullable()->default('app');;
-            $table->enum('message_status', ['pending', 'new', "replied"])->nullable()->default('new');
+            $table->enum('message_status', Contact::MESSAGE_STATUS)->default(Contact::PENDING);
             $table->foreignUuid("admin_id")->nullable()->constrained('users')->nullOnDelete();
 
             $table->softDeletes();

@@ -22,6 +22,11 @@ class Contact extends Model
     const ADMINCOLUMNS = ["admin_fullname"=>"fullname"];
     const USER_COLUMNS = ["fullname","email","phone","contact_type","message_source","message_status"];
     const SELECT_ALL = ["contact_type","message_source","message_status"];
+    const PENDING = 'pending';
+    const SHOWN = 'shown';
+    const ASSIGNED = 'assigned';
+    const REPLIED = 'replied';
+    const MESSAGE_STATUS = [self::PENDING,self::SHOWN,self::ASSIGNED,self::REPLIED];
     #endregion properties
 
     #region mutators
