@@ -51,6 +51,8 @@ return [
         'wallet_bin_has_been_updated' => 'تم تحديث الرقم الخاص بالمحفظة',
         'success_charge' => 'تم الشحن بنجاح',
         'firstly_add_wallet_bin' => 'يجب إضافة رقم المحفظة أولاً',
+        'success_payment' =>'تم الدفع بنجاح',
+
     ],
     'payments' => [
         'current_balance_is_not_sufficient_to_complete_payment' => 'الرصيد الحالي لا يكفي لإجراء عملية الدفع',

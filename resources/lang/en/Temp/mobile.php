@@ -42,6 +42,8 @@ return [
         'your_tries_have_been_expired' => 'Your Tries Have Been Expired For Complete This Transaction',
         'wallet_bin_has_been_updated' => 'Wallet Bin Has Been Updated',
         'you_can_complete_your_transaction' => 'You Can Complete Your Transaction',
+        'success_payment' =>'Payment completed successfully ',
+
     ],
     'mobile' => [
         'validation' => [

@@ -36,7 +36,7 @@ class PaymentController extends Controller
         return TransactionResource::make($transaction)
             ->additional([
                 'status' => true,
-                'message' => trans("dashboard.general.success_add")
+                'message' => trans("mobile.messages.success_payment")
             ]);
     }
     public function show($id)
