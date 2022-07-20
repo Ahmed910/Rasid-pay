@@ -29,6 +29,7 @@ class VendorBranchResource extends JsonResource
             'country_code' => substr($this->phone, 0, 4),
             'phone' => substr($this->phone, 4),
             'email' => $this->email,
+            'is_active' => (boolean)$this->is_active,
             'actions' => $this->when($request->routeIs('vendor_branches.index'), [
                 'show' => auth()->user()->hasPermissions('vendor_branches.show'),
                 'destroy' => auth()->user()->hasPermissions('vendor_branches.destroy'),
