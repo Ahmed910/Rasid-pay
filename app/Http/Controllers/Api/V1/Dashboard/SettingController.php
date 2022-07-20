@@ -15,7 +15,7 @@ class SettingController extends Controller
 {
     public function index(Request $request)
     {
-        $settings = Setting::where("dashboard", Setting::ERP)->select('key', 'value', 'input_type')
+        $settings = Setting::select('key', 'value', 'input_type')
             ->latest()->paginate((int)($request->perPage ?? 10));
 
         return SettingResource::collection($settings)
@@ -39,8 +39,7 @@ class SettingController extends Controller
             }
 
 
-            Setting::where("dashboard", Setting::ERP)
-                ->where("key", $key)->update([
+            Setting::where("key", $key)->update([
                     "value" =>  $value,
                 ]);
         }
@@ -67,9 +66,7 @@ class SettingController extends Controller
                 }
             }
 
-
-            Setting::where("dashboard", Setting::ERP)
-                ->updateOrCreate(
+            Setting::updateOrCreate(
                     ['key'   => $setting['key']],
                     ['value' =>  $setting['value'], 'input_type' => $setting['input_type']],
                 );
