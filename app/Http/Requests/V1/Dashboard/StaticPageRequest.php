@@ -13,12 +13,12 @@ class StaticPageRequest extends ApiMasterRequest
      */
     public function rules()
     {
-        
+
         $rules = [
             "image"           => "nullable|max:5120|mimes:jpg,png,jpeg",
             "is_active"       => "in:0,1",
-            "show_in_website" => "required|in:0,1",
-            "show_in_app"     => "required|in:0,1",
+            "show_in_website" => "nullable|in:0,1",
+            "show_in_app"     => "nullable|in:0,1",
         ];
         foreach (config('translatable.locales') as $locale) {
             $rules["$locale"]               = "array";
