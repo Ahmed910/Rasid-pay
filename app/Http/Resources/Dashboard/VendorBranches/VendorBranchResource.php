@@ -3,37 +3,38 @@
 namespace App\Http\Resources\Dashboard\VendorBranches;
 
 use Illuminate\Http\Resources\Json\JsonResource;
-use App\Http\Resources\Dashboard\ActivityLogResource;
-use App\Http\Resources\Dashboard\GlobalTransResource;
 
 class VendorBranchResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
      * @return array|\Illuminate\Contracts\Support\Arrayable|\JsonSerializable
      */
     public function toArray($request)
     {
-
-
         return [
-           'id'=>$this->id,
-           'name'          =>$this->vendor?->name,
-           'branch_name' =>$this->name,
-           'vendor_number'=>$this->vendor?->is_support_maak,
-           'type'          =>$this->vendor?->type,
-           'address_details'=>$this->address_details,
-           'phone'          =>$this->phone,
-           'is_active'          =>$this->is_active,
-           'activity' => ActivityLogResource::collection($this->whenLoaded('activity')),
-           'actions' => $this->when($request->routeIs('vendor_branches.index'), [
-               'show' => auth()->user()->hasPermissions('vendor_branches.show'),
-               $this->mergeWhen($request->route()->getActionMethod() == 'index', [
-                   'destroy' => auth()->user()->hasPermissions('vendor_branches.destroy'),
-               ])
-           ])
+            'id' => $this->id,
+            'name' => $this->name,
+            'logo' => $this->logo,
+            'vendor_name' => $this->vendor?->name,
+            'vendor_logo' => $this->vendor?->logo,
+            'is_support_maak' => (boolean)$this->vendor?->is_support_maak,
+            'type' => $this->vendor?->type,
+            'address_details' => $this->address_details,
+            'location' => $this->location,
+            'lat' => (string)$this->lat,
+            'lng' => (string)$this->lng,
+            'country_code' => substr($this->phone, 0, 4),
+            'phone' => substr($this->phone, 4),
+            'email' => $this->email,
+            'actions' => $this->when($request->routeIs('vendor_branches.index'), [
+                'show' => auth()->user()->hasPermissions('vendor_branches.show'),
+                $this->mergeWhen($request->route()->getActionMethod() == 'index', [
+                    'destroy' => auth()->user()->hasPermissions('vendor_branches.destroy'),
+                ])
+            ])
         ];
     }
 }
