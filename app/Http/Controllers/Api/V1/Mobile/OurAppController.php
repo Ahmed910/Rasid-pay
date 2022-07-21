@@ -9,11 +9,6 @@ use Illuminate\Http\Request;
 
 class OurAppController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index(Request  $request)
     {
         $ourApps = OurApp::search($request)
