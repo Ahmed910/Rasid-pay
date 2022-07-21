@@ -35,7 +35,7 @@ class RegisterController extends Controller
             $code = generate_unique_code(User::class, 'phone', 4, 'numbers');
         }
         $user->update(['verified_code' => $code, 'is_active' => false]);
-        $user->my_phone = '***********' . substr($user->phone, -3);
+        $user->mask_phone = '***********' . substr($user->phone, -3);
 
         return UserResource::make($user)->additional([
             'status' => true,

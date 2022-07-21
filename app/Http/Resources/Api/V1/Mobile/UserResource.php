@@ -19,7 +19,7 @@ class UserResource extends JsonResource
             'id' => $this->id,
             'fullname' => $this->fullname,
             'identity_number' => $this->identity_number,
-            'phone' => $this->my_phone ?? $this->phone,
+            'phone' => $this->mask_phone ?? $this->phone,
             'image' => $this->image,
             'wallet_number' => (string)$this->citizenWallet?->wallet_number,
             'is_phone_verified' => (bool)$this->phone_verified_at,
