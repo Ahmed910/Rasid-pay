@@ -18,7 +18,8 @@ class VendorResource extends JsonResource
             'id' => $this->id,
             'name' => $this->name,
             'type' => $this->type,
-            'logo' => $this->logo
+            'logo' => $this->logo,
+            'max_discount' => $this->max_discount
         ];
     }
 }
