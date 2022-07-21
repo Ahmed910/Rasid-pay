@@ -20,7 +20,17 @@ class PaymentRequest extends ApiMasterRequest
             'payment_type' => 'required',
             "payment_data" => 'nullable|string|max:255',
             "otp_code" => 'required|exists:citizen_wallets,wallet_bin,citizen_id,'.auth()->id(),
+
         ];
+    }
+    protected function prepareForValidation()
+    {
+        $data = $this->all();
+
+        $this->merge([
+            'invoice_number' => @$data['invoice_number'] ? convert_arabic_number($data['invoice_number']) : @$data['invoice_number'],
+            'amount' => @$data['amount'] ? convert_arabic_number($data['amount']) : @$data['amount']
+        ]);
     }
 
     public function messages()
