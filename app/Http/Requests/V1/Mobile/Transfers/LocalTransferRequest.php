@@ -17,12 +17,20 @@ class LocalTransferRequest extends ApiMasterRequest
     {
 
         return [
-            "otp_code" => 'required|exists:citizen_wallets,wallet_bin,citizen_id,'.auth()->id(),
-            'amount'              => 'required|numeric|gte:'. (setting('min_local_transfer_amount') ?? 10) . '|lte:' . (setting('max_local_transfer_amount') ?? 10000),
-            'fee_upon' => 'required|in:'.join(',', Transfer::FEE_UPON),
+            "otp_code" => 'required|exists:citizen_wallets,wallet_bin,citizen_id,' . auth()->id(),
+            'amount'              => 'required|numeric|gte:' . (setting('min_local_transfer_amount') ?? 10) . '|lte:' . (setting('max_local_transfer_amount') ?? 10000),
+            'fee_upon' => 'required|in:' . join(',', Transfer::FEE_UPON),
             'transfer_purpose_id' => 'nullable|exists:transfer_purposes,id',
             'beneficiary_id' => 'required|exists:beneficiaries,id',
             'notes'               => 'nullable|required_without:transfer_purpose_id|max:1000'
+        ];
+    }
+
+    public function messages()
+    {
+        return [
+            'otp_code.required' => trans('mobile.otp.required'),
+            'otp_code.exists' => trans('mobile.otp.exists'),
         ];
     }
 }
