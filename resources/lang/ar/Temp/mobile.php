@@ -47,13 +47,13 @@ return [
             'money_request' => 'طلب أموال',
             'transfer' => 'تحويل',
         ],
-         'transaction_details'=>[
+        'transaction_details' => [
             'payment_status' => 'تمت عملية الشراء من العميل  بقيمة فاتورة :amount وتم استرداد مبلغ :refund_amount',
             'wallet_transfer_status' => 'تم تحويل مبلغ :amount من المحفظة الخاصة بك إلى محفظة المستخدم برقم جوال/ هوية :to_user_identity_or_mobile_or_wallet_number',
             'local_transfer_status' => 'تم تحويل مبلغ :amount من المحفظة الخاصة بك إلى المستفيد :beneficiary برقم IBAN :iban',
             'global_transfer_status' => 'تم تحويل مبلغ :amount بعملة :currency من المحفظة الخاصة بك إلى المستفيد :beneficiary بدولة :country باستخدام :recieve_option وبرقم :mtcn',
-            'charge_status'=> 'تم شحن رصيد المحفظة الخاصة بك بالقيمة :amount عن طريق :method',
-            'money_request_status'=>'تم استلام مبلغ :amount بالمحفظة الخاصة بك من قبل المستخدم برقم جوال/ هوية :to_user_identity_or_mobile_or_wallet_number',
+            'charge_status' => 'تم شحن رصيد المحفظة الخاصة بك بالقيمة :amount عن طريق :method',
+            'money_request_status' => 'تم استلام مبلغ :amount بالمحفظة الخاصة بك من قبل المستخدم برقم جوال/ هوية :to_user_identity_or_mobile_or_wallet_number',
             'promote_package_status' => 'تم ترقية البطاقة الخاصة بك إلي :package_name وتم خصم قيمة :amount من المحفظة الخاصة بك مع العلم أن تاريخ انتهاء صلاحية البطاقة :expired_date'
         ],
 
@@ -69,11 +69,11 @@ return [
 
     ],
     'payments' => [
-        'current_balance_is_not_sufficient_to_complete_payment' => 'الرصيد الحالي لا يكفي لإجراء عملية الدفع',
+        'current_balance_is_not_sufficient_to_complete_payment' => 'لا يوجد رصيد كافي',
         'is_paid_before' => 'تم دفع هذه الفاتورة من قبل.'
     ],
     'global_transfers' => [
-        'current_balance_is_not_sufficiant_to_complete_transaction' => 'الرصيد الحالي لا يكفي لإجراء عملية التحويل',
+        'current_balance_is_not_sufficiant_to_complete_transaction' => 'لا يوجد رصيد كافي',
         'transfer_has_been_done_successfully' => 'تمت عملية التحويل بنجاح',
     ],
     'min' => [
@@ -98,7 +98,7 @@ return [
     ],
     'local_transfers' => [
         'local_transfers' => 'التحويلات المحلية',
-        'current_balance_is_not_sufficiant_to_complete_transaction' => 'الرصيد الحالي لا يكفي لإجراء عملية التحويل',
+        'current_balance_is_not_sufficiant_to_complete_transaction' => 'لا يوجد رصيد كافي',
         'local_transfer' => 'التحويل المحلي',
         'transfer_has_been_done_successfully' => 'تمت عملية التحويل بنجاح',
     ],
@@ -109,7 +109,9 @@ return [
         'by_identity_number' => 'برقم هوية ',
         'by_wallet_number' => 'برقم ',
         'cancel_transfer' => 'تم الالغاء واسترجاع الاموال بنجاح',
-        'wallet_transfer_method' => 'تحويل لمحفظة'
+        'wallet_transfer_method' => 'تحويل لمحفظة',
+        'exceed_max_transfer_day' => 'لقد وصلت للحد الأقصى للتحويل اليومي',
+        'exceed_max_transfer_month' => 'لقد وصلت للحد الأقصى للتحويل الشهري',
     ],
     'package_types' => [
         'basic' => 'أساسي',
@@ -131,5 +133,9 @@ return [
         'benefeciary_name' => 'اسم المستفيد',
         'benefeciary_address' => 'عنوان المستفيد',
         'transfer_purpose' => 'الغرض من الحوالة',
-    ]
+    ],
+    'otp' => [
+        'required' => 'رمز OTP مطلوب',
+        'exists'   => 'رمز OTP غير صحيح'
+    ],
 ];

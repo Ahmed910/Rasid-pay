@@ -19,7 +19,7 @@ class PaymentRequest extends ApiMasterRequest
             "description" => 'nullable|min:1|max:255',
             'payment_type' => 'required',
             "payment_data" => 'nullable|string|max:255',
-            "otp_code" => 'required|exists:citizen_wallets,wallet_bin,citizen_id,'.auth()->id(),
+            "otp_code" => 'required|exists:citizen_wallets,wallet_bin,citizen_id,' . auth()->id(),
 
         ];
     }
@@ -35,8 +35,10 @@ class PaymentRequest extends ApiMasterRequest
 
     public function messages()
     {
-      return [
-          'invoice_number.unique' => trans('mobile.payments.is_paid_before'),
-      ];
+        return [
+            'invoice_number.unique' => trans('mobile.payments.is_paid_before'),
+            'otp_code.required' => trans('mobile.otp.required'),
+            'otp_code.exists' => trans('mobile.otp.exists'),
+        ];
     }
 }
