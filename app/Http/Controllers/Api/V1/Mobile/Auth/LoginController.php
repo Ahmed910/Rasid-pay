@@ -111,7 +111,6 @@ class LoginController extends Controller
             $user->update([$request->key_name => $code]);
             // TODO::send code for user by sms
             $response = self::checkIsUserValid($user);
-            dd($response);
             if ($response) {
                 return response()->json(array_except($response['response'], ['message']) + ['message' => trans('auth.success_send_login_code')], $response['status_code']);
             }
