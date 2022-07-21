@@ -23,7 +23,7 @@ class ContactController extends Controller
                     ->orWhere('assigned_to_id', auth()->user()->id);
             });
         })
-            ->with('replies', 'user', 'admin', 'activity')
+            ->with('replies', 'user', 'admin', 'activity','assignedTo')
             ->CustomDateFromTo($request)
             ->search($request)
             ->sortby($request)
@@ -68,7 +68,7 @@ class ContactController extends Controller
                     ->orWhere('assigned_to_id', auth()->user()->id);
             });
         })
-            ->with('replies', 'user', 'admin', 'activity')
+            ->with('replies', 'user', 'admin', 'activity','assignedTo')
             ->withTrashed()
             ->findOrFail($id);
 
