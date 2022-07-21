@@ -95,6 +95,7 @@ return [
         'by_identity_number' => 'برقم هوية ',
         'by_wallet_number' => 'برقم ',
         'cancel_transfer' => 'تم الالغاء واسترجاع الاموال بنجاح',
+        'wallet_transfer_method' => 'تحويل لمحفظة'
     ],
     'package_types' => [
         'basic' => 'أساسي',
