@@ -55,7 +55,7 @@ trait ThrottlesAttempts
             throw new HttpResponseException(response()->json([
                 'status' => false,
                 'data' => null,
-                'message' => Lang::get('auth.throttle', [
+                'message' => Lang::get('auth.login.throttle', [
                     'seconds' => $seconds,
                     'minutes' => ceil($seconds / 60),
                 ])
@@ -63,7 +63,7 @@ trait ThrottlesAttempts
         }
 
         throw ValidationException::withMessages([
-            $this->throttleKeyName() => [Lang::get('auth.throttle', [
+            $this->throttleKeyName() => [Lang::get('auth.login.throttle', [
                 'seconds' => $seconds,
                 'minutes' => ceil($seconds / 60),
             ])],

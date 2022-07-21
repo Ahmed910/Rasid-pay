@@ -96,3 +96,4 @@ Route::post('contacts', 'ContactController@sendMessage')->name('send_message');
 Route::get('social_contacts', 'SettingController@socialContact');
 Route::get('slides', 'SlideController@index');
 Route::get('banks', 'BankController@index');
+Route::get('our_apps', 'OurAppController@index');
