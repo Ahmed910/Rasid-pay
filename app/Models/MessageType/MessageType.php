@@ -21,7 +21,7 @@ class MessageType extends Model
     #region properties
     protected $guarded = ['created_at'];
     public $translatedAttributes = ['name'];
-    private $sortableColumns = ['name', 'employee', 'created_at'];
+    private $sortableColumns = ['name', 'employee_count', 'created_at','is_active'];
     #endregion properties
 
     #region mutators
@@ -36,6 +36,10 @@ class MessageType extends Model
             $query->where(function ($q) use ($request) {
                 $q->whereTranslationLike('name', "%\\$request->name%");
             });
+        }
+
+        if (isset($request->is_active) && in_array($request->is_active, [1, 0])) {
+            $query->where('is_active', $request->is_active);
         }
 
         if ($request->employee_list) {

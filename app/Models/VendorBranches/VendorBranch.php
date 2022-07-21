@@ -32,15 +32,6 @@ class VendorBranch extends Model implements HasAssetsInterface
 
     #region mutators
     #region mutators
-    public function getLogoAttribute()
-    {
-        return asset($this->images()->where('option', 'branch_image')->first()?->media);
-    }
-
-    public function getVendorLogoAttribute()
-    {
-        return asset($this->vendor->images()->where('option', 'logo')->first()?->media);
-    }
     #endregion mutators
 
     #region scopes
@@ -53,27 +44,20 @@ class VendorBranch extends Model implements HasAssetsInterface
                 $q->whereTranslationLike('name', "%$request->name%");
             });
         }
-        $types = Vendor::TYPES;
 
-        if (isset($request->type) && in_array($request->type, $types))
+        if (isset($request->vendor_name)) {
             $query->whereHas("vendor", function ($q) use ($request) {
-                $q->where('type', 'like', "%$request->type%");
+                $q->whereTranslationLike('name', "%$request->vendor_name%");
             });
+        }
 
         if (isset($request->address_details)) {
-
             $query->where('address_details', 'like', "%$request->address_details%");
         }
 
         if (isset($request->is_active) && in_array($request->is_active, [1, 0])) {
             $query->where('is_active', $request->is_active);
         }
-
-        if (isset($request->vendor_name))
-            $query->whereHas("vendor", function ($q) use ($request) {
-                $q->whereTranslationLike('name', "%$request->vendor_name%");
-            });
-
         if (isset($request->phone)) {
 
             $query->where('phone', $request->phone);
@@ -103,7 +87,7 @@ class VendorBranch extends Model implements HasAssetsInterface
                     ->orderBy($request->sort["column"], @$request->sort["dir"]);
             }
 
-            if ($request->sort["column"] == "branch_name") {
+            if ($request->sort["column"] == "vendor_name") {
                 return $q->orderBy('branch_name', $request->sort['dir']);
             }
 
@@ -111,8 +95,8 @@ class VendorBranch extends Model implements HasAssetsInterface
                 return $q->orderBy('phone', $request->sort['dir']);
             }
 
-            if ($request->sort["column"] == "type") {
-                return $q->orderBy('type', $request->sort['dir']);
+            if ($request->sort["column"] == "is_active") {
+                $q->orderBy($request->sort["column"], @$request->sort["dir"]);
             }
 
             $q->orderBy($request->sort["column"], @$request->sort["dir"]);
