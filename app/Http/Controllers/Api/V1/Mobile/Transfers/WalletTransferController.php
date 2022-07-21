@@ -4,21 +4,20 @@ namespace App\Http\Controllers\Api\V1\Mobile\Transfers;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\V1\Mobile\Transfers\WalletTransferRequest;
-use App\Http\Resources\Api\V1\Mobile\{LocalTransferResource, Transactions\TransactionResource, WalletTransferResource};
+use App\Http\Resources\Api\V1\Mobile\{Transactions\TransactionResource};
+use App\Models\{CitizenWallet, Transaction, Transfer, User};
 use App\Services\WalletBalance;
-use App\Models\{CitizenWallet, Transaction, User, Transfer};
-use Illuminate\Http\Request;
 
 class WalletTransferController extends Controller
 {
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param \Illuminate\Http\Request $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(WalletTransferRequest $request, Transfer $transfer)
     {
+        // check max value of transfer per day
+        $transfers = Transfer::where('from_user_id', auth()->id())->whereDate('created_at', date('Y-m-d'))->sum('amount');
+        $max_transfer_per_day = setting('rasidpay_wallettransfer_maxvalue_perday');
+        if ($transfers > $max_transfer_per_day) {
+            return response()->json(['status' => false, 'data' => null, 'message' => trans('mobile.transfers.exceed_max_transfer_day')], 422);
+        }
         $citizen_wallet = CitizenWallet::with('citizen')->where('citizen_id', auth()->id())->firstOrFail();
         $citizen_wallet->update(['wallet_bin' => null]);
         $receiver_citizen_wallet = null;

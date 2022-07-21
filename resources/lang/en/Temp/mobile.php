@@ -70,6 +70,8 @@ return [
         'by_wallet_number' => 'By Wallet Number',
         'cancel_transfer' => 'Transfer has been canceled successfully and money is back to your wallet',
         'wallet_transfer_method' => 'Wallet Transfer Method',
+        'exceed_max_transfer_day' => 'You have exceeded the maximum transfer value per day.',
+        'exceed_max_transfer_month' => 'You have exceeded the maximum transfer value per month.'
     ],
     'package_types' => [
         'basic' => 'Basic',

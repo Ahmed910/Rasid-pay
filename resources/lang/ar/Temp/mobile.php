@@ -109,7 +109,9 @@ return [
         'by_identity_number' => 'برقم هوية ',
         'by_wallet_number' => 'برقم ',
         'cancel_transfer' => 'تم الالغاء واسترجاع الاموال بنجاح',
-        'wallet_transfer_method' => 'تحويل لمحفظة'
+        'wallet_transfer_method' => 'تحويل لمحفظة',
+        'exceed_max_transfer_day' => 'لقد وصلت للحد الأقصى للتحويل اليومي',
+        'exceed_max_transfer_month' => 'لقد وصلت للحد الأقصى للتحويل الشهري',
     ],
     'package_types' => [
         'basic' => 'أساسي',
