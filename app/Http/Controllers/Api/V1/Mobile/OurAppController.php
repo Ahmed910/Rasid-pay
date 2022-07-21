@@ -5,15 +5,16 @@ namespace App\Http\Controllers\Api\V1\Mobile;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\Api\V1\Mobile\OurAppResource;
 use App\Models\OurApp\OurApp;
-use Illuminate\Http\Request;
 
 class OurAppController extends Controller
 {
-    public function index(Request  $request)
+    public function index()
     {
-        $ourApps = OurApp::search($request)
+        $ourApps = OurApp::where('is_active', true)
+            ->select('our_apps.*')
             ->withTranslation()
-            ->sortBy($request)->paginate((int)($request->per_page ?? config("globals.per_page")));
+            ->orderBy('order')
+            ->get();
 
         return OurAppResource::collection($ourApps)->additional([
             'status' => true,
