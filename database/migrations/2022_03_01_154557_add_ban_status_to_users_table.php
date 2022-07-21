@@ -14,7 +14,7 @@ class AddBanStatusToUsersTable extends Migration
     public function up()
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->enum('ban_status', ['active', 'permanent', 'temporary'])->default('active');
+            $table->enum('ban_status', ['active', 'permanent', 'temporary','exceeded_attempts'])->default('active');
             $table->foreignUuid("added_by_id")->nullable()->constrained('users')->onDelete('set null');
             $table->foreignUuid("country_id")->nullable()->constrained()->onDelete('set null');
         });

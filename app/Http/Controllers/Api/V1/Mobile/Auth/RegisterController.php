@@ -25,7 +25,7 @@ class RegisterController extends Controller
         }
         $response = LoginController::checkIsUserValid($user);
         if ($response) {
-            return response()->json($response['response'], 403);
+            return response()->json($response['response'], $response['status_code']);
         }
         $user->fill($data + $userData)->save();
         //TODO: api service for send sms to phone number
