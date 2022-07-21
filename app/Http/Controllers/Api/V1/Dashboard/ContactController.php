@@ -23,7 +23,7 @@ class ContactController extends Controller
                     ->orWhere('assigned_to_id', auth()->user()->id);
             });
         })
-            ->with('replies', 'user', 'admin', 'activity')
+            ->with('replies', 'user', 'admin', 'activity','assignedTo')
             ->CustomDateFromTo($request)
             ->search($request)
             ->sortby($request)
@@ -67,8 +67,12 @@ class ContactController extends Controller
                 $query->where('admin_id', auth()->user()->id)
                     ->orWhere('assigned_to_id', auth()->user()->id);
             });
+        })->when($request['is_reply'],function($q){
+
+            $q->where('message_status',"<>",Contact::REPLIED);
+
         })
-            ->with('replies', 'user', 'admin', 'activity')
+            ->with('replies', 'user', 'admin', 'activity','assignedTo')
             ->withTrashed()
             ->findOrFail($id);
 
