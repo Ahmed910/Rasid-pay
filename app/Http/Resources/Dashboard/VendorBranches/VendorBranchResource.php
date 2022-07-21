@@ -29,6 +29,7 @@ class VendorBranchResource extends JsonResource
             'lng' => (string)$this->lng,
             'country_code' => substr($this->phone, 0, 4),
             'phone' => substr($this->phone, 4),
+            'branch_coordinates' => branchCooridnatesResource::collection($this),
             'email' => $this->email,
             'is_active' => (boolean)$this->is_active,
             'actions' => $this->when($request->routeIs('vendor_branches.index'), [
