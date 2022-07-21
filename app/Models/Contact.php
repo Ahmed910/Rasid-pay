@@ -106,6 +106,10 @@ class Contact extends Model
     {
         return $this->belongsTo(User::class, 'admin_id');
     }
+    public function assignedTo(): BelongsTo
+    {
+        return $this->belongsTo(User::class, 'assigned_to_id');
+    }
     public function messageType(): BelongsTo
     {
         return $this->belongsTo(MessageType::class, 'message_type_id');
