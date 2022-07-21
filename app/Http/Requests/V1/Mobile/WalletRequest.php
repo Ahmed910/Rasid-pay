@@ -11,7 +11,7 @@ class WalletRequest extends ApiMasterRequest
 
         return [
             // in citizen wallet
-            "amount" => 'required|regex:/^\d{1,5}$|^\d{1,5}\.\d{0,2}$/|numeric|gte:'. (float)(setting('min_charge_amount') ?? 10) . '|lte:' . (float)(setting('max_charge_amount') ?? 10000),
+            "amount" => ['required', 'regex:/^\\d{1,5}$|^\\d{1,5}\\.\\d{0,2}$/', 'numeric', 'gte:' . (float)(setting('min_charge_amount') ?? 10) . ',lte:' . (float)(setting('max_charge_amount') ?? 10000)],
             //card information
             'is_card_saved' => 'required_without:card_id|in:0,1',
             'owner_name' => 'required_if:is_card_saved,1|string|max:255',
@@ -37,10 +37,10 @@ class WalletRequest extends ApiMasterRequest
         if ($this->is_card_saved && @$data['card_number']) {
             $card_type = 'unknown';
             switch ($data['card_number']) {
-                case substr($data['card_number'], 0, 1) == 4 :
+                case substr($data['card_number'], 0, 1) == 4:
                     $card_type = 'visa';
                     break;
-                case substr($data['card_number'], 0, 1) == 5 :
+                case substr($data['card_number'], 0, 1) == 5:
                     $card_type = 'mastercard';
                     break;
                 case substr($data['card_number'], 0, 1) == 3 && in_array(substr($data['card_number'], 1, 1), [4, 7]):
@@ -58,10 +58,10 @@ class WalletRequest extends ApiMasterRequest
         return [
             'expire_at.after' => trans('mobile.validation.after_today'),
             'expire_at.date_format' => trans('mobile.validation.date_format'),
-            'card_name.required_if'=> trans('mobile.validation.card_name'),
-            'card_number.required_if'=> trans('mobile.validation.required_card_number'),
-            'card_number.digits'=>  trans('mobile.validation.card_number_digits'),
-            'expire_at.required_if'=>  trans('mobile.validation.expire_at'),
+            'card_name.required_if' => trans('mobile.validation.card_name'),
+            'card_number.required_if' => trans('mobile.validation.required_card_number'),
+            'card_number.digits' =>  trans('mobile.validation.card_number_digits'),
+            'expire_at.required_if' =>  trans('mobile.validation.expire_at'),
         ];
     }
 }
