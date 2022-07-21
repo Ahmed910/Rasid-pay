@@ -69,11 +69,11 @@ return [
 
     ],
     'payments' => [
-        'current_balance_is_not_sufficient_to_complete_payment' => 'الرصيد الحالي لا يكفي لإجراء عملية الدفع',
+        'current_balance_is_not_sufficient_to_complete_payment' => 'لا يوجد رصيد كافي',
         'is_paid_before' => 'تم دفع هذه الفاتورة من قبل.'
     ],
     'global_transfers' => [
-        'current_balance_is_not_sufficiant_to_complete_transaction' => 'الرصيد الحالي لا يكفي لإجراء عملية التحويل',
+        'current_balance_is_not_sufficiant_to_complete_transaction' => 'لا يوجد رصيد كافي',
         'transfer_has_been_done_successfully' => 'تمت عملية التحويل بنجاح',
     ],
     'min' => [
@@ -98,7 +98,7 @@ return [
     ],
     'local_transfers' => [
         'local_transfers' => 'التحويلات المحلية',
-        'current_balance_is_not_sufficiant_to_complete_transaction' => 'الرصيد الحالي لا يكفي لإجراء عملية التحويل',
+        'current_balance_is_not_sufficiant_to_complete_transaction' => 'لا يوجد رصيد كافي',
         'local_transfer' => 'التحويل المحلي',
         'transfer_has_been_done_successfully' => 'تمت عملية التحويل بنجاح',
     ],
