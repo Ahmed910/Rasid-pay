@@ -66,19 +66,13 @@ class WalletTransferRequest extends ApiMasterRequest
                 break;
 
             default:
-
+                $check_phone = $this->checkPhoneValid($value);
+                if(is_string($check_phone)){
+                    return $check_phone;
+                }
                 $user = User::where('id',"<>",auth()->id())->firstWhere(['user_type' => 'citizen', 'phone' => $value]);
-
                 if (!$user) {
-
-                    $check_phone = $this->checkPhoneValid($value);
-
-                    if(is_bool($check_phone)){
-
-                        return trans('mobile.validation.phone_number_is_not_found');
-                    }else{
-                        return $check_phone;
-                    }
+                    return trans('mobile.validation.phone_number_is_not_found');
                 }
 
                 break;
