@@ -15,8 +15,10 @@ class branchCooridnatesResource extends JsonResource
     public function toArray($request)
     {
         return [
-            'lat' => (string)$this->lat,
-            'lng' => (string)$this->lng,
+            "position" => [
+                'lat' => (string)$this->lat,
+                'lng' => (string)$this->lng,
+            ],
         ];
     }
 }
