@@ -292,4 +292,38 @@ return [
     'after' => ':attribute غير صالح',
     'mac_address' => 'ال :attribute يجب أن يكون عنوان MAC صالحاً.',
     'required_with_all' => ' :attribute مطلوب إذا توفّر :values.',
+
+    'beneficiaries' => [
+        "name" =>   [
+            "required" => "الاسم مطلوب"
+        ],
+        "transfer_relation" => [
+            "required_if" => "العلاقة مع المستفيد مطلوبة"
+        ],
+          "country" => [
+            "required_if" => "الدولة مطلوبة"
+        ],
+    ],
+
+    
+    'global_transfers' => [
+        "otp_code" =>   [
+            "required" => "رمز otp مطلوب",
+            "exists" => "رمز otp غير صحيح"
+        ],
+
+       "amount" =>   [
+            "required" => "مبلغ التحويل مطلوب",
+            "gte" => "لا يوجد رصيد كافى"
+        ],
+
+        "notes" =>   [
+            "required_without" => "الغرض من التحويل مطلوب"
+        ],
+
+       "beneficiary" =>   [
+            "exists" => "هذا المستفيد غير موجود"
+        ],
+     
+    ],
 ];

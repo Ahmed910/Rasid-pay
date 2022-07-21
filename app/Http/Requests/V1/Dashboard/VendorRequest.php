@@ -16,11 +16,11 @@ class VendorRequest extends ApiMasterRequest
     {
         $rules = [
             'type' => "required|in:" . join(",", Vendor::TYPES),
-            'commercial_record' => ["required", "numeric", "max:20", "unique:vendors,commercial_record," . @$this->vendor],
-            'tax_number' => "required|max:20|numeric|unique:vendors,tax_number," . @$this->vendor,
+            'commercial_record' => ["required", "numeric", "digits_between:10,20", "unique:vendors,commercial_record," . @$this->vendor],
+            'tax_number' => "required|digits_between:10,20|numeric|unique:vendors,tax_number," . @$this->vendor,
             'is_support_maak' => "required|in:1,0",
             'is_active' => "nullable|in:1,0",
-            "iban" => ['required', "unique:vendors,iban,","max:24" . @$this->vendor, function ($attribute, $value, $fail) {
+            "iban" => ['required', "unique:vendors,iban","size:24" . @$this->vendor, function ($attribute, $value, $fail) {
                 if (!check_iban_valid($value, 'sa')) {
                     $fail(trans('mobile.validation.invalid_iban'));
                 }

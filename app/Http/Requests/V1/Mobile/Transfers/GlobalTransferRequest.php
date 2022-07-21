@@ -22,11 +22,15 @@ class GlobalTransferRequest extends ApiMasterRequest
         ];
     }
 
+      
     public function messages()
     {
         return [
-            'otp_code.required' => trans('mobile.otp.required'),
-            'otp_code.exists' => trans('mobile.otp.exists'),
+            'otp_code.required' =>  __('validation.global_transfers.otp_code.required'),
+            'otp_code.exists' =>  __('validation.global_transfers.otp_code.exists'),
+            'amount.required' =>  __('validation.global_transfers.amount.required'),
+            'notes.required_without' =>  __('validation.global_transfers.notes.required_without'),
+            'beneficiary_id.exists' =>  __('validation.global_transfers.beneficiary.exists'),
         ];
     }
 }

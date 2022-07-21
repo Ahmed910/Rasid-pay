@@ -15,11 +15,13 @@ class VendorController extends Controller
     {
         $vendors = Vendor::search($request)
             ->ListsTranslations('name')
+            ->with('branches')
             ->addSelect('vendors.type', 'vendors.is_active', 'vendors.commercial_record', 'vendors.tax_number', 'vendors.iban')
             ->withCount('branches')
             ->CustomDateFromTo($request)
             ->sortBy($request)
             ->paginate((int)($request->per_page ?? config("globals.per_page")));
+            // dd($vendors);
         return VendorResource::collection($vendors)
             ->additional([
                 'status' => true,
