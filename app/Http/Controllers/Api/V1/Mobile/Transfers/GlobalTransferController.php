@@ -4,17 +4,22 @@ namespace App\Http\Controllers\Api\V1\Mobile\Transfers;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\V1\Mobile\Transfers\GlobalTransferRequest;
-use App\Http\Resources\Api\V1\Mobile\GlobalTransferResource;
 use App\Http\Resources\Api\V1\Mobile\Transactions\TransactionResource;
-use App\Models\{CitizenWallet, Country\Country, RecieveOption, Transaction, Transfer};
-use App\Services\WalletBalance;
+use App\Models\{CitizenWallet, Country\Country, Transaction, Transfer};
 
 class GlobalTransferController extends Controller
 {
 
     public function store(GlobalTransferRequest $request, Transfer $transfer)
     {
-        // check main_balance is suffienct or not (This will change after this phase (clean code))
+        // check max value of transfer per day
+        $transfers = Transfer::where('from_user_id', auth()->id())->whereDate('created_at', date('Y-m-d'))->sum('amount');
+        $max_transfer_per_day = setting('rasidpay_wallettransfer_maxvalue_perday');
+        if ($transfers > $max_transfer_per_day) {
+            return response()->json(['status' => false, 'data' => null, 'message' => trans('mobile.transfers.exceed_max_transfer_day')], 422);
+        }
+
+        // check main_balance is sufficient or not (This will change after this phase (clean code))
         $wallet = CitizenWallet::with('citizen')->where('citizen_id', auth()->id())->firstOrFail();
         if ($request->amount > $wallet->main_balance) {
             return response()->json(['data' => null, 'message' => trans('mobile.local_transfers.current_balance_is_not_sufficiant_to_complete_transaction'), 'status' => false], 422);
