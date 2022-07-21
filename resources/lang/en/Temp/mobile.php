@@ -68,7 +68,8 @@ return [
         'by_phone' => 'By Phone',
         'by_identity_number' => 'By Identity Number',
         'by_wallet_number' => 'By Wallet Number',
-        'cancel_transfer' => 'Transfer has been canceled successfully and money is back to your wallet'
+        'cancel_transfer' => 'Transfer has been canceled successfully and money is back to your wallet',
+        'wallet_transfer_method' => 'Wallet Transfer Method',
     ],
     'package_types' => [
         'basic' => 'Basic',

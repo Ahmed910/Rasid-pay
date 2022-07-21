@@ -2,12 +2,7 @@
 
 namespace Database\Seeders;
 
-use App\Models\CitizenWallet;
-use App\Models\Contact;
-use Database\Seeders\ReceiveOptionSeeder;
 use Illuminate\Database\Seeder;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Schema;
 
 class DatabaseSeeder extends Seeder
 {
@@ -52,9 +47,10 @@ class DatabaseSeeder extends Seeder
         //     'wallet_number' => generate_unique_code(CitizenWallet::class, 'wallet_number', 10, 'numbers')
         // ]);
         //
-        // $this->call(SettingSeeder::class);
+         $this->call(SettingSeeder::class);
+         $this->call(CountrySeeder::class);
         // $this->call(TransactionSeeder::class);
-        // $this->call(PackageSeeder::class);
+         $this->call(PackageSeeder::class);
         // $this->call(ReceiveOptionSeeder::class);
         // $this->call(TransferRelationSeeder::class);
         // $this->call(NotificationSeeder::class);

@@ -69,9 +69,9 @@ class VendorBranch extends Model implements HasAssetsInterface
             $query->where('is_active', $request->is_active);
         }
 
-        if (isset($request->branch_name))
+        if (isset($request->vendor_name))
             $query->whereHas("vendor", function ($q) use ($request) {
-                $q->whereTranslationLike('name', "%$request->branch_name%");
+                $q->whereTranslationLike('name', "%$request->vendor_name%");
             });
 
         if (isset($request->phone)) {
