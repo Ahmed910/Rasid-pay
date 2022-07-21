@@ -8,6 +8,9 @@ return [
         'code' => [
             'exists' => 'رمز التحقق غير صحيح',
         ],
+        'identity_number_is_not_found' => 'رقم الهوية غير موجود',
+        'phone_number_is_not_found' => 'رقم الهاتف غير موجود',
+        'wallet_number_is_not_found' => 'رقم المحفظة غير موجود',
         'password' => [
             'min' => 'كلمة المرور يجب ان لا تقل عن 8 حروف',
             'max' => 'كلمة المرور يجب ان لا تزيد عن 20 حرفا',
@@ -44,6 +47,17 @@ return [
             'money_request' => 'طلب أموال',
             'transfer' => 'تحويل',
         ],
+         'transaction_details'=>[
+            'payment_status' => 'تمت عملية الشراء من العميل  بقيمة فاتورة :amount وتم استرداد مبلغ :refund_amount',
+            'wallet_transfer_status' => 'تم تحويل مبلغ :amount من المحفظة الخاصة بك إلى محفظة المستخدم برقم جوال/ هوية :to_user_identity_or_mobile_or_wallet_number',
+            'local_transfer_status' => 'تم تحويل مبلغ :amount من المحفظة الخاصة بك إلى المستفيد :beneficiary برقم IBAN :iban',
+            'global_transfer_status' => 'تم تحويل مبلغ :amount بعملة :currency من المحفظة الخاصة بك إلى المستفيد :beneficiary بدولة :country باستخدام :recieve_option وبرقم :mtcn',
+            'charge_status'=> 'تم شحن رصيد المحفظة الخاصة بك بالقيمة :amount عن طريق :method',
+            'money_request_status'=>'تم استلام مبلغ :amount بالمحفظة الخاصة بك من قبل المستخدم برقم جوال/ هوية :to_user_identity_or_mobile_or_wallet_number',
+            'promote_package_status' => 'تم ترقية البطاقة الخاصة بك إلي :package_name وتم خصم قيمة :amount من المحفظة الخاصة بك مع العلم أن تاريخ انتهاء صلاحية البطاقة :expired_date'
+        ],
+
+
     ],
     'messages' => [
         'you_can_complete_your_transaction' => 'يمكنك إستكمال العملية',
