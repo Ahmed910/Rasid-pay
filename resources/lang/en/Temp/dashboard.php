@@ -425,6 +425,8 @@ return [
         ],
         'contacts' => 'Support',
         'can_not_delete_contact' => 'Can not delete contact message related to contacts',
+        'replied' =>' replied',
+
         'types' => [
             'suggestions' => 'Suggestions',
             'inquiries' => 'Inquiries',

@@ -54,7 +54,7 @@ return [
         'wallet_bin_has_been_updated' => 'تم تحديث الرقم الخاص بالمحفظة',
         'success_charge' => 'تم الشحن بنجاح',
         'firstly_add_wallet_bin' => 'يجب إضافة رقم المحفظة أولاً',
-        'success_payment' =>'تم الدفع بنجاح',
+        'success_payment' => 'تم الدفع بنجاح',
 
     ],
     'payments' => [
@@ -73,17 +73,18 @@ return [
         'package_is_not_found' => 'الباقة غير موجودة',
         'promo_code_is_used' => 'كود التخفيض مستخدم من قبل',
         'promo_code_is_not_found' => 'كود التخفيض غير صالح',
+        'promoted_successfully' => 'تم ترقية الباقة بنجاح',
     ],
     'mobile' =>
+    [
+        'validation' =>
         [
-            'validation' =>
-                [
-                    'mobile' =>
-                        [
-                            'otp_vaild' => 'رمز التحقق صالح',
-                        ],
-                ],
+            'mobile' =>
+            [
+                'otp_vaild' => 'رمز التحقق صالح',
+            ],
         ],
+    ],
     'local_transfers' => [
         'local_transfers' => 'التحويلات المحلية',
         'current_balance_is_not_sufficiant_to_complete_transaction' => 'الرصيد الحالي لا يكفي لإجراء عملية التحويل',
@@ -103,4 +104,20 @@ return [
         'golden' => 'ذهبي',
         'platinum' => 'بلاتيني',
     ],
+    'invoice' => [
+        'invoice' => 'فاتورة',
+        'successfully_Transfered' => 'تم التحويل بنجاح',
+        'transaction_type' => 'نوع العملية',
+        'transaction_date' => 'تاريخ العملية',
+        'mtcn_number' => 'رقم MTCN',
+        'reference_number' => 'الرقم المرجعي',
+        'transfer_amount' => 'مبلغ التحويل',
+        'fee_amount' => 'رسوم التحويل',
+        'charge_amount' => 'رسوم الشحن',
+        'from_account' => 'من المستخدم',
+        'total' => 'إجمالي المبلغ',
+        'benefeciary_name' => 'اسم المستفيد',
+        'benefeciary_address' => 'عنوان المستفيد',
+        'transfer_purpose' => 'الغرض من الحوالة',
+    ]
 ];

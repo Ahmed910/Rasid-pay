@@ -25,7 +25,7 @@ class OurApp extends Model implements TranslatableContract, HasAssetsInterface
     public $assets = ["image"];
     public $with = ["images"];
     private static $result = [];
-    private $sortableColumns = ['name','order','is_active','created_at'];
+    private $sortableColumns = ['name', 'order', 'is_active', 'created_at'];
 
     #endregion properties
 
@@ -40,49 +40,42 @@ class OurApp extends Model implements TranslatableContract, HasAssetsInterface
     }
     #endregion mutators
 
-    #region scopes    
+    #region scopes
     public function scopeSearch(Builder $query, $request)
     {
-        $old = $query->toSql() ;
+        $old = $query->toSql();
 
         if (isset($request->name)) {
             $query->where(function ($q) use ($request) {
                 $q->whereTranslationLike('name', "%$request->name%");
             });
         }
+
         if (isset($request->is_active) && in_array($request->is_active, [1, 0])) {
             $query->where('is_active', $request->is_active);
         }
-        $new = $query->toSql() ;
-        if ($old!=$new)  $this->addGlobalActivity($this, $request->query(), ActivityLog::SEARCH, 'index');
 
+        $new = $query->toSql();
+        if ($old != $new)  $this->addGlobalActivity($this, $request->query(), ActivityLog::SEARCH, 'index');
     }
 
     public function scopeSortBy(Builder $query, $request)
     {
 
         if (!isset($request->sort["column"]) || !isset($request->sort["dir"]))
-         return $query->orderBy('our_apps.order');
+            return $query->orderBy('our_apps.order');
 
         if (
             !in_array(Str::lower($request->sort["column"]), $this->sortableColumns) ||
             !in_array(Str::lower($request->sort["dir"]), ["asc", "desc"])
         ) {
-            return $query->orderBy('our_apps.order');
+            return $query->orderBy('our_apps.created_at');
         }
 
         $query->when($request->sort, function ($q) use ($request) {
             if ($request->sort["column"] == "name") {
                 return $q->has('translations')
                     ->orderBy($request->sort["column"], @$request->sort["dir"]);
-            }
-
-            if ($request->sort["column"] == "created_at") {
-                return $q->orderBy('created_at', $request->sort['dir']);
-            }
-
-            if ($request->sort["column"] == "is_active") {
-                return $q->orderBy('is_active', $request->sort['dir']);
             }
 
             $q->orderBy($request->sort["column"], @$request->sort["dir"]);

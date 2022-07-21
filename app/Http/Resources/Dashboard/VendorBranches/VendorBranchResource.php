@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources\Dashboard\VendorBranches;
 
+use App\Http\Resources\Dashboard\ImagesResource;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class VendorBranchResource extends JsonResource
@@ -17,10 +18,10 @@ class VendorBranchResource extends JsonResource
         return [
             'id' => $this->id,
             'name' => $this->name,
-            'logo' => $this->logo,
+            "logo" => ImagesResource::collection($this->images),
+            'vendor_id' => $this->vendor_id,
             'vendor_name' => $this->vendor?->name,
-            'vendor_logo' => $this->vendor?->logo,
-            'is_support_maak' => (boolean)$this->vendor?->is_support_maak,
+            'vendor_logo' => ImagesResource::collection($this->vendor?->images),
             'type' => $this->vendor?->type,
             'address_details' => $this->address_details,
             'location' => $this->location,

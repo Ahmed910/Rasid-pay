@@ -13,7 +13,6 @@ class HomeController extends Controller
     public function index()
     {
         return HomeResource::make(auth()->user()->citizenWallet)->additional(['status' => true, 'message' => '']);
-        // return WalletResource::make(auth()->user()->citizenWallet)->additional(['status' => true, 'message' => '']);
     }
 
 }
