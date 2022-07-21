@@ -17,7 +17,7 @@ class VendorBranch extends Model implements HasAssetsInterface
     use HasFactory, Uuid, HasAssetsTrait, Loggable, Translatable;
 
     #region properties
-    public $assets = ['branch_image'];
+    public $assets = ['logo'];
     protected $guarded = ['created_at', 'deleted_at'];
     public $translatedAttributes = ['name'];
 
