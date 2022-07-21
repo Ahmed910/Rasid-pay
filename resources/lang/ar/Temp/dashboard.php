@@ -993,6 +993,7 @@ return [
         'contacts' => 'الدعم الفني',
         'contact' => 'الدعم الفني',
         'can_not_delete_contact' => 'لا يمكن حذف نوع رسالة مرتبط برسائل',
+        'replied' =>'تم الرد',
         'validation' => [
             'contact_id' => [
                 'required' => 'مطلوب حقل رقم الرسالة',

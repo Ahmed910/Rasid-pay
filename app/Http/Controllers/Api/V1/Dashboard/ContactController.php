@@ -38,6 +38,17 @@ class ContactController extends Controller
 
     public function reply(ContactReplyRequest $request, ContactReply $contactReply)
     {
+
+       $contact = Contact::findorfail($request['contact_id']);
+
+        if($contact->replies()->exists()){
+            return response()->json([
+                'status' => true,
+                'message' => trans('dashboard.contact.replied'),
+                'data' => null
+            ]);
+        }
+
         $contactReply->fill($request->validated() + ['added_by_id' => auth()->id()] + ['updated_at' => now()])->save();
         $contactReply->contact->update(["message_status" => Contact::REPLIED]);
         // TODO: Send to user email
@@ -46,6 +57,7 @@ class ContactController extends Controller
                 'status' => true,
                 'message' => trans('dashboard.general.success_add')
             ]);
+
     }
 
     public function show(Request $request,$id)
