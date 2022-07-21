@@ -44,11 +44,8 @@ class VendorBranch extends Model implements HasAssetsInterface
                 $q->whereTranslationLike('name', "%$request->name%");
             });
         }
-
-        if (isset($request->vendor_name)) {
-            $query->whereHas("vendor", function ($q) use ($request) {
-                $q->whereTranslationLike('name', "%$request->vendor_name%");
-            });
+        if (isset($request->vendor_id)) {
+            $query->where('vendor_id', $request->vendor_id);
         }
 
         if (isset($request->address_details)) {
