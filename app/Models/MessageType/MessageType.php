@@ -21,7 +21,7 @@ class MessageType extends Model
     #region properties
     protected $guarded = ['created_at'];
     public $translatedAttributes = ['name'];
-    private $sortableColumns = ['name', 'employee', 'created_at','is_active'];
+    private $sortableColumns = ['name', 'employee_count', 'created_at','is_active'];
     #endregion properties
 
     #region mutators
@@ -42,11 +42,11 @@ class MessageType extends Model
             $query->where('is_active', $request->is_active);
         }
 
-        // if ($request->employee_list) {
-        //     $query->whereHas("admins", function ($q) use ($request) {
-        //         $q->whereIn('admin_id', $request->employee_list);
-        //     });
-        // }
+        if ($request->employee_list) {
+            $query->whereHas("admins", function ($q) use ($request) {
+                $q->whereIn('admin_id', $request->employee_list);
+            });
+        }
 
 
         $new = $query->toSql();
@@ -72,10 +72,6 @@ class MessageType extends Model
 
             if ($request->sort["column"] == "employee_count") {
                 return $q->withCount('admins')->orderBy('admins_count');
-            }
-            
-            if ($request->sort["column"] == "is_active") {
-                return $q->orderBy('is_active', $request->sort['dir']);
             }
 
             $q->orderBy($request->sort["column"], @$request->sort["dir"]);
