@@ -36,6 +36,16 @@ class Vendor extends Model implements HasAssetsInterface
         });
     }
     #region mutators
+    public function setPhoneAttribute($value)
+    {
+        // if (isset($value) && @$this->attributes['country_code'] == 966){
+        //     $this->attributes['phone'] = $this->attributes['country_code'] . $value;
+        // }else {
+        $this->attributes['phone'] = filter_mobile_number($value);
+        // }
+
+    }
+
     public function getLogoAttribute()
     {
         return asset($this->images()->where('option', 'logo')->first()?->media);
@@ -102,7 +112,7 @@ class Vendor extends Model implements HasAssetsInterface
     #region relationships
     public function branches()
     {
-        return $this->hasMany(VendorBranch::class);
+        return $this->hasMany(VendorBranch::class,'vendor_id');
     }
 
     public function package()

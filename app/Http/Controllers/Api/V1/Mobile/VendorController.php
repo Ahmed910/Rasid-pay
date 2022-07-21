@@ -13,18 +13,14 @@ class VendorController extends Controller
 {
      public function index(Request $request)
      {
-        // $vendors = Vendor::when($request->name,function ($query) use($request){
-        //     $query->whereTranslationLike('name',"%{$request->name}%",'ar')
-        //         ->orWhereTranslationLike('name',"%{$request->name}%",'en');
 
-        // })
-        // ->paginate((int)($request->per_page ?? config("globals.per_page")));
         $vendors = Vendor::when($request->name,function ($query) use($request){
                  $query->whereTranslationLike('name',"%{$request->name}%",'ar')
                 ->orWhereTranslationLike('name',"%{$request->name}%",'en');
         })
         ->join('vendor_packages','vendor_packages.vendor_id','vendors.id')
         ->select('vendors.*',\DB::raw("GREATEST(vendor_packages.basic_discount,vendor_packages.golden_discount,vendor_packages.platinum_discount) as max_discount"))
+        // ->select('vendors.*',\DB::raw("GREATEST(vendor_packages.basic_discount,vendor_packages.golden_discount,vendor_packages.platinum_discount) as max_discount"))
 
         ->paginate((int)($request->per_page ?? config("globals.per_page")));
 
