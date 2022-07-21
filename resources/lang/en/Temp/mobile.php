@@ -42,6 +42,8 @@ return [
         'your_tries_have_been_expired' => 'Your Tries Have Been Expired For Complete This Transaction',
         'wallet_bin_has_been_updated' => 'Wallet Bin Has Been Updated',
         'you_can_complete_your_transaction' => 'You Can Complete Your Transaction',
+        'success_payment' =>'Payment completed successfully ',
+
     ],
     'mobile' => [
         'validation' => [
@@ -55,16 +57,21 @@ return [
         'package_is_not_found' => 'Package Is Not Found',
         'promo_code_is_used' => 'Promo Code Is Used',
         'promo_code_is_not_found' => 'Promo Code Is Not Found',
+        'promoted_successfully' => 'Promoted Successfully',
     ],
     'payments' => [
         'current_balance_is_not_sufficient_to_complete_payment' => 'Current Balance Is Not Sufficient To Complete Payment',
+        'is_paid_before' => 'This invoice has been paid before.'
     ],
     'transfers' => [
         'transfer_details' => 'تم تحويل مبلغ :amount ر.س  من المحفظة الخاصة بك إلى محفظة المستخدم :wallet_transfer_method',
         'by_phone' => 'By Phone',
         'by_identity_number' => 'By Identity Number',
         'by_wallet_number' => 'By Wallet Number',
-        'cancel_transfer' => 'Transfer has been canceled successfully and money is back to your wallet'
+        'cancel_transfer' => 'Transfer has been canceled successfully and money is back to your wallet',
+        'wallet_transfer_method' => 'Wallet Transfer Method',
+        'exceed_max_transfer_day' => 'You have exceeded the maximum transfer value per day.',
+        'exceed_max_transfer_month' => 'You have exceeded the maximum transfer value per month.'
     ],
     'package_types' => [
         'basic' => 'Basic',

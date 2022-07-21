@@ -14,12 +14,31 @@ class PaymentRequest extends ApiMasterRequest
     public function rules()
     {
         return [
-            "invoice_number" => 'required|min:1|max:10',
+            "invoice_number" => 'required|unique:payments,invoice_number',
             "amount" => 'required|min:1|max:10|gt:0|regex:/^[\pN\,\.]+$/u',
             "description" => 'nullable|min:1|max:255',
             'payment_type' => 'required',
             "payment_data" => 'nullable|string|max:255',
-            "otp_code" => 'required|exists:citizen_wallets,wallet_bin,citizen_id,'.auth()->id(),
+            "otp_code" => 'required|exists:citizen_wallets,wallet_bin,citizen_id,' . auth()->id(),
+
+        ];
+    }
+    protected function prepareForValidation()
+    {
+        $data = $this->all();
+
+        $this->merge([
+            'invoice_number' => @$data['invoice_number'] ? convert_arabic_number($data['invoice_number']) : @$data['invoice_number'],
+            'amount' => @$data['amount'] ? convert_arabic_number($data['amount']) : @$data['amount']
+        ]);
+    }
+
+    public function messages()
+    {
+        return [
+            'invoice_number.unique' => trans('mobile.payments.is_paid_before'),
+            'otp_code.required' => trans('mobile.otp.required'),
+            'otp_code.exists' => trans('mobile.otp.exists'),
         ];
     }
 }

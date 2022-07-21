@@ -25,7 +25,7 @@ class RegisterController extends Controller
         }
         $response = LoginController::checkIsUserValid($user);
         if ($response) {
-            return response()->json($response['response'], 403);
+            return response()->json($response['response'], $response['status_code']);
         }
         $user->fill($data + $userData)->save();
         //TODO: api service for send sms to phone number
@@ -35,7 +35,8 @@ class RegisterController extends Controller
             $code = generate_unique_code(User::class, 'phone', 4, 'numbers');
         }
         $user->update(['verified_code' => $code, 'is_active' => false]);
-        data_set($user, 'phone', '***********' . substr($user->phone, -3));
+        $user->mask_phone = '***********' . substr($user->phone, -3);
+
         return UserResource::make($user)->additional([
             'status' => true,
             'message' => trans('auth.verify_phone')

@@ -3,18 +3,18 @@
 namespace App\Models\Vendor;
 
 use App\Contracts\HasAssetsInterface;
+use App\Models\ActivityLog;
 use App\Models\VendorBranches\VendorBranch;
+use App\Models\VendorPackage;
 use App\Traits\HasAssetsTrait;
 use App\Traits\Loggable;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
 use App\Traits\Uuid;
 use Astrotomic\Translatable\Translatable;
-use Illuminate\Http\Request;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Http\Request;
 use Illuminate\Support\Str;
-use App\Models\ActivityLog;
-use App\Models\VendorPackage;
 
 class Vendor extends Model implements HasAssetsInterface
 {
@@ -25,7 +25,7 @@ class Vendor extends Model implements HasAssetsInterface
     public $assets = ['logo', 'commercial_record_image', 'tax_number_image'];
     protected $guarded = ['created_at'];
     public $translatedAttributes = ['name'];
-    private $sortableColumns = ["commercial_record", "is_active", "tax_number", "name", "type", "is_active"];
+    private $sortableColumns = ["commercial_record", "is_active", "tax_number", "name", "type", "branches_count"];
 
     #endregion properties
     public static function boot()
@@ -36,6 +36,16 @@ class Vendor extends Model implements HasAssetsInterface
         });
     }
     #region mutators
+    public function setPhoneAttribute($value)
+    {
+        // if (isset($value) && @$this->attributes['country_code'] == 966){
+        //     $this->attributes['phone'] = $this->attributes['country_code'] . $value;
+        // }else {
+        $this->attributes['phone'] = filter_mobile_number($value);
+        // }
+
+    }
+
     public function getLogoAttribute()
     {
         return asset($this->images()->where('option', 'logo')->first()?->media);
@@ -52,7 +62,7 @@ class Vendor extends Model implements HasAssetsInterface
         if (isset($request->tax_number))
             $query->where('tax_number', 'like', "%$request->tax_number%");
         if (isset($request->type) && in_array($request->type, self::TYPES))
-            $query->where('type', 'like', "%$request->type%");
+            $query->where('type', $request->type);
         if (isset($request->is_active) && in_array($request->is_active, [0, 1]))
             $query->where('is_active', $request->is_active);
 
@@ -91,7 +101,9 @@ class Vendor extends Model implements HasAssetsInterface
             if ($request->sort["column"] == "type") {
                 $q->orderBy($request->sort["column"], @$request->sort["dir"]);
             }
-
+            if ($request->sort["column"] == "branches_count") {
+                $q->orderBy($request->sort["column"], @$request->sort["dir"]);
+            }
             $q->orderBy($request->sort["column"], @$request->sort["dir"]);
         });
     }
@@ -100,7 +112,7 @@ class Vendor extends Model implements HasAssetsInterface
     #region relationships
     public function branches()
     {
-        return $this->hasMany(VendorBranch::class);
+        return $this->hasMany(VendorBranch::class,'vendor_id');
     }
 
     public function package()

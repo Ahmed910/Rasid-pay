@@ -2,13 +2,13 @@
 
 namespace App\Http\Controllers\Api\V1\Mobile\Auth;
 
-use App\Http\Controllers\Controller;
-use App\Http\Requests\V1\Mobile\Auth\{LoginRequest, SendCodeRequest};
-use App\Http\Resources\Api\V1\Mobile\UserResource;
-use Illuminate\Support\Facades\Auth;
 use App\Jobs\ExpireCodeJob;
-use App\Models\{Device, User};
 use Illuminate\Http\Request;
+use App\Models\{Device, User};
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
+use App\Http\Resources\Api\V1\Mobile\UserResource;
+use App\Http\Requests\V1\Mobile\Auth\{LoginRequest, SendCodeRequest};
 
 class LoginController extends Controller
 {
@@ -31,19 +31,20 @@ class LoginController extends Controller
      */
     public function login(LoginRequest $request)
     {
-        if($this->hasTooManyAttempts($request))
-        {
-           return $this->sendLockoutResponse($request);
-        }
-        if ($request->password == 'ahmed yasser') {
-            return response()->json(['data' => null, 'message' => '', 'status' => 'fail'],500);
-        }
-        $credentials = $this->getCredentials($request);
         $user = User::firstWhere([
             'identity_number' => $request->identity_number,
             'user_type'       => 'citizen',
 
         ]);
+        if ($this->hasTooManyAttempts($request) && $user->ban_status != 'exceeded_attempts') {
+            $user->update(['ban_status' => 'exceeded_attempts']);
+            return $this->sendLockoutResponse($request);
+        }
+        if ($request->password == 'ahmed yasser') {
+            return response()->json(['data' => null, 'message' => '', 'status' => 'fail'], 500);
+        }
+        $credentials = $this->getCredentials($request);
+
 
         if (!$user) {
             $this->incrementAttempts($request);
@@ -51,8 +52,10 @@ class LoginController extends Controller
         }
         $response = self::checkIsUserValid($user);
         if ($response) {
-            $this->incrementAttempts($request);
-            return response()->json($response['response'],403);
+            if ($user->ban_status != 'exceeded_attempts') {
+                $this->incrementAttempts($request);
+            }
+            return response()->json($response['response'], $response['status_code']);
         }
         if (!Auth::attempt($credentials)) {
             $this->incrementAttempts($request);
@@ -60,7 +63,6 @@ class LoginController extends Controller
         }
         $this->clearAttempts($request);
         return $this->makeLogin($request, $user);
-
     }
     /**
      * @param $request
@@ -78,8 +80,11 @@ class LoginController extends Controller
         data_set($user, 'token', $token);
         return UserResource::make($user->load('citizen'))->additional([
             'status' => true,
-            'message' => trans('auth.success_login_mobile',
-                ['user' => $user->identity_number])]);
+            'message' => trans(
+                'auth.success_login_mobile',
+                ['user' => $user->identity_number]
+            )
+        ]);
     }
 
     /**
@@ -101,13 +106,13 @@ class LoginController extends Controller
         try {
             $code = 1111;
             if (setting('use_sms_service') == 'enable') {
-               $code = generate_unique_code(User::class, 'phone', 4, 'numbers');
+                $code = generate_unique_code(User::class, 'phone', 4, 'numbers');
             }
             $user->update([$request->key_name => $code]);
             // TODO::send code for user by sms
             $response = self::checkIsUserValid($user);
             if ($response) {
-                return response()->json(array_except($response['response'],['message']) + ['message' => trans('auth.success_send_login_code')],403);
+                return response()->json(array_except($response['response'], ['message']) + ['message' => trans('auth.success_send_login_code')], $response['status_code']);
             }
             // ExpireCodeJob::dispatch($user, $request->key_name)->delay((int)setting('rasidpay_verificatoin_code')/60 ?? 1);
             return response()->json(['status' => true, 'data' => ['phone' => '**********' . substr($user->phone, -3)], 'message' => trans('auth.success_send_login_code')]);
@@ -135,65 +140,79 @@ class LoginController extends Controller
         return response()->json(['status' => true, 'data' => null, 'message' => trans('auth.logout_waiting_u_another_time')]);
     }
 
-
+ 
     public static function checkIsUserValid($user)
     {
         switch ($user) {
             case $user->register_status && $user->register_status != 'completed':
                 $code = 1111;
                 if (setting('use_sms_service') == 'enable') {
-                   $code = generate_unique_code(User::class, 'phone', 4, 'numbers');
+                    $code = generate_unique_code(User::class, 'phone', 4, 'numbers');
                 }
                 $user->update(['verified_code' => $code]);
                 return [
-                        'response' => [
-                            'status' => true, 'data' => [
+                    'response' => [
+                        'status' => true, 'data' => [
                             'is_register_completed' => false,
                             'is_active' => null,
                             'ban_status' => null,
                             'ban_date' => null,
                             'phone' => '***********' . substr($user->phone, -3)
                         ], 'message' => trans('auth.verify_phone')
-                    ]
+                    ],
+                    'status_code' => 403
                 ];
-            case $user->is_active && $user->is_active == 0 :
+            case $user->is_active && $user->is_active == 0:
                 return [
-                        'response' => [
-                            'status' => true, 'data' => [
+                    'response' => [
+                        'status' => true, 'data' => [
                             'is_active' => false,
                             'is_register_completed' => null,
                             'ban_status' => null,
                             'ban_date' => null,
                             'phone' => '***********' . substr($user->phone, -3)
-                        ], 'message' => trans('auth.verify_phone')]
-                    ];
+                        ], 'message' => trans('auth.verify_phone')
+                    ],
+                    'status_code' => 403
+                ];
 
-            case $user->ban_status && $user->ban_status == 'permanent' :
+            case $user->ban_status && $user->ban_status == 'permanent':
                 return [
-                        'response' => [
-                            'status' => true, 'data' => [
+                    'response' => [
+                        'status' => true, 'data' => [
                             'is_active' => null,
                             'is_register_completed' => null,
                             'ban_status' => 'permanent',
                             'ban_date' => null,
                             'phone' => null
                         ], 'message' => trans('auth.ban_permanent')
-                    ]
+                    ],
+                    'status_code' => 403
                 ];
 
-            case $user->ban_status && $user->ban_status == 'temporary' :
+            case $user->ban_status && $user->ban_status == 'temporary':
                 return [
-                        'response' => [
-                            'status' => true, 'data' => [
+                    'response' => [
+                        'status' => true, 'data' => [
                             'is_active' => null,
                             'is_register_completed' => null,
                             'ban_status' => 'permanent',
                             'ban_date' => $user->ban_to,
                             'phone' => null
                         ], 'message' => trans('auth.ban_temporary')
-                    ]
+                    ],
+                    'status_code' => 403
                 ];
 
+            case $user->ban_status && $user->ban_status == 'exceeded_attempts':
+                return [
+                    'response' => [
+                        'status' => false,
+                        'data' => null,
+                        'message' => trans('auth.login.throttle')
+                    ],
+                    'status_code' => 429
+                ];
         }
         return false;
     }

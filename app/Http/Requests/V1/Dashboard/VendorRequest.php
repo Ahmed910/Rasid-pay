@@ -16,17 +16,17 @@ class VendorRequest extends ApiMasterRequest
     {
         $rules = [
             'type' => "required|in:" . join(",", Vendor::TYPES),
-            'commercial_record' => ["required", "string", "max:10", "unique:vendors,commercial_record," . @$this->vendor],
-            'tax_number' => "required|max:15|string|unique:vendors,tax_number," . @$this->vendor,
+            'commercial_record' => ["required", "numeric", "digits_between:10,20", "unique:vendors,commercial_record," . @$this->vendor],
+            'tax_number' => "required|digits_between:10,20|numeric|unique:vendors,tax_number," . @$this->vendor,
             'is_support_maak' => "required|in:1,0",
             'is_active' => "nullable|in:1,0",
-            "iban" => ['required', "unique:vendors,iban," . @$this->vendor, function ($attribute, $value, $fail) {
+            "iban" => ['required', "unique:vendors,iban","size:24" . @$this->vendor, function ($attribute, $value, $fail) {
                 if (!check_iban_valid($value, 'sa')) {
                     $fail(trans('mobile.validation.invalid_iban'));
                 }
             }],
-            "email" => ["required", "max:255", "email", "unique:vendors,email," . @$this->vendor],
-            "phone" => ["required", "numeric", 'starts_with:966', "digits_between:9,20", 'unique:vendors,phone,' . $this->vendor],
+            "email" => ["required", "max:100", "email", "unique:vendors,email," . @$this->vendor],
+            "phone" => ["required", "numeric", 'starts_with:9665,5', "digits:8", 'unique:vendors,phone,' . $this->vendor],
             'logo' => (!$this->isMethod('put')) ? "required|" : "nullable|" . 'mimes:jpeg,jpg,png,suv,heic',
             'commercial_record_image' => (!$this->isMethod('put')) ? "required|" : "nullable|" . 'mimes:jpeg,jpg,png,suv,heic',
             'tax_number_image' => 'nullable|mimes:jpeg,jpg,png,suv,heic',

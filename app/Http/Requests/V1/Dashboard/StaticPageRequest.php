@@ -28,5 +28,28 @@ class StaticPageRequest extends ApiMasterRequest
 
         return $rules;
     }
+    public function messages()
+    {
+        $validation = 'dashboard.static_page.validation';
+
+        $validation_messages = [
+
+           'image.mimes' => trans($validation.'.image.mimes'),
+           'image.max' => trans($validation.'.image.max'),
+           'show_in_website.in' => trans($validation.'.show_in_website.in'),
+           'show_in_app.in' => trans($validation.'.show_in_app.in'),
+           'is_active.in' => trans($validation.'.is_active.in'),
+        ];
+        foreach (config('translatable.locales') as $locale) {
+            $validation_messages["$locale.name.required"]  = trans("$validation.$locale.name.required");
+            $validation_messages["$locale.name.max"]  = trans("$validation.$locale.name.max");
+            $validation_messages["$locale.description.required"]  = trans("$validation.$locale.description.required");
+            $validation_messages["$locale.description.max"]  = trans("$validation.$locale.description.max");
+            $validation_messages["$locale.description.string"]  = trans("$validation.$locale.description.string");
+        }
+
+
+        return $validation_messages;
+    }
 
 }

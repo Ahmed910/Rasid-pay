@@ -25,4 +25,13 @@ class BeneficiaryRequest extends ApiMasterRequest
             'is_saved' => 'required|in:1,0'
         ];
     }
+    
+    public function messages()
+    {
+        return [
+            'name.required' =>  __('validation.beneficiaries.name.required'),
+            'transfer_relation_id.required_if' =>  __('validation.beneficiaries.transfer_relation.required_if'),
+            'country_id.required_if' =>  __('validation.beneficiaries.country.required_if'),
+        ];
+    }
 }

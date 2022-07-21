@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources\Api\V1\Mobile;
 
+use App\Models\CitizenPackage;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class VendorDetailsResource extends JsonResource
@@ -20,20 +21,23 @@ class VendorDetailsResource extends JsonResource
             [
                 'type' => 'basic',
                 'discount' => number_format($this->package?->basic_discount),
-                'is_current' => $currentPackageDiscount == 'basic',
-                'name' => trans('mobile.package_types.basic')
+                'is_current' => $currentPackageDiscount == CitizenPackage::BASIC,
+                'name' => trans('mobile.package_types.basic'),
+                'image' => asset(setting('rasidpay_cards_basic_bgimg')) ?? "",
             ],
             [
                 'type' => 'golden',
                 'discount' => number_format($this->package?->golden_discount),
-                'is_current' => $currentPackageDiscount == 'golden',
-                'name' => trans('mobile.package_types.golden')
+                'is_current' => $currentPackageDiscount == CitizenPackage::GOLDEN,
+                'name' => trans('mobile.package_types.golden'),
+                'image' => asset(setting('rasidpay_cards_golden_bgimg')) ?? "",
             ],
             [
                 'type' => 'platinum',
                 'discount' => number_format($this->package?->platinum_discount),
-                'is_current' => $currentPackageDiscount == 'platinum',
-                'name' => trans('mobile.package_types.platinum')
+                'is_current' => $currentPackageDiscount == CitizenPackage::PLATINUM,
+                'name' => trans('mobile.package_types.platinum'),
+                'image' => asset(setting('rasidpay_cards_platinum_bgimg')) ?? "",
             ],
         ];
         return [

@@ -14,17 +14,19 @@ class VendorController extends Controller
     public function index(Request $request)
     {
         $vendors = Vendor::search($request)
-                            ->ListsTranslations('name')
-                            ->addSelect('vendors.type', 'vendors.is_active', 'vendors.commercial_record', 'vendors.tax_number','vendors.iban')
-                            ->withCount('branches')
-                            ->CustomDateFromTo($request)
-                            ->sortBy($request)
-                            ->paginate((int)($request->per_page ?? config("globals.per_page")));
+            ->ListsTranslations('name')
+            ->with('branches')
+            ->addSelect('vendors.type', 'vendors.is_active', 'vendors.commercial_record', 'vendors.tax_number', 'vendors.iban')
+            ->withCount('branches')
+            ->CustomDateFromTo($request)
+            ->sortBy($request)
+            ->paginate((int)($request->per_page ?? config("globals.per_page")));
+            // dd($vendors);
         return VendorResource::collection($vendors)
-                            ->additional([
-                                'status' => true,
-                                'message' => "",
-                            ]);
+            ->additional([
+                'status' => true,
+                'message' => "",
+            ]);
     }
 
     /**
@@ -96,7 +98,7 @@ class VendorController extends Controller
         return VendorResource::make($vendor)
             ->additional([
                 'status' => true,
-                'message' =>  __('dashboard.general.success_delete')
+                'message' => __('dashboard.general.success_delete')
             ]);
     }
 }

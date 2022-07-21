@@ -14,7 +14,8 @@ class ContactResource extends JsonResource
             'id' => $this->id,
             'fullname' => $this->fullname,
             'email' => $this->email,
-            'phone' => $this->phone,
+            'country_code' => substr($this->phone, 0, 4),
+            'phone' => substr($this->phone, 4),
             'title' => $this->title,
             'content' => $this->content,
             'message_type' => ['id' => $this->messageType?->id, 'name' => $this->messageType?->name],
@@ -25,6 +26,7 @@ class ContactResource extends JsonResource
             'created_at' => $this->created_at,
             'user' => SimpleUserResource::make($this->whenLoaded('user')),
             'admin' => SimpleUserResource::make($this->whenLoaded('admin')),
+            'assigned_to' => SimpleUserResource::make($this->whenLoaded('assignedTo')),
             'replies' => ContactReplyResource::collection($this->whenLoaded('replies')),
             // 'activity' => ActivityLogResource::collection($this->whenLoaded('activity')),
             'actions' => $this->when($request->routeIs('contacts.index'), [

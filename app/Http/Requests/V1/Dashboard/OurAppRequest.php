@@ -19,12 +19,15 @@ class OurAppRequest extends ApiMasterRequest
      */
     public function rules()
     {
-
+        $image = 'required|mimes:jpg,jpeg,png,gif,svg|max:5120';
+        if($this->our_app){
+            $image = 'nullable|mimes:jpg,jpeg,png,gif,svg|max:5120';
+        }
         $rules = [
-            'order' => 'nullable|numeric',
-            'android_link' =>'required',
-            'ios_link' => 'required',
-            'image' => 'required|image|mimes:jpg,jpeg,png,gif,svg|max:5120',
+            'order' => 'nullable|numeric|gt:0',
+            'android_link' =>'required|active_url',
+            'ios_link' => 'required|active_url',
+            'image' => $image,
             'is_active' => 'required|in:0,1'
 
         ];
@@ -60,6 +63,7 @@ class OurAppRequest extends ApiMasterRequest
             $validation_messages["$locale.name.between"]  = trans("$validation.$locale.name.between");
             $validation_messages["$locale.name.unique"]  = trans("$validation.$locale.name.unique");
             $validation_messages["$locale.description.string"]  = trans("$validation.$locale.description.string");
+            $validation_messages["$locale.description.max"]  = trans("$validation.$locale.description.max");
         }
 
 

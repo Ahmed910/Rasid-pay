@@ -25,10 +25,8 @@ class ContactAdminAssignRequest extends ApiMasterRequest
     public function rules()
     {
         return [
-            "admin_id" => ["required",
-                Rule::exists('users', 'id')
-                    ->wherein('user_type', ["admin", "super_admin"])],
-            "notes" => ["nullable", "string"],
+            "assigned_to_id" => ["required","exists:users,id,user_type,admin"],
+            "notes"          => ["nullable", "string"]
         ];
     }
 }

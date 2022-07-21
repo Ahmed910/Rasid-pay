@@ -23,7 +23,7 @@ class ContactController extends Controller
                     ->orWhere('assigned_to_id', auth()->user()->id);
             });
         })
-            ->with('replies', 'user', 'admin', 'activity')
+            ->with('replies', 'user', 'admin', 'activity','assignedTo')
             ->CustomDateFromTo($request)
             ->search($request)
             ->sortby($request)
@@ -38,14 +38,26 @@ class ContactController extends Controller
 
     public function reply(ContactReplyRequest $request, ContactReply $contactReply)
     {
+
+       $contact = Contact::findorfail($request['contact_id']);
+
+        if($contact->replies()->exists()){
+            return response()->json([
+                'status' => false,
+                'message' => trans('dashboard.contact.replied'),
+                'data' => null
+            ], 422);
+        }
+
         $contactReply->fill($request->validated() + ['added_by_id' => auth()->id()] + ['updated_at' => now()])->save();
-        $contactReply->contact->update(["message_status" => "replied"]);
+        $contactReply->contact->update(["message_status" => Contact::REPLIED]);
         // TODO: Send to user email
         return ContactReplyResource::make($contactReply->load('contact', 'admin'))
             ->additional([
                 'status' => true,
                 'message' => trans('dashboard.general.success_add')
             ]);
+
     }
 
     public function show(Request $request,$id)
@@ -55,14 +67,18 @@ class ContactController extends Controller
                 $query->where('admin_id', auth()->user()->id)
                     ->orWhere('assigned_to_id', auth()->user()->id);
             });
+        })->when($request['is_reply'],function($q){
+
+            $q->where('message_status',"<>",Contact::REPLIED);
+
         })
-            ->with('replies', 'user', 'admin', 'activity')
+            ->with('replies', 'user', 'admin', 'activity','assignedTo')
             ->withTrashed()
             ->findOrFail($id);
 
         $contact->update([
             'read_at' => now(),
-            "message_status" => $contact->message_status == "new" ? "pending" : $contact->message_status
+            "message_status" => $contact->message_status == Contact::PENDING ? Contact::SHOWN : $contact->message_status
         ]);
         $activities = [];
         if (!$request->has('with_activity') || $request->with_activity) {
@@ -82,7 +98,7 @@ class ContactController extends Controller
 
     public function assignContact(ContactAdminAssignRequest $request, Contact $contact)
     {
-        $contact->update($request->validated());
+        $contact->update($request->validated() + ["message_status" => Contact::ASSIGNED ] );
         return ContactResource::make($contact->load("admin"))
             ->additional([
                 'status' => true,
