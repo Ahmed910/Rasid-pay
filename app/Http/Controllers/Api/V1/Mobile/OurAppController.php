@@ -12,9 +12,8 @@ class OurAppController extends Controller
     public function index(Request  $request)
     {
         $ourApps = OurApp::search($request)
-            ->ListsTranslations('name', 'description')
-            ->ordeBy('order')
-            ->get();
+            ->withTranslation()
+            ->sortBy($request)->paginate((int)($request->per_page ?? config("globals.per_page")));
 
         return OurAppResource::collection($ourApps)->additional([
             'status' => true,
