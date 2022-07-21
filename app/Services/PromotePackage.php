@@ -18,6 +18,7 @@ class PromotePackage
                 'number_of_purchase' => \DB::raw('number_of_purchase + 1'),
                 'package_price' => setting('rasidpay_cards_' . $package_type . '_price') ?? "500",
             ]);
+            auth()->user()->citizen()->update(['citizen_package_id' => $citizen_package_check->id]);
             return $citizen_package_check;
         }
         $package_data = [
