@@ -43,10 +43,10 @@ class ContactController extends Controller
 
         if($contact->replies()->exists()){
             return response()->json([
-                'status' => true,
+                'status' => false,
                 'message' => trans('dashboard.contact.replied'),
                 'data' => null
-            ]);
+            ], 422);
         }
 
         $contactReply->fill($request->validated() + ['added_by_id' => auth()->id()] + ['updated_at' => now()])->save();
