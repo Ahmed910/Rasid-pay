@@ -98,11 +98,7 @@ return [
     ],
     'local_transfers' => [
         'local_transfers' => 'التحويلات المحلية',
-<<<<<<< HEAD
-        'current_balance_is_not_sufficiant_to_complete_transaction' => 'لا يوجد رصيد كافى',
-=======
         'current_balance_is_not_sufficiant_to_complete_transaction' => 'لا يوجد رصيد كافي',
->>>>>>> f38a5cdcb827f78780595a7e738b21e1279a7a1e
         'local_transfer' => 'التحويل المحلي',
         'transfer_has_been_done_successfully' => 'تمت عملية التحويل بنجاح',
     ],
