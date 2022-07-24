@@ -443,6 +443,9 @@ return [
         'region_count' => 'عدد المناطق',
         'region' => 'المنطقة ',
     ],
+    'vendor_package' => [
+        'vendor_package' => 'باقة العميل'
+    ],
     'bank' =>  [
         'Enter_service_Number' => 'ادخل رقم خدمة العملاء',
         'sub_progs' =>  [
