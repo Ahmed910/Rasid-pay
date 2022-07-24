@@ -20,4 +20,14 @@ class MoneyReqRequest extends ApiMasterRequest
 
         ];
     }
+
+    protected function prepareForValidation()
+    {
+        $data = $this->all();
+
+        $this->merge([
+            'amount_required' => @$data['amount_required'] ? convert_arabic_number($data['amount_required']) : @$data['amount_required'],
+            'phone' => @$data['phone'] ? convert_arabic_number($data['phone']) : @$data['phone']
+        ]);
+    }
 }
