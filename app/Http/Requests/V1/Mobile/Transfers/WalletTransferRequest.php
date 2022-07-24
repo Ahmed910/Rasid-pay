@@ -67,6 +67,10 @@ class WalletTransferRequest extends ApiMasterRequest
                 }
                 break;
             case Transfer::IDENTITY_NUMBER:
+
+                if(!preg_match('/^[1-9][0-9]*$/', $value)){
+                    return trans('validation.custom.identity_number.regex');
+                }
                 $user = User::where('id', "<>", auth()->id())->firstWhere(['user_type' => 'citizen', 'identity_number' => $value]);
                 if (!$user) {
                     return trans('mobile.validation.identity_number_is_not_found');
@@ -112,4 +116,6 @@ class WalletTransferRequest extends ApiMasterRequest
             'otp_code.exists' => trans('mobile.otp.exists'),
         ];
     }
+
+    
 }
