@@ -17,7 +17,7 @@ class CurrencyController extends Controller
             return CurrencyResource::collection($currencies)->additional(['status' => true, 'message' => '']);
         }
         // Fetching JSON
-        $req_url = 'https://v6.exchangerate-api.com/v6/fb6f699c2c0e6b19d30429dc/latest/SAR';
+        $req_url = 'https://api.exchangerate.host/latest?base=SAR';
         $response_json = file_get_contents($req_url);
         // Continuing if we got a result
         if (false !== $response_json) {
@@ -25,11 +25,11 @@ class CurrencyController extends Controller
             try {
                 // Decoding
                 $response_object = json_decode($response_json);
-                foreach ($response_object->conversion_rates as $key => $value) {
+                foreach ($response_object->rates as $key => $value) {
                     Currency::updateOrCreate(['currency_code' => $key,],
                         [
                             'currency_value' => $value,
-                            'last_updated_at' => Carbon::parse($response_object->time_last_update_unix)
+                            'last_updated_at' => $response_object->date
                         ]);
                 }
                 // YOUR APPLICATION CODE HERE, e.g.
