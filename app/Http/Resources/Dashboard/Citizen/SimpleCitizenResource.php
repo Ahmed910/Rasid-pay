@@ -1,8 +1,10 @@
 <?php
 
-namespace App\Http\Resources\Dashboard;
+namespace App\Http\Resources\Dashboard\Citizen;
 
+use App\Http\Resources\Dashboard\ImagesResource;
 use Illuminate\Http\Resources\Json\JsonResource;
+use App\Http\Resources\Dashboard\BankAccountResource;
 
 class SimpleCitizenResource extends JsonResource
 {

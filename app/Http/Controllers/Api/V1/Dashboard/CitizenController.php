@@ -2,11 +2,12 @@
 
 namespace App\Http\Controllers\Api\V1\Dashboard;
 
-use App\Http\Controllers\Controller;
-use App\Http\Resources\Dashboard\CitizenResource;
 use App\Models\Citizen;
-use App\Models\CitizenPackage;
 use Illuminate\Http\Request;
+use App\Models\CitizenPackage;
+use App\Http\Controllers\Controller;
+use App\Http\Resources\Dashboard\Citizen\CitizenResource;
+use App\Http\Resources\Dashboard\Citizen\CitizenCollection;
 
 class CitizenController extends Controller
 {
@@ -32,8 +33,18 @@ class CitizenController extends Controller
     public function show(Request $request, $id)
     {
         $citizen = Citizen::where('user_id', $id)->with("user", "enabledPackage")->firstOrFail();
+        $activities = [];
+        if (!$request->has('with_activity') || $request->with_activity) {
+            $activities  = $citizen->activity()
+                ->sortBy($request)
+                ->paginate((int)($request->per_page ??  config("globals.per_page")));
+        }
 
-        return CitizenResource::make($citizen)->additional(['status' => true, 'message' => ""]);
+        return CitizenCollection::make($activities)
+            ->additional([
+                'status' => true,
+                'message' => ''
+            ]);
     }
 
 //    public function update(CitizenRequest $request, $id)
