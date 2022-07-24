@@ -26,7 +26,13 @@ return [
         'add_currency' => 'إضافة عملة',
     ],
     'vendor_package' => [
-        'vendor_package' => 'باقة العميل'
+        'vendor_package' => 'نسب الخصم',
+        'permissions' => [
+            'update' => 'تعديل',
+            'store' => 'حفظ',
+            'index' => 'السجل',
+            'destroy' => 'حذف',
+        ],
     ],
     'general' => [
         'email' => 'البريد الإلكتروني',
@@ -727,8 +733,39 @@ return [
         'archived_at' => ' تاريخ الأرشفة',
         'department_main' => 'القسم الرئيسي',
     ],
+    'our_app' => [
+        'our_apps' => 'تطبيقاتنا',
+        'permissions' => [
+            'store' => 'حفظ',
+            'show' => 'عرض',
+            'destroy' => 'حذف'
+        ],
+    ],
+
+    'faq' => [
+        'faqs' => 'الاسئلة الشائعة',
+        'permissions' => [
+            'store' => 'حفظ'
+        ],
+    ],
+
+
+    'vendor' => [
+        'vendors' => 'العملاء',
+        'permissions' => [
+            'index' => 'السجل',
+            'update' => 'تعديل',
+            'show' => 'عرض'
+        ],
+    ],
 
     'vendor_branch' => [
+        'vendor_branches' => 'أفرع العميل',
+        'permissions' => [
+            'store' => 'حفظ',
+            'update' => 'تعديل'
+
+        ],
         'validation' => [
             'vendor_id' => [
                 'required' => 'حقل اسم العميل مطلوب',
@@ -938,8 +975,25 @@ return [
         'localizations' => 'الترجمات',
         'permissions' =>
         [
-            'update' => 'حفظ الترجمات',
+            'update' => 'تعديل الترجمات',
             'index' => 'سجل الترجمات',
+            'store' => 'إنشاء الترجمات',
+        ],
+    ],
+    'link' => [
+        'links' => 'الروابط',
+        'permissions' =>
+        [
+           'index' => 'السجل',
+           'update' => 'تعديل'
+        ],
+    ],
+    'transfer_purpose' => [
+        'transfer_purposes' => 'أغراض التحويل',
+        'permissions' =>
+        [
+           'destroy' => 'حذف',
+            'show' => 'عرض'
         ],
     ],
     'cardpackage' =>  [
@@ -962,6 +1016,14 @@ return [
         ],
         'messages' => 'الرسائل',
     ],
+    'message_type' =>  [
+        'message_types' => 'أنواع الرسائل',
+        'permissions' => [
+            'store' => 'حفظ'
+        ]
+
+    ],
+
     'citizen' =>  [
         'add_citizen' => 'إضافة مستخدم',
         'permissions' => [
@@ -1016,6 +1078,7 @@ return [
             'delete_contact' => 'حذف رسالة دعم فني',
             'index' => 'رسائل الدعم الفني',
             'show' => 'عرض رسالة الدعم الفني',
+            'assign_contact' => 'تحويل رسالة',
         ],
         'types' =>
         [
@@ -1033,7 +1096,7 @@ return [
     'notification' =>   [
         'notification_count' => 'عدد التنبيهات',
         'notification' => 'تنبيه',
-        'notificationS' => 'التنبيهات',
+        'notifications' => 'التنبيهات',
         'permissions' =>
         [
             'store' => 'ارسال تنبيه',
@@ -1090,6 +1153,7 @@ return [
             'index' => 'سجل الصفحات الثابتة',
             'destroy' => 'حذف الصفحات الثابتة',
             'update' => 'تعديل الصفحات الثابتة',
+            'show'   => 'عرض الصفحات الثابتة'
         ],
         'static_pages' => 'الصفحات الثابتة',
     ],

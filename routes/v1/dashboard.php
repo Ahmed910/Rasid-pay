@@ -176,9 +176,11 @@ Route::middleware('maintenance_mode')->group(function () {
                 'message_types' => 'MessageTypeController'
             ]);
 
+            Route::apiResource('vendor_branches', 'VendorBranchController')->except('get_vendors');
+            Route::apiResource('vendor_package', 'VendorPackageController')->except('get_clients','show');
             Route::apiResource('citizens', 'CitizenController')->only('index', 'show');
             Route::apiResource('settings', 'SettingController')->only(['index', 'store']);
-            Route::apiResource('links', 'LinkController')->except('store');
+            Route::apiResource('links', 'LinkController')->only(['index','update']);
             Route::apiResource('activity_logs', 'ActivityController')->only(['index', 'show']);
             Route::post('localizations_update','LocalizationController@updateTranslation')->name('localizations_update');
             Route::apiResource('localizations', 'LocalizationController')->only(['store', 'index']);
