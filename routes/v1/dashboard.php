@@ -176,7 +176,7 @@ Route::middleware('maintenance_mode')->group(function () {
                 'message_types' => 'MessageTypeController'
             ]);
 
-            Route::apiResource('citizens', 'CitizenController')->only('index', 'show');
+            Route::apiResource('citizens', 'CitizenController')->only('index', 'show','update');
             Route::apiResource('settings', 'SettingController')->only(['index', 'store']);
             Route::apiResource('links', 'LinkController')->except('store');
             Route::apiResource('activity_logs', 'ActivityController')->only(['index', 'show']);
