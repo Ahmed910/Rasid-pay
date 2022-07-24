@@ -3,9 +3,9 @@
 namespace App\Http\Controllers\Api\V1\Dashboard;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\V1\Dashboard\ChangePasswordRequest;
 use App\Http\Resources\Dashboard\ProfileResource;
 use App\Http\Requests\V1\Dashboard\ProfileRequest;
+use App\Http\Requests\V1\Mobile\Profile\UpdatePasswordRequest;
 
 class ProfileController extends Controller
 {
@@ -35,7 +35,7 @@ class ProfileController extends Controller
     }
 
 
-    public function changePassword(ChangePasswordRequest $request)
+    public function changePassword(UpdatePasswordRequest $request)
     {
         $user = auth()->user();
         $user->fill($request->validated()+['updated_at'=>now()])->save();

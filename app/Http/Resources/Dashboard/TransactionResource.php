@@ -2,7 +2,6 @@
 
 namespace App\Http\Resources\Dashboard;
 
-use App\Models\Transaction;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class TransactionResource extends JsonResource
@@ -25,7 +24,7 @@ class TransactionResource extends JsonResource
         return [
             'id' => $this->id,
             'number' => $this->trans_number,
-            'created_at' => $this->created_at,
+            'created_at' => $this->created_at_mobile,
             'citizen' => $this->fromUser?->fullname,
             'client' => $this->toUser?->fullname,
             'type' => $this->trans_type ? trans("dashboard.transaction.type_cases.{$this->trans_type}") : "",
