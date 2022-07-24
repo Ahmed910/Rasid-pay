@@ -49,6 +49,8 @@ class WalletRequest extends ApiMasterRequest
             }
             $this->merge([
                 'card_type' => $card_type,
+                'amount' => @$data['amount'] ? convert_arabic_number($data['amount']) : @$data['amount'],
+                'card_number' => @$data['card_number'] ? convert_arabic_number($data['card_number']) : @$data['card_number'],
             ]);
         }
     }

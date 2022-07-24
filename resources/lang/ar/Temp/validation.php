@@ -223,6 +223,7 @@ return [
     'custom' => [
         'email' => [
             'exists' => 'هذا البريد غير مسجل بالنظام',
+            'correct_email' => 'يرجى إدخال بريد إلكتروني بصيغة صحيحة',
         ],
         'phone' =>  [
             'exists' => ' رقم الجوال غير مسجل بالنظام',
@@ -308,8 +309,8 @@ return [
     
     'global_transfers' => [
         "otp_code" =>   [
-            "required" => "رمز otp مطلوب",
-            "exists" => "رمز otp غير صحيح"
+            "required" => "مطلوب otp رمز",
+            "exists" => "غير صحيح otp رمز"
         ],
 
        "amount" =>   [
