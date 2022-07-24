@@ -55,6 +55,11 @@ class RouteServiceProvider extends ServiceProvider
                 ->namespace($this->mobile_v1_namespace)
                 ->group(base_path('routes/v1/mobile.php'));
 
+            Route::prefix('api/v1008/mobile')
+                ->middleware('api', 'setLocale') //
+                ->namespace($this->mobile_v1_namespace)
+                ->group(base_path('routes/v1/mobile.php'));
+
             Route::prefix('api/v1006/mobile')
                 ->middleware('api', 'setLocale') //
                 ->namespace($this->mobile_v1_namespace)

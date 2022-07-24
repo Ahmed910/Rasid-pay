@@ -73,7 +73,7 @@ return [
         'is_paid_before' => 'تم دفع هذه الفاتورة من قبل.'
     ],
     'global_transfers' => [
-        'current_balance_is_not_sufficiant_to_complete_transaction' => 'لا يوجد رصيد كافي',
+        'current_balance_is_not_sufficiant_to_complete_transaction' => 'لا يوجد رصيد كافى',
         'transfer_has_been_done_successfully' => 'تمت عملية التحويل بنجاح',
     ],
     'min' => [
