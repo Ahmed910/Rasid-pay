@@ -309,8 +309,8 @@ return [
     
     'global_transfers' => [
         "otp_code" =>   [
-            "required" => "رمز otp مطلوب",
-            "exists" => "رمز otp غير صحيح"
+            "required" => "مطلوب otp رمز",
+            "exists" => "غير صحيح otp رمز"
         ],
 
        "amount" =>   [
