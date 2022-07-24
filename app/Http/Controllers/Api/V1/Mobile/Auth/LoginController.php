@@ -191,9 +191,9 @@ class LoginController extends Controller
                             'ban_status' => 'permanent',
                             'ban_date' => null,
                             'phone' => null
-                        ], 'message' => trans('auth.ban_permanent')
+                        ], 'message' => trans('auth.user_banned')
                     ],
-                    'status_code' => 403
+                    'status_code' => 406
                 ];
 
             case $user->ban_status && $user->ban_status == 'temporary':
@@ -205,9 +205,9 @@ class LoginController extends Controller
                             'ban_status' => 'permanent',
                             'ban_date' => $user->ban_to,
                             'phone' => null
-                        ], 'message' => trans('auth.ban_temporary')
+                        ], 'message' => trans('auth.user_banned')
                     ],
-                    'status_code' => 403
+                    'status_code' => 406
                 ];
 
             case $user->ban_status && $user->ban_status == 'exceeded_attempts':
