@@ -1,8 +1,10 @@
 <?php
 
-namespace App\Http\Resources\Dashboard;
+namespace App\Http\Resources\Dashboard\Citizen;
 
 use Illuminate\Http\Resources\Json\JsonResource;
+use App\Http\Resources\Dashboard\ActivityLogResource;
+use App\Http\Resources\Dashboard\Citizen\SimpleCitizenResource;
 use App\Http\Resources\Dashboard\CitizenPackageResource;
 
 class CitizenResource extends JsonResource
@@ -25,6 +27,7 @@ class CitizenResource extends JsonResource
             'bank_name' => $this->bankAccount?->bank?->name,
             'created_at' => $this->created_at,
             'start_from' => $request->start,
+            'activity' => ActivityLogResource::collection($this->whenLoaded('activity')),
             'token' => $this->when($this->token, $this->token),
             'actions' => $this->when($request->routeIs('citizens.index') || $request->routeIs('citizens.archive'), [
                 'show' => auth()->user()->hasPermissions('citizens.show'),
