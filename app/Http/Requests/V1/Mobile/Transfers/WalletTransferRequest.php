@@ -23,7 +23,7 @@ class WalletTransferRequest extends ApiMasterRequest
         //     ];
         // }
         return [
-            'amount'  => 'required|numeric|gte:' . (setting('min_wallet_transfer_amount') ?? 10) . '|lte:' . (setting('max_wallet_transfer_amount') ?? 10000),
+            'amount'  => 'required|numeric|gte:' . (setting('rasidpay_wallettransfer_minvalue') ?? 10) . '|lte:' . (setting('rasidpay_wallettransfer_maxvalue') ?? 10000),
             "wallet_transfer_method" => 'required|in:' . join(",", Transfer::WALLET_TRANSFER_METHODS),
             'notes'   => 'nullable|required_without:transfer_purpose_id|max:1000',
             "transfer_method_value" => ['required', function ($attribute, $value, $fail) {

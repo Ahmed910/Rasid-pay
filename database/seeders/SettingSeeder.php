@@ -21,35 +21,48 @@ class SettingSeeder extends Seeder
             ["key" => "rasidpay_session_timeout", "value" => ["en" => 600], "input_type" => "number"],
             ["key" => "rasidpay_verificatoin_code", "value" => ["en" => 60], "input_type" => "number"],
             ["key" => "rasid_verify_code_timer", "value" => ["en" => 60], "input_type" => "number"],
-            ["key" => "rasidpay_setting_termsconds", "value" => ["en" => "rasidpay setting termsconds", "ar" => "rasidpay setting termsconds"], "input_type" => "editor"],
+            ["key" => "rasidpay_setting_termsconds", "value" => ["en" => "rasid pay setting terms and conditions", "ar" => "الشروط والاحكام"], "input_type" => "editor"],
 
             // statics
-            ["key" => "rasidpay_setting_aboutapp", "value" => ["en" => "rasidpay_setting_aboutapp", "ar" => "rasidpay_setting_aboutapp"], "input_type" => "editor"],
-            ["key" => "rasidpay_setting_usagepolicy", "value" => ["en" => "rasidpay_setting_usagepolicy", "ar" => "rasidpay_setting_usagepolicy"], "input_type" => "editor"],
+            ["key" => "rasidpay_setting_aboutapp", "value" => ["en" => "rasid pay setting about app", "ar" => "اعدادات عن التطبيق"], "input_type" => "editor"],
+            ["key" => "rasidpay_setting_usagepolicy", "value" => ["en" => "rasid pay setting usage policy", "ar" => "اعدادات سياسة الاستخدام"], "input_type" => "editor"],
             ["key" => "rasid_date_type", "value" => ["en" => 0], "input_type" => "select"],
             ["key" => "rasidpay_localtransfer_creditchoice_active", "value" => ["en" => 0], "input_type" => "select"],
             ["key" => "rasidpay_inttransfer_creditchoice_active", "value" => ["en" => 0], "input_type" => "select"],
 
             // rasid maak
-            ["key" => "rasidback_rasidmaak_specifications", "value" => ["en" => "Rasid", "ar" => "رصيد"], "input_type" => "text"],
+            ["key" => "rasidback_rasidmaak_specifications", "value" => ["en" => "Rasid maak", "ar" => "رصيد معاك"], "input_type" => "text"],
             ["key" => "rasidpay_rasidmaak_specifications", "value" => ["en" => "Enjoy a special installment rate with the application of credit with you, download it now", "ar" => "تمتع بنسبة تقسيط خاصة مع تطبيق رصيد معاك حمله الآن"], "input_type" => "text"],
 
             // transfers
-            ["key" => "rasidpay_localtransfer_transferfees", "value" => ["en" => 60], "input_type" => "number"],
+            ["key" => "rasidpay_localtransfer_transferfees", "value" => ["en" => 7], "input_type" => "number"],
             ["key" => "rasidpay_calc_transfer_fees", "value" => ["en" => 2], "input_type" => "number"],
             ["key" => "rasidpay_transfer_tax", "value" => ["en" => 2], "input_type" => "number"],
 
             // message
             ["key" => "rasid_support_msgsinbox_reply", "value" => ["en" => 0], "input_type" => "select"],
-
+            // transactions
             ["key" => "rasidpay_mytransactoins_displaycount", "value" => ["en" => 5], "input_type" => "number"],
+            // wallet transfers
+            ["key" => "rasidpay_wallettransfer_minvalue", "value" => ["en" => 10], "input_type" => "number"],
+            ["key" => "rasidpay_wallettransfer_maxvalue", "value" => ["en" => 10000], "input_type" => "number"],
+            ["key" => "rasidpay_wallettransfer_maxvalue_perday", "value" => ["en" => 100000], "input_type" => "number"],
+            ["key" => "rasidpay_wallettransfer_maxvalue_permonth", "value" => ["en" => 1000000], "input_type" => "number"],
+            ["key" => "rasidpay_wallettransfer_maxvalue_perreciever", "value" => ["en" => 1000], "input_type" => "number"],
+
+            // wallet charge
             ["key" => "rasidpay_walletcharge_minvalue", "value" => ["en" => 10], "input_type" => "number"],
             ["key" => "rasidpay_walletcharge_maxvalue", "value" => ["en" => 10000], "input_type" => "number"],
-            ["key" => "rasidpay_wallettransfer_maxvalue_perday", "value" => ["en" => 10000], "input_type" => "number"],
-            ["key" => "rasidpay_wallettransfer_maxvalue_permonth", "value" => ["en" => 100000], "input_type" => "number"],
-            ["key" => "rasidpay_wallettransfer_maxvalue_perreciever", "value" => ["en" => 1000], "input_type" => "number"],
+
+            // local transfers
+            ["key" => "rasidpay_localtransfer_minvalue", "value" => ["en" => 10], "input_type" => "number"],
+            ["key" => "rasidpay_localtransfer_maxvalue", "value" => ["en" => 10000], "input_type" => "number"],
             ["key" => "rasidpay_localtransfer_country", "value" => ["en" => 'SA', 'ar' => 'المملكة العربية السعودية'], "input_type" => "number"],
             ["key" => "rasidpay_localtransfer_currency", "value" => ["en" => 'SAR', 'ar' => 'ريال سعودي'], "input_type" => "number"],
+
+            // global transfers
+            ["key" => "rasidpay_inttransfer_minvalue", "value" => ["en" => 10], "input_type" => "number"],
+            ["key" => "rasidpay_inttransfer_maxvalue", "value" => ["en" => 10000], "input_type" => "number"],
 
             //social
             ["key" => "rasid_social_fb_link", "value" => ["en" => "www.facebook.com/alfintect"], "input_type" => "text"],
