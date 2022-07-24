@@ -19,7 +19,7 @@ class GlobalTransferController extends Controller
         }
         // check max value of transfer per day
         $transfers = Transfer::where('from_user_id', auth()->id())->whereDate('created_at', date('Y-m-d'))->sum('amount');
-        $max_transfer_per_day = setting('rasidpay_wallettransfer_maxvalue_perday');
+        $max_transfer_per_day = setting('rasidpay_wallettransfer_maxvalue_perday')?:10000;
         if ($transfers > $max_transfer_per_day) {
             return response()->json(['status' => false, 'data' => null, 'message' => trans('mobile.transfers.exceed_max_transfer_day')], 422);
         }
