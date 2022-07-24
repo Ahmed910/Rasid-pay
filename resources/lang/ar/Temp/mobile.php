@@ -11,6 +11,7 @@ return [
         'identity_number_is_not_found' => 'رقم الهوية غير موجود',
         'phone_number_is_not_found' => 'رقم الهاتف غير موجود',
         'wallet_number_is_not_found' => 'رقم المحفظة غير موجود',
+        'not_same_wallet' => 'عفوا لا يمكن التحويل لمحفظتك الشخصية',
         'password' => [
             'min' => 'كلمة المرور يجب ان لا تقل عن 8 حروف',
             'max' => 'كلمة المرور يجب ان لا تزيد عن 20 حرفا',
