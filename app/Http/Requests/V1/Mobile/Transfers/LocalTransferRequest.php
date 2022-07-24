@@ -26,6 +26,15 @@ class LocalTransferRequest extends ApiMasterRequest
         ];
     }
 
+    protected function prepareForValidation()
+    {
+        $data = $this->all();
+
+        $this->merge([
+            'amount' => @$data['amount'] ? convert_arabic_number($data['amount']) : @$data['amount'],
+        ]);
+    }
+
     public function messages()
     {
         return [
