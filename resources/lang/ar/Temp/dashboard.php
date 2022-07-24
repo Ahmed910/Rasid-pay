@@ -25,6 +25,9 @@ return [
         'edit_currency' => 'تعديل العملة',
         'add_currency' => 'إضافة عملة',
     ],
+    'vendor_package' => [
+        'vendor_package' => 'باقة العميل'
+    ],
     'general' => [
         'email' => 'البريد الإلكتروني',
         'description' => 'الوصف',
@@ -443,9 +446,7 @@ return [
         'region_count' => 'عدد المناطق',
         'region' => 'المنطقة ',
     ],
-    'vendor_package' => [
-        'vendor_package' => 'باقة العميل'
-    ],
+
     'bank' =>  [
         'Enter_service_Number' => 'ادخل رقم خدمة العملاء',
         'sub_progs' =>  [
