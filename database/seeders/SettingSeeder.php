@@ -43,9 +43,11 @@ class SettingSeeder extends Seeder
             ["key" => "rasid_support_msgsinbox_reply", "value" => ["en" => 0], "input_type" => "select"],
 
             ["key" => "rasidpay_mytransactoins_displaycount", "value" => ["en" => 5], "input_type" => "number"],
-            ["key" => "rasidpay_wallettransfer_maxvalue_perday", "value" => ["en" => 100], "input_type" => "number"],
-            ["key" => "rasidpay_wallettransfer_maxvalue_permonth", "value" => ["en" => 1000], "input_type" => "number"],
-            ["key" => "rasidpay_wallettransfer_maxvalue_perreciever", "value" => ["en" => 50], "input_type" => "number"],
+            ["key" => "rasidpay_walletcharge_minvalue", "value" => ["en" => 10], "input_type" => "number"],
+            ["key" => "rasidpay_walletcharge_maxvalue", "value" => ["en" => 10000], "input_type" => "number"],
+            ["key" => "rasidpay_wallettransfer_maxvalue_perday", "value" => ["en" => 10000], "input_type" => "number"],
+            ["key" => "rasidpay_wallettransfer_maxvalue_permonth", "value" => ["en" => 100000], "input_type" => "number"],
+            ["key" => "rasidpay_wallettransfer_maxvalue_perreciever", "value" => ["en" => 1000], "input_type" => "number"],
             ["key" => "rasidpay_localtransfer_country", "value" => ["en" => 'SA', 'ar' => 'المملكة العربية السعودية'], "input_type" => "number"],
             ["key" => "rasidpay_localtransfer_currency", "value" => ["en" => 'SAR', 'ar' => 'ريال سعودي'], "input_type" => "number"],
 
