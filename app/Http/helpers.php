@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Schema;
 if (!function_exists('check_phone_valid')) {
     function check_phone_valid($number)
     {
-        return preg_match('/^(:?(\+)|(00))?(:?966)?+(5|05)([503649187])([0-9]{7})$/', $number);
+        return preg_match('/^(009665|9665|00966|\+9665|05|5)(5|0|3|6|4|9|1|8|7)([0-9]{7})$/', $number);
     }
 }
 
