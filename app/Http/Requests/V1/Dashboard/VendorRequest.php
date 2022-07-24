@@ -27,7 +27,7 @@ class VendorRequest extends ApiMasterRequest
 //            }],
             'iban' => 'required',
             "email" => ["required", "max:100", "email", "unique:vendors,email," . @$this->vendor],
-            "phone" => ["required", "numeric", 'starts_with:9665,5', "digits_between:7,9", 'unique:vendors,phone,' . $this->vendor],
+            "phone" => ["required", "numeric", 'starts_with:9665,5', "digits_between:7,20", 'unique:vendors,phone,' . $this->vendor],
             'logo' => (!$this->isMethod('put')) ? "required|" : "nullable|" . 'mimes:jpeg,jpg,png,suv,heic',
             'commercial_record_image' => (!$this->isMethod('put')) ? "required|" : "nullable|" . 'mimes:jpeg,jpg,png,suv,heic',
             'tax_number_image' => 'nullable|mimes:jpeg,jpg,png,suv,heic',
