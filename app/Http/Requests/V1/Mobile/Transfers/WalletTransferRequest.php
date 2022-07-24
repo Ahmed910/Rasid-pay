@@ -108,8 +108,5 @@ class WalletTransferRequest extends ApiMasterRequest
         ];
     }
 
-    //wallet transfer method >>> identify number
-
-    //1-exists   رقم الهوية غير صحيح
-    //3-عند ادخال رقم رقم هوية غير مسجل بالنظام  يبدأ بصفر يظهر رسالة رقم الهوية /  الاقامة لا يبدأ بصفر
+    
 }
