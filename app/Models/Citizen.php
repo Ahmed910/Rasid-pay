@@ -63,6 +63,13 @@ class Citizen extends Model
                 $q->whereDate('end_at', "<=", $request->end_at_to);
             });
         }
+
+        if ($request->ban_status) {
+            $query->whereHas('user', function ($q) use ($request){
+                $q->where('ban_status', $request->ban_status);
+            });
+        }
+
         $new = $query->toSql();
         if ($old != $new) $this->addGlobalActivity($this, $request->query(), ActivityLog::SEARCH, 'index');
     }
