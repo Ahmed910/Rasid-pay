@@ -13,12 +13,15 @@ class WalletTransferController extends Controller
     public function store(WalletTransferRequest $request, Transfer $transfer)
     {
         // check max value of transfer per day
+        $citizen_wallet = CitizenWallet::with('citizen')->where('citizen_id', auth()->id())->firstOrFail();
+        if ($request->amount > $citizen_wallet->main_balance + $citizen_wallet->cash_back) {
+            return response()->json(['data' => null, 'message' => trans('mobile.local_transfers.current_balance_is_not_sufficiant_to_complete_transaction'), 'status' => false], 422);
+        }
         $transfers = Transfer::where('from_user_id', auth()->id())->whereDate('created_at', date('Y-m-d'))->sum('amount');
-        $max_transfer_per_day = setting('rasidpay_wallettransfer_maxvalue_perday');
+        $max_transfer_per_day = setting('rasidpay_wallettransfer_maxvalue_perday')?:10000;
         if ($transfers > $max_transfer_per_day) {
             return response()->json(['status' => false, 'data' => null, 'message' => trans('mobile.transfers.exceed_max_transfer_day')], 422);
         }
-        $citizen_wallet = CitizenWallet::with('citizen')->where('citizen_id', auth()->id())->firstOrFail();
         $citizen_wallet->update(['wallet_bin' => null]);
         $receiver_citizen_wallet = null;
         $phone = null;
@@ -27,10 +30,6 @@ class WalletTransferController extends Controller
             $receiver_citizen_wallet = CitizenWallet::with('citizen')->where('citizen_id', $request->citizen_id)->firstOrFail();
         } elseif (!$request->citizen_id && $request->wallet_transfer_method == Transfer::PHONE) {
             $phone = $request->transfer_method_value;
-        }
-
-        if ($request->amount > $citizen_wallet->main_balance + $citizen_wallet->cash_back) {
-            return response()->json(['data' => null, 'message' => trans('mobile.local_transfers.current_balance_is_not_sufficiant_to_complete_transaction'), 'status' => false], 422);
         }
         $back_main_balance = WalletBalance::calcWalletMainBackBalance($citizen_wallet, $request->amount);
         $citizen_wallet_data = ["cash_back" => \DB::raw('cash_back - ' . $back_main_balance->cashback_amount), 'main_balance' => \DB::raw('main_balance - ' . $back_main_balance->main_amount)];

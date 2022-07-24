@@ -12,18 +12,18 @@ class GlobalTransferController extends Controller
 
     public function store(GlobalTransferRequest $request, Transfer $transfer)
     {
-        // check max value of transfer per day
-        $transfers = Transfer::where('from_user_id', auth()->id())->whereDate('created_at', date('Y-m-d'))->sum('amount');
-        $max_transfer_per_day = setting('rasidpay_wallettransfer_maxvalue_perday');
-        if ($transfers > $max_transfer_per_day) {
-            return response()->json(['status' => false, 'data' => null, 'message' => trans('mobile.transfers.exceed_max_transfer_day')], 422);
-        }
-
         // check main_balance is sufficient or not (This will change after this phase (clean code))
         $wallet = CitizenWallet::with('citizen')->where('citizen_id', auth()->id())->firstOrFail();
         if ($request->amount > $wallet->main_balance) {
             return response()->json(['data' => null, 'message' => trans('mobile.local_transfers.current_balance_is_not_sufficiant_to_complete_transaction'), 'status' => false], 422);
         }
+        // check max value of transfer per day
+        $transfers = Transfer::where('from_user_id', auth()->id())->whereDate('created_at', date('Y-m-d'))->sum('amount');
+        $max_transfer_per_day = setting('rasidpay_wallettransfer_maxvalue_perday')?:10000;
+        if ($transfers > $max_transfer_per_day) {
+            return response()->json(['status' => false, 'data' => null, 'message' => trans('mobile.transfers.exceed_max_transfer_day')], 422);
+        }
+
         $wallet->update(['wallet_bin' => null]);
         // TODO: Calc transfer fee
 

@@ -1,8 +1,10 @@
 <?php
 
-namespace App\Http\Resources\Dashboard;
+namespace App\Http\Resources\Dashboard\Citizen;
 
+use App\Http\Resources\Dashboard\ImagesResource;
 use Illuminate\Http\Resources\Json\JsonResource;
+use App\Http\Resources\Dashboard\BankAccountResource;
 
 class SimpleCitizenResource extends JsonResource
 {
@@ -18,6 +20,7 @@ class SimpleCitizenResource extends JsonResource
             'id' => $this->id,
             'fullname' => $this->fullname,
             'identity_number' => $this->identity_number,
+            'ban_status' => $this->ban_status,
             'country_code' => substr($this->phone, 0, 4),
             'phone' => substr($this->phone, 4),
             'user_type' => $this->user_type,

@@ -50,7 +50,7 @@ return [
         'login_code' => 'رمز التحقق',
         'show_all' => 'عرض الكل',
         'success_add' => 'تمت الإضافة بنجاح',
-        'un_active_account' => 'هذا المستخدم معطل',
+        'un_active_account' => 'هذا المستخدم معطل . برجاء التواصل مع الدعم الفني',
         'delete' => 'حذف',
         'created_at' => 'تاريخ الإنشاء',
         'done_by' => 'تم بواسطة',

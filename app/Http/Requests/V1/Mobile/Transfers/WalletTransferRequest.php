@@ -23,7 +23,7 @@ class WalletTransferRequest extends ApiMasterRequest
         //     ];
         // }
         return [
-            'amount'  => 'required|numeric|gte:' . (setting('min_wallet_transfer_amount') ?? 10) . '|lte:' . (setting('max_wallet_transfer_amount') ?? 10000),
+            'amount'  => 'required|numeric|gte:' . (setting('rasidpay_wallettransfer_minvalue') ?? 10) . '|lte:' . (setting('rasidpay_wallettransfer_maxvalue') ?? 10000),
             "wallet_transfer_method" => 'required|in:' . join(",", Transfer::WALLET_TRANSFER_METHODS),
             'notes'   => 'nullable|required_without:transfer_purpose_id|max:1000',
             "transfer_method_value" => ['required', function ($attribute, $value, $fail) {
@@ -50,6 +50,15 @@ class WalletTransferRequest extends ApiMasterRequest
 
     public function checkUserFound($key, $value)
     {
+        $sameUser = User::where(['id'=> auth()->id(),'user_type' => 'citizen'])->where(function($q) use($value){
+            $q->where('identity_number',$value)
+            ->orWhere('phone',$value)
+            ->orWhereRelation('citizenWallet', 'wallet_number', $value);
+        })->first();
+        
+        if ($sameUser) {
+            return trans('mobile.validation.not_same_wallet');
+        }
         switch ($key) {
             case Transfer::WALLET_NUMBER:
                 $user = User::where('id', "<>", auth()->id())->whereRelation('citizenWallet', 'wallet_number', $value)->first();
@@ -58,6 +67,10 @@ class WalletTransferRequest extends ApiMasterRequest
                 }
                 break;
             case Transfer::IDENTITY_NUMBER:
+
+                if(!preg_match('/^[1-9][0-9]*$/', $value)){
+                    return trans('validation.custom.identity_number.regex');
+                }
                 $user = User::where('id', "<>", auth()->id())->firstWhere(['user_type' => 'citizen', 'identity_number' => $value]);
                 if (!$user) {
                     return trans('mobile.validation.identity_number_is_not_found');
@@ -103,4 +116,6 @@ class WalletTransferRequest extends ApiMasterRequest
             'otp_code.exists' => trans('mobile.otp.exists'),
         ];
     }
+
+    
 }

@@ -2,11 +2,14 @@
 
 namespace App\Http\Controllers\Api\V1\Dashboard;
 
-use App\Http\Controllers\Controller;
-use App\Http\Resources\Dashboard\CitizenResource;
+use App\Models\User;
 use App\Models\Citizen;
-use App\Models\CitizenPackage;
 use Illuminate\Http\Request;
+use App\Models\CitizenPackage;
+use App\Http\Controllers\Controller;
+use App\Http\Resources\Dashboard\Citizen\CitizenResource;
+use App\Http\Resources\Dashboard\Citizen\CitizenCollection;
+use App\Http\Requests\V1\Dashboard\UpdateCitizenStatusRequest;
 
 class CitizenController extends Controller
 {
@@ -32,32 +35,30 @@ class CitizenController extends Controller
     public function show(Request $request, $id)
     {
         $citizen = Citizen::where('user_id', $id)->with("user", "enabledPackage")->firstOrFail();
+        $activities = [];
+        if (!$request->has('with_activity') || $request->with_activity) {
+            $activities  = $citizen->activity()
+                ->sortBy($request)
+                ->paginate((int)($request->per_page ??  config("globals.per_page")));
+        }
 
-        return CitizenResource::make($citizen)->additional(['status' => true, 'message' => ""]);
+        return CitizenCollection::make($activities)
+            ->additional([
+                'status' => true,
+                'message' => ''
+            ]);
     }
 
-//    public function update(CitizenRequest $request, $id)
-//    {
-//        $citizen = User::where('user_type', "citizen")->with(["citizenTransactions" => function($q){
-//            $q->where("trans_status","pending");
-//        }])->findOrFail($id);
-//        if ($citizen->citizenTransactions->count()) {
-//            $data = [
-//                'status' => false,
-//                'data' => null,
-//                'message' => trans('dashboard.error.something_went_wrong'),
-//                'errors' => [
-//                    'phone' => [trans('dashboard.general.cant_update_phone_related_with_hold_transactions')]
-//                ],
-//            ];
-//
-//            return response()->json( $data, 422);
-//        }
-//        $citizen->update($request->validated());
-//
-//        return CitizenResource::make($citizen)->additional(['status' => true, 'message' => trans("dashboard.general.success_update")]);
-//    }
 
+    public function update(UpdateCitizenStatusRequest $request, $id)
+    {
+        $citizen = User::where('user_type', "citizen")->findOrFail($id);
+        $citizen->update($request->validated());
+        return CitizenResource::make($citizen->citizen->load('user'))->additional([
+            'status' => true,
+            'message' => "dashboard.general.success_update"
+        ]);
+    }
     public function enabledPackages()
     {
         $enabledPackages = transform_array_api(CitizenPackage::PACKAGE_TYPES, 'dashboard.package_types');
