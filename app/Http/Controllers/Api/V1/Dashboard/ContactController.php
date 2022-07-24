@@ -77,8 +77,9 @@ class ContactController extends Controller
             ->findOrFail($id);
 
         $contact->update([
-            'read_at' => now(),
-            "message_status" => $contact->message_status == Contact::PENDING ? Contact::SHOWN : $contact->message_status
+            'read_at' =>  $contact->message_status == Contact::PENDING ? now() : $contact->read_at,
+            "message_status" => $contact->message_status == Contact::PENDING ? Contact::SHOWN : $contact->message_status,
+            'updated_at' => now()
         ]);
         $activities = [];
         if (!$request->has('with_activity') || $request->with_activity) {

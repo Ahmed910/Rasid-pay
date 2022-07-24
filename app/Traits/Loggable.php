@@ -188,7 +188,8 @@ trait Loggable
             'ban_from',
             'ban_to',
             'user_locale',
-            'updated_at'
+            'updated_at',
+            'read_at'
         ];
 
         $keys = array_keys($this->newData($self));
