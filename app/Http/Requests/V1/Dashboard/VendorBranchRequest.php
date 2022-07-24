@@ -19,7 +19,7 @@ class VendorBranchRequest extends ApiMasterRequest
             'vendor_id' => 'required|exists:vendors,id',
             'location'  =>  'required|string|between:3,250',
             'address_details'  =>  'required|string|between:3,250',
-            'logo' => (!$this->isMethod('put')) ? "required|" : "nullable|" . 'max:5120|mimes:jpg,png,jpeg,gif',
+            'logo' => 'nullable|max:5120|mimes:jpg,png,jpeg,gif',
             'email' => 'required|email|unique:vendor_branches,email,' . $this->vendor_branch?->id,
             'phone' => 'required|numeric|digits_between:7,20|starts_with:9665,05|unique:vendor_branches,phone,' . $this->vendor_branch?->id,
             'lat' => 'required|numeric',

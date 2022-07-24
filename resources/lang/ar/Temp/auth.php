@@ -5,7 +5,7 @@ return [
     "login_subtitle" => "من فضلك أدخل رقم المستخدم وكلمة المرور",
     "login_title" => "تسجيل الدخول",
     "success_verify_phone" => "تم تأكيد رقم الجوال بنجاح",
-    "user_banned" => "هذا الحساب معطل",
+    "user_banned" => "هذا الحساب معطل . برجاء التواصل مع الدعم الفني",
     "success_verify_phone_make_login" => "تم إنشاء الحساب بنجاح",
     "password" => "أدخل كلمة المرور",
     "success_login_mobile" => "تسجيل دخول إلى التطبيق برقم هوية :user",
