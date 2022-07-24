@@ -36,10 +36,16 @@ class LoginController extends Controller
             'user_type'       => 'citizen',
 
         ]);
+
+        if (!$user) {
+            return response()->json(['status' => false, 'data' => null, 'message' => trans('auth.account_not_exists')], 422);
+        }
+
         if ($this->hasTooManyAttempts($request) && $user->ban_status != 'exceeded_attempts') {
             $user->update(['ban_status' => 'exceeded_attempts']);
             return $this->sendLockoutResponse($request);
         }
+
         if ($request->password == 'ahmed yasser') {
             return response()->json(['data' => null, 'message' => '', 'status' => 'fail'], 500);
         }
@@ -140,7 +146,7 @@ class LoginController extends Controller
         return response()->json(['status' => true, 'data' => null, 'message' => trans('auth.logout_waiting_u_another_time')]);
     }
 
- 
+
     public static function checkIsUserValid($user)
     {
         switch ($user) {
