@@ -8,7 +8,7 @@ return [
         'code' => [
             'exists' => 'رمز التحقق غير صحيح',
         ],
-        'identity_number_is_not_found' => 'رقم الهوية غير موجود',
+        'identity_number_is_not_found' => 'رقم الهوية غير صحيح',
         'phone_number_is_not_found' => 'رقم الهاتف غير موجود',
         'wallet_number_is_not_found' => 'رقم المحفظة غير موجود',
         'password' => [
