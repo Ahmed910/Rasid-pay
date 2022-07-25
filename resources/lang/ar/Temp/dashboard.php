@@ -299,7 +299,12 @@ return [
             'attachments' => 'المرفقات',
             'attachmentfile' => ' ملف المرفقات',
             'type_job_name' => 'أدخل الاسم',
-            'contact' => 'صندوق الرسائل'
+            'contact' => 'صندوق الرسائل',
+            'transferpurpose' => 'أغراض التحويل',
+            'staticpage' => 'الصفحات الثابتة',
+            'ourapp' => 'تطبيقاتنا',
+            'faq' => 'الأسئلة الشائعة',
+            'messagetype' => 'نوع الرسالة',
         ],
         'activity_log' => 'المتابعة',
         'actions' =>  [
