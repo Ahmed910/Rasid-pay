@@ -286,7 +286,7 @@ return [
             'attachment' => 'المرفق',
             'profile' => 'البروفايل',
             'permission' => 'الصلاحية',
-            'client' => 'العميل',
+            'vendor' => 'العميل',
             'rasidjob' => 'الوظيفة',
             'manager' => 'المدير',
             'bankaccount' => 'الحساب بنكى',
@@ -1115,6 +1115,7 @@ return [
 
         'validation' => [
 
+            'can_not_be_deleted_has_link' => 'لا يمكن حذف صفحة مرتبطة برابط',
 
             'is_active' => [
                 'in' => 'حقل الحالة يجب أن يكون بين هذه القيم :values',

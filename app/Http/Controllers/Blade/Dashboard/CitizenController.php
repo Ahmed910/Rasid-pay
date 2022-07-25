@@ -2,13 +2,13 @@
 
 namespace App\Http\Controllers\Blade\Dashboard;
 
+use App\Http\Controllers\Controller;
+use App\Http\Requests\Dashboard\CitizenStatusRequest;
+use App\Http\Resources\Blade\Dashboard\Citizen\CitizenCollection;
 use App\Models\Citizen;
 use App\Models\Package\Package;
 use App\Models\User;
 use Illuminate\Http\Request;
-use App\Http\Requests\Dashboard\CitizenPhoneRequest;
-use App\Http\Controllers\Controller;
-use App\Http\Resources\Blade\Dashboard\Citizen\CitizenCollection;
 
 class CitizenController extends Controller
 {
@@ -32,16 +32,16 @@ class CitizenController extends Controller
         }
 
         $packages = Package::get();
-        return view('dashboard.citizen.index',compact('packages'));
+        return view('dashboard.citizen.index', compact('packages'));
     }
 
-    public function update(CitizenPhoneRequest $request, $id)
+    public function update(CitizenStatusRequest $request, $id)
     {
-        $citizen = User::where('user_type', "citizen")->with(["citizenTransactions" => function($q){
-            $q->where("trans_status","pending");
+        $citizen = User::where('user_type', "citizen")->with(["citizenTransactions" => function ($q) {
+            $q->where("trans_status", "pending");
         }])->findOrFail($id);
-        if($citizen->citizenTransactions->count()){
-            return response()->json(['status' => false, 'message' => trans("dashboard.general.cant_update_phone_related_with_hold_transactions"),'data' => null],422);
+        if ($citizen->citizenTransactions->count()) {
+            return response()->json(['status' => false, 'message' => trans("dashboard.general.cant_update_phone_related_with_hold_transactions"), 'data' => null], 422);
         }
         $citizen->update($request->validated());
         return response()->json(['message' => __('dashboard.general.success_update')]);

@@ -85,9 +85,8 @@ class Vendor extends Model implements HasAssetsInterface
         $query->when($request->sort, function ($q) use ($request) {
             if ($request->sort["column"] == "name") {
                 return $q->has('translations')
-                    ->orderByTranslation($request->sort["column"], @$request->sort["dir"]);
+                    ->orderBy($request->sort["column"], @$request->sort["dir"]);
             }
-
             if ($request->sort["column"] == "is_active") {
                 $q->orderBy($request->sort["column"], @$request->sort["dir"]);
             }

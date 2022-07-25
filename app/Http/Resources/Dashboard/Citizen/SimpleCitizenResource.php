@@ -2,9 +2,9 @@
 
 namespace App\Http\Resources\Dashboard\Citizen;
 
+use App\Http\Resources\Dashboard\BankAccountResource;
 use App\Http\Resources\Dashboard\ImagesResource;
 use Illuminate\Http\Resources\Json\JsonResource;
-use App\Http\Resources\Dashboard\BankAccountResource;
 
 class SimpleCitizenResource extends JsonResource
 {
@@ -21,6 +21,8 @@ class SimpleCitizenResource extends JsonResource
             'fullname' => $this->fullname,
             'identity_number' => $this->identity_number,
             'ban_status' => $this->ban_status,
+            'ban_from' => $this->when($this->ban_status == 'temporary',$this->ban_from),
+            'ban_to' => $this->when($this->ban_status == 'temporary',$this->ban_to),
             'country_code' => substr($this->phone, 0, 4),
             'phone' => substr($this->phone, 4),
             'user_type' => $this->user_type,

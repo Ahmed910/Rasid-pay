@@ -139,4 +139,20 @@ return [
         'required' => 'رمز OTP مطلوب',
         'exists'   => 'رمز OTP غير صحيح'
     ],
+
+    'currencies' => [
+        'currency' => 'العملة',
+        'currency_name' => 'اسم العملة',
+        'valid_amount' => 'برجاء إدخال مبلغ صحيح',
+        'base' => 'العملة الأساسية',
+        'to' => 'إلى',
+        'amount' => 'المبلغ',
+        'error_parsing_json' => 'حدث خطأ ما',
+        'validation' => [
+            'base_required' => 'العملة الاساسية مطلوبة',
+            'to_required' => 'العملة المحول اليها مطلوبة',
+            'exists' => 'العملة غير موجودة',
+            'gt' => 'ادخل مبلغ صحيح',
+        ]
+    ]
 ];

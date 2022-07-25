@@ -71,7 +71,7 @@ class RasidJob extends Model implements TranslatableContract
 
     }
 
-    public function scopeSortBy(Builder $query, $request)
+    public function scopeSortBy(Builder $query, $request,$type=null)
     {
 
         if (!isset($request->sort["column"]) || !isset($request->sort["dir"])) return $query->latest('rasid_jobs.created_at');
@@ -80,6 +80,10 @@ class RasidJob extends Model implements TranslatableContract
             !in_array(Str::lower($request->sort["column"]), $this->sortableColumns) ||
             !in_array(Str::lower($request->sort["dir"]), ["asc", "desc"])
         ) {
+        if($type == 'archive')
+        {
+            return $query->latest('rasid_jobs.deleted_at');
+        }
             return $query->latest('rasid_jobs.created_at');
         }
 
@@ -89,12 +93,12 @@ class RasidJob extends Model implements TranslatableContract
                     ->orderBy($request->sort["column"], @$request->sort["dir"]);
             }
 
-
             if ($request->sort["column"] == "department") {
                 return $q->join('departments as department', 'rasid_jobs.department_id', '=', 'department.id')
                     ->leftJoin('department_translations as department_trans', 'department.id', '=', 'department_trans.department_id')
                     ->orderBy('department_trans.name', @$request->sort["dir"]);
-            }
+
+                }
 
             $q->orderBy($request->sort["column"], @$request->sort["dir"]);
         });
