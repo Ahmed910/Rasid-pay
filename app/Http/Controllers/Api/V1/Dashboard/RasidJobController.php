@@ -81,10 +81,10 @@ class RasidJobController extends Controller
         $rasidJobs = RasidJob::onlyTrashed()
             ->search($request)
             ->ListsTranslations('name')
-            ->select('rasid_jobs.*')
             ->searchDeletedAtFromTo($request)
-            ->latest("deleted_at")
-            ->sortBy($request)
+            ->with('department')
+            ->select('rasid_jobs.*')
+            ->sortBy($request,'archive')
             ->paginate((int)($request->per_page ?? config("globals.per_page")));
 
         return RasidJobResource::collection($rasidJobs)
