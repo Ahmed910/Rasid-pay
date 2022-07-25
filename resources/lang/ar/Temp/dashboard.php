@@ -286,7 +286,7 @@ return [
             'attachment' => 'المرفق',
             'profile' => 'البروفايل',
             'permission' => 'الصلاحية',
-            'client' => 'العميل',
+            'vendor' => 'العميل',
             'rasidjob' => 'الوظيفة',
             'manager' => 'المدير',
             'bankaccount' => 'الحساب بنكى',
