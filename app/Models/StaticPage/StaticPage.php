@@ -2,20 +2,22 @@
 
 namespace App\Models\StaticPage;
 
-use App\Contracts\HasAssetsInterface;
+use App\Models\Link;
 use App\Models\User;
-use App\Traits\HasAssetsTrait;
-use App\Traits\Loggable;
-use Illuminate\Database\Eloquent\Model;
 use App\Traits\Uuid;
-use Illuminate\Database\Eloquent\SoftDeletes;
-use Astrotomic\Translatable\Contracts\Translatable as TranslatableContract;
-use Illuminate\Database\Eloquent\Builder;
-use Astrotomic\Translatable\Translatable;
+use App\Traits\Loggable;
 use App\Models\ActivityLog;
 use Illuminate\Support\Str;
+use App\Traits\HasAssetsTrait;
+use App\Contracts\HasAssetsInterface;
+use Illuminate\Database\Eloquent\Model;
+use Astrotomic\Translatable\Translatable;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Astrotomic\Translatable\Contracts\Translatable as TranslatableContract;
 
 class StaticPage extends Model implements TranslatableContract, HasAssetsInterface
 {
@@ -88,6 +90,11 @@ class StaticPage extends Model implements TranslatableContract, HasAssetsInterfa
     public function addedBy(): BelongsTo
     {
         return $this->belongsTo(User::class, 'added_by_id');
+    }
+
+    public function link(): HasOne
+    {
+        return $this->hasOne(Link::class, 'static_page_id');
     }
     #endregion relationships
 
