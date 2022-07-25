@@ -89,7 +89,7 @@ class ValidateController extends Controller
 
     public function validatePermission($request,$locale)
     {
-        $rules["$locale.name"] = 'unique:group_translations,name,' . $request->group_id . ',group_id';
+        $rules["$locale.name"] = 'unique:group_translations,name,' . ($request->group_id ?? 0) . ',group_id';
         return $rules;
     }
 
@@ -101,12 +101,12 @@ class ValidateController extends Controller
 
     public function validateStaticPage($request, $locale)
     {
-        $rules["$locale.name"] = "unique:static_page_translations,name," . $request->static_page_id . ',static_page_id';
+        $rules["$locale.name"] = "unique:static_page_translations,name," . ($request->static_page_id ?? 0) . ',static_page_id';
         return $rules;
     }
     public function validateTransferPurpose($request, $locale)
     {
-        $rules["$locale.name"] = "unique:transfer_purpose_translations,name," . $request->transfer_purpose_id . ',transfer_purpose_id';
+        $rules["$locale.name"] = "unique:transfer_purpose_translations,name," . ($request->transfer_purpose_id ?? 0) . ',transfer_purpose_id';
         return $rules;
     }
 }
