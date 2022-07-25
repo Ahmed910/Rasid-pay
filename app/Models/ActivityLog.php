@@ -46,7 +46,10 @@ class ActivityLog extends Model
         self::DEACTIVE,
         self::ACTIVE,
         self::PERMANENT,
-        self::TEMPORARY
+        self::TEMPORARY,
+        self::SHOWN,
+        self::ASSIGNED,
+        self::REPLIED
     ];
     #endregion properties
 

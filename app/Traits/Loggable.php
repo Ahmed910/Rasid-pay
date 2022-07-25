@@ -159,13 +159,10 @@ trait Loggable
                     $model->addUserActivity($model, ActivityLog::ACTIVE, 'index', $newData);
                 }
 
-                if (request($column) == 'pending' && $column == 'message_status') {
-                    $model->addUserActivity($model, ActivityLog::PENDING, 'index', $newData);
-                }
-
                 if (request($column) == 'shown' && $column == 'message_status') {
                     $model->addUserActivity($model, ActivityLog::SHOWN, 'index', $newData);
                 }
+
                 if (request($column) == 'assigned' && $column == 'message_status') {
                     $model->addUserActivity($model, ActivityLog::ASSIGNED, 'index', $newData);
                 }
