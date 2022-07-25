@@ -18,11 +18,11 @@ class Citizen extends Model
     // protected $with = ['enabledPackage'];
 
     protected $dates = ['date_of_birth'];
-    const USER_SEARCHABLE_COLUMNS = ["fullname", "phone", "identity_number", "created_at"];
+    const USER_SEARCHABLE_COLUMNS = ["fullname", "phone", "identity_number", "created_at","ban_status"];
     const CITIZEN_SEARCHABLE_COLUMNS = ["citizen_package_id"];
     const CARDPKG_SORT_COLUMNS = ["enabled_package" => "package_type"];
-    const CITIZEN_PACKAGES_SORT_COLUMNS = ['card_end_at' => 'end_at','card_created_at'=>'created_at'];
-    const ENABLEDPACKAGES_SORTABLE_COLUMNS = ["enabled_package" => "enabledPackage.package", "card_end_at" => "enabledPackage.end_at",'card_created_at'=>"enabledPackage.created_at"];
+    const CITIZEN_PACKAGES_SORT_COLUMNS = ['card_end_at' => 'end_at'];
+    const ENABLEDPACKAGES_SORTABLE_COLUMNS = ["enabled_package" => "enabledPackage.package", "card_end_at" => "enabledPackage.end_at"];
     const SELECT_ALL = ["enabled_package" => "id"];
     #endregion properties
 
