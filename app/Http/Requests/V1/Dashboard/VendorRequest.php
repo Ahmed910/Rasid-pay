@@ -20,12 +20,11 @@ class VendorRequest extends ApiMasterRequest
             'tax_number' => "required|digits_between:10,20|numeric|unique:vendors,tax_number," . @$this->vendor,
             'is_support_maak' => "required|in:1,0",
             'is_active' => "nullable|in:1,0",
-//            "iban" => ['required', "unique:vendors,iban","size:24" . @$this->vendor, function ($attribute, $value, $fail) {
-//                if (!check_iban_valid($value, 'sa')) {
-//                    $fail(trans('mobile.validation.invalid_iban'));
-//                }
-//            }],
-            'iban' => 'required',
+            "iban" => ['required', "unique:vendors,iban","size:24" . @$this->vendor, function ($attribute, $value, $fail) {
+                if (!check_iban_valid($value, 'sa')) {
+                    $fail(trans('mobile.validation.invalid_iban'));
+                }
+            }],
             "email" => ["required", "max:100", "email", "unique:vendors,email," . @$this->vendor],
             "phone" => ["required", "numeric",'regex:/^(009665|9665|00966|\+9665|05|5)(5|0|3|6|4|9|1|8|7)([0-9]{7})$/', 'unique:vendors,phone,' . $this->vendor],
             'logo' => (!$this->isMethod('put')) ? "required|" : "nullable|" . 'mimes:jpeg,jpg,png,suv,heic',
