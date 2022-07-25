@@ -25,7 +25,7 @@ class Vendor extends Model implements HasAssetsInterface
     public $assets = ['logo', 'commercial_record_image', 'tax_number_image'];
     protected $guarded = ['created_at'];
     public $translatedAttributes = ['name'];
-    private $sortableColumns = ['vendor_id',"commercial_record", "is_active", "tax_number", "name", "type", "branches_count"];
+    private $sortableColumns = ["commercial_record", "is_active", "tax_number", "name", "type", "branches_count"];
 
     #endregion properties
     public static function boot()
@@ -85,9 +85,8 @@ class Vendor extends Model implements HasAssetsInterface
         $query->when($request->sort, function ($q) use ($request) {
             if ($request->sort["column"] == "name") {
                 return $q->has('translations')
-                    ->orderByTranslation($request->sort["column"], @$request->sort["dir"]);
+                    ->orderBy($request->sort["column"], @$request->sort["dir"]);
             }
-
             if ($request->sort["column"] == "is_active") {
                 $q->orderBy($request->sort["column"], @$request->sort["dir"]);
             }
