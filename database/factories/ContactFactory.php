@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\Contact;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
@@ -23,7 +24,7 @@ class ContactFactory extends Factory
             'title' => $this->faker->sentence,
             'content' => $this->faker->paragraph,
             'message_source' => $this->faker->randomElement(['website','app',]),
-            'message_status' => $this->faker->randomElement(['pending','new',"replied"]),
+            'message_status' => $this->faker->randomElement(Contact::MESSAGE_STATUS),
             'contact_type' => $this->faker->randomElement(['complain', 'inquiries', 'suggestions']),
             'admin_id' => $this->getRandomUser()->id,
         ];

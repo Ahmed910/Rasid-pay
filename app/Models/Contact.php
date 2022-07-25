@@ -23,10 +23,9 @@ class Contact extends Model
     const USER_COLUMNS = ["contact_type", "message_source", "message_status"];
     const SELECT_ALL = ["contact_type", "message_source", "message_status"];
     const PENDING = 'pending';
-    const SHOWN = 'shown';
-    const ASSIGNED = 'assigned';
     const REPLIED = 'replied';
-    const MESSAGE_STATUS = [self::PENDING, self::SHOWN, self::ASSIGNED, self::REPLIED];
+    const WAITING = 'waiting';
+    const MESSAGE_STATUS = [self::PENDING, self::REPLIED, self::WAITING];
     #endregion properties
 
     #region mutators
