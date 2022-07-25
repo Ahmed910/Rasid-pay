@@ -276,7 +276,7 @@ if (!function_exists('getPercentOfNumber')) {
 
 
 if (!function_exists('calcCurrency')) {
-    function calcCurrency($base, $toCurrency = null, $amount = 1)
+    function calcCurrency($base, $toCurrency = null)
     {
         $req_url = 'https://api.exchangerate.host/latest?base=' . $base;
         $response_json = file_get_contents($req_url);

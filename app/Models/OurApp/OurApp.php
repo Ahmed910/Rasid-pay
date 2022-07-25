@@ -38,6 +38,11 @@ class OurApp extends Model implements TranslatableContract, HasAssetsInterface
             $model->saveAssets($model, request());
         });
     }
+
+    public function getImageAttribute()
+    {
+        return asset($this->images()->where('option', 'image')->first()?->media);
+    }
     #endregion mutators
 
     #region scopes

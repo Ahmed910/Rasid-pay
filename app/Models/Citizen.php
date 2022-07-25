@@ -18,7 +18,7 @@ class Citizen extends Model
     // protected $with = ['enabledPackage'];
 
     protected $dates = ['date_of_birth'];
-    const USER_SEARCHABLE_COLUMNS = ["fullname", "phone", "identity_number", "created_at"];
+    const USER_SEARCHABLE_COLUMNS = ["fullname", "phone", "identity_number", "created_at","ban_status"];
     const CITIZEN_SEARCHABLE_COLUMNS = ["citizen_package_id"];
     const CARDPKG_SORT_COLUMNS = ["enabled_package" => "package_type"];
     const CITIZEN_PACKAGES_SORT_COLUMNS = ['card_end_at' => 'end_at'];
@@ -81,8 +81,6 @@ class Citizen extends Model
         if (!in_array(Str::lower($request->sort["dir"]), ["asc", "desc"])) {
             return $query->latest('citizens.created_at');
         }
-
-
         if (in_array($request->sort["column"], self::CITIZEN_SEARCHABLE_COLUMNS)) {
             return $query
                 ->orderBy($request->sort["column"], @$request->sort["dir"]);

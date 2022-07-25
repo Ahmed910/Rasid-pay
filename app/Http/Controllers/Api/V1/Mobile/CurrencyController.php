@@ -33,13 +33,11 @@ class CurrencyController extends Controller
     {
         $base = $request->base;
         $to = $request->to;
-        $amount = $request->amount ?: 1;
         $data = [];
-        $currencies = calcCurrency($base, $to, $amount);
+        $currencies = calcCurrency($base, $to);
         foreach ($currencies->rates as $key => $value) {
             if ($key == $to) {
-                $data['change_rate'] = $value;
-                $data['converted_amount'] = $value * $amount;
+                $data['conversion_value'] = $value;
                 break;
             }
         }
