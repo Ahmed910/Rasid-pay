@@ -18,7 +18,7 @@ class Citizen extends Model
     // protected $with = ['enabledPackage'];
 
     protected $dates = ['date_of_birth'];
-    const USER_SEARCHABLE_COLUMNS = ["fullname","phone", "identity_number", "created_at"];
+    const USER_SEARCHABLE_COLUMNS = ["fullname", "phone", "identity_number", "created_at"];
     const CITIZEN_SEARCHABLE_COLUMNS = ["citizen_package_id"];
     const CARDPKG_SORT_COLUMNS = ["enabled_package" => "package_type"];
     const CITIZEN_PACKAGES_SORT_COLUMNS = ['card_end_at' => 'end_at'];
@@ -45,7 +45,7 @@ class Citizen extends Model
             if (in_array($key, self::USER_SEARCHABLE_COLUMNS))
                 $query->whereHas('user', function ($q) use ($key, $item) {
                     $q->where($key, "like", "%$item%");
-//                    !($key == "fullname") ? $q->where($key, $item) : $q->where($key, "like", "%$item%");
+                    //                    !($key == "fullname") ? $q->where($key, $item) : $q->where($key, "like", "%$item%");
                 });
         }
 
@@ -64,8 +64,8 @@ class Citizen extends Model
             });
         }
 
-        if ($request->ban_status) {
-            $query->whereHas('user', function ($q) use ($request){
+        if ($request->ban_status && $request->ban_status != -1) {
+            $query->whereHas('user', function ($q) use ($request) {
                 $q->where('ban_status', $request->ban_status);
             });
         }
