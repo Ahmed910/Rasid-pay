@@ -79,7 +79,7 @@ class StaticPageController extends Controller
     }
 
     public function getAllStaticPages(Request $request){
-        $staticPages = StaticPage::search($request)
+        $staticPages = StaticPage::where('is_active', true)->search($request)
         ->ListsTranslations('name')
         ->CustomDateFromTo($request)
         ->with('translations')
