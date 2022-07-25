@@ -33,6 +33,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('home', 'HomeController@index');
     // Currency
     Route::get('currencies', 'CurrencyController@index');
+    Route::post('convert_currency', 'CurrencyController@convertCurrency');
     // Country
     Route::get('countries', 'CountryController@index');
     // Wallet
