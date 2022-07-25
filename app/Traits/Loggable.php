@@ -3,6 +3,7 @@
 namespace App\Traits;
 
 use App\Models\ActivityLog;
+use App\Models\Contact;
 use Illuminate\Support\Facades\Request;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Facades\Schema;
@@ -26,8 +27,9 @@ trait Loggable
                 if (in_array(class_basename($self), ['User', 'Admin']))
                     return $self->checkIfHasIsActiveOnly($self, 'ban_status');
 
-                if (in_array(class_basename($self), ['Contact']))
+                if (in_array(class_basename($self), ['Contact'])) {
                     return $self->checkIfHasIsActiveOnly($self, 'message_status');
+                }
 
                 $self->checkIfHasIsActiveOnly($self, 'is_active');
             }
@@ -135,7 +137,7 @@ trait Loggable
     {
         $table = $model->getTable();
 
-        if (Schema::hasColumn($table, $column) && request()->has($column)) {
+        if ((Schema::hasColumn($table, $column) && request()->has($column)) || (Schema::hasColumn($table, $column) && $column == 'message_status')) {
             if (request($column) != $model->getOriginal()[$column]) {
                 $newData = array_only($this->newData($model), [$column, 'ban_from', 'ban_to']);
 
@@ -159,15 +161,16 @@ trait Loggable
                     $model->addUserActivity($model, ActivityLog::ACTIVE, 'index', $newData);
                 }
 
-                if (request($column) == 'shown' && $column == 'message_status') {
+                if ($model->$column == Contact::WAITING && $column == 'message_status') {
                     $model->addUserActivity($model, ActivityLog::SHOWN, 'index', $newData);
                 }
 
-                if (request($column) == 'assigned' && $column == 'message_status') {
+                if ($model->$column == Contact::WAITING && $column == 'message_status' && request()->has('assigned_to_id')) {
                     $model->addUserActivity($model, ActivityLog::ASSIGNED, 'index', $newData);
                 }
-                if (request($column) == 'replied' && $column == 'message_status') {
-                    $model->addUserActivity($model, ActivityLog::REPLIED , 'index', $newData);
+
+                if ($model->$column == ActivityLog::REPLIED && $column == 'message_status') {
+                    $model->addUserActivity($model, ActivityLog::REPLIED, 'index', $newData);
                 }
             }
         }
@@ -191,7 +194,6 @@ trait Loggable
 
         $keys = array_keys($this->newData($self));
         $hasData = count(array_flatten(array_except($this->newData($self), $exceptedColumns)));
-
         if (
             !$hasData
             && !request()->has('image')

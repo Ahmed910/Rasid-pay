@@ -48,7 +48,7 @@ class ContactController extends Controller
             ], 422);
         }
 
-        $contactReply->fill($request->validated() + ['added_by_id' => auth()->id()] + ['updated_at' => now()])->save();
+        $contactReply->fill($request->validated() + ['added_by_id' => auth()->id()])->save();
         $contactReply->contact->update(["message_status" => Contact::REPLIED]);
         // TODO: Send to user email
         return ContactReplyResource::make($contactReply->load('contact', 'admin'))
