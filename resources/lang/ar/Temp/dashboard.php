@@ -299,6 +299,7 @@ return [
             'attachments' => 'المرفقات',
             'attachmentfile' => ' ملف المرفقات',
             'type_job_name' => 'أدخل الاسم',
+            'contact' => 'صندوق الرسائل'
         ],
         'activity_log' => 'المتابعة',
         'actions' =>  [
@@ -335,7 +336,7 @@ return [
             'index' => 'المتابعة',
         ],
         'select_employee' => 'اختر موظف',
-        'reason' => 'قام :user بـ:action :model من البرنامج الرئيسى :main من البرنامج الفرعى :sub',
+        'reason' => 'تم :action :model (:name)',
         'sub_program' => 'البرنامج الفرعي',
         'main_program' => 'البرنامج الرئيسي',
         'ip_address' => 'رقم معرف الجهاز',
