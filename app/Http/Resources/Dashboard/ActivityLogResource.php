@@ -47,7 +47,7 @@ class ActivityLogResource extends JsonResource
             'start_from' => $request->start,
             "discription" => trans('dashboard.activity_log.reason', [
                 "model" => trans("dashboard.activity_log.models." . strtolower($this->user_type ? $this->user_type : $model)),
-                'name' => $this->auditable?->name??$this->auditable->user?->fullname,
+                'name' => $this->auditable?->name ?? $this->auditable?->user?->fullname,
                 "action" => trans("dashboard.activity_log.actions." . $this->action_type),
                 // "main" => trans("dashboard." . Str::snake($this->user_type ? $this->user_type : $model) . "." . str_plural(Str::snake($this->user_type ? $this->user_type : $model)))
                 // , "sub" => trans("dashboard.permissions." . $this->sub_program)
