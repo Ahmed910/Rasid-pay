@@ -13,7 +13,7 @@ class OurAppResource extends JsonResource
             'id' => $this->id,
             'name' => $this->name,
             'description' => $this->description,
-            "images" => ImagesResource::collection($this->whenLoaded("images")),
+            "image" => $this->image,
             'android_link' => $this->android_link,
             'ios_link' => $this->ios_link,
             'created_at' => $this->created_at,
