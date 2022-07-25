@@ -70,6 +70,13 @@ class StaticPageController extends Controller
 
     public function destroy(StaticPage $staticPage)
     {
+        if ($staticPage->link()->exists()) {
+            return response()->json([
+                'status' => false,
+                'message' =>  trans("dashboard.static_page.validation.can_not_be_deleted_has_link"),
+                'data' => null
+            ], 422);
+        }
         $staticPage->delete();
 
         return StaticPageResource::make($staticPage)->additional([
