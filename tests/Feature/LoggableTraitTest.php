@@ -2,6 +2,7 @@
 
 namespace Tests\Feature;
 
+use App\Models\ActivityLog;
 use App\Models\Contact;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -52,9 +53,9 @@ class LoggableTraitTest extends TestCase
         $reposnse->assertStatus(200)
             ->assertJsonPath(
                 'data.contact.message_status',
-                Contact::SHOWN,
+                Contact::WAITING,
             )
-            ->assertJsonPath('data.activity.0.type', Contact::SHOWN);
+            ->assertJsonPath('data.activity.0.type', ActivityLog::SHOWN);
     }
 
     public function test_if_show_message_convert_reply()
