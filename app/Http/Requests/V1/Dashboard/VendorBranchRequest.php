@@ -20,8 +20,8 @@ class VendorBranchRequest extends ApiMasterRequest
             'location'  =>  'required|string|between:3,250',
             'address_details'  =>  'required|string|between:3,250',
             'logo' => 'nullable|max:5120|mimes:jpg,png,jpeg,gif',
-            'email' => 'required|email|unique:vendor_branches,email,' . $this->vendor_branch?->id,
-            'phone' => 'required|numeric|digits_between:7,20|starts_with:9665,05|unique:vendor_branches,phone,' . $this->vendor_branch?->id,
+            'email' => 'required|email',
+            'phone' => 'required|numeric|regex:/^(009665|9665|00966|\+9665|05|5)(5|0|3|6|4|9|1|8|7)([0-9]{7})$/',
             'lat' => 'required|numeric',
             'lng' => 'required|numeric',
         ];
