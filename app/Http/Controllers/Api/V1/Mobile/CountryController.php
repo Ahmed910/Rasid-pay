@@ -8,9 +8,6 @@ use App\Models\Country\Country;
 
 class CountryController extends Controller
 {
-    /**
-     * @return CurrencyResource
-     */
     public function index()
     {
         return CountryResource::collection(Country::latest()->get())->additional(['status' => true, 'message' => '']);
