@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api\V1\Mobile;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\V1\Mobile\CurrencyRequest;
 use App\Http\Resources\Api\V1\Mobile\CurrencyResource;
 use App\Models\Currency;
 use Carbon\Carbon;
@@ -16,29 +17,38 @@ class CurrencyController extends Controller
         if ($currencies->first() && $currencies->first()->last_updated_at->diffInDays(Carbon::now()) == 0) {
             return CurrencyResource::collection($currencies)->additional(['status' => true, 'message' => '']);
         }
-        // Fetching JSON
-        $req_url = 'https://api.exchangerate.host/latest?base=SAR';
-        $response_json = file_get_contents($req_url);
-        // Continuing if we got a result
-        if (false !== $response_json) {
-            // Try/catch for json_decode operation
-            try {
-                // Decoding
-                $response_object = json_decode($response_json);
-                foreach ($response_object->rates as $key => $value) {
-                    Currency::updateOrCreate(['currency_code' => $key,],
-                        [
-                            'currency_value' => $value,
-                            'last_updated_at' => $response_object->date
-                        ]);
-                }
-                // YOUR APPLICATION CODE HERE, e.g.
-                return CurrencyResource::collection($currencies)->additional(['status' => true, 'message' => '']);
-            } catch (\Exception $e) {
-                // Handle JSON parse error...
-                throw new \Exception('Error parsing JSON');
+        $currencies = calcCurrency('SAR');
+        foreach ($currencies->rates as $key => $value) {
+            Currency::updateOrCreate(['currency_code' => $key,],
+                [
+                    'currency_value' => $value,
+                    'last_updated_at' => $currencies->date
+                ]);
+        }
+        return CurrencyResource::collection($currencies)->additional(['status' => true, 'message' => '']);
+    }
+
+
+    public function convertCurrency(CurrencyRequest $request)
+    {
+        $base = $request->base;
+        $to = $request->to;
+        $amount = $request->amount ?: 1;
+        $data = [];
+        $currencies = calcCurrency($base, $to, $amount);
+        foreach ($currencies->rates as $key => $value) {
+            if ($key == $to) {
+                $data['change_rate'] = $value;
+                $data['converted_amount'] = $value * $amount;
+                break;
             }
         }
+        return response()->json([
+            'date' => $data,
+            'status' => true,
+            'message' => '',
+        ]);
+
     }
 
 }

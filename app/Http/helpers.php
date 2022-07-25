@@ -154,7 +154,8 @@ if (!function_exists('number_with_starts')) {
         if (strlen($number) <= $length) return generatestars($number, strlen($number));
         return generatestars($number, $length);
     }
-    function generatestars($string,  $length = 4)
+
+    function generatestars($string, $length = 4)
     {
         for ($i = 0; $i < $length; $i++) {
             $string[$i] = '*';
@@ -191,15 +192,16 @@ if (!function_exists('setting')) {
     }
 }
 
-if (!function_exists('db_translations')) {;
+if (!function_exists('db_translations')) {
+    ;
     function db_translations(string $locale = null, $file = null): Collection
     {
         if (Schema::hasTable('locales')) {
             //TODO: Add Cache
             $translation = \App\Models\Locale\Locale::join('locale_translations', 'locale_translations.locale_id', '=', 'locales.id')
-                ->when($locale != null, fn ($q) => $q->where('locale', $locale))
+                ->when($locale != null, fn($q) => $q->where('locale', $locale))
                 ->addSelect('locale_id', 'key', 'locale', 'value', 'desc')
-                ->when($file != null, fn ($q) => $q->where('file', $file))
+                ->when($file != null, fn($q) => $q->where('file', $file))
                 ->pluck('value', 'key');
 
             return $translation;
@@ -215,7 +217,7 @@ if (!function_exists('countries_list')) {
         if ($type == "full") {
             $matches = [];
             foreach ($countries as $country) {
-                $matches[] =  [
+                $matches[] = [
                     'name' => $country["name_$locale"],
                     'phone' => $country["phone"],
                     'code' => $country["code"],
@@ -269,5 +271,27 @@ if (!function_exists('getPercentOfNumber')) {
     function getPercentOfNumber($number, $percent)
     {
         return ($percent / 100) * $number;
+    }
+}
+
+
+if (!function_exists('calcCurrency')) {
+    function calcCurrency($base, $toCurrency = null, $amount = 1)
+    {
+        $req_url = 'https://api.exchangerate.host/latest?base=' . $base;
+        $response_json = file_get_contents($req_url);
+        // Continuing if we got a result
+        if (false !== $response_json) {
+            // Try/catch for json_decode operation
+            try {
+                // Decoding
+                $response_object = json_decode($response_json);
+                // YOUR APPLICATION CODE HERE, e.g.
+                return $response_object;
+            } catch (\Exception $e) {
+                // Handle JSON parse error...
+                throw new \Exception(trans('mobile.currencies.error_parsing_json'));
+            }
+        }
     }
 }
