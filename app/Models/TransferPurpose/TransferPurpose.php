@@ -29,7 +29,7 @@ class TransferPurpose extends Model
     public function setIsDefaultValueAttribute($value)
     {
         if($value){
-            self::where('is_default_value',1)->update(['is_default_value' => 0]);
+            self::where('id','<>',$this->id)->where('is_default_value',1)->update(['is_default_value' => 0]);
         }
         $this->attributes['is_default_value'] = $value;
 

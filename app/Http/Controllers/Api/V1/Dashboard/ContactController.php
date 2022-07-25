@@ -48,7 +48,7 @@ class ContactController extends Controller
             ], 422);
         }
 
-        $contactReply->fill($request->validated() + ['added_by_id' => auth()->id()] + ['updated_at' => now()])->save();
+        $contactReply->fill($request->validated() + ['added_by_id' => auth()->id()])->save();
         $contactReply->contact->update(["message_status" => Contact::REPLIED]);
         // TODO: Send to user email
         return ContactReplyResource::make($contactReply->load('contact', 'admin'))
@@ -76,7 +76,7 @@ class ContactController extends Controller
         if ($contact->message_status == Contact::PENDING) {
             $contact->update([
                 'read_at' =>  now(),
-                "message_status" => Contact::SHOWN,
+                "message_status" => Contact::WAITING,
                 'updated_at' => now()
             ]);
         }
@@ -97,7 +97,7 @@ class ContactController extends Controller
 
     public function assignContact(ContactAdminAssignRequest $request, Contact $contact)
     {
-        $contact->update($request->validated() + ["message_status" => Contact::ASSIGNED]);
+        $contact->update($request->validated());
         return ContactResource::make($contact->load("admin"))
             ->additional([
                 'status' => true,

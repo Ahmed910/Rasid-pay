@@ -24,7 +24,7 @@ class ActivityLogResource extends JsonResource
             $class = explode('\\', $this->auditable_type);
             $model = $class[COUNT($class) - 1];
         };
-        
+
         if($this->auditable?->name){
             $name = $this->auditable?->name;
         }elseif($model == 'Contact'){
