@@ -261,7 +261,7 @@ return [
             'archive' => 'Archive',
         ],
         'select_mainprogram' => ' Select MainProgram',
-        'reason' => ':user did :action',
+        'reason' => ':model has been :action (:name)',
         'history' => 'History ',
         'sub_program' => ' Sub Program',
         'select_employee' => 'Select Employee',

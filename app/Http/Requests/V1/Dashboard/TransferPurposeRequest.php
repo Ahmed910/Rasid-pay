@@ -17,7 +17,7 @@ class TransferPurposeRequest extends ApiMasterRequest
     {
         $rules = [];
         foreach (config('translatable.locales') as $locale) {
-            $rules["$locale.name"]   = "required|string|between:2,200|unique:transfer_purpose_translations,name,".$this->transfer_purpose?->id.',transfer_purpose_id';
+            $rules["$locale.name"]   = "required|string|between:2,200|unique:transfer_purpose_translations,name,".$this->transfer_purpose?->id.',transfer_purpose_id,deleted_at,null';
         }
         $rules['is_default_value'] = 'nullable|in:0,1';
         $rules['is_active'] = 'nullable|in:0,1';

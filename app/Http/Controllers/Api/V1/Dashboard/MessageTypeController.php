@@ -59,7 +59,7 @@ class MessageTypeController extends Controller
     public function update(MessageTypeRequest $request, MessageType $messageType)
     {
         $data = $request->validated();
-        $messageType->fill($data)->save();
+        $messageType->fill($data + ['updated_at' => now()])->save();
         $messageType->admins()->sync($data['admins']);
 
         return MessageTypeResource::make($messageType)

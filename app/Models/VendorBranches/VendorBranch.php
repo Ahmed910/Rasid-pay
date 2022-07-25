@@ -57,7 +57,7 @@ class VendorBranch extends Model implements HasAssetsInterface
         }
         if (isset($request->phone)) {
 
-            $query->where('phone', $request->phone);
+            $query->where('phone','like', "%$request->phone%");
         }
 
 
