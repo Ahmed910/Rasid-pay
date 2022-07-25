@@ -38,8 +38,7 @@ class CurrencyController extends Controller
         $currencies = calcCurrency($base, $to, $amount);
         foreach ($currencies->rates as $key => $value) {
             if ($key == $to) {
-                $data['change_rate'] = $value;
-                $data['converted_amount'] = $value * $amount;
+                $data['conversion_value'] = $value;
                 break;
             }
         }
