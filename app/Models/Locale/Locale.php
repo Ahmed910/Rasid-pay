@@ -44,7 +44,8 @@ class Locale extends Model
 
         $query->when($request->sort, function ($q) use ($request) {
             if ($request->sort["column"] == "value") {
-                return $q->orderByTranslation($request->sort["column"], @$request->sort["dir"]);
+                return $q->has('translations')
+                    ->orderBy($request->sort["column"], @$request->sort["dir"]);
             }
 
             $q->orderBy($request->sort["column"], @$request->sort["dir"]);
