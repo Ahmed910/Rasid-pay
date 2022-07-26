@@ -16,7 +16,8 @@ class SettingController extends Controller
     public function index(Request $request)
     {
         $settings = Setting::select('key', 'value', 'input_type', 'is_single')
-            ->latest()->paginate((int)($request->per_page ?? 10));
+            ->oldest('is_single')
+            ->paginate((int)($request->per_page ?? 10));
 
         return SettingResource::collection($settings)
             ->additional([
