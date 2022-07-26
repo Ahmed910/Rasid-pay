@@ -14,7 +14,7 @@ class VendorController extends Controller
      public function index(Request $request)
      {
 
-        $vendors = Vendor::when($request->name,function ($query) use($request){
+        $vendors = Vendor::active()->when($request->name,function ($query) use($request){
                  $query->whereTranslationLike('name',"%{$request->name}%",'ar')
                 ->orWhereTranslationLike('name',"%{$request->name}%",'en');
         })
@@ -35,7 +35,7 @@ class VendorController extends Controller
             $query->whereHas('branches',fn($query) =>
                 $query->nearest($request->lat,$request->lng)
             )
-         )->with(['branches'=>fn($query) => $query->latest()])
+         )->with(['branches'=>fn($query) => $query->active()->latest()])
          ->findOrFail($id);
 
          return VendorDetailsResource::make($vendor)->additional([

@@ -106,6 +106,11 @@ class Vendor extends Model implements HasAssetsInterface
             $q->orderBy($request->sort["column"], @$request->sort["dir"]);
         });
     }
+
+    public function scopeActive($query)
+    {
+        return $query->where('is_active',1);
+    }
     #endregion scopes
 
     #region relationships

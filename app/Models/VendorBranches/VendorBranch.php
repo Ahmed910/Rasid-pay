@@ -100,6 +100,11 @@ class VendorBranch extends Model implements HasAssetsInterface
         });
     }
 
+    public function scopeActive($query)
+    {
+        return $query->where('is_active',1);
+    }
+
     public function scopeNearest($query, $lat, $lng)
     {
         $space_search_by_kilos = setting('space_search_by_kilos');
