@@ -17,7 +17,7 @@ class CreateTransferPurposesTable extends Migration
             $table->uuid("id")->primary();
             $table->boolean('is_active')->default(true);
             $table->boolean('is_default_value')->default(false);
-
+            $table->softDeletes();
             $table->timestamps();
         });
         Schema::create('transfer_purpose_translations', function (Blueprint $table) {
