@@ -11,28 +11,28 @@ class SettingSeeder extends Seeder
     {
         $settings = [
             // erp
-            ["key" => "erp_title", "value" => ["en" => "Rasid Jack", "ar" => "رصيد باك"], "input_type" => "text"],
+            ["key" => "erp_title", "value" => ["en" => "Rasid Jack", "ar" => "رصيد باك"], "input_type" => "text", 'is_single' => false],
             ["key" => "erp_phone", "value" => ["en" => "1234567890,152364123,5123645523"], "input_type" => "text"],
             ["key" => "erp_logo", "value" => ["en" => "sample.png"], "input_type" => "file"],
-            ["key" => "erp_description", "value" => ["en" => "Description", "ar" => "الوصف"], "input_type" => "editor"],
+            ["key" => "erp_description", "value" => ["en" => "Description", "ar" => "الوصف"], "input_type" => "editor", 'is_single' => false],
 
             // auth
             ["key" => "rasidpay_login_times", "value" => ["en" => 3], "input_type" => "number"],
             ["key" => "rasidpay_session_timeout", "value" => ["en" => 600], "input_type" => "number"],
             ["key" => "rasidpay_verificatoin_code", "value" => ["en" => 60], "input_type" => "number"],
             ["key" => "rasid_verify_code_timer", "value" => ["en" => 60], "input_type" => "number"],
-            ["key" => "rasidpay_setting_termsconds", "value" => ["en" => "rasid pay setting terms and conditions", "ar" => "الشروط والاحكام"], "input_type" => "editor"],
+            ["key" => "rasidpay_setting_termsconds", "value" => ["en" => "rasid pay setting terms and conditions", "ar" => "الشروط والاحكام"], "input_type" => "editor", 'is_single' => false],
 
             // statics
-            ["key" => "rasidpay_setting_aboutapp", "value" => ["en" => "rasid pay setting about app", "ar" => "اعدادات عن التطبيق"], "input_type" => "editor"],
-            ["key" => "rasidpay_setting_usagepolicy", "value" => ["en" => "rasid pay setting usage policy", "ar" => "اعدادات سياسة الاستخدام"], "input_type" => "editor"],
+            ["key" => "rasidpay_setting_aboutapp", "value" => ["en" => "rasid pay setting about app", "ar" => "اعدادات عن التطبيق"], "input_type" => "editor", 'is_single' => false],
+            ["key" => "rasidpay_setting_usagepolicy", "value" => ["en" => "rasid pay setting usage policy", "ar" => "اعدادات سياسة الاستخدام"], "input_type" => "editor", 'is_single' => false],
             ["key" => "rasid_date_type", "value" => ["en" => 0], "input_type" => "select"],
             ["key" => "rasidpay_localtransfer_creditchoice_active", "value" => ["en" => 0], "input_type" => "select"],
             ["key" => "rasidpay_inttransfer_creditchoice_active", "value" => ["en" => 0], "input_type" => "select"],
 
             // rasid maak
-            ["key" => "rasidback_rasidmaak_specifications", "value" => ["en" => "Rasid maak", "ar" => "رصيد معاك"], "input_type" => "text"],
-            ["key" => "rasidpay_rasidmaak_specifications", "value" => ["en" => "Enjoy a special installment rate with the application of credit with you, download it now", "ar" => "تمتع بنسبة تقسيط خاصة مع تطبيق رصيد معاك حمله الآن"], "input_type" => "text"],
+            ["key" => "rasidback_rasidmaak_specifications", "value" => ["en" => "Rasid maak", "ar" => "رصيد معاك"], "input_type" => "text", 'is_single' => false],
+            ["key" => "rasidpay_rasidmaak_specifications", "value" => ["en" => "Enjoy a special installment rate with the application of credit with you, download it now", "ar" => "تمتع بنسبة تقسيط خاصة مع تطبيق رصيد معاك حمله الآن"], "input_type" => "text", 'is_single' => false],
 
             // transfers
             ["key" => "rasidpay_localtransfer_transferfees", "value" => ["en" => 7], "input_type" => "number"],
@@ -73,9 +73,9 @@ class SettingSeeder extends Seeder
             ["key" => "rasid_website_link", "value" => ["en" => "https://alfintech.com.eg/"], "input_type" => "text"],
 
             // packages
-            ["key" => "rasidpay_cards_basic_desc", "value" => ["en" => "rasid pay cards basic description", "ar" => "وصف مختصر لبطاقة الدفع الاساسية"], "input_type" => "textarea"],
-            ["key" => "rasidpay_cards_golden_desc", "value" => ["en" => "rasid pay cards golden description", "ar" => "وصف مختصر لبطاقة الدفع الذهبية"], "input_type" => "textarea"],
-            ["key" => "rasidpay_cards_platinum_desc", "value" => ["en" => "rasid pay cards platinum description", "ar" => "وصف مختصر لبطاقة الدفع البلاتينية"], "input_type" => "textarea"],
+            ["key" => "rasidpay_cards_basic_desc", "value" => ["en" => "rasid pay cards basic description", "ar" => "وصف مختصر لبطاقة الدفع الاساسية"], "input_type" => "textarea", 'is_single' => false],
+            ["key" => "rasidpay_cards_golden_desc", "value" => ["en" => "rasid pay cards golden description", "ar" => "وصف مختصر لبطاقة الدفع الذهبية"], "input_type" => "textarea", 'is_single' => false],
+            ["key" => "rasidpay_cards_platinum_desc", "value" => ["en" => "rasid pay cards platinum description", "ar" => "وصف مختصر لبطاقة الدفع البلاتينية"], "input_type" => "textarea", 'is_single' => false],
             ["key" => "rasidpay_cards_basic_price", "value" => ["en" => "2000"], "input_type" => "text"],
             ["key" => "rasidpay_cards_golden_price", "value" => ["en" => "3000"], "input_type" => "text"],
             ["key" => "rasidpay_cards_platinum_price", "value" => ["en" => "4000"], "input_type" => "text"],
