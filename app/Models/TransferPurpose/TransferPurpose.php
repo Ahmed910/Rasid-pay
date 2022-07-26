@@ -9,13 +9,12 @@ use Illuminate\Database\Eloquent\Model;
 use App\Traits\Uuid;
 use Astrotomic\Translatable\Translatable;
 use App\Models\BankTransfer;
-use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 
 class TransferPurpose extends Model
 {
-    use HasFactory, SoftDeletes, Uuid, Translatable, Loggable;
+    use HasFactory, Uuid, Translatable, Loggable;
 
     #region properties
     public $translatedAttributes = ['name','description'];
