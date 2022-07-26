@@ -23,6 +23,8 @@ class HomeResource extends JsonResource
             'wallet_number'  => (string)$this->wallet_number,
             'main_balance'   => (string)$this->main_balance,
             'cash_back'      => (string)$this->cash_back,
+            'rasid_pay_logo'      => setting('rasidpay_logo'),
+            'rasid_maak_logo'      => setting('rasidmaak_logo'),
             'total_balance'  => (string)($this->main_balance + $this->cash_back),
             'last_updated'   => $this->last_updated_at?->diffForHumans(),
             'card_cover'     => $app_mode,

@@ -95,8 +95,8 @@ Route::middleware('auth:sanctum')->group(function () {
 Route::get('generate_transaction_file/{id}', 'TransactionController@generatePdfLink');
 Route::get('get_summary_file/{id}', 'TransactionController@getSummaryFile')->name('summary_file');
 
-Route::post('contacts', 'ContactController@sendMessage')->name('send_message');
-Route::get('social_contacts', 'SettingController@socialContact');
+Route::apiResource('contacts', 'ContactController')->only('index','store');
+
 Route::get('slides', 'SlideController@index');
 Route::get('banks', 'BankController@index');
 Route::get('our_apps', 'OurAppController@index');
