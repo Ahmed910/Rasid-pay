@@ -9,6 +9,14 @@ class BeneficiaryRequest extends ApiMasterRequest
 {
     public function rules()
     {
+
+        /**
+        *, function ($attribute, $value, $fail) {
+        *    if (!check_iban_valid($value, ($this->benficiar_type == Beneficiary::LOCAL_TYPE ? 'sa' : null))) {
+        *        $fail(trans('mobile.validation.invalid_iban'));
+        *    }
+        *}]
+        */
         return [
             'name'                 => 'required|string|max:255',
             'benficiar_type'       => 'required|in:' . implode(',', Beneficiary::TYPES),
@@ -17,15 +25,11 @@ class BeneficiaryRequest extends ApiMasterRequest
             'recieve_option_id'    => 'nullable|required_if:benficiar_type,' . Beneficiary::GLOBAL_TYPE . '|exists:recieve_options,id',
             'nationality_id'       => 'nullable|exists:countries,id',
             'date_of_birth'        => 'nullable|date|after_or_equal:1920-01-01',
-            'iban_number'          => ['required_if:benficiar_type,' . Beneficiary::LOCAL_TYPE, function ($attribute, $value, $fail) {
-                if (!check_iban_valid($value, ($this->benficiar_type == Beneficiary::LOCAL_TYPE ? 'sa' : null))) {
-                    $fail(trans('mobile.validation.invalid_iban'));
-                }
-            }],
+            'iban_number'          => ['required_if:benficiar_type,' . Beneficiary::LOCAL_TYPE,'alpha_num','size:24'],
             'is_saved' => 'required|in:1,0'
         ];
     }
-    
+
     public function messages()
     {
         return [
