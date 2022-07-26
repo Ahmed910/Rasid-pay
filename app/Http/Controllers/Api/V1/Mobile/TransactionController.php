@@ -44,27 +44,25 @@ class TransactionController extends Controller
             ]);
     }
 
-    public function generatePdfFile($id)
-    {
-        $this->checkInvoicesFolderExists();
-        $file = $this->createOrGetPdfFile($id);
-
-        return response()->download(Str::replace(url('app/public/'), 'storage', $file));
-    }
-
     public function generatePdfLink($id)
     {
-
         return response()->json([
             'status' => true,
             'message' => 'Pdf File',
             'data' => [
-               'route' => [
-                'url' => route('summary_file',$id),
-                 'method' => 'GET'
-                ]
+                'file' => route('summary_file', $id),
             ]
         ]);
+    }
+
+    public function getSummaryFile($id)
+    {
+        $this->checkInvoicesFolderExists();
+
+        $path = $this->createOrGetPdfFile($id);
+        return response()->file(
+            storage_path(Str::replace(url(''), '', $path))
+        );
     }
 
     private function checkInvoicesFolderExists()
@@ -84,23 +82,13 @@ class TransactionController extends Controller
         }
 
         $path =  $generatePdfFile->newFile()
-            ->view('dashboard.exports.mobile.invoice', ['transaction' => $transaction])
+            ->view('dashboard.exports.mobile.invoice', ['transaction' => $transaction, 'transaction_type' => $transaction->trans_type])
             ->storeOnLocal('invoices/');
 
         $transaction->update(['summary_path' => $path]);
 
 
         return asset('app/public/' . $path);
-    }
-
-    public function getSummaryFile($id)
-    {
-        $this->checkInvoicesFolderExists();
-
-        $path = $this->createOrGetPdfFile($id);
-        return response()->file(
-            storage_path(Str::replace(url(''), '', $path))
-        );
     }
 
     public function getTransTypes()

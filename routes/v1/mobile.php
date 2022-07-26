@@ -93,8 +93,8 @@ Route::middleware('auth:sanctum')->group(function () {
 });
 
 Route::get('generate_transaction_file/{id}', 'TransactionController@generatePdfLink');
-Route::get('download_transaction_file/{id}', 'TransactionController@generatePdfFile');
 Route::get('get_summary_file/{id}', 'TransactionController@getSummaryFile')->name('summary_file');
+
 Route::post('contacts', 'ContactController@sendMessage')->name('send_message');
 Route::get('social_contacts', 'SettingController@socialContact');
 Route::get('slides', 'SlideController@index');
