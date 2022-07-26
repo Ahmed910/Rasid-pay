@@ -72,6 +72,13 @@ class SettingSeeder extends Seeder
             ["key" => "rasid_social_whatsapp_link", "value" => ["en" => "00966501386700"], "input_type" => "text"],
             ["key" => "rasid_website_link", "value" => ["en" => "https://alfintech.com.eg/"], "input_type" => "text"],
 
+            // contacts
+            ["key" => "rasid_mobile_no", "value" => ["en" => "00966501386700"], "input_type" => "text"],
+            ["key" => "rasid_phone_no", "value" => ["en" => "00966512345678"], "input_type" => "text"],
+            ["key" => "rasid_mail", "value" => ["en" => "info@fintech-sa.com"], "input_type" => "text"],
+            ["key" => "rasid_fax_no", "value" => ["en" => "123456"], "input_type" => "text"],
+            ["key" => "rasid_hotline_no", "value" => ["en" => "19999"], "input_type" => "text"],
+
             // packages
             ["key" => "rasidpay_cards_basic_desc", "value" => ["en" => "rasid pay cards basic description", "ar" => "وصف مختصر لبطاقة الدفع الاساسية"], "input_type" => "textarea", 'is_single' => false],
             ["key" => "rasidpay_cards_golden_desc", "value" => ["en" => "rasid pay cards golden description", "ar" => "وصف مختصر لبطاقة الدفع الذهبية"], "input_type" => "textarea", 'is_single' => false],
