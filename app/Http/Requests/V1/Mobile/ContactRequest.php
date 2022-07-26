@@ -18,7 +18,7 @@ class ContactRequest extends ApiMasterRequest
             'email' => 'required|email|regex:/(.+)@(.+)\.(.+)/i|max:225',
             'phone' => ["required", "numeric", function ($attribute, $value, $fail) {
                 if (!check_phone_valid($value)) {
-                    $fail(trans('mobile.contacts.validation.phone.invalid'));
+                    $fail(trans('mobile.validation.phone.invalid'));
                 }
             }],
             "content" => 'required|string|min:10|max:500',
