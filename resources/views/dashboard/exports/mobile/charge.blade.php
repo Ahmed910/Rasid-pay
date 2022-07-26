@@ -1,4 +1,4 @@
-@extends('dashboard.exports.mobile.invoice')
+
 @section('content')
 <section class="main-pd-wrapper" style="width: 450px; margin: auto">
   <div style="
