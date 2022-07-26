@@ -14,17 +14,21 @@ class VendorRequest extends ApiMasterRequest
      */
     public function rules()
     {
+        /**
+        *, function ($attribute, $value, $fail) {
+        *    if (!check_iban_valid($value, ($this->benficiar_type == Beneficiary::LOCAL_TYPE ? 'sa' : null))) {
+        *        $fail(trans('mobile.validation.invalid_iban'));
+        *    }
+        *}]
+        */
+        
         $rules = [
             'type' => "required|in:" . join(",", Vendor::TYPES),
             'commercial_record' => ["required", "numeric", "digits_between:10,20", "unique:vendors,commercial_record," . @$this->vendor],
             'tax_number' => "required|digits_between:10,20|numeric|unique:vendors,tax_number," . @$this->vendor,
             'is_support_maak' => "required|in:1,0",
             'is_active' => "nullable|in:1,0",
-            "iban" => ['required', "unique:vendors,iban","size:24" . @$this->vendor, function ($attribute, $value, $fail) {
-                if (!check_iban_valid($value, 'sa')) {
-                    $fail(trans('mobile.validation.invalid_iban'));
-                }
-            }],
+            "iban" => ['required', 'alpha_num' ,"size:24", "unique:vendors,iban," . @$this->vendor],
             "email" => ["required", "max:100", "email", "unique:vendors,email," . @$this->vendor],
             "phone" => ["required", "numeric",'regex:/^(009665|9665|00966|\+9665|05|5)(5|0|3|6|4|9|1|8|7)([0-9]{7})$/', 'unique:vendors,phone,' . $this->vendor],
             'logo' => (!$this->isMethod('put')) ? "required|" : "nullable|" . 'mimes:jpeg,jpg,png,suv,heic',
