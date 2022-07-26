@@ -21,7 +21,7 @@ class MessageType extends Model
     #region properties
     protected $guarded = ['created_at'];
     public $translatedAttributes = ['name'];
-    private $sortableColumns = ['name', 'employee_count', 'created_at','is_active'];
+    private $sortableColumns = ['name', 'employee_count', 'created_at', 'is_active'];
     #endregion properties
 
     #region mutators
@@ -71,7 +71,7 @@ class MessageType extends Model
             }
 
             if ($request->sort["column"] == "employee_count") {
-                return $q->withCount('admins')->orderBy('admins_count');
+                return $q->withCount('admins')->orderBy('admins_count', @$request->sort["dir"]);
             }
 
             $q->orderBy($request->sort["column"], @$request->sort["dir"]);

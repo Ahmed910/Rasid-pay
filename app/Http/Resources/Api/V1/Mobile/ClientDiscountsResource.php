@@ -2,7 +2,6 @@
 
 namespace App\Http\Resources\Api\V1\Mobile;
 
-use Carbon\Carbon;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class ClientDiscountsResource extends JsonResource
@@ -16,7 +15,7 @@ class ClientDiscountsResource extends JsonResource
     public function toArray($request)
     {
         return [
-            'name' => $this->vendor->translation?->name,
+            'name' => $this->vendor?->name,
             'avatar' => $this->vendor?->image,
             'discount' => $this[(request()->package_discount)]
         ];

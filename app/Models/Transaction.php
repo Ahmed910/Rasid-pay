@@ -71,7 +71,7 @@ class Transaction extends Model
             if ($request->client == 0) $request->client = null;
             if ($request->client != -1) {
                 $query->whereHas('toUser', function ($query) use ($request) {
-                    $query->where('to_user_id', $request->client);
+                    $query->where("fullname", "like", "%$request->client%");
                 });
             }
         }
