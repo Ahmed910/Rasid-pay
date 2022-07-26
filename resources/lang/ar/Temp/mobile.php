@@ -121,7 +121,12 @@ return [
     ],
     'invoice' => [
         'invoice' => 'فاتورة',
+        'invoice_number' =>'رقم الفاتورة',
         'successfully_Transfered' => 'تم التحويل بنجاح',
+        'successfully_payment'=>'تم الدفع بنجاح',
+        'successfully_charged'=>'تم الشحن بنجاح',
+        'charge_amount' =>'مبلغ الشحن',
+        'phone' =>'رقم الجوال',
         'transaction_type' => 'نوع العملية',
         'transaction_date' => 'تاريخ العملية',
         'mtcn_number' => 'رقم MTCN',

@@ -82,7 +82,7 @@ class TransactionController extends Controller
             return asset('app/public/' . $transaction->summary_path);
 
         $path =  $generatePdfFile->newFile()
-            ->view('dashboard.exports.mobile.invoice', ['transaction' => $transaction])
+            ->view('dashboard.exports.mobile.invoice', ['transaction' => $transaction ,'transaction_type' =>$transaction->trans_type])
             ->storeOnLocal('invoices/');
 
         $transaction->update(['summary_path' => $path]);
