@@ -16,7 +16,7 @@ class LinkController extends Controller
            ->join('static_page_translations','static_page_translations.static_page_id','static_pages.id')
            ->where('links.key',$static_page_key)
            ->select('static_pages.id','static_page_translations.name','static_page_translations.description')
-           ->get();
+           ->get()->all();
 
            return response()->json(['data' => $static_page_data + ['key' => $static_page_data],'status' => true,'message' =>'']);
     }
