@@ -15,7 +15,7 @@ class SettingController extends Controller
 {
     public function index(Request $request)
     {
-        $settings = Setting::select('key', 'value', 'input_type')
+        $settings = Setting::select('key', 'value', 'input_type', 'is_single')
             ->latest()->paginate((int)($request->perPage ?? 10));
 
         return SettingResource::collection($settings)
@@ -40,8 +40,8 @@ class SettingController extends Controller
 
 
             Setting::where("key", $key)->update([
-                    "value" =>  $value,
-                ]);
+                "value" =>  $value,
+            ]);
         }
 
         return [
@@ -67,9 +67,9 @@ class SettingController extends Controller
             }
 
             Setting::updateOrCreate(
-                    ['key'   => $setting['key']],
-                    ['value' =>  $setting['value'], 'input_type' => $setting['input_type']],
-                );
+                ['key'   => $setting['key']],
+                ['value' =>  $setting['value'], 'input_type' => $setting['input_type']],
+            );
         }
 
         return [
