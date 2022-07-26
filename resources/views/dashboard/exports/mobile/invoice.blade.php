@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <title>@lang('mobile.invoice.invoice')</title>
-  <link rel="stylesheet" href="{{ public_path('dashboardAssets/css/invoice.css') }}">
+  <link rel="stylesheet" href="{{ asset('dashboardAssets/css/invoice.css') }}">
 </head>
 
 <body dir="rtl">
