@@ -90,7 +90,7 @@ return [
         'is_paid_before' => 'تم دفع هذه الفاتورة من قبل.'
     ],
     'global_transfers' => [
-        'current_balance_is_not_sufficiant_to_complete_transaction' => 'لا يوجد رصيد كافى',
+        'current_balance_is_not_sufficient_to_complete_transaction' => 'لا يوجد رصيد كافى',
         'transfer_has_been_done_successfully' => 'تمت عملية التحويل بنجاح',
     ],
     'min' => [
@@ -115,9 +115,10 @@ return [
     ],
     'local_transfers' => [
         'local_transfers' => 'التحويلات المحلية',
-        'current_balance_is_not_sufficiant_to_complete_transaction' => 'لا يوجد رصيد كافي',
+        'current_balance_is_not_sufficient_to_complete_transaction' => 'لا يوجد رصيد كافي',
         'local_transfer' => 'التحويل المحلي',
         'transfer_has_been_done_successfully' => 'تمت عملية التحويل بنجاح',
+        'transfer_fees_is_not_enough' => 'رصيدك الحالي لا يكفي لسداد رسوم التحويل'
     ],
 
     'transfers' => [
@@ -151,7 +152,7 @@ return [
         'fee_amount' => 'رسوم التحويل',
         'from_account' => 'من المستخدم',
         'total' => 'إجمالي المبلغ',
-        'benefeciary_name' => 'اسم المستفيد',
+        'beneficiary_name' => 'اسم المستفيد',
         'benefeciary_address' => 'عنوان المستفيد',
         'transfer_purpose' => 'الغرض من الحوالة',
     ],
