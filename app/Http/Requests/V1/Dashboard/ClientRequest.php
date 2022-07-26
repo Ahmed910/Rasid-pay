@@ -32,7 +32,11 @@ class ClientRequest extends ApiMasterRequest
             "fullname" => ["required", "max:100", "string"],
             "email" => ["nullable", "max:255", "email", "unique:users,email," . @$this->client],
             "country_code" => "nullable|in:" . $list,
-            "phone" => ["nullable", "not_regex:/^{$this->country_code}/", "numeric", "digits_between:7,20"],
+            'phone' => ["nullable", function ($attribute, $value, $fail) {
+                if (!check_phone_valid($value)) {
+                    $fail(trans('mobile.validation.invalid_phone'));
+                }
+            }, 'unique:users,phone,' . @$this->client],
             "full_phone" => ["unique:users,phone," . @$this->client],
             "identity_number" => ["nullable", "numeric", "digits_between:10,20", "unique:users,identity_number," . @$this->client],
             "client_type" => ["required", "in:company,institution,member,freelance_doc,famous,other"],

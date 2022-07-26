@@ -16,6 +16,7 @@ class AddMessageTypeIdToContacts extends Migration
     public function down()
     {
         Schema::table('contacts', function (Blueprint $table) {
+            $table->dropForeign(['message_type_id']);
             $table->dropColumn('message_type_id');
         });
     }

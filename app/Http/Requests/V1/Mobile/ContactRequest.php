@@ -16,7 +16,7 @@ class ContactRequest extends ApiMasterRequest
         return [
             "fullname" => 'nullable|string|max:255',
             'email' => 'nullable|email|max:225',
-            'phone' => ["nullable", "numeric", "digits_between:9,20", 'starts_with:9665', function ($attribute, $value, $fail) {
+            'phone' => ["nullable", "numeric", function ($attribute, $value, $fail) {
                 if (!check_phone_valid($value)) {
                     $fail(trans('mobile.validation.invalid_phone'));
                 }
@@ -31,7 +31,7 @@ class ContactRequest extends ApiMasterRequest
         $data = $this->all();
 
         $this->merge([
-            'phone' => @$data['phone'] ? convert_arabic_number($data['phone']) : @$data['phone']
+            'phone' => @$data['phone'] ? filter_mobile_number($data['phone']) : @$data['phone']
         ]);
     }
 }

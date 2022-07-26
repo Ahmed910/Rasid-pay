@@ -25,7 +25,7 @@ class BeneficiaryRequest extends ApiMasterRequest
             'is_saved' => 'required|in:1,0'
         ];
     }
-    
+
     public function messages()
     {
         return [
