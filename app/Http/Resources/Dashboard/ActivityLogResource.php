@@ -24,6 +24,15 @@ class ActivityLogResource extends JsonResource
             $class = explode('\\', $this->auditable_type);
             $model = $class[COUNT($class) - 1];
         };
+
+        if($this->auditable?->name){
+            $name = $this->auditable?->name;
+        }elseif($model == 'Contact'){
+            $name = 'رسالة';
+        }else{
+            $name = $this->auditable?->user?->fullname;
+        }
+
         return [
             'id' => $this->id,
             'user' => $this->user ? SimpleUserResource::make($this->user) : null,
@@ -47,7 +56,7 @@ class ActivityLogResource extends JsonResource
             'start_from' => $request->start,
             "discription" => trans('dashboard.activity_log.reason', [
                 "model" => trans("dashboard.activity_log.models." . strtolower($this->user_type ? $this->user_type : $model)),
-                'name' => $this->auditable?->name??$this->auditable->user?->fullname,
+                'name' => $name,
                 "action" => trans("dashboard.activity_log.actions." . $this->action_type),
                 // "main" => trans("dashboard." . Str::snake($this->user_type ? $this->user_type : $model) . "." . str_plural(Str::snake($this->user_type ? $this->user_type : $model)))
                 // , "sub" => trans("dashboard.permissions." . $this->sub_program)

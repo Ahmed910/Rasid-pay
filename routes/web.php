@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Contact;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Route;
 
@@ -13,3 +14,13 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
+
+Route::get('/test', function () {
+    $contact = Contact::create([
+        'fullname' => 'Mohamed',
+        'email' => 'mohamed@yahoo.com',
+        'phone' => '0100200300',
+        'content' => 'tes message',
+    ]);
+    return $contact;
+});

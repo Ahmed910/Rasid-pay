@@ -13,7 +13,7 @@ class ValidateController extends Controller
     {
         $rules = [];
         $message = trans('dashboard.general.u_can_use_this_name');
-        if (in_array($request->type,['department','job','permission','static_page','transfer_purpose'])) {
+        if (in_array($request->type,['department','job','permission','static_page','transfer_purpose','bank'])) {
             foreach (config('translatable.locales') as $locale) {
                 switch ($request->type) {
                     case 'department':
@@ -30,6 +30,9 @@ class ValidateController extends Controller
                     break;
                     case 'transfer_purpose' :
                     $rules += $this->validateTransferPurpose($request,$locale);
+                    break;
+                    case 'bank' :
+                    $rules += $this->validateBank($request,$locale);
                     break;
                 }
             }
@@ -107,6 +110,12 @@ class ValidateController extends Controller
     public function validateTransferPurpose($request, $locale)
     {
         $rules["$locale.name"] = "unique:transfer_purpose_translations,name," . ($request->transfer_purpose_id ?? 0) . ',transfer_purpose_id';
+        return $rules;
+    }
+
+    public function validateBank($request, $locale)
+    {
+        $rules["$locale.name"] = "unique:bank_translations,name," . ($request->bank_id ?? 0) . ',bank_id';
         return $rules;
     }
 }

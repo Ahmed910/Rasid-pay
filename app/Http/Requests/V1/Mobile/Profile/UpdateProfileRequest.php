@@ -14,16 +14,13 @@ class UpdateProfileRequest extends ApiMasterRequest
     public function rules()
     {
         return [
-            'image' => 'nullable|max:5120|mimes:jpg,png,jpeg',
+            'image' => 'nullable|max:1024|mimes:jpg,png,jpeg',
             // 'fullname' => 'required|string|max:100',
-            'phone' => ["required", "numeric", 'starts_with:9665,05', "digits_between:9,20", function ($attribute, $value, $fail) {
+            'phone' => ["required", "numeric", function ($attribute, $value, $fail) {
                 if (!check_phone_valid($value)) {
                     $fail(trans('mobile.validation.invalid_phone'));
                 }
             }, 'unique:users,phone,' . auth()->id()],
-            // 'whatsapp' => 'nullable|starts_with:9665,05|unique:users,whatsapp,' . auth()->id(),
-            // 'identity_number' => 'required|numeric|digits_between:10,20|unique:users,identity_number,' . auth()->id(),
-            // 'email' => 'nullable|email|unique:users,email,' . auth()->id(),
             'lat' => 'nullable|string|max:15',
             'lng' => 'nullable|string|max:15',
             'location' => 'nullable|string|between:3,100',
@@ -36,7 +33,17 @@ class UpdateProfileRequest extends ApiMasterRequest
     {
         $data = $this->all();
         $this->merge([
-            'phone' => @$data['phone'] ? convert_arabic_number($data['phone']) : @$data['phone']
+            'phone' => @$data['phone'] ? filter_mobile_number($data['phone']) : @$data['phone']
         ]);
+    }
+
+    public function messages()
+    {
+        return [
+            'image.max' =>  __('mobile.profile.validation.max_image_size'),
+            'image.mimes' =>  __('mobile.profile.validation.image_mimes'),
+            'phone.required' =>  __('mobile.profile.validation.phone_required'),
+            'phone.unique' =>  __('mobile.profile.validation.phone_unique'),
+        ];
     }
 }

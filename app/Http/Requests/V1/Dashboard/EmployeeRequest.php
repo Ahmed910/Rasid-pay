@@ -9,12 +9,11 @@ class EmployeeRequest extends ApiMasterRequest
     protected function prepareForValidation()
     {
         $data = $this->all();
-        $forvalidation = isset($this->phone[0]) && $this->phone[0] == "0" ? convert_arabic_number(substr($this->phone, 1)) : convert_arabic_number($this->phone);
-
         $this->merge([
             'date_of_birth' =>  @$data['date_of_birth'] ? date('Y-m-d', strtotime($data['date_of_birth'])) : null,
             'date_of_birth_hijri' =>  @$data['date_of_birth_hijri'] ? date('Y-m-d', strtotime($data['date_of_birth_hijri'])) : null,
-            'phone' => @$data['phone'] ? $forvalidation: null,
+            'phone' => @$data['phone'] ? filter_mobile_number($data['phone']) : @$data['phone'],
+            'whatsapp' => @$data['whatsapp'] ? filter_mobile_number($data['whatsapp']) : @$data['whatsapp']
         ]);
     }
 
@@ -23,16 +22,22 @@ class EmployeeRequest extends ApiMasterRequest
         return [
             'fullname' => 'required|string|max:225|min:2',
             'email' => 'required|email|max:225|unique:users,email,' . @$this->employee,
-            'phone' => 'required|numeric|digits_between:10,20|unique:users,phone,' . @$this->employee,
             'identity_number' => 'required|numeric|digits_between:10,20|unique:users,identity_number,' . @$this->employee,
-            'whatsapp' => 'required|numeric|digits_between:10,20|unique:users,whatsapp,' . @$this->employee,
+            'phone' => ["required", "numeric", function ($attribute, $value, $fail) {
+                if (!check_phone_valid($value)) {
+                    $fail(trans('mobile.validation.invalid_phone'));
+                }
+            }, 'unique:users,phone,' . @$this->employee],
+            'whatsapp' => ["required", "numeric", function ($attribute, $value, $fail) {
+                if (!check_phone_valid($value)) {
+                    $fail(trans('mobile.validation.invalid_phone'));
+                }
+            }, 'unique:users,whatsapp,' . @$this->employee],
             'gender' => 'required|in:male,female',
             "contract_type" => 'required|in:salary,salary_with_percent,percent',
             'salary' => 'required|numeric|digits_between:1,10',
             'department_id' => 'required|exists:departments,id,deleted_at,NULL',
             'rasid_job_id' => 'required|exists:rasid_jobs,id,deleted_at,NULL,is_vacant,1,department_id,'.$this->department_id,
-            // 'qr_path' => 'required',
-            // 'qr_code' => 'required',
             'ban_status' => 'required|in:active,permanent,temporary',
             "ban_from" => 'required_if:ban_status,temporary|date',
             "ban_to" => 'required_if:ban_status,temporary|date|after_or_equal:ban_from',
@@ -40,4 +45,5 @@ class EmployeeRequest extends ApiMasterRequest
             'image' => 'mimes:jpg,jpeg,png,webp|max:5120',
         ];
     }
+
 }

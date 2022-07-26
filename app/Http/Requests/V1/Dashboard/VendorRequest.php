@@ -14,20 +14,27 @@ class VendorRequest extends ApiMasterRequest
      */
     public function rules()
     {
+        /**
+         *, function ($attribute, $value, $fail) {
+         *    if (!check_iban_valid($value, ($this->benficiar_type == Beneficiary::LOCAL_TYPE ? 'sa' : null))) {
+         *        $fail(trans('mobile.validation.invalid_iban'));
+         *    }
+         *}]
+         */
+
         $rules = [
             'type' => "required|in:" . join(",", Vendor::TYPES),
             'commercial_record' => ["required", "numeric", "digits_between:10,20", "unique:vendors,commercial_record," . @$this->vendor],
             'tax_number' => "required|digits_between:10,20|numeric|unique:vendors,tax_number," . @$this->vendor,
             'is_support_maak' => "required|in:1,0",
             'is_active' => "nullable|in:1,0",
-//            "iban" => ['required', "unique:vendors,iban","size:24" . @$this->vendor, function ($attribute, $value, $fail) {
-//                if (!check_iban_valid($value, 'sa')) {
-//                    $fail(trans('mobile.validation.invalid_iban'));
-//                }
-//            }],
-            'iban' => 'required',
+            "iban" => ['required', 'alpha_num', "size:24", "unique:vendors,iban," . @$this->vendor],
             "email" => ["required", "max:100", "email", "unique:vendors,email," . @$this->vendor],
-            "phone" => ["required", "numeric", 'starts_with:9665,5', "digits_between:7,20", 'unique:vendors,phone,' . $this->vendor],
+            "phone" => ["required", "numeric", function ($attribute, $value, $fail) {
+                if (!check_phone_valid($value)) {
+                    $fail(trans('mobile.validation.invalid_phone'));
+                }
+            }, 'unique:vendors,phone,' . $this->vendor],
             'logo' => (!$this->isMethod('put')) ? "required|" : "nullable|" . 'mimes:jpeg,jpg,png,suv,heic',
             'commercial_record_image' => (!$this->isMethod('put')) ? "required|" : "nullable|" . 'mimes:jpeg,jpg,png,suv,heic',
             'tax_number_image' => 'nullable|mimes:jpeg,jpg,png,suv,heic',
@@ -39,5 +46,13 @@ class VendorRequest extends ApiMasterRequest
 
         return $rules;
 
+    }
+
+    protected function prepareForValidation()
+    {
+        $data = $this->all();
+        $this->merge([
+            'phone' => @$data['phone'] ? filter_mobile_number($data['phone']) : @$data['phone']
+        ]);
     }
 }

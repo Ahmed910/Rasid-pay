@@ -2,8 +2,8 @@
 
 namespace App\Http\Requests\Dashboard;
 
-use Illuminate\Foundation\Http\FormRequest;
 use GeniusTS\HijriDate\Hijri;
+use Illuminate\Foundation\Http\FormRequest;
 
 class AdminRequest extends FormRequest
 {
@@ -44,7 +44,7 @@ class AdminRequest extends FormRequest
             'ban_from' =>  @$data['ban_from'] ?? null,
             'ban_to' =>  @$data['ban_to'] ?? null,
             'password' => $data['password'] ?? null,
-            'phone' => @$data['phone'] ? convert_arabic_number($data['phone']) : @$data['phone']
+            'phone' => @$data['phone'] ? filter_mobile_number($data['phone']) : @$data['phone']
         ]);
     }
 

@@ -154,5 +154,13 @@ return [
             'exists' => 'العملة غير موجودة',
             'gt' => 'ادخل مبلغ صحيح',
         ]
+    ],
+    'profile' => [
+        'validation' => [
+            'max_image_size' => 'عفوا، أقصى حجم للصورة 1MB',
+            'image_mimes' => 'يرجى اختيار امتدادات الصور png, jpg, jpeg',
+            'phone_required' => 'رقم الجوال مطلوب',
+            'phone_unique' => 'رقم الجوال مسجل من قبل',
+        ]
     ]
 ];
