@@ -133,7 +133,6 @@ return [
         'reference_number' => 'الرقم المرجعي',
         'transfer_amount' => 'مبلغ التحويل',
         'fee_amount' => 'رسوم التحويل',
-        'charge_amount' => 'رسوم الشحن',
         'from_account' => 'من المستخدم',
         'total' => 'إجمالي المبلغ',
         'benefeciary_name' => 'اسم المستفيد',
