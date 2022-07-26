@@ -15,7 +15,11 @@ class MoneyReqRequest extends ApiMasterRequest
     {
         return [
             "amount_required" => 'required|min:1|max:10|regex:/^[\pN\,\.]+$/u',
-            'phone' => 'required|numeric|starts_with:05,966|digits_between:9,20',
+            'phone' => ["required", "numeric", function ($attribute, $value, $fail) {
+                if(!check_phone_valid($value)){
+                    $fail(trans('mobile.validation.invalid_phone'));
+                }
+            }],
             "notes" => 'required|string|max:255',
 
         ];
@@ -27,7 +31,7 @@ class MoneyReqRequest extends ApiMasterRequest
 
         $this->merge([
             'amount_required' => @$data['amount_required'] ? convert_arabic_number($data['amount_required']) : @$data['amount_required'],
-            'phone' => @$data['phone'] ? convert_arabic_number($data['phone']) : @$data['phone']
+            'phone' => @$data['phone'] ? filter_mobile_number($data['phone']) : @$data['phone']
         ]);
     }
 }

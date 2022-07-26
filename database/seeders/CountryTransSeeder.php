@@ -18,12 +18,14 @@ class CountryTransSeeder extends Seeder
 
         foreach ($trans as $single) {
             $country = Country::firstWhere(['currency_code' => $single['key']]);
-
             if ($country) {
                 if ($country->translate('ar')) {
                     $country->translate('ar')->currency = $single['ar']['name'];
-                    $country->save();
                 }
+                if ($country->translate('en')) {
+                    $country->translate('en')->currency = $single['en']['name'];
+                }
+                $country->save();
             }
         }
     }

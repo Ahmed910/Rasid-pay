@@ -50,8 +50,9 @@ class VendorRequest extends ApiMasterRequest
 
     protected function prepareForValidation()
     {
+        $data = $this->all();
         $this->merge([
-            'phone' => filter_mobile_number($this->phone)
+            'phone' => @$data['phone'] ? filter_mobile_number($data['phone']) : @$data['phone']
         ]);
     }
 }

@@ -40,6 +40,14 @@ class VendorBranchRequest extends ApiMasterRequest
         return $rules;
     }
 
+    protected function prepareForValidation()
+    {
+        $data = $this->all();
+        $this->merge([
+            'phone' => @$data['phone'] ? filter_mobile_number($data['phone']) : @$data['phone']
+        ]);
+    }
+
     public function messages()
     {
         $validation = 'dashboard.vendor_branch.validation';
