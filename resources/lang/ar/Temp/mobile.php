@@ -25,8 +25,8 @@ return [
             'exists' => 'رمز التحقق غير صحيح',
         ],
         'identity_number_is_not_found' => 'رقم الهوية غير صحيح',
-        'phone_number_is_not_found' => 'رقم الهاتف غير موجود',
-        'wallet_number_is_not_found' => 'رقم المحفظة غير موجود',
+        'phone_number_is_not_found' => 'رقم الهاتف غير صحيح',
+        'wallet_number_is_not_found' => 'رقم المحفظة غير صحيح',
         'not_same_wallet' => 'عفوا لا يمكن التحويل لمحفظتك الشخصية',
         'password' => [
             'min' => 'كلمة المرور يجب ان لا تقل عن :min حروف',
