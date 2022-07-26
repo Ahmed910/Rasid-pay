@@ -53,6 +53,7 @@ class OurAppRequest extends ApiMasterRequest
              'ios_link.required' => trans($validation.'.ios_link.required'),
              'image.image' => trans($validation.'.image.image'),
             'image.mimes' => trans($validation.'.image.mimes'),
+            'image.max' => trans($validation.'.image.max',['max'=>'5120']),
             'is_active.required' => trans($validation.'.is_active.required'),
             'is_active.in' => trans($validation.'.is_active.in')
 
