@@ -47,4 +47,11 @@ class VendorRequest extends ApiMasterRequest
         return $rules;
 
     }
+
+    protected function prepareForValidation()
+    {
+        $this->merge([
+            'phone' => filter_mobile_number($this->phone)
+        ]);
+    }
 }
