@@ -1,5 +1,4 @@
 
-@section('content')
 <section class="main-pd-wrapper" style="width: 450px; margin: auto">
   <div style="
                 text-align: center;
@@ -58,4 +57,3 @@
     <tbody></tbody>
   </table>
 </section>
-@endsection

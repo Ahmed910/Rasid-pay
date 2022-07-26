@@ -9,11 +9,11 @@
 <body dir="rtl">
 
   @if($transaction_type=='payment')
-  @include('dashboard.exports.mobile.payment')
+  @include('dashboard.exports.mobile.invoice.payment')
   @elseif($transaction_type=='charge')
-  @include('dashboard.exports.mobile.charge')
+  @include('dashboard.exports.mobile.invoice.charge')
   @else
-  @include('dashboard.exports.mobile.transfer')
+  @include('dashboard.exports.mobile.invoice.transfer')
   @endif
 
 </body>
