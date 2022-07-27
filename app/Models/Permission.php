@@ -40,7 +40,8 @@ class Permission extends Model
         'group_permissions',
         'backButton',
         'home',
-        'vendor_branches.get_vendors'
+        'vendor_branches.get_vendors',
+        'vendor_package.get_vendors'
     ];
 
     private $sortableColumns = ['main_program', 'sub_program', 'name'];

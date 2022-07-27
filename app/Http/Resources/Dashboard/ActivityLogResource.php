@@ -51,6 +51,7 @@ class ActivityLogResource extends JsonResource
             'ip' => $this->ip_address,
             'agent' => $this->agent,
 
+            'mainprogram' => trans("dashboard." . Str::snake($model) . "." . str_plural(Str::snake($model))),
             'subprogram' => $this->sub_program,
             'show_route' => route('dashboard.activity_log.show', $this->id),
             'start_from' => $request->start,
