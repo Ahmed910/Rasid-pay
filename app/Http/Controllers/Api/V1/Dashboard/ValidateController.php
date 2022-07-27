@@ -13,33 +13,43 @@ class ValidateController extends Controller
     {
         $rules = [];
         $message = trans('dashboard.general.u_can_use_this_name');
-        if (in_array($request->type,['department','job','permission','static_page','transfer_purpose','bank'])) {
+        if (in_array($request->type, ['department', 'job', 'permission', 'static_page', 'transfer_purpose', 'bank'])) {
             foreach (config('translatable.locales') as $locale) {
                 switch ($request->type) {
                     case 'department':
-                    $rules += $this->validateDepartment($request,$locale);
-                    break;
+                        $rules += $this->validateDepartment($request, $locale);
+                        break;
                     case 'job':
-                    $rules += $this->validateJob($request,$locale);
-                    break;
+                        $rules += $this->validateJob($request, $locale);
+                        break;
                     case 'permission':
-                    $rules += $this->validatePermission($request,$locale);
-                    break;
-                    case 'static_page' :
-                    $rules += $this->validateStaticPage($request,$locale);
-                    break;
-                    case 'transfer_purpose' :
-                    $rules += $this->validateTransferPurpose($request,$locale);
-                    break;
-                    case 'bank' :
-                    $rules += $this->validateBank($request,$locale);
-                    break;
+                        $rules += $this->validatePermission($request, $locale);
+                        break;
+                    case 'static_page':
+                        $rules += $this->validateStaticPage($request, $locale);
+                        break;
+                    case 'transfer_purpose':
+                        $rules += $this->validateTransferPurpose($request, $locale);
+                        break;
+                    case 'bank':
+                        $rules += $this->validateBank($request, $locale);
+                        break;
                 }
             }
         }
         if ($request->type == 'admin') {
             $rules += $this->validateAdmin($request);
             $message = trans('dashboard.admin.u_can_use_this_id');
+        }
+
+        if ($request->type == 'admin_email') {
+            $rules += $this->validateAdminEmail($request);
+            $message = trans('dashboard.admin.u_can_not_use_this_email');
+        }
+
+        if ($request->type == 'admin_phone') {
+            $rules += $this->validateAdminPhone($request);
+            $message = trans('dashboard.admin.u_can_not_use_this_phone');
         }
 
         if ($request->type == 'permission') {
@@ -67,13 +77,13 @@ class ValidateController extends Controller
         ], 200);
     }
 
-    public function validateDepartment($request,$locale)
+    public function validateDepartment($request, $locale)
     {
         $rules["$locale.name"]  = "unique:department_translations,name," . ($request->department_id ?? 0)  . ",department_id";
         return $rules;
     }
 
-    public function validateJob($request,$locale)
+    public function validateJob($request, $locale)
     {
         $rules["$locale.name"] = [function ($attribute, $value, $fail) use ($locale, $request) {
             $job = RasidJob::whereTranslation('name', $value, $locale)
@@ -90,7 +100,7 @@ class ValidateController extends Controller
         return $rules;
     }
 
-    public function validatePermission($request,$locale)
+    public function validatePermission($request, $locale)
     {
         $rules["$locale.name"] = 'unique:group_translations,name,' . ($request->group_id ?? 0) . ',group_id';
         return $rules;
@@ -99,6 +109,17 @@ class ValidateController extends Controller
     public function validateAdmin($request)
     {
         $rules['login_id'] = 'required|digits:6|numeric|unique:users,login_id,' . $request->admin_id;
+        return $rules;
+    }
+    public function validateAdminEmail($request)
+    {
+        $rules['email'] = 'unique:users,email,' . $request->admin_id;
+        return $rules;
+    }
+
+    public function validateAdminPhone($request)
+    {
+        $rules['phone'] = 'unique:users,phone,' . $request->admin_id;
         return $rules;
     }
 
