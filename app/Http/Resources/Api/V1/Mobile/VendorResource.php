@@ -27,6 +27,8 @@ class VendorResource extends JsonResource
             'logo' => $this->logo,
             'max_discount' => $this->max_discount,
             'current_discount_according_to_auth_card_user' => $discount,
+            'is_support_maak' => (bool)$this->is_support_maak,
+
 
         ];
     }
