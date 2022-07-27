@@ -53,6 +53,7 @@ class ActivityLogResource extends JsonResource
 
             'mainprogram' => trans("dashboard." . Str::snake($model) . "." . str_plural(Str::snake($model))),
             'subprogram' => $this->sub_program,
+            'trans_sub_progrm' => trans("dashboard.permissions." . $this->sub_program),
             'show_route' => route('dashboard.activity_log.show', $this->id),
             'start_from' => $request->start,
             "discription" => trans('dashboard.activity_log.reason', [
@@ -63,6 +64,9 @@ class ActivityLogResource extends JsonResource
                 // , "sub" => trans("dashboard.permissions." . $this->sub_program)
             ],
             ),
+            'actions' => $this->when($request->routeIs('activity_logs.index'), [
+                'show' => auth()->user()->hasPermissions('activity_logs.show'),
+            ])
         ];
 
         // trans('dashboard.activity_log.reason', [

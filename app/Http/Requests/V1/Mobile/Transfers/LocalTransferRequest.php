@@ -18,7 +18,7 @@ class LocalTransferRequest extends ApiMasterRequest
 
         return [
             "otp_code" => 'required|exists:citizen_wallets,wallet_bin,citizen_id,' . auth()->id(),
-            'amount'              => 'required|numeric|gte:' . (setting('rasidpay_localtransfer_minvalue') ?? 10) . '|lte:' . (setting('rasidpay_localtransfer_maxvalue') ?? 10000),
+            "amount" => ['required', 'regex:/^\\d{1,5}$|^\\d{1,5}\\.\\d{0,2}$/', 'numeric', 'gte:'. (setting('rasidpay_localtransfer_minvalue') ?? 10).'', 'lte:'. (setting('rasidpay_localtransfer_maxvalue')??10000).''],
             'fee_upon' => 'required|in:' . join(',', Transfer::FEE_UPON),
             'transfer_purpose_id' => 'nullable|exists:transfer_purposes,id',
             'beneficiary_id' => 'required|exists:beneficiaries,id',
