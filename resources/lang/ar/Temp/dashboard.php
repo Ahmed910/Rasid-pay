@@ -32,6 +32,7 @@ return [
             'store' => 'حفظ',
             'index' => 'السجل',
             'destroy' => 'حذف',
+            'show' => 'عرض'
         ],
     ],
     'general' => [
@@ -754,7 +755,11 @@ return [
     'faq' => [
         'faqs' => 'الاسئلة الشائعة',
         'permissions' => [
-            'store' => 'حفظ'
+            'index' => 'السجل',
+            'store' => 'حفظ',
+            'destroy' => 'حذف',
+            'update' => 'تعديل',
+            'show' => 'عرض'
         ],
     ],
 
@@ -1028,7 +1033,10 @@ return [
     'message_type' =>  [
         'message_types' => 'أنواع الرسائل',
         'permissions' => [
-            'store' => 'حفظ'
+            'store' => 'حفظ',
+            'index' => 'السجل',
+            'update' => 'تعديل',
+            'show' => 'عرض'
         ]
 
     ],
@@ -1047,11 +1055,11 @@ return [
             'index' => 'السجل',
         ],
         'sub_progs' =>  [
-            'index' => 'سجل المستخدمين',
+            'index' => 'سجل مستخدمي التطبيق',
             'create' => 'إضافة مستخدم',
         ],
-        'citizen_count' => 'عدد المستخدمين',
-        'citizens' => 'المستخدمين',
+        'citizen_count' => 'عدد مستخدمي التطبيق',
+        'citizens' => 'مستخدمي التطبيق',
         'citizen' => 'المستخدم ',
         'edit_citizen' => 'تعديل مستخدم',
     ],
@@ -1088,6 +1096,9 @@ return [
             'index' => 'رسائل الدعم الفني',
             'show' => 'عرض رسالة الدعم الفني',
             'assign_contact' => 'تحويل رسالة',
+            'destroy' => 'حذف',
+            'store' => 'حفظ',
+            'update' => 'تعديل'
         ],
         'types' =>
         [
