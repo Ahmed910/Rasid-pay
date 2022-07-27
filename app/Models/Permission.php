@@ -41,7 +41,7 @@ class Permission extends Model
         'backButton',
         'home',
         'vendor_branches.get_vendors',
-        'vendor_package.get_vendors'
+        'vendor_packages.get_vendors'
     ];
 
     private $sortableColumns = ['main_program', 'sub_program', 'name'];
