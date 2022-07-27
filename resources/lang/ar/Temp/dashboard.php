@@ -1036,7 +1036,8 @@ return [
             'store' => 'حفظ',
             'index' => 'السجل',
             'update' => 'تعديل',
-            'show' => 'عرض'
+            'show' => 'عرض',
+            'destroy' => 'حذف',
         ]
 
     ],
@@ -1044,15 +1045,9 @@ return [
     'citizen' =>  [
         'add_citizen' => 'إضافة مستخدم',
         'permissions' => [
-            'create' => 'انشاء',
-            'destroy' => 'أرشفة',
-            'archive' => 'عرض أرشيف',
-            'store' => 'حفظ',
-            'update' => 'تعديل',
             'show' => 'عرض',
-            'restore' => 'استعادة',
-            'force_delete' => 'حذف نهائي',
             'index' => 'السجل',
+            'update' => 'تعديل'
         ],
         'sub_progs' =>  [
             'index' => 'سجل مستخدمي التطبيق',
@@ -1201,9 +1196,6 @@ return [
     'attachment_file' => [
         'attachment_files' => 'العملاء',
     ],
-    'localizations_update' =>  [
-        'localizations_update' => 'تعديل الترجمات',
-    ],
 
     'links' => [
         'mobile' => [
@@ -1225,6 +1217,16 @@ return [
 
         ],
         'our_app' => [
+            'show' => 'عرض',
+            'sub_progs' =>
+            [
+                'index' => 'سجل تطبيقاتنا',
+                'create' => 'إضافة تطبيق',
+                'show' => 'عرض تطبيق',
+            ],
+            'rasid_job' => 'التطبيق',
+            'rasid_job_count' => 'عدد تطبيقاتنا',
+            'rasid_jobs' => 'تطبيقاتنا',
             'validation' => [
 
                 'order' => [
