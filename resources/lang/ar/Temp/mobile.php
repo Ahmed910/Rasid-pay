@@ -93,7 +93,7 @@ return [
     ],
     'global_transfers' => [
         'current_balance_is_not_sufficient_to_complete_transaction' => 'لا يوجد رصيد كافى',
-        'transfer_has_been_done_successfully' => 'تمت عملية التحويل بنجاح',
+        'transfer_has_been_done_successfully' => 'تم التحويل بنجاح',
     ],
     'min' => [
         'string' => 'كلمة المرور يجب ان لا تقل عن 8 حروف',
@@ -119,7 +119,7 @@ return [
         'local_transfers' => 'التحويلات المحلية',
         'current_balance_is_not_sufficient_to_complete_transaction' => 'لا يوجد رصيد كافي',
         'local_transfer' => 'التحويل المحلي',
-        'transfer_has_been_done_successfully' => 'تمت عملية التحويل بنجاح',
+        'transfer_has_been_done_successfully' => 'تم التحويل بنجاح',
         'transfer_fees_is_not_enough' => 'رصيدك الحالي لا يكفي لسداد رسوم التحويل'
     ],
 
