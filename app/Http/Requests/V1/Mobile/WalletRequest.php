@@ -18,12 +18,12 @@ class WalletRequest extends ApiMasterRequest
 
         if (!$this->card_id) {
             $rules += [
-                'owner_name' => 'required_without:card_id|string|max:255',
-                'card_type' => 'required_without:card_id|in:visa,mastercard,american_express',
-                'card_name' => 'required_without:card_id|string|max:255',
-                'card_number' => 'required_without:card_id|numeric|digits:16',
-                'expire_at' => 'required_without:card_id|date_format:m/y|after:today|max:25',
-                'charge_type' => 'required_without:card_id|in:nfc,manual,scan',
+                'owner_name' => 'required|string|max:255',
+                'card_type' => 'required|in:visa,mastercard,american_express',
+                'card_name' => 'required|string|max:255',
+                'card_number' => 'required|numeric|digits:16',
+                'expire_at' => 'required|date_format:m/y|after:today|max:25',
+                'charge_type' => 'required|in:nfc,manual,scan',
             ];
         }
         return $rules;
