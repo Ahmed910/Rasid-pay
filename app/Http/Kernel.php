@@ -75,6 +75,6 @@ class Kernel extends HttpKernel
         'localeViewPath'          => \Mcamara\LaravelLocalization\Middleware\LaravelLocalizationViewPath::class,
         'maintenance_mode'        =>   \App\Http\Middleware\PreventRequestsDuringMaintenance::class,
         'check_wallet_bin'        =>   \App\Http\Middleware\CheckWalletBin::class,
-        'check_max_transactions'   =>   \App\Http\Middleware\TransactionMiddleware::class,
+       'check_max_transactions'   =>   \App\Http\Middleware\TransactionMiddleware::class,
     ];
 }
