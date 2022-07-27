@@ -18,9 +18,23 @@ class GlobalTransferController extends Controller
     {
         // check main_balance is sufficient or not (This will change after this phase (clean code))
         $wallet = CitizenWallet::with('citizen')->where('citizen_id', auth()->id())->firstOrFail();
-        if ($request->amount > $wallet->main_balance) {
-            return response()->json(['data' => null, 'message' => trans('mobile.local_transfers.current_balance_is_not_sufficient_to_complete_transaction'), 'status' => false], 422);
+        $fees = setting('western_union_fees') ?: 0;
+        $amount = $request->amount;
+        // calculate fees
+        $amount_fees = getPercentOfNumber($amount, $fees);
+        $fee_upon = $request->fee_upon;
+        if ($fee_upon == Transfer::FROM_USER) {
+            if ($amount + $fees > $wallet->main_balance) {
+                return response()->json(['data' => null, 'message' => trans('mobile.local_transfers.transfer_fees_is_not_enough'), 'status' => false], 422);
+            }
+            $amount += $amount_fees;
+        } else {
+            if ($amount > $wallet->main_balance) {
+                return response()->json(['data' => null, 'message' => trans('mobile.local_transfers.current_balance_is_not_sufficient_to_complete_transaction'), 'status' => false], 422);
+            }
+            $amount -= $amount_fees;
         }
+
         // check max value of transfer per day
         $transfers = Transfer::where('from_user_id', auth()->id())->whereDate('created_at', date('Y-m-d'))->sum('amount');
         $max_transfer_per_day = setting('rasidpay_wallettransfer_maxvalue_perday')?:10000;
@@ -32,12 +46,20 @@ class GlobalTransferController extends Controller
         // TODO: Calc transfer fee
 
         // Set transfer data
-        $transfer_data = $request->only('amount', 'amount_transfer', 'fee_upon', 'transfer_purpose_id', 'notes') + ['transfer_type' => 'global', 'from_user_id' => auth()->id(), 'transfer_status' => 'pending'];
+        $transfer_data = $request->only( 'fee_upon', 'transfer_purpose_id', 'notes')
+            + [
+                'transfer_type' => 'global',
+                'from_user_id' => auth()->id(),
+                'transfer_status' => 'pending',
+                'amount' => $request->amount,
+                'transfer_fee' => $fees,
+                'transfer_fee_amount' => $amount_fees,
+            ];
 
         // $balance = WalletBalance::calcWalletMainBackBalance($wallet, $request->amount);
 
         // $transfer_data += (array)$balance;
-        $wallet->decrement('main_balance',$request->amount);
+        $wallet->decrement('main_balance', $amount);
         // create global transfer
         $global_transfer = Transfer::create($transfer_data + ['main_amount' => $request->amount]);
         $exchange_rate = Country::find($request->to_currency_id)->countryCurrency->currency_value;

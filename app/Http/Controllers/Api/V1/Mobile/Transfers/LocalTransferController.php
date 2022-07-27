@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\Api\V1\Mobile\Transfers;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\V1\Mobile\BalanceTypeRequest;
 use App\Http\Requests\V1\Mobile\Transfers\LocalTransferRequest;
 use App\Http\Resources\Api\V1\Mobile\{LocalTransferResource, Transactions\TransactionResource};
 use App\Models\{CitizenWallet, Transaction, Transfer};
@@ -14,7 +13,7 @@ class LocalTransferController extends Controller
     {
         $this->middleware('check_max_transactions')->only('store');
     }
-    
+
     public function store(LocalTransferRequest $request)
     {
         $wallet = CitizenWallet::with('citizen')->where('citizen_id', auth()->id())->firstOrFail();
