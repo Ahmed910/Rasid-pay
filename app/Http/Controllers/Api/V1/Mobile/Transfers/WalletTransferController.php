@@ -10,6 +10,12 @@ use App\Services\WalletBalance;
 
 class WalletTransferController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->middleware('check_max_transactions')->only('store');
+    }
+    
     public function store(WalletTransferRequest $request, Transfer $transfer)
     {
         // check max value of transfer per day

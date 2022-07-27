@@ -10,13 +10,15 @@ class TransactionMiddleware
     {
         $maxTransactionPerDay = setting('rasidpay_usertransaction_maxvalue_perday');
         $maxTransactionPerMonth = setting('rasidpay_usertransaction_maxvalue_permonth');
-
-        $dailyTransactions = auth()->user()->citizenTransactions()->where('created_at', '>=', now()->subDay())->sum('amount');
+        $dailyTransactions = auth()->user()->citizenTransactions()
+        ->where('trans_type','!=','charge')
+        ->whereDate('created_at', '>=', now()->subDay())->sum('amount');
         if ($dailyTransactions >= $maxTransactionPerDay) {
             return response()->json(['error' => 'mobile.transactions.transaction_details.reach_max_transaction_day'], 422);
         }
-
-        $monthlyTransactions = auth()->user()->citizenTransactions()->where('created_at', '>=', now()->subMonth())->sum('amount');
+        $monthlyTransactions = auth()->user()->citizenTransactions()
+        ->where('trans_type','!=','charge')
+        ->whereDate('created_at', '>=', now()->subMonth())->sum('amount');
         if ($monthlyTransactions >= $maxTransactionPerMonth) {
             return response()->json(['error' => 'mobile.transactions.transaction_details.reach_max_transaction_month'], 422);
         }

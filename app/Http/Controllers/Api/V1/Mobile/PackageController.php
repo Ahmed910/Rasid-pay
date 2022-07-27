@@ -14,6 +14,12 @@ use App\Services\{PromotePackage, WalletBalance};
 
 class PackageController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->middleware('check_max_transactions')->only('PromotePackage');
+    }
+
     public function index()
     {
         $packageTypes = CitizenPackage::PACKAGE_TYPES;
