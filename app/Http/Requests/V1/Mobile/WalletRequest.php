@@ -8,19 +8,25 @@ class WalletRequest extends ApiMasterRequest
 {
     public function rules()
     {
-        return [
+        $rules = [
             // in citizen wallet
             "amount" => ['required', 'regex:/^\\d{1,5}$|^\\d{1,5}\\.\\d{0,2}$/', 'numeric', 'gte:'. (setting('rasidpay_inttransfer_minvalue') ?? 10).'', 'lte:'. (setting('rasidpay_walletcharge_maxvalue')??50000).''],
             //card information
             'is_card_saved' => 'required_without:card_id|in:0,1',
-            'owner_name' => 'required_without:card_id|string|max:255',
-            'card_type' => 'required_without:card_id|in:visa,mastercard,american_express',
-            'card_name' => 'required_without:card_id|string|max:255',
-            'card_number' => 'required_without:card_id|numeric|digits:16',
-            'expire_at' => 'required_without:card_id|date_format:m/y|after:today|max:25',
-            'charge_type' => 'required_without:card_id|in:nfc,manual,scan',
             'card_id' => 'nullable|required_without:charge_type|exists:cards,id,user_id,' . auth()->id(),
         ];
+
+        if (!$this->card_id) {
+            $rules += [
+                'owner_name' => 'required_without:card_id|string|max:255',
+                'card_type' => 'required_without:card_id|in:visa,mastercard,american_express',
+                'card_name' => 'required_without:card_id|string|max:255',
+                'card_number' => 'required_without:card_id|numeric|digits:16',
+                'expire_at' => 'required_without:card_id|date_format:m/y|after:today|max:25',
+                'charge_type' => 'required_without:card_id|in:nfc,manual,scan',
+            ];
+        }
+        return $rules;
     }
 
 
