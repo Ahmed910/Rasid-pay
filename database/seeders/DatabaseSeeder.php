@@ -49,6 +49,11 @@ class DatabaseSeeder extends Seeder
         //
          $this->call(SettingSeeder::class);
          $this->call(CountrySeeder::class);
+         $this->call(SlideSeeder::class);
+         $this->call(LinkSeeder::class);
+         $this->call(ReceiveOptionSeeder::class);
+         $this->call(SettingSeeder::class);
+         $this->call(TransferRelation::class);
         // $this->call(TransactionSeeder::class);
         //  $this->call(PackageSeeder::class);
         // $this->call(ReceiveOptionSeeder::class);

@@ -2,6 +2,17 @@
  <?php
 
 return [
+    'permissions' =>  [
+        'index' => 'السجل',
+        'show' => 'عرض',
+        'store' => 'حفظ',
+        'restore' => 'استعادة',
+        'update' => 'تعديل',
+        'create' => 'انشاء',
+        'destroy' => 'أرشفة',
+        'force_delete' => 'حذف نهائي',
+        'archive' => 'عرض أرشيف',
+    ],
     'currency' =>  [
         'permissions' =>  [
             'index' => 'السجل',

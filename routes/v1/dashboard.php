@@ -104,6 +104,8 @@ Route::middleware('maintenance_mode')->group(function () {
                 Route::post('restore/{id}', 'restore')->name('restore');
                 Route::delete('forceDelete/{id}', 'forceDelete')->name('force_delete');
                 // Route::get('get-parents', 'getAllParents')->name("get_parents");
+                Route::get('export_pdf', 'exportPDF');
+                Route::get('export_excel', 'exportExcel');
             });
 
             Route::controller('CitizenController')->name('citizens.')->prefix('citizens')->group(function () {
@@ -127,8 +129,8 @@ Route::middleware('maintenance_mode')->group(function () {
             Route::controller('ContactController')->name('contacts.')->prefix('contacts')->group(function () {
                 Route::post('reply', 'reply')->name('reply');
                 Route::post('assign-contact/{contact}', 'assignContact')->name('assign_contact');
-                Route::delete('delete-contact/{id}', 'deleteContact')->name('delete_contact');
-                Route::delete('delete-reply/{id}', 'deleteReply')->name('delete_reply');
+                // Route::delete('delete-contact/{id}', 'deleteContact')->name('delete_contact');
+                // Route::delete('delete-reply/{id}', 'deleteReply')->name('delete_reply');
             });
             // Route::controller('BankController')->name('banks.')->prefix('banks')->group(function () {
             //     Route::get('archive', 'archive')->name('archive');
@@ -138,7 +140,7 @@ Route::middleware('maintenance_mode')->group(function () {
             //     Route::get('edit-show/{bank}', 'editShow')->name('edit');
             // });
 
-            Route::controller('VendorPackageController')->name('vendor_package.')->prefix('vendor_package')->group(function () {
+            Route::controller('VendorPackageController')->name('vendor_packages.')->prefix('vendor_packages')->group(function () {
                 Route::get('get_vendors', 'getVendors')->name('get_vendors');
             });
 
@@ -167,15 +169,14 @@ Route::middleware('maintenance_mode')->group(function () {
                 'banks' => 'BankController',
                 'transfer_purposes' => 'TransferPurposeController',
                 // 'slides' => 'SlideController',
-                // "vendor_package" => "VendorPackageController",
                 'transactions' => 'TransactionController',
                 'static_pages' => 'StaticPageController',
                 'faqs'         => 'FaqController',
-                'contacts'     => 'ContactController',
                 'message_types' => 'MessageTypeController'
             ]);
 
             Route::apiResource('vendor_branches', 'VendorBranchController')->except('get_vendors');
+            Route::apiResource('contacts', 'ContactController')->except('destroy');
             Route::apiResource('vendor_packages', 'VendorPackageController')->except('destroy');
             Route::apiResource('citizens', 'CitizenController')->only('index', 'show', 'update');
             Route::apiResource('settings', 'SettingController')->only(['index', 'store']);
