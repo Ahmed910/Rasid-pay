@@ -58,7 +58,12 @@ class LocalTransferController extends Controller
             'main_amount' => $local_transfer->main_amount,
             'trans_number' => generate_unique_code(Transaction::class, 'trans_number', 10, 'numbers')
         ]);
+<<<<<<< HEAD
+
+        return TransactionResource::make($transaction->refresh())->additional([
+=======
         return TransactionResource::make($transaction)->additional([
+>>>>>>> 7605e2f56f34630aac9bfce6b84366bfdde84108
             'message' => trans('mobile.local_transfers.transfer_has_been_done_successfully'),
             'status' => true
         ]);
