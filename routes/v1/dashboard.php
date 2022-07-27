@@ -167,7 +167,7 @@ Route::middleware('maintenance_mode')->group(function () {
                 'banks' => 'BankController',
                 'transfer_purposes' => 'TransferPurposeController',
                 // 'slides' => 'SlideController',
-                "vendor_package" => "VendorPackageController",
+                // "vendor_package" => "VendorPackageController",
                 'transactions' => 'TransactionController',
                 'static_pages' => 'StaticPageController',
                 'faqs'         => 'FaqController',
@@ -176,7 +176,7 @@ Route::middleware('maintenance_mode')->group(function () {
             ]);
 
             Route::apiResource('vendor_branches', 'VendorBranchController')->except('get_vendors');
-            Route::apiResource('vendor_package', 'VendorPackageController')->except('get_vendors','show');
+            Route::apiResource('vendor_package', 'VendorPackageController')->except('destroy');
             Route::apiResource('citizens', 'CitizenController')->only('index', 'show', 'update');
             Route::apiResource('settings', 'SettingController')->only(['index', 'store']);
             Route::apiResource('links', 'LinkController')->only(['index','update']);
