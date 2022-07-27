@@ -25,7 +25,7 @@ class GlobalTransferController extends Controller
         $fee_upon = $request->fee_upon;
         if ($fee_upon == Transfer::FROM_USER) {
             if ($amount + $fees > $wallet->main_balance) {
-                return response()->json(['data' => null, 'message' => trans('mobile.local_transfers.transfer_fees_is_not_enough'), 'status' => false], 422);
+                return response()->json(['data' => null, 'message' => trans('mobile.local_transfers.current_balance_is_not_sufficient_to_complete_transaction'), 'status' => false], 422);
             }
             $amount += $amount_fees;
         } else {
