@@ -18,6 +18,10 @@ return [
             'pending' => 'Pending',
             'fail' => 'Fail',
         ],
+        'transaction_details' => [
+            'reach_max_transaction_day' => 'You have reached the maximum transaction limit per day.',
+            'reach_max_transaction_month' => 'You have reached the maximum transaction limit per month.',
+        ],
     ],
     'validation' => [
         'date_format' => 'Enter correct date',
@@ -42,7 +46,7 @@ return [
         'your_tries_have_been_expired' => 'Your Tries Have Been Expired For Complete This Transaction',
         'wallet_bin_has_been_updated' => 'Wallet Bin Has Been Updated',
         'you_can_complete_your_transaction' => 'You Can Complete Your Transaction',
-        'success_payment' =>'Payment completed successfully ',
+        'success_payment' => 'Payment completed successfully ',
 
     ],
     'mobile' => [

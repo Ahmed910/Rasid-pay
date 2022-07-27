@@ -42,7 +42,7 @@ class CurrencyController extends Controller
             }
         }
         return response()->json([
-            'date' => $data,
+            'data' => $data,
             'status' => true,
             'message' => '',
         ]);
