@@ -8,9 +8,9 @@ use Illuminate\Http\Request;
 
 class LinkController extends Controller
 {
-    public function show($static_page_key)
+    public function index(Request $request)
     {
-
+        $static_page_key = $request->query('link_key');
         $static_page_data = StaticPage::join('links', 'static_pages.id', 'links.static_page_id')
             ->join('static_page_translations', 'static_page_translations.static_page_id', 'static_pages.id')
             ->where('links.key', $static_page_key)
