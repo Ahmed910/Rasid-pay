@@ -140,7 +140,7 @@ Route::middleware('maintenance_mode')->group(function () {
             // });
 
             Route::controller('VendorPackageController')->name('vendor_package.')->prefix('vendor_package')->group(function () {
-                Route::get('get_clients', 'getClients')->name('get_clients');
+                Route::get('get_vendors', 'getVendors')->name('get_vendors');
             });
 
             Route::controller('TransactionController')->name('transactions.')->prefix('transactions')->group(function () {
@@ -160,7 +160,7 @@ Route::middleware('maintenance_mode')->group(function () {
                 "departments" => "DepartmentController",
                 'admins' => 'AdminController',
                 'employees' => 'EmployeeController',
-                'clients' => 'ClientController',
+                // 'clients' => 'ClientController',
                 'vendors' => 'VendorController',
                 'vendor_branches'=>'VendorBranchController',
                 'our_apps'=>'OurAppController',
@@ -177,7 +177,7 @@ Route::middleware('maintenance_mode')->group(function () {
             ]);
 
             Route::apiResource('vendor_branches', 'VendorBranchController')->except('get_vendors');
-            Route::apiResource('vendor_package', 'VendorPackageController')->except('get_clients','show');
+            Route::apiResource('vendor_package', 'VendorPackageController')->except('get_vendors','show');
             Route::apiResource('citizens', 'CitizenController')->only('index', 'show', 'update');
             Route::apiResource('settings', 'SettingController')->only(['index', 'store']);
             Route::apiResource('links', 'LinkController')->only(['index','update']);
