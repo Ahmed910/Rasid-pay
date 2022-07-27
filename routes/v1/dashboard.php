@@ -138,7 +138,7 @@ Route::middleware('maintenance_mode')->group(function () {
             //     Route::get('edit-show/{bank}', 'editShow')->name('edit');
             // });
 
-            Route::controller('VendorPackageController')->name('vendor_package.')->prefix('vendor_package')->group(function () {
+            Route::controller('VendorPackageController')->name('vendor_packages.')->prefix('vendor_packages')->group(function () {
                 Route::get('get_vendors', 'getVendors')->name('get_vendors');
             });
 
