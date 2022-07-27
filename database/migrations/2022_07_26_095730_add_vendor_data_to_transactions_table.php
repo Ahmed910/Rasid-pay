@@ -9,7 +9,7 @@ class AddVendorDataToTransactionsTable extends Migration
     public function up()
     {
         Schema::table('transactions', function (Blueprint $table) {
-            $table->foreignUuid('vendor_id')->nullable()->constrained()->onDelete('SET NULL');
+            $table->foreignUuid('vendor_id')->nullable()->constrained()->nullOnDelete();
             $table->text('vendor_data')->nullable();
             $table->string('vendor_discount')->nullable();
         });

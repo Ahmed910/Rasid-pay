@@ -27,6 +27,7 @@ class TransactionResource extends JsonResource
             'created_at' => $this->created_at_mobile,
             'citizen' => $this->fromUser?->fullname,
             'vendor' => $this->vendor?->name,
+            'vendor_discount' => (float) $this->vendor_discount,
             'type' => $this->trans_type,
             'type_trans' => $this->trans_type ? trans("dashboard.transaction.type_cases.{$this->trans_type}") : "",
             'status' => $this->trans_status ? trans("dashboard.transaction.status_cases.{$this->trans_status}") : "",
