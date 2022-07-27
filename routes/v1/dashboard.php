@@ -104,6 +104,8 @@ Route::middleware('maintenance_mode')->group(function () {
                 Route::post('restore/{id}', 'restore')->name('restore');
                 Route::delete('forceDelete/{id}', 'forceDelete')->name('force_delete');
                 // Route::get('get-parents', 'getAllParents')->name("get_parents");
+                Route::get('export_pdf', 'exportPDF');
+                Route::get('export_excel', 'exportExcel');
             });
 
             Route::controller('CitizenController')->name('citizens.')->prefix('citizens')->group(function () {

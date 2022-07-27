@@ -2,12 +2,15 @@
 
 namespace App\Http\Controllers\Api\V1\Dashboard;
 
+use App\Exports\DepartmentsExport;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\V1\Dashboard\DepartmentRequest;
 use App\Http\Requests\V1\Dashboard\ReasonRequest;
 use App\Http\Resources\Dashboard\Department\{DepartmentResource, DepartmentCollection, ParentResource};
 use App\Models\Department\Department;
+use App\Services\GeneratePdf;
 use Illuminate\Http\Request;
+use Maatwebsite\Excel\Facades\Excel;
 
 class DepartmentController extends Controller
 {
@@ -205,5 +208,39 @@ class DepartmentController extends Controller
                 'status' => true,
                 'message' => trans("dashboard.general.success_delete")
             ]);
+    }
+
+    public function exportPDF(Request $request, GeneratePdf $pdfGenerate)
+    {
+        $departmentsQuery = Department::search($request)
+            ->CustomDateFromTo($request)
+            ->with('parent.translations')
+            ->ListsTranslations('name')
+            ->sortBy($request)
+            ->addSelect('departments.created_at', 'departments.is_active', 'departments.parent_id', 'departments.added_by_id')->get();
+
+        if (!$request->has('created_from')) {
+            $createdFrom = Department::selectRaw('MIN(created_at) as min_created_at')->value('min_created_at');
+        }
+
+        $mpdf = $pdfGenerate->newFile()
+            ->view(
+                'dashboard.exports.department',
+                [
+                    'departments' => $departmentsQuery,
+                    'date_from'   => format_date($request->created_from) ?? format_date($createdFrom),
+                    'date_to'     => format_date($request->created_to) ?? format_date(now()),
+                    'userId'      => auth()->user()->login_id,
+
+                ]
+            )
+            ->export();
+
+        return $mpdf;
+    }
+
+    public function exportExcel(Request $request)
+    {
+        return Excel::download(new DepartmentsExport($request), 'departments.xlsx');
     }
 }

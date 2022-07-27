@@ -34,7 +34,8 @@ class VendorBranchResource extends JsonResource
             'is_active' => (boolean)$this->is_active,
             'actions' => $this->when($request->routeIs('vendor_branches.index'), [
                 'show' => auth()->user()->hasPermissions('vendor_branches.show'),
-                'destroy' => auth()->user()->hasPermissions('vendor_branches.destroy'),
+                'force_delete' => auth()->user()->hasPermissions('vendor_branches.destroy'),
+                'update' => auth()->user()->hasPermissions('vendor_branches.update'),
             ])
         ];
     }

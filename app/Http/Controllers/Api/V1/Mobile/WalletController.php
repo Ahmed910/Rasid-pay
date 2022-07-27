@@ -1,11 +1,11 @@
 <?php
 
 namespace App\Http\Controllers\Api\V1\Mobile;
-use App\Models\CitizenWallet;
 use App\Http\Controllers\Controller;
-use App\Models\Transaction;
 use App\Http\Requests\V1\Mobile\{WalletBinRequest, WalletRequest};
 use App\Http\Resources\Api\V1\Mobile\WalletResource;
+use App\Models\CitizenWallet;
+use App\Models\Transaction;
 use Illuminate\Http\Request;
 
 class WalletController extends Controller
@@ -57,7 +57,7 @@ class WalletController extends Controller
 
     public function sendWalletOtp(Request $request)
     {
-      
+
         $otp = generate_unique_code(CitizenWallet::class, 'wallet_bin', 6);
         auth()->user()->citizenWallet()->updateOrCreate(['citizen_id' => auth()->id()],['wallet_bin' => $otp]);
         #send otp to auth user
