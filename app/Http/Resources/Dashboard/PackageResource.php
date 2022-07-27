@@ -15,6 +15,11 @@ class PackageResource extends JsonResource
             "basic_discount" => $this->basic_discount ?? trans('dashboard.package.without'),
             "golden_discount" => $this->golden_discount ?? trans('dashboard.package.without') ,
             "platinum_discount" => $this->platinum_discount ?? trans('dashboard.package.without') ,
+            'actions' => $this->when($request->routeIs('vendor_packages.index'), [
+                'show' => auth()->user()->hasPermissions('vendor_packages.show'),
+                'create' => auth()->user()->hasPermissions('vendor_packages.store'),
+                'update' => auth()->user()->hasPermissions('vendor_packages.update'),
+            ])
         ];
     }
 }

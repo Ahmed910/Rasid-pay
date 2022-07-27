@@ -138,7 +138,7 @@ Route::middleware('maintenance_mode')->group(function () {
             //     Route::get('edit-show/{bank}', 'editShow')->name('edit');
             // });
 
-            Route::controller('VendorPackageController')->name('vendor_package.')->prefix('vendor_package')->group(function () {
+            Route::controller('VendorPackageController')->name('vendor_packages.')->prefix('vendor_packages')->group(function () {
                 Route::get('get_vendors', 'getVendors')->name('get_vendors');
             });
 
@@ -167,7 +167,7 @@ Route::middleware('maintenance_mode')->group(function () {
                 'banks' => 'BankController',
                 'transfer_purposes' => 'TransferPurposeController',
                 // 'slides' => 'SlideController',
-                "vendor_package" => "VendorPackageController",
+                // "vendor_package" => "VendorPackageController",
                 'transactions' => 'TransactionController',
                 'static_pages' => 'StaticPageController',
                 'faqs'         => 'FaqController',
@@ -176,12 +176,12 @@ Route::middleware('maintenance_mode')->group(function () {
             ]);
 
             Route::apiResource('vendor_branches', 'VendorBranchController')->except('get_vendors');
-            Route::apiResource('vendor_package', 'VendorPackageController')->except('get_vendors','show');
+            Route::apiResource('vendor_packages', 'VendorPackageController')->except('destroy');
             Route::apiResource('citizens', 'CitizenController')->only('index', 'show', 'update');
             Route::apiResource('settings', 'SettingController')->only(['index', 'store']);
             Route::apiResource('links', 'LinkController')->only(['index','update']);
             Route::apiResource('activity_logs', 'ActivityController')->only(['index', 'show']);
-            Route::post('localizations_update','LocalizationController@updateTranslation')->name('localizations_update');
+            Route::post('localizations_update','LocalizationController@updateTranslation')->name('localizations.update');
             Route::apiResource('localizations', 'LocalizationController')->only(['store', 'index']);
 
 

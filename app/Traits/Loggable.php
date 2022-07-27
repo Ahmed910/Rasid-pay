@@ -28,7 +28,7 @@ trait Loggable
                     return $self->checkIfHasIsActiveOnly($self, 'ban_status');
 
                 if (in_array(class_basename($self), ['Contact'])) {
-                    if(request('assigned_to_id')) return;
+                    if (request('assigned_to_id')) return;
                     return $self->checkIfHasIsActiveOnly($self, 'message_status');
                 }
 
@@ -195,6 +195,7 @@ trait Loggable
             !$hasData
             && !request()->has('image')
             && in_array($column, $keys)
+            && !request()->image_deleted
         ) {
             $this->checkStatus($self, $column);
         } elseif ($hasData && in_array($column, $keys)) {
