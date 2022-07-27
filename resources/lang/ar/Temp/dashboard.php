@@ -318,6 +318,9 @@ return [
             'permanent_delete' => 'حذف',
             'deactivated' => 'تعطيل',
             'permanent' => 'تعطيل دائم',
+            'shown'     => 'الإطلاع',
+            'assigned' => 'الإحالة',
+            'replied' => 'الرد'
         ],
         'select_activity' => 'اختر النشاط',
         'select_subprogram' => 'اختر برنامج فرعي',

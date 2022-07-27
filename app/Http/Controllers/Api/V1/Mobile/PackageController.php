@@ -118,7 +118,10 @@ class PackageController extends Controller
     public function getVendorsDiscounts(VendorDiscountRequest $request)
     {
         $type = $request->package_type;
-        $packages = VendorPackage::select($type . '_discount', "vendor_id")->with('vendor.translations')->get();
+        $packages = VendorPackage::select($type . '_discount', "vendor_id")
+            ->with('vendor.translations')
+            ->with(['vendor' => fn($q) => $q->where('is_active', true)])
+            ->get();
         request()->package_discount = $type . '_discount';
         return ClientDiscountsResource::collection($packages)->additional([
             'status' => true,
