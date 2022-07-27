@@ -44,7 +44,7 @@ class Slide extends Model implements TranslatableContract, HasAssetsInterface
 
     public function getImageAttribute()
     {
-        retrun asset($this->images()->where('option','image')->first());
+        retrun $this->images()->where('option','image')->first();
     }
     #end relationships
 
