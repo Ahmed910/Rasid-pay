@@ -9,7 +9,7 @@ use App\Http\Resources\Api\V1\Mobile\ClientDiscountsResource;
 use App\Http\Resources\Api\V1\Mobile\PackagePromoCodesResource;
 use App\Http\Resources\Api\V1\Mobile\PackageResource;
 use App\Http\Resources\Api\V1\Mobile\Transactions\TransactionResource;
-use App\Models\{CitizenPackage, CitizenPackagePromoCode, Transaction, VendorPackage};
+use App\Models\{CitizenPackage, CitizenPackagePromoCode, Transaction, Vendor\Vendor};
 use App\Services\{PromotePackage, WalletBalance};
 
 class PackageController extends Controller
@@ -118,12 +118,15 @@ class PackageController extends Controller
     public function getVendorsDiscounts(VendorDiscountRequest $request)
     {
         $type = $request->package_type;
-        $packages = VendorPackage::select($type . '_discount', "vendor_id")
-            ->with('vendor.translations')
-            ->with(['vendor' => fn($q) => $q->where('is_active', true)])
+        // vendor discount
+            $vendorDiscount = Vendor::select('vendor_packages.' . $type . '_discount as discount','vendor_translations.name')
+            ->join('vendor_packages', 'vendor_packages.vendor_id', '=', 'vendors.id')
+            ->join('vendor_translations', 'vendor_translations.vendor_id', '=', 'vendors.id')
+            ->where('vendor_translations.locale', app()->getLocale())
+            ->where('is_active', true)
             ->get();
-        request()->package_discount = $type . '_discount';
-        return ClientDiscountsResource::collection($packages)->additional([
+
+        return ClientDiscountsResource::collection($vendorDiscount)->additional([
             'status' => true,
             'message' => ''
         ]);
