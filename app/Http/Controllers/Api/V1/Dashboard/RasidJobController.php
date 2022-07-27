@@ -61,10 +61,10 @@ class RasidJobController extends Controller
     }
 
 
-    public function update( RasidJobRequest $request, $rasid_job)
+    public function update(RasidJobRequest $request, $rasid_job)
     {
 
-        $rasidJob = RasidJob::withTrashed()->findOrFail($rasid_job) ;
+        $rasidJob = RasidJob::withTrashed()->findOrFail($rasid_job);
         $rasidJob->fill($request->validated() + ['updated_at' => now()])->save();
 
         return RasidJobResource::make($rasidJob)
@@ -84,7 +84,7 @@ class RasidJobController extends Controller
             ->searchDeletedAtFromTo($request)
             ->with('department')
             ->select('rasid_jobs.*')
-            ->sortBy($request,'archive')
+            ->sortBy($request, 'archive')
             ->paginate((int)($request->per_page ?? config("globals.per_page")));
 
         return RasidJobResource::collection($rasidJobs)
@@ -160,10 +160,13 @@ class RasidJobController extends Controller
     }
 
 
-    public function getVacantJobs($id)
+    public function getVacantJobs($id, Request $request)
     {
         return response()->json([
-            'data' => RasidJob::where(['department_id' => $id, 'is_vacant' => true,'is_active'=>true])->select('id')->ListsTranslations('name')
+            'data' => RasidJob::where(['department_id' => $id, 'is_vacant' => true])
+                ->when($request->is_active, fn ($q) => $q->where('is_active', true))
+                ->when($request->admin_id, fn ($q) =>  $q->whereHas('employee', fn ($q) => $q->where('user_id', '<>', $request->admin_id)))
+                ->select('id')->ListsTranslations('name')
                 ->without(['images', 'addedBy', 'translations', 'department', 'employee'])->get(),
             'status' => true,
             'message' =>  '',
