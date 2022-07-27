@@ -33,12 +33,6 @@ class LocalTransferController extends Controller
             }
             $amount -= $amount_fees;
         }
-        // check max value of transfer per day
-        $transfers = Transfer::where('from_user_id', auth()->id())->whereDate('created_at', date('Y-m-d'))->sum('amount');
-        $max_transfer_per_day = setting('rasidpay_wallettransfer_maxvalue_perday') ?: 10000;
-        if ($transfers > $max_transfer_per_day) {
-            return response()->json(['status' => false, 'data' => null, 'message' => trans('mobile.transfers.exceed_max_transfer_day')], 422);
-        }
         $wallet->update(['wallet_bin' => null]);
         // Set transfer data
         $transfer_data = $request->only('fee_upon', 'transfer_purpose_id', 'notes') +
@@ -46,8 +40,8 @@ class LocalTransferController extends Controller
                 'transfer_type' => 'local',
                 'from_user_id' => auth()->id(),
                 'amount' => $request->amount,
-                'transfer_fee' => $fees,
-                'transfer_fee_amount' => $amount_fees,
+                'transfer_fees' => $fees,
+                'transfer_fees_amount' => $amount_fees,
             ];
         $wallet->decrement('main_balance', $amount);
         $local_transfer = Transfer::create($transfer_data + ['main_amount' => $amount]);

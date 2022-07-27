@@ -50,8 +50,6 @@ class SettingSeeder extends Seeder
             // wallet transfers
             ["key" => "rasidpay_wallettransfer_minvalue", "value" => ["en" => 10], "input_type" => "number"],
             ["key" => "rasidpay_wallettransfer_maxvalue", "value" => ["en" => 10000], "input_type" => "number"],
-            ["key" => "rasidpay_wallettransfer_maxvalue_perday", "value" => ["en" => 100000], "input_type" => "number"],
-            ["key" => "rasidpay_wallettransfer_maxvalue_permonth", "value" => ["en" => 1000000], "input_type" => "number"],
 
             // wallet charge
             ["key" => "rasidpay_walletcharge_minvalue", "value" => ["en" => 10], "input_type" => "number"],
