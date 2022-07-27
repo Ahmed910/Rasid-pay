@@ -37,7 +37,8 @@ class TransactionResource extends JsonResource
             'trans_type' => $this->trans_type,
             'trans_type_translate' => trans("mobile.transaction.transaction_types.{$this->trans_type}"),
             'trans_status' => $this->trans_status,
-            'total_amount' =>(string)($this->amount + $this->transfer_fees),
+            'total_amount' =>(string)$this->amount, // new amount after add or sub fees
+            'fee_amount' => (string)$this->fee_amount,
             'created_at' =>$this->created_at_mobile,
 
             // $this->mergeWhen(!$request->is('*/transactions'),[

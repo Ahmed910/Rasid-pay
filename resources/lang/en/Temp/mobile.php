@@ -18,6 +18,10 @@ return [
             'pending' => 'Pending',
             'fail' => 'Fail',
         ],
+        'transaction_details' => [
+            'reach_max_transaction_day' => 'You have reached the maximum transaction limit per day.',
+            'reach_max_transaction_month' => 'You have reached the maximum transaction limit per month.',
+        ],
     ],
     'validation' => [
         'date_format' => 'Enter correct date',
@@ -35,14 +39,14 @@ return [
         'transfer_has_been_done_successfully' => 'Transfer Has Been Done Successfully',
         'local_transfers' => 'Local Transfers',
         'local_transfer' => 'Local Transfer',
-        'current_balance_is_not_sufficiant_to_complete_transaction' => 'Current Balance Is Not Sufficiant To Complete Transaction',
+        'current_balance_is_not_sufficient_to_complete_transaction' => 'Current Balance Is Not Sufficient To Complete Transaction',
     ],
     'messages' => [
         'firstly_add_wallet_bin' => 'Firstly Add Wallet Bin',
         'your_tries_have_been_expired' => 'Your Tries Have Been Expired For Complete This Transaction',
         'wallet_bin_has_been_updated' => 'Wallet Bin Has Been Updated',
         'you_can_complete_your_transaction' => 'You Can Complete Your Transaction',
-        'success_payment' =>'Payment completed successfully ',
+        'success_payment' => 'Payment completed successfully ',
 
     ],
     'mobile' => [

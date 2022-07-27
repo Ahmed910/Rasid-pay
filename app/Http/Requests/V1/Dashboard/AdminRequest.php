@@ -23,6 +23,7 @@ class AdminRequest extends ApiMasterRequest
         $this->merge([
             'ban_from' =>  @$data['ban_from'] ?? null,
             'ban_to' =>  @$data['ban_to'] ?? null,
+            'phone' =>  @$data['phone'] ? filter_mobile_number(@$data['phone']) : @$data['phone'],
         ]);
     }
 

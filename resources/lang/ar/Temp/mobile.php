@@ -2,6 +2,22 @@
 
 return [
     'validation' => [
+        "fullname" => [
+            "required"  => "اسم المستخدم مطلوب",
+            "min"  => "اسم المستخدم يجب ان لا يقل عن 2 حروف",
+        ],
+
+        "phone" => [
+            "required" => "رقم الجوال مطلوب",
+            "invalid" => "رقم الجوال يجب ان يكون 8 ارقام",
+        ],
+
+        "email" => [
+            "required"  => "البريد الإلكتروني مطلوب",
+            "email"  => "البريد الالكتروني غير صحيح رجاء التأكد من الكتابة بطريقة صحيحة",
+            "regex"  => "البريد الالكتروني غير صحيح رجاء التأكد من الكتابة بطريقة صحيحة",
+        ],
+
         'card_date_format' => 'أدخل التاريخ بصيغة صحيحة',
         'after' => 'يجب ادخال تاريخ مستقبلي',
         'date_format' => 'يجب ادخال تاريخ مستقبلي',
@@ -9,8 +25,8 @@ return [
             'exists' => 'رمز التحقق غير صحيح',
         ],
         'identity_number_is_not_found' => 'رقم الهوية غير صحيح',
-        'phone_number_is_not_found' => 'رقم الهاتف غير موجود',
-        'wallet_number_is_not_found' => 'رقم المحفظة غير موجود',
+        'phone_number_is_not_found' => 'رقم الهاتف غير صحيح',
+        'wallet_number_is_not_found' => 'رقم المحفظة غير صحيح',
         'not_same_wallet' => 'عفوا لا يمكن التحويل لمحفظتك الشخصية',
         'password' => [
             'min' => 'كلمة المرور يجب ان لا تقل عن :min حروف',
@@ -55,7 +71,9 @@ return [
             'global_transfer_status' => 'تم تحويل مبلغ :amount بعملة :currency من المحفظة الخاصة بك إلى المستفيد :beneficiary بدولة :country باستخدام :recieve_option وبرقم :mtcn',
             'charge_status' => 'تم شحن رصيد المحفظة الخاصة بك بالقيمة :amount عن طريق :method',
             'money_request_status' => 'تم استلام مبلغ :amount بالمحفظة الخاصة بك من قبل المستخدم برقم جوال/ هوية :to_user_identity_or_mobile_or_wallet_number',
-            'promote_package_status' => 'تم ترقية البطاقة الخاصة بك إلي :package_name وتم خصم قيمة :amount من المحفظة الخاصة بك مع العلم أن تاريخ انتهاء صلاحية البطاقة :expired_date'
+            'promote_package_status' => 'تم ترقية البطاقة الخاصة بك إلي :package_name وتم خصم قيمة :amount من المحفظة الخاصة بك مع العلم أن تاريخ انتهاء صلاحية البطاقة :expired_date',
+            'reach_max_transaction_day' => 'لقد وصلت للحد الاقصى لعدد المعاملات اليومية',
+            'reach_max_transaction_month' => 'لقد وصلت للحد الاقصى لعدد المعاملات الشهرية',
         ],
 
 
@@ -74,7 +92,7 @@ return [
         'is_paid_before' => 'تم دفع هذه الفاتورة من قبل.'
     ],
     'global_transfers' => [
-        'current_balance_is_not_sufficiant_to_complete_transaction' => 'لا يوجد رصيد كافى',
+        'current_balance_is_not_sufficient_to_complete_transaction' => 'لا يوجد رصيد كافى',
         'transfer_has_been_done_successfully' => 'تمت عملية التحويل بنجاح',
     ],
     'min' => [
@@ -99,9 +117,10 @@ return [
     ],
     'local_transfers' => [
         'local_transfers' => 'التحويلات المحلية',
-        'current_balance_is_not_sufficiant_to_complete_transaction' => 'لا يوجد رصيد كافي',
+        'current_balance_is_not_sufficient_to_complete_transaction' => 'لا يوجد رصيد كافي',
         'local_transfer' => 'التحويل المحلي',
         'transfer_has_been_done_successfully' => 'تمت عملية التحويل بنجاح',
+        'transfer_fees_is_not_enough' => 'رصيدك الحالي لا يكفي لسداد رسوم التحويل'
     ],
 
     'transfers' => [
@@ -135,7 +154,7 @@ return [
         'fee_amount' => 'رسوم التحويل',
         'from_account' => 'من المستخدم',
         'total' => 'إجمالي المبلغ',
-        'benefeciary_name' => 'اسم المستفيد',
+        'beneficiary_name' => 'اسم المستفيد',
         'benefeciary_address' => 'عنوان المستفيد',
         'transfer_purpose' => 'الغرض من الحوالة',
     ],
@@ -166,5 +185,21 @@ return [
             'phone_required' => 'رقم الجوال مطلوب',
             'phone_unique' => 'رقم الجوال مسجل من قبل',
         ]
+    ],
+
+    "contacts" => [
+        "validation" => [
+
+            "message_type" => [
+                "required" => "نوع الرسالة مطلوب",
+                "exists" => "نوع الرسالة غير موجود",
+            ],
+
+            "content" => [
+                "required" => "نص الرسالة مطلوب",
+                "min" => "نص الرسالة يجب ان لا يقل عن 10 حروف",
+            ],
+        ]
     ]
+
 ];

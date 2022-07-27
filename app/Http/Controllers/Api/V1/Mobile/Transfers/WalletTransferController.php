@@ -15,7 +15,7 @@ class WalletTransferController extends Controller
         // check max value of transfer per day
         $citizen_wallet = CitizenWallet::with('citizen')->where('citizen_id', auth()->id())->firstOrFail();
         if ($request->amount > $citizen_wallet->main_balance + $citizen_wallet->cash_back) {
-            return response()->json(['data' => null, 'message' => trans('mobile.local_transfers.current_balance_is_not_sufficiant_to_complete_transaction'), 'status' => false], 422);
+            return response()->json(['data' => null, 'message' => trans('mobile.local_transfers.current_balance_is_not_sufficient_to_complete_transaction'), 'status' => false], 422);
         }
         $transfers = Transfer::where('from_user_id', auth()->id())->whereDate('created_at', date('Y-m-d'))->sum('amount');
         $max_transfer_per_day = setting('rasidpay_wallettransfer_maxvalue_perday')?:10000;

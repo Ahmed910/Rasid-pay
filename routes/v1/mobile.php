@@ -56,7 +56,10 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::apiResource('clients', 'ClientController')->only('index', 'show');
     // Faqs
     Route::get('faqs', 'FaqController@index');
+<<<<<<< HEAD
     Route::get('links', 'LinkController@index');
+=======
+>>>>>>> 7605e2f56f34630aac9bfce6b84366bfdde84108
     // Packages
     Route::prefix('packages')->group(function () {
         Route::get('promo_codes', 'PackageController@getPromoCodes');
@@ -95,8 +98,9 @@ Route::middleware('auth:sanctum')->group(function () {
 Route::get('generate_transaction_file/{id}', 'TransactionController@generatePdfLink');
 Route::get('get_summary_file/{id}', 'TransactionController@getSummaryFile')->name('summary_file');
 
-Route::post('contacts', 'ContactController@sendMessage')->name('send_message');
-Route::get('social_contacts', 'SettingController@socialContact');
+Route::apiResource('contacts', 'ContactController')->only('index','store');
+
 Route::get('slides', 'SlideController@index');
 Route::get('banks', 'BankController@index');
 Route::get('our_apps', 'OurAppController@index');
+Route::get('links/{static_page}', 'LinkController@show');

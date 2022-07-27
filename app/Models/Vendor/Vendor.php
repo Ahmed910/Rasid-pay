@@ -109,14 +109,14 @@ class Vendor extends Model implements HasAssetsInterface
 
     public function scopeActive($query)
     {
-        return $query->where('is_active',1);
+        return $query->where('is_active', true);
     }
     #endregion scopes
 
     #region relationships
     public function branches()
     {
-        return $this->hasMany(VendorBranch::class,'vendor_id');
+        return $this->hasMany(VendorBranch::class, 'vendor_id');
     }
 
     public function package()

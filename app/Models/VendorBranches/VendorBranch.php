@@ -57,7 +57,7 @@ class VendorBranch extends Model implements HasAssetsInterface
         }
         if (isset($request->phone)) {
 
-            $query->where('phone','like', "%$request->phone%");
+            $query->where('phone', 'like', "%$request->phone%");
         }
 
 
@@ -102,7 +102,7 @@ class VendorBranch extends Model implements HasAssetsInterface
 
     public function scopeActive($query)
     {
-        return $query->where('is_active',1);
+        return $query->where('is_active', true);
     }
 
     public function scopeNearest($query, $lat, $lng)
