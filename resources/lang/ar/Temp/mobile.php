@@ -72,8 +72,8 @@ return [
             'charge_status' => 'تم شحن رصيد المحفظة الخاصة بك بالقيمة :amount عن طريق :method',
             'money_request_status' => 'تم استلام مبلغ :amount بالمحفظة الخاصة بك من قبل المستخدم برقم جوال/ هوية :to_user_identity_or_mobile_or_wallet_number',
             'promote_package_status' => 'تم ترقية البطاقة الخاصة بك إلي :package_name وتم خصم قيمة :amount من المحفظة الخاصة بك مع العلم أن تاريخ انتهاء صلاحية البطاقة :expired_date',
-            'reach_max_transaction_day' => 'لقد وصلت للحد الاقصى لعدد المعاملات اليومية',
-            'reach_max_transaction_month' => 'لقد وصلت للحد الاقصى لعدد المعاملات الشهرية',
+            'reach_max_transaction_day' => 'عفواً إجمالي المعاملات اليومية المسموح بها لليوم الواحد يجب ألا تتجاوز :max_day_amount ',
+            'reach_max_transaction_month' => 'عفواً إجمالي المعاملات الشهرية المسموح بها للشهر الواحد يجب ألا تتجاوز :max_month_amount',
         ],
 
 
