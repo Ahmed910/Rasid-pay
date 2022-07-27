@@ -42,10 +42,6 @@ class Slide extends Model implements TranslatableContract, HasAssetsInterface
         return $this->belongsTo(User::class, 'added_by_id');
     }
 
-    public function getImageAttribute()
-    {
-        return $this->images()->where('option','image')->first();
-    }
     #end relationships
 
     # scopes
