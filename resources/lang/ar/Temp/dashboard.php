@@ -1232,6 +1232,7 @@ return [
                 'index' => 'السجل',
                 'store' => 'حفظ',
                 'update' => 'تعديل',
+                'destroy' => 'حذف',
                 'show' => 'عرض'
             ],
             'show' => 'عرض',
