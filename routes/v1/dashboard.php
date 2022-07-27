@@ -69,11 +69,11 @@ Route::middleware('maintenance_mode')->group(function () {
         Route::delete('delete-image/{appMedia}', 'DeleteImageController')->name('image_delete');
 
         Route::middleware('adminPermission')->group(function () {
-            Route::controller('CountryController')->name('countries.')->prefix('countries')->group(function () {
-                Route::get('archive', 'archive')->name('archive');
-                Route::post('restore/{id}', 'restore')->name('restore');
-                Route::delete('forceDelete/{id}', 'forceDelete')->name('force_delete');
-            });
+            // Route::controller('CountryController')->name('countries.')->prefix('countries')->group(function () {
+            //     Route::get('archive', 'archive')->name('archive');
+            //     Route::post('restore/{id}', 'restore')->name('restore');
+            //     Route::delete('forceDelete/{id}', 'forceDelete')->name('force_delete');
+            // });
             //
             // Route::controller('CurrencyController')->name('currencies.')->prefix('currencies')->group(function () {
             //     Route::get('archive', 'archive')->name('archive');
@@ -116,9 +116,9 @@ Route::middleware('maintenance_mode')->group(function () {
                 Route::delete('forceDelete/{id}', 'forceDelete')->name('force_delete');
             });
 
-            Route::controller('NotificationController')->name('notifications.')->prefix('notifications')->group(function () {
-                Route::post('store', 'store')->name('store');
-            });
+            // Route::controller('NotificationController')->name('notifications.')->prefix('notifications')->group(function () {
+            //     Route::post('store', 'store')->name('store');
+            // });
 
             // Route::controller('EmployeeController')->name('employees.')->prefix('employees')->group(function () {
             //     Route::put('ban/{employee}', 'ban')->name('ban');
@@ -158,7 +158,7 @@ Route::middleware('maintenance_mode')->group(function () {
                 // "regions" => "RegionController",
                 "departments" => "DepartmentController",
                 'admins' => 'AdminController',
-                'employees' => 'EmployeeController',
+                // 'employees' => 'EmployeeController',
                 // 'clients' => 'ClientController',
                 'vendors' => 'VendorController',
                 'vendor_branches'=>'VendorBranchController',

@@ -23,11 +23,13 @@ class VendorResource extends JsonResource
         return [
             'id' => $this->id,
             'name' => $this->name,
-            'type' => $this->type,
+            'type' => trans('mobile.vendors.vendor_type.'.$this->type),
             'logo' => $this->logo,
             'max_discount' => $this->max_discount,
             'current_discount_according_to_auth_card_user' => $discount,
-            
+            'is_support_maak' => (bool)$this->is_support_maak,
+
+
         ];
     }
 }

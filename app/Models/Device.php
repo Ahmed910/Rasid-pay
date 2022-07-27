@@ -9,7 +9,7 @@ use App\Traits\Uuid;
 
 class Device extends Model
 {
-    use HasFactory, Uuid, Loggable;
+    use HasFactory, Uuid;
     protected $guarded = ['created_at', 'updated_at'];
 
     #region properties
