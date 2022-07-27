@@ -656,6 +656,7 @@ return [
     'admin' =>  [
         'new_password' => 'كلمة المرور الجديدة',
         'u_can_use_this_id' => 'يمكنك استخدام هذا الرقم',
+        'u_can_not_use_this_email' => 'لا يمكنك إدخال بريد الكتروني مستخدم',
         'confirmed_password' => 'تاكيد كلمة المرور',
         'admin_name' => 'أدخل الاسم',
         'name' => 'الموظف',
@@ -1005,7 +1006,9 @@ return [
         'permissions' =>
         [
            'index' => 'السجل',
-           'update' => 'تعديل'
+           'update' => 'تعديل',
+           'destroy' => 'حذف',
+           'show' => 'عرض',
         ],
     ],
     'transfer_purpose' => [
