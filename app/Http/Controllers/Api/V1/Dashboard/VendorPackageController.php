@@ -35,7 +35,7 @@ class VendorPackageController extends Controller
         ]);
     }
 
-    public function getClients(Request $request)
+    public function getVendors(Request $request)
     {
         $fileds = $this->validate($request, [
             "has_card" => "required|boolean"
