@@ -27,6 +27,7 @@ return [
     ],
     'vendor_package' => [
         'vendor_package' => 'نسب الخصم',
+        'vendor_packages' => 'نسب الخصم',
         'permissions' => [
             'update' => 'تعديل',
             'store' => 'حفظ',
@@ -1233,7 +1234,7 @@ return [
                 'store' => 'حفظ',
                 'update' => 'تعديل',
                 'destroy' => 'حذف',
-                'show' => 'عرض'
+                'show' => 'عرض',
             ],
             'show' => 'عرض',
             'sub_progs' =>
