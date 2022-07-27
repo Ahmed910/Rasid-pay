@@ -57,6 +57,7 @@ class WalletController extends Controller
 
     public function sendWalletOtp(Request $request)
     {
+      
         $otp = generate_unique_code(CitizenWallet::class, 'wallet_bin', 6);
         auth()->user()->citizenWallet()->updateOrCreate(['citizen_id' => auth()->id()],['wallet_bin' => $otp]);
         #send otp to auth user
