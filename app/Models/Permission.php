@@ -39,7 +39,8 @@ class Permission extends Model
         "validate",
         'group_permissions',
         'backButton',
-        'home'
+        'home',
+        'vendor_branches.get_vendors'
     ];
 
     private $sortableColumns = ['main_program', 'sub_program', 'name'];
