@@ -9,6 +9,7 @@ use App\Traits\Uuid;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Str;
+use GeniusTS\HijriDate\{Date, Hijri, Translations\Arabic, Translations\English};
 
 class ActivityLog extends Model
 {
@@ -19,7 +20,7 @@ class ActivityLog extends Model
     protected $table = 'activity_logs';
     protected $with = ['user', 'auditable'];
     protected $casts = ["new_data" => "array", "old_data" => "array", 'search_params' => 'array'];
-    private $sortableColumns = ['employee', 'department', 'main_program', 'sub_program', 'created_at', 'ip_address', 'action_type','reason'];
+    private $sortableColumns = ['employee', 'department', 'main_program', 'sub_program', 'created_at', 'ip_address', 'action_type', 'reason'];
 
     const CREATE = 'created';
     const UPDATE = 'updated';
@@ -57,7 +58,15 @@ class ActivityLog extends Model
     #endregion mutators
 
     #region accessor
-
+    public function getCreatedAtAttribute($date)
+    {
+        $locale = app()->getLocale();
+        if (auth()->check() && auth()->user()->is_date_hijri) {
+            $this->changeDateLocale($locale);
+            return Hijri::convertToHijri($this->attributes['created_at'])->format('d F o h:i A');
+        }
+        return Carbon::parse($this->attributes['created_at'])->locale($locale)->translatedFormat('d/m/Y - h:i A');
+    }
     #endregion accessor
 
     #region scopes
@@ -85,7 +94,6 @@ class ActivityLog extends Model
         if (isset($request->sub_program) && !in_array($request->sub_program, [-1])) {
             $query->where('sub_program', $request->sub_program);
         }
-
     }
 
     public function scopeSortBy(Builder $query, $request)
