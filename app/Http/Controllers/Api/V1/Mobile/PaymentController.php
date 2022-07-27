@@ -10,6 +10,11 @@ use App\Services\WalletBalance;
 
 class PaymentController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('check_max_transactions')->only('store');
+    }
+
     public function store(PaymentRequest $request, Payment $payment)
     {
         $citizen_wallet = CitizenWallet::with('citizen')->where('citizen_id', auth()->id())->firstOrFail();
