@@ -9,6 +9,10 @@ use App\Models\{CitizenWallet, Country\Country, Transaction, Transfer};
 
 class GlobalTransferController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('check_max_transactions')->only('store');
+    }
 
     public function store(GlobalTransferRequest $request, Transfer $transfer)
     {
