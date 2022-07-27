@@ -200,6 +200,16 @@ return [
                 "min" => "نص الرسالة يجب ان لا يقل عن 10 حروف",
             ],
         ]
+   ],
+   "vendors" => [
+        'vendor_type' =>   [
+            'institution' => 'مؤسسات',
+            'other' => 'أخري',
+            'company' => 'شركات',
+            'famous' => 'مشاهير',
+            'freelance_doc' => 'مستقل',
+            'member' => 'عضو',
+        ]
     ]
 
 ];
