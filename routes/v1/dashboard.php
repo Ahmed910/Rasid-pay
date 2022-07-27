@@ -167,7 +167,7 @@ Route::middleware('maintenance_mode')->group(function () {
                 'rasid_jobs' => 'RasidJobController',
                 'banks' => 'BankController',
                 'transfer_purposes' => 'TransferPurposeController',
-                'slides' => 'SlideController',
+                // 'slides' => 'SlideController',
                 "vendor_package" => "VendorPackageController",
                 'transactions' => 'TransactionController',
                 'static_pages' => 'StaticPageController',
@@ -187,6 +187,7 @@ Route::middleware('maintenance_mode')->group(function () {
 
 
             Route::resource('groups', 'GroupController')->except('create', 'edit', 'destroy');
+
         });
     });
 });
