@@ -14,13 +14,13 @@ class WalletRequest extends ApiMasterRequest
             //card information
             'is_card_saved' => 'required_without:card_id|in:0,1',
             'card_id' => 'nullable|required_without:charge_type|exists:cards,id,user_id,' . auth()->id(),
+            'card_name' => 'required_if:is_card_saved,1|string|max:255',
         ];
 
         if (!$this->card_id) {
             $rules += [
                 'owner_name' => 'required|string|max:255',
                 'card_type' => 'required|in:visa,mastercard,american_express',
-                'card_name' => 'required|string|max:255',
                 'card_number' => 'required|numeric|digits:16',
                 'expire_at' => 'required|date_format:m/y|after:today|max:25',
                 'charge_type' => 'required|in:nfc,manual,scan',
