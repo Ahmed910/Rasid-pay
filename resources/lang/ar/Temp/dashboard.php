@@ -769,14 +769,19 @@ return [
         'permissions' => [
             'index' => 'السجل',
             'update' => 'تعديل',
-            'show' => 'عرض'
+            'destroy' => 'حذف',
+            'show' => 'عرض',
+            'store' => 'حفظ',
         ],
     ],
 
     'vendor_branch' => [
         'vendor_branches' => 'أفرع العميل',
         'permissions' => [
+            'index' => 'السجل',
             'store' => 'حفظ',
+            'destroy' => 'حذف',
+            'show' => 'عرض',
             'update' => 'تعديل'
 
         ],
@@ -1007,7 +1012,11 @@ return [
         'permissions' =>
         [
            'destroy' => 'حذف',
-            'show' => 'عرض'
+           'index' => 'السجل',
+           'update' => 'تعديل',
+           'show' => 'عرض',
+           'store' => 'حفظ'
+
         ],
     ],
     'cardpackage' =>  [
@@ -1217,6 +1226,14 @@ return [
 
         ],
         'our_app' => [
+            'our_apps' => 'تطبيقاتنا',
+            'permissions' =>
+            [
+                'index' => 'السجل',
+                'store' => 'حفظ',
+                'update' => 'تعديل',
+                'show' => 'عرض'
+            ],
             'show' => 'عرض',
             'sub_progs' =>
             [
