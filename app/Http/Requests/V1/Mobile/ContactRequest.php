@@ -15,7 +15,7 @@ class ContactRequest extends ApiMasterRequest
     {
         return [
             "fullname" => 'required|string|min:2|max:100',
-            'email' => 'required|email|regex:/(.+)@(.+)\.(.+)/i|max:225',
+            'email' => ["required","email","regex:/^[a-z0-9!#$%&'*+\\/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+\\/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$/","max:225"],
             'phone' => ["required", "numeric", function ($attribute, $value, $fail) {
                 if (!check_phone_valid($value)) {
                     $fail(trans('mobile.validation.phone.invalid'));
