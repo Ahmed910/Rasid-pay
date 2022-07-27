@@ -56,7 +56,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::apiResource('clients', 'ClientController')->only('index', 'show');
     // Faqs
     Route::get('faqs', 'FaqController@index');
-    Route::get('links', 'LinkController@index');
+
     // Packages
     Route::prefix('packages')->group(function () {
         Route::get('promo_codes', 'PackageController@getPromoCodes');
@@ -100,4 +100,4 @@ Route::apiResource('contacts', 'ContactController')->only('index','store');
 Route::get('slides', 'SlideController@index');
 Route::get('banks', 'BankController@index');
 Route::get('our_apps', 'OurAppController@index');
-Route::get('links/{static_page}', 'LinkController@show');
+Route::get('links', 'LinkController@index');
