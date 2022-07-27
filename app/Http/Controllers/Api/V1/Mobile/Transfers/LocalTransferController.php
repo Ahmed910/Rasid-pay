@@ -10,6 +10,11 @@ use App\Models\{CitizenWallet, Transaction, Transfer};
 
 class LocalTransferController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('check_max_transactions')->only('store');
+    }
+    
     public function store(LocalTransferRequest $request)
     {
         $wallet = CitizenWallet::with('citizen')->where('citizen_id', auth()->id())->firstOrFail();

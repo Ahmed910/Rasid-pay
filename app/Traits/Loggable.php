@@ -165,10 +165,6 @@ trait Loggable
                     $model->addUserActivity($model, ActivityLog::SHOWN, 'index', $newData);
                 }
 
-                if ($model->$column == Contact::WAITING && $column == 'message_status' && request()->has('assigned_to_id')) {
-                    $model->addUserActivity($model, ActivityLog::ASSIGNED, 'index', $newData);
-                }
-
                 if ($model->$column == ActivityLog::REPLIED && $column == 'message_status') {
                     $model->addUserActivity($model, ActivityLog::REPLIED, 'index', $newData);
                 }
