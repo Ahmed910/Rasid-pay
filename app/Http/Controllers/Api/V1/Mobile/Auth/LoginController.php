@@ -108,7 +108,10 @@ class LoginController extends Controller
         if (!$user) {
             return response()->json(['status' => false, 'data' => null, 'message' => trans('auth.account_not_exists')], 422);
         }
-
+        $response = self::checkIsUserValid($user);
+        if ($response) {
+            return response()->json($response['response'], $response['status_code']);
+        }
         try {
             $code = 1111;
             if (setting('use_sms_service') == 'enable') {
