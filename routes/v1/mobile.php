@@ -56,10 +56,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::apiResource('clients', 'ClientController')->only('index', 'show');
     // Faqs
     Route::get('faqs', 'FaqController@index');
-<<<<<<< HEAD
     Route::get('links', 'LinkController@index');
-=======
->>>>>>> 7605e2f56f34630aac9bfce6b84366bfdde84108
     // Packages
     Route::prefix('packages')->group(function () {
         Route::get('promo_codes', 'PackageController@getPromoCodes');
