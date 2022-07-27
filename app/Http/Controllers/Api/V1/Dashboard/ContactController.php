@@ -8,6 +8,7 @@ use App\Http\Requests\V1\Dashboard\ContactReplyRequest;
 use App\Http\Resources\Dashboard\Contact\ContactCollection;
 use App\Http\Resources\Dashboard\ContactReplyResource;
 use App\Http\Resources\Dashboard\Contact\ContactResource;
+use App\Models\ActivityLog;
 use App\Models\Contact;
 use App\Models\ContactReply;
 use Illuminate\Http\Request;
@@ -98,6 +99,8 @@ class ContactController extends Controller
     public function assignContact(ContactAdminAssignRequest $request, Contact $contact)
     {
         $contact->update($request->validated());
+        $contact->addUserActivity($contact, ActivityLog::ASSIGNED, 'index');
+
         return ContactResource::make($contact->load("admin"))
             ->additional([
                 'status' => true,
