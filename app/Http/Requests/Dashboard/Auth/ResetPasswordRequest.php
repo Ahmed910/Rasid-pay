@@ -25,7 +25,7 @@ class ResetPasswordRequest extends FormRequest
     {
         return [
             'reset_token'           => 'required|exists:users,reset_token,ban_status,active',
-            'password'              => 'required|min:6',
+            'password'              => 'required|confirmed|regex:/^[A-Za-z0-9()\]\[#%&*_=~{}^:`.,$!@+\/-]+$/|min:6|max:100',
             'password_confirmation' => 'required|same:password',
         ];
     }
