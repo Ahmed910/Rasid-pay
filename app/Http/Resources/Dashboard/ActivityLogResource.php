@@ -64,6 +64,9 @@ class ActivityLogResource extends JsonResource
                 // , "sub" => trans("dashboard.permissions." . $this->sub_program)
             ],
             ),
+            'actions' => $this->when($request->routeIs('activity_logs.index'), [
+                'show' => auth()->user()->hasPermissions('activity_logs.show'),
+            ])
         ];
 
         // trans('dashboard.activity_log.reason', [

@@ -21,6 +21,9 @@ class TranslationResource extends JsonResource
             "value" => $this->value,
             "locale" => $this->locale,
             "desc" => $this->desc,
+            'actions' => $this->when($request->routeIs('localizations.index'), [
+                'update' => auth()->user()->hasPermissions('localizations.update'),
+            ])
         ] + $locales;
     }
 }
