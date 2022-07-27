@@ -15,7 +15,7 @@ class WalletTransferController extends Controller
     {
         $this->middleware('check_max_transactions')->only('store');
     }
-    
+
     public function store(WalletTransferRequest $request, Transfer $transfer)
     {
         // check max value of transfer per day
@@ -23,11 +23,17 @@ class WalletTransferController extends Controller
         if ($request->amount > $citizen_wallet->main_balance + $citizen_wallet->cash_back) {
             return response()->json(['data' => null, 'message' => trans('mobile.local_transfers.current_balance_is_not_sufficient_to_complete_transaction'), 'status' => false], 422);
         }
-        $transfers = Transfer::where('from_user_id', auth()->id())->whereDate('created_at', date('Y-m-d'))->sum('amount');
-        $max_transfer_per_day = setting('rasidpay_wallettransfer_maxvalue_perday')?:10000;
-        if ($transfers > $max_transfer_per_day) {
+
+        // check if receiver reach max transfers
+        $max_received_transfers_per_day = setting('rasidpay_usertransfer_maxvalue_perreciever');
+        $dailyTransactions = Transaction::where('to_user_id', $request->citizen_id)
+            ->where('trans_type', '!=', 'charge')
+            ->whereDate('created_at', date('Y-m-d'))
+            ->sum('amount');
+        if ($dailyTransactions > $max_received_transfers_per_day) {
             return response()->json(['status' => false, 'data' => null, 'message' => trans('mobile.transfers.exceed_max_transfer_day')], 422);
         }
+
         $citizen_wallet->update(['wallet_bin' => null]);
         $receiver_citizen_wallet = null;
         $phone = null;

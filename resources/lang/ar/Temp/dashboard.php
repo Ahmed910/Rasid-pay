@@ -32,6 +32,7 @@ return [
             'store' => 'حفظ',
             'index' => 'السجل',
             'destroy' => 'حذف',
+            'show' => 'عرض'
         ],
     ],
     'general' => [
@@ -754,7 +755,11 @@ return [
     'faq' => [
         'faqs' => 'الاسئلة الشائعة',
         'permissions' => [
-            'store' => 'حفظ'
+            'index' => 'السجل',
+            'store' => 'حفظ',
+            'destroy' => 'حذف',
+            'update' => 'تعديل',
+            'show' => 'عرض'
         ],
     ],
 
@@ -764,14 +769,19 @@ return [
         'permissions' => [
             'index' => 'السجل',
             'update' => 'تعديل',
-            'show' => 'عرض'
+            'destroy' => 'حذف',
+            'show' => 'عرض',
+            'store' => 'حفظ',
         ],
     ],
 
     'vendor_branch' => [
         'vendor_branches' => 'أفرع العميل',
         'permissions' => [
+            'index' => 'السجل',
             'store' => 'حفظ',
+            'destroy' => 'حذف',
+            'show' => 'عرض',
             'update' => 'تعديل'
 
         ],
@@ -1002,7 +1012,11 @@ return [
         'permissions' =>
         [
            'destroy' => 'حذف',
-            'show' => 'عرض'
+           'index' => 'السجل',
+           'update' => 'تعديل',
+           'show' => 'عرض',
+           'store' => 'حفظ'
+
         ],
     ],
     'cardpackage' =>  [
@@ -1028,7 +1042,11 @@ return [
     'message_type' =>  [
         'message_types' => 'أنواع الرسائل',
         'permissions' => [
-            'store' => 'حفظ'
+            'store' => 'حفظ',
+            'index' => 'السجل',
+            'update' => 'تعديل',
+            'show' => 'عرض',
+            'destroy' => 'حذف',
         ]
 
     ],
@@ -1036,22 +1054,16 @@ return [
     'citizen' =>  [
         'add_citizen' => 'إضافة مستخدم',
         'permissions' => [
-            'create' => 'انشاء',
-            'destroy' => 'أرشفة',
-            'archive' => 'عرض أرشيف',
-            'store' => 'حفظ',
-            'update' => 'تعديل',
             'show' => 'عرض',
-            'restore' => 'استعادة',
-            'force_delete' => 'حذف نهائي',
             'index' => 'السجل',
+            'update' => 'تعديل'
         ],
         'sub_progs' =>  [
-            'index' => 'سجل المستخدمين',
+            'index' => 'سجل مستخدمي التطبيق',
             'create' => 'إضافة مستخدم',
         ],
-        'citizen_count' => 'عدد المستخدمين',
-        'citizens' => 'المستخدمين',
+        'citizen_count' => 'عدد مستخدمي التطبيق',
+        'citizens' => 'مستخدمي التطبيق',
         'citizen' => 'المستخدم ',
         'edit_citizen' => 'تعديل مستخدم',
     ],
@@ -1088,6 +1100,9 @@ return [
             'index' => 'رسائل الدعم الفني',
             'show' => 'عرض رسالة الدعم الفني',
             'assign_contact' => 'تحويل رسالة',
+            'destroy' => 'حذف',
+            'store' => 'حفظ',
+            'update' => 'تعديل'
         ],
         'types' =>
         [
@@ -1190,9 +1205,6 @@ return [
     'attachment_file' => [
         'attachment_files' => 'العملاء',
     ],
-    'localizations_update' =>  [
-        'localizations_update' => 'تعديل الترجمات',
-    ],
 
     'links' => [
         'mobile' => [
@@ -1214,6 +1226,25 @@ return [
 
         ],
         'our_app' => [
+            'our_apps' => 'تطبيقاتنا',
+            'permissions' =>
+            [
+                'index' => 'السجل',
+                'store' => 'حفظ',
+                'update' => 'تعديل',
+                'destroy' => 'حذف',
+                'show' => 'عرض'
+            ],
+            'show' => 'عرض',
+            'sub_progs' =>
+            [
+                'index' => 'سجل تطبيقاتنا',
+                'create' => 'إضافة تطبيق',
+                'show' => 'عرض تطبيق',
+            ],
+            'rasid_job' => 'التطبيق',
+            'rasid_job_count' => 'عدد تطبيقاتنا',
+            'rasid_jobs' => 'تطبيقاتنا',
             'validation' => [
 
                 'order' => [

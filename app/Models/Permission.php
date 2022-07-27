@@ -40,7 +40,8 @@ class Permission extends Model
         'group_permissions',
         'backButton',
         'home',
-        'vendor_branches.get_vendors'
+        'vendor_branches.get_vendors',
+        'vendor_package.get_vendors'
     ];
 
     private $sortableColumns = ['main_program', 'sub_program', 'name'];
@@ -126,7 +127,7 @@ class Permission extends Model
         foreach (app()->routes->getRoutes() as $value) {
             $route_name = $value->getName();
             $name = str_replace(['create','edit'],['store','update'],$route_name);
-            if (in_array($name, Permission::PUBLIC_ROUTES) || is_null($name) || in_array(str_before($name, '.'), ['ignition', 'debugbar']) || !str_contains($value->getPrefix(),'api/v1/dashboard') || $permissions->contains('name',$name) ) {
+            if (in_array($name, Permission::PUBLIC_ROUTES) || is_null($name) || !$route_name || in_array(str_before($name, '.'), ['ignition', 'debugbar']) || !str_contains($value->getPrefix(),'api/v1/dashboard') || $permissions->contains('name',$name) ) {
                 continue;
             }
             $permissions->push(self::create(['name' => $name]));

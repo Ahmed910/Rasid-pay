@@ -69,11 +69,11 @@ Route::middleware('maintenance_mode')->group(function () {
         Route::delete('delete-image/{appMedia}', 'DeleteImageController')->name('image_delete');
 
         Route::middleware('adminPermission')->group(function () {
-            Route::controller('CountryController')->name('countries.')->prefix('countries')->group(function () {
-                Route::get('archive', 'archive')->name('archive');
-                Route::post('restore/{id}', 'restore')->name('restore');
-                Route::delete('forceDelete/{id}', 'forceDelete')->name('force_delete');
-            });
+            // Route::controller('CountryController')->name('countries.')->prefix('countries')->group(function () {
+            //     Route::get('archive', 'archive')->name('archive');
+            //     Route::post('restore/{id}', 'restore')->name('restore');
+            //     Route::delete('forceDelete/{id}', 'forceDelete')->name('force_delete');
+            // });
             //
             // Route::controller('CurrencyController')->name('currencies.')->prefix('currencies')->group(function () {
             //     Route::get('archive', 'archive')->name('archive');
@@ -116,9 +116,9 @@ Route::middleware('maintenance_mode')->group(function () {
                 Route::delete('forceDelete/{id}', 'forceDelete')->name('force_delete');
             });
 
-            Route::controller('NotificationController')->name('notifications.')->prefix('notifications')->group(function () {
-                Route::post('store', 'store')->name('store');
-            });
+            // Route::controller('NotificationController')->name('notifications.')->prefix('notifications')->group(function () {
+            //     Route::post('store', 'store')->name('store');
+            // });
 
             // Route::controller('EmployeeController')->name('employees.')->prefix('employees')->group(function () {
             //     Route::put('ban/{employee}', 'ban')->name('ban');
@@ -158,7 +158,7 @@ Route::middleware('maintenance_mode')->group(function () {
                 // "regions" => "RegionController",
                 "departments" => "DepartmentController",
                 'admins' => 'AdminController',
-                'employees' => 'EmployeeController',
+                // 'employees' => 'EmployeeController',
                 // 'clients' => 'ClientController',
                 'vendors' => 'VendorController',
                 'vendor_branches'=>'VendorBranchController',
@@ -167,7 +167,7 @@ Route::middleware('maintenance_mode')->group(function () {
                 'banks' => 'BankController',
                 'transfer_purposes' => 'TransferPurposeController',
                 // 'slides' => 'SlideController',
-                "vendor_package" => "VendorPackageController",
+                // "vendor_package" => "VendorPackageController",
                 'transactions' => 'TransactionController',
                 'static_pages' => 'StaticPageController',
                 'faqs'         => 'FaqController',
@@ -176,12 +176,12 @@ Route::middleware('maintenance_mode')->group(function () {
             ]);
 
             Route::apiResource('vendor_branches', 'VendorBranchController')->except('get_vendors');
-            Route::apiResource('vendor_package', 'VendorPackageController')->except('get_vendors','show');
+            Route::apiResource('vendor_packages', 'VendorPackageController')->except('destroy');
             Route::apiResource('citizens', 'CitizenController')->only('index', 'show', 'update');
             Route::apiResource('settings', 'SettingController')->only(['index', 'store']);
             Route::apiResource('links', 'LinkController')->only(['index','update']);
             Route::apiResource('activity_logs', 'ActivityController')->only(['index', 'show']);
-            Route::post('localizations_update','LocalizationController@updateTranslation')->name('localizations_update');
+            Route::post('localizations_update','LocalizationController@updateTranslation')->name('localizations.update');
             Route::apiResource('localizations', 'LocalizationController')->only(['store', 'index']);
 
 
