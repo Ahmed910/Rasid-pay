@@ -23,7 +23,7 @@ class WalletTransferRequest extends ApiMasterRequest
         //     ];
         // }
         return [
-            'amount'  => 'required|numeric|gte:' . (setting('rasidpay_wallettransfer_minvalue') ?? 10) . '|lte:' . (setting('rasidpay_wallettransfer_maxvalue') ?? 10000),
+            "amount" => ['required', 'regex:/^\\d{1,5}$|^\\d{1,5}\\.\\d{0,2}$/', 'numeric', 'gte:'. (setting('rasidpay_wallettransfer_minvalue') ?? 10).'', 'lte:'. (setting('rasidpay_wallettransfer_maxvalue')??10000).''],
             "wallet_transfer_method" => 'required|in:' . join(",", Transfer::WALLET_TRANSFER_METHODS),
             'notes'   => 'nullable|required_without:transfer_purpose_id|max:1000',
             "transfer_method_value" => ['required', function ($attribute, $value, $fail) {
@@ -55,7 +55,7 @@ class WalletTransferRequest extends ApiMasterRequest
             ->orWhere('phone',$value)
             ->orWhereRelation('citizenWallet', 'wallet_number', $value);
         })->first();
-        
+
         if ($sameUser) {
             return trans('mobile.validation.not_same_wallet');
         }
@@ -117,5 +117,5 @@ class WalletTransferRequest extends ApiMasterRequest
         ];
     }
 
-    
+
 }

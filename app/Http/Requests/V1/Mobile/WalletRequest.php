@@ -8,10 +8,9 @@ class WalletRequest extends ApiMasterRequest
 {
     public function rules()
     {
-
         return [
             // in citizen wallet
-            "amount" => ['required', 'regex:/^\\d{1,5}$|^\\d{1,5}\\.\\d{0,2}$/', 'numeric', 'gte:' . (float)(setting('rasidpay_walletcharge_minvalue') ?? 10) . ',lte:' . (float)(setting('rasidpay_walletcharge_maxvalue') ?? 10000)],
+            "amount" => ['required', 'regex:/^\\d{1,5}$|^\\d{1,5}\\.\\d{0,2}$/', 'numeric', 'gte:'. (setting('rasidpay_inttransfer_minvalue') ?? 10).'', 'lte:'. (setting('rasidpay_walletcharge_maxvalue')??10000).''],
             //card information
             'is_card_saved' => 'required_without:card_id|in:0,1',
             'owner_name' => 'required_without:card_id|string|max:255',
