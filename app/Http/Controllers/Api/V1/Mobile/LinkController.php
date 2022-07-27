@@ -18,8 +18,8 @@ class LinkController extends Controller
             ->first();
 
         return response()->json(['data' => [
-            'name' => $static_page_data?->name,
-            'description' => $static_page_data?->description
+            'name' => $static_page_data->name ?? '',
+            'description' => $static_page_data->description ?? ''
         ], 'status' => true, 'message' => '']);
     }
 }

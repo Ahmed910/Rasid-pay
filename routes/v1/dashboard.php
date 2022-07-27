@@ -107,7 +107,6 @@ Route::middleware('maintenance_mode')->group(function () {
             });
 
             Route::controller('CitizenController')->name('citizens.')->prefix('citizens')->group(function () {
-                //     Route::put('update-phone/{id}', 'updatePhone')->name('update_phone');
                 Route::get('enabled-cards', 'enabledPackages')->name('enabled_packages');
             });
 

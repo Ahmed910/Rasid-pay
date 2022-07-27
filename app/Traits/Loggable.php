@@ -28,6 +28,7 @@ trait Loggable
                     return $self->checkIfHasIsActiveOnly($self, 'ban_status');
 
                 if (in_array(class_basename($self), ['Contact'])) {
+                    if(request('assigned_to_id')) return;
                     return $self->checkIfHasIsActiveOnly($self, 'message_status');
                 }
 
@@ -185,7 +186,7 @@ trait Loggable
             'ban_to',
             'user_locale',
             'updated_at',
-            'read_at'
+            'read_at',
         ];
 
         $keys = array_keys($this->newData($self));
