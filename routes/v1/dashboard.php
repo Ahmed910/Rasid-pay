@@ -181,7 +181,7 @@ Route::middleware('maintenance_mode')->group(function () {
             Route::apiResource('settings', 'SettingController')->only(['index', 'store']);
             Route::apiResource('links', 'LinkController')->only(['index','update']);
             Route::apiResource('activity_logs', 'ActivityController')->only(['index', 'show']);
-            Route::post('localizations_update','LocalizationController@updateTranslation')->name('localizations_update');
+            Route::post('localizations_update','LocalizationController@updateTranslation')->name('localizations.update');
             Route::apiResource('localizations', 'LocalizationController')->only(['store', 'index']);
 
 
