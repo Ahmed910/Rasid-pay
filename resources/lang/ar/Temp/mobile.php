@@ -71,7 +71,9 @@ return [
             'global_transfer_status' => 'تم تحويل مبلغ :amount بعملة :currency من المحفظة الخاصة بك إلى المستفيد :beneficiary بدولة :country باستخدام :recieve_option وبرقم :mtcn',
             'charge_status' => 'تم شحن رصيد المحفظة الخاصة بك بالقيمة :amount عن طريق :method',
             'money_request_status' => 'تم استلام مبلغ :amount بالمحفظة الخاصة بك من قبل المستخدم برقم جوال/ هوية :to_user_identity_or_mobile_or_wallet_number',
-            'promote_package_status' => 'تم ترقية البطاقة الخاصة بك إلي :package_name وتم خصم قيمة :amount من المحفظة الخاصة بك مع العلم أن تاريخ انتهاء صلاحية البطاقة :expired_date'
+            'promote_package_status' => 'تم ترقية البطاقة الخاصة بك إلي :package_name وتم خصم قيمة :amount من المحفظة الخاصة بك مع العلم أن تاريخ انتهاء صلاحية البطاقة :expired_date',
+            'reach_max_transaction_day' => 'لقد وصلت للحد الاقصى لعدد المعاملات اليومية',
+            'reach_max_transaction_month' => 'لقد وصلت للحد الاقصى لعدد المعاملات الشهرية',
         ],
 
 
@@ -187,7 +189,7 @@ return [
 
     "contacts" => [
         "validation" => [
-            
+
             "message_type" => [
                 "required" => "نوع الرسالة مطلوب",
                 "exists" => "نوع الرسالة غير موجود",

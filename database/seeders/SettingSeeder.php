@@ -9,6 +9,7 @@ class SettingSeeder extends Seeder
 {
     public function run()
     {
+        \DB::table('settings')->truncate();
         $settings = [
             // erp
             ["key" => "erp_title", "value" => ["en" => "Rasid Jack", "ar" => "رصيد باك"], "input_type" => "text", 'is_single' => false],
@@ -38,11 +39,14 @@ class SettingSeeder extends Seeder
             ["key" => "rasidpay_localtransfer_transferfees", "value" => ["en" => 7], "input_type" => "number"],
             ["key" => "rasidpay_calc_transfer_fees", "value" => ["en" => 2], "input_type" => "number"],
             ["key" => "rasidpay_transfer_tax", "value" => ["en" => 2], "input_type" => "number"],
+            ["key" => "rasidpay_usertransfer_maxvalue_perreciever", "value" => ["en" => 10000], "input_type" => "number"],
 
             // message
             ["key" => "rasid_support_msgsinbox_reply", "value" => ["en" => 0], "input_type" => "select"],
             // transactions
             ["key" => "rasidpay_mytransactoins_displaycount", "value" => ["en" => 5], "input_type" => "number"],
+            ["key" => "rasidpay_usertransaction_maxvalue_perday", "value" => ["en" => 10000], "input_type" => "number"],
+            ["key" => "rasidpay_usertransaction_maxvalue_permonth", "value" => ["en" => 100000], "input_type" => "number"],
             // wallet transfers
             ["key" => "rasidpay_wallettransfer_minvalue", "value" => ["en" => 10], "input_type" => "number"],
             ["key" => "rasidpay_wallettransfer_maxvalue", "value" => ["en" => 10000], "input_type" => "number"],
