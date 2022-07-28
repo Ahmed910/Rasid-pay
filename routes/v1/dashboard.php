@@ -111,6 +111,10 @@ Route::middleware('maintenance_mode')->group(function () {
                 // Route::get('get-parents', 'getAllParents')->name("get_parents");
                 Route::get('export_pdf', 'exportPDF');
                 Route::get('export_excel', 'exportExcel');
+
+                Route::get('archive/export_pdf', 'exportPDFArchieve');
+                Route::get('archive/export_excel', 'exportArchieve');
+
             });
 
             Route::controller('CitizenController')->name('citizens.')->prefix('citizens')->group(function () {
