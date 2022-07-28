@@ -56,26 +56,26 @@ class DepartmentController extends Controller
     {
         return response()->json([
             'data' => Department::select('id')->when($request->department_id, function ($q) use ($request) {
-                    $children = Department::flattenChildren(Department::withTrashed()->findOrFail($request->department_id));
-                    $q->whereNotIn('departments.id', $children);
-                })->when($request->department_type == 'children', function ($q) {
-                    $q->where(function ($q) {
-                        $q->has('children')->orWhereNull('parent_id');
-                    });
-                })->when($request->activate_case, function ($q) use($request){
-                    switch ($request->activate_case) {
-                        case 'active':
-                            $q->where('is_active', 1);
-                            break;
-                        case 'hold':
-                            $q->where('is_active', 0);
-                            break;
-                    }
-                })->when($request->has_jobs,function ($q) {
-                    $q->whereHas('rasidJobs',function ($q) {
-                        $q->where(['rasid_jobs.is_active' => true, 'is_vacant' => true]);
-                    });
-                })->ListsTranslations('name')
+                $children = Department::flattenChildren(Department::withTrashed()->findOrFail($request->department_id));
+                $q->whereNotIn('departments.id', $children);
+            })->when($request->department_type == 'children', function ($q) {
+                $q->where(function ($q) {
+                    $q->has('children')->orWhereNull('parent_id');
+                });
+            })->when($request->activate_case, function ($q) use ($request) {
+                switch ($request->activate_case) {
+                    case 'active':
+                        $q->where('is_active', 1);
+                        break;
+                    case 'hold':
+                        $q->where('is_active', 0);
+                        break;
+                }
+            })->when($request->has_jobs, function ($q) {
+                $q->whereHas('rasidJobs', function ($q) {
+                    $q->where(['rasid_jobs.is_active' => true, 'is_vacant' => true]);
+                });
+            })->ListsTranslations('name')
                 ->addSelect('departments.is_active')
                 ->without(['images', 'addedBy', 'translations'])->get(),
             'status' => true,
@@ -241,7 +241,14 @@ class DepartmentController extends Controller
             )
             ->storeOnLocal('pdfs/');
 
-        return response()->download(url('/storage/' .$mpdfPath), headers: ['Content-Type' => 'application/pdf']);
+        $file  = url('/storage/' . $mpdfPath);
+        return response()->json([
+            'data'   => [
+                'file' => $file
+            ],
+            'status' => true,
+            'message' => ''
+        ]);
     }
 
     public function exportExcel(Request $request)
