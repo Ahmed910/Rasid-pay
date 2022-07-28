@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api\V1\Dashboard;
 
 use App\Exports\JobsExport;
+use App\Exports\RasidJobsArchiveExport;
 use Illuminate\Http\Request;
 use App\Models\RasidJob\RasidJob;
 use App\Http\Controllers\Controller;
@@ -220,6 +221,59 @@ class RasidJobController extends Controller
         $fileName = uniqid() . time();
         Excel::store(new JobsExport($request), 'rasidJobs/excels/' . $fileName . '.xlsx', 'public');
         $file = url('/storage/' . 'rasidJobs/excels/' . $fileName . '.xlsx');
+
+        return response()->json([
+            'data'   => [
+                'file' => $file
+            ],
+            'status' => true,
+            'message' => ''
+        ]);
+    }
+
+    public function exportPDFArchive(Request $request, GeneratePdf $pdfGenerate)
+    {
+        $rasidJobsQuery = RasidJob::onlyTrashed()
+        ->search($request)
+        ->ListsTranslations('name')
+        ->searchDeletedAtFromTo($request)
+        ->with('department')
+        ->select('rasid_jobs.*')
+        ->sortBy($request, 'archive')
+        ->get();
+
+        if (!$request->has('created_from')) {
+            $createdFrom = RasidJob::selectRaw('MIN(created_at) as min_created_at')->value('min_created_at');
+        }
+
+        $mpdfPath = $pdfGenerate->newFile()
+            ->view(
+                'dashboard.exports.archive.rasid_job',
+                [
+                    'jobs_archive' => $rasidJobsQuery,
+                    'date_from'   => format_date($request->created_from) ?? format_date($createdFrom),
+                    'date_to'     => format_date($request->created_to) ?? format_date(now()),
+                    'userId'      => auth()->user()->login_id,
+
+                ]
+            )
+            ->storeOnLocal('rasidJobsArchive/pdfs/');
+        $file  = url('/storage/' . $mpdfPath);
+
+        return response()->json([
+            'data'   => [
+                'file' => $file
+            ],
+            'status' => true,
+            'message' => ''
+        ]);
+    }
+
+    public function exportExcelArchive(Request $request)
+    {
+        $fileName = uniqid() . time();
+        Excel::store(new RasidJobsArchiveExport($request), 'rasidJobsArchive/excels/' . $fileName . '.xlsx', 'public');
+        $file = url('/storage/' . 'rasidJobsArchive/excels/' . $fileName . '.xlsx');
 
         return response()->json([
             'data'   => [
