@@ -87,7 +87,7 @@ class CitizenController extends Controller
             ->view(
                 'dashboard.exports.citizen',
                 [
-                    'Citizens' => $CitizensQuery,
+                    'citizens' => $CitizensQuery,
                     'date_from'   => format_date($request->created_from) ?? format_date($createdFrom),
                     'date_to'     => format_date($request->created_to) ?? format_date(now()),
                     'userId'      => auth()->user()->login_id,
