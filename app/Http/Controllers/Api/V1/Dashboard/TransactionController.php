@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api\V1\Dashboard;
 
+use App\Exports\TransactionExport;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\Dashboard\TransactionResource;
 use App\Http\Requests\V1\Dashboard\TransactionRequest;
@@ -9,6 +10,8 @@ use App\Models\Client;
 use Illuminate\Http\Request;
 use App\Models\Transaction;
 use App\Models\User;
+use App\Services\GeneratePdf;
+use Maatwebsite\Excel\Facades\Excel;
 
 class TransactionController extends Controller
 {
@@ -127,5 +130,57 @@ class TransactionController extends Controller
             'status' => true,
             'message' => ' '
         ], 200);
+    }
+
+
+    public function exportPDF(Request $request, GeneratePdf $pdfGenerate)
+    {
+        $TransactionsQuery = Transaction::search($request)
+        ->CustomDateFromTo($request)
+        ->sortBy($request)
+        ->with('citizenPackage', 'toUser', 'fromUser.citizen.enabledPackage', 'transactionable')
+        ->get();
+
+
+        if (!$request->has('created_from')) {
+            $createdFrom = Transaction::selectRaw('MIN(created_at) as min_created_at')->value('min_created_at');
+        }
+
+        $mpdfPath = $pdfGenerate->newFile()
+            ->view(
+                'dashboard.exports.transactions',
+                [
+                    'Transactions' => $TransactionsQuery,
+                    'date_from'   => format_date($request->created_from) ?? format_date($createdFrom),
+                    'date_to'     => format_date($request->created_to) ?? format_date(now()),
+                    'userId'      => auth()->user()->login_id,
+
+                ]
+            )
+            ->storeOnLocal('Transactions/pdfs/');
+        $file  = url('/storage/' . $mpdfPath);
+
+        return response()->json([
+            'data'   => [
+                'file' => $file
+            ],
+            'status' => true,
+            'message' => ''
+        ]);
+    }
+
+    public function exportExcel(Request $request)
+    {
+        $fileName = uniqid() . time();
+        Excel::store(new TransactionExport($request), 'Transactions/excels/' . $fileName . '.xlsx', 'public');
+        $file = url('/storage/' . 'Transactions/excels/' . $fileName . '.xlsx');
+
+        return response()->json([
+            'data'   => [
+                'file' => $file
+            ],
+            'status' => true,
+            'message' => ''
+        ]);
     }
 }

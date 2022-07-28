@@ -7,7 +7,7 @@ use Illuminate\Contracts\View\View;
 use App\Models\StaticPage\StaticPage;
 use Maatwebsite\Excel\Concerns\ShouldAutoSize;
 
-class OurAppExport implements FromView, ShouldAutoSize
+class StaticPageExport implements FromView, ShouldAutoSize
 {
     protected $request;
 

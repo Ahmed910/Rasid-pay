@@ -2,12 +2,15 @@
 
 namespace App\Http\Controllers\Api\V1\Dashboard;
 
+use App\Exports\VendorExport;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\V1\Dashboard\VendorRequest;
 use App\Http\Resources\Dashboard\Vendors\VendorCollection;
 use App\Http\Resources\Dashboard\Vendors\VendorResource;
 use App\Models\Vendor\Vendor;
 use Illuminate\Http\Request;
+use App\Services\GeneratePdf;
+use Maatwebsite\Excel\Facades\Excel;
 
 class VendorController extends Controller
 {
@@ -100,5 +103,59 @@ class VendorController extends Controller
                 'status' => true,
                 'message' => __('dashboard.general.success_delete')
             ]);
+    }
+
+    public function exportPDF(Request $request, GeneratePdf $pdfGenerate)
+    {
+        $VendorsQuery = Vendor::search($request)
+        ->ListsTranslations('name')
+        ->with('branches')
+        ->addSelect('vendors.type', 'vendors.is_active', 'vendors.commercial_record', 'vendors.tax_number', 'vendors.iban')
+        ->withCount('branches')
+        ->CustomDateFromTo($request)
+        ->sortBy($request)
+        ->get();
+
+
+        if (!$request->has('created_from')) {
+            $createdFrom = Vendor::selectRaw('MIN(created_at) as min_created_at')->value('min_created_at');
+        }
+
+        $mpdfPath = $pdfGenerate->newFile()
+            ->view(
+                'dashboard.exports.vendor',
+                [
+                    'Vendors' => $VendorsQuery,
+                    'date_from'   => format_date($request->created_from) ?? format_date($createdFrom),
+                    'date_to'     => format_date($request->created_to) ?? format_date(now()),
+                    'userId'      => auth()->user()->login_id,
+
+                ]
+            )
+            ->storeOnLocal('Vendors/pdfs/');
+        $file  = url('/storage/' . $mpdfPath);
+
+        return response()->json([
+            'data'   => [
+                'file' => $file
+            ],
+            'status' => true,
+            'message' => ''
+        ]);
+    }
+
+    public function exportExcel(Request $request)
+    {
+        $fileName = uniqid() . time();
+        Excel::store(new VendorExport($request), 'Vendors/excels/' . $fileName . '.xlsx', 'public');
+        $file = url('/storage/' . 'Vendors/excels/' . $fileName . '.xlsx');
+
+        return response()->json([
+            'data'   => [
+                'file' => $file
+            ],
+            'status' => true,
+            'message' => ''
+        ]);
     }
 }

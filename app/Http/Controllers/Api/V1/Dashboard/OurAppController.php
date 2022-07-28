@@ -2,13 +2,15 @@
 
 namespace App\Http\Controllers\Api\V1\Dashboard;
 
+use App\Exports\OurAppExport;
 use App\Models\OurApp\OurApp;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\V1\Dashboard\OurAppRequest;
 use App\Http\Resources\Dashboard\OurApp\OurAppCollection;
 use App\Http\Resources\Dashboard\OurApp\OurAppResource;
-
+use App\Services\GeneratePdf;
+use Maatwebsite\Excel\Facades\Excel;
 class OurAppController extends Controller
 {
     public function index(Request $request)
@@ -84,31 +86,32 @@ class OurAppController extends Controller
 
     public function exportPDF(Request $request, GeneratePdf $pdfGenerate)
     {
-        $messageTypesQuery = MessageType::ListsTranslations('name')
-        ->addSelect('created_at', 'is_active')
-        ->withCount('admins')
-        ->search($request)
+        $OurAppsQuery = OurApp::search($request)
+        ->ListsTranslations('name')
         ->CustomDateFromTo($request)
+        ->addSelect(
+            'our_apps.*'
+        )
         ->sortBy($request)
         ->get();
 
 
         if (!$request->has('created_from')) {
-            $createdFrom = MessageType::selectRaw('MIN(created_at) as min_created_at')->value('min_created_at');
+            $createdFrom = OurApp::selectRaw('MIN(created_at) as min_created_at')->value('min_created_at');
         }
 
         $mpdfPath = $pdfGenerate->newFile()
             ->view(
-                'dashboard.exports.message_type',
+                'dashboard.exports.our_app',
                 [
-                    'messageTypes' => $messageTypesQuery,
+                    'ourApps' => $OurAppsQuery,
                     'date_from'   => format_date($request->created_from) ?? format_date($createdFrom),
                     'date_to'     => format_date($request->created_to) ?? format_date(now()),
                     'userId'      => auth()->user()->login_id,
 
                 ]
             )
-            ->storeOnLocal('MessageTypes/pdfs/');
+            ->storeOnLocal('ourApps/pdfs/');
         $file  = url('/storage/' . $mpdfPath);
 
         return response()->json([
@@ -123,8 +126,8 @@ class OurAppController extends Controller
     public function exportExcel(Request $request)
     {
         $fileName = uniqid() . time();
-        Excel::store(new MessageTypeExport($request), 'MessageTypes/excels/' . $fileName . '.xlsx', 'public');
-        $file = url('/storage/' . 'MessageTypes/excels/' . $fileName . '.xlsx');
+        Excel::store(new OurAppExport($request), 'ourApps/excels/' . $fileName . '.xlsx', 'public');
+        $file = url('/storage/' . 'ourApps/excels/' . $fileName . '.xlsx');
 
         return response()->json([
             'data'   => [

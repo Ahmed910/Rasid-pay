@@ -14,7 +14,7 @@ class WalletTransferController extends Controller
 
     public function __construct()
     {
-        // $this->middleware('check_max_transactions')->only('store');
+        $this->middleware('check_max_transactions')->only('store');
     }
 
     public function store(WalletTransferRequest $request, Transfer $transfer)
@@ -73,21 +73,6 @@ class WalletTransferController extends Controller
             'trans_status' => $transfer->transfer_status == 'transfered' ? Transaction::SUCCESS : Transaction::PENDING,
             'trans_number' => generate_unique_code(Transaction::class, 'trans_number', 10, 'numbers')
         ]);
-        if($receiver_citizen_wallet){
-            $data = [
-                'title' => trans('mobile.notifications.wallet_transfer_to.title'),
-                'body' => trans('mobile.notifications.wallet_transfer_to.body',['amount' => $transaction->amount,'from_user' => auth()->user()->fullname]),
-            ];
-
-            $receiver_citizen_wallet->citizen->notify(new generalNotification($data));
-        }
-
-        $data = [
-            'title' => trans('mobile.notifications.wallet_transfer_from.title'),
-            'body' => trans('mobile.notifications.wallet_transfer_from.body',['amount' => $transaction->amount,'to_user' => $receiver_citizen_wallet->citizen?->fullname]),
-        ];
-        auth()->user()->notify(new generalNotification($data));
-
 
         return TransactionResource::make($transaction->refresh())->additional([
             'message' => trans('mobile.local_transfers.transfer_has_been_done_successfully'),

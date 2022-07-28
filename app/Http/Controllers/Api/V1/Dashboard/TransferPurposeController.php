@@ -2,12 +2,15 @@
 
 namespace App\Http\Controllers\Api\V1\Dashboard;
 
+use App\Exports\TransferPurposeExport;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\V1\Dashboard\TransferPurposeRequest;
 use App\Http\Resources\Dashboard\TransferPurpose\TransferPurposeCollection;
 use App\Http\Resources\Dashboard\TransferPurpose\TransferPurposeResource;
 use App\Models\TransferPurpose\TransferPurpose;
 use Illuminate\Http\Request;
+use App\Services\GeneratePdf;
+use Maatwebsite\Excel\Facades\Excel;
 
 class TransferPurposeController extends Controller
 {
@@ -98,5 +101,55 @@ class TransferPurposeController extends Controller
                 'status' => true,
                 'message' => trans("dashboard.general.success_delete")
             ]);
+    }
+
+
+    public function exportPDF(Request $request, GeneratePdf $pdfGenerate)
+    {
+        $TransferPurposesQuery = TransferPurpose::search($request)
+        ->sortBy($request)
+        ->get();
+
+
+        if (!$request->has('created_from')) {
+            $createdFrom = TransferPurpose::selectRaw('MIN(created_at) as min_created_at')->value('min_created_at');
+        }
+
+        $mpdfPath = $pdfGenerate->newFile()
+            ->view(
+                'dashboard.exports.transfer_purpose',
+                [
+                    'TransferPurposes' => $TransferPurposesQuery,
+                    'date_from'   => format_date($request->created_from) ?? format_date($createdFrom),
+                    'date_to'     => format_date($request->created_to) ?? format_date(now()),
+                    'userId'      => auth()->user()->login_id,
+
+                ]
+            )
+            ->storeOnLocal('TransferPurposes/pdfs/');
+        $file  = url('/storage/' . $mpdfPath);
+
+        return response()->json([
+            'data'   => [
+                'file' => $file
+            ],
+            'status' => true,
+            'message' => ''
+        ]);
+    }
+
+    public function exportExcel(Request $request)
+    {
+        $fileName = uniqid() . time();
+        Excel::store(new TransferPurposeExport($request), 'TransferPurposes/excels/' . $fileName . '.xlsx', 'public');
+        $file = url('/storage/' . 'TransferPurposes/excels/' . $fileName . '.xlsx');
+
+        return response()->json([
+            'data'   => [
+                'file' => $file
+            ],
+            'status' => true,
+            'message' => ''
+        ]);
     }
 }
