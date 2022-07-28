@@ -44,6 +44,7 @@ class ContactRequest extends ApiMasterRequest
             'email.email'              =>  __('mobile.validation.email.email'),
             'email.regex'              =>  __('mobile.validation.email.regex'),
             'phone.required'           =>  __('mobile.validation.phone.required'),
+            'phone.numeric'            =>  __('mobile.validation.phone.invalid'),
             'content.required'         =>  __('mobile.contacts.validation.content.required'),
             'content.min'              =>  __('mobile.contacts.validation.content.min'),
             'message_type_id.required' =>  __('mobile.contacts.validation.message_type.required'),

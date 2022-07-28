@@ -114,6 +114,10 @@ class LoginController extends Controller
         if (!$user) {
             return response()->json(['status' => false, 'data' => null, 'message' => trans('auth.account_not_exists')], 422);
         }
+
+        if ($user->ban_status !== 'active') {
+            return response()->json(['status' => false, 'data' => null, 'message' => trans('auth.user_is_banned')], 422);
+        }
         try {
             $reset_token = generate_unique_code(User::class, 'reset_token', 100);
             if ($user->phone_verified_at || $user->email_verified_at) {
