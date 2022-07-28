@@ -19,4 +19,11 @@ class ResendCodeRequest extends ApiMasterRequest
         ];
     }
 
+    public function messages()
+    {
+        return [
+            '_token.exists' =>  __('auth.token.not_exists')
+        ];
+    }
+
 }

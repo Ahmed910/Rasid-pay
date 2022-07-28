@@ -708,6 +708,17 @@ return [
     ],
     'department' =>  [
         'is_active' => 'الحالة',
+        'permissions' => [
+            'index' => 'السجل',
+            'create' => 'انشاء',
+            'archive' => 'عرض أرشيف',
+            'show' => 'عرض',
+            'destroy' => 'أرشفة',
+            'force_delete' => 'حذف نهائي',
+            'update' => 'تعديل',
+            'restore' => 'استعادة',
+            'store' => 'حفظ',
+        ],
         'sub_progs' =>
         [
             'show' => 'عرض قسم',

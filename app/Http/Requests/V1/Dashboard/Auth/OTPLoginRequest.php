@@ -20,4 +20,12 @@ class OTPLoginRequest extends ApiMasterRequest
             'device_type' => 'nullable|in:ios,android',
         ];
     }
+
+    public function messages()
+    {
+        return [
+            '_token.exists'  =>  __('auth.token.not_exists'),   
+            'code.exists'    =>  __('auth.code.not_exists'),   
+        ];
+    }
 }

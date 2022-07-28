@@ -69,7 +69,7 @@ class GeneratePdf
     {
         $basePath = base_path('storage/app/public/');
         $this->checkIfFolderExists($basePath . $folder);
-        $path = $basePath . $folder . uniqid() . ".pdf";
+        $path = $basePath . $folder . uniqid() . time() . ".pdf";
         $this->mpdf->Output($path, 'F');
         $path = Str::replaceFirst($basePath, '', $path);
 

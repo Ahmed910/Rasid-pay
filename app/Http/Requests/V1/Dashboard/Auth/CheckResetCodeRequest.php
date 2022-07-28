@@ -26,4 +26,12 @@ class CheckResetCodeRequest extends ApiMasterRequest
             'code' => $code
         ];
     }
+
+    public function messages()
+    {
+        return [
+            '_token.exists'        =>  __('auth.token.not_exists'),   
+            'code.exists'          =>  __('auth.code.not_exists')
+        ];
+    }
 }

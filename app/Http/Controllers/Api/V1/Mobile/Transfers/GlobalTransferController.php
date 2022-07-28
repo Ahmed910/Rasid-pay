@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\V1\Mobile\Transfers\GlobalTransferRequest;
 use App\Http\Resources\Api\V1\Mobile\Transactions\TransactionResource;
 use App\Models\{CitizenWallet, Country\Country, Transaction, Transfer};
+use App\Notifications\GeneralNotification;
 
 class GlobalTransferController extends Controller
 {
@@ -73,6 +74,11 @@ class GlobalTransferController extends Controller
             'trans_number' => generate_unique_code(Transaction::class,'trans_number',10,'numbers'),
             'trans_status' => 'success'
         ]);
+        $notify_data = [
+            'title' => trans('mobile.notifications.global_transfer.title'),
+            'body' => trans("mobile.notifications.global_transfer.body", [ 'amount' => $request->amount, 'currency' => $transaction->transactionable?->bankTransfer?->toCurrency?->currency_code,'beneficiary' => $transaction->transactionable?->beneficiary?->name, 'country' =>$transaction->transactionable?->beneficiary?->country?->name , 'recieve_option'=>$transaction->transactionable?->bankTransfer?->recieveOption?->name ,'mtcn' =>$transaction->transactionable?->bankTransfer?->mtcn_number ])
+        ];
+        auth()->user()->notify(new GeneralNotification($notify_data,['database']));
         return TransactionResource::make($transaction->refresh())->additional([
             'message' => trans('mobile.local_transfers.transfer_has_been_done_successfully'),
             'status' => true

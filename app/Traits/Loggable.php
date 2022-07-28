@@ -197,13 +197,6 @@ trait Loggable
             && in_array($column, $keys)
         ) {
             $this->checkStatus($self, $column);
-        } elseif (
-            !$hasData
-            && !request()->has('image')
-            && in_array($column, $keys)
-            && !request()->image_deleted
-        ) {
-            $this->checkStatus($self, $column);
         } elseif ($hasData && in_array($column, $keys)) {
             $self->addUserActivity($self, ActivityLog::UPDATE, 'index');
         } else {

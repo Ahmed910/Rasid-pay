@@ -45,6 +45,7 @@ class WalletTransferRequest extends ApiMasterRequest
         $this->message = $this->checkUserFound($this->wallet_transfer_method, $this->transfer_method_value);
 
         return $this->merge([
+            'amount' => @$data['amount'] ? convert_arabic_number($data['amount']) : @$data['amount'],
             'citizen_id' => $this->user_object?->id,
         ]);
     }

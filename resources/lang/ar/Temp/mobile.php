@@ -197,7 +197,7 @@ return [
 
             "content" => [
                 "required" => "نص الرسالة مطلوب",
-                "min" => "نص الرسالة يجب ان لا يقل عن 10 حروف",
+                "min" => "نص الرسالة يجب ان لا يقل عن :min حروف",
             ],
         ]
    ],
@@ -219,7 +219,13 @@ return [
             'wallet_transfer_to' => [
                 'title' => 'تحويل برقم المحفظة',
                 'body' => 'لقد تم تحويل رصيد قيمته :amount من :from_user'
+            ],
+            "global_transfers" => [
+                "title" => "تم التحويل الدولي بنجاح",
+                "body" => "تم تحويل :amount :currency إلى المستفيد :beneficiary"
             ]
         ]
+
+      
 
 ];
