@@ -41,7 +41,7 @@ class VendorResource extends JsonResource
                     'show' => auth()->user()->hasPermissions('vendors.show'),
                     'create' => auth()->user()->hasPermissions('vendors.store'),
                     'update' => auth()->user()->hasPermissions('vendors.update'),
-                    'destroy' => auth()->user()->hasPermissions('vendors.destroy'),
+                    'force_delete' => auth()->user()->hasPermissions('vendors.destroy'),
                 ])
             ] + $locales;
     }
