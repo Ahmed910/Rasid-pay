@@ -64,7 +64,7 @@ class ActivityLog extends Model
             $this->changeDateLocale($locale);
             return Hijri::convertToHijri($this->attributes['created_at'])->format('d F o h:i A');
         }
-        return Carbon::parse($this->attributes['created_at'])->locale($locale)->translatedFormat('d/m/Y - h:i A');
+        return Carbon::parse($this->attributes['created_at'])->locale($locale)->translatedFormat('j F Y - h:i A');
     }
     #endregion accessor
 
