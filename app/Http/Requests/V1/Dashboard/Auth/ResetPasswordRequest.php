@@ -23,7 +23,7 @@ class ResetPasswordRequest extends ApiMasterRequest
 
         return [
             '_token' => 'required|exists:users,reset_token,ban_status,active',
-            'password' => 'required|between:6,100'
+            'password' => 'required|confirmed|regex:/^[A-Za-z0-9()\]\[#%&*_=~{}^:`.,$!@+\/-]+$/|min:6|max:100'
         ];
     }
 

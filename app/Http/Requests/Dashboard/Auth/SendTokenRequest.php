@@ -37,7 +37,7 @@ class SendTokenRequest extends FormRequest
         $data = $this->all();
         if ($this->has('phone')) {
             $this->merge([
-                'phone' => @$data['phone'] && is_numeric($data['phone']) ? convert_arabic_number($data['phone']) : @$data['phone'],
+                'phone' => @$data['phone'] && is_numeric($data['phone']) ? filter_mobile_number($data['phone']) : @$data['phone'],
                 'send_type' => 'phone'
             ]);
         }else{

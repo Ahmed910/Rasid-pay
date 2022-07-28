@@ -20,6 +20,7 @@ class TransactionController extends Controller
             ->mobileSearch($request)
             ->whereNotNull('transactionable_type')
             ->CustomDateFromTo($request)
+            ->latest()
             ->paginate((int)($request->per_page ?? config("globals.per_page")));
 
         return TransactionResource::collection($transactions)
