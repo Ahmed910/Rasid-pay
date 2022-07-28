@@ -17,4 +17,5 @@ class BankController extends Controller
             'message'=>''
         ]);
     }
+    
 }

@@ -2,12 +2,15 @@
 
 namespace App\Http\Controllers\Api\V1\Dashboard;
 
+use App\Exports\GroupsExport;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\V1\Dashboard\GroupRequest;
 use App\Http\Resources\Dashboard\Group\{GroupResource, GroupCollection, PermissionResource, UriResource};
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use App\Models\{Group\Group, Permission};
+use App\Services\GeneratePdf;
+use Maatwebsite\Excel\Facades\Excel;
 
 class GroupController extends Controller
 {
@@ -43,10 +46,10 @@ class GroupController extends Controller
         $permissions_collect = $all_permissions->whereIn('id', $request->permission_list);
         foreach ($permissions_collect as $permission) {
             $action = explode('.', $permission->name);
-            if (in_array($permission?->action, ['update', 'store', 'destroy', 'show']) && !$permissions_collect->contains('name', $permission?->main_program . '.index')) {
-                $permissions[] = $all_permissions->where('name', $permission?->main_program . '.index')->first()?->id;
-            } elseif (in_array($permission?->action, ['restore', 'force_delete']) && !$permissions_collect->contains('name', $permission?->main_program . '.archive')) {
-                $permissions[] = $all_permissions->where('name', $permission?->main_program . '.archive')->first()?->id;
+            if (in_array(@$action[1], ['update', 'store', 'destroy', 'show']) && !$permissions_collect->contains('name', $action[0] . '.index')) {
+                $permissions[] = $all_permissions->where('name', $action[0] . '.index')->first()?->id;
+            } elseif (in_array(@$action[1], ['restore', 'force_delete']) && !$permissions_collect->contains('name', $action[0] . '.archive')) {
+                $permissions[] = $all_permissions->where('name', $action[0] . '.archive')->first()?->id;
             }
         }
         if ($request->group_list) {
@@ -108,10 +111,11 @@ class GroupController extends Controller
         $all_permissions = Permission::select('id', 'name')->get();
         $permissions_collect = $all_permissions->whereIn('id', $request->permission_list);
         foreach ($permissions_collect as $permission) {
-            if (in_array($permission?->action, ['update', 'store', 'destroy', 'show']) && !$permissions_collect->contains('name', $permission?->main_program . '.index')) {
-                $permissions[] = $all_permissions->where('name', $permission?->main_program . '.index')->first()?->id;
-            } elseif (in_array($permission?->action, ['restore', 'force_delete']) && !$permissions_collect->contains('name', $permission?->main_program . '.archive')) {
-                $permissions[] = $all_permissions->where('name', $permission?->main_program . '.archive')->first()?->id;
+            $action = explode('.', $permission->name);
+            if (in_array($action[1], ['update', 'store', 'destroy', 'show']) && !$permissions_collect->contains('name', $action[0] . '.index')) {
+                $permissions[] = $all_permissions->where('name', $action[0] . '.index')->first()?->id;
+            } elseif (in_array($action[1], ['restore', 'force_delete']) && !$permissions_collect->contains('name', $action[0] . '.archive')) {
+                $permissions[] = $all_permissions->where('name', $action[0] . '.archive')->first()?->id;
             }
         }
         if ($request->group_list) {
@@ -121,17 +125,17 @@ class GroupController extends Controller
         $shared_permissions = array_intersect($old_permissions, $permissions);
         $attached_permissions = array_diff($permissions, $shared_permissions);
         $detached_permissions = array_diff($old_permissions, $shared_permissions);
-        // if ($attached_permissions || $detached_permissions) {
-        //     $group->admins?->each(function ($admin) use ($attached_permissions, $detached_permissions) {
-        //         if ($detached_permissions) {
-        //             $admin->permissions()->detach($detached_permissions);
-        //         }
-        //         $new_permissions = array_diff($attached_permissions, $admin->permission_list);
-        //         if ($new_permissions) {
-        //             $admin->permissions()->syncWithoutDetaching($new_permissions);
-        //         }
-        //     });
-        // }
+        if ($attached_permissions || $detached_permissions) {
+            $group->admins?->each(function ($admin) use ($attached_permissions, $detached_permissions) {
+                if ($detached_permissions) {
+                    $admin->permissions()->detach($detached_permissions);
+                }
+                $new_permissions = array_diff($attached_permissions, $admin->permission_list);
+                if ($new_permissions) {
+                    $admin->permissions()->syncWithoutDetaching($new_permissions);
+                }
+            });
+        }
 
         $group->groups()->sync($request->group_list);
         $group->permissions()->sync($permissions);
@@ -174,5 +178,57 @@ class GroupController extends Controller
         })->with('permissions')->ListsTranslations('name')->without(['addedBy'])->get();
 
         return GroupResource::collection($groups)->additional(['status' => true, 'message' => ""]);
+    }
+
+    public function exportPDF(Request $request, GeneratePdf $pdfGenerate)
+    {
+        $groupsQuery = Group::with('groups', 'permissions')
+        ->withTranslation()
+        ->withCount('admins as user_count')
+        ->search($request)
+        ->sortBy($request)
+        ->get();
+
+
+        if (!$request->has('created_from')) {
+            $createdFrom = Group::selectRaw('MIN(created_at) as min_created_at')->value('min_created_at');
+        }
+
+        $mpdfPath = $pdfGenerate->newFile()
+            ->view(
+                'dashboard.exports.group',
+                [
+                    'groups' => $groupsQuery,
+                    'date_from'   => format_date($request->created_from) ?? format_date($createdFrom),
+                    'date_to'     => format_date($request->created_to) ?? format_date(now()),
+                    'userId'      => auth()->user()->login_id,
+
+                ]
+            )
+            ->storeOnLocal('groups/pdfs/');
+        $file  = url('/storage/' . $mpdfPath);
+
+        return response()->json([
+            'data'   => [
+                'file' => $file
+            ],
+            'status' => true,
+            'message' => ''
+        ]);
+    }
+
+    public function exportExcel(Request $request)
+    {
+        $fileName = uniqid() . time();
+        Excel::store(new GroupsExport($request), 'groups/excels/' . $fileName . '.xlsx', 'public');
+        $file = url('/storage/' . 'groups/excels/' . $fileName . '.xlsx');
+
+        return response()->json([
+            'data'   => [
+                'file' => $file
+            ],
+            'status' => true,
+            'message' => ''
+        ]);
     }
 }

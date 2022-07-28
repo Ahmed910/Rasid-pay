@@ -16,10 +16,6 @@ class CitizenController extends Controller
 
     public function index(Request $request)
     {
-        if (isset($request->order[0]['column'])) {
-            $request['sort'] = ['column' => $request['columns'][$request['order'][0]['column']]['name'], 'dir' => $request['order'][0]['dir']];
-        }
-
         $citizen = Citizen::with(['user', "enabledPackage"])
         ->whereHas('user',fn ($q) => $q->where('register_status' , 'completed'))
             ->CustomDateFromTo($request)->search($request)->sortBy($request)
