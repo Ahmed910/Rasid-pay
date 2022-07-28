@@ -18,9 +18,9 @@
     @foreach ($static_pages as $static_page)
     <tr>
       <td>{{ $loop->iteration  }}</td>
-      <td>{{ $static_page->is_active ?? '' }}</td>
-      <td>{{ $static_page->show_in_app ?? '' }}</td>
-      <td>{{ $static_page->show_in_website ?? '' }}</td>
+      <td>{{ (bool) $static_page->is_active ?? '' }}</td>
+      <td>{{ (bool) $static_page->show_in_app ?? '' }}</td>
+      <td>{{ (bool) $static_page->show_in_website ?? '' }}</td>
       <td>{{ $static_page->link ?? '' }}</td>
       <td>{{ $static_page->name ?? '' }}</td>
     </tr>

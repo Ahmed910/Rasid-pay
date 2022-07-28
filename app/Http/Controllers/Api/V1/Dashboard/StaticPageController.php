@@ -108,7 +108,7 @@ class StaticPageController extends Controller
         ->ListsTranslations('name')
         ->CustomDateFromTo($request)
         ->addSelect(
-            'our_apps.*'
+            'static_pages.*'
         )
         ->sortBy($request)
         ->get();

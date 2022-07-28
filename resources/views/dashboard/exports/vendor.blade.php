@@ -24,7 +24,7 @@
       <td>{{ $vendor->type ?? '' }}</td>
       <td>{{ $vendor->commercial_record ?? '' }}</td>
       <td>{{ $vendor->tax_number ?? '' }}</td>
-      <td>{{ $vendor->is_active ?? '' }}</td>
+      <td>{{ (bool) $vendor->is_active ?? '' }}</td>
     </tr>
     @endforeach
   </tbody>
