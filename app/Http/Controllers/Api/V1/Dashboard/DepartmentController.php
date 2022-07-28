@@ -73,7 +73,7 @@ class DepartmentController extends Controller
                     }
                 })->when($request->has_jobs,function ($q) {
                     $q->whereHas('rasidJobs',function ($q) {
-                        $q->where('rasid_jobs.is_active',true);
+                        $q->where(['rasid_jobs.is_active' => true, 'is_vacant' => true]);
                     });
                 })->ListsTranslations('name')
                 ->addSelect('departments.is_active')
