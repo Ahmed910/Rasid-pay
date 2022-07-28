@@ -210,6 +210,16 @@ return [
             'freelance_doc' => 'مستقل',
             'member' => 'عضو',
         ]
-    ]
+        ],
+        'notifications' => [
+            'wallet_transfer_from' => [
+                'title' => 'تحويل برقم المحفظة',
+                'body' => 'لقد قمت بتحويل رصيد :amount إلي :to_user'
+            ],
+            'wallet_transfer_to' => [
+                'title' => 'تحويل برقم المحفظة',
+                'body' => 'لقد تم تحويل رصيد قيمته :amount من :from_user'
+            ]
+        ]
 
 ];
