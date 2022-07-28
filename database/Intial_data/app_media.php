@@ -3,8 +3,8 @@ return <<<'SQL'
 INSERT INTO `app_media` (`id`, `media`, `mediable_type`, `mediable_id`, `option`, `deleted_at`, `created_at`, `updated_at`) VALUES
 ('3cfb9746-9779-4cda-8371-12545c9fca53', '/storage/images/departments/mxLx4IeJ6qTR2iga6jf2OXUrIWRXgb7sdbHUUKBw.jpg', 'Department', 'dfc5d17c-1c1e-4940-9964-8e8d323f5335', 'image', NULL, '2022-04-05 12:46:04', '2022-04-05 12:46:04'),
 ('3cfb9746-9779-4cda-8371-12545c9fca55', '/dashboardAssets/images/onBoard/onboard-1.png', 'App\\Models\\Slide', '320638a3-5d71-4f08-92d5-fc70f34c2453', NULL, NULL, '2022-06-20 16:27:46', '2022-06-20 16:27:46'),
-('3cfb9746-9779-4cda-8371-12545c9fca56', '/dashboardAssets/images/onBoard/onboard-2.png', 'App\\Models\\Slide', '9e224a7c-b106-4a10-a814-34907dfe7f4f', NULL, NULL, '2022-06-20 16:27:46', '2022-06-20 16:27:46'),
-('3cfb9746-9779-4cda-8371-12545c9fca57', '/dashboardAssets/images/onBoard/onboard-3.png', 'App\\Models\\Slide', '4be0c971-e43a-42a0-a96b-988052991e8e', NULL, NULL, '2022-06-20 16:27:46', '2022-06-20 16:27:46'),
+('3cfb9746-9779-4cda-8371-12545c9fca56', '/dashboardAssets/images/onBoard/onboard-3.png', 'App\\Models\\Slide', '9e224a7c-b106-4a10-a814-34907dfe7f4f', NULL, NULL, '2022-06-20 16:27:46', '2022-06-20 16:27:46'),
+('3cfb9746-9779-4cda-8371-12545c9fca57', '/dashboardAssets/images/onBoard/onboard-2.png', 'App\\Models\\Slide', '4be0c971-e43a-42a0-a96b-988052991e8e', NULL, NULL, '2022-06-20 16:27:46', '2022-06-20 16:27:46'),
 ('3d66a921-7c17-4474-96c2-895a61676445', '/storage/images/users/yY8zP8xxWEIgk9A0LVmcbr23hhabmZn8WHDcSbwO.png', 'App\\Models\\User', '2d3fa0ba-2100-45ec-983f-ebd9cae95a03', 'image', NULL, '2022-04-18 15:13:35', '2022-04-18 15:13:35'),
 ('4713f055-a9da-40c3-8ea2-c62cdc74ddc2', '/storage/images/departments/1Dhhr9wdcsBytiu5ktEvVjTQtlMxBzUMWYlF2Sxv.jpg', 'Department', 'bb35736e-be4e-4b34-bb0f-3dcd992ce68a', 'image', NULL, '2022-03-30 16:57:39', '2022-03-30 16:57:39'),
 ('5f736d0c-9485-453a-940a-9bb07fd8b9ee', '/storage/images/departments/k4sMeqejyVZ74l4z2GzKeGV1ZAWOhNUPAbxSEKsV.png', 'Department', '9175ad58-cc11-4c95-9eb0-1ef0069aa15a', 'image', '2022-04-05 11:58:37', '2022-04-04 13:33:14', '2022-04-05 11:58:37'),
