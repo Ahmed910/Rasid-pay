@@ -43,7 +43,7 @@ class GeneralNotification extends Notification implements ShouldQueue
      */
     public function toMail($notifiable)
     {
-        
+
     }
 
     /**
