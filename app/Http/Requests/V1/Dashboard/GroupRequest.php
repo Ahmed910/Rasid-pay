@@ -14,6 +14,7 @@ class GroupRequest extends ApiMasterRequest
      */
     public function rules()
     {
+
         $rules =  [
             'is_active'=>'required|in:1,0',
             'permission_list' => 'required_without:group_list|array|min:1',
@@ -26,15 +27,18 @@ class GroupRequest extends ApiMasterRequest
         //     $rules['is_active'] = 'required|in:1,0';
         // }
 
+
         foreach (config('translatable.locales') as $locale) {
             $rules[$locale.".name"] = 'required|string|between:2,100|regex:/^[\pL\pN\s\-\_]+$/u|unique:group_translations,name,' . @$this->group->id . ',group_id';
             $rules[$locale.'.desc'] = 'nullable|string|between:3,100000';
         }
+        
         return $rules;
     }
 
     public function messages()
     {
+
         $messages = [
             'permission_list.required_without' => trans('dashboard.general.Permission_field_required'),
             'group_list.required_without' => '',

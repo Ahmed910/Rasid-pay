@@ -36,6 +36,7 @@ class GroupController extends Controller
      */
     public function store(GroupRequest $request, Group $group)
     {
+
         $group->fill($request->validated() + ['added_by_id' => auth()->id()])->save();
         $permissions = $request->permission_list ?? [];
         $all_permissions = Permission::select('id', 'name')->get();
