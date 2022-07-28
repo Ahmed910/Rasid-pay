@@ -2,12 +2,15 @@
 
 namespace App\Http\Controllers\Api\V1\Dashboard;
 
+use App\Exports\StaticPageExport;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\Dashboard\StaticPages\StaticPageResource;
 use App\Http\Requests\V1\Dashboard\StaticPageRequest;
 use App\Http\Resources\Dashboard\StaticPages\StaticPageCollection;
 use App\Models\StaticPage\StaticPage;
+use App\Services\GeneratePdf;
+use Maatwebsite\Excel\Facades\Excel;
 
 class StaticPageController extends Controller
 {
@@ -97,6 +100,60 @@ class StaticPageController extends Controller
         'status'=>true,
         'message'=>''
     ]);
+    }
+
+    public function exportPDF(Request $request, GeneratePdf $pdfGenerate)
+    {
+        $StaticPagesQuery = StaticPage::search($request)
+        ->ListsTranslations('name')
+        ->CustomDateFromTo($request)
+        ->addSelect(
+            'our_apps.*'
+        )
+        ->sortBy($request)
+        ->get();
+
+
+        if (!$request->has('created_from')) {
+            $createdFrom = StaticPage::selectRaw('MIN(created_at) as min_created_at')->value('min_created_at');
+        }
+
+        $mpdfPath = $pdfGenerate->newFile()
+            ->view(
+                'dashboard.exports.static_page',
+                [
+                    'StaticPages' => $StaticPagesQuery,
+                    'date_from'   => format_date($request->created_from) ?? format_date($createdFrom),
+                    'date_to'     => format_date($request->created_to) ?? format_date(now()),
+                    'userId'      => auth()->user()->login_id,
+
+                ]
+            )
+            ->storeOnLocal('StaticPages/pdfs/');
+        $file  = url('/storage/' . $mpdfPath);
+
+        return response()->json([
+            'data'   => [
+                'file' => $file
+            ],
+            'status' => true,
+            'message' => ''
+        ]);
+    }
+
+    public function exportExcel(Request $request)
+    {
+        $fileName = uniqid() . time();
+        Excel::store(new StaticPageExport($request), 'StaticPages/excels/' . $fileName . '.xlsx', 'public');
+        $file = url('/storage/' . 'StaticPages/excels/' . $fileName . '.xlsx');
+
+        return response()->json([
+            'data'   => [
+                'file' => $file
+            ],
+            'status' => true,
+            'message' => ''
+        ]);
     }
 
 }
