@@ -119,7 +119,7 @@ class TransferPurposeController extends Controller
             ->view(
                 'dashboard.exports.transfer_purpose',
                 [
-                    'TransferPurposes' => $TransferPurposesQuery,
+                    'transfer_purposes' => $TransferPurposesQuery,
                     'date_from'   => format_date($request->created_from) ?? format_date($createdFrom),
                     'date_to'     => format_date($request->created_to) ?? format_date(now()),
                     'userId'      => auth()->user()->login_id,
