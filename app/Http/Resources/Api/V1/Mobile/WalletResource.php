@@ -20,9 +20,9 @@ class WalletResource extends JsonResource
             'trans_number' => $this->trans_number,
             'citizen_name'   => $this->citizen->fullname,
             'wallet_number'  => (string)$this->wallet_number,
-            'main_balance'   => number_format($this->main_balance, 2),
-            'cash_back'      => number_format($this->cash_back, 2),
-            'total_balance'  => number_format(($this->main_balance + $this->cash_back), 2),
+            'main_balance'   => number_format($this->main_balance, 2,'.',''),
+            'cash_back'      => number_format($this->cash_back, 2,'.',''),
+            'total_balance'  => number_format(($this->main_balance + $this->cash_back), 2,'.',''),
             'wallet_qr'      => $this->qr_code,
             'last_updated'   => $this->last_updated_at?->diffForHumans(),
             'avatar'         => $this->citizen->image

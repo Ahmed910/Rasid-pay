@@ -21,11 +21,11 @@ class HomeResource extends JsonResource
         }
         return [
             'wallet_number'  => (string)$this->wallet_number,
-            'main_balance'   => number_format($this->main_balance, 2),
-            'cash_back'      => number_format($this->cash_back, 2),
+            'main_balance'   => number_format($this->main_balance, 2,'.',''),
+            'cash_back'      => number_format($this->cash_back, 2,'.',''),
             'rasid_pay_logo'      => setting('rasidpay_logo'),
             'rasid_maak_logo'      => setting('rasidmaak_logo'),
-            'total_balance'  => number_format(($this->main_balance + $this->cash_back), 2),
+            'total_balance'  => number_format(($this->main_balance + $this->cash_back), 2,'.',''),
             'last_updated'   => $this->last_updated_at?->diffForHumans(),
             'card_cover'     => $app_mode,
         ];
