@@ -20,7 +20,7 @@ class HomeResource extends JsonResource
             $app_mode = setting('home_card_cover_night') ?? asset('dashboardAssets/images/app_images/home_card_night.png');
         }
         return [
-            'wallet_number'  => $this->wallet_number,
+            'wallet_number'  => (string)$this->wallet_number,
             'main_balance'   => number_format($this->main_balance, 2),
             'cash_back'      => number_format($this->cash_back, 2),
             'rasid_pay_logo'      => setting('rasidpay_logo'),
