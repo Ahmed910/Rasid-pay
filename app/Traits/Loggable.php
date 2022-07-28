@@ -196,14 +196,13 @@ trait Loggable
             && !request()->has('image')
             && in_array($column, $keys)
         ) {
-            $this->checkStatus($self, $column);
-        } elseif (
-            !$hasData
-            && !request()->has('image')
-            && in_array($column, $keys)
-            && !request()->image_deleted
-        ) {
-            $this->checkStatus($self, $column);
+            if (in_array(HasAssetsTrait::class, class_uses(static::class))) {
+                if (!request()->image_deleted) {
+                    $this->checkStatus($self, $column);
+                } else {
+                    $self->addUserActivity($self, ActivityLog::UPDATE, 'index');
+                }
+            }
         } elseif ($hasData && in_array($column, $keys)) {
             $self->addUserActivity($self, ActivityLog::UPDATE, 'index');
         } else {
