@@ -242,6 +242,6 @@ class DepartmentController extends Controller
 
     public function exportExcel(Request $request)
     {
-        return Excel::download(new DepartmentsExport($request), 'departments.xlsx', headers: ['Content-Type' => 'application/pdf']);
+        return Excel::download(new DepartmentsExport($request), 'departments.xlsx', headers: ['Content-Type' => 'application/xlsx']);
     }
 }
