@@ -22,6 +22,12 @@ class TransactionObserver
      */
     public function created(Transaction $transaction)
     {
+
+        $wallet_transfer_method = [
+            'phone'          => $transaction->transactionable?->wallet_transfer_method =='phone'  ? ($transaction->toUser?->phone ?? $transaction->transactionable->phone) :"" ,
+            'identity_number'=> $transaction->transactionable?->wallet_transfer_method =='identity_number'  ? $transaction->toUser->identity_number :"",
+            'wallet_number'  => $transaction->transactionable?->wallet_transfer_method =='wallet_number'  ? $transaction->toUser->citizenWallet?->wallet_number :"" ,
+        ];
         $transaction_details =
             [
                 'payment'          => $transaction->trans_type == "payment"  ? trans("mobile.transaction.transaction_details.payment_status", ['amount' => $transaction->amount, 'refund_amount' => $transaction->amount]) : "",
