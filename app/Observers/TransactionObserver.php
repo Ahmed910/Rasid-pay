@@ -48,7 +48,7 @@ class TransactionObserver
                 'body' => trans('mobile.notifications.wallet_transfer_to.body', ['amount' => $transaction->amount, 'from_user' => auth()->user()->fullname]),
             ];
 
-            $transaction->toUser->notify(new generalNotification($data));
+            $transaction->toUser->notify(new GeneralNotification($data));
         }
     }
 }
