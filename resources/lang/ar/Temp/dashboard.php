@@ -334,6 +334,25 @@ return [
             'ourapp' => 'تطبيقاتنا',
             'faq' => 'الأسئلة الشائعة',
             'messagetype' => 'نوع الرسالة',
+            'vendorbranch' => 'أفرع العميل',
+            'transaction' => 'المعاملات',
+            'transfer' => 'التحويلات',
+            'setting' => 'الإعدادات',
+            'currency' => 'العملات',
+            'banktransfer' => 'تحويل بنكي'
+
+        ],
+        'transfer' => [
+            'transfers' => 'التحويلات',
+
+        ],
+        'card' => [
+            'cards' => 'البطاقات',
+            'sub_progs' => 'البرنامج'
+        ],
+        'bank_transfer' => [
+            'bank_transfers' => 'التحويلات البنكية',
+
         ],
         'activity_log' => 'المتابعة',
         'actions' =>  [
