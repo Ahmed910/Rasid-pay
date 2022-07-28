@@ -7,8 +7,8 @@
     @include('dashboard.exports.header',['topic'=>'الترجمات'])
     <tr>
       <th>#</th>
-      <th> key </th>
-      <th> value</th>
+      <th> المفتاح </th>
+      <th> القيمة</th>
     </tr>
   </thead>
   <tbody>
