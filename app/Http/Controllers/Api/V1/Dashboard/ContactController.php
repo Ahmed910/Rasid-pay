@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api\V1\Dashboard;
 
+use App\Exports\ContactExport;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\V1\Dashboard\ContactAdminAssignRequest;
 use App\Http\Requests\V1\Dashboard\ContactReplyRequest;
@@ -12,6 +13,8 @@ use App\Models\ActivityLog;
 use App\Models\Contact;
 use App\Models\ContactReply;
 use Illuminate\Http\Request;
+use App\Services\GeneratePdf;
+use Maatwebsite\Excel\Facades\Excel;
 
 class ContactController extends Controller
 {
@@ -136,6 +139,63 @@ class ContactController extends Controller
             'status' => true,
             'message' => trans('dashboard.general.success_archive'),
             'data' => null
+        ]);
+    }
+
+    public function exportPDF(Request $request, GeneratePdf $pdfGenerate)
+    {
+        $ContactsQuery = Contact::when(auth()->user()->user_type == 'admin', function ($q) {
+            $q->where(function ($query) {
+                $query->where('admin_id', auth()->user()->id)
+                    ->orWhere('assigned_to_id', auth()->user()->id);
+            });
+        })
+            ->with('replies', 'user', 'admin', 'activity', 'assignedTo')
+            ->CustomDateFromTo($request)
+            ->search($request)
+            ->sortby($request)
+        ->get();
+
+
+        if (!$request->has('created_from')) {
+            $createdFrom = Contact::selectRaw('MIN(created_at) as min_created_at')->value('min_created_at');
+        }
+
+        $mpdfPath = $pdfGenerate->newFile()
+            ->view(
+                'dashboard.exports.contacts',
+                [
+                    'Contacts' => $ContactsQuery,
+                    'date_from'   => format_date($request->created_from) ?? format_date($createdFrom),
+                    'date_to'     => format_date($request->created_to) ?? format_date(now()),
+                    'userId'      => auth()->user()->login_id,
+
+                ]
+            )
+            ->storeOnLocal('Contacts/pdfs/');
+        $file  = url('/storage/' . $mpdfPath);
+
+        return response()->json([
+            'data'   => [
+                'file' => $file
+            ],
+            'status' => true,
+            'message' => ''
+        ]);
+    }
+
+    public function exportExcel(Request $request)
+    {
+        $fileName = uniqid() . time();
+        Excel::store(new ContactExport($request), 'Contacts/excels/' . $fileName . '.xlsx', 'public');
+        $file = url('/storage/' . 'Contacts/excels/' . $fileName . '.xlsx');
+
+        return response()->json([
+            'data'   => [
+                'file' => $file
+            ],
+            'status' => true,
+            'message' => ''
         ]);
     }
 }
