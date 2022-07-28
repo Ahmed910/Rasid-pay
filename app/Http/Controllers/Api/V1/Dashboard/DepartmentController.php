@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api\V1\Dashboard;
 
+use App\Exports\DepartmentsArchiveExport;
 use App\Exports\DepartmentsExport;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\V1\Dashboard\DepartmentRequest;
@@ -257,6 +258,60 @@ class DepartmentController extends Controller
         $fileName = uniqid() . time();
         Excel::store(new DepartmentsExport($request), 'departments/excels/' . $fileName . '.xlsx', 'public');
         $file = url('/storage/' . 'departments/excels/' . $fileName . '.xlsx');
+
+        return response()->json([
+            'data'   => [
+                'file' => $file
+            ],
+            'status' => true,
+            'message' => ''
+        ]);
+    }
+
+    public function exportPDFArchive(Request $request, GeneratePdf $pdfGenerate)
+    {
+        $departmentsQuery =  Department::onlyTrashed()
+        ->search($request)
+        ->ListsTranslations('name')
+        ->searchDeletedAtFromTo($request)
+        ->with('parent.translations')
+        ->addSelect('departments.created_at', 'departments.deleted_at', 'departments.is_active', 'departments.parent_id', 'departments.added_by_id')
+        ->latest("deleted_at")
+        ->sortBy($request)
+        ->get();
+
+        if (!$request->has('created_from')) {
+            $createdFrom = Department::selectRaw('MIN(created_at) as min_created_at')->value('min_created_at');
+        }
+
+        $mpdfPath = $pdfGenerate->newFile()
+            ->view(
+                'dashboard.exports.archive.department',
+                [
+                    'departments_archive' => $departmentsQuery,
+                    'date_from'   => format_date($request->created_from) ?? format_date($createdFrom),
+                    'date_to'     => format_date($request->created_to) ?? format_date(now()),
+                    'userId'      => auth()->user()->login_id,
+
+                ]
+            )
+            ->storeOnLocal('departmentsArchive/pdfs/');
+        $file  = url('/storage/' . $mpdfPath);
+
+        return response()->json([
+            'data'   => [
+                'file' => $file
+            ],
+            'status' => true,
+            'message' => ''
+        ]);
+    }
+
+    public function exportExcelArchive(Request $request)
+    {
+        $fileName = uniqid() . time();
+        Excel::store(new DepartmentsArchiveExport($request), 'departmentsArchive/excels/' . $fileName . '.xlsx', 'public');
+        $file = url('/storage/' . 'departmentsArchive/excels/' . $fileName . '.xlsx');
 
         return response()->json([
             'data'   => [

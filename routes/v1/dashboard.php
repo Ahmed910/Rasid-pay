@@ -111,6 +111,8 @@ Route::middleware('maintenance_mode')->group(function () {
                 // Route::get('get-parents', 'getAllParents')->name("get_parents");
                 Route::get('export_pdf', 'exportPDF');
                 Route::get('export_excel', 'exportExcel');
+                Route::get('archive/export_pdf', 'exportPDFArchive');
+                Route::get('archive/export_excel', 'exportExcelArchive');
             });
 
             Route::controller('CitizenController')->name('citizens.')->prefix('citizens')->group(function () {
@@ -125,6 +127,8 @@ Route::middleware('maintenance_mode')->group(function () {
                 Route::delete('forceDelete/{id}', 'forceDelete')->name('force_delete');
                 Route::get('export_pdf', 'exportPDF');
                 Route::get('export_excel', 'exportExcel');
+                Route::get('archive/export_pdf', 'exportPDFArchive');
+                Route::get('archive/export_excel', 'exportExcelArchive');
             });
 
             // Route::controller('NotificationController')->name('notifications.')->prefix('notifications')->group(function () {
