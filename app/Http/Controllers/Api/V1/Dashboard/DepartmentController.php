@@ -56,23 +56,27 @@ class DepartmentController extends Controller
     {
         return response()->json([
             'data' => Department::select('id')->when($request->department_id, function ($q) use ($request) {
-                $children = Department::flattenChildren(Department::withTrashed()->findOrFail($request->department_id));
-                $q->whereNotIn('departments.id', $children);
-            })->when($request->department_type == 'children', function ($q) {
-                $q->where(function ($q) {
-                    $q->has('children')->orWhereNull('parent_id');
-                });
-            })->when($request->activate_case, function ($q) use ($request) {
-                switch ($request->activate_case) {
-                    case 'active':
-                        $q->where('is_active', 1);
-                        break;
-                    case 'hold':
-                        $q->where('is_active', 0);
-                        break;
-                }
-            })->ListsTranslations('name')
-                ->addSelect('is_active')
+                    $children = Department::flattenChildren(Department::withTrashed()->findOrFail($request->department_id));
+                    $q->whereNotIn('departments.id', $children);
+                })->when($request->department_type == 'children', function ($q) {
+                    $q->where(function ($q) {
+                        $q->has('children')->orWhereNull('parent_id');
+                    });
+                })->when($request->activate_case, function ($q) use($request){
+                    switch ($request->activate_case) {
+                        case 'active':
+                            $q->where('is_active', 1);
+                            break;
+                        case 'hold':
+                            $q->where('is_active', 0);
+                            break;
+                    }
+                })->when($request->has_jobs,function ($q) {
+                    $q->whereHas('rasidJobs',function ($q) {
+                        $q->where('is_active',true);
+                    });
+                })->ListsTranslations('name')
+                ->addSelect('departments.is_active')
                 ->without(['images', 'addedBy', 'translations'])->get(),
             'status' => true,
             'message' =>  '',
@@ -242,6 +246,6 @@ class DepartmentController extends Controller
 
     public function exportExcel(Request $request)
     {
-        return Excel::download(new DepartmentsExport($request), 'departments.xlsx', headers: ['Content-Type' => 'application/pdf']);
+        return Excel::download(new DepartmentsExport($request), 'departments.xlsx', headers: ['Content-Type' => 'application/xlsx']);
     }
 }
