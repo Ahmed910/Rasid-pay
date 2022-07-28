@@ -14,6 +14,6 @@ INSERT INTO `slide_translations` (`id`, `slide_id`, `locale`, `name`, `descripti
 
 INSERT INTO `app_media` (`id`, `media`, `mediable_type`, `mediable_id`, `option`, `deleted_at`, `created_at`, `updated_at`) VALUES
 ('3cfb9746-9779-4cda-8371-12545c9fca55', '/dashboardAssets/images/onBoard/onboard-1.png', 'App\\Models\\Slide', '320638a3-5d71-4f08-92d5-fc70f34c2453', NULL, NULL, '2022-06-20 16:27:46', '2022-06-20 16:27:46'),
-('3cfb9746-9779-4cda-8371-12545c9fca56', '/dashboardAssets/images/onBoard/onboard-3.png', 'App\\Models\\Slide', '9e224a7c-b106-4a10-a814-34907dfe7f4f', NULL, NULL, '2022-06-20 16:27:46', '2022-06-20 16:27:46'),
-('3cfb9746-9779-4cda-8371-12545c9fca57', '/dashboardAssets/images/onBoard/onboard-2.png', 'App\\Models\\Slide', '9e224a7c-b106-4a10-a814-34907dfe7f4f', NULL, NULL, '2022-06-20 16:27:46', '2022-06-20 16:27:46');
+('3cfb9746-9779-4cda-8371-12545c9fca56', '/dashboardAssets/images/onBoard/onboard-2.png', 'App\\Models\\Slide', '9e224a7c-b106-4a10-a814-34907dfe7f4f', NULL, NULL, '2022-06-20 16:27:46', '2022-06-20 16:27:46'),
+('3cfb9746-9779-4cda-8371-12545c9fca57', '/dashboardAssets/images/onBoard/onboard-3.png', 'App\\Models\\Slide', '9e224a7c-b106-4a10-a814-34907dfe7f4f', NULL, NULL, '2022-06-20 16:27:46', '2022-06-20 16:27:46');
 SQL;
