@@ -12,14 +12,9 @@ class WalletBalance
             $cashback_amount = $wallet->cash_back;
             $main_amount = $total_amount - $cashback_amount;
         }
-        return (object) ['cashback_amount' => $cashback_amount, 'main_amount' => $main_amount];
+        $wallet->last_updated_at = now();
+        return (object)['cashback_amount' => $cashback_amount, 'main_amount' => $main_amount];
     }
-
-
-
-
-
-
 
 
 }
