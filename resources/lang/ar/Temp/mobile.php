@@ -224,6 +224,14 @@ return [
             "title" => "تم التحويل الدولي بنجاح",
            
         ]
-    ]
+        ],
+
+        "wallet_transfer" => [
+            "transfer_purpose" => [
+                "exists" => "غرض الحوالة غير موجود",
+            ]
+        ]
+
+       
 
 ];

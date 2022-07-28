@@ -119,6 +119,7 @@ class WalletTransferRequest extends ApiMasterRequest
         return [
             'otp_code.required' => trans('mobile.otp.required'),
             'otp_code.exists' => trans('mobile.otp.exists'),
+            'transfer_purpose_id.exists' => trans('mobile.wallet_transfer.transfer_purpose.exists'),
         ];
     }
 
