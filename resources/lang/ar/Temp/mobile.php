@@ -211,14 +211,21 @@ return [
             'member' => 'عضو',
         ]
         ],
-    
-        "notifications" => [
-
+        'notifications' => [
+            'wallet_transfer_from' => [
+                'title' => 'تحويل برقم المحفظة',
+                'body' => 'لقد قمت بتحويل رصيد :amount إلي :to_user'
+            ],
+            'wallet_transfer_to' => [
+                'title' => 'تحويل برقم المحفظة',
+                'body' => 'لقد تم تحويل رصيد قيمته :amount من :from_user'
+            ],
             "global_transfers" => [
                 "title" => "تم التحويل الدولي بنجاح",
                 "body" => "تم تحويل :amount :currency إلى المستفيد :beneficiary"
             ]
         ]
 
+      
 
 ];
