@@ -7,14 +7,14 @@
     @include('dashboard.exports.header',['topic'=>'تطبيقاتنا'])
     <tr>
       <th>#</th>
-      <th>is_active</th>
-      <th>android_link</th>
-      <th>ios_link</th>
+      <th>الحالة</th>
+      <th>رابط الاندرويد</th>
+      <th>رابط الios</th>
       <th>name</th>
     </tr>
   </thead>
   <tbody>
-    @foreach ($our_apps as $our_app)
+    @foreach ($ourApps as $our_app)
     <tr>
       <td>{{ $loop->iteration  }}</td>
       <td>{{ $our_app->is_active ?? '' }}</td>
