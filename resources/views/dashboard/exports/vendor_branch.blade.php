@@ -7,14 +7,14 @@
     @include('dashboard.exports.header',['topic'=>'فروع العملاء'])
     <tr>
       <th>#</th>
-      <th>name</th>
+      <th>الاسم</th>
       <th>lat</th>
       <th>lng</th>
-      <th>location</th>
-      <th>address_details</th>
-      <th>is_active</th>
-      <th>email</th>
-      <th>phone</th>
+      <th>العنوان</th>
+      <th>تفاصيل العنوان</th>
+      <th>الحالة</th>
+      <th>البريد الالكتروني</th>
+      <th>الهاتف</th>
     </tr>
   </thead>
   <tbody>

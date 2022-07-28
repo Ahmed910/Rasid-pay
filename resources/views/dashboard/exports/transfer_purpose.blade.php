@@ -7,9 +7,9 @@
     @include('dashboard.exports.header',['topic'=>'أغراض الحوالة'])
     <tr>
       <th>#</th>
-      <th>is_active</th>
+      <th>الحالة</th>
       <th>is_default_value</th>
-      <th>name</th>
+      <th>الاسم</th>
     </tr>
   </thead>
   <tbody>

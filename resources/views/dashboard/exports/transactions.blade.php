@@ -7,13 +7,13 @@
     @include('dashboard.exports.header',['topic'=>'المعاملات'])
     <tr>
       <th>#</th>
-      <th>number</th>
-      <th>created_at</th>
-      <th>citizen</th>
-      <th>type</th>
-      <th>status</th>
-      <th>amount</th>
-      <th>enabled_package</th>
+      <th>رقم المعاملة</th>
+      <th>تاريخ الانشاء</th>
+      <th>الاسم</th>
+      <th>النوع</th>
+      <th>الحالة</th>
+      <th>الاجمالي</th>
+      <th>البطاقة المفعلة</th>
     </tr>
   </thead>
   <tbody>
