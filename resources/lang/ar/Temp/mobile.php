@@ -211,10 +211,9 @@ return [
             'member' => 'عضو',
         ]
         ],
-    
-        "notifications" => [
 
-            "global_transfers" => [
+        "notifications" => [
+            "global_transfer" => [
                 "title" => "تم التحويل الدولي بنجاح",
                 "body" => "تم تحويل :amount :currency إلى المستفيد :beneficiary"
             ]
