@@ -10,6 +10,7 @@ use App\Http\Resources\Dashboard\Department\{DepartmentResource, DepartmentColle
 use App\Models\Department\Department;
 use App\Services\GeneratePdf;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 use Maatwebsite\Excel\Facades\Excel;
 
 class DepartmentController extends Controller
@@ -55,22 +56,22 @@ class DepartmentController extends Controller
     {
         return response()->json([
             'data' => Department::select('id')->when($request->department_id, function ($q) use ($request) {
-                    $children = Department::flattenChildren(Department::withTrashed()->findOrFail($request->department_id));
-                    $q->whereNotIn('departments.id', $children);
-                })->when($request->department_type == 'children', function ($q) {
-                    $q->where(function ($q) {
-                        $q->has('children')->orWhereNull('parent_id');
-                    });
-                })->when($request->activate_case, function ($q) use($request){
-                    switch ($request->activate_case) {
-                        case 'active':
-                            $q->where('is_active', 1);
-                            break;
-                        case 'hold':
-                            $q->where('is_active', 0);
-                            break;
-                    }
-                })->ListsTranslations('name')
+                $children = Department::flattenChildren(Department::withTrashed()->findOrFail($request->department_id));
+                $q->whereNotIn('departments.id', $children);
+            })->when($request->department_type == 'children', function ($q) {
+                $q->where(function ($q) {
+                    $q->has('children')->orWhereNull('parent_id');
+                });
+            })->when($request->activate_case, function ($q) use ($request) {
+                switch ($request->activate_case) {
+                    case 'active':
+                        $q->where('is_active', 1);
+                        break;
+                    case 'hold':
+                        $q->where('is_active', 0);
+                        break;
+                }
+            })->ListsTranslations('name')
                 ->addSelect('is_active')
                 ->without(['images', 'addedBy', 'translations'])->get(),
             'status' => true,
@@ -154,7 +155,7 @@ class DepartmentController extends Controller
             ->ListsTranslations('name')
             ->searchDeletedAtFromTo($request)
             ->with('parent.translations')
-            ->addSelect('departments.created_at', 'departments.deleted_at','departments.is_active', 'departments.parent_id', 'departments.added_by_id')
+            ->addSelect('departments.created_at', 'departments.deleted_at', 'departments.is_active', 'departments.parent_id', 'departments.added_by_id')
             ->latest("deleted_at")
             ->sortBy($request)
             ->paginate((int)($request->per_page ?? config("globals.per_page")));
@@ -223,7 +224,7 @@ class DepartmentController extends Controller
             $createdFrom = Department::selectRaw('MIN(created_at) as min_created_at')->value('min_created_at');
         }
 
-        $mpdf = $pdfGenerate->newFile()
+        $mpdfPath = $pdfGenerate->newFile()
             ->view(
                 'dashboard.exports.department',
                 [
@@ -234,13 +235,13 @@ class DepartmentController extends Controller
 
                 ]
             )
-            ->export();
+            ->storeOnLocal('pdfs');
 
-        return $mpdf;
+        return response()->download(Storage::path($mpdfPath), headers: ['Content-Type' => 'application/pdf']);
     }
 
     public function exportExcel(Request $request)
     {
-        return Excel::download(new DepartmentsExport($request), 'departments.xlsx');
+        return Excel::download(new DepartmentsExport($request), 'departments.xlsx', headers: ['Content-Type' => 'application/pdf']);
     }
 }
