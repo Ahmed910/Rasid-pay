@@ -4,19 +4,19 @@
 
 <table id="departmentTable" class="table">
   <thead>
-    @include('dashboard.exports.header',['topic'=>'الترجمات'])
+    @include('dashboard.exports.header',['topic'=>'أنواع الرسائل'])
     <tr>
       <th>#</th>
-      <th> key </th>
-      <th> value</th>
+      <th> is_active </th>
+      <th> name</th>
     </tr>
   </thead>
   <tbody>
-    @foreach ($locales as $locale)
+    @foreach ($message_types as $message_type)
     <tr>
       <td>{{ $loop->iteration }}</td>
-      <td>{{ $locale->key ?? '' }}</td>
-      <td>{{ $locale->value ?? '' }}</td>
+      <td>{{ $message_type->is_active ?? '' }}</td>
+      <td>{{ $message_type->name ?? '' }}</td>
     </tr>
     @endforeach
   </tbody>

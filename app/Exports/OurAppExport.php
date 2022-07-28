@@ -2,12 +2,13 @@
 
 namespace App\Exports;
 
-use App\Models\Bank\Bank;
-use Illuminate\Contracts\View\View;
 use Maatwebsite\Excel\Concerns\FromView;
+use Illuminate\Contracts\View\View;
+use App\Models\Locale\Locale;
+use App\Models\OurApp\OurApp;
 use Maatwebsite\Excel\Concerns\ShouldAutoSize;
 
-class BankExport implements FromView, ShouldAutoSize
+class OurAppExport implements FromView, ShouldAutoSize
 {
     protected $request;
 
@@ -18,17 +19,21 @@ class BankExport implements FromView, ShouldAutoSize
 
     public function view(): View
     {
-        $banksQuery = Bank::with('translations')
-            ->search($this->request)
-            ->sortBy($this->request)
-            ->get();
+        $messageTypes =  OurApp::search($this->request)
+        ->ListsTranslations('name')
+        ->CustomDateFromTo($this->request)
+        ->addSelect(
+            'our_apps.*'
+        )
+        ->sortBy($this->request)
+        ->get();
 
         if (!$this->request->has('created_from')) {
-            $createdFrom = Bank::selectRaw('MIN(created_at) as min_created_at')->value('min_created_at');
+            $createdFrom = OurApp::selectRaw('MIN(created_at) as min_created_at')->value('min_created_at');
         }
 
-        return view('dashboard.exports.bank', [
-            'banks' => $banksQuery,
+        return view('dashboard.exports.our_app', [
+            'our_apps' => $messageTypes,
             'date_from'   => format_date($this->request->created_from) ?? format_date($createdFrom),
             'date_to'     => format_date($this->request->created_to) ?? format_date(now()),
             'userId'      => auth()->user()->login_id,

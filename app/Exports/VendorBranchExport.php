@@ -2,12 +2,12 @@
 
 namespace App\Exports;
 
-use App\Models\Bank\Bank;
-use Illuminate\Contracts\View\View;
 use Maatwebsite\Excel\Concerns\FromView;
+use Illuminate\Contracts\View\View;
+use App\Models\VendorBranches\VendorBranch;
 use Maatwebsite\Excel\Concerns\ShouldAutoSize;
 
-class BankExport implements FromView, ShouldAutoSize
+class VendorBranchExport implements FromView, ShouldAutoSize
 {
     protected $request;
 
@@ -18,17 +18,19 @@ class BankExport implements FromView, ShouldAutoSize
 
     public function view(): View
     {
-        $banksQuery = Bank::with('translations')
-            ->search($this->request)
-            ->sortBy($this->request)
-            ->get();
+        $vendorbranches =  VendorBranch::query()
+        ->ListsTranslations('name')
+        ->search($this->request)
+        ->sortBy($this->request)
+        ->addSelect('vendor_branches.*')
+        ->get();
 
         if (!$this->request->has('created_from')) {
-            $createdFrom = Bank::selectRaw('MIN(created_at) as min_created_at')->value('min_created_at');
+            $createdFrom = VendorBranch::selectRaw('MIN(created_at) as min_created_at')->value('min_created_at');
         }
 
-        return view('dashboard.exports.bank', [
-            'banks' => $banksQuery,
+        return view('dashboard.exports.vendor_branch', [
+            'vendors' => $vendorbranches,
             'date_from'   => format_date($this->request->created_from) ?? format_date($createdFrom),
             'date_to'     => format_date($this->request->created_to) ?? format_date(now()),
             'userId'      => auth()->user()->login_id,
