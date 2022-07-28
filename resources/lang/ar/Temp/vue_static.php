@@ -1,155 +1,143 @@
 <?php
-
 return [
-    'dashboard' =>
-    [
-        'login' =>
-        [
-            'button' =>
-            [
+    'dashboard' => [
+        'login' => [
+            'button' => [
                 'login' => 'تسجيل دخول',
             ],
-            'fields' =>
-            [
+            'fields' => [
                 'userID' => 'رقم المستخدم',
                 'password' => 'كلمة المرور',
             ],
-            'labels' =>
-            [
+            'labels' => [
                 'userID' => 'رقم المستخدم',
                 'password' => 'كلمة المرور',
                 'remember' => 'تذكرني',
                 'reset_password' => 'إعادة تعيين كلمة المرور',
             ],
-            'heading' =>
-            [
+            'heading' => [
                 'title' => 'تسجيل الدخول',
                 'sub_title' => 'من فضلك أدخل رقم المستخدم وكلمة المرور',
             ],
-            'placeholder' =>
-            [
+            'placeholder' => [
                 'title' => 'تسجيل الدخول',
                 'sub_title' => 'من فضلك أدخل رقم المستخدم وكلمة المرور ',
                 'enter_userID' => 'أدخل رقم المستخدم الخاص بك',
                 'enter_password' => 'أدخل كلمة المرور',
             ],
-            'validation' =>
-            [
-                'validPhoneNumber' => 'يرجى ادخال رقم جوال بصيغة صحيحة (يبدأ ب 05)    ',
+            'validation' => [
+                'validPhoneNumber' => 'يرجى ادخال رقم جوال بصيغة صحيحة    ',
                 'required' => '%{attribute} مطلوب',
                 'required_f' => '%{attribute} مطلوبة',
                 'maxLength' => '%{attribute} يجب ان لا يتجاوز %{max} حروف ',
                 'minLength' => '%{attribute} يجب ان لا يقل عن  %{min} حروف',
                 'minLength_number' => '%{attribute} يجب ان لا يقل عن  %{min} ارقام',
                 'email' => '%{attribute} غير صحيح رجاء التأكد من الكتابة بطريقة صحيحة',
-                'maxValue' => '%{attribute} يجب ان تكون اقل من %{max}',
-                'minValue' => '%{attribute} يجب ان علي الاقل %{min}',
+                'maxValue' => '%{attribute} يجب ان لا تتجاوز %{max}',
+                'minValue' => '%{attribute} يجب ان تكون  علي الاقل %{min}',
                 'url' => 'هذا الرابط غير صحيح',
+                'biggerThan' => '%{attribute} يجب ان تكون  اكبر من  %{biggerThan}',
+                'smallerThan' => '%{attribute} يجب ان اقل من %{smallerThan}',
+                'sameAsPassword' => 'اعادة كلمة المرور غير متطابقة مع كلمة المرور الجديدة',
             ],
         ],
-        'verification' =>
-        [
-            'heading' =>
-            [
+        'verification' => [
+            'heading' => [
                 'title' => 'إعادة تعيين كلمة المرور',
                 'sub_title' => 'من فضلك أدخل رقم جوالك أو بريدك الإلكتروني لإرسال رمز التحقق ',
             ],
-            'labels' =>
-            [
+            'labels' => [
                 'mobile' => 'رقم الجوال',
                 'email' => 'البريد الإلكتروني',
+                'phone' => 'رقم الجوال',
             ],
-            'placeholder' =>
-            [
+            'placeholder' => [
                 'enter_mobile' => 'أدخل رقم  الجوال',
                 'enter_email' => 'أدخل البرد الإلكتروني',
+                'phone_x' => 'xxxxxxxx',
             ],
-            'button' =>
-            [
+            'button' => [
                 'send' => 'إرسال',
                 'back' => 'عودة ',
             ],
-            'fields' =>
-            [
+            'fields' => [
                 'email' => 'البريد الإلكتروني',
                 'mobile' => 'رقم الجوال',
             ],
-            'validation' =>
-            [
+            'validation' => [
                 'required' => '%{attribute} مطلوب',
                 'required_f' => '%{attribute} مطلوبة',
                 'maxLength' => '%{attribute} يجب ان لا يتجاوز %{max} حروف ',
                 'minLength' => '%{attribute} يجب ان لا يقل عن  %{min} حروف',
             ],
         ],
-        'verify_code' =>
-        [
-            'heading' =>
-            [
+        'verify_code' => [
+            'heading' => [
                 'title' => 'رمز التحقق ',
                 'sub_title' => 'تم إرسال تحقق برمز تحقق للتو إلى',
             ],
-            'labels' =>
-            [
+            'labels' => [
                 'mobile' => 'رقم الجوال',
                 'email' => 'البريد الإلكتروني',
+                'phone' => 'رقم الجوال',
             ],
-            'placeholder' =>
-            [
+            'placeholder' => [
                 'enter_mobile' => 'أدخل رقم  الجوال',
                 'enter_email' => 'أدخل البرد الإلكتروني',
             ],
-            'button' =>
-            [
+            'button' => [
                 'resendCode' => 'إعادة إرسال الرمز مرة أخرى',
                 'send' => 'إرسال',
                 'back' => 'عودة ',
             ],
-            'fields' =>
-            [
+            'fields' => [
                 'email' => 'البريد الإلكتروني',
                 'mobile' => 'رقم الجوال',
             ],
-            'validation' =>
-            [
+            'validation' => [
                 'required' => '%{attribute} مطلوب',
             ],
         ],
-        'reset_password' =>
-        [
-            'heading' =>
-            [
+        'reset_password' => [
+            'heading' => [
                 'title' => 'إعادة تعيين كلمة المرور؟',
                 'sub_title' => 'تم إرسال تحقق برمز تحقق للتو إلى',
             ],
-            'labels' =>
-            [
+            'labels' => [
                 'new_password' => 'كلمة المرور الجديدة',
                 'confirm_password' => 'تأكيد كلمة المرور',
             ],
-            'placeholder' =>
-            [
+            'placeholder' => [
                 'enter_new_password' => 'أدخل كلمة المرور الجديدة',
                 'enter_email' => 'أدخل البرد الإلكتروني',
                 'enter_confirm_password' => 'أدخل تأكيد كلمة المرور',
             ],
-            'button' =>
-            [
-                'confirm' => 'تأكيد',
-                'cancel' => 'إلغاء ',
+            'button' => [
+                'save' => 'حفظ',
+                'back' => 'عودة',
             ],
-            'fields' =>
-            [
+            'fields' => [
                 'new_password' => 'كلمة المرور الجديدة',
                 'confirm_password' => 'تأكيد كلمة المرور',
+                'sameAsPassword' => 'اعادة كلمة المرور غير متطابقة مع كلمة المرور الجديدة',
             ],
-            'validation' =>
-            [
+            'validation' => [
                 'required' => '%{attribute} مطلوب',
+                'sameAsPassword' => 'اعادة كلمة المرور غير متطابقة مع كلمة المرور الجديدة',
+            ],
+            'popup' => [
+                'buttons' => [
+                    'accept' => 'موافق',
+                    'refuse' => 'غير موافق',
+                ],
+                'body' => [
+                    'confirm' => 'هل تريد إتمام عملية الحفظ ؟',
+                    'confirmSubmit' => 'هل تريد إتمام عملية الحفظ ؟',
+                    'back' => 'هل تريد العودة دون الحفظ ؟',
+                ],
             ],
         ],
-        'sidebar' =>
-        [
+        'sidebar' => [
             'home' => 'الرئيسية',
             'departments_management' => 'إدارة الأقسام',
             'control_panel' => 'لوحة التحكم',
@@ -180,10 +168,10 @@ return [
             'permissions_record' => 'سجل الصلاحيات',
             'viewGroup' => 'عرض مجموعة',
             'permission_record' => 'سجل الصلاحيات',
-            'clients' => 'العملاء',
-            'clients_record' => 'سجل العملاء',
-            'clients_record_details' => 'عرض العميل',
-            'register_client' => 'تسجيل عميل',
+            'vendors' => 'العملاء',
+            'vendors_record' => 'سجل العملاء',
+            'vendors_record_details' => 'عرض العميل',
+            'register_vendor' => 'تسجيل عميل',
             'bank_account' => 'طلبات فتح حساب',
             'add_group' => 'إضافة مجموعة',
             'add_user' => 'إضافة مستخدم',
@@ -193,7 +181,7 @@ return [
             'activity_log' => 'سجل النشاطات',
             'departments_archive' => 'ارشيف الاقسام',
             'jobs_archives' => 'ارشيف الوظائف',
-            'citizens' => 'المستخدمين',
+            'citizens' => 'مستخدمين التطبيق',
             'transactions' => 'المعاملات',
             'transaction-list' => 'سجل المعاملات',
             'transactions_record' => 'سجل المعاملات',
@@ -241,10 +229,11 @@ return [
             'messageTypes_edit' => 'تعديل نوع الرسالة',
             'messageTypes_record' => 'سجل نوع الرسائل',
             'messageTypes_add' => 'اضافة نوع الرسالة',
-            'edit_client' => 'تعديل عميل',
-            'add_client' => 'تسجيل عميل',
-            'view_client' => 'عرض عميل',
+            'edit_vendor' => 'تعديل عميل',
+            'add_vendor' => 'تسجيل عميل',
+            'view_vendor' => 'عرض عميل',
             'branches' => 'سجل الفروع',
+            'branches_record' => 'سجل الفروع',
             'edit_branch' => 'تعديل فرع',
             'add_branch' => 'إضافة فرع',
             'view_branch' => 'عرض فرع',
@@ -252,11 +241,9 @@ return [
             'ourApps_add' => 'إضافة تطبيق',
             'ourApps_edit' => 'تعديل تطبيق',
         ],
-        'home' =>
-        [
+        'home' => [
             'statistics' => 'الإحصائيات',
-            'cards' =>
-            [
+            'cards' => [
                 'archived_departments' => 'الأقسام المؤرشفة ',
                 'departments' => 'الأقسام',
                 'active_jobs' => 'الوظائف المفعلة',
@@ -269,14 +256,11 @@ return [
                 'employees' => 'العملاء',
             ],
         ],
-        'footer' =>
-        [
+        'footer' => [
             'all_rights' => 'جميع الحقوق محفوظة الفنتك للتكنولوجيا والمعلومات',
         ],
-        'users' =>
-        [
-            'table' =>
-            [
+        'users' => [
+            'table' => [
                 '#' => '#',
                 'user_number' => 'رقم المستخدم',
                 'user_name' => 'اسم المستخدم',
@@ -291,16 +275,15 @@ return [
                 'activity_date' => 'تاريخ النشاط',
                 'activity' => 'النشاط',
                 'no_data' => ' لا توجد نتائج متاحة',
-                'pagination' =>
-                [
+                'activity_details' => 'تفاصيل النشاط',
+                'pagination' => [
                     'show' => 'عرض',
                     'to' => 'إلى',
                     'of' => 'من',
                     'result' => 'مستخدم',
                 ],
             ],
-            'buttons' =>
-            [
+            'buttons' => [
                 'add' => 'إضافة مستخدم',
                 'export' => 'تصدير',
                 'reset' => 'عرض الكل',
@@ -310,8 +293,7 @@ return [
                 'back' => 'عودة',
                 'save' => 'حفظ',
             ],
-            'fields' =>
-            [
+            'fields' => [
                 'name' => 'الاسم',
                 'department_name' => 'اسم القسم',
                 'job_name' => 'اسم الوظيفة',
@@ -325,8 +307,7 @@ return [
                 'ban_from' => 'تاريخ من',
                 'ban_to' => 'تاريخ إلي',
             ],
-            'validation' =>
-            [
+            'validation' => [
                 'required' => '%{attribute} مطلوب',
                 'required_f' => '%{attribute} مطلوبة',
                 'maxLength' => '%{attribute} يجب ان لا يتجاوز %{max} حروف ',
@@ -335,8 +316,7 @@ return [
                 'minLength_number' => '%{attribute} يجب ان لا يقل عن  %{min} ارقام',
                 'noJobDepartment' => 'لا يوجد وظائف لهذا القسم',
             ],
-            'placeholder' =>
-            [
+            'placeholder' => [
                 'enter_name' => 'أدخل الاسم',
                 'enter_number' => 'أدخل الرقم',
                 'enter_email' => 'أدخل البريد الإلكتروني',
@@ -350,8 +330,7 @@ return [
                 'enter_confirmation_password' => 'أدخل تأكيد كلمة المرور',
                 'phone_x' => 'xxxxxxxx',
             ],
-            'labels' =>
-            [
+            'labels' => [
                 'user_name' => 'اسم المستخدم',
                 'user_number' => 'رقم المستخدم',
                 'email' => 'البريد الإلكتروني',
@@ -372,36 +351,31 @@ return [
                 'check_password' => 'كلمة المرور',
                 'send_activity_code' => 'إرسال رمز التحقق',
             ],
-            'tooltip' =>
-            [
+            'tooltip' => [
                 'edit' => 'تعديل',
                 'view_details' => 'عرض',
                 'Groups' => 'مجموعة صلاحيات',
             ],
-            'popup' =>
-            [
-                'buttons' =>
-                [
+            'popup' => [
+                'buttons' => [
                     'accept' => 'موافق',
                     'refuse' => 'غير موافق',
                 ],
-                'body' =>
-                [
+                'body' => [
                     'confirmAccount' => 'هل تريد إتمام عملية تأكيد الحساب؟',
                     'confirm' => 'هل تريد إتمام عملية الحفظ ؟',
                     'confirmSubmit' => 'هل تريد إتمام عملية الحفظ ؟',
                     'back' => 'هل تريد العودة دون الحفظ ؟',
                     'delete' => 'هل تريد إتمام عملية الحذف النهائي؟',
                 ],
-                'reasonLabel' => 'الرجاء ذكر السبب*',
+                'reasonLabel' => 'الرجاء ذكر السبب',
+                'reasonValidation' => 'السبب',
             ],
-            'heading' =>
-            [
+            'heading' => [
                 'selected_permissions' => 'الصلاحيات المختارة',
                 'historical_movment' => 'الحركة التاريخية',
             ],
-            'chips' =>
-            [
+            'chips' => [
                 'active' => 'مفعل',
                 'permanent' => 'معطل دائم',
                 'temporary' => 'معطل لفترة',
@@ -415,16 +389,14 @@ return [
                 'deactive' => 'تعطيل',
                 'restored' => 'استعادة',
             ],
-            'breadcrumb' =>
-            [
+            'breadcrumb' => [
                 'users' => 'المستخدمين',
                 'user_history' => 'سجل المستخدمين',
                 'add_user' => 'إضافة مستخدم',
                 'edit_user' => 'تعديل مستخدم',
                 'user_view' => 'عرض مستخدم',
             ],
-            'statusOptions' =>
-            [
+            'statusOptions' => [
                 'all' => 'الجميع',
                 'active' => 'مفعل',
                 'permanent disable' => 'معطل دائم',
@@ -433,16 +405,12 @@ return [
                 'no_data' => 'لا توجد نتائج متاحة',
             ],
         ],
-        'archives' =>
-        [
-            'breadcrumb' =>
-            [
+        'archives' => [
+            'breadcrumb' => [
                 'archive' => 'الأرشيف',
             ],
-            'departments' =>
-            [
-                'table' =>
-                [
+            'departments' => [
+                'table' => [
                     '#' => '#',
                     'department_name' => 'اسم القسم',
                     'main_department' => 'القسم الرئيسي',
@@ -450,57 +418,50 @@ return [
                     'status' => 'الحالة',
                     'actions' => 'العمليات',
                     'no_data' => ' لا توجد نتائج متاحة',
-                    'pagination' =>
-                    [
+                    'activity_details' => 'تفاصيل النشاط',
+                    'pagination' => [
                         'show' => 'عرض',
                         'to' => 'إلى',
                         'of' => 'من',
                         'result' => 'قسم',
                     ],
                 ],
-                'buttons' =>
-                [
+                'buttons' => [
                     'export' => 'تصدير',
                     'reset' => 'عرض الكل',
                     'search' => 'بحث',
                 ],
-                'placeholder' =>
-                [
+                'placeholder' => [
                     'enter_name' => 'أدخل الاسم',
                     'select_main_department' => 'اختر القسم الرئيسي',
                     'select_date' => 'يوم/شهر/سنة',
                     'select_status' => 'أختر الحالة',
                 ],
-                'labels' =>
-                [
+                'labels' => [
                     'department_name' => 'اسم القسم',
                     'main_department' => 'القسم الرئيسي',
                     'archive_date_from' => 'تاريخ الأرشفة (من)',
                     'archive_date_to' => 'تاريخ الأرشفة (إلي)',
                     'status' => 'الحالة',
                 ],
-                'tooltip' =>
-                [
+                'tooltip' => [
                     'view_details' => 'عرض',
                     'restore' => 'استعادة',
                     'force_delete' => 'حذف',
                 ],
-                'popup' =>
-                [
-                    'buttons' =>
-                    [
+                'popup' => [
+                    'buttons' => [
                         'accept' => 'موافق',
                         'refuse' => 'غير موافق',
                     ],
-                    'body' =>
-                    [
+                    'body' => [
                         'delete' => 'هل تريد إتمام عملية الحذف النهائي؟',
                         'restore' => 'هل تريد اتمام عملية الأستعادة؟',
                     ],
-                    'reasonLabel' => 'الرجاء ذكر السبب*',
+                    'reasonLabel' => 'الرجاء ذكر السبب',
+                    'reasonValidation' => 'السبب',
                 ],
-                'chips' =>
-                [
+                'chips' => [
                     'active' => 'مفعل',
                     'inactive' => 'معطل',
                     'inActive' => 'معطل',
@@ -511,22 +472,18 @@ return [
                     'archive' => 'أرشفة',
                     'restored' => 'استعادة',
                 ],
-                'breadcrumb' =>
-                [
+                'breadcrumb' => [
                     'department_archive' => 'أرشيف الأقسام',
                 ],
-                'statusOptions' =>
-                [
+                'statusOptions' => [
                     'all' => 'الجميع',
                     'active' => 'مفعل',
                     'inactive' => 'معطل',
                     'without_main_department' => 'بدون قسم رئيسي',
                 ],
             ],
-            'jobs' =>
-            [
-                'table' =>
-                [
+            'jobs' => [
+                'table' => [
                     '#' => '#',
                     'job_name' => 'اسم الوظيفة',
                     'department' => 'القسم',
@@ -534,57 +491,50 @@ return [
                     'status' => 'الحالة',
                     'actions' => 'العمليات',
                     'no_data' => ' لا توجد نتائج متاحة',
-                    'pagination' =>
-                    [
+                    'activity_details' => 'تفاصيل النشاط',
+                    'pagination' => [
                         'show' => 'عرض',
                         'to' => 'إلى',
                         'of' => 'من',
                         'result' => 'وظيفة',
                     ],
                 ],
-                'buttons' =>
-                [
+                'buttons' => [
                     'export' => 'تصدير',
                     'reset' => 'عرض الكل',
                     'search' => 'بحث',
                 ],
-                'placeholder' =>
-                [
+                'placeholder' => [
                     'enter_name' => 'أدخل الاسم',
                     'choose_department' => 'اختر القسم',
                     'select_date' => 'يوم/شهر/سنة',
                     'select_status' => 'أختر الحالة',
                 ],
-                'labels' =>
-                [
+                'labels' => [
                     'job_name' => 'اسم الوظيفة',
                     'department' => 'القسم',
                     'archive_date_from' => 'تاريخ الأرشفة (من)',
                     'archive_date_to' => 'تاريخ الأرشفة (إلي)',
                     'status' => 'الحالة',
                 ],
-                'tooltip' =>
-                [
+                'tooltip' => [
                     'view_details' => 'عرض',
                     'restore' => 'استعادة',
                     'force_delete' => 'حذف',
                 ],
-                'popup' =>
-                [
-                    'buttons' =>
-                    [
+                'popup' => [
+                    'buttons' => [
                         'accept' => 'موافق',
                         'refuse' => 'غير موافق',
                     ],
-                    'body' =>
-                    [
+                    'body' => [
                         'delete' => 'هل تريد إتمام عملية الحذف النهائي؟',
                         'restore' => 'هل تريد اتمام عملية الأستعادة؟',
                     ],
-                    'reasonLabel' => 'الرجاء ذكر السبب*',
+                    'reasonLabel' => 'الرجاء ذكر السبب',
+                    'reasonValidation' => 'السبب',
                 ],
-                'chips' =>
-                [
+                'chips' => [
                     'active_f' => 'مفعلة',
                     'in_active_f' => 'معطلة',
                     'active' => 'مفعل',
@@ -596,25 +546,21 @@ return [
                     'archive' => 'أرشفة',
                     'restored' => 'استعادة',
                 ],
-                'breadcrumb' =>
-                [
+                'breadcrumb' => [
                     'jobs_archives' => 'أرشيف الوظائف',
                 ],
-                'statusOptions' =>
-                [
+                'statusOptions' => [
                     'all' => 'الجميع',
                     'active_f' => 'مفعلة',
                     'in_active_f' => 'معطلة',
                 ],
             ],
         ],
-        'follow_up' =>
-        [
-            'table' =>
-            [
+        'follow_up' => [
+            'table' => [
                 '#' => '#',
                 'employee' => 'الموظف',
-                'department' => 'اسم',
+                'department' => 'القسم',
                 'main_program' => 'البرنامج الرئيسي',
                 'sub_program' => 'البرنامج الفرعي',
                 'date_time' => 'تاريخ/وقت',
@@ -622,22 +568,20 @@ return [
                 'status' => 'الحالة',
                 'actions' => 'العمليات',
                 'no_data' => ' لا توجد نتائج متاحة',
-                'pagination' =>
-                [
+                'activity_details' => 'تفاصيل النشاط',
+                'pagination' => [
                     'show' => 'عرض',
                     'to' => 'إلى',
                     'of' => 'من',
                     'result' => 'متابعة',
                 ],
             ],
-            'buttons' =>
-            [
+            'buttons' => [
                 'print_report' => 'طباعة تقرير',
                 'reset' => 'عرض الكل',
                 'search' => 'بحث',
             ],
-            'placeholder' =>
-            [
+            'placeholder' => [
                 'select_activity_name' => 'أدخل الاسم',
                 'choose_department' => 'اختر القسم',
                 'choose_employee_name' => 'اختر اسم الموظف',
@@ -646,8 +590,7 @@ return [
                 'select_date' => 'يوم/شهر/سنة',
                 'select_status' => 'أختر الحالة',
             ],
-            'labels' =>
-            [
+            'labels' => [
                 'activity_name' => 'اسم النشاط',
                 'department' => 'القسم',
                 'employee' => 'الموظف',
@@ -658,12 +601,10 @@ return [
                 'status' => 'الحالة',
                 'activity_details' => 'سجل النشاطات',
             ],
-            'tooltip' =>
-            [
+            'tooltip' => [
                 'view_details' => 'عرض',
             ],
-            'chips' =>
-            [
+            'chips' => [
                 'deactive' => 'تعطيل',
                 'archive' => 'أرشيف',
                 'edit' => 'تعديل',
@@ -677,20 +618,17 @@ return [
                 'actived' => 'تفعيل',
                 'restored' => 'استعادة',
             ],
-            'breadcrumb' =>
-            [
+            'breadcrumb' => [
                 'follow_up' => 'المتابعة',
                 'activity_log' => 'سجل النشاطات',
             ],
-            'statusOptions' =>
-            [
+            'statusOptions' => [
                 'all' => 'الجميع',
                 'active' => 'مفعل',
                 'inactive' => 'معطل',
                 'without_main_department' => 'بدون قسم رئيسي',
             ],
-            'events' =>
-            [
+            'events' => [
                 'created' => 'إضافة',
                 'updated' => 'تعديل',
                 'destroy' => 'أرشفة',
@@ -702,70 +640,63 @@ return [
                 'permanent' => 'دائم',
                 'temporary' => 'مؤقت',
                 'all' => 'الجميع',
+                'assigned' => 'تم الإحالة',
+                'replied' => 'تم الرد ',
+                'shown' => 'تم الإطلاع',
             ],
         ],
-        'settings' =>
-        [
-            'translations' =>
-            [
-                'table' =>
-                [
+        'settings' => [
+            'translations' => [
+                'table' => [
                     '#' => '#',
                     'keyword' => 'المفتاح',
                     'arabic_lang' => 'اللغة العربية',
                     'no_data' => ' لا توجد نتائج متاحة',
-                    'pagination' =>
-                    [
+                    'activity_details' => 'تفاصيل النشاط',
+                    'pagination' => [
                         'show' => 'عرض',
                         'to' => 'إلى',
                         'of' => 'من',
                         'result' => 'الإجمالي',
                     ],
                 ],
-                'buttons' =>
-                [
+                'buttons' => [
                     'export' => 'تصدير',
                     'reset' => 'عرض الكل',
                     'search' => 'بحث',
                 ],
-                'placeholder' =>
-                [
+                'placeholder' => [
                     'enter_keyword' => 'أدخل المفتاح',
                     'enter_arabic_lang' => 'أدخل اللغة العربية',
                 ],
-                'labels' =>
-                [
+                'labels' => [
                     'keyword' => 'المفتاح',
                     'arabic_lang' => 'اللغة العربية',
                 ],
-                'breadcrumb' =>
-                [
+                'breadcrumb' => [
                     'settings' => 'الإعدادات',
                     'translations' => 'الترجمات',
                 ],
             ],
         ],
-        'faq' =>
-        [
-            'table' =>
-            [
+        'faq' => [
+            'table' => [
                 '#' => '#',
                 'question' => 'السؤال',
                 'order' => 'الترتيب',
                 'page_status' => 'الحالة',
                 'actions' => 'العمليات',
                 'no_data' => ' لا توجد نتائج متاحة',
+                'activity_details' => 'تفاصيل النشاط',
                 'without_department' => 'بدون قسم',
-                'pagination' =>
-                [
+                'pagination' => [
                     'show' => 'عرض',
                     'to' => 'إلى',
                     'of' => 'من',
                     'result' => 'أسئلة',
                 ],
             ],
-            'buttons' =>
-            [
+            'buttons' => [
                 'add_faq' => 'أضف سؤال',
                 'export' => 'تصدير',
                 'reset' => 'عرض الكل',
@@ -775,65 +706,56 @@ return [
                 'back' => 'عودة',
                 'save' => 'حفظ',
             ],
-            'fields' =>
-            [
+            'fields' => [
                 'question' => 'السؤال',
                 'order' => 'الترتيب',
                 'status' => 'الحالة',
                 'answer' => 'الإجابة',
             ],
-            'validation' =>
-            [
+            'validation' => [
                 'required' => '%{attribute} مطلوب',
                 'required_f' => '%{attribute} مطلوبة',
                 'maxLength' => '%{attribute} يجب ان لا يتجاوز %{max} حروف ',
                 'minLength' => '%{attribute} يجب ان لا يقل عن  %{min} حروف',
                 'minLength_number' => '%{attribute} يجب ان لا يقل عن  %{min} ارقام',
             ],
-            'placeholder' =>
-            [
+            'placeholder' => [
                 'enter_question' => 'أدخل السؤال',
-                'select_status' => 'أختر الحالة',
+                'select_status' => 'اختر الحالة',
                 'enter_question_number' => 'أدخل ترتيب الظهور',
                 'enter_answer' => 'أدخل الإجابة',
             ],
-            'labels' =>
-            [
+            'labels' => [
                 'question' => 'السؤال',
                 'status' => 'الحالة',
                 'question_number' => 'ترتيب الظهور',
                 'answer' => 'الإجابة',
                 'chooseStatus' => 'اختر الحالة',
             ],
-            'tooltip' =>
-            [
+            'tooltip' => [
                 'edit' => 'تعديل',
                 'view_details' => 'عرض',
                 'force_delete' => 'حذف',
             ],
-            'popup' =>
-            [
-                'buttons' =>
-                [
+            'popup' => [
+                'buttons' => [
                     'accept' => 'موافق',
                     'refuse' => 'غير موافق',
                 ],
-                'body' =>
-                [
+                'body' => [
                     'confirmAccount' => 'هل تريد إتمام عملية تأكيد الحساب؟',
                     'confirm' => 'هل تريد إتمام عملية الحفظ ؟',
                     'confirmSubmit' => 'هل تريد إتمام عملية الحفظ ؟',
                     'back' => 'هل تريد العودة دون الحفظ ؟',
                     'delete' => 'هل تريد إتمام عملية الحذف النهائي؟',
                 ],
-                'reasonLabel' => 'الرجاء ذكر السبب*',
+                'reasonLabel' => 'الرجاء ذكر السبب',
+                'reasonValidation' => 'السبب',
             ],
-            'heading' =>
-            [
+            'heading' => [
                 'historical_movment' => 'الحركة التاريخية',
             ],
-            'chips' =>
-            [
+            'chips' => [
                 'active' => 'مفعل',
                 'permanent' => 'معطل دائم',
                 'temporary' => 'معطل لفترة',
@@ -848,24 +770,20 @@ return [
                 'deactive' => 'تعطيل',
                 'restored' => 'استعادة',
             ],
-            'breadcrumb' =>
-            [
+            'breadcrumb' => [
                 'support' => 'الدعم والمساعدة',
                 'faq' => 'الأسئلة الشائعة',
                 'faqs_view' => 'عرض السؤال',
                 'editQuestion' => 'تعديل السؤال',
                 'createQuestion' => 'اضافة سؤال',
             ],
-            'statusOptions' =>
-            [
+            'statusOptions' => [
                 'all' => 'الجميع',
                 'active' => 'مفعل',
                 'inactive' => 'معطل',
             ],
-            'historical_movment' =>
-            [
-                'table' =>
-                [
+            'historical_movment' => [
+                'table' => [
                     '#' => '#',
                     'addedBy' => 'تم بواسطة',
                     'department_name' => 'اسم القسم',
@@ -873,8 +791,8 @@ return [
                     'activity_name' => 'النشاط',
                     'activity_reason' => 'السبب',
                     'no_data' => ' لا توجد نتائج متاحة',
-                    'pagination' =>
-                    [
+                    'activity_details' => 'تفاصيل النشاط',
+                    'pagination' => [
                         'show' => 'عرض',
                         'to' => 'إلى',
                         'of' => 'من',
@@ -883,26 +801,23 @@ return [
                 ],
             ],
         ],
-        'transferPurpose' =>
-        [
-            'table' =>
-            [
+        'transferPurpose' => [
+            'table' => [
                 '#' => '#',
                 'purpose' => 'الغرض من الحوالة',
                 'order' => 'الترتيب',
                 'page_status' => 'الحالة',
                 'actions' => 'العمليات',
                 'no_data' => ' لا توجد نتائج متاحة',
-                'pagination' =>
-                [
+                'activity_details' => 'تفاصيل النشاط',
+                'pagination' => [
                     'show' => 'عرض',
                     'to' => 'إلى',
                     'of' => 'من',
                     'result' => 'غرض',
                 ],
             ],
-            'buttons' =>
-            [
+            'buttons' => [
                 'add_transferPurpose' => 'أضف غرض حوالة',
                 'export' => 'تصدير',
                 'reset' => 'عرض الكل',
@@ -912,62 +827,53 @@ return [
                 'back' => 'عودة',
                 'save' => 'حفظ',
             ],
-            'fields' =>
-            [
+            'fields' => [
                 'name' => 'الغرض من الحوالة',
                 'status' => 'الحالة',
             ],
-            'validation' =>
-            [
+            'validation' => [
                 'required' => '%{attribute} مطلوب',
                 'required_f' => '%{attribute} مطلوبة',
                 'maxLength' => '%{attribute} يجب ان لا يتجاوز %{max} حروف ',
                 'minLength' => '%{attribute} يجب ان لا يقل عن  %{min} حروف',
                 'minLength_number' => '%{attribute} يجب ان لا يقل عن  %{min} ارقام',
             ],
-            'placeholder' =>
-            [
+            'placeholder' => [
                 'enter_purpose' => 'أدخل الغرض من الحوالة',
                 'select_status' => 'أختر الحالة',
                 'enter_purpose_number' => 'أدخل ترتيب الظهور',
                 'enter_answer' => 'أدخل الإجابة',
             ],
-            'labels' =>
-            [
+            'labels' => [
                 'purpose' => 'الغرض من الحوالة',
                 'status' => 'الحالة',
                 'defaultValue' => 'القيمة الإفتراضية',
                 'chooseStatus' => 'اختر الحالة',
             ],
-            'tooltip' =>
-            [
+            'tooltip' => [
                 'edit' => 'تعديل',
                 'view_details' => 'عرض',
                 'force_delete' => 'حذف',
             ],
-            'popup' =>
-            [
-                'buttons' =>
-                [
+            'popup' => [
+                'buttons' => [
                     'accept' => 'موافق',
                     'refuse' => 'غير موافق',
                 ],
-                'body' =>
-                [
+                'body' => [
                     'confirmAccount' => 'هل تريد إتمام عملية تأكيد الحساب؟',
                     'confirm' => 'هل تريد إتمام عملية الحفظ ؟',
                     'confirmSubmit' => 'هل تريد إتمام عملية الحفظ ؟',
                     'back' => 'هل تريد العودة دون الحفظ ؟',
                     'delete' => 'هل تريد إتمام عملية الحذف النهائي؟',
                 ],
-                'reasonLabel' => 'الرجاء ذكر السبب*',
+                'reasonLabel' => 'الرجاء ذكر السبب',
+                'reasonValidation' => 'السبب',
             ],
-            'heading' =>
-            [
+            'heading' => [
                 'historical_movment' => 'الحركة التاريخية',
             ],
-            'chips' =>
-            [
+            'chips' => [
                 'active' => 'مفعل',
                 'inactive' => 'معطل',
                 'inActive' => 'معطلة',
@@ -980,25 +886,21 @@ return [
                 'archive' => 'أرشفة',
                 'restored' => 'استعادة',
             ],
-            'breadcrumb' =>
-            [
+            'breadcrumb' => [
                 'record' => 'إعدادات التطبيق',
                 'transferPurpose' => 'الغرض من الحوالة',
                 'transferPurpose_view' => 'عرض الغرض من الحوالة',
                 'editpurpose' => 'تعديل الغرض من الحوالة',
                 'createpurpose' => 'اضافة الغرض من الحوالة',
             ],
-            'statusOptions' =>
-            [
+            'statusOptions' => [
                 'all' => 'الجميع',
                 'active' => 'مفعل',
                 'inactive' => 'معطل',
                 'without_department' => 'بدون قسم',
             ],
-            'historical_movment' =>
-            [
-                'table' =>
-                [
+            'historical_movment' => [
+                'table' => [
                     '#' => '#',
                     'addedBy' => 'تم بواسطة',
                     'department_name' => 'اسم القسم',
@@ -1006,8 +908,7 @@ return [
                     'activity_name' => 'النشاط',
                     'activity_reason' => 'السبب',
                     'no_data' => 'لا يوجد بيانات',
-                    'pagination' =>
-                    [
+                    'pagination' => [
                         'show' => 'عرض',
                         'to' => 'إلى',
                         'of' => 'من',
@@ -1016,10 +917,8 @@ return [
                 ],
             ],
         ],
-        'ourApps' =>
-        [
-            'breadcrumb' =>
-            [
+        'ourApps' => [
+            'breadcrumb' => [
                 'record' => 'اعدادات التطبيق',
                 'ourApps' => 'تطبيقاتنا',
                 'ourApps_record' => 'سجل تطبيقاتنا',
@@ -1027,8 +926,7 @@ return [
                 'ourApps_add' => 'إضافة تطبيق',
                 'ourApps_view' => 'عرض التطبيق',
             ],
-            'table' =>
-            [
+            'table' => [
                 '#' => '#',
                 'app_name' => 'اسم التطبيق',
                 'create_date' => 'تاريخ الإنشاء',
@@ -1039,16 +937,15 @@ return [
                 'activity_name' => 'النشاط',
                 'activity_reason' => 'السبب',
                 'no_data' => ' لا توجد نتائج متاحة',
-                'pagination' =>
-                [
+                'activity_details' => 'تفاصيل النشاط',
+                'pagination' => [
                     'show' => 'عرض',
                     'to' => 'إلى',
                     'of' => 'من',
                     'result' => 'قسم',
                 ],
             ],
-            'buttons' =>
-            [
+            'buttons' => [
                 'add_ourApps' => 'إضافة تطبيق',
                 'export' => 'تصدير',
                 'reset' => 'عرض الكل',
@@ -1058,8 +955,7 @@ return [
                 'save' => 'حفظ',
                 'edit' => 'تعديل',
             ],
-            'fields' =>
-            [
+            'fields' => [
                 'status' => 'الحالة',
                 'name' => 'الاسم',
                 'description' => 'الوصف',
@@ -1067,16 +963,14 @@ return [
                 'android_link' => 'رابط تحميل الاندرويد',
                 'ios_link' => 'رابط تحميل أبل',
             ],
-            'validation' =>
-            [
+            'validation' => [
                 'required' => '%{attribute} مطلوب',
                 'required_f' => '%{attribute} مطلوبة',
                 'maxLength' => '%{attribute} يجب ان لا يتجاوز %{max} حرف ',
                 'minLength' => '%{attribute} يجب ان لا يقل عن  %{min} حرف',
                 'url' => 'هذا الرابط غير صحيح',
             ],
-            'placeholder' =>
-            [
+            'placeholder' => [
                 'enter_app_name' => 'أدخل الاسم',
                 'select_date' => 'يوم/شهر/سنة',
                 'select_status' => 'اختر الحالة',
@@ -1086,8 +980,7 @@ return [
                 'enter_android_link' => 'ادخل رابط الأندرويد',
                 'enter_ios_link' => 'ادخل رابط آبل',
             ],
-            'labels' =>
-            [
+            'labels' => [
                 'app_name' => 'اسم التطبيق',
                 'creating_date' => 'تاريخ الإنشاء (من)',
                 'end_date' => 'تاريخ الإنشاء (إلى)',
@@ -1103,8 +996,7 @@ return [
                 'android_link' => 'رابط تحميل الأندرويد',
                 'ios_link' => 'رابط تحميل آبل',
             ],
-            'tooltip' =>
-            [
+            'tooltip' => [
                 'archive' => 'أرشفة',
                 'edit' => 'تعديل',
                 'view_details' => 'عرض ',
@@ -1117,16 +1009,13 @@ return [
                 'restore' => 'استعادة',
                 'force_delete' => 'حذف ',
             ],
-            'popup' =>
-            [
-                'buttons' =>
-                [
+            'popup' => [
+                'buttons' => [
                     'accept' => 'موافق',
                     'refuse' => 'غير موافق',
                     'close' => 'إغلاق',
                 ],
-                'body' =>
-                [
+                'body' => [
                     'archive' => 'هل تريد إتمام عملية الأرشفة؟',
                     'confirmAccount' => 'هل تريد إتمام عملية تأكيد الحساب؟',
                     'hangAccount' => 'هل تريد إتمام عملية التعليق؟',
@@ -1136,14 +1025,13 @@ return [
                     'delete' => 'هل تريد إتمام عملية الحذف النهائي؟',
                     'cant_archive_ourApps_has_job' => 'لا يمكن أرشفة قسم مرتبط بوظائف',
                 ],
-                'reasonLabel' => 'الرجاء ذكر السبب*',
+                'reasonLabel' => 'الرجاء ذكر السبب',
+                'reasonValidation' => 'السبب',
             ],
-            'heading' =>
-            [
+            'heading' => [
                 'historical_movment' => 'الحركة التاريخية',
             ],
-            'chips' =>
-            [
+            'chips' => [
                 'active' => 'مفعل',
                 'inactive' => 'معطل',
                 'edit' => 'تعديل',
@@ -1153,16 +1041,13 @@ return [
                 'archive' => 'أرشفة',
                 'restored' => 'استعادة',
             ],
-            'statusOptions' =>
-            [
+            'statusOptions' => [
                 'all' => 'الجميع',
                 'active' => 'مفعل',
                 'inactive' => 'معطل',
             ],
-            'historical_movment' =>
-            [
-                'table' =>
-                [
+            'historical_movment' => [
+                'table' => [
                     '#' => '#',
                     'addedBy' => 'تم بواسطة',
                     'department_name' => 'اسم القسم',
@@ -1170,8 +1055,8 @@ return [
                     'activity_name' => 'النشاط',
                     'activity_reason' => 'السبب',
                     'no_data' => ' لا توجد نتائج متاحة',
-                    'pagination' =>
-                    [
+                    'activity_details' => 'تفاصيل النشاط',
+                    'pagination' => [
                         'show' => 'عرض',
                         'to' => 'إلى',
                         'of' => 'من',
@@ -1180,18 +1065,15 @@ return [
                 ],
             ],
         ],
-        'departments' =>
-        [
-            'breadcrumb' =>
-            [
+        'departments' => [
+            'breadcrumb' => [
                 'departments' => 'الأقسام',
                 'department_record' => 'سجل الأقسام',
                 'editDepartment' => 'تعديل قسم',
                 'createDepartment' => 'إضافة قسم',
                 'department_record_details' => 'عرض قسم',
             ],
-            'table' =>
-            [
+            'table' => [
                 '#' => '#',
                 'department_name' => 'اسم القسم',
                 'main_department' => 'القسم الرئيسي',
@@ -1203,16 +1085,15 @@ return [
                 'activity_name' => 'النشاط',
                 'activity_reason' => 'السبب',
                 'no_data' => ' لا توجد نتائج متاحة',
-                'pagination' =>
-                [
+                'activity_details' => 'تفاصيل النشاط',
+                'pagination' => [
                     'show' => 'عرض',
                     'to' => 'إلى',
                     'of' => 'من',
                     'result' => 'قسم',
                 ],
             ],
-            'buttons' =>
-            [
+            'buttons' => [
                 'add' => 'إضافة قسم',
                 'export' => 'تصدير',
                 'reset' => 'عرض الكل',
@@ -1222,21 +1103,18 @@ return [
                 'save' => 'حفظ',
                 'edit' => 'تعديل',
             ],
-            'fields' =>
-            [
+            'fields' => [
                 'status' => 'الحالة',
                 'name' => 'الاسم',
                 'description' => 'الوصف',
             ],
-            'validation' =>
-            [
+            'validation' => [
                 'required' => '%{attribute} مطلوب',
                 'required_f' => '%{attribute} مطلوبة',
                 'maxLength' => '%{attribute} يجب ان لا يتجاوز %{max} حرف ',
                 'minLength' => '%{attribute} يجب ان لا يقل عن  %{min} حرف',
             ],
-            'placeholder' =>
-            [
+            'placeholder' => [
                 'enter_name' => 'أدخل الاسم',
                 'select_main_department' => 'اختر القسم الرئيسي',
                 'select_date' => 'يوم/شهر/سنة',
@@ -1244,8 +1122,7 @@ return [
                 'add_description' => 'أدخل الوصف',
                 'chooseStatus' => 'اختر الحالة',
             ],
-            'labels' =>
-            [
+            'labels' => [
                 'department_name' => 'اسم القسم',
                 'main_department' => 'القسم الرئيسي',
                 'creating_date' => 'تاريخ الإنشاء (من)',
@@ -1256,8 +1133,7 @@ return [
                 'drag_image' => 'اسحب  واسقط أو قم برفع الصورة',
                 'chooseStatus' => 'اختر الحالة',
             ],
-            'statusOptions' =>
-            [
+            'statusOptions' => [
                 'all' => 'الجميع',
                 'is_active' => 'مفعل',
                 'un_active' => 'معطل',
@@ -1265,8 +1141,7 @@ return [
                 'without_department' => 'بدون قسم',
                 'without_description' => 'بدون وصف',
             ],
-            'tooltip' =>
-            [
+            'tooltip' => [
                 'archive' => 'أرشفة',
                 'edit' => 'تعديل',
                 'view_details' => 'عرض ',
@@ -1279,16 +1154,13 @@ return [
                 'restore' => 'استعادة',
                 'force_delete' => 'حذف ',
             ],
-            'popup' =>
-            [
-                'buttons' =>
-                [
+            'popup' => [
+                'buttons' => [
                     'accept' => 'موافق',
                     'refuse' => 'غير موافق',
                     'close' => 'إغلاق',
                 ],
-                'body' =>
-                [
+                'body' => [
                     'archive' => 'هل تريد إتمام عملية الأرشفة؟',
                     'confirmAccount' => 'هل تريد إتمام عملية تأكيد الحساب؟',
                     'hangAccount' => 'هل تريد إتمام عملية التعليق؟',
@@ -1298,14 +1170,13 @@ return [
                     'delete' => 'هل تريد إتمام عملية الحذف النهائي؟',
                     'cant_archive_department_has_job' => 'لا يمكن أرشفة قسم مرتبط بوظائف',
                 ],
-                'reasonLabel' => 'الرجاء ذكر السبب*',
+                'reasonLabel' => 'الرجاء ذكر السبب',
+                'reasonValidation' => 'السبب',
             ],
-            'heading' =>
-            [
+            'heading' => [
                 'history' => 'الحركة التاريخية',
             ],
-            'chips' =>
-            [
+            'chips' => [
                 'active' => 'مفعل',
                 'inActive' => 'معطل',
                 'edit' => 'تعديل',
@@ -1316,18 +1187,15 @@ return [
                 'restored' => 'استعادة',
             ],
         ],
-        'permissions' =>
-        [
-            'breadcrumb' =>
-            [
+        'permissions' => [
+            'breadcrumb' => [
                 'permissions' => 'الصلاحيات',
                 'permissions_record' => 'سجل الصلاحيات',
                 'editGroup' => 'تعديل مجموعة',
                 'addGroup' => 'إضافة مجموعة',
                 'viewGroup' => 'عرض مجموعة',
             ],
-            'table' =>
-            [
+            'table' => [
                 '#' => '#',
                 'group_name' => 'اسم المجموعة',
                 'users_number' => 'عدد المستخدمين',
@@ -1342,16 +1210,15 @@ return [
                 'activity_date' => 'تاريخ النشاط',
                 'activity_name' => 'النشاط',
                 'no_data' => ' لا توجد نتائج متاحة',
-                'pagination' =>
-                [
+                'activity_details' => 'تفاصيل النشاط',
+                'pagination' => [
                     'show' => 'عرض',
                     'to' => 'إلى',
                     'of' => 'من',
                     'result' => 'مجموعة',
                 ],
             ],
-            'buttons' =>
-            [
+            'buttons' => [
                 'add' => 'إضافة مجموعة',
                 'export' => 'تصدير',
                 'reset' => 'عرض الكل',
@@ -1361,29 +1228,25 @@ return [
                 'save' => 'حفظ',
                 'edit' => 'تعديل',
             ],
-            'fields' =>
-            [
+            'fields' => [
                 'group_name' => 'اسم المجموعة',
                 'status' => 'الحالة',
                 'permissions_list' => 'صلاحيات النظام',
             ],
-            'validation' =>
-            [
+            'validation' => [
                 'required' => '%{attribute} مطلوب',
                 'required_f' => '%{attribute} مطلوبة',
                 'maxLength' => '%{attribute} يجب ان لا يتجاوز %{max} حرف ',
                 'minLength' => '%{attribute} يجب ان لا يقل عن x %{min} حرف',
             ],
-            'placeholder' =>
-            [
+            'placeholder' => [
                 'enter_name' => 'أدخل الاسم',
                 'from' => 'من',
                 'to' => 'إلى',
                 'chooseStatus' => 'اختر الحالة',
                 'select_permissions' => 'اختر الصلاحيات',
             ],
-            'labels' =>
-            [
+            'labels' => [
                 'group_name' => 'اسم المجموعة',
                 'permission_user_from' => 'عدد المستخدمين (من)',
                 'permission_user_to' => 'عدد المستخدمين (إلى)',
@@ -1392,16 +1255,14 @@ return [
                 'user_status' => 'الحالة',
                 'groupManger' => 'منشئ المجموعة',
             ],
-            'statusOptions' =>
-            [
+            'statusOptions' => [
                 'all' => 'الجميع',
                 'selectAll' => ' اختر الكل',
                 'is_active' => 'مفعلة',
                 'un_active' => 'معطلة',
                 'without_department' => 'بدون قسم',
             ],
-            'tooltip' =>
-            [
+            'tooltip' => [
                 'archive' => 'أرشفة',
                 'edit' => 'تعديل',
                 'view_details' => 'عرض ',
@@ -1414,16 +1275,13 @@ return [
                 'restore' => 'استعادة',
                 'force_delete' => 'حذف ',
             ],
-            'popup' =>
-            [
-                'buttons' =>
-                [
+            'popup' => [
+                'buttons' => [
                     'accept' => 'موافق',
                     'refuse' => 'غير موافق',
                     'close' => 'إغلاق',
                 ],
-                'body' =>
-                [
+                'body' => [
                     'archive' => 'هل تريد إتمام عملية الأرشفة؟',
                     'confirmAccount' => 'هل تريد إتمام عملية تأكيد الحساب؟',
                     'hangAccount' => 'هل تريد إتمام عملية التعليق؟',
@@ -1433,15 +1291,14 @@ return [
                     'delete' => 'هل تريد إتمام عملية الحذف النهائي؟',
                     'cant_archive_department_has_job' => 'لا يمكن أرشفة قسم مرتبط بوظائف',
                 ],
-                'reasonLabel' => 'الرجاء ذكر السبب*',
+                'reasonLabel' => 'الرجاء ذكر السبب',
+                'reasonValidation' => 'السبب',
             ],
-            'heading' =>
-            [
+            'heading' => [
                 'history' => 'الحركة التاريخية',
                 'groupData' => 'بيانات المجموعة',
             ],
-            'chips' =>
-            [
+            'chips' => [
                 'active' => 'مفعلة',
                 'inActive' => 'معطلة',
                 'edit' => 'تعديل',
@@ -1451,33 +1308,28 @@ return [
                 'archive' => 'أرشفة',
                 'restored' => 'استعادة',
             ],
-            'groupDataTablePagination' =>
-            [
+            'groupDataTablePagination' => [
                 'show' => 'عرض',
                 'to' => 'إلى',
                 'of' => 'من',
                 'result' => 'الإجمالي',
             ],
-            'historyTablePagination' =>
-            [
+            'historyTablePagination' => [
                 'show' => 'عرض',
                 'to' => 'إلى',
                 'of' => 'من',
                 'result' => 'الإجمالي',
             ],
         ],
-        'jobs' =>
-        [
-            'breadcrumb' =>
-            [
+        'jobs' => [
+            'breadcrumb' => [
                 'jobs' => 'الوظائف',
                 'job_record' => 'سجل الوظائف',
                 'editJob' => 'تعديل وظيفة',
                 'createJob' => 'إضافة وظيفة',
                 'job_view' => 'عرض وظيفة',
             ],
-            'table' =>
-            [
+            'table' => [
                 '#' => '#',
                 'job_name' => 'اسم الوظيفة',
                 'department' => 'القسم',
@@ -1491,16 +1343,15 @@ return [
                 'activity' => 'النشاط',
                 'reason' => 'السبب',
                 'no_data' => ' لا توجد نتائج متاحة',
-                'pagination' =>
-                [
+                'activity_details' => 'تفاصيل النشاط',
+                'pagination' => [
                     'show' => 'عرض',
                     'to' => 'إلى',
                     'of' => 'من',
                     'result' => 'وظيفة',
                 ],
             ],
-            'buttons' =>
-            [
+            'buttons' => [
                 'add' => 'إضافة وظيفة',
                 'export' => 'تصدير',
                 'reset' => 'عرض الكل',
@@ -1510,22 +1361,19 @@ return [
                 'save' => 'حفظ',
                 'edit' => 'تعديل',
             ],
-            'fields' =>
-            [
+            'fields' => [
                 'name' => 'الاسم',
                 'job_description' => 'الوصف الوظيفي',
                 'department' => 'القسم',
                 'status' => 'الحالة',
             ],
-            'validation' =>
-            [
+            'validation' => [
                 'required' => '%{attribute} مطلوب',
                 'required_f' => '%{attribute} مطلوبة',
                 'maxLength' => '%{attribute} يجب ان لا يتجاوز %{max} حرف ',
                 'minLength' => '%{attribute} يجب ان لا يقل عن  %{min} حرف',
             ],
-            'placeholder' =>
-            [
+            'placeholder' => [
                 'enter_name' => 'أدخل الاسم',
                 'choose_department' => 'اختر القسم',
                 'select_date' => 'يوم/شهر/سنة',
@@ -1533,8 +1381,7 @@ return [
                 'choose_type' => 'اختر النوع',
                 'enter_description' => 'أدخل الوصف',
             ],
-            'labels' =>
-            [
+            'labels' => [
                 'job_name' => 'اسم الوظيفة',
                 'department' => 'القسم',
                 'creating_date' => 'تاريخ الإنشاء (من)',
@@ -1545,8 +1392,7 @@ return [
                 'employee_name' => 'الموظف المسئول',
                 'employee' => 'الموظف',
             ],
-            'statusOptions' =>
-            [
+            'statusOptions' => [
                 'all' => 'الجميع',
                 'is_active' => 'مفعلة',
                 'un_active' => 'معطلة',
@@ -1555,8 +1401,7 @@ return [
                 'without_main_department' => 'بدون قسم رئيسي',
                 'without_department' => 'بدون قسم',
             ],
-            'tooltip' =>
-            [
+            'tooltip' => [
                 'archive' => 'أرشفة',
                 'edit' => 'تعديل',
                 'view_details' => 'عرض ',
@@ -1569,16 +1414,13 @@ return [
                 'restore' => 'استعادة',
                 'force_delete' => 'حذف ',
             ],
-            'popup' =>
-            [
-                'buttons' =>
-                [
+            'popup' => [
+                'buttons' => [
                     'accept' => 'موافق',
                     'refuse' => 'غير موافق',
                     'close' => 'إغلاق',
                 ],
-                'body' =>
-                [
+                'body' => [
                     'archive' => 'هل تريد إتمام عملية الأرشفة؟',
                     'confirmAccount' => 'هل تريد إتمام عملية تأكيد الحساب؟',
                     'hangAccount' => 'هل تريد إتمام عملية التعليق؟',
@@ -1588,14 +1430,13 @@ return [
                     'delete' => 'هل تريد إتمام عملية الحذف النهائي؟',
                     'unarchive_job' => 'لا يمكن ارشفة وظيفة مشغولة',
                 ],
-                'reasonLabel' => 'الرجاء ذكر السبب*',
+                'reasonLabel' => 'الرجاء ذكر السبب',
+                'reasonValidation' => 'السبب',
             ],
-            'heading' =>
-            [
+            'heading' => [
                 'history' => 'الحركة التاريخية',
             ],
-            'chips' =>
-            [
+            'chips' => [
                 'active' => 'مفعلة',
                 'inActive' => 'معطلة',
                 'vacant' => 'شاغرة',
@@ -1608,18 +1449,15 @@ return [
                 'restored' => 'استعادة',
             ],
         ],
-        'banks' =>
-        [
-            'breadcrumb' =>
-            [
+        'banks' => [
+            'breadcrumb' => [
                 'banks' => 'البنوك',
                 'bank_record' => 'سجل البنوك',
                 'edit_bank' => 'تعديل بنك',
                 'add_bank' => 'إضافة بنك',
                 'bank_view' => 'عرض بنك',
             ],
-            'table' =>
-            [
+            'table' => [
                 '#' => '#',
                 'name_of_bank' => 'اسم البنك',
                 'status' => 'الحالة',
@@ -1628,18 +1466,16 @@ return [
                 'department_name' => 'اسم القسم',
                 'activity_date' => 'تاريخ النشاط',
                 'activity_name' => 'النشاط',
-                'activity_reason' => 'السبب',
+                'activity_details' => 'تفاصيل النشاط',
                 'no_data' => ' لا توجد نتائج متاحة',
-                'pagination' =>
-                [
+                'pagination' => [
                     'show' => 'عرض',
                     'to' => 'إلى',
                     'of' => 'من',
                     'result' => 'بنك',
                 ],
             ],
-            'buttons' =>
-            [
+            'buttons' => [
                 'add' => 'إضافة بنك',
                 'export' => 'تصدير',
                 'reset' => 'عرض الكل',
@@ -1649,40 +1485,34 @@ return [
                 'save' => 'حفظ',
                 'edit' => 'تعديل',
             ],
-            'fields' =>
-            [
+            'fields' => [
                 'bank_name' => 'اسم البنك',
                 'status' => 'الحالة',
             ],
-            'validation' =>
-            [
+            'validation' => [
                 'required' => '%{attribute} مطلوب',
                 'required_f' => '%{attribute} مطلوبة',
                 'maxLength' => '%{attribute} يجب ان لا يتجاوز %{max} حرف ',
                 'minLength' => '%{attribute} يجب ان لا يقل عن  %{min} حرف',
             ],
-            'placeholder' =>
-            [
+            'placeholder' => [
                 'enter_bank_name' => 'أدخل اسم البنك',
                 'choose_status' => 'اختر الحالة',
             ],
-            'labels' =>
-            [
+            'labels' => [
                 'bank_name' => 'اسم البنك',
                 'status' => 'الحالة',
                 'chooseStatus' => 'اختر الحالة',
                 'image' => 'صورة',
                 'drag_image' => 'اسحب  واسقط أو قم برفع الصورة',
             ],
-            'statusOptions' =>
-            [
+            'statusOptions' => [
                 'all' => 'الجميع',
                 'is_active' => 'مفعل',
                 'un_active' => 'معطل',
                 'without' => 'بدون',
             ],
-            'tooltip' =>
-            [
+            'tooltip' => [
                 'archive' => 'أرشفة',
                 'edit' => 'تعديل',
                 'view_details' => 'عرض ',
@@ -1695,16 +1525,13 @@ return [
                 'restore' => 'استعادة',
                 'force_delete' => 'حذف ',
             ],
-            'popup' =>
-            [
-                'buttons' =>
-                [
+            'popup' => [
+                'buttons' => [
                     'accept' => 'موافق',
                     'refuse' => 'غير موافق',
                     'close' => 'إغلاق',
                 ],
-                'body' =>
-                [
+                'body' => [
                     'archive' => 'هل تريد إتمام عملية الأرشفة؟',
                     'confirmAccount' => 'هل تريد إتمام عملية تأكيد الحساب؟',
                     'hangAccount' => 'هل تريد إتمام عملية التعليق؟',
@@ -1713,14 +1540,13 @@ return [
                     'back' => 'هل تريد العودة دون الحفظ ؟',
                     'delete' => 'هل تريد إتمام عملية الحذف النهائي؟',
                 ],
-                'reasonLabel' => 'الرجاء ذكر السبب*',
+                'reasonLabel' => 'الرجاء ذكر السبب',
+                'reasonValidation' => 'السبب',
             ],
-            'heading' =>
-            [
+            'heading' => [
                 'history' => 'الحركة التاريخية',
             ],
-            'chips' =>
-            [
+            'chips' => [
                 'active' => 'مفعل',
                 'inActive' => 'معطل',
                 'edit' => 'تعديل',
@@ -1731,18 +1557,15 @@ return [
                 'restored' => 'استعادة',
             ],
         ],
-        'appStaticPages' =>
-        [
-            'breadcrumb' =>
-            [
+        'appStaticPages' => [
+            'breadcrumb' => [
                 'settings' => 'إعدادات التطبيق',
                 'staticPages' => 'الصفحات الثابتة',
                 'static_page_edit' => 'تعديل صفحة',
                 'static_page_add' => 'إضافة صفحة',
                 'static_page_view' => 'عرض صفحة',
             ],
-            'table' =>
-            [
+            'table' => [
                 '#' => '#',
                 'page_name' => 'اسم الصفحة',
                 'status' => 'الحالة',
@@ -1753,16 +1576,15 @@ return [
                 'activity_name' => 'النشاط',
                 'activity_reason' => 'السبب',
                 'no_data' => ' لا توجد نتائج متاحة',
-                'pagination' =>
-                [
+                'activity_details' => 'تفاصيل النشاط',
+                'pagination' => [
                     'show' => 'عرض',
                     'to' => 'إلى',
                     'of' => 'من',
                     'result' => 'صفحة',
                 ],
             ],
-            'buttons' =>
-            [
+            'buttons' => [
                 'add' => 'إضافة صفحة',
                 'export' => 'تصدير',
                 'reset' => 'عرض الكل',
@@ -1772,26 +1594,22 @@ return [
                 'save' => 'حفظ',
                 'edit' => 'تعديل',
             ],
-            'fields' =>
-            [
+            'fields' => [
                 'page_name' => 'اسم الصفحة',
                 'status' => 'الحالة',
                 'description' => 'محتوي الصفحة',
             ],
-            'validation' =>
-            [
+            'validation' => [
                 'required' => '%{attribute} مطلوب',
                 'required_f' => '%{attribute} مطلوبة',
                 'maxLength' => '%{attribute} يجب ان لا يتجاوز %{max} حرف ',
                 'minLength' => '%{attribute} يجب ان لا يقل عن  %{min} حرف',
             ],
-            'placeholder' =>
-            [
+            'placeholder' => [
                 'enter_page_name' => 'أدخل اسم صفحة',
                 'choose_status' => 'اختر الحالة',
             ],
-            'labels' =>
-            [
+            'labels' => [
                 'page_name' => 'اسم الصفحة',
                 'page_status' => 'الحالة',
                 'page_description' => 'محتوي الصفحة',
@@ -1803,16 +1621,14 @@ return [
                 'show_in_app' => 'يعرض في التطبيق',
                 'show_in_website' => 'يعرض في الموقع',
             ],
-            'statusOptions' =>
-            [
+            'statusOptions' => [
                 'all' => 'الجميع',
                 'is_active' => 'مفعلة',
                 'un_active' => 'معطلة',
                 'without' => 'بدون',
                 'without_department' => 'بدون قسم',
             ],
-            'tooltip' =>
-            [
+            'tooltip' => [
                 'archive' => 'أرشفة',
                 'edit' => 'تعديل',
                 'view_details' => 'عرض ',
@@ -1825,16 +1641,13 @@ return [
                 'restore' => 'استعادة',
                 'force_delete' => 'حذف ',
             ],
-            'popup' =>
-            [
-                'buttons' =>
-                [
+            'popup' => [
+                'buttons' => [
                     'accept' => 'موافق',
                     'refuse' => 'غير موافق',
                     'close' => 'إغلاق',
                 ],
-                'body' =>
-                [
+                'body' => [
                     'archive' => 'هل تريد إتمام عملية الأرشفة؟',
                     'confirmAccount' => 'هل تريد إتمام عملية تأكيد الحساب؟',
                     'hangAccount' => 'هل تريد إتمام عملية التعليق؟',
@@ -1843,15 +1656,15 @@ return [
                     'back' => 'هل تريد العودة دون الحفظ ؟',
                     'delete' => 'هل تريد إتمام عملية الحذف النهائي؟',
                     'force_delete' => 'هل تريد اتمام عملية الحذف النهائي؟',
+                    'page_has_link' => 'لا يمكن حذف صفحة مرتبطة برابط',
                 ],
-                'reasonLabel' => 'الرجاء ذكر السبب*',
+                'reasonLabel' => 'الرجاء ذكر السبب',
+                'reasonValidation' => 'السبب',
             ],
-            'heading' =>
-            [
+            'heading' => [
                 'history' => 'الحركة التاريخية',
             ],
-            'chips' =>
-            [
+            'chips' => [
                 'active' => 'مفعلة',
                 'inActive' => 'معطلة',
                 'edit' => 'تعديل',
@@ -1862,21 +1675,18 @@ return [
                 'restored' => 'استعادة',
             ],
         ],
-        'clients' =>
-        [
-            'breadcrumb' =>
-            [
-                'clients' => 'العملاء',
-                'clients_record' => 'سجل العملاء',
-                'edit_client' => 'تعديل عميل',
-                'add_client' => 'تسجيل عميل',
-                'view_client' => 'عرض عميل',
+        'vendors' => [
+            'breadcrumb' => [
+                'vendors' => 'العملاء',
+                'vendors_record' => 'سجل العملاء',
+                'edit_vendor' => 'تعديل عميل',
+                'add_vendor' => 'تسجيل عميل',
+                'view_vendor' => 'عرض عميل',
             ],
-            'table' =>
-            [
+            'table' => [
                 '#' => '#',
-                'client_name' => 'اسم العميل',
-                'client_type' => 'نوع العميل',
+                'vendor_name' => 'اسم العميل',
+                'vendor_type' => 'نوع العميل',
                 'commercial_register' => 'السجل التجاري',
                 'tax_record' => 'الرقم الضريبي',
                 'branches_record' => 'سجل الفروع',
@@ -1888,20 +1698,17 @@ return [
                 'activity_name' => 'النشاط',
                 'activity_details' => 'تفاصيل النشاط',
                 'no_data' => ' لا توجد نتائج متاحة',
-                'pagination' =>
-                [
+                'pagination' => [
                     'show' => 'عرض',
                     'to' => 'إلى',
                     'of' => 'من',
                     'result' => 'الإجمالي',
                 ],
             ],
-            'cards' =>
-            [
+            'cards' => [
                 'map' => 'إحداثيات الموقع',
             ],
-            'buttons' =>
-            [
+            'buttons' => [
                 'add' => 'إضافة عميل',
                 'export' => 'تصدير',
                 'reset' => 'عرض الكل',
@@ -1911,10 +1718,9 @@ return [
                 'save' => 'حفظ',
                 'edit' => 'تعديل',
             ],
-            'fields' =>
-            [
-                'client_type' => 'نوع العميل',
-                'client_name' => 'اسم العميل',
+            'fields' => [
+                'vendor_type' => 'نوع العميل',
+                'vendor_name' => 'اسم العميل',
                 'commercial_register' => 'السجل التجاري',
                 'tax_record' => 'الرقم الضريبي',
                 'account_number' => 'رقم الحساب',
@@ -1924,16 +1730,14 @@ return [
                 'email' => 'البريد الإلكتروني',
                 'phone' => 'رقم الجوال',
             ],
-            'validation' =>
-            [
+            'validation' => [
                 'required' => '%{attribute} مطلوب',
                 'required_f' => '%{attribute} مطلوبة',
                 'maxLength' => '%{attribute} يجب ان لا يتجاوز %{max} حرف ',
                 'minLength' => '%{attribute} يجب ان لا يقل عن  %{min} حرف',
             ],
-            'placeholder' =>
-            [
-                'chooseclient' => 'إختر العميل',
+            'placeholder' => [
+                'choosevendor' => 'إختر العميل',
                 'enter_name' => 'أدخل الاسم',
                 'chooseStatus' => 'اختر الحالة',
                 'commercial_register' => 'أدخل السجل التجاري',
@@ -1941,10 +1745,9 @@ return [
                 'email' => 'أدخل البريد الإلكتروني',
                 'phone_x' => 'xxxxxxxx',
             ],
-            'labels' =>
-            [
-                'client_type' => 'نوع العميل',
-                'client_name' => 'اسم العميل',
+            'labels' => [
+                'vendor_type' => 'نوع العميل',
+                'vendor_name' => 'اسم العميل',
                 'status' => 'الحالة',
                 'commercial_register' => 'السجل التجاري',
                 'tax_record' => 'الرقم الضريبي',
@@ -1965,16 +1768,14 @@ return [
                 'fullAddress' => 'العنوان بالتفصيل',
                 'location' => 'الموقع',
             ],
-            'statusOptions' =>
-            [
+            'statusOptions' => [
                 'all' => 'الجميع',
                 'is_active' => 'مفعل',
                 'un_active' => 'معطل',
                 'without' => 'بدون',
                 'without_department' => 'بدون قسم',
             ],
-            'clientTypes' =>
-            [
+            'vendorTypes' => [
                 'company' => 'شركات',
                 'institution' => 'مؤسسة',
                 'member' => 'عضو',
@@ -1982,8 +1783,7 @@ return [
                 'famous' => 'مشهور',
                 'other' => 'أخري',
             ],
-            'tooltip' =>
-            [
+            'tooltip' => [
                 'archive' => 'أرشفة',
                 'edit' => 'تعديل',
                 'view_details' => 'عرض ',
@@ -1996,16 +1796,13 @@ return [
                 'restore' => 'استعادة',
                 'force_delete' => 'حذف ',
             ],
-            'popup' =>
-            [
-                'buttons' =>
-                [
+            'popup' => [
+                'buttons' => [
                     'accept' => 'موافق',
                     'refuse' => 'غير موافق',
                     'close' => 'إغلاق',
                 ],
-                'body' =>
-                [
+                'body' => [
                     'archive' => 'هل تريد إتمام عملية الأرشفة؟',
                     'confirmAccount' => 'هل تريد إتمام عملية تأكيد الحساب؟',
                     'hangAccount' => 'هل تريد إتمام عملية التعليق؟',
@@ -2014,14 +1811,13 @@ return [
                     'back' => 'هل تريد العودة دون الحفظ ؟',
                     'delete' => 'هل تريد إتمام عملية الحذف النهائي؟',
                 ],
-                'reasonLabel' => 'الرجاء ذكر السبب*',
+                'reasonLabel' => 'الرجاء ذكر السبب',
+                'reasonValidation' => 'السبب',
             ],
-            'heading' =>
-            [
+            'heading' => [
                 'history' => 'الحركة التاريخية',
             ],
-            'chips' =>
-            [
+            'chips' => [
                 'active' => 'مفعل',
                 'inActive' => 'معطل',
                 'edit' => 'تعديل',
@@ -2031,20 +1827,17 @@ return [
                 'archive' => 'أرشفة',
                 'restored' => 'استعادة',
             ],
-            'branches' =>
-            [
-                'breadcrumb' =>
-                [
+            'branches' => [
+                'breadcrumb' => [
                     'branches' => 'العملاء',
                     'branches_record' => 'سجل الفروع',
                     'edit_branch' => 'تعديل فرع',
                     'add_branch' => 'إضافة فرع',
                     'view_branch' => 'عرض فرع',
                 ],
-                'table' =>
-                [
+                'table' => [
                     '#' => '#',
-                    'client_name' => 'اسم العميل',
+                    'vendor_name' => 'اسم العميل',
                     'branch_name' => 'اسم الفرع',
                     'status' => 'الحالة',
                     'phone' => 'رقم الجوال',
@@ -2055,16 +1848,14 @@ return [
                     'activity_name' => 'النشاط',
                     'activity_details' => 'تفاصيل النشاط',
                     'no_data' => ' لا توجد نتائج متاحة',
-                    'pagination' =>
-                    [
+                    'pagination' => [
                         'show' => 'عرض',
                         'to' => 'إلى',
                         'of' => 'من',
                         'result' => 'الإجمالي',
                     ],
                 ],
-                'buttons' =>
-                [
+                'buttons' => [
                     'add' => 'إضافة فرع',
                     'export' => 'تصدير',
                     'reset' => 'عرض الكل',
@@ -2074,9 +1865,8 @@ return [
                     'save' => 'حفظ',
                     'edit' => 'تعديل',
                 ],
-                'fields' =>
-                [
-                    'client_name' => 'اسم العميل',
+                'fields' => [
+                    'vendor_name' => 'اسم العميل',
                     'branch_name' => 'اسم الفرع',
                     'country_code' => 'كود الدولة',
                     'email' => 'البريد الإلكتروني',
@@ -2089,16 +1879,14 @@ return [
                     'lat' => 'خط طول',
                     'lng' => 'خط عرض',
                 ],
-                'validation' =>
-                [
+                'validation' => [
                     'required' => '%{attribute} مطلوب',
                     'required_f' => '%{attribute} مطلوبة',
                     'maxLength' => '%{attribute} يجب ان لا يتجاوز %{max} حرف ',
                     'minLength' => '%{attribute} يجب ان لا يقل عن  %{min} حرف',
                 ],
-                'placeholder' =>
-                [
-                    'chooseclient' => 'إختر العميل',
+                'placeholder' => [
+                    'choosevendor' => 'إختر العميل',
                     'chooseBranch' => 'أدخل اسم الفرع',
                     'enter_name' => 'أدخل الاسم',
                     'chooseStatus' => 'اختر الحالة',
@@ -2106,9 +1894,8 @@ return [
                     'email' => 'أدخل البريد الإلكتروني',
                     'phone_x' => 'xxxxxxxx',
                 ],
-                'labels' =>
-                [
-                    'client_name' => 'اسم العميل',
+                'labels' => [
+                    'vendor_name' => 'اسم العميل',
                     'branch_name' => 'اسم الفرع',
                     'address' => 'العنوان',
                     'status' => 'الحالة',
@@ -2121,27 +1908,23 @@ return [
                     'lat' => 'خط طول',
                     'lng' => 'خط عرض',
                 ],
-                'statusOptions' =>
-                [
+                'statusOptions' => [
                     'all' => 'الجميع',
                     'is_active' => 'مفعل',
                     'un_active' => 'معطل',
                     'without' => 'بدون',
                     'without_department' => 'بدون قسم',
                 ],
-                'cards' =>
-                [
+                'cards' => [
                     'branch_data' => 'بيانات الفرع',
                     'map' => 'إحداثيات الموقع',
                 ],
-                'map' =>
-                [
+                'map' => [
                     'location' => 'الموقع',
                     'lat' => 'خط طول',
                     'lng' => 'خط عرض',
                 ],
-                'tooltip' =>
-                [
+                'tooltip' => [
                     'archive' => 'أرشفة',
                     'edit' => 'تعديل',
                     'view_details' => 'عرض ',
@@ -2154,16 +1937,13 @@ return [
                     'restore' => 'استعادة',
                     'force_delete' => 'حذف ',
                 ],
-                'popup' =>
-                [
-                    'buttons' =>
-                    [
+                'popup' => [
+                    'buttons' => [
                         'accept' => 'موافق',
                         'refuse' => 'غير موافق',
                         'close' => 'إغلاق',
                     ],
-                    'body' =>
-                    [
+                    'body' => [
                         'archive' => 'هل تريد إتمام عملية الأرشفة؟',
                         'confirmAccount' => 'هل تريد إتمام عملية تأكيد الحساب؟',
                         'hangAccount' => 'هل تريد إتمام عملية التعليق؟',
@@ -2172,14 +1952,13 @@ return [
                         'back' => 'هل تريد العودة دون الحفظ ؟',
                         'delete' => 'هل تريد إتمام عملية الحذف النهائي؟',
                     ],
-                    'reasonLabel' => 'الرجاء ذكر السبب*',
+                    'reasonLabel' => 'الرجاء ذكر السبب',
+                    'reasonValidation' => 'السبب',
                 ],
-                'heading' =>
-                [
+                'heading' => [
                     'history' => 'الحركة التاريخية',
                 ],
-                'chips' =>
-                [
+                'chips' => [
                     'active' => 'مفعل',
                     'inActive' => 'معطل',
                     'edit' => 'تعديل',
@@ -2191,16 +1970,13 @@ return [
                 ],
             ],
         ],
-        'citizens' =>
-        [
-            'breadcrumb' =>
-            [
+        'citizens' => [
+            'breadcrumb' => [
                 'record' => 'سجل المستخدمين',
                 'edit' => 'تعديل مستخدم',
                 'view' => 'عرض مستخدم',
             ],
-            'table' =>
-            [
+            'table' => [
                 '#' => '#',
                 'user_name' => 'اسم المستخدم',
                 'identity_number' => 'رقم الهوية',
@@ -2208,38 +1984,40 @@ return [
                 'activated_card' => 'البطاقة المفعلة',
                 'card_end_at' => 'تاريخ إنتهاء البطاقة',
                 'register_date' => 'تاريخ التسجيل',
+                'status' => 'الحالة',
                 'actions' => 'العمليات',
+                'by_employee' => 'تم بواسطة',
+                'department_name' => 'اسم القسم',
+                'activity_date' => 'تاريخ النشاط',
+                'activity' => 'النشاط',
+                'activity_details' => 'تفاصيل النشاط',
                 'no_data' => ' لا توجد نتائج متاحة',
-                'pagination' =>
-                [
+                'pagination' => [
                     'show' => 'عرض',
                     'to' => 'إلى',
                     'of' => 'من',
                     'result' => 'مستخدم',
                 ],
             ],
-            'buttons' =>
-            [
+            'buttons' => [
                 'export' => 'تصدير',
                 'reset' => 'عرض الكل',
                 'search' => 'بحث',
                 'save' => 'حفظ',
                 'back' => 'عودة',
+                'edit' => 'تعديل',
             ],
-            'fields' =>
-            [
+            'fields' => [
                 'phone' => 'رقم الجوال',
             ],
-            'validation' =>
-            [
+            'validation' => [
                 'required' => '%{attribute} مطلوب',
                 'required_f' => '%{attribute} مطلوبة',
                 'maxLength' => '%{attribute} يجب ان لا يتجاوز %{max} حروف ',
                 'minLength' => '%{attribute} يجب ان لا يقل عن  %{min} حروف',
-                'validPhoneNumber' => 'يرجى ادخال رقم جوال بصيغة صحيحة (يبدأ ب 05)',
+                'validPhoneNumber' => 'يرجى ادخال رقم جوال بصيغة صحيحة',
             ],
-            'placeholder' =>
-            [
+            'placeholder' => [
                 'enter_name' => 'أدخل الاسم',
                 'add_number' => 'أدخل الرقم',
                 'select_date' => 'يوم/شهر/سنة',
@@ -2252,8 +2030,7 @@ return [
                 'register_date' => 'تاريخ التسجيل',
                 'phone_x' => 'xxxxxxxx',
             ],
-            'labels' =>
-            [
+            'labels' => [
                 'user_name' => 'اسم المستخدم',
                 'identity_number' => 'رقم الهوية',
                 'phone' => 'رقم الجوال',
@@ -2266,21 +2043,31 @@ return [
                 'card_end_at' => 'تاريخ إنتهاء البطاقة',
                 'register_date' => 'تاريخ التسجيل',
                 'all' => 'الجميع',
+                'from' => 'من',
+                'to' => 'إلى',
+                'status' => 'الحالة',
             ],
-            'tooltip' =>
-            [
+            'heading' => [
+                'historical_movment' => 'الحركة التاريخية',
+            ],
+            'tooltip' => [
                 'edit' => 'تعديل',
                 'view_details' => 'عرض',
+                'exceeded_attempts' => 'معطل لتخطي عدد مرات الدخول الخاطئ',
+                'temporary' => 'معطل مؤقت',
             ],
-            'popup' =>
-            [
-                'buttons' =>
-                [
+            'chips' => [
+                'active' => 'مفعل',
+                'permanent' => 'معطل',
+                'temporary' => 'معطل مؤقت',
+                'inActive' => 'معطل',
+            ],
+            'popup' => [
+                'buttons' => [
                     'accept' => 'موافق',
                     'refuse' => 'غير موافق',
                 ],
-                'body' =>
-                [
+                'body' => [
                     'archive' => 'هل تريد إتمام عملية الأرشفة؟',
                     'confirmAccount' => 'هل تريد إتمام عملية تأكيد الحساب؟',
                     'hangAccount' => 'هل تريد إتمام عملية التعليق؟',
@@ -2289,67 +2076,69 @@ return [
                     'back' => 'هل تريد العودة دون الحفظ ؟',
                     'delete' => 'هل تريد إتمام عملية الحذف النهائي؟',
                 ],
-                'reasonLabel' => 'الرجاء ذكر السبب*',
+                'reasonLabel' => 'الرجاء ذكر السبب',
+                'reasonValidation' => 'السبب',
+            ],
+            'statusOptions' => [
+                'all' => 'الجميع',
+                'active' => 'مفعل',
+                'permanent disable' => 'معطل',
+                'Temporary Disable' => 'معطل مؤقت',
+                'exceeded_attempts' => 'معطل لتخطي عدد مرات الدخول الخاطئ',
+                'no_data' => 'لا توجد نتائج متاحة',
             ],
         ],
-        'transactions' =>
-        [
-            'breadcrumb' =>
-            [
+        'transactions' => [
+            'breadcrumb' => [
                 'record' => 'سجل المعاملات',
                 'view' => 'عرض معاملة',
             ],
-            'table' =>
-            [
+            'table' => [
                 '#' => '#',
                 'transaction_number' => 'رقم المعاملة',
-                'client_name' => 'اسم العميل',
+                'client_name' => 'اسم المستخدم',
                 'transaction_date' => 'تاريخ المعاملة',
                 'transaction_type' => 'نوع المعاملة',
                 'transaction_status' => 'حالة المعاملة',
                 'active_identity_card' => 'البطاقة المفعلة',
                 'actions' => 'العمليات',
                 'no_data' => ' لا توجد نتائج متاحة',
-                'pagination' =>
-                [
+                'activity_details' => 'تفاصيل النشاط',
+                'pagination' => [
                     'show' => 'عرض',
                     'to' => 'إلى',
                     'of' => 'من',
                     'result' => 'معاملة',
                 ],
             ],
-            'buttons' =>
-            [
+            'buttons' => [
                 'export' => 'تصدير',
                 'reset' => 'عرض الكل',
                 'search' => 'بحث',
                 'save' => 'حفظ',
                 'back' => 'عودة',
             ],
-            'fields' =>
-            [
+            'fields' => [
                 'phone' => 'رقم الجوال',
             ],
-            'validation' =>
-            [
+            'validation' => [
                 'required' => '%{attribute} مطلوب',
                 'required_f' => '%{attribute} مطلوبة',
                 'maxLength' => '%{attribute} يجب ان لا يتجاوز %{max} حروف ',
                 'minLength' => '%{attribute} يجب ان لا يقل عن  %{min} حروف',
             ],
-            'placeholder' =>
-            [
+            'placeholder' => [
                 'enter_transaction' => 'أدخل رقم المعاملة',
-                'choose_client' => 'اختر العميل',
+                'choose_client' => 'اختر المستخدم',
                 'select_date' => 'يوم/شهر/سنة',
                 'choose_transaction_type' => 'اختر نوع المعاملة',
                 'choose_transaction_status' => 'اختر حالة المعاملة',
                 'choose_identity_type' => 'اختر نوع البطاقة',
+                'enter_client_name' => 'أدخل اسم المستخدم',
             ],
-            'labels' =>
-            [
+            'labels' => [
                 'transaction_number' => 'رقم المعاملة',
-                'client_name' => 'اسم العميل',
+                'client_name' => 'اسم المستخدم',
                 'user_name' => 'اسم المستخدم',
                 'phone' => 'رقم الجوال',
                 'active_card' => 'البطاقة المفعلة',
@@ -2369,20 +2158,18 @@ return [
                 'pending' => 'بانتظار الاستلام',
                 'delivared' => 'تم الاستلام',
                 'cancel' => 'تم الإلغاء',
+                'vendor_name' => ' اسم العميل',
+                'citizen_name' => 'اسم المستخدم',
             ],
-            'tooltip' =>
-            [
+            'tooltip' => [
                 'view_details' => 'عرض',
             ],
-            'popup' =>
-            [
-                'buttons' =>
-                [
+            'popup' => [
+                'buttons' => [
                     'accept' => 'موافق',
                     'refuse' => 'غير موافق',
                 ],
-                'body' =>
-                [
+                'body' => [
                     'archive' => 'هل تريد إتمام عملية الأرشفة؟',
                     'confirmAccount' => 'هل تريد إتمام عملية تأكيد الحساب؟',
                     'hangAccount' => 'هل تريد إتمام عملية التعليق؟',
@@ -2391,10 +2178,10 @@ return [
                     'back' => 'هل تريد العودة دون الحفظ ؟',
                     'delete' => 'هل تريد إتمام عملية الحذف النهائي؟',
                 ],
-                'reasonLabel' => 'الرجاء ذكر السبب*',
+                'reasonLabel' => 'الرجاء ذكر السبب',
+                'reasonValidation' => 'السبب',
             ],
-            'types' =>
-            [
+            'types' => [
                 'payment' => 'دفع',
                 'wallet_transfer' => 'تحويل لمحفظة',
                 'locale_transfer' => 'تحويل محلى',
@@ -2403,17 +2190,14 @@ return [
                 'upgrade_card' => 'بطاقة ا لترقية',
             ],
         ],
-        'card_packages' =>
-        [
-            'breadcrumb' =>
-            [
+        'card_packages' => [
+            'breadcrumb' => [
                 'card_packages' => 'نسب خصم البطاقات',
                 'record' => 'سجل نسب خصم البطاقات',
                 'add' => 'إضافة نسبة خصم البطاقة',
                 'edit' => 'تعديل نسبة خصم البطاقة',
             ],
-            'table' =>
-            [
+            'table' => [
                 '#' => '#',
                 'client_name' => 'اسم العميل',
                 'basic_discount' => 'البطاقة الأساسية',
@@ -2421,16 +2205,15 @@ return [
                 'platinum_discount' => 'البطاقة البلاتينية',
                 'actions' => 'العمليات',
                 'no_data' => ' لا توجد نتائج متاحة',
-                'pagination' =>
-                [
+                'activity_details' => 'تفاصيل النشاط',
+                'pagination' => [
                     'show' => 'عرض',
                     'to' => 'إلى',
                     'of' => 'من',
                     'result' => 'نسبة خصم',
                 ],
             ],
-            'buttons' =>
-            [
+            'buttons' => [
                 'export' => 'تصدير',
                 'reset' => 'عرض الكل',
                 'search' => 'بحث',
@@ -2438,46 +2221,38 @@ return [
                 'back' => 'عودة',
                 'add_discount_rates' => 'إضافة نسب خصم البطاقات',
             ],
-            'fields' =>
-            [
+            'fields' => [
                 'phone' => 'رقم الجوال',
                 'client_name' => 'اسم العميل',
                 'discounts' => 'نسبة الخصم',
             ],
-            'validation' =>
-            [
+            'validation' => [
                 'required' => '%{attribute} مطلوب',
                 'required_f' => '%{attribute} مطلوبة',
                 'maxLength' => '%{attribute} يجب ان لا يتجاوز %{max} حروف ',
                 'minLength' => '%{attribute} يجب ان لا يقل عن  %{min} حروف',
-                'maxValue' => '%{attribute} يجب ان تكون اقل من %{max}',
-                'minValue' => '%{attribute} يجب ان علي الاقل %{min}',
+                'maxValue' => '%{attribute} يجب ان لا تتجاوز %{max}',
+                'minValue' => '%{attribute} يجب ان تكون علي الاقل %{min}',
             ],
-            'placeholder' =>
-            [
+            'placeholder' => [
                 'choose_client' => 'اختر العميل',
                 'enter_discount' => 'أدخل نسبة الخصم',
             ],
-            'labels' =>
-            [
+            'labels' => [
                 'client_name' => 'اسم العميل',
                 'basic_card' => 'نسبة خصم البطاقة الأساسية',
                 'gold_card' => 'نسبة خصم البطاقة الذهبية',
                 'platinum_card' => 'نسبة خصم البطاقة البلاتينية',
             ],
-            'tooltip' =>
-            [
+            'tooltip' => [
                 'edit' => 'تعديل',
             ],
-            'popup' =>
-            [
-                'buttons' =>
-                [
+            'popup' => [
+                'buttons' => [
                     'accept' => 'موافق',
                     'refuse' => 'غير موافق',
                 ],
-                'body' =>
-                [
+                'body' => [
                     'archive' => 'هل تريد إتمام عملية الأرشفة؟',
                     'confirmAccount' => 'هل تريد إتمام عملية تأكيد الحساب؟',
                     'hangAccount' => 'هل تريد إتمام عملية التعليق؟',
@@ -2486,24 +2261,21 @@ return [
                     'back' => 'هل تريد العودة دون الحفظ ؟',
                     'delete' => 'هل تريد إتمام عملية الحذف النهائي؟',
                 ],
-                'reasonLabel' => 'الرجاء ذكر السبب*',
+                'reasonLabel' => 'الرجاء ذكر السبب',
+                'reasonValidation' => 'السبب',
             ],
         ],
-        'messages' =>
-        [
-            'breadcrumb' =>
-            [
+        'messages' => [
+            'breadcrumb' => [
                 'record' => 'الدعم والمساعدة',
                 'messages' => 'صندوق الرسائل',
                 'reply' => 'الرد على الرسالة',
                 'view' => 'عرض الرسالة',
             ],
-            'heading' =>
-            [
+            'heading' => [
                 'history' => 'الحركة التاريخية',
             ],
-            'table' =>
-            [
+            'table' => [
                 '#' => '#',
                 'sender_name' => 'اسم المرسل',
                 'mobile' => 'رقم الجوال',
@@ -2520,17 +2292,16 @@ return [
                 'activity_name' => 'النشاط',
                 'activity_reason' => 'السبب',
                 'no_data' => ' لا توجد نتائج متاحة',
+                'activity_details' => 'تفاصيل النشاط',
                 'without_department' => 'بدون قسم',
-                'pagination' =>
-                [
+                'pagination' => [
                     'show' => 'عرض',
                     'to' => 'إلى',
                     'of' => 'من',
                     'result' => 'رسالة',
                 ],
             ],
-            'buttons' =>
-            [
+            'buttons' => [
                 'export' => 'تصدير',
                 'reset' => 'عرض الكل',
                 'search' => 'بحث',
@@ -2539,23 +2310,20 @@ return [
                 'send' => 'إرسال',
                 'back' => 'عودة',
             ],
-            'fields' =>
-            [
+            'fields' => [
                 'employee_name' => 'الموظف المسئول',
                 'reply' => 'الرد',
                 'admin' => 'اسم الموظف',
                 'notes' => 'الملحوظة',
             ],
-            'validation' =>
-            [
+            'validation' => [
                 'required' => '%{attribute} مطلوب',
                 'required_f' => '%{attribute} مطلوبة',
                 'maxLength' => '%{attribute} يجب ان لا يتجاوز %{max} حروف ',
                 'minLength' => '%{attribute} يجب ان لا يقل عن  %{min} حروف',
-                'validPhoneNumber' => 'يرجى ادخال رقم جوال بصيغة صحيحة (يبدأ ب 05)    ',
+                'validPhoneNumber' => 'يرجى ادخال رقم جوال بصيغة صحيحة    ',
             ],
-            'placeholder' =>
-            [
+            'placeholder' => [
                 'enter_name' => 'أدخل الاسم',
                 'add_number' => 'أدخل الرقم',
                 'select_date' => 'يوم/شهر/سنة',
@@ -2569,8 +2337,7 @@ return [
                 'enter_note' => 'أدخل ملوحظة',
                 'phone_x' => 'xxxxxxxx',
             ],
-            'labels' =>
-            [
+            'labels' => [
                 'sender_name' => 'اسم المرسل',
                 'phone' => 'رقم الجوال',
                 'message_type' => 'نوع الرسالة',
@@ -2601,14 +2368,12 @@ return [
                 'note' => 'ملحوظة',
                 'assigned' => 'تم الإحالة',
             ],
-            'tooltip' =>
-            [
+            'tooltip' => [
                 'reply' => 'رد',
                 'view_details' => 'عرض',
                 'force_delete' => 'حذف',
             ],
-            'chips' =>
-            [
+            'chips' => [
                 'pending' => 'بإنتظار الرد',
                 'new' => 'جديد',
                 'replied' => 'تم الرد',
@@ -2622,16 +2387,14 @@ return [
                 'restored' => 'استعادة',
                 'shown' => 'تم الإطلاع',
                 'assigned' => 'تم الإحالة',
+                'created' => 'تم الاستقبال',
             ],
-            'popup' =>
-            [
-                'buttons' =>
-                [
+            'popup' => [
+                'buttons' => [
                     'accept' => 'موافق',
                     'refuse' => 'غير موافق',
                 ],
-                'body' =>
-                [
+                'body' => [
                     'archive' => 'هل تريد إتمام عملية الأرشفة؟',
                     'confirmAccount' => 'هل تريد إتمام عملية تأكيد الحساب؟',
                     'hangAccount' => 'هل تريد إتمام عملية التعليق؟',
@@ -2640,32 +2403,28 @@ return [
                     'back' => 'هل تريد العودة دون الحفظ ؟',
                     'delete' => 'هل تريد إتمام عملية الحذف النهائي؟',
                 ],
-                'reasonLabel' => 'الرجاء ذكر السبب*',
+                'reasonLabel' => 'الرجاء ذكر السبب',
+                'reasonValidation' => 'السبب',
             ],
         ],
-        'messageTypes' =>
-        [
-            'statusOptions' =>
-            [
+        'messageTypes' => [
+            'statusOptions' => [
                 'all' => 'الجميع',
                 'active' => 'مفعل',
                 'inactive' => 'معطل',
                 'no_data' => 'لا توجد نتائج متاحة',
             ],
-            'breadcrumb' =>
-            [
+            'breadcrumb' => [
                 'record' => 'الدعم والمساعدة',
                 'edit_message_type' => 'تعديل نوع الرسالة',
                 'create_message_type' => 'اضاقة نوع رسالة',
                 'view' => 'عرض نوع الرسالة',
                 'message_type' => 'نوع  الرسالة',
             ],
-            'heading' =>
-            [
+            'heading' => [
                 'history' => 'الحركة التاريخية',
             ],
-            'table' =>
-            [
+            'table' => [
                 '#' => '#',
                 'message_type' => 'نوع الرسالة',
                 'employees_count' => ' عدد الموظفين',
@@ -2673,17 +2432,16 @@ return [
                 'addedBy' => 'تم بواسطة',
                 'created_at' => 'تاريخ الأنشاء ',
                 'no_data' => ' لا توجد نتائج متاحة',
+                'activity_details' => 'تفاصيل النشاط',
                 'status' => 'الحالة',
-                'pagination' =>
-                [
+                'pagination' => [
                     'show' => 'عرض',
                     'to' => 'إلى',
                     'of' => 'من',
                     'result' => 'نوع رسالة',
                 ],
             ],
-            'buttons' =>
-            [
+            'buttons' => [
                 'export' => 'تصدير',
                 'reset' => 'عرض الكل',
                 'search' => 'بحث',
@@ -2691,24 +2449,22 @@ return [
                 'edit' => 'حفظ',
                 'back' => 'عودة',
                 'add_message_type' => 'اضافة نوع رسالة',
+                'edit_button' => 'تعديل',
             ],
-            'fields' =>
-            [
+            'fields' => [
                 'employee_name' => 'الموظف المسئول',
                 'employee' => 'الموظف المسئول',
                 'name' => 'نوع الرسالة',
                 'reply' => 'الرد',
             ],
-            'validation' =>
-            [
+            'validation' => [
                 'required' => '%{attribute} مطلوب',
                 'required_f' => '%{attribute} مطلوبة',
                 'maxLength' => '%{attribute} يجب ان لا يتجاوز %{max} حروف ',
                 'minLength' => '%{attribute} يجب ان لا يقل عن  %{min} حروف',
-                'validPhoneNumber' => 'يرجى ادخال رقم جوال بصيغة صحيحة (يبدأ ب 05)    ',
+                'validPhoneNumber' => 'يرجى ادخال رقم جوال بصيغة صحيحة    ',
             ],
-            'placeholder' =>
-            [
+            'placeholder' => [
                 'enter_message_type' => 'أدخل  نوع الرسالة',
                 'enter_employee_in_charge' => 'اختر الموظف المسئول',
                 'select_date' => 'يوم/شهر/سنة',
@@ -2720,8 +2476,7 @@ return [
                 'employee' => 'اسم الموظف المسئول',
                 'enter_reply' => 'أدخل الرد',
             ],
-            'labels' =>
-            [
+            'labels' => [
                 'message_type' => 'نوع الرسالة',
                 'employee_in_charge' => 'الموظف المسئول',
                 'created_date_from' => 'تاريخ  الإنشاء من',
@@ -2744,14 +2499,12 @@ return [
                 'without_emplyees' => 'لا يوجد موظفين',
                 'status' => 'الحالة',
             ],
-            'tooltip' =>
-            [
+            'tooltip' => [
                 'reply' => 'رد',
                 'view_details' => 'عرض',
                 'force_delete' => 'حذف',
             ],
-            'chips' =>
-            [
+            'chips' => [
                 'active' => 'مفعل',
                 'permanent' => 'معطل دائم',
                 'temporary' => 'معطل لفترة',
@@ -2763,15 +2516,12 @@ return [
                 'add' => 'إضافة',
                 'inActive' => 'معطل',
             ],
-            'popup' =>
-            [
-                'buttons' =>
-                [
+            'popup' => [
+                'buttons' => [
                     'accept' => 'موافق',
                     'refuse' => 'غير موافق',
                 ],
-                'body' =>
-                [
+                'body' => [
                     'archive' => 'هل تريد إتمام عملية الأرشفة؟',
                     'confirmAccount' => 'هل تريد إتمام عملية تأكيد الحساب؟',
                     'hangAccount' => 'هل تريد إتمام عملية التعليق؟',
@@ -2780,11 +2530,11 @@ return [
                     'back' => 'هل تريد العودة دون الحفظ ؟',
                     'delete' => 'هل تريد إتمام عملية الحذف النهائي؟',
                 ],
-                'reasonLabel' => 'الرجاء ذكر السبب*',
+                'reasonLabel' => 'الرجاء ذكر السبب',
+                'reasonValidation' => 'السبب',
             ],
         ],
-        'public' =>
-        [
+        'public' => [
             'loading' => 'جاري التحميل',
             'without' => 'بدون',
             'no_data' => ' لا توجد نتائج متاحة',
@@ -2793,54 +2543,45 @@ return [
             'go_home' => 'اذهب للرئيسية',
             'pdf' => 'pdf',
             'xlsx' => 'xlsx',
-            'map' =>
-            [
+            'map' => [
                 'location' => 'الموقع',
                 'lat' => 'خط طول',
                 'lng' => 'خط عرض',
                 'addLocation' => 'أدخل الموقع',
-                'fields' =>
-                [
+                'fields' => [
                     'lat' => 'خط طول',
                     'lng' => 'خط عرض',
                 ],
             ],
         ],
-        'appLinks' =>
-        [
-            'table' =>
-            [
+        'appLinks' => [
+            'table' => [
                 '#' => '#',
                 'links' => 'الروابط',
                 'staticPages' => 'الصفحة الثابتة',
                 'actions' => 'العمليات',
                 'no_data' => ' لا توجد نتائج متاحة',
-                'pagination' =>
-                [
+                'activity_details' => 'تفاصيل النشاط',
+                'pagination' => [
                     'show' => 'عرض',
                     'to' => 'إلى',
                     'of' => 'من',
                     'result' => 'روابط',
                 ],
             ],
-            'breadcrumb' =>
-            [
+            'breadcrumb' => [
                 'settings' => 'إعدادات التطبيق',
                 'links' => 'الروابط',
             ],
-            'buttons' =>
-            [
+            'buttons' => [
                 'save' => 'حفظ',
             ],
-            'placeholder' =>
-            [
+            'placeholder' => [
                 'enter_static_page' => 'اختر الصفحة الثابتة',
             ],
         ],
-        'appBar' =>
-        [
-            'labels' =>
-            [
+        'appBar' => [
+            'labels' => [
                 'profile' => 'الملف الشخصي',
                 'logout' => 'تسجيل خروج',
             ],

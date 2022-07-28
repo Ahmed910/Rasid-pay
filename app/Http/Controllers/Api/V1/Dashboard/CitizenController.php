@@ -21,6 +21,7 @@ class CitizenController extends Controller
         }
 
         $citizen = Citizen::with(['user', "enabledPackage"])
+        ->whereHas('user',fn ($q) => $q->where('register_status' , 'completed'))
             ->CustomDateFromTo($request)->search($request)->sortBy($request)
             ->paginate((int)($request->per_page ?? config("globals.per_page")));
 
