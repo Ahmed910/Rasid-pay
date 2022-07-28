@@ -196,7 +196,7 @@ class GroupController extends Controller
 
         $mpdfPath = $pdfGenerate->newFile()
             ->view(
-                'dashboard.exports.faq',
+                'dashboard.exports.group',
                 [
                     'groups' => $groupsQuery,
                     'date_from'   => format_date($request->created_from) ?? format_date($createdFrom),
