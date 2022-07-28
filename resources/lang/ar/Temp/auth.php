@@ -1,6 +1,7 @@
 <?php
 
 return [
+   
     "password_used_before" => "كلمة المرور مستخدمة من قبل",
     "login_subtitle" => "من فضلك أدخل رقم المستخدم وكلمة المرور",
     "login_title" => "تسجيل الدخول",
@@ -10,10 +11,11 @@ return [
     "password" => "أدخل كلمة المرور",
     "success_login_mobile" => "تسجيل دخول إلى التطبيق برقم هوية :user",
     "account_not_exists" => "الحساب غير موجود",
+    "user_is_banned" => "المستخدم معطل",
     "userID" => "رقم المستخدم",
     "unauth" => "قم بتسجيل الدخول أولا",
     "logout_waiting_u_another_time" => "تم تسجيل الخروج بنجاح, في انتظارك مرة أخرى",
-    "reset_password" => "إعادة تعيين كلمة المرور",
+    "reset_password" =>  "إعادة تعيين كلمة المرور",
     "verify_phone_first" => "يجب تأكيد رقم الهاتف أولا",
     "success_activate_notifcation" => "تم تفعيل الاشعارات بنجاح",
     "success_unactivate_notifcation" => "تم تعطيل الاشعارات بنجاح",
@@ -39,5 +41,19 @@ return [
     "failed" => "محاولة غير صالحة لتسجيل الدخول",
     "login" =>[
         "throttle" => "تم تعطيل المستخدم لمحاولة تسجيل الدخول أكثر من مرة بشكل غير صحيح. برجاء التواصل مع الدعم الفني"
+    ],
+    "phone" => [
+        "required" => "رقم الجوال مطلوب",
+        "invalid_phone" => "صيغة رقم الجوال غير صحيحة",
+        'phone_not_registered' => 'رقم الجوال غير مسجل بالنظام',
+    ],
+    "reset_password" => [
+        "invalid_method" => "يجب اختيار رقم الجوال أو البريد الإلكتروني لإرسال رمز التحقق"
+    ],
+    "token" => [
+        "not_exists" => "رمز التحقق غير صالح"
+    ],
+     "code" => [
+        "not_exists" => "رمز التحقق غير صالح"
     ]
 ];

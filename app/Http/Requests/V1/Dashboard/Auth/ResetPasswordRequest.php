@@ -26,4 +26,11 @@ class ResetPasswordRequest extends ApiMasterRequest
             'password' => 'required|between:6,100'
         ];
     }
+
+    public function messages()
+    {
+        return [
+            '_token.exists' =>  __('auth.token.not_exists'),   
+        ];
+    }
 }

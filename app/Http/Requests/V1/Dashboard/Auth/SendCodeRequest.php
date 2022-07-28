@@ -17,7 +17,11 @@ class SendCodeRequest extends ApiMasterRequest
         if($this->send_type == 'email'){
             $rules['username'] = 'required|email|exists:users,email,deleted_at,NULL';
         }elseif($this->send_type == 'phone'){
-            $rules['username'] = 'required|numeric|digits_between:5,20|exists:users,phone,deleted_at,NULL';
+            $rules['username'] = ["required",function ($attribute, $value, $fail) {
+                if (!check_phone_valid($value)) {
+                    $fail(trans('auth.phone.invalid_phone'));
+                }
+            },"exists:users,phone,deleted_at,NULL"];
         }
         return $rules;
     }
@@ -39,10 +43,15 @@ class SendCodeRequest extends ApiMasterRequest
                 'username.email' =>  trans('validation.custom.email.correct_email')
             ];
         } elseif($this->send_type == 'phone'){
-            return ['username.exists' => trans('dashboard.general.phoneCode_registeration')];
+            return [
+                'username.exists'  =>  trans('auth.phone.phone_not_registered'),
+                'username.numeric' => trans('auth.phone.invalid_phone')
+            ];
         } else {
-            return [];
+            return [
+                'send_type.in'  => trans('auth.reset_password.invalid_method'),
+            ];
         }
     }
-
 }
+
