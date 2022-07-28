@@ -26,7 +26,7 @@
       <td>{{ $vendor->lng ?? '' }}</td>
       <td>{{ $vendor->location ?? '' }}</td>
       <td>{{ $vendor->address_details ?? '' }}</td>
-      <td>{{ $vendor->is_active ?? '' }}</td>
+      <td>{{ (bool) $vendor->is_active ?? '' }}</td>
       <td>{{ $vendor->email ?? '' }}</td>
       <td>{{ $vendor->phone ?? '' }}</td>
     </tr>

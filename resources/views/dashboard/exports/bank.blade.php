@@ -15,7 +15,7 @@
     @foreach ($banks as $bank)
     <tr>
       <td>{{ $loop->iteration }}</td>
-      <td>{{ $bank->is_active }}</td>
+      <td>{{ (bool) $bank->is_active }}</td>
       <td>{{ $bank->name }}</td>
     </tr>
     @endforeach
