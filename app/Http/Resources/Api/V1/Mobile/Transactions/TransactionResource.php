@@ -37,19 +37,19 @@ class TransactionResource extends JsonResource
             'trans_type' => $this->trans_type,
             'trans_type_translate' => trans("mobile.transaction.transaction_types.{$this->trans_type}"),
             'trans_status' => $this->trans_status,
-            'total_amount' =>(string)number_format($this->amount,2), // new amount after add or sub fees
-            'fee_amount' => (string)number_format($this->fee_amount,2),
+            'total_amount' => number_format($this->amount,2), // new amount after add or sub fees
+            'fee_amount' =>  number_format($this->fee_amount,2),
             'created_at' =>$this->created_at_mobile,
 
             // $this->mergeWhen(!$request->is('*/transactions'),[
-                'amount' =>(string)number_format($this->amount,2),
+                'amount' => number_format($this->amount,2),
                 'invoice_number' => $this->when($this->trans_type == 'payment', (string)$this->transactionable?->invoice_number),
                 'mtcn_number' => $this->when(in_array($this->trans_type, ['global_transfer', 'local_transfer']), (string)$this->transactionable?->bankTransfer?->mtcn_number),
                 'trans_status_translate' =>  trans("mobile.transaction.status_cases.{$this->trans_status}"),
                 'to_currency' =>  $this->transactionable?->bankTransfer?->toCurrency?->currency_code,
                 'exchange_rate' =>  (string) $this->transactionable?->bankTransfer?->exchange_rate,
                 'to_amount' =>  (string) ($this->amount * $this->transactionable?->bankTransfer?->exchange_rate),
-                'transfer_fees' =>  (string) number_format($this->transactionable?->transfer_fees,2) ?? '0',
+                'transfer_fees' => number_format($this->transactionable?->transfer_fees,2) ?? '0',
                 'transfer_purpose' =>  $this->transactionable?->transferPurpose?->name,
                 'recieve_option' =>  $this->transactionable?->bankTransfer?->recieveOption?->name,
                 'qr_code' =>  asset($this->qr_path),
