@@ -212,7 +212,7 @@ return [
         ]
     ],
     'notifications' => [
-        'wallet_transfer_from' => [
+        'wallet_transfer' => [
             'title' => 'تحويل برقم المحفظة',
             'body' => 'لقد قمت بتحويل رصيد :amount إلي :to_user'
         ],
@@ -225,5 +225,5 @@ return [
             "body" => "تم تحويل :amount :currency إلى المستفيد :beneficiary"
         ]
     ]
-    
+
 ];
