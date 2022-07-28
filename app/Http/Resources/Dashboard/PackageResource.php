@@ -12,9 +12,9 @@ class PackageResource extends JsonResource
             'id' => $this->id,
             'client_id' => $this->vendor?->id,
             "fullname" => $this->vendor?->name,
-            "basic_discount" => $this->basic_discount ?? trans('dashboard.package.without'),
-            "golden_discount" => $this->golden_discount ?? trans('dashboard.package.without') ,
-            "platinum_discount" => $this->platinum_discount ?? trans('dashboard.package.without') ,
+            "basic_discount" => (float)$this->basic_discount ?? trans('dashboard.package.without'),
+            "golden_discount" => (float)$this->golden_discount ?? trans('dashboard.package.without') ,
+            "platinum_discount" => (float)$this->platinum_discount ?? trans('dashboard.package.without') ,
             'actions' => $this->when($request->routeIs('vendor_packages.index'), [
                 'show' => auth()->user()->hasPermissions('vendor_packages.show'),
                 'create' => auth()->user()->hasPermissions('vendor_packages.store'),
