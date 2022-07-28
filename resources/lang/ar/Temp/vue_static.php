@@ -1,4 +1,5 @@
 <?php
+
 return [
     "dashboard" => [
         "login" => [
@@ -30,24 +31,24 @@ return [
                 "maxLength" => "%{attribute} يجب ان لا يتجاوز %{max} حروف ",
                 "minLength" => "%{attribute} يجب ان لا يقل عن  %{min} حروف",
                 "minLength_number" =>
-                    "%{attribute} يجب ان لا يقل عن  %{min} ارقام",
+                "%{attribute} يجب ان لا يقل عن  %{min} ارقام",
                 "email" =>
-                    "%{attribute} غير صحيح رجاء التأكد من الكتابة بطريقة صحيحة",
+                "%{attribute} غير صحيح رجاء التأكد من الكتابة بطريقة صحيحة",
                 "maxValue" => "%{attribute} يجب ان لا تتجاوز %{max}",
                 "minValue" => "%{attribute} يجب ان تكون  علي الاقل %{min}",
                 "url" => "هذا الرابط غير صحيح",
                 "biggerThan" =>
-                    "%{attribute} يجب ان تكون  اكبر من  %{biggerThan}",
+                "%{attribute} يجب ان تكون  اكبر من  %{biggerThan}",
                 "smallerThan" => "%{attribute} يجب ان اقل من %{smallerThan}",
                 "sameAsPassword" =>
-                    "اعادة كلمة المرور غير متطابقة مع كلمة المرور الجديدة",
+                "اعادة كلمة المرور غير متطابقة مع كلمة المرور الجديدة",
             ],
         ],
         "verification" => [
             "heading" => [
                 "title" => "إعادة تعيين كلمة المرور",
                 "sub_title" =>
-                    "من فضلك أدخل رقم جوالك أو بريدك الإلكتروني لإرسال رمز التحقق ",
+                "من فضلك أدخل رقم جوالك أو بريدك الإلكتروني لإرسال رمز التحقق ",
             ],
             "labels" => [
                 "mobile" => "رقم الجوال",
@@ -103,24 +104,24 @@ return [
             ],
             "labels" => [
                 "new_password" => "كلمة المرور الجديدة",
-                "confirm_password" => "تأكيد كلمة المرور",
+                "password_confirmation" => "تأكيد كلمة المرور",
             ],
             "placeholder" => [
                 "enter_new_password" => "أدخل كلمة المرور الجديدة",
                 "enter_email" => "أدخل البرد الإلكتروني",
-                "enter_confirm_password" => "أدخل تأكيد كلمة المرور",
+                "enter_password_confirmation" => "أدخل تأكيد كلمة المرور",
             ],
             "button" => ["save" => "حفظ", "back" => "عودة"],
             "fields" => [
                 "new_password" => "كلمة المرور الجديدة",
-                "confirm_password" => "تأكيد كلمة المرور",
+                "password_confirmation" => "تأكيد كلمة المرور",
                 "sameAsPassword" =>
-                    "اعادة كلمة المرور غير متطابقة مع كلمة المرور الجديدة",
+                "اعادة كلمة المرور غير متطابقة مع كلمة المرور الجديدة",
             ],
             "validation" => [
                 "required" => "%{attribute} مطلوب",
                 "sameAsPassword" =>
-                    "اعادة كلمة المرور غير متطابقة مع كلمة المرور الجديدة",
+                "اعادة كلمة المرور غير متطابقة مع كلمة المرور الجديدة",
             ],
             "popup" => [
                 "buttons" => ["accept" => "موافق", "refuse" => "غير موافق"],
@@ -152,10 +153,12 @@ return [
             "permissionsRecord" => "سجل الصلاحيات",
             "users_history" => "سجل المستخدمين",
             "user_view" => "عرض مستخدم",
+            "edit_user" => "تعديل مستخدم",
             "edit" => "تعديل",
             "editGroup" => "تعديل مجموعة",
             "addGroup" => "إضافة مجموعة",
             "job_view" => "عرض وظيفة",
+            "job_edit" => "تعديل وظيفة",
             "users_record" => "سجل المستخدمين",
             "jobs_record" => "سجل الوظائف",
             "departments_record" => "سجل الأقسام",
@@ -170,12 +173,15 @@ return [
             "add_group" => "إضافة مجموعة",
             "add_user" => "إضافة مستخدم",
             "add_department" => "إضافة قسم",
+            "edit_department" => "تعديل قسم",
             "add_job" => "إضافة وظيفة",
             "follow_up" => "المتابعة",
             "activity_log" => "سجل النشاطات",
             "departments_archive" => "ارشيف الاقسام",
             "jobs_archives" => "ارشيف الوظائف",
             "citizens" => "مستخدمين التطبيق",
+            "view_citizen" => "عرض مستخدم",
+            "edit_citizen" => "تعديل مستخدم",
             "transactions" => "المعاملات",
             "transaction-list" => "سجل المعاملات",
             "transactions_record" => "سجل المعاملات",
@@ -183,7 +189,7 @@ return [
             "banks" => "البنوك",
             "add_bank" => "اضافة بنك",
             "edit_bank" => "تعديل بنك",
-            "bank_view" => "عرض بنك",
+            "view_bank" => "عرض بنك",
             "discount_rates" => "نسب خصم البطاقات",
             "card_packages_record" => "سجل نسب خصم البطاقات",
             "add_card_packages" => "اضافة نسب خصم البطاقات",
@@ -212,8 +218,11 @@ return [
             "faq" => "الأسئلة الشائعة ",
             "faq_add" => "إضافة سؤال ",
             "faq_edit" => "إضافة سؤال ",
+            "faq_view" => "عرض سؤال",
             "messages" => "صندوق الرسائل ",
             "messages_edit" => "الرد علي الرسالة ",
+            "messages_add" => "إضافة رسالة",
+            "messages_view" => "عرض رسالة",
             "transferPurpose" => "الغرض من الحوالة ",
             "transferPurpose_add" => "إضافة الغرض من الحوالة ",
             "transferPurpose_edit" => "تعديل الغرض من الحوالة ",
@@ -223,6 +232,7 @@ return [
             "messageTypes_edit" => "تعديل نوع الرسالة",
             "messageTypes_record" => "سجل نوع الرسائل",
             "messageTypes_add" => "اضافة نوع الرسالة",
+            "messageTypes_view" => "عرض نوع الرسالة",
             "edit_vendor" => "تعديل عميل",
             "add_vendor" => "تسجيل عميل",
             "view_vendor" => "عرض عميل",
@@ -234,6 +244,10 @@ return [
             "ourApps" => "تطبيقاتنا",
             "ourApps_add" => "إضافة تطبيق",
             "ourApps_edit" => "تعديل تطبيق",
+            "ourApps_view" => "عرض تطبيق",
+            "staticPages_edit" => "تعديل الصفحة الثابتة",
+            "staticPages_view" => "عرض الصفحة الثابتة",
+            "staticPages_add" => "إضافة الصفحة الثابتة",
         ],
         "home" => [
             "statistics" => "الإحصائيات",
@@ -307,9 +321,9 @@ return [
                 "maxLength" => "%{attribute} يجب ان لا يتجاوز %{max} حروف ",
                 "minLength" => "%{attribute} يجب ان لا يقل عن  %{min} حروف",
                 "email" =>
-                    "%{attribute} غير صحيح رجاء التأكد من الكتابة بطريقة صحيحة",
+                "%{attribute} غير صحيح رجاء التأكد من الكتابة بطريقة صحيحة",
                 "minLength_number" =>
-                    "%{attribute} يجب ان لا يقل عن  %{min} ارقام",
+                "%{attribute} يجب ان لا يقل عن  %{min} ارقام",
                 "noJobDepartment" => "لا يوجد وظائف لهذا القسم",
             ],
             "placeholder" => [
@@ -584,18 +598,16 @@ return [
             ],
             "tooltip" => ["view_details" => "عرض"],
             "chips" => [
-                "deactive" => "تعطيل",
-                "archive" => "أرشيف",
-                "edit" => "تعديل",
-                "add" => "إضافة",
-                "restore" => "استعادة",
-                "inactive" => "معطل",
-                "searched" => "مبحوث",
-                "activated" => "تفعيل",
-                "active" => "مفعل",
-                "inActive" => "معطل",
-                "actived" => "تفعيل",
+                "created" => "إضافة",
+                "updated" => "تعديل",
+                "destroy" => "أرشفة",
+                "permanent_delete" => "حذف نهائي",
                 "restored" => "استعادة",
+                "searched" => "مبحوث",
+                "deactivated" => "معطل",
+                "activated" => "مفعل",
+                "permanent" => " معطل دائم",
+                "temporary" => "معطل لفترة",
                 "shown" => "تم الإطلاع",
                 "assigned" => "تم الإحالة",
                 "replied" => "تم الرد ",
@@ -700,7 +712,7 @@ return [
                 "maxLength" => "%{attribute} يجب ان لا يتجاوز %{max} حروف ",
                 "minLength" => "%{attribute} يجب ان لا يقل عن  %{min} حروف",
                 "minLength_number" =>
-                    "%{attribute} يجب ان لا يقل عن  %{min} ارقام",
+                "%{attribute} يجب ان لا يقل عن  %{min} ارقام",
             ],
             "placeholder" => [
                 "enter_question" => "أدخل السؤال",
@@ -812,7 +824,7 @@ return [
                 "maxLength" => "%{attribute} يجب ان لا يتجاوز %{max} حروف ",
                 "minLength" => "%{attribute} يجب ان لا يقل عن  %{min} حروف",
                 "minLength_number" =>
-                    "%{attribute} يجب ان لا يقل عن  %{min} ارقام",
+                "%{attribute} يجب ان لا يقل عن  %{min} ارقام",
             ],
             "placeholder" => [
                 "enter_purpose" => "أدخل الغرض من الحوالة",
@@ -879,6 +891,7 @@ return [
                     "activity_name" => "النشاط",
                     "activity_reason" => "السبب",
                     "no_data" => "لا يوجد بيانات",
+                    "activity_details" => "تفاصيل النشاط",
                     "pagination" => [
                         "show" => "عرض",
                         "to" => "إلى",
@@ -995,7 +1008,7 @@ return [
                     "back" => "هل تريد العودة دون الحفظ ؟",
                     "delete" => "هل تريد إتمام عملية الحذف النهائي؟",
                     "cant_archive_ourApps_has_job" =>
-                        "لا يمكن أرشفة قسم مرتبط بوظائف",
+                    "لا يمكن أرشفة قسم مرتبط بوظائف",
                 ],
                 "reasonLabel" => "الرجاء ذكر السبب",
                 "reasonValidation" => "السبب",
@@ -1139,7 +1152,7 @@ return [
                     "back" => "هل تريد العودة دون الحفظ ؟",
                     "delete" => "هل تريد إتمام عملية الحذف النهائي؟",
                     "cant_archive_department_has_job" =>
-                        "لا يمكن أرشفة قسم مرتبط بوظائف",
+                    "لا يمكن أرشفة قسم مرتبط بوظائف",
                 ],
                 "reasonLabel" => "الرجاء ذكر السبب",
                 "reasonValidation" => "السبب",
@@ -1259,7 +1272,7 @@ return [
                     "back" => "هل تريد العودة دون الحفظ ؟",
                     "delete" => "هل تريد إتمام عملية الحذف النهائي؟",
                     "cant_archive_department_has_job" =>
-                        "لا يمكن أرشفة قسم مرتبط بوظائف",
+                    "لا يمكن أرشفة قسم مرتبط بوظائف",
                 ],
                 "reasonLabel" => "الرجاء ذكر السبب",
                 "reasonValidation" => "السبب",
