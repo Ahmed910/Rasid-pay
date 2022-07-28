@@ -64,7 +64,7 @@ class GroupController extends Controller
         if (!$request->has('with_activity') || $request->with_activity) {
             $activities  = $group->activity()
                 ->sortBy($request)
-                ->paginate((int)($request->per_page ??  config("globals.per_page")));
+                ->paginate((int)($request->per_page_activity ??  config("globals.per_page")));
         }
         return GroupCollection::make($activities)
             ->additional([
@@ -85,7 +85,7 @@ class GroupController extends Controller
 
     public function getPermissionsOfGroup(Group $group, Request $request)
     {
-        $permissions = $group->permissions()->sortBy($request)->paginate((int)($request->per_page ??  config("globals.per_page")));
+        $permissions = $group->permissions()->sortBy($request)->paginate((int)($request->per_page_permission ??  config("globals.per_page")));
 
         return PermissionResource::collection($permissions)
             ->additional([
