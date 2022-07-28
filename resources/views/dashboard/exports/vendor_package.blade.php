@@ -17,7 +17,7 @@
     @foreach ($vendor_packages as $venorPackage)
     <tr>
       <td>{{ $loop->iteration }}</td>
-      <td>{{ $venorPackage?->client?->fullname }}</td>
+      <td>{{ $venorPackage?->vendor?->name }}</td>
       <td>{{ $venorPackage?->basic_discount }}</td>
       <td>{{ $venorPackage?->golden_discount }}</td>
       <td>{{ $venorPackage?->platinum_discount }}</td>
