@@ -72,7 +72,9 @@ class DepartmentController extends Controller
                             break;
                     }
                 })->when($request->has_jobs,function ($q) {
-                    $q->has('rasidJobs');
+                    $q->whereHas('rasidJobs',function ($q) {
+                        $q->where('is_active',true);
+                    });
                 })->ListsTranslations('name')
                 ->addSelect('is_active')
                 ->without(['images', 'addedBy', 'translations'])->get(),
