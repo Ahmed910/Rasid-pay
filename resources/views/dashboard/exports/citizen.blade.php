@@ -24,9 +24,9 @@ citizens
       <td>{{ $citizen?->user?->fullname }}</td>
       <td>{{ $citizen?->user?->identity_number }}</td>
       <td>{{ $citizen?->user?->ban_status }}</td>
-      <td>{{ $citizen?->enabledPackage?->name }}</td>
-      <td>{{ $citizen?->enabledPackage?->start_at }}</td>
-      <td>{{ $citizen?->enabledPackage?->end_at }}</td>
+      <td>{{ trans('dashboard.package_types.'. $citizen?->enabledPackage?->package_type) }}</td>
+      <td>{{ $citizen?->enabledPackage?->start_at_dashboard }}</td>
+      <td>{{ $citizen?->enabledPackage?->end_at_dashboard }}</td>
     </tr>
     @endforeach
   </tbody>

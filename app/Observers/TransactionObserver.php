@@ -22,11 +22,17 @@ class TransactionObserver
      */
     public function created(Transaction $transaction)
     {
+
+        $wallet_transfer_method = [
+            'phone'          => $transaction->transactionable?->wallet_transfer_method =='phone'  ? ($transaction->toUser?->phone ?? $transaction->transactionable->phone) :"" ,
+            'identity_number'=> $transaction->transactionable?->wallet_transfer_method =='identity_number'  ? $transaction->toUser->identity_number :"",
+            'wallet_number'  => $transaction->transactionable?->wallet_transfer_method =='wallet_number'  ? $transaction->toUser->citizenWallet?->wallet_number :"" ,
+        ];
         $transaction_details =
             [
                 'payment'          => $transaction->trans_type == "payment"  ? trans("mobile.transaction.transaction_details.payment_status", ['amount' => $transaction->amount, 'refund_amount' => $transaction->amount]) : "",
                 'wallet_transfer'  => $transaction->trans_type == "wallet_transfer"
-                    ? trans("mobile.transaction.transaction_details.wallet_transfer_status",  ['amount' => $transaction->amount, 'to_user_identity_or_mobile_or_wallet_number' => @$wallet_transfer_method[$transaction->transactionable?->wallet_transfer_method]])
+                    ? trans("mobile.transaction.transaction_details.wallet_transfer_status", ['amount' => $transaction->amount, 'to_user_identity_or_mobile_or_wallet_number' => @$wallet_transfer_method[$transaction->transactionable?->wallet_transfer_method]])
                     : "",
                 'local_transfer'   => $transaction->trans_type == "local_transfer"  ? trans("mobile.transaction.transaction_details.local_transfer_status", ['amount' => $transaction->amount, 'beneficiary' => $transaction->transactionable?->beneficiary->name, 'iban' => $transaction->transactionable?->beneficiary->iban_number]) : "",
                 'global_transfer'  => $transaction->trans_type == "global_transfer"  ? trans("mobile.transaction.transaction_details.global_transfer_status", ['amount' => $transaction->amount, 'currency' => $transaction->transactionable?->bankTransfer?->toCurrency?->currency_code, 'beneficiary' => $transaction->transactionable?->beneficiary?->name, 'country' => $transaction->transactionable?->beneficiary?->country?->name, 'recieve_option' => $transaction->transactionable?->bankTransfer?->recieveOption?->name, 'mtcn' => $transaction->transactionable?->bankTransfer?->mtcn_number]) : "",

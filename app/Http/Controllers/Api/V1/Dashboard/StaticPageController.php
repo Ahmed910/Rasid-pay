@@ -108,7 +108,7 @@ class StaticPageController extends Controller
         ->ListsTranslations('name')
         ->CustomDateFromTo($request)
         ->addSelect(
-            'our_apps.*'
+            'static_pages.*'
         )
         ->sortBy($request)
         ->get();
@@ -122,7 +122,7 @@ class StaticPageController extends Controller
             ->view(
                 'dashboard.exports.static_page',
                 [
-                    'StaticPages' => $StaticPagesQuery,
+                    'static_pages' => $StaticPagesQuery,
                     'date_from'   => format_date($request->created_from) ?? format_date($createdFrom),
                     'date_to'     => format_date($request->created_to) ?? format_date(now()),
                     'userId'      => auth()->user()->login_id,

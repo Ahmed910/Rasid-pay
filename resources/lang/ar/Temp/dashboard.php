@@ -13,6 +13,22 @@ return [
         'force_delete' => 'حذف نهائي',
         'archive' => 'عرض أرشيف',
     ],
+    'follow_up'=>[
+        "chips" => [
+            "active" => "مفعل",
+            "permanent" => "معطل دائم",
+            "temporary" => "معطل لفترة",
+            "deactivated" => "تعطيل",
+            "activated" => "تفعيل",
+            "archive" => "أرشيف",
+            "edit" => "تعديل",
+            "add" => "إضافة",
+            "inActive" => "معطل",
+            "actived" => "تفعيل",
+            "deactive" => "تعطيل",
+            "restored" => "استعادة",
+        ],
+    ],
     'currency' =>  [
         'permissions' =>  [
             'index' => 'السجل',

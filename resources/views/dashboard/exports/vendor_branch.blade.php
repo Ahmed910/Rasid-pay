@@ -7,14 +7,14 @@
     @include('dashboard.exports.header',['topic'=>'فروع العملاء'])
     <tr>
       <th>#</th>
-      <th>name</th>
+      <th>الاسم</th>
       <th>lat</th>
       <th>lng</th>
-      <th>location</th>
-      <th>address_details</th>
-      <th>is_active</th>
-      <th>email</th>
-      <th>phone</th>
+      <th>العنوان</th>
+      <th>تفاصيل العنوان</th>
+      <th>الحالة</th>
+      <th>البريد الالكتروني</th>
+      <th>الهاتف</th>
     </tr>
   </thead>
   <tbody>
@@ -26,7 +26,7 @@
       <td>{{ $vendor->lng ?? '' }}</td>
       <td>{{ $vendor->location ?? '' }}</td>
       <td>{{ $vendor->address_details ?? '' }}</td>
-      <td>{{ $vendor->is_active ?? '' }}</td>
+      <td>{{ (bool) $vendor->is_active ?? '' }}</td>
       <td>{{ $vendor->email ?? '' }}</td>
       <td>{{ $vendor->phone ?? '' }}</td>
     </tr>

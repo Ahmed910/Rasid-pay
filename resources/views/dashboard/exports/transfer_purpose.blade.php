@@ -7,16 +7,16 @@
     @include('dashboard.exports.header',['topic'=>'أغراض الحوالة'])
     <tr>
       <th>#</th>
-      <th>is_active</th>
+      <th>الحالة</th>
       <th>is_default_value</th>
-      <th>name</th>
+      <th>الاسم</th>
     </tr>
   </thead>
   <tbody>
     @foreach ($transfer_purposes as $transfer)
     <tr>
       <td>{{ $loop->iteration  }}</td>
-      <td>{{ $transfer->is_active ?? '' }}</td>
+      <td>{{ (bool) $transfer->is_active ?? '' }}</td>
       <td>{{ $transfer->is_default_value ?? '' }}</td>
       <td>{{ $transfer->name ?? '' }}</td>
     </tr>

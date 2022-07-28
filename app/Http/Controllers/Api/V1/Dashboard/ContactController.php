@@ -165,7 +165,7 @@ class ContactController extends Controller
             ->view(
                 'dashboard.exports.contacts',
                 [
-                    'Contacts' => $ContactsQuery,
+                    'contacts' => $ContactsQuery,
                     'date_from'   => format_date($request->created_from) ?? format_date($createdFrom),
                     'date_to'     => format_date($request->created_to) ?? format_date(now()),
                     'userId'      => auth()->user()->login_id,

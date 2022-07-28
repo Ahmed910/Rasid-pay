@@ -66,12 +66,12 @@ return [
         ],
         'transaction_details' => [
             'payment_status' => 'تمت عملية الشراء من العميل  بقيمة فاتورة :amount وتم استرداد مبلغ :refund_amount',
-            'wallet_transfer_status' => 'تم تحويل مبلغ :amount من المحفظة الخاصة بك إلى محفظة المستخدم برقم جوال/ هوية :to_user_identity_or_mobile_or_wallet_number',
-            'local_transfer_status' => 'تم تحويل مبلغ :amount من المحفظة الخاصة بك إلى المستفيد :beneficiary برقم IBAN :iban',
+            'wallet_transfer_status' => 'تم تحويل مبلغ :amount ر.س من المحفظة الخاصة بك إلى محفظة المستخدم برقم جوال/ هوية/محفظه :to_user_identity_or_mobile_or_wallet_number',
+            'local_transfer_status' => 'تم تحويل مبلغ :amount ر.س من المحفظة الخاصة بك إلى المستفيد :beneficiary برقم IBAN :iban',
             'global_transfer_status' => 'تم تحويل مبلغ :amount بعملة :currency من المحفظة الخاصة بك إلى المستفيد :beneficiary بدولة :country باستخدام :recieve_option وبرقم :mtcn',
             'charge_status' => 'تم شحن رصيد المحفظة الخاصة بك بالقيمة :amount عن طريق :method',
-            'money_request_status' => 'تم استلام مبلغ :amount بالمحفظة الخاصة بك من قبل المستخدم برقم جوال/ هوية :to_user_identity_or_mobile_or_wallet_number',
-            'promote_package_status' => 'تم ترقية البطاقة الخاصة بك إلي :package_name وتم خصم قيمة :amount من المحفظة الخاصة بك مع العلم أن تاريخ انتهاء صلاحية البطاقة :expired_date',
+            'money_request_status' => 'تم استلام مبلغ :amount بالمحفظة الخاصة بك من قبل المستخدم برقم جوال/ هوية/محفظه :to_user_identity_or_mobile_or_wallet_number',
+            'promote_package_status' => 'تم ترقية البطاقة الخاصة بك إلي :package_name وتم خصم قيمة :amount ر.س  من المحفظة الخاصة بك مع العلم أن تاريخ انتهاء صلاحية البطاقة :expired_date',
             'reach_max_transaction_day' => 'عفواً إجمالي المعاملات اليومية المسموح بها لليوم الواحد يجب ألا تتجاوز :max_day_amount ',
             'reach_max_transaction_month' => 'عفواً إجمالي المعاملات الشهرية المسموح بها للشهر الواحد يجب ألا تتجاوز :max_month_amount',
         ],
@@ -212,18 +212,18 @@ return [
         ]
     ],
     'notifications' => [
-        'wallet_transfer_from' => [
+        'wallet_transfer' => [
             'title' => 'تحويل برقم المحفظة',
-            'body' => 'لقد قمت بتحويل رصيد :amount إلي :to_user'
+
         ],
         'wallet_transfer_to' => [
             'title' => 'تحويل برقم المحفظة',
-            'body' => 'لقد تم تحويل رصيد قيمته :amount من :from_user'
+
         ],
         "global_transfer" => [
             "title" => "تم التحويل الدولي بنجاح",
-            "body" => "تم تحويل :amount :currency إلى المستفيد :beneficiary"
+           
         ]
     ]
-    
+
 ];

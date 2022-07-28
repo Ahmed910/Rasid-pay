@@ -7,19 +7,16 @@
     @include('dashboard.exports.header',['topic'=>'الأسئلة الشائعة'])
     <tr>
       <th>#</th>
-      <th>is_active</th>
-      <th>name</th>
-      <th>name</th>
-      <th>question</th>
-      <th>answer</th>
+      <th>الحالة</th>
+      <th>السؤال</th>
+      <th>الإجابة</th>
     </tr>
   </thead>
   <tbody>
     @foreach ($faqs as $faq)
     <tr>
       <td>{{ $loop->iteration }}</td>
-      <td>{{ $faq->is_active }}</td>
-      <td>{{ $faq->name }}</td>
+      <td>{{ (bool)$faq->is_active }}</td>
       <td>{{ $faq->question }}</td>
       <td>{{ $faq->answer }}</td>
     </tr>

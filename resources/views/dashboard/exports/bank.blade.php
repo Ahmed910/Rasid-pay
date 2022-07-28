@@ -7,15 +7,15 @@
     @include('dashboard.exports.header',['topic'=>'البنوك'])
     <tr>
       <th>#</th>
-      <th> is_active </th>
-      <th> name</th>
+      <th> الحالة </th>
+      <th> الاسم</th>
     </tr>
   </thead>
   <tbody>
     @foreach ($banks as $bank)
     <tr>
       <td>{{ $loop->iteration }}</td>
-      <td>{{ $bank->is_active }}</td>
+      <td>{{ (bool) $bank->is_active }}</td>
       <td>{{ $bank->name }}</td>
     </tr>
     @endforeach
