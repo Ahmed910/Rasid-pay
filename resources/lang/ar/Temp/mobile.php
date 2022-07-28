@@ -75,8 +75,6 @@ return [
             'reach_max_transaction_day' => 'عفواً إجمالي المعاملات اليومية المسموح بها لليوم الواحد يجب ألا تتجاوز :max_day_amount ',
             'reach_max_transaction_month' => 'عفواً إجمالي المعاملات الشهرية المسموح بها للشهر الواحد يجب ألا تتجاوز :max_month_amount',
         ],
-
-
     ],
     'messages' => [
         'you_can_complete_your_transaction' => 'يمكنك إستكمال العملية',
@@ -222,7 +220,7 @@ return [
         ],
         "global_transfer" => [
             "title" => "تم التحويل الدولي بنجاح",
-           
+
         ]
         ],
 
