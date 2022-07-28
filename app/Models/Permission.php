@@ -27,6 +27,7 @@ class Permission extends Model
         'menus.update',
         'menus.show',
         'menus.destroy',
+        'departments',
         'session.logout',
         "activity_logs.employees",
         "activity_logs.update",
