@@ -68,7 +68,8 @@ class AdminController extends Controller
         $admin->admin()->create();
         //TODO::send sms with password
         $permissions = $request->permission_list ?? [];
-        $permissions_collect = Permission::whereIn('id', $permissions)->get();
+        $all_permissions = Permission::select('id', 'name')->get();
+        $permissions_collect = $all_permissions->whereIn('id', $permissions);
         foreach ($permissions_collect as $permission) {
             $action = explode('.', $permission->name);
             if (in_array(@$action[1], ['update', 'store', 'destroy', 'show']) && !$permissions_collect->contains('name', $action[0] . '.index')) {
@@ -122,7 +123,8 @@ class AdminController extends Controller
         //TODO::send sms with password
         // if($request->('password_change'))
         $permissions = $request->permission_list ?? [];
-        $permissions_collect = Permission::whereIn('id', $permissions)->get();
+        $all_permissions = Permission::select('id', 'name')->get();
+        $permissions_collect = $all_permissions->whereIn('id', $permissions);
         foreach ($permissions_collect as $permission) {
             $action = explode('.', $permission->name);
             if (in_array(@$action[1], ['update', 'store', 'destroy', 'show']) && !$permissions_collect->contains('name', $action[0] . '.index')) {
