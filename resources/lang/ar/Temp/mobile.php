@@ -211,6 +211,7 @@ return [
             'member' => 'عضو',
         ]
     ],
+
     'notifications' => [
         'wallet_transfer_from' => [
             'title' => 'تحويل برقم المحفظة',
