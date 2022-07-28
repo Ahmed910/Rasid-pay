@@ -70,6 +70,8 @@ class DepartmentController extends Controller
                             $q->where('is_active', 0);
                             break;
                     }
+                })->when($request->has_jobs,function ($q) {
+                    $q->has('rasidJobs');
                 })->ListsTranslations('name')
                 ->addSelect('is_active')
                 ->without(['images', 'addedBy', 'translations'])->get(),
