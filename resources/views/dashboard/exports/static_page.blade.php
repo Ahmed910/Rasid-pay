@@ -7,11 +7,11 @@
     @include('dashboard.exports.header',['topic'=>'الصفحات الثابتة'])
     <tr>
       <th>#</th>
-      <th>is_active</th>
-      <th>show_in_app</th>
-      <th>show_in_website</th>
-      <th>link</th>
-      <th>name</th>
+      <th>الحالة</th>
+      <th>عرض في app</th>
+      <th>عرض في website</th>
+      <th>الرابط</th>
+      <th>الاسم</th>
     </tr>
   </thead>
   <tbody>
