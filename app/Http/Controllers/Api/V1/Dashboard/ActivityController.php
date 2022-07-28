@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api\V1\Dashboard;
 
+use App\Exports\ActivityLogsExport;
 use App\Models\User;
 use App\Models\ActivityLog;
 use Illuminate\Http\Request;
@@ -12,6 +13,8 @@ use App\Http\Resources\Dashboard\SimpleEmployeeResource;
 use App\Http\Resources\Dashboard\OnlyResource;
 use App\Providers\AppServiceProvider;
 use Illuminate\Support\Str;
+use App\Services\GeneratePdf;
+use Maatwebsite\Excel\Facades\Excel;
 
 class ActivityController extends Controller
 {
@@ -123,6 +126,55 @@ class ActivityController extends Controller
         return OnlyResource::make($data)->additional([
             'status' => true,
             'message' => "",
+        ]);
+    }
+    public function exportPDF(Request $request, GeneratePdf $pdfGenerate)
+    {
+        $activatyLogsQuery = ActivityLog::select('activity_logs.id','activity_logs.user_id','activity_logs.auditable_type','activity_logs.auditable_id','activity_logs.sub_program','activity_logs.action_type','activity_logs.ip_address','activity_logs.created_at')->search($request)
+        ->sortBy($request)
+        ->CustomDateFromTo($request)
+        ->cursor();
+
+
+        if (!$request->has('created_from')) {
+            $createdFrom = ActivityLog::selectRaw('MIN(created_at) as min_created_at')->value('min_created_at');
+        }
+
+        $mpdfPath = $pdfGenerate->newFile()
+            ->view(
+                'dashboard.exports.activity_log',
+                [
+                    'activity_logs' => $activatyLogsQuery,
+                    'date_from'   => format_date($request->created_from) ?? format_date($createdFrom),
+                    'date_to'     => format_date($request->created_to) ?? format_date(now()),
+                    'userId'      => auth()->user()->login_id,
+
+                ]
+            )
+            ->storeOnLocal('activityLogs/pdfs/');
+        $file  = url('/storage/' . $mpdfPath);
+
+        return response()->json([
+            'data'   => [
+                'file' => $file
+            ],
+            'status' => true,
+            'message' => ''
+        ]);
+    }
+
+    public function exportExcel(Request $request)
+    {
+        $fileName = uniqid() . time();
+        Excel::store(new ActivityLogsExport($request), 'activity_logs/excels/' . $fileName . '.xlsx', 'public');
+        $file = url('/storage/' . 'activity_logs/excels/' . $fileName . '.xlsx');
+
+        return response()->json([
+            'data'   => [
+                'file' => $file
+            ],
+            'status' => true,
+            'message' => ''
         ]);
     }
 }
