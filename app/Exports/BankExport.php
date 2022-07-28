@@ -8,7 +8,7 @@ use Maatwebsite\Excel\Concerns\FromView;
 use Illuminate\Contracts\View\View;
 use Maatwebsite\Excel\Concerns\ShouldAutoSize;
 
-class BankExoprt implements FromView, ShouldAutoSize
+class BankExport implements FromView, ShouldAutoSize
 {
     protected $request;
 
