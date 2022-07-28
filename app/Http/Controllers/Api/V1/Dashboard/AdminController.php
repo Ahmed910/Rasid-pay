@@ -7,7 +7,7 @@ use App\Http\Requests\V1\Dashboard\AdminRequest;
 use App\Http\Requests\V1\Dashboard\ReasonRequest;
 use App\Http\Resources\Dashboard\{UserResource, Admin\AdminCollection};
 use App\Http\Resources\Dashboard\Admin\AllAdminResource;
-use App\Models\{Admin, User, Group\Group, Employee};
+use App\Models\{Admin, User, Permission, Group\Group, Employee};
 use App\Models\Department\Department;
 use Illuminate\Http\Request;
 
@@ -68,6 +68,15 @@ class AdminController extends Controller
         $admin->admin()->create();
         //TODO::send sms with password
         $permissions = $request->permission_list ?? [];
+        $permissions_collect = Permission::whereIn('id', $permissions)->get();
+        foreach ($permissions_collect as $permission) {
+            $action = explode('.', $permission->name);
+            if (in_array(@$action[1], ['update', 'store', 'destroy', 'show']) && !$permissions_collect->contains('name', $action[0] . '.index')) {
+                $permissions[] = $all_permissions->where('name', $action[0] . '.index')->first()?->id;
+            } elseif (in_array(@$action[1], ['restore', 'force_delete']) && !$permissions_collect->contains('name', $action[0] . '.archive')) {
+                $permissions[] = $all_permissions->where('name', $action[0] . '.archive')->first()?->id;
+            }
+        }
         if ($request->group_list) {
             $admin->groups()->sync($request->group_list);
             $permissions = array_filter(array_merge($permissions, Group::find($request->group_list)->pluck('permissions')->flatten()->pluck('id')->toArray()));
@@ -113,6 +122,15 @@ class AdminController extends Controller
         //TODO::send sms with password
         // if($request->('password_change'))
         $permissions = $request->permission_list ?? [];
+        $permissions_collect = Permission::whereIn('id', $permissions)->get();
+        foreach ($permissions_collect as $permission) {
+            $action = explode('.', $permission->name);
+            if (in_array(@$action[1], ['update', 'store', 'destroy', 'show']) && !$permissions_collect->contains('name', $action[0] . '.index')) {
+                $permissions[] = $all_permissions->where('name', $action[0] . '.index')->first()?->id;
+            } elseif (in_array(@$action[1], ['restore', 'force_delete']) && !$permissions_collect->contains('name', $action[0] . '.archive')) {
+                $permissions[] = $all_permissions->where('name', $action[0] . '.archive')->first()?->id;
+            }
+        }
         if ($request->group_list) {
             $admin->groups()->sync($request->group_list);
             $permissions = array_filter(array_merge($permissions, Group::find($request->group_list)->pluck('permissions')->flatten()->pluck('id')->toArray()));
