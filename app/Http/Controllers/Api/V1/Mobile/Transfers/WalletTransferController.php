@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\V1\Mobile\Transfers\WalletTransferRequest;
 use App\Http\Resources\Api\V1\Mobile\{Transactions\TransactionResource};
 use App\Models\{CitizenWallet, Transaction, Transfer, User};
+use App\Notifications\generalNotification;
 use App\Services\WalletBalance;
 
 class WalletTransferController extends Controller
@@ -18,6 +19,7 @@ class WalletTransferController extends Controller
 
     public function store(WalletTransferRequest $request, Transfer $transfer)
     {
+
         // check max value of transfer per day
         $citizen_wallet = CitizenWallet::with('citizen')->where('citizen_id', auth()->id())->firstOrFail();
         if ($request->amount > $citizen_wallet->main_balance + $citizen_wallet->cash_back) {
@@ -40,6 +42,7 @@ class WalletTransferController extends Controller
         if ($request->citizen_id) {
             // TODO: Check if citizen has wallet if not create one
             $receiver_citizen_wallet = CitizenWallet::with('citizen')->where('citizen_id', $request->citizen_id)->firstOrFail();
+
         } elseif (!$request->citizen_id && $request->wallet_transfer_method == Transfer::PHONE) {
             $phone = $request->transfer_method_value;
         }
@@ -70,6 +73,21 @@ class WalletTransferController extends Controller
             'trans_status' => $transfer->transfer_status == 'transfered' ? Transaction::SUCCESS : Transaction::PENDING,
             'trans_number' => generate_unique_code(Transaction::class, 'trans_number', 10, 'numbers')
         ]);
+        if($receiver_citizen_wallet){
+            $data = [
+                'title' => trans('mobile.notifications.wallet_transfer_to.title'),
+                'body' => trans('mobile.notifications.wallet_transfer_to.body',['amount' => $transaction->amount,'from_user' => auth()->user()->fullname]),
+            ];
+
+            $receiver_citizen_wallet->citizen->notify(new generalNotification($data));
+        }
+
+        $data = [
+            'title' => trans('mobile.notifications.wallet_transfer_from.title'),
+            'body' => trans('mobile.notifications.wallet_transfer_from.body',['amount' => $transaction->amount,'to_user' => $receiver_citizen_wallet->citizen?->fullname]),
+        ];
+        auth()->user()->notify(new generalNotification($data));
+
 
         return TransactionResource::make($transaction->refresh())->additional([
             'message' => trans('mobile.local_transfers.transfer_has_been_done_successfully'),

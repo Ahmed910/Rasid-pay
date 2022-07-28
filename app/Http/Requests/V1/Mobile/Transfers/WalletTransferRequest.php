@@ -22,6 +22,7 @@ class WalletTransferRequest extends ApiMasterRequest
         //         "transfer_status" => 'required|in:hold,transfered'
         //     ];
         // }
+
         return [
             "amount" => ['required', 'regex:/^\\d{1,5}$|^\\d{1,5}\\.\\d{0,2}$/', 'numeric', 'gte:'. (setting('rasidpay_wallettransfer_minvalue') ?? 10).'', 'lte:'. (setting('rasidpay_wallettransfer_maxvalue')??10000).''],
             "wallet_transfer_method" => 'required|in:' . join(",", Transfer::WALLET_TRANSFER_METHODS),
@@ -57,9 +58,12 @@ class WalletTransferRequest extends ApiMasterRequest
             ->orWhereRelation('citizenWallet', 'wallet_number', $value);
         })->first();
 
+       
         if ($sameUser) {
+
             return trans('mobile.validation.not_same_wallet');
         }
+
         switch ($key) {
             case Transfer::WALLET_NUMBER:
                 $user = User::where('id', "<>", auth()->id())->whereRelation('citizenWallet', 'wallet_number', $value)->first();

@@ -3,8 +3,8 @@
 return [
     'validation' => [
         "fullname" => [
-            "required"  => "اسم المستخدم مطلوب",
-            "min"  => "اسم المستخدم يجب ان لا يقل عن 2 حروف",
+            "required" => "اسم المستخدم مطلوب",
+            "min" => "اسم المستخدم يجب ان لا يقل عن 2 حروف",
         ],
 
         "phone" => [
@@ -13,9 +13,9 @@ return [
         ],
 
         "email" => [
-            "required"  => "البريد الإلكتروني مطلوب",
-            "email"  => "البريد الالكتروني غير صحيح رجاء التأكد من الكتابة بطريقة صحيحة",
-            "regex"  => "البريد الالكتروني غير صحيح رجاء التأكد من الكتابة بطريقة صحيحة",
+            "required" => "البريد الإلكتروني مطلوب",
+            "email" => "البريد الالكتروني غير صحيح رجاء التأكد من الكتابة بطريقة صحيحة",
+            "regex" => "البريد الالكتروني غير صحيح رجاء التأكد من الكتابة بطريقة صحيحة",
         ],
 
         'card_date_format' => 'أدخل التاريخ بصيغة صحيحة',
@@ -106,15 +106,15 @@ return [
         'promoted_successfully' => 'تم ترقية الباقة بنجاح',
     ],
     'mobile' =>
-    [
-        'validation' =>
         [
-            'mobile' =>
-            [
-                'otp_vaild' => 'رمز التحقق صالح',
-            ],
+            'validation' =>
+                [
+                    'mobile' =>
+                        [
+                            'otp_vaild' => 'رمز التحقق صالح',
+                        ],
+                ],
         ],
-    ],
     'local_transfers' => [
         'local_transfers' => 'التحويلات المحلية',
         'current_balance_is_not_sufficient_to_complete_transaction' => 'لا يوجد رصيد كافي',
@@ -140,12 +140,12 @@ return [
     ],
     'invoice' => [
         'invoice' => 'فاتورة',
-        'invoice_number' =>'رقم الفاتورة',
+        'invoice_number' => 'رقم الفاتورة',
         'successfully_Transfered' => 'تم التحويل بنجاح',
-        'successfully_payment'=>'تم الدفع بنجاح',
-        'successfully_charged'=>'تم الشحن بنجاح',
-        'charge_amount' =>'مبلغ الشحن',
-        'phone' =>'رقم الجوال',
+        'successfully_payment' => 'تم الدفع بنجاح',
+        'successfully_charged' => 'تم الشحن بنجاح',
+        'charge_amount' => 'مبلغ الشحن',
+        'phone' => 'رقم الجوال',
         'transaction_type' => 'نوع العملية',
         'transaction_date' => 'تاريخ العملية',
         'mtcn_number' => 'رقم MTCN',
@@ -160,7 +160,7 @@ return [
     ],
     'otp' => [
         'required' => 'رمز OTP مطلوب',
-        'exists'   => 'رمز OTP غير صحيح'
+        'exists' => 'رمز OTP غير صحيح'
     ],
 
     'currencies' => [
@@ -200,9 +200,9 @@ return [
                 "min" => "نص الرسالة يجب ان لا يقل عن :min حروف",
             ],
         ]
-   ],
-   "vendors" => [
-        'vendor_type' =>   [
+    ],
+    "vendors" => [
+        'vendor_type' => [
             'institution' => 'مؤسسات',
             'other' => 'أخري',
             'company' => 'شركات',
@@ -210,15 +210,20 @@ return [
             'freelance_doc' => 'مستقل',
             'member' => 'عضو',
         ]
+    ],
+    'notifications' => [
+        'wallet_transfer_from' => [
+            'title' => 'تحويل برقم المحفظة',
+            'body' => 'لقد قمت بتحويل رصيد :amount إلي :to_user'
         ],
-    
-        "notifications" => [
-
-            "global_transfers" => [
-                "title" => "تم التحويل الدولي بنجاح",
-                "body" => "تم تحويل :amount :currency إلى المستفيد :beneficiary"
-            ]
+        'wallet_transfer_to' => [
+            'title' => 'تحويل برقم المحفظة',
+            'body' => 'لقد تم تحويل رصيد قيمته :amount من :from_user'
+        ],
+        "global_transfer" => [
+            "title" => "تم التحويل الدولي بنجاح",
+            "body" => "تم تحويل :amount :currency إلى المستفيد :beneficiary"
         ]
-
-
+    ]
+    
 ];
