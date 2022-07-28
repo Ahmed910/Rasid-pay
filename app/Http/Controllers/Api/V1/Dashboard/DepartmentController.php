@@ -222,7 +222,8 @@ class DepartmentController extends Controller
             ->with('parent.translations')
             ->ListsTranslations('name')
             ->sortBy($request)
-            ->addSelect('departments.created_at', 'departments.is_active', 'departments.parent_id', 'departments.added_by_id')->get();
+            ->addSelect('departments.created_at', 'departments.is_active', 'departments.parent_id', 'departments.added_by_id')
+            ->get();
 
         if (!$request->has('created_from')) {
             $createdFrom = Department::selectRaw('MIN(created_at) as min_created_at')->value('min_created_at');
@@ -239,9 +240,9 @@ class DepartmentController extends Controller
 
                 ]
             )
-            ->storeOnLocal('pdfs/');
-
+            ->storeOnLocal('departments/pdfs/');
         $file  = url('/storage/' . $mpdfPath);
+
         return response()->json([
             'data'   => [
                 'file' => $file
@@ -253,6 +254,16 @@ class DepartmentController extends Controller
 
     public function exportExcel(Request $request)
     {
-        return Excel::download(new DepartmentsExport($request), 'departments.xlsx', headers: ['Content-Type' => 'application/xlsx']);
+        $fileName = uniqid() . time();
+        Excel::store(new DepartmentsExport($request), 'departments/excels/' . $fileName . '.xlsx', 'public');
+        $file = url('/storage/' . 'departments/excels/' . $fileName . '.xlsx');
+
+        return response()->json([
+            'data'   => [
+                'file' => $file
+            ],
+            'status' => true,
+            'message' => ''
+        ]);
     }
 }
