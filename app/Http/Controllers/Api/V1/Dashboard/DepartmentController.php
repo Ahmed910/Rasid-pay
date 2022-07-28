@@ -239,9 +239,9 @@ class DepartmentController extends Controller
 
                 ]
             )
-            ->storeOnLocal('pdfs');
+            ->storeOnLocal('pdfs/');
 
-        return response()->download(Storage::path($mpdfPath), headers: ['Content-Type' => 'application/pdf']);
+        return response()->download(url('/storage/' .$mpdfPath), headers: ['Content-Type' => 'application/pdf']);
     }
 
     public function exportExcel(Request $request)

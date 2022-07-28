@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Storage;
 use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 use Illuminate\Support\Str;
@@ -67,10 +68,18 @@ class GeneratePdf
     public function storeOnLocal($folder): string
     {
         $basePath = base_path('storage/app/public/');
+        $this->checkIfFolderExists($basePath . $folder);
         $path = $basePath . $folder . uniqid() . ".pdf";
         $this->mpdf->Output($path, 'F');
         $path = Str::replaceFirst($basePath, '', $path);
 
         return $path;
+    }
+
+    private function checkIfFolderExists($folder)
+    {
+        if (!File::isDirectory($folder)) {
+            File::makeDirectory($folder, 0777, true);
+        }
     }
 }
