@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api\V1\Dashboard;
 
+use App\Exports\VendorBranchExport;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\V1\Dashboard\VendorBranchRequest;
 use App\Http\Resources\Dashboard\VendorBranches\VendorBranchCollection;
@@ -9,6 +10,8 @@ use App\Http\Resources\Dashboard\VendorBranches\VendorBranchResource;
 use App\Models\Vendor\Vendor;
 use App\Models\VendorBranches\VendorBranch;
 use Illuminate\Http\Request;
+use App\Services\GeneratePdf;
+use Maatwebsite\Excel\Facades\Excel;
 
 class VendorBranchController extends Controller
 {
@@ -104,5 +107,57 @@ class VendorBranchController extends Controller
                 'status' => true,
                 'message' => __('dashboard.general.success_delete')
             ]);
+    }
+
+    public function exportPDF(Request $request, GeneratePdf $pdfGenerate)
+    {
+        $VendorBranchsQuery = VendorBranch::query()
+        ->ListsTranslations('name')
+        ->search($request)
+        ->sortBy($request)
+        ->addSelect('vendor_branches.*')
+        ->get();
+
+
+        if (!$request->has('created_from')) {
+            $createdFrom = VendorBranch::selectRaw('MIN(created_at) as min_created_at')->value('min_created_at');
+        }
+
+        $mpdfPath = $pdfGenerate->newFile()
+            ->view(
+                'dashboard.exports.vendor_branch',
+                [
+                    'VendorBranches' => $VendorBranchsQuery,
+                    'date_from'   => format_date($request->created_from) ?? format_date($createdFrom),
+                    'date_to'     => format_date($request->created_to) ?? format_date(now()),
+                    'userId'      => auth()->user()->login_id,
+
+                ]
+            )
+            ->storeOnLocal('VendorBranches/pdfs/');
+        $file  = url('/storage/' . $mpdfPath);
+
+        return response()->json([
+            'data'   => [
+                'file' => $file
+            ],
+            'status' => true,
+            'message' => ''
+        ]);
+    }
+
+    public function exportExcel(Request $request)
+    {
+        $fileName = uniqid() . time();
+        Excel::store(new VendorBranchExport($request), 'VendorBranches/excels/' . $fileName . '.xlsx', 'public');
+        $file = url('/storage/' . 'VendorBranches/excels/' . $fileName . '.xlsx');
+
+        return response()->json([
+            'data'   => [
+                'file' => $file
+            ],
+            'status' => true,
+            'message' => ''
+        ]);
     }
 }

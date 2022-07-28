@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\V1\Mobile\Transfers\GlobalTransferRequest;
 use App\Http\Resources\Api\V1\Mobile\Transactions\TransactionResource;
 use App\Models\{CitizenWallet, Country\Country, Transaction, Transfer};
+use App\Notifications\GeneralNotification;
 
 class GlobalTransferController extends Controller
 {
@@ -39,7 +40,7 @@ class GlobalTransferController extends Controller
         // TODO: Calc transfer fee
 
         // Set transfer data
-        $transfer_data = $request->only( 'fee_upon', 'transfer_purpose_id', 'notes')
+        $transfer_data = $request->only('fee_upon', 'transfer_purpose_id', 'notes')
             + [
                 'transfer_type' => 'global',
                 'from_user_id' => auth()->id(),
@@ -56,9 +57,11 @@ class GlobalTransferController extends Controller
         // create global transfer
         $global_transfer = Transfer::create($transfer_data + ['main_amount' => $request->amount]);
         $exchange_rate = Country::find($request->to_currency_id)->countryCurrency->currency_value;
-        $global_transfer->bankTransfer()->create($request->only([
-                'currency_id', 'to_currency_id', 'beneficiary_id', 'balance_type']
-        )+['exchange_rate' => $exchange_rate]);
+        $global_transfer->bankTransfer()->create($request->only(
+            [
+                'currency_id', 'to_currency_id', 'beneficiary_id', 'balance_type'
+            ]
+        ) + ['exchange_rate' => $exchange_rate]);
         $global_transfer->bankTransfer()->update(['recieve_option_id' => $global_transfer->beneficiary->recieve_option_id]);
 
         //add transfer in  transaction
@@ -70,9 +73,10 @@ class GlobalTransferController extends Controller
             'fee_amount' => $global_transfer->transfer_fees ?? 0,
             'cashback_amount' => $global_transfer->cashback_amount,
             'main_amount' => $global_transfer->main_amount,
-            'trans_number' => generate_unique_code(Transaction::class,'trans_number',10,'numbers'),
+            'trans_number' => generate_unique_code(Transaction::class, 'trans_number', 10, 'numbers'),
             'trans_status' => 'success'
         ]);
+
         return TransactionResource::make($transaction->refresh())->additional([
             'message' => trans('mobile.local_transfers.transfer_has_been_done_successfully'),
             'status' => true

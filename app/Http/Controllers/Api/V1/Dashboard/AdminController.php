@@ -2,14 +2,17 @@
 
 namespace App\Http\Controllers\Api\V1\Dashboard;
 
+use App\Exports\AdminsExport;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\V1\Dashboard\AdminRequest;
 use App\Http\Requests\V1\Dashboard\ReasonRequest;
 use App\Http\Resources\Dashboard\{UserResource, Admin\AdminCollection};
 use App\Http\Resources\Dashboard\Admin\AllAdminResource;
-use App\Models\{Admin, User, Group\Group, Employee};
+use App\Models\{Admin, User, Permission, Group\Group, Employee};
 use App\Models\Department\Department;
 use Illuminate\Http\Request;
+use App\Services\GeneratePdf;
+use Maatwebsite\Excel\Facades\Excel;
 
 class AdminController extends Controller
 {
@@ -68,6 +71,16 @@ class AdminController extends Controller
         $admin->admin()->create();
         //TODO::send sms with password
         $permissions = $request->permission_list ?? [];
+        $all_permissions = Permission::select('id', 'name')->get();
+        $permissions_collect = $all_permissions->whereIn('id', $permissions);
+        foreach ($permissions_collect as $permission) {
+            $action = explode('.', $permission->name);
+            if (in_array(@$action[1], ['update', 'store', 'destroy', 'show']) && !$permissions_collect->contains('name', $action[0] . '.index')) {
+                $permissions[] = $all_permissions->where('name', $action[0] . '.index')->first()?->id;
+            } elseif (in_array(@$action[1], ['restore', 'force_delete']) && !$permissions_collect->contains('name', $action[0] . '.archive')) {
+                $permissions[] = $all_permissions->where('name', $action[0] . '.archive')->first()?->id;
+            }
+        }
         if ($request->group_list) {
             $admin->groups()->sync($request->group_list);
             $permissions = array_filter(array_merge($permissions, Group::find($request->group_list)->pluck('permissions')->flatten()->pluck('id')->toArray()));
@@ -113,6 +126,16 @@ class AdminController extends Controller
         //TODO::send sms with password
         // if($request->('password_change'))
         $permissions = $request->permission_list ?? [];
+        $all_permissions = Permission::select('id', 'name')->get();
+        $permissions_collect = $all_permissions->whereIn('id', $permissions);
+        foreach ($permissions_collect as $permission) {
+            $action = explode('.', $permission->name);
+            if (in_array(@$action[1], ['update', 'store', 'destroy', 'show']) && !$permissions_collect->contains('name', $action[0] . '.index')) {
+                $permissions[] = $all_permissions->where('name', $action[0] . '.index')->first()?->id;
+            } elseif (in_array(@$action[1], ['restore', 'force_delete']) && !$permissions_collect->contains('name', $action[0] . '.archive')) {
+                $permissions[] = $all_permissions->where('name', $action[0] . '.archive')->first()?->id;
+            }
+        }
         if ($request->group_list) {
             $admin->groups()->sync($request->group_list);
             $permissions = array_filter(array_merge($permissions, Group::find($request->group_list)->pluck('permissions')->flatten()->pluck('id')->toArray()));
@@ -182,5 +205,60 @@ class AdminController extends Controller
                 'message' => '',
 
             ]);
+    }
+
+
+    public function exportPDF(Request $request, GeneratePdf $pdfGenerate)
+    {
+        $AdminsQuery = User::CustomDateFromTo($request)
+        ->has('employee')
+        ->search($request)
+        ->with(['department', 'permissions', 'groups' => function ($q) {
+            $q->with('permissions');
+        }])->where('user_type', 'admin')
+        ->sortBy($request)
+        ->get();
+
+
+        if (!$request->has('created_from')) {
+            $createdFrom = User::selectRaw('MIN(created_at) as min_created_at')->value('min_created_at');
+        }
+
+        $mpdfPath = $pdfGenerate->newFile()
+            ->view(
+                'dashboard.exports.admin',
+                [
+                    'Admins' => $AdminsQuery,
+                    'date_from'   => format_date($request->created_from) ?? format_date($createdFrom),
+                    'date_to'     => format_date($request->created_to) ?? format_date(now()),
+                    'userId'      => auth()->user()->login_id,
+
+                ]
+            )
+            ->storeOnLocal('Admins/pdfs/');
+        $file  = url('/storage/' . $mpdfPath);
+
+        return response()->json([
+            'data'   => [
+                'file' => $file
+            ],
+            'status' => true,
+            'message' => ''
+        ]);
+    }
+
+    public function exportExcel(Request $request)
+    {
+        $fileName = uniqid() . time();
+        Excel::store(new AdminsExport($request), 'Admins/excels/' . $fileName . '.xlsx', 'public');
+        $file = url('/storage/' . 'Admins/excels/' . $fileName . '.xlsx');
+
+        return response()->json([
+            'data'   => [
+                'file' => $file
+            ],
+            'status' => true,
+            'message' => ''
+        ]);
     }
 }

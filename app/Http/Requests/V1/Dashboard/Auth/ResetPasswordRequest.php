@@ -26,4 +26,11 @@ class ResetPasswordRequest extends ApiMasterRequest
             'password' => 'required|confirmed|regex:/^[A-Za-z0-9()\]\[#%&*_=~{}^:`.,$!@+\/-]+$/|min:6|max:100'
         ];
     }
+
+    public function messages()
+    {
+        return [
+            '_token.exists' =>  __('auth.token.not_exists'),   
+        ];
+    }
 }

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api\V1\Dashboard;
 
+use App\Exports\VendorPackageExport;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\V1\Dashboard\ClientPackageRequest;
 use App\Http\Resources\Dashboard\PackageResource;
@@ -14,15 +15,13 @@ use App\Models\User;
 use App\Models\Vendor\Vendor;
 use App\Models\VendorPackage;
 use Illuminate\Http\Request;
+use App\Services\GeneratePdf;
+use Maatwebsite\Excel\Facades\Excel;
 
 class VendorPackageController extends Controller
 {
     public function index(Request $request)
     {
-        if (isset($request->order[0]['column'])) {
-            $request['sort'] = ['column' => $request['columns'][$request['order'][0]['column']]['name'], 'dir' => $request['order'][0]['dir']];
-        }
-
         $packages = VendorPackage::query()
             ->with('vendor')
             ->search($request)
@@ -79,6 +78,57 @@ class VendorPackageController extends Controller
         return PackageResource::make($vendorPackage)->additional([
             'status' => true,
             'message' => trans("dashboard.package.discount_success_update")
+        ]);
+    }
+
+    public function exportPDF(Request $request, GeneratePdf $pdfGenerate)
+    {
+        $vendorPackagesQuery =  VendorPackage::query()
+        ->with('vendor')
+        ->search($request)
+        ->sortBy($request)
+        ->get();
+
+
+        if (!$request->has('created_from')) {
+            $createdFrom = VendorPackage::selectRaw('MIN(created_at) as min_created_at')->value('min_created_at');
+        }
+
+        $mpdfPath = $pdfGenerate->newFile()
+            ->view(
+                'dashboard.exports.vendor_package',
+                [
+                    'VendorPackages' => $vendorPackagesQuery,
+                    'date_from'   => format_date($request->created_from) ?? format_date($createdFrom),
+                    'date_to'     => format_date($request->created_to) ?? format_date(now()),
+                    'userId'      => auth()->user()->login_id,
+
+                ]
+            )
+            ->storeOnLocal('VendorPackage/pdfs/');
+        $file  = url('/storage/' . $mpdfPath);
+
+        return response()->json([
+            'data'   => [
+                'file' => $file
+            ],
+            'status' => true,
+            'message' => ''
+        ]);
+    }
+
+    public function exportExcel(Request $request)
+    {
+        $fileName = uniqid() . time();
+        Excel::store(new VendorPackageExport($request), 'VendorPackage/excels/' . $fileName . '.xlsx', 'public');
+        $file = url('/storage/' . 'VendorPackage/excels/' . $fileName . '.xlsx');
+
+        return response()->json([
+            'data'   => [
+                'file' => $file
+            ],
+            'status' => true,
+            'message' => ''
         ]);
     }
 }

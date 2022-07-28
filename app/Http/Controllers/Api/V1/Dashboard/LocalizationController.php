@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api\V1\Dashboard;
 
+use App\Exports\LocaleExport;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\V1\Dashboard\LocalizationRequest;
 use App\Http\Resources\Dashboard\TranslationResource;
@@ -10,6 +11,8 @@ use App\Models\Locale\LocaleTranslation;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Cache;
+use App\Services\GeneratePdf;
+use Maatwebsite\Excel\Facades\Excel;
 
 class LocalizationController extends Controller
 {
@@ -83,6 +86,58 @@ class LocalizationController extends Controller
         return response()->json([
             'status' => true,
             'message' => __('dashboard.general.success_add')
+        ]);
+    }
+    public function exportPDF(Request $request, GeneratePdf $pdfGenerate)
+    {
+        $localsQuery = Locale::query()
+        ->ListsTranslations('value')
+        ->where('file', 'vue_static')
+        ->addSelect('locale_id', 'key', 'value', 'locale', 'desc')
+        ->search($request)
+        ->sortBy($request)
+        ->get();
+
+
+        if (!$request->has('created_from')) {
+            $createdFrom = Locale::selectRaw('MIN(created_at) as min_created_at')->value('min_created_at');
+        }
+
+        $mpdfPath = $pdfGenerate->newFile()
+            ->view(
+                'dashboard.exports.locale',
+                [
+                    'locals' => $localsQuery,
+                    'date_from'   => format_date($request->created_from) ?? format_date($createdFrom),
+                    'date_to'     => format_date($request->created_to) ?? format_date(now()),
+                    'userId'      => auth()->user()->login_id,
+
+                ]
+            )
+            ->storeOnLocal('locals/pdfs/');
+        $file  = url('/storage/' . $mpdfPath);
+
+        return response()->json([
+            'data'   => [
+                'file' => $file
+            ],
+            'status' => true,
+            'message' => ''
+        ]);
+    }
+
+    public function exportExcel(Request $request)
+    {
+        $fileName = uniqid() . time();
+        Excel::store(new LocaleExport($request), 'locals/excels/' . $fileName . '.xlsx', 'public');
+        $file = url('/storage/' . 'locals/excels/' . $fileName . '.xlsx');
+
+        return response()->json([
+            'data'   => [
+                'file' => $file
+            ],
+            'status' => true,
+            'message' => ''
         ]);
     }
 }
