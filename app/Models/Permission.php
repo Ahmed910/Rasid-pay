@@ -68,6 +68,22 @@ class Permission extends Model
         'localizations.export_excel',
         'message_types.export_pdf',
         'message_types.export_excel',
+        'our_apps.export_pdf',
+        'our_apps.export_excel',
+        'static_pages.export_pdf',
+        'static_pages.export_excel',
+        'transfer_purposes.export_pdf',
+        'transfer_purposes.export_excel',
+        'vendors.export_pdf',
+        'vendors.export_excel',
+        'links.export_pdf',
+        'links.export_excel',
+        'vendor_packages.export_pdf',
+        'vendor_packages.export_excel',
+        'transactions.export_pdf',
+        'transactions.export_excel',
+        'vendor_branches.export_pdf',
+        'vendor_branches.export_excel',
     ];
 
     private $sortableColumns = ['main_program', 'sub_program', 'name'];

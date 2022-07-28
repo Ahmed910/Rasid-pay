@@ -173,44 +173,44 @@ Route::middleware('maintenance_mode')->group(function () {
                 Route::get('export_excel', 'exportExcel')->name('export_excel');
             });
             Route::controller('OurAppController')->name('our_apps.')->prefix('our_apps')->group(function () {
-                Route::get('export_pdf', 'exportPDF');
-                Route::get('export_excel', 'exportExcel');
+                Route::get('export_pdf', 'exportPDF')->name('export_pdf');
+                Route::get('export_excel', 'exportExcel')->name('export_excel');
             });
             Route::controller('StaticPageController')->name('static_pages.')->prefix('static_pages')->group(function () {
-                Route::get('export_pdf', 'exportPDF');
-                Route::get('export_excel', 'exportExcel');
+                Route::get('export_pdf', 'exportPDF')->name('export_pdf');
+                Route::get('export_excel', 'exportExcel')->name('export_excel');
             });
 
             Route::controller('TransferPurposeController')->name('transfer_purposes.')->prefix('transfer_purposes')->group(function () {
-                Route::get('export_pdf', 'exportPDF');
-                Route::get('export_excel', 'exportExcel');
+                Route::get('export_pdf', 'exportPDF')->name('export_pdf');
+                Route::get('export_excel', 'exportExcel')->name('export_excel');
             });
             Route::controller('VendorController')->name('vendors.')->prefix('vendors')->group(function () {
-                Route::get('export_pdf', 'exportPDF');
-                Route::get('export_excel', 'exportExcel');
+                Route::get('export_pdf', 'exportPDF')->name('export_pdf');
+                Route::get('export_excel', 'exportExcel')->name('export_excel');
             });
             Route::controller('LinkController')->name('links.')->prefix('links')->group(function () {
-                Route::get('export_pdf', 'exportPDF');
-                Route::get('export_excel', 'exportExcel');
+                Route::get('export_pdf', 'exportPDF')->name('export_pdf');
+                Route::get('export_excel', 'exportExcel')->name('export_excel');
             });
 
             Route::controller('VendorPackageController')->name('vendor_packages.')->prefix('vendor_packages')->group(function () {
                 Route::get('get_vendors', 'getVendors')->name('get_vendors');
-                Route::get('export_pdf', 'exportPDF');
-                Route::get('export_excel', 'exportExcel');
+                Route::get('export_pdf', 'exportPDF')->name('export_pdf');
+                Route::get('export_excel', 'exportExcel')->name('export_excel');
             });
 
             Route::controller('TransactionController')->name('transactions.')->prefix('transactions')->group(function () {
                 Route::delete('forceDelete/{id}', 'forceDelete')->name('force_delete');
                 Route::get('/get-transactions-statuses', 'transactionsStatues')->name('transactions_statues');
-                Route::get('export_pdf', 'exportPDF');
-                Route::get('export_excel', 'exportExcel');
+                Route::get('export_pdf', 'exportPDF')->name('export_pdf');
+                Route::get('export_excel', 'exportExcel')->name('export_excel');
             });
 
             Route::controller('VendorBranchController')->name('vendor_branches.')->prefix('vendor_branches')->group(function () {
                 Route::get('get_vendors', 'getVendors')->name('get_vendors');
-                Route::get('export_pdf', 'exportPDF');
-                Route::get('export_excel', 'exportExcel');
+                Route::get('export_pdf', 'exportPDF')->name('export_pdf');
+                Route::get('export_excel', 'exportExcel')->name('export_excel');
             });
 
             Route::apiResources([
