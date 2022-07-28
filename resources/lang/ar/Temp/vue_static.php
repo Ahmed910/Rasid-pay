@@ -1,6 +1,6 @@
 <?php
 
-return $jayParsedAry = [
+return [
     "dashboard" => [
         "login" => [
             "button" => [

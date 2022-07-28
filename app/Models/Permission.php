@@ -27,6 +27,7 @@ class Permission extends Model
         'menus.update',
         'menus.show',
         'menus.destroy',
+        'departments',
         'session.logout',
         "activity_logs.employees",
         "activity_logs.update",
@@ -41,7 +42,49 @@ class Permission extends Model
         'backButton',
         'home',
         'vendor_branches.get_vendors',
-        'vendor_packages.get_vendors'
+        'vendor_packages.get_vendors',
+        'activity_logs.export_pdf',
+        'activity_logs.export_excel',
+        'admins.export_pdf',
+        'admins.export_excel',
+        'departments.export_pdf',
+        'departments.export_excel',
+        'departments.archive.export_pdf',
+        'departments.archive.export_excel',
+        'citizens.export_pdf',
+        'citizens.export_excel',
+        'rasid_jobs.exportPDF',
+        'rasid_jobs.exportExcel',
+        'rasid_jobs.archive.exportPDFArchive',
+        'rasid_jobs.archive.exportExcelArchive',
+        'contacts.export_pdf',
+        'contacts.export_excel',
+        'banks.export_pdf',
+        'banks.export_excel',
+        'faqs.export_pdf',
+        'faqs.export_excel',
+        'groups.export_pdf',
+        'groups.export_excel',
+        'localizations.export_pdf',
+        'localizations.export_excel',
+        'message_types.export_pdf',
+        'message_types.export_excel',
+        'our_apps.export_pdf',
+        'our_apps.export_excel',
+        'static_pages.export_pdf',
+        'static_pages.export_excel',
+        'transfer_purposes.export_pdf',
+        'transfer_purposes.export_excel',
+        'vendors.export_pdf',
+        'vendors.export_excel',
+        'links.export_pdf',
+        'links.export_excel',
+        'vendor_packages.export_pdf',
+        'vendor_packages.export_excel',
+        'transactions.export_pdf',
+        'transactions.export_excel',
+        'vendor_branches.export_pdf',
+        'vendor_branches.export_excel',
     ];
 
     private $sortableColumns = ['main_program', 'sub_program', 'name'];
@@ -126,8 +169,8 @@ class Permission extends Model
         $permissions = Permission::latest()->get();
         foreach (app()->routes->getRoutes() as $value) {
             $route_name = $value->getName();
-            $name = str_replace(['create','edit'],['store','update'],$route_name);
-            if (in_array($name, Permission::PUBLIC_ROUTES) || is_null($name) || !$route_name || in_array(str_before($name, '.'), ['ignition', 'debugbar']) || !str_contains($value->getPrefix(),'api/v1/dashboard') || $permissions->contains('name',$name) ) {
+            $name = str_replace(['create', 'edit'], ['store', 'update'], $route_name);
+            if (in_array($name, Permission::PUBLIC_ROUTES) || is_null($name) || !$route_name || in_array(str_before($name, '.'), ['ignition', 'debugbar']) || !str_contains($value->getPrefix(), 'api/v1/dashboard') || $permissions->contains('name', $name)) {
                 continue;
             }
             $permissions->push(self::create(['name' => $name]));

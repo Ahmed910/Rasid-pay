@@ -16,7 +16,7 @@
     @foreach ($transfer_purposes as $transfer)
     <tr>
       <td>{{ $loop->iteration  }}</td>
-      <td>{{ $transfer->is_active ?? '' }}</td>
+      <td>{{ (bool) $transfer->is_active ?? '' }}</td>
       <td>{{ $transfer->is_default_value ?? '' }}</td>
       <td>{{ $transfer->name ?? '' }}</td>
     </tr>

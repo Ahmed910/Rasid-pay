@@ -17,7 +17,7 @@
     @foreach ($ourApps as $our_app)
     <tr>
       <td>{{ $loop->iteration  }}</td>
-      <td>{{ $our_app->is_active ?? '' }}</td>
+      <td>{{ (bool) $our_app->is_active ?? '' }}</td>
       <td>{{ $our_app->android_link ?? '' }}</td>
       <td>{{ $our_app->ios_link ?? '' }}</td>
       <td>{{ $our_app->name ?? '' }}</td>
