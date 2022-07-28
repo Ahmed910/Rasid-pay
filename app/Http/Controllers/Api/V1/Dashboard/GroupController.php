@@ -43,10 +43,10 @@ class GroupController extends Controller
         $permissions_collect = $all_permissions->whereIn('id', $request->permission_list);
         foreach ($permissions_collect as $permission) {
             $action = explode('.', $permission->name);
-            if (in_array(@$action[1], ['update', 'store', 'destroy', 'show']) && !$permissions_collect->contains('name', $action[0] . '.index')) {
-                $permissions[] = $all_permissions->where('name', $action[0] . '.index')->first()?->id;
-            } elseif (in_array(@$action[1], ['restore', 'force_delete']) && !$permissions_collect->contains('name', $action[0] . '.archive')) {
-                $permissions[] = $all_permissions->where('name', $action[0] . '.archive')->first()?->id;
+            if (in_array($permission?->action, ['update', 'store', 'destroy', 'show']) && !$permissions_collect->contains('name', $permission?->main_program . '.index')) {
+                $permissions[] = $all_permissions->where('name', $permission?->main_program . '.index')->first()?->id;
+            } elseif (in_array($permission?->action, ['restore', 'force_delete']) && !$permissions_collect->contains('name', $permission?->main_program . '.archive')) {
+                $permissions[] = $all_permissions->where('name', $permission?->main_program . '.archive')->first()?->id;
             }
         }
         if ($request->group_list) {
@@ -108,11 +108,10 @@ class GroupController extends Controller
         $all_permissions = Permission::select('id', 'name')->get();
         $permissions_collect = $all_permissions->whereIn('id', $request->permission_list);
         foreach ($permissions_collect as $permission) {
-            $action = explode('.', $permission->name);
-            if (in_array($action[1], ['update', 'store', 'destroy', 'show']) && !$permissions_collect->contains('name', $action[0] . '.index')) {
-                $permissions[] = $all_permissions->where('name', $action[0] . '.index')->first()?->id;
-            } elseif (in_array($action[1], ['restore', 'force_delete']) && !$permissions_collect->contains('name', $action[0] . '.archive')) {
-                $permissions[] = $all_permissions->where('name', $action[0] . '.archive')->first()?->id;
+            if (in_array($permission?->action, ['update', 'store', 'destroy', 'show']) && !$permissions_collect->contains('name', $permission?->main_program . '.index')) {
+                $permissions[] = $all_permissions->where('name', $permission?->main_program . '.index')->first()?->id;
+            } elseif (in_array($permission?->action, ['restore', 'force_delete']) && !$permissions_collect->contains('name', $permission?->main_program . '.archive')) {
+                $permissions[] = $all_permissions->where('name', $permission?->main_program . '.archive')->first()?->id;
             }
         }
         if ($request->group_list) {
@@ -122,17 +121,17 @@ class GroupController extends Controller
         $shared_permissions = array_intersect($old_permissions, $permissions);
         $attached_permissions = array_diff($permissions, $shared_permissions);
         $detached_permissions = array_diff($old_permissions, $shared_permissions);
-        if ($attached_permissions || $detached_permissions) {
-            $group->admins?->each(function ($admin) use ($attached_permissions, $detached_permissions) {
-                if ($detached_permissions) {
-                    $admin->permissions()->detach($detached_permissions);
-                }
-                $new_permissions = array_diff($attached_permissions, $admin->permission_list);
-                if ($new_permissions) {
-                    $admin->permissions()->syncWithoutDetaching($new_permissions);
-                }
-            });
-        }
+        // if ($attached_permissions || $detached_permissions) {
+        //     $group->admins?->each(function ($admin) use ($attached_permissions, $detached_permissions) {
+        //         if ($detached_permissions) {
+        //             $admin->permissions()->detach($detached_permissions);
+        //         }
+        //         $new_permissions = array_diff($attached_permissions, $admin->permission_list);
+        //         if ($new_permissions) {
+        //             $admin->permissions()->syncWithoutDetaching($new_permissions);
+        //         }
+        //     });
+        // }
 
         $group->groups()->sync($request->group_list);
         $group->permissions()->sync($permissions);
