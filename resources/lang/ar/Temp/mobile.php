@@ -197,7 +197,7 @@ return [
 
             "content" => [
                 "required" => "نص الرسالة مطلوب",
-                "min" => "نص الرسالة يجب ان لا يقل عن 10 حروف",
+                "min" => "نص الرسالة يجب ان لا يقل عن :min حروف",
             ],
         ]
    ],
@@ -210,6 +210,15 @@ return [
             'freelance_doc' => 'مستقل',
             'member' => 'عضو',
         ]
-    ]
+        ],
+    
+        "notifications" => [
+
+            "global_transfers" => [
+                "title" => "تم التحويل الدولي بنجاح",
+                "body" => "تم تحويل :amount :currency إلى المستفيد :beneficiary"
+            ]
+        ]
+
 
 ];
