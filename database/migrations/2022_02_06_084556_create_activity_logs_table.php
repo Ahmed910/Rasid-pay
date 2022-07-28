@@ -20,8 +20,8 @@ class CreateActivityLogsTable extends Migration
             $table->nullableUuidMorphs("auditable");
             $table->string('sub_program')->nullable();
             $table->enum("action_type", ActivityLog::EVENTS);
-            $table->text("old_data")->nullable();
-            $table->text("new_data")->nullable();
+            $table->longText("old_data")->nullable();
+            $table->longText("new_data")->nullable();
             $table->text('search_params')->nullable();
             $table->ipAddress("ip_address");
             $table->string("agent");

@@ -10,6 +10,7 @@ use App\Http\Resources\Dashboard\Department\{DepartmentResource, DepartmentColle
 use App\Models\Department\Department;
 use App\Services\GeneratePdf;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 use Maatwebsite\Excel\Facades\Excel;
 
 class DepartmentController extends Controller
@@ -70,8 +71,12 @@ class DepartmentController extends Controller
                             $q->where('is_active', 0);
                             break;
                     }
+                })->when($request->has_jobs,function ($q) {
+                    $q->whereHas('rasidJobs',function ($q) {
+                        $q->where(['rasid_jobs.is_active' => true, 'is_vacant' => true]);
+                    });
                 })->ListsTranslations('name')
-                ->addSelect('is_active')
+                ->addSelect('departments.is_active')
                 ->without(['images', 'addedBy', 'translations'])->get(),
             'status' => true,
             'message' =>  '',
@@ -154,7 +159,7 @@ class DepartmentController extends Controller
             ->ListsTranslations('name')
             ->searchDeletedAtFromTo($request)
             ->with('parent.translations')
-            ->addSelect('departments.created_at', 'departments.deleted_at','departments.is_active', 'departments.parent_id', 'departments.added_by_id')
+            ->addSelect('departments.created_at', 'departments.deleted_at', 'departments.is_active', 'departments.parent_id', 'departments.added_by_id')
             ->latest("deleted_at")
             ->sortBy($request)
             ->paginate((int)($request->per_page ?? config("globals.per_page")));
@@ -223,7 +228,7 @@ class DepartmentController extends Controller
             $createdFrom = Department::selectRaw('MIN(created_at) as min_created_at')->value('min_created_at');
         }
 
-        $mpdf = $pdfGenerate->newFile()
+        $mpdfPath = $pdfGenerate->newFile()
             ->view(
                 'dashboard.exports.department',
                 [
@@ -234,13 +239,13 @@ class DepartmentController extends Controller
 
                 ]
             )
-            ->export();
+            ->storeOnLocal('pdfs/');
 
-        return $mpdf;
+        return response()->download(url('/storage/' .$mpdfPath), headers: ['Content-Type' => 'application/pdf']);
     }
 
     public function exportExcel(Request $request)
     {
-        return Excel::download(new DepartmentsExport($request), 'departments.xlsx');
+        return Excel::download(new DepartmentsExport($request), 'departments.xlsx', headers: ['Content-Type' => 'application/xlsx']);
     }
 }
