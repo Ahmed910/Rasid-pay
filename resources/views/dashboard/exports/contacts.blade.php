@@ -7,12 +7,12 @@
     @include('dashboard.exports.header',['topic'=>'صندوق الرسائل'])
     <tr>
       <th>#</th>
-      <th>fullname</th>
-      <th>email</th>
-      <th>phone</th>
-      <th>title</th>
-      <th>message_source</th>
-      <th>message_status</th>
+      <th>الاسم</th>
+      <th>البريد الالكتروني</th>
+      <th>رقم الهاتف</th>
+      <th>العنوان</th>
+      <th>مصدر الرسالة</th>
+      <th>حالة الرسالة</th>
     </tr>
   </thead>
   <tbody>

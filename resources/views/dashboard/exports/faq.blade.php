@@ -7,11 +7,10 @@
     @include('dashboard.exports.header',['topic'=>'الأسئلة الشائعة'])
     <tr>
       <th>#</th>
-      <th>is_active</th>
-      <th>name</th>
-      <th>name</th>
-      <th>question</th>
-      <th>answer</th>
+      <th>الحالة</th>
+      <th>الاسم</th>
+      <th>السؤال</th>
+      <th>الإجابة</th>
     </tr>
   </thead>
   <tbody>
