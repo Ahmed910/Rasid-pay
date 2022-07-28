@@ -2,12 +2,12 @@
 
 namespace App\Exports;
 
-use App\Models\Bank\Bank;
+use App\Models\Transaction;
 use Illuminate\Contracts\View\View;
 use Maatwebsite\Excel\Concerns\FromView;
 use Maatwebsite\Excel\Concerns\ShouldAutoSize;
 
-class BankExport implements FromView, ShouldAutoSize
+class TransactionExport implements FromView, ShouldAutoSize
 {
     protected $request;
 
@@ -18,17 +18,18 @@ class BankExport implements FromView, ShouldAutoSize
 
     public function view(): View
     {
-        $banksQuery = Bank::with('translations')
-            ->search($this->request)
+        $transactionsQuery = Transaction::search($this->request)
+            ->CustomDateFromTo($this->request)
             ->sortBy($this->request)
-            ->get();
+            ->with('citizenPackage', 'toUser', 'fromUser.citizen.enabledPackage', 'transactionable')
+            ->paginate((int)($this->request->per_page ?? config("globals.per_page")));
 
         if (!$this->request->has('created_from')) {
-            $createdFrom = Bank::selectRaw('MIN(created_at) as min_created_at')->value('min_created_at');
+            $createdFrom = Transaction::selectRaw('MIN(created_at) as min_created_at')->value('min_created_at');
         }
 
-        return view('dashboard.exports.bank', [
-            'banks' => $banksQuery,
+        return view('dashboard.exports.transactions', [
+            'transactions' => $transactionsQuery,
             'date_from'   => format_date($this->request->created_from) ?? format_date($createdFrom),
             'date_to'     => format_date($this->request->created_to) ?? format_date(now()),
             'userId'      => auth()->user()->login_id,
