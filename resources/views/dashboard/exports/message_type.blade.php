@@ -12,7 +12,7 @@
     </tr>
   </thead>
   <tbody>
-    @foreach ($message_types as $message_type)
+    @foreach ($messageTypes as $message_type)
     <tr>
       <td>{{ $loop->iteration }}</td>
       <td>{{ $message_type->is_active ?? '' }}</td>
