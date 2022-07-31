@@ -20,7 +20,8 @@ class ProfileResource extends JsonResource
             'id' => $this->id,
             'fullname' => $this->fullname,
             'email' => $this->email,
-            'phone' => $this->phone,
+            'country_code' => substr($this->phone, 0, 3),
+            'phone' => substr($this->phone, 3),
             'whatsapp' => $this->whatsapp,
             'identity_number' => $this->identity_number,
             'gender' => $this->gender,
@@ -28,7 +29,9 @@ class ProfileResource extends JsonResource
             'date_of_birth_hijri' => $this->date_of_birth_hijri,
             'images' => ImagesResource::collection($this->images),
             'permissions' => $this->user_type == 'superadmin' ? ['*'] : PermissionResource::collection($this->permissions),
-            'is_date_hijri' => (bool) $this->is_date_hijri
+            'is_date_hijri' => (bool) $this->is_date_hijri,
+            'department' => $this->department?->name,
+            'rasid_job' => $this->rasidJob?->name,
         ];
     }
 }
