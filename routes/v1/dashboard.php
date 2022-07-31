@@ -43,7 +43,7 @@ Route::middleware('maintenance_mode')->group(function () {
         Route::get('has_permissions/{route_name}', 'GroupController@checkIfUserHasPermission');
         Route::post('validate', 'ValidateController');
 
-        Route::controller('ProfileController')->name('profiles.')->prefix('profiles')->group(function () {
+        Route::controller('ProfileController')->name('profiles.')->prefix('profile')->group(function () {
             Route::get('show', 'show')->name('show');
             Route::put('update', 'update')->name('update');
             // Route::post('change_password', 'changePassword')->name('change_password');
