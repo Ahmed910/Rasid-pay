@@ -20,7 +20,7 @@ class StaticPageExport implements FromView, ShouldAutoSize
     {
         $staticPages =  StaticPage::search($this->request)
         ->ListsTranslations('name')
-        ->CustomDateFromTo($this->request)
+        ->customDateFromTo($this->request)
         ->with('translations')
         ->addSelect('static_pages.created_at', 'static_pages.is_active')
         ->sortBy($this->request)

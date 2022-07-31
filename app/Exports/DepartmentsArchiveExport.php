@@ -21,17 +21,17 @@ class DepartmentsArchiveExport implements FromView, ShouldAutoSize
 
         $departments_archiveQuery = Department::onlyTrashed()
             ->search($this->request)
-            ->CustomDateFromTo($this->request)
-            ->searchDeletedAtFromTo($this->request)
+            ->customDateFromTo($this->request)
+            ->customDateFromTo($this->request, 'deleted_at', 'deleted_from', 'deleted_to')
             ->with('parent.translations')
             ->ListsTranslations('name')
             ->addSelect('departments.deleted_at', 'departments.parent_id')
             ->sortBy($this->request)
             ->get();
 
-            if (!$this->request->has('created_from')) {
-                $createdFrom = Department::selectRaw('MIN(created_at) as min_created_at')->value('min_created_at');
-            }
+        if (!$this->request->has('created_from')) {
+            $createdFrom = Department::selectRaw('MIN(created_at) as min_created_at')->value('min_created_at');
+        }
 
         return view('dashboard.exports.archive.department', [
             'departments_archive' => $departments_archiveQuery,

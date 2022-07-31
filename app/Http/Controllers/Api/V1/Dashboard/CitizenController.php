@@ -20,8 +20,9 @@ class CitizenController extends Controller
     public function index(Request $request)
     {
         $citizen = Citizen::with(['user', "enabledPackage"])
-        ->whereHas('user',fn ($q) => $q->where('register_status' , 'completed'))
-            ->CustomDateFromTo($request)->search($request)->sortBy($request)
+            ->whereHas('user', fn ($q) => $q->where('register_status', 'completed'))
+            ->customDateFromTo($request)
+            ->search($request)->sortBy($request)
             ->paginate((int)($request->per_page ?? config("globals.per_page")));
 
         return CitizenResource::collection($citizen)->additional([
@@ -74,9 +75,11 @@ class CitizenController extends Controller
     public function exportPDF(Request $request, GeneratePdf $pdfGenerate)
     {
         $CitizensQuery =  Citizen::with(['user', "enabledPackage"])
-        ->whereHas('user',fn ($q) => $q->where('register_status' , 'completed'))
-            ->CustomDateFromTo($request)->search($request)->sortBy($request)
-        ->get();
+            ->whereHas('user', fn ($q) => $q->where('register_status', 'completed'))
+            ->customDateFromTo($request)
+            ->search($request)
+            ->sortBy($request)
+            ->get();
 
 
         if (!$request->has('created_from')) {

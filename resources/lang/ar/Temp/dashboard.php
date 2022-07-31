@@ -1,5 +1,5 @@
 
- <?php
+<?php
 
 return [
     'permissions' =>  [
@@ -64,6 +64,12 @@ return [
         ],
     ],
     'general' => [
+            'validation' => [
+                'reason' => [
+                    "max"   => "يجب أن لا يزيد السبب عن :max حرف ",
+                    "min"   => "يجب أن لا يقل السبب عن :min حروف",
+                ],
+            ],
         'email' => 'البريد الإلكتروني',
         'description' => 'الوصف',
         'select_user' => 'اختر مستخدم',
@@ -742,6 +748,21 @@ return [
         'enter_login_id' => 'أدخل الرقم',
     ],
     'department' =>  [
+            'validation' => [
+                'name'  => [
+                    'required' => 'اسم القسم مطلوب',
+                    'unique' => 'الاسم موجود من قبل',
+                    'min' => 'لاسم يجب ان لا يقل عن :min حروف',
+                    'max' => 'لاسم يجب ان لا يزيد عن :max حرف',
+                ],
+                'description' => [
+                    'max'   => 'الوصف يجب أن لا يزيد عن :max حرف'
+                ],
+                'image' => [
+                    'max' => 'لا يجب أن يزيد الحجم عن 1 ميجا بايت',
+                    'mimes' => '(:values) يقبل فقط صيغة الملفات',
+                ],
+            ],
         'is_active' => 'الحالة',
         'permissions' => [
             'index' => 'السجل',

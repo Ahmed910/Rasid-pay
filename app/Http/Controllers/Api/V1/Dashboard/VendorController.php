@@ -21,7 +21,7 @@ class VendorController extends Controller
             ->with('branches')
             ->addSelect('vendors.type', 'vendors.is_active', 'vendors.commercial_record', 'vendors.tax_number', 'vendors.iban')
             ->withCount('branches')
-            ->CustomDateFromTo($request)
+            ->customDateFromTo($request)
             ->sortBy($request)
             ->paginate((int)($request->per_page ?? config("globals.per_page")));
             // dd($vendors);
@@ -112,7 +112,7 @@ class VendorController extends Controller
         ->with('branches')
         ->addSelect('vendors.type', 'vendors.is_active', 'vendors.commercial_record', 'vendors.tax_number', 'vendors.iban')
         ->withCount('branches')
-        ->CustomDateFromTo($request)
+        ->customDateFromTo($request)
         ->sortBy($request)
         ->get();
 

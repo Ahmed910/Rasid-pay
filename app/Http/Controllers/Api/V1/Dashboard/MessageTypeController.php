@@ -20,7 +20,7 @@ class MessageTypeController extends Controller
             ->addSelect('created_at', 'is_active')
             ->withCount('admins')
             ->search($request)
-            ->CustomDateFromTo($request)
+            ->customDateFromTo($request)
             ->sortBy($request)
             ->paginate((int)($request->per_page ?? config("globals.per_page")));
 
@@ -107,7 +107,7 @@ class MessageTypeController extends Controller
         ->addSelect('created_at', 'is_active')
         ->withCount('admins')
         ->search($request)
-        ->CustomDateFromTo($request)
+        ->customDateFromTo($request)
         ->sortBy($request)
         ->get();
 

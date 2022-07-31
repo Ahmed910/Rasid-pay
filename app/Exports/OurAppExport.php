@@ -21,7 +21,7 @@ class OurAppExport implements FromView, ShouldAutoSize
     {
         $messageTypes =  OurApp::search($this->request)
         ->ListsTranslations('name')
-        ->CustomDateFromTo($this->request)
+        ->customDateFromTo($this->request)
         ->addSelect(
             'our_apps.*'
         )

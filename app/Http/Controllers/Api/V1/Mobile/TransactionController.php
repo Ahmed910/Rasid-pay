@@ -19,7 +19,7 @@ class TransactionController extends Controller
         $transactions = auth()->user()->citizenTransactions()
             ->mobileSearch($request)
             ->whereNotNull('transactionable_type')
-            ->CustomDateFromTo($request)
+            ->customDateFromTo($request)
             ->latest()
             ->paginate((int)($request->per_page ?? config("globals.per_page")));
 

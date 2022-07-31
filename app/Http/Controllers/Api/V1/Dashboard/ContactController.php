@@ -27,7 +27,7 @@ class ContactController extends Controller
             });
         })
             ->with('replies', 'user', 'admin', 'activity', 'assignedTo')
-            ->CustomDateFromTo($request)
+            ->customDateFromTo($request)
             ->search($request)
             ->sortby($request)
             ->paginate((int)($request->per_page ?? config("globals.per_page")));
@@ -151,7 +151,7 @@ class ContactController extends Controller
             });
         })
             ->with('replies', 'user', 'admin', 'activity', 'assignedTo')
-            ->CustomDateFromTo($request)
+            ->customDateFromTo($request)
             ->search($request)
             ->sortby($request)
         ->get();

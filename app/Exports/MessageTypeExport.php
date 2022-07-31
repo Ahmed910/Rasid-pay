@@ -23,7 +23,7 @@ class MessageTypeExport implements FromView, ShouldAutoSize
             ->addSelect('created_at', 'is_active')
             ->withCount('admins')
             ->search($this->request)
-            ->CustomDateFromTo($this->request)
+            ->customDateFromTo($this->request)
             ->sortBy($this->request)
             ->get();
 
