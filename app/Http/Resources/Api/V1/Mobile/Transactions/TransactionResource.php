@@ -4,6 +4,7 @@ namespace App\Http\Resources\Api\V1\Mobile\Transactions;
 
 use App\Http\Resources\Api\V1\Mobile\{Beneficiary\BeneficiaryResource, UserResource};
 use App\Models\Transaction;
+use App\Models\Transfer;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class TransactionResource extends JsonResource
@@ -30,6 +31,9 @@ class TransactionResource extends JsonResource
                 'promote_package' => $this->trans_type == "promote_package" ? trans("mobile.transaction.transaction_details.promote_package_status", ['amount' => number_format($this->amount, 2, '.', ''), 'package_name' => $this->fromUser->citizen->enabledPackage->package_type, 'expired_date' => $this->fromUser->citizen->enabledPackage->end_at]) : "",
 
             ];
+        $transfer_fee_upon = $this->when(in_array($this->trans_type, ['global_transfer', 'local_transfer']), (string)$this->transactionable->fee_upon);
+        $total_amount = ($transfer_fee_upon == Transfer::FROM_USER) ? ($this->amount + $this->fee_amount) : $this->amount;
+        $fee_amount = ($transfer_fee_upon == Transfer::FROM_USER) ? $this->fee_amount : 0;
         return [
             'id' => $this->id,
             'trans_number' => (string)$this->trans_number,
@@ -38,8 +42,8 @@ class TransactionResource extends JsonResource
             'trans_type_translate' => trans("mobile.transaction.transaction_types.{$this->trans_type}"),
             'trans_status' => $this->trans_status,
             'amount' => number_format($this->amount, 2, '.', ''),
-            'fee_amount' => number_format($this->fee_amount, 2, '.', ''),
-            'total_amount' => number_format(($this->amount + $this->fee_amount), 2, '.', ''), // new amount after add or sub fees
+            'fee_amount' => number_format($fee_amount, 2, '.', ''),
+            'total_amount' => number_format($total_amount, 2, '.', ''), // new amount after add or sub fees
             'created_at' => $this->created_at_mobile,
             'invoice_number' => $this->when($this->trans_type == 'payment', (string)$this->transactionable?->invoice_number),
             'mtcn_number' => $this->when(in_array($this->trans_type, ['global_transfer', 'local_transfer']), (string)$this->transactionable?->bankTransfer?->mtcn_number),
