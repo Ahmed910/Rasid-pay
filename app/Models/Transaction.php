@@ -15,6 +15,7 @@ use App\Traits\Uuid;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 
 class Transaction extends Model
@@ -46,7 +47,7 @@ class Transaction extends Model
     const CHARGE = ['charge', 'money_request'];
     const TRANACTION_TYPES = ['wallet_transfer', 'local_transfer', 'global_transfer', 'payment', 'promote_package', 'charge', 'money_request'];
 
-    public function scopeSearch(Builder $query, $request)
+    public function scopeSearch(Builder $query, Request $request)
     {
         $old = $query->toSql();
 
@@ -56,18 +57,17 @@ class Transaction extends Model
                 fn ($q) => $q->whereIn('package_type', $request->enabled_package)
             );
         }
-
-        if (isset($request->trans_number)) {
+        if ($request->has('trans_number')) {
             $query->where('trans_number', 'like', "%$request->trans_number%");
         }
-        if (isset($request->trans_status) && !in_array(-1, $request->trans_status)) {
+        if ($request->has('trans_status') && !in_array(-1, $request->trans_status)) {
             $query->whereIn("trans_status", $request->trans_status);
         }
-        if (isset($request->trans_type) && !in_array(-1, $request->trans_type)) {
+        if ($request->has('trans_type') && !in_array(-1, $request->trans_type)) {
             $query->whereIn("trans_type", $request->trans_type);
         }
 
-        if (isset($request->client)) {
+        if ($request->has('client')) {
             if ($request->client == 0) $request->client = null;
             if ($request->client != -1) {
                 $query->whereHas('toUser', function ($query) use ($request) {
@@ -76,7 +76,7 @@ class Transaction extends Model
             }
         }
         //
-        if (isset($request->citizen)) {
+        if ($request->has('citizen')) {
             $query->whereHas('fromUser', fn ($q) => $q->where('fullname', 'like', "%$request->citizen%"));
         }
 

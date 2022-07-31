@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Models\Package\Package;
 use App\Traits\Uuid;
+use App\Models\RasidJob\RasidJob;
 use App\Models\Group\Group;
 use App\Traits\HasAssetsTrait;
 use App\Models\Country\Country;
@@ -174,6 +175,11 @@ class User extends Authenticatable implements HasAssetsInterface
     public function department()
     {
         return $this->hasOneThrough(Department::class, Employee::class, 'user_id', 'id', 'id', 'department_id');
+    }
+
+    public function rasidJob()
+    {
+        return $this->hasOneThrough(RasidJob::class, Employee::class, 'user_id', 'id', 'id', 'rasid_job_id');
     }
 
     public function client()
