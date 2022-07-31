@@ -17,13 +17,14 @@ class UpdatePasswordRequest extends ApiMasterRequest
             'current_password' => [
                 'required',
                 'min:6',
+                'max:20',
                 function ($attribute, $value, $fail) {
                     if (!\Hash::check($value, auth()->user()->password)) {
                         $fail(trans('auth.wrong_old_password'));
                     }
                 }
             ],
-            'new_password' => 'required|min:8|different:current_password|regex:/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{6,}$/'
+            'new_password' => 'required|min:8|max:20|different:current_password|regex:/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{6,}$/'
         ];
     }
 }
