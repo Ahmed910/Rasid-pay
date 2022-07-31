@@ -33,7 +33,7 @@ class WalletTransferController extends Controller
             ->whereDate('created_at', date('Y-m-d'))
             ->sum('amount');
         if ($dailyTransactions > $max_received_transfers_per_day) {
-            return response()->json(['status' => false, 'data' => null, 'message' => trans('mobile.transfers.exceed_max_transfer_day')], 422);
+            return response()->json(['status' => false, 'data' => null, 'message' => trans('mobile.transfers.exceed_max_transfer_day',['max_amount_per_reciever' => $max_received_transfers_per_day])], 422);
         }
 
         $citizen_wallet->update(['wallet_bin' => null]);
