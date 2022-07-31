@@ -31,7 +31,7 @@ class SendCodeRequest extends ApiMasterRequest
         $data = $this->all();
 
         $this->merge([
-            'username' => @$data['username'] && is_numeric($data['username']) ? convert_arabic_number($data['username']) : @$data['username']
+            'username' => @$data['username'] && is_numeric($data['username']) ? filter_mobile_number($data['username']) : @$data['username']
         ]);
     }
 
