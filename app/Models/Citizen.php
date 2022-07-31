@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
+use GeniusTS\HijriDate\Hijri;
 
 class Citizen extends Model
 {
@@ -18,7 +19,7 @@ class Citizen extends Model
     // protected $with = ['enabledPackage'];
 
     protected $dates = ['date_of_birth'];
-    const USER_SEARCHABLE_COLUMNS = ["fullname", "phone", "identity_number", "created_at","ban_status"];
+    const USER_SEARCHABLE_COLUMNS = ["fullname", "phone", "identity_number", "created_at", "ban_status"];
     const CITIZEN_SEARCHABLE_COLUMNS = ["citizen_package_id"];
     const CARDPKG_SORT_COLUMNS = ["enabled_package" => "package_type"];
     const CITIZEN_PACKAGES_SORT_COLUMNS = ['card_end_at' => 'end_at'];
@@ -50,15 +51,28 @@ class Citizen extends Model
         }
 
         if ($request->created_from || $request->created_to) {
-            $query->CustomDateFromTo($request);
+            $query->customDateFromTo($request);
         }
 
         if ($request->end_at_from) {
-            $query->wherehas("enabledPackage", function ($q) use ($request) {
-                $q->whereDate('end_at', ">=", $request->end_at_from);
+            $endAtFrom = date('Y-m-d', strtotime($request->end_at_from));
+            if (setting('rasid_date_type')) {
+                $date = explode("-", $endAtFrom);
+                $endAtFrom = Hijri::convertToGregorian($date[2], $date[1], $date[0])->format('Y-m-d');
+            }
+
+            $query->wherehas("enabledPackage", function ($q) use ($endAtFrom) {
+                $q->whereDate('end_at', ">=", $endAtFrom);
             });
         }
+
         if ($request->end_at_to) {
+            $endAtTo = date('Y-m-d', strtotime($request->end_at_to));
+            if (setting('rasid_date_type')) {
+                $date = explode("-", $endAtTo);
+                $endAtTo = Hijri::convertToGregorian($date[2], $date[1], $date[0])->format('Y-m-d');
+            }
+
             $query->wherehas("enabledPackage", function ($q) use ($request) {
                 $q->whereDate('end_at', "<=", $request->end_at_to);
             });

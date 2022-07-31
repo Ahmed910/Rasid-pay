@@ -17,7 +17,7 @@ class OurAppController extends Controller
     {
         $ourApps = OurApp::search($request)
             ->ListsTranslations('name')
-            ->CustomDateFromTo($request)
+            ->customDateFromTo($request)
             ->addSelect(
                 'our_apps.*'
             )
@@ -88,7 +88,7 @@ class OurAppController extends Controller
     {
         $OurAppsQuery = OurApp::search($request)
         ->ListsTranslations('name')
-        ->CustomDateFromTo($request)
+        ->customDateFromTo($request)
         ->addSelect(
             'our_apps.*'
         )

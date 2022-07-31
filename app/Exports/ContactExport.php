@@ -25,7 +25,7 @@ class ContactExport implements FromView, ShouldAutoSize
             });
         })
             ->with('replies', 'user', 'admin', 'activity', 'assignedTo')
-            ->CustomDateFromTo($this->request)
+            ->customDateFromTo($this->request)
             ->search($this->request)
             ->sortby($this->request)
             ->get();

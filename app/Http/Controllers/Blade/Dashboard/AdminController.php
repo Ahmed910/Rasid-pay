@@ -30,7 +30,7 @@ class AdminController extends Controller
         }
 
         if ($request->ajax()) {
-            $adminsQuery = User::CustomDateFromTo($request)->search($request)->where('user_type', 'admin')->has("employee")
+            $adminsQuery = User::customDateFromTo($request)->search($request)->where('user_type', 'admin')->has("employee")
                 ->sortBy($request)->with(['department']);
 
             $adminCount = $adminsQuery->count();
@@ -203,7 +203,7 @@ class AdminController extends Controller
 
     public function exportPDF(Request $request, GeneratePdf $pdfGenerate)
     {
-        $adminsQuery = User::CustomDateFromTo($request)
+        $adminsQuery = User::customDateFromTo($request)
             ->sortBy($request)
             ->search($request)->where('user_type', 'admin')->has("employee")->get();
 

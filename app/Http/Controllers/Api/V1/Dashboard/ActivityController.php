@@ -21,7 +21,7 @@ class ActivityController extends Controller
     public function index(Request $request)
     {
         $activatyLogs = ActivityLog::search($request)
-            ->CustomDateFromTo($request)
+            ->customDateFromTo($request)
             ->sortBy($request)
             ->paginate((int)($request->per_page ?? config("globals.per_page")));
 
@@ -132,7 +132,7 @@ class ActivityController extends Controller
     {
         $activatyLogsQuery = ActivityLog::select('activity_logs.id','activity_logs.user_id','activity_logs.auditable_type','activity_logs.auditable_id','activity_logs.sub_program','activity_logs.action_type','activity_logs.ip_address','activity_logs.created_at')->search($request)
         ->sortBy($request)
-        ->CustomDateFromTo($request)
+        ->customDateFromTo($request)
         ->cursor();
 
 

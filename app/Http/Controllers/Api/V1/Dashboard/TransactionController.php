@@ -20,7 +20,7 @@ class TransactionController extends Controller
     public function index(Request $request)
     {
         $transactions = Transaction::search($request)
-            ->CustomDateFromTo($request)
+            ->customDateFromTo($request)
             ->sortBy($request)
             ->with('citizenPackage', 'toUser', 'fromUser.citizen.enabledPackage', 'transactionable')
             ->paginate((int)($request->per_page ?? config("globals.per_page")));
@@ -144,7 +144,7 @@ class TransactionController extends Controller
     public function exportPDF(Request $request, GeneratePdf $pdfGenerate)
     {
         $TransactionsQuery = Transaction::search($request)
-            ->CustomDateFromTo($request)
+            ->customDateFromTo($request)
             ->sortBy($request)
             ->with('citizenPackage', 'toUser', 'fromUser.citizen.enabledPackage', 'transactionable')
             ->get();

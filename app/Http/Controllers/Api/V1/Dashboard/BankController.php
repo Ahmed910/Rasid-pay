@@ -123,7 +123,7 @@ class BankController extends Controller
       public function exportPDF(Request $request, GeneratePdf $pdfGenerate)
     {
         $banksQuery = Bank::search($request)
-        ->CustomDateFromTo($request)
+        ->customDateFromTo($request)
         ->ListsTranslations('name')
         ->sortBy($request)
         ->addSelect('banks.created_at', 'banks.is_active')

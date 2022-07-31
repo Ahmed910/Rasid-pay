@@ -20,7 +20,7 @@ class DepartmentController extends Controller
     {
         $departments = Department::search($request)
             ->ListsTranslations('name')
-            ->CustomDateFromTo($request)
+            ->customDateFromTo($request)
             ->with('parent.translations')
             ->addSelect('departments.created_at', 'departments.is_active', 'departments.parent_id', 'departments.added_by_id')
             ->sortBy($request)
@@ -158,7 +158,7 @@ class DepartmentController extends Controller
         $departments = Department::onlyTrashed()
             ->search($request)
             ->ListsTranslations('name')
-            ->searchDeletedAtFromTo($request)
+            ->customDateFromTo($request, 'deleted_at', 'deleted_from', 'deleted_to')
             ->with('parent.translations')
             ->addSelect('departments.created_at', 'departments.deleted_at', 'departments.is_active', 'departments.parent_id', 'departments.added_by_id')
             ->latest("deleted_at")
@@ -219,7 +219,7 @@ class DepartmentController extends Controller
     public function exportPDF(Request $request, GeneratePdf $pdfGenerate)
     {
         $departmentsQuery = Department::search($request)
-            ->CustomDateFromTo($request)
+            ->customDateFromTo($request)
             ->with('parent.translations')
             ->ListsTranslations('name')
             ->sortBy($request)
@@ -271,14 +271,14 @@ class DepartmentController extends Controller
     public function exportPDFArchive(Request $request, GeneratePdf $pdfGenerate)
     {
         $departmentsQuery =  Department::onlyTrashed()
-        ->search($request)
-        ->ListsTranslations('name')
-        ->searchDeletedAtFromTo($request)
-        ->with('parent.translations')
-        ->addSelect('departments.created_at', 'departments.deleted_at', 'departments.is_active', 'departments.parent_id', 'departments.added_by_id')
-        ->latest("deleted_at")
-        ->sortBy($request)
-        ->get();
+            ->search($request)
+            ->ListsTranslations('name')
+            ->customDateFromTo($request, 'deleted_at', 'deleted_from', 'deleted_to')
+            ->with('parent.translations')
+            ->addSelect('departments.created_at', 'departments.deleted_at', 'departments.is_active', 'departments.parent_id', 'departments.added_by_id')
+            ->latest("deleted_at")
+            ->sortBy($request)
+            ->get();
 
         if (!$request->has('created_from')) {
             $createdFrom = Department::selectRaw('MIN(created_at) as min_created_at')->value('min_created_at');

@@ -25,7 +25,10 @@ class ClientController extends Controller
     public function index(Request $request)
     {
 //        $sortcol = isset($request->sort["column"]) ? $request->sort["column"] : null;
-        $client = Client::with('user.bankAccount.bank.translations')->CustomDateFromTo($request)->with("user.attachments")->search($request)
+        $client = Client::with('user.bankAccount.bank.translations')
+        ->customDateFromTo($request)
+        ->with("user.attachments")
+        ->search($request)
             ->sortBy($request)->paginate((int)($request->per_page ?? config("globals.per_page")));
         return ClientResource::collection($client)->additional([
             'status' => true,
