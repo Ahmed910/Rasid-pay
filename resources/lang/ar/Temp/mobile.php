@@ -131,6 +131,11 @@ return [
         'wallet_transfer_method' => 'تحويل لمحفظة',
         'exceed_max_transfer_day' => 'عفوا، لا يمكن تحويل مبلغ أكبر من :max_amount_per_reciever',
         'exceed_max_transfer_month' => 'لقد وصلت للحد الأقصى للتحويل الشهري',
+        'wallet_transfer_methods' => [
+            'phone' => 'رقم الهاتف',
+            'wallet_number' => 'رقم المحفظة',
+            'identity_number' => 'رقم الهوية',
+        ],
     ],
     'package_types' => [
         'basic' => 'أساسي',
