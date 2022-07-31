@@ -31,9 +31,8 @@ class UpdateProfileRequest extends ApiMasterRequest
 
     protected function prepareForValidation()
     {
-        $data = $this->all();
         $this->merge([
-            'phone' => @$data['phone'] ? filter_mobile_number($data['phone']) : @$data['phone']
+            'phone' => filter_mobile_number($this->phone)
         ]);
     }
 

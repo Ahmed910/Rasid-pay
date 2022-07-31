@@ -2,10 +2,10 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-use App\Traits\Uuid;
 use App\Traits\Loggable;
+use App\Traits\Uuid;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Card extends Model
@@ -19,6 +19,12 @@ class Card extends Model
     #endregion properties
 
     #region mutators
+    public function setExpireAtAttribute($value)
+    {
+        if ($value) {
+            $this->attributes['expire_at'] = \Date::createFromFormat('m/y', $value);
+        }
+    }
     #endregion mutators
 
     #region scopes

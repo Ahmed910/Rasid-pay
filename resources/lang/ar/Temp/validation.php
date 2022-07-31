@@ -305,8 +305,14 @@ return [
             "required_if" => "الدولة مطلوبة"
         ],
     ],
+    'wallet_transfer' =>[
+        'amount'=>[
+            'gte'=>'مبلغ التحويل يجب أن لا يقل عن :min_amount',
+            'lte'=>'مبلغ التحويل يجب أن لا يتجاوز عن :max_amount'
+        ],
 
-    
+    ],
+
     'global_transfers' => [
         "otp_code" =>   [
             "required" => "مطلوب otp رمز",
@@ -325,6 +331,6 @@ return [
        "beneficiary" =>   [
             "exists" => "هذا المستفيد غير موجود"
         ],
-     
+
     ],
 ];

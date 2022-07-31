@@ -15,13 +15,13 @@ class ContactRequest extends ApiMasterRequest
     {
         return [
             "fullname" => 'required|string|min:2|max:100',
-            'email' => ["required","email","regex:/^[a-z0-9!#$%&'*+\\/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+\\/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$/","max:225"],
+            'email' => ["required","email","regex:/^[a-z0-9!#$%&'*+\\/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+\\/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$/","max:100"],
             'phone' => ["required", "numeric", function ($attribute, $value, $fail) {
                 if (!check_phone_valid($value)) {
                     $fail(trans('mobile.validation.phone.invalid'));
                 }
             }],
-            "content" => 'required|string|min:10|max:500',
+            "content" => 'required|string|min:10|max:300',
             "message_type_id" => 'required|exists:message_types,id',
         ];
     }
@@ -38,7 +38,7 @@ class ContactRequest extends ApiMasterRequest
     public function messages()
     {
         return [
-            'fullname.required'        =>  __('mobile.validation.fullname.required'),   
+            'fullname.required'        =>  __('mobile.validation.fullname.required'),
             'fullname.min'             =>  __('mobile.validation.fullname.min'),
             'email.required'           =>  __('mobile.validation.email.required'),
             'email.email'              =>  __('mobile.validation.email.email'),

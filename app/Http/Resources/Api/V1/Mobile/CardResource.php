@@ -7,7 +7,6 @@ use Illuminate\Support\Str;
 
 class CardResource extends JsonResource
 {
-
     public function toArray($request)
     {
         return [
@@ -18,7 +17,7 @@ class CardResource extends JsonResource
             'card_type' => $this->card_type,
             'created_at' => $this->created_at,
             'is_expired' => $this->expire_at->lt(now()),
-            'expire_at' => $this->expire_at->format("y-m"),
+            'expire_at' => $this->expire_at->format("m/y"),
         ];
     }
 }
