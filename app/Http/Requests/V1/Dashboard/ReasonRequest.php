@@ -14,7 +14,16 @@ class ReasonRequest extends ApiMasterRequest
     public function rules()
     {
         return [
-            "reasonAction" => ["required", "string", "max:1000", "min:10"]
+            "reasonAction" => ["required", "string", "max:300", "min:10"]
         ];
     }
+
+    public function messages()
+    {
+        return [
+            'reasonAction.max' => __('dashboard.general.validation.reason.max'),
+            'reasonAction.min' => __('dashboard.general.validation.reason.min')
+        ];
+    }
+
 }
