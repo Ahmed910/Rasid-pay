@@ -17,7 +17,7 @@ class GlobalTransferRequest extends ApiMasterRequest
             'currency_id' => 'required|exists:countries,id',
             'to_currency_id' => 'required|exists:countries,id',
             'fee_upon' => 'required|in:' . join(',', Transfer::FEE_UPON),
-            'beneficiary_id' => 'nullable|exists:beneficiaries,id',
+            'beneficiary_id' => 'nullable|exists:beneficiaries,id,benficiar_type,global',
             'notes' => 'nullable|required_without:transfer_purpose_id|max:1000'
         ];
     }
