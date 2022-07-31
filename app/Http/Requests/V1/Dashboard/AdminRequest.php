@@ -33,7 +33,7 @@ class AdminRequest extends ApiMasterRequest
             $data = [
                 'password_change' => 'required|in:1,0',
                 'ban_status' => 'required|in:active,permanent,temporary,exceeded_attempts',
-                'password' => 'nullable|required_if:password_change,1|regex:/^[A-Za-z0-9()\]\[#%&*_=~{}^:`.,$!@+\/-]+$/|min:6|max:100|confirmed'
+                'password' => 'nullable|required_if:password_change,1|regex:/^[A-Za-z0-9()\]\[#%&*_=~{}^:`.,$!@+\/-]+$/|min:6|max:100'
             ];
         } else {
             $data = [
