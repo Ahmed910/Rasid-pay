@@ -8,21 +8,8 @@ use App\Models\User;
 
 class WalletTransferRequest extends ApiMasterRequest
 {
-    private $user_object;
-    private $message;
-    /**
-     * Get the validation rules that apply to the request.
-     *
-     * @return array
-     */
     public function rules()
     {
-        // if (!$this->citizen_id && $this->wallet_transfer_method == 'phone') {
-        //     $data = [
-        //         "transfer_status" => 'required|in:hold,transfered'
-        //     ];
-        // }
-
         return [
             "amount" => ['required', 'regex:/^\\d{1,7}$|^\\d{1,7}\\.\\d{0,2}$/', 'numeric', 'gte:'. (setting('rasidpay_wallettransfer_minvalue') ?? 10).'', 'lte:'. (setting('rasidpay_wallettransfer_maxvalue')??10000).''],
             "wallet_transfer_method" => 'required|in:' . join(",", Transfer::WALLET_TRANSFER_METHODS),
@@ -45,7 +32,7 @@ class WalletTransferRequest extends ApiMasterRequest
         $this->message = $this->checkUserFound($this->wallet_transfer_method, $this->transfer_method_value);
 
         return $this->merge([
-            'amount' => @$data['amount'] ? filter_mobile_number($data['amount']) : @$data['amount'],
+            'amount' => @$data['amount'] ? convert_arabic_number($data['amount']) : @$data['amount'],
             'citizen_id' => $this->user_object?->id,
         ]);
     }
@@ -87,7 +74,7 @@ class WalletTransferRequest extends ApiMasterRequest
                 if (is_string($check_phone)) {
                     return $check_phone;
                 }
-                $user = User::where('id', "<>", auth()->id())->firstWhere(['user_type' => 'citizen', 'phone' => $value]);
+                $user = User::where('id', "<>", auth()->id())->firstWhere(['user_type' => 'citizen', 'phone' => filter_mobile_number($value)]);
                 if (!$user) {
                     return trans('mobile.validation.phone_number_is_not_found');
                 }
