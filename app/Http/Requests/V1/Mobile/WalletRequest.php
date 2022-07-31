@@ -8,7 +8,6 @@ class WalletRequest extends ApiMasterRequest
 {
     public function rules()
     {
-        dd($this->all());
         $rules = [
             // in citizen wallet
             "amount" => ['required', 'regex:/^\\d{1,5}$|^\\d{1,5}\\.\\d{0,2}$/', 'numeric', 'gte:'. (setting('rasidpay_inttransfer_minvalue') ?? 10).'', 'lte:'. (setting('rasidpay_walletcharge_maxvalue')??50000).''],
