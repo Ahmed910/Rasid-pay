@@ -10,13 +10,13 @@ class BeneficiaryRequest extends ApiMasterRequest
     public function rules()
     {
         return [
-            'name'                 => 'required|string|max:255',
+            'name'                 => 'required|string|max:255|regex:/^[a-zA-Z_أ-ي ]+$/u',
             'benficiar_type'       => 'required|in:' . implode(',', Beneficiary::TYPES),
-            'transfer_relation_id' => 'nullable|required_if:benficiar_type,' . Beneficiary::GLOBAL_TYPE,
+            'transfer_relation_id' => 'nullable|required_if:benficiar_type,' . Beneficiary::GLOBAL_TYPE.'|exists:transfer_relations,id',
             'country_id'           => 'nullable|required_if:benficiar_type,' . Beneficiary::GLOBAL_TYPE . '|exists:countries,id',
             'recieve_option_id'    => 'nullable|required_if:benficiar_type,' . Beneficiary::GLOBAL_TYPE . '|exists:recieve_options,id',
             'nationality_id'       => 'nullable|exists:countries,id',
-            'date_of_birth'        => 'nullable|date|after_or_equal:1920-01-01',
+            'date_of_birth'        => 'nullable|date_format:Y-m-d|after_or_equal:1920-01-01|before:'.date("Y-m-d"),
             'iban_number'          => ['required_if:benficiar_type,' . Beneficiary::LOCAL_TYPE, 'alpha_num', "size:24"],
             'is_saved' => 'required|in:1,0'
         ];
