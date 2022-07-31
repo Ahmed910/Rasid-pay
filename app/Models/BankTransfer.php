@@ -3,14 +3,13 @@
 namespace App\Models;
 
 use App\Models\Country\Country;
+use App\Models\RecieveOption\RecieveOption;
 use App\Models\TransferPurpose\TransferPurpose;
-use App\Traits\{Loggable,Uuid};
+use App\Traits\{Loggable, Uuid};
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use App\Models\RecieveOption\RecieveOption;
-use App\Models\Currency;
 
 class BankTransfer extends Model
 {
@@ -52,9 +51,6 @@ class BankTransfer extends Model
     {
         return $this->belongsTo(TransferPurpose::class, 'transfer_purpose_id');
     }
-
-
-
 
     public function transfers()
     {
