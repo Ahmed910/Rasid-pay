@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Models\Package\Package;
 use App\Traits\Uuid;
+use App\Models\RasidJob\RasidJob;
 use App\Models\Group\Group;
 use App\Traits\HasAssetsTrait;
 use App\Models\Country\Country;
