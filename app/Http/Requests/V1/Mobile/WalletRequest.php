@@ -22,7 +22,7 @@ class WalletRequest extends ApiMasterRequest
                 'owner_name' => 'required|string|max:255',
                 'card_type' => 'required|in:visa,mastercard,american_express',
                 'card_number' => 'required|numeric|digits:16',
-                'expire_at' => 'required|date_format:m/y|after:today|max:25',
+                'expire_at' => 'required|date_format:m/y|after:today',
                 'charge_type' => 'required|in:nfc,manual,scan',
             ];
         }
