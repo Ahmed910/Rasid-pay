@@ -24,6 +24,7 @@ class ProfileResource extends JsonResource
             'phone' => substr($this->phone, 3),
             'whatsapp' => $this->whatsapp,
             'identity_number' => $this->identity_number,
+            'login_id' => $this->login_id,
             'gender' => $this->gender,
             'date_of_birth' => $this->date_of_birth,
             'date_of_birth_hijri' => $this->date_of_birth_hijri,
