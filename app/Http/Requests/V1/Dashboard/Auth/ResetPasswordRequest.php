@@ -31,7 +31,7 @@ class ResetPasswordRequest extends ApiMasterRequest
     {
         return [
             '_token.exists' =>  __('auth.token.not_exists'),
-            'reset_password.password.regex' => __('auth.reset.password.regex')
+            'password.regex' => __('auth.reset_password.password.regex')
         ];
     }
 }
