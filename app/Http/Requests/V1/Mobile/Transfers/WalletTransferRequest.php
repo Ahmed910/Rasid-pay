@@ -24,7 +24,7 @@ class WalletTransferRequest extends ApiMasterRequest
         // }
 
         return [
-            "amount" => ['required', 'regex:/^\\d{1,5}$|^\\d{1,5}\\.\\d{0,2}$/', 'numeric', 'gte:'. (setting('rasidpay_wallettransfer_minvalue') ?? 10).'', 'lte:'. (setting('rasidpay_wallettransfer_maxvalue')??10000).''],
+            "amount" => ['required', 'regex:/^\\d{1,7}$|^\\d{1,7}\\.\\d{0,2}$/', 'numeric', 'gte:'. (setting('rasidpay_wallettransfer_minvalue') ?? 10).'', 'lte:'. (setting('rasidpay_wallettransfer_maxvalue')??10000).''],
             "wallet_transfer_method" => 'required|in:' . join(",", Transfer::WALLET_TRANSFER_METHODS),
             'notes'   => 'nullable|required_without:transfer_purpose_id|max:1000',
             "transfer_method_value" => ['required', function ($attribute, $value, $fail) {
@@ -58,7 +58,7 @@ class WalletTransferRequest extends ApiMasterRequest
             ->orWhereRelation('citizenWallet', 'wallet_number', $value);
         })->first();
 
-       
+
         if ($sameUser) {
 
             return trans('mobile.validation.not_same_wallet');
@@ -120,6 +120,10 @@ class WalletTransferRequest extends ApiMasterRequest
             'otp_code.required' => trans('mobile.otp.required'),
             'otp_code.exists' => trans('mobile.otp.exists'),
             'transfer_purpose_id.exists' => trans('mobile.wallet_transfer.transfer_purpose.exists'),
+            'amount.gte' => trans('validation.wallet_transfer.amount.gte',['min_amount' => (setting('rasidpay_wallettransfer_minvalue'))]),
+            'amount.lte' => trans('validation.wallet_transfer.amount.lte',['max_amount' => (setting('rasidpay_wallettransfer_maxvalue'))]),
+
+
         ];
     }
 

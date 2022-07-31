@@ -76,7 +76,7 @@ return [
             'reach_max_transaction_month' => 'عفواً إجمالي المعاملات الشهرية المسموح بها للشهر الواحد يجب ألا تتجاوز :max_month_amount',
         ],
     ],
-    
+
     'messages' => [
         'you_can_complete_your_transaction' => 'يمكنك إستكمال العملية',
         'your_tries_have_been_expired' => 'لقد تم إنتهاء محاولاتك لإتمام العميلة',
@@ -129,7 +129,7 @@ return [
         'by_wallet_number' => 'برقم ',
         'cancel_transfer' => 'تم الالغاء واسترجاع الاموال بنجاح',
         'wallet_transfer_method' => 'تحويل لمحفظة',
-        'exceed_max_transfer_day' => 'لقد وصلت للحد الأقصى للتحويل اليومي',
+        'exceed_max_transfer_day' => 'عفوا، لا يمكن تحويل مبلغ أكبر من :max_amount_per_reciever',
         'exceed_max_transfer_month' => 'لقد وصلت للحد الأقصى للتحويل الشهري',
     ],
     'package_types' => [
@@ -231,6 +231,6 @@ return [
             ]
         ]
 
-       
+
 
 ];
