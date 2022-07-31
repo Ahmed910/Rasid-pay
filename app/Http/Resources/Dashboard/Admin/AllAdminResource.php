@@ -16,7 +16,6 @@ class AllAdminResource extends JsonResource
         return [
             'id' => $this->id,
             'fullname' => $this->fullname,
-
         ];
     }
 }

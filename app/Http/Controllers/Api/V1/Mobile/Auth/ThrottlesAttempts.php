@@ -60,14 +60,15 @@ trait ThrottlesAttempts
                     'minutes' => ceil($seconds / 60),
                 ])
             ], Response::HTTP_TOO_MANY_REQUESTS));
+        }else{
+            throw ValidationException::withMessages([
+                $this->throttleKeyName() => [Lang::get('auth.login.throttle', [
+                    'seconds' => $seconds,
+                    'minutes' => ceil($seconds / 60),
+                    ])],
+                    ])->status(Response::HTTP_TOO_MANY_REQUESTS);
         }
 
-        throw ValidationException::withMessages([
-            $this->throttleKeyName() => [Lang::get('auth.login.throttle', [
-                'seconds' => $seconds,
-                'minutes' => ceil($seconds / 60),
-            ])],
-        ])->status(Response::HTTP_TOO_MANY_REQUESTS);
     }
 
     /**

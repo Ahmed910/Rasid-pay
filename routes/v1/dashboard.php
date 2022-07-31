@@ -45,8 +45,8 @@ Route::middleware('maintenance_mode')->group(function () {
 
         Route::controller('ProfileController')->name('profiles.')->prefix('profile')->group(function () {
             Route::get('show', 'show')->name('show');
-            Route::post('update', 'update')->name('update');
-            Route::post('change_password', 'changePassword')->name('change_password');
+            Route::put('update', 'update')->name('update');
+            // Route::post('change_password', 'changePassword')->name('change_password');
         });
         Route::post('settings/create-setting', 'SettingController@createSetting');
         Route::get('all-departments', 'DepartmentController@getAllDepartments');

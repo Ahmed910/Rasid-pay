@@ -11,24 +11,35 @@ class ProfileRequest extends ApiMasterRequest
     {
 
         return [
-            'fullname' => 'required|string|max:225',
-            'email' => 'required|email|max:225|unique:users,email,' . auth()->id(),
-            'phone' => ["required", "numeric", function ($attribute, $value, $fail) {
-                if (!check_phone_valid($value)) {
-                    $fail(trans('mobile.validation.invalid_phone'));
+            // 'fullname' => 'required|string|max:225',
+            // 'email' => 'required|email|max:225|unique:users,email,' . auth()->id(),
+            // 'phone' => ["required", "numeric", function ($attribute, $value, $fail) {
+            //     if (!check_phone_valid($value)) {
+            //         $fail(trans('mobile.validation.invalid_phone'));
+            //     }
+            // }, 'unique:users,phone,' . auth()->id()],
+            // 'whatsapp' => ["required", "numeric", function ($attribute, $value, $fail) {
+            //     if (!check_phone_valid($value)) {
+            //         $fail(trans('mobile.validation.invalid_phone'));
+            //     }
+            // }, 'unique:users,whatsapp,' . auth()->id()],
+            // 'identity_number' => 'required|digits:10|unique:users,identity_number,' . auth()->id(),
+            // 'gender' => 'required|in:male,female',
+            // 'date_of_birth' => 'required|date',
+            // 'date_of_birth_hijri' => 'required|date',
+            // 'is_date_hijri' => 'boolean'
+            "image" =>  'nullable|image|max:5120',
+            'current_password' => [
+                'nullable|required_with:password',
+                'min:6',
+                'max:20',
+                function ($attribute, $value, $fail) {
+                    if (!\Hash::check($value, auth()->user()->password)) {
+                        $fail(trans('auth.wrong_old_password'));
+                    }
                 }
-            }, 'unique:users,phone,' . auth()->id()],
-            'whatsapp' => ["required", "numeric", function ($attribute, $value, $fail) {
-                if (!check_phone_valid($value)) {
-                    $fail(trans('mobile.validation.invalid_phone'));
-                }
-            }, 'unique:users,whatsapp,' . auth()->id()],
-            'identity_number' => 'required|digits:10|unique:users,identity_number,' . auth()->id(),
-            'gender' => 'required|in:male,female',
-            'date_of_birth' => 'required|date',
-            'date_of_birth_hijri' => 'required|date',
-            "image" =>  'image|max:5120',
-            'is_date_hijri' => 'boolean'
+            ],
+            'password' => 'nullable|required_with:current_password|min:8|max:20|different:current_password|regex:/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{6,}$/'
         ];
     }
 

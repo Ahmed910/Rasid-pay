@@ -6,7 +6,6 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\V1\Mobile\Transfers\GlobalTransferRequest;
 use App\Http\Resources\Api\V1\Mobile\Transactions\TransactionResource;
 use App\Models\{CitizenWallet, Country\Country, Transaction, Transfer};
-use App\Notifications\GeneralNotification;
 
 class GlobalTransferController extends Controller
 {
@@ -25,7 +24,7 @@ class GlobalTransferController extends Controller
         $amount_fees = getPercentOfNumber($amount, $fees);
         $fee_upon = $request->fee_upon;
         if ($fee_upon == Transfer::FROM_USER) {
-            if ($amount + $fees > $wallet->main_balance) {
+            if (($amount + $amount_fees) > $wallet->main_balance) {
                 return response()->json(['data' => null, 'message' => trans('mobile.local_transfers.current_balance_is_not_sufficient_to_complete_transaction'), 'status' => false], 422);
             }
             $amount += $amount_fees;
@@ -58,10 +57,10 @@ class GlobalTransferController extends Controller
         $global_transfer = Transfer::create($transfer_data + ['main_amount' => $request->amount]);
         $exchange_rate = Country::find($request->to_currency_id)->countryCurrency->currency_value;
         $global_transfer->bankTransfer()->create($request->only(
-            [
-                'currency_id', 'to_currency_id', 'beneficiary_id', 'balance_type'
-            ]
-        ) + ['exchange_rate' => $exchange_rate]);
+                [
+                    'currency_id', 'to_currency_id', 'beneficiary_id', 'balance_type'
+                ]
+            ) + ['exchange_rate' => $exchange_rate]);
         $global_transfer->bankTransfer()->update(['recieve_option_id' => $global_transfer->beneficiary->recieve_option_id]);
 
         //add transfer in  transaction
@@ -70,7 +69,7 @@ class GlobalTransferController extends Controller
             'trans_type' => 'global_transfer',
             "fee_upon" => $request->fee_upon,
             'from_user_id' => auth()->id(),
-            'fee_amount' => $global_transfer->transfer_fees ?? 0,
+            'fee_amount' => $amount_fees ?? 0,
             'cashback_amount' => $global_transfer->cashback_amount,
             'main_amount' => $global_transfer->main_amount,
             'trans_number' => generate_unique_code(Transaction::class, 'trans_number', 10, 'numbers'),

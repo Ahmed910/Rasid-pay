@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources\Dashboard;
 
+use App\Models\Transaction;
 use Dflydev\DotAccessData\Data;
 use Illuminate\Http\Resources\Json\JsonResource;
 use Illuminate\Support\Facades\URL;
@@ -25,11 +26,11 @@ class ActivityLogResource extends JsonResource
             $model = $class[COUNT($class) - 1];
         };
 
-        if($this->auditable?->name){
+        if ($this->auditable?->name) {
             $name = $this->auditable?->name;
-        }elseif($model == 'Contact'){
+        } elseif ($model == 'Contact') {
             $name = 'رسالة';
-        }else{
+        } else {
             $name = $this->auditable?->user?->fullname;
         }
 
@@ -40,7 +41,7 @@ class ActivityLogResource extends JsonResource
 
             'auditable' => $this->auditable_id ? [
                 'id' => $this->auditable?->id,
-                'name' => $this->auditable?->name,
+                'name' => ($model == class_basename(Transaction::class)) ? $this->auditable?->trans_status : $this->auditable?->name,
                 'type' => ($this->auditable) ? get_class($this->auditable) : null
             ] : null,
             'created_at' => $this->created_at,
@@ -56,13 +57,15 @@ class ActivityLogResource extends JsonResource
             'trans_sub_progrm' => trans("dashboard.permissions." . $this->sub_program),
             'show_route' => route('dashboard.activity_log.show', $this->id),
             'start_from' => $request->start,
-            "discription" => trans('dashboard.activity_log.reason', [
-                "model" => trans("dashboard.activity_log.models." . strtolower($this->user_type ? $this->user_type : $model)),
-                'name' => $name,
-                "action" => trans("dashboard.activity_log.actions." . $this->action_type),
-                // "main" => trans("dashboard." . Str::snake($this->user_type ? $this->user_type : $model) . "." . str_plural(Str::snake($this->user_type ? $this->user_type : $model)))
-                // , "sub" => trans("dashboard.permissions." . $this->sub_program)
-            ],
+            "discription" => trans(
+                'dashboard.activity_log.reason',
+                [
+                    "model" => trans("dashboard.activity_log.models." . strtolower($this->user_type ? $this->user_type : $model)),
+                    'name' => $name,
+                    "action" => trans("dashboard.activity_log.actions." . $this->action_type),
+                    // "main" => trans("dashboard." . Str::snake($this->user_type ? $this->user_type : $model) . "." . str_plural(Str::snake($this->user_type ? $this->user_type : $model)))
+                    // , "sub" => trans("dashboard.permissions." . $this->sub_program)
+                ],
             ),
             'actions' => $this->when($request->routeIs('activity_logs.index'), [
                 'show' => auth()->user()->hasPermissions('activity_logs.show'),

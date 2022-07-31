@@ -4,8 +4,9 @@ namespace App\Http\Controllers\Api\V1\Dashboard;
 
 use App\Exports\TransactionExport;
 use App\Http\Controllers\Controller;
-use App\Http\Resources\Dashboard\TransactionResource;
+use App\Http\Resources\Dashboard\Transaction\TransactionResource;
 use App\Http\Requests\V1\Dashboard\TransactionRequest;
+use App\Http\Resources\Dashboard\Transaction\TransactionCollection;
 use App\Models\Client;
 use Illuminate\Http\Request;
 use App\Models\Transaction;
@@ -65,11 +66,18 @@ class TransactionController extends Controller
      * @param int $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($id, Request $request)
     {
         $transaction = Transaction::findOrFail($id);
+        $activities = [];
+        if (!$request->has('with_activity') || $request->with_activity) {
+            $activities  = $transaction->activity()
+                ->sortBy($request)
+                ->paginate((int)($request->per_page ??  config("globals.per_page")));
+        }
 
-        return TransactionResource::make($transaction)
+
+        return TransactionCollection::make($activities)
             ->additional([
                 'status' => true,
                 'message' => trans("dashboard.general.show")
@@ -136,10 +144,10 @@ class TransactionController extends Controller
     public function exportPDF(Request $request, GeneratePdf $pdfGenerate)
     {
         $TransactionsQuery = Transaction::search($request)
-        ->CustomDateFromTo($request)
-        ->sortBy($request)
-        ->with('citizenPackage', 'toUser', 'fromUser.citizen.enabledPackage', 'transactionable')
-        ->get();
+            ->CustomDateFromTo($request)
+            ->sortBy($request)
+            ->with('citizenPackage', 'toUser', 'fromUser.citizen.enabledPackage', 'transactionable')
+            ->get();
 
 
         if (!$request->has('created_from')) {

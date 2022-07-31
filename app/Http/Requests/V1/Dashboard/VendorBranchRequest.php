@@ -20,12 +20,12 @@ class VendorBranchRequest extends ApiMasterRequest
             'location' => 'required|string|between:3,250',
             'address_details' => 'required|string|between:3,250',
             'logo' => 'nullable|max:5120|mimes:jpg,png,jpeg,gif',
-            'email' => 'required|email',
+            'email' => 'required|email|unique:vendor_branches,email,' . $this->vendor_id . ",vendor_id",
             "phone" => ["required", "numeric", function ($attribute, $value, $fail) {
                 if (!check_phone_valid($value)) {
                     $fail(trans('mobile.validation.invalid_phone'));
                 }
-            }],
+            }, "unique:vendor_branches,phone," . $this->vendor_id . ",vendor_id"],
             'lat' => 'required|numeric',
             'lng' => 'required|numeric',
         ];
