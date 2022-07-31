@@ -75,9 +75,8 @@ return [
             'reach_max_transaction_day' => 'عفواً إجمالي المعاملات اليومية المسموح بها لليوم الواحد يجب ألا تتجاوز :max_day_amount ',
             'reach_max_transaction_month' => 'عفواً إجمالي المعاملات الشهرية المسموح بها للشهر الواحد يجب ألا تتجاوز :max_month_amount',
         ],
-
-
     ],
+    
     'messages' => [
         'you_can_complete_your_transaction' => 'يمكنك إستكمال العملية',
         'your_tries_have_been_expired' => 'لقد تم إنتهاء محاولاتك لإتمام العميلة',
@@ -222,8 +221,16 @@ return [
         ],
         "global_transfer" => [
             "title" => "تم التحويل الدولي بنجاح",
-           
+
         ]
-    ]
+        ],
+
+        "wallet_transfer" => [
+            "transfer_purpose" => [
+                "exists" => "غرض الحوالة غير موجود",
+            ]
+        ]
+
+       
 
 ];
