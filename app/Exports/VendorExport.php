@@ -25,7 +25,7 @@ class VendorExport implements FromView, ShouldAutoSize
         ->with('branches')
         ->addSelect('vendors.type', 'vendors.is_active', 'vendors.commercial_record', 'vendors.tax_number', 'vendors.iban')
         ->withCount('branches')
-        ->CustomDateFromTo($this->request)
+        ->customDateFromTo($this->request)
         ->sortBy($this->request)
         ->get();
 

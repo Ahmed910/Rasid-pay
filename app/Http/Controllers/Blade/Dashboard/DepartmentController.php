@@ -25,7 +25,7 @@ class DepartmentController extends Controller
 
         if ($request->ajax()) {
             $departmentsQuery = Department::search($request)
-                ->CustomDateFromTo($request)
+                ->customDateFromTo($request)
                 ->with('parent.translations')
                 ->ListsTranslations('name')
                 ->addSelect('departments.created_at', 'departments.is_active', 'departments.parent_id', 'departments.added_by_id')
@@ -109,7 +109,7 @@ class DepartmentController extends Controller
         $previousUrl = url()->previous();
         (strpos($previousUrl, 'department')) ? session(['perviousPage' => 'department']) : session(['perviousPage' => 'home']);
         $department = Department::withTrashed()->findOrFail($id);
-        $departments = Department::with('parent.translations')->ListsTranslations('name')->where(['is_active' => 1])->where('departments.id','!=',$id)->pluck('name', 'id')->toArray();
+        $departments = Department::with('parent.translations')->ListsTranslations('name')->where(['is_active' => 1])->where('departments.id', '!=', $id)->pluck('name', 'id')->toArray();
 
         $departments = array_merge([null => trans('dashboard.department.without_parent')], $departments);
 
@@ -143,12 +143,12 @@ class DepartmentController extends Controller
 
         $departmentsQuery = Department::onlyTrashed()
             ->search($request)
-            ->CustomDateFromTo($request)
-            ->searchDeletedAtFromTo($request)
+            ->customDateFromTo($request)
+            ->customDateFromTo($request, 'deleted_at', 'deleted_from', 'deleted_to')
             ->with('parent.translations')
             ->ListsTranslations('name')
-            ->addSelect('departments.deleted_at', 'departments.parent_id','departments.is_active')
-            ->orderBy('deleted_at','desc')->sortBy($request);
+            ->addSelect('departments.deleted_at', 'departments.parent_id', 'departments.is_active')
+            ->orderBy('deleted_at', 'desc')->sortBy($request);
 
         if ($request->ajax()) {
             $departmentCount = $departmentsQuery->count();
@@ -218,7 +218,7 @@ class DepartmentController extends Controller
     {
 
         $departmentsQuery = Department::search($request)
-            ->CustomDateFromTo($request)
+            ->customDateFromTo($request)
             ->with('parent.translations')
             ->ListsTranslations('name')
             ->sortBy($request)
@@ -251,36 +251,36 @@ class DepartmentController extends Controller
         return Excel::download(new DepartmentsArchiveExport($request), 'departments_archive.xlsx');
     }
 
-    public function exportPDFArchieve(Request $request,GeneratePdf $pdfGenerate)
+    public function exportPDFArchieve(Request $request, GeneratePdf $pdfGenerate)
     {
         $departments_archiveQuery = Department::onlyTrashed()
             ->search($request)
-            ->CustomDateFromTo($request)
-            ->searchDeletedAtFromTo($request)
+            ->customDateFromTo($request)
+            ->customDateFromTo($request, 'deleted_at', 'deleted_from', 'deleted_to')
             ->with('parent.translations')
             ->ListsTranslations('name')
             ->addSelect('departments.deleted_at', 'departments.parent_id')
             ->get();
 
-    if (!$request->has('created_from')) {
-        $createdFrom = Department::selectRaw('MIN(created_at) as min_created_at')->value('min_created_at');
-    }
+        if (!$request->has('created_from')) {
+            $createdFrom = Department::selectRaw('MIN(created_at) as min_created_at')->value('min_created_at');
+        }
 
 
 
-    $mpdf = $pdfGenerate->newFile()
-        ->view(
-            'dashboard.exports.archive.department',
-            [
-                'departments_archive' => $departments_archiveQuery,
-                'date_from'   => format_date($request->created_from) ?? format_date($createdFrom),
-                'date_to'     => format_date($request->created_to) ?? format_date(now()),
-                'userId'      => auth()->user()->login_id,
+        $mpdf = $pdfGenerate->newFile()
+            ->view(
+                'dashboard.exports.archive.department',
+                [
+                    'departments_archive' => $departments_archiveQuery,
+                    'date_from'   => format_date($request->created_from) ?? format_date($createdFrom),
+                    'date_to'     => format_date($request->created_to) ?? format_date(now()),
+                    'userId'      => auth()->user()->login_id,
 
-            ]
-        )
-        ->export();
+                ]
+            )
+            ->export();
 
-    return $mpdf;
+        return $mpdf;
     }
 }

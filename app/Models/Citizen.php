@@ -50,7 +50,7 @@ class Citizen extends Model
         }
 
         if ($request->created_from || $request->created_to) {
-            $query->CustomDateFromTo($request);
+            $query->customDateFromTo($request);
         }
 
         if ($request->end_at_from) {

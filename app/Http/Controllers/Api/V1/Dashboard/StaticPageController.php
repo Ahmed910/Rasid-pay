@@ -18,7 +18,7 @@ class StaticPageController extends Controller
     {
         $staticPages = StaticPage::search($request)
             ->ListsTranslations('name')
-            ->CustomDateFromTo($request)
+            ->customDateFromTo($request)
             ->with('translations')
             ->addSelect('static_pages.created_at', 'static_pages.is_active')
             ->sortBy($request)
@@ -91,7 +91,7 @@ class StaticPageController extends Controller
     public function getAllStaticPages(Request $request){
         $staticPages = StaticPage::where('is_active', true)->search($request)
         ->ListsTranslations('name')
-        ->CustomDateFromTo($request)
+        ->customDateFromTo($request)
         ->with('translations')
         ->addSelect('static_pages.created_at', 'static_pages.is_active')
         ->sortBy($request)->get();
@@ -106,7 +106,7 @@ class StaticPageController extends Controller
     {
         $StaticPagesQuery = StaticPage::search($request)
         ->ListsTranslations('name')
-        ->CustomDateFromTo($request)
+        ->customDateFromTo($request)
         ->addSelect(
             'static_pages.*'
         )

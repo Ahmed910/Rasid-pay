@@ -18,7 +18,7 @@ class  FaqController extends Controller
     {
         $faq = Faq::search($request)
                     ->ListsTranslations('question')
-                    ->CustomDateFromTo($request)
+                    ->customDateFromTo($request)
                     ->addSelect('faqs.created_at', 'faqs.is_active','faqs.order','faqs.added_by_id')
                     ->sortBy($request)
                     ->paginate((int)($request->per_page ?? config("globals.per_page")));
@@ -73,7 +73,7 @@ class  FaqController extends Controller
     public function exportPDF(Request $request, GeneratePdf $pdfGenerate)
     {
         $faqsQuery = Faq::search($request)
-        ->CustomDateFromTo($request)
+        ->customDateFromTo($request)
         ->ListsTranslations('name')
         ->sortBy($request)
         ->addSelect('faqs.created_at', 'faqs.is_active','faqs.ordering')

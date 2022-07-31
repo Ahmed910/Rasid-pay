@@ -29,7 +29,7 @@ class AppServiceProvider extends ServiceProvider
         'Transaction' => \App\Models\Transaction::class,
         'Client' => \App\Models\Client::class,
         'Citizen' => \App\Models\Citizen::class,
-        "BankBranch"=>\App\Models\BankBranch\BankBranch::class,
+        "BankBranch" => \App\Models\BankBranch\BankBranch::class,
         'Vendor'   => \App\Models\Vendor\Vendor::class,
         'VendorBranch'   => \App\Models\VendorBranches\VendorBranch::class,
         'MessageType' => \App\Models\MessageType\MessageType::class,
@@ -43,43 +43,23 @@ class AppServiceProvider extends ServiceProvider
 
     public function register()
     {
-        Builder::macro("CustomDateFromTo",  function ($request) {
-            if (isset($request->created_from)) {
-                $created_from = date('Y-m-d', strtotime($request->created_from));
+        Builder::macro("customDateFromTo",  function ($request, $columnName = 'created_at', $dateFrom = 'created_from', $dateTo = 'created_to') {
+            if (isset($request->{$dateFrom})) {
+                $created_from = date('Y-m-d', strtotime($request->{$dateFrom}));
                 if (setting('rasid_date_type')) {
                     $date = explode("-", $created_from);
                     $created_from = Hijri::convertToGregorian($date[2], $date[1], $date[0])->format('Y-m-d');
                 }
-                $this->whereDate('created_at', ">=", $created_from);
+                $this->whereDate($columnName, ">=", $created_from);
             }
 
-            if (isset($request->created_to)) {
-                $created_to = date('Y-m-d', strtotime($request->created_to));
+            if (isset($request->{$dateTo})) {
+                $created_to = date('Y-m-d', strtotime($request->{$dateTo}));
                 if (setting('rasid_date_type')) {
                     $date = explode("-", $created_to);
                     $created_to = Hijri::convertToGregorian($date[2], $date[1], $date[0])->format('Y-m-d');
                 }
-                $this->whereDate('created_at', "<=", $created_to);
-            }
-        });
-
-        Builder::macro("searchDeletedAtFromTo",  function ($request) {
-              if (isset($request->deleted_from)) {
-                $deleted_from = date('Y-m-d', strtotime($request->deleted_from));
-                if (setting('rasid_date_type')) {
-                    $date = explode("-", $deleted_from);
-                    $deleted_from = Hijri::convertToGregorian($date[2], $date[1], $date[0])->format('Y-m-d');
-                }
-                $this->whereDate('deleted_at', ">=", $deleted_from);
-            }
-
-            if (isset($request->deleted_to)) {
-                $deleted_to = date('Y-m-d', strtotime($request->deleted_to));
-                if (setting('rasid_date_type')) {
-                    $date = explode("-", $deleted_to);
-                    $deleted_to = Hijri::convertToGregorian($date[2], $date[1], $date[0])->format('Y-m-d');
-                }
-                $this->whereDate('deleted_at', "<=", $deleted_to);
+                $this->whereDate($columnName, "<=", $created_to);
             }
         });
     }

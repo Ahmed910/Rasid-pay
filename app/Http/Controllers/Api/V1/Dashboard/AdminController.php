@@ -20,7 +20,7 @@ class AdminController extends Controller
     public function index(Request $request)
     {
         request()->user_type = "admin";
-        $users = User::CustomDateFromTo($request)
+        $users = User::customDateFromTo($request)
             ->has('employee')
             ->search($request)
             ->with(['department', 'permissions', 'groups' => function ($q) {
@@ -210,7 +210,7 @@ class AdminController extends Controller
 
     public function exportPDF(Request $request, GeneratePdf $pdfGenerate)
     {
-        $AdminsQuery = User::CustomDateFromTo($request)
+        $AdminsQuery = User::customDateFromTo($request)
         ->has('employee')
         ->search($request)
         ->with(['department', 'permissions', 'groups' => function ($q) {

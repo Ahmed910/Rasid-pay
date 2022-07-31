@@ -30,7 +30,7 @@ class ActivityLogController extends Controller
         }
         if ($request->ajax()) {
             $activatyLogsQuery = ActivityLog::select('activity_logs.id', 'activity_logs.user_id', 'activity_logs.auditable_type', 'activity_logs.auditable_id', 'activity_logs.sub_program', 'activity_logs.action_type', 'activity_logs.ip_address', 'activity_logs.created_at', 'activity_logs.user_type')->search($request)
-                ->CustomDateFromTo($request)
+                ->customDateFromTo($request)
                 ->sortBy($request);
 
             $activitylogCount = $activatyLogsQuery->count();
@@ -153,7 +153,7 @@ class ActivityLogController extends Controller
 
         $activatyLogsQuery = ActivityLog::select('activity_logs.id','activity_logs.user_id','activity_logs.auditable_type','activity_logs.auditable_id','activity_logs.sub_program','activity_logs.action_type','activity_logs.ip_address','activity_logs.created_at')->search($request)
         ->sortBy($request)
-        ->CustomDateFromTo($request)
+        ->customDateFromTo($request)
         ->cursor();
 
         if (!$request->has('created_from')) {
