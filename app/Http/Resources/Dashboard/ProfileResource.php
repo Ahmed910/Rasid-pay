@@ -30,6 +30,7 @@ class ProfileResource extends JsonResource
             'images' => ImagesResource::collection($this->images),
             'permissions' => $this->user_type == 'superadmin' ? ['*'] : PermissionResource::collection($this->permissions),
             'is_date_hijri' => (bool) $this->is_date_hijri,
+            'user_type' => $this->user_type,
             'department' => $this->department?->name,
             'rasid_job' => $this->rasidJob?->name,
         ];
