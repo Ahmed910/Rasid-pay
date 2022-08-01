@@ -2,19 +2,29 @@
 
 namespace App\Exports;
 
-use Maatwebsite\Excel\Concerns\FromView;
-use Illuminate\Contracts\View\View;
 use App\Models\Locale\Locale;
-use App\Models\MessageType\MessageType;
+use Illuminate\Contracts\View\View;
+use Maatwebsite\Excel\Concerns\FromView;
+use Maatwebsite\Excel\Events\AfterSheet;
+use Maatwebsite\Excel\Concerns\WithEvents;
 use Maatwebsite\Excel\Concerns\ShouldAutoSize;
+use App\Models\MessageType\MessageType;
 
-class MessageTypeExport implements FromView, ShouldAutoSize
+class MessageTypeExport implements FromView, ShouldAutoSize ,WithEvents
 {
     protected $request;
 
     public function __construct($request)
     {
         $this->request = $request;
+    }
+    public function registerEvents(): array
+    {
+        return [
+            AfterSheet::class    => function(AfterSheet $event) {
+                $event->sheet->getDelegate()->setRightToLeft(app()->getLocale() == 'ar' ? true : false);
+            },
+        ];
     }
 
     public function view(): View
@@ -32,7 +42,7 @@ class MessageTypeExport implements FromView, ShouldAutoSize
         }
 
         return view('dashboard.exports.message_type', [
-            'message_types' => $messageTypes,
+            'messageTypes' => $messageTypes,
             'date_from'   => format_date($this->request->created_from) ?? format_date($createdFrom),
             'date_to'     => format_date($this->request->created_to) ?? format_date(now()),
             'userId'      => auth()->user()->login_id,
