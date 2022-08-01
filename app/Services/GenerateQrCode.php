@@ -24,10 +24,10 @@ class GenerateQrCode
         return $saved_file;
     }
 
-    private static function checkOrCreateQrDirectory($folder)
+    private static function checkOrCreateQrDirectory($path)
     {
-        if (!File::isDirectory(storage_path($folder))) {
-            File::makeDirectory(storage_path($folder), 0777, true);
+        if (!File::isDirectory(storage_path($path))) {
+            File::makeDirectory(storage_path($path), 0777, true);
         }
     }
 }
