@@ -106,10 +106,16 @@ class TransferController extends Controller
             ];
         }
         $validator = \Validator::make($request->all(), $rules, $messages);
+        if ($validator->fails()) {
+            return response()->json([
+                'data' => null,
+                'message' => $validator->errors()->first(),
+                'status' => false], 422);
+        }
         return response()->json([
             'data' => null,
-            'message' => $validator->errors()->first() ?? "",
-            'status' => false], 422);
+            'message' => "",
+            'status' => true], 200);
 
     }
 }
