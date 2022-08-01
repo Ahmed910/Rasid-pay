@@ -240,7 +240,15 @@ return [
 
         ],
         "global_transfer" => [
-            "title" => "تم التحويل الدولي بنجاح",
+            "title" => "تحويل دولي",
+
+        ],
+        "promote_package" => [
+            "title" => "ترقية بطاقة",
+
+        ],
+        "local_transfer" => [
+            "title" => "تحويل محلي",
 
         ]
     ],
