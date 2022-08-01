@@ -23,7 +23,27 @@ citizens
       <td>{{ $loop->iteration }}</td>
       <td>{{ $citizen?->user?->fullname }}</td>
       <td>{{ $citizen?->user?->identity_number }}</td>
-      <td>{{ $citizen?->user?->ban_status }}</td>
+      @php
+                $ban_status = match ($citizen?->user?->ban_status) {
+                'active' => trans('dashboard.admin.active_cases.active'),
+                'permanent' => trans('dashboard.admin.active_cases.permanent'),
+                'temporary' => trans('dashboard.admin.active_cases.temporary'),
+                }
+      @endphp
+
+      <td>
+        @if($citizen?->user?->ban_status == 'active')
+                  <div class="active">
+                    <i class="mdi mdi-check-circle-outline"></i>
+                    {{ $ban_status }}
+                  </div>
+                  @else
+                  <div class="unactive">
+                    <i class="mdi mdi-cancel"></i>
+                    {{ $ban_status }}
+                  </div>
+        @endif
+      </td>
       <td>{{ trans('dashboard.package_types.'. $citizen?->enabledPackage?->package_type) }}</td>
       <td>{{ $citizen?->enabledPackage?->start_at_dashboard }}</td>
       <td>{{ $citizen?->enabledPackage?->end_at_dashboard }}</td>

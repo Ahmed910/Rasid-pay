@@ -16,7 +16,19 @@
     @foreach ($faqs as $faq)
     <tr>
       <td>{{ $loop->iteration }}</td>
-      <td>{{ (bool)$faq->is_active }}</td>
+      <td>
+        @if($faq->is_active)
+        <div class="active">
+          <i class="mdi mdi-check-circle-outline"></i>
+          {{ trans('dashboard.faq.active_cases.1') }}
+        </div>
+        @else
+        <div class="unactive">
+          <i class="mdi mdi-cancel"></i>
+          {{ trans('dashboard.faq.active_cases.0') }}
+        </div>
+        @endif
+      </td>
       <td>{{ $faq->question }}</td>
       <td>{{ $faq->answer }}</td>
     </tr>

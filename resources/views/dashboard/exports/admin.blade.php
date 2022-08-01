@@ -28,11 +28,27 @@
                 <td>{{ $admin->login_id }}</td>
                 <td>{{ $admin->department?->name}}</td>
                 <td>{{ $admin->created_at }}</td>
-                <td>{{ $ban_status = match ($admin->ban_status) {
-            'active' => trans('dashboard.admin.active_cases.active'),
-            'permanent' => trans('dashboard.admin.active_cases.permanent'),
-            'temporary' => trans('dashboard.admin.active_cases.temporary'),
-        } }}</td>
+            @php
+                $ban_status = match ($admin->ban_status) {
+                'active' => trans('dashboard.admin.active_cases.active'),
+                'permanent' => trans('dashboard.admin.active_cases.permanent'),
+                'temporary' => trans('dashboard.admin.active_cases.temporary'),
+                }
+            @endphp
+                <td>
+                  @if($admin->ban_status == 'active')
+                  <div class="active">
+                    <i class="mdi mdi-check-circle-outline"></i>
+                    {{ $ban_status }}
+                  </div>
+                  @else
+                  <div class="unactive">
+                    <i class="mdi mdi-cancel"></i>
+                    {{ $ban_status }}
+                  </div>
+                  @endif
+                </td>
+
             </tr>
             @endforeach
           </tbody>

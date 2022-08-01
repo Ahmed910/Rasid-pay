@@ -20,6 +20,7 @@ class GlobalTransferController extends Controller
         $wallet = CitizenWallet::with('citizen')->where('citizen_id', auth()->id())->firstOrFail();
         $fees = setting('western_union_fees') ?: 0;
         $amount = $request->amount;
+        $wallet_amount = $request->amount;
         // calculate fees
         $amount_fees = getPercentOfNumber($amount, $fees);
         $fee_upon = $request->fee_upon;
@@ -28,6 +29,7 @@ class GlobalTransferController extends Controller
                 return response()->json(['data' => null, 'message' => trans('mobile.local_transfers.current_balance_is_not_sufficient_to_complete_transaction'), 'status' => false], 422);
             }
             $amount += $amount_fees;
+            $wallet_amount += $amount_fees;
         } else {
             if ($amount > $wallet->main_balance) {
                 return response()->json(['data' => null, 'message' => trans('mobile.local_transfers.current_balance_is_not_sufficient_to_complete_transaction'), 'status' => false], 422);
@@ -52,7 +54,7 @@ class GlobalTransferController extends Controller
         // $balance = WalletBalance::calcWalletMainBackBalance($wallet, $request->amount);
 
         // $transfer_data += (array)$balance;
-        $wallet->decrement('main_balance', $amount);
+        $wallet->decrement('main_balance', $wallet_amount);
         // create global transfer
         $global_transfer = Transfer::create($transfer_data + ['main_amount' => $request->amount]);
         $exchange_rate = Country::find($request->to_currency_id)->countryCurrency->currency_value;
