@@ -18,7 +18,6 @@ class WalletTransferController extends Controller
 
     public function store(WalletTransferRequest $request, Transfer $transfer)
     {
-
         // check max value of transfer per day
         $citizen_wallet = CitizenWallet::with('citizen')->where('citizen_id', auth()->id())->firstOrFail();
         if ($request->amount > $citizen_wallet->main_balance + $citizen_wallet->cash_back) {
@@ -69,7 +68,7 @@ class WalletTransferController extends Controller
             'to_user_id' => $request->citizen_id,
             'amount' => $request->amount,
             'trans_type' => 'wallet_transfer',
-            'trans_status' => $transfer->transfer_status == 'transfered' ? Transaction::SUCCESS : Transaction::PENDING,
+            'trans_status' => $transfer->transfer_status == Transfer::TRANSFERRED ? Transaction::SUCCESS : Transaction::PENDING,
             'trans_number' => generate_unique_code(Transaction::class, 'trans_number', 10, 'numbers')
         ]);
 
