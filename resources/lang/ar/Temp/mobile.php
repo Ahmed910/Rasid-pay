@@ -66,7 +66,7 @@ return [
             'charge' => 'شحن',
             'promote_package' => 'ترقية بطاقة',
             'global_transfer' => 'تحويل دولي',
-            'wallet_transfer' => 'تحويل محفظة',
+            'wallet_transfer' => 'تحويل لمحفظة',
             'money_request' => 'طلب أموال',
             'transfer' => 'تحويل',
         ],
