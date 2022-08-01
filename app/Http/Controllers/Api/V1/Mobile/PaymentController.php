@@ -18,7 +18,7 @@ class PaymentController extends Controller
     public function store(PaymentRequest $request, Payment $payment)
     {
         $citizen_wallet = CitizenWallet::with('citizen')->where('citizen_id', auth()->id())->firstOrFail();
-        if ($request->amount > ($citizen_wallet->main_balance + $citizen_wallet->cash_back)) {
+        if ($request->amount > $citizen_wallet->main_balance) {
             return response()->json(['status' => false, 'data' => null, 'message' => trans('mobile.payments.current_balance_is_not_sufficient_to_complete_payment')], 422);
         }
         $citizen_wallet->update(['wallet_bin' => null]);
