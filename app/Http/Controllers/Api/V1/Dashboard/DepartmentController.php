@@ -72,9 +72,17 @@ class DepartmentController extends Controller
                         $q->where('is_active', 0);
                         break;
                 }
-            })->when($request->has_jobs, function ($q) {
-                $q->whereHas('rasidJobs', function ($q) {
-                    $q->where(['rasid_jobs.is_active' => true, 'is_vacant' => true]);
+            })->when($request->has_jobs, function ($q) use ($request) {
+                $q->whereHas('rasidJobs', function ($q)use ($request) {
+                    $q->where(['rasid_jobs.is_active' => true, 'is_vacant' => true])->orWhere(function($q) use ($request){
+
+                     $q->where(['is_active'=> true,'is_vacant'=>false])->whereHas('employee.user',function($q) use ($request){
+
+
+                        $q->where('users.id',$request->admin_id);
+                     });
+
+                    });
                 });
             })->ListsTranslations('name')
                 ->addSelect('departments.is_active')
