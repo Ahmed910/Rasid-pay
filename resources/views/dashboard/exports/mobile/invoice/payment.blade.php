@@ -19,20 +19,20 @@
         <th style="width: 220px;color:blue;">
           @lang('mobile.invoice.invoice_number')
         </th>
-        <th>#{{$transaction->payment?->invoice_number}}</th>
+        <th>{{$transaction->transactionable?->invoice_number}}</th>
       </tr>
       <tr>
         <th style="width: 220px;color:blue;">
           @lang('mobile.invoice.reference_number')
         </th>
-        <th>#{{ $transaction->trans_number ?? '' }}</th>
+        <th>{{ $transaction->trans_number ?? '' }}</th>
       </tr>
 
       <tr>
         <th style="width: 220px;color:blue;">
           @lang('mobile.invoice.transaction_date')
         </th>
-        <th>{{ $transaction->created_at ?? '' }}</th>
+        <th>{{ $transaction->created_at_mobile ?? '' }}</th>
       </tr>
 
       <tr>
