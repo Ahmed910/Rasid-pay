@@ -7,11 +7,9 @@ use SimpleSoftwareIO\QrCode\Facades\QrCode;
 
 class GenerateQrCode
 {
-    private $directorySeperator = DIRECTORY_SEPARATOR;
-
     public static function createQr(string $qr_value, string $path)
     {
-        $this->checkOrCreateQrDirectory($path);
+        self::checkOrCreateQrDirectory($path);
         $filname = time() . "_" . $qr_value . "_qr_code.png";
         $path = storage_path($path . $filname);
 
@@ -25,10 +23,10 @@ class GenerateQrCode
         return str_replace('app/public', '', $path) . $filname;
     }
 
-    private function checkOrCreateQrDirectory($folder)
+    private static function checkOrCreateQrDirectory($folder)
     {
         if (!File::isDirectory(storage_path($folder))) {
-            File::makeDirectory(storage_path('app/public' . $this->directorySeperator . str_replace('app/public', '', $folder) . $this->directorySeperator), 0777, true);
+            File::makeDirectory(storage_path('app/public' . DIRECTORY_SEPARATOR . str_replace('app/public', '', $folder) . $this->directorySeperator), 0777, true);
         }
     }
 }
