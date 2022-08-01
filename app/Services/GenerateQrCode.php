@@ -11,7 +11,7 @@ class GenerateQrCode
     {
         self::checkOrCreateQrDirectory($path);
         $filname = time() . "_" . $qr_value . "_qr_code.png";
-        $saved_file = str_replace('app/public', '', $path) . $filname;
+        $saved_file = str_replace('app/public/', '', $path) . $filname;
         $path = storage_path($path . $filname);
 
         QrCode::errorCorrection('H')
