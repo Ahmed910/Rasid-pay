@@ -15,8 +15,8 @@ class TransactionResource extends JsonResource
     {
         $wallet_transfer_method = [
             'phone' => $this->transactionable?->wallet_transfer_method == 'phone' ? ($this->toUser?->phone ?? $this->transactionable->phone) : "",
-            'identity_number' => $this->transactionable?->wallet_transfer_method == 'identity_number' ? $this->toUser->identity_number : "",
-            'wallet_number' => $this->transactionable?->wallet_transfer_method == 'wallet_number' ? $this->toUser->citizenWallet?->wallet_number : "",
+            'identity_number' => $this->transactionable?->wallet_transfer_method == 'identity_number' ? $this->toUser?->identity_number : "",
+            'wallet_number' => $this->transactionable?->wallet_transfer_method == 'wallet_number' ? $this->toUser?->citizenWallet?->wallet_number : "",
         ];
 
         $transaction_details =
@@ -32,7 +32,7 @@ class TransactionResource extends JsonResource
                 'promote_package' => $this->trans_type == "promote_package" ? trans("mobile.transaction.transaction_details.promote_package_status", ['amount' => number_format($this->amount, 2, '.', ''), 'package_name' => $this->fromUser->citizen->enabledPackage->package_type, 'expired_date' => $this->fromUser->citizen->enabledPackage->end_at]) : "",
 
             ];
-        $transfer_fee_upon = $this->when(in_array($this->trans_type, ['global_transfer', 'local_transfer']), (string)$this->transactionable->fee_upon);
+        $transfer_fee_upon = $this->when(in_array($this->trans_type, ['global_transfer', 'local_transfer']), (string)$this->transactionable?->fee_upon);
         $total_amount = ($transfer_fee_upon == Transfer::FROM_USER) ? ($this->amount + $this->fee_amount) : $this->amount;
         $fee_amount = ($transfer_fee_upon == Transfer::FROM_USER) ? $this->fee_amount : 0;
         return [

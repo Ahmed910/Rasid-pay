@@ -16,7 +16,19 @@
     @foreach ($transfer_purposes as $transfer)
     <tr>
       <td>{{ $loop->iteration  }}</td>
-      <td>{{ (bool) $transfer->is_active ?? '' }}</td>
+       <td>
+        @if($transfer->is_active)
+        <div class="active">
+          <i class="mdi mdi-check-circle-outline"></i>
+          {{ trans('dashboard.transfer_purposes.active_cases.1') }}
+        </div>
+        @else
+        <div class="unactive">
+          <i class="mdi mdi-cancel"></i>
+          {{ trans('dashboard.transfer_purposes.active_cases.0') }}
+        </div>
+        @endif
+      </td>
       <td>{{ $transfer->is_default_value ?? '' }}</td>
       <td>{{ $transfer->name ?? '' }}</td>
     </tr>

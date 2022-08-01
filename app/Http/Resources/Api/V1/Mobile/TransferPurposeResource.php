@@ -15,8 +15,10 @@ class TransferPurposeResource extends JsonResource
     public function toArray($request)
     {
         return [
-            'id' => $this->id,
-            'name' => $this->name,
+            'id'              => $this->id,
+            'name'            => $this->name,
+            'is_default_value'=> (bool)$this->is_default_value,
+            'is_another'      => (bool)$this->is_another
         ] ;
     }
 }
