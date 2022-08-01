@@ -144,14 +144,9 @@ return [
         ],
     ],
     'package_types' => [
-        'card_cases' => [
-            'platinum' => 'البطاقة البلاتينية',
-            'golden' => 'البطاقة الذهبية',
-            'basic' => 'البطاقة الاساسية',
-        ],
-        'basic' => 'أساسي',
-        'golden' => 'ذهبي',
-        'platinum' => 'بلاتيني',
+        'basic' => 'أساسية',
+        'golden' => 'ذهبية',
+        'platinum' => 'بلاتينية',
     ],
     'invoice' => [
         'invoice' => 'فاتورة',
