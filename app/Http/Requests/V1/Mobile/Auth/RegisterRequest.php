@@ -36,6 +36,8 @@ class RegisterRequest extends ApiMasterRequest
             'phone.unique' => trans('mobile.validation.unique_phone'),
             'date_of_birth.before' => trans('mobile.validation.before'),
             'phone.digits_between' => trans('mobile.validation.phone_digits'),
+            'identity_number.digits' =>trans('mobile.validation.identity_number_digits')
+
         ];
     }
 }

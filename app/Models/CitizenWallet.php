@@ -19,10 +19,10 @@ class CitizenWallet extends Model
     {
         if (!isset($this->attributes['wallet_number'])) {
             $this->attributes['wallet_number'] = $value;
-            $this->attributes['wallet_qr'] = (new GenerateQrCode($value, 'app/public/images/citizen_wallet/'))->createQr($value);
+            $this->attributes['wallet_qr'] = GenerateQrCode::createQr($value, 'app/public/images/citizen_wallet/');
         } elseif (isset($this->attributes['wallet_number']) && $this->attributes['wallet_number'] != $value) {
             $this->attributes['wallet_number'] = $value;
-            $this->attributes['wallet_qr'] = (new GenerateQrCode($value, 'app/public/images/citizen_wallet/'))->createQr($value);
+            $this->attributes['wallet_qr'] = GenerateQrCode::createQr($value, 'app/public/images/citizen_wallet/');
         }
     }
 

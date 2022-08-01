@@ -4,22 +4,30 @@ namespace App\Http\Requests\V1\Mobile\Transfers;
 
 use App\Http\Requests\ApiMasterRequest;
 use App\Models\Transfer;
+use App\Models\TransferPurpose\TransferPurpose;
 use App\Models\User;
 
 class WalletTransferRequest extends ApiMasterRequest
 {
     public function rules()
     {
+        $transferPurpose = TransferPurpose::find($this->transfer_purpose_id);
+        $notes = 'nullable';
+
+        if ($transferPurpose->is_another) {
+            $notes = 'required|string|max:1000';
+        }
+
         return [
-            "amount" => ['required', 'regex:/^\\d{1,7}$|^\\d{1,7}\\.\\d{0,2}$/', 'numeric', 'gte:'. (setting('rasidpay_wallettransfer_minvalue') ?? 10).'', 'lte:'. (setting('rasidpay_wallettransfer_maxvalue')??10000).''],
+            "amount" => ['required', 'regex:/^\\d{1,7}$|^\\d{1,7}\\.\\d{0,2}$/', 'numeric', 'gte:' . (setting('rasidpay_wallettransfer_minvalue') ?? 10) . '', 'lte:' . (setting('rasidpay_wallettransfer_maxvalue') ?? 10000) . ''],
             "wallet_transfer_method" => 'required|in:' . join(",", Transfer::WALLET_TRANSFER_METHODS),
-            'notes'   => 'nullable|required_without:transfer_purpose_id|max:1000',
+            'notes'   => $notes,
             "transfer_method_value" => ['required', function ($attribute, $value, $fail) {
                 if (!is_bool($this->message)) {
                     $fail($this->message);
                 }
             }],
-            'transfer_purpose_id' => 'nullable|exists:transfer_purposes,id',
+            'transfer_purpose_id' => 'required|exists:transfer_purposes,id',
             "otp_code" => 'required|exists:citizen_wallets,wallet_bin,citizen_id,' . auth()->id(),
             "citizen_id" => 'nullable|exists:users,id,user_type,citizen,register_status,completed',
         ];
@@ -38,10 +46,10 @@ class WalletTransferRequest extends ApiMasterRequest
 
     public function checkUserFound($key, $value)
     {
-        $sameUser = User::where(['id'=> auth()->id(),'user_type' => 'citizen'])->where(function($q) use($value){
-            $q->where('identity_number',$value)
-            ->orWhere('phone',$value)
-            ->orWhereRelation('citizenWallet', 'wallet_number', $value);
+        $sameUser = User::where(['id' => auth()->id(), 'user_type' => 'citizen'])->where(function ($q) use ($value) {
+            $q->where('identity_number', $value)
+                ->orWhere('phone', $value)
+                ->orWhereRelation('citizenWallet', 'wallet_number', $value);
         })->first();
 
 
@@ -58,7 +66,7 @@ class WalletTransferRequest extends ApiMasterRequest
                 break;
             case Transfer::IDENTITY_NUMBER:
 
-                if(!preg_match('/^[1-9][0-9]*$/', $value)){
+                if (!preg_match('/^[1-9][0-9]*$/', $value)) {
                     return trans('validation.custom.identity_number.regex');
                 }
                 $user = User::where('id', "<>", auth()->id())->firstWhere(['user_type' => 'citizen', 'identity_number' => $value]);
@@ -105,12 +113,10 @@ class WalletTransferRequest extends ApiMasterRequest
             'otp_code.required' => trans('mobile.otp.required'),
             'otp_code.exists' => trans('mobile.otp.exists'),
             'transfer_purpose_id.exists' => trans('mobile.wallet_transfer.transfer_purpose.exists'),
-            'amount.gte' => trans('validation.wallet_transfer.amount.gte',['min_amount' => (setting('rasidpay_wallettransfer_minvalue'))]),
-            'amount.lte' => trans('validation.wallet_transfer.amount.lte',['max_amount' => (setting('rasidpay_wallettransfer_maxvalue'))]),
+            'amount.gte' => trans('validation.wallet_transfer.amount.gte', ['min_amount' => (setting('rasidpay_wallettransfer_minvalue'))]),
+            'amount.lte' => trans('validation.wallet_transfer.amount.lte', ['max_amount' => (setting('rasidpay_wallettransfer_maxvalue'))]),
 
 
         ];
     }
-
-
 }
