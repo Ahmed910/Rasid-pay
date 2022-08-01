@@ -17,7 +17,19 @@
     @foreach ($ourApps as $our_app)
     <tr>
       <td>{{ $loop->iteration  }}</td>
-      <td>{{ (bool) $our_app->is_active ?? '' }}</td>
+      <td>
+                @if($our_app->is_active)
+                <div class="active">
+                  <i class="mdi mdi-check-circle-outline"></i>
+                  {{ trans('dashboard.our_app.active_cases.1') }}
+                </div>
+                @else
+                <div class="unactive">
+                  <i class="mdi mdi-cancel"></i>
+                  {{ trans('dashboard.our_app.active_cases.0') }}
+                </div>
+                @endif
+      </td>
       <td>{{ $our_app->android_link ?? '' }}</td>
       <td>{{ $our_app->ios_link ?? '' }}</td>
       <td>{{ $our_app->name ?? '' }}</td>
