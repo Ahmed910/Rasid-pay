@@ -102,7 +102,8 @@ class PackageController extends Controller
     {
         $citizen_package_promo_code = CitizenPackagePromoCode::where('promo_code', $request->promo_code)->first();
         // take discount of price from citizen wallet
-        $new_package_price = $package_price - getPercentOfNumber($package_price, $citizen_package_promo_code->promo_discount);
+//        $new_package_price = $package_price - getPercentOfNumber($package_price, $citizen_package_promo_code->promo_discount);
+        $new_package_price = $package_price - getPercentOfNumber($package_price, 50);  // TODO:: for now it's 50% as use case ... maybe changed later
         if ($new_package_price > ($citizen_wallet->main_balance + $citizen_wallet->cash_back)) {
             return response()->json(['status' => false, 'data' => null, 'message' => trans('mobile.payments.current_balance_is_not_sufficient_to_complete_payment')], 422);
         }
