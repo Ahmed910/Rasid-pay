@@ -95,7 +95,9 @@ return [
     ],
     'payments' => [
         'current_balance_is_not_sufficient_to_complete_payment' => 'لا يوجد رصيد كافي',
-        'is_paid_before' => 'تم دفع هذه الفاتورة من قبل.'
+        'is_paid_before' => 'تم دفع هذه الفاتورة من قبل.',
+        'invoice_number_required' => 'رقم الفاتورة مطلوب',
+        'amount_required' => 'قيمة الفاتورة مطلوبة',
     ],
     'global_transfers' => [
         'current_balance_is_not_sufficient_to_complete_transaction' => 'لا يوجد رصيد كافى',
@@ -112,15 +114,15 @@ return [
         'promoted_successfully' => 'تم ترقية الباقة بنجاح',
     ],
     'mobile' =>
+    [
+        'validation' =>
         [
-            'validation' =>
-                [
-                    'mobile' =>
-                        [
-                            'otp_vaild' => 'رمز التحقق صالح',
-                        ],
-                ],
+            'mobile' =>
+            [
+                'otp_vaild' => 'رمز التحقق صالح',
+            ],
         ],
+    ],
     'local_transfers' => [
         'local_transfers' => 'التحويلات المحلية',
         'current_balance_is_not_sufficient_to_complete_transaction' => 'لا يوجد رصيد كافي',
