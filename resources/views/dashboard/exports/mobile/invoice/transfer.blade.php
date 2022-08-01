@@ -25,21 +25,21 @@
         <th style="width: 220px;color:blue;">
           @lang('mobile.invoice.transaction_date')
         </th>
-        <th>{{ $transaction->created_at ?? '' }}</th>
+        <th>{{ $transaction->created_at_mobile ?? '' }}</th>
       </tr>
       @if ($transaction->trans_type == 'global_transfer')
       <tr>
         <th style="width: 220px;color:blue;">
           @lang('mobile.invoice.mtcn_number')
         </th>
-        <th>#{{ $transaction?->transactionable?->bankTransfer?->mtcn_number ?? '' }}</th>
+        <th>{{ $transaction?->transactionable?->bankTransfer?->mtcn_number ?? '' }}</th>
       </tr>
       @endif
       <tr>
         <th style="width: 220px;color:blue;">
           @lang('mobile.invoice.reference_number')
         </th>
-        <th>#{{ $transaction->trans_number ?? '' }}</th>
+        <th>{{ $transaction->trans_number ?? '' }}</th>
       </tr>
       <tr>
         <th style="width: 220px;color:blue;">
