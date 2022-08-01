@@ -55,7 +55,7 @@ class CitizenWallet extends Model
                 ->encoding('UTF-8')
                 ->merge(public_path('assets/images/logoQR.png'), .2 ,true)
                 ->size(500)
-                ->generate($qr_value, $path);
+                ->generate((string)$qr_value, $path);
         return 'images/citizen_wallet/' . $filname;
     }
 

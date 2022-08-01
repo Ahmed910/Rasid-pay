@@ -16,7 +16,6 @@ class WalletTransferRequest extends ApiMasterRequest
             'notes'   => 'nullable|required_without:transfer_purpose_id|max:1000',
             "transfer_method_value" => ['required', function ($attribute, $value, $fail) {
                 if (!is_bool($this->message)) {
-
                     $fail($this->message);
                 }
             }],
@@ -47,7 +46,6 @@ class WalletTransferRequest extends ApiMasterRequest
 
 
         if ($sameUser) {
-
             return trans('mobile.validation.not_same_wallet');
         }
 
