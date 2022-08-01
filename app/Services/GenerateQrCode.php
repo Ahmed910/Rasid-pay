@@ -26,7 +26,7 @@ class GenerateQrCode
     private static function checkOrCreateQrDirectory($folder)
     {
         if (!File::isDirectory(storage_path($folder))) {
-            File::makeDirectory(storage_path('app/public' . DIRECTORY_SEPARATOR . str_replace('app/public', '', $folder) . $this->directorySeperator), 0777, true);
+            File::makeDirectory(storage_path($folder)), 0777, true);
         }
     }
 }
