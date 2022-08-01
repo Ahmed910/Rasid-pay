@@ -32,7 +32,7 @@
         <th style="width: 220px;color:blue;">
           @lang('mobile.invoice.reference_number')
         </th>
-        <th>#{{ $transaction->trans_number ?? '' }}</th>
+        <th>{{ $transaction->trans_number ?? '' }}</th>
       </tr>
       <tr>
         <th style="width: 220px;color:blue;">
