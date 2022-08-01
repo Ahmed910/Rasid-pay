@@ -26,13 +26,13 @@ class GenerateQrCode
             ->size(500)
             ->generate((string)$this->qr_value, $path);
 
-        return 'images/citizen_wallet/' . $filname;
+        return str_replace('app/public', '', $this->path) . $filname;
     }
 
     private function checkOrCreateQrDirectory($folder)
     {
         if (!File::isDirectory(storage_path($folder))) {
-            File::makeDirectory(storage_path('app/public' . $this->directorySeperator . 'images' . $this->directorySeperator . 'citizen_wallet' . $this->directorySeperator), 0777, true);
+            File::makeDirectory(storage_path('app/public' . $this->directorySeperator . str_replace('app/public', '', $this->path) . $this->directorySeperator), 0777, true);
         }
     }
 }

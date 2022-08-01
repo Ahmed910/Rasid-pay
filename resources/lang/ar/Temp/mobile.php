@@ -73,7 +73,7 @@ return [
         ],
         'transaction_details' => [
             'payment_status' => 'تمت عملية الشراء من العميل  بقيمة فاتورة :amount وتم استرداد مبلغ :refund_amount',
-            'wallet_transfer_status' => 'تم تحويل مبلغ :amount ر.س من المحفظة الخاصة بك إلى محفظة المستخدم برقم :to_user_identity_or_mobile_or_wallet_number',
+            'wallet_transfer_status' => 'تم تحويل مبلغ :amount ر.س من المحفظة الخاصة بك إلى محفظة المستخدم ب:transfer_type_trans :to_user_identity_or_mobile_or_wallet_number ',
             'local_transfer_status' => 'تم تحويل مبلغ :amount ر.س من المحفظة الخاصة بك إلى المستفيد :beneficiary برقم IBAN :iban',
             'global_transfer_status' => 'تم تحويل مبلغ :amount بعملة :currency من المحفظة الخاصة بك إلى المستفيد :beneficiary بدولة :country باستخدام :recieve_option وبرقم :mtcn',
             'charge_status' => 'تم شحن رصيد المحفظة الخاصة بك بالقيمة :amount عن طريق :method',
@@ -139,15 +139,15 @@ return [
         'exceed_max_transfer_day' => 'عفوا، لا يمكن تحويل مبلغ أكبر من :max_amount_per_reciever',
         'exceed_max_transfer_month' => 'لقد وصلت للحد الأقصى للتحويل الشهري',
         'wallet_transfer_methods' => [
-            'phone' => 'رقم الهاتف',
-            'wallet_number' => 'رقم المحفظة',
-            'identity_number' => 'رقم الهوية',
+            'phone' => 'رقم جوال',
+            'wallet_number' => 'رقم محفظة',
+            'identity_number' => 'رقم هوية',
         ],
     ],
     'package_types' => [
-        'basic' => 'أساسي',
-        'golden' => 'ذهبي',
-        'platinum' => 'بلاتيني',
+        'basic' => 'أساسية',
+        'golden' => 'ذهبية',
+        'platinum' => 'بلاتينية',
     ],
     'invoice' => [
         'invoice' => 'فاتورة',
@@ -223,6 +223,14 @@ return [
         ]
     ],
     'notifications' => [
+        'charge' => [
+            'title' => 'شحن المحفظة',
+
+        ],
+        'payment' => [
+            'title' => 'دفع فاتورة',
+
+        ],
         'wallet_transfer' => [
             'title' => 'تحويل برقم المحفظة',
 
@@ -235,14 +243,13 @@ return [
             "title" => "تم التحويل الدولي بنجاح",
 
         ]
-        ],
+    ],
 
-        "wallet_transfer" => [
-            "transfer_purpose" => [
-                "exists" => "غرض الحوالة غير موجود",
-            ]
+    "wallet_transfer" => [
+        "transfer_purpose" => [
+            "exists" => "غرض الحوالة غير موجود",
         ]
-
+    ]
 
 
 ];

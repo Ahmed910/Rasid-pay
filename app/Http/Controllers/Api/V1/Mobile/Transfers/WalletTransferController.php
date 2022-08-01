@@ -65,7 +65,7 @@ class WalletTransferController extends Controller
         $transfer->fill($request->validated() + $data)->save();
         $transaction = $transfer->transaction()->create([
             'from_user_id' => auth()->id(),
-            'to_user_id' => $request->citizen_id,
+            'to_user_id' => $request->citizen_id??null,
             'amount' => $request->amount,
             'trans_type' => 'wallet_transfer',
             'trans_status' => $transfer->transfer_status == Transfer::TRANSFERRED ? Transaction::SUCCESS : Transaction::PENDING,
