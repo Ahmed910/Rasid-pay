@@ -16,7 +16,6 @@ class GenerateQrCode
     public function createQr()
     {
         $this->checkOrCreateQrDirectory($this->path);
-        if (str_starts_with($this->qr_value, 0)) $this->qr_value = substr($this->qr_value, 1);
         $filname = time() . "_" . $this->qr_value . "_qr_code.png";
         $path = storage_path($this->path . $filname);
 
