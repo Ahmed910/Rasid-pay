@@ -2,7 +2,6 @@
 
 namespace App\Http\Resources\Dashboard\Transaction;
 
-use App\Http\Resources\Api\V1\Mobile\Transactions\TransactionResource;
 use App\Http\Resources\Dashboard\ActivityLogResource;
 use App\Models\Transaction;
 use Illuminate\Http\Resources\Json\ResourceCollection;
