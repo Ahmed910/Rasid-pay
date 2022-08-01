@@ -142,7 +142,7 @@ class Transaction extends Model
     public function setTransNumberAttribute($value)
     {
         $this->attributes['trans_number'] = $value;
-        $this->attributes['qr_path'] = (new GenerateQrCode($value, 'app/public/images/transactions/'))->createQr($value);
+        $this->attributes['qr_path'] = GenerateQrCode::createQr($value, 'app/public/images/transactions/');
     }
 
     public function fromUser()
