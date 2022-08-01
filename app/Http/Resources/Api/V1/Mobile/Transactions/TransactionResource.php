@@ -2,11 +2,11 @@
 
 namespace App\Http\Resources\Api\V1\Mobile\Transactions;
 
-use App\Models\Transfer;
-use App\Models\Transaction;
-use Illuminate\Support\Str;
-use Illuminate\Http\Resources\Json\JsonResource;
 use App\Http\Resources\Api\V1\Mobile\{Beneficiary\BeneficiaryResource, UserResource};
+use App\Models\Transaction;
+use App\Models\Transfer;
+use Illuminate\Http\Resources\Json\JsonResource;
+use Illuminate\Support\Str;
 
 class TransactionResource extends JsonResource
 {
@@ -23,8 +23,11 @@ class TransactionResource extends JsonResource
             [
                 'payment' => $this->trans_type == "payment" ? trans("mobile.transaction.transaction_details.payment_status", ['amount' => number_format($this->amount, 2, '.', ''), 'refund_amount' => $this->amount]) : "",
                 'wallet_transfer' => $this->trans_type == "wallet_transfer"
-                    ? trans("mobile.transaction.transaction_details.wallet_transfer_status", ['amount' => number_format($this->amount, 2, '.', ''), 'to_user_identity_or_mobile_or_wallet_number' => @$wallet_transfer_method[$this->transactionable?->wallet_transfer_method]])
-                    : "",
+                    ? trans("mobile.transaction.transaction_details.wallet_transfer_status", [
+                        'amount' => number_format($this->amount, 2, '.', ''),
+                        'transfer_type_trans' => trans('mobile.transfers.wallet_transfer_methods.'.$this->transactionable?->wallet_transfer_method),
+                        'to_user_identity_or_mobile_or_wallet_number' => @$wallet_transfer_method[$this->transactionable?->wallet_transfer_method
+                        ]]) : "",
                 'local_transfer' => $this->trans_type == "local_transfer" ? trans("mobile.transaction.transaction_details.local_transfer_status", ['amount' => number_format($this->amount, 2, '.', ''), 'beneficiary' => $this->transactionable?->beneficiary->name, 'iban' => $this->transactionable?->beneficiary->iban_number]) : "",
                 'global_transfer' => $this->trans_type == "global_transfer" ? trans("mobile.transaction.transaction_details.global_transfer_status", ['amount' => number_format($this->amount, 2, '.', ''), 'currency' => $this->transactionable?->bankTransfer?->toCurrency?->currency_code, 'beneficiary' => $this->transactionable?->beneficiary?->name, 'country' => $this->transactionable?->beneficiary?->country?->name, 'recieve_option' => $this->transactionable?->bankTransfer?->recieveOption?->name, 'mtcn' => $this->transactionable?->bankTransfer?->mtcn_number]) : "",
                 'charge' => $this->trans_type == "charge" ? trans("mobile.transaction.transaction_details.charge_status", ['amount' => number_format($this->amount, 2, '.', ''), 'method' => trans('mobile.transaction.charge_types.'.$this->transactionable?->charge_type,  [ 'card_number' => Str::mask($this->card_number, '*', 0,-4) ])]) : "",
