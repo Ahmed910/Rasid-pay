@@ -1123,13 +1123,20 @@ return [
     ],
     'message_type' =>  [
         'message_types' => 'أنواع الرسائل',
+        'name' => 'الاسم',
+        'employee_count'=> 'عدد الموظفين',
         'permissions' => [
             'store' => 'حفظ',
             'index' => 'السجل',
             'update' => 'تعديل',
             'show' => 'عرض',
             'destroy' => 'حذف',
-        ]
+        ],
+        'active_cases' =>
+        [
+            0 => 'معطل',
+            1 => 'مفعل',
+        ],
 
     ],
 
