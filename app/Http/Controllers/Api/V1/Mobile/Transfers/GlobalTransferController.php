@@ -28,13 +28,11 @@ class GlobalTransferController extends Controller
             if (($amount + $amount_fees) > $wallet->main_balance) {
                 return response()->json(['data' => null, 'message' => trans('mobile.local_transfers.current_balance_is_not_sufficient_to_complete_transaction'), 'status' => false], 422);
             }
-            $amount += $amount_fees;
             $wallet_amount += $amount_fees;
         } else {
             if ($amount > $wallet->main_balance) {
                 return response()->json(['data' => null, 'message' => trans('mobile.local_transfers.current_balance_is_not_sufficient_to_complete_transaction'), 'status' => false], 422);
             }
-            $amount -= $amount_fees;
         }
 
         $wallet->update(['wallet_bin' => null]);
@@ -64,7 +62,7 @@ class GlobalTransferController extends Controller
                 ]
             ) + ['exchange_rate' => $exchange_rate]);
         $global_transfer->bankTransfer()->update(['recieve_option_id' => $global_transfer->beneficiary->recieve_option_id]);
-
+//        TODO:: amount will be change when implement payment gateway according to fee upon
         //add transfer in  transaction
         $transaction = $global_transfer->transaction()->create([
             'amount' => $request->amount,
