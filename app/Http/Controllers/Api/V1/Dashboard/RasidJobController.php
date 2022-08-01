@@ -169,11 +169,13 @@ class RasidJobController extends Controller
     public function getVacantJobs($id, Request $request)
     {
         return response()->json([
-            'data' => RasidJob::where(['department_id' => $id, 'is_vacant' => true])
+            'data' => RasidJob::query()
+                ->where(['department_id' => $id, 'is_vacant' => true])
                 ->when($request->is_active, fn ($q) => $q->where('is_active', true))
                 ->when($request->admin_id, fn ($q) =>  $q->whereHas('employee', fn ($q) => $q->where('user_id', '<>', $request->admin_id)))
                 ->select('id')->ListsTranslations('name')
-                ->without(['images', 'addedBy', 'translations', 'department', 'employee'])->get(),
+                ->when($request->is_vacant == false, fn ($q) => $q->where('is_vacant', false))
+                ->without(['images', 'addedBy', 'translations', 'department', 'employee'])->toSql(),
             'status' => true,
             'message' =>  '',
         ]);
