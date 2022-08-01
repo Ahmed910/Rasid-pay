@@ -44,6 +44,7 @@ return [
         'invalid_iban' => 'رقم الأيبان غير صحيح',
         'unique_phone' => 'رقم الجوال مسجل لدينا من قبل',
         'phone_digits' => 'رقم الجوال يجب أن يكون :digits أرقام',
+        'identity_number_digits' => 'رقم الهوية يجب أن يكون :digits أرقام',
         'before' => 'لا يمكن ان يكون تاريخ الميلاد تاريخ مستقبلي',
     ],
     'transaction' => [
