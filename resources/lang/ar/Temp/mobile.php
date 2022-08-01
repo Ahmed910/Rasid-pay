@@ -54,6 +54,12 @@ return [
             'success' => 'ناجحة',
             'received' => 'تم الاستلام',
         ],
+        'charge_types' => [
+            'nfc' => 'NFC',
+            'manual' => 'إدخال بيانات البطاقة بشكل يدوي',
+            'scan' => 'مسح بيانات البطاقة',
+            'sadad' => 'سداد',
+        ],
         'transaction_types' => [
             'local_transfer' => 'تحويل محلي',
             'payment' => 'دفع فاتورة',
