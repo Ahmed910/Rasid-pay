@@ -89,6 +89,7 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::delete('transfers/{id}', 'TransferController@destroy');
         Route::get('transfers', 'TransferController@index');
         Route::post('transfers/{transfer_id}', 'TransferController@cancelTransfer');
+        Route::post('check_amount', 'TransferController@checkTransferredAmount')->middleware('check_max_transactions');
     });
 });
 
