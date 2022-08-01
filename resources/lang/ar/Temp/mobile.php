@@ -56,7 +56,7 @@ return [
         ],
         'charge_types' => [
             'nfc' => 'NFC',
-            'manual' => 'إدخال بيانات البطاقة بشكل يدوي',
+            'manual' => 'البطاقة البنكية المنتهية بـ(:card_number)',
             'scan' => 'مسح بيانات البطاقة',
             'sadad' => 'سداد',
         ],
@@ -66,7 +66,7 @@ return [
             'charge' => 'شحن',
             'promote_package' => 'ترقية بطاقة',
             'global_transfer' => 'تحويل دولي',
-            'wallet_transfer' => 'تحويل محفظة',
+            'wallet_transfer' => 'تحويل لمحفظة',
             'money_request' => 'طلب أموال',
             'transfer' => 'تحويل',
         ],
