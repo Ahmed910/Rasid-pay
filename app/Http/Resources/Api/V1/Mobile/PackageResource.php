@@ -18,7 +18,8 @@ class PackageResource extends JsonResource
         $current_package = auth()->user()->citizen()->with('enabledPackage')->first();
         // desc for development purpose only
         return [
-            'name' => trans('mobile.package_types.' . $this->resource),
+            'name' => $this->resource,
+            'name_translation' => trans('mobile.package_types.' . $this->resource),
             'price' => (string)setting('rasidpay_cards_' . $this->resource . '_price') ?? "",
             'description' => setting('rasidpay_cards_' . $this->resource . '_desc') ?? "",
             'color' => (string)setting('rasidpay_cards_' . $this->resource . '_color') ?? "",
