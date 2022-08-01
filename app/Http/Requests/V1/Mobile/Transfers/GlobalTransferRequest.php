@@ -4,21 +4,29 @@ namespace App\Http\Requests\V1\Mobile\Transfers;
 
 use App\Http\Requests\ApiMasterRequest;
 use App\Models\Transfer;
+use App\Models\TransferPurpose\TransferPurpose;
 
 class GlobalTransferRequest extends ApiMasterRequest
 {
     public function rules()
     {
+        $transferPurpose = TransferPurpose::find($this->transfer_purpose_id);
+        $notes = 'nullable';
+
+        if ($transferPurpose->is_another) {
+            $notes = 'required|string|max:1000';
+        }
+
         return [
             "otp_code" => 'required|exists:citizen_wallets,wallet_bin,citizen_id,' . auth()->id(),
-            "amount" => ['required', 'regex:/^\\d{1,5}$|^\\d{1,5}\\.\\d{0,2}$/', 'numeric', 'gte:'. (setting('rasidpay_inttransfer_minvalue') ?? 10).'', 'lte:'. (setting('rasidpay_inttransfer_maxvalue')??10000).''],
+            "amount" => ['required', 'regex:/^\\d{1,5}$|^\\d{1,5}\\.\\d{0,2}$/', 'numeric', 'gte:' . (setting('rasidpay_inttransfer_minvalue') ?? 10) . '', 'lte:' . (setting('rasidpay_inttransfer_maxvalue') ?? 10000) . ''],
             //            'amount_transfer'     => 'required|numeric',
-            'transfer_purpose_id' => 'nullable|exists:transfer_purposes,id',
+            'transfer_purpose_id' => 'required|exists:transfer_purposes,id,is_active,1',
             'currency_id' => 'required|exists:countries,id',
             'to_currency_id' => 'required|exists:countries,id',
             'fee_upon' => 'required|in:' . join(',', Transfer::FEE_UPON),
             'beneficiary_id' => 'nullable|exists:beneficiaries,id,benficiar_type,global',
-            'notes' => 'nullable|required_without:transfer_purpose_id|max:1000'
+            'notes' => $notes
         ];
     }
 
