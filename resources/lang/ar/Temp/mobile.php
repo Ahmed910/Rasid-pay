@@ -226,6 +226,10 @@ return [
             'title' => 'شحن المحفظة',
 
         ],
+        'payment' => [
+            'title' => 'دفع فاتورة',
+
+        ],
         'wallet_transfer' => [
             'title' => 'تحويل برقم المحفظة',
 
