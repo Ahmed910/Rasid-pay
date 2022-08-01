@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddCardIdColumnToTansactionsTable extends Migration
+class AddCardNumberColumnToTansactionsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -14,7 +14,7 @@ class AddCardIdColumnToTansactionsTable extends Migration
     public function up()
     {
         Schema::table('transactions', function (Blueprint $table) {
-            $table->foreignUuid("card_id")->nullable()->constrained()->nullOnDelete();
+            $table->string('card_number')->nullable();
         });
     }
 
@@ -26,8 +26,7 @@ class AddCardIdColumnToTansactionsTable extends Migration
     public function down()
     {
         Schema::table('transactions', function (Blueprint $table) {
-            $table->dropForeign(['card_id']);
-            $table->dropColumn('card_id');
+            $table->dropColumn('card_number');
         });
     }
 }
