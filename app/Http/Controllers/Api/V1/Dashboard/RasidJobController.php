@@ -176,7 +176,7 @@ class RasidJobController extends Controller
                 ->select('id')
                 ->ListsTranslations('name')
                 ->when($request->is_vacant == 'false', fn ($q) => $q->where('is_vacant', false), fn ($q) => $q->where('is_vacant', true))
-                ->without(['images', 'addedBy', 'translations', 'department', 'employee'])->getBindings(),
+                ->without(['images', 'addedBy', 'translations', 'department', 'employee'])->get(),
             'status' => true,
             'message' =>  '',
         ]);
