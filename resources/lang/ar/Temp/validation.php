@@ -313,6 +313,22 @@ return [
 
     ],
 
+    'wallet_charge' =>[
+        'amount'=>[
+            'gte'=>'مبلغ الشحن يجب أن لا يقل عن :min_amount',
+            'lte'=>'مبلغ الشحن يجب أن لا يتجاوز عن :max_amount'
+        ],
+
+    ],
+
+    'local_transfers' =>[
+        'amount'=>[
+            'gte'=>'مبلغ التحويل يجب أن لا يقل عن :min_amount',
+            'lte'=>'مبلغ التحويل يجب أن لا يتجاوز عن :max_amount'
+        ],
+
+    ],
+
     'global_transfers' => [
         "otp_code" =>   [
             "required" => "مطلوب otp رمز",
