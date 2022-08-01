@@ -179,4 +179,5 @@ class Transaction extends Model
     {
         return $this->belongsTo(CitizenPackage::class, 'citizen_package_id', 'id');
     }
+
 }

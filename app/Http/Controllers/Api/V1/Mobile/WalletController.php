@@ -39,7 +39,8 @@ class WalletController extends Controller
             'from_user_id' => $wallet->citizen_id,
             'amount' => $request->amount,
             'trans_type' => 'charge',
-            'trans_number' => generate_unique_code(Transaction::class,'trans_number',10,'numbers')
+            'trans_number' => generate_unique_code(Transaction::class,'trans_number',10,'numbers'),
+            'card_number' => $request->card_number
         ];
         $transaction = $wallet_charge->transaction()->create($transaction_data);
 
