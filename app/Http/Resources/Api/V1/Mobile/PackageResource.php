@@ -17,11 +17,10 @@ class PackageResource extends JsonResource
     {
         $current_package = auth()->user()->citizen()->with('enabledPackage')->first();
         // desc for development purpose only
-        $default_desc = 'وريم إيبسوم(Lorem Ipsum) هو ببساطة نص شكلي (بمعنى أن الغاية هي الشكل وليس المحتوى) ويُستخدم في صناعات المطابع ودور النشر. كان لوريم إيبسوم ولايزال المعيار للنص الشكلي منذ القرن الخامس عشر عندما قامت مطبعة مجهولة برص مجموعة من الأحرف بشكل عشوائي أخذتها من نص، لتكوّن كتيّب بمثابة دليل أو مرجع شكلي لهذه الأحرف.';
         return [
-            'name' => $this->resource,
+            'name' => trans('mobile.package_types.card_cases.' . $this->resource),
             'price' => (string)setting('rasidpay_cards_' . $this->resource . '_price') ?? "",
-            'description' => setting('rasidpay_cards_' . $this->resource . '_desc') ?? $default_desc,
+            'description' => setting('rasidpay_cards_' . $this->resource . '_desc') ?? "",
             'color' => (string)setting('rasidpay_cards_' . $this->resource . '_color') ?? "",
             'image' => asset(setting('rasidpay_cards_' . $this->resource . '_bgimg')) ?? "",
             'is_current' => $current_package->enabledPackage->package_type == $this->resource,
