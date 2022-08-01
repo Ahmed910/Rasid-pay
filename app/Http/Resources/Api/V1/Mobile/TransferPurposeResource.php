@@ -17,8 +17,8 @@ class TransferPurposeResource extends JsonResource
         return [
             'id'              => $this->id,
             'name'            => $this->name,
-            'is_default_value'=> $this->is_default_value,
-            'is_another'      => $this->is_another
+            'is_default_value'=> (bool)$this->is_default_value,
+            'is_another'      => (bool)$this->is_another
         ] ;
     }
 }
