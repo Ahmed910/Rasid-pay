@@ -144,6 +144,11 @@ return [
         ],
     ],
     'package_types' => [
+        'card_cases' => [
+            'platinum' => 'البطاقة البلاتينية',
+            'golden' => 'البطاقة الذهبية',
+            'basic' => 'البطاقة الاساسية',
+        ],
         'basic' => 'أساسي',
         'golden' => 'ذهبي',
         'platinum' => 'بلاتيني',
@@ -242,14 +247,13 @@ return [
             "title" => "تم التحويل الدولي بنجاح",
 
         ]
-        ],
+    ],
 
-        "wallet_transfer" => [
-            "transfer_purpose" => [
-                "exists" => "غرض الحوالة غير موجود",
-            ]
+    "wallet_transfer" => [
+        "transfer_purpose" => [
+            "exists" => "غرض الحوالة غير موجود",
         ]
-
+    ]
 
 
 ];
