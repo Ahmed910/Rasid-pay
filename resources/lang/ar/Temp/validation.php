@@ -330,6 +330,12 @@ return [
         ],
         'transfer_purpose_id'=>[
             "required" =>  "الغرض من التحويل  مطلوب ",
+            'exists' => 'الغرض من التحويل غير موجود'
+
+        ],
+        'beneficiary_id'=>[
+            "required" =>  "المستفيد  مطلوب ",
+            'exists' => 'المستفيد غير موجود'
 
         ],
         "notes" =>   [

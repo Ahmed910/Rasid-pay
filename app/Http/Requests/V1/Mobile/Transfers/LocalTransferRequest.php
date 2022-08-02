@@ -45,12 +45,15 @@ class LocalTransferRequest extends ApiMasterRequest
     public function messages()
     {
         return [
-            'otp_code.required' => trans('mobile.otp.required'),
-            'otp_code.exists' => trans('mobile.otp.exists'),
+            'otp_code.required' => trans('mobile.validation.otp.required'),
+            'otp_code.exists' => trans('mobile.validation.otp.exists'),
             'amount.required' => trans('validation.local_transfers.amount.required'),
             'amount.gte' => trans('validation.local_transfers.amount.gte', ['min_amount' => (setting('rasidpay_localtransfer_minvalue'))]),
             'amount.lte' => trans('validation.local_transfers.amount.lte', ['max_amount' => (setting('rasidpay_localtransfer_maxvalue'))]),
             'transfer_purpose_id.required' => trans('validation.local_transfers.transfer_purpose_id.required'),
+            'transfer_purpose_id.exists' => trans('validation.local_transfers.transfer_purpose_id.exists'),
+            'beneficiary_id.required' => trans('validation.local_transfers.beneficiary_id.required'),
+            'beneficiary_id.exists' => trans('validation.local_transfers.beneficiary_id.exists'),
             'notes.required' => __('validation.local_transfers.notes.required'),
 
 
