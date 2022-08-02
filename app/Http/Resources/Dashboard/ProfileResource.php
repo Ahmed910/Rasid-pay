@@ -25,6 +25,7 @@ class ProfileResource extends JsonResource
             'whatsapp' => $this->whatsapp,
             'identity_number' => $this->identity_number,
             'login_id' => $this->login_id,
+            'login_code_required' => (bool)$this->is_login_code,
             'gender' => $this->gender,
             'date_of_birth' => $this->date_of_birth,
             'date_of_birth_hijri' => $this->date_of_birth_hijri,
