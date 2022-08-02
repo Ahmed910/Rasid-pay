@@ -33,14 +33,11 @@ class CurrencyController extends Controller
     {
         $base = $request->base;
         $to = $request->to;
-        $data = [];
-        $currencies = calcCurrency($base, $to);
-        foreach ($currencies->rates as $key => $value) {
-            if ($key == $to) {
-                $data['conversion_value'] = $value;
-                break;
-            }
-        }
+
+        $currencies = (array)calcCurrency($base, $to)->rates;
+        $keys = array_keys($currencies);
+
+        $data['conversion_value'] = binarySearchForAssocArray($to,$currencies,$keys);
         return response()->json([
             'data' => $data,
             'status' => true,

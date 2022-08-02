@@ -19,7 +19,7 @@ class GlobalTransferRequest extends ApiMasterRequest
 
         return [
             "otp_code" => 'required|exists:citizen_wallets,wallet_bin,citizen_id,' . auth()->id(),
-            "amount" => ['required', 'regex:/^\\d{1,7}$|^\\d{1,7}\\.\\d{0,2}$/', 'numeric', 'gte:' . (setting('rasidpay_inttransfer_minvalue') ?? 10) . '', 'lte:' . (setting('rasidpay_inttransfer_maxvalue') ?? 10000) . ''],
+            "amount" => ['required', 'regex:/^\\d{1,7}$|^\\d{1,7}\\.\\d{0,2}$/', 'numeric', 'gte:'. (setting('rasidpay_inttransfer_minvalue') ?? 10).'', 'lte:'. (setting('rasidpay_inttransfer_maxvalue')??10000).''],
             //            'amount_transfer'     => 'required|numeric',
             'transfer_purpose_id' => 'required|exists:transfer_purposes,id,is_active,1',
             'currency_id' => 'required|exists:countries,id',
@@ -49,6 +49,9 @@ class GlobalTransferRequest extends ApiMasterRequest
             'amount.lte' => trans('validation.global_transfers.amount.lte', ['max_amount' => (setting('rasidpay_inttransfer_maxvalue'))]),
             'notes.required' => __('validation.global_transfers.notes.required'),
             'beneficiary_id.exists' => __('validation.global_transfers.beneficiary.exists'),
+            'amount.gte' => trans('validation.global_transfers.amount.greaterThanEqual'),
+            'amount.lte' => trans('validation.global_transfers.amount.lessThanEqual'),
+
         ];
     }
 }
