@@ -47,20 +47,36 @@ return [
         ],
         'after_today' => 'يجب ادخال تاريخ مستقبلي',
         'card_after_today' => 'يجب ادخال تاريخ مستقبلي',
-
         'card_name' => 'اسم البطاقة مطلوب',
         'invalid_iban' => 'رقم الأيبان غير صحيح',
         'before' => 'لا يمكن ان يكون تاريخ الميلاد تاريخ مستقبلي',
+
         'otp' => [
             'required' => 'رمز OTP مطلوب',
             'exists' => 'رمز OTP غير صحيح',
             'invaild' => 'رمز التحقق غير صالح',
             'vaild' => 'رمز التحقق صالح'
         ],
-
+        'card_name' => 'اسم البطاقة مطلوب',
+        'owner_name' => 'الاسم مطلوب',
+        'invalid_iban' => 'رقم الأيبان غير صحيح',
+        'unique_phone' => 'رقم الجوال مسجل لدينا من قبل',
+        'phone_digits' => 'رقم الجوال يجب أن يكون :digits أرقام',
+        'identity_number_digits' => 'رقم الهوية يجب أن يكون :digits أرقام',
+        'before' => 'لا يمكن ان يكون تاريخ الميلاد تاريخ مستقبلي',
+        'card_number_digits' => 'الرقم علي البطاقة يجب ان يكون مكون من :card_digits رقم',
+        'required_card_number' => 'رقم البطاقة مطلوب',
     ],
+    'wallet_charge' => [
+        'amount' => [
+            'gte' => 'يجب ان لا يقل قيمة المبلغ عن :min_amount',
+            'lte' => 'يجب ان لا يتعدي قيمة المبلغ عن :max_amount'
+        ],
+    ],
+
+
     'beneficiaries' => [
-        "iban_number" =>   [
+        "iban_number" => [
             "required" => "رقم الايبان مطلوب",
             "starts_with" => "رقم الايبان يجب ان يبدأ ب :starts_with",
             "size" => "رقم الايبان يجب ان يكون :size حرف ورقم",

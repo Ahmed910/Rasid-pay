@@ -10,7 +10,7 @@ class WalletRequest extends ApiMasterRequest
     {
         $rules = [
             // in citizen wallet
-            "amount" => ['required', 'regex:/^\\d{1,5}$|^\\d{1,5}\\.\\d{0,2}$/', 'numeric', 'gte:' . (setting('rasidpay_walletcharge_minvalue') ?? 10) , 'lte:'. (setting('rasidpay_walletcharge_maxvalue') ?? 50000)],
+            "amount" => ['required', 'regex:/^\\d{1,6}$|^\\d{1,6}\\.\\d{0,2}$/', 'numeric', 'gte:' . (setting('rasidpay_walletcharge_minvalue')), 'lte:' . (setting('rasidpay_walletcharge_maxvalue'))],
             //card information
             'is_card_saved' => 'required_without:card_id|in:0,1',
             'card_id' => 'nullable|required_without:charge_type|exists:cards,id,user_id,' . auth()->id(),
@@ -66,9 +66,12 @@ class WalletRequest extends ApiMasterRequest
             'expire_at.after' => trans('mobile.validation.after_today'),
             'expire_at.date_format' => trans('mobile.validation.date_format'),
             'card_name.required_if' => trans('mobile.validation.card_name'),
+            'owner_name.required_if' => trans('mobile.validation.owner_name'),
             'card_number.required_if' => trans('mobile.validation.required_card_number'),
-            'card_number.digits' =>  trans('mobile.validation.card_number_digits'),
-            'expire_at.required_if' =>  trans('mobile.validation.expire_at'),
+            'card_number.digits' => trans('mobile.validation.card_number_digits',['card_digits' => 16]),
+            'expire_at.required_if' => trans('mobile.validation.expire_at'),
+            'amount.gte' => trans('mobile.wallet_charge.amount.gte', ['min_amount' => (setting('rasidpay_walletcharge_minvalue'))]),
+            'amount.lte' => trans('mobile.wallet_charge.amount.lte', ['max_amount' => (setting('rasidpay_walletcharge_maxvalue'))]),
         ];
     }
 }

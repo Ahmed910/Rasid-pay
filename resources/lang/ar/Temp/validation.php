@@ -107,7 +107,7 @@ return [
         'second' => 'حقل ثانية',
         'charge_type' => 'حقل طريقة الشحن',
         'ban_reason' => 'حقل سبب الحظر',
-        'owner_name' => 'الاسم على البطاقة',
+        'owner_name' => 'الاسم',
         'full_phone' => 'حقل الهاتف',
         'is_active' => ' الحالة مطلوبة ',
         'is_card_saved' => 'الاحتفاظ ببيانات البطاقة',
