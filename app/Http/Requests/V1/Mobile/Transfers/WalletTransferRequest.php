@@ -21,7 +21,7 @@ class WalletTransferRequest extends ApiMasterRequest
         return [
             "amount" => ['required', 'regex:/^\\d{1,7}$|^\\d{1,7}\\.\\d{0,2}$/', 'numeric', 'gte:' . (setting('rasidpay_wallettransfer_minvalue') ?? 10) . '', 'lte:' . (setting('rasidpay_wallettransfer_maxvalue') ?? 10000) . ''],
             "wallet_transfer_method" => 'required|in:' . join(",", Transfer::WALLET_TRANSFER_METHODS),
-            'notes'   => $notes,
+            'notes' => $notes,
             "transfer_method_value" => ['required', function ($attribute, $value, $fail) {
                 if (!is_bool($this->message)) {
                     $fail($this->message);
@@ -87,7 +87,7 @@ class WalletTransferRequest extends ApiMasterRequest
 
                 break;
         }
-        return $this->checkBlackList($user);
+        return $user ? $this->checkBlackList($user) : true;
     }
 
     private function checkPhoneValid($phone)
@@ -98,11 +98,11 @@ class WalletTransferRequest extends ApiMasterRequest
     private function checkBlackList($user)
     {
         $this->user_object = $user;
-        if ($user?->in_black_list || $user->ban_status != 'active') {
-            return trans('dashboard.citizen.wallet_in_black_list');
-        } elseif (!$user) {
-
+        if (!$user) {
             return trans('validation.exists');
+        }
+        elseif ($user?->in_black_list || $user?->ban_status != 'active') {
+            return trans('dashboard.citizen.wallet_in_black_list');
         }
         return true;
     }
