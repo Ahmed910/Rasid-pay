@@ -160,7 +160,7 @@ return [
         'by_phone' => 'برقم جوال ',
         'by_identity_number' => 'برقم هوية ',
         'by_wallet_number' => 'برقم ',
-        'cancel_transfer' => 'تم الالغاء واسترجاع الاموال بنجاح',
+        'cancel_transfer' => 'تم إلغاء التحويل',
         'wallet_transfer_method' => 'تحويل لمحفظة',
         'exceed_max_transfer_day' => 'عفوا، لا يمكن تحويل مبلغ أكبر من :max_amount_per_reciever',
         'exceed_max_transfer_month' => 'لقد وصلت للحد الأقصى للتحويل الشهري',
@@ -245,8 +245,16 @@ return [
         ]
     ],
     'notifications' => [
+        'charge' => [
+            'title' => 'تم شحن رصيد بنجاح',
+
+        ],
+        'payment' => [
+            'title' => 'تم الدفع بنجاح',
+
+        ],
         'wallet_transfer' => [
-            'title' => 'تحويل برقم المحفظة',
+            'title' => 'تم التحويل لمحفظة أخرى بنجاح',
 
         ],
         'wallet_transfer_to' => [
@@ -254,31 +262,26 @@ return [
 
         ],
         "global_transfer" => [
-            "title" => "تحويل دولي",
+            "title" => "تم التحويل الدولي بنجاح",
 
         ],
         "local_transfer" => [
             "title" => "تم التحويل المحلي بنجاح",
 
         ],
-        "payment" => [
-            "title" => "تمت عملية التحويل بنجاح",
 
-        ],
-        "charge" => [
-            "title" => "تمت عملية الشحن بنجاح",
 
-        ],
         "money_request" => [
             "title" => "تمت عملية طلب الأموال بنجاح",
 
         ],
         "promote_package" => [
-            "title" => "تم ترقية الباقة بنجاح",
+            "title" => "تم ترقية البطاقات بنجاح",
 
         ],
+        ],
 
-    ],
+
 
     "wallet_transfer" => [
         "transfer_purpose" => [

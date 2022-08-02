@@ -51,6 +51,9 @@ class LocalTransferRequest extends ApiMasterRequest
             'amount.gte' => trans('validation.local_transfers.amount.gte', ['min_amount' => (setting('rasidpay_localtransfer_minvalue'))]),
             'amount.lte' => trans('validation.local_transfers.amount.lte', ['max_amount' => (setting('rasidpay_localtransfer_maxvalue'))]),
             'transfer_purpose_id.required' => trans('validation.local_transfers.transfer_purpose_id.required'),
+            'transfer_purpose_id.exists' => trans('validation.local_transfers.transfer_purpose_id.exists'),
+            'beneficiary_id.required' => trans('validation.local_transfers.beneficiary_id.required'),
+            'beneficiary_id.exists' => trans('validation.local_transfers.beneficiary_id.exists'),
             'notes.required' => __('validation.local_transfers.notes.required'),
 
 
