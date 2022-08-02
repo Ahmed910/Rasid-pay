@@ -80,7 +80,7 @@ class AdminRequest extends FormRequest
             'email' => 'required|email:filter|max:225|unique:users,email,' . @$this->admin->id,
             'phone' => ["required", "numeric", "digits_between:9,20", 'starts_with:9665,5', function ($attribute, $value, $fail) {
                 if(!check_phone_valid($value)){
-                    $fail(trans('mobile.validation.invalid_phone'));
+                    $fail(trans('mobile.validation.phone.invalid'));
                 }
             },'unique:users,phone,'.@$this->admin->id],
         ] + $data;

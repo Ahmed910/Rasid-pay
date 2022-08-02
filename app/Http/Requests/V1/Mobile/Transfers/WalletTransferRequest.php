@@ -71,7 +71,7 @@ class WalletTransferRequest extends ApiMasterRequest
                 }
                 $user = User::where('id', "<>", auth()->id())->firstWhere(['user_type' => 'citizen', 'identity_number' => $value]);
                 if (!$user) {
-                    return trans('mobile.validation.identity_number_is_not_found');
+                    return trans('mobile.validation.identity_number.is_not_found');
                 }
                 break;
 
@@ -82,7 +82,7 @@ class WalletTransferRequest extends ApiMasterRequest
                 }
                 $user = User::where('id', "<>", auth()->id())->firstWhere(['user_type' => 'citizen', 'phone' => filter_mobile_number($value)]);
                 if (!$user) {
-                    return trans('mobile.validation.phone_number_is_not_found');
+                    return trans('mobile.validation.phone.is_not_found');
                 }
 
                 break;
@@ -92,7 +92,7 @@ class WalletTransferRequest extends ApiMasterRequest
 
     private function checkPhoneValid($phone)
     {
-        return check_phone_valid($phone) ? true : trans('mobile.validation.invalid_phone');
+        return check_phone_valid($phone) ? true : trans('mobile.validation.phone.invalid');
     }
 
     private function checkBlackList($user)

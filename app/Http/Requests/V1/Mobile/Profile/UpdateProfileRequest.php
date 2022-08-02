@@ -18,7 +18,7 @@ class UpdateProfileRequest extends ApiMasterRequest
             // 'fullname' => 'required|string|max:100',
             'phone' => ["required", "numeric", function ($attribute, $value, $fail) {
                 if (!check_phone_valid($value)) {
-                    $fail(trans('mobile.validation.invalid_phone'));
+                    $fail(trans('mobile.validation.phone.invalid'));
                 }
             }, 'unique:users,phone,' . auth()->id()],
             'lat' => 'nullable|string|max:15',

@@ -2,6 +2,13 @@
 
 return [
     'validation' => [
+        "identity_number" => [
+            "required" => "رقم الهوية / الإقامة  مطلوب",
+            "min" => "اسم المستخدم يجب ان لا يقل عن 2 حروف",
+            "digits" => "رقم الهوية يجب أن يكون :digits أرقام",
+            "not_exists" => "هذا الرقم غير مسجل بالنظام",
+            'is_not_found' => 'رقم الهوية غير صحيح',
+        ],
         "fullname" => [
             "required" => "اسم المستخدم مطلوب",
             "min" => "اسم المستخدم يجب ان لا يقل عن 2 حروف",
@@ -10,6 +17,9 @@ return [
         "phone" => [
             "required" => "رقم الجوال مطلوب",
             "invalid" => "صيغة رقم الجوال غير صحيحة",
+            "is_not_found" => "رقم الهاتف غير صحيح",
+            'unique' => 'رقم الجوال مسجل لدينا من قبل',
+            'digits' => 'رقم الجوال يجب أن يكون :digits أرقام',
         ],
 
         "email" => [
@@ -18,34 +28,36 @@ return [
             "regex" => "البريد الالكتروني غير صحيح رجاء التأكد من الكتابة بطريقة صحيحة",
         ],
 
+        'password' => [
+            'min' => 'كلمة المرور يجب ان لا تقل عن :min حروف',
+            'max' => 'كلمة المرور يجب ان لا تزيد عن :max حرفا',
+            'regex' => 'كلمة المرور يجب أن تحتوي علي حروف كبيرة و صغيرة و أرقام و علامات خاصة',
+        ],
         'card_date_format' => 'أدخل التاريخ بصيغة صحيحة',
         'after' => 'يجب ادخال تاريخ مستقبلي',
         'date_format' => 'يجب ادخال تاريخ مستقبلي',
         'code' => [
             'exists' => 'رمز التحقق غير صحيح',
         ],
-        'identity_number_is_not_found' => 'رقم الهوية غير صحيح',
-        'phone_number_is_not_found' => 'رقم الهاتف غير صحيح',
         'wallet_number_is_not_found' => 'رقم المحفظة غير صحيح',
         'not_same_wallet' => 'عفوا لا يمكن التحويل لمحفظتك الشخصية',
-        'password' => [
-            'min' => 'كلمة المرور يجب ان لا تقل عن :min حروف',
-            'max' => 'كلمة المرور يجب ان لا تزيد عن :max حرفا',
-            'regex' => 'كلمة المرور يجب أن تحتوي علي حروف كبيرة و صغيرة و أرقام و علامات خاصة',
+        'reset_code' => [
+            'required' => 'رمز التحقق مطلوب',
+            'exists' => 'رمز التحقق غير صحيح',
         ],
         'after_today' => 'يجب ادخال تاريخ مستقبلي',
         'card_after_today' => 'يجب ادخال تاريخ مستقبلي',
-        'invalid_phone' => 'صيغة رقم الجوال غير صحيحة',
-        'mobile' => [
-            'otp_invaild' => 'رمز التحقق غير صالح',
-            'otp_vaild' => 'رمز التحقق صالح',
-        ],
+    
         'card_name' => 'اسم البطاقة مطلوب',
         'invalid_iban' => 'رقم الأيبان غير صحيح',
-        'unique_phone' => 'رقم الجوال مسجل لدينا من قبل',
-        'phone_digits' => 'رقم الجوال يجب أن يكون :digits أرقام',
-        'identity_number_digits' => 'رقم الهوية يجب أن يكون :digits أرقام',
         'before' => 'لا يمكن ان يكون تاريخ الميلاد تاريخ مستقبلي',
+        'otp' => [
+            'required' => 'رمز OTP مطلوب',
+            'exists' => 'رمز OTP غير صحيح',
+            'invaild' => 'رمز التحقق غير صالح',
+            'vaild' => 'رمز التحقق صالح'
+        ],
+    
     ],
     'beneficiaries' => [
         "iban_number" =>   [
@@ -112,25 +124,12 @@ return [
         'current_balance_is_not_sufficient_to_complete_transaction' => 'لا يوجد رصيد كافى',
         'transfer_has_been_done_successfully' => 'تم التحويل بنجاح',
     ],
-    'min' => [
-        'string' => 'كلمة المرور يجب ان لا تقل عن 8 حروف',
-    ],
     'promotion' => [
         'package_is_required' => 'يجب إختيار باقة',
         'package_is_not_found' => 'الباقة غير موجودة',
         'promo_code_is_used' => 'كود التخفيض مستخدم من قبل',
         'promo_code_is_not_found' => 'كود التخفيض غير صالح',
         'promoted_successfully' => 'تم ترقية الباقة بنجاح',
-    ],
-    'mobile' =>
-    [
-        'validation' =>
-        [
-            'mobile' =>
-            [
-                'otp_vaild' => 'رمز التحقق صالح',
-            ],
-        ],
     ],
     'local_transfers' => [
         'local_transfers' => 'التحويلات المحلية',
@@ -179,10 +178,6 @@ return [
         'beneficiary_name' => 'اسم المستفيد',
         'benefeciary_address' => 'عنوان المستفيد',
         'transfer_purpose' => 'الغرض من الحوالة',
-    ],
-    'otp' => [
-        'required' => 'رمز OTP مطلوب',
-        'exists' => 'رمز OTP غير صحيح'
     ],
 
     'currencies' => [

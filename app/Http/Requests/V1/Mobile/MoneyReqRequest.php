@@ -17,7 +17,7 @@ class MoneyReqRequest extends ApiMasterRequest
             "amount_required" => 'required|min:1|max:10|regex:/^[\pN\,\.]+$/u',
             'phone' => ["required", "numeric", function ($attribute, $value, $fail) {
                 if(!check_phone_valid($value)){
-                    $fail(trans('mobile.validation.invalid_phone'));
+                    $fail(trans('mobile.validation.phone.invalid'));
                 }
             }],
             "notes" => 'required|string|max:255',

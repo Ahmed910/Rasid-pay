@@ -15,12 +15,12 @@ class ProfileRequest extends ApiMasterRequest
             // 'email' => 'required|email|max:225|unique:users,email,' . auth()->id(),
             // 'phone' => ["required", "numeric", function ($attribute, $value, $fail) {
             //     if (!check_phone_valid($value)) {
-            //         $fail(trans('mobile.validation.invalid_phone'));
+            //         $fail(trans('mobile.validation.phone.invalid'));
             //     }
             // }, 'unique:users,phone,' . auth()->id()],
             // 'whatsapp' => ["required", "numeric", function ($attribute, $value, $fail) {
             //     if (!check_phone_valid($value)) {
-            //         $fail(trans('mobile.validation.invalid_phone'));
+            //         $fail(trans('mobile.validation.phone.invalid'));
             //     }
             // }, 'unique:users,whatsapp,' . auth()->id()],
             // 'identity_number' => 'required|digits:10|unique:users,identity_number,' . auth()->id(),
