@@ -222,7 +222,27 @@ return [
         "global_transfer" => [
             "title" => "تم التحويل الدولي بنجاح",
 
-        ]
+        ],
+        "local_transfer" => [
+            "title" => "تم التحويل المحلي بنجاح",
+
+        ],
+        "payment" => [
+            "title" => "تمت عملية التحويل بنجاح",
+
+        ],
+        "charge" => [
+            "title" => "تمت عملية الشحن بنجاح",
+
+        ],
+        "money_request" => [
+            "title" => "تمت عملية طلب الأموال بنجاح",
+
+        ],
+        "promote_package" => [
+            "title" => "تم ترقية الباقة بنجاح",
+
+        ],
         ],
 
         "wallet_transfer" => [

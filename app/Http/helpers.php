@@ -172,6 +172,7 @@ if (!function_exists('setting')) {
                 return Setting::get();
             });
 
+
             $setting = $settings->firstWhere('key', $attr)?->value;
 
             if (is_string($setting)) {
@@ -276,7 +277,7 @@ if (!function_exists('getPercentOfNumber')) {
 
 
 if (!function_exists('calcCurrency')) {
-    function calcCurrency($base, $toCurrency = null)
+    function calcCurrency($base)
     {
         $req_url = 'https://api.exchangerate.host/latest?base=' . $base;
         $response_json = file_get_contents($req_url);
@@ -294,4 +295,35 @@ if (!function_exists('calcCurrency')) {
             }
         }
     }
+}
+
+if (!function_exists('binarySearchForAssocArray')) {
+    function binarySearchForAssocArray($needle,$hystack,$keys){
+        $low = 0;
+        $high = count($hystack) - 1;
+
+        while ($low <= $high) {
+
+            // compute middle index
+            $mid = (int)floor(($low + $high) / 2);
+
+            // element found at mid
+
+            if($keys[$mid] == $needle) {
+
+                return $hystack[$needle];
+            }
+
+            if ($needle < $keys[$mid]) {
+                // search the left side of the array
+                $high = $mid -1;
+            }
+            else {
+                // search the right side of the array
+                $low = $mid + 1;
+            }
+        }
+        return false;
+    }
+
 }

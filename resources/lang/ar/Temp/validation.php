@@ -321,7 +321,9 @@ return [
 
        "amount" =>   [
             "required" => "مبلغ التحويل مطلوب",
-            "gte" => "لا يوجد رصيد كافى"
+            "gte" => "لا يوجد رصيد كافى",
+            'greaterThanEqual' => 'مبلغ التحويل يجب أن لا يقل عن :value',
+            'lessThanEqual' => 'مبلغ التحويل يجب أن لا يتجاوز عن :value',
         ],
 
         "notes" =>   [
