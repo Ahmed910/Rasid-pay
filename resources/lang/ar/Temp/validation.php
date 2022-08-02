@@ -324,7 +324,16 @@ return [
     'local_transfers' =>[
         'amount'=>[
             'gte'=>'مبلغ التحويل يجب أن لا يقل عن :min_amount',
-            'lte'=>'مبلغ التحويل يجب أن لا يتجاوز عن :max_amount'
+            'lte'=>'مبلغ التحويل يجب أن لا يتجاوز عن :max_amount',
+            "required" => "مبلغ التحويل مطلوب",
+
+        ],
+        'transfer_purpose_id'=>[
+            "required" =>  "الغرض من التحويل  مطلوب ",
+
+        ],
+        "notes" =>   [
+            "required" => "الغرض من التحويل مطلوب"
         ],
 
     ],
@@ -337,11 +346,12 @@ return [
 
        "amount" =>   [
             "required" => "مبلغ التحويل مطلوب",
-            "gte" => "لا يوجد رصيد كافى"
-        ],
+            'gte'=>'مبلغ التحويل يجب أن لا يقل عن :min_amount',
+            'lte'=>'مبلغ التحويل يجب أن لا يتجاوز عن :max_amount',
+       ],
 
         "notes" =>   [
-            "required_without" => "الغرض من التحويل مطلوب"
+            "required" => "الغرض من التحويل مطلوب"
         ],
 
        "beneficiary" =>   [
