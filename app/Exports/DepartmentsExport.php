@@ -31,7 +31,7 @@ class DepartmentsExport implements FromView, ShouldAutoSize, WithEvents
     {
 
         $departmentsQuery = Department::search($this->request)
-            ->CustomDateFromTo($this->request)
+            ->customDateFromTo($this->request)
             ->with('parent.translations')
             ->sortBy($this->request)
             ->ListsTranslations('name')

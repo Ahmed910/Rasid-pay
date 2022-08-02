@@ -6,7 +6,6 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\V1\Mobile\Transfers\WalletTransferRequest;
 use App\Http\Resources\Api\V1\Mobile\{Transactions\TransactionResource};
 use App\Models\{CitizenWallet, Transaction, Transfer, User};
-use App\Notifications\generalNotification;
 use App\Services\WalletBalance;
 
 class WalletTransferController extends Controller
@@ -19,7 +18,6 @@ class WalletTransferController extends Controller
 
     public function store(WalletTransferRequest $request, Transfer $transfer)
     {
-
         // check max value of transfer per day
         $citizen_wallet = CitizenWallet::with('citizen')->where('citizen_id', auth()->id())->firstOrFail();
         if ($request->amount > $citizen_wallet->main_balance + $citizen_wallet->cash_back) {
@@ -67,10 +65,10 @@ class WalletTransferController extends Controller
         $transfer->fill($request->validated() + $data)->save();
         $transaction = $transfer->transaction()->create([
             'from_user_id' => auth()->id(),
-            'to_user_id' => $request->citizen_id,
+            'to_user_id' => $request->citizen_id??null,
             'amount' => $request->amount,
             'trans_type' => 'wallet_transfer',
-            'trans_status' => $transfer->transfer_status == 'transfered' ? Transaction::SUCCESS : Transaction::PENDING,
+            'trans_status' => $transfer->transfer_status == Transfer::TRANSFERRED ? Transaction::SUCCESS : Transaction::PENDING,
             'trans_number' => generate_unique_code(Transaction::class, 'trans_number', 10, 'numbers')
         ]);
 
@@ -86,7 +84,7 @@ class WalletTransferController extends Controller
             return response()->json([
                 'status' => false,
                 'data' => null,
-                'message' => trans('mobile.validation.invalid_phone')
+                'message' => trans('mobile.validation.phone.invalid')
             ], 422);
         }
         return response()->json([

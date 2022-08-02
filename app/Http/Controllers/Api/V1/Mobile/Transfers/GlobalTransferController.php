@@ -23,7 +23,7 @@ class GlobalTransferController extends Controller
         $amount = $request->amount;
 
         $amount_per_dollar = $amount * $sar_per_dollar;
-       
+
         // dd($amount_per_dollar);
         $transfer_fees = TransferFee::where('amount_from','<=',$amount_per_dollar)->orWhere('amount_to','>=',$amount_per_dollar)->first();
 

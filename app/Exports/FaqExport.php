@@ -22,7 +22,7 @@ class FaqExport implements FromView, ShouldAutoSize
     {
         $banksQuery = Faq::search($this->request)
             ->ListsTranslations('question')
-            ->CustomDateFromTo($this->request)
+            ->customDateFromTo($this->request)
             ->addSelect('faqs.created_at', 'faqs.is_active', 'faqs.order', 'faqs.added_by_id')
             ->sortBy($this->request)
             ->get();

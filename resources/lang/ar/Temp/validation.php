@@ -122,7 +122,7 @@ return [
         'card_name' => 'اسم البطاقة',
         'desc' => 'حقل الوصف',
         'username' => ' رقم المستخدم',
-        'iban_number' => 'حقل رقم الحساب ',
+        'iban_number' => 'رقم الايبان',
         'day' => 'حقل اليوم',
         'parent_id' => 'حقل القسم الرئيسي',
         'gender' => 'حقل النوع',
@@ -313,6 +313,31 @@ return [
 
     ],
 
+    'wallet_charge' =>[
+        'amount'=>[
+            'gte'=>'مبلغ الشحن يجب أن لا يقل عن :min_amount',
+            'lte'=>'مبلغ الشحن يجب أن لا يتجاوز عن :max_amount'
+        ],
+
+    ],
+
+    'local_transfers' =>[
+        'amount'=>[
+            'gte'=>'مبلغ التحويل يجب أن لا يقل عن :min_amount',
+            'lte'=>'مبلغ التحويل يجب أن لا يتجاوز عن :max_amount',
+            "required" => "مبلغ التحويل مطلوب",
+
+        ],
+        'transfer_purpose_id'=>[
+            "required" =>  "الغرض من التحويل  مطلوب ",
+
+        ],
+        "notes" =>   [
+            "required" => "الغرض من التحويل مطلوب"
+        ],
+
+    ],
+
     'global_transfers' => [
         "otp_code" =>   [
             "required" => "مطلوب otp رمز",
@@ -327,7 +352,7 @@ return [
         ],
 
         "notes" =>   [
-            "required_without" => "الغرض من التحويل مطلوب"
+            "required" => "الغرض من التحويل مطلوب"
         ],
 
        "beneficiary" =>   [

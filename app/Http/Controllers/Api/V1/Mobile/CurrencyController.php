@@ -14,18 +14,18 @@ class CurrencyController extends Controller
     public function index(Request $request)
     {
         $currencies = Currency::orderBy('currency_code')->get();
-        if ($currencies->first() && $currencies->first()->last_updated_at->diffInDays(Carbon::now()) == 0) {
+        if (count($currencies) > 0 && $currencies->first()->last_updated_at->diffInDays(Carbon::now()) == 0)
             return CurrencyResource::collection($currencies)->additional(['status' => true, 'message' => '']);
-        }
-        $currencies = calcCurrency('SAR');
-        foreach ($currencies->rates as $key => $value) {
+        $sarCurrencies = calcCurrency('SAR');
+        foreach ($sarCurrencies->rates as $key => $value) {
             Currency::updateOrCreate(['currency_code' => $key,],
                 [
                     'currency_value' => $value,
-                    'last_updated_at' => $currencies->date
+                    'last_updated_at' => $sarCurrencies->date
                 ]);
         }
-        return CurrencyResource::collection($currencies)->additional(['status' => true, 'message' => '']);
+        $currencies = Currency::orderBy('currency_code')->get();
+        return CurrencyResource::collection(collect($currencies))->additional(['status' => true, 'message' => '']);
     }
 
 

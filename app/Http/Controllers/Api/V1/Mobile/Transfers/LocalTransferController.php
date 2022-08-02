@@ -16,10 +16,10 @@ class LocalTransferController extends Controller
 
     public function store(LocalTransferRequest $request)
     {
-
         $wallet = CitizenWallet::with('citizen')->where('citizen_id', auth()->id())->firstOrFail();
         $fees = setting('rasidpay_localtransfer_transferfees') ?: 7;
         $amount = $request->amount;
+        $wallet_amount = $request->amount;
         // calculate fees
         $amount_fees = getPercentOfNumber($amount, $fees);
         $fee_upon = $request->fee_upon;
@@ -28,11 +28,11 @@ class LocalTransferController extends Controller
                 return response()->json(['data' => null, 'message' => trans('mobile.local_transfers.current_balance_is_not_sufficient_to_complete_transaction'), 'status' => false], 422);
             }
             $amount += $amount_fees;
+            $wallet_amount += $amount_fees;
         } else {
             if ($amount > $wallet->main_balance) {
                 return response()->json(['data' => null, 'message' => trans('mobile.local_transfers.current_balance_is_not_sufficient_to_complete_transaction'), 'status' => false], 422);
             }
-             $amount -= $amount_fees;
         }
         $wallet->update(['wallet_bin' => null]);
         // Set transfer data
@@ -44,9 +44,10 @@ class LocalTransferController extends Controller
                 'transfer_fees' => $fees,
                 'transfer_fees_amount' => $amount_fees,
             ];
-        $wallet->decrement('main_balance', $amount);
+        $wallet->decrement('main_balance', $wallet_amount);
         $local_transfer = Transfer::create($transfer_data + ['main_amount' => $amount]);
         $local_transfer->bankTransfer()->create($request->except('amount', 'transfer_fees', 'balance_type'));
+//        TODO:: amount will be change when implement payment gateway according to fee upon
         $transaction = $local_transfer->transaction()->create([
             'amount' => $request->amount,
             'trans_type' => 'local_transfer',

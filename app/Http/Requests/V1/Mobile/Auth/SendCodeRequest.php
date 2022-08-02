@@ -10,7 +10,7 @@ class SendCodeRequest extends ApiMasterRequest
     public function rules()
     {
         return [
-            'identity_number' => 'required|numeric|digits_between:10,20|exists:users,identity_number',
+            'identity_number' => 'required|numeric|regex:/^[1-9][0-9]*$/|digits:10|exists:users,identity_number',
             'key_name' => 'required|in:verified_code,reset_code'
         ];
     }
@@ -28,5 +28,13 @@ class SendCodeRequest extends ApiMasterRequest
         return $this->merge([
             'key_name' => $keyName,
         ]);
+    }
+
+    public function messages(){
+        return [
+            "identity_number.required"  => __('mobile.validation.identity_number.required'),
+            "identity_number.digits"     => __('mobile.validation.identity_number.digits'),
+            "identity_number.exists"     => __('mobile.validation.identity_number.not_exists'),
+        ];
     }
 }

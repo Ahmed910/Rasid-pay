@@ -26,7 +26,19 @@
       <td>{{ $vendor->lng ?? '' }}</td>
       <td>{{ $vendor->location ?? '' }}</td>
       <td>{{ $vendor->address_details ?? '' }}</td>
-      <td>{{ (bool) $vendor->is_active ?? '' }}</td>
+      <td>
+        @if($vendor->is_active)
+        <div class="active">
+          <i class="mdi mdi-check-circle-outline"></i>
+          {{ trans('dashboard.vendor_branch.active_cases.1') }}
+        </div>
+        @else
+        <div class="unactive">
+          <i class="mdi mdi-cancel"></i>
+          {{ trans('dashboard.vendor_branch.active_cases.0') }}
+        </div>
+        @endif
+      </td>
       <td>{{ $vendor->email ?? '' }}</td>
       <td>{{ $vendor->phone ?? '' }}</td>
     </tr>

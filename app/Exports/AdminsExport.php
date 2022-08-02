@@ -19,7 +19,7 @@ class AdminsExport implements FromView, ShouldAutoSize
     public function view(): View
     {
 
-        $adminsQuery = User::CustomDateFromTo($this->request)
+        $adminsQuery = User::customDateFromTo($this->request)
         ->search($this->request)->where('user_type', 'admin')->has("employee")
         ->sortBy($this->request)
         ->get();

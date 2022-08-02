@@ -8,8 +8,6 @@ use App\Http\Resources\Api\V1\Mobile\Transactions\TransactionResource;
 use App\Models\Transaction;
 use App\Services\GeneratePdf;
 use Illuminate\Support\Facades\File;
-use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
 class TransactionController extends Controller
@@ -19,7 +17,7 @@ class TransactionController extends Controller
         $transactions = auth()->user()->citizenTransactions()
             ->mobileSearch($request)
             ->whereNotNull('transactionable_type')
-            ->CustomDateFromTo($request)
+            ->customDateFromTo($request)
             ->latest()
             ->paginate((int)($request->per_page ?? config("globals.per_page")));
 
@@ -95,7 +93,6 @@ class TransactionController extends Controller
     public function getTransTypes()
     {
         $data = transform_array_api(Transaction::TRANACTION_TYPES, 'mobile.transaction.transaction_types');
-
         return response()->json([
             'data' => $data,
             'status' => true,

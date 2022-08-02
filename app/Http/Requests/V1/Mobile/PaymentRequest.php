@@ -15,7 +15,7 @@ class PaymentRequest extends ApiMasterRequest
     {
         return [
             "invoice_number" => 'required|unique:payments,invoice_number',
-            "amount" => 'required|min:1|max:10|gt:0|regex:/^[\pN\,\.]+$/u',
+            "amount" => ['required', 'regex:/^\\d{1,5}$|^\\d{1,5}\\.\\d{0,2}$/', 'numeric'],
             "description" => 'nullable|min:1|max:255',
             'payment_type' => 'required',
             "payment_data" => 'nullable|string|max:255',
@@ -37,8 +37,10 @@ class PaymentRequest extends ApiMasterRequest
     {
         return [
             'invoice_number.unique' => trans('mobile.payments.is_paid_before'),
-            'otp_code.required' => trans('mobile.otp.required'),
-            'otp_code.exists' => trans('mobile.otp.exists'),
+            'otp_code.required' => trans('mobile.validation.otp.required'),
+            'otp_code.exists' => trans('mobile.validation.otp.exists'),
+            'invoice_number.required' => trans('mobile.payments.invoice_number_required'),
+            'amount.required' => trans('mobile.payments.amount_required')
         ];
     }
 }

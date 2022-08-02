@@ -4,7 +4,7 @@ namespace App\Models;
 
 use App\Models\Bank\Bank;
 use App\Models\BankBranch\BankBranch;
-
+use App\Services\GenerateQrCode;
 //use App\Models\CardPackage\CardPackage;
 use Carbon\Carbon;
 use GeniusTS\HijriDate\Hijri;
@@ -142,31 +142,8 @@ class Transaction extends Model
     public function setTransNumberAttribute($value)
     {
         $this->attributes['trans_number'] = $value;
-        $this->attributes['qr_path'] = self::createQr($value);
+        $this->attributes['qr_path'] = GenerateQrCode::createQr($value, 'app/public/images/transactions/');
     }
-
-    private static function createQr($qr_value)
-    {
-        self::checkOrCreateQrDirectory();
-        $filname = time() . "_" . $qr_value . "_qr_code.png";
-
-        $path = storage_path('app/public/images/transactions/' . $filname);
-        \QrCode::errorCorrection('H')
-            ->format('png')
-            ->encoding('UTF-8')
-            ->merge(public_path('dashboardAssets/images/brand/logoQR.png'), .2, true)
-            ->size(500)
-            ->generate((string)$qr_value, $path);
-        return 'images/transactions/' . $filname;
-    }
-
-    private static function checkOrCreateQrDirectory()
-    {
-        if (!\File::isDirectory(storage_path('app/public/images/transactions/'))) {
-            \File::makeDirectory(storage_path('app/public' . DIRECTORY_SEPARATOR . 'images' . DIRECTORY_SEPARATOR . 'transactions' . DIRECTORY_SEPARATOR), 0777, true);
-        }
-    }
-
 
     public function fromUser()
     {
@@ -202,4 +179,5 @@ class Transaction extends Model
     {
         return $this->belongsTo(CitizenPackage::class, 'citizen_package_id', 'id');
     }
+
 }

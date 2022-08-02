@@ -34,7 +34,7 @@ class ClientRequest extends ApiMasterRequest
             "country_code" => "nullable|in:" . $list,
             'phone' => ["nullable", function ($attribute, $value, $fail) {
                 if (!check_phone_valid($value)) {
-                    $fail(trans('mobile.validation.invalid_phone'));
+                    $fail(trans('mobile.validation.phone.invalid'));
                 }
             }, 'unique:users,phone,' . @$this->client],
             "full_phone" => ["unique:users,phone," . @$this->client],

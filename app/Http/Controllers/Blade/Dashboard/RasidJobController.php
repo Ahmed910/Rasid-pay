@@ -34,7 +34,7 @@ class RasidJobController extends Controller
 
             $rasid_jobsQuery = RasidJob::without('employee')->search($request)
                 ->has("department")
-                ->CustomDateFromTo($request)
+                ->customDateFromTo($request)
                 ->ListsTranslations('name')
                 ->addSelect('rasid_jobs.created_at', 'rasid_jobs.is_active', 'rasid_jobs.department_id', 'rasid_jobs.is_vacant')
                 ->sortBy($request);
@@ -135,7 +135,7 @@ class RasidJobController extends Controller
         $rasidJob = RasidJob::withTrashed()->findOrFail($id);
         $departments = Department::with('parent.translations')->ListsTranslations('name')->where(function ($q) {
             $q->/*where('parent_id', null)->*/where('is_active', 1);
-        })->orWhere('departments.id',$rasidJob->department_id)->pluck('name', 'id')->toArray();
+        })->orWhere('departments.id', $rasidJob->department_id)->pluck('name', 'id')->toArray();
         $locales = config('translatable.locales');
         return view('dashboard.rasid_job.edit', compact('departments', 'rasidJob', 'locales'));
     }
@@ -150,7 +150,7 @@ class RasidJobController extends Controller
     public function update(JobBladeRequest $request,  $rasid_job)
     {
         if (!request()->ajax()) {
-            $job = RasidJob::withTrashed()->findOrFail($rasid_job) ;
+            $job = RasidJob::withTrashed()->findOrFail($rasid_job);
             $job->fill($request->validated() + ['updated_at' => now()])->save();
             return redirect()->route('dashboard.rasid_job.index')->withSuccess(__('dashboard.general.success_update'));
         }
@@ -181,7 +181,7 @@ class RasidJobController extends Controller
         $rasid_jobsQuery = RasidJob::onlyTrashed()
             ->without('employee')
             ->search($request)
-            ->searchDeletedAtFromTo($request)
+            ->customDateFromTo($request, 'deleted_at', 'deleted_from', 'deleted_to')
             ->ListsTranslations('name')
             ->sortBy($request)
             ->addSelect('rasid_jobs.department_id', 'rasid_jobs.deleted_at', 'rasid_jobs.is_active');
@@ -252,7 +252,7 @@ class RasidJobController extends Controller
     public function exportPDF(Request $request, GeneratePdf $pdfGenerate)
     {
         $jobsQuery = RasidJob::without('employee')->search($request)
-            ->CustomDateFromTo($request)
+            ->customDateFromTo($request)
             ->ListsTranslations('name')
             ->sortBy($request)
             ->addSelect('rasid_jobs.created_at', 'rasid_jobs.is_active', 'rasid_jobs.department_id', 'rasid_jobs.is_vacant')
@@ -290,7 +290,7 @@ class RasidJobController extends Controller
             ->without('employee')
             ->search($request)
             ->sortBy($request)
-            ->searchDeletedAtFromTo($request)
+            ->customDateFromTo($request, 'deleted_at', 'deleted_from', 'deleted_to')
             ->ListsTranslations('name')
             ->addSelect('rasid_jobs.department_id', 'rasid_jobs.deleted_at', 'rasid_jobs.is_active')
             ->get();
@@ -315,10 +315,10 @@ class RasidJobController extends Controller
 
     public function getVacantJobs($id)
     {
-        $rasid_jobs = RasidJob::where(['department_id' => $id, 'is_vacant' => true,'is_active' => 1])->select('id')->ListsTranslations('name')
+        $rasid_jobs = RasidJob::where(['department_id' => $id, 'is_vacant' => true, 'is_active' => 1])->select('id')->ListsTranslations('name')
             ->without(['images', 'addedBy', 'translations', 'department', 'employee'])->get()->pluck('name', 'id')->toArray();
-            // dd($rasid_jobs);
-        $view = view('dashboard.admin.ajax.rasid_job',compact('rasid_jobs'))->render();
+        // dd($rasid_jobs);
+        $view = view('dashboard.admin.ajax.rasid_job', compact('rasid_jobs'))->render();
         return response()->json(['view' => $view]);
     }
 }

@@ -4,6 +4,7 @@ namespace App\Http\Requests\V1\Mobile\Transfers;
 
 use App\Http\Requests\ApiMasterRequest;
 use App\Models\Transfer;
+use App\Models\TransferPurpose\TransferPurpose;
 
 class LocalTransferRequest extends ApiMasterRequest
 {
@@ -15,14 +16,20 @@ class LocalTransferRequest extends ApiMasterRequest
      */
     public function rules()
     {
+        $transferPurpose = TransferPurpose::find($this->transfer_purpose_id);
+        $notes = 'nullable';
+
+        if ($transferPurpose && $transferPurpose->is_another) {
+            $notes = 'required|string|max:1000';
+        }
 
         return [
             "otp_code" => 'required|exists:citizen_wallets,wallet_bin,citizen_id,' . auth()->id(),
-            "amount" => ['required', 'regex:/^\\d{1,5}$|^\\d{1,5}\\.\\d{0,2}$/', 'numeric', 'gte:'. (setting('rasidpay_localtransfer_minvalue') ?? 10).'', 'lte:'. (setting('rasidpay_localtransfer_maxvalue')??10000).''],
+            "amount" => ['required', 'regex:/^\\d{1,7}$|^\\d{1,7}\\.\\d{0,2}$/', 'numeric', 'gte:' . (setting('rasidpay_localtransfer_minvalue') ?? 10) . '', 'lte:' . (setting('rasidpay_localtransfer_maxvalue') ?? 10000) . ''],
             'fee_upon' => 'required|in:' . join(',', Transfer::FEE_UPON),
-            'transfer_purpose_id' => 'nullable|exists:transfer_purposes,id',
+            'transfer_purpose_id' => 'required|exists:transfer_purposes,id,is_active,1',
             'beneficiary_id' => 'required|exists:beneficiaries,id,benficiar_type,local',
-            'notes'               => 'nullable|required_without:transfer_purpose_id|max:1000'
+            'notes'               => $notes
         ];
     }
 
@@ -40,6 +47,13 @@ class LocalTransferRequest extends ApiMasterRequest
         return [
             'otp_code.required' => trans('mobile.otp.required'),
             'otp_code.exists' => trans('mobile.otp.exists'),
+            'amount.required' => trans('validation.local_transfers.amount.required'),
+            'amount.gte' => trans('validation.local_transfers.amount.gte', ['min_amount' => (setting('rasidpay_localtransfer_minvalue'))]),
+            'amount.lte' => trans('validation.local_transfers.amount.lte', ['max_amount' => (setting('rasidpay_localtransfer_maxvalue'))]),
+            'transfer_purpose_id.required' => trans('validation.local_transfers.transfer_purpose_id.required'),
+            'notes.required' => __('validation.local_transfers.notes.required'),
+
+
         ];
     }
 }

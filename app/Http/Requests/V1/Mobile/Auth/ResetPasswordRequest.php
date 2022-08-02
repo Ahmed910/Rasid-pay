@@ -17,9 +17,11 @@ class ResetPasswordRequest extends ApiMasterRequest
 
     public function messages(){
         return [
-            'password.min' => __('mobile.validation.password.min'),
-            'password.max' => __('mobile.validation.password.max'),
-            'password.regex' => __('mobile.validation.password.regex'),
+            'reset_code.required' => __('mobile.validation.reset_code.required'),
+            'reset_code.exists'   => __('mobile.validation.reset_code.exists'),
+            'password.min'      => __('mobile.validation.password.min'),
+            'password.max'      => __('mobile.validation.password.max'),
+            'password.regex'    => __('mobile.validation.password.regex'),
         ];
     }
    

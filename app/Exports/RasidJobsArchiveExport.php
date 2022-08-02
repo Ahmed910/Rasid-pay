@@ -19,13 +19,13 @@ class RasidJobsArchiveExport implements FromView, ShouldAutoSize
     public function view(): View
     {
         $rasid_jobs_archiveQuery = RasidJob::onlyTrashed()
-        ->without('employee')
-        ->search($this->request)
-        ->searchDeletedAtFromTo($this->request)
-        ->ListsTranslations('name')
-        ->sortBy($this->request)
-        ->addSelect('rasid_jobs.department_id', 'rasid_jobs.deleted_at', 'rasid_jobs.is_active')
-        ->get();
+            ->without('employee')
+            ->search($this->request)
+            ->customDateFromTo($this->request, 'deleted_at', 'deleted_from', 'deleted_to')
+            ->ListsTranslations('name')
+            ->sortBy($this->request)
+            ->addSelect('rasid_jobs.department_id', 'rasid_jobs.deleted_at', 'rasid_jobs.is_active')
+            ->get();
         if (!$this->request->has('created_from')) {
             $createdFrom = RasidJob::selectRaw('MIN(created_at) as min_created_at')->value('min_created_at');
         }

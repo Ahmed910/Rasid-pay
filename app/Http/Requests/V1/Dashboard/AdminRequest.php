@@ -58,7 +58,7 @@ class AdminRequest extends ApiMasterRequest
             'email' => 'required|email|max:225|unique:users,email,' . @$this->admin->id,
             'phone' => ["required", "numeric", function ($attribute, $value, $fail) {
                 if(!check_phone_valid($value)){
-                    $fail(trans('mobile.validation.invalid_phone'));
+                    $fail(trans('mobile.validation.phone.invalid'));
                 }
             },'unique:users,phone,'.@$this->admin->id],
         ] + $data;

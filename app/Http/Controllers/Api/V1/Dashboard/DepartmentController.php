@@ -20,7 +20,7 @@ class DepartmentController extends Controller
     {
         $departments = Department::search($request)
             ->ListsTranslations('name')
-            ->CustomDateFromTo($request)
+            ->customDateFromTo($request)
             ->with('parent.translations')
             ->addSelect('departments.created_at', 'departments.is_active', 'departments.parent_id', 'departments.added_by_id')
             ->sortBy($request)
@@ -72,9 +72,13 @@ class DepartmentController extends Controller
                         $q->where('is_active', 0);
                         break;
                 }
-            })->when($request->has_jobs, function ($q) {
-                $q->whereHas('rasidJobs', function ($q) {
-                    $q->where(['rasid_jobs.is_active' => true, 'is_vacant' => true]);
+            })->when($request->has_jobs, function ($q) use ($request) {
+                $q->whereHas('rasidJobs', function ($q) use ($request) {
+                    $q->where(['rasid_jobs.is_active' => true, 'is_vacant' => true])
+                        ->orWhere(function ($q) use ($request) {
+                            $q->where(['is_active' => true, 'is_vacant' => false])
+                                ->whereHas('employee.user', fn ($q) => $q->where('users.id', $request->admin_id));
+                        });
                 });
             })->ListsTranslations('name')
                 ->addSelect('departments.is_active')
@@ -158,7 +162,7 @@ class DepartmentController extends Controller
         $departments = Department::onlyTrashed()
             ->search($request)
             ->ListsTranslations('name')
-            ->searchDeletedAtFromTo($request)
+            ->customDateFromTo($request, 'deleted_at', 'deleted_from', 'deleted_to')
             ->with('parent.translations')
             ->addSelect('departments.created_at', 'departments.deleted_at', 'departments.is_active', 'departments.parent_id', 'departments.added_by_id')
             ->latest("deleted_at")
@@ -219,7 +223,7 @@ class DepartmentController extends Controller
     public function exportPDF(Request $request, GeneratePdf $pdfGenerate)
     {
         $departmentsQuery = Department::search($request)
-            ->CustomDateFromTo($request)
+            ->customDateFromTo($request)
             ->with('parent.translations')
             ->ListsTranslations('name')
             ->sortBy($request)
@@ -271,14 +275,14 @@ class DepartmentController extends Controller
     public function exportPDFArchive(Request $request, GeneratePdf $pdfGenerate)
     {
         $departmentsQuery =  Department::onlyTrashed()
-        ->search($request)
-        ->ListsTranslations('name')
-        ->searchDeletedAtFromTo($request)
-        ->with('parent.translations')
-        ->addSelect('departments.created_at', 'departments.deleted_at', 'departments.is_active', 'departments.parent_id', 'departments.added_by_id')
-        ->latest("deleted_at")
-        ->sortBy($request)
-        ->get();
+            ->search($request)
+            ->ListsTranslations('name')
+            ->customDateFromTo($request, 'deleted_at', 'deleted_from', 'deleted_to')
+            ->with('parent.translations')
+            ->addSelect('departments.created_at', 'departments.deleted_at', 'departments.is_active', 'departments.parent_id', 'departments.added_by_id')
+            ->latest("deleted_at")
+            ->sortBy($request)
+            ->get();
 
         if (!$request->has('created_from')) {
             $createdFrom = Department::selectRaw('MIN(created_at) as min_created_at')->value('min_created_at');

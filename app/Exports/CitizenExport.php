@@ -20,7 +20,7 @@ class CitizenExport implements FromView, ShouldAutoSize
     {
         $citizensQuery = Citizen::with(['user', "enabledPackage"])
             ->whereHas('user', fn ($q) => $q->where('register_status', 'completed'))
-            ->CustomDateFromTo($this->request)
+            ->customDateFromTo($this->request)
             ->search($this->request)
             ->sortBy($this->request)
             ->get();

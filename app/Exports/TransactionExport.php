@@ -19,7 +19,7 @@ class TransactionExport implements FromView, ShouldAutoSize
     public function view(): View
     {
         $transactionsQuery = Transaction::search($this->request)
-            ->CustomDateFromTo($this->request)
+            ->customDateFromTo($this->request)
             ->sortBy($this->request)
             ->with('citizenPackage', 'toUser', 'fromUser.citizen.enabledPackage', 'transactionable')
             ->paginate((int)($this->request->per_page ?? config("globals.per_page")));

@@ -24,7 +24,7 @@ class RasidJobController extends Controller
             ->has("department")
             ->ListsTranslations('name')
             ->select('rasid_jobs.*')
-            ->CustomDateFromTo($request)
+            ->customDateFromTo($request)
             ->sortBy($request)
             ->paginate((int)($request->per_page ?? config("globals.per_page")));
 
@@ -87,7 +87,7 @@ class RasidJobController extends Controller
         $rasidJobs = RasidJob::onlyTrashed()
             ->search($request)
             ->ListsTranslations('name')
-            ->searchDeletedAtFromTo($request)
+            ->customDateFromTo($request, 'deleted_at', 'deleted_from', 'deleted_to')
             ->with('department')
             ->select('rasid_jobs.*')
             ->sortBy($request, 'archive')
@@ -169,10 +169,13 @@ class RasidJobController extends Controller
     public function getVacantJobs($id, Request $request)
     {
         return response()->json([
-            'data' => RasidJob::where(['department_id' => $id, 'is_vacant' => true])
+            'data' => RasidJob::query()
+                ->where(['department_id' => $id])
                 ->when($request->is_active, fn ($q) => $q->where('is_active', true))
                 ->when($request->admin_id, fn ($q) =>  $q->whereHas('employee', fn ($q) => $q->where('user_id', '<>', $request->admin_id)))
-                ->select('id')->ListsTranslations('name')
+                ->select('id')
+                ->ListsTranslations('name')
+                ->when($request->is_vacant == 'false', fn ($q) => $q->where('is_vacant', false), fn ($q) => $q->where('is_vacant', true))
                 ->without(['images', 'addedBy', 'translations', 'department', 'employee'])->get(),
             'status' => true,
             'message' =>  '',
@@ -182,11 +185,11 @@ class RasidJobController extends Controller
     public function exportPDF(Request $request, GeneratePdf $pdfGenerate)
     {
         $jobsQuery = RasidJob::without('employee')->search($request)
-        ->CustomDateFromTo($request)
-        ->ListsTranslations('name')
-        ->sortBy($request)
-        ->addSelect('rasid_jobs.created_at', 'rasid_jobs.is_active', 'rasid_jobs.department_id', 'rasid_jobs.is_vacant')
-        ->get();
+            ->customDateFromTo($request)
+            ->ListsTranslations('name')
+            ->sortBy($request)
+            ->addSelect('rasid_jobs.created_at', 'rasid_jobs.is_active', 'rasid_jobs.department_id', 'rasid_jobs.is_vacant')
+            ->get();
 
 
         if (!$request->has('created_from')) {
@@ -234,13 +237,13 @@ class RasidJobController extends Controller
     public function exportPDFArchive(Request $request, GeneratePdf $pdfGenerate)
     {
         $rasidJobsQuery = RasidJob::onlyTrashed()
-        ->search($request)
-        ->ListsTranslations('name')
-        ->searchDeletedAtFromTo($request)
-        ->with('department')
-        ->select('rasid_jobs.*')
-        ->sortBy($request, 'archive')
-        ->get();
+            ->search($request)
+            ->ListsTranslations('name')
+            ->customDateFromTo($request, 'deleted_at', 'deleted_from', 'deleted_to')
+            ->with('department')
+            ->select('rasid_jobs.*')
+            ->sortBy($request, 'archive')
+            ->get();
 
         if (!$request->has('created_from')) {
             $createdFrom = RasidJob::selectRaw('MIN(created_at) as min_created_at')->value('min_created_at');
@@ -283,5 +286,4 @@ class RasidJobController extends Controller
             'message' => ''
         ]);
     }
-
 }

@@ -53,7 +53,7 @@ class Client extends Model
 
         if ($request->created_from || $request->created_to) {
             $query->wherehas("user.clientTransactions", function ($q) use ($request) {
-                $q->where("status", "success")->CustomDateFromTo($request);
+                $q->where("status", "success")->customDateFromTo($request);
             });
         }
 

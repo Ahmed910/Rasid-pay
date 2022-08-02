@@ -32,7 +32,7 @@ class VendorRequest extends ApiMasterRequest
             "email" => ["required", "max:100", "email", "unique:vendors,email," . @$this->vendor],
             "phone" => ["required", "numeric", function ($attribute, $value, $fail) {
                 if (!check_phone_valid($value)) {
-                    $fail(trans('mobile.validation.invalid_phone'));
+                    $fail(trans('mobile.validation.phone.invalid'));
                 }
             }, 'unique:vendors,phone,' . $this->vendor],
             'logo' => (!$this->isMethod('put')) ? "required|" : "nullable|" . 'mimes:jpeg,jpg,png,suv,heic',
