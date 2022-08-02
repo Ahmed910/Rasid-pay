@@ -110,7 +110,7 @@ return [
         ],
         'transaction_details' => [
             'payment_status' => 'تمت عملية الشراء من العميل  بقيمة فاتورة :amount وتم استرداد مبلغ :refund_amount',
-            'wallet_transfer_status' => 'تم تحويل مبلغ :amount ر.س من المحفظة الخاصة بك إلى محفظة المستخدم ب:transfer_type_trans :to_user_identity_or_mobile_or_wallet_number ',
+            'wallet_transfer_status' => 'تم تحويل مبلغ :amount ر.س من المحفظة الخاصة بك إلى محفظة المستخدم ب:transfer_type_trans :to_user_identity_or_mobile_or_wallet_number',
             'local_transfer_status' => 'تم تحويل مبلغ :amount ر.س من المحفظة الخاصة بك إلى المستفيد :beneficiary برقم IBAN :iban',
             'global_transfer_status' => 'تم تحويل مبلغ :amount بعملة :currency من المحفظة الخاصة بك إلى المستفيد :beneficiary بدولة :country باستخدام :recieve_option وبرقم :mtcn',
             'charge_status' => 'تم شحن رصيد المحفظة الخاصة بك بالقيمة :amount عن طريق :method',
@@ -245,14 +245,6 @@ return [
         ]
     ],
     'notifications' => [
-        'charge' => [
-            'title' => 'شحن المحفظة',
-
-        ],
-        'payment' => [
-            'title' => 'دفع فاتورة',
-
-        ],
         'wallet_transfer' => [
             'title' => 'تحويل برقم المحفظة',
 
@@ -285,15 +277,7 @@ return [
             "title" => "تم ترقية الباقة بنجاح",
 
         ],
-        ],
-        "promote_package" => [
-            "title" => "ترقية بطاقة",
 
-        ],
-        "local_transfer" => [
-            "title" => "تحويل محلي",
-
-        ]
     ],
 
     "wallet_transfer" => [

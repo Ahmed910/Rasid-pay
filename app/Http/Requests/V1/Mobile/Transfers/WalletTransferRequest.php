@@ -110,8 +110,8 @@ class WalletTransferRequest extends ApiMasterRequest
     public function messages()
     {
         return [
-            'otp_code.required' => trans('mobile.otp.required'),
-            'otp_code.exists' => trans('mobile.otp.exists'),
+            'otp_code.required' => trans('mobile.validation.otp.required'),
+            'otp_code.exists' => trans('mobile.validation.otp.exists'),
             'transfer_purpose_id.exists' => trans('mobile.wallet_transfer.transfer_purpose.exists'),
             'amount.gte' => trans('validation.wallet_transfer.amount.gte', ['min_amount' => (setting('rasidpay_wallettransfer_minvalue'))]),
             'amount.lte' => trans('validation.wallet_transfer.amount.lte', ['max_amount' => (setting('rasidpay_wallettransfer_maxvalue'))]),
