@@ -84,7 +84,7 @@ class WalletTransferController extends Controller
             return response()->json([
                 'status' => false,
                 'data' => null,
-                'message' => trans('mobile.validation.invalid_phone')
+                'message' => trans('mobile.validation.phone.invalid')
             ], 422);
         }
         return response()->json([

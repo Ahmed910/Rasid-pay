@@ -23,7 +23,7 @@ class VendorBranchRequest extends ApiMasterRequest
             'email' => 'required|email|unique:vendor_branches,email,' . $this->vendor_id . ",vendor_id",
             "phone" => ["required", "numeric", function ($attribute, $value, $fail) {
                 if (!check_phone_valid($value)) {
-                    $fail(trans('mobile.validation.invalid_phone'));
+                    $fail(trans('mobile.validation.phone.invalid'));
                 }
             }, "unique:vendor_branches,phone," . $this->vendor_id . ",vendor_id"],
             'lat' => 'required|numeric',

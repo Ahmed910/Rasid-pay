@@ -25,12 +25,12 @@ class EmployeeRequest extends ApiMasterRequest
             'identity_number' => 'required|numeric|digits_between:10,20|unique:users,identity_number,' . @$this->employee,
             'phone' => ["required", "numeric", function ($attribute, $value, $fail) {
                 if (!check_phone_valid($value)) {
-                    $fail(trans('mobile.validation.invalid_phone'));
+                    $fail(trans('mobile.validation.phone.invalid'));
                 }
             }, 'unique:users,phone,' . @$this->employee],
             'whatsapp' => ["required", "numeric", function ($attribute, $value, $fail) {
                 if (!check_phone_valid($value)) {
-                    $fail(trans('mobile.validation.invalid_phone'));
+                    $fail(trans('mobile.validation.phone.invalid'));
                 }
             }, 'unique:users,whatsapp,' . @$this->employee],
             'gender' => 'required|in:male,female',

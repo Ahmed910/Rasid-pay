@@ -81,7 +81,7 @@ class WalletController extends Controller
         $data = ["is_opt_vaild" => $result];
 
         return response()->json(['status' => true,
-            'message' => trans($result ? "mobile.validation.mobile.otp_vaild" : "mobile.validation.mobile.otp_invaild"),
+            'message' => trans($result ? "mobile.validation.otp.vaild" : "mobile.validation.otp.invaild"),
             'data' => $data]);
     }
 }

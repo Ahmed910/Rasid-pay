@@ -37,8 +37,8 @@ class PaymentRequest extends ApiMasterRequest
     {
         return [
             'invoice_number.unique' => trans('mobile.payments.is_paid_before'),
-            'otp_code.required' => trans('mobile.otp.required'),
-            'otp_code.exists' => trans('mobile.otp.exists'),
+            'otp_code.required' => trans('mobile.validation.otp.required'),
+            'otp_code.exists' => trans('mobile.validation.otp.exists'),
             'invoice_number.required' => trans('mobile.payments.invoice_number_required'),
             'amount.required' => trans('mobile.payments.amount_required')
         ];
