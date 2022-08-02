@@ -245,14 +245,6 @@ return [
         ]
     ],
     'notifications' => [
-        'charge' => [
-            'title' => 'شحن المحفظة',
-
-        ],
-        'payment' => [
-            'title' => 'دفع فاتورة',
-
-        ],
         'wallet_transfer' => [
             'title' => 'تحويل برقم المحفظة',
 
@@ -285,15 +277,7 @@ return [
             "title" => "تم ترقية الباقة بنجاح",
 
         ],
-        ],
-        "promote_package" => [
-            "title" => "ترقية بطاقة",
 
-        ],
-        "local_transfer" => [
-            "title" => "تحويل محلي",
-
-        ]
     ],
 
     "wallet_transfer" => [
