@@ -17,7 +17,7 @@ class BeneficiaryRequest extends ApiMasterRequest
             'recieve_option_id' => 'nullable|required_if:benficiar_type,' . Beneficiary::GLOBAL_TYPE . '|exists:recieve_options,id',
             'nationality_id' => 'nullable|exists:countries,id',
             'date_of_birth' => 'nullable|date_format:Y-m-d|after_or_equal:1920-01-01|before:' . date("Y-m-d"),
-            "iban_number" => ['required', 'starts_with:SA', "size:24", 'alpha_num', "unique:beneficiaries,iban_number," . @$this->beneficiary],
+            "iban_number" => ['required_if:benficiar_type,' . Beneficiary::LOCAL_TYPE, 'starts_with:SA', "size:24", 'alpha_num', "unique:beneficiaries,iban_number," . @$this->beneficiary. ',id,user_id,'.auth()->id()],
             'is_saved' => 'required|in:1,0'
         ];
     }

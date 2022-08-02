@@ -91,6 +91,8 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::post('transfers/{transfer_id}', 'TransferController@cancelTransfer');
         Route::post('check_amount', 'TransferController@checkTransferredAmount')->middleware('check_max_transactions');
     });
+
+    Route::get('system_variables','SettingController@index')->name('settings.index');
 });
 
 Route::get('generate_transaction_file/{id}', 'TransactionController@generatePdfLink');

@@ -47,20 +47,36 @@ return [
         ],
         'after_today' => 'يجب ادخال تاريخ مستقبلي',
         'card_after_today' => 'يجب ادخال تاريخ مستقبلي',
-
         'card_name' => 'اسم البطاقة مطلوب',
         'invalid_iban' => 'رقم الأيبان غير صحيح',
         'before' => 'لا يمكن ان يكون تاريخ الميلاد تاريخ مستقبلي',
+
         'otp' => [
             'required' => 'رمز OTP مطلوب',
             'exists' => 'رمز OTP غير صحيح',
             'invaild' => 'رمز التحقق غير صالح',
             'vaild' => 'رمز التحقق صالح'
         ],
-
+        'card_name' => 'اسم البطاقة مطلوب',
+        'owner_name' => 'الاسم مطلوب',
+        'invalid_iban' => 'رقم الأيبان غير صحيح',
+        'unique_phone' => 'رقم الجوال مسجل لدينا من قبل',
+        'phone_digits' => 'رقم الجوال يجب أن يكون :digits أرقام',
+        'identity_number_digits' => 'رقم الهوية يجب أن يكون :digits أرقام',
+        'before' => 'لا يمكن ان يكون تاريخ الميلاد تاريخ مستقبلي',
+        'card_number_digits' => 'الرقم علي البطاقة يجب ان يكون مكون من :card_digits رقم',
+        'required_card_number' => 'رقم البطاقة مطلوب',
     ],
+    'wallet_charge' => [
+        'amount' => [
+            'gte' => 'يجب ان لا يقل قيمة المبلغ عن :min_amount',
+            'lte' => 'يجب ان لا يتعدي قيمة المبلغ عن :max_amount'
+        ],
+    ],
+
+
     'beneficiaries' => [
-        "iban_number" =>   [
+        "iban_number" => [
             "required" => "رقم الايبان مطلوب",
             "starts_with" => "رقم الايبان يجب ان يبدأ ب :starts_with",
             "size" => "رقم الايبان يجب ان يكون :size حرف ورقم",
@@ -94,7 +110,7 @@ return [
         ],
         'transaction_details' => [
             'payment_status' => 'تمت عملية الشراء من العميل  بقيمة فاتورة :amount وتم استرداد مبلغ :refund_amount',
-            'wallet_transfer_status' => 'تم تحويل مبلغ :amount ر.س من المحفظة الخاصة بك إلى محفظة المستخدم ب:transfer_type_trans :to_user_identity_or_mobile_or_wallet_number ',
+            'wallet_transfer_status' => 'تم تحويل مبلغ :amount ر.س من المحفظة الخاصة بك إلى محفظة المستخدم ب:transfer_type_trans :to_user_identity_or_mobile_or_wallet_number',
             'local_transfer_status' => 'تم تحويل مبلغ :amount ر.س من المحفظة الخاصة بك إلى المستفيد :beneficiary برقم IBAN :iban',
             'global_transfer_status' => 'تم تحويل مبلغ :amount بعملة :currency من المحفظة الخاصة بك إلى المستفيد :beneficiary بدولة :country باستخدام :recieve_option وبرقم :mtcn',
             'charge_status' => 'تم شحن رصيد المحفظة الخاصة بك بالقيمة :amount عن طريق :method',
