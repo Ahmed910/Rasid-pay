@@ -13,7 +13,7 @@ class SettingController extends Controller
                 'local_transfer_fees' => setting('rasidpay_localtransfer_transferfees')
             ],
             'status' => true,
-            'message' =>  trans('dashboard.general.sent_successfully'),
+            'message' =>  '',
         ]);
     }
 }
