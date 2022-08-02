@@ -31,6 +31,7 @@ class BeneficiaryRequest extends ApiMasterRequest
             'iban_number.required' => __('mobile.beneficiaries.iban_number.required'),
             'iban_number.starts_with' => __('mobile.beneficiaries.iban_number.starts_with', ['starts_with' => 'SA']),
             'iban_number.size' => __('mobile.beneficiaries.iban_number.size', ['size' => '24']),
+            'iban_number.unique' => __('mobile.beneficiaries.iban_number.unique'),
         ];
     }
 }
