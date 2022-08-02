@@ -10,12 +10,11 @@ use App\Models\Transaction;
 use App\Models\Transfer;
 use Illuminate\Http\Request;
 
-
 class TransferController extends Controller
 {
     public function index(TransferTypeRequest $request)
     {
-        $transfers = Transfer::where('from_user_id', auth()->id())->where('transfer_type', 'wallet')->with('fromUser')->latest()->paginate((int)($request->per_page ?? config("globals.per_page")));
+        $transfers = Transfer::where('from_user_id', auth()->id())->whereIn('transfer_status', [Transfer::CANCELED,Transfer::PENDING])->where('transfer_type',Transfer::WALLET)->with('fromUser')->latest()->paginate((int)($request->per_page ?? config("globals.per_page")));
 
         return TransferResource::collection($transfers)->additional(
             [
@@ -24,7 +23,6 @@ class TransferController extends Controller
             ]
         );
     }
-
 
     public function cancelTransfer($transfer_id)
     {
