@@ -60,6 +60,7 @@ return [
             'manual' => 'البطاقة البنكية المنتهية بـ(:card_number)',
             'scan' => 'مسح بيانات البطاقة',
             'sadad' => 'سداد',
+            'exists' => 'شحن باستخدام البطاقات المحفوظة'
         ],
         'transaction_types' => [
             'local_transfer' => 'تحويل محلي',
