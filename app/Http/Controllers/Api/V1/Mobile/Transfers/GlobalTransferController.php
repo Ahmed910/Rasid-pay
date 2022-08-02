@@ -28,27 +28,24 @@ class GlobalTransferController extends Controller
         $transfer_fees = TransferFee::where('amount_from','<=',$amount_per_dollar)->orWhere('amount_to','>=',$amount_per_dollar)->first();
 
         if (!$transfer_fees) {
-
             $transfer_fees = TransferFee::create(['amount_from' => 401,'amount_to' => $amount_per_dollar,'amount_fee' => 40]);
         }
         // $fees = setting('western_union_fees') ?: 0;
         $fees_per_dollar = $transfer_fees->amount_fee;
 
         $fees = $fees_per_dollar / $sar_per_dollar;
-
-
         $fee_upon = $request->fee_upon;
-        if ($fee_upon == Transfer::FROM_USER) {
-            if (($amount + $fees) > $wallet->main_balance) {
-                return response()->json(['data' => null, 'message' => trans('mobile.local_transfers.current_balance_is_not_sufficient_to_complete_transaction'), 'status' => false], 422);
-            }
-            $amount += $fees;
-        } else {
-            if ($amount > $wallet->main_balance) {
-                return response()->json(['data' => null, 'message' => trans('mobile.local_transfers.current_balance_is_not_sufficient_to_complete_transaction'), 'status' => false], 422);
-            }
-            // $amount -= $fees;
+        if ($amount > $wallet->main_balance) {
+            return response()->json(['data' => null, 'message' => trans('mobile.local_transfers.current_balance_is_not_sufficient_to_complete_transaction'), 'status' => false], 422);
         }
+        // if ($fee_upon == Transfer::FROM_USER) {
+        //     $amount += $fees;
+        // } else {
+        //     if ($amount > $wallet->main_balance) {
+        //         return response()->json(['data' => null, 'message' => trans('mobile.local_transfers.current_balance_is_not_sufficient_to_complete_transaction'), 'status' => false], 422);
+        //     }
+        //     // $amount -= $fees;
+        // }
 
         $wallet->update(['wallet_bin' => null]);
         // TODO: Calc transfer fee
@@ -59,7 +56,7 @@ class GlobalTransferController extends Controller
                 'transfer_type' => 'global',
                 'from_user_id' => auth()->id(),
                 'transfer_status' => 'pending',
-                'amount' => $request->amount,
+                'amount' => $amount - $fees,
                 'transfer_fees' => $fees,
                 'transfer_fees_amount' => $fees,
             ];
@@ -80,7 +77,7 @@ class GlobalTransferController extends Controller
 
         //add transfer in  transaction
         $transaction = $global_transfer->transaction()->create([
-            'amount' => $request->amount,
+            'amount' => $amount - $fees,
             'trans_type' => 'global_transfer',
             "fee_upon" => $request->fee_upon,
             'from_user_id' => auth()->id(),
