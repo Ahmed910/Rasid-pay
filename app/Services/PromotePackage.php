@@ -13,9 +13,8 @@ class PromotePackage
             'package_type' => $package_type, 'promo_code' => null,
         ])->where('citizen_id', auth()->id())->first();
         if ($citizen_package_check && $citizen_package_promo_code == null) {
-            $remaining = Carbon::parse($citizen_package_check->end_at)->diffInDays(Carbon::now());
             $citizen_package_check->update([
-                'end_at' => Carbon::parse($citizen_package_check->end_at)->addDays(365 + $remaining),
+                'end_at' => Carbon::parse($citizen_package_check->end_at)->addMonths(12),
                 'number_of_purchase' => \DB::raw('number_of_purchase + 1'),
                 'package_price' => setting('rasidpay_cards_' . $package_type . '_price') ?? "500",
             ]);
