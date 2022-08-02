@@ -14,6 +14,8 @@ class CountrySeeder extends Seeder
      */
     public function run()
     {
+        \DB::table('countries')->truncate();
+        \DB::table('country_translations')->truncate();
         $countries = config("country");
         foreach ($countries as $country) {
             Country::create([
