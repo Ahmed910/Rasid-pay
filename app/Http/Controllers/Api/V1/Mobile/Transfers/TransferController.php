@@ -41,7 +41,7 @@ class TransferController extends Controller
         ]);
 
         return TransferResource::make($transfer->refresh())->additional([
-            'message' => trans('mobile.transfer.cancel_transfer'),
+            'message' => trans('mobile.transfers.cancel_transfer'),
             'status' => true
         ]);
 
