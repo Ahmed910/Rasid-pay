@@ -47,6 +47,14 @@ return [
         'identity_number_digits' => 'رقم الهوية يجب أن يكون :digits أرقام',
         'before' => 'لا يمكن ان يكون تاريخ الميلاد تاريخ مستقبلي',
     ],
+    'beneficiaries' => [
+        "iban_number" =>   [
+            "required" => "رقم الايبان مطلوب",
+            "starts_with" => "رقم الايبان يجب ان يبدأ ب :starts_with",
+            "size" => "رقم الايبان يجب ان يكون :size حرف ورقم",
+            "unique" => "رقم الايبان موجود من قبل",
+        ],
+    ],
     'transaction' => [
         'status_cases' => [
             'fail' => 'فاشلة',
@@ -261,6 +269,5 @@ return [
             "exists" => "غرض الحوالة غير موجود",
         ]
     ]
-
 
 ];
