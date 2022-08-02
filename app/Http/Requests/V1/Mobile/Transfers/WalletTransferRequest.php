@@ -48,10 +48,8 @@ class WalletTransferRequest extends ApiMasterRequest
     {
         $sameUser = User::where(['id' => auth()->id(), 'user_type' => 'citizen'])->where(function ($q) use ($value) {
             $q->where('identity_number', $value)
-                ->orWhere('phone', $value)
                 ->orWhereRelation('citizenWallet', 'wallet_number', $value);
         })->first();
-
 
         if ($sameUser) {
             return trans('mobile.validation.not_same_wallet');
@@ -80,7 +78,10 @@ class WalletTransferRequest extends ApiMasterRequest
                 if (is_string($check_phone)) {
                     return $check_phone;
                 }
-                $user = User::where('id', "<>", auth()->id())->firstWhere(['user_type' => 'citizen', 'phone' => filter_mobile_number($value)]);
+                $user = User::firstWhere(['user_type' => 'citizen', 'phone' => filter_mobile_number($value)]);
+                if ($user->id == auth()->id()) {
+                    return trans('mobile.validation.not_same_wallet');
+                }
                 if (!$user) {
                     return trans('mobile.validation.phone.is_not_found');
                 }
