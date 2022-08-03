@@ -69,7 +69,17 @@ class TransactionObserver
                 'body' => trans('mobile.notifications.cash_back.body', ['from_user' => auth()->user()->fullname]),
             ];
 
-            auth()->user()->notify(new GeneralNotification($data));
+            $transaction->transactionable_type?->citizen->notify(new GeneralNotification($data));
         }
+    }
+
+    public function updated(Transaction $transaction)
+    {
+        $notify_data = [
+            'title' => trans('mobile.notifications.cancel_transfer.title'),
+            'body' => trans('mobile.notifications.cancel_transfer.body'),
+        ];
+
+        auth()->user()->notify(new GeneralNotification($notify_data, ['database']));
     }
 }
