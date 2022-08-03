@@ -6,7 +6,6 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\V1\Mobile\CurrencyRequest;
 use App\Http\Resources\Api\V1\Mobile\CurrencyResource;
 use App\Models\Currency;
-use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class CurrencyController extends Controller
@@ -14,7 +13,7 @@ class CurrencyController extends Controller
     public function index(Request $request)
     {
         $currency_today = Currency::first();
-        if (!$currency_today->last_updated_at?->isToday()){
+        if (!$currency_today || !$currency_today->last_updated_at?->isToday()){
             $sarCurrencies = calcCurrency('SAR');
             foreach ($sarCurrencies->rates as $key => $value) {
                 Currency::updateOrCreate(['currency_code' => $key],
