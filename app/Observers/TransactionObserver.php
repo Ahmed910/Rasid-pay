@@ -51,14 +51,14 @@ class TransactionObserver
         ];
 
         auth()->user()->is_notification_enabled ? auth()->user()->notify(new GeneralNotification($notify_data, ['database'])):"";
-        if ($transaction->to_user_id && $transaction->trans_type == 'wallet_transfer') {
-            $data = [
-                'title' => trans('mobile.notifications.wallet_transfer_to.title'),
-                'body' => trans('mobile.notifications.wallet_transfer_to.body', ['amount' => $transaction->amount, 'from_user' => auth()->user()->fullname]),
-            ];
+        // if ($transaction->to_user_id && $transaction->trans_type == 'wallet_transfer') {
+        //     $data = [
+        //         'title' => trans('mobile.notifications.wallet_transfer_to.title'),
+        //         'body' => trans('mobile.notifications.wallet_transfer_to.body', ['amount' => $transaction->amount, 'from_user' => auth()->user()->fullname]),
+        //     ];
 
-            $transaction->toUser->is_notification_enabled ? $transaction->toUser->notify(new GeneralNotification($data)):"";
-        }
+        //     $transaction->toUser->is_notification_enabled ? $transaction->toUser->notify(new GeneralNotification($data)):"";
+        // }
 
         // when promote package to platinum and cashback amount has been transfered to user
 
