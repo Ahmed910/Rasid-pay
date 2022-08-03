@@ -19,6 +19,8 @@ class TransactionResource extends JsonResource
             'wallet_number' => $this->transactionable?->wallet_transfer_method == 'wallet_number' ? $this->toUser?->citizenWallet?->wallet_number : "",
         ];
 
+        $to_amount =  number_format(($this->amount * $this->transactionable?->bankTransfer?->exchange_rate), 2, '.', '');
+
         $transaction_details =
             [
                 'payment' => $this->trans_type == "payment" ? trans("mobile.transaction.transaction_details.payment_status", ['amount' => number_format($this->amount, 2, '.', ''), 'refund_amount' => $this->amount]) : "",
@@ -29,7 +31,7 @@ class TransactionResource extends JsonResource
                         'to_user_identity_or_mobile_or_wallet_number' => @$wallet_transfer_method[$this->transactionable?->wallet_transfer_method
                         ]]) : "",
                 'local_transfer' => $this->trans_type == "local_transfer" ? trans("mobile.transaction.transaction_details.local_transfer_status", ['amount' => number_format($this->amount, 2, '.', ''), 'beneficiary' => $this->transactionable?->beneficiary->name, 'iban' => $this->transactionable?->beneficiary->iban_number]) : "",
-                'global_transfer' => $this->trans_type == "global_transfer" ? trans("mobile.transaction.transaction_details.global_transfer_status", ['amount' => number_format($this->amount, 2, '.', ''), 'currency' => $this->transactionable?->bankTransfer?->toCurrency?->currency_code, 'beneficiary' => $this->transactionable?->beneficiary?->name, 'country' => $this->transactionable?->beneficiary?->country?->name, 'recieve_option' => $this->transactionable?->bankTransfer?->recieveOption?->name, 'mtcn' => $this->transactionable?->bankTransfer?->mtcn_number]) : "",
+                'global_transfer' => $this->trans_type == "global_transfer" ? trans("mobile.transaction.transaction_details.global_transfer_status", ['amount' => $to_amount, 'currency' => $this->transactionable?->bankTransfer?->toCurrency?->currency_code, 'beneficiary' => $this->transactionable?->beneficiary?->name, 'country' => $this->transactionable?->beneficiary?->country?->name, 'recieve_option' => $this->transactionable?->bankTransfer?->recieveOption?->name, 'mtcn' => $this->transactionable?->bankTransfer?->mtcn_number]) : "",
                 'charge' => $this->trans_type == "charge" ? trans("mobile.transaction.transaction_details.charge_status", ['amount' => number_format($this->amount, 2, '.', ''), 'method' => trans('mobile.transaction.charge_types.'.$this->transactionable?->charge_type,  [ 'card_number' => Str::mask($this->card_number, '*', 0,-4) ])]) : "",
                 'money_request' => $this->trans_type == "money_request" ? trans("mobile.transaction.transaction_details.money_request_status", ['amount' => number_format($this->amount, 2, '.', ''), 'to_user_identity_or_mobile_or_wallet_number' => $wallet_transfer_method[$this->transactionable?->wallet_transfer_method]]) : "",
                 'promote_package' => $this->trans_type == "promote_package" ? trans("mobile.transaction.transaction_details.promote_package_status", ['amount' => number_format($this->amount, 2, '.', ''), 'package_name' => $this->fromUser->citizen->enabledPackage->package_type, 'expired_date' => $this->fromUser->citizen->enabledPackage->end_at]) : "",
@@ -54,7 +56,7 @@ class TransactionResource extends JsonResource
             'trans_status_translate' => trans("mobile.transaction.status_cases.{$this->trans_status}"),
             'to_currency' => $this->transactionable?->bankTransfer?->toCurrency?->currency_code,
             'exchange_rate' => (string)$this->transactionable?->bankTransfer?->exchange_rate,
-            'to_amount' => (string)($this->amount * $this->transactionable?->bankTransfer?->exchange_rate),
+            'to_amount' => $to_amount,
             'transfer_fees' => number_format($this->transactionable?->transfer_fees, 2) ?? '0',
             'transfer_purpose' => $this->transactionable?->transferPurpose?->name,
             'recieve_option' => $this->transactionable?->bankTransfer?->recieveOption?->name,
