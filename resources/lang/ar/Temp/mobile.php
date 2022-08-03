@@ -184,6 +184,8 @@ return [
         'charge_amount' => 'مبلغ الشحن',
         'phone' => 'رقم الجوال',
         'transaction_type' => 'نوع العملية',
+        'transaction_name' => 'اسم العملية',
+        'transaction_value' => 'قيمة العملية',
         'transaction_date' => 'تاريخ العملية',
         'mtcn_number' => 'رقم MTCN',
         'reference_number' => 'الرقم المرجعي',
