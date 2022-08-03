@@ -66,6 +66,7 @@ class TransactionObserver
             $data = [
                 'title' => trans('mobile.notifications.cash_back.title'),
                 'body' => trans('mobile.notifications.cash_back.body', ['cash_back' => $cash_back, 'from_user' => auth()->user()->fullname]),
+                'body' => trans('mobile.notifications.cash_back.body', ['from_user' => auth()->user()->fullname]),
             ];
 
             auth()->user()->notify(new GeneralNotification($data));
