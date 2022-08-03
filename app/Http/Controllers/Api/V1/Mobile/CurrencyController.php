@@ -37,7 +37,7 @@ class CurrencyController extends Controller
         $base = $request->base;
         $to = $request->to;
 
-        $currencies = (array)calcCurrency($base, $to)->rates;
+        $currencies = (array)calcCurrency($base)->rates;
         $keys = array_keys($currencies);
 
         $data['conversion_value'] = binarySearchForAssocArray($to,$currencies,$keys);
