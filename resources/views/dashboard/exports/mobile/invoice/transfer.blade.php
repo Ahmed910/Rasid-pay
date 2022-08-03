@@ -82,22 +82,24 @@
       </th>
       <th>{{ number_format(($transaction->amount + $transaction->fee_amount),2,'.','') ?? 0 }} ر.س</th>
     </tr>
-    <tr>
-      <th style="width: 220px;color:blue;">
-        @lang('mobile.invoice.beneficiary_name')
-      </th>
-      @if($transaction?->toUser)
-        <th> {{ $transaction?->toUser?->fullname ?? '' }}</th>
-      @else
-        <th> {{ $transaction?->transactionable?->beneficiary?->name ?? '' }}</th>
-      @endif
-    </tr>
-    <tr>
-      <th style="width: 220px;color:blue;">
-        @lang('mobile.invoice.benefeciary_address')
-      </th>
-      <th> {{ $transaction?->transactionable?->beneficiary?->country?->name ?? '' }}</th>
-    </tr>
+    @if(in_array($transaction->trans_type,['local_transfer','global_transfer']))
+      <tr>
+        <th style="width: 220px;color:blue;">
+          @lang('mobile.invoice.beneficiary_name')
+        </th>
+        @if($transaction?->toUser)
+          <th> {{ $transaction?->toUser?->fullname ?? '' }}</th>
+        @else
+          <th> {{ $transaction?->transactionable?->beneficiary?->name ?? '' }}</th>
+        @endif
+      </tr>
+      <tr>
+        <th style="width: 220px;color:blue;">
+          @lang('mobile.invoice.benefeciary_address')
+        </th>
+        <th> {{ $transaction?->transactionable?->beneficiary?->country?->name ?? '' }}</th>
+      </tr>
+    @endif
 
     @if ($transaction->trans_type == 'wallet_transfer')
       <tr>
