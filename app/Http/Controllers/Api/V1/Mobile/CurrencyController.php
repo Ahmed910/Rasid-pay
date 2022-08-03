@@ -13,19 +13,23 @@ class CurrencyController extends Controller
 {
     public function index(Request $request)
     {
-        $currencies = Currency::orderBy('currency_code')->get();
-        if ($currencies->first()?->last_updated_at?->isToday())
-            return CurrencyResource::collection($currencies)->additional(['status' => true, 'message' => '']);
-        $sarCurrencies = calcCurrency('SAR');
-        foreach ($sarCurrencies->rates as $key => $value) {
-            Currency::updateOrCreate(['currency_code' => $key,],
+        $currency_today = Currency::first();
+        if (!$currency_today->last_updated_at?->isToday()){
+            $sarCurrencies = calcCurrency('SAR');
+            foreach ($sarCurrencies->rates as $key => $value) {
+                Currency::updateOrCreate(['currency_code' => $key],
                 [
                     'currency_value' => $value,
                     'last_updated_at' => $sarCurrencies->date
                 ]);
+            }
         }
-        $currencies = Currency::orderBy('currency_code')->get();
-        return CurrencyResource::collection(collect($currencies))->additional(['status' => true, 'message' => '']);
+        $currencies = Currency::whereHas('country',function ($q) {
+            $q->whereHas('translations',function ($q) {
+                $q->whereNotNull('country_translations.name');
+            });
+        })->orderBy('currency_code')->get();
+        return CurrencyResource::collection($currencies)->additional(['status' => true, 'message' => '']);
     }
 
 
@@ -34,7 +38,7 @@ class CurrencyController extends Controller
         $base = $request->base;
         $to = $request->to;
 
-        $currencies = (array)calcCurrency($base, $to)->rates;
+        $currencies = (array)calcCurrency($base)->rates;
         $keys = array_keys($currencies);
 
         $data['conversion_value'] = binarySearchForAssocArray($to,$currencies,$keys);

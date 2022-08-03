@@ -23,7 +23,8 @@ class UpdateProfileRequest extends ApiMasterRequest
             }, 'unique:users,phone,' . auth()->id()],
             'lat' => 'nullable|string|max:15',
             'lng' => 'nullable|string|max:15',
-            'location' => 'nullable|string|between:3,100'
+            'location' => 'nullable|string|between:3,100',
+//            "otp_code" => 'required_unless:phone,' . auth()->user()->phone
         ];
     }
 
@@ -34,6 +35,7 @@ class UpdateProfileRequest extends ApiMasterRequest
         ]);
     }
 
+
     public function messages()
     {
         return [
@@ -41,6 +43,7 @@ class UpdateProfileRequest extends ApiMasterRequest
             'image.mimes' =>  __('mobile.profile.validation.image_mimes'),
             'phone.required' =>  __('mobile.profile.validation.phone_required'),
             'phone.unique' =>  __('mobile.profile.validation.phone_unique'),
+//            'otp_code.required_unless' =>  __('mobile.validation.otp.required'),
         ];
     }
 }

@@ -14,7 +14,12 @@ class TransferController extends Controller
 {
     public function index(TransferTypeRequest $request)
     {
-        $transfers = Transfer::where('from_user_id', auth()->id())->whereIn('transfer_status', [Transfer::CANCELED,Transfer::PENDING])->where('transfer_type',Transfer::WALLET)->with('fromUser')->latest()->paginate((int)($request->per_page ?? config("globals.per_page")));
+        $transfers = Transfer::where('from_user_id', auth()->id())
+            ->whereIn('transfer_status', [Transfer::PENDING])
+            ->where('transfer_type', Transfer::WALLET)
+            ->with('fromUser')
+            ->latest()
+            ->paginate((int)($request->per_page ?? config("globals.per_page")));
 
         return TransferResource::collection($transfers)->additional(
             [
@@ -44,7 +49,6 @@ class TransferController extends Controller
             'message' => trans('mobile.transfers.cancel_transfer'),
             'status' => true
         ]);
-
     }
 
     public function destroy($id)
@@ -108,12 +112,13 @@ class TransferController extends Controller
             return response()->json([
                 'data' => null,
                 'message' => $validator->errors()->first(),
-                'status' => false], 422);
+                'status' => false
+            ], 422);
         }
         return response()->json([
             'data' => null,
             'message' => "",
-            'status' => true], 200);
-
+            'status' => true
+        ], 200);
     }
 }

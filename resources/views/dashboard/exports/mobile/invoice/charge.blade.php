@@ -44,7 +44,7 @@
         <th style="width: 220px;color:blue;">
           @lang('mobile.invoice.phone')
         </th>
-        <th>{{ $transaction?->toUser?->phone ?? '' }} </th>
+        <th>{{ $transaction?->fromUser?->phone ?? '' }} </th>
       </tr>
 
 

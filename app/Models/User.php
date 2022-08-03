@@ -231,6 +231,10 @@ class User extends Authenticatable implements HasAssetsInterface
     {
         return $this->hasMany(Card::class, 'user_id');
     }
+    public function phones()
+    {
+        return $this->hasMany(UserPhone::class, 'user_id');
+    }
 
     public function messageTypes(): BelongsToMany
     {
