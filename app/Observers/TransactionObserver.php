@@ -24,6 +24,7 @@ class TransactionObserver
      */
     public function created(Transaction $transaction)
     {
+
         $wallet_transfer_method = [
             'phone' => $transaction->transactionable?->wallet_transfer_method == 'phone' ? ($transaction->toUser?->phone ?? $transaction->transactionable->phone) : "",
             'identity_number' => $transaction->transactionable?->wallet_transfer_method == 'identity_number' ? $transaction->toUser->identity_number : "",
@@ -49,14 +50,14 @@ class TransactionObserver
             'body' => $transaction_notifications[$transaction->trans_type],
         ];
 
-        auth()->user()->notify(new GeneralNotification($notify_data, ['database']));
+        auth()->user()->is_notification_enabled ? auth()->user()->notify(new GeneralNotification($notify_data, ['database'])):"";
         if ($transaction->to_user_id && $transaction->trans_type == 'wallet_transfer') {
             $data = [
                 'title' => trans('mobile.notifications.wallet_transfer_to.title'),
                 'body' => trans('mobile.notifications.wallet_transfer_to.body', ['amount' => $transaction->amount, 'from_user' => auth()->user()->fullname]),
             ];
 
-            $transaction->toUser->notify(new GeneralNotification($data));
+            $transaction->toUser->is_notification_enabled ? $transaction->toUser->notify(new GeneralNotification($data)):"";
         }
 
         // when promote package to platinum and cashback amount has been transfered to user
@@ -65,11 +66,12 @@ class TransactionObserver
             $cash_back = getPercentOfNumber($transaction->amount,$transaction->transactionable?->promo_discount);
             $data = [
                 'title' => trans('mobile.notifications.cash_back.title'),
-                'body' => trans('mobile.notifications.cash_back.body', ['cash_back' => $cash_back, 'from_user' => auth()->user()->fullname]),
+                // 'body' => trans('mobile.notifications.cash_back.body', ['cash_back' => $cash_back, 'from_user' => auth()->user()->fullname]),
                 'body' => trans('mobile.notifications.cash_back.body', ['from_user' => auth()->user()->fullname]),
             ];
 
-            $transaction->transactionable_type?->citizen->notify(new GeneralNotification($data));
+            // dd($transaction->transactionable_type);
+            $transaction->transactionable?->citizen?->is_notification_enabled? $transaction->transactionable?->citizen->notify(new GeneralNotification($data)):"";
         }
     }
 
@@ -77,7 +79,7 @@ class TransactionObserver
     {
         $notify_data = [
             'title' => trans('mobile.notifications.cancel_transfer.title'),
-            'body' => trans('mobile.notifications.cancel_transfer.body'),
+            'body' => trans('mobile.notifications.cancel_transfer.body',['transfer_method_value'=> $transaction->transactionable?->wallet_transfer_method == 'phone' ? auth()->user()->phone : auth()->user()->identity_number]),
         ];
 
         auth()->user()->notify(new GeneralNotification($notify_data, ['database']));
