@@ -44,8 +44,32 @@
       <th style="width: 220px;color:blue;">
         @lang('mobile.invoice.transfer_amount')
       </th>
-      <th>{{ $transaction->amount ?? '' }} ر.س</th>
+      @if($transaction->trans_type == 'global_transfer')
+        <th>{{ number_format($transaction->amount * $transaction->transactionable?->bankTransfer?->exchange_rate,2,'.','') }}
+          USD
+        </th>
+      @else
+        <th>{{ number_format($transaction->amount,2,'.','') }} ر.س</th>
+      @endif
     </tr>
+
+    <tr>
+      <th style="width: 220px;color:blue;">
+        @lang('mobile.invoice.fee_amount')
+      </th>
+      <th>{{ number_format($transaction->fee_amount,2,'.','') ?? 0 }} ر.س</th>
+    </tr>
+
+
+    @if ($transaction->trans_type == 'global_transfer')
+      <tr>
+        <th style="width: 220px;color:blue;">
+          @lang('mobile.invoice.exchange_rate')
+        </th>
+        <th>{{ $transaction->transactionable?->bankTransfer?->exchange_rate }} ر.س</th>
+      </tr>
+    @endif
+
     <tr>
       <th style="width: 220px;color:blue;">
         @lang('mobile.invoice.from_account')
@@ -68,8 +92,27 @@
         <th> {{ $transaction?->transactionable?->beneficiary?->name ?? '' }}</th>
       @endif
     </tr>
+    <tr>
+      <th style="width: 220px;color:blue;">
+        @lang('mobile.invoice.benefeciary_address')
+      </th>
+      <th> {{ $transaction?->transactionable?->beneficiary?->country?->name ?? '' }}</th>
+    </tr>
 
-
+    @if ($transaction->trans_type == 'wallet_transfer')
+      <tr>
+        <th style="width: 220px;color:blue;">
+          @lang('mobile.invoice.phone')
+        </th>
+        <th> {{ $transaction?->transactionable?->phone ?? '' }}</th>
+      </tr>
+    @endif
+    <tr>
+      <th style="width: 220px;color:blue;">
+        @lang('mobile.invoice.transfer_purpose')
+      </th>
+      <th> {{ $transaction?->transactionable?->transferPurpose?->name ?? '' }}</th>
+    </tr>
     </thead>
     <tbody></tbody>
   </table>

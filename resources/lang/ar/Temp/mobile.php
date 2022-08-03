@@ -194,6 +194,7 @@ return [
         'beneficiary_name' => 'اسم المستفيد',
         'benefeciary_address' => 'عنوان المستفيد',
         'transfer_purpose' => 'الغرض من الحوالة',
+        'exchange_rate' => 'سعر الصرف',
     ],
 
     'currencies' => [
