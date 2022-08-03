@@ -45,6 +45,7 @@ class PackageController extends Controller
         $activateBonus = ['rasidpay_platinum_firstcode_activatebonus', 'rasidpay_platinum_secondcode_activatebonus',
             'rasidpay_platinum_thirdcode_activatebonus', 'rasidpay_platinum_fourthcode_activatebonus'];
         $package_price = setting('rasidpay_cards_' . $package_type . '_price') ?? 500;
+
         $citizen_wallet = auth()->user()->citizenWallet;
 
         if ($package_price > ($citizen_wallet->main_balance + $citizen_wallet->cash_back)) {

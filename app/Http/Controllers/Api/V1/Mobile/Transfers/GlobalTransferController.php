@@ -22,13 +22,14 @@ class GlobalTransferController extends Controller
         $sar_per_dollar = Currency::where('currency_code','USD')->select('currency_value')->value('currency_value');
         $amount = $request->amount;
 
-        $amount_per_dollar = $amount * $sar_per_dollar;
-
+        $amount_per_dollar =  $amount * $sar_per_dollar;
         // dd($amount_per_dollar);
-        $transfer_fees = TransferFee::where('amount_from','<=',$amount_per_dollar)->orWhere('amount_to','>=',$amount_per_dollar)->first();
+
+        $transfer_fees = TransferFee::whereRaw('CAST(amount_from AS DECIMAL) <= ? AND CAST(amount_to AS DECIMAL) >= ?',[$amount_per_dollar,$amount_per_dollar])->first();
 
         if (!$transfer_fees) {
-            $transfer_fees = TransferFee::create(['amount_from' => 401,'amount_to' => $amount_per_dollar,'amount_fee' => 40]);
+            $transfer_fee = TransferFee::max('amount_to');
+            $transfer_fees = TransferFee::create(['amount_from' => ++$transfer_fee ,'amount_to' => $amount_per_dollar,'amount_fee' => 40]);
         }
         // $fees = setting('western_union_fees') ?: 0;
         $fees_per_dollar = $transfer_fees->amount_fee;
@@ -36,6 +37,7 @@ class GlobalTransferController extends Controller
         $fees = $fees_per_dollar / $sar_per_dollar;
         $fee_upon = $request->fee_upon;
         if ($amount > $wallet->main_balance) {
+
             return response()->json(['data' => null, 'message' => trans('mobile.local_transfers.current_balance_is_not_sufficient_to_complete_transaction'), 'status' => false], 422);
         }
         // if ($fee_upon == Transfer::FROM_USER) {
