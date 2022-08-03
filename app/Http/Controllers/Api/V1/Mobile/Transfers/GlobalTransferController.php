@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Api\V1\Mobile\Transfers;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\V1\Mobile\Transfers\GlobalTransferRequest;
 use App\Http\Resources\Api\V1\Mobile\Transactions\TransactionResource;
-use App\Models\{CitizenWallet, Country\Country, Currency, Transaction, Transfer, TransferFee};
+use App\Models\{BankTransfer, CitizenWallet, Country\Country, Currency, Transaction, Transfer, TransferFee};
 
 class GlobalTransferController extends Controller
 {
@@ -18,18 +18,16 @@ class GlobalTransferController extends Controller
     {
         // check main_balance is sufficient or not (This will change after this phase (clean code))
         $wallet = CitizenWallet::with('citizen')->where('citizen_id', auth()->id())->firstOrFail();
-
-        $sar_per_dollar = Currency::where('currency_code','USD')->select('currency_value')->value('currency_value');
+        $sar_per_dollar = Currency::where('currency_code', 'USD')->select('currency_value')->value('currency_value');
         $amount = $request->amount;
-
-        $amount_per_dollar =  $amount * $sar_per_dollar;
+        $amount_per_dollar = $amount * $sar_per_dollar;
         // dd($amount_per_dollar);
 
-        $transfer_fees = TransferFee::whereRaw('CAST(amount_from AS DECIMAL) <= ? AND CAST(amount_to AS DECIMAL) >= ?',[$amount_per_dollar,$amount_per_dollar])->first();
+        $transfer_fees = TransferFee::whereRaw('CAST(amount_from AS DECIMAL) <= ? AND CAST(amount_to AS DECIMAL) >= ?', [$amount_per_dollar, $amount_per_dollar])->first();
 
         if (!$transfer_fees) {
             $transfer_fee = TransferFee::max('amount_to');
-            $transfer_fees = TransferFee::create(['amount_from' => ++$transfer_fee ,'amount_to' => $amount_per_dollar,'amount_fee' => 40]);
+            $transfer_fees = TransferFee::create(['amount_from' => ++$transfer_fee, 'amount_to' => $amount_per_dollar, 'amount_fee' => 40]);
         }
         // $fees = setting('western_union_fees') ?: 0;
         $fees_per_dollar = $transfer_fees->amount_fee;
@@ -40,15 +38,6 @@ class GlobalTransferController extends Controller
 
             return response()->json(['data' => null, 'message' => trans('mobile.local_transfers.current_balance_is_not_sufficient_to_complete_transaction'), 'status' => false], 422);
         }
-        // if ($fee_upon == Transfer::FROM_USER) {
-        //     $amount += $fees;
-        // } else {
-        //     if ($amount > $wallet->main_balance) {
-        //         return response()->json(['data' => null, 'message' => trans('mobile.local_transfers.current_balance_is_not_sufficient_to_complete_transaction'), 'status' => false], 422);
-        //     }
-        //     // $amount -= $fees;
-        // }
-
         $wallet->update(['wallet_bin' => null]);
         // TODO: Calc transfer fee
 
@@ -74,7 +63,11 @@ class GlobalTransferController extends Controller
                 [
                     'currency_id', 'to_currency_id', 'beneficiary_id', 'balance_type'
                 ]
-            ) + ['exchange_rate' => $exchange_rate]);
+            ) + [
+                'exchange_rate' => $exchange_rate,
+                //TODO: generate mtcn number from westren union api
+                'mtcn_number' => generate_unique_code(BankTransfer::class, 'mtcn_number', 8, 'numbers'),
+            ]);
         $global_transfer->bankTransfer()->update(['recieve_option_id' => $global_transfer->beneficiary?->recieve_option_id]);
 
         //add transfer in  transaction

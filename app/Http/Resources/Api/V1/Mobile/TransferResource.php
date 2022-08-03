@@ -16,7 +16,7 @@ class TransferResource extends JsonResource
     {
         switch ($this->wallet_transfer_method) {
         case "phone":
-            $wallet_transfer_method = trans('mobile.transfers.by_phone').$this->toUser?->phone;
+            $wallet_transfer_method = trans('mobile.transfers.by_phone').$this->phone;
             break;
         case "identity_number":
             $wallet_transfer_method = trans('mobile.transfers.by_identity_number').$this->toUser?->identity_number;

@@ -57,7 +57,7 @@ class WalletTransferController extends Controller
             "fee_upon" => null,
             'from_user_id' => auth()->id(),
             "to_user_id" => $request->citizen_id,
-            'phone' => $phone,
+            'phone' => filter_mobile_number($phone),
             'cashback_amount' => $back_main_balance->cashback_amount,
             'main_amount' => $back_main_balance->main_amount,
             'notes' => $request->notes

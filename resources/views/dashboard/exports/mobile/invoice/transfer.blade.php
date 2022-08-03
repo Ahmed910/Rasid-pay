@@ -56,7 +56,7 @@
       <th style="width: 220px;color:blue;">
         @lang('mobile.invoice.total')
       </th>
-      <th>{{ ($transaction->amount + $transaction->transactionable?->transfer_fees) ?? 0 }} ر.س</th>
+      <th>{{ number_format(($transaction->amount + $transaction->fee_amount),2,'.','') ?? 0 }} ر.س</th>
     </tr>
     <tr>
       <th style="width: 220px;color:blue;">
