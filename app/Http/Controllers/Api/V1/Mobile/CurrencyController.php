@@ -14,7 +14,7 @@ class CurrencyController extends Controller
     public function index(Request $request)
     {
         $currencies = Currency::orderBy('currency_code')->get();
-        if (count($currencies) > 0 && $currencies->first()->last_updated_at->diffInDays(Carbon::now()) == 0)
+        if ($currencies->first()?->last_updated_at?->isToday())
             return CurrencyResource::collection($currencies)->additional(['status' => true, 'message' => '']);
         $sarCurrencies = calcCurrency('SAR');
         foreach ($sarCurrencies->rates as $key => $value) {
