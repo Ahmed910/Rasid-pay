@@ -127,7 +127,8 @@ class PackageController extends Controller
     {
         $type = $request->package_type;
         // vendor discount
-            $vendorDiscount = Vendor::select('vendor_packages.' . $type . '_discount as discount','vendor_translations.name')
+        $vendorDiscount = Vendor::with('images')
+            ->select('vendor_packages.' . $type . '_discount as discount', 'vendor_translations.name', 'vendors.id')
             ->join('vendor_packages', 'vendor_packages.vendor_id', '=', 'vendors.id')
             ->join('vendor_translations', 'vendor_translations.vendor_id', '=', 'vendors.id')
             ->where('vendor_translations.locale', app()->getLocale())

@@ -28,7 +28,7 @@ class VendorRequest extends ApiMasterRequest
             'tax_number' => "required|digits_between:10,20|numeric|unique:vendors,tax_number," . @$this->vendor,
             'is_support_maak' => "required|in:1,0",
             'is_active' => "nullable|in:1,0",
-            "iban" => ['required', 'alpha_num', "size:24", "unique:vendors,iban," . @$this->vendor],
+            "iban" => ['required', 'starts_with:SA', "size:24", 'alpha_num', "unique:vendors,iban," . @$this->vendor],
             "email" => ["required", "max:100", "email", "unique:vendors,email," . @$this->vendor],
             "phone" => ["required", "numeric", function ($attribute, $value, $fail) {
                 if (!check_phone_valid($value)) {

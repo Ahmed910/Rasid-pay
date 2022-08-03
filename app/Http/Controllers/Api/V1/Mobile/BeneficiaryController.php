@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api\V1\Mobile;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\V1\Mobile\BeneficiaryRequest;
 use App\Http\Resources\Api\V1\Mobile\Beneficiary\{BeneficiaryResource, BeneficiaryCollection};
+use App\Http\Resources\Api\V1\Mobile\ReceiveOptionResource;
 use App\Http\Resources\Dashboard\OnlyResource;
 use App\Models\Beneficiary;
 use App\Models\RecieveOption\RecieveOption;
@@ -16,7 +17,7 @@ class BeneficiaryController extends Controller
 
     public function index(Request $request)
     {
-        $beneficiaries = Beneficiary::where(['user_id' => auth()->id(),'is_saved' => true])->search($request)->latest()->paginate((int)($request->per_page ?? config("globals.per_page")));
+        $beneficiaries = Beneficiary::where(['user_id' => auth()->id(), 'is_saved' => true])->search($request)->latest()->paginate((int)($request->per_page ?? config("globals.per_page")));
         return BeneficiaryCollection::make($beneficiaries)
             ->additional([
                 'status' => true,
@@ -59,7 +60,7 @@ class BeneficiaryController extends Controller
     {
         $recieveOptions = RecieveOption::select('id')->ListsTranslations('name')->get();
 
-        return OnlyResource::make($recieveOptions)
+        return ReceiveOptionResource::collection($recieveOptions)
             ->additional([
                 'status' => true,
                 'message' => ''
