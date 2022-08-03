@@ -58,5 +58,18 @@ class TransactionObserver
 
             $transaction->toUser->notify(new GeneralNotification($data));
         }
+
+        // when promote package to platinum and cashback amount has been transfered to user
+
+        if ($transaction->transactionable_type == 'App\Models\CitizenPackage' && request()->has('promo_code') && $transaction->trans_type == 'promote_package') {
+            $cash_back = getPercentOfNumber($transaction->amount,$transaction->transactionable?->promo_discount);
+            $data = [
+                'title' => trans('mobile.notifications.cash_back.title'),
+                'body' => trans('mobile.notifications.cash_back.body', ['cash_back' => $cash_back, 'from_user' => auth()->user()->fullname]),
+                'body' => trans('mobile.notifications.cash_back.body', ['from_user' => auth()->user()->fullname]),
+            ];
+
+            auth()->user()->notify(new GeneralNotification($data));
+        }
     }
 }

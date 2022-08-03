@@ -116,7 +116,7 @@ class PackageController extends Controller
 
         // add cash back to owner of promo code citizen wallet
         $promo_code_discount = getPercentOfNumber($package_price, $citizen_package_promo_code->promo_discount);
-        $promo_code_owner_wallet = $citizen_package_promo_code->citizenPackage->citizen->citizenWallet;
+        $promo_code_owner_wallet = $citizen_package_promo_code->citizenPackage?->citizen?->citizenWallet;
         $promo_code_owner_wallet->update([
             'cash_back' => $promo_code_owner_wallet->cash_back + $promo_code_discount,
         ]);
