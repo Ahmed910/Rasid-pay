@@ -30,20 +30,7 @@ class TransactionObserver
             'wallet_number' => $transaction->transactionable?->wallet_transfer_method == 'wallet_number' ? $transaction->toUser->citizenWallet?->wallet_number : "",
         ];
 
-        // $transaction_details =
-        //     [
-        //         'payment' => $transaction->trans_type == "payment" ? trans("mobile.transaction.transaction_details.payment_status", ['amount' => $transaction->amount, 'refund_amount' => $transaction->amount]) : "",
-        //         'wallet_transfer' => $transaction->trans_type == "wallet_transfer"
-        //             ? trans("mobile.transaction.transaction_details.wallet_transfer_status", ['amount' => $transaction->amount, 'to_user_identity_or_mobile_or_wallet_number' => @$wallet_transfer_method[$transaction->transactionable?->wallet_transfer_method], 'transfer_type_trans' => trans('mobile.transfers.wallet_transfer_methods.' . $transaction->transactionable?->wallet_transfer_method)])
-        //             : "",
-        //         'local_transfer' => $transaction->trans_type == "local_transfer" ? trans("mobile.transaction.transaction_details.local_transfer_status", ['amount' => $transaction->amount, 'beneficiary' => $transaction->transactionable?->beneficiary->name, 'iban' => $transaction->transactionable?->beneficiary->iban_number]) : "",
-        //         'global_transfer' => $transaction->trans_type == "global_transfer" ? trans("mobile.transaction.transaction_details.global_transfer_status", ['amount' => $transaction->amount, 'currency' => $transaction->transactionable?->bankTransfer?->toCurrency?->currency_code, 'beneficiary' => $transaction->transactionable?->beneficiary?->name, 'country' => $transaction->transactionable?->beneficiary?->country?->name, 'recieve_option' => $transaction->transactionable?->bankTransfer?->recieveOption?->name, 'mtcn' => $transaction->transactionable?->bankTransfer?->mtcn_number]) : "",
-        //         'charge' => $transaction->trans_type == "charge" ? trans("mobile.transaction.transaction_details.charge_status", ['amount' => $transaction->amount, 'method' => trans('mobile.transaction.charge_types.' . $transaction->transactionable?->charge_type, ['card_number' => Str::mask($transaction->card_number, '*', 0, -4)])]) : "",
-        //         'money_request' => $transaction->trans_type == "money_request" ? trans("mobile.transaction.transaction_details.money_request_status", ['amount' => $transaction->amount, 'to_user_identity_or_mobile_or_wallet_number' => $wallet_transfer_method[$transaction->transactionable?->wallet_transfer_method]]) : "",
-        //         'promote_package' => $transaction->trans_type == "promote_package" ? trans("mobile.transaction.transaction_details.promote_package_status", ['amount' => $transaction->amount, 'package_name' => $transaction->fromUser->citizen->enabledPackage->package_type, 'expired_date' => $transaction->fromUser->citizen->enabledPackage->end_at]) : "",
-
-        //     ];
-            $transaction_notifications =
+        $transaction_notifications =
             [
                 'payment' => $transaction->trans_type == "payment" ? trans("mobile.transaction.transaction_notifications.payment_status", ['amount' => $transaction->amount]) : "",
                 'wallet_transfer' => $transaction->trans_type == "wallet_transfer"
