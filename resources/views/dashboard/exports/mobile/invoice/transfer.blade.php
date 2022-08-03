@@ -62,7 +62,11 @@
       <th style="width: 220px;color:blue;">
         @lang('mobile.invoice.beneficiary_name')
       </th>
-      <th> {{ $transaction?->toUser?->fullname ?? '' }}</th>
+      @if($transaction?->toUser)
+        <th> {{ $transaction?->toUser?->fullname ?? '' }}</th>
+      @else
+        <th> {{ $transaction?->transactionable?->beneficiary?->name ?? '' }}</th>
+      @endif
     </tr>
 
 

@@ -31,9 +31,6 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('active_notifications', 'ProfileController@activateNotification');
     // home
     Route::get('home', 'HomeController@index');
-    // Currency
-    Route::get('currencies', 'CurrencyController@index');
-    Route::post('convert_currency', 'CurrencyController@convertCurrency');
     // Country
     Route::get('countries', 'CountryController@index');
     // Wallet
@@ -104,3 +101,6 @@ Route::get('slides', 'SlideController@index');
 Route::get('banks', 'BankController@index');
 Route::get('our_apps', 'OurAppController@index');
 Route::get('links', 'LinkController@index');
+// Currency
+Route::get('currencies', 'CurrencyController@index');
+Route::post('convert_currency', 'CurrencyController@convertCurrency');

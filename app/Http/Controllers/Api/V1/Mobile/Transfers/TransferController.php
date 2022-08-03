@@ -55,7 +55,7 @@ class TransferController extends Controller
         return TransferResource::make($transfer)
             ->additional([
                 'status' => true,
-                'message' => __('dashboard.general.success_delete')
+                'message' => __('dashboard.general.success_archive')
             ]);
     }
 
