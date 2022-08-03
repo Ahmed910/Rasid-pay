@@ -10,7 +10,7 @@ class CountryController extends Controller
 {
     public function index()
     {
-        return CountryResource::collection(Country::orderByTranslation('name')->get())->additional(['status' => true, 'message' => '']);
+        return CountryResource::collection(Country::orderByTranslation('name')->get()->unique('name'))->additional(['status' => true, 'message' => '']);
     }
 
 }
