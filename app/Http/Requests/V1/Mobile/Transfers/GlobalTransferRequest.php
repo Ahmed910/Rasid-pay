@@ -49,8 +49,8 @@ class GlobalTransferRequest extends ApiMasterRequest
             'amount.lte' => trans('validation.global_transfers.amount.lte', ['max_amount' => (setting('rasidpay_inttransfer_maxvalue'))]),
             'notes.required' => __('validation.global_transfers.notes.required'),
             'beneficiary_id.exists' => __('validation.global_transfers.beneficiary.exists'),
-            'amount.gte' => trans('validation.global_transfers.amount.greaterThanEqual'),
-            'amount.lte' => trans('validation.global_transfers.amount.lessThanEqual'),
+            'transfer_purpose_id.required' => trans('validation.global_transfers.transfer_purpose.required'),
+            'transfer_purpose_id.exists' => trans('validation.global_transfers.transfer_purpose.exists'),
 
         ];
     }
