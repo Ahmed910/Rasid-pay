@@ -33,6 +33,12 @@ class ProfileController extends Controller
                 'verified_phone_at' => null,
                 'verified_code' => $code
             ]);
+
+            $citizen->phones()->create([
+            'new_phone'=>$citizen->phone,
+            'old_phone'=>$old_phone,
+            'verified_at' => now(),
+            ]);
             $message = trans('auth.success_update_verify_phone');
         }
         return UserResource::make($citizen->load('citizen'))->additional(['status' => true, 'message' => $message]);
