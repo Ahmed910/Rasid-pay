@@ -10,7 +10,10 @@ class CountryController extends Controller
 {
     public function index()
     {
-        return CountryResource::collection(Country::orderByTranslation('name')->get()->unique('name'))->additional(['status' => true, 'message' => '']);
+        $countries = Country::whereHas('translations',function ($q) {
+            $q->whereNotNull('name');
+        })->orderByTranslation('name')->get();
+        return CountryResource::collection($countries)->additional(['status' => true, 'message' => '']);
     }
 
 }
