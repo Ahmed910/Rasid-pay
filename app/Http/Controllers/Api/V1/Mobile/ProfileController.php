@@ -29,15 +29,14 @@ class ProfileController extends Controller
         if ($old_phone != $citizen->phone) {
             #logout_then_send_sms
             $code = $this->sendSmsToCitizen($citizen->phone);
-            $citizen->update([
-                'verified_phone_at' => null,
-                'verified_code' => $code
-            ]);
-
             $citizen->phones()->create([
-            'new_phone'=>$citizen->phone,
-            'old_phone'=>$old_phone,
-            'verified_at' => now(),
+                'new_phone'=>$citizen->phone,
+                'old_phone'=>$old_phone,
+                'old_verified_at' => $citizen->phone_verified_at,
+                ]);
+            $citizen->update([
+                'phone_verified_at' => null,
+                'verified_code' => $code
             ]);
             $message = trans('auth.success_update_verify_phone');
         }

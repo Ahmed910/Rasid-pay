@@ -16,9 +16,9 @@ class CreateUserPhonesTable extends Migration
         Schema::create('user_phones', function (Blueprint $table) {
             $table->uuid("id")->primary();
             $table->foreignUuid("user_id")->nullable()->constrained('users')->nullOnDelete();
-            $table->string('new_phone')->unique()->nullable();
-            $table->string('old_phone')->unique()->nullable();
-            $table->timestamp('verified_at')->nullable();
+            $table->string('new_phone')->nullable();
+            $table->string('old_phone')->nullable();
+            $table->timestamp('old_verified_at')->nullable();
             $table->timestamps();
         });
     }

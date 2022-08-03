@@ -13,7 +13,7 @@ class UserPhone extends Model
 
     #region properties
     protected $guarded = ['created_at','updated_at'];
-    protected $casts = [ 'verified_at' => 'datetime'];
+    protected $casts = [ 'old_verified_at' => 'datetime'];
 
     #endregion properties
 
