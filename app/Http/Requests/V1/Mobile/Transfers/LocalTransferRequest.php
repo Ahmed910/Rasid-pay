@@ -19,7 +19,7 @@ class LocalTransferRequest extends ApiMasterRequest
         $transferPurpose = TransferPurpose::find($this->transfer_purpose_id);
         $notes = 'nullable';
 
-        if ($transferPurpose && $transferPurpose->is_another) {
+        if ($transferPurpose?->is_another) {
             $notes = 'required|string|max:1000';
         }
 
