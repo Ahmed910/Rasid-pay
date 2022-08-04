@@ -171,6 +171,7 @@ return [
         'type' => 'النوع',
         'cancel' => 'الغاء',
         'success_update' => 'تم التعديل بنجاح',
+        'success_message_forwareded' => 'تم احالة الرسالة الى الموظف',
         'personalfile' => 'الملف الشخص',
         'reason_required' => 'السبب مطلوب',
         'Total_vacant_jobs' => 'الوظائف الشاغرة ',

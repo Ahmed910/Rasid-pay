@@ -191,12 +191,13 @@ class AdminController extends Controller
     {
 
         $users = User::where('user_type', 'admin')
-        ->when($request->has_permission_on && is_array($request->has_permission_on),function($q) use($request){
-            $q->whereHas('permissions',function($q) use($request){
-                $q->whereIn('main_program',$request->has_permission_on);
-
-            })->where('users.id','!=',auth()->id());
-        })
+            ->when($request->has_permission_on && is_array($request->has_permission_on), function ($q) use ($request) {
+                $q->whereHas('permissions', function ($q) use ($request) {
+                    $q->whereIn('main_program', $request->has_permission_on);
+                })->where('users.id', '!=', auth()->id());
+            })->when($request->ban_status, function ($q) use ($request) {
+                $q->where('ban_status', $request->ban_status);
+            })
             ->get();
 
         return AllAdminResource::collection($users)
@@ -211,13 +212,13 @@ class AdminController extends Controller
     public function exportPDF(Request $request, GeneratePdf $pdfGenerate)
     {
         $AdminsQuery = User::customDateFromTo($request)
-        ->has('employee')
-        ->search($request)
-        ->with(['department', 'permissions', 'groups' => function ($q) {
-            $q->with('permissions');
-        }])->where('user_type', 'admin')
-        ->sortBy($request)
-        ->get();
+            ->has('employee')
+            ->search($request)
+            ->with(['department', 'permissions', 'groups' => function ($q) {
+                $q->with('permissions');
+            }])->where('user_type', 'admin')
+            ->sortBy($request)
+            ->get();
 
 
         if (!$request->has('created_from')) {
