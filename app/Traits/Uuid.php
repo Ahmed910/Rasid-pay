@@ -55,9 +55,8 @@ trait Uuid
         }
     }
 
-    public function getCreatedAtDateAttribute($date)
+    public function getCreatedAtDateAttribute()
     {
-        if ($date==null) return $date ;
         $locale = app()->getLocale();
         // if (auth()->check() && auth()->user()->is_date_hijri) {
         if ((bool)setting('rasid_date_type')) {
@@ -67,9 +66,8 @@ trait Uuid
         return Carbon::parse($this->created_at)->locale($locale)->translatedFormat('j F Y');
     }
 
-    public function getCreatedAtDateTimeAttribute($date)
+    public function getCreatedAtDateTimeAttribute()
     {
-        if ($date==null) return $date ;
         $locale = app()->getLocale();
         // if (auth()->check() && auth()->user()->is_date_hijri) {
         if ((bool)setting('rasid_date_type')) {
@@ -79,9 +77,8 @@ trait Uuid
         return Carbon::parse($this->created_at)->locale($locale)->translatedFormat('j F Y - h:i A');
     }
 
-    public function getUpdatedAtDateAttribute($date)
+    public function getUpdatedAtDateAttribute()
     {
-        if ($date==null) return $date ;
         $locale = app()->getLocale();
         // if (auth()->check() && auth()->user()->is_date_hijri) {
         if ((bool)setting('rasid_date_type')) {
@@ -91,9 +88,8 @@ trait Uuid
         return Carbon::parse($this->updated_at)->locale($locale)->translatedFormat('j F Y');
     }
 
-    public function getDeletedAtDateAttribute($date)
+    public function getDeletedAtDateAttribute()
     {
-        if ($date==null) return $date ;
         $locale = app()->getLocale();
         // if (auth()->check() && auth()->user()->is_date_hijri) {
         if ((bool)setting('rasid_date_type')) {
