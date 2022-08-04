@@ -204,7 +204,7 @@ return [
         'from_account' => 'من المستخدم',
         'total' => 'إجمالي المبلغ',
         'beneficiary_name' => 'اسم المستفيد',
-        'benefeciary_address' => 'عنوان المستفيد',
+        'benefeciary_address' => 'دولة المستفيد',
         'transfer_purpose' => 'الغرض من الحوالة',
         'exchange_rate' => 'سعر الصرف',
     ],

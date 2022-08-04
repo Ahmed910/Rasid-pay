@@ -38,8 +38,9 @@ class TransactionResource extends JsonResource
 
             ];
         $transfer_fee_upon = $this->when(in_array($this->trans_type, ['global_transfer', 'local_transfer']), (string)$this->transactionable?->fee_upon);
-        $total_amount = ($transfer_fee_upon == Transfer::FROM_USER) ? ($this->amount + $this->fee_amount) : $this->amount;
+        $_amount = ($transfer_fee_upon == Transfer::FROM_USER) ? ($this->amount - $this->fee_amount) : $this->amount;
         $fee_amount = ($transfer_fee_upon == Transfer::FROM_USER) ? $this->fee_amount : 0;
+        $total_amount = ($transfer_fee_upon == Transfer::FROM_USER) ? $this->amount : ($this->amount + $this->fee_amount);
         return [
             'id' => $this->id,
             'trans_number' => (string)$this->trans_number,
@@ -47,8 +48,8 @@ class TransactionResource extends JsonResource
             'trans_type' => $this->trans_type,
             'trans_type_translate' => trans("mobile.transaction.transaction_types.{$this->trans_type}"),
             'trans_status' => $this->trans_status,
-            'amount' => number_format($this->amount, 2, '.', ''),
-            'fee_amount' => number_format($fee_amount, 2, '.', ''),
+            'amount' => number_format($_amount, 2, '.', ''),
+            'fee_amount' => number_format($this->fee_amount, 2, '.', ''),
             'total_amount' => number_format($total_amount, 2, '.', ''), // new amount after add or sub fees
             'created_at' => $this->created_at_mobile,
             'invoice_number' => $this->when($this->trans_type == 'payment', (string)$this->transactionable?->invoice_number),

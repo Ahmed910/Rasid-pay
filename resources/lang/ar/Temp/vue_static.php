@@ -39,7 +39,11 @@ return [
                 "url" => "هذا الرابط غير صحيح",
                 "biggerThan" => "%{attribute} يجب ان تكون  اكبر من  %{biggerThan}",
                 "smallerThan" => "%{attribute} يجب ان اقل من %{smallerThan}",
-                "sameAsPassword" => "كلمة المرور غير متطابقة"
+                "sameAsPassword" => "كلمة المرور غير متطابقة",
+                "hasNumbers" => "يجب ان تحتوي علي أرقام",
+                "hasCapitalLetters" => "يجب ان تحتوي علي حروف كبيرة",
+                "hasLowerLetters" => "يجب ان تحتوي علي حروف صغيرة",
+                "hasSpecialCharacters" => "يجب ان تحتوي علي علامات خاصة"
             ]
         ],
         "verification" => [
@@ -55,7 +59,8 @@ return [
             "placeholder" => [
                 "enter_mobile" => "أدخل رقم  الجوال",
                 "enter_email" => "أدخل البرد الإلكتروني",
-                "phone_x" => "xxxxxxxx"
+                "phone_x" => "xxxxxxxx",
+                "enter_phone" => "أدخل رقم الجوال"
             ],
             "button" => [
                 "send" => "إرسال",
@@ -124,7 +129,11 @@ return [
             ],
             "validation" => [
                 "required" => "%{attribute} مطلوب",
-                "sameAsPassword" => "كلمة المرور غير متطابقة"
+                "sameAsPassword" => "كلمة المرور غير متطابقة",
+                "hasNumbers" => "يجب ان تحتوي علي أرقام",
+                "hasCapitalLetters" => "يجب ان تحتوي علي حروف كبيرة",
+                "hasLowerLetters" => "يجب ان تحتوي علي حروف صغيرة",
+                "hasSpecialCharacters" => "يجب ان تحتوي علي علامات خاصة"
             ],
             "popup" => [
                 "buttons" => [
@@ -240,7 +249,7 @@ return [
             "messageTypes_add" => "اضافة نوع الرسالة",
             "messageTypes_view" => "عرض نوع الرسالة",
             "edit_vendor" => "تعديل عميل",
-            "add_vendor" => "تسجيل عميل",
+            "add_vendor" => "إضافة عميل",
             "view_vendor" => "عرض عميل",
             "branches" => "سجل الفروع",
             "branches_record" => "سجل الفروع",
@@ -333,7 +342,7 @@ return [
                 "noJobDepartment" => "لا يوجد وظائف لهذا القسم"
             ],
             "placeholder" => [
-                "enter_name" => "أدخل الاسم",
+                "enter_name" => "أدخل اسم المستخدم",
                 "enter_number" => "أدخل الرقم",
                 "enter_email" => "أدخل البريد الإلكتروني",
                 "choose_department" => "أختر القسم",
@@ -1698,7 +1707,7 @@ return [
                 "vendors" => "العملاء",
                 "vendors_record" => "سجل العملاء",
                 "edit_vendor" => "تعديل عميل",
-                "add_vendor" => "تسجيل عميل",
+                "add_vendor" => "إضافة عميل",
                 "view_vendor" => "عرض عميل"
             ],
             "table" => [
@@ -1761,7 +1770,8 @@ return [
                 "commercial_register" => "أدخل السجل التجاري",
                 "tax_record" => "أدخل الرقم الضريبي",
                 "email" => "أدخل البريد الإلكتروني",
-                "phone_x" => "xxxxxxxx"
+                "phone_x" => "xxxxxxxx",
+                "enter_phone" => "أدخل رقم الجوال"
             ],
             "labels" => [
                 "vendor_type" => "نوع العميل",
@@ -1910,7 +1920,8 @@ return [
                     "chooseStatus" => "اختر الحالة",
                     "address" => "أدخل العنوان",
                     "email" => "أدخل البريد الإلكتروني",
-                    "phone_x" => "xxxxxxxx"
+                    "phone_x" => "xxxxxxxx",
+                    "enter_phone" => "أدخل رقم الجوال"
                 ],
                 "labels" => [
                     "vendor_name" => "اسم العميل",
@@ -2046,7 +2057,8 @@ return [
                 "activated_card" => "البطاقة المفعلة",
                 "card_end_at" => "تاريخ إنتهاء البطاقة",
                 "register_date" => "تاريخ التسجيل",
-                "phone_x" => "xxxxxxxx"
+                "phone_x" => "xxxxxxxx",
+                "enter_phone" => "أدخل رقم الجوال"
             ],
             "labels" => [
                 "user_name" => "اسم المستخدم",
@@ -2353,7 +2365,8 @@ return [
                 "employee" => "اسم الموظف المسئول",
                 "enter_reply" => "أدخل الرد",
                 "enter_note" => "أدخل ملوحظة",
-                "phone_x" => "xxxxxxxx"
+                "phone_x" => "xxxxxxxx",
+                "enter_phone" => "أدخل رقم الجوال"
             ],
             "labels" => [
                 "sender_name" => "اسم المرسل",
@@ -2617,7 +2630,7 @@ return [
                 "drag_image" => "اسحب  واسقط أو قم برفع الصورة",
                 "current_password" => "كلمة المرور الحالية",
                 "new_password" => "كلمة المرور الجديدة",
-                "confirm_password" => "تأكيد كلمة المرور"
+                "confirm_password" => "تأكيد كلمة المرور الجديدة"
             ],
             "placeholder" => [
                 "enter_current_password" => "أدخل كلمة المرور الحالية",
@@ -2635,6 +2648,23 @@ return [
                 "current_password" => "كلمة المرور الحالية",
                 "new_password" => "كلمة المرور الجديدة",
                 "confirm_password" => "تأكيد كلمة المرور"
+            ],
+            "popup" => [
+                "buttons" => [
+                    "accept" => "موافق",
+                    "refuse" => "غير موافق"
+                ],
+                "body" => [
+                    "archive" => "هل تريد إتمام عملية الأرشفة؟",
+                    "confirmAccount" => "هل تريد إتمام عملية تأكيد الحساب؟",
+                    "hangAccount" => "هل تريد إتمام عملية التعليق؟",
+                    "confirm" => "هل تريد إتمام عملية الحفظ ؟",
+                    "confirmSubmit" => "هل تريد إتمام عملية الحفظ ؟",
+                    "back" => "هل تريد العودة دون الحفظ ؟",
+                    "delete" => "هل تريد إتمام عملية الحذف النهائي؟"
+                ],
+                "reasonLabel" => "الرجاء ذكر السبب",
+                "reasonValidation" => "السبب"
             ]
         ]
     ],
