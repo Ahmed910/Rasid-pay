@@ -20,7 +20,7 @@ class CitizenResource extends JsonResource
             'show_route' => route('dashboard.citizen.show', $this->id),
             // 'edit_route' => route('dashboard.citizen.edit', $this->id),
             'update_route' => route('dashboard.citizen.update', $this->user->id),
-            'created_at' => $this->created_at,
+            'created_at' => $this->created_at_date,
             'start_from' => $request->start
         ];
     }

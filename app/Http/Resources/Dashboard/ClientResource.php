@@ -29,7 +29,7 @@ class ClientResource extends JsonResource
             'client_type' => ["ar" => $map[$this->client_type], "en" => $this->client_type],
             "register_type" => $this->register_type,
             "transactions_done" => isset($this->transactions_done) ? $this->transactions_done : 0,
-            'created_at' => $this->created_at,
+            'created_at' => $this->created_at_date,
             'token' => $this->when($this->token, $this->token),
             'managers' => ManagerResource::collection($this->whenLoaded('managers')),
 

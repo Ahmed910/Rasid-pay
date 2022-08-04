@@ -20,7 +20,7 @@ class RasidJobResource extends JsonResource
             'name' => $this->name,
             'department_name' => optional($this->department)->name,
             'department_image' => optional($this->department)->image,
-            'created_at' => $this->created_at,
+            'created_at' => $this->created_at_date,
             'deleted_at' => $this->deleted_at,
             'is_active' => $this->is_active,
             'is_vacant' => $this->is_vacant,

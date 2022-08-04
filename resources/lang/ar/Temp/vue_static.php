@@ -27,7 +27,7 @@ return [
                 "enter_password" => "أدخل كلمة المرور"
             ],
             "validation" => [
-                "validPhoneNumber" => "يرجى ادخال رقم جوال بصيغة صحيحة    ",
+                "validPhoneNumber" => "يرجى ادخال رقم جوال بصيغة صحيحة ",
                 "required" => "%{attribute} مطلوب",
                 "required_f" => "%{attribute} مطلوبة",
                 "maxLength" => "%{attribute} يجب ان لا يتجاوز %{max} حروف ",
@@ -39,6 +39,7 @@ return [
                 "url" => "هذا الرابط غير صحيح",
                 "biggerThan" => "%{attribute} يجب ان تكون  اكبر من  %{biggerThan}",
                 "smallerThan" => "%{attribute} يجب ان اقل من %{smallerThan}",
+                "startWithSA" => "%{attribute} يجب ان يبدأ ب SA ",
                 "sameAsPassword" => "كلمة المرور غير متطابقة",
                 "hasNumbers" => "يجب ان تحتوي علي أرقام",
                 "hasCapitalLetters" => "يجب ان تحتوي علي حروف كبيرة",
@@ -1761,7 +1762,8 @@ return [
                 "required" => "%{attribute} مطلوب",
                 "required_f" => "%{attribute} مطلوبة",
                 "maxLength" => "%{attribute} يجب ان لا يتجاوز %{max} حرف ",
-                "minLength" => "%{attribute} يجب ان لا يقل عن  %{min} حرف"
+                "minLength" => "%{attribute} يجب ان لا يقل عن  %{min} حرف",
+                "startWithSA" => "%{attribute} يجب ان يبدأ ب SA "
             ],
             "placeholder" => [
                 "choosevendor" => "إختر العميل",
@@ -2583,6 +2585,13 @@ return [
                     "lat" => "خط طول",
                     "lng" => "خط عرض"
                 ]
+            ],
+            "validation" => [
+                "imageType" => "يجب أن يكون نوع الصورة jpg , png , jpeg",
+                "imageSize" => "يجب أن يكون حجم الصورة أقل من %{count} kb",
+                "imageDimensions" => "أبعاد الصورة غير صالحة",
+                "image_ratio" => "نسبة الصورة غير صالحة",
+                "isPngType" => "فقط  png"
             ]
         ],
         "appLinks" => [

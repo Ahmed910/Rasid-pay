@@ -30,7 +30,7 @@ class DepartmentResource extends JsonResource
                 'parent' => $this->parent?->translations()->where('locale', app()->getLocale())->value('name'),
                 'parent_id' => $this->parent_id,
                 'is_active' => (bool)$this->is_active,
-                'created_at' => $this->created_at,
+                'created_at' => $this->created_at_date,
                 'deleted_at' => $this->deleted_at,
                 'has_children' => $this->children()->exists(),
                 'has_jobs' => $this->rasidJobs()->exists(),

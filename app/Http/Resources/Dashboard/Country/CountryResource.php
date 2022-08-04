@@ -30,7 +30,7 @@ class CountryResource extends JsonResource
             'phone_code' => $this->phone_code,
             'nationality' => $this->nationality,
             'currency' => CurrencyResource::make($this->whenLoaded('currency')),
-            'created_at' => $this->created_at,
+            'created_at' => $this->created_at_date,
             'added_by ' => SimpleUserResource::make($this->whenLoaded('addedBy')),
             'activity'  => ActivityLogResource::collection($this->whenLoaded('activity')),
             'actions' => $this->when(in_array($request->route()->getActionMethod(),['index','archive']), [
