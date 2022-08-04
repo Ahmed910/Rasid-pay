@@ -23,8 +23,8 @@
       <td>{{ $contact->email }}</td>
       <td>{{ $contact->phone }}</td>
       <td>{{ $contact->title }}</td>
-      <td>{{ $contact->message_source }}</td>
-      <td>{{ $contact->message_status }}</td>
+      <td>{{ trans('dashboard.contact.message_sources.'.$contact->message_source) }}</td>
+      <td>{{ trans('dashboard.contact.message_status.'.$contact->message_status) }}</td>
     </tr>
     @endforeach
   </tbody>
