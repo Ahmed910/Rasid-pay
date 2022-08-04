@@ -25,11 +25,6 @@ class GlobalTransferController extends Controller
         // dd($amount_per_dollar);
 
         $transfer_fees = TransferFee::whereRaw('CAST(amount_from AS DECIMAL) <= ? AND CAST(amount_to AS DECIMAL) >= ?', [$amount_per_dollar, $amount_per_dollar])->first();
-
-        if (!$transfer_fees) {
-            $transfer_fee = TransferFee::max('amount_to');
-            $transfer_fees = TransferFee::create(['amount_from' => ++$transfer_fee, 'amount_to' => $amount_per_dollar, 'amount_fee' => 40]);
-        }
         // $fees = setting('western_union_fees') ?: 0;
         $fees_per_dollar = $transfer_fees->amount_fee;
 

@@ -22,7 +22,6 @@ class WalletTransferController extends Controller
         // check max value of transfer per day
         $citizen_wallet = CitizenWallet::with('citizen')->where('citizen_id', auth()->id())->firstOrFail();
         if ($request->amount > $citizen_wallet->main_balance + $citizen_wallet->cash_back) {
-
             return response()->json(['data' => null, 'message' => trans('mobile.local_transfers.current_balance_is_not_sufficient_to_complete_transaction'), 'status' => false], 422);
         }
 
