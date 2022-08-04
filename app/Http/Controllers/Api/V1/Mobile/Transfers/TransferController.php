@@ -100,11 +100,11 @@ class TransferController extends Controller
         // global transfer
         if ($request->transfer_type == 'global_transfer') {
             $rules = [
-                "amount" => 'gte:' . setting('rasidpay_globaltransfer_minvalue') . '|lte:' . setting('rasidpay_globaltransfer_maxvalue')
+                "amount" => 'gte:' . setting('rasidpay_inttransfer_minvalue') . '|lte:' . setting('rasidpay_inttransfer_maxvalue')
             ];
             $messages = [
-                'amount.gte' => trans('validation.global_transfers.amount.gte', ['min_amount' => (setting('rasidpay_globaltransfer_minvalue'))]),
-                'amount.lte' => trans('validation.global_transfers.amount.lte', ['max_amount' => (setting('rasidpay_globaltransfer_maxvalue'))]),
+                'amount.gte' => trans('validation.global_transfers.amount.gte', ['min_amount' => (setting('rasidpay_inttransfer_minvalue'))]),
+                'amount.lte' => trans('validation.global_transfers.amount.lte', ['max_amount' => (setting('rasidpay_inttransfer_maxvalue'))]),
             ];
         }
         $validator = \Validator::make($request->all(), $rules, $messages);

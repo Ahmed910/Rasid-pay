@@ -4,8 +4,10 @@ namespace App\Traits;
 
 use App\Models\ActivityLog;
 use App\Models\Contact;
-use Illuminate\Support\Facades\Request;
+use App\Models\User;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Http\Request as HttpRequest;
+use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Facades\Schema;
 
 trait Loggable
@@ -19,13 +21,11 @@ trait Loggable
         static::updated(function (self $self) {
             if ($self->isDirty('deleted_at')) {
                 if (in_array(SoftDeletes::class, class_uses(static::class))) {
-                    static::restored(function (self $self) {
-                        return $self->addUserActivity($self, ActivityLog::RESTORE, 'archive');
-                    });
+                    return $self->addUserActivity($self, ActivityLog::RESTORE, 'archive');
                 }
             } else {
-                if (in_array(class_basename($self), ['User', 'Admin']))
-                    return $self->checkIfHasIsActiveOnly($self, 'ban_status');
+                if (in_array(class_basename($self), ['User']))
+                    return $self->checkRequestForUser($self, request());
 
                 if (in_array(class_basename($self), ['Contact'])) {
                     if (request('assigned_to_id')) return;
@@ -195,6 +195,7 @@ trait Loggable
             !$hasData
             && !request()->has('image')
             && in_array($column, $keys)
+            && !request()->has('admins')
         ) {
             $this->checkStatus($self, $column);
         } elseif ($hasData && in_array($column, $keys)) {
@@ -202,5 +203,16 @@ trait Loggable
         } else {
             $self->addUserActivity($self, ActivityLog::UPDATE, 'index');
         }
+    }
+
+    public function checkRequestForUser(User $self, HttpRequest $request)
+    {
+        $userStatusFields = ['ban_status', 'ban_from', 'ban_to'];
+
+        if ($request->hasAny($userStatusFields) && count($request->except($userStatusFields)) > 0) {
+            $this->checkStatus($self, 'ban_status');
+        }
+
+        $self->addUserActivity($self, ActivityLog::UPDATE, 'index');
     }
 }

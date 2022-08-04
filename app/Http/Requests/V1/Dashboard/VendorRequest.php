@@ -55,4 +55,15 @@ class VendorRequest extends ApiMasterRequest
             'phone' => @$data['phone'] ? filter_mobile_number($data['phone']) : @$data['phone']
         ]);
     }
+
+
+    public function messages()
+    {
+        return [
+            'iban_number.required' => __('dashboard.vendors.iban_number.required'),
+            'iban_number.starts_with' => __('dashboard.vendors.iban_number.starts_with', ['starts_with' => 'SA']),
+            'iban_number.size' => __('dashboard.vendors.iban_number.size', ['size' => '24']),
+            'iban_number.unique' => __('dashboard.vendors.iban_number.unique'),
+        ];
+    }
 }
