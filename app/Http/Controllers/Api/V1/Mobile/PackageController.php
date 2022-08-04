@@ -79,7 +79,7 @@ class PackageController extends Controller
             'trans_type' => 'promote_package',
             'from_user_id' => auth()->id(),
             'amount' => isset($new_package_price) ?: $package_price,
-            'trans_status' => 'success', // TODO::will be changed after implement api
+            'trans_status' => Transaction::SUCCESS, // TODO::will be changed after implement api
         ];
         $transaction = $citizen_package->transaction()->create($transaction_data);
 
