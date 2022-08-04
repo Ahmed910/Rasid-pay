@@ -1157,6 +1157,9 @@ return [
         ],
         'messages' => 'الرسائل',
     ],
+    'messages'=>[
+        'login_firstly' => 'يجب تسجيل الدخول اولا'
+    ],
     'message_type' =>  [
         'message_types' => 'أنواع الرسائل',
         'name' => 'الاسم',

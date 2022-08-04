@@ -79,6 +79,7 @@ class LoginController extends Controller
     private function makeLogin($request, $user)
     {
         $user->devices()->where('device_token', "<>", $request->device_token)->delete();
+        //TODO:: just only one device make login
         $token = $user->createToken('RasidBackApp')->plainTextToken;
         if ($request->only(['device_token', 'device_type'])) {
             $user->devices()->firstOrCreate($request->only(['device_token', 'device_type']));
