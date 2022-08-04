@@ -33,9 +33,8 @@ class VendorBranchRequest extends ApiMasterRequest
             $rules['is_active'] = 'required|in:0,1';
         }
         foreach (config('translatable.locales') as $locale) {
-            $rules["$locale.name"] = "required|string|between:2,200";
+            $rules["$locale.name"] = "required|string|between:2,100";
         }
-        // dd($rules);
 
         return $rules;
     }
