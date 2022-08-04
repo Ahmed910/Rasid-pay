@@ -209,13 +209,10 @@ trait Loggable
     {
         $exceptedColumns =  [
             'ban_status',
-            'groups',
-            'permissions',
             'ban_from',
             'ban_to',
             'user_locale',
             'updated_at',
-            'read_at',
         ];
 
         $userStatusFields = ['ban_status', 'ban_from', 'ban_to'];
