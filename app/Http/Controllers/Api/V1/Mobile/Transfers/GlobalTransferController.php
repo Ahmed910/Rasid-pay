@@ -20,6 +20,7 @@ class GlobalTransferController extends Controller
         $wallet = CitizenWallet::with('citizen')->where('citizen_id', auth()->id())->firstOrFail();
         $sar_per_dollar = Currency::where('currency_code', 'USD')->select('currency_value')->value('currency_value');
         $amount = $request->amount;
+        $wallet_amount = $request->amount;
         $amount_per_dollar = $amount * $sar_per_dollar;
         // dd($amount_per_dollar);
 
@@ -34,9 +35,17 @@ class GlobalTransferController extends Controller
 
         $fees = $fees_per_dollar / $sar_per_dollar;
         $fee_upon = $request->fee_upon;
-        if ($amount > $wallet->main_balance) {
-
-            return response()->json(['data' => null, 'message' => trans('mobile.local_transfers.current_balance_is_not_sufficient_to_complete_transaction'), 'status' => false], 422);
+        if ($fee_upon == Transfer::FROM_USER) {
+            if (($amount + $fees) > $wallet->main_balance) {
+                return response()->json(['data' => null, 'message' => trans('mobile.local_transfers.current_balance_is_not_sufficient_to_complete_transaction'), 'status' => false], 422);
+            }
+            $amount += $fees;
+            $wallet_amount += $fees;
+        } else {
+            if ($amount > $wallet->main_balance) {
+                return response()->json(['data' => null, 'message' => trans('mobile.local_transfers.current_balance_is_not_sufficient_to_complete_transaction'), 'status' => false], 422);
+            }
+            $amount -= $fees;
         }
         $wallet->update(['wallet_bin' => null]);
         // TODO: Calc transfer fee
@@ -55,7 +64,7 @@ class GlobalTransferController extends Controller
         // $balance = WalletBalance::calcWalletMainBackBalance($wallet, $request->amount);
 
         // $transfer_data += (array)$balance;
-        $wallet->decrement('main_balance', $amount);
+        $wallet->decrement('main_balance', $wallet_amount);
         // create global transfer
         $global_transfer = Transfer::create($transfer_data + ['main_amount' => $request->amount]);
         $exchange_rate = Country::find($request->to_currency_id)->countryCurrency?->currency_value;
@@ -72,7 +81,7 @@ class GlobalTransferController extends Controller
 
         //add transfer in  transaction
         $transaction = $global_transfer->transaction()->create([
-            'amount' => $amount - $fees,
+            'amount' => $amount,
             'trans_type' => 'global_transfer',
             "fee_upon" => $request->fee_upon,
             'from_user_id' => auth()->id(),
@@ -80,7 +89,7 @@ class GlobalTransferController extends Controller
             'cashback_amount' => $global_transfer->cashback_amount,
             'main_amount' => $global_transfer->main_amount,
             'trans_number' => generate_unique_code(Transaction::class, 'trans_number', 10, 'numbers'),
-            'trans_status' => 'success'
+            'trans_status' => Transaction::SUCCESS
         ]);
 
         return TransactionResource::make($transaction->refresh())->additional([
