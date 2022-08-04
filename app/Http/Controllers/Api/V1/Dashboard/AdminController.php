@@ -98,11 +98,9 @@ class AdminController extends Controller
         $admin = User::withTrashed()->where('user_type', 'admin')->with('admin')->findOrFail($id);
         $activities = [];
         if (!$request->has('with_activity') || $request->with_activity) {
-            if ($admin->admin) {
-                $activities = $admin->admin->activity()
-                    ->sortBy($request)
-                    ->paginate((int)($request->per_page ??  config("globals.per_page")));
-            }
+            $activities = $admin->activity()
+                ->sortBy($request)
+                ->paginate((int)($request->per_page ??  config("globals.per_page")));
         }
 
         return AdminCollection::make($activities)

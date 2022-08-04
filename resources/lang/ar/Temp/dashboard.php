@@ -747,6 +747,7 @@ return [
             'permanent' => 'معطل دائم',
             'active' => 'مفعل',
             'temporary' => 'معطل لفترة',
+            'exceeded_attempts' => 'تعدي محاولات الدخول الخاطئة'
         ],
         'admin' => 'اسم المستخدم',
         'login_id' => 'رقم المستخدم',
@@ -1158,6 +1159,9 @@ return [
         ],
         'messages' => 'الرسائل',
     ],
+    'messages'=>[
+        'login_firstly' => 'يجب تسجيل الدخول اولا'
+    ],
     'message_type' =>  [
         'message_types' => 'أنواع الرسائل',
         'name' => 'الاسم',
@@ -1216,6 +1220,16 @@ return [
                 'required' => 'حقل الرد مطلوب',
                 'string' => 'حقل الرد  يجب أن يكون قيمة نصية',
             ],
+        ],
+        'message_sources'=>[
+            'app' => 'التطبيق',
+            'website' => 'الموقع',
+        ],
+        'message_status'=>[
+            'replied' =>'تم الرد',
+            "pending" => "بانتظار الرد ",
+            "shown" => "تم الإطلاع",
+            "assigned" => "تم الإحالة",
         ],
 
         'permissions' =>

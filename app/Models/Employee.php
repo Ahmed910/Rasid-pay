@@ -11,7 +11,7 @@ use App\Traits\Uuid;
 
 class Employee extends Model
 {
-    use HasFactory, Uuid,Loggable;
+    use HasFactory, Uuid;
 
     protected $guarded = ['created_at'];
 

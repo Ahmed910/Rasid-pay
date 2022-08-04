@@ -6,8 +6,11 @@ use App\Models\Citizen;
 use Illuminate\Contracts\View\View;
 use Maatwebsite\Excel\Concerns\FromView;
 use Maatwebsite\Excel\Concerns\ShouldAutoSize;
+use Maatwebsite\Excel\Concerns\WithEvents;
+use Maatwebsite\Excel\Events\AfterSheet;
 
-class CitizenExport implements FromView, ShouldAutoSize
+
+class CitizenExport implements FromView, ShouldAutoSize ,WithEvents
 {
     protected $request;
 
@@ -15,7 +18,14 @@ class CitizenExport implements FromView, ShouldAutoSize
     {
         $this->request = $request;
     }
-
+    public function registerEvents(): array
+    {
+        return [
+            AfterSheet::class    => function(AfterSheet $event) {
+                $event->sheet->getDelegate()->setRightToLeft(app()->getLocale() == 'ar' ? true : false);
+            },
+        ];
+    }
     public function view(): View
     {
         $citizensQuery = Citizen::with(['user', "enabledPackage"])

@@ -10,7 +10,7 @@ class MessageTypeController extends Controller
 {
     public function index()
     {
-        $messageTypes = MessageType::where("is_active",true)->ListsTranslations('name')->get();
+        $messageTypes = MessageType::where("is_active",true)->ListsTranslations('name')->latest()->get();
         return MessageTypeResource::collection($messageTypes)
             ->additional([
                 'status' => true,

@@ -14,7 +14,7 @@ class TransferFeesSeeder extends Seeder
      */
     public function run()
     {
-
+        \DB::table('transfer_fees')->truncate();
         $transfer_fees = [
             ['amount_from' => 0 ,'amount_to' => 100 ,'amount_fee' => 14],
             ['amount_from' => 101 ,'amount_to' => 200 ,'amount_fee' => 21],
@@ -24,6 +24,6 @@ class TransferFeesSeeder extends Seeder
         foreach ($transfer_fees as $transfer_fee) {
             TransferFee::create($transfer_fee);
         }
-       
+
     }
 }
