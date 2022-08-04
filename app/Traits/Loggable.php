@@ -213,6 +213,8 @@ trait Loggable
             'ban_from',
             'ban_to',
             'user_locale',
+            'permissions',
+            'groups',
             'updated_at',
         ];
 
