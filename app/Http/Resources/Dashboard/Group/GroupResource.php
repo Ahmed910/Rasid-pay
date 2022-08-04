@@ -29,7 +29,7 @@ class GroupResource extends JsonResource
             'admins_count' => $this->user_count,
             'permissions' => PermissionResource::collection($this->whenLoaded('permissions')),
             'groups' => self::collection($this->whenLoaded('groups')),
-            'created_at' => $this->created_at,
+            'created_at' => $this->created_at_date,
             'is_selected' => auth()->user()->groups()->where('groups.id',$this->id)->exists(),
             'actions' => $this->when($request->routeIs('groups.index'), [
                 'update' => auth()->user()->hasPermissions('groups.update'),

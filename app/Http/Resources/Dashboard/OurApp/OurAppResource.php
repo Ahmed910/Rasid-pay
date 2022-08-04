@@ -31,7 +31,7 @@ class OurAppResource extends JsonResource
             'android_link'     => $this->android_link,
             'ios_link'         => $this->ios_link,
             "images"           => ImagesResource::collection($this->whenLoaded("images")),
-            'created_at'       => $this->created_at,
+            'created_at'       => $this->created_at_date,
             'added_by_id'      => $this->whenLoaded('addedBy', SimpleUserResource::make($this->addedBy)),
             'actions'          => $this->when($request->routeIs('our_apps.index') || $request->routeIs('our_apps.archive'), [
                 'show' => auth()->user()->hasPermissions('our_apps.show'),

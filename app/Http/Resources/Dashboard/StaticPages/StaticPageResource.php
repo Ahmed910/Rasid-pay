@@ -30,7 +30,7 @@ class StaticPageResource extends JsonResource
             'description'      => $this->description,
             'is_active'        => (bool)$this->is_active,
             "images"           => ImagesResource::collection($this->whenLoaded("images")),
-            'created_at'       => $this->created_at,
+            'created_at'       => $this->created_at_date,
             'added_by_id'      => $this->whenLoaded('addedBy', SimpleUserResource::make($this->addedBy)),
             'show_in_app'      =>(bool)$this->show_in_app,
             'show_in_website'      =>(bool)$this->show_in_website,

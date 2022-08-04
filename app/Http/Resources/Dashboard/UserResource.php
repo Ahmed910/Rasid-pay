@@ -41,7 +41,7 @@ class UserResource extends JsonResource
             'client_type' => $this->when(request()->is('*/admins/*'), $this->client_type),
             'identity_number' => $this->when(request()->is('*/admins/*'), $this->identity_number),
             'register_status' => $this->when(request()->is('*/admins/*'), $this->register_status),
-            'created_at' => $this->created_at,
+            'created_at' => $this->created_at_date,
             'token' => $this->when($this->token, $this->token),
             'job' => $this->when($this->employee?->job, RasidJobResource::make($this->employee?->job)),
             'actions' => $this->when($request->routeIs('admins.index'), [

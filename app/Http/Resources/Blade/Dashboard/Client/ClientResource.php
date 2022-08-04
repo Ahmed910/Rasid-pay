@@ -22,7 +22,7 @@ class ClientResource extends JsonResource
             'account_status_name' =>  $this->bankAccount?->account_status,
             'show_route' => route('dashboard.client.show', $this->id),
             'edit_route' => route('dashboard.client.edit', $this->id),
-            'created_at' => $this->created_at,
+            'created_at' => $this->created_at_date,
             'start_from' => $request->start
         ];
     }

@@ -89,16 +89,6 @@ class Transaction extends Model
         return $query->where('trans_type', 'like', "%$request->trans_type%");
     }
 
-    public function getCreatedAtMobileAttribute($date)
-    {
-        $locale = app()->getLocale();
-        if (auth()->check() && auth()->user()->is_date_hijri) {
-            $this->changeDateLocale($locale);
-            return Hijri::convertToHijri($this->attributes['created_at'])->format('d F o h:i A');
-        }
-        return Carbon::parse($this->attributes['created_at'])->locale($locale)->translatedFormat('Y/m/d - h:i A');
-    }
-
     public function scopeSortBy(Builder $query, $request)
     {
         if (!isset($request->sort["column"]) || !isset($request->sort["dir"])) return $query->latest('transactions.created_at');

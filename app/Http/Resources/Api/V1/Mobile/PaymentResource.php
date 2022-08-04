@@ -23,7 +23,7 @@ class PaymentResource extends JsonResource
             "payment_data" => $this->payment_data,
             'trans_number' => $this->transaction?->trans_number,
             'qr_code' => asset($this->transaction?->qr_path),
-            'created_at' => $this->created_at_mobile,
+            'created_at' => $this->created_at_date_time,
             'total_amount' => number_format(($this->amount + $this->transaction?->fee_amount), 2, '.', '')
         ];
     }

@@ -15,7 +15,7 @@ class CardResource extends JsonResource
             'card_name' => $this->card_name,
             'card_number' => '************' . substr($this->card_number, -4),
             'card_type' => $this->card_type,
-            'created_at' => $this->created_at,
+            'created_at' => $this->created_at_date,
             'is_expired' => $this->expire_at->lt(now()),
             'expire_at' => $this->expire_at->format("m/y"),
         ];
