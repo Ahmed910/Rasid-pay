@@ -28,7 +28,7 @@ class SimpleCitizenResource extends JsonResource
             'user_type' => $this->user_type,
             'date_of_birth' => $this->date_of_birth,
             'images' => ImagesResource::collection($this->whenLoaded('images')),
-            'created_at' => $this->created_at,
+            'created_at' => $this->created_at_date,
             'bank_account' => BankAccountResource::make($this->whenLoaded('bankAccount')),
         ];
     }

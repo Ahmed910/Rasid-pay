@@ -25,7 +25,7 @@ class CitizenResource extends JsonResource
             'enabled_package' => CitizenPackageResource::make($this->whenLoaded('enabledPackage')),
             'card_end_at' => $this->enabledPackage?->end_at_dashboard,
             'bank_name' => $this->bankAccount?->bank?->name,
-            'created_at' => $this->created_at,
+            'created_at' => $this->created_at_date,
             'start_from' => $request->start,
             'activity' => ActivityLogResource::collection($this->whenLoaded('activity')),
             'token' => $this->when($this->token, $this->token),

@@ -26,7 +26,7 @@ class BankResource extends JsonResource
             'name'             => $this->name,
             'is_active'        => (bool)$this->is_active,
             "images"           => ImagesResource::collection($this->whenLoaded("images")),
-            'created_at'       => $this->created_at,
+            'created_at'       => $this->created_at_date,
             'added_by_id'      => $this->whenLoaded('addedBy', SimpleUserResource::make($this->addedBy)),
             'actions'          => $this->when($request->routeIs('banks.index') || $request->routeIs('banks.archive'), [
                 'show' => auth()->user()->hasPermissions('banks.show'),

@@ -14,7 +14,7 @@ class DepartmentResource extends JsonResource
             'id' => $this->id,
             'name' => $this->name,
             'parent' => $this->parent,
-            'created_at' => $this->created_at,
+            'created_at' => $this->created_at_date,
             'deleted_at' => $this->deleted_at,
             'is_active' => $this->is_active,
             'image' => $this->image,
