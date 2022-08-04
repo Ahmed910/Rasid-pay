@@ -19,9 +19,7 @@ trait Loggable
         static::updated(function (self $self) {
             if ($self->isDirty('deleted_at')) {
                 if (in_array(SoftDeletes::class, class_uses(static::class))) {
-                    static::restored(function (self $self) {
-                        return $self->addUserActivity($self, ActivityLog::RESTORE, 'archive');
-                    });
+                    return $self->addUserActivity($self, ActivityLog::RESTORE, 'archive');
                 }
             } else {
                 if (in_array(class_basename($self), ['User', 'Admin']))
@@ -195,6 +193,7 @@ trait Loggable
             !$hasData
             && !request()->has('image')
             && in_array($column, $keys)
+            && !request()->has('admins')
         ) {
             $this->checkStatus($self, $column);
         } elseif ($hasData && in_array($column, $keys)) {
