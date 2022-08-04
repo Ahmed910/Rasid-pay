@@ -6,6 +6,7 @@ use App\Models\MessageType\MessageType;
 use App\Traits\Loggable;
 use App\Traits\Uuid;
 use Carbon\Carbon;
+use GeniusTS\HijriDate\Hijri;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -47,10 +48,6 @@ class Contact extends Model
         $this->attributes['title'] = $value;
     }
 
-    public function getCreatedAtTimeAttribute($date)
-    {
-        return $this->created_at->format('h:i A');
-    }
     #endregion mutators
 
     #region scopes

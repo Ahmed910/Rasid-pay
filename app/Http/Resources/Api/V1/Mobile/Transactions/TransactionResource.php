@@ -51,7 +51,7 @@ class TransactionResource extends JsonResource
             'amount' => number_format($_amount, 2, '.', ''),
             'fee_amount' => number_format($fee_amount, 2, '.', ''),
             'total_amount' => number_format($total_amount, 2, '.', ''), // new amount after add or sub fees
-            'created_at' => $this->created_at_mobile,
+            'created_at' => $this->created_at_date_time,
             'invoice_number' => $this->when($this->trans_type == 'payment', (string)$this->transactionable?->invoice_number),
             'mtcn_number' => $this->when(in_array($this->trans_type, ['global_transfer', 'local_transfer']), (string)$this->transactionable?->bankTransfer?->mtcn_number),
             'trans_status_translate' => trans("mobile.transaction.status_cases.{$this->trans_status}"),
