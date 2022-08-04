@@ -4,8 +4,10 @@ namespace App\Traits;
 
 use App\Models\ActivityLog;
 use App\Models\Contact;
-use Illuminate\Support\Facades\Request;
+use App\Models\User;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Http\Request as HttpRequest;
+use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Facades\Schema;
 
 trait Loggable
@@ -22,8 +24,8 @@ trait Loggable
                     return $self->addUserActivity($self, ActivityLog::RESTORE, 'archive');
                 }
             } else {
-                if (in_array(class_basename($self), ['User', 'Admin']))
-                    return $self->checkIfHasIsActiveOnly($self, 'ban_status');
+                if (in_array(class_basename($self), ['User']))
+                    return $self->checkRequestForUser($self, request());
 
                 if (in_array(class_basename($self), ['Contact'])) {
                     if (request('assigned_to_id')) return;
@@ -201,5 +203,16 @@ trait Loggable
         } else {
             $self->addUserActivity($self, ActivityLog::UPDATE, 'index');
         }
+    }
+
+    public function checkRequestForUser(User $self, HttpRequest $request)
+    {
+        $userStatusFields = ['ban_status', 'ban_from', 'ban_to'];
+
+        if ($request->hasAny($userStatusFields) && count($request->except($userStatusFields)) > 0) {
+            $this->checkStatus($self, 'ban_status');
+        }
+
+        $self->addUserActivity($self, ActivityLog::UPDATE, 'index');
     }
 }
