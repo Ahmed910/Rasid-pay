@@ -193,6 +193,8 @@ class AdminController extends Controller
                 $q->whereHas('permissions', function ($q) use ($request) {
                     $q->whereIn('main_program', $request->has_permission_on);
                 })->where('users.id', '!=', auth()->id());
+            })->when($request->ban_status, function ($q) use ($request) {
+                $q->where('ban_status', $request->ban_status);
             })
             ->get();
 
