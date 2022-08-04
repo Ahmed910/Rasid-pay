@@ -107,7 +107,7 @@ class ContactController extends Controller
         return ContactResource::make($contact->load("admin"))
             ->additional([
                 'status' => true,
-                'message' => trans('dashboard.general.success_update')
+                'message' => trans('dashboard.general.success_message_forwareded')
             ]);
     }
 
