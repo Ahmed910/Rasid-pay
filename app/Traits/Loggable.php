@@ -5,6 +5,7 @@ namespace App\Traits;
 use App\Models\ActivityLog;
 use App\Models\Contact;
 use App\Models\User;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Http\Request as HttpRequest;
 use Illuminate\Support\Facades\Request;
@@ -215,13 +216,34 @@ trait Loggable
             'updated_at',
         ];
 
+        $permissionIsUpdated = false;
+        $groupsIsUpdated = false;
+        if (request()->has('permission_list'))
+            $permissionIsUpdated = $this->isDirtyRelationship($self, 'permissions', 'permission_list', 'permission_id');
+
+        if (request()->has('group_list'))
+            $groupsIsUpdated = $this->isDirtyRelationship($self, 'groups', 'group_list', 'group_id');
+
         $userStatusFields = ['ban_status', 'ban_from', 'ban_to'];
         $hasData = count(array_flatten(array_except($this->newData($self), $exceptedColumns)));
 
-        if ($self->isDirty($userStatusFields) && !$hasData) {
+        if ($self->isDirty($userStatusFields) && !$hasData && !$permissionIsUpdated && !$groupsIsUpdated) {
             return $this->checkStatus($self, 'ban_status');
         }
 
         $self->addUserActivity($self, ActivityLog::UPDATE, 'index');
+    }
+
+    public function isDirtyRelationship(Model $model, string $relatioship, string $columnRequest, string $columnRelation): bool
+    {
+        $oldPermissions = $model->{$relatioship}()->pluck($columnRelation)->all();
+        $newPermissions = request($columnRequest);
+        $diff = array_diff($newPermissions, $oldPermissions);
+
+        if (count($diff) > 0) {
+            return true;
+        }
+
+        return false;
     }
 }

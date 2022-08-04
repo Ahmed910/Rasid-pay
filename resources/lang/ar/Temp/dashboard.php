@@ -171,6 +171,7 @@ return [
         'type' => 'النوع',
         'cancel' => 'الغاء',
         'success_update' => 'تم التعديل بنجاح',
+        'success_message_forwareded' => 'تم احالة الرسالة الى الموظف',
         'personalfile' => 'الملف الشخص',
         'reason_required' => 'السبب مطلوب',
         'Total_vacant_jobs' => 'الوظائف الشاغرة ',
@@ -746,6 +747,7 @@ return [
             'permanent' => 'معطل دائم',
             'active' => 'مفعل',
             'temporary' => 'معطل لفترة',
+            'exceeded_attempts' => 'تعدي محاولات الدخول الخاطئة'
         ],
         'admin' => 'اسم المستخدم',
         'login_id' => 'رقم المستخدم',
@@ -1218,6 +1220,16 @@ return [
                 'required' => 'حقل الرد مطلوب',
                 'string' => 'حقل الرد  يجب أن يكون قيمة نصية',
             ],
+        ],
+        'message_sources'=>[
+            'app' => 'التطبيق',
+            'website' => 'الموقع',
+        ],
+        'message_status'=>[
+            'replied' =>'تم الرد',
+            "pending" => "بانتظار الرد ",
+            "shown" => "تم الإطلاع",
+            "assigned" => "تم الإحالة",
         ],
 
         'permissions' =>

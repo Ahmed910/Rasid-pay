@@ -8,6 +8,7 @@ use App\Models\User;
 use App\Traits\Loggable;
 use App\Traits\Uuid;
 use Astrotomic\Translatable\Translatable;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -76,6 +77,11 @@ class MessageType extends Model
 
             $q->orderBy($request->sort["column"], @$request->sort["dir"]);
         });
+    }
+
+    public function getCreatedAtHumanAttribute($date)
+    {
+        return Carbon::parse($this->attributes['created_at'])->diffForHumans();
     }
     #endregion scopes
 
