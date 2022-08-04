@@ -78,7 +78,7 @@ return [
     'beneficiaries' => [
         "iban_number" => [
             "required" => "رقم الايبان مطلوب",
-            "starts_with" => "رقم الايبان يجب ان يبدأ ب :starts_with",
+            "starts_with" => "رقم الايبان يجب ان يبدأ ب :starts_with في حالة أن المستفيد مستفيد محلي",
             "size" => "رقم الايبان يجب ان يكون :size حرف ورقم",
             "unique" => "رقم الايبان موجود من قبل",
         ],
