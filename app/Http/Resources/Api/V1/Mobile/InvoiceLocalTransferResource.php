@@ -17,7 +17,7 @@ class InvoiceLocalTransferResource extends JsonResource
         return [
             'id'              => $this->id,
             'transfer_type'    =>$this->transfer_type,
-            'transfer_date'    =>$this->created_at,
+            'transfer_date'    =>$this->created_at_date,
           //  'refrence_number' => $this->transaction->transaction_id,
             'amount'           =>$this->amount,
             'transfer_fees'    => $this->transfer_fees,

@@ -21,8 +21,6 @@ class BankAccountResource extends JsonResource
             "account_name" => $this->account_name,
             "iban_number" => $this->iban_number,
             "contract_type" => $this->contract_type,
-
-
         ];
     }
 }

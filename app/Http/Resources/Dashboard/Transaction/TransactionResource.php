@@ -24,7 +24,7 @@ class TransactionResource extends JsonResource
         return [
             'id' => $this->id,
             'number' => $this->trans_number,
-            'created_at' => $this->created_at_mobile,
+            'created_at' => $this->created_at_date_time,
             'citizen' => $this->fromUser?->fullname,
             'vendor' => $this->vendor?->name,
             'vendor_discount' => (float) $this->vendor_discount,

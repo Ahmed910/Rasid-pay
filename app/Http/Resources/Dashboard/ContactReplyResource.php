@@ -13,7 +13,7 @@ class ContactReplyResource extends JsonResource
         return [
             'id' => $this->id,
             'reply' => $this->reply,
-            'created_at' => $this->created_at,
+            'created_at' => $this->created_at_date_time,
             'admin' =>  SimpleUserResource::make($this->whenLoaded('admin')),
             // 'contact' =>  ContactResource::make($this->whenLoaded('contact')),
         ];

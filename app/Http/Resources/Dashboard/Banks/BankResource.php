@@ -22,7 +22,7 @@ class BankResource extends JsonResource
             'id'   => $this->id,
             'name' => $this->name,
             'is_active' => (bool) $this->is_active,
-            'created_at' => $this->created_at,
+            'created_at' => $this->created_at_date,
             "images" => ImagesResource::collection($this->whenLoaded("images")),
             'activity' => ActivityLogResource::collection($this->whenLoaded('activity')),
             'actions' => $this->when($request->routeIs('banks.index') || $request->routeIs('banks.archive'), [

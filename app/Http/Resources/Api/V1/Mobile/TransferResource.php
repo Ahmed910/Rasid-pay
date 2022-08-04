@@ -32,7 +32,7 @@ class TransferResource extends JsonResource
              'amount' => (string)$this->amount,
              'transfer_from_user'=>  UserResource::make($this->whenLoaded('fromUser')),
              'transfer_to_user'=>  UserResource::make($this->whenLoaded('toUser')),
-             'created_at' => $this->created_at,
+             'created_at' => $this->created_at_date,
              'date' => $this->created_at_date_mobile,
              'time' => $this->created_at_time_mobile,
              'transfer_status' => $this->transfer_status,

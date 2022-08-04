@@ -172,7 +172,7 @@ return [
         'by_wallet_number' => 'برقم ',
         'cancel_transfer' => 'تم إلغاء التحويل',
         'wallet_transfer_method' => 'تحويل لمحفظة',
-        'exceed_max_transfer_day' => 'عفوا، لا يمكن تحويل مبلغ أكبر من :max_amount_per_reciever',
+        'exceed_max_transfer_day' => 'عفوا، لا يمكن تحويل مبلغ أكبر من :max_amount_per_receiver للمستقبل الواحد',
         'exceed_max_transfer_month' => 'لقد وصلت للحد الأقصى للتحويل الشهري',
         'wallet_transfer_methods' => [
             'phone' => 'رقم جوال',

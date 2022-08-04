@@ -66,7 +66,6 @@ class TransferController extends Controller
 
     public function checkTransferredAmount(Request $request)
     {
-        $maxReceiverTransfer = setting('rasidpay_usertransfer_maxvalue_perreciever');
         // charge transfer
         if ($request->transfer_type == 'wallet_transfer') {
             $rules = [
