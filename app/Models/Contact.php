@@ -47,9 +47,9 @@ class Contact extends Model
         $this->attributes['title'] = $value;
     }
 
-    public function getCreatedAtHumanAttribute($date)
+    public function getCreatedAtTimeAttribute($date)
     {
-        return Carbon::parse($this->attributes['created_at'])->diffForHumans();
+        return $this->created_at->format('h:i A');
     }
     #endregion mutators
 
