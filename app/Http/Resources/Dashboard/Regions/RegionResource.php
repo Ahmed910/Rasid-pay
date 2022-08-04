@@ -30,7 +30,7 @@ class RegionResource extends JsonResource
             'name' => $this->name,
             'country' => CountryResource::make($this->whenLoaded('country')),
             'cities' => CityResource::collection($this->whenLoaded('cities')),
-            'created_at' => $this->created_at,
+            'created_at' => $this->created_at_date,
             'added_by ' => SimpleUserResource::make($this->whenLoaded('addedBy')),
             'activity'  => ActivityLogResource::collection($this->whenLoaded('activity')),
             'actions' => $this->when(in_array($request->route()->getActionMethod(),['index','archive']), [

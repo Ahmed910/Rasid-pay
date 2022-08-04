@@ -44,7 +44,7 @@ class ActivityLogResource extends JsonResource
                 'name' => ($model == class_basename(Transaction::class)) ? $this->auditable?->trans_status : $this->auditable?->name,
                 'type' => ($this->auditable) ? get_class($this->auditable) : null
             ] : null,
-            'created_at' => $this->created_at,
+            'created_at' => $this->created_at_date,
             'type' => strtolower($this->action_type),
             'reason' => $this->reason ?? trans('dashboard.general.no_reasons'),
             "usertype" => $this->user_type,

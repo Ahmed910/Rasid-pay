@@ -31,7 +31,7 @@ class VendorResource extends JsonResource
                 'email' => $this->email,
                 'country_code' => substr($this->phone, 0, 3),
                 'phone' => substr($this->phone, 3),
-                'created_at' => $this->created_at,
+                'created_at' => $this->created_at_date,
                 'logo'=> $this->logo,
                 "images" => ImagesResource::collection($this->whenLoaded("images")),
                 // 'activity' => ActivityLogResource::collection($this->whenLoaded('activity')),

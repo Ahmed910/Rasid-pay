@@ -28,7 +28,7 @@ class FaqResource extends JsonResource
             'answer'           => $this->answer,
             'order'            => (int) $this->order,
             'is_active'        => (bool)$this->is_active,
-            'created_at'       => $this->created_at,
+            'created_at'       => $this->created_at_date,
             'added_by_id'      => $this->whenLoaded('addedBy', SimpleUserResource::make($this->addedBy)),
             'actions'          => $this->when($request->routeIs('faqs.index') || $request->routeIs('faqs.archive'), [
                 'show' => auth()->user()->hasPermissions('faqs.show'),
