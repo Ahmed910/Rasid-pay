@@ -74,7 +74,7 @@ class  FaqController extends Controller
     {
         $faqsQuery = Faq::search($request)
         ->customDateFromTo($request)
-        ->ListsTranslations('name')
+        ->ListsTranslations('question')
         ->sortBy($request)
         ->addSelect('faqs.created_at', 'faqs.is_active','faqs.ordering')
         ->get();

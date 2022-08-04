@@ -207,10 +207,19 @@ trait Loggable
 
     public function checkRequestForUser(User $self, HttpRequest $request)
     {
-        $userStatusFields = ['ban_status', 'ban_from', 'ban_to'];
+        $exceptedColumns =  [
+            'ban_status',
+            'ban_from',
+            'ban_to',
+            'user_locale',
+            'updated_at',
+        ];
 
-        if ($request->hasAny($userStatusFields) && count($request->except($userStatusFields)) > 0) {
-            $this->checkStatus($self, 'ban_status');
+        $userStatusFields = ['ban_status', 'ban_from', 'ban_to'];
+        $hasData = count(array_flatten(array_except($this->newData($self), $exceptedColumns)));
+
+        if ($self->isDirty($userStatusFields) && !$hasData) {
+            return $this->checkStatus($self, 'ban_status');
         }
 
         $self->addUserActivity($self, ActivityLog::UPDATE, 'index');
