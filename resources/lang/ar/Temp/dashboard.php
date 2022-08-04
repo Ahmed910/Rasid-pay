@@ -1336,6 +1336,15 @@ return [
         'attachment_files' => 'العملاء',
     ],
 
+    'vendors' => [
+        "iban_number" => [
+            "required" => "رقم الايبان مطلوب",
+            "starts_with" => "رقم الايبان يجب ان يبدأ ب :starts_with",
+            "size" => "رقم الايبان يجب ان يكون :size حرف ورقم",
+            "unique" => "رقم الايبان موجود من قبل",
+        ],
+    ],
+
     'links' => [
         'mobile' => [
             'register_policy' => 'الشروط والأحكام (تسجيل جديد)',
