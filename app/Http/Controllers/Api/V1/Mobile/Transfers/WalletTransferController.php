@@ -27,14 +27,16 @@ class WalletTransferController extends Controller
         }
 
         // check if receiver reach max transfers
-        $max_received_transfers_per_day = setting('rasidpay_usertransfer_maxvalue_perreciever');
-        $dailyTransactions = Transaction::where('to_user_id', $request->citizen_id)
-            ->where('trans_type', '!=', 'charge')
-            ->whereDate('created_at', date('Y-m-d'))
-            ->sum('amount');
-            // dd($dailyTransactions);
-        if ($dailyTransactions > $max_received_transfers_per_day) {
-            return response()->json(['status' => false, 'data' => null, 'message' => trans('mobile.transfers.exceed_max_transfer_day',['max_amount_per_reciever' => $max_received_transfers_per_day])], 422);
+        if ($request->citizen_id)
+        {
+            $max_received_transfers_per_day = setting('rasidpay_usertransfer_maxvalue_perreciever');
+            $dailyTransactions = Transaction::where('to_user_id', $request->citizen_id)
+                ->where('trans_type', '!=', 'charge')
+                ->whereDate('created_at', date('Y-m-d'))
+                ->sum('amount');
+            if ($dailyTransactions > $max_received_transfers_per_day) {
+                return response()->json(['status' => false, 'data' => null, 'message' => trans('mobile.transfers.exceed_max_transfer_day', ['max_amount_per_receiver' => $max_received_transfers_per_day])], 422);
+            }
         }
 
         $citizen_wallet->update(['wallet_bin' => null]);
@@ -68,7 +70,7 @@ class WalletTransferController extends Controller
         $transfer->fill($request->validated() + $data)->save();
         $transaction = $transfer->transaction()->create([
             'from_user_id' => auth()->id(),
-            'to_user_id' => $request->citizen_id??null,
+            'to_user_id' => $request->citizen_id ?? null,
             'amount' => $request->amount,
             'trans_type' => 'wallet_transfer',
             'trans_status' => $transfer->transfer_status == Transfer::TRANSFERRED ? Transaction::SUCCESS : Transaction::PENDING,
