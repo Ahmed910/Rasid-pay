@@ -1,4 +1,4 @@
-citizens
+
 
 @extends('dashboard.exports.layout')
 
