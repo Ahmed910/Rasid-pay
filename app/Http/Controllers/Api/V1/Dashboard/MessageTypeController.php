@@ -68,7 +68,7 @@ class MessageTypeController extends Controller
         return MessageTypeResource::make($messageType)
             ->additional([
                 'status' => true,
-                'message' => trans("dashboard.general.success_message_forwareded")
+                'message' => trans("dashboard.general.success_update")
             ]);
     }
 

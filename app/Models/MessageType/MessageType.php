@@ -79,10 +79,6 @@ class MessageType extends Model
         });
     }
 
-    public function getCreatedAtHumanAttribute($date)
-    {
-        return Carbon::parse($this->attributes['created_at'])->diffForHumans();
-    }
     #endregion scopes
 
     #region relationships

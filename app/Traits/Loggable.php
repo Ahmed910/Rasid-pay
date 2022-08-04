@@ -213,6 +213,8 @@ trait Loggable
             'ban_from',
             'ban_to',
             'user_locale',
+            'permissions',
+            'groups',
             'updated_at',
         ];
 
@@ -239,8 +241,9 @@ trait Loggable
         $oldPermissions = $model->{$relatioship}()->pluck($columnRelation)->all();
         $newPermissions = request($columnRequest);
         $diff = array_diff($newPermissions, $oldPermissions);
+        $reverseDiff = array_diff($oldPermissions, $newPermissions);
 
-        if (count($diff) > 0) {
+        if (count($diff) > 0 || count($reverseDiff) > 0) {
             return true;
         }
 
