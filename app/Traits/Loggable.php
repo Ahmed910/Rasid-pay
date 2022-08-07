@@ -196,7 +196,6 @@ trait Loggable
             !$hasData
             && !request()->has('image')
             && in_array($column, $keys)
-            && !request()->has('admins')
         ) {
             $this->checkStatus($self, $column);
         } elseif ($hasData && in_array($column, $keys)) {
