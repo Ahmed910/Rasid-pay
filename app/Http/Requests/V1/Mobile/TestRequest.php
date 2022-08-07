@@ -9,7 +9,7 @@ class TestRequest extends ApiMasterRequest
     public function rules()
     {
         return [
-            'name' => 'required',
+            'name' => 'required|min:2',
             'image' => 'nullable|max:1024|mimes:jpg,png,jpeg',
         ];
     }
