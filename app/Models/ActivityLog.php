@@ -57,7 +57,7 @@ class ActivityLog extends Model
     #endregion mutators
 
     #region accessor
-    
+
     #endregion accessor
 
     #region scopes
@@ -135,7 +135,7 @@ class ActivityLog extends Model
 
     public function auditable()
     {
-        return $this->morphTo();
+        return $this->morphTo()->withTrashed();
     }
     #endregion relationships
 
