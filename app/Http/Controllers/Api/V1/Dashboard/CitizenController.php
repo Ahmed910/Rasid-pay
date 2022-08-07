@@ -57,7 +57,7 @@ class CitizenController extends Controller
         $citizen->update($request->validated());
         return CitizenResource::make($citizen->citizen->load('user'))->additional([
             'status' => true,
-            'message' => "dashboard.general.success_update"
+            'message' => trans("dashboard.general.success_update")
         ]);
     }
     public function enabledPackages()
