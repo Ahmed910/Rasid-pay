@@ -298,7 +298,8 @@ if (!function_exists('calcCurrency')) {
 }
 
 if (!function_exists('binarySearchForAssocArray')) {
-    function binarySearchForAssocArray($needle,$hystack,$keys){
+    function binarySearchForAssocArray($needle, $hystack, $keys)
+    {
         $low = 0;
         $high = count($hystack) - 1;
 
@@ -309,16 +310,15 @@ if (!function_exists('binarySearchForAssocArray')) {
 
             // element found at mid
 
-            if($keys[$mid] == $needle) {
+            if ($keys[$mid] == $needle) {
 
                 return $hystack[$needle];
             }
 
             if ($needle < $keys[$mid]) {
                 // search the left side of the array
-                $high = $mid -1;
-            }
-            else {
+                $high = $mid - 1;
+            } else {
                 // search the right side of the array
                 $low = $mid + 1;
             }
@@ -326,4 +326,15 @@ if (!function_exists('binarySearchForAssocArray')) {
         return false;
     }
 
+}
+
+
+if (!function_exists('addCharBetweenChunks')) {
+    function addCharBetweenChunks($str, $step, $reverse = false, $char = ' ')
+    {
+        if ($reverse)
+            return strrev(chunk_split(strrev($str), $step, $char));
+
+        return chunk_split($str, $step, $char);
+    }
 }
