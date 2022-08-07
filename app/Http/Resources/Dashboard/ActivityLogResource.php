@@ -31,7 +31,7 @@ class ActivityLogResource extends JsonResource
         } elseif ($model == 'Contact') {
             $name = 'رسالة';
         } elseif ($model == class_basename(Transaction::class)) {
-            $this->auditable?->trans_status;
+            $name = $this->auditable?->trans_status;
         } else {
             $name = $this->auditable?->fullname;
         }
