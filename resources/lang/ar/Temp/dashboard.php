@@ -1209,6 +1209,7 @@ return [
     'contact' =>  [
         'contacts' => 'الدعم الفني',
         'contact' => 'الدعم الفني',
+        'name' =>'رسالة',
         'can_not_delete_contact' => 'لا يمكن حذف نوع رسالة مرتبط برسائل',
         'replied' =>'تم الرد',
         'validation' => [
