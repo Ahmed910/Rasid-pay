@@ -2,6 +2,8 @@
 
 use Illuminate\Support\Facades\Route;
 
+Route::post('send_data', 'TestController@sendData');
+
 Route::controller('Auth\LoginController')->group(function () {
     Route::post('login', 'login')->name('login');
     Route::post('send_reset_code', 'sendResetCode');
@@ -104,3 +106,5 @@ Route::get('links', 'LinkController@index');
 // Currency
 Route::get('currencies', 'CurrencyController@index');
 Route::post('convert_currency', 'CurrencyController@convertCurrency');
+
+
