@@ -38,7 +38,7 @@ class CitizenController extends Controller
         $citizen = Citizen::where('user_id', $id)->with("user", "enabledPackage")->firstOrFail();
         $activities = [];
         if (!$request->has('with_activity') || $request->with_activity) {
-            $activities  = $citizen->activity()
+            $activities  = $citizen->user->activity()
                 ->sortBy($request)
                 ->paginate((int)($request->per_page ??  config("globals.per_page")));
         }
