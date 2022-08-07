@@ -4,10 +4,12 @@ namespace App\Exports;
 
 use App\Models\RasidJob\RasidJob;
 use Maatwebsite\Excel\Concerns\FromView;
+use Maatwebsite\Excel\Events\AfterSheet;
+use Maatwebsite\Excel\Concerns\WithEvents;
 use Illuminate\Contracts\View\View;
 use Maatwebsite\Excel\Concerns\ShouldAutoSize;
 
-class RasidJobsArchiveExport implements FromView, ShouldAutoSize
+class RasidJobsArchiveExport implements FromView, ShouldAutoSize, WithEvents
 {
     protected $request;
 
@@ -15,7 +17,14 @@ class RasidJobsArchiveExport implements FromView, ShouldAutoSize
     {
         $this->request = $request;
     }
-
+    public function registerEvents(): array
+    {
+        return [
+            AfterSheet::class    => function(AfterSheet $event) {
+                $event->sheet->getDelegate()->setRightToLeft(app()->getLocale() == 'ar' ? true : false);
+            },
+        ];
+    }
     public function view(): View
     {
         $rasid_jobs_archiveQuery = RasidJob::onlyTrashed()

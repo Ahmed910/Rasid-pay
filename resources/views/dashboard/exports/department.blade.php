@@ -24,7 +24,7 @@
       <td>{{ $loop->iteration }}</td>
       <td>{{ $department->name }}</td>
       <td>{{ @$department->parent->name ?? trans('dashboard.department.without_parent') }}</td>
-      <td>{{ $department->created_at }}</td>
+      <td>{{ $department->created_at_date }}</td>
       <td>
         @if($department->is_active)
         <div class="active">

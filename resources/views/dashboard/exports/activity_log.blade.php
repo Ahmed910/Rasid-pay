@@ -30,7 +30,7 @@
                 <td>{{ $activity_log->user?->department !== null ? $activity_log->user?->department?->name : trans('dashboard.department.without_parent') }}</td>
                 <td>{{ class_basename($activity_log->auditable_type) }}</td>
                 <td>{{ strtolower($activity_log->action_type)}}</td>
-                <td>{{ $activity_log->created_at }}</td>
+                <td>{{ $activity_log->created_at_date_time }}</td>
                 <td>{{ $activity_log->ip_address }}</td>
 
             </tr>

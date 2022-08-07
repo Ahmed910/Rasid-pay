@@ -27,7 +27,7 @@
                 <td>{{ $admin->fullname }}</td>
                 <td>{{ $admin->login_id }}</td>
                 <td>{{ $admin->department?->name}}</td>
-                <td>{{ $admin->created_at }}</td>
+                <td>{{ $admin->created_at_date }}</td>
             @php
                 $ban_status = match ($admin->ban_status) {
                 'active' => trans('dashboard.admin.active_cases.active'),

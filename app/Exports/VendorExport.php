@@ -4,12 +4,14 @@ namespace App\Exports;
 
 use Maatwebsite\Excel\Concerns\FromView;
 use Illuminate\Contracts\View\View;
+use Maatwebsite\Excel\Events\AfterSheet;
+use Maatwebsite\Excel\Concerns\WithEvents;
 use App\Models\StaticPage\StaticPage;
 use App\Models\TransferPurpose\TransferPurpose;
 use App\Models\Vendor\Vendor;
 use Maatwebsite\Excel\Concerns\ShouldAutoSize;
 
-class VendorExport implements FromView, ShouldAutoSize
+class VendorExport implements FromView, ShouldAutoSize, WithEvents
 {
     protected $request;
 
@@ -17,6 +19,15 @@ class VendorExport implements FromView, ShouldAutoSize
     {
         $this->request = $request;
     }
+    public function registerEvents(): array
+    {
+        return [
+            AfterSheet::class    => function(AfterSheet $event) {
+                $event->sheet->getDelegate()->setRightToLeft(app()->getLocale() == 'ar' ? true : false);
+            },
+        ];
+    }
+
 
     public function view(): View
     {
