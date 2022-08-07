@@ -5,15 +5,25 @@ namespace App\Exports;
 use Maatwebsite\Excel\Concerns\FromView;
 use Illuminate\Contracts\View\View;
 use App\Models\VendorBranches\VendorBranch;
+use Maatwebsite\Excel\Events\AfterSheet;
+use Maatwebsite\Excel\Concerns\WithEvents;
 use Maatwebsite\Excel\Concerns\ShouldAutoSize;
 
-class VendorBranchExport implements FromView, ShouldAutoSize
+class VendorBranchExport implements FromView, ShouldAutoSize, WithEvents
 {
     protected $request;
 
     public function __construct($request)
     {
         $this->request = $request;
+    }
+    public function registerEvents(): array
+    {
+        return [
+            AfterSheet::class    => function(AfterSheet $event) {
+                $event->sheet->getDelegate()->setRightToLeft(app()->getLocale() == 'ar' ? true : false);
+            },
+        ];
     }
 
     public function view(): View

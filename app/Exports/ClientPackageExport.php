@@ -5,9 +5,11 @@ namespace App\Exports;
 use App\Models\User;
 use Maatwebsite\Excel\Concerns\FromView;
 use Maatwebsite\Excel\Concerns\ShouldAutoSize;
+use Maatwebsite\Excel\Events\AfterSheet;
+use Maatwebsite\Excel\Concerns\WithEvents;
 use Illuminate\Contracts\View\View;
 
-class ClientPackageExport implements FromView, ShouldAutoSize
+class ClientPackageExport implements FromView, ShouldAutoSize, WithEvents
 {
     protected $request;
 
@@ -15,7 +17,14 @@ class ClientPackageExport implements FromView, ShouldAutoSize
     {
         $this->request = $request;
     }
-
+    public function registerEvents(): array
+    {
+        return [
+            AfterSheet::class    => function(AfterSheet $event) {
+                $event->sheet->getDelegate()->setRightToLeft(app()->getLocale() == 'ar' ? true : false);
+            },
+        ];
+    }
     public function view(): View
     {
         if (isset($this->request->order[0]['column'])) {

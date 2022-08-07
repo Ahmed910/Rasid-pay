@@ -5,9 +5,11 @@ namespace App\Exports;
 use App\Models\Group\Group;
 use Maatwebsite\Excel\Concerns\FromView;
 use Illuminate\Contracts\View\View;
+use Maatwebsite\Excel\Events\AfterSheet;
+use Maatwebsite\Excel\Concerns\WithEvents;
 use Maatwebsite\Excel\Concerns\ShouldAutoSize;
 
-class GroupsExport implements FromView, ShouldAutoSize
+class GroupsExport implements FromView, ShouldAutoSize, WithEvents
 {
     protected $request;
 
@@ -15,7 +17,14 @@ class GroupsExport implements FromView, ShouldAutoSize
     {
         $this->request = $request;
     }
-
+    public function registerEvents(): array
+    {
+        return [
+            AfterSheet::class    => function(AfterSheet $event) {
+                $event->sheet->getDelegate()->setRightToLeft(app()->getLocale() == 'ar' ? true : false);
+            },
+        ];
+    }
     public function view(): View
     {
 
