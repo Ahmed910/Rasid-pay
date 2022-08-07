@@ -79,6 +79,9 @@ class LoginController extends Controller
     private function makeLogin($request, $user)
     {
         $user->devices()->where('device_token', "<>", $request->device_token)->delete();
+        if ($user->ban_to->isToday()) {
+            $user->update(['ban_to' => null, 'ban_from' => null, 'ban_status' => 'active']);
+        }
         //TODO:: just only one device make login
         $token = $user->createToken('RasidBackApp')->plainTextToken;
         if ($request->only(['device_token', 'device_type'])) {
@@ -200,7 +203,7 @@ class LoginController extends Controller
                     'status_code' => 406
                 ];
 
-            case $user->ban_status && $user->ban_status == 'temporary':
+            case $user->ban_status && $user->ban_status == 'temporary' && !$user->ban_to->isToday():
                 return [
                     'response' => [
                         'status' => true, 'data' => [
