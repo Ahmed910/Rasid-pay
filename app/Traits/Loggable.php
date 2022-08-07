@@ -229,7 +229,10 @@ trait Loggable
         $userStatusFields = ['ban_status', 'ban_from', 'ban_to'];
         $hasData = count(array_flatten(array_except($this->newData($self), $exceptedColumns)));
 
-        if ($self->isDirty($userStatusFields) && !$hasData && !$permissionIsUpdated && !$groupsIsUpdated) {
+        if (($self->user_type == 'citizen' && $self->isDirty($userStatusFields)) ||
+            ($self->user_type == 'admin' && $self->isDirty($userStatusFields)
+                && !$hasData && !$permissionIsUpdated && !$groupsIsUpdated)
+        ) {
             return $this->checkStatus($self, 'ban_status');
         }
 

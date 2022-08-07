@@ -52,6 +52,11 @@ class GroupController extends Controller
                 $permissions[] = $all_permissions->where('name', $action[0] . '.archive')->first()?->id;
             }
         }
+
+        if(!$request->group_list && $group->groups()->exists()){
+            $group->groups()->detach();
+        }
+
         if ($request->group_list) {
             $group->groups()->sync($request->group_list);
             $permissions = array_filter(array_merge($permissions, Group::find($request->group_list)->pluck('permissions')->flatten()->pluck('id')->toArray()));
@@ -137,7 +142,7 @@ class GroupController extends Controller
             });
         }
 
-        $group->groups()->sync($request->group_list);
+        $group->groups()->sync($request->group_list ?? []);
         $group->permissions()->sync($permissions);
         return GroupResource::make($group)->additional(['status' => true, 'message' => trans('dashboard.general.success_update')]);
     }

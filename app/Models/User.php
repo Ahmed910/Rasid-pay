@@ -35,7 +35,7 @@ class User extends Authenticatable implements HasAssetsInterface
     protected $appends = ['image'];
     protected $hidden = ['password', 'remember_token'];
     protected $casts = ['email_verified_at' => 'datetime', 'phone_verified_at' => 'datetime'];
-    protected $dates = ['date_of_birth', 'date_of_birth_hijri'];
+    protected $dates = ['date_of_birth', 'date_of_birth_hijri','ban_from','ban_to'];
     public $assets = ['image'];
     protected $with = ['images', 'permissions'];
     private $sortableColumns = ["login_id", "created_at", "fullname", "department", 'ban_status', "basic_discount", "golden_discount", "platinum_discount", 'phone', 'email'];
