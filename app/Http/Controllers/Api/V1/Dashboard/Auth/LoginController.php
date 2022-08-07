@@ -43,7 +43,7 @@ class LoginController extends Controller
                 , 401);
         }
 
-        if ($user && $user->ban_status == 'temporary' && !$user->ban_to->isToday()) {
+        if ($user && $user->ban_status == 'temporary' && !$user->ban_to?->isToday()) {
             return response()->json([
                     'status' => false,
                     'data' => null,
@@ -55,7 +55,7 @@ class LoginController extends Controller
             return response()->json(['status' => false, 'data' => null, 'message' => trans('auth.failed')], 401);
         }
         $user = Auth::user();
-        if ($user->ban_to->isToday()) {
+        if ($user->ban_to?->isToday()) {
             $user->update(['ban_to' => null, 'ban_from' => null, 'ban_status' => 'active']);
         }
         return $this->makeLogin($request, $user, false);
