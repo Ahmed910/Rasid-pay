@@ -173,7 +173,12 @@ class Transaction extends Model
 
     public function getCreatedAtDateTimeAttribute()
     {
-        return Carbon::parse($this->created_at)->locale(app()->getLocale())->format('d/m/Y h:i A');
+        $locale = app()->getLocale();
+        if (auth()->check() && auth()->user()->is_date_hijri) {
+            $this->changeDateLocale($locale);
+            return Hijri::convertToHijri($this->attributes['created_at'])->format('d F o h:i A');
+        }
+        return Carbon::parse($this->attributes['created_at'])->locale($locale)->translatedFormat('Y/m/d - h:i A');
     }
 
 
