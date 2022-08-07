@@ -21,7 +21,7 @@
     <tr>
       <td>{{ $loop->iteration }}</td>
       <td>{{ $transaction->trans_number }}</td>
-      <td>{{ $transaction->created_at_mobile }}</td>
+      <td>{{ $transaction->created_at_date_time }}</td>
       <td>{{ $transaction->fromUser?->fullname }}</td>
       <td>{{ $transaction->trans_type ? trans("dashboard.transaction.type_cases.{$transaction->trans_type}") : "" }}</td>
       <td>{{ $transaction->trans_status ? trans("dashboard.transaction.status_cases.{$transaction->trans_status}") : "" }}</td>

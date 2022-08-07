@@ -39,7 +39,7 @@
         </div>
         @endif
       </td>
-      <td>{{ $message_type->created_at ?? '' }}</td>
+      <td>{{ $message_type->created_at_date ?? '' }}</td>
       </tr>
     @endforeach
     </tbody>
