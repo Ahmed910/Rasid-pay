@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Api\V1\Mobile;
 
 use App\Models\Test;
 use Illuminate\Http\Request;
-use App\Http\Resources\Api\V1\Mobile\TestRequest;
+use App\Http\Requests\V1\Mobile\TestRequest;
 use App\Http\Controllers\Controller;
 
 
