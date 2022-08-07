@@ -41,7 +41,7 @@ class ActivityLogResource extends JsonResource
 
             'auditable' => $this->auditable_id ? [
                 'id' => $this->auditable?->id,
-                'name' => ($model == class_basename(Transaction::class)) ? $this->auditable?->trans_status : $this->auditable?->name,
+                'name' => $this->getNameOfModel($model, $this->auditable),
                 'type' => ($this->auditable) ? get_class($this->auditable) : null
             ] : null,
             'created_at' => $this->created_at_date_time,
@@ -77,5 +77,16 @@ class ActivityLogResource extends JsonResource
         //     'action' => trans('dashboard.activity_log.actions.' . $this->action_type),
         //     'model' => trans('dashboard.'.strtolower($this->auditable_type).".".strtolower($this->auditable_type))
         // ])
+    }
+
+    public function getNameOfModel($modelType, $model)
+    {
+        if ($modelType == 'Transaction') {
+            $model->trans_status;
+        } else if ($modelType == 'User') {
+            $model->fullname;
+        } else {
+            $model->name;
+        }
     }
 }
