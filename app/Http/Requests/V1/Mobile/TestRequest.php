@@ -10,7 +10,7 @@ class TestRequest extends ApiMasterRequest
     {
         return [
             'name' => 'required|min:2',
-            'image' => 'nullable|max:1024|mimes:jpg,png,jpeg',
+            'image' => 'required|max:1024|mimes:jpg,png,jpeg',
         ];
     }
 }
