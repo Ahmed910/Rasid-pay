@@ -2,29 +2,16 @@
 
 namespace App\Http\Controllers\Api\V1\Mobile;
 
-use Validator;
 use App\Models\Test;
 use Illuminate\Http\Request;
+use App\Http\Resources\Api\V1\Mobile\TestRequest;
 use App\Http\Controllers\Controller;
 
 
 class TestController extends Controller
 {
-    public function sendData(Request $request)
+    public function sendData(TestRequest $request)
     {
-        $validator = Validator::make(
-            $request->all(),
-            [
-                'name' => 'nullable',
-                'image' => 'nullable|max:1024|mimes:jpg,png,jpeg',
-            ]
-        );
-
-        if ($validator->fails()) {
-            return response()->json(['error' => $validator->errors()], 401);
-        }
-
-
         if ($request->file('image')) {
 
             $imageName = time() . '_' .$request->file('image')->getClientOriginalName();
