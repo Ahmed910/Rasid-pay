@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api\V1\Mobile;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\V1\Mobile\{WalletBinRequest, WalletRequest};
 use App\Http\Resources\Api\V1\Mobile\WalletResource;
+use App\Http\Resources\Api\V1\Mobile\Transactions\TransactionResource;
 use App\Models\CitizenWallet;
 use App\Models\Transaction;
 use Illuminate\Http\Request;
@@ -48,8 +49,8 @@ class WalletController extends Controller
         if ($request->is_card_saved == 1) {
             $citizen->cards()->updateOrCreate(['user_id' => $citizen->id, 'card_number' => $request->card_number],array_only($request->validated(),['owner_name','card_name','card_number','expire_at','card_type']));
         }
-        data_set($wallet,'trans_number',$transaction->trans_number);
-        return WalletResource::make($wallet)
+        // data_set($wallet,'trans_number',$transaction->trans_number);
+        return TransactionResource::make($transaction->refresh())
             ->additional([
                 'status' => true,
                 'message' => __('mobile.messages.success_charge')
