@@ -39,6 +39,7 @@ class AppServiceProvider extends ServiceProvider
         'BankTransfer' => \App\Models\BankTransfer::class,
         'Card' => \App\Models\Card::class,
         'Admin' => \App\Models\Admin::class,
+        'Faq'   => \App\Models\Faq\Faq::class
     ];
 
     public function register()
