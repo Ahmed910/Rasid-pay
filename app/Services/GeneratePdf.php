@@ -36,7 +36,10 @@ class GeneratePdf
         $this->mpdf->autoLangToFont = true;
         $this->mpdf->simpleTables = true;
         $this->mpdf->packTableData = true;
+        $this->mpdf->SetWatermarkImage(asset('dashboardAssets/images/brand/fintech.png'), -3, 'F');
+        $this->mpdf->showWatermarkImage = true;
         $this->mpdf->SetDirectionality(LaravelLocalization::getCurrentLocaleDirection());
+        $this->mpdf->setFooter('{PAGENO}');
 
         return $this;
     }
