@@ -173,7 +173,7 @@ class Transaction extends Model
 
     public function getCreatedAtDateTimeAttribute()
     {
-        return Carbon::parse($this->created_at)->local(app()->getLocale())->format('d/m/Y h:i A');
+        return Carbon::parse($this->created_at)->locale(app()->getLocale())->format('d/m/Y h:i A');
     }
 
 
