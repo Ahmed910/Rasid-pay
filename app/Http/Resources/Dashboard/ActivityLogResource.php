@@ -91,6 +91,7 @@ class ActivityLogResource extends JsonResource
     public function  getSearchParam($search_params)
     {
         foreach ($search_params as $key => $value) {
+            is_array($value)?? (implode('-',  $value));
             $newData[] = trans('validation.attributes.' . $key) . '=' . $value;
         }
         return (implode(',',  $newData));
