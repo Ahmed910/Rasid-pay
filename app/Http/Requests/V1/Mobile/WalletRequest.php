@@ -18,10 +18,14 @@ class WalletRequest extends ApiMasterRequest
         ];
 
         if (!$this->card_id) {
+            $card_digits = 16;
+            if ($this->card_type == 'american_express') {
+                $card_digits = 15;
+            }
             $rules += [
                 'owner_name' => 'required|string|max:50|regex:/^[a-zA-ZÑñ\s]+$/',
                 'card_type' => 'required|in:visa,mastercard,american_express',
-                'card_number' => 'required|numeric|digits:16',
+                'card_number' => 'required|numeric|digits:'. $card_digits,
                 'expire_at' => 'required|date_format:m/y|after:today',
                 'charge_type' => 'required|in:nfc,manual,scan',
             ];
