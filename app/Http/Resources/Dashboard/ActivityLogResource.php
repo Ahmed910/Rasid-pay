@@ -33,7 +33,7 @@ class ActivityLogResource extends JsonResource
         } elseif ($model == class_basename(Transaction::class)) {
             $this->auditable?->trans_status;
         } else {
-            $name = $this->auditable?->user?->fullname;
+            $name = $this->auditable?->fullname;
         }
 
         return [
