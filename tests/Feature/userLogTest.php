@@ -40,4 +40,20 @@ class userLogTest extends TestCase
 
         $response->assertStatus(200);
     }
+
+    public function test_update_citizen()
+    {
+        $admin = User::Where('user_type', 'citizen')->first();
+        $super = User::Where('user_type', 'superadmin')->first();
+
+        $this->actingAs($super);
+
+        $response = $this->putJson(route('citizens.update', $admin), [
+            'ban_from' =>  date_format(now(),'Y-m-d'),
+            'ban_to' =>  date_format(now()->addDays(2),'Y-m-d'),
+            'ban_status' => 'active'
+        ]);
+
+        $response->assertStatus(200);
+    }
 }
