@@ -17,35 +17,34 @@ class  FaqController extends Controller
     public function index(Request $request)
     {
         $faq = Faq::search($request)
-                    ->ListsTranslations('question')
-                    ->customDateFromTo($request)
-                    ->addSelect('faqs.created_at', 'faqs.is_active','faqs.order','faqs.added_by_id')
-                    ->sortBy($request)
-                    ->paginate((int)($request->per_page ?? config("globals.per_page")));
+            ->ListsTranslations('question')
+            ->customDateFromTo($request)
+            ->addSelect('faqs.*')
+            ->sortBy($request)
+            ->paginate((int)($request->per_page ?? config("globals.per_page")));
 
         return FaqResource::collection($faq)->additional([
-            'status'=>true,
-            'message'=>''
+            'status' => true,
+            'message' => ''
         ]);
-
     }
 
     public function store(FaqRequest $request)
     {
         $faq = Faq::create($request->validated());
 
-        return FaqResource::make($faq->refresh())->additional(['status' => true,'message' => trans('dashboard.general.success_add')]);
+        return FaqResource::make($faq->refresh())->additional(['status' => true, 'message' => trans('dashboard.general.success_add')]);
     }
 
 
-    public function update(FaqRequest $request,Faq $faq)
+    public function update(FaqRequest $request, Faq $faq)
     {
-        $faq->update($request->validated());
-        return FaqResource::make($faq->refresh())->additional(['status' => true,'message' => trans('dashboard.general.success_update')]);
+        $faq->update($request->validated() + ['updated_at' => now()]);
+        return FaqResource::make($faq->refresh())->additional(['status' => true, 'message' => trans('dashboard.general.success_update')]);
     }
 
 
-    public function show(Request $request , $id)
+    public function show(Request $request, $id)
     {
         $faq  = Faq::findOrFail($id);
         $activities = [];
@@ -73,11 +72,11 @@ class  FaqController extends Controller
     public function exportPDF(Request $request, GeneratePdf $pdfGenerate)
     {
         $faqsQuery = Faq::search($request)
-        ->customDateFromTo($request)
-        ->ListsTranslations('question')
-        ->sortBy($request)
-        ->addSelect('faqs.created_at', 'faqs.is_active','faqs.ordering')
-        ->get();
+            ->customDateFromTo($request)
+            ->ListsTranslations('question')
+            ->sortBy($request)
+            ->addSelect('faqs.created_at', 'faqs.is_active', 'faqs.ordering')
+            ->get();
 
 
         if (!$request->has('created_from')) {

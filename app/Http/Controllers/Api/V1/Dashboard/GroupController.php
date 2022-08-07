@@ -142,7 +142,12 @@ class GroupController extends Controller
             });
         }
 
-        $group->groups()->sync($request->group_list ?? []);
+        $group->groups()->sync($request->group_list);
+
+        if(!$request->group_list && $group->groups()->exists()){
+            $group->groups()->detach();
+        }
+
         $group->permissions()->sync($permissions);
         return GroupResource::make($group)->additional(['status' => true, 'message' => trans('dashboard.general.success_update')]);
     }

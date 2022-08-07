@@ -2,6 +2,9 @@
 
 namespace App\Http\Resources\Dashboard;
 
+use App\Models\ActivityLog;
+use App\Models\Currency\Currency;
+use App\Models\Faq\Faq;
 use App\Models\Transaction;
 use Dflydev\DotAccessData\Data;
 use Illuminate\Http\Resources\Json\JsonResource;
@@ -29,9 +32,13 @@ class ActivityLogResource extends JsonResource
         if ($this->auditable?->name) {
             $name = $this->auditable?->name;
         } elseif ($model == 'Contact') {
-            $name = 'رسالة';
+            $name = trans('dashboard.contact.name');
         } elseif ($model == class_basename(Transaction::class)) {
             $name = $this->auditable?->trans_status;
+        } elseif ($model == class_basename(Faq::class)) {
+            $name = $this->auditable?->question;
+        } elseif ($model == class_basename(Currency::class)) {
+            $name = $this->auditable?->countries?->name;
         } else {
             $name = $this->auditable?->fullname;
         }
@@ -43,7 +50,7 @@ class ActivityLogResource extends JsonResource
 
             'auditable' => $this->auditable_id ? [
                 'id' => $this->auditable?->id,
-                'name' => $name,
+                'name' =>  $name,
                 'type' => ($this->auditable) ? get_class($this->auditable) : null
             ] : null,
             'created_at' => $this->created_at_date_time,
@@ -63,7 +70,7 @@ class ActivityLogResource extends JsonResource
                 'dashboard.activity_log.reason',
                 [
                     "model" => trans("dashboard.activity_log.models." . strtolower($this->user_type ? $this->user_type : $model)),
-                    'name' => $name,
+                    'name' => $this->action_type == ActivityLog::SEARCH ? $this->getSearchParam($this->search_params) : $name,
                     "action" => trans("dashboard.activity_log.actions." . $this->action_type),
                     // "main" => trans("dashboard." . Str::snake($this->user_type ? $this->user_type : $model) . "." . str_plural(Str::snake($this->user_type ? $this->user_type : $model)))
                     // , "sub" => trans("dashboard.permissions." . $this->sub_program)
@@ -79,5 +86,14 @@ class ActivityLogResource extends JsonResource
         //     'action' => trans('dashboard.activity_log.actions.' . $this->action_type),
         //     'model' => trans('dashboard.'.strtolower($this->auditable_type).".".strtolower($this->auditable_type))
         // ])
+    }
+
+    public function  getSearchParam($search_params)
+    {
+        foreach ($search_params as $key => $value) {
+            $value = is_array($value) ? (implode('-',  $value)) : $value;
+            $newData[] = trans('validation.attributes.' . $key) . '=' . $value;
+        }
+        return (implode(',',  $newData));
     }
 }
