@@ -35,7 +35,7 @@ class CitizenController extends Controller
 
     public function show(Request $request, $id)
     {
-        $citizen = Citizen::where('user_id', $id)->with("user", "enabledPackage")->firstOrFail();
+        $citizen = Citizen::where('user_id', $id)->with("user", "enabledPackage")->whereHas('user', fn ($q) => $q->where('register_status', 'completed'))->firstOrFail();
         $activities = [];
         if (!$request->has('with_activity') || $request->with_activity) {
             $activities  = $citizen->user->activity()
@@ -53,7 +53,7 @@ class CitizenController extends Controller
 
     public function update(UpdateCitizenStatusRequest $request, $id)
     {
-        $citizen = User::where('user_type', "citizen")->findOrFail($id);
+        $citizen = User::where('user_type', "citizen")->where('register_status', 'completed')->findOrFail($id);
         $citizen->update($request->validated());
         return CitizenResource::make($citizen->citizen->load('user'))->additional([
             'status' => true,

@@ -201,8 +201,7 @@ Route::middleware('maintenance_mode')->group(function () {
             });
 
             Route::controller('TransactionController')->name('transactions.')->prefix('transactions')->group(function () {
-                Route::delete('forceDelete/{id}', 'forceDelete')->name('force_delete');
-                Route::get('/get-transactions-statuses', 'transactionsStatues')->name('transactions_statues');
+                Route::get('/get-transactions-statuses', 'transactionsStatues');
                 Route::get('export_pdf', 'exportPDF')->name('export_pdf');
                 Route::get('export_excel', 'exportExcel')->name('export_excel');
             });
@@ -229,7 +228,6 @@ Route::middleware('maintenance_mode')->group(function () {
                 'banks' => 'BankController',
                 'transfer_purposes' => 'TransferPurposeController',
                 // 'slides' => 'SlideController',
-                'transactions' => 'TransactionController',
                 'static_pages' => 'StaticPageController',
                 'faqs'         => 'FaqController',
                 'message_types' => 'MessageTypeController'
@@ -241,6 +239,7 @@ Route::middleware('maintenance_mode')->group(function () {
             Route::apiResource('citizens', 'CitizenController')->only('index', 'show', 'update');
             Route::apiResource('settings', 'SettingController')->only(['index', 'store']);
             Route::apiResource('links', 'LinkController')->only(['index','update']);
+            Route::apiResource('transactions', 'TransactionController')->except(['update','destroy']);
             Route::apiResource('activity_logs', 'ActivityController')->only(['index', 'show']);
             Route::post('localizations_update','LocalizationController@updateTranslation')->name('localizations.update');
             Route::apiResource('localizations', 'LocalizationController')->only(['store', 'index']);
