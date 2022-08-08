@@ -177,7 +177,7 @@ class Permission extends Model
         }
         $permissions->filter(function ($value, $key) {
                         return $key == 'name' && ! str_contains($value,'.edit');
-                    }->transform(function ($item) {
+                    })->transform(function ($item) {
                         return self::getTransPermission($item);
                     });
         return $permissions;
