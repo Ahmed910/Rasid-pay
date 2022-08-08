@@ -16,7 +16,7 @@ class StaticPageCollection extends ResourceCollection
      */
     public function toArray($request)
     {
-        $static_page = StaticPage::withTrashed()->with('translations')->findOrFail(@$request->route()->parameters['static_page']);
+        $static_page = StaticPage::with('translations')->findOrFail(@$request->route()->parameters['static_page']);
 
         return [
             'static_page' => StaticPageResource::make($static_page),

@@ -21,7 +21,7 @@ use Astrotomic\Translatable\Contracts\Translatable as TranslatableContract;
 
 class StaticPage extends Model implements TranslatableContract, HasAssetsInterface
 {
-    use Uuid, HasAssetsTrait, Translatable, SoftDeletes, Loggable;
+    use Uuid, HasAssetsTrait, Translatable, Loggable;
     #region properties
     protected $appends = ['image'];
     protected $guarded = ['created_at', 'deleted_at'];

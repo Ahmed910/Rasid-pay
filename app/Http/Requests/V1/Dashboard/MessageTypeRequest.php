@@ -9,7 +9,7 @@ class MessageTypeRequest extends ApiMasterRequest
     public function rules()
     {
         $rules = [
-            "is_active" => "in:0,1",
+            "is_active" => "nullable|in:0,1",
             'admins' => 'required|array',
             'admins.*' => 'exists:users,id,user_type,admin'
         ];
