@@ -4,7 +4,6 @@ namespace App\Models;
 
 use App\Models\Department\Department;
 use App\Models\RasidJob\RasidJob;
-use App\Traits\Loggable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Traits\Uuid;
