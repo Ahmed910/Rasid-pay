@@ -71,6 +71,7 @@ return [
                 ],
             ],
         'email' => 'البريد الإلكتروني',
+        'page_number' => 'ص ',
         'description' => 'الوصف',
         'select_user' => 'اختر مستخدم',
         'username' => 'اسم المستخدم',
@@ -1333,7 +1334,6 @@ return [
             'show'   => 'عرض الصفحات الثابتة'
         ],
         'static_pages' => 'الصفحات الثابتة',
-        'cannot_deactivate' => 'لا يمكنك تعطيل تلك الصفحة',
     ],
     'permission' =>  [
         'sub_progs' =>
