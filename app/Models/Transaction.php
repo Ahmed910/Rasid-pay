@@ -82,7 +82,7 @@ class Transaction extends Model
         }
 
         $new = $query->toSql();
-        if ($old != $new) $this->addGlobalActivity($this, $request->query(), ActivityLog::SEARCH, 'index');
+        if ($old != $new) Loggable::addGlobalActivity($this, $request->query(), ActivityLog::SEARCH, 'index');
     }
 
     public function scopeMobileSearch(Builder $query, $request)
@@ -180,6 +180,4 @@ class Transaction extends Model
         }
         return Carbon::parse($this->attributes['created_at'])->locale($locale)->translatedFormat('Y/m/d - h:i A');
     }
-
-
 }

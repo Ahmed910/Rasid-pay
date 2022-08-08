@@ -16,6 +16,7 @@ class DepartmentCollection extends ResourceCollection
      */
     public function toArray($request)
     {
+        // dd(@$request->route()->parameters);
         $department = Department::withTrashed()->with('translations')->findOrFail(@$request->route()->parameters['department']);
         return [
             'department' => DepartmentResource::make($department),
