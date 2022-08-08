@@ -8,7 +8,7 @@ use App\Traits\{Uuid, Loggable};
 
 class Admin extends Model
 {
-    use HasFactory, Uuid ,Loggable;
+    use HasFactory, Uuid;
     protected $guarded = ['id','created_at'];
     #region properties
     #endregion properties
