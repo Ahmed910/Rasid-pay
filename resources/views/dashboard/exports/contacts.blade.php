@@ -4,7 +4,7 @@
 
 <table id="departmentTable" class="table">
   <thead>
-    @include('dashboard.exports.header',['topic'=>@lang('dashboard.contact.contact_messages'), 'count' => 5])
+    @include('dashboard.exports.header',['topic'=>trans('dashboard.contact.contact_messages'), 'count' => 5])
     <tr>
       <th>#</th>
       <th>@lang('dashboard.contact.user_name')</th>
