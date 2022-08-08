@@ -2,6 +2,7 @@
 
 return [
     'attributes' => [
+        'citizen'  => 'اسم المستخدم',
         'trans_number'  => 'رقم المعاملة',
         'banks' =>  [
             '*' =>   [
