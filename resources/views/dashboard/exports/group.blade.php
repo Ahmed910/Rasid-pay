@@ -37,7 +37,6 @@
                   </div>
                   @endif
                 </td>
-                <td>{{ trans('dashboard.general.active_cases.'.$group->is_active) }}</td>
                 <td>{{ $group->created_at_date }}</td>
             </tr>
             @endforeach

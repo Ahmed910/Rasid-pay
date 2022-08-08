@@ -10,7 +10,7 @@
       <th>الحالة</th>
       <th>رابط الاندرويد</th>
       <th>رابط الios</th>
-      <th>name</th>
+      <th>الاسم</th>
     </tr>
   </thead>
   <tbody>

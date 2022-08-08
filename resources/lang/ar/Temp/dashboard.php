@@ -847,20 +847,8 @@ return [
         'archived_at' => ' تاريخ الأرشفة',
         'department_main' => 'القسم الرئيسي',
     ],
-    'our_app' => [
-        'our_apps' => 'تطبيقاتنا',
-        'permissions' => [
-            'store' => 'حفظ',
-            'show' => 'عرض',
-            'destroy' => 'حذف'
-        ],
-        'active_cases' =>
-            [
-                0 => 'معطل',
-                1 => 'مفعل',
-            ],
-    ],
 
+    
     'faq' => [
         'faqs' => 'الاسئلة الشائعة',
         'permissions' => [
@@ -1413,6 +1401,11 @@ return [
             'rasid_job' => 'التطبيق',
             'rasid_job_count' => 'عدد تطبيقاتنا',
             'rasid_jobs' => 'تطبيقاتنا',
+            'active_cases' =>
+            [
+                0 => 'معطل',
+                1 => 'مفعل',
+            ],
             'validation' => [
 
                 'order' => [
