@@ -20,7 +20,7 @@ class StaticPageController extends Controller
             ->ListsTranslations('name')
             ->customDateFromTo($request)
             ->with('translations')
-            ->addSelect('static_pages.created_at', 'static_pages.is_active')
+            ->addSelect('static_pages.created_at', 'static_pages.is_active','static_pages.show_in_app','static_pages.show_in_website')
             ->sortBy($request)
             ->paginate((int)($request->per_page ?? config("globals.per_page")));
 
