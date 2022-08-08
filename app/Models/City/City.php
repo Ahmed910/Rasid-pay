@@ -18,12 +18,12 @@ use Illuminate\Support\Str;
 
 class City extends Model implements Contracts\Translatable
 {
-    use HasFactory, SoftDeletes, Translatable, Uuid, Loggable;
+    use HasFactory, Translatable, Uuid, Loggable;
 
     #region properties
     protected $guarded = ['created_at', 'deleted_at'];
     public $translatedAttributes = ['name'];
-    protected $with = ['addedBy'];
+    protected $with = ['addedBy','translations'];
     private $sortableColumns = ["name", "country_name", "region_name", "created_at", 'postal_code'];
 
     #endregion properties

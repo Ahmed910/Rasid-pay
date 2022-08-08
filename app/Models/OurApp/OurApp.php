@@ -23,7 +23,7 @@ class OurApp extends Model implements TranslatableContract, HasAssetsInterface
     protected $guarded = ['created_at'];
     public $translatedAttributes = ['name', 'description'];
     public $assets = ["image"];
-    public $with = ["images"];
+    public $with = ["images",'translations'];
     private static $result = [];
     private $sortableColumns = ['name', 'order', 'is_active', 'created_at'];
 

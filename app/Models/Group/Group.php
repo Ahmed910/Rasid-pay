@@ -20,6 +20,7 @@ class Group extends Model implements TranslatableContract
     public $translatedAttributes = ['name'];
     public $attributes = ['is_active' => true];
     private $sortableColumns = ['name', 'admins_count', 'is_active','created_at'];
+    public $with = ['translations'];
     #endregion properties
 
     #region mutators

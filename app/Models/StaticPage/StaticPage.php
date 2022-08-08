@@ -27,7 +27,7 @@ class StaticPage extends Model implements TranslatableContract, HasAssetsInterfa
     protected $guarded = ['created_at', 'deleted_at'];
     public $translatedAttributes = ['name', 'description'];
     public $assets = ["image"];
-    public $with = ["images", "addedBy"];
+    public $with = ["images", "addedBy",'translations'];
     public $sortableColumns = ['name', 'is_active', 'created_at'];
 
     #endregion properties

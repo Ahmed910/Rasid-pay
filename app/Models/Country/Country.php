@@ -25,6 +25,7 @@ class Country extends Model implements TranslatableContract
     #region properties
     protected $guarded = ['created_at', 'deleted_at'];
     public $translatedAttributes = ['name', 'nationality', 'currency'];
+    public $with = ['translations'];
     #endregion properties
 
     #region mutators
