@@ -66,7 +66,7 @@ class StaticPageController extends Controller
         if ($staticPage->link()->exists() && $request->is_active == 0) {
             return response()->json([
                 'status' => false,
-                'message' =>  trans("dashboard.static_page.can_not_be_deactivated_has_link"),
+                'message' =>  trans("dashboard.static_page.validation.can_not_be_deactivated_has_link"),
                 'data' => null
             ], 422);
         }
