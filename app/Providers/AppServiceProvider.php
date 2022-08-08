@@ -48,8 +48,6 @@ class AppServiceProvider extends ServiceProvider
         'StaticPage'    => \App\Models\StaticPage\StaticPage::class,
         'TransferPurpose' => \App\Models\TransferPurpose\TransferPurpose::class,
         'TransferRelation'=> \App\Models\TransferRelation\TransferRelation::class
-
-
     ];
 
     public function register()
