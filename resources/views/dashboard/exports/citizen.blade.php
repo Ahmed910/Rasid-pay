@@ -3,15 +3,15 @@
 @section('content')
     <table id="departmentTable" class="table">
         <thead>
-            @include('dashboard.exports.header', ['topic' => 'مستخدمي التطبيق', 'count' => 5])
+            @include('dashboard.exports.header', ['topic' => @lang('dashboard.citizen.citizens'), 'count' => 5])
             <tr>
                 <th>#</th>
-                <th>الاسم</th>
-                <th>رقم الهوية</th>
-                <th>الحالة</th>
-                <th>البطاقة المفعلة</th>
-                <th>تاريخ التسجيل</th>
-                <th>تاريخ انتهاء البطاقة</th>
+                <th>@lang('dashboard.citizen.name')</th>
+                <th>@lang('dashboard.citizen.identity_number')</th>
+                <th>@lang('dashboard.citizen.status')</th>
+                <th>@lang('dashboard.citizen.enabled_package')</th>
+                <th>@lang('dashboard.citizen.start_time')</th>
+                <th>@lang('dashboard.citizen.end_time')</th>
             </tr>
         </thead>
         <tbody>

@@ -4,7 +4,7 @@
 
 <table id="departmentTable" class="table">
     <thead>
-        @include('dashboard.exports.header',['topic'=>'أرشيف الأقسام'])
+        @include('dashboard.exports.header',['topic'=>@lang('dashboard.department.department_archive')])
 
         <tr>
             <th>#</th>

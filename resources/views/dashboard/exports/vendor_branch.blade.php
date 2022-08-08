@@ -4,17 +4,17 @@
 
 <table id="departmentTable" class="table">
   <thead>
-    @include('dashboard.exports.header',['topic'=>'فروع العملاء', 'count' => 7])
+    @include('dashboard.exports.header',['topic'=>@lang('dashboard.vendor_branch.vendors_branches'), 'count' => 7])
     <tr>
       <th>#</th>
-      <th>الاسم</th>
+      <th>@lang('dashboard.vendor_branch.name')</th>
       <th>lat</th>
       <th>lng</th>
-      <th>العنوان</th>
-      <th>تفاصيل العنوان</th>
-      <th>الحالة</th>
-      <th>البريد الالكتروني</th>
-      <th>الهاتف</th>
+      <th>@lang('dashboard.vendor_branch.address')</th>
+      <th>@lang('dashboard.vendor_branch.address_details')</th>
+      <th>@lang('dashboard.vendor_branch.status')</th>
+      <th>@lang('dashboard.vendor_branch.email') </th>
+      <th>@lang('dashboard.vendor_branch.phone')</th>
     </tr>
   </thead>
   <tbody>
