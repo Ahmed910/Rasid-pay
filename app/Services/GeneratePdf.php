@@ -29,7 +29,11 @@ class GeneratePdf
                     'useKashida' => 75,
                 ]
             ],
-            'default_font' => 'cairo'
+            'default_font' => 'cairo',
+            'pagenumPrefix' => __('dashboard.general.page_number'),
+            'pagenumSuffix' => ' | ',
+            'nbpgPrefix' => '',
+            'nbpgSuffix' => ''
         ]);
 
         $this->mpdf->autoScriptToLang = true;
@@ -39,7 +43,7 @@ class GeneratePdf
         $this->mpdf->SetWatermarkImage(asset('dashboardAssets/images/brand/fintech.png'), -3, 'F');
         $this->mpdf->showWatermarkImage = true;
         $this->mpdf->SetDirectionality(LaravelLocalization::getCurrentLocaleDirection());
-        $this->mpdf->setFooter('{PAGENO}');
+        $this->mpdf->SetFooter('{PAGENO}{nbpg}');
 
         return $this;
     }
