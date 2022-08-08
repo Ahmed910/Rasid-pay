@@ -138,6 +138,11 @@ class AdminController extends Controller
             $admin->groups()->sync($request->group_list);
             $permissions = array_filter(array_merge($permissions, Group::find($request->group_list)->pluck('permissions')->flatten()->pluck('id')->toArray()));
         }
+
+        if(!$request->group_list && $admin->groups()->exists()){
+            $admin->groups()->detach();
+        }
+
         $admin->permissions()->sync($permissions);
 
         return UserResource::make($admin)
