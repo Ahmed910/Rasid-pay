@@ -67,7 +67,7 @@ class RasidJob extends Model implements TranslatableContract
             $query->where('is_vacant', $request->is_vacant);
         }
         $new = $query->toSql() ;
-        if ($old!=$new)  $this->addGlobalActivity($this, $request->query(), ActivityLog::SEARCH, 'index');
+        if ($old!=$new)  Loggable::addGlobalActivity($this, $request->query(), ActivityLog::SEARCH, 'index');
 
     }
 

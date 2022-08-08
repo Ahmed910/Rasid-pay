@@ -74,7 +74,7 @@ class BankBranch extends Model
             $query->where('transfer_amount', $request->transfer_amount);
         $new = $query->toSql();
 
-        if ($old != $new) $this->addGlobalActivity($this, $request->query(), ActivityLog::SEARCH, 'index');
+        if ($old != $new) Loggable::addGlobalActivity($this, $request->query(), ActivityLog::SEARCH, 'index');
         $query->whereHas('bank', fn ($q) => $q->search($request));
 
 

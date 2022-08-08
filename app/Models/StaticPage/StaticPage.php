@@ -56,7 +56,7 @@ class StaticPage extends Model implements TranslatableContract, HasAssetsInterfa
             $query->where('is_active', $request->is_active);
         }
         $new = $query->toSql();
-        if ($old != $new)  $this->addGlobalActivity($this, $request->query(), ActivityLog::SEARCH, 'index');
+        if ($old != $new)  Loggable::addGlobalActivity($this, $request->query(), ActivityLog::SEARCH, 'index');
     }
 
     public function scopeSortBy(Builder $query, $request)

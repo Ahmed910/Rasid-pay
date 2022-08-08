@@ -4,7 +4,7 @@
 
  <table id="departmentTable" class="table">
           <thead>
-          @include('dashboard.exports.header',['topic'=>'المستخدمين'])
+          @include('dashboard.exports.header',['topic'=>'المستخدمين', 'count' => 4])
 
             <tr>
              <th>#</th>
