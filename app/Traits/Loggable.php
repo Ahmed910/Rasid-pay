@@ -86,7 +86,7 @@ trait Loggable
      *
      * @return void
      */
-    public function addGlobalActivity($item, array $logs, string $event, string $subProgram, string $user_type = null)
+    public static function addGlobalActivity($item, array $logs, string $event, string $subProgram, string $user_type = null)
     {
         $logs = array_except($logs, ['per_page', 'page']);
         if (!count($logs)) return;

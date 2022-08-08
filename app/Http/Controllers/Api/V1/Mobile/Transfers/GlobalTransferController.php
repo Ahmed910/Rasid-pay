@@ -22,10 +22,7 @@ class GlobalTransferController extends Controller
         $amount = $request->amount;
         $wallet_amount = $request->amount;
         $amount_per_dollar = $amount * $sar_per_dollar;
-        // dd($amount_per_dollar);
-
         $transfer_fees = TransferFee::whereRaw('CAST(amount_from AS DECIMAL) <= ? AND CAST(amount_to AS DECIMAL) >= ?', [$amount_per_dollar, $amount_per_dollar])->first();
-        // $fees = setting('western_union_fees') ?: 0;
         $fees_per_dollar = $transfer_fees->amount_fee;
 
         $fees = $fees_per_dollar / $sar_per_dollar;
@@ -43,7 +40,6 @@ class GlobalTransferController extends Controller
             $amount -= $fees;
         }
         $wallet->update(['wallet_bin' => null]);
-        // TODO: Calc transfer fee
 
         // Set transfer data
         $transfer_data = $request->only('fee_upon', 'transfer_purpose_id', 'notes')
@@ -56,9 +52,6 @@ class GlobalTransferController extends Controller
                 'transfer_fees_amount' => $fees,
             ];
 
-        // $balance = WalletBalance::calcWalletMainBackBalance($wallet, $request->amount);
-
-        // $transfer_data += (array)$balance;
         $wallet->decrement('main_balance', $wallet_amount);
         // create global transfer
         $global_transfer = Transfer::create($transfer_data + ['main_amount' => $request->amount]);
@@ -69,7 +62,7 @@ class GlobalTransferController extends Controller
                 ]
             ) + [
                 'exchange_rate' => $exchange_rate,
-                //TODO: generate mtcn number from westren union api
+                // TODO: generate mtcn number from westren union api
                 'mtcn_number' => generate_unique_code(BankTransfer::class, 'mtcn_number', 8, 'numbers'),
             ]);
         $global_transfer->bankTransfer()->update(['recieve_option_id' => $global_transfer->beneficiary?->recieve_option_id]);

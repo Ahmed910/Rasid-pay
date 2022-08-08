@@ -85,7 +85,7 @@ class Citizen extends Model
         }
 
         $new = $query->toSql();
-        if ($old != $new) $this->addGlobalActivity($this, $request->query(), ActivityLog::SEARCH, 'index');
+        if ($old != $new) Loggable::addGlobalActivity($this, $request->query(), ActivityLog::SEARCH, 'index');
     }
 
     public function scopeSortBy(Builder $query, $request)

@@ -20,7 +20,7 @@ class StaticPageController extends Controller
             ->ListsTranslations('name')
             ->customDateFromTo($request)
             ->with('translations')
-            ->addSelect('static_pages.created_at', 'static_pages.is_active')
+            ->addSelect('static_pages.created_at', 'static_pages.is_active','static_pages.show_in_app','static_pages.show_in_website')
             ->sortBy($request)
             ->paginate((int)($request->per_page ?? config("globals.per_page")));
 
@@ -62,6 +62,14 @@ class StaticPageController extends Controller
     public function update(StaticPageRequest $request, $id)
     {
         $staticPage = StaticPage::findOrFail($id);
+
+        if ($staticPage->link()->exists() && $request->is_active == 0) {
+            return response()->json([
+                'status' => false,
+                'message' =>  trans("dashboard.static_page.cannot_deactivate"),
+                'data' => null
+            ], 422);
+        }
         $staticPage->fill($request->validated() + ['updated_at' => now()])->save();
 
         return StaticPageResource::make($staticPage)

@@ -97,6 +97,7 @@ Route::middleware('maintenance_mode')->group(function () {
             // });
             Route::controller('AdminController')->name('admins.')->prefix('admins')->group(function () {
                 Route::get('create', 'create')->name('create');
+                Route::get('{admin}/edit', 'show')->name('edit');
                 // Route::get('archive', 'archive')->name('archive');
                 // Route::post('restore/{id}', 'restore')->name('restore');
                 // Route::delete('forceDelete/{id}', 'forceDelete')->name('force_delete');
@@ -106,6 +107,7 @@ Route::middleware('maintenance_mode')->group(function () {
 
             Route::controller('DepartmentController')->name('departments.')->prefix('departments')->group(function () {
                 Route::get('archive', 'archive')->name('archive');
+                Route::get('{department}/edit', 'show')->name('edit');
                 Route::post('restore/{id}', 'restore')->name('restore');
                 Route::delete('forceDelete/{id}', 'forceDelete')->name('force_delete');
                 // Route::get('get-parents', 'getAllParents')->name("get_parents");
@@ -116,6 +118,7 @@ Route::middleware('maintenance_mode')->group(function () {
             });
 
             Route::controller('CitizenController')->name('citizens.')->prefix('citizens')->group(function () {
+                Route::get('{citizen}/edit', 'show')->name('edit');
                 Route::get('enabled-cards', 'enabledPackages')->name('enabled_packages');
                 Route::get('export_pdf', 'exportPDF')->name('export_pdf');
                 Route::get('export_excel', 'exportExcel')->name('export_excel');
@@ -123,6 +126,7 @@ Route::middleware('maintenance_mode')->group(function () {
 
             Route::controller('RasidJobController')->name('rasid_jobs.')->prefix('rasid_jobs')->group(function () {
                 Route::get('archive', 'archive')->name('archive');
+                Route::get('{rasid_job}/edit', 'show')->name('edit');
                 Route::post('restore/{id}', 'restore')->name('restore');
                 Route::delete('forceDelete/{id}', 'forceDelete')->name('force_delete');
                 Route::get('export_pdf', 'exportPDF')->name('exportPDF');
@@ -135,9 +139,9 @@ Route::middleware('maintenance_mode')->group(function () {
             //     Route::post('store', 'store')->name('store');
             // });
 
-            // Route::controller('EmployeeController')->name('employees.')->prefix('employees')->group(function () {
-            //     Route::put('ban/{employee}', 'ban')->name('ban');
-            // });
+            Route::controller('GroupController')->name('groups.')->prefix('groups')->group(function () {
+                Route::get('{group}/edit', 'show')->name('edit');
+            });
 
             Route::controller('ContactController')->name('contacts.')->prefix('contacts')->group(function () {
                 Route::post('reply', 'reply')->name('reply');
@@ -154,6 +158,7 @@ Route::middleware('maintenance_mode')->group(function () {
                 // Route::get('banks-types', 'bankTypes')->name('banks_types');
                 // Route::get('edit-show/{bank}', 'editShow')->name('edit');
                 Route::get('export_pdf', 'exportPDF')->name('export_pdf');
+                Route::get('{bank}/edit', 'show')->name('edit');
                 Route::get('export_excel', 'exportExcel')->name('export_excel');
             });
             Route::controller('FaqController')->name('faqs.')->prefix('faqs')->group(function () {
@@ -178,15 +183,18 @@ Route::middleware('maintenance_mode')->group(function () {
             });
             Route::controller('StaticPageController')->name('static_pages.')->prefix('static_pages')->group(function () {
                 Route::get('export_pdf', 'exportPDF')->name('export_pdf');
+                Route::get('{static_page}/edit', 'show')->name('edit');
                 Route::get('export_excel', 'exportExcel')->name('export_excel');
             });
 
             Route::controller('TransferPurposeController')->name('transfer_purposes.')->prefix('transfer_purposes')->group(function () {
                 Route::get('export_pdf', 'exportPDF')->name('export_pdf');
+                Route::get('{transfer_purpose}/edit', 'show')->name('edit');
                 Route::get('export_excel', 'exportExcel')->name('export_excel');
             });
             Route::controller('VendorController')->name('vendors.')->prefix('vendors')->group(function () {
                 Route::get('export_pdf', 'exportPDF')->name('export_pdf');
+                Route::get('{vendor}/edit', 'show')->name('edit');
                 Route::get('export_excel', 'exportExcel')->name('export_excel');
             });
             Route::controller('LinkController')->name('links.')->prefix('links')->group(function () {
@@ -196,6 +204,7 @@ Route::middleware('maintenance_mode')->group(function () {
 
             Route::controller('VendorPackageController')->name('vendor_packages.')->prefix('vendor_packages')->group(function () {
                 Route::get('get_vendors', 'getVendors')->name('get_vendors');
+                Route::get('{vendor_package}/edit', 'show')->name('edit');
                 Route::get('export_pdf', 'exportPDF')->name('export_pdf');
                 Route::get('export_excel', 'exportExcel')->name('export_excel');
             });
@@ -208,6 +217,7 @@ Route::middleware('maintenance_mode')->group(function () {
 
             Route::controller('VendorBranchController')->name('vendor_branches.')->prefix('vendor_branches')->group(function () {
                 Route::get('get_vendors', 'getVendors')->name('get_vendors');
+                Route::get('{vendor_branch}/edit', 'show')->name('edit');
                 Route::get('export_pdf', 'exportPDF')->name('export_pdf');
                 Route::get('export_excel', 'exportExcel')->name('export_excel');
             });
