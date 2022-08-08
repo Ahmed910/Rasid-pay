@@ -49,12 +49,12 @@ class GroupController extends Controller
             if (in_array(@$action[1], ['update', 'store', 'destroy', 'show', 'reply', 'assign_contact']) && !$permissions_collect->contains('name', $action[0] . '.index')) {
                 if (@$action[1] == 'update') {
                     $permissions[] = $all_permissions->where('name', $action[0] . '.edit')->first()?->id;
+                }elseif ($action[1] == 'assign_contact' && !$permissions_collect->contains('name', $action[0] . '.reply')) {
+                    $permissions[] = $all_permissions->where('name', $action[0] . '.reply')->first()?->id;
                 }
                 $permissions[] = $all_permissions->where('name', $action[0] . '.index')->first()?->id;
             } elseif (in_array(@$action[1], ['restore', 'force_delete']) && !$permissions_collect->contains('name', $action[0] . '.archive')) {
                 $permissions[] = $all_permissions->where('name', $action[0] . '.archive')->first()?->id;
-            }elseif ($action[1] == 'assign_contact' && !$permissions_collect->contains('name', $action[0] . '.reply')) {
-                $permissions[] = $all_permissions->where('name', $action[0] . '.reply')->first()?->id;
             }
         }
 
@@ -121,12 +121,12 @@ class GroupController extends Controller
             if (in_array($action[1], ['update', 'store', 'destroy', 'show', 'reply','assign_contact']) && !$permissions_collect->contains('name', $action[0] . '.index')) {
                 if (@$action[1] == 'update') {
                     $permissions[] = $all_permissions->where('name', $action[0] . '.edit')->first()?->id;
+                }elseif ($action[1] == 'assign_contact' && !$permissions_collect->contains('name', $action[0] . '.reply')) {
+                    $permissions[] = $all_permissions->where('name', $action[0] . '.reply')->first()?->id;
                 }
                 $permissions[] = $all_permissions->where('name', $action[0] . '.index')->first()?->id;
             } elseif (in_array($action[1], ['restore', 'force_delete']) && !$permissions_collect->contains('name', $action[0] . '.archive')) {
                 $permissions[] = $all_permissions->where('name', $action[0] . '.archive')->first()?->id;
-            }elseif ($action[1] == 'assign_contact' && !$permissions_collect->contains('name', $action[0] . '.reply')) {
-                $permissions[] = $all_permissions->where('name', $action[0] . '.reply')->first()?->id;
             }
         }
         if ($request->group_list) {
