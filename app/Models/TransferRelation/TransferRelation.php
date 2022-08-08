@@ -15,6 +15,7 @@ class TransferRelation extends Model
     #region properties
     public $translatedAttributes = ['name'];
     protected $guarded = ['created_at', 'updated_at'];
+    public $with = ['translations'];
     #endregion properties
 
     #region mutators

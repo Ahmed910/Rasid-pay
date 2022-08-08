@@ -55,6 +55,7 @@ return [
     'vendor_package' => [
         'vendor_package' => 'نسب الخصم',
         'vendor_packages' => 'نسب الخصم',
+        'vendor_name' => 'اسم العميل',
         'permissions' => [
             'update' => 'تعديل',
             'store' => 'حفظ',
@@ -247,6 +248,8 @@ return [
             'golden' => 'البطاقة الذهبية',
             'basic' => 'البطاقة الاساسية',
         ],
+        'total'=>'الاجمالي',
+        'enabled_package'=>'البطاقة المفعلة',
         'enter_transaction_date' => 'أدخل تاريخ المعاملة',
         'transaction_amount' => 'قيمة المعاملة',
         'enter_user_identity' => 'أدخل الرقم',
@@ -442,6 +445,7 @@ return [
             'create' => 'انشاء',
         ],
         'cards_discount_records' => 'سجل نسب خصم البطاقات',
+        'cards_discount'=> 'نسب خصم البطاقات',
         'platinum_card_discount' => 'نسبة خصم البطاقة البلاتينية',
         'add' => 'إضافة نسب الخصم',
         'package_title' => 'نسبة خصم :name',
@@ -537,17 +541,21 @@ return [
 
     'bank' =>  [
         'Enter_service_Number' => 'ادخل رقم خدمة العملاء',
+        'status' =>'الحالة',
+        'name' =>'الاسم',
+        'banks'=>'البنوك',
         'sub_progs' =>  [
             'edit' => 'تعديل بنك',
             'create' => 'إضافة بنك',
             'index' => 'سجل البنوك',
             'archive' => 'أرشيف البنوك',
             'show' => 'عرض البنك',
-            'active_cases' =>
-            [
-                0 => 'معطل',
-                1 => 'مفعل',
-            ],
+
+        ],
+        'active_cases' =>
+        [
+            0 => 'معطل',
+            1 => 'مفعل',
         ],
         'permissions' =>  [
             'archive' => 'عرض أرشيف',
@@ -848,22 +856,13 @@ return [
         'archived_at' => ' تاريخ الأرشفة',
         'department_main' => 'القسم الرئيسي',
     ],
-    'our_app' => [
-        'our_apps' => 'تطبيقاتنا',
-        'permissions' => [
-            'store' => 'حفظ',
-            'show' => 'عرض',
-            'destroy' => 'حذف'
-        ],
-        'active_cases' =>
-            [
-                0 => 'معطل',
-                1 => 'مفعل',
-            ],
-    ],
+
 
     'faq' => [
         'faqs' => 'الاسئلة الشائعة',
+        'status'=>' الحالة',
+        'question'=>'السؤال',
+        'answer'=>'الاجابة',
         'permissions' => [
             'index' => 'السجل',
             'store' => 'حفظ',
@@ -881,6 +880,13 @@ return [
 
     'vendor' => [
         'vendors' => 'العملاء',
+        'branch_counts' =>'عدد الفروع',
+        'branch_name'=>'اسم الفرع',
+        'branch_type'=>'نوع الفرع',
+        'status'=>'الحالة ',
+        'tax_number'=>'الرقم الضريبي',
+        'commerical_number'=>'السجل التجاري',
+
         'permissions' => [
             'index' => 'السجل',
             'update' => 'تعديل',
@@ -893,10 +899,26 @@ return [
             0 => 'معطل',
             1 => 'مفعل',
         ],
+        'type' =>   [
+            'institution' => 'مؤسسات',
+            'other' => 'أخري',
+            'company' => 'شركات',
+            'famous' => 'مشاهير',
+            'freelance_doc' => 'مستقل',
+            'member' => 'عضو',
+        ],
     ],
 
     'vendor_branch' => [
         'vendor_branches' => 'أفرع العميل',
+        'vendors_branches' => 'فروع العملا',
+        'name'=>'اسم الفرع',
+        'address' => 'العنوان',
+        'status' => 'الحالة',
+        'phone' => 'الهاتف',
+        'email' => 'البريد الالكتروني',
+        'address_details'=> 'تفاصيل العنوان',
+
         'permissions' => [
             'index' => 'السجل',
             'store' => 'حفظ',
@@ -1034,6 +1056,7 @@ return [
         'rasid_job' => 'الوظيفة',
         'rasid_job_count' => 'عدد الوظائف',
         'rasid_jobs' => 'الوظائف',
+        'rasid_job_archive'=>'أرشيف الوظائف',
         'actions' => 'العمليات',
         'select_department' => 'اختر القسم',
         'is_vacant' =>
@@ -1123,6 +1146,9 @@ return [
     ],
     'localization' => [
         'localizations' => 'الترجمات',
+        'key' => 'المفتاح',
+        'value' => 'القيمة',
+
         'permissions' =>
         [
             'update' => 'تعديل الترجمات',
@@ -1142,6 +1168,13 @@ return [
     ],
     'transfer_purpose' => [
         'transfer_purposes' => 'أغراض التحويل',
+        'name'=>'الاسم',
+        'status'=>'الحالة',
+        'is_default_value' =>'اخري',
+        'is_default_value_cases'=>[
+           0 => 'معطلة',
+           1=>'مفعلة',
+        ],
         'permissions' =>
         [
            'destroy' => 'حذف',
@@ -1196,6 +1229,13 @@ return [
 
     'citizen' =>  [
         'add_citizen' => 'إضافة مستخدم',
+        'name' => ' الاسم',
+        'identity_number' => 'رقم الهوية',
+        'status' => 'الحالة',
+        'enabled_package' => 'البطاقة المفعلة',
+        'start_time' => 'تاريخ التسجيل',
+        'end_time' => 'تاريخ انتهاء البطاقة',
+
         'permissions' => [
             'show' => 'عرض',
             'index' => 'السجل',
@@ -1220,9 +1260,18 @@ return [
         'profile' => 'الملف الشخصي',
     ],
     'contact' =>  [
+
+
         'contacts' => 'الدعم الفني',
         'contact' => 'الدعم الفني',
+        'contact_messages' => 'صندوق الرسائل ',
+        'status'=>'حالة الرسالة',
+        'from_app_or_web'=>'مصدر الرسالة',
+        'title'=>'العنوان',
+        'phone'=>'رقم الهااتف',
+        'email'=>'البريد الالكتروني',
         'name' =>'رسالة',
+        'user_name'=>'الاسم',
         'can_not_delete_contact' => 'لا يمكن حذف نوع رسالة مرتبط برسائل',
         'replied' =>'تم الرد',
         'validation' => [
@@ -1293,6 +1342,7 @@ return [
         'validation' => [
 
             'can_not_be_deleted_has_link' => 'لا يمكن حذف صفحة مرتبطة برابط',
+            'can_not_be_deactivated_has_link' => 'لا يمكن تعطيل صفحة مرتبطة برابط',
 
             'is_active' => [
                 'in' => 'حقل الحالة يجب أن يكون بين هذه القيم :values',
@@ -1309,8 +1359,8 @@ return [
             ],
 
             'image' => [
-                'mimes' => 'حقل صورة   يجب أن يكون من نوع  :values',
-                'max' => 'يجب أن يكون حقل صورة  على الأكثر :max ميجا',
+                'mimes' => 'لا يسمح برفع الصورة غير من النوع :values',
+                'max' => 'حجم الصورة يجب ألا يزيد عن 1 ميجابايت',
 
             ],
             'ar' => [
@@ -1334,6 +1384,19 @@ return [
             'show'   => 'عرض الصفحات الثابتة'
         ],
         'static_pages' => 'الصفحات الثابتة',
+        'status' => 'الحالة',
+        'name' => 'الاسم',
+        'link' => 'الرابط',
+        'in_app' => 'عرض في التطبيق',
+        'in_app_cases'=>[
+            0 => 'معطل',
+            1 =>'مفعل',
+        ],
+        'in_website' => 'عرض في الموقع',
+        'in_website_cases'=>[
+            0 => 'معطل',
+            1 =>'مفعل',
+        ],
     ],
     'permission' =>  [
         'sub_progs' =>
@@ -1393,8 +1456,20 @@ return [
         ],
 
         ],
+
         'our_app' => [
             'our_apps' => 'تطبيقاتنا',
+            'name' => 'الاسم',
+            'status' => 'الحالة',
+            'ios_link' => 'رابط ال ios',
+            'android_link' => 'رابط الاندرويد',
+            'active_cases' =>
+            [
+                0 => 'معطل',
+                1 => 'مفعل',
+            ],
+
+
             'permissions' =>
             [
                 'index' => 'السجل',
@@ -1413,6 +1488,7 @@ return [
             'rasid_job' => 'التطبيق',
             'rasid_job_count' => 'عدد تطبيقاتنا',
             'rasid_jobs' => 'تطبيقاتنا',
+
             'validation' => [
 
                 'order' => [

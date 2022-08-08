@@ -25,6 +25,7 @@ class ActivityLog extends Model
     const CREATE = 'created';
     const UPDATE = 'updated';
     const DESTROY = 'destroy';
+    const DELETE = 'delete';
     const PERMANENT_DELETE = 'permanent_delete';
     const RESTORE = 'restored';
     const SEARCH = 'searched';
@@ -49,7 +50,8 @@ class ActivityLog extends Model
         self::TEMPORARY,
         self::SHOWN,
         self::ASSIGNED,
-        self::REPLIED
+        self::REPLIED,
+        self::DELETE
     ];
     #endregion properties
 

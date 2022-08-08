@@ -26,7 +26,7 @@ class Vendor extends Model implements HasAssetsInterface
     protected $guarded = ['created_at'];
     public $translatedAttributes = ['name'];
     private $sortableColumns = ["commercial_record", "is_active", "tax_number", "name", "type", "branches_count"];
-
+    public $with = ['translations'];
     #endregion properties
     public static function boot()
     {
@@ -67,7 +67,7 @@ class Vendor extends Model implements HasAssetsInterface
             $query->where('is_active', $request->is_active);
 
         $new = $query->toSql();
-        if ($old != $new) $this->addGlobalActivity($this, $request->query(), ActivityLog::SEARCH, 'index');
+        if ($old != $new) Loggable::addGlobalActivity($this, $request->query(), ActivityLog::SEARCH, 'index');
     }
 
     public function scopeSortBy(Builder $query, $request)

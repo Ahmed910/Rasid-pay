@@ -20,6 +20,7 @@ class VendorBranch extends Model implements HasAssetsInterface
     public $assets = ['logo'];
     protected $guarded = ['created_at', 'deleted_at'];
     public $translatedAttributes = ['name'];
+    public $with = ['translations'];
 
     #endregion properties
     public static function boot()
@@ -62,7 +63,7 @@ class VendorBranch extends Model implements HasAssetsInterface
 
 
         $new = $query->toSql();
-        if ($old != $new) $this->addGlobalActivity($this, $request->query(), ActivityLog::SEARCH, 'index');
+        if ($old != $new) Loggable::addGlobalActivity($this, $request->query(), ActivityLog::SEARCH, 'index');
     }
 
     public function scopeSortBy(Builder $query, $request)

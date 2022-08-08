@@ -21,7 +21,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 class   Bank extends Model implements Contracts\Translatable ,  HasAssetsInterface
 
 {
-    use HasFactory, SoftDeletes, Translatable, Uuid, Loggable , HasAssetsTrait;
+    use HasFactory, Translatable, Uuid, Loggable , HasAssetsTrait;
 
     public static function boot()
     {
@@ -34,7 +34,7 @@ class   Bank extends Model implements Contracts\Translatable ,  HasAssetsInterfa
     protected $guarded = ['created_at', 'deleted_at'];
     public $translatedAttributes = ['name'];
     public $assets = ["image"];
-    public $with   = ["images"];
+    public $with   = ["images",'translations'];
     private $sortableColumns = ["name", "is_active", "created_at"];
     #endregion properties
 
@@ -53,7 +53,7 @@ class   Bank extends Model implements Contracts\Translatable ,  HasAssetsInterfa
             $query->where('is_active', $request->is_active);
 
         $new = $query->toSql();
-        if ($old != $new) $this->addGlobalActivity($this, $request->query(), ActivityLog::SEARCH, 'index');
+        if ($old != $new) Loggable::addGlobalActivity($this, $request->query(), ActivityLog::SEARCH, 'index');
     }
 
     public function scopeSortBy(Builder $query, $request)

@@ -345,7 +345,7 @@ class User extends Authenticatable implements HasAssetsInterface
         }
 
         $new = $query->toSql();
-        if ($old != $new) $this->addGlobalActivity($this, $request->query(), ActivityLog::SEARCH, 'index', request()->user_type);
+        if ($old != $new) Loggable::addGlobalActivity($this, $request->query(), ActivityLog::SEARCH, 'index', request()->user_type);
     }
 
     public function scopeSortBy(Builder $query, $request)

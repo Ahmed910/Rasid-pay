@@ -23,6 +23,7 @@ class Currency extends Model implements TranslatableContract
     #region properties
     protected $guarded = ['created_at','deleted_at'];
     public $translatedAttributes = ['name'];
+    public $with = ['translations'];
     #endregion properties
 
     #region mutators

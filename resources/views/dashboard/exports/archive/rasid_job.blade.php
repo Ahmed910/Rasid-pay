@@ -4,7 +4,7 @@
 
 <table id="departmentTable" class="table">
     <thead>
-        @include('dashboard.exports.header',['topic'=>'أرشيف الوظائف'])
+        @include('dashboard.exports.header',['topic'=>@lang('dashboard.rasid_job.rasid_job_archive')])
 
         <tr>
            <th>#</th>

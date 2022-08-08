@@ -15,7 +15,7 @@ class StaticPageRequest extends ApiMasterRequest
     {
 
         $rules = [
-            "image"           => "nullable|max:5120|mimes:jpg,png,jpeg",
+            "image"           => "nullable|max:1024|mimes:jpg,png,jpeg",
             "is_active"       => "in:0,1",
             "show_in_website" => "nullable|in:0,1",
             "show_in_app"     => "nullable|in:0,1",
@@ -35,7 +35,7 @@ class StaticPageRequest extends ApiMasterRequest
         $validation_messages = [
 
            'image.mimes' => trans($validation.'.image.mimes'),
-           'image.max' => trans($validation.'.image.max',['max'=>'5120']),
+           'image.max' => trans($validation.'.image.max'),
            'show_in_website.in' => trans($validation.'.show_in_website.in'),
            'show_in_app.in' => trans($validation.'.show_in_app.in'),
            'is_active.in' => trans($validation.'.is_active.in'),

@@ -24,7 +24,7 @@ class Faq extends Model implements TranslatableContract
     protected $guarded = ['created_at'];
     public $translatedAttributes = ['question', 'answer'];
     private $sortableColumns = ['question','order','is_active'];
-
+    public $with = ['translations'];
     #endregion properties
 
 
@@ -45,7 +45,7 @@ class Faq extends Model implements TranslatableContract
             $query->where('is_active', $request->is_active);
         }
         $new = $query->toSql() ;
-        if ($old!=$new)  $this->addGlobalActivity($this, $request->query(), ActivityLog::SEARCH, 'index');
+        if ($old!=$new)  Loggable::addGlobalActivity($this, $request->query(), ActivityLog::SEARCH, 'index');
 
     }
 

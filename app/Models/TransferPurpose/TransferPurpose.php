@@ -21,6 +21,7 @@ class TransferPurpose extends Model
     protected $attributes = ['is_active' => true];
     protected $guarded = ['created_at','updated_at','deleted_at'];
     private $sortableColumns = [ 'name','is_active',];
+    public $with = ['translations'];
     #endregion properties
 
     #region mutators
@@ -47,7 +48,7 @@ class TransferPurpose extends Model
             $query->where('is_active', $request->is_active);
 
         $new = $query->toSql();
-        if ($old != $new) $this->addGlobalActivity($this, $request->query(), ActivityLog::SEARCH, 'index');
+        if ($old != $new) Loggable::addGlobalActivity($this, $request->query(), ActivityLog::SEARCH, 'index');
     }
 
     public function scopeSortBy(Builder $query, $request)

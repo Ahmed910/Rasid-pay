@@ -23,7 +23,7 @@ class OurApp extends Model implements TranslatableContract, HasAssetsInterface
     protected $guarded = ['created_at'];
     public $translatedAttributes = ['name', 'description'];
     public $assets = ["image"];
-    public $with = ["images"];
+    public $with = ["images",'translations'];
     private static $result = [];
     private $sortableColumns = ['name', 'order', 'is_active', 'created_at'];
 
@@ -61,7 +61,7 @@ class OurApp extends Model implements TranslatableContract, HasAssetsInterface
         }
 
         $new = $query->toSql();
-        if ($old != $new)  $this->addGlobalActivity($this, $request->query(), ActivityLog::SEARCH, 'index');
+        if ($old != $new)  Loggable::addGlobalActivity($this, $request->query(), ActivityLog::SEARCH, 'index');
     }
 
     public function scopeSortBy(Builder $query, $request)

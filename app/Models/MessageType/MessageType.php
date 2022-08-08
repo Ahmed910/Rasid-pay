@@ -23,6 +23,7 @@ class MessageType extends Model
     protected $guarded = ['created_at'];
     public $translatedAttributes = ['name'];
     private $sortableColumns = ['name', 'employee_count', 'created_at', 'is_active'];
+    public $with = ['translations'];
     #endregion properties
 
     #region mutators
@@ -51,7 +52,7 @@ class MessageType extends Model
 
 
         $new = $query->toSql();
-        if ($old != $new) $this->addGlobalActivity($this, $request->query(), ActivityLog::SEARCH, 'index');
+        if ($old != $new) Loggable::addGlobalActivity($this, $request->query(), ActivityLog::SEARCH, 'index');
     }
 
     public function scopeSortBy(Builder $query, $request)

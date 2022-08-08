@@ -20,6 +20,7 @@ class Group extends Model implements TranslatableContract
     public $translatedAttributes = ['name'];
     public $attributes = ['is_active' => true];
     private $sortableColumns = ['name', 'admins_count', 'is_active','created_at'];
+    public $with = ['translations'];
     #endregion properties
 
     #region mutators
@@ -49,7 +50,7 @@ class Group extends Model implements TranslatableContract
         }
 
         $new = $query->toSql() ;
-        if ($old!=$new)  $this->addGlobalActivity($this, $request->query(), ActivityLog::SEARCH, 'index');
+        if ($old!=$new)  Loggable::addGlobalActivity($this, $request->query(), ActivityLog::SEARCH, 'index');
     }
 
     public function scopeActive($query)

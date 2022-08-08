@@ -4,15 +4,15 @@
 
 <table id="departmentTable" class="table">
   <thead>
-    @include('dashboard.exports.header',['topic'=>'العملاء', 'count' => 5])
+    @include('dashboard.exports.header',['topic'=>trans('dashboard.vendor.vendors'), 'count' => 5])
     <tr>
       <th>#</th>
-      <th>عدد الفروع</th>
-      <th>اسم الفرع</th>
-      <th>نوع الفرع</th>
-      <th>السجل التجاري</th>
-      <th>الرقم الضريبي</th>
-      <th>الحالة</th>
+      <th>@lang('dashboard.vendor.branch_counts') </th>
+      <th>@lang('dashboard.vendor.branch_name') </th>
+      <th>@lang('dashboard.vendor.branch_type') </th>
+      <th>@lang('dashboard.vendor.commerical_number') </th>
+      <th>@lang('dashboard.vendor.tax_number') </th>
+      <th>@lang('dashboard.vendor.status') </th>
     </tr>
   </thead>
   <tbody>
@@ -21,7 +21,7 @@
       <td>{{ $loop->iteration }}</td>
       <td>{{ $vendor->branches_count ?? '' }}</td>
       <td>{{ $vendor->name ?? '' }}</td>
-      <td>{{ $vendor->type ?? '' }}</td>
+      <td>{{ trans('dashboard.vendor.type.'.$vendor->type)}}</td>
       <td>{{ $vendor->commercial_record ?? '' }}</td>
       <td>{{ $vendor->tax_number ?? '' }}</td>
        <td>

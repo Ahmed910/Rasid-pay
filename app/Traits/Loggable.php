@@ -39,9 +39,12 @@ trait Loggable
 
         static::deleted(function (self $self) {
             if ($self->forceDeleting)
-                $self->addUserActivity($self, ActivityLog::PERMANENT_DELETE, 'archive');
+                return $self->addUserActivity($self, ActivityLog::PERMANENT_DELETE, 'archive');
 
-            $self->addUserActivity($self, ActivityLog::DESTROY, 'index');
+            if (in_array(SoftDeletes::class, class_uses(static::class)))
+                return $self->addUserActivity($self, ActivityLog::DESTROY, 'index');
+
+            return $self->addUserActivity($self, ActivityLog::DELETE, 'index');
         });
     }
 
@@ -86,7 +89,7 @@ trait Loggable
      *
      * @return void
      */
-    public function addGlobalActivity($item, array $logs, string $event, string $subProgram, string $user_type = null)
+    public static function addGlobalActivity($item, array $logs, string $event, string $subProgram, string $user_type = null)
     {
         $logs = array_except($logs, ['per_page', 'page']);
         if (!count($logs)) return;

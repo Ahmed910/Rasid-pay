@@ -4,18 +4,20 @@
 
 <table id="departmentTable" class="table">
   <thead>
-    @include('dashboard.exports.header',['topic'=>'الأسئلة الشائعة', 'count' => 2])
+    @include('dashboard.exports.header',['topic'=>trans('dashboard.faq.faqs'), 'count' => 2])
     <tr>
       <th>#</th>
-      <th>الحالة</th>
-      <th>السؤال</th>
-      <th>الإجابة</th>
+      <th>@lang('dashboard.faq.question')</th>
+      <th>@lang('dashboard.faq.answer')</th>
+      <th>@lang('dashboard.faq.status')</th>
     </tr>
   </thead>
   <tbody>
     @foreach ($faqs as $faq)
     <tr>
       <td>{{ $loop->iteration }}</td>
+      <td>{{ $faq->question }}</td>
+      <td>{{ $faq->answer }}</td>
       <td>
         @if($faq->is_active)
         <div class="active">
@@ -29,8 +31,7 @@
         </div>
         @endif
       </td>
-      <td>{{ $faq->question }}</td>
-      <td>{{ $faq->answer }}</td>
+
     </tr>
     @endforeach
   </tbody>

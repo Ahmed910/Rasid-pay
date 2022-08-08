@@ -3,13 +3,13 @@
 namespace App\Http\Controllers\Api\V1\Dashboard;
 
 use App\Exports\StaticPageExport;
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Http\Resources\Dashboard\StaticPages\StaticPageResource;
 use App\Http\Requests\V1\Dashboard\StaticPageRequest;
 use App\Http\Resources\Dashboard\StaticPages\StaticPageCollection;
+use App\Http\Resources\Dashboard\StaticPages\StaticPageResource;
 use App\Models\StaticPage\StaticPage;
 use App\Services\GeneratePdf;
+use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
 
 class StaticPageController extends Controller
@@ -45,7 +45,7 @@ class StaticPageController extends Controller
 
     public function show(Request $request ,$id)
     {
-        $staticPage  = StaticPage::withTrashed()->findOrFail($id);
+        $staticPage  = StaticPage::findOrFail($id);
         $activities = [];
         if (!$request->has('with_activity') || $request->with_activity) {
             $activities  = $staticPage->activity()
@@ -66,7 +66,7 @@ class StaticPageController extends Controller
         if ($staticPage->link()->exists() && $request->is_active == 0) {
             return response()->json([
                 'status' => false,
-                'message' =>  trans("dashboard.static_page.cannot_deactivate"),
+                'message' =>  trans("dashboard.static_page.validation.can_not_be_deactivated_has_link"),
                 'data' => null
             ], 422);
         }

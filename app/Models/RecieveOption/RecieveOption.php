@@ -16,8 +16,9 @@ class RecieveOption extends Model
     use HasFactory, SoftDeletes, Uuid, Translatable, Loggable;
 
     #region properties
-    public $translatedAttributes = ['name','description'];
-    protected $guarded = ['created_at','updated_at','deleted_at'];
+    public $translatedAttributes = ['name', 'description'];
+    protected $guarded = ['created_at', 'updated_at', 'deleted_at'];
+    public $with = ['translations'];
     #endregion properties
 
     #region mutators
