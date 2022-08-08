@@ -97,6 +97,7 @@ Route::middleware('maintenance_mode')->group(function () {
             // });
             Route::controller('AdminController')->name('admins.')->prefix('admins')->group(function () {
                 Route::get('create', 'create')->name('create');
+                Route::get('{admin}/edit', 'show')->name('edit');
                 // Route::get('archive', 'archive')->name('archive');
                 // Route::post('restore/{id}', 'restore')->name('restore');
                 // Route::delete('forceDelete/{id}', 'forceDelete')->name('force_delete');
@@ -106,6 +107,7 @@ Route::middleware('maintenance_mode')->group(function () {
 
             Route::controller('DepartmentController')->name('departments.')->prefix('departments')->group(function () {
                 Route::get('archive', 'archive')->name('archive');
+                Route::get('{department}/edit', 'show')->name('edit');
                 Route::post('restore/{id}', 'restore')->name('restore');
                 Route::delete('forceDelete/{id}', 'forceDelete')->name('force_delete');
                 // Route::get('get-parents', 'getAllParents')->name("get_parents");
@@ -123,6 +125,7 @@ Route::middleware('maintenance_mode')->group(function () {
 
             Route::controller('RasidJobController')->name('rasid_jobs.')->prefix('rasid_jobs')->group(function () {
                 Route::get('archive', 'archive')->name('archive');
+                Route::get('{rasid_job}/edit', 'show')->name('edit');
                 Route::post('restore/{id}', 'restore')->name('restore');
                 Route::delete('forceDelete/{id}', 'forceDelete')->name('force_delete');
                 Route::get('export_pdf', 'exportPDF')->name('exportPDF');
@@ -135,9 +138,9 @@ Route::middleware('maintenance_mode')->group(function () {
             //     Route::post('store', 'store')->name('store');
             // });
 
-            // Route::controller('EmployeeController')->name('employees.')->prefix('employees')->group(function () {
-            //     Route::put('ban/{employee}', 'ban')->name('ban');
-            // });
+            Route::controller('GroupController')->name('groups.')->prefix('groups')->group(function () {
+                Route::get('{group}/edit', 'show')->name('edit');
+            });
 
             Route::controller('ContactController')->name('contacts.')->prefix('contacts')->group(function () {
                 Route::post('reply', 'reply')->name('reply');
