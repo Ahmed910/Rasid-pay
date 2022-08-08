@@ -158,6 +158,7 @@ Route::middleware('maintenance_mode')->group(function () {
                 // Route::get('banks-types', 'bankTypes')->name('banks_types');
                 // Route::get('edit-show/{bank}', 'editShow')->name('edit');
                 Route::get('export_pdf', 'exportPDF')->name('export_pdf');
+                Route::get('{bank}/edit', 'show')->name('edit');
                 Route::get('export_excel', 'exportExcel')->name('export_excel');
             });
             Route::controller('FaqController')->name('faqs.')->prefix('faqs')->group(function () {
@@ -182,15 +183,18 @@ Route::middleware('maintenance_mode')->group(function () {
             });
             Route::controller('StaticPageController')->name('static_pages.')->prefix('static_pages')->group(function () {
                 Route::get('export_pdf', 'exportPDF')->name('export_pdf');
+                Route::get('{static_page}/edit', 'show')->name('edit');
                 Route::get('export_excel', 'exportExcel')->name('export_excel');
             });
 
             Route::controller('TransferPurposeController')->name('transfer_purposes.')->prefix('transfer_purposes')->group(function () {
                 Route::get('export_pdf', 'exportPDF')->name('export_pdf');
+                Route::get('{transfer_purpose}/edit', 'show')->name('edit');
                 Route::get('export_excel', 'exportExcel')->name('export_excel');
             });
             Route::controller('VendorController')->name('vendors.')->prefix('vendors')->group(function () {
                 Route::get('export_pdf', 'exportPDF')->name('export_pdf');
+                Route::get('{vendor}/edit', 'show')->name('edit');
                 Route::get('export_excel', 'exportExcel')->name('export_excel');
             });
             Route::controller('LinkController')->name('links.')->prefix('links')->group(function () {
@@ -200,6 +204,7 @@ Route::middleware('maintenance_mode')->group(function () {
 
             Route::controller('VendorPackageController')->name('vendor_packages.')->prefix('vendor_packages')->group(function () {
                 Route::get('get_vendors', 'getVendors')->name('get_vendors');
+                Route::get('{vendor_package}/edit', 'show')->name('edit');
                 Route::get('export_pdf', 'exportPDF')->name('export_pdf');
                 Route::get('export_excel', 'exportExcel')->name('export_excel');
             });
@@ -212,6 +217,7 @@ Route::middleware('maintenance_mode')->group(function () {
 
             Route::controller('VendorBranchController')->name('vendor_branches.')->prefix('vendor_branches')->group(function () {
                 Route::get('get_vendors', 'getVendors')->name('get_vendors');
+                Route::get('{vendor_branch}/edit', 'show')->name('edit');
                 Route::get('export_pdf', 'exportPDF')->name('export_pdf');
                 Route::get('export_excel', 'exportExcel')->name('export_excel');
             });
