@@ -3,6 +3,7 @@
 return [
     'attributes' => [
         'citizen'  => 'اسم المستخدم',
+        'client'  => 'اسم العميل',
         'trans_number'  => 'رقم المعاملة',
         'banks' =>  [
             '*' =>   [
