@@ -1333,6 +1333,7 @@ return [
             'show'   => 'عرض الصفحات الثابتة'
         ],
         'static_pages' => 'الصفحات الثابتة',
+        'cannot_deactivate' => 'لا يمكنك تعطيل تلك الصفحة',
     ],
     'permission' =>  [
         'sub_progs' =>

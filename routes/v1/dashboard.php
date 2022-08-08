@@ -116,6 +116,7 @@ Route::middleware('maintenance_mode')->group(function () {
             });
 
             Route::controller('CitizenController')->name('citizens.')->prefix('citizens')->group(function () {
+                Route::get('{id}/edit', 'show')->name('edit');
                 Route::get('enabled-cards', 'enabledPackages')->name('enabled_packages');
                 Route::get('export_pdf', 'exportPDF')->name('export_pdf');
                 Route::get('export_excel', 'exportExcel')->name('export_excel');

@@ -62,6 +62,14 @@ class StaticPageController extends Controller
     public function update(StaticPageRequest $request, $id)
     {
         $staticPage = StaticPage::findOrFail($id);
+
+        if ($staticPage->link()->exists() && $request->is_active == 0) {
+            return response()->json([
+                'status' => false,
+                'message' =>  trans("dashboard.static_page.cannot_deactivate"),
+                'data' => null
+            ], 422);
+        }
         $staticPage->fill($request->validated() + ['updated_at' => now()])->save();
 
         return StaticPageResource::make($staticPage)
