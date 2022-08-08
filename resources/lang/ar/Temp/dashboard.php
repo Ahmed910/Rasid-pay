@@ -1423,6 +1423,11 @@ return [
     ],
     'bank_branch' =>  [
         'bank_branches' => 'فروع البنوك',
+        'sub_progs' => [
+            'index' => 'سجل فروع البنوك',
+            'create' => 'إضافة فرع',
+            'show' => 'عرض فرع',
+        ]
     ],
     'attachment_file' => [
         'attachment_files' => 'العملاء',
