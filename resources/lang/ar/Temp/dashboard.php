@@ -13,7 +13,7 @@ return [
         'force_delete' => 'حذف نهائي',
         'archive' => 'عرض أرشيف',
     ],
-    'follow_up'=>[
+    'follow_up' => [
         "chips" => [
             "active" => "مفعل",
             "permanent" => "معطل دائم",
@@ -28,6 +28,13 @@ return [
             "deactive" => "تعطيل",
             "restored" => "استعادة",
         ],
+    ],
+    'bankBranch' => [
+        'sub_progs' => [
+            'index' => 'سجل فروع البنوك',
+            'create' => 'إضافة فرع',
+            'show' => 'عرض فرع',
+        ]
     ],
     'currency' =>  [
         'permissions' =>  [
@@ -65,12 +72,12 @@ return [
         ],
     ],
     'general' => [
-            'validation' => [
-                'reason' => [
-                    "max"   => "يجب أن لا يزيد السبب عن :max حرف ",
-                    "min"   => "يجب أن لا يقل السبب عن :min حروف",
-                ],
+        'validation' => [
+            'reason' => [
+                "max"   => "يجب أن لا يزيد السبب عن :max حرف ",
+                "min"   => "يجب أن لا يقل السبب عن :min حروف",
             ],
+        ],
         'email' => 'البريد الإلكتروني',
         'page_number' => 'ص ',
         'description' => 'الوصف',
@@ -248,8 +255,8 @@ return [
             'golden' => 'البطاقة الذهبية',
             'basic' => 'البطاقة الاساسية',
         ],
-        'total'=>'الاجمالي',
-        'enabled_package'=>'البطاقة المفعلة',
+        'total' => 'الاجمالي',
+        'enabled_package' => 'البطاقة المفعلة',
         'enter_transaction_date' => 'أدخل تاريخ المعاملة',
         'transaction_amount' => 'قيمة المعاملة',
         'enter_user_identity' => 'أدخل الرقم',
@@ -298,10 +305,10 @@ return [
             'show' => 'عرض',
         ],
         'active_cases' =>
-            [
-                0 => 'معطل',
-                1 => 'مفعل',
-            ],
+        [
+            0 => 'معطل',
+            1 => 'مفعل',
+        ],
         'sub_program' => 'البرنامج الفرعي',
         'add_group' => 'إضافة مجموعة',
         'group_name' => 'اسم المجموعة',
@@ -446,7 +453,7 @@ return [
             'create' => 'انشاء',
         ],
         'cards_discount_records' => 'سجل نسب خصم البطاقات',
-        'cards_discount'=> 'نسب خصم البطاقات',
+        'cards_discount' => 'نسب خصم البطاقات',
         'platinum_card_discount' => 'نسبة خصم البطاقة البلاتينية',
         'add' => 'إضافة نسب الخصم',
         'package_title' => 'نسبة خصم :name',
@@ -542,9 +549,9 @@ return [
 
     'bank' =>  [
         'Enter_service_Number' => 'ادخل رقم خدمة العملاء',
-        'status' =>'الحالة',
-        'name' =>'الاسم',
-        'banks'=>'البنوك',
+        'status' => 'الحالة',
+        'name' => 'الاسم',
+        'banks' => 'البنوك',
         'sub_progs' =>  [
             'edit' => 'تعديل بنك',
             'create' => 'إضافة بنك',
@@ -782,21 +789,21 @@ return [
         'enter_login_id' => 'أدخل الرقم',
     ],
     'department' =>  [
-            'validation' => [
-                'name'  => [
-                    'required' => 'اسم القسم مطلوب',
-                    'unique' => 'الاسم موجود من قبل',
-                    'min' => 'لاسم يجب ان لا يقل عن :min حروف',
-                    'max' => 'لاسم يجب ان لا يزيد عن :max حرف',
-                ],
-                'description' => [
-                    'max'   => 'الوصف يجب أن لا يزيد عن :max حرف'
-                ],
-                'image' => [
-                    'max' => 'لا يجب أن يزيد الحجم عن 1 ميجا بايت',
-                    'mimes' => '(:values) يقبل فقط صيغة الملفات',
-                ],
+        'validation' => [
+            'name'  => [
+                'required' => 'اسم القسم مطلوب',
+                'unique' => 'الاسم موجود من قبل',
+                'min' => 'لاسم يجب ان لا يقل عن :min حروف',
+                'max' => 'لاسم يجب ان لا يزيد عن :max حرف',
             ],
+            'description' => [
+                'max'   => 'الوصف يجب أن لا يزيد عن :max حرف'
+            ],
+            'image' => [
+                'max' => 'لا يجب أن يزيد الحجم عن 1 ميجا بايت',
+                'mimes' => '(:values) يقبل فقط صيغة الملفات',
+            ],
+        ],
         'is_active' => 'الحالة',
         'permissions' => [
             'index' => 'السجل',
@@ -861,9 +868,9 @@ return [
 
     'faq' => [
         'faqs' => 'الاسئلة الشائعة',
-        'status'=>' الحالة',
-        'question'=>'السؤال',
-        'answer'=>'الاجابة',
+        'status' => ' الحالة',
+        'question' => 'السؤال',
+        'answer' => 'الاجابة',
         'permissions' => [
             'index' => 'السجل',
             'store' => 'حفظ',
@@ -881,12 +888,12 @@ return [
 
     'vendor' => [
         'vendors' => 'العملاء',
-        'branch_counts' =>'عدد الفروع',
-        'branch_name'=>'اسم الفرع',
-        'branch_type'=>'نوع الفرع',
-        'status'=>'الحالة ',
-        'tax_number'=>'الرقم الضريبي',
-        'commerical_number'=>'السجل التجاري',
+        'branch_counts' => 'عدد الفروع',
+        'branch_name' => 'اسم الفرع',
+        'branch_type' => 'نوع الفرع',
+        'status' => 'الحالة ',
+        'tax_number' => 'الرقم الضريبي',
+        'commerical_number' => 'السجل التجاري',
 
         'permissions' => [
             'index' => 'السجل',
@@ -913,12 +920,12 @@ return [
     'vendor_branch' => [
         'vendor_branches' => 'أفرع العميل',
         'vendors_branches' => 'فروع العملا',
-        'name'=>'اسم الفرع',
+        'name' => 'اسم الفرع',
         'address' => 'العنوان',
         'status' => 'الحالة',
         'phone' => 'الهاتف',
         'email' => 'البريد الالكتروني',
-        'address_details'=> 'تفاصيل العنوان',
+        'address_details' => 'تفاصيل العنوان',
 
         'permissions' => [
             'index' => 'السجل',
@@ -982,7 +989,7 @@ return [
                 'numeric' => 'حقل خط الطول يجب أن يكون قيمة رقمية',
             ],
             'ar' => [
-                'name'=> [
+                'name' => [
                     'required' => 'حقل اسم الفرع مطلوب',
                     'string' => 'حقل اسم الفرع يجب أن يكون قيمة نصية',
                     'between' => 'حقل اسم الفرع يجب ان يكون بين :min و :max حرف'
@@ -994,7 +1001,7 @@ return [
     'transfer_purposes' => [
         'validation' => [
             'ar' => [
-                'name'=> [
+                'name' => [
                     'unique' => 'حقل الغرض من التحويل لا يجب أن يتكرر',
                 ]
             ],
@@ -1057,7 +1064,7 @@ return [
         'rasid_job' => 'الوظيفة',
         'rasid_job_count' => 'عدد الوظائف',
         'rasid_jobs' => 'الوظائف',
-        'rasid_job_archive'=>'أرشيف الوظائف',
+        'rasid_job_archive' => 'أرشيف الوظائف',
         'actions' => 'العمليات',
         'select_department' => 'اختر القسم',
         'is_vacant' =>
@@ -1161,28 +1168,28 @@ return [
         'links' => 'الروابط',
         'permissions' =>
         [
-           'index' => 'السجل',
-           'update' => 'تعديل',
-           'destroy' => 'حذف',
-           'show' => 'عرض',
+            'index' => 'السجل',
+            'update' => 'تعديل',
+            'destroy' => 'حذف',
+            'show' => 'عرض',
         ],
     ],
     'transfer_purpose' => [
         'transfer_purposes' => 'أغراض التحويل',
-        'name'=>'الاسم',
-        'status'=>'الحالة',
-        'is_default_value' =>'اخري',
-        'is_default_value_cases'=>[
-           0 => 'معطلة',
-           1=>'مفعلة',
+        'name' => 'الاسم',
+        'status' => 'الحالة',
+        'is_default_value' => 'اخري',
+        'is_default_value_cases' => [
+            0 => 'معطلة',
+            1 => 'مفعلة',
         ],
         'permissions' =>
         [
-           'destroy' => 'حذف',
-           'index' => 'السجل',
-           'update' => 'تعديل',
-           'show' => 'عرض',
-           'store' => 'حفظ'
+            'destroy' => 'حذف',
+            'index' => 'السجل',
+            'update' => 'تعديل',
+            'show' => 'عرض',
+            'store' => 'حفظ'
 
         ],
     ],
@@ -1206,13 +1213,13 @@ return [
         ],
         'messages' => 'الرسائل',
     ],
-    'messages'=>[
+    'messages' => [
         'login_firstly' => 'يجب تسجيل الدخول اولا'
     ],
     'message_type' =>  [
         'message_types' => 'أنواع الرسائل',
         'name' => 'الاسم',
-        'employee_count'=> 'عدد الموظفين',
+        'employee_count' => 'عدد الموظفين',
         'permissions' => [
             'store' => 'حفظ',
             'index' => 'السجل',
@@ -1266,15 +1273,15 @@ return [
         'contacts' => 'الدعم الفني',
         'contact' => 'الدعم الفني',
         'contact_messages' => 'صندوق الرسائل ',
-        'status'=>'حالة الرسالة',
-        'from_app_or_web'=>'مصدر الرسالة',
-        'title'=>'العنوان',
-        'phone'=>'رقم الهااتف',
-        'email'=>'البريد الالكتروني',
-        'name' =>'رسالة',
-        'user_name'=>'الاسم',
+        'status' => 'حالة الرسالة',
+        'from_app_or_web' => 'مصدر الرسالة',
+        'title' => 'العنوان',
+        'phone' => 'رقم الهااتف',
+        'email' => 'البريد الالكتروني',
+        'name' => 'رسالة',
+        'user_name' => 'الاسم',
         'can_not_delete_contact' => 'لا يمكن حذف نوع رسالة مرتبط برسائل',
-        'replied' =>'تم الرد',
+        'replied' => 'تم الرد',
         'validation' => [
             'contact_id' => [
                 'required' => 'مطلوب حقل رقم الرسالة',
@@ -1285,12 +1292,12 @@ return [
                 'string' => 'حقل الرد  يجب أن يكون قيمة نصية',
             ],
         ],
-        'message_sources'=>[
+        'message_sources' => [
             'app' => 'التطبيق',
             'website' => 'الموقع',
         ],
-        'message_status'=>[
-            'replied' =>'تم الرد',
+        'message_status' => [
+            'replied' => 'تم الرد',
             "pending" => "بانتظار الرد ",
             "shown" => "تم الإطلاع",
             "assigned" => "تم الإحالة",
@@ -1365,12 +1372,12 @@ return [
 
             ],
             'ar' => [
-                'name'=> [
+                'name' => [
                     'required' => 'حقل الاسم  مطلوب',
                     'max' => 'يجب أن يكون حقل الاسم  على الأكثر :max '
 
                 ],
-                'description'=> [
+                'description' => [
                     'required' => 'حقل الوصف  مطلوب',
                     'string' => 'حقل  الوصف يجب أن يكون قيمة نصية'
                 ]
@@ -1389,14 +1396,14 @@ return [
         'name' => 'الاسم',
         'link' => 'الرابط',
         'in_app' => 'عرض في التطبيق',
-        'in_app_cases'=>[
+        'in_app_cases' => [
             0 => 'معطل',
-            1 =>'مفعل',
+            1 => 'مفعل',
         ],
         'in_website' => 'عرض في الموقع',
-        'in_website_cases'=>[
+        'in_website_cases' => [
             0 => 'معطل',
-            1 =>'مفعل',
+            1 => 'مفعل',
         ],
     ],
     'permission' =>  [
@@ -1424,6 +1431,11 @@ return [
     ],
     'bank_branch' =>  [
         'bank_branches' => 'فروع البنوك',
+        'sub_progs' => [
+            'index' => 'سجل فروع البنوك',
+            'create' => 'إضافة فرع',
+            'show' => 'عرض فرع',
+        ]
     ],
     'attachment_file' => [
         'attachment_files' => 'العملاء',
@@ -1456,80 +1468,80 @@ return [
 
         ],
 
+    ],
+
+    'our_app' => [
+        'our_apps' => 'تطبيقاتنا',
+        'name' => 'الاسم',
+        'status' => 'الحالة',
+        'ios_link' => 'رابط ال ios',
+        'android_link' => 'رابط الاندرويد',
+        'active_cases' =>
+        [
+            0 => 'معطل',
+            1 => 'مفعل',
         ],
 
-        'our_app' => [
-            'our_apps' => 'تطبيقاتنا',
-            'name' => 'الاسم',
-            'status' => 'الحالة',
-            'ios_link' => 'رابط ال ios',
-            'android_link' => 'رابط الاندرويد',
-            'active_cases' =>
-            [
-                0 => 'معطل',
-                1 => 'مفعل',
-            ],
 
-
-            'permissions' =>
-            [
-                'index' => 'السجل',
-                'store' => 'حفظ',
-                'update' => 'تعديل',
-                'destroy' => 'حذف',
-                'show' => 'عرض',
-            ],
+        'permissions' =>
+        [
+            'index' => 'السجل',
+            'store' => 'حفظ',
+            'update' => 'تعديل',
+            'destroy' => 'حذف',
             'show' => 'عرض',
-            'sub_progs' =>
-            [
-                'index' => 'سجل تطبيقاتنا',
-                'create' => 'إضافة تطبيق',
-                'show' => 'عرض تطبيق',
-            ],
-            'rasid_job' => 'التطبيق',
-            'rasid_job_count' => 'عدد تطبيقاتنا',
-            'rasid_jobs' => 'تطبيقاتنا',
-
-            'validation' => [
-
-                'order' => [
-
-                    'numeric' => 'حقل الترتيب  يجب أن يكون قيمة رقمية',
-                ],
-                'android_link' => [
-                    'required' => 'حقل رابط التحميل Android   مطلوب',
-
-                ],
-                'ios_link' => [
-                    'required' => 'حقل رابط التحميل Ios  مطلوب',
-
-                ],
-
-                'is_active' => [
-                    'required' => 'حقل الحالة مطلوب',
-                    'in' => 'حقل الحالة يجب أن يكون بين هذه القيم :values',
-
-                ],
-
-                'image' => [
-                    'required' => 'حقل صورة التطبيق مطلوب',
-                    'image' => 'حقل صورة التطبيق يجب أن يكون صورة',
-                    'mimes' => 'حقل صورة التطبيق يجب أن يكون من نوع  :values',
-                    'max' => 'يجب أن يكون حقل صورة التطبيق على الأكثر :max ميجا',
-
-                ],
-                'ar' => [
-                    'name'=> [
-                        'required' => 'حقل اسم التطبيق مطلوب',
-                        'unique' => 'حقل  اسم التطبيق يجب أن لا يتكرر',
-                        'string' => 'حقل اسم التطبيق يجب أن يكون قيمة نصية',
-                        'between' => 'حقل اسم التطبيق يجب ان يكون بين :min و :max حرف'
-                    ],
-                    'description'=> [
-                        'string' => 'حقل وصف التطبيق يجب أن يكون قيمة نصية',
-                        'max' => 'يجب أن يكون حقل وصف التطبيق على الأكثر :max '
-                    ]
-                ],
-            ]
         ],
+        'show' => 'عرض',
+        'sub_progs' =>
+        [
+            'index' => 'سجل تطبيقاتنا',
+            'create' => 'إضافة تطبيق',
+            'show' => 'عرض تطبيق',
+        ],
+        'rasid_job' => 'التطبيق',
+        'rasid_job_count' => 'عدد تطبيقاتنا',
+        'rasid_jobs' => 'تطبيقاتنا',
+
+        'validation' => [
+
+            'order' => [
+
+                'numeric' => 'حقل الترتيب  يجب أن يكون قيمة رقمية',
+            ],
+            'android_link' => [
+                'required' => 'حقل رابط التحميل Android   مطلوب',
+
+            ],
+            'ios_link' => [
+                'required' => 'حقل رابط التحميل Ios  مطلوب',
+
+            ],
+
+            'is_active' => [
+                'required' => 'حقل الحالة مطلوب',
+                'in' => 'حقل الحالة يجب أن يكون بين هذه القيم :values',
+
+            ],
+
+            'image' => [
+                'required' => 'حقل صورة التطبيق مطلوب',
+                'image' => 'حقل صورة التطبيق يجب أن يكون صورة',
+                'mimes' => 'حقل صورة التطبيق يجب أن يكون من نوع  :values',
+                'max' => 'يجب أن يكون حقل صورة التطبيق على الأكثر :max ميجا',
+
+            ],
+            'ar' => [
+                'name' => [
+                    'required' => 'حقل اسم التطبيق مطلوب',
+                    'unique' => 'حقل  اسم التطبيق يجب أن لا يتكرر',
+                    'string' => 'حقل اسم التطبيق يجب أن يكون قيمة نصية',
+                    'between' => 'حقل اسم التطبيق يجب ان يكون بين :min و :max حرف'
+                ],
+                'description' => [
+                    'string' => 'حقل وصف التطبيق يجب أن يكون قيمة نصية',
+                    'max' => 'يجب أن يكون حقل وصف التطبيق على الأكثر :max '
+                ]
+            ],
+        ]
+    ],
 ];

@@ -163,6 +163,7 @@ Route::middleware('maintenance_mode')->group(function () {
             });
             Route::controller('FaqController')->name('faqs.')->prefix('faqs')->group(function () {
                 Route::get('export_pdf', 'exportPDF')->name('export_pdf');
+                Route::get('{faq}/edit', 'show')->name('edit');
                 Route::get('export_excel', 'exportExcel')->name('export_excel');
             });
             Route::controller('GroupController')->name('groups.')->prefix('groups')->group(function () {
@@ -175,10 +176,12 @@ Route::middleware('maintenance_mode')->group(function () {
             });
             Route::controller('MessageTypeController')->name('message_types.')->prefix('message_types')->group(function () {
                 Route::get('export_pdf', 'exportPDF')->name('export_pdf');
+                Route::get('{message_type}/edit', 'show')->name('edit');
                 Route::get('export_excel', 'exportExcel')->name('export_excel');
             });
             Route::controller('OurAppController')->name('our_apps.')->prefix('our_apps')->group(function () {
                 Route::get('export_pdf', 'exportPDF')->name('export_pdf');
+                Route::get('{our_app}/edit', 'show')->name('edit');
                 Route::get('export_excel', 'exportExcel')->name('export_excel');
             });
             Route::controller('StaticPageController')->name('static_pages.')->prefix('static_pages')->group(function () {
@@ -244,7 +247,7 @@ Route::middleware('maintenance_mode')->group(function () {
             ]);
 
             Route::apiResource('vendor_branches', 'VendorBranchController')->except('get_vendors');
-            Route::apiResource('contacts', 'ContactController')->except('destroy');
+            Route::apiResource('contacts', 'ContactController')->only('index','show');
             Route::apiResource('vendor_packages', 'VendorPackageController')->except('destroy');
             Route::apiResource('citizens', 'CitizenController')->only('index', 'show', 'update');
             Route::apiResource('settings', 'SettingController')->only(['index', 'store']);
