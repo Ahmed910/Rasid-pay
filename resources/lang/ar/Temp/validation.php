@@ -4,6 +4,8 @@ return [
     'attributes' => [
         'citizen'  => 'اسم المستخدم',
         'client'  => 'اسم العميل',
+        'created_from'  => 'تاريخ الإنشاء من',
+        'created_to'  => 'تاريخ الإنشاء إلى',
         'trans_number'  => 'رقم المعاملة',
         'banks' =>  [
             '*' =>   [
