@@ -4,7 +4,7 @@
     <table id="departmentTable" class="table">
         <thead>
             @include('dashboard.exports.header', [
-                'topic' => @lang('dashboard.admin.admins'),
+                'topic' => trans('dashboard.admin.admins'),
                 'count' => 4,
             ])
 

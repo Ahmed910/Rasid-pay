@@ -3,7 +3,7 @@
 @section('content')
     <table id="departmentTable" class="table">
         <thead>
-            @include('dashboard.exports.header', ['topic' => @lang('dashboard.citizen.citizens'), 'count' => 5])
+            @include('dashboard.exports.header', ['topic' => trans('dashboard.citizen.citizens'), 'count' => 5])
             <tr>
                 <th>#</th>
                 <th>@lang('dashboard.citizen.name')</th>

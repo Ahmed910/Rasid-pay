@@ -4,7 +4,7 @@
 
   <table id="departmentTable" class="table">
     <thead>
-    @include('dashboard.exports.header',['topic'=>@lang('dashboard.message_type.message_types'), 'count' => 3])
+    @include('dashboard.exports.header',['topic'=>trans('dashboard.message_type.message_types'), 'count' => 3])
 
 
       <tr>

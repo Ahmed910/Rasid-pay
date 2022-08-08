@@ -4,7 +4,7 @@
 
 <table id="departmentTable" class="table">
   <thead>
-    @include('dashboard.exports.header',['topic'=>@lang('dashboard.vendor_branch.vendors_branches'), 'count' => 7])
+    @include('dashboard.exports.header',['topic'=>trans('dashboard.vendor_branch.vendors_branches'), 'count' => 7])
     <tr>
       <th>#</th>
       <th>@lang('dashboard.vendor_branch.name')</th>
