@@ -1531,4 +1531,12 @@ return [
                 ],
             ]
         ],
+
+        'recieve_option' =>[
+            'recieve_options' => 'خيارات الإستلام'
+        ],
+
+        'transfer_relation' =>[
+            'transfer_relations' => 'العلاقة مع المستفيد'
+        ]
 ];
