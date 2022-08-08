@@ -75,7 +75,7 @@ class AdminController extends Controller
         $permissions_collect = $all_permissions->whereIn('id', $permissions);
         foreach ($permissions_collect as $permission) {
             $action = explode('.', $permission->name);
-            if (in_array(@$action[1], ['update', 'store', 'destroy', 'show','reply']) && !$permissions_collect->contains('name', $action[0] . '.index')) {
+            if (in_array(@$action[1], ['update', 'store', 'destroy', 'show','reply','assign_contact']) && !$permissions_collect->contains('name', $action[0] . '.index')) {
                 if (@$action[1] == 'update') {
                     $permissions[] = $all_permissions->where('name', $action[0] . '.edit')->first()?->id;
                 }
@@ -133,7 +133,7 @@ class AdminController extends Controller
         $permissions_collect = $all_permissions->whereIn('id', $permissions);
         foreach ($permissions_collect as $permission) {
             $action = explode('.', $permission->name);
-            if (in_array(@$action[1], ['update', 'store', 'destroy', 'show', 'reply']) && !$permissions_collect->contains('name', $action[0] . '.index')) {
+            if (in_array(@$action[1], ['update', 'store', 'destroy', 'show', 'reply','assign_contact']) && !$permissions_collect->contains('name', $action[0] . '.index')) {
                 if (@$action[1] == 'update') {
                     $permissions[] = $all_permissions->where('name', $action[0] . '.edit')->first()?->id;
                 }
