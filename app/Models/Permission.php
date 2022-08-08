@@ -169,15 +169,18 @@ class Permission extends Model
         $permissions = Permission::latest()->get();
         foreach (app()->routes->getRoutes() as $value) {
             $route_name = $value->getName();
-            $name = str_replace(['create', 'edit'], ['store', 'update'], $route_name);
+            $name = str_replace(['create'], ['store'], $route_name);
             if (in_array($name, Permission::PUBLIC_ROUTES) || is_null($name) || !$route_name || in_array(str_before($name, '.'), ['ignition', 'debugbar']) || !str_contains($value->getPrefix(), 'api/v1/dashboard') || $permissions->contains('name', $name)) {
                 continue;
             }
             $permissions->push(self::create(['name' => $name]));
         }
+        $permissions = $permissions->filter(function ($value, $key) {
+                        return ! str_contains($value->name,'.edit');
+                    });
         $permissions->transform(function ($item) {
-            return self::getTransPermission($item);
-        });
+                        return self::getTransPermission($item);
+                    });
         return $permissions;
     }
 

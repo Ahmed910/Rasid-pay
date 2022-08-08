@@ -2,6 +2,7 @@
 
 return [
     'attributes' => [
+        'trans_number'  => 'رقم المعاملة',
         'banks' =>  [
             '*' =>   [
                 'id' => 'حقل ID للبنك',
@@ -74,6 +75,8 @@ return [
         'golden_discount' => 'نسبة خصم البطاقة الذهبية',
         'month' => 'حقل الشهر',
         'ban_from' => 'حقل تاريخ من',
+        'ban_status' => 'حالة المستخدم  ',
+
         'ar' => [
             'name' => 'حقل الاسم',
             'nationality' => 'حقل الجنسية',

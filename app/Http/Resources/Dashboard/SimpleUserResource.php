@@ -23,7 +23,7 @@ class SimpleUserResource extends JsonResource
             'user_type' => $this->user_type,
             'date_of_birth' => $this->date_of_birth,
             'images' => ImagesResource::collection($this->whenLoaded('images')),
-            'created_at' => $this->created_at,
+            'created_at' => $this->created_at_date,
             'attachments' => !$this->relationLoaded("attachments") ? AttachmentResource::collection($this->whenLoaded('attachments')) : collect(AttachmentResource::collection($this->whenLoaded('attachments'))),
             'bank_account' => BankAccountResource::make($this->whenLoaded('bankAccount')),
             'department' => $this->department ? [

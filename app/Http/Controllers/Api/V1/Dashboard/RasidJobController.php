@@ -178,7 +178,8 @@ class RasidJobController extends Controller
                 ->when($request->admin_id, fn ($q) =>  $q->whereHas('employee', fn ($q) => $q->where('user_id', '<>', $request->admin_id)))
                 ->select('id')
                 ->ListsTranslations('name')
-                ->when($request->is_vacant == 'false', fn ($q) => $q->where('is_vacant', false), fn ($q) => $q->where('is_vacant', true))
+                ->when($request->has('is_vacant'), fn ($q) => $q->where('is_vacant', true)
+                ->orWhereRelation('employee','user_id',$request->admin_id))
                 ->without(['images', 'addedBy', 'translations', 'department', 'employee'])->get(),
             'status' => true,
             'message' =>  '',

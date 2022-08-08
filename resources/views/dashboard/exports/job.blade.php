@@ -4,7 +4,9 @@
 
 <table id="departmentTable" class="table">
     <thead>
-        @include('dashboard.exports.header',['topic'=>'الوظائف'])
+
+        @include('dashboard.exports.header',['topic'=>'الوظائف', 'count' => 4])
+
 
         <tr>
             <th>#</th>
@@ -26,7 +28,7 @@
             <td>{{ $loop->iteration }}</td>
             <td>{{ $job->name }}</td>
             <td>{{ $job->department?->name }}</td>
-            <td>{{ $job->created_at }}</td>
+            <td>{{ $job->created_at_date }}</td>
             <td>
                 @if($job->is_active)
                 <div class="active">

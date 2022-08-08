@@ -55,40 +55,48 @@ trait Uuid
         }
     }
 
-    public function getCreatedAtAttribute($date)
+    public function getCreatedAtDateAttribute()
     {
-        if ($date==null) return $date ;
         $locale = app()->getLocale();
         // if (auth()->check() && auth()->user()->is_date_hijri) {
         if ((bool)setting('rasid_date_type')) {
             $this->changeDateLocale($locale);
-            return Hijri::convertToHijri($date)->format('d F o');
+            return Hijri::convertToHijri($this->created_at)->format('d F o');
         }
-        return Carbon::parse($date)->locale($locale)->translatedFormat('j F Y');
+        return Carbon::parse($this->created_at)->locale($locale)->translatedFormat('j F Y');
     }
 
-    public function getUpdatedAtAttribute($date)
+    public function getCreatedAtDateTimeAttribute()
     {
-        if ($date==null) return $date ;
         $locale = app()->getLocale();
         // if (auth()->check() && auth()->user()->is_date_hijri) {
         if ((bool)setting('rasid_date_type')) {
             $this->changeDateLocale($locale);
-            return Hijri::convertToHijri($date)->format('d F o');
+            return Hijri::convertToHijri($this->created_at)->format('d F o - h:i A');
         }
-        return Carbon::parse($date)->locale($locale)->translatedFormat('j F Y');
+        return Carbon::parse($this->created_at)->locale($locale)->translatedFormat('j F Y - h:i A');
     }
 
-    public function getDeletedAtAttribute($date)
+    public function getUpdatedAtDateAttribute()
     {
-        if ($date==null) return $date ;
         $locale = app()->getLocale();
         // if (auth()->check() && auth()->user()->is_date_hijri) {
         if ((bool)setting('rasid_date_type')) {
             $this->changeDateLocale($locale);
-            return Hijri::convertToHijri($date)->format('d F o');
+            return Hijri::convertToHijri($this->updated_at)->format('d F o');
         }
-        return Carbon::parse($date)->locale($locale)->translatedFormat('j F Y');
+        return Carbon::parse($this->updated_at)->locale($locale)->translatedFormat('j F Y');
+    }
+
+    public function getDeletedAtDateAttribute()
+    {
+        $locale = app()->getLocale();
+        // if (auth()->check() && auth()->user()->is_date_hijri) {
+        if ((bool)setting('rasid_date_type')) {
+            $this->changeDateLocale($locale);
+            return Hijri::convertToHijri($this->deleted_at)->format('d F o');
+        }
+        return Carbon::parse($this->deleted_at)->locale($locale)->translatedFormat('j F Y');
     }
 
     public function changeDateLocale($locale = 'ar')

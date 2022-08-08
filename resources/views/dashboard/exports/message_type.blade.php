@@ -4,7 +4,7 @@
 
   <table id="departmentTable" class="table">
     <thead>
-    @include('dashboard.exports.header',['topic'=>'أنواع الرسائل'])
+    @include('dashboard.exports.header',['topic'=>'أنواع الرسائل', 'count' => 3])
 
 
       <tr>
@@ -39,7 +39,7 @@
         </div>
         @endif
       </td>
-      <td>{{ $message_type->created_at ?? '' }}</td>
+      <td>{{ $message_type->created_at_date ?? '' }}</td>
       </tr>
     @endforeach
     </tbody>

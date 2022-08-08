@@ -4,7 +4,7 @@
 
  <table id="departmentTable" class="table">
           <thead>
-          @include('dashboard.exports.header',['topic'=>'المستخدمين'])
+          @include('dashboard.exports.header',['topic'=>'المستخدمين', 'count' => 4)
 
             <tr>
              <th>#</th>
@@ -27,7 +27,7 @@
                 <td>{{ $admin->fullname }}</td>
                 <td>{{ $admin->login_id }}</td>
                 <td>{{ $admin->department?->name}}</td>
-                <td>{{ $admin->created_at }}</td>
+                <td>{{ $admin->created_at_date }}</td>
             @php
                 $ban_status = match ($admin->ban_status) {
                 'active' => trans('dashboard.admin.active_cases.active'),

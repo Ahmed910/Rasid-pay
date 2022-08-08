@@ -71,6 +71,7 @@ return [
                 ],
             ],
         'email' => 'البريد الإلكتروني',
+        'page_number' => 'ص ',
         'description' => 'الوصف',
         'select_user' => 'اختر مستخدم',
         'username' => 'اسم المستخدم',
@@ -319,6 +320,18 @@ return [
         'group_data' => 'بيانات المجموعة',
         'main_program' => 'البرنامج الرئيسي',
         'admins_from' => 'عدد المستخدمين من',
+    ],
+    'transfer' => [
+        'transfers' => 'التحويلات',
+
+    ],
+    'card' => [
+        'cards' => 'البطاقات',
+        'sub_progs' => 'البرنامج'
+    ],
+    'bank_transfer' => [
+        'bank_transfers' => 'التحويلات البنكية',
+
     ],
     'activity_log' =>  [
         'models' =>  [
@@ -1209,6 +1222,7 @@ return [
     'contact' =>  [
         'contacts' => 'الدعم الفني',
         'contact' => 'الدعم الفني',
+        'name' =>'رسالة',
         'can_not_delete_contact' => 'لا يمكن حذف نوع رسالة مرتبط برسائل',
         'replied' =>'تم الرد',
         'validation' => [

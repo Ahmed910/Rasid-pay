@@ -16,7 +16,7 @@ class OurAppResource extends JsonResource
             "image" => $this->image,
             'android_link' => $this->android_link,
             'ios_link' => $this->ios_link,
-            'created_at' => $this->created_at,
+            'created_at' => $this->created_at_date,
             'order' => $this->order
         ];
     }

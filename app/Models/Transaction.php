@@ -5,6 +5,7 @@ namespace App\Models;
 use App\Models\Bank\Bank;
 use App\Models\BankBranch\BankBranch;
 use App\Services\GenerateQrCode;
+
 //use App\Models\CardPackage\CardPackage;
 use Carbon\Carbon;
 use GeniusTS\HijriDate\Hijri;
@@ -54,7 +55,7 @@ class Transaction extends Model
         if ($request->enabled_package && !in_array(-1, $request->enabled_package)) {
             $query->whereHas(
                 'fromUser.citizen.enabledPackage',
-                fn ($q) => $q->whereIn('package_type', $request->enabled_package)
+                fn($q) => $q->whereIn('package_type', $request->enabled_package)
             );
         }
         if ($request->has('trans_number')) {
@@ -77,7 +78,7 @@ class Transaction extends Model
         }
         //
         if ($request->has('citizen')) {
-            $query->whereHas('fromUser', fn ($q) => $q->where('fullname', 'like', "%$request->citizen%"));
+            $query->whereHas('fromUser', fn($q) => $q->where('fullname', 'like', "%$request->citizen%"));
         }
 
         $new = $query->toSql();
@@ -89,23 +90,13 @@ class Transaction extends Model
         return $query->where('trans_type', 'like', "%$request->trans_type%");
     }
 
-    public function getCreatedAtMobileAttribute($date)
-    {
-        $locale = app()->getLocale();
-        if (auth()->check() && auth()->user()->is_date_hijri) {
-            $this->changeDateLocale($locale);
-            return Hijri::convertToHijri($this->attributes['created_at'])->format('d F o h:i A');
-        }
-        return Carbon::parse($this->attributes['created_at'])->locale($locale)->translatedFormat('Y/m/d - h:i A');
-    }
-
     public function scopeSortBy(Builder $query, $request)
     {
         if (!isset($request->sort["column"]) || !isset($request->sort["dir"])) return $query->latest('transactions.created_at');
 
         if (
             //  !in_array(Str::lower($request->sort["column"]), $this->sortableColumns) ||
-            !in_array(Str::lower($request->sort["dir"]), ["asc", "desc"])
+        !in_array(Str::lower($request->sort["dir"]), ["asc", "desc"])
         ) {
             return $query->latest('transactions.created_at');
         } else if (in_array($request->sort["column"], self::TRANSACTION_SEARCHABLE_COLUMNS)) {
@@ -121,12 +112,12 @@ class Transaction extends Model
                 ->orderBy('users.' . self::CLIENT_SORTABLE_COLUMNS[$request->sort["column"]], @$request->sort["dir"]);
         } else
             if (key_exists($request->sort["column"], self::ENABLED_CARD_sortable_COLUMNS)) {
-            return
-                $query
-                ->leftjoin("citizen_packages", 'citizen_packages.citizen_id', '=', 'transactions.from_user_id')
-                ->orderBy('citizen_packages.' . self::ENABLED_CARD_sortable_COLUMNS[$request->sort["column"]], @$request->sort["dir"])
-                ->select('transactions.*', 'citizen_packages.package_type');
-        }
+                return
+                    $query
+                        ->leftjoin("citizen_packages", 'citizen_packages.citizen_id', '=', 'transactions.from_user_id')
+                        ->orderBy('citizen_packages.' . self::ENABLED_CARD_sortable_COLUMNS[$request->sort["column"]], @$request->sort["dir"])
+                        ->select('transactions.*', 'citizen_packages.package_type');
+            }
 
 
         $query->when($request->sort, function ($q) use ($request) {
@@ -179,5 +170,16 @@ class Transaction extends Model
     {
         return $this->belongsTo(CitizenPackage::class, 'citizen_package_id', 'id');
     }
+
+    public function getCreatedAtDateTimeAttribute()
+    {
+        $locale = app()->getLocale();
+        if (auth()->check() && auth()->user()->is_date_hijri) {
+            $this->changeDateLocale($locale);
+            return Hijri::convertToHijri($this->attributes['created_at'])->format('d F o h:i A');
+        }
+        return Carbon::parse($this->attributes['created_at'])->locale($locale)->translatedFormat('Y/m/d - h:i A');
+    }
+
 
 }

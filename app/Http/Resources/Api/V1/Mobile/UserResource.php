@@ -23,7 +23,7 @@ class UserResource extends JsonResource
             'image' => $this->image,
             'wallet_number' => (string)$this->citizenWallet?->wallet_number,
             'is_phone_verified' => (bool)$this->phone_verified_at,
-            'created_at' => $this->created_at,
+            'created_at' => $this->created_at_date,
             'is_notification_enabled'=> $this->when($this->user_type == "citizen",(bool)$this->is_notification_enabled),
             'address' => AddressResource::make($this->whenLoaded('citizen'))
         ];

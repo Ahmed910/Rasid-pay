@@ -2,9 +2,9 @@
 
 @section('content')
 
- <table id="departmentTable" class="table">
+ <table id="departmentTable" class="table" style="background: url({{ public_path('dashboardAssets/images/brand/fintech.png') }})">
           <thead>
-          @include('dashboard.exports.header',['topic'=>'المتابعة'])
+          @include('dashboard.exports.header',['topic'=>'المتابعة', 'count' => 5])
 
             <tr>
              <th>#</th>
@@ -30,7 +30,7 @@
                 <td>{{ $activity_log->user?->department !== null ? $activity_log->user?->department?->name : trans('dashboard.department.without_parent') }}</td>
                 <td>{{ class_basename($activity_log->auditable_type) }}</td>
                 <td>{{ strtolower($activity_log->action_type)}}</td>
-                <td>{{ $activity_log->created_at }}</td>
+                <td>{{ $activity_log->created_at_date_time }}</td>
                 <td>{{ $activity_log->ip_address }}</td>
 
             </tr>

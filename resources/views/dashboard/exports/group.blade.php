@@ -4,7 +4,7 @@
 
  <table id="departmentTable" class="table">
           <thead>
-          @include('dashboard.exports.header',['topic'=>'الصلاحيات'])
+          @include('dashboard.exports.header',['topic'=>'الصلاحيات', 'count' => 3])
 
             <tr>
             <th>#</th>
@@ -38,7 +38,7 @@
                   @endif
                 </td>
                 <td>{{ trans('dashboard.general.active_cases.'.$group->is_active) }}</td>
-                <td>{{ $group->created_at }}</td>
+                <td>{{ $group->created_at_date }}</td>
             </tr>
             @endforeach
           </tbody>

@@ -5,15 +5,25 @@ namespace App\Exports;
 use App\Models\Contact;
 use Illuminate\Contracts\View\View;
 use Maatwebsite\Excel\Concerns\FromView;
+use Maatwebsite\Excel\Events\AfterSheet;
+use Maatwebsite\Excel\Concerns\WithEvents;
 use Maatwebsite\Excel\Concerns\ShouldAutoSize;
 
-class ContactExport implements FromView, ShouldAutoSize
+class ContactExport implements FromView, ShouldAutoSize, WithEvents
 {
     protected $request;
 
     public function __construct($request)
     {
         $this->request = $request;
+    }
+    public function registerEvents(): array
+    {
+        return [
+            AfterSheet::class    => function(AfterSheet $event) {
+                $event->sheet->getDelegate()->setRightToLeft(app()->getLocale() == 'ar' ? true : false);
+            },
+        ];
     }
 
     public function view(): View

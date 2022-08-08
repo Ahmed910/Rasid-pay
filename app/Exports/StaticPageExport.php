@@ -5,9 +5,11 @@ namespace App\Exports;
 use Maatwebsite\Excel\Concerns\FromView;
 use Illuminate\Contracts\View\View;
 use App\Models\StaticPage\StaticPage;
+use Maatwebsite\Excel\Events\AfterSheet;
+use Maatwebsite\Excel\Concerns\WithEvents;
 use Maatwebsite\Excel\Concerns\ShouldAutoSize;
 
-class StaticPageExport implements FromView, ShouldAutoSize
+class StaticPageExport implements FromView, ShouldAutoSize, WithEvents
 {
     protected $request;
 
@@ -15,7 +17,14 @@ class StaticPageExport implements FromView, ShouldAutoSize
     {
         $this->request = $request;
     }
-
+    public function registerEvents(): array
+    {
+        return [
+            AfterSheet::class    => function(AfterSheet $event) {
+                $event->sheet->getDelegate()->setRightToLeft(app()->getLocale() == 'ar' ? true : false);
+            },
+        ];
+    }
     public function view(): View
     {
         $staticPages =  StaticPage::search($this->request)

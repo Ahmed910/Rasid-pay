@@ -24,7 +24,7 @@ class PermissionResource extends JsonResource
             'action' => $this->action_trans,
             'uri' => $this->name,
             'name' => $this->main_program_trans . ' (' . $this->action_trans . ')',
-            'created_at' => $this->created_at
+            'created_at' => $this->created_at_date
         ];
     }
 }

@@ -27,7 +27,7 @@ class CurrencyResource extends JsonResource
             'id' => $this->id,
             'name' => $this->name,
             'value' => $this->value,
-            'created_at'=>$this->created_at,
+            'created_at'=>$this->created_at_date,
             'added_by_id' => SimpleUserResource::make($this->whenloaded('addedBy')),
             'activity'  => ActivityLogResource::collection($this->whenLoaded('activity')),
             'actions' => $this->when(in_array($request->route()->getActionMethod(),['index','archive']), [

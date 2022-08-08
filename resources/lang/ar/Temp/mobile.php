@@ -66,6 +66,9 @@ return [
         'before' => 'لا يمكن ان يكون تاريخ الميلاد تاريخ مستقبلي',
         'card_number_digits' => 'الرقم علي البطاقة يجب ان يكون مكون من :card_digits رقم',
         'required_card_number' => 'رقم البطاقة مطلوب',
+        'transaction' => [
+            'after_or_equal' => ' يجب إدخال الفترة من قبل الفترة إلي'
+        ]
     ],
     'wallet_charge' => [
         'amount' => [
@@ -172,7 +175,7 @@ return [
         'by_wallet_number' => 'برقم ',
         'cancel_transfer' => 'تم إلغاء التحويل',
         'wallet_transfer_method' => 'تحويل لمحفظة',
-        'exceed_max_transfer_day' => 'عفوا، لا يمكن تحويل مبلغ أكبر من :max_amount_per_reciever',
+        'exceed_max_transfer_day' => 'عفوا، لا يمكن تحويل مبلغ أكبر من :max_amount_per_receiver للمستقبل الواحد',
         'exceed_max_transfer_month' => 'لقد وصلت للحد الأقصى للتحويل الشهري',
         'wallet_transfer_methods' => [
             'phone' => 'رقم جوال',
@@ -296,14 +299,14 @@ return [
         "cash_back" => [
             "title" => "تم تفعيل رمز تخفيض من رموز البطاقة البلاتينية",
             'body' => "تم استلام كاش باك من قبل تفعيل الكود الخاص بك في البطاقة البلاتينية من قبل المستخدم :from_user ",
-           // 'body' => "تم استلام كاش باك بقيمة :cash_back من قبل العميل :from_user لأنه عميل رصيد جاك "
+            // 'body' => "تم استلام كاش باك بقيمة :cash_back من قبل العميل :from_user لأنه عميل رصيد جاك "
 
         ],
         'cancel_transfer' => [
             'title' => "تم إلغاء التحويل",
             'body' => "تم إلغاء معاملة طلب أموال المرسلة من قبل المستخدم برقم جوال/ هوية:transfer_method_value إلى رقم جوال المستقبل"
         ]
-        ],
+    ],
 
 
 
