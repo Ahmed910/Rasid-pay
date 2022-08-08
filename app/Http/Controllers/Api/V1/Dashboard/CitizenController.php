@@ -31,8 +31,6 @@ class CitizenController extends Controller
         ]);
     }
 
-
-
     public function show(Request $request, $id)
     {
         $citizen = Citizen::where('user_id', $id)->with("user", "enabledPackage")->whereHas('user', fn ($q) => $q->where('register_status', 'completed'))->firstOrFail();
