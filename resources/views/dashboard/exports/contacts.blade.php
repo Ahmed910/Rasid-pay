@@ -4,15 +4,15 @@
 
 <table id="departmentTable" class="table">
   <thead>
-    @include('dashboard.exports.header',['topic'=>'صندوق الرسائل', 'count' => 5])
+    @include('dashboard.exports.header',['topic'=>@lang('dashboard.contact.contact_messages'), 'count' => 5])
     <tr>
       <th>#</th>
-      <th>الاسم</th>
-      <th>البريد الالكتروني</th>
-      <th>رقم الهاتف</th>
-      <th>العنوان</th>
-      <th>مصدر الرسالة</th>
-      <th>حالة الرسالة</th>
+      <th>@lang('dashboard.contact.user_name')</th>
+      <th>@lang('dashboard.contact.email')</th>
+      <th>@lang('dashboard.contact.phone')</th>
+      <th>@lang('dashboard.contact.title')</th>
+      <th>@lang('dashboard.contact.from_app_or_web')</th>
+      <th>@lang('dashboard.contact.status')</th>
     </tr>
   </thead>
   <tbody>

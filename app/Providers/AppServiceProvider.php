@@ -45,7 +45,7 @@ class AppServiceProvider extends ServiceProvider
         'Slide'      => \App\Models\Slide::class,
         'Package' => \App\Models\Package\Package::class,
         'RecieveOption' => \App\Models\RecieveOption\RecieveOption::class,
-        'StaticPage'    => \App\Models\StaticPage::class,
+        'StaticPage'    => \App\Models\StaticPage\StaticPage::class,
         'TransferPurpose' => \App\Models\TransferPurpose\TransferPurpose::class,
         'TransferRelation'=> \App\Models\TransferRelation\TransferRelation::class
 

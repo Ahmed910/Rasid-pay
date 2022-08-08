@@ -4,16 +4,16 @@
 
 <table id="departmentTable" class="table">
   <thead>
-    @include('dashboard.exports.header',['topic'=>'المعاملات' ,'count' => 6])
+    @include('dashboard.exports.header',['topic'=>@lang('dashboard.transaction.transactions')< ,'count' => 6])
     <tr>
       <th>#</th>
-      <th>رقم المعاملة</th>
-      <th>تاريخ الانشاء</th>
-      <th>الاسم</th>
-      <th>النوع</th>
-      <th>الحالة</th>
-      <th>الاجمالي</th>
-      <th>البطاقة المفعلة</th>
+      <th>@lang('dashboard.transaction.transaction_number')</th>
+     <th>@lang('dashboard.transaction.transaction_date')</th>
+      <th>@lang('dashboard.transaction.to_user_client')</th>
+      <th>@lang('dashboard.transaction.transaction_type')</th>
+      <th>@lang('dashboard.transaction.transaction_status')</th>
+      <th>@lang('dashboard.transaction.total')</th>
+      <th>@lang('dashboard.transaction.enabled_package')</th>
     </tr>
   </thead>
   <tbody>
