@@ -28,7 +28,7 @@ class OurAppExport implements FromView, ShouldAutoSize, WithEvents
     }
     public function view(): View
     {
-        $messageTypes =  OurApp::search($this->request)
+        $ourApp =  OurApp::search($this->request)
         ->ListsTranslations('name')
         ->customDateFromTo($this->request)
         ->addSelect(
@@ -42,7 +42,7 @@ class OurAppExport implements FromView, ShouldAutoSize, WithEvents
         }
 
         return view('dashboard.exports.our_app', [
-            'our_apps' => $messageTypes,
+            'ourApps'    => $ourApp,
             'date_from'   => format_date($this->request->created_from) ?? format_date($createdFrom),
             'date_to'     => format_date($this->request->created_to) ?? format_date(now()),
             'userId'      => auth()->user()->login_id,

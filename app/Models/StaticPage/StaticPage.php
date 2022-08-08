@@ -21,13 +21,13 @@ use Astrotomic\Translatable\Contracts\Translatable as TranslatableContract;
 
 class StaticPage extends Model implements TranslatableContract, HasAssetsInterface
 {
-    use Uuid, HasAssetsTrait, Translatable, SoftDeletes, Loggable;
+    use Uuid, HasAssetsTrait, Translatable, Loggable;
     #region properties
     protected $appends = ['image'];
     protected $guarded = ['created_at', 'deleted_at'];
     public $translatedAttributes = ['name', 'description'];
     public $assets = ["image"];
-    public $with = ["images", "addedBy"];
+    public $with = ["images", "addedBy",'translations'];
     public $sortableColumns = ['name', 'is_active', 'created_at'];
 
     #endregion properties

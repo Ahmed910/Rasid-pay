@@ -24,7 +24,7 @@ class Faq extends Model implements TranslatableContract
     protected $guarded = ['created_at'];
     public $translatedAttributes = ['question', 'answer'];
     private $sortableColumns = ['question','order','is_active'];
-
+    public $with = ['translations'];
     #endregion properties
 
 

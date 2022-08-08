@@ -20,6 +20,7 @@ class Package extends Model implements HasAssetsInterface
     protected $guarded = ['created_at', 'updated_at'];
     protected $attributes = ["is_active" => true, 'duration' => 12];
     public $translatedAttributes = ['name', 'description'];
+    public $with = ['translations'];
 
     #region properties
     public static function boot()

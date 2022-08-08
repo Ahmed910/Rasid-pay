@@ -26,7 +26,7 @@ class Vendor extends Model implements HasAssetsInterface
     protected $guarded = ['created_at'];
     public $translatedAttributes = ['name'];
     private $sortableColumns = ["commercial_record", "is_active", "tax_number", "name", "type", "branches_count"];
-
+    public $with = ['translations'];
     #endregion properties
     public static function boot()
     {

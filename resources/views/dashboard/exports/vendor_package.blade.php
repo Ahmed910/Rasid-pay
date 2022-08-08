@@ -4,13 +4,13 @@
 
 <table id="departmentTable" class="table">
   <thead>
-    @include('dashboard.exports.header',['topic'=>'نسب الخصم', 'count' => 3])
+    @include('dashboard.exports.header',['topic'=>trans('dashboard.vendor_package.vendor_packages'), 'count' => 3])
     <tr>
       <th>#</th>
-      <th> اسم العميل </th>
-      <th> نسبة خصم البطاقة الأساسية</th>
-      <th> نسبة خصم البطاقة الذهبية</th>
-      <th> نسبة خصم البطاقة البلاتينية</th>
+      <th>@lang('dashboard.vendor_package.vendor_name')</th>
+      <th>@lang('dashboard.package.basic_card')</th>
+      <th>@lang('dashboard.package.golden_card')</th>
+      <th>@lang('dashboard.package.platinum_card')</th>
     </tr>
   </thead>
   <tbody>

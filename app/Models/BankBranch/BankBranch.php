@@ -18,13 +18,14 @@ use Illuminate\Support\Str;
 
 class BankBranch extends Model
 {
-    use HasFactory, Uuid, SoftDeletes, Loggable, Translatable;
+    use HasFactory, Uuid, Loggable, Translatable;
 
     #region properties
     protected $guarded = ['created_at', 'deleted_at'];
     private $sortableColumns = ["name", "type", "code", "branch_name", 'site', 'transfer_amount', 'transactions_count', 'is_active'];
     public $translatedAttributes = ['name'];
-
+    public $with = ['translations'];
+    
     const CENTERAL = 'centeral';
     const COMMERCIAL = 'commercial';
     const BANK = 'bank';
