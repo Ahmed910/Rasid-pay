@@ -45,7 +45,7 @@ class StaticPageController extends Controller
 
     public function show(Request $request ,$id)
     {
-        $staticPage  = StaticPage::withTrashed()->findOrFail($id);
+        $staticPage  = StaticPage::findOrFail($id);
         $activities = [];
         if (!$request->has('with_activity') || $request->with_activity) {
             $activities  = $staticPage->activity()
