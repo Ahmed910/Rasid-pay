@@ -3,7 +3,6 @@
 namespace App\Models;
 
 use App\Http\Requests\V1\Dashboard\AttachmentRequest;
-use App\Traits\Loggable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Traits\Uuid;

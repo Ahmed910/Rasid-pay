@@ -39,7 +39,17 @@ class AppServiceProvider extends ServiceProvider
         'BankTransfer' => \App\Models\BankTransfer::class,
         'Card' => \App\Models\Card::class,
         'Admin' => \App\Models\Admin::class,
-        'Faq'   => \App\Models\Faq\Faq::class
+        'Faq'   => \App\Models\Faq\Faq::class,
+        'Curreny' => \App\Models\Currency\Currency::class,
+        'OurApp' => \App\Models\OurApp\OurApp::class,
+        'Slide'      => \App\Models\Slide::class,
+        'Package' => \App\Models\Package\Package::class,
+        'RecieveOption' => \App\Models\RecieveOption\RecieveOption::class,
+        'StaticPage'    => \App\Models\StaticPage::class,
+        'TransferPurpose' => \App\Models\TransferPurpose\TransferPurpose::class,
+        'TransferRelation'=> \App\Models\TransferRelation\TransferRelation::class
+
+
     ];
 
     public function register()

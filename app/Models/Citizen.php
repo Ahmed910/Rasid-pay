@@ -12,7 +12,7 @@ use GeniusTS\HijriDate\Hijri;
 
 class Citizen extends Model
 {
-    use HasFactory, Uuid;
+    use HasFactory, Uuid, Loggable;
 
     #region properties
     protected $guarded = ['created_at', 'updated_at'];
