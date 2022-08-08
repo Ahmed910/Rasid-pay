@@ -3,7 +3,7 @@
 @section('content')
     <table id="departmentTable" class="table">
         <thead>
-            @include('dashboard.exports.header', ['topic' => 'مستخدمي التطبيق'])
+            @include('dashboard.exports.header', ['topic' => 'مستخدمي التطبيق', 'count' => 5])
             <tr>
                 <th>#</th>
                 <th>الاسم</th>
