@@ -53,10 +53,6 @@ class GroupController extends Controller
             }
         }
 
-        if(!$request->group_list && $group->groups()->exists()){
-            $group->groups()->detach();
-        }
-
         if ($request->group_list) {
             $group->groups()->sync($request->group_list);
             $permissions = array_filter(array_merge($permissions, Group::find($request->group_list)->pluck('permissions')->flatten()->pluck('id')->toArray()));
