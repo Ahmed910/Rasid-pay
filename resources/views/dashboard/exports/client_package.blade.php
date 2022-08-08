@@ -17,7 +17,7 @@ foreach ($packages as $key => $clientPackage) {
 
 <table id="departmentTable" class="table">
   <thead>
-    @include('dashboard.exports.header',['topic'=>'نسب خصم البطاقات'])
+    @include('dashboard.exports.header',['topic'=>'نسب خصم البطاقات', 'count' => 3])
 
     <tr>
       <th class="border-bottom-0">#</th>

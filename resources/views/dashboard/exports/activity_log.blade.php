@@ -4,7 +4,7 @@
 
  <table id="departmentTable" class="table" style="background: url({{ public_path('dashboardAssets/images/brand/fintech.png') }})">
           <thead>
-          @include('dashboard.exports.header',['topic'=>'المتابعة'])
+          @include('dashboard.exports.header',['topic'=>'المتابعة', 'count' => 5])
 
             <tr>
              <th>#</th>

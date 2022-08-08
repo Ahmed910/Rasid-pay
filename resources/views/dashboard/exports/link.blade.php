@@ -5,7 +5,7 @@ links
 
 <table id="departmentTable" class="table">
   <thead>
-    @include('dashboard.exports.header',['topic'=>'الروابط'])
+    @include('dashboard.exports.header',['topic'=>'الروابط', 'count' => 1])
     <tr>
       <th>#</th>
       <th> key </th>
