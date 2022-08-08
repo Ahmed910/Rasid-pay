@@ -4,19 +4,19 @@
 
 <table id="departmentTable" class="table">
   <thead>
-    @include('dashboard.exports.header',['topic'=>'الترجمات', 'count' => 1])
+    @include('dashboard.exports.header',['topic'=>@lang('dashboard.localization.localizations'), 'count' => 1])
     <tr>
       <th>#</th>
-      <th> المفتاح </th>
-      <th> القيمة</th>
+      <th> @lang('dashboard.localization.value')</th>
+      <th> @lang('dashboard.localization.key') </th>
     </tr>
   </thead>
   <tbody>
     @foreach ($locales as $locale)
     <tr>
       <td>{{ $loop->iteration }}</td>
-      <td>{{ $locale->key ?? '' }}</td>
       <td>{{ $locale->value ?? '' }}</td>
+      <td>{{ $locale->key ?? '' }}</td>
     </tr>
     @endforeach
   </tbody>

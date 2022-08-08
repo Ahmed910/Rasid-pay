@@ -4,17 +4,18 @@
 
 <table id="departmentTable" class="table">
   <thead>
-    @include('dashboard.exports.header',['topic'=>'البنوك', 'count' => 1])
+    @include('dashboard.exports.header',['topic'=>@lang('dashboard.bank.banks'), 'count' => 1])
     <tr>
       <th>#</th>
-      <th> الحالة </th>
-      <th> الاسم</th>
+      <th> @lang('dashboard.bank.name')</th>
+      <th> @lang('dashboard.bank.status') </th>
     </tr>
   </thead>
   <tbody>
     @foreach ($banks as $bank)
     <tr>
       <td>{{ $loop->iteration }}</td>
+       <td>{{ $bank->name }}</td>
        <td>
         @if($bank->is_active)
         <div class="active">
@@ -28,7 +29,6 @@
         </div>
         @endif
       </td>
-      <td>{{ $bank->name }}</td>
     </tr>
     @endforeach
   </tbody>

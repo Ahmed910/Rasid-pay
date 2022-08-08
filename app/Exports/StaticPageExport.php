@@ -31,7 +31,7 @@ class StaticPageExport implements FromView, ShouldAutoSize, WithEvents
         ->ListsTranslations('name')
         ->customDateFromTo($this->request)
         ->with('translations')
-        ->addSelect('static_pages.created_at', 'static_pages.is_active')
+        ->addSelect('static_pages.*')
         ->sortBy($this->request)
         ->get();
 
