@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api\V1\Dashboard;
 
 use App\Exports\StaticPageExport;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\V1\Dashboard\ReasonRequest;
 use App\Http\Requests\V1\Dashboard\StaticPageRequest;
 use App\Http\Resources\Dashboard\StaticPages\StaticPageCollection;
 use App\Http\Resources\Dashboard\StaticPages\StaticPageResource;
@@ -79,7 +80,7 @@ class StaticPageController extends Controller
             ]);;
     }
 
-    public function destroy(StaticPage $staticPage)
+    public function destroy(StaticPage $staticPage, ReasonRequest $reasonRequest)
     {
         if ($staticPage->link()->exists()) {
             return response()->json([

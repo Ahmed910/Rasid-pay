@@ -388,6 +388,7 @@ return [
             'created' => 'إضافة',
             'temporary' => 'تعطيل لفترة',
             'updated' => 'تعديل',
+            'delete' => 'حذف',
             'activated' => 'تفعيل',
             'restored' => 'استعادة',
             'destroy' => 'أرشفة',
