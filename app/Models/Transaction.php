@@ -180,6 +180,4 @@ class Transaction extends Model
         }
         return Carbon::parse($this->attributes['created_at'])->locale($locale)->translatedFormat('Y/m/d - h:i A');
     }
-
-
 }
