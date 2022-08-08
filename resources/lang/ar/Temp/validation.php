@@ -2,6 +2,7 @@
 
 return [
     'attributes' => [
+        'trans_number'  => 'رقم المعاملة',
         'banks' =>  [
             '*' =>   [
                 'id' => 'حقل ID للبنك',
