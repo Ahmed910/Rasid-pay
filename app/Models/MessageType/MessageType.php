@@ -23,6 +23,7 @@ class MessageType extends Model
     protected $guarded = ['created_at'];
     public $translatedAttributes = ['name'];
     private $sortableColumns = ['name', 'employee_count', 'created_at', 'is_active'];
+    public $with = ['translations'];
     #endregion properties
 
     #region mutators

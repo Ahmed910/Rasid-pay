@@ -20,6 +20,7 @@ class VendorBranch extends Model implements HasAssetsInterface
     public $assets = ['logo'];
     protected $guarded = ['created_at', 'deleted_at'];
     public $translatedAttributes = ['name'];
+    public $with = ['translations'];
 
     #endregion properties
     public static function boot()

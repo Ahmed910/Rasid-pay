@@ -15,7 +15,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Slide extends Model implements TranslatableContract, HasAssetsInterface
 {
-    use HasFactory, Uuid, HasAssetsTrait, Translatable, SoftDeletes, Loggable;
+    use HasFactory, Uuid, HasAssetsTrait, Translatable, Loggable;
 
 
     #region properties
@@ -23,7 +23,7 @@ class Slide extends Model implements TranslatableContract, HasAssetsInterface
     protected $guarded = ['created_at', 'deleted_at'];
     public $translatedAttributes = ['name', 'description'];
     public $assets = ["image"];
-    public $with = ["images", "addedBy"];
+    public $with = ["images", "addedBy",'translations'];
 
 
     #endregion properties
