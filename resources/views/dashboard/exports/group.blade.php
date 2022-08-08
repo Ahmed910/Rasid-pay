@@ -28,16 +28,15 @@
                   @if($group->is_active)
                   <div class="active">
                     <i class="mdi mdi-check-circle-outline"></i>
-                    {{ trans('dashboard.group.active_cases.1') }}
+                    {{ trans('dashboard.general.active_cases.1') }}
                   </div>
                   @else
                   <div class="unactive">
                     <i class="mdi mdi-cancel"></i>
-                    {{ trans('dashboard.group.active_cases.0') }}
+                    {{ trans('dashboard.general.active_cases.0') }}
                   </div>
                   @endif
                 </td>
-                <td>{{ trans('dashboard.general.active_cases.'.$group->is_active) }}</td>
                 <td>{{ $group->created_at_date }}</td>
             </tr>
             @endforeach
