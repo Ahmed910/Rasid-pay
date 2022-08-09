@@ -24,9 +24,12 @@ class VendorPackage extends Model
     #region scopes
     public function scopeSearch(Builder $query, $request)
     {
+        $old = $query->toSql();
         if ($request->client_id && !in_array($request->client_id, [-1])) {
             $query->where('vendor_id', "$request->client_id");
         }
+        $new = $query->toSql();
+        if ($old != $new) Loggable::addGlobalActivity($this, $request->query(), ActivityLog::SEARCH, 'index');
     }
 
     public function scopeSortBy(Builder $query, $request)
