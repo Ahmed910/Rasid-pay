@@ -24,7 +24,7 @@ class ProfileController extends Controller
         $citizen = auth()->user();
         $old_phone = $citizen->phone;
         $citizen_data = $request->validated();
-        if($request->delete_image){
+        if($request->delete_image && $citizen->media){
             $citizen->media()->delete();
             $citizen_data += ['updated_at' => now()];
         }
