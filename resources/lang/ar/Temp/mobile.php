@@ -112,7 +112,8 @@ return [
             'transfer' => 'تحويل',
         ],
         'transaction_details' => [
-            'payment_status' => 'تمت عملية الشراء من العميل  بقيمة فاتورة :amount وتم استرداد مبلغ :refund_amount',
+//            'payment_status' => 'تمت عملية الشراء من العميل  بقيمة فاتورة :amount وتم استرداد مبلغ :refund_amount',
+            'payment_status' => 'تمت عملية الشراء من العميل  بقيمة فاتورة :amount',
             'wallet_transfer_status' => 'تم تحويل مبلغ :amount ر.س من المحفظة الخاصة بك إلى محفظة المستخدم ب:transfer_type_trans :to_user_identity_or_mobile_or_wallet_number',
             'local_transfer_status' => 'تم تحويل مبلغ :amount ر.س من المحفظة الخاصة بك إلى المستفيد :beneficiary برقم IBAN :iban',
             'global_transfer_status' => 'تم تحويل مبلغ :amount بعملة :currency من المحفظة الخاصة بك إلى المستفيد :beneficiary بدولة :country باستخدام :recieve_option وبرقم :mtcn',
@@ -307,7 +308,6 @@ return [
             'body' => "تم إلغاء معاملة طلب أموال المرسلة من قبل المستخدم برقم جوال/ هوية:transfer_method_value إلى رقم جوال المستقبل"
         ]
     ],
-
 
 
     "wallet_transfer" => [

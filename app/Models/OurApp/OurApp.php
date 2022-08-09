@@ -39,7 +39,7 @@ class OurApp extends Model implements TranslatableContract, HasAssetsInterface
         });
     }
 
-    public function getImageAttribute()
+    public function getPhotoAttribute()
     {
         return asset($this->images()->where('option', 'image')->first()?->media);
     }

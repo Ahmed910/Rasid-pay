@@ -30,7 +30,7 @@ class Department extends Model implements TranslatableContract, HasAssetsInterfa
     protected $guarded = ['created_at', 'deleted_at'];
     public $translatedAttributes = ['name', 'description'];
     public $assets = ["image"];
-    public $with = ["images", "addedBy"];
+    public $with = ["images", "addedBy", 'translations'];
     private $sortableColumns = ["name", "parent", "created_at", "status", 'is_active', 'deleted_at'];
     private static $result = [];
 
@@ -56,7 +56,7 @@ class Department extends Model implements TranslatableContract, HasAssetsInterfa
     #region scopes
     public function scopeSearch(Builder $query, $request)
     {
-        $old = $query->toSql() ;
+        $old = $query->toSql();
 
         if (isset($request->name)) {
             $query->where(function ($q) use ($request) {
@@ -72,8 +72,8 @@ class Department extends Model implements TranslatableContract, HasAssetsInterfa
         if (isset($request->is_active) && in_array($request->is_active, [1, 0])) {
             $query->where('is_active', $request->is_active);
         }
-        $new = $query->toSql() ;
-        if ($old!=$new)  Loggable::addGlobalActivity($this, $request->query(), ActivityLog::SEARCH, 'index');
+        $new = $query->toSql();
+        if ($old != $new)  Loggable::addGlobalActivity($this, $request->query(), ActivityLog::SEARCH, 'index');
     }
 
     public function scopeSortBy(Builder $query, $request)

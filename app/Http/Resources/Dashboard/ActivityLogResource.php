@@ -40,11 +40,10 @@ class ActivityLogResource extends JsonResource
             $name = $this->auditable?->question;
         } elseif ($model == class_basename(Currency::class)) {
             $name = $this->auditable?->countries?->name;
-        } elseif ($model == class_basename(StaticPage::class)) {
-            $name = $this->auditable?->name;
         } else {
             $name = $this->auditable?->fullname;
         }
+
         return [
             'id' => $this->id,
             'user' => $this->user ? SimpleUserResource::make($this->user) : null,
@@ -95,9 +94,7 @@ class ActivityLogResource extends JsonResource
     {
         if ($action_type == ActivityLog::SEARCH) {
             $this->getSearchParam($this->search_params);
-        } elseif ($action_type == ActivityLog::DELETE) {
-
-
+        } elseif ($action_type == ActivityLog::DELETE || $action_type == ActivityLog::PERMANENT_DELETE) {
             $deleteData = [];
             $deleteData = [
                 'name'  => $this->old_data['translations'][0]['name'] ?? $this->old_data['translations'][0]['question'] ?? '',
@@ -108,6 +105,7 @@ class ActivityLogResource extends JsonResource
             return $name;
         }
     }
+    
     public function  getSearchParam($search_params)
     {
         foreach ($search_params as $key => $value) {

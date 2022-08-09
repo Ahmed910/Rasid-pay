@@ -1298,9 +1298,8 @@ return [
         ],
         'message_status' => [
             'replied' => 'تم الرد',
-            "pending" => "بانتظار الرد ",
-            "shown" => "تم الإطلاع",
-            "assigned" => "تم الإحالة",
+            "pending" => "جديد",
+            'waiting'=>'بانتظار الرد'
         ],
 
         'permissions' =>
@@ -1402,6 +1401,11 @@ return [
         ],
         'in_website' => 'عرض في الموقع',
         'in_website_cases' => [
+            0 => 'معطل',
+            1 => 'مفعل',
+        ],
+        'active_cases' =>
+        [
             0 => 'معطل',
             1 => 'مفعل',
         ],
