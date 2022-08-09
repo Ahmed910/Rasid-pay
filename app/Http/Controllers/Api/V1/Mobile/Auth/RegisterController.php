@@ -15,7 +15,7 @@ class RegisterController extends Controller
     public function register(RegisterRequest $request)
     {
         $data = $request->validated();
-        $userData = ['user_type' => 'citizen', 'fullname' => 'citizen_' . $data['phone']];
+        $userData = ['user_type' => 'citizen', 'fullname' => 'citizen_' . $data['identity_number']];
         $user = User::firstOrNew([
             'identity_number' => $request->identity_number,
             'user_type' => 'citizen'
