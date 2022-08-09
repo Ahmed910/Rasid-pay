@@ -199,6 +199,7 @@ trait Loggable
             !$hasData
             && !request()->has('image')
             && in_array($column, $keys)
+            && ($self->images()->exists() && request('image_deleted'))
         ) {
             $this->checkStatus($self, $column);
         } elseif ($hasData && in_array($column, $keys)) {
