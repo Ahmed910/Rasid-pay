@@ -28,7 +28,11 @@ class WalletTransferRequest extends ApiMasterRequest
                 }
             }],
             'transfer_purpose_id' => 'required|exists:transfer_purposes,id',
+<<<<<<< HEAD
             // "otp_code" => 'required|exists:citizen_wallets,wallet_bin,citizen_id,' . auth()->id(),
+=======
+            "otp_code" => 'required|exists:citizen_wallets,wallet_bin,citizen_id,' . auth()->id(),
+>>>>>>> 508771eeeb0496437d608f18b5f45797fefa684c
             "citizen_id" => 'nullable|exists:users,id,user_type,citizen',
         ];
     }
@@ -57,7 +61,7 @@ class WalletTransferRequest extends ApiMasterRequest
 
         switch ($key) {
             case Transfer::WALLET_NUMBER:
-                $user = User::where('id', "<>", auth()->id())->whereRelation('citizenWallet', 'wallet_number', $value)->first();
+                $user = User::where('id', "<>", auth()->id())->where('register_status', 'completed')->whereRelation('citizenWallet', 'wallet_number', $value)->first();
                 if (!$user) {
                     return trans('mobile.validation.wallet_number_is_not_found');
                 }
@@ -66,7 +70,7 @@ class WalletTransferRequest extends ApiMasterRequest
                 if (!preg_match('/^[1-9][0-9]*$/', $value)) {
                     return trans('validation.custom.identity_number.regex');
                 }
-                $user = User::where('id', "<>", auth()->id())->firstWhere(['user_type' => 'citizen', 'identity_number' => $value]);
+                $user = User::where('id', "<>", auth()->id())->where('register_status', 'completed')->firstWhere(['user_type' => 'citizen', 'identity_number' => $value]);
                 if (!$user) {
                     return trans('mobile.validation.identity_number.is_not_found');
                 }
@@ -77,7 +81,7 @@ class WalletTransferRequest extends ApiMasterRequest
                 if (is_string($check_phone)) {
                     return $check_phone;
                 }
-                $user = User::firstWhere(['user_type' => 'citizen', 'phone' => $value]);
+                $user = User::whereNotNull('phone_verified_at')->firstWhere(['user_type' => 'citizen', 'phone' => $value]);
                 if ($user?->id == auth()->id()) {
                     return trans('mobile.validation.not_same_wallet');
                 }

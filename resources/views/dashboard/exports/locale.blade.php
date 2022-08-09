@@ -4,7 +4,7 @@
 
 <table id="departmentTable" class="table">
   <thead>
-    @include('dashboard.exports.header',['topic'=>@lang('dashboard.localization.localizations'), 'count' => 1])
+    @include('dashboard.exports.header',['topic'=>trans('dashboard.localization.localizations'), 'count' => 1])
     <tr>
       <th>#</th>
       <th> @lang('dashboard.localization.value')</th>

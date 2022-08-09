@@ -18,7 +18,7 @@ class PackagePromoCodesResource extends JsonResource
             'id' => $this->id,
             'promo_code' => $this->promo_code,
             'promo_discount' => $this->promo_discount,
-            'is_used' => $this->is_used,
+            'is_used' => (bool)$this->is_used,
         ];
     }
 }
