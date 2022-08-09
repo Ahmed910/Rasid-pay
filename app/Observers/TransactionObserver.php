@@ -93,7 +93,7 @@ class TransactionObserver
             'body' => $transaction_notifications[$transaction->trans_type],
         ];
 
-        auth()->user()->is_notification_enabled ? auth()->user()->notify(new GeneralNotification($notify_data, ['database'])) : "";
+        (auth()->check() && auth()->user()->is_notification_enabled) ? auth()->user()->notify(new GeneralNotification($notify_data, ['database'])) : "";
 
         if ($transaction->transactionable_type == 'App\Models\CitizenPackage' && request()->has('promo_code') && $transaction->trans_type == 'promote_package') {
             $cash_back = getPercentOfNumber($transaction->amount, $transaction->transactionable?->promo_discount);
@@ -117,6 +117,6 @@ class TransactionObserver
             ),
         ];
 
-        auth()->user()->is_notification_enabled ? auth()->user()->notify(new GeneralNotification($notify_data, ['database'])) : '';
+        (auth()->check() && auth()->user()->is_notification_enabled) ? auth()->user()->notify(new GeneralNotification($notify_data, ['database'])) : '';
     }
 }
