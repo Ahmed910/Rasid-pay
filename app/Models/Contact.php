@@ -89,7 +89,15 @@ class Contact extends Model
                 });
         }
         $new = $query->toSql();
-        if ($old != $new) Loggable::addGlobalActivity($this, $request->query(), ActivityLog::SEARCH, 'index');
+        if ($old != $new) Loggable::addGlobalActivity(
+            $this,
+            array_merge(
+                $request->query(),
+                ['message_types' => MessageType::find($request->message_types)?->pluck('name')?->join(', ')]
+            ),
+            ActivityLog::SEARCH,
+            'index'
+        );
     }
 
     public function scopeSortBy(Builder $query, $request)
