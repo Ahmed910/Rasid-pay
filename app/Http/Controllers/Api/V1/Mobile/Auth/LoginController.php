@@ -192,13 +192,7 @@ class LoginController extends Controller
             case $user->ban_status && $user->ban_status == 'permanent':
                 return [
                     'response' => [
-                        'status' => true, 'data' => [
-                            'is_active' => null,
-                            'is_register_completed' => null,
-                            'ban_status' => 'permanent',
-                            'ban_date' => null,
-                            'phone' => null
-                        ], 'message' => trans('auth.user_banned')
+                        'status' => false, 'data' => null, 'message' => trans('auth.user_banned')
                     ],
                     'status_code' => 406
                 ];
@@ -206,13 +200,7 @@ class LoginController extends Controller
             case $user->ban_status && $user->ban_status == 'temporary' && !$user->ban_to?->isToday():
                 return [
                     'response' => [
-                        'status' => true, 'data' => [
-                            'is_active' => null,
-                            'is_register_completed' => null,
-                            'ban_status' => 'permanent',
-                            'ban_date' => $user->ban_to,
-                            'phone' => null
-                        ], 'message' => trans('auth.user_banned')
+                        'status' => false, 'data' => null , 'message' => trans('auth.user_temp_banned',['ban_from' => $user->ban_from?->format("Y-m-d"), 'ban_to' => $user->ban_to?->format("Y-m-d")])
                     ],
                     'status_code' => 406
                 ];
