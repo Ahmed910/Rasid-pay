@@ -26,6 +26,7 @@ Route::middleware('auth:sanctum')->group(function () {
 
     // Route::middleware('check_wallet_bin')->group(function () {
     Route::post('logout', 'Auth\LoginController@logout');
+    
     Route::apiResource('profiles', 'ProfileController')->only('index', 'store');
     Route::post('update_password', 'ProfileController@updatePassword');
     // notifications
