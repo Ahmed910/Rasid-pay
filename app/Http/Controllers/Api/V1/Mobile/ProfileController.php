@@ -23,7 +23,12 @@ class ProfileController extends Controller
     {
         $citizen = auth()->user();
         $old_phone = $citizen->phone;
-        $citizen->fill($request->validated())->save();
+        $citizen_data = $request->validated();
+        if($request->delete_image){
+            $citizen->media()->delete();
+            $citizen_data += ['updated_at' => now()];
+        }
+        $citizen->fill($citizen_data)->save();
         $citizen->citizen()->update($request->only(['lat', 'lng', 'location']));
         $message = trans('dashboard.general.success_update');
         if ($old_phone != $citizen->phone || ! $citizen->phone_verified_at) {
@@ -91,5 +96,7 @@ class ProfileController extends Controller
             'data' => null,
         ]);
     }
+
+
 
 }
