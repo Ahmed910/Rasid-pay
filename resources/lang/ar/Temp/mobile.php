@@ -170,6 +170,7 @@ return [
     ],
 
     'transfers' => [
+        'not_registered_identity_number' => 'رقم الهوية غير  صحيح',
         'transfer_details' => 'تم تحويل مبلغ :amount ر.س  من المحفظة الخاصة بك إلى محفظة المستخدم :wallet_transfer_method',
         'by_phone' => 'برقم جوال ',
         'by_identity_number' => 'برقم هوية ',

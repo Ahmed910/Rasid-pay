@@ -28,8 +28,8 @@ class WalletTransferRequest extends ApiMasterRequest
                 }
             }],
             'transfer_purpose_id' => 'required|exists:transfer_purposes,id',
-            "otp_code" => 'required|exists:citizen_wallets,wallet_bin,citizen_id,' . auth()->id(),
-            "citizen_id" => 'nullable|exists:users,id,user_type,citizen,register_status,completed',
+            // "otp_code" => 'required|exists:citizen_wallets,wallet_bin,citizen_id,' . auth()->id(),
+            "citizen_id" => 'nullable|exists:users,id,user_type,citizen',
         ];
     }
 
