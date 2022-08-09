@@ -2,30 +2,28 @@
 
 namespace App\Models;
 
-use App\Models\Package\Package;
-use App\Traits\Uuid;
-use App\Models\RasidJob\RasidJob;
-use App\Models\Group\Group;
-use App\Traits\HasAssetsTrait;
-use App\Models\Country\Country;
-use Illuminate\Database\Eloquent\Builder;
-use Laravel\Sanctum\HasApiTokens;
 use App\Contracts\HasAssetsInterface;
+use App\Models\Country\Country;
 use App\Models\Department\Department;
-use App\Models\StaticPage\StaticPage;
 use App\Models\Faq\Faq;
+use App\Models\Group\Group;
 use App\Models\MessageType\MessageType;
-use App\Traits\Loggable;
-use GeniusTS\HijriDate\Hijri;
-use Illuminate\Notifications\Notifiable;
-use Illuminate\Database\Eloquent\SoftDeletes;
-use Illuminate\Contracts\Auth\MustVerifyEmail;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Foundation\Auth\User as Authenticatable;
+use App\Models\RasidJob\RasidJob;
+use App\Models\StaticPage\StaticPage;
 use App\Notifications\ResetPasswordNotification;
+use App\Traits\HasAssetsTrait;
+use App\Traits\Loggable;
+use App\Traits\Uuid;
 use Carbon\Carbon;
+use GeniusTS\HijriDate\Hijri;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Str;
+use Laravel\Sanctum\HasApiTokens;
 
 class User extends Authenticatable implements HasAssetsInterface
 {
@@ -274,6 +272,24 @@ class User extends Authenticatable implements HasAssetsInterface
         }
 
         return Carbon::parse($value)->format('Y-m-d');
+    }
+
+    public function isBanFromToday()
+    {
+        if (auth()->check() && auth()->user()->is_date_hijri) {
+            $this->changeDateLocale('en');
+            return Hijri::convertToHijri($this->attributes['ban_from'])->isToday();
+        }
+        return Carbon::parse($this->attributes['ban_from'])->isToday();
+    }
+    public function isBanToToday()
+    {
+        if (auth()->check() && auth()->user()->is_date_hijri) {
+            $this->changeDateLocale('en');
+
+            return Hijri::convertToHijri($this->attributes['ban_to'])->isToday();
+        }
+        return Carbon::parse($this->attributes['ban_to'])->isToday();
     }
 
     #region scopes
