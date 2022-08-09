@@ -29,7 +29,7 @@ class ContactController extends Controller
             ->with('replies', 'user', 'admin', 'activity', 'assignedTo')
             ->customDateFromTo($request)
             ->search($request)
-            ->sortby($request)
+            ->sortBy($request)
             ->paginate((int)($request->per_page ?? config("globals.per_page")));
         return ContactResource::collection($contacts)
             ->additional([
