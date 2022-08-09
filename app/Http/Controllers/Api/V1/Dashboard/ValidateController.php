@@ -124,6 +124,7 @@ class ValidateController extends Controller
 
     public function validateAdminPhone($request)
     {
+        $request->phone = filter_mobile_number($request->phone);
         $rules['phone'] = 'unique:users,phone,' . $request->admin_id;
         return $rules;
     }

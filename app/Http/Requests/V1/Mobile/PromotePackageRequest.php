@@ -15,7 +15,7 @@ class PromotePackageRequest extends ApiMasterRequest
             'package_type' => 'required|in:' . implode(',', CitizenPackage::PACKAGE_TYPES),
             "promo_code" => ["nullable",
                 Rule::exists('citizen_package_promo_codes', 'promo_code')
-                    ->where('is_used', 0)],
+                    ->where('is_used', false)],
         ];
     }
 
