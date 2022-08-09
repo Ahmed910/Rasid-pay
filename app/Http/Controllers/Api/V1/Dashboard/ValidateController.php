@@ -42,6 +42,11 @@ class ValidateController extends Controller
             $message = trans('dashboard.admin.u_can_use_this_id');
         }
 
+        if ($request->type == 'vendor_phone') {
+            $rules += $this->validateVendorPhone($request);
+            $message = trans('dashboard.vendor.u_can_not_use_this_phone');
+        }
+
         if ($request->type == 'admin_email') {
             $rules += $this->validateAdminEmail($request);
             $message = trans('dashboard.admin.u_can_not_use_this_email');
@@ -137,6 +142,12 @@ class ValidateController extends Controller
     public function validateBank($request, $locale)
     {
         $rules["$locale.name"] = "unique:bank_translations,name," . ($request->bank_id ?? 0) . ',bank_id';
+        return $rules;
+    }
+
+    public function validateVendorPhone($request)
+    {
+        $rules['phone'] = 'unique:users,phone,' . $request->vendor_id;
         return $rules;
     }
 }
