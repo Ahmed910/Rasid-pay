@@ -16,7 +16,7 @@ class PaymentRequest extends ApiMasterRequest
         return [
             "invoice_number" => 'required|unique:payments,invoice_number',
             "amount" => ['required', 'regex:/^\\d{1,5}$|^\\d{1,5}\\.\\d{0,2}$/', 'numeric'],
-            "description" => 'nullable|min:1|max:255',
+            "description" => 'nullable|min:1|max:500',
             'payment_type' => 'required',
             "payment_data" => 'nullable|string|max:255',
             "otp_code" => 'required|exists:citizen_wallets,wallet_bin,citizen_id,' . auth()->id(),
