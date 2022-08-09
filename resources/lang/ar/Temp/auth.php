@@ -5,7 +5,7 @@ return [
     "login_subtitle" => "من فضلك أدخل رقم المستخدم وكلمة المرور",
     "login_title" => "تسجيل الدخول",
     "success_verify_phone" => "تم تأكيد رقم الجوال بنجاح",
-    "user_banned" => "هذا الحساب معطل . برجاء التواصل مع الدعم الفني",
+    "user_banned" => "هذا الحساب معطل . برجاء التواصل مع الدعم الفني" . setting('rasid_hotline_no') ? 'على الرقم ' . setting('rasid_hotline_no') : null,
     "user_temp_banned" => "هذا الحساب معطل من :ban_from إلى :ban_to . برجاء التواصل مع الدعم الفني " . setting('rasid_hotline_no') ? 'على الرقم ' . setting('rasid_hotline_no') : null,
     "success_verify_phone_make_login" => "تم إنشاء الحساب بنجاح",
     "password" => "أدخل كلمة المرور",
