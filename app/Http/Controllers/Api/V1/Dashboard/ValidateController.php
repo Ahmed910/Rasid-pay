@@ -147,6 +147,7 @@ class ValidateController extends Controller
 
     public function validateVendorPhone($request)
     {
+        $request->phone = filter_mobile_number($request->phone);
         $rules['phone'] = 'unique:vendors,phone,' . $request->vendor_id;
         return $rules;
     }
