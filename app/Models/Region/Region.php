@@ -24,9 +24,9 @@ class Region extends Model implements TranslatableContract
 
     #region properties
     public $translatedAttributes = ['name'];
-    protected $guarded = ['created_at','deleted_at'];
+    protected $guarded = ['created_at', 'deleted_at'];
     private $sortableColumns = ["name", "created_at"];
-    protected $with = ['addedBy','translations'];
+    protected $with = ['addedBy', 'translations'];
     #endregion properties
 
     #region mutators
@@ -35,7 +35,7 @@ class Region extends Model implements TranslatableContract
     #region scopes
     public function scopeSearch(Builder $query, $request)
     {
-        Loggable::addGlobalActivity($this, $request->query(), ActivityLog::SEARCH,'index');
+        $old = $query->toSql();
 
         if ($request->name) {
             $query->whereTranslationLike('name', "%$request->name%");
@@ -46,6 +46,8 @@ class Region extends Model implements TranslatableContract
             $query->whereDate('created_at', $request->created_at);
         }
 
+        $new = $query->toSql();
+        if ($old != $new) Loggable::addGlobalActivity($this, $request->query(), ActivityLog::SEARCH, 'index');
     }
 
     public function scopeSortBy(Builder $query, $request)

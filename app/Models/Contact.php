@@ -53,6 +53,7 @@ class Contact extends Model
     #region scopes
     public function scopeSearch($query, $request)
     {
+        $old = $query->toSql();
 
         foreach ($request->all() as $key => $item) {
             if ($item == -1 && in_array($key, self::SELECT_ALL)) {
@@ -87,6 +88,8 @@ class Contact extends Model
                     !($key == "fullname") ? $q->where($key, $item) : $q->where($key, "like", "%$item%");
                 });
         }
+        $new = $query->toSql();
+        if ($old != $new) Loggable::addGlobalActivity($this, $request->query(), ActivityLog::SEARCH, 'index');
     }
 
     public function scopeSortBy(Builder $query, $request)
@@ -108,7 +111,7 @@ class Contact extends Model
         }
 
         if (in_array($request->sort["column"], ['contact_type'])) {
-            $query->orderBy('message_type_id',$request->sort["dir"]);
+            $query->orderBy('message_type_id', $request->sort["dir"]);
         }
 
         if (key_exists($request->sort["column"], self::CONTACTS)) {
