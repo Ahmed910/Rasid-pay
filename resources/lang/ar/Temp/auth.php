@@ -1,5 +1,5 @@
 <?php
-$hotline = setting('rasid_hotline_no') ? 'على الرقم ' . setting('rasid_hotline_no') : null;
+$hotline = setting('rasid_hotline_no') ? ' على الرقم ' . setting('rasid_hotline_no') : null;
 return [
 
     "password_used_before" => "كلمة المرور مستخدمة من قبل",
@@ -41,8 +41,7 @@ return [
     "code_not_true" => "الكود غير صحيح",
     "failed" => "محاولة غير صالحة لتسجيل الدخول",
     "login" => [
-        "throttle" =>  setting('rasid_hotline_no') ? "تم تعطيل المستخدم لمحاولة تسجيل الدخول أكثر من مرة بشكل غير صحيح. برجاء التواصل مع الدعم الفني على ".setting("rasid_hotline_no") :
-        "تم تعطيل رقم المستخدم لمحاولة تسجيل الدخول أكثر من مرة بشكل غير صحيح. برجاء التواصل مع الدعم الفني"
+        "throttle" => "تم تعطيل رقم المستخدم لمحاولة تسجيل الدخول أكثر من مرة بشكل غير صحيح. برجاء التواصل مع الدعم الفني" . $hotline
     ],
     "phone" => [
         "required" => "رقم الجوال مطلوب",
