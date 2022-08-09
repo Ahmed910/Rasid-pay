@@ -2,6 +2,7 @@
 
 return [
     'attributes' => [
+        'employee_list' => 'الموظف المسئول',
         'citizen'  => 'اسم المستخدم',
         'client'  => 'اسم العميل',
         'created_from'  => 'تاريخ الإنشاء من',
