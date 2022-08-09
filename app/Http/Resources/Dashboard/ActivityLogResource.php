@@ -5,6 +5,7 @@ namespace App\Http\Resources\Dashboard;
 use App\Models\ActivityLog;
 use App\Models\Currency\Currency;
 use App\Models\Faq\Faq;
+use App\Models\StaticPage\StaticPage;
 use App\Models\Transaction;
 use Dflydev\DotAccessData\Data;
 use Illuminate\Http\Resources\Json\JsonResource;
@@ -70,7 +71,7 @@ class ActivityLogResource extends JsonResource
                 'dashboard.activity_log.reason',
                 [
                     "model" => trans("dashboard.activity_log.models." . strtolower($this->user_type ? $this->user_type : $model)),
-                    'name' => $this->action_type == ActivityLog::SEARCH ? $this->getSearchParam($this->search_params) : $name,
+                    'name' => $this->checkActionType($this->action_type, $name),
                     "action" => trans("dashboard.activity_log.actions." . $this->action_type),
                     // "main" => trans("dashboard." . Str::snake($this->user_type ? $this->user_type : $model) . "." . str_plural(Str::snake($this->user_type ? $this->user_type : $model)))
                     // , "sub" => trans("dashboard.permissions." . $this->sub_program)
@@ -88,6 +89,23 @@ class ActivityLogResource extends JsonResource
         // ])
     }
 
+
+    public function checkActionType($action_type, $name)
+    {
+        if ($action_type == ActivityLog::SEARCH) {
+            return $this->getSearchParam($this->search_params);
+        } elseif ($action_type == ActivityLog::DELETE || $action_type == ActivityLog::PERMANENT_DELETE) {
+            $deleteData = [];
+            $deleteData = [
+                'name'  => $this->old_data['translations'][0]['name'] ?? $this->old_data['translations'][0]['question'] ?? '',
+                'reason' => $this->reason
+            ];
+            return (implode(',',  $deleteData));
+        } else {
+            return $name;
+        }
+    }
+    
     public function  getSearchParam($search_params)
     {
         foreach ($search_params as $key => $value) {

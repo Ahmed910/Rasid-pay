@@ -20,6 +20,7 @@ class MessageTypeResource extends JsonResource
                 'admins' => SimpleUserResource::collection($this->whenLoaded('admins')),
                 'admin_names' => $this->admins->pluck('fullname')->join(','),
                 'admins_count' => $this->admins_count??$this->admins->count(),
+                'has_messages' => $this->contact()->exists(),
                 'created_at' => $this->created_at_date,
                 'is_active' => (bool) $this->is_active,
                 'activity' => ActivityLogResource::collection($this->whenLoaded('activity')),

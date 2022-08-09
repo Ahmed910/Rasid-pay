@@ -5,14 +5,17 @@ namespace App\Http\Controllers\Api\V1\Mobile\Auth;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\V1\Mobile\Auth\{CompleteRegisterRequest, RegisterRequest, VerifyPhoneCodeRequest};
 use App\Http\Resources\Api\V1\Mobile\UserResource;
-use App\Models\{CitizenPackage, CitizenWallet, User};
+use App\Models\{CitizenPackage, CitizenWallet, Transaction, User};
+use App\Models\Transfer;
+use App\Notifications\GeneralNotification;
+
 
 class RegisterController extends Controller
 {
     public function register(RegisterRequest $request)
     {
         $data = $request->validated();
-        $userData = ['user_type' => 'citizen', 'fullname' => 'citizen_' . $data['phone']];
+        $userData = ['user_type' => 'citizen', 'fullname' => 'citizen_' . $data['identity_number']];
         $user = User::firstOrNew([
             'identity_number' => $request->identity_number,
             'user_type' => 'citizen'
@@ -123,9 +126,45 @@ class RegisterController extends Controller
             'citizen_package_id' => $citizenPackage->id
         ];
         $user->citizen()->create($citizen_table);
+        $this->checkTransaction($user);
+
         return UserResource::make($user)->additional([
             'status' => true,
             'message' => trans('auth.success_verify_phone_make_login'),
         ]);
+    }
+
+    public function checkTransaction($user)
+    {
+
+        // check transaction
+        $transfers = Transfer::where(['phone' => $user->phone, 'transfer_status' => Transfer::PENDING])->get();
+        if ($transfers) {
+            // update transfer_status ,transaction_status
+            $transfers->each(function ($item) {
+                $item->update(['transfer_status' => Transfer::TRANSFERRED]);
+                $item->transaction->update(['trans_status' => Transaction::SUCCESS]);
+            });
+
+            // check  main_amount & cashback_amount to wallet
+            $citizen_wallet = CitizenWallet::with('citizen')->where('citizen_id', $user->id)->firstOrFail();
+            $main_amount =  $transfers->sum('main_amount');
+            $cashback_amount =  $transfers->sum('cashback_amount');
+
+            if ($citizen_wallet) {
+                $citizen_wallet->update(["cash_back" => \DB::raw('cash_back + ' . $cashback_amount), 'main_balance' => \DB::raw('main_balance + ' . $main_amount)]);
+            }
+
+            //send notification
+            $notify_data = [
+                'title' => trans('mobile.notifications.has_transfer.title'),
+                'body' => trans(
+                    'mobile.notifications.has_transfer.body',
+                    ['transfer_method_value' => $user->phone]
+                ),
+            ];
+
+            $user->notify(new GeneralNotification($notify_data, ['database']));
+        }
     }
 }

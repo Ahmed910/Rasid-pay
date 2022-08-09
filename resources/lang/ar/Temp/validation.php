@@ -2,9 +2,43 @@
 
 return [
     'attributes' => [
+        'action' => '',
+        'main_program' => 'حقل البرنامج الرئيسي',
+        'sub_program' => 'حقل البرنامج الفرعي',
+        'benficiar_type' => 'حقل نوع المستفيد',
+        'created_at' => 'حقل تاريخ الإنشاء',
+        'citizen_package_id' => 'حقل البطاقة',
+        'enabled_package' => 'حقل البطاقة المفعلة',
+        'end_at_from' => 'حقل تاريخ الإنتهاء من',
+        'end_at_to' => 'حقل تاريخ الإنتهاء إلي',
+        'admin_fullname' => 'حقل اسم الموظف',
+        'message_source' => 'مصدر الرسالة',
+        'message_status' => 'حالة الرسالة',
+        'trans_status' => 'حالة المعاملة',
+        'trans_type' => 'نوع المعاملة',
+        'client_type' => 'نوع العميل',
+        'register_status' => 'حالة تسجيل الدخول',
+        'branch_name' => 'اسم الفرع',
+        'site' => 'الموقع',
+        'transfer_amount' => 'تكلفة التحويل',
+        'question' => 'السؤال',
+        'admins_from' => 'عدد الموظفين من ',
+        'admins_to' => 'عدد الموظفين إلي',
+        'key' => 'المفتاح',
+        'value' => 'القيمة',
+        'is_vacant' => 'نوع الوظيفة',
+        'commercial_record' => 'السجل التجاري',
+        'tax_number' => 'الرقم الضريبي',
+        'employee_list' => 'الموظف المسئول',
         'citizen'  => 'اسم المستخدم',
         'client'  => 'اسم العميل',
+        'created_from'  => 'تاريخ الإنشاء من',
+        'created_to'  => 'تاريخ الإنشاء إلى',
         'trans_number'  => 'رقم المعاملة',
+        'type' => 'حقل النوع',
+        'vendor_id' => 'العميل',
+        'address_details' => 'بيانات العنوان',
+
         'banks' =>  [
             '*' =>   [
                 'id' => 'حقل ID للبنك',
@@ -306,39 +340,39 @@ return [
         "transfer_relation" => [
             "required_if" => "العلاقة مع المستفيد مطلوبة"
         ],
-          "country" => [
+        "country" => [
             "required_if" => "الدولة مطلوبة"
         ],
     ],
-    'wallet_transfer' =>[
-        'amount'=>[
-            'gte'=>'مبلغ التحويل يجب أن لا يقل عن :min_amount',
-            'lte'=>'مبلغ التحويل يجب أن لا يتجاوز عن :max_amount'
+    'wallet_transfer' => [
+        'amount' => [
+            'gte' => 'مبلغ التحويل يجب أن لا يقل عن :min_amount',
+            'lte' => 'مبلغ التحويل يجب أن لا يتجاوز عن :max_amount'
         ],
 
     ],
 
-    'wallet_charge' =>[
-        'amount'=>[
-            'gte'=>'مبلغ الشحن يجب أن لا يقل عن :min_amount',
-            'lte'=>'مبلغ الشحن يجب أن لا يتجاوز عن :max_amount'
+    'wallet_charge' => [
+        'amount' => [
+            'gte' => 'مبلغ الشحن يجب أن لا يقل عن :min_amount',
+            'lte' => 'مبلغ الشحن يجب أن لا يتجاوز عن :max_amount'
         ],
 
     ],
 
-    'local_transfers' =>[
-        'amount'=>[
-            'gte'=>'مبلغ التحويل يجب أن لا يقل عن :min_amount',
-            'lte'=>'مبلغ التحويل يجب أن لا يتجاوز عن :max_amount',
+    'local_transfers' => [
+        'amount' => [
+            'gte' => 'مبلغ التحويل يجب أن لا يقل عن :min_amount',
+            'lte' => 'مبلغ التحويل يجب أن لا يتجاوز عن :max_amount',
             "required" => "مبلغ التحويل مطلوب",
 
         ],
-        'transfer_purpose_id'=>[
+        'transfer_purpose_id' => [
             "required" =>  "الغرض من التحويل  مطلوب ",
             'exists' => 'الغرض من التحويل غير موجود'
 
         ],
-        'beneficiary_id'=>[
+        'beneficiary_id' => [
             "required" =>  "المستفيد  مطلوب ",
             'exists' => 'المستفيد غير موجود'
 
@@ -355,7 +389,7 @@ return [
             "exists" => "غير صحيح otp رمز"
         ],
 
-       "amount" =>   [
+        "amount" =>   [
             "required" => "مبلغ التحويل مطلوب",
             // "gte" => "لا يوجد رصيد كافى",
             'gte' => 'مبلغ التحويل يجب أن لا يقل عن :value ر.س',
@@ -366,11 +400,11 @@ return [
             "required" => "الغرض من التحويل مطلوب"
         ],
 
-       "beneficiary" =>   [
+        "beneficiary" =>   [
             "exists" => "هذا المستفيد غير موجود"
         ],
 
-       "transfer_purpose" =>   [
+        "transfer_purpose" =>   [
             "required" => "الغرض من التحويل مطلوب",
             "exists" => "الغرض من التحويل غير موجود",
         ],

@@ -66,16 +66,16 @@ trait Loggable
         $user_type = $item->user_type ?? null;
         if (isset($item->user) && $user_type == null) $user_type = $item->user->user_type;
         $item->activity()->create([
-            'url'         => Request::fullUrl(),
-            'old_data'    => $this->oldData($item),
-            'new_data'    => $newData ? $newData : $this->newData($item),
+            'url' => Request::fullUrl(),
+            'old_data' => $this->oldData($item),
+            'new_data' => $newData ? $newData : $this->newData($item),
             'action_type' => $event,
             'sub_program' => $subProgram,
-            'ip_address'  => Request::ip(),
-            'agent'       => Request::header('user-agent'),
-            'user_id'     => auth()->check() ? auth()->user()->id : null,
-            'reason'      => request()->reasonAction,
-            "user_type"   => $user_type
+            'ip_address' => Request::ip(),
+            'agent' => Request::header('user-agent'),
+            'user_id' => auth()->check() ? auth()->user()->id : null,
+            'reason' => request()->reasonAction,
+            "user_type" => $user_type
         ]);
     }
 
@@ -120,6 +120,13 @@ trait Loggable
         if (request()->has('image') && request()->route()->getActionMethod() == 'update') {
             $newData += ['image' => $item->images->pluck('media')->toJson()];
         }
+
+        if (in_array(HasAssetsTrait::class, class_uses(static::class))
+            && $item->has('images')->exists()
+            && request('image_deleted')) {
+            $newData += ['image_deleted' => true];
+        }
+
         return array_merge($newData, array_filter($data));
     }
 
@@ -158,7 +165,7 @@ trait Loggable
                     $model->addUserActivity($model, ActivityLog::PERMANENT, 'index', $newData);
                 }
 
-                if (request($column)  == 'temporary' && $column == 'ban_status') {
+                if (request($column) == 'temporary' && $column == 'ban_status') {
                     $model->addUserActivity($model, ActivityLog::TEMPORARY, 'index', $newData);
                 }
 
@@ -182,7 +189,7 @@ trait Loggable
 
         // user => ban_status (only ban status)
         // rest of models => is_active (only is_active)
-        $exceptedColumns =  [
+        $exceptedColumns = [
             $column,
             'groups',
             'permissions',
@@ -196,13 +203,19 @@ trait Loggable
         $keys = array_keys($this->newData($self));
         $hasData = count(array_flatten(array_except($this->newData($self), $exceptedColumns)));
         if (
+            $hasData
+            && in_array($column, $keys)
+            && in_array(HasAssetsTrait::class, class_uses(static::class))
+            && $self->has('images')->exists()
+            && request('image_deleted')
+        ) {
+            $self->addUserActivity($self, ActivityLog::UPDATE, 'index');
+        } elseif (
             !$hasData
             && !request()->has('image')
             && in_array($column, $keys)
         ) {
             $this->checkStatus($self, $column);
-        } elseif ($hasData && in_array($column, $keys)) {
-            $self->addUserActivity($self, ActivityLog::UPDATE, 'index');
         } else {
             $self->addUserActivity($self, ActivityLog::UPDATE, 'index');
         }
@@ -210,7 +223,7 @@ trait Loggable
 
     public function checkRequestForUser(User $self, HttpRequest $request)
     {
-        $exceptedColumns =  [
+        $exceptedColumns = [
             'ban_status',
             'ban_from',
             'ban_to',

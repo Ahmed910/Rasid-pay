@@ -1,11 +1,13 @@
 <?php
+$hotline = setting('rasid_hotline_no') ? ' على الرقم ' . setting('rasid_hotline_no') : null;
 return [
 
     "password_used_before" => "كلمة المرور مستخدمة من قبل",
     "login_subtitle" => "من فضلك أدخل رقم المستخدم وكلمة المرور",
     "login_title" => "تسجيل الدخول",
     "success_verify_phone" => "تم تأكيد رقم الجوال بنجاح",
-    "user_banned" => "هذا الحساب معطل . برجاء التواصل مع الدعم الفني",
+    "user_banned" => "هذا الحساب معطل . برجاء التواصل مع الدعم الفني" . $hotline,
+    "user_temp_banned" => "هذا الحساب معطل من :ban_from إلى :ban_to برجاء التواصل مع الدعم الفني" . $hotline,
     "success_verify_phone_make_login" => "تم إنشاء الحساب بنجاح",
     "password" => "أدخل كلمة المرور",
     "success_login_mobile" => "تسجيل دخول إلى التطبيق برقم هوية :user",
@@ -39,8 +41,7 @@ return [
     "code_not_true" => "الكود غير صحيح",
     "failed" => "محاولة غير صالحة لتسجيل الدخول",
     "login" => [
-        "throttle" =>  setting('rasid_hotline_no') ? "تم تعطيل المستخدم لمحاولة تسجيل الدخول أكثر من مرة بشكل غير صحيح. برجاء التواصل مع الدعم الفني على ".setting("rasid_hotline_no") : 
-        "تم تعطيل رقم المستخدم لمحاولة تسجيل الدخول أكثر من مرة بشكل غير صحيح. برجاء التواصل مع الدعم الفني"
+        "throttle" => "تم تعطيل رقم المستخدم لمحاولة تسجيل الدخول أكثر من مرة بشكل غير صحيح. برجاء التواصل مع الدعم الفني" . $hotline
     ],
     "phone" => [
         "required" => "رقم الجوال مطلوب",
