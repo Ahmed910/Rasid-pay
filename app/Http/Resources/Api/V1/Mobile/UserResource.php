@@ -22,7 +22,7 @@ class UserResource extends JsonResource
             'country_code' => substr($this->phone, 0, 3),
             'phone' => substr($this->mask_phone ?? $this->phone, 3),
             'image' => $this->image,
-            'has_image' => $this->media()->exists(),
+            'has_image' => $this->images()->exists(),
             'wallet_number' => (string)$this->citizenWallet?->wallet_number,
             'is_phone_verified' => (bool)$this->phone_verified_at,
             'created_at' => $this->created_at_date,
