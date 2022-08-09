@@ -113,7 +113,7 @@ class TransactionObserver
             'body' => trans(
                 'mobile.notifications.cancel_transfer.body',
                 ['transfer_method_value' => $transaction->transactionable?->wallet_transfer_method == 'phone'
-                    ? auth()->user()->phone : auth()->user()->identity_number]
+                    ? auth()->user()?->phone : auth()->user()?->identity_number]
             ),
         ];
 
