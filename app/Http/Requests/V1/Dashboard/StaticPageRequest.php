@@ -22,7 +22,7 @@ class StaticPageRequest extends ApiMasterRequest
         ];
         foreach (config('translatable.locales') as $locale) {
             $rules["$locale"]               = "array";
-            $rules["$locale.name"]          = "required|max:100|regex:/^[\pL\pN\s\-\_]+$/u|unique:static_page_translations,name," . @$this->static_page . ',static_page_id';
+            $rules["$locale.name"]          = "required|max:30|regex:/^[\pL\pN\s\-\_]+$/u|unique:static_page_translations,name," . @$this->static_page . ',static_page_id';
             $rules["$locale.description"]   = "required|string";
         }
 
@@ -42,7 +42,7 @@ class StaticPageRequest extends ApiMasterRequest
         ];
         foreach (config('translatable.locales') as $locale) {
             $validation_messages["$locale.name.required"]  = trans("$validation.$locale.name.required");
-            $validation_messages["$locale.name.max"]  = trans("$validation.$locale.name.max",['max'=>'100']);
+            $validation_messages["$locale.name.max"]  = trans("$validation.$locale.name.max");
             $validation_messages["$locale.description.required"]  = trans("$validation.$locale.description.required");
             $validation_messages["$locale.description.string"]  = trans("$validation.$locale.description.string");
         }

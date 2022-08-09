@@ -395,6 +395,7 @@ return [
             'created' => 'إضافة',
             'temporary' => 'تعطيل لفترة',
             'updated' => 'تعديل',
+            'delete' => 'حذف',
             'activated' => 'تفعيل',
             'restored' => 'استعادة',
             'destroy' => 'أرشفة',
@@ -1489,6 +1490,14 @@ return [
             'update' => 'تعديل',
             'destroy' => 'حذف',
             'show' => 'عرض',
+        ],
+
+        'recieve_option' =>[
+            'recieve_options' => 'خيارات الإستلام'
+        ],
+
+        'transfer_relation' =>[
+            'transfer_relations' => 'العلاقة مع المستفيد'
         ],
         'show' => 'عرض',
         'sub_progs' =>
