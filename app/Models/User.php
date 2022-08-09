@@ -35,7 +35,7 @@ class User extends Authenticatable implements HasAssetsInterface
     protected $appends = ['image'];
     protected $hidden = ['password', 'remember_token'];
     protected $casts = ['email_verified_at' => 'datetime', 'phone_verified_at' => 'datetime'];
-    protected $dates = ['date_of_birth', 'date_of_birth_hijri','ban_from','ban_to'];
+    protected $dates = ['date_of_birth', 'date_of_birth_hijri', 'ban_from', 'ban_to'];
     public $assets = ['image'];
     protected $with = ['images', 'permissions'];
     private $sortableColumns = ["login_id", "created_at", "fullname", "department", 'ban_status', "basic_discount", "golden_discount", "platinum_discount", 'phone', 'email'];
@@ -238,7 +238,7 @@ class User extends Authenticatable implements HasAssetsInterface
 
     public function messageTypes(): BelongsToMany
     {
-        return $this->belongsToMany(MessageType::class, 'message_type_user','admin_id','message_type_id');
+        return $this->belongsToMany(MessageType::class, 'message_type_user', 'admin_id', 'message_type_id');
     }
 
     public function setBanStatusAttribute($value)
@@ -345,7 +345,7 @@ class User extends Authenticatable implements HasAssetsInterface
         }
 
         $new = $query->toSql();
-        if ($old != $new) Loggable::addGlobalActivity($this, $request->query(), ActivityLog::SEARCH, 'index', request()->user_type);
+        if ($old != $new) Loggable::addGlobalActivity($this, array_merge($request->query(), ['department_id' => Department::find($request->department_id)?->name]), ActivityLog::SEARCH, 'index', request()->user_type);
     }
 
     public function scopeSortBy(Builder $query, $request)
