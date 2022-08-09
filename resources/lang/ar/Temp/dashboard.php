@@ -337,7 +337,11 @@ return [
     ],
     'card' => [
         'cards' => 'البطاقات',
-        'sub_progs' => 'البرنامج'
+        'sub_progs' => [
+            'index' => 'سجل البطاقات',
+            'archive' => 'أرشيف البطاقات',
+            'create' => 'إضافة بطاقة',
+        ]
     ],
     'bank_transfer' => [
         'bank_transfers' => 'التحويلات البنكية',
@@ -383,7 +387,6 @@ return [
         ],
         'card' => [
             'cards' => 'البطاقات',
-            'sub_progs' => 'البرنامج'
         ],
         'bank_transfer' => [
             'bank_transfers' => 'التحويلات البنكية',
@@ -915,6 +918,7 @@ return [
             'freelance_doc' => 'مستقل',
             'member' => 'عضو',
         ],
+       'u_can_not_use_this_phone' =>  'لا يمكن استخدام هذا الرقم'
     ],
 
     'vendor_branch' => [
