@@ -77,7 +77,7 @@ class WalletTransferRequest extends ApiMasterRequest
                 if (is_string($check_phone)) {
                     return $check_phone;
                 }
-                $user = User::whereNotNull('register_status')->firstWhere(['user_type' => 'citizen', 'phone' => $value]);
+                $user = User::whereNotNull('phone_verified_at')->firstWhere(['user_type' => 'citizen', 'phone' => $value]);
                 if ($user?->id == auth()->id()) {
                     return trans('mobile.validation.not_same_wallet');
                 }
