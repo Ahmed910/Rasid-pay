@@ -120,6 +120,10 @@ trait Loggable
         if (request()->has('image') && request()->route()->getActionMethod() == 'update') {
             $newData += ['image' => $item->images->pluck('media')->toJson()];
         }
+        if ($item->images()->exists() && request('image_deleted')) {
+            $newData += ['image_deleted' => true];
+        }
+
         return array_merge($newData, array_filter($data));
     }
 
@@ -196,14 +200,17 @@ trait Loggable
         $keys = array_keys($this->newData($self));
         $hasData = count(array_flatten(array_except($this->newData($self), $exceptedColumns)));
         if (
-            !$hasData
-            && !request()->has('image')
+            $hasData
             && in_array($column, $keys)
             && ($self->images()->exists() && request('image_deleted'))
         ) {
-            $this->checkStatus($self, $column);
-        } elseif ($hasData && in_array($column, $keys)) {
             $self->addUserActivity($self, ActivityLog::UPDATE, 'index');
+        } elseif (
+            !$hasData
+            && !request()->has('image')
+            && in_array($column, $keys)
+        ) {
+            $this->checkStatus($self, $column);
         } else {
             $self->addUserActivity($self, ActivityLog::UPDATE, 'index');
         }
