@@ -7,6 +7,7 @@ use App\Http\Requests\V1\Mobile\TransactionRequest;
 use App\Http\Resources\Api\V1\Mobile\Transactions\TransactionResource;
 use App\Models\Transaction;
 use App\Services\GeneratePdf;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Str;
 
@@ -84,7 +85,7 @@ class TransactionController extends Controller
             ->view('dashboard.exports.mobile.invoice', ['transaction' => $transaction, 'transaction_type' => $transaction->trans_type])
             ->storeOnLocal('invoices/');
 
-        $transaction->update(['summary_path' => $path]);
+       DB::table('transactions')->update(['summary_path' => $path]);
 
 
         return asset('app/public/' . $path);

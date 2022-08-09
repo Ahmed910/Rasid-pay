@@ -52,7 +52,10 @@ class MessageType extends Model
 
 
         $new = $query->toSql();
-        if ($old != $new) Loggable::addGlobalActivity($this, $request->query(), ActivityLog::SEARCH, 'index');
+        if ($old != $new) Loggable::addGlobalActivity($this, array_merge(
+            $request->query(),
+            ['employee_list' => User::find($request->employee_list)?->pluck('fullname')]
+        ), ActivityLog::SEARCH, 'index');
     }
 
     public function scopeSortBy(Builder $query, $request)

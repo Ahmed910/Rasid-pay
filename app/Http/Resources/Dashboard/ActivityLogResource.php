@@ -93,7 +93,7 @@ class ActivityLogResource extends JsonResource
     public function checkActionType($action_type, $name)
     {
         if ($action_type == ActivityLog::SEARCH) {
-            $this->getSearchParam($this->search_params);
+            return $this->getSearchParam($this->search_params);
         } elseif ($action_type == ActivityLog::DELETE || $action_type == ActivityLog::PERMANENT_DELETE) {
             $deleteData = [];
             $deleteData = [

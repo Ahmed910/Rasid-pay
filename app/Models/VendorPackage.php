@@ -29,7 +29,7 @@ class VendorPackage extends Model
             $query->where('vendor_id', "$request->client_id");
         }
         $new = $query->toSql();
-        if ($old != $new) Loggable::addGlobalActivity($this, $request->query(), ActivityLog::SEARCH, 'index');
+        if ($old != $new) Loggable::addGlobalActivity($this, array_merge($request->query(), ['department_id' => Vendor::find($request->vendor_id)?->name]), ActivityLog::SEARCH, 'index');
     }
 
     public function scopeSortBy(Builder $query, $request)

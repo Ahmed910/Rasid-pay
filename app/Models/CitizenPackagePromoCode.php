@@ -2,13 +2,9 @@
 
 namespace App\Models;
 
-use Carbon\Carbon;
 use App\Traits\Uuid;
-use GeniusTS\HijriDate\Hijri;
-use App\Models\Package\Package;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use phpDocumentor\Reflection\DocBlock\Tags\Deprecated;
+use Illuminate\Database\Eloquent\Model;
 
 class CitizenPackagePromoCode extends Model
 {
@@ -18,6 +14,11 @@ class CitizenPackagePromoCode extends Model
     protected $guarded = ['created_at', 'updated_at'];
 
     #endregion properties
+
+    public function scopeIsNotUsed($query)
+    {
+        return $query->where('is_used', false);
+    }
 
     public function citizenPackage()
     {
