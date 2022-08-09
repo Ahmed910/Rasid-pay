@@ -15,7 +15,7 @@ class UpdateProfileRequest extends ApiMasterRequest
     {
         return [
             'image' => 'nullable|max:1024|mimes:jpg,png,jpeg',
-            'delete_image' => "required|in:0,1",
+            'need_to_delete_image' => "required|in:0,1",
             // 'fullname' => 'required|string|max:100',
             'phone' => ["required", "numeric", function ($attribute, $value, $fail) {
                 if (!check_phone_valid($value)) {
