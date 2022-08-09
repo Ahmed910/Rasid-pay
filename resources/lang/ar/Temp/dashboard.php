@@ -1491,7 +1491,6 @@ return [
             'destroy' => 'حذف',
             'show' => 'عرض',
         ],
-<<<<<<< HEAD
 
         'recieve_option' =>[
             'recieve_options' => 'خيارات الإستلام'
@@ -1499,8 +1498,7 @@ return [
 
         'transfer_relation' =>[
             'transfer_relations' => 'العلاقة مع المستفيد'
-        ]
-=======
+        ],
         'show' => 'عرض',
         'sub_progs' =>
         [
