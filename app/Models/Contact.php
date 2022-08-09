@@ -21,8 +21,9 @@ class Contact extends Model
     #region properties
     protected $guarded = ['created_at', 'updated_at', 'deleted_at'];
     const ADMINCOLUMNS = ["admin_fullname" => "fullname"];
-    const USER_COLUMNS = ["contact_type", "message_source", "message_status"];
+    const USER_COLUMNS = ["message_source", "message_status"];
     const SELECT_ALL = ["contact_type", "message_source", "message_status"];
+    const CONTACTS = ['fullname', 'email',  'phone'];
     const PENDING = 'pending';
     const REPLIED = 'replied';
     const WAITING = 'waiting';
@@ -70,22 +71,28 @@ class Contact extends Model
                 $query->where('contacts.' . $key, $item);
             }
 
+            if (in_array($key, ['contact_type'])) {
+                $query->whereHas('messageType', function ($q) use ($item) {
+                    $q->whereHas('translations', fn ($q) => $q->where('name', 'like', "%$item%"));
+                });
+            }
+
             if ($request->message_types && is_array($request->message_types)) {
                 $query->whereIn('message_type_id', $request->message_types);
             }
 
             if (key_exists($key, self::ADMINCOLUMNS))
-                $query->whereHas('admin', function ($q) use ($key, $item) {
+                $query->whereHas('assignedTo', function ($q) use ($key, $item) {
                     $key = self::ADMINCOLUMNS[$key];
                     !($key == "fullname") ? $q->where($key, $item) : $q->where($key, "like", "%$item%");
                 });
         }
-
     }
 
     public function scopeSortBy(Builder $query, $request)
     {
-        if (!isset($request->sort["column"]) || !isset($request->sort["dir"])
+        if (
+            !isset($request->sort["column"]) || !isset($request->sort["dir"])
             || !in_array(Str::lower($request->sort["dir"]), ["asc", "desc"])
         ) return $query->latest('contacts.created_at');
 
@@ -95,11 +102,18 @@ class Contact extends Model
                 ->orderBy('contacts.' . $request->sort["column"], @$request->sort["dir"]);
         }
         if (key_exists($request->sort["column"], self::ADMINCOLUMNS)) {
-            return $query->leftJoin('users', 'users.id', '=', 'contacts.admin_id')
+            return $query->leftJoin('users', 'users.id', '=', 'contacts.assigned_to_id')
                 ->select("contacts.*", "users.fullname as admin.")
                 ->orderBy('users.' . self::ADMINCOLUMNS[$request->sort["column"]], @$request->sort["dir"]);
         }
 
+        if (in_array($request->sort["column"], ['contact_type'])) {
+            $query->orderBy('message_type_id',$request->sort["dir"]);
+        }
+
+        if (key_exists($request->sort["column"], self::CONTACTS)) {
+            return $query->orderBy($request->sort['column'], $request->sort['dir']);
+        }
     }
     #endregion scopes
 

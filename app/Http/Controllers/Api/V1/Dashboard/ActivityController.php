@@ -75,12 +75,24 @@ class ActivityController extends Controller
 
     public function getMainPrograms()
     {
-        $mainPrograms = collect(AppServiceProvider::MORPH_MAP)->transform(function ($class, $model) {
-            $data['name'] = $model;
-            $data['trans'] = trans("dashboard." . Str::snake($model) . "." . str_plural(Str::snake($model)));
+        $mainPrograms = collect(AppServiceProvider::MORPH_MAP)
+            ->except([
+                'Region',
+                'Chat',
+                'Device',
+                'Message',
+                'City',
+                'Country',
+                'Currency',
+                'Card',
+                'Admin',
+                'Curreny'
+            ])->transform(function ($class, $model) {
+                $data['name'] = $model;
+                $data['trans'] = trans("dashboard." . Str::snake($model) . "." . str_plural(Str::snake($model)));
 
-            return $data;
-        })->values();
+                return $data;
+            })->values();
 
         return OnlyResource::collection($mainPrograms);
     }
@@ -130,10 +142,10 @@ class ActivityController extends Controller
     }
     public function exportPDF(Request $request, GeneratePdf $pdfGenerate)
     {
-        $activatyLogsQuery = ActivityLog::select('activity_logs.id','activity_logs.user_id','activity_logs.auditable_type','activity_logs.auditable_id','activity_logs.sub_program','activity_logs.action_type','activity_logs.ip_address','activity_logs.created_at')->search($request)
-        ->sortBy($request)
-        ->customDateFromTo($request)
-        ->cursor();
+        $activatyLogsQuery = ActivityLog::select('activity_logs.id', 'activity_logs.user_id', 'activity_logs.auditable_type', 'activity_logs.auditable_id', 'activity_logs.sub_program', 'activity_logs.action_type', 'activity_logs.ip_address', 'activity_logs.created_at')->search($request)
+            ->sortBy($request)
+            ->customDateFromTo($request)
+            ->cursor();
 
 
         if (!$request->has('created_from')) {
