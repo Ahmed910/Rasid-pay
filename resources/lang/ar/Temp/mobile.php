@@ -150,6 +150,7 @@ return [
         'is_paid_before' => 'تم دفع هذه الفاتورة من قبل.',
         'invoice_number_required' => 'رقم الفاتورة مطلوب',
         'amount_required' => 'قيمة الفاتورة مطلوبة',
+        'can_not_use_your_code' => 'لا يمكنك استخدام كود التخفيض الخاص بك',
     ],
     'global_transfers' => [
         'current_balance_is_not_sufficient_to_complete_transaction' => 'لا يوجد رصيد كافى',

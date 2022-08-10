@@ -18,7 +18,7 @@ class DepartmentRequest extends ApiMasterRequest
             Department::withTrashed()->findOrFail($this->department)
         )) : "";
         $rules = [
-            "image"         => "required|max:1024|mimes:jpg,png,jpeg",
+            "image"         => "nullable|max:1024|mimes:jpg,png,jpeg",
             "parent_id"     => "nullable|exists:departments,id,deleted_at,NULL|not_in:$igonredDepartment",
             "is_active"     => "in:0,1",
             'delete_image'  => "in:0,1"

@@ -17,7 +17,7 @@ class PackageController extends Controller
 
     public function __construct()
     {
-        $this->middleware('check_max_transactions')->only('PromotePackage');
+//        $this->middleware('check_max_transactions')->only('PromotePackage');
     }
 
     public function index()
@@ -46,19 +46,18 @@ class PackageController extends Controller
         $activateBonus = ['rasidpay_platinum_firstcode_activatebonus', 'rasidpay_platinum_secondcode_activatebonus',
             'rasidpay_platinum_thirdcode_activatebonus', 'rasidpay_platinum_fourthcode_activatebonus'];
         $package_price = setting('rasidpay_cards_' . $package_type . '_price') ?? 500;
-
         $citizen_wallet = auth()->user()->citizenWallet;
-
         if ($package_price > ($citizen_wallet->main_balance + $citizen_wallet->cash_back)) {
             return response()->json(['status' => false, 'data' => null, 'message' => trans('mobile.payments.current_balance_is_not_sufficient_to_complete_payment')], 422);
         }
 
         if ($request->promo_code) {
             $citizen_package = $this->promoteWithPromoCode($request, $package_price, $citizen_wallet, $package_type);
+            if (!isset($citizen_package->id))
+                return $citizen_package;
         } else {
             $citizen_package = $this->promoteWithOutPromoCode($package_price, $citizen_wallet, $package_type);
         }
-
         // create promo codes for platinum package
         if ($package_type == CitizenPackage::PLATINUM) {
             $citizen_package_promo_codes = [
@@ -103,6 +102,10 @@ class PackageController extends Controller
     private function promoteWithPromoCode(PromotePackageRequest $request, $package_price, $citizen_wallet, $package_type)
     {
         $citizen_package_promo_code = CitizenPackagePromoCode::where('promo_code', $request->promo_code)->first();
+        $citizenPackageIds = auth()->user()->citizenPackages->pluck('id')->toArray();
+        if (in_array($citizen_package_promo_code->citizen_package_id, $citizenPackageIds)) {
+            return response()->json(['status' => false, 'data' => null, 'message' => trans('mobile.payments.can_not_use_your_code')], 422);
+        }
         // take discount of price from citizen wallet
 //        $new_package_price = $package_price - getPercentOfNumber($package_price, $citizen_package_promo_code->promo_discount);
         $new_package_price = $package_price - getPercentOfNumber($package_price, 50);  // TODO:: for now it's 50% as use case ... maybe changed later
