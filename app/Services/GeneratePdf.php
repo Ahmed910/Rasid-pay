@@ -61,7 +61,8 @@ class GeneratePdf
     {
         if (isset($data_array['activity_logs'])) {
             foreach ($data_array['activity_logs']->chunk(10) as $data) {
-                $this->mpdf->WriteHTML(view($view, $data));
+                $data_array['activity_logs'] = $data;
+                $this->mpdf->WriteHTML(view($view, $data_array));
             }
         }
         $this->mpdf->WriteHTML(view($view, $data));
