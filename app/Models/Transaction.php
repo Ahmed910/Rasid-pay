@@ -108,7 +108,7 @@ class Transaction extends Model
         } else if (in_array($request->sort["column"], self::USER_SEARCHABLE_COLUMNS)) {
 
             return $query->join('users', 'users.id', '=', 'transactions.from_user_id')
-                ->orderBy('users.' . self::USER_SORTABLE_COLUMNS[$request->sort["column"]], @$request->sort["dir"]);
+                ->orderBy('users.' . self::USER_SEARCHABLE_COLUMNS[$request->sort["column"]], @$request->sort["dir"]);
         } else if (key_exists($request->sort["column"], self::CLIENT_SORTABLE_COLUMNS)) {
             return $query->join('users', 'users.id', '=', 'transactions.to_user_id')
                 ->orderBy('users.' . self::CLIENT_SORTABLE_COLUMNS[$request->sort["column"]], @$request->sort["dir"]);
@@ -138,7 +138,7 @@ class Transaction extends Model
         if($this->trans_type == 'payment'){
             $value = $this->transactionable?->invoice_number;
         }
-        
+
         $this->attributes['qr_path'] = GenerateQrCode::createQr($value, 'app/public/images/transactions/');
     }
 
