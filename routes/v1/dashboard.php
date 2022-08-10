@@ -17,9 +17,6 @@ Route::get('cmd_commend/{command}', function ($command) {
     }
 });
 
-Route::controller('ActivityController')->name('activity_logs.')->prefix('activity_logs')->group(function () {
-    Route::get('export_pdf', 'exportPDF')->name('export_pdf');
-});
 Route::middleware('maintenance_mode')->group(function () {
     Route::post('login', "Auth\LoginController@login");
     Route::post('otp_login', "Auth\LoginController@otpLogin");
@@ -67,7 +64,7 @@ Route::middleware('maintenance_mode')->group(function () {
             Route::get('main-programs', 'ActivityController@getMainPrograms')->name('main_programs');
             Route::get('sub-programs/{main?}', 'ActivityController@getSubPrograms')->name('sub_programs');
             Route::get('events', 'ActivityController@getEvents')->name('events');
-            // Route::get('export_pdf', 'exportPDF')->name('export_pdf');
+            Route::get('export_pdf', 'exportPDF')->name('export_pdf');
             Route::get('export_excel', 'exportExcel')->name('export_excel');
 
         });
