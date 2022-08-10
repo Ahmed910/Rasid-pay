@@ -47,7 +47,8 @@ class AppServiceProvider extends ServiceProvider
         'RecieveOption' => \App\Models\RecieveOption\RecieveOption::class,
         'StaticPage'    => \App\Models\StaticPage\StaticPage::class,
         'TransferPurpose' => \App\Models\TransferPurpose\TransferPurpose::class,
-        'TransferRelation'=> \App\Models\TransferRelation\TransferRelation::class
+        'TransferRelation'=> \App\Models\TransferRelation\TransferRelation::class,
+        'ActivityLog' => \App\Models\ActivityLog::class
     ];
 
     public function register()
