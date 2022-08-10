@@ -38,9 +38,9 @@ class Transaction extends Model
 
     protected $guarded = ['created_at', 'updated_at'];
     private $sortableColumns = ["user_from_id", "trans_number", "created_at", 'from_user_to', 'amount', 'fee_amount', 'trans_type', 'trans_status'];
-    const USER_SEARCHABLE_COLUMNS = ["user_from", "email", "image", "country_code", "phone", "full_phone", "identity_number", "date_of_birth"];
+    const USER_SEARCHABLE_COLUMNS = ["user_from", "email", "image", "country_code", "phone", "fullname", "identity_number", "date_of_birth"];
     const USER_SORTABLE_COLUMNS = ["user_from" => "fullname", "email" => "email", "image" => "email", "country_code" => "country_code", "phone" => "phone", "full_phone" => "full_phone", "identity_number" => "identity_number", "date_of_birth" => "date_of_birth"];
-    const TRANSACTION_SEARCHABLE_COLUMNS = ["trans_number", "user_identity", "transaction_type", "transaction_status"];
+    const TRANSACTION_SEARCHABLE_COLUMNS = ["trans_number", "user_identity", "trans_type", "trans_status"];
     const CLIENT_SORTABLE_COLUMNS = ["user_to" => "fullname", "client_type" => "client_type", "commercial_number" => "commercial_number", "nationality" => "nationality", "tax_number" => "tax_number", "transactions_done" => "transactions_done"];
     const ENABLED_CARD_sortable_COLUMNS = ["enabled_package" => "package_type"];
     const TRANSFERS = ['wallet_transfer', 'local_transfer', 'global_transfer'];
@@ -92,12 +92,14 @@ class Transaction extends Model
 
     public function scopeSortBy(Builder $query, $request)
     {
+
         if (!isset($request->sort["column"]) || !isset($request->sort["dir"])) return $query->latest('transactions.created_at');
 
         if (
             //  !in_array(Str::lower($request->sort["column"]), $this->sortableColumns) ||
         !in_array(Str::lower($request->sort["dir"]), ["asc", "desc"])
         ) {
+
             return $query->latest('transactions.created_at');
         } else if (in_array($request->sort["column"], self::TRANSACTION_SEARCHABLE_COLUMNS)) {
 
@@ -106,12 +108,13 @@ class Transaction extends Model
         } else if (in_array($request->sort["column"], self::USER_SEARCHABLE_COLUMNS)) {
 
             return $query->join('users', 'users.id', '=', 'transactions.from_user_id')
-                ->orderBy('users.' . self::USER_SORTABLE_COLUMNS[$request->sort["column"]], @$request->sort["dir"]);
+                ->orderBy('users.' . $request->sort["column"], @$request->sort["dir"]);
         } else if (key_exists($request->sort["column"], self::CLIENT_SORTABLE_COLUMNS)) {
             return $query->join('users', 'users.id', '=', 'transactions.to_user_id')
                 ->orderBy('users.' . self::CLIENT_SORTABLE_COLUMNS[$request->sort["column"]], @$request->sort["dir"]);
         } else
             if (key_exists($request->sort["column"], self::ENABLED_CARD_sortable_COLUMNS)) {
+               
                 return
                     $query
                         ->leftjoin("citizen_packages", 'citizen_packages.citizen_id', '=', 'transactions.from_user_id')
@@ -133,6 +136,10 @@ class Transaction extends Model
     public function setTransNumberAttribute($value)
     {
         $this->attributes['trans_number'] = $value;
+        if($this->trans_type == 'payment'){
+            $value = $this->transactionable?->invoice_number;
+        }
+
         $this->attributes['qr_path'] = GenerateQrCode::createQr($value, 'app/public/images/transactions/');
     }
 

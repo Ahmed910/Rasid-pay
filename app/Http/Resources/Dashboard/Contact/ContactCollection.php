@@ -16,7 +16,19 @@ class ContactCollection extends ResourceCollection
      */
     public function toArray($request)
     {
-        $contact = Contact::findOrFail(@$request->route()->parameters['contact']);
+        $contact = Contact::when(auth()->user()->user_type == 'admin', function ($q) {
+            $q->where(function ($query) {
+                $query->where('admin_id', auth()->user()->id)
+                    ->orWhere('assigned_to_id', auth()->user()->id);
+            });
+        })->when($request['is_reply'], function ($q) {
+
+            $q->where('message_status', "<>", Contact::REPLIED);
+        })
+            ->with('replies', 'user', 'admin', 'activity', 'assignedTo')
+            ->withTrashed()
+            ->findOrFail(@$request->route()->parameters['contact']);
+
 
         return [
             'contact'         => ContactResource::make($contact),

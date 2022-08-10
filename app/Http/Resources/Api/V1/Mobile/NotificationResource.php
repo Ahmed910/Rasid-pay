@@ -21,7 +21,7 @@ class NotificationResource extends JsonResource
             'notify_type' => @$this->data['notify_type'] ?? 'management',
             'created_at' => $this->created_at_date?->diffForHumans(),
             'read_at' => optional($this->read_at)->format("Y-m-d H:i"),
-            'logo' => setting('erp_logo')
+            'logo' => setting('rasidpay_logo')
         ];
 
     }
