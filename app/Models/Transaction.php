@@ -38,7 +38,7 @@ class Transaction extends Model
 
     protected $guarded = ['created_at', 'updated_at'];
     private $sortableColumns = ["user_from_id", "trans_number", "created_at", 'from_user_to', 'amount', 'fee_amount', 'trans_type', 'trans_status'];
-    const USER_SEARCHABLE_COLUMNS = ["user_from", "email", "image", "country_code", "phone", "full_phone", "identity_number", "date_of_birth"];
+    const USER_SEARCHABLE_COLUMNS = ["user_from", "email", "image", "country_code", "phone", "fullname", "identity_number", "date_of_birth"];
     const USER_SORTABLE_COLUMNS = ["user_from" => "fullname", "email" => "email", "image" => "email", "country_code" => "country_code", "phone" => "phone", "full_phone" => "full_phone", "identity_number" => "identity_number", "date_of_birth" => "date_of_birth"];
     const TRANSACTION_SEARCHABLE_COLUMNS = ["trans_number", "user_identity", "transaction_type", "transaction_status"];
     const CLIENT_SORTABLE_COLUMNS = ["user_to" => "fullname", "client_type" => "client_type", "commercial_number" => "commercial_number", "nationality" => "nationality", "tax_number" => "tax_number", "transactions_done" => "transactions_done"];
@@ -92,12 +92,14 @@ class Transaction extends Model
 
     public function scopeSortBy(Builder $query, $request)
     {
+
         if (!isset($request->sort["column"]) || !isset($request->sort["dir"])) return $query->latest('transactions.created_at');
 
         if (
             //  !in_array(Str::lower($request->sort["column"]), $this->sortableColumns) ||
         !in_array(Str::lower($request->sort["dir"]), ["asc", "desc"])
         ) {
+
             return $query->latest('transactions.created_at');
         } else if (in_array($request->sort["column"], self::TRANSACTION_SEARCHABLE_COLUMNS)) {
 
