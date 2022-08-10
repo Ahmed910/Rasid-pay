@@ -17,7 +17,7 @@ class BankCollection extends ResourceCollection
      */
     public function toArray($request)
     {
-        $bank = Bank::withTrashed()->with('translations')->findOrFail(@$request->route()->parameters['bank']);
+        $bank = Bank::with('translations')->findOrFail(@$request->route()->parameters['bank']);
         return [
             'bank' => BankResource::make($bank),
             'activity' => ActivityLogResource::collection($this->collection)
