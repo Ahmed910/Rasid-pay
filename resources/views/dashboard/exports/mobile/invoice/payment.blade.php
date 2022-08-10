@@ -1,54 +1,47 @@
 
-<section class="main-pd-wrapper" style="width: 450px; margin: auto">
-  <div style="
-                text-align: center;
-                margin: auto;
-                line-height: 1.5;
-                font-size: 14px;
-                color: #4a4a4a;
-              ">
+<section class="main-pd-wrapper">
+
 
     <img src="{{ public_path($transaction->qr_path) }}" alt="" width="150">
-    <p style="font-weight: bold; color: blue; margin-top: 15px; font-size: 18px;">
+    <p style="font-weight: bold; color: 3f68ba; margin-top: 15px; font-size: 18px;">
       @lang('mobile.invoice.successfully_payment')
     </p>
-  </div>
-  <table style="width: 100%; table-layout: fixed;margin-top:30px;">
+  <table style="width: 100%;">
     <thead>
       <tr>
-        <th style="width: 220px;color:blue;">
+        <th style="color:3f68ba;">
           @lang('mobile.invoice.invoice_number')
         </th>
         <th>{{$transaction->transactionable?->invoice_number}}</th>
       </tr>
       <tr>
-        <th style="width: 220px;color:blue;">
+        <th style="color:3f68ba;">
           @lang('mobile.invoice.reference_number')
         </th>
         <th>{{ $transaction->trans_number ?? '' }}</th>
       </tr>
 
       <tr>
-        <th style="width: 220px;color:blue;">
+        <th style="color:3f68ba;">
           @lang('mobile.invoice.transaction_date')
         </th>
         <th>{{ $transaction->created_at_mobile ?? '' }}</th>
       </tr>
 
       <tr>
-        <th style="width: 220px;color:blue;">
+        <th style="color:3f68ba;">
           @lang('mobile.invoice.transaction_name')
         </th>
         <th>{{ trans("dashboard.transaction.type_cases.{$transaction->trans_type}") ?? '' }}</th>
       </tr>
       <tr>
-        <th style="width: 220px;color:blue;">
+        <th style="color:3f68ba;">
           @lang('mobile.invoice.transaction_value')
         </th>
         <th>{{ $transaction->amount ?? '' }} ر.س</th>
       </tr>
       <tr>
-        <th style="width: 220px;color:blue;">
+        <th style="color:3f68ba;">
           @lang('mobile.invoice.total')
         </th>
         <th>{{ ($transaction->amount + $transaction->transactionable?->transfer_fees) ?? 0 }} ر.س</th>
