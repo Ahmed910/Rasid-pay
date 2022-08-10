@@ -136,10 +136,6 @@ class Transaction extends Model
     public function setTransNumberAttribute($value)
     {
         $this->attributes['trans_number'] = $value;
-        if($this->trans_type == 'payment'){
-            $value = $this->transactionable?->invoice_number;
-        }
-
         $this->attributes['qr_path'] = GenerateQrCode::createQr($value, 'app/public/images/transactions/');
     }
 
