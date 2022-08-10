@@ -132,8 +132,8 @@ class ContactController extends Controller
             $q->whereHas('contact.messageType.admins', function ($query) {
                 $query->where('admin_id', auth()->user()->id);
             });
-        })
-            ->findorfail($id);
+        })->findorfail($id);
+
         $contact->delete();
         return response()->json([
             'status' => true,
