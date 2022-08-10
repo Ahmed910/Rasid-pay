@@ -17,7 +17,7 @@ class GenerateQrCode
         QrCode::errorCorrection('H')
             ->format('png')
             ->encoding('UTF-8')
-            ->merge(public_path('assets/images/logoQR.png'), .2, true)
+            ->merge(public_path('dashboardAssets/images/logoQR.png'), .2, true)
             ->size(500)
             ->generate((string)$qr_value, $path);
 
