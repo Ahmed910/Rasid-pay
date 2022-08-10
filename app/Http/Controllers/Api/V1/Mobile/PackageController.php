@@ -31,8 +31,8 @@ class PackageController extends Controller
 
     public function getPromoCodes()
     {
-        $promo_codes = auth()->user()->citizen->enabledPackage
-            ->citizenPackagePromoCodes()->isNotUsed()->get();
+        $citizenPackageIds = auth()->user()->citizenPackages->pluck('id')->toArray();
+        $promo_codes = CitizenPackagePromoCode::isNotUsed()->whereIn('citizen_package_id', $citizenPackageIds)->latest()->get();
         return PackagePromoCodesResource::collection($promo_codes)->additional([
             'status' => true,
             'message' => ''

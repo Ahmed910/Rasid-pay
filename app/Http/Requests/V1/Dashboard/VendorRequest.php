@@ -66,6 +66,8 @@ class VendorRequest extends ApiMasterRequest
             'iban_number.unique' => __('dashboard.vendors.iban_number.unique'),
             'commercial_record.unique' => __('dashboard.vendors.commercial_record.unique'),
             'commercial_record.required' => __('dashboard.vendors.commercial_record.required'),
+            'tax_number.unique' => __('dashboard.vendors.tax_number.unique'),
+            'tax_number.required' => __('dashboard.vendors.tax_number.required'),
         ];
     }
 }
