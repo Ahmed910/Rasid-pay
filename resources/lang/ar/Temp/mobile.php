@@ -96,7 +96,7 @@ return [
         ],
         'charge_types' => [
             'nfc' => 'NFC',
-            'manual' => 'البطاقة البنكية المنتهية بـ(:card_number)',
+            'manual' => 'البطاقة البنكية المنتهية بـ(:card_number **** **** ****)',
             'scan' => 'مسح بيانات البطاقة',
             'sadad' => 'سداد',
             'exists' => 'شحن باستخدام البطاقات المحفوظة'
@@ -199,10 +199,10 @@ return [
         'successfully_charged' => 'تم الشحن بنجاح',
         'charge_amount' => 'مبلغ الشحن',
         'phone' => 'رقم الجوال',
-        'transaction_type' => 'نوع العملية',
-        'transaction_name' => 'اسم العملية',
-        'transaction_value' => 'قيمة العملية',
-        'transaction_date' => 'تاريخ العملية',
+        'transaction_type' => 'نوع المعاملة',
+        'transaction_name' => 'اسم المعاملة',
+        'transaction_value' => 'قيمة المعاملة',
+        'transaction_date' => 'تاريخ المعاملة',
         'mtcn_number' => 'رقم MTCN',
         'reference_number' => 'الرقم المرجعي',
         'transfer_amount' => 'مبلغ التحويل',
