@@ -11,6 +11,8 @@ use App\Http\Requests\V1\Mobile\{
 use App\Http\Resources\Api\V1\Mobile\UserResource;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 
 class ProfileController extends Controller
 {
@@ -24,21 +26,24 @@ class ProfileController extends Controller
         $citizen = auth()->user();
         $old_phone = $citizen->phone;
         $citizen_data = $request->validated();
-        if($request->need_to_delete_image && $citizen->images()->exists()){
-            $citizen->images()->delete();
+        if ($request->need_to_delete_image && $citizen->images()->exists()) {
+            $path = Str::replace("/storage/", "", $citizen->images()->first()?->media);
+
+            Storage::disk('public')->delete($path);
+            $citizen->images()->forceDelete();
             $citizen_data += ['updated_at' => now()];
         }
         $citizen->fill($citizen_data)->save();
         $citizen->citizen()->update($request->only(['lat', 'lng', 'location']));
         $message = trans('dashboard.general.success_update');
-        if ($old_phone != $citizen->phone || ! $citizen->phone_verified_at) {
+        if ($old_phone != $citizen->phone || !$citizen->phone_verified_at) {
             #logout_then_send_sms
             $code = $this->sendSmsToCitizen($citizen->phone);
             $citizen->phones()->create([
-                'new_phone'=>$citizen->phone,
-                'old_phone'=>$old_phone,
+                'new_phone' => $citizen->phone,
+                'old_phone' => $old_phone,
                 'old_verified_at' => $citizen->phone_verified_at,
-                ]);
+            ]);
             $citizen->update([
                 'phone_verified_at' => null,
                 'verified_code' => $code
@@ -52,7 +57,7 @@ class ProfileController extends Controller
     {
         $code = 1111;
         if (setting('use_sms_service') == 'enable') {
-           $code = generate_unique_code(User::class, 'phone', 4, 'numbers');
+            $code = generate_unique_code(User::class, 'phone', 4, 'numbers');
         }
         return $code;
     }
@@ -77,7 +82,7 @@ class ProfileController extends Controller
      * @param ActivateNotificationRequest $request
      * @return \Illuminate\Http\JsonResponse
      */
-     public function activateNotification(Request $request)
+    public function activateNotification(Request $request)
     {
         auth()->user()->update(['is_notification_enabled' => !auth()->user()->is_notification_enabled]);
 
@@ -87,16 +92,13 @@ class ProfileController extends Controller
             'data' => null,
         ]);
     }
-     public function archiveCitizen()
+    public function archiveCitizen()
     {
-        auth()->user()->delete() ;
+        auth()->user()->delete();
         return response()->json([
             'status' => true,
             'message' => trans('auth.success_archive'),
             'data' => null,
         ]);
     }
-
-
-
 }

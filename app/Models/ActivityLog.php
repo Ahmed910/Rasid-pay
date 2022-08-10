@@ -2,10 +2,12 @@
 
 namespace App\Models;
 
+use App\Models\Department\Department;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use App\Traits\Uuid;
+use App\Traits\Loggable;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Str;
@@ -65,6 +67,7 @@ class ActivityLog extends Model
     #region scopes
     public function scopeSearch(Builder $query, $request)
     {
+        $old = $query->toSql();
 
         if (isset($request->action) && !in_array($request->action, [-1])) {
             $query->where('action_type', $request->action);
@@ -87,6 +90,9 @@ class ActivityLog extends Model
         if (isset($request->sub_program) && !in_array($request->sub_program, [-1])) {
             $query->where('sub_program', $request->sub_program);
         }
+
+        $new = $query->toSql();
+        if ($old != $new)  Loggable::addGlobalActivity($this, array_merge($request->query(), ['department_id' => Department::find($request->department_id)?->name]), ActivityLog::SEARCH, 'index');
     }
 
     public function scopeSortBy(Builder $query, $request)

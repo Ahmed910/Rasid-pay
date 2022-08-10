@@ -21,6 +21,13 @@ class VendorBranch extends Model implements HasAssetsInterface
     protected $guarded = ['created_at', 'deleted_at'];
     public $translatedAttributes = ['name'];
     public $with = ['translations'];
+    public $sortableColumns = [
+        'name',
+        'vendor_name',
+        'phone',
+        'is_active',
+        'vendor_id'
+    ];
 
     #endregion properties
     public static function boot()
