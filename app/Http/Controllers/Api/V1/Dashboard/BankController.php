@@ -45,7 +45,7 @@ class BankController extends Controller
 
     public function show(Request $request, $id)
     {
-        $bank = Bank::withTrashed()->with('translations')->findOrFail($id);
+        $bank = Bank::with('translations')->findOrFail($id);
         $activities = [];
         if (!$request->has('with_activity') || $request->with_activity) {
             $activities  = $bank->activity()
