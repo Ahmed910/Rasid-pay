@@ -32,7 +32,7 @@ class WalletTransferController extends Controller
         $dailyTransactions = Transaction::when($request->citizen_id,
                             fn($query) => $query->where('to_user_id',$request->citizen_id))
                 ->when($request->wallet_transfer_method == Transfer::PHONE && !$request->citizen_id,
-                        fn($query) => $query->whereHas('transfer',fn($query) => $query->where('phone', $request->transfer_method_value)))
+                        fn($query) => $query->whereHasMorph('transactionable',[Transfer::class],fn($query) => $query->where('phone', $request->transfer_method_value)))
                 ->where('trans_type', '!=', 'charge')
                 ->whereDate('created_at', date('Y-m-d'))
                 ->sum('amount');
