@@ -147,7 +147,6 @@ class ActivityController extends Controller
             ->customDateFromTo($request)
             ->get();
 
-
         if (!$request->has('created_from')) {
             $createdFrom = ActivityLog::selectRaw('MIN(created_at) as min_created_at')->value('min_created_at');
         }
@@ -159,11 +158,12 @@ class ActivityController extends Controller
                     'activity_logs' => $activatyLogsQuery,
                     'date_from'   => format_date($request->created_from) ?? format_date($createdFrom),
                     'date_to'     => format_date($request->created_to) ?? format_date(now()),
-                    'userId'      => auth()->user()->login_id,
+                    'userId'      => auth()->check() ? auth()->user()->login_id :null ,
 
                 ]
             )
             ->storeOnLocal('activityLogs/pdfs/');
+            dd('taha');
         $file  = url('/storage/' . $mpdfPath);
 
         return response()->json([
