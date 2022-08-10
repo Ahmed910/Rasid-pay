@@ -132,6 +132,7 @@ return [
             'charge_status' => 'تم شحن رصيد المحفظة الخاصة بك بالقيمة :amount عن طريق :method',
             'money_request_status' => 'تم استلام مبلغ :amount بالمحفظة الخاصة بك من قبل المستخدم برقم :to_user_identity_or_mobile_or_wallet_number',
             'promote_package_status' => 'تم ترقية البطاقة الخاصة بك إلي :package_name وتم خصم قيمة :amount ر.س  من المحفظة الخاصة بك مع العلم أن تاريخ انتهاء صلاحية البطاقة :expired_date',
+
         ],
     ],
 
@@ -294,7 +295,10 @@ return [
 
 
         ],
-
+        'reciever_wallet_transfer'=>[
+            'title' =>'تم استلام رصيد بنجاح',
+            'body'  => "تم استلام مبلغ :amount بالمحفظة الخاصة بك من قبل المستخدم برقم جوال/ هوية :from_user_identity_or_mobile"
+        ],
 
         "money_request" => [
             "title" => "تمت عملية طلب الأموال بنجاح",

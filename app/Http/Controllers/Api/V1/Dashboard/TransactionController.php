@@ -19,6 +19,7 @@ class TransactionController extends Controller
 
     public function index(Request $request)
     {
+     
         $transactions = Transaction::search($request)
             ->customDateFromTo($request)
             ->sortBy($request)
