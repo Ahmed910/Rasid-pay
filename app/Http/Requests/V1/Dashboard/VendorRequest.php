@@ -64,6 +64,8 @@ class VendorRequest extends ApiMasterRequest
             'iban_number.starts_with' => __('dashboard.vendors.iban_number.starts_with', ['starts_with' => 'SA']),
             'iban_number.size' => __('dashboard.vendors.iban_number.size', ['size' => '24']),
             'iban_number.unique' => __('dashboard.vendors.iban_number.unique'),
+            'commercial_record.unique' => __('dashboard.vendors.commercial_record.unique'),
+            'commercial_record.required' => __('dashboard.vendors.commercial_record.required'),
         ];
     }
 }
