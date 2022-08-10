@@ -57,8 +57,13 @@ class GeneratePdf
      * @param  Illuminate\Support\Facades\View $view
      * @param array $data
      */
-    public function view(string $view, array $data)
+    public function view(string $view, array $data_array)
     {
+        if (isset($data_array['activity_logs'])) {
+            foreach (array_chunk($data_array['activity_logs'],10) as $data) {
+                $this->mpdf->WriteHTML(view($view, $data));
+            }
+        }
         $this->mpdf->WriteHTML(view($view, $data));
 
         return $this;
