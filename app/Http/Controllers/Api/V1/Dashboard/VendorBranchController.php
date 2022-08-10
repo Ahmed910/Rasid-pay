@@ -18,15 +18,16 @@ class VendorBranchController extends Controller
     public function index(Request $request)
     {
         $vendorBranches = VendorBranch::query()
-                                    ->ListsTranslations('name')
-                                    ->search($request)
-                                    ->sortBy($request)
-                                    ->addSelect('vendor_branches.*')
-                                    ->paginate((int)($request->per_page ?? config("globals.per_page")));
+            ->ListsTranslations('name')
+            ->search($request)
+            ->sortBy($request)
+            ->addSelect('vendor_branches.*')
+            ->paginate((int)($request->per_page ?? config("globals.per_page")));
+            
         return VendorBranchResource::collection($vendorBranches)->additional([
-                                        'status' => true,
-                                        'message' => ""
-                                    ]);
+            'status' => true,
+            'message' => ""
+        ]);
     }
 
     /**
@@ -86,7 +87,7 @@ class VendorBranchController extends Controller
      */
     public function update(VendorBranchRequest $request, VendorBranch $vendor_branch)
     {
-        $vendor_branch->update($request->validated());
+        $vendor_branch->update($request->validated() + ['updated_at' => now()]);
         return VendorBranchResource::make($vendor_branch)->additional([
             'status' => true,
             'message' => trans('dashboard.general.success_update'),
@@ -112,11 +113,11 @@ class VendorBranchController extends Controller
     public function exportPDF(Request $request, GeneratePdf $pdfGenerate)
     {
         $VendorBranchsQuery = VendorBranch::query()
-        ->ListsTranslations('name')
-        ->search($request)
-        ->sortBy($request)
-        ->addSelect('vendor_branches.*')
-        ->get();
+            ->ListsTranslations('name')
+            ->search($request)
+            ->sortBy($request)
+            ->addSelect('vendor_branches.*')
+            ->get();
 
 
         if (!$request->has('created_from')) {
