@@ -2,13 +2,12 @@
 
 namespace App\Http\Controllers\Api\V1\Mobile\Auth;
 
-use App\Jobs\ExpireCodeJob;
-use Illuminate\Http\Request;
-use App\Models\{Device, User};
 use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Auth;
-use App\Http\Resources\Api\V1\Mobile\UserResource;
 use App\Http\Requests\V1\Mobile\Auth\{LoginRequest, SendCodeRequest};
+use App\Http\Resources\Api\V1\Mobile\UserResource;
+use App\Models\{Device, User};
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class LoginController extends Controller
 {
@@ -79,7 +78,7 @@ class LoginController extends Controller
     private function makeLogin($request, $user)
     {
         $user->devices()->where('device_token', "<>", $request->device_token)->delete();
-        if ($user->ban_to?->isToday()) {
+        if ($user->isBanToToday()) {
             $user->update(['ban_to' => null, 'ban_from' => null, 'ban_status' => 'active']);
         }
         //TODO:: just only one device make login
@@ -197,10 +196,10 @@ class LoginController extends Controller
                     'status_code' => 406
                 ];
 
-            case $user->ban_status && $user->ban_status == 'temporary' && !$user->ban_to?->isToday():
+            case $user->ban_status && $user->ban_status == 'temporary' && !$user->isBanToToday():
                 return [
                     'response' => [
-                        'status' => false, 'data' => null , 'message' => trans('auth.user_temp_banned',['ban_from' => $user->ban_from?->format("Y-m-d"), 'ban_to' => $user->ban_to?->format("Y-m-d")])
+                        'status' => false, 'data' => null , 'message' => trans('auth.user_temp_banned',['ban_from' => $user->ban_from, 'ban_to' => $user->ban_to])
                     ],
                     'status_code' => 406
                 ];

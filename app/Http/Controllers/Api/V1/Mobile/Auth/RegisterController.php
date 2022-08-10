@@ -134,7 +134,7 @@ class RegisterController extends Controller
         ]);
     }
 
-    public function checkTransaction($user)
+    private function checkTransaction($user)
     {
 
         // check transaction
