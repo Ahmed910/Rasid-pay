@@ -89,11 +89,15 @@ class VendorBranch extends Model implements HasAssetsInterface
         $query->when($request->sort, function ($q) use ($request) {
             if ($request->sort["column"] == "name") {
                 return $q->has('translations')
-                    ->orderBy($request->sort["column"], @$request->sort["dir"]);
+                    ->orderByTranslation($request->sort["column"], @$request->sort["dir"]);
             }
 
             if ($request->sort["column"] == "vendor_name") {
-                return $q->orderBy('branch_name', $request->sort['dir']);
+                // return $q->orderBy('branch_name', $request->sort['dir']);
+
+                return $q->join('vendors','vendors.id','vendor_branches.vendor_id')
+                       ->join('vendor_translations','vendor_translations.vendor_id','vendors.id')
+                       ->orderBy("vendor_translations.name", $request->sort['dir']);
             }
 
             if ($request->sort["column"] == "phone") {
