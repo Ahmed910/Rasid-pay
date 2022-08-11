@@ -11,6 +11,7 @@
         -webkit-print-color-adjust: exact;
         font-family: "cairo", Times, serif;
       }
+
       table {
         font-family: 'cairo', sans-serif;
         width: 100%;
@@ -69,9 +70,19 @@
 </head>
 
 <body class="app sidebar-mini {{ LaravelLocalization::getCurrentLocaleDirection() }}">
-
-  @yield('content')
-
+  <table id="departmentTable" class="table">
+    <thead>
+      @include('dashboard.exports.header',['topic'=>trans('dashboard.bank.banks'), 'count' => 1])
+      <tr>
+        <th>#</th>
+        <th> @lang('dashboard.bank.name')</th>
+        <th> @lang('dashboard.bank.status') </th>
+      </tr>
+    </thead>
+    <tbody>
+      @yield('content')
+    </tbody>
+  </table>
 </body>
 
 </html>
