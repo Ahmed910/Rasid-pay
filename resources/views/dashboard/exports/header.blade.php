@@ -19,7 +19,7 @@
   <thead>
 
     <tr style="border: none;">
-      <th colspan="2" style="padding-right: 1em; padding-left: 1em; text-align: center;border: none;">
+      <th colspan="2" style="padding-right: 1em; padding-left: 1em; text-align: center;border: none;vertical-align: top;">
         <img src="{{ public_path('dashboardAssets/images/brand/fintech.png') }}" width="150" style="margin: auto" alt="">
       </th>
       <th colspan="{{ $count ?? 3 }}" style="border: none;">
