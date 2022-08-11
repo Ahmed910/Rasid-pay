@@ -34,14 +34,13 @@
       .unactive {
         color: #e23e3d
       }
-
-      /*
+/*
       table {
         border-collapse: collapse;
       } */
 
 
-      tbody th {
+      table th {
         border: 1px solid #c9c9c9 !important;
       }
 
@@ -72,9 +71,13 @@
 </head>
 
 <body class="app sidebar-mini {{ LaravelLocalization::getCurrentLocaleDirection() }}">
-
-  @yield('content')
-
-</body>
-
-</html>
+  <table id="departmentTable" class="table">
+    <thead>
+      @include('dashboard.exports.header',['topic'=>trans('dashboard.bank.banks'), 'count' => 1])
+      <tr>
+        <th>#</th>
+        <th> @lang('dashboard.bank.name')</th>
+        <th> @lang('dashboard.bank.status') </th>
+      </tr>
+    </thead>
+    <tbody>
