@@ -35,7 +35,7 @@
         color: #e23e3d
       }
 
-      
+
       table {
         border-collapse: collapse;
       }
