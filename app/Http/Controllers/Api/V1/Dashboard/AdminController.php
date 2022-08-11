@@ -117,6 +117,9 @@ class AdminController extends Controller
 
     public function update(AdminRequest $request, User $admin)
     {
+        if($request->ban_status != 'active' && $admin->messageTypes()->exists()) {
+            return response()->json(['data'   => null, 'message' => trans('validation.admin.cant_deactive_admin_while_he_has_message_types'), 'status' => false],422);
+        }
         if ($request->password_change && $request->password_change == 1) {
             $admin->fill($request->validated() + ['updated_at' => now()])->save();
         } else {
