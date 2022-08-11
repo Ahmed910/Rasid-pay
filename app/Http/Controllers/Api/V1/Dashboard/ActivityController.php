@@ -112,7 +112,7 @@ class ActivityController extends Controller
         $subPrograms = collect([]);
 
         if ($main_progs) {
-            $subPrograms = collect(trans('dashboard.' . mb_strtolower($main_progs) . '.sub_progs'))->transform(function ($trans, $key) {
+            $subPrograms = collect(trans('dashboard.' . mb_strtolower(Str::snake($main_progs)) . '.sub_progs'))->transform(function ($trans, $key) {
                 $data['name'] = $key;
                 $data['trans'] = $trans;
 

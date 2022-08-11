@@ -29,13 +29,6 @@ return [
             "restored" => "استعادة",
         ],
     ],
-    'bankBranch' => [
-        'sub_progs' => [
-            'index' => 'سجل فروع البنوك',
-            'create' => 'إضافة فرع',
-            'show' => 'عرض فرع',
-        ]
-    ],
     'currency' =>  [
         'permissions' =>  [
             'index' => 'السجل',
@@ -46,11 +39,9 @@ return [
             'create' => 'انشاء',
             'destroy' => 'أرشفة',
             'force_delete' => 'حذف نهائي',
-            'archive' => 'عرض أرشيف',
         ],
         'sub_progs' =>  [
             'index' => 'سجل العملات',
-            'archive' => 'أرشيف العملات',
             'create' => 'إضافة عملة',
         ],
         'currencies' => 'العملات',
@@ -70,6 +61,10 @@ return [
             'destroy' => 'حذف',
             'show' => 'عرض'
         ],
+        'sub_progs' => [
+            'index' => 'سجل نسب خصم البطاقات',
+            'create' => 'إضافة نسبة خصم'
+        ]
     ],
     'general' => [
         'validation' => [
@@ -203,7 +198,6 @@ return [
         'sub_progs' =>  [
             'create' => 'إضافة إعداد',
             'index' => 'سجل الاعدادات',
-            'archive' => 'أرشيف الاعدادات',
         ],
         'permissions' =>  [
             'update' => 'تعديل',
@@ -268,7 +262,6 @@ return [
         'choose_status' => 'اختر الحالة',
         'enter_from_user' => 'أدخل الاسم',
         'sub_progs' =>   [
-            'archive' => 'أرشيف المعاملات',
             'show' => 'عرض المعاملة',
             'index' => 'سجل المعاملات',
         ],
@@ -316,7 +309,6 @@ return [
         'group_count' => 'عدد المجموعات',
         'sub_progs' => [
             'index' => 'سجل الصلاحيات',
-            'archive' => 'أرشيف الصلاحيات',
             'create' => 'إضافة مجموعة',
         ],
         'groups' => 'المجموعات',
@@ -339,7 +331,6 @@ return [
         'cards' => 'البطاقات',
         'sub_progs' => [
             'index' => 'سجل البطاقات',
-            'archive' => 'أرشيف البطاقات',
             'create' => 'إضافة بطاقة',
         ]
     ],
@@ -380,7 +371,8 @@ return [
             'currency' => 'العملات',
             'banktransfer' => 'تحويل بنكي',
             'vendorpackage' => 'نسب خصم البطاقات',
-            'activitylog' => 'المتابعة'
+            'activitylog' => 'المتابعة',
+            'locale' => 'الترجمات'
 
         ],
         'transfer' => [
@@ -426,11 +418,7 @@ return [
             'index' => 'السجل',
         ],
         'sub_progs' =>  [
-            'show' => 'عرض المتابعة',
-            'ban_status' => 'حظر',
-            'create' => 'إضافة',
-            'archive' => 'أرشفة',
-            'index' => 'المتابعة',
+            'index' => 'سجل المتابعة',
         ],
         'select_employee' => 'اختر موظف',
         'reason' => 'تم :action :model (:name)',
@@ -507,10 +495,7 @@ return [
         ],
         'sub_progs' =>  [
             'index' => 'سجل الاسلايدز',
-            'archive' => 'أرشيف الاسلايدز',
-            'edit' => 'تعديل اسلايد',
-            'create' => 'تسجيل اسلايد',
-            'show' => ' عرض اسلايد',
+            'create' => 'إضافة اسلايد',
         ],
         'slides' => 'الاسلايدز',
         'add_slide' => 'إضافة اسلايد',
@@ -531,7 +516,6 @@ return [
     'region' => [
         'sub_progs' => [
             'create' => 'إضافة منطقة',
-            'archive' => 'أرشيف المناطق',
             'index' => 'سجل المناطق',
         ],
         'add_region' => 'إضافة منطقة',
@@ -558,12 +542,8 @@ return [
         'name' => 'الاسم',
         'banks' => 'البنوك',
         'sub_progs' =>  [
-            'edit' => 'تعديل بنك',
             'create' => 'إضافة بنك',
             'index' => 'سجل البنوك',
-            'archive' => 'أرشيف البنوك',
-            'show' => 'عرض البنك',
-
         ],
         'active_cases' =>
         [
@@ -666,7 +646,6 @@ return [
         ],
         'sub_progs' =>   [
             'create' => 'إضافة دولة',
-            'archive' => 'أرشيف الدول',
             'index' => 'سجل الدول',
         ],
         'edit_country' => 'تعديل دولة',
@@ -685,7 +664,6 @@ return [
             'index' => 'السجل',
         ],
         'sub_progs' =>  [
-            'archive' => 'أرشيف الموظفين',
             'index' => 'سجل الموظفين',
             'create' => 'إضافة موظف',
         ],
@@ -700,7 +678,6 @@ return [
             'edit' => 'تعديل عميل',
             'account_order' => 'طلبات فتح حساب',
             'index' => 'سجل العملاء',
-            'archive' => 'أرشيف العملاء',
             'create' => 'تسجيل عميل',
         ],
         'permissions' =>  [
@@ -768,8 +745,6 @@ return [
         'sub_progs' =>
         [
             'create' => 'إضافة مستخدم',
-            'archive' => 'أرشيف المستخدمين',
-            'show' => 'عرض مستخدم',
             'index' => 'سجل المستخدمين',
         ],
         'edit_admin' => 'تعديل المستخدم',
@@ -827,7 +802,6 @@ return [
         ],
         'sub_progs' =>
         [
-            'show' => 'عرض قسم',
             'archive' => 'أرشيف الأقسام',
             'create' => ' إضافة قسم ',
             'index' => 'سجل الأقسام',
@@ -892,6 +866,10 @@ return [
             0 => 'معطل',
             1 => 'مفعل',
         ],
+        'sub_progs' => [
+            'index' => 'سجل الأسئلة الشائعة',
+            'create' => 'إضافة سؤال',
+        ]
     ],
 
 
@@ -924,7 +902,11 @@ return [
             'freelance_doc' => 'مستقل',
             'member' => 'عضو',
         ],
-       'u_can_not_use_this_phone' =>  'لا يمكن استخدام هذا الرقم'
+        'u_can_not_use_this_phone' =>  'لا يمكن استخدام هذا الرقم',
+        'sub_progs' => [
+            'index' => 'سجل العملاء',
+            'create' => 'إضافة عميل',
+        ]
     ],
 
     'vendor_branch' => [
@@ -944,6 +926,11 @@ return [
             'show' => 'عرض',
             'update' => 'تعديل'
 
+        ],
+
+        'sub_progs' => [
+            'index' => 'سجل فروع العميل',
+            'create' => 'إضافة فرع عميل',
         ],
         'active_cases' =>
         [
@@ -1043,11 +1030,11 @@ return [
         [
             'create' => 'إضافة مدينة',
             'index' => 'سجل المدن',
-            'archive' => 'أرشيف المدن',
         ],
         'cities' => 'المدن',
         'city' => 'المدينة',
     ],
+
     'rasid_job' =>  [
         'choose_rasid_job' => 'اختر الوظيفة',
         'from_date' => 'تاريخ الإنشاء (من]',
@@ -1069,7 +1056,6 @@ return [
             'archive' => 'أرشيف الوظائف',
             'index' => 'سجل الوظائف',
             'create' => 'إضافة وظيفة',
-            'show' => 'عرض وظيفة',
         ],
         'rasid_job' => 'الوظيفة',
         'rasid_job_count' => 'عدد الوظائف',
@@ -1132,7 +1118,6 @@ return [
     'user' => [
         'sub_progs' =>
         [
-            'archive' => 'أرشيف المستخدمين',
             'create' => 'إضافة مستخدم',
             'index' => 'سجل المستخدمين',
         ],
@@ -1158,7 +1143,6 @@ return [
         'devices' => 'الأجهزة',
         'sub_progs' =>
         [
-            'archive' => 'أرشيف الأجهزة',
             'index' => 'سجل الأجهزة',
         ],
     ],
@@ -1173,6 +1157,10 @@ return [
             'index' => 'سجل الترجمات',
             'store' => 'إنشاء الترجمات',
         ],
+        'sub_progs' => [
+            'index' => 'سجل الترجمات',
+            'create' => 'إضافة ترجمة'
+        ]
     ],
     'user_citizen' => [
         'user_citizens' => 'مستخدمي التطبيق',
@@ -1205,6 +1193,10 @@ return [
             'store' => 'حفظ'
 
         ],
+        'sub_progs' => [
+            'index' => 'سجل أغراض التحويل',
+            'create' => 'إضافة غرض',
+        ]
     ],
     'cardpackage' =>  [
         'golden' => 'ذهبية',
@@ -1220,8 +1212,6 @@ return [
     'message' =>  [
         'sub_progs' =>  [
             'index' => 'سجل الرسائل',
-            'show_all messages' => 'مشاهدة كل الرسائل',
-            'archive' => 'أرشيف الرسائل',
             'create' => 'إضافة رسالة',
         ],
         'messages' => 'الرسائل',
@@ -1239,6 +1229,10 @@ return [
             'update' => 'تعديل',
             'show' => 'عرض',
             'destroy' => 'حذف',
+        ],
+        'sub_progs' => [
+            'create' => 'إضافة نوع رسالة',
+            'index' => 'سجل أنواع الرسائل',
         ],
         'active_cases' =>
         [
@@ -1281,8 +1275,6 @@ return [
         'profile' => 'الملف الشخصي',
     ],
     'contact' =>  [
-
-
         'contacts' => 'الدعم الفني',
         'contact' => 'الدعم الفني',
         'contact_messages' => 'صندوق الرسائل ',
@@ -1312,7 +1304,7 @@ return [
         'message_status' => [
             'replied' => 'تم الرد',
             "pending" => "جديد",
-            'waiting'=>'بانتظار الرد'
+            'waiting' => 'بانتظار الرد'
         ],
 
         'permissions' =>
@@ -1333,7 +1325,10 @@ return [
             'suggestions' => 'اقتراحات',
             'inquiries' => 'استعلامات',
         ],
-
+    'sub_progs' => [
+            'index' => 'سجل صندوق الرسائل',
+            'create' => 'إضافة رسالة'
+        ]
     ],
     'attributes' =>   [
         'description' => 'الوصف',
@@ -1422,12 +1417,15 @@ return [
             0 => 'معطل',
             1 => 'مفعل',
         ],
+        'sub_progs' => [
+            'index' => 'سجل الصفحات الثابتة',
+            'create' => 'إضافة صفحة',
+        ]
     ],
     'permission' =>  [
         'sub_progs' =>
         [
             'index' => 'سجل الصلاحيات',
-            'archive' => 'أرشيف الصلاحيات',
             'create' => 'إضافة صلاحية',
         ],
         'name' => 'اسم الصلاحية',
@@ -1451,7 +1449,6 @@ return [
         'sub_progs' => [
             'index' => 'سجل فروع البنوك',
             'create' => 'إضافة فرع',
-            'show' => 'عرض فرع',
         ]
     ],
     'attachment_file' => [
@@ -1488,10 +1485,6 @@ return [
             'page4' => 'الصفحة الرابعة',
             'page5' => 'الصفحة الخامسة',
             'page6' => 'الصفحة السادسة',
-
-
-
-
         ],
 
     ],
@@ -1518,11 +1511,11 @@ return [
             'show' => 'عرض',
         ],
 
-        'recieve_option' =>[
+        'recieve_option' => [
             'recieve_options' => 'خيارات الإستلام'
         ],
 
-        'transfer_relation' =>[
+        'transfer_relation' => [
             'transfer_relations' => 'العلاقة مع المستفيد'
         ],
         'show' => 'عرض',
@@ -1530,7 +1523,6 @@ return [
         [
             'index' => 'سجل تطبيقاتنا',
             'create' => 'إضافة تطبيق',
-            'show' => 'عرض تطبيق',
         ],
         'rasid_job' => 'التطبيق',
         'rasid_job_count' => 'عدد تطبيقاتنا',
