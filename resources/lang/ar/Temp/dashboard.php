@@ -793,6 +793,9 @@ return [
     ],
     'department' =>  [
         'validation' => [
+
+            'can_not_be_deactivated_has_job' => 'لا يمكن تعطيل قسم به وظائف مشغولة',
+
             'name'  => [
                 'required' => 'اسم القسم مطلوب',
                 'unique' => 'الاسم موجود من قبل',
