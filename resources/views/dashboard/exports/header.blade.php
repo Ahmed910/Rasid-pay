@@ -5,7 +5,9 @@
     {{ $topic }}
   </h2>
   <p>تاريخ إنشائها من ({{ $date_from ?? '' }}) إلى ({{ $date_to ?? '' }})</p>
-  <span style="margin-left: 10px; display: inline-block;"><b>رقم المستخدم:</b> {{ $userId ?? auth()->user()->login_id }}</span>&nbsp;&nbsp;&nbsp;
+  <span style="margin-left: 10px; display: inline-block;"><b>رقم المستخدم:</b> {{ $userId ?? auth()->user()->login_id }}</span>
+  &nbsp;&nbsp;&nbsp;
+  &nbsp;&nbsp;&nbsp;
   <span style="margin-right: 10px; display: inline-block;"><b>تاريخ الطباعة:</b> {{ format_date(now()) }}</span>
   <br>
 
