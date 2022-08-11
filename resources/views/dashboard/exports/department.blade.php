@@ -2,10 +2,10 @@
 
 @section('content')
 
-<table id="departmentTable" class="table">
-  @include('dashboard.exports.header',['topic'=> trans('dashboard.department.departments'),'count'=>3])
-  <thead>
+@include('dashboard.exports.header',['topic'=> trans('dashboard.department.departments'),'count'=>3])
 
+<table id="departmentTable" class="table">
+  <thead>
     <tr>
       <th class="border-bottom-0">#</th>
       <th class="border-bottom-0">
