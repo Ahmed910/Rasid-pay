@@ -39,7 +39,7 @@
       } */
 
 
-      table th {
+      tbody th {
         border: 1px solid #c9c9c9 !important;
       }
 
