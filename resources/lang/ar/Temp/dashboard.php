@@ -2,6 +2,11 @@
 <?php
 
 return [
+    'sub_progs' => [
+        'index' => 'السجل',
+        'create' => 'إضافة',
+        'archive' => 'الأرشيف',
+    ],
     'permissions' =>  [
         'index' => 'السجل',
         'show' => 'عرض',
@@ -1325,7 +1330,7 @@ return [
             'suggestions' => 'اقتراحات',
             'inquiries' => 'استعلامات',
         ],
-    'sub_progs' => [
+        'sub_progs' => [
             'index' => 'سجل صندوق الرسائل',
             'create' => 'إضافة رسالة'
         ]

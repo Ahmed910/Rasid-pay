@@ -64,7 +64,7 @@ class ActivityLogResource extends JsonResource
 
             'mainprogram' => trans("dashboard." . Str::snake($model) . "." . str_plural(Str::snake($model))),
             'subprogram' => $this->sub_program,
-            'trans_sub_progrm' => trans("dashboard.permissions." . $this->sub_program),
+            'trans_sub_progrm' => trans("dashboard.sub_progs." . $this->sub_program),
             'show_route' => route('dashboard.activity_log.show', $this->id),
             'start_from' => $request->start,
             "discription" => trans(
@@ -105,7 +105,7 @@ class ActivityLogResource extends JsonResource
             return $name;
         }
     }
-    
+
     public function  getSearchParam($search_params)
     {
         foreach ($search_params as $key => $value) {
