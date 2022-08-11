@@ -145,8 +145,7 @@ class ActivityController extends Controller
         $activatyLogsQuery = ActivityLog::select('activity_logs.id', 'activity_logs.user_id', 'activity_logs.auditable_type', 'activity_logs.auditable_id', 'activity_logs.sub_program', 'activity_logs.action_type', 'activity_logs.ip_address', 'activity_logs.created_at')->search($request)
             ->sortBy($request)
             ->customDateFromTo($request)
-            ->cursor();
-
+            ->get();
 
         if (!$request->has('created_from')) {
             $createdFrom = ActivityLog::selectRaw('MIN(created_at) as min_created_at')->value('min_created_at');
@@ -159,11 +158,12 @@ class ActivityController extends Controller
                     'activity_logs' => $activatyLogsQuery,
                     'date_from'   => format_date($request->created_from) ?? format_date($createdFrom),
                     'date_to'     => format_date($request->created_to) ?? format_date(now()),
-                    'userId'      => auth()->user()->login_id,
+                    'userId'      => auth()->check() ? auth()->user()->login_id :null ,
 
                 ]
             )
             ->storeOnLocal('activityLogs/pdfs/');
+            dd('taha');
         $file  = url('/storage/' . $mpdfPath);
 
         return response()->json([

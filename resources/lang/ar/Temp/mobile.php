@@ -96,7 +96,7 @@ return [
         ],
         'charge_types' => [
             'nfc' => 'NFC',
-            'manual' => 'البطاقة البنكية المنتهية بـ(:card_number)',
+            'manual' => 'البطاقة البنكية المنتهية بـ(:card_number **** **** ****)',
             'scan' => 'مسح بيانات البطاقة',
             'sadad' => 'سداد',
             'exists' => 'شحن باستخدام البطاقات المحفوظة'
@@ -132,6 +132,7 @@ return [
             'charge_status' => 'تم شحن رصيد المحفظة الخاصة بك بالقيمة :amount عن طريق :method',
             'money_request_status' => 'تم استلام مبلغ :amount بالمحفظة الخاصة بك من قبل المستخدم برقم :to_user_identity_or_mobile_or_wallet_number',
             'promote_package_status' => 'تم ترقية البطاقة الخاصة بك إلي :package_name وتم خصم قيمة :amount ر.س  من المحفظة الخاصة بك مع العلم أن تاريخ انتهاء صلاحية البطاقة :expired_date',
+
         ],
     ],
 
@@ -149,6 +150,7 @@ return [
         'is_paid_before' => 'تم دفع هذه الفاتورة من قبل.',
         'invoice_number_required' => 'رقم الفاتورة مطلوب',
         'amount_required' => 'قيمة الفاتورة مطلوبة',
+        'can_not_use_your_code' => 'لا يمكنك استخدام كود التخفيض الخاص بك',
     ],
     'global_transfers' => [
         'current_balance_is_not_sufficient_to_complete_transaction' => 'لا يوجد رصيد كافى',
@@ -198,10 +200,10 @@ return [
         'successfully_charged' => 'تم الشحن بنجاح',
         'charge_amount' => 'مبلغ الشحن',
         'phone' => 'رقم الجوال',
-        'transaction_type' => 'نوع العملية',
-        'transaction_name' => 'اسم العملية',
-        'transaction_value' => 'قيمة العملية',
-        'transaction_date' => 'تاريخ العملية',
+        'transaction_type' => 'نوع المعاملة',
+        'transaction_name' => 'اسم المعاملة',
+        'transaction_value' => 'قيمة المعاملة',
+        'transaction_date' => 'تاريخ المعاملة',
         'mtcn_number' => 'رقم MTCN',
         'reference_number' => 'الرقم المرجعي',
         'transfer_amount' => 'مبلغ التحويل',
@@ -294,7 +296,10 @@ return [
 
 
         ],
-
+        'reciever_wallet_transfer'=>[
+            'title' =>'تم استلام رصيد بنجاح',
+            'body'  => "تم استلام مبلغ :amount بالمحفظة الخاصة بك من قبل المستخدم برقم جوال/ هوية :from_user_identity_or_mobile"
+        ],
 
         "money_request" => [
             "title" => "تمت عملية طلب الأموال بنجاح",

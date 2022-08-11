@@ -108,6 +108,10 @@ class VendorBranch extends Model implements HasAssetsInterface
                 $q->orderBy($request->sort["column"], @$request->sort["dir"]);
             }
 
+            if ($request->sort["column"] == "branches") {
+                $q->orderBy($request->sort["column"], @$request->sort["dir"]);
+            }
+
             $q->orderBy($request->sort["column"], @$request->sort["dir"]);
         });
     }

@@ -16,7 +16,6 @@
 
     .main-pd-wrapper {
       text-align: center;
-      box-shadow: 0 0 10px #ddd;
       background-color: #fff;
       border-radius: 10px;
       padding: 20px;

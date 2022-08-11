@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Storage;
 use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 use Illuminate\Support\Str;
@@ -40,10 +41,13 @@ class GeneratePdf
         $this->mpdf->autoLangToFont = true;
         $this->mpdf->simpleTables = true;
         $this->mpdf->packTableData = true;
-        $this->mpdf->SetWatermarkImage(asset('dashboardAssets/images/brand/fintech.png'), -3, 'F');
-        $this->mpdf->showWatermarkImage = true;
-        $this->mpdf->SetDirectionality(LaravelLocalization::getCurrentLocaleDirection());
-        $this->mpdf->SetFooter('{PAGENO}{nbpg}');
+
+        if (!Route::is('summary_file')) {
+            $this->mpdf->SetWatermarkImage(asset('dashboardAssets/images/brand/fintech.png'), -3, 'F');
+            $this->mpdf->showWatermarkImage = true;
+            $this->mpdf->SetDirectionality(LaravelLocalization::getCurrentLocaleDirection());
+            $this->mpdf->SetFooter('{PAGENO}{nbpg}');
+        }
 
         return $this;
     }
@@ -53,9 +57,16 @@ class GeneratePdf
      * @param  Illuminate\Support\Facades\View $view
      * @param array $data
      */
-    public function view(string $view, array $data)
+    public function view(string $view, array $data_array)
     {
-        $this->mpdf->WriteHTML(view($view, $data));
+        if (isset($data_array['activity_logs'])) {
+            foreach ($data_array['activity_logs']->chunk(5) as $data) {
+                $data_array['activity_logs'] = $data;
+                $this->mpdf->WriteHTML(view($view, $data_array));
+            }
+        }else{
+            $this->mpdf->WriteHTML(view($view, $data_array));
+        }
 
         return $this;
     }

@@ -122,7 +122,6 @@ class Citizen extends Model
         return $this->hasOne(BankAccount::class, 'user_id', 'user_id');
     }
 
-
     public function enabledPackage()
     {
         return $this->belongsTo(CitizenPackage::class, 'citizen_package_id');
@@ -130,8 +129,12 @@ class Citizen extends Model
 
     public function payments()
     {
-
         return $this->hasMany(Payment::class);
+    }
+
+    public function citizenPackages()
+    {
+        return $this->hasMany(CitizenPackage::class, 'citizen_id');
     }
 
     #endregion relationships

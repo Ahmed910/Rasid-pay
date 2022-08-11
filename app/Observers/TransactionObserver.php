@@ -35,15 +35,14 @@ class TransactionObserver
             [
                 'payment' => $transaction->trans_type == "payment" ? trans("mobile.transaction.transaction_notifications.payment_status", ['amount' => $transaction->amount]) : "",
                 'wallet_transfer' => $transaction->trans_type == "wallet_transfer"
-                    ? trans(
+                    ?  trans(
                         "mobile.transaction.transaction_notifications.wallet_transfer_status",
                         [
                             'amount' => $transaction->amount,
                             'to_user_identity_or_mobile_or_wallet_number' => @$wallet_transfer_method[$transaction->transactionable?->wallet_transfer_method],
                             'transfer_type_trans' => trans('mobile.transfers.wallet_transfer_methods.' . $transaction->transactionable?->wallet_transfer_method)
                         ]
-                    )
-                    : "",
+                    ) : "",
                 'local_transfer' => $transaction->trans_type == "local_transfer" ? trans(
                     "mobile.transaction.transaction_notifications.local_transfer_status",
                     [
@@ -104,6 +103,20 @@ class TransactionObserver
 
             $transaction->transactionable?->citizen?->is_notification_enabled ? $transaction->transactionable?->citizen->notify(new GeneralNotification($data)) : "";
         }
+
+        if ($transaction->trans_type == 'wallet_transfer') {
+
+            $data = [
+                'title' => trans('mobile.notifications.reciever_wallet_transfer.title'),
+                'body'  => trans("mobile.notifications.reciever_wallet_transfer.body",[
+                                   'amount' => $transaction->amount,
+                                  'from_user_identity_or_mobile' =>auth()->user()->phone?? auth()->user()->identity_number,
+             ]),
+            ];
+
+            $transaction->transactionable?->toUser?->is_notification_enabled ? $transaction->transactionable?->toUser->notify(new GeneralNotification($data)) : "";
+        }
+
     }
 
     public function updated(Transaction $transaction)

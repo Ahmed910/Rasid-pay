@@ -28,26 +28,16 @@ class WalletTransferController extends Controller
             return response()->json(['data' => null, 'message' => trans('mobile.local_transfers.current_balance_is_not_sufficient_to_complete_transaction'), 'status' => false], 422);
         }
 
-       
         // check if receiver reach max transfers
-        if ($request->citizen_id)
-        {
-            $dailyTransactions = Transaction::where('to_user_id', $request->citizen_id)
-            ->where('trans_type', '!=', 'charge')
-            ->whereDate('created_at', date('Y-m-d'))
-            ->sum('amount');
-            if ($dailyTransactions > $max_received_transfers_per_day) {
-                return response()->json(['status' => false, 'data' => null, 'message' => trans('mobile.transfers.exceed_max_transfer_day', ['max_amount_per_receiver' => $max_received_transfers_per_day])], 422);
-            }
-        }elseif($request->wallet_transfer_method == 'phone'){
-            $dailyTransactions = Transaction::whereHas('transactionable', function ($query) use( $request ){
-                $query->where('phone', $request->transfer_method_value);
-            })->where('trans_type', '!=', 'charge')
-            ->whereDate('created_at', date('Y-m-d'))
-            ->sum('amount');       
-            if ($dailyTransactions > $max_received_transfers_per_day) {
-                return response()->json(['status' => false, 'data' => null, 'message' => trans('mobile.transfers.exceed_max_transfer_day', ['max_amount_per_receiver' => $max_received_transfers_per_day])], 422);
-            }
+        $dailyTransactions = Transaction::when($request->citizen_id,
+                            fn($query) => $query->where('to_user_id',$request->citizen_id))
+                ->when($request->wallet_transfer_method == Transfer::PHONE && !$request->citizen_id,
+                        fn($query) => $query->whereHasMorph('transactionable',[Transfer::class],fn($query) => $query->where('phone', $request->transfer_method_value)))
+                ->where('trans_type', '!=', 'charge')
+                ->whereDate('created_at', date('Y-m-d'))
+                ->sum('amount');
+           if ($dailyTransactions > $max_received_transfers_per_day) {
+            return response()->json(['status' => false, 'data' => null, 'message' => trans('mobile.transfers.exceed_max_transfer_day', ['max_amount_per_receiver' => $max_received_transfers_per_day])], 422);
         }
 
         $citizen_wallet->update(['wallet_bin' => null]);
