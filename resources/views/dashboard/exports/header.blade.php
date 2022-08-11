@@ -1,6 +1,7 @@
-<div class="content">
+<div class="img">
   <img src="{{ public_path('dashboardAssets/images/brand/fintech.png') }}" width="150" alt="" />
-  <div>
+</div>
+<div class="des">
     <h2>تقرير عن {{ $topic }}</h2>
     <p>
       تاريخ إنشائها من ({{ $date_from ?? '' }}) إلى ({{ $date_to ?? '' }})
@@ -10,7 +11,7 @@
     <span style="margin-right: 10px; display: inline-block"><b>تاريخ الطباعة:</b> {{ format_date(now()) }}</span>
     <br />
   </div>
-</div>
+
 
 
 <!--

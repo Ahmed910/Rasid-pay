@@ -66,11 +66,14 @@
         float: left;
       }
 
-      .content {
-        text-align: center;
-        margin-bottom: 1em;
-        display: flex;
-        justify-content: space-between;
+      .img {
+        width: 50%;
+        float: right;
+      }
+
+      .des {
+        width: 50%;
+        float: left;
       }
     }
   </style>
