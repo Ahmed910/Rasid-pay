@@ -1,13 +1,14 @@
-<img src="{{ public_path('dashboardAssets/images/brand/fintech.png') }}" width="150" style="margin: auto; display: block;" alt="">
 
 <div style="text-align: center;">
-  <h3 class="text-center" style="margin: 0 auto; position: relative; right: 50%; transform: translateX(-50%)">تقرير عن
+  <img src="{{ public_path('dashboardAssets/images/brand/fintech.png') }}" width="150" style="margin: auto; display: block;" alt="">
+  <br>
+  <h2>تقرير عن
     {{ $topic }}
-  </h3>
+  </h2>
   <p>تاريخ إنشائها من ({{ $date_from ?? '' }}) إلى ({{ $date_to ?? '' }})</p>
-  <p>رقم المستخدم: {{ $userId ?? auth()->user()->login_id }}</p>
-  <p>تاريخ الطباعة: {{ format_date(now()) }}</p>
-
+  <span style="margin-left: 2em;">رقم المستخدم: {{ $userId ?? auth()->user()->login_id }}</span>
+  <span>تاريخ الطباعة: {{ format_date(now()) }}</span>
+<br>
 
 </div>
 <!--
