@@ -35,7 +35,7 @@ class AppServiceProvider extends ServiceProvider
         'MessageType' => \App\Models\MessageType\MessageType::class,
         'VendorPackage' => \App\Models\VendorPackage::class,
         'Contact' => \App\Models\Contact::class,
-        'Transfer' => \App\Models\Transfer::class,
+        'MorphTransfer' => \App\Models\Transfer::class,
         'BankTransfer' => \App\Models\BankTransfer::class,
         'Card' => \App\Models\Card::class,
         'Admin' => \App\Models\Admin::class,
@@ -46,9 +46,10 @@ class AppServiceProvider extends ServiceProvider
         'Package' => \App\Models\Package\Package::class,
         'RecieveOption' => \App\Models\RecieveOption\RecieveOption::class,
         'StaticPage'    => \App\Models\StaticPage\StaticPage::class,
-        'TransferPurpose' => \App\Models\TransferPurpose\TransferPurpose::class,
-        'TransferRelation'=> \App\Models\TransferRelation\TransferRelation::class,
-        'ActivityLog' => \App\Models\ActivityLog::class
+        'MorphTransferPurpose' => \App\Models\TransferPurpose\TransferPurpose::class,
+        'MorphTransferRelation'=> \App\Models\TransferRelation\TransferRelation::class,
+        'ActivityLog' => \App\Models\ActivityLog::class,
+        'Locale' => \App\Models\Locale\Locale::class
     ];
 
     public function register()
