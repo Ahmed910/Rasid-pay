@@ -11,7 +11,6 @@
         -webkit-print-color-adjust: exact;
         font-family: "cairo", Times, serif;
       }
-
       table {
         font-family: 'cairo', sans-serif;
         width: 100%;
@@ -63,16 +62,6 @@
       .title {
         width: 50%;
         display: block;
-        float: left;
-      }
-
-      .img {
-        width: 50%;
-        float: right;
-      }
-
-      .des {
-        width: 50%;
         float: left;
       }
     }
