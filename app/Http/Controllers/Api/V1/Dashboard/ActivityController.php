@@ -60,9 +60,11 @@ class ActivityController extends Controller
     public function getEmployees()
     {
         $employees = User::select('id', 'fullname')->whereIn('user_type', ['admin', 'superadmin'])
-            ->when(request('department_id'), function ($employees) {
+            ->when(request('department_list'), function ($employees) {
                 $employees->whereHas('employee', function ($employees) {
-                    $employees->where('department_id', request('department_id'));
+                    if (is_array(request('department_list'))) {
+                        $employees->whereIn('department_id', request('department_list'));
+                    }
                 });
             })->get();
 
@@ -158,12 +160,12 @@ class ActivityController extends Controller
                     'activity_logs' => $activatyLogsQuery,
                     'date_from'   => format_date($request->created_from) ?? format_date($createdFrom),
                     'date_to'     => format_date($request->created_to) ?? format_date(now()),
-                    'userId'      => auth()->check() ? auth()->user()->login_id :null ,
+                    'userId'      => auth()->check() ? auth()->user()->login_id : null,
 
                 ]
             )
             ->storeOnLocal('activityLogs/pdfs/');
-            dd('taha');
+        dd('taha');
         $file  = url('/storage/' . $mpdfPath);
 
         return response()->json([
