@@ -35,12 +35,14 @@
         color: #e23e3d
       }
 
+      /*
       table {
         border-collapse: collapse;
-      }
+      } */
 
-      table th {
-        border: 1px solid #000 !important;
+
+      tbody th {
+        border: 1px solid #c9c9c9 !important;
       }
 
       table td {
