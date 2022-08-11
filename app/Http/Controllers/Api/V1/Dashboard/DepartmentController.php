@@ -108,7 +108,7 @@ class DepartmentController extends Controller
                 ->sortBy($request)
                 ->paginate((int)($request->per_page ??  config("globals.per_page")));
         }
-        
+
         return DepartmentCollection::make($activities)
             ->additional([
                 'status' => true,
