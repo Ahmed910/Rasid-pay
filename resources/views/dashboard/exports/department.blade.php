@@ -4,8 +4,8 @@
 
 <table id="departmentTable" class="table">
   <thead>
-
     @include('dashboard.exports.header',['topic'=> trans('dashboard.department.departments'),'count'=>3])
+
     <tr>
       <th class="border-bottom-0">#</th>
       <th class="border-bottom-0">
