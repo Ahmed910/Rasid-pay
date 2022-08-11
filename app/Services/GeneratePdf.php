@@ -2,8 +2,6 @@
 
 namespace App\Services;
 
-use App\Jobs\GeneratePdfFile;
-use App\Models\Bank\Bank;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Storage;
@@ -61,24 +59,14 @@ class GeneratePdf
      */
     public function view(string $view, array $data_array)
     {
-        if (!request()->has('created_from')) {
-            $createdFrom = Bank::selectRaw('MIN(created_at) as min_created_at')->value('min_created_at');
+        if (isset($data_array['activity_logs'])) {
+            foreach ($data_array['activity_logs']->chunk(5) as $data) {
+                $data_array['activity_logs'] = $data;
+                $this->mpdf->WriteHTML(view($view, $data_array));
+            }
+        }else{
+            $this->mpdf->WriteHTML(view($view, $data_array));
         }
-
-        $this->mpdf->WriteHTML(view(
-            'dashboard.exports.top_header',
-            [
-                'date_from'   => format_date(request('created_from')) ?? format_date($createdFrom),
-                'date_to'     => format_date(request('created_to')) ?? format_date(now()),
-                'userId'      => auth()->user()->login_id,
-            ]
-        ));
-
-        foreach ($data_array['banks']->chunk(5) as $data) {
-            GeneratePdfFile::dispatch($view, $data);
-        }
-
-        $this->mpdf->WriteHTML(view('dashboard.exports.bottom'));
 
         return $this;
     }
