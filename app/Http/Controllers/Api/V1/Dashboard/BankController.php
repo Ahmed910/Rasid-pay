@@ -130,19 +130,13 @@ class BankController extends Controller
         ->get();
 
 
-        if (!$request->has('created_from')) {
-            $createdFrom = Bank::selectRaw('MIN(created_at) as min_created_at')->value('min_created_at');
-        }
+     
 
         $mpdfPath = $pdfGenerate->newFile()
             ->view(
                 'dashboard.exports.bank',
                 [
                     'banks' => $banksQuery,
-                    'date_from'   => format_date($request->created_from) ?? format_date($createdFrom),
-                    'date_to'     => format_date($request->created_to) ?? format_date(now()),
-                    'userId'      => auth()->user()->login_id,
-
                 ]
             )
             ->storeOnLocal('banks/pdfs/');
