@@ -2,8 +2,8 @@
 
 @section('content')
 
-@include('dashboard.exports.header',['topic'=> trans('dashboard.department.departments'),'count'=>3])
 <table id="departmentTable" class="table">
+  @include('dashboard.exports.header',['topic'=> trans('dashboard.department.departments'),'count'=>3])
   <thead>
 
     <tr>
