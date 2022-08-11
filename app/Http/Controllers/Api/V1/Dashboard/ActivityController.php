@@ -78,6 +78,7 @@ class ActivityController extends Controller
     public function getMainPrograms()
     {
         $mainPrograms = collect(AppServiceProvider::MORPH_MAP)
+            ->put('UserCitizen', 'UserCitizen')
             ->except([
                 'Region',
                 'Chat',
@@ -88,13 +89,20 @@ class ActivityController extends Controller
                 'Currency',
                 'Card',
                 'Admin',
-                'Curreny'
+                'Setting',
+                'Citizen',
+                'Transfer',
+                'BankTransfer',
+                'Slide',
+                'Package',
+                'RecieveOption',
+                'TransferRelation'
             ])->transform(function ($class, $model) {
                 $data['name'] = $model;
                 $data['trans'] = trans("dashboard." . Str::snake($model) . "." . str_plural(Str::snake($model)));
 
                 return $data;
-            })->values();
+            })->unique()->values();
 
         return OnlyResource::collection($mainPrograms);
     }

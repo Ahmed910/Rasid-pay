@@ -60,7 +60,7 @@ return [
         'add_currency' => 'إضافة عملة',
     ],
     'vendor_package' => [
-        'vendor_package' => 'نسب الخصم',
+        'vendor_package' => 'نسب خصم البطاقات',
         'vendor_packages' => 'نسب الخصم',
         'vendor_name' => 'اسم العميل',
         'permissions' => [
@@ -272,7 +272,7 @@ return [
             'show' => 'عرض المعاملة',
             'index' => 'سجل المعاملات',
         ],
-        'transactions' => 'سجل المعاملات',
+        'transactions' => 'المعاملات',
         'transaction_amount_from' => ' قيمة المعاملة (من]',
         'transaction_number' => 'رقم المعاملة',
         'total_amount' => 'قيمة الفاتورة',
@@ -1162,8 +1162,8 @@ return [
             'index' => 'سجل الأجهزة',
         ],
     ],
-    'localization' => [
-        'localizations' => 'الترجمات',
+    'locale' => [
+        'locales' => 'الترجمات',
         'key' => 'المفتاح',
         'value' => 'القيمة',
 
@@ -1173,6 +1173,9 @@ return [
             'index' => 'سجل الترجمات',
             'store' => 'إنشاء الترجمات',
         ],
+    ],
+    'user_citizen' => [
+        'user_citizens' => 'مستخدمي التطبيق',
     ],
     'link' => [
         'links' => 'الروابط',

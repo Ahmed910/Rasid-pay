@@ -85,6 +85,10 @@ class ActivityLog extends Model
 
 
         if (isset($request->main_program) && !in_array($request->main_program, [-1])) {
+            if ($request->main_program == 'UserCitizen') {
+                return $query->where('auditable_type', $request->main_program)
+                    ->where('user_type', 'citizen');
+            }
             $query->where('auditable_type', $request->main_program);
         }
 
