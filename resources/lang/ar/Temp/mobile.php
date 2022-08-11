@@ -146,7 +146,7 @@ return [
 
     ],
     'payments' => [
-        'current_balance_is_not_sufficient_to_complete_payment' => 'لا يوجد رصيد كافي',
+        'current_balance_is_not_sufficient_to_complete_payment' => 'عذرا فشلت المعاملة لعدم وجود رصيد كافي يرجى شحن المحفظة وإعادة المحاولة',
         'is_paid_before' => 'تم دفع هذه الفاتورة من قبل.',
         'invoice_number_required' => 'رقم الفاتورة مطلوب',
         'amount_required' => 'قيمة الفاتورة مطلوبة',
@@ -159,8 +159,8 @@ return [
     'promotion' => [
         'package_is_required' => 'يجب إختيار باقة',
         'package_is_not_found' => 'الباقة غير موجودة',
-        'promo_code_is_used' => 'كود التخفيض مستخدم من قبل',
-        'promo_code_is_not_found' => 'كود التخفيض غير صالح',
+        'promo_code_is_used' => 'رمز التخفيض مستخدم من قبل',
+        'promo_code_is_not_found' => 'رمز التخفيض غير صالح',
         'promoted_successfully' => 'تم ترقية الباقة بنجاح',
     ],
     'local_transfers' => [
