@@ -1,2681 +1,793 @@
 <?php
 
 return [
-    "dashboard" => [
-        "login" => [
-            "button" => [
-                "login" => "تسجيل دخول"
-            ],
-            "fields" => [
-                "userID" => "رقم المستخدم",
-                "password" => "كلمة المرور"
-            ],
-            "labels" => [
-                "userID" => "رقم المستخدم",
-                "password" => "كلمة المرور",
-                "remember" => "تذكرني",
-                "reset_password" => "إعادة تعيين كلمة المرور"
-            ],
-            "heading" => [
-                "title" => "تسجيل الدخول",
-                "sub_title" => "من فضلك أدخل رقم المستخدم وكلمة المرور"
-            ],
-            "placeholder" => [
-                "title" => "تسجيل الدخول",
-                "sub_title" => "من فضلك أدخل رقم المستخدم وكلمة المرور ",
-                "enter_userID" => "أدخل رقم المستخدم الخاص بك",
-                "enter_password" => "أدخل كلمة المرور"
-            ],
-            "validation" => [
-                "validPhoneNumber" => "يرجى ادخال رقم جوال بصيغة صحيحة ",
-                "required" => "%{attribute} مطلوب",
-                "required_f" => "%{attribute} مطلوبة",
-                "maxLength" => "%{attribute} يجب ان لا يتجاوز %{max} حروف ",
-                "minLength" => "%{attribute} يجب ان لا يقل عن  %{min} حروف",
-                "minLength_number" => "%{attribute} يجب ان لا يقل عن  %{min} ارقام",
-                "email" => "%{attribute} غير صحيح رجاء التأكد من الكتابة بطريقة صحيحة",
-                "maxValue" => "%{attribute} يجب ان لا تتجاوز %{max}",
-                "minValue" => "%{attribute} يجب ان تكون  علي الاقل %{min}",
-                "url" => "هذا الرابط غير صحيح",
-                "biggerThan" => "%{attribute} يجب ان تكون  اكبر من  %{biggerThan}",
-                "smallerThan" => "%{attribute} يجب ان اقل من %{smallerThan}",
-                "startWithSA" => "%{attribute} يجب ان يبدأ ب SA ",
-                "sameAsPassword" => "كلمة المرور غير متطابقة",
-                "hasNumbers" => "يجب ان تحتوي علي أرقام",
-                "hasCapitalLetters" => "يجب ان تحتوي علي حروف كبيرة",
-                "hasLowerLetters" => "يجب ان تحتوي علي حروف صغيرة",
-                "hasSpecialCharacters" => "يجب ان تحتوي علي علامات خاصة"
-            ]
-        ],
-        "verification" => [
-            "heading" => [
-                "title" => "إعادة تعيين كلمة المرور",
-                "sub_title" => "من فضلك أدخل رقم جوالك أو بريدك الإلكتروني لإرسال رمز التحقق "
-            ],
-            "labels" => [
-                "mobile" => "رقم الجوال",
-                "email" => "البريد الإلكتروني",
-                "phone" => "رقم الجوال"
-            ],
-            "placeholder" => [
-                "enter_mobile" => "أدخل رقم  الجوال",
-                "enter_email" => "أدخل البرد الإلكتروني",
-                "phone_x" => "xxxxxxxx",
-                "enter_phone" => "أدخل رقم الجوال"
-            ],
-            "button" => [
-                "send" => "إرسال",
-                "back" => "عودة "
-            ],
-            "fields" => [
-                "email" => "البريد الإلكتروني",
-                "mobile" => "رقم الجوال"
-            ],
-            "validation" => [
-                "required" => "%{attribute} مطلوب",
-                "required_f" => "%{attribute} مطلوبة",
-                "maxLength" => "%{attribute} يجب ان لا يتجاوز %{max} حروف ",
-                "minLength" => "%{attribute} يجب ان لا يقل عن  %{min} حروف"
-            ]
-        ],
-        "verify_code" => [
-            "heading" => [
-                "title" => "رمز التحقق ",
-                "sub_title" => "تم إرسال تحقق برمز تحقق للتو إلى"
-            ],
-            "labels" => [
-                "mobile" => "رقم الجوال",
-                "email" => "البريد الإلكتروني",
-                "phone" => "رقم الجوال"
-            ],
-            "placeholder" => [
-                "enter_mobile" => "أدخل رقم  الجوال",
-                "enter_email" => "أدخل البرد الإلكتروني"
-            ],
-            "button" => [
-                "resendCode" => "إعادة إرسال الرمز مرة أخرى",
-                "send" => "إرسال",
-                "back" => "عودة "
-            ],
-            "fields" => [
-                "email" => "البريد الإلكتروني",
-                "mobile" => "رقم الجوال"
-            ],
-            "validation" => [
-                "required" => "%{attribute} مطلوب"
-            ]
-        ],
-        "reset_password" => [
-            "heading" => [
-                "title" => "إعادة تعيين كلمة المرور؟",
-                "sub_title" => "تم إرسال تحقق برمز تحقق للتو إلى"
-            ],
-            "labels" => [
-                "new_password" => "كلمة المرور الجديدة",
-                "password_confirmation" => "تأكيد كلمة المرور"
-            ],
-            "placeholder" => [
-                "enter_new_password" => "أدخل كلمة المرور الجديدة",
-                "enter_email" => "أدخل البرد الإلكتروني",
-                "enter_password_confirmation" => "أدخل تأكيد كلمة المرور"
-            ],
-            "button" => [
-                "save" => "حفظ",
-                "back" => "عودة"
-            ],
-            "fields" => [
-                "new_password" => "كلمة المرور الجديدة",
-                "password_confirmation" => "تأكيد كلمة المرور",
-                "sameAsPassword" => "كلمة المرور غير متطابقة"
-            ],
-            "validation" => [
-                "required" => "%{attribute} مطلوب",
-                "sameAsPassword" => "كلمة المرور غير متطابقة",
-                "hasNumbers" => "يجب ان تحتوي علي أرقام",
-                "hasCapitalLetters" => "يجب ان تحتوي علي حروف كبيرة",
-                "hasLowerLetters" => "يجب ان تحتوي علي حروف صغيرة",
-                "hasSpecialCharacters" => "يجب ان تحتوي علي علامات خاصة"
-            ],
-            "popup" => [
-                "buttons" => [
-                    "accept" => "موافق",
-                    "refuse" => "غير موافق"
-                ],
-                "body" => [
-                    "confirm" => "هل تريد إتمام عملية الحفظ ؟",
-                    "confirmSubmit" => "هل تريد إتمام عملية الحفظ ؟",
-                    "back" => "هل تريد العودة دون الحفظ ؟"
-                ]
-            ]
-        ],
-        "sidebar" => [
-            "home" => "الرئيسية",
-            "departments_management" => "إدارة الأقسام",
-            "control_panel" => "لوحة التحكم",
-            "department_list" => "قائمة الأقسام",
-            "record" => "السجل",
-            "department_record" => "سجل الأقسام",
-            "job_record" => "سجل الوظائف",
-            "departments" => "الأقسام",
-            "add" => "إضافة",
-            "archives" => "الأرشيف",
-            "department_archive" => "أرشيف الأقسام",
-            "jobs" => "الوظائف",
-            "users" => "المستخدمين",
-            "permissions" => "الصلاحيات",
-            "department_record_details" => "عرض قسم",
-            "job_record_details" => "تفاصيل سجل الوظائف",
-            "user_history" => "سجل المستخدمين",
-            "permissionsRecord" => "سجل الصلاحيات",
-            "users_history" => "سجل المستخدمين",
-            "user_view" => "عرض مستخدم",
-            "edit_user" => "تعديل مستخدم",
-            "edit" => "تعديل",
-            "editGroup" => "تعديل مجموعة",
-            "addGroup" => "إضافة مجموعة",
-            "job_view" => "عرض وظيفة",
-            "job_edit" => "تعديل وظيفة",
-            "users_record" => "سجل المستخدمين",
-            "jobs_record" => "سجل الوظائف",
-            "departments_record" => "سجل الأقسام",
-            "permissions_record" => "سجل الصلاحيات",
-            "viewGroup" => "عرض مجموعة",
-            "permission_record" => "سجل الصلاحيات",
-            "vendors" => "العملاء",
-            "vendors_record" => "سجل العملاء",
-            "vendors_record_details" => "عرض العميل",
-            "register_vendor" => "تسجيل عميل",
-            "bank_account" => "طلبات فتح حساب",
-            "add_group" => "إضافة مجموعة",
-            "add_user" => "إضافة مستخدم",
-            "add_department" => "إضافة قسم",
-            "edit_department" => "تعديل قسم",
-            "add_job" => "إضافة وظيفة",
-            "follow_up" => "المتابعة",
-            "activity_log" => "سجل النشاطات",
-            "departments_archive" => "ارشيف الاقسام",
-            "jobs_archives" => "ارشيف الوظائف",
-            "citizens" => "مستخدمين التطبيق",
-            "view_citizen" => "عرض مستخدم",
-            "edit_citizen" => "تعديل مستخدم",
-            "transactions" => "المعاملات",
-            "transaction-list" => "سجل المعاملات",
-            "transactions_record" => "سجل المعاملات",
-            "bank_record" => "سجل البنوك",
-            "banks" => "البنوك",
-            "add_bank" => "اضافة بنك",
-            "edit_bank" => "تعديل بنك",
-            "view_bank" => "عرض بنك",
-            "discount_rates" => "نسب خصم البطاقات",
-            "card_packages_record" => "سجل نسب خصم البطاقات",
-            "add_card_packages" => "اضافة نسب خصم البطاقات",
-            "edit_card_packages" => "تعديل نسب خصم البطاقات",
-            "rasid" => "رصيد",
-            "rasid_pay" => "رصيد باي",
-            "transaction_view" => "عرض معاملة",
-            "login" => "تسجيل دخول",
-            "reset" => "كلمة المرور",
-            "verification-method" => "إعادة تعيين كلمة المرور",
-            "verify-code" => "كود التفعيل",
-            "Page401" => "خطأ 401",
-            "Page404" => "خطأ 404",
-            "view" => "عرض",
-            "job_archive" => "ارشيف الوظائف",
-            "settings" => "الإعدادات",
-            "translations" => "الترجمات",
-            "staticPages" => "الصفحات الثابتة",
-            "links" => "الروابط",
-            "static_page_add" => "إضافة صفحة",
-            "static_page_edit" => "تعديل صفحة",
-            "static_page_record" => "الصفحات الثابتة",
-            "static_page_view" => "عرض صفحة",
-            "appSettings" => "اعدادات التطبيق",
-            "support" => " الدعم والمساعدة",
-            "faq" => "الأسئلة الشائعة ",
-            "faq_add" => "إضافة سؤال ",
-            "faq_edit" => "إضافة سؤال ",
-            "faq_view" => "عرض سؤال",
-            "messages" => "صندوق الرسائل ",
-            "messages_edit" => "الرد علي الرسالة ",
-            "messages_add" => "إضافة رسالة",
-            "messages_view" => "عرض رسالة",
-            "transferPurpose" => "الغرض من الحوالة ",
-            "transferPurpose_add" => "إضافة الغرض من الحوالة ",
-            "transferPurpose_edit" => "تعديل الغرض من الحوالة ",
-            "transferPurpose_view" => "عرض الغرض من الحوالة ",
-            "messageTypes" => "نوع الرسائل",
-            "logout" => "تسجيل خروج",
-            "messageTypes_edit" => "تعديل نوع الرسالة",
-            "messageTypes_record" => "سجل نوع الرسائل",
-            "messageTypes_add" => "اضافة نوع الرسالة",
-            "messageTypes_view" => "عرض نوع الرسالة",
-            "edit_vendor" => "تعديل عميل",
-            "add_vendor" => "إضافة عميل",
-            "view_vendor" => "عرض عميل",
-            "branches" => "سجل الفروع",
-            "branches_record" => "سجل الفروع",
-            "edit_branch" => "تعديل فرع",
-            "add_branch" => "إضافة فرع",
-            "view_branch" => "عرض فرع",
-            "ourApps" => "تطبيقاتنا",
-            "ourApps_add" => "إضافة تطبيق",
-            "ourApps_edit" => "تعديل تطبيق",
-            "ourApps_view" => "عرض تطبيق",
-            "staticPages_edit" => "تعديل الصفحة الثابتة",
-            "staticPages_view" => "عرض الصفحة الثابتة",
-            "staticPages_add" => "إضافة الصفحة الثابتة",
-            "profile" => "الملف الشخصي"
-        ],
-        "home" => [
-            "statistics" => "الإحصائيات",
-            "cards" => [
-                "archived_departments" => "الأقسام المؤرشفة ",
-                "departments" => "الأقسام",
-                "active_jobs" => "الوظائف المفعلة",
-                "unactive_jobs" => "الوظائف المعطلة",
-                "vacant_jobs" => "الوظائف الشاغرة",
-                "unvacant_jobs" => "الوظائف المشغولة",
-                "active_users" => "المستخدمين المفعلين",
-                "temporary_banned_users" => "المتسخدمين المعطلين لفترة",
-                "permanent_banned_users" => "المستخدمين المعطلين دائما",
-                "employees" => "العملاء",
-                "active_citizens" => "مستخدمين التطبيق المفعلين"
-            ]
-        ],
-        "footer" => [
-            "all_rights" => "جميع الحقوق محفوظة الفنتك للتكنولوجيا والمعلومات"
-        ],
-        "users" => [
-            "table" => [
-                "#" => "#",
-                "user_number" => "رقم المستخدم",
-                "user_name" => "اسم المستخدم",
-                "email" => "البريد الإلكتروني",
-                "phone" => "رقم الجوال",
-                "department" => "القسم",
-                "create_date" => "تاريخ الإنشاء",
-                "status" => "الحالة",
-                "actions" => "العمليات",
-                "by_employee" => "تم بواسطة",
-                "department_name" => "اسم القسم",
-                "activity_date" => "تاريخ النشاط",
-                "activity" => "النشاط",
-                "no_data" => " لا توجد نتائج متاحة",
-                "activity_details" => "تفاصيل النشاط",
-                "pagination" => [
-                    "show" => "عرض",
-                    "to" => "إلى",
-                    "of" => "من",
-                    "result" => "مستخدم"
-                ]
-            ],
-            "buttons" => [
-                "add" => "إضافة مستخدم",
-                "export" => "تصدير",
-                "reset" => "عرض الكل",
-                "search" => "بحث",
-                "close" => "إغلاق",
-                "edit" => "تعديل",
-                "back" => "عودة",
-                "save" => "حفظ"
-            ],
-            "fields" => [
-                "name" => "الاسم",
-                "department_name" => "اسم القسم",
-                "job_name" => "اسم الوظيفة",
-                "user_number" => "رقم المستخدم",
-                "email" => "البريد الإلكتروني",
-                "phone" => "رقم الجوال",
-                "permission_list" => "صلاحيات النظام",
-                "status" => "الحالة",
-                "password" => "كلمة المرور",
-                "confirm_password" => "تأكيد كلمة المرور",
-                "ban_from" => "تاريخ من",
-                "ban_to" => "تاريخ إلي"
-            ],
-            "validation" => [
-                "required" => "%{attribute} مطلوب",
-                "required_f" => "%{attribute} مطلوبة",
-                "maxLength" => "%{attribute} يجب ان لا يتجاوز %{max} حروف ",
-                "minLength" => "%{attribute} يجب ان لا يقل عن  %{min} حروف",
-                "email" => "%{attribute} غير صحيح رجاء التأكد من الكتابة بطريقة صحيحة",
-                "minLength_number" => "%{attribute} يجب ان لا يقل عن  %{min} ارقام",
-                "noJobDepartment" => "لا يوجد وظائف لهذا القسم"
-            ],
-            "placeholder" => [
-                "enter_name" => "أدخل اسم المستخدم",
-                "enter_number" => "أدخل الرقم",
-                "enter_email" => "أدخل البريد الإلكتروني",
-                "choose_department" => "أختر القسم",
-                "select_date" => "يوم/شهر/سنة",
-                "select_status" => "أختر الحالة",
-                "select_job_name" => "أختر الوظيفة",
-                "enter_phone" => "أدخل رقم الجوال",
-                "select_permissions" => "اختر الصلاحيات",
-                "enter_password" => "أدخل كلمة المرور",
-                "enter_confirmation_password" => "أدخل تأكيد كلمة المرور",
-                "phone_x" => "xxxxxxxx"
-            ],
-            "labels" => [
-                "user_name" => "اسم المستخدم",
-                "user_number" => "رقم المستخدم",
-                "email" => "البريد الإلكتروني",
-                "phone" => "رقم الجوال",
-                "department" => "القسم",
-                "creating_date" => "تاريخ الإنشاء (من)",
-                "end_date" => "تاريخ الإنشاء (إلى)",
-                "status" => "الحالة",
-                "period_from" => "فترة (من)",
-                "period_to" => "فترة (إلى)",
-                "from" => "من",
-                "to" => "إلى",
-                "job" => "الوظيفة",
-                "job_name" => "اسم الوظيفة",
-                "system_permissions" => "صلاحيات النظام",
-                "password" => "كلمة المرور",
-                "confirm_password" => "تأكيد كلمة المرور",
-                "check_password" => "كلمة المرور",
-                "send_activity_code" => "إرسال رمز التحقق"
-            ],
-            "tooltip" => [
-                "edit" => "تعديل",
-                "view_details" => "عرض",
-                "Groups" => "مجموعة صلاحيات"
-            ],
-            "popup" => [
-                "buttons" => [
-                    "accept" => "موافق",
-                    "refuse" => "غير موافق"
-                ],
-                "body" => [
-                    "confirmAccount" => "هل تريد إتمام عملية تأكيد الحساب؟",
-                    "confirm" => "هل تريد إتمام عملية الحفظ ؟",
-                    "confirmSubmit" => "هل تريد إتمام عملية الحفظ ؟",
-                    "back" => "هل تريد العودة دون الحفظ ؟",
-                    "delete" => "هل تريد إتمام عملية الحذف النهائي؟"
-                ],
-                "reasonLabel" => "الرجاء ذكر السبب",
-                "reasonValidation" => "السبب"
-            ],
-            "heading" => [
-                "selected_permissions" => "الصلاحيات المختارة",
-                "historical_movment" => "الحركة التاريخية"
-            ],
-            "chips" => [
-                "active" => "مفعل",
-                "permanent" => "معطل دائم",
-                "temporary" => "معطل لفترة",
-                "deactivated" => "تعطيل",
-                "activated" => "تفعيل",
-                "archive" => "أرشيف",
-                "edit" => "تعديل",
-                "add" => "إضافة",
-                "inActive" => "معطل",
-                "actived" => "تفعيل",
-                "deactive" => "تعطيل",
-                "restored" => "استعادة"
-            ],
-            "breadcrumb" => [
-                "users" => "المستخدمين",
-                "user_history" => "سجل المستخدمين",
-                "add_user" => "إضافة مستخدم",
-                "edit_user" => "تعديل مستخدم",
-                "user_view" => "عرض مستخدم"
-            ],
-            "statusOptions" => [
-                "all" => "الجميع",
-                "active" => "مفعل",
-                "permanent disable" => "معطل دائم",
-                "Temporary Disable" => "معطل لفترة",
-                "without_department" => "بدون قسم",
-                "no_data" => "لا توجد نتائج متاحة"
-            ]
-        ],
-        "archives" => [
-            "breadcrumb" => [
-                "archive" => "الأرشيف"
-            ],
-            "departments" => [
-                "table" => [
-                    "#" => "#",
-                    "department_name" => "اسم القسم",
-                    "main_department" => "القسم الرئيسي",
-                    "archive_date" => "تاريخ الأرشفة",
-                    "status" => "الحالة",
-                    "actions" => "العمليات",
-                    "no_data" => " لا توجد نتائج متاحة",
-                    "activity_details" => "تفاصيل النشاط",
-                    "pagination" => [
-                        "show" => "عرض",
-                        "to" => "إلى",
-                        "of" => "من",
-                        "result" => "قسم"
-                    ]
-                ],
-                "buttons" => [
-                    "export" => "تصدير",
-                    "reset" => "عرض الكل",
-                    "search" => "بحث"
-                ],
-                "placeholder" => [
-                    "enter_name" => "أدخل الاسم",
-                    "select_main_department" => "اختر القسم الرئيسي",
-                    "select_date" => "يوم/شهر/سنة",
-                    "select_status" => "أختر الحالة"
-                ],
-                "labels" => [
-                    "department_name" => "اسم القسم",
-                    "main_department" => "القسم الرئيسي",
-                    "archive_date_from" => "تاريخ الأرشفة (من)",
-                    "archive_date_to" => "تاريخ الأرشفة (إلي)",
-                    "status" => "الحالة"
-                ],
-                "tooltip" => [
-                    "view_details" => "عرض",
-                    "restore" => "استعادة",
-                    "force_delete" => "حذف"
-                ],
-                "popup" => [
-                    "buttons" => [
-                        "accept" => "موافق",
-                        "refuse" => "غير موافق"
-                    ],
-                    "body" => [
-                        "delete" => "هل تريد إتمام عملية الحذف النهائي؟",
-                        "restore" => "هل تريد اتمام عملية الأستعادة؟"
-                    ],
-                    "reasonLabel" => "الرجاء ذكر السبب",
-                    "reasonValidation" => "السبب"
-                ],
-                "chips" => [
-                    "active" => "مفعل",
-                    "inactive" => "معطل",
-                    "inActive" => "معطل",
-                    "edit" => "تعديل",
-                    "actived" => "تفعيل",
-                    "deactive" => "تعطيل",
-                    "add" => "إضافة",
-                    "archive" => "أرشفة",
-                    "restored" => "استعادة"
-                ],
-                "breadcrumb" => [
-                    "department_archive" => "أرشيف الأقسام"
-                ],
-                "statusOptions" => [
-                    "all" => "الجميع",
-                    "active" => "مفعل",
-                    "inactive" => "معطل",
-                    "without_main_department" => "بدون قسم رئيسي"
-                ]
-            ],
-            "jobs" => [
-                "table" => [
-                    "#" => "#",
-                    "job_name" => "اسم الوظيفة",
-                    "department" => "القسم",
-                    "archive_date" => "تاريخ الأرشفة",
-                    "status" => "الحالة",
-                    "actions" => "العمليات",
-                    "no_data" => " لا توجد نتائج متاحة",
-                    "activity_details" => "تفاصيل النشاط",
-                    "pagination" => [
-                        "show" => "عرض",
-                        "to" => "إلى",
-                        "of" => "من",
-                        "result" => "وظيفة"
-                    ]
-                ],
-                "buttons" => [
-                    "export" => "تصدير",
-                    "reset" => "عرض الكل",
-                    "search" => "بحث"
-                ],
-                "placeholder" => [
-                    "enter_name" => "أدخل الاسم",
-                    "choose_department" => "اختر القسم",
-                    "select_date" => "يوم/شهر/سنة",
-                    "select_status" => "أختر الحالة"
-                ],
-                "labels" => [
-                    "job_name" => "اسم الوظيفة",
-                    "department" => "القسم",
-                    "archive_date_from" => "تاريخ الأرشفة (من)",
-                    "archive_date_to" => "تاريخ الأرشفة (إلي)",
-                    "status" => "الحالة"
-                ],
-                "tooltip" => [
-                    "view_details" => "عرض",
-                    "restore" => "استعادة",
-                    "force_delete" => "حذف"
-                ],
-                "popup" => [
-                    "buttons" => [
-                        "accept" => "موافق",
-                        "refuse" => "غير موافق"
-                    ],
-                    "body" => [
-                        "delete" => "هل تريد إتمام عملية الحذف النهائي؟",
-                        "restore" => "هل تريد اتمام عملية الأستعادة؟"
-                    ],
-                    "reasonLabel" => "الرجاء ذكر السبب",
-                    "reasonValidation" => "السبب"
-                ],
-                "chips" => [
-                    "active_f" => "مفعلة",
-                    "in_active_f" => "معطلة",
-                    "active" => "مفعل",
-                    "inActive" => "معطل",
-                    "edit" => "تعديل",
-                    "actived" => "تفعيل",
-                    "deactive" => "تعطيل",
-                    "add" => "إضافة",
-                    "archive" => "أرشفة",
-                    "restored" => "استعادة"
-                ],
-                "breadcrumb" => [
-                    "jobs_archives" => "أرشيف الوظائف"
-                ],
-                "statusOptions" => [
-                    "all" => "الجميع",
-                    "active_f" => "مفعلة",
-                    "in_active_f" => "معطلة"
-                ]
-            ]
-        ],
-        "follow_up" => [
-            "table" => [
-                "#" => "#",
-                "employee" => "الموظف",
-                "department" => "القسم",
-                "main_program" => "البرنامج الرئيسي",
-                "sub_program" => "البرنامج الفرعي",
-                "date_time" => "تاريخ/وقت",
-                "ip" => "رقم معرف الجهاز",
-                "status" => "الحالة",
-                "actions" => "العمليات",
-                "no_data" => " لا توجد نتائج متاحة",
-                "activity_details" => "تفاصيل النشاط",
-                "pagination" => [
-                    "show" => "عرض",
-                    "to" => "إلى",
-                    "of" => "من",
-                    "result" => "متابعة"
-                ]
-            ],
-            "buttons" => [
-                "print_report" => "طباعة تقرير",
-                "reset" => "عرض الكل",
-                "search" => "بحث"
-            ],
-            "placeholder" => [
-                "select_activity_name" => "أدخل الاسم",
-                "choose_department" => "اختر القسم",
-                "choose_employee_name" => "اختر اسم الموظف",
-                "choose_main_program" => "اختر البرنامج الرئيسي",
-                "choose_sub_program" => "اختر البرنامج الفرعي",
-                "select_date" => "يوم/شهر/سنة",
-                "select_status" => "أختر الحالة"
-            ],
-            "labels" => [
-                "activity_name" => "اسم النشاط",
-                "department" => "القسم",
-                "employee" => "الموظف",
-                "main_program" => "البرنامج الرئيسي",
-                "sub_program" => "البرنامج الفرعي",
-                "creating_date" => "تاريخ الإنشاء (من)",
-                "end_date" => "تاريخ الإنشاء (إلى)",
-                "status" => "الحالة",
-                "activity_details" => "سجل النشاطات"
-            ],
-            "tooltip" => [
-                "view_details" => "عرض"
-            ],
-            "chips" => [
-                "created" => "إضافة",
-                "updated" => "تعديل",
-                "destroy" => "أرشفة",
-                "permanent_delete" => "حذف نهائي",
-                "restored" => "استعادة",
-                "searched" => "مبحوث",
-                "deactivated" => "معطل",
-                "activated" => "مفعل",
-                "permanent" => " معطل دائم",
-                "temporary" => "معطل لفترة",
-                "shown" => "تم الإطلاع",
-                "assigned" => "تم الإحالة",
-                "replied" => "تم الرد "
-            ],
-            "breadcrumb" => [
-                "follow_up" => "المتابعة",
-                "activity_log" => "سجل النشاطات"
-            ],
-            "statusOptions" => [
-                "all" => "الجميع",
-                "active" => "مفعل",
-                "inactive" => "معطل",
-                "without_main_department" => "بدون قسم رئيسي"
-            ],
-            "events" => [
-                "created" => "إضافة",
-                "updated" => "تعديل",
-                "destroy" => "أرشفة",
-                "permanent_delete" => "تعطيل دائم",
-                "restored" => "استعادة",
-                "searched" => "مبحوث",
-                "deactivated" => "تعطيل",
-                "activated" => "تفعيل",
-                "permanent" => "دائم",
-                "temporary" => "مؤقت",
-                "all" => "الجميع",
-                "assigned" => "تم الإحالة",
-                "replied" => "تم الرد ",
-                "shown" => "تم الإطلاع"
-            ]
-        ],
-        "settings" => [
-            "translations" => [
-                "table" => [
-                    "#" => "#",
-                    "keyword" => "المفتاح",
-                    "arabic_lang" => "اللغة العربية",
-                    "no_data" => " لا توجد نتائج متاحة",
-                    "activity_details" => "تفاصيل النشاط",
-                    "pagination" => [
-                        "show" => "عرض",
-                        "to" => "إلى",
-                        "of" => "من",
-                        "result" => "الإجمالي"
-                    ]
-                ],
-                "buttons" => [
-                    "export" => "تصدير",
-                    "reset" => "عرض الكل",
-                    "search" => "بحث"
-                ],
-                "placeholder" => [
-                    "enter_keyword" => "أدخل المفتاح",
-                    "enter_arabic_lang" => "أدخل اللغة العربية"
-                ],
-                "labels" => [
-                    "keyword" => "المفتاح",
-                    "arabic_lang" => "اللغة العربية"
-                ],
-                "breadcrumb" => [
-                    "settings" => "الإعدادات",
-                    "translations" => "الترجمات"
-                ]
-            ]
-        ],
-        "faq" => [
-            "table" => [
-                "#" => "#",
-                "question" => "السؤال",
-                "order" => "الترتيب",
-                "page_status" => "الحالة",
-                "actions" => "العمليات",
-                "no_data" => " لا توجد نتائج متاحة",
-                "activity_details" => "تفاصيل النشاط",
-                "without_department" => "بدون قسم",
-                "pagination" => [
-                    "show" => "عرض",
-                    "to" => "إلى",
-                    "of" => "من",
-                    "result" => "أسئلة"
-                ]
-            ],
-            "buttons" => [
-                "add_faq" => "أضف سؤال",
-                "export" => "تصدير",
-                "reset" => "عرض الكل",
-                "search" => "بحث",
-                "close" => "إغلاق",
-                "edit" => "تعديل",
-                "back" => "عودة",
-                "save" => "حفظ"
-            ],
-            "fields" => [
-                "question" => "السؤال",
-                "order" => "الترتيب",
-                "status" => "الحالة",
-                "answer" => "الإجابة"
-            ],
-            "validation" => [
-                "required" => "%{attribute} مطلوب",
-                "required_f" => "%{attribute} مطلوبة",
-                "maxLength" => "%{attribute} يجب ان لا يتجاوز %{max} حروف ",
-                "minLength" => "%{attribute} يجب ان لا يقل عن  %{min} حروف",
-                "minLength_number" => "%{attribute} يجب ان لا يقل عن  %{min} ارقام"
-            ],
-            "placeholder" => [
-                "enter_question" => "أدخل السؤال",
-                "select_status" => "اختر الحالة",
-                "enter_question_number" => "أدخل ترتيب الظهور",
-                "enter_answer" => "أدخل الإجابة"
-            ],
-            "labels" => [
-                "question" => "السؤال",
-                "status" => "الحالة",
-                "question_number" => "ترتيب الظهور",
-                "answer" => "الإجابة",
-                "chooseStatus" => "اختر الحالة"
-            ],
-            "tooltip" => [
-                "edit" => "تعديل",
-                "view_details" => "عرض",
-                "force_delete" => "حذف"
-            ],
-            "popup" => [
-                "buttons" => [
-                    "accept" => "موافق",
-                    "refuse" => "غير موافق"
-                ],
-                "body" => [
-                    "confirmAccount" => "هل تريد إتمام عملية تأكيد الحساب؟",
-                    "confirm" => "هل تريد إتمام عملية الحفظ ؟",
-                    "confirmSubmit" => "هل تريد إتمام عملية الحفظ ؟",
-                    "back" => "هل تريد العودة دون الحفظ ؟",
-                    "delete" => "هل تريد إتمام عملية الحذف النهائي؟"
-                ],
-                "reasonLabel" => "الرجاء ذكر السبب",
-                "reasonValidation" => "السبب"
-            ],
-            "heading" => [
-                "historical_movment" => "الحركة التاريخية"
-            ],
-            "chips" => [
-                "active" => "مفعل",
-                "permanent" => "معطل دائم",
-                "temporary" => "معطل لفترة",
-                "deactivated" => "تعطيل",
-                "inactive" => "معطل",
-                "activated" => "تفعيل",
-                "archive" => "أرشيف",
-                "edit" => "تعديل",
-                "add" => "إضافة",
-                "inActive" => "معطل",
-                "actived" => "تفعيل",
-                "deactive" => "تعطيل",
-                "restored" => "استعادة"
-            ],
-            "breadcrumb" => [
-                "support" => "الدعم والمساعدة",
-                "faq" => "الأسئلة الشائعة",
-                "faqs_view" => "عرض السؤال",
-                "editQuestion" => "تعديل السؤال",
-                "createQuestion" => "اضافة سؤال"
-            ],
-            "statusOptions" => [
-                "all" => "الجميع",
-                "active" => "مفعل",
-                "inactive" => "معطل"
-            ],
-            "historical_movment" => [
-                "table" => [
-                    "#" => "#",
-                    "addedBy" => "تم بواسطة",
-                    "department_name" => "اسم القسم",
-                    "activity_date" => "تاريخ النشاط",
-                    "activity_name" => "النشاط",
-                    "activity_reason" => "السبب",
-                    "no_data" => " لا توجد نتائج متاحة",
-                    "activity_details" => "تفاصيل النشاط",
-                    "pagination" => [
-                        "show" => "عرض",
-                        "to" => "إلى",
-                        "of" => "من",
-                        "result" => "الإجمالي"
-                    ]
-                ]
-            ]
-        ],
-        "transferPurpose" => [
-            "table" => [
-                "#" => "#",
-                "purpose" => "الغرض من الحوالة",
-                "order" => "الترتيب",
-                "page_status" => "الحالة",
-                "actions" => "العمليات",
-                "no_data" => " لا توجد نتائج متاحة",
-                "activity_details" => "تفاصيل النشاط",
-                "pagination" => [
-                    "show" => "عرض",
-                    "to" => "إلى",
-                    "of" => "من",
-                    "result" => "غرض"
-                ]
-            ],
-            "buttons" => [
-                "add_transferPurpose" => "أضف غرض حوالة",
-                "export" => "تصدير",
-                "reset" => "عرض الكل",
-                "search" => "بحث",
-                "close" => "إغلاق",
-                "edit" => "تعديل",
-                "back" => "عودة",
-                "save" => "حفظ"
-            ],
-            "fields" => [
-                "name" => "الغرض من الحوالة",
-                "status" => "الحالة"
-            ],
-            "validation" => [
-                "required" => "%{attribute} مطلوب",
-                "required_f" => "%{attribute} مطلوبة",
-                "maxLength" => "%{attribute} يجب ان لا يتجاوز %{max} حروف ",
-                "minLength" => "%{attribute} يجب ان لا يقل عن  %{min} حروف",
-                "minLength_number" => "%{attribute} يجب ان لا يقل عن  %{min} ارقام"
-            ],
-            "placeholder" => [
-                "enter_purpose" => "أدخل الغرض من الحوالة",
-                "select_status" => "أختر الحالة",
-                "enter_purpose_number" => "أدخل ترتيب الظهور",
-                "enter_answer" => "أدخل الإجابة"
-            ],
-            "labels" => [
-                "purpose" => "الغرض من الحوالة",
-                "status" => "الحالة",
-                "defaultValue" => "القيمة الإفتراضية",
-                "chooseStatus" => "اختر الحالة"
-            ],
-            "tooltip" => [
-                "edit" => "تعديل",
-                "view_details" => "عرض",
-                "force_delete" => "حذف"
-            ],
-            "popup" => [
-                "buttons" => [
-                    "accept" => "موافق",
-                    "refuse" => "غير موافق"
-                ],
-                "body" => [
-                    "confirmAccount" => "هل تريد إتمام عملية تأكيد الحساب؟",
-                    "confirm" => "هل تريد إتمام عملية الحفظ ؟",
-                    "confirmSubmit" => "هل تريد إتمام عملية الحفظ ؟",
-                    "back" => "هل تريد العودة دون الحفظ ؟",
-                    "delete" => "هل تريد إتمام عملية الحذف النهائي؟"
-                ],
-                "reasonLabel" => "الرجاء ذكر السبب",
-                "reasonValidation" => "السبب"
-            ],
-            "heading" => [
-                "historical_movment" => "الحركة التاريخية"
-            ],
-            "chips" => [
-                "active" => "مفعل",
-                "inactive" => "معطل",
-                "inActive" => "معطلة",
-                "vacant" => "شاغرة",
-                "occupied" => "مشغولة",
-                "edit" => "تعديل",
-                "actived" => "تفعيل",
-                "deactive" => "تعطيل",
-                "add" => "إضافة",
-                "archive" => "أرشفة",
-                "restored" => "استعادة"
-            ],
-            "breadcrumb" => [
-                "record" => "إعدادات التطبيق",
-                "transferPurpose" => "الغرض من الحوالة",
-                "transferPurpose_view" => "عرض الغرض من الحوالة",
-                "editpurpose" => "تعديل الغرض من الحوالة",
-                "createpurpose" => "اضافة الغرض من الحوالة"
-            ],
-            "statusOptions" => [
-                "all" => "الجميع",
-                "active" => "مفعل",
-                "inactive" => "معطل",
-                "without_department" => "بدون قسم"
-            ],
-            "historical_movment" => [
-                "table" => [
-                    "#" => "#",
-                    "addedBy" => "تم بواسطة",
-                    "department_name" => "اسم القسم",
-                    "activity_date" => "تاريخ النشاط",
-                    "activity_name" => "النشاط",
-                    "activity_reason" => "السبب",
-                    "no_data" => "لا يوجد بيانات",
-                    "activity_details" => "تفاصيل النشاط",
-                    "pagination" => [
-                        "show" => "عرض",
-                        "to" => "إلى",
-                        "of" => "من",
-                        "result" => "الإجمالي"
-                    ]
-                ]
-            ]
-        ],
-        "ourApps" => [
-            "breadcrumb" => [
-                "record" => "اعدادات التطبيق",
-                "ourApps" => "تطبيقاتنا",
-                "ourApps_record" => "سجل تطبيقاتنا",
-                "ourApps_edit" => "تعديل تطبيق",
-                "ourApps_add" => "إضافة تطبيق",
-                "ourApps_view" => "عرض التطبيق"
-            ],
-            "table" => [
-                "#" => "#",
-                "app_name" => "اسم التطبيق",
-                "create_date" => "تاريخ الإنشاء",
-                "status" => "الحالة",
-                "actions" => "العمليات",
-                "addedBy" => "تم بواسطة",
-                "activity_date" => "تاريخ النشاط",
-                "activity_name" => "النشاط",
-                "activity_reason" => "السبب",
-                "no_data" => " لا توجد نتائج متاحة",
-                "activity_details" => "تفاصيل النشاط",
-                "pagination" => [
-                    "show" => "عرض",
-                    "to" => "إلى",
-                    "of" => "من",
-                    "result" => "قسم"
-                ]
-            ],
-            "buttons" => [
-                "add_ourApps" => "إضافة تطبيق",
-                "export" => "تصدير",
-                "reset" => "عرض الكل",
-                "search" => "بحث",
-                "close" => "إغلاق",
-                "back" => "عودة",
-                "save" => "حفظ",
-                "edit" => "تعديل"
-            ],
-            "fields" => [
-                "status" => "الحالة",
-                "name" => "الاسم",
-                "description" => "الوصف",
-                "order" => "الترتيب",
-                "android_link" => "رابط تحميل الاندرويد",
-                "ios_link" => "رابط تحميل أبل"
-            ],
-            "validation" => [
-                "required" => "%{attribute} مطلوب",
-                "required_f" => "%{attribute} مطلوبة",
-                "maxLength" => "%{attribute} يجب ان لا يتجاوز %{max} حرف ",
-                "minLength" => "%{attribute} يجب ان لا يقل عن  %{min} حرف",
-                "url" => "هذا الرابط غير صحيح"
-            ],
-            "placeholder" => [
-                "enter_app_name" => "أدخل الاسم",
-                "select_date" => "يوم/شهر/سنة",
-                "select_status" => "اختر الحالة",
-                "add_description" => "أدخل الوصف",
-                "chooseStatus" => "اختر الحالة",
-                "enter_order" => "ادخل الترتيب",
-                "enter_android_link" => "ادخل رابط الأندرويد",
-                "enter_ios_link" => "ادخل رابط آبل"
-            ],
-            "labels" => [
-                "app_name" => "اسم التطبيق",
-                "creating_date" => "تاريخ الإنشاء (من)",
-                "end_date" => "تاريخ الإنشاء (إلى)",
-                "status" => "الحالة",
-                "app_image" => "صورة التطبيق",
-                "description" => "الوصف",
-                "drag_image" => "اسحب  واسقط أو قم برفع الصورة",
-                "chooseStatus" => "اختر الحالة",
-                "all" => "الجميع",
-                "active" => "مفعل",
-                "inactive" => "معطل",
-                "order" => "الترتيب",
-                "android_link" => "رابط تحميل الأندرويد",
-                "ios_link" => "رابط تحميل آبل"
-            ],
-            "tooltip" => [
-                "archive" => "أرشفة",
-                "edit" => "تعديل",
-                "view_details" => "عرض ",
-                "messages" => "الرسائل",
-                "Settings" => "الإعدادات",
-                "logout" => "تسجيل خروج",
-                "confirm_account" => "تأكيد الحساب",
-                "confirmed_account" => "الحساب مؤكد",
-                "hang_account" => "تعليق الحساب",
-                "restore" => "استعادة",
-                "force_delete" => "حذف "
-            ],
-            "popup" => [
-                "buttons" => [
-                    "accept" => "موافق",
-                    "refuse" => "غير موافق",
-                    "close" => "إغلاق"
-                ],
-                "body" => [
-                    "archive" => "هل تريد إتمام عملية الأرشفة؟",
-                    "confirmAccount" => "هل تريد إتمام عملية تأكيد الحساب؟",
-                    "hangAccount" => "هل تريد إتمام عملية التعليق؟",
-                    "confirm" => "هل تريد إتمام عملية الحفظ ؟",
-                    "confirmSubmit" => "هل تريد إتمام عملية الحفظ ؟",
-                    "back" => "هل تريد العودة دون الحفظ ؟",
-                    "delete" => "هل تريد إتمام عملية الحذف النهائي؟",
-                    "cant_archive_ourApps_has_job" => "لا يمكن أرشفة قسم مرتبط بوظائف"
-                ],
-                "reasonLabel" => "الرجاء ذكر السبب",
-                "reasonValidation" => "السبب"
-            ],
-            "heading" => [
-                "historical_movment" => "الحركة التاريخية"
-            ],
-            "chips" => [
-                "active" => "مفعل",
-                "inactive" => "معطل",
-                "edit" => "تعديل",
-                "actived" => "تفعيل",
-                "deactive" => "تعطيل",
-                "add" => "إضافة",
-                "archive" => "أرشفة",
-                "restored" => "استعادة"
-            ],
-            "statusOptions" => [
-                "all" => "الجميع",
-                "active" => "مفعل",
-                "inactive" => "معطل"
-            ],
-            "historical_movment" => [
-                "table" => [
-                    "#" => "#",
-                    "addedBy" => "تم بواسطة",
-                    "department_name" => "اسم القسم",
-                    "activity_date" => "تاريخ النشاط",
-                    "activity_name" => "النشاط",
-                    "activity_reason" => "السبب",
-                    "no_data" => " لا توجد نتائج متاحة",
-                    "activity_details" => "تفاصيل النشاط",
-                    "pagination" => [
-                        "show" => "عرض",
-                        "to" => "إلى",
-                        "of" => "من",
-                        "result" => "الإجمالي"
-                    ]
-                ]
-            ]
-        ],
-        "departments" => [
-            "breadcrumb" => [
-                "departments" => "الأقسام",
-                "department_record" => "سجل الأقسام",
-                "editDepartment" => "تعديل قسم",
-                "createDepartment" => "إضافة قسم",
-                "department_record_details" => "عرض قسم"
-            ],
-            "table" => [
-                "#" => "#",
-                "department_name" => "اسم القسم",
-                "main_department" => "القسم الرئيسي",
-                "create_date" => "تاريخ الإنشاء",
-                "status" => "الحالة",
-                "actions" => "العمليات",
-                "addedBy" => "تم بواسطة",
-                "activity_date" => "تاريخ النشاط",
-                "activity_name" => "النشاط",
-                "activity_reason" => "السبب",
-                "no_data" => " لا توجد نتائج متاحة",
-                "activity_details" => "تفاصيل النشاط",
-                "pagination" => [
-                    "show" => "عرض",
-                    "to" => "إلى",
-                    "of" => "من",
-                    "result" => "قسم"
-                ]
-            ],
-            "buttons" => [
-                "add" => "إضافة قسم",
-                "export" => "تصدير",
-                "reset" => "عرض الكل",
-                "search" => "بحث",
-                "close" => "إغلاق",
-                "back" => "عودة",
-                "save" => "حفظ",
-                "edit" => "تعديل"
-            ],
-            "fields" => [
-                "status" => "الحالة",
-                "name" => "الاسم",
-                "description" => "الوصف"
-            ],
-            "validation" => [
-                "required" => "%{attribute} مطلوب",
-                "required_f" => "%{attribute} مطلوبة",
-                "maxLength" => "%{attribute} يجب ان لا يتجاوز %{max} حرف ",
-                "minLength" => "%{attribute} يجب ان لا يقل عن  %{min} حرف"
-            ],
-            "placeholder" => [
-                "enter_name" => "أدخل الاسم",
-                "select_main_department" => "اختر القسم الرئيسي",
-                "select_date" => "يوم/شهر/سنة",
-                "select_status" => "اختر الحالة",
-                "add_description" => "أدخل الوصف",
-                "chooseStatus" => "اختر الحالة"
-            ],
-            "labels" => [
-                "department_name" => "اسم القسم",
-                "main_department" => "القسم الرئيسي",
-                "creating_date" => "تاريخ الإنشاء (من)",
-                "end_date" => "تاريخ الإنشاء (إلى)",
-                "status" => "الحالة",
-                "depatmentimage" => "صورة القسم",
-                "description" => "الوصف",
-                "drag_image" => "اسحب  واسقط أو قم برفع الصورة",
-                "chooseStatus" => "اختر الحالة"
-            ],
-            "statusOptions" => [
-                "all" => "الجميع",
-                "is_active" => "مفعل",
-                "un_active" => "معطل",
-                "without_main_department" => "بدون قسم رئيسي",
-                "without_department" => "بدون قسم",
-                "without_description" => "بدون وصف"
-            ],
-            "tooltip" => [
-                "archive" => "أرشفة",
-                "edit" => "تعديل",
-                "view_details" => "عرض ",
-                "messages" => "الرسائل",
-                "Settings" => "الإعدادات",
-                "logout" => "تسجيل خروج",
-                "confirm_account" => "تأكيد الحساب",
-                "confirmed_account" => "الحساب مؤكد",
-                "hang_account" => "تعليق الحساب",
-                "restore" => "استعادة",
-                "force_delete" => "حذف "
-            ],
-            "popup" => [
-                "buttons" => [
-                    "accept" => "موافق",
-                    "refuse" => "غير موافق",
-                    "close" => "إغلاق"
-                ],
-                "body" => [
-                    "archive" => "هل تريد إتمام عملية الأرشفة؟",
-                    "confirmAccount" => "هل تريد إتمام عملية تأكيد الحساب؟",
-                    "hangAccount" => "هل تريد إتمام عملية التعليق؟",
-                    "confirm" => "هل تريد إتمام عملية الحفظ ؟",
-                    "confirmSubmit" => "هل تريد إتمام عملية الحفظ ؟",
-                    "back" => "هل تريد العودة دون الحفظ ؟",
-                    "delete" => "هل تريد إتمام عملية الحذف النهائي؟",
-                    "cant_archive_department_has_job" => "لا يمكن أرشفة قسم مرتبط بوظائف"
-                ],
-                "reasonLabel" => "الرجاء ذكر السبب",
-                "reasonValidation" => "السبب"
-            ],
-            "heading" => [
-                "history" => "الحركة التاريخية"
-            ],
-            "chips" => [
-                "active" => "مفعل",
-                "inActive" => "معطل",
-                "edit" => "تعديل",
-                "actived" => "تفعيل",
-                "deactive" => "تعطيل",
-                "add" => "إضافة",
-                "archive" => "أرشفة",
-                "restored" => "استعادة"
-            ]
-        ],
-        "permissions" => [
-            "breadcrumb" => [
-                "permissions" => "الصلاحيات",
-                "permissions_record" => "سجل الصلاحيات",
-                "editGroup" => "تعديل مجموعة",
-                "addGroup" => "إضافة مجموعة",
-                "viewGroup" => "عرض مجموعة"
-            ],
-            "table" => [
-                "#" => "#",
-                "group_name" => "اسم المجموعة",
-                "users_number" => "عدد المستخدمين",
-                "created_at" => "تاريخ الإنشاء",
-                "status" => "الحالة",
-                "actions" => "العمليات",
-                "main_prog" => "البرنامج الرئيسي",
-                "sub_prog" => "البرنامج الفرعي",
-                "permission_name" => "اسم الصلاحية",
-                "addedBy" => "تم بواسطة",
-                "department_name" => "اسم القسم",
-                "activity_date" => "تاريخ النشاط",
-                "activity_name" => "النشاط",
-                "no_data" => " لا توجد نتائج متاحة",
-                "activity_details" => "تفاصيل النشاط",
-                "pagination" => [
-                    "show" => "عرض",
-                    "to" => "إلى",
-                    "of" => "من",
-                    "result" => "مجموعة"
-                ]
-            ],
-            "buttons" => [
-                "add" => "إضافة مجموعة",
-                "export" => "تصدير",
-                "reset" => "عرض الكل",
-                "search" => "بحث",
-                "close" => "إغلاق",
-                "back" => "عودة",
-                "save" => "حفظ",
-                "edit" => "تعديل"
-            ],
-            "fields" => [
-                "group_name" => "اسم المجموعة",
-                "status" => "الحالة",
-                "permissions_list" => "صلاحيات النظام"
-            ],
-            "validation" => [
-                "required" => "%{attribute} مطلوب",
-                "required_f" => "%{attribute} مطلوبة",
-                "maxLength" => "%{attribute} يجب ان لا يتجاوز %{max} حرف ",
-                "minLength" => "%{attribute} يجب ان لا يقل عن x %{min} حرف"
-            ],
-            "placeholder" => [
-                "enter_name" => "أدخل الاسم",
-                "from" => "من",
-                "to" => "إلى",
-                "chooseStatus" => "اختر الحالة",
-                "select_permissions" => "اختر الصلاحيات"
-            ],
-            "labels" => [
-                "group_name" => "اسم المجموعة",
-                "permission_user_from" => "عدد المستخدمين (من)",
-                "permission_user_to" => "عدد المستخدمين (إلى)",
-                "status" => "الحالة",
-                "system_permissions" => "صلاحيات النظام",
-                "user_status" => "الحالة",
-                "groupManger" => "منشئ المجموعة"
-            ],
-            "statusOptions" => [
-                "all" => "الجميع",
-                "selectAll" => " اختر الكل",
-                "is_active" => "مفعلة",
-                "un_active" => "معطلة",
-                "without_department" => "بدون قسم"
-            ],
-            "tooltip" => [
-                "archive" => "أرشفة",
-                "edit" => "تعديل",
-                "view_details" => "عرض ",
-                "messages" => "الرسائل",
-                "Settings" => "الإعدادات",
-                "logout" => "تسجيل خروج",
-                "confirm_account" => "تأكيد الحساب",
-                "confirmed_account" => "الحساب مؤكد",
-                "hang_account" => "تعليق الحساب",
-                "restore" => "استعادة",
-                "force_delete" => "حذف "
-            ],
-            "popup" => [
-                "buttons" => [
-                    "accept" => "موافق",
-                    "refuse" => "غير موافق",
-                    "close" => "إغلاق"
-                ],
-                "body" => [
-                    "archive" => "هل تريد إتمام عملية الأرشفة؟",
-                    "confirmAccount" => "هل تريد إتمام عملية تأكيد الحساب؟",
-                    "hangAccount" => "هل تريد إتمام عملية التعليق؟",
-                    "confirm" => "هل تريد إتمام عملية الحفظ ؟",
-                    "confirmSubmit" => "هل تريد إتمام عملية الحفظ ؟",
-                    "back" => "هل تريد العودة دون الحفظ ؟",
-                    "delete" => "هل تريد إتمام عملية الحذف النهائي؟",
-                    "cant_archive_department_has_job" => "لا يمكن أرشفة قسم مرتبط بوظائف"
-                ],
-                "reasonLabel" => "الرجاء ذكر السبب",
-                "reasonValidation" => "السبب"
-            ],
-            "heading" => [
-                "history" => "الحركة التاريخية",
-                "groupData" => "بيانات المجموعة"
-            ],
-            "chips" => [
-                "active" => "مفعلة",
-                "inActive" => "معطلة",
-                "edit" => "تعديل",
-                "actived" => "تفعيل",
-                "deactive" => "تعطيل",
-                "add" => "إضافة",
-                "archive" => "أرشفة",
-                "restored" => "استعادة"
-            ],
-            "groupDataTablePagination" => [
-                "show" => "عرض",
-                "to" => "إلى",
-                "of" => "من",
-                "result" => "الإجمالي"
-            ],
-            "historyTablePagination" => [
-                "show" => "عرض",
-                "to" => "إلى",
-                "of" => "من",
-                "result" => "الإجمالي"
-            ]
-        ],
-        "jobs" => [
-            "breadcrumb" => [
-                "jobs" => "الوظائف",
-                "job_record" => "سجل الوظائف",
-                "editJob" => "تعديل وظيفة",
-                "createJob" => "إضافة وظيفة",
-                "job_view" => "عرض وظيفة"
-            ],
-            "table" => [
-                "#" => "#",
-                "job_name" => "اسم الوظيفة",
-                "department" => "القسم",
-                "create_date" => "تاريخ الإنشاء",
-                "status" => "الحالة",
-                "type" => "النوع",
-                "actions" => "العمليات",
-                "by_employee" => "تم بواسطة",
-                "department_name" => "اسم القسم",
-                "activity_date" => "تاريخ النشاط",
-                "activity" => "النشاط",
-                "reason" => "السبب",
-                "no_data" => " لا توجد نتائج متاحة",
-                "activity_details" => "تفاصيل النشاط",
-                "pagination" => [
-                    "show" => "عرض",
-                    "to" => "إلى",
-                    "of" => "من",
-                    "result" => "وظيفة"
-                ]
-            ],
-            "buttons" => [
-                "add" => "إضافة وظيفة",
-                "export" => "تصدير",
-                "reset" => "عرض الكل",
-                "search" => "بحث",
-                "close" => "إغلاق",
-                "back" => "عودة",
-                "save" => "حفظ",
-                "edit" => "تعديل"
-            ],
-            "fields" => [
-                "name" => "الاسم",
-                "job_description" => "الوصف الوظيفي",
-                "department" => "القسم",
-                "status" => "الحالة"
-            ],
-            "validation" => [
-                "required" => "%{attribute} مطلوب",
-                "required_f" => "%{attribute} مطلوبة",
-                "maxLength" => "%{attribute} يجب ان لا يتجاوز %{max} حرف ",
-                "minLength" => "%{attribute} يجب ان لا يقل عن  %{min} حرف"
-            ],
-            "placeholder" => [
-                "enter_name" => "أدخل الاسم",
-                "choose_department" => "اختر القسم",
-                "select_date" => "يوم/شهر/سنة",
-                "choose_status" => "اختر الحالة",
-                "choose_type" => "اختر النوع",
-                "enter_description" => "أدخل الوصف"
-            ],
-            "labels" => [
-                "job_name" => "اسم الوظيفة",
-                "department" => "القسم",
-                "creating_date" => "تاريخ الإنشاء (من)",
-                "end_date" => "تاريخ الإنشاء (إلى)",
-                "status" => "الحالة",
-                "type" => "النوع",
-                "job_description" => "الوصف الوظيفي",
-                "employee_name" => "الموظف المسئول",
-                "employee" => "الموظف"
-            ],
-            "statusOptions" => [
-                "all" => "الجميع",
-                "is_active" => "مفعلة",
-                "un_active" => "معطلة",
-                "vacant" => "شاغرة",
-                "occupied" => "مشغولة",
-                "without_main_department" => "بدون قسم رئيسي",
-                "without_department" => "بدون قسم"
-            ],
-            "tooltip" => [
-                "archive" => "أرشفة",
-                "edit" => "تعديل",
-                "view_details" => "عرض ",
-                "messages" => "الرسائل",
-                "Settings" => "الإعدادات",
-                "logout" => "تسجيل خروج",
-                "confirm_account" => "تأكيد الحساب",
-                "confirmed_account" => "الحساب مؤكد",
-                "hang_account" => "تعليق الحساب",
-                "restore" => "استعادة",
-                "force_delete" => "حذف "
-            ],
-            "popup" => [
-                "buttons" => [
-                    "accept" => "موافق",
-                    "refuse" => "غير موافق",
-                    "close" => "إغلاق"
-                ],
-                "body" => [
-                    "archive" => "هل تريد إتمام عملية الأرشفة؟",
-                    "confirmAccount" => "هل تريد إتمام عملية تأكيد الحساب؟",
-                    "hangAccount" => "هل تريد إتمام عملية التعليق؟",
-                    "confirm" => "هل تريد إتمام عملية الحفظ ؟",
-                    "confirmSubmit" => "هل تريد إتمام عملية الحفظ ؟",
-                    "back" => "هل تريد العودة دون الحفظ ؟",
-                    "delete" => "هل تريد إتمام عملية الحذف النهائي؟",
-                    "unarchive_job" => "لا يمكن ارشفة وظيفة مشغولة"
-                ],
-                "reasonLabel" => "الرجاء ذكر السبب",
-                "reasonValidation" => "السبب"
-            ],
-            "heading" => [
-                "history" => "الحركة التاريخية"
-            ],
-            "chips" => [
-                "active" => "مفعلة",
-                "inActive" => "معطلة",
-                "vacant" => "شاغرة",
-                "occupied" => "مشغولة",
-                "edit" => "تعديل",
-                "actived" => "تفعيل",
-                "deactive" => "تعطيل",
-                "add" => "إضافة",
-                "archive" => "أرشفة",
-                "restored" => "استعادة"
-            ]
-        ],
-        "banks" => [
-            "breadcrumb" => [
-                "banks" => "البنوك",
-                "bank_record" => "سجل البنوك",
-                "edit_bank" => "تعديل بنك",
-                "add_bank" => "إضافة بنك",
-                "bank_view" => "عرض بنك"
-            ],
-            "table" => [
-                "#" => "#",
-                "name_of_bank" => "اسم البنك",
-                "status" => "الحالة",
-                "actions" => "العمليات",
-                "addedBy" => "تم بواسطة",
-                "department_name" => "اسم القسم",
-                "activity_date" => "تاريخ النشاط",
-                "activity_name" => "النشاط",
-                "activity_details" => "تفاصيل النشاط",
-                "no_data" => " لا توجد نتائج متاحة",
-                "pagination" => [
-                    "show" => "عرض",
-                    "to" => "إلى",
-                    "of" => "من",
-                    "result" => "بنك"
-                ]
-            ],
-            "buttons" => [
-                "add" => "إضافة بنك",
-                "export" => "تصدير",
-                "reset" => "عرض الكل",
-                "search" => "بحث",
-                "close" => "إغلاق",
-                "back" => "عودة",
-                "save" => "حفظ",
-                "edit" => "تعديل"
-            ],
-            "fields" => [
-                "bank_name" => "اسم البنك",
-                "status" => "الحالة"
-            ],
-            "validation" => [
-                "required" => "%{attribute} مطلوب",
-                "required_f" => "%{attribute} مطلوبة",
-                "maxLength" => "%{attribute} يجب ان لا يتجاوز %{max} حرف ",
-                "minLength" => "%{attribute} يجب ان لا يقل عن  %{min} حرف"
-            ],
-            "placeholder" => [
-                "enter_bank_name" => "أدخل اسم البنك",
-                "choose_status" => "اختر الحالة"
-            ],
-            "labels" => [
-                "bank_name" => "اسم البنك",
-                "status" => "الحالة",
-                "chooseStatus" => "اختر الحالة",
-                "image" => "صورة",
-                "drag_image" => "اسحب  واسقط أو قم برفع الصورة"
-            ],
-            "statusOptions" => [
-                "all" => "الجميع",
-                "is_active" => "مفعل",
-                "un_active" => "معطل",
-                "without" => "بدون"
-            ],
-            "tooltip" => [
-                "archive" => "أرشفة",
-                "edit" => "تعديل",
-                "view_details" => "عرض ",
-                "messages" => "الرسائل",
-                "Settings" => "الإعدادات",
-                "logout" => "تسجيل خروج",
-                "confirm_account" => "تأكيد الحساب",
-                "confirmed_account" => "الحساب مؤكد",
-                "hang_account" => "تعليق الحساب",
-                "restore" => "استعادة",
-                "force_delete" => "حذف "
-            ],
-            "popup" => [
-                "buttons" => [
-                    "accept" => "موافق",
-                    "refuse" => "غير موافق",
-                    "close" => "إغلاق"
-                ],
-                "body" => [
-                    "archive" => "هل تريد إتمام عملية الأرشفة؟",
-                    "confirmAccount" => "هل تريد إتمام عملية تأكيد الحساب؟",
-                    "hangAccount" => "هل تريد إتمام عملية التعليق؟",
-                    "confirm" => "هل تريد إتمام عملية الحفظ ؟",
-                    "confirmSubmit" => "هل تريد إتمام عملية الحفظ ؟",
-                    "back" => "هل تريد العودة دون الحفظ ؟",
-                    "delete" => "هل تريد إتمام عملية الحذف النهائي؟"
-                ],
-                "reasonLabel" => "الرجاء ذكر السبب",
-                "reasonValidation" => "السبب"
-            ],
-            "heading" => [
-                "history" => "الحركة التاريخية"
-            ],
-            "chips" => [
-                "active" => "مفعل",
-                "inActive" => "معطل",
-                "edit" => "تعديل",
-                "actived" => "تفعيل",
-                "deactive" => "تعطيل",
-                "add" => "إضافة",
-                "archive" => "أرشفة",
-                "restored" => "استعادة"
-            ]
-        ],
-        "appStaticPages" => [
-            "breadcrumb" => [
-                "settings" => "إعدادات التطبيق",
-                "staticPages" => "الصفحات الثابتة",
-                "static_page_edit" => "تعديل صفحة",
-                "static_page_add" => "إضافة صفحة",
-                "static_page_view" => "عرض صفحة"
-            ],
-            "table" => [
-                "#" => "#",
-                "page_name" => "اسم الصفحة",
-                "status" => "الحالة",
-                "actions" => "العمليات",
-                "addedBy" => "تم بواسطة",
-                "department_name" => "اسم القسم",
-                "activity_date" => "تاريخ النشاط",
-                "activity_name" => "النشاط",
-                "activity_reason" => "السبب",
-                "no_data" => " لا توجد نتائج متاحة",
-                "activity_details" => "تفاصيل النشاط",
-                "pagination" => [
-                    "show" => "عرض",
-                    "to" => "إلى",
-                    "of" => "من",
-                    "result" => "صفحة"
-                ]
-            ],
-            "buttons" => [
-                "add" => "إضافة صفحة",
-                "export" => "تصدير",
-                "reset" => "عرض الكل",
-                "search" => "بحث",
-                "close" => "إغلاق",
-                "back" => "عودة",
-                "save" => "حفظ",
-                "edit" => "تعديل"
-            ],
-            "fields" => [
-                "page_name" => "اسم الصفحة",
-                "status" => "الحالة",
-                "description" => "محتوي الصفحة"
-            ],
-            "validation" => [
-                "required" => "%{attribute} مطلوب",
-                "required_f" => "%{attribute} مطلوبة",
-                "maxLength" => "%{attribute} يجب ان لا يتجاوز %{max} حرف ",
-                "minLength" => "%{attribute} يجب ان لا يقل عن  %{min} حرف"
-            ],
-            "placeholder" => [
-                "enter_page_name" => "أدخل اسم صفحة",
-                "choose_status" => "اختر الحالة"
-            ],
-            "labels" => [
-                "page_name" => "اسم الصفحة",
-                "page_status" => "الحالة",
-                "page_description" => "محتوي الصفحة",
-                "chooseStatus" => "اختر الحالة",
-                "image" => "صورة",
-                "drag_image" => "اسحب  واسقط أو قم برفع الصورة",
-                "status" => "الحالة",
-                "show_options" => "اختيارات الظهور",
-                "show_in_app" => "يعرض في التطبيق",
-                "show_in_website" => "يعرض في الموقع"
-            ],
-            "statusOptions" => [
-                "all" => "الجميع",
-                "is_active" => "مفعلة",
-                "un_active" => "معطلة",
-                "without" => "بدون",
-                "without_department" => "بدون قسم"
-            ],
-            "tooltip" => [
-                "archive" => "أرشفة",
-                "edit" => "تعديل",
-                "view_details" => "عرض ",
-                "messages" => "الرسائل",
-                "Settings" => "الإعدادات",
-                "logout" => "تسجيل خروج",
-                "confirm_account" => "تأكيد الحساب",
-                "confirmed_account" => "الحساب مؤكد",
-                "hang_account" => "تعليق الحساب",
-                "restore" => "استعادة",
-                "force_delete" => "حذف "
-            ],
-            "popup" => [
-                "buttons" => [
-                    "accept" => "موافق",
-                    "refuse" => "غير موافق",
-                    "close" => "إغلاق"
-                ],
-                "body" => [
-                    "archive" => "هل تريد إتمام عملية الأرشفة؟",
-                    "confirmAccount" => "هل تريد إتمام عملية تأكيد الحساب؟",
-                    "hangAccount" => "هل تريد إتمام عملية التعليق؟",
-                    "confirm" => "هل تريد إتمام عملية الحفظ ؟",
-                    "confirmSubmit" => "هل تريد إتمام عملية الحفظ ؟",
-                    "back" => "هل تريد العودة دون الحفظ ؟",
-                    "delete" => "هل تريد إتمام عملية الحذف النهائي؟",
-                    "force_delete" => "هل تريد اتمام عملية الحذف النهائي؟",
-                    "page_has_link" => "لا يمكن حذف صفحة مرتبطة برابط"
-                ],
-                "reasonLabel" => "الرجاء ذكر السبب",
-                "reasonValidation" => "السبب"
-            ],
-            "heading" => [
-                "history" => "الحركة التاريخية"
-            ],
-            "chips" => [
-                "active" => "مفعلة",
-                "inActive" => "معطلة",
-                "edit" => "تعديل",
-                "actived" => "تفعيل",
-                "deactive" => "تعطيل",
-                "add" => "إضافة",
-                "archive" => "أرشفة",
-                "restored" => "استعادة"
-            ]
-        ],
-        "vendors" => [
-            "breadcrumb" => [
-                "vendors" => "العملاء",
-                "vendors_record" => "سجل العملاء",
-                "edit_vendor" => "تعديل عميل",
-                "add_vendor" => "إضافة عميل",
-                "view_vendor" => "عرض عميل"
-            ],
-            "table" => [
-                "#" => "#",
-                "vendor_name" => "اسم العميل",
-                "vendor_type" => "نوع العميل",
-                "commercial_register" => "السجل التجاري",
-                "tax_record" => "الرقم الضريبي",
-                "branches_record" => "سجل الفروع",
-                "status" => "الحالة",
-                "actions" => "العمليات",
-                "addedBy" => "تم بواسطة",
-                "department_name" => "اسم القسم",
-                "activity_date" => "تاريخ النشاط",
-                "activity_name" => "النشاط",
-                "activity_details" => "تفاصيل النشاط",
-                "no_data" => " لا توجد نتائج متاحة",
-                "pagination" => [
-                    "show" => "عرض",
-                    "to" => "إلى",
-                    "of" => "من",
-                    "result" => "الإجمالي"
-                ]
-            ],
-            "cards" => [
-                "map" => "إحداثيات الموقع"
-            ],
-            "buttons" => [
-                "add" => "إضافة عميل",
-                "export" => "تصدير",
-                "reset" => "عرض الكل",
-                "search" => "بحث",
-                "close" => "إغلاق",
-                "back" => "عودة",
-                "save" => "حفظ",
-                "edit" => "تعديل"
-            ],
-            "fields" => [
-                "vendor_type" => "نوع العميل",
-                "vendor_name" => "اسم العميل",
-                "commercial_register" => "السجل التجاري",
-                "tax_record" => "الرقم الضريبي",
-                "account_number" => "رقم الحساب",
-                "logo_image" => "الشعار",
-                "commercial_register_image" => "إثبات السجل التجاري",
-                "country_code" => "كود الدولة",
-                "email" => "البريد الإلكتروني",
-                "phone" => "رقم الجوال"
-            ],
-            "validation" => [
-                "required" => "%{attribute} مطلوب",
-                "required_f" => "%{attribute} مطلوبة",
-                "maxLength" => "%{attribute} يجب ان لا يتجاوز %{max} حرف ",
-                "minLength" => "%{attribute} يجب ان لا يقل عن  %{min} حرف",
-                "startWithSA" => "%{attribute} يجب ان يبدأ ب SA "
-            ],
-            "placeholder" => [
-                "choosevendor" => "إختر العميل",
-                "enter_name" => "أدخل الاسم",
-                "chooseStatus" => "اختر الحالة",
-                "commercial_register" => "أدخل السجل التجاري",
-                "tax_record" => "أدخل الرقم الضريبي",
-                "email" => "أدخل البريد الإلكتروني",
-                "phone_x" => "xxxxxxxx",
-                "enter_phone" => "أدخل رقم الجوال"
-            ],
-            "labels" => [
-                "vendor_type" => "نوع العميل",
-                "vendor_name" => "اسم العميل",
-                "status" => "الحالة",
-                "commercial_register" => "السجل التجاري",
-                "tax_record" => "الرقم الضريبي",
-                "account_number" => "رقم الحساب",
-                "logo_image" => "الشعار",
-                "commercial_register_image" => "إثبات السجل التجاري",
-                "tax_record_image" => "إثبات الرقم الضريبي",
-                "image" => "صورة",
-                "drag_image" => "اسحب  واسقط أو قم برفع الصورة",
-                "support_checkbox" => "يدعم رصيد معاك",
-                "email" => "البريد الإلكتروني",
-                "phone" => "رقم الجوال",
-                "logoImage" => "الشعار مطلوب",
-                "commercialImage" => "إثبات السجل التجاري مطلوب",
-                "taxImage" => "إثبات الرقم الضريبي مطلوب",
-                "lat" => "خط طول",
-                "lng" => "خط عرض",
-                "fullAddress" => "العنوان بالتفصيل",
-                "location" => "الموقع"
-            ],
-            "statusOptions" => [
-                "all" => "الجميع",
-                "is_active" => "مفعل",
-                "un_active" => "معطل",
-                "without" => "بدون",
-                "without_department" => "بدون قسم"
-            ],
-            "vendorTypes" => [
-                "company" => "شركات",
-                "institution" => "مؤسسة",
-                "member" => "عضو",
-                "freelance_doc" => "مستقل",
-                "famous" => "مشهور",
-                "other" => "أخري"
-            ],
-            "tooltip" => [
-                "archive" => "أرشفة",
-                "edit" => "تعديل",
-                "view_details" => "عرض ",
-                "messages" => "الرسائل",
-                "Settings" => "الإعدادات",
-                "logout" => "تسجيل خروج",
-                "confirm_account" => "تأكيد الحساب",
-                "confirmed_account" => "الحساب مؤكد",
-                "hang_account" => "تعليق الحساب",
-                "restore" => "استعادة",
-                "force_delete" => "حذف "
-            ],
-            "popup" => [
-                "buttons" => [
-                    "accept" => "موافق",
-                    "refuse" => "غير موافق",
-                    "close" => "إغلاق"
-                ],
-                "body" => [
-                    "archive" => "هل تريد إتمام عملية الأرشفة؟",
-                    "confirmAccount" => "هل تريد إتمام عملية تأكيد الحساب؟",
-                    "hangAccount" => "هل تريد إتمام عملية التعليق؟",
-                    "confirm" => "هل تريد إتمام عملية الحفظ ؟",
-                    "confirmSubmit" => "هل تريد إتمام عملية الحفظ ؟",
-                    "back" => "هل تريد العودة دون الحفظ ؟",
-                    "delete" => "هل تريد إتمام عملية الحذف النهائي؟"
-                ],
-                "reasonLabel" => "الرجاء ذكر السبب",
-                "reasonValidation" => "السبب"
-            ],
-            "heading" => [
-                "history" => "الحركة التاريخية"
-            ],
-            "chips" => [
-                "active" => "مفعل",
-                "inActive" => "معطل",
-                "edit" => "تعديل",
-                "actived" => "تفعيل",
-                "deactive" => "تعطيل",
-                "add" => "إضافة",
-                "archive" => "أرشفة",
-                "restored" => "استعادة"
-            ],
-            "branches" => [
-                "breadcrumb" => [
-                    "branches" => "العملاء",
-                    "branches_record" => "سجل الفروع",
-                    "edit_branch" => "تعديل فرع",
-                    "add_branch" => "إضافة فرع",
-                    "view_branch" => "عرض فرع"
-                ],
-                "table" => [
-                    "#" => "#",
-                    "vendor_name" => "اسم العميل",
-                    "branch_name" => "اسم الفرع",
-                    "status" => "الحالة",
-                    "phone" => "رقم الجوال",
-                    "actions" => "العمليات",
-                    "addedBy" => "تم بواسطة",
-                    "department_name" => "اسم القسم",
-                    "activity_date" => "تاريخ النشاط",
-                    "activity_name" => "النشاط",
-                    "activity_details" => "تفاصيل النشاط",
-                    "no_data" => " لا توجد نتائج متاحة",
-                    "pagination" => [
-                        "show" => "عرض",
-                        "to" => "إلى",
-                        "of" => "من",
-                        "result" => "الإجمالي"
-                    ]
-                ],
-                "buttons" => [
-                    "add" => "إضافة فرع",
-                    "export" => "تصدير",
-                    "reset" => "عرض الكل",
-                    "search" => "بحث",
-                    "close" => "إغلاق",
-                    "back" => "عودة",
-                    "save" => "حفظ",
-                    "edit" => "تعديل"
-                ],
-                "fields" => [
-                    "vendor_name" => "اسم العميل",
-                    "branch_name" => "اسم الفرع",
-                    "country_code" => "كود الدولة",
-                    "email" => "البريد الإلكتروني",
-                    "phone" => "رقم الجوال",
-                    "address" => "العنوان",
-                    "status" => "الحالة",
-                    "fullAddress" => "العنوان بالتفصيل",
-                    "location" => "الموقع",
-                    "branchImage" => "صورة الفرع",
-                    "lat" => "خط طول",
-                    "lng" => "خط عرض"
-                ],
-                "validation" => [
-                    "required" => "%{attribute} مطلوب",
-                    "required_f" => "%{attribute} مطلوبة",
-                    "maxLength" => "%{attribute} يجب ان لا يتجاوز %{max} حرف ",
-                    "minLength" => "%{attribute} يجب ان لا يقل عن  %{min} حرف"
-                ],
-                "placeholder" => [
-                    "choosevendor" => "إختر العميل",
-                    "chooseBranch" => "أدخل اسم الفرع",
-                    "enter_name" => "أدخل الاسم",
-                    "chooseStatus" => "اختر الحالة",
-                    "address" => "أدخل العنوان",
-                    "email" => "أدخل البريد الإلكتروني",
-                    "phone_x" => "xxxxxxxx",
-                    "enter_phone" => "أدخل رقم الجوال"
-                ],
-                "labels" => [
-                    "vendor_name" => "اسم العميل",
-                    "branch_name" => "اسم الفرع",
-                    "address" => "العنوان",
-                    "status" => "الحالة",
-                    "phone" => "رقم الجوال",
-                    "email" => "البريد الإلكتروني",
-                    "fullAddress" => "العنوان بالتفصيل",
-                    "location" => "الموقع",
-                    "branchImage" => "صورة الفرع",
-                    "drag_image" => "اسحب  واسقط أو قم برفع صورة التطبيق",
-                    "lat" => "خط طول",
-                    "lng" => "خط عرض"
-                ],
-                "statusOptions" => [
-                    "all" => "الجميع",
-                    "is_active" => "مفعل",
-                    "un_active" => "معطل",
-                    "without" => "بدون",
-                    "without_department" => "بدون قسم"
-                ],
-                "cards" => [
-                    "branch_data" => "بيانات الفرع",
-                    "map" => "إحداثيات الموقع"
-                ],
-                "map" => [
-                    "location" => "الموقع",
-                    "lat" => "خط طول",
-                    "lng" => "خط عرض"
-                ],
-                "tooltip" => [
-                    "archive" => "أرشفة",
-                    "edit" => "تعديل",
-                    "view_details" => "عرض ",
-                    "messages" => "الرسائل",
-                    "Settings" => "الإعدادات",
-                    "logout" => "تسجيل خروج",
-                    "confirm_account" => "تأكيد الحساب",
-                    "confirmed_account" => "الحساب مؤكد",
-                    "hang_account" => "تعليق الحساب",
-                    "restore" => "استعادة",
-                    "force_delete" => "حذف "
-                ],
-                "popup" => [
-                    "buttons" => [
-                        "accept" => "موافق",
-                        "refuse" => "غير موافق",
-                        "close" => "إغلاق"
-                    ],
-                    "body" => [
-                        "archive" => "هل تريد إتمام عملية الأرشفة؟",
-                        "confirmAccount" => "هل تريد إتمام عملية تأكيد الحساب؟",
-                        "hangAccount" => "هل تريد إتمام عملية التعليق؟",
-                        "confirm" => "هل تريد إتمام عملية الحفظ ؟",
-                        "confirmSubmit" => "هل تريد إتمام عملية الحفظ ؟",
-                        "back" => "هل تريد العودة دون الحفظ ؟",
-                        "delete" => "هل تريد إتمام عملية الحذف النهائي؟"
-                    ],
-                    "reasonLabel" => "الرجاء ذكر السبب",
-                    "reasonValidation" => "السبب"
-                ],
-                "heading" => [
-                    "history" => "الحركة التاريخية"
-                ],
-                "chips" => [
-                    "active" => "مفعل",
-                    "inActive" => "معطل",
-                    "edit" => "تعديل",
-                    "actived" => "تفعيل",
-                    "deactive" => "تعطيل",
-                    "add" => "إضافة",
-                    "archive" => "أرشفة",
-                    "restored" => "استعادة"
-                ]
-            ]
-        ],
-        "citizens" => [
-            "breadcrumb" => [
-                "record" => "سجل المستخدمين",
-                "edit" => "تعديل مستخدم",
-                "view" => "عرض مستخدم"
-            ],
-            "table" => [
-                "#" => "#",
-                "user_name" => "اسم المستخدم",
-                "identity_number" => "رقم الهوية",
-                "mobile" => "رقم الجوال",
-                "activated_card" => "البطاقة المفعلة",
-                "card_end_at" => "تاريخ إنتهاء البطاقة",
-                "register_date" => "تاريخ التسجيل",
-                "status" => "الحالة",
-                "actions" => "العمليات",
-                "by_employee" => "تم بواسطة",
-                "department_name" => "اسم القسم",
-                "activity_date" => "تاريخ النشاط",
-                "activity" => "النشاط",
-                "activity_details" => "تفاصيل النشاط",
-                "no_data" => " لا توجد نتائج متاحة",
-                "pagination" => [
-                    "show" => "عرض",
-                    "to" => "إلى",
-                    "of" => "من",
-                    "result" => "مستخدم"
-                ]
-            ],
-            "buttons" => [
-                "export" => "تصدير",
-                "reset" => "عرض الكل",
-                "search" => "بحث",
-                "save" => "حفظ",
-                "back" => "عودة",
-                "edit" => "تعديل"
-            ],
-            "fields" => [
-                "phone" => "رقم الجوال"
-            ],
-            "validation" => [
-                "required" => "%{attribute} مطلوب",
-                "required_f" => "%{attribute} مطلوبة",
-                "maxLength" => "%{attribute} يجب ان لا يتجاوز %{max} حروف ",
-                "minLength" => "%{attribute} يجب ان لا يقل عن  %{min} حروف",
-                "validPhoneNumber" => "يرجى ادخال رقم جوال بصيغة صحيحة"
-            ],
-            "placeholder" => [
-                "enter_name" => "أدخل الاسم",
-                "add_number" => "أدخل الرقم",
-                "select_date" => "يوم/شهر/سنة",
-                "all" => "الجميع",
-                "user_name" => "اسم المستخدم",
-                "identity_number" => "رقم الهوية",
-                "mobile" => "رقم الجوال",
-                "activated_card" => "البطاقة المفعلة",
-                "card_end_at" => "تاريخ إنتهاء البطاقة",
-                "register_date" => "تاريخ التسجيل",
-                "phone_x" => "xxxxxxxx",
-                "enter_phone" => "أدخل رقم الجوال"
-            ],
-            "labels" => [
-                "user_name" => "اسم المستخدم",
-                "identity_number" => "رقم الهوية",
-                "phone" => "رقم الجوال",
-                "active_card" => "البطاقة المفعلة",
-                "card_end_date_from" => "تاريخ إنتهاء البطاقة (من)",
-                "card_end_date_to" => "تاريخ إنتهاء البطاقة (إلى)",
-                "register_date_from" => "تاريخ التسجيل (من)",
-                "register_date_to" => "تاريخ التسجيل (إلى)",
-                "activated_card" => "البطاقة المفعلة",
-                "card_end_at" => "تاريخ إنتهاء البطاقة",
-                "register_date" => "تاريخ التسجيل",
-                "all" => "الجميع",
-                "from" => "من",
-                "to" => "إلى",
-                "status" => "الحالة"
-            ],
-            "heading" => [
-                "historical_movment" => "الحركة التاريخية"
-            ],
-            "tooltip" => [
-                "edit" => "تعديل",
-                "view_details" => "عرض",
-                "exceeded_attempts" => "معطل لتخطي عدد مرات الدخول الخاطئ",
-                "temporary" => "معطل مؤقت"
-            ],
-            "chips" => [
-                "active" => "مفعل",
-                "permanent" => "معطل",
-                "temporary" => "معطل مؤقت",
-                "inActive" => "معطل"
-            ],
-            "popup" => [
-                "buttons" => [
-                    "accept" => "موافق",
-                    "refuse" => "غير موافق"
-                ],
-                "body" => [
-                    "archive" => "هل تريد إتمام عملية الأرشفة؟",
-                    "confirmAccount" => "هل تريد إتمام عملية تأكيد الحساب؟",
-                    "hangAccount" => "هل تريد إتمام عملية التعليق؟",
-                    "confirm" => "هل تريد إتمام عملية الحفظ ؟",
-                    "confirmSubmit" => "هل تريد إتمام عملية الحفظ ؟",
-                    "back" => "هل تريد العودة دون الحفظ ؟",
-                    "delete" => "هل تريد إتمام عملية الحذف النهائي؟"
-                ],
-                "reasonLabel" => "الرجاء ذكر السبب",
-                "reasonValidation" => "السبب"
-            ],
-            "statusOptions" => [
-                "all" => "الجميع",
-                "active" => "مفعل",
-                "permanent disable" => "معطل",
-                "Temporary Disable" => "معطل مؤقت",
-                "exceeded_attempts" => "معطل لتخطي عدد مرات الدخول الخاطئ",
-                "no_data" => "لا توجد نتائج متاحة"
-            ]
-        ],
-        "transactions" => [
-            "breadcrumb" => [
-                "record" => "سجل المعاملات",
-                "view" => "عرض معاملة"
-            ],
-            "table" => [
-                "#" => "#",
-                "transaction_number" => "رقم المعاملة",
-                "client_name" => "اسم المستخدم",
-                "transaction_date" => "تاريخ المعاملة",
-                "transaction_type" => "نوع المعاملة",
-                "transaction_status" => "حالة المعاملة",
-                "active_identity_card" => "البطاقة المفعلة",
-                "actions" => "العمليات",
-                "no_data" => " لا توجد نتائج متاحة",
-                "activity_details" => "تفاصيل النشاط",
-                "pagination" => [
-                    "show" => "عرض",
-                    "to" => "إلى",
-                    "of" => "من",
-                    "result" => "معاملة"
-                ]
-            ],
-            "buttons" => [
-                "export" => "تصدير",
-                "reset" => "عرض الكل",
-                "search" => "بحث",
-                "save" => "حفظ",
-                "back" => "عودة"
-            ],
-            "fields" => [
-                "phone" => "رقم الجوال"
-            ],
-            "validation" => [
-                "required" => "%{attribute} مطلوب",
-                "required_f" => "%{attribute} مطلوبة",
-                "maxLength" => "%{attribute} يجب ان لا يتجاوز %{max} حروف ",
-                "minLength" => "%{attribute} يجب ان لا يقل عن  %{min} حروف"
-            ],
-            "placeholder" => [
-                "enter_transaction" => "أدخل رقم المعاملة",
-                "choose_client" => "اختر المستخدم",
-                "select_date" => "يوم/شهر/سنة",
-                "choose_transaction_type" => "اختر نوع المعاملة",
-                "choose_transaction_status" => "اختر حالة المعاملة",
-                "choose_identity_type" => "اختر نوع البطاقة",
-                "enter_client_name" => "أدخل اسم المستخدم"
-            ],
-            "labels" => [
-                "transaction_number" => "رقم المعاملة",
-                "client_name" => "اسم المستخدم",
-                "user_name" => "اسم المستخدم",
-                "phone" => "رقم الجوال",
-                "active_card" => "البطاقة المفعلة",
-                "transaction_date_from" => "تاريخ المعاملة (من)",
-                "transaction_date_to" => "تاريخ المعاملة (إلى)",
-                "activated_card" => "البطاقة المفعلة",
-                "transaction_type" => "نوع المعاملة",
-                "transaction_status" => "حالة المعاملة",
-                "transaction_date" => "تاريخ المعاملة",
-                "invoice_amount" => "قيمة الفاتورة",
-                "enabled_package_discount" => "نسبة خصم البطاقة",
-                "amount" => "قيمة المعاملة",
-                "cash_back" => "المكافئات المكتسبة",
-                "all" => "الجميع",
-                "success" => "ناجحة",
-                "fail" => "فاشلة",
-                "pending" => "بانتظار الاستلام",
-                "delivared" => "تم الاستلام",
-                "cancel" => "تم الإلغاء",
-                "vendor_name" => " اسم العميل",
-                "citizen_name" => "اسم المستخدم"
-            ],
-            "tooltip" => [
-                "view_details" => "عرض"
-            ],
-            "popup" => [
-                "buttons" => [
-                    "accept" => "موافق",
-                    "refuse" => "غير موافق"
-                ],
-                "body" => [
-                    "archive" => "هل تريد إتمام عملية الأرشفة؟",
-                    "confirmAccount" => "هل تريد إتمام عملية تأكيد الحساب؟",
-                    "hangAccount" => "هل تريد إتمام عملية التعليق؟",
-                    "confirm" => "هل تريد إتمام عملية الحفظ ؟",
-                    "confirmSubmit" => "هل تريد إتمام عملية الحفظ ؟",
-                    "back" => "هل تريد العودة دون الحفظ ؟",
-                    "delete" => "هل تريد إتمام عملية الحذف النهائي؟"
-                ],
-                "reasonLabel" => "الرجاء ذكر السبب",
-                "reasonValidation" => "السبب"
-            ],
-            "types" => [
-                "payment" => "دفع",
-                "wallet_transfer" => "تحويل لمحفظة",
-                "locale_transfer" => "تحويل محلى",
-                "global_transfer" => "تحويل دولى",
-                "recharge_credit" => "شحن رصيد ",
-                "upgrade_card" => "بطاقة ا لترقية"
-            ]
-        ],
-        "card_packages" => [
-            "breadcrumb" => [
-                "card_packages" => "نسب خصم البطاقات",
-                "record" => "سجل نسب خصم البطاقات",
-                "add" => "إضافة نسبة خصم البطاقة",
-                "edit" => "تعديل نسبة خصم البطاقة"
-            ],
-            "table" => [
-                "#" => "#",
-                "client_name" => "اسم العميل",
-                "basic_discount" => "البطاقة الأساسية",
-                "golden_discount" => "البطاقة الذهبية",
-                "platinum_discount" => "البطاقة البلاتينية",
-                "actions" => "العمليات",
-                "no_data" => " لا توجد نتائج متاحة",
-                "activity_details" => "تفاصيل النشاط",
-                "pagination" => [
-                    "show" => "عرض",
-                    "to" => "إلى",
-                    "of" => "من",
-                    "result" => "نسبة خصم"
-                ]
-            ],
-            "buttons" => [
-                "export" => "تصدير",
-                "reset" => "عرض الكل",
-                "search" => "بحث",
-                "save" => "حفظ",
-                "back" => "عودة",
-                "add_discount_rates" => "إضافة نسب خصم البطاقات"
-            ],
-            "fields" => [
-                "phone" => "رقم الجوال",
-                "client_name" => "اسم العميل",
-                "discounts" => "نسبة الخصم"
-            ],
-            "validation" => [
-                "required" => "%{attribute} مطلوب",
-                "required_f" => "%{attribute} مطلوبة",
-                "maxLength" => "%{attribute} يجب ان لا يتجاوز %{max} حروف ",
-                "minLength" => "%{attribute} يجب ان لا يقل عن  %{min} حروف",
-                "maxValue" => "%{attribute} يجب ان لا تتجاوز %{max}",
-                "minValue" => "%{attribute} يجب ان تكون علي الاقل %{min}"
-            ],
-            "placeholder" => [
-                "choose_client" => "اختر العميل",
-                "enter_discount" => "أدخل نسبة الخصم"
-            ],
-            "labels" => [
-                "client_name" => "اسم العميل",
-                "basic_card" => "نسبة خصم البطاقة الأساسية",
-                "gold_card" => "نسبة خصم البطاقة الذهبية",
-                "platinum_card" => "نسبة خصم البطاقة البلاتينية"
-            ],
-            "tooltip" => [
-                "edit" => "تعديل"
-            ],
-            "popup" => [
-                "buttons" => [
-                    "accept" => "موافق",
-                    "refuse" => "غير موافق"
-                ],
-                "body" => [
-                    "archive" => "هل تريد إتمام عملية الأرشفة؟",
-                    "confirmAccount" => "هل تريد إتمام عملية تأكيد الحساب؟",
-                    "hangAccount" => "هل تريد إتمام عملية التعليق؟",
-                    "confirm" => "هل تريد إتمام عملية الحفظ ؟",
-                    "confirmSubmit" => "هل تريد إتمام عملية الحفظ ؟",
-                    "back" => "هل تريد العودة دون الحفظ ؟",
-                    "delete" => "هل تريد إتمام عملية الحذف النهائي؟"
-                ],
-                "reasonLabel" => "الرجاء ذكر السبب",
-                "reasonValidation" => "السبب"
-            ]
-        ],
-        "messages" => [
-            "breadcrumb" => [
-                "record" => "الدعم والمساعدة",
-                "messages" => "صندوق الرسائل",
-                "reply" => "الرد على الرسالة",
-                "view" => "عرض الرسالة"
-            ],
-            "heading" => [
-                "history" => "الحركة التاريخية"
-            ],
-            "table" => [
-                "#" => "#",
-                "sender_name" => "اسم المرسل",
-                "mobile" => "رقم الجوال",
-                "message_type" => "نوع الرسالة",
-                "message_status" => "حالة الرسالة",
-                "email" => "البريد الإلكتروني",
-                "employee" => " الموظف المسئول",
-                "message_from" => "مصدر الرسالة",
-                "message_date" => "تاريخ الرسالة",
-                "actions" => "العمليات",
-                "addedBy" => "تم بواسطة",
-                "department_name" => "اسم القسم",
-                "activity_date" => "تاريخ النشاط",
-                "activity_name" => "النشاط",
-                "activity_reason" => "السبب",
-                "no_data" => " لا توجد نتائج متاحة",
-                "activity_details" => "تفاصيل النشاط",
-                "without_department" => "بدون قسم",
-                "pagination" => [
-                    "show" => "عرض",
-                    "to" => "إلى",
-                    "of" => "من",
-                    "result" => "رسالة"
-                ]
-            ],
-            "buttons" => [
-                "export" => "تصدير",
-                "reset" => "عرض الكل",
-                "search" => "بحث",
-                "save" => "حفظ",
-                "edit" => "حفظ",
-                "send" => "إرسال",
-                "back" => "عودة"
-            ],
-            "fields" => [
-                "employee_name" => "الموظف المسئول",
-                "reply" => "الرد",
-                "admin" => "اسم الموظف",
-                "notes" => "الملحوظة"
-            ],
-            "validation" => [
-                "required" => "%{attribute} مطلوب",
-                "required_f" => "%{attribute} مطلوبة",
-                "maxLength" => "%{attribute} يجب ان لا يتجاوز %{max} حروف ",
-                "minLength" => "%{attribute} يجب ان لا يقل عن  %{min} حروف",
-                "validPhoneNumber" => "يرجى ادخال رقم جوال بصيغة صحيحة    "
-            ],
-            "placeholder" => [
-                "enter_name" => "أدخل الاسم",
-                "add_number" => "أدخل الرقم",
-                "select_date" => "يوم/شهر/سنة",
-                "all" => "الجميع",
-                "select_type" => "اختر النوع",
-                "select_status" => "اختر الحالة",
-                "enter_email" => "أدخل البريد الإلكتروني",
-                "select_message_from" => "اختر المصدر",
-                "employee" => "اسم الموظف المسئول",
-                "enter_reply" => "أدخل الرد",
-                "enter_note" => "أدخل ملوحظة",
-                "phone_x" => "xxxxxxxx",
-                "enter_phone" => "أدخل رقم الجوال"
-            ],
-            "labels" => [
-                "sender_name" => "اسم المرسل",
-                "phone" => "رقم الجوال",
-                "message_type" => "نوع الرسالة",
-                "message_status" => "حالة الرسالة",
-                "message_date_from" => "تاريخ الرسالة (من)",
-                "message_date_to" => "تاريخ الرسالة (إلى)",
-                "message_details" => "نص الرسالة",
-                "reply" => "الرد",
-                "message_date" => "تاريخ الرسالة",
-                "email" => "البريد الإلكتروني",
-                "employee" => "اسم الموظف المسئول",
-                "message_from" => "مصدر الرسالة",
-                "all" => "الجميع",
-                "problem" => "شكوى",
-                "suggestion" => "إقتراح",
-                "active" => "مفعل",
-                "deactive" => "معطل",
-                "application" => "التطبيق",
-                "website" => "الموقع الإلكتروني",
-                "no_data" => "لا توجد بيانات",
-                "complain" => "شكوي",
-                "noData" => "لا يوجد رد",
-                "noAdmin" => "لا يوجد ",
-                "new" => "جديد",
-                "pending" => "بانتظار الرد ",
-                "replied" => "تم الرد ",
-                "without_emplyees" => "لا يوجد موظفين",
-                "note" => "ملحوظة",
-                "assigned" => "تم الإحالة"
-            ],
-            "tooltip" => [
-                "reply" => "رد",
-                "view_details" => "عرض",
-                "force_delete" => "حذف"
-            ],
-            "chips" => [
-                "pending" => "بإنتظار الرد",
-                "new" => "جديد",
-                "replied" => "تم الرد",
-                "active" => "مفعل",
-                "inActive" => "معطل",
-                "edit" => "تعديل",
-                "actived" => "تفعيل",
-                "deactive" => "تعطيل",
-                "add" => "إضافة",
-                "archive" => "أرشفة",
-                "restored" => "استعادة",
-                "shown" => "تم الإطلاع",
-                "assigned" => "تم الإحالة",
-                "created" => "تم الاستقبال"
-            ],
-            "popup" => [
-                "buttons" => [
-                    "accept" => "موافق",
-                    "refuse" => "غير موافق"
-                ],
-                "body" => [
-                    "archive" => "هل تريد إتمام عملية الأرشفة؟",
-                    "confirmAccount" => "هل تريد إتمام عملية تأكيد الحساب؟",
-                    "hangAccount" => "هل تريد إتمام عملية التعليق؟",
-                    "confirm" => "هل تريد إتمام عملية الحفظ ؟",
-                    "confirmSubmit" => "هل تريد إتمام عملية الإرسال ؟",
-                    "back" => "هل تريد العودة دون الحفظ ؟",
-                    "delete" => "هل تريد إتمام عملية الحذف النهائي؟"
-                ],
-                "reasonLabel" => "الرجاء ذكر السبب",
-                "reasonValidation" => "السبب"
-            ]
-        ],
-        "messageTypes" => [
-            "statusOptions" => [
-                "all" => "الجميع",
-                "active" => "مفعل",
-                "inactive" => "معطل",
-                "no_data" => "لا توجد نتائج متاحة"
-            ],
-            "breadcrumb" => [
-                "record" => "الدعم والمساعدة",
-                "edit_message_type" => "تعديل نوع الرسالة",
-                "create_message_type" => "اضاقة نوع رسالة",
-                "view" => "عرض نوع الرسالة",
-                "message_type" => "نوع  الرسالة"
-            ],
-            "heading" => [
-                "history" => "الحركة التاريخية"
-            ],
-            "table" => [
-                "#" => "#",
-                "message_type" => "نوع الرسالة",
-                "employees_count" => " عدد الموظفين",
-                "actions" => "العمليات",
-                "addedBy" => "تم بواسطة",
-                "created_at" => "تاريخ الأنشاء ",
-                "no_data" => " لا توجد نتائج متاحة",
-                "activity_details" => "تفاصيل النشاط",
-                "status" => "الحالة",
-                "pagination" => [
-                    "show" => "عرض",
-                    "to" => "إلى",
-                    "of" => "من",
-                    "result" => "نوع رسالة"
-                ]
-            ],
-            "buttons" => [
-                "export" => "تصدير",
-                "reset" => "عرض الكل",
-                "search" => "بحث",
-                "save" => "حفظ",
-                "edit" => "حفظ",
-                "back" => "عودة",
-                "add_message_type" => "اضافة نوع رسالة",
-                "edit_button" => "تعديل"
-            ],
-            "fields" => [
-                "employee_name" => "الموظف المسئول",
-                "employee" => "الموظف المسئول",
-                "name" => "نوع الرسالة",
-                "reply" => "الرد"
-            ],
-            "validation" => [
-                "required" => "%{attribute} مطلوب",
-                "required_f" => "%{attribute} مطلوبة",
-                "maxLength" => "%{attribute} يجب ان لا يتجاوز %{max} حروف ",
-                "minLength" => "%{attribute} يجب ان لا يقل عن  %{min} حروف",
-                "validPhoneNumber" => "يرجى ادخال رقم جوال بصيغة صحيحة    "
-            ],
-            "placeholder" => [
-                "enter_message_type" => "أدخل  نوع الرسالة",
-                "enter_employee_in_charge" => "اختر الموظف المسئول",
-                "select_date" => "يوم/شهر/سنة",
-                "all" => "الجميع",
-                "select_type" => "اختر النوع",
-                "select_status" => "اختر الحالة",
-                "enter_email" => "أدخل البريد الإلكتروني",
-                "select_message_from" => "اختر المصدر",
-                "employee" => "اسم الموظف المسئول",
-                "enter_reply" => "أدخل الرد"
-            ],
-            "labels" => [
-                "message_type" => "نوع الرسالة",
-                "employee_in_charge" => "الموظف المسئول",
-                "created_date_from" => "تاريخ  الإنشاء من",
-                "created_date_to" => "تاريخ الإنشاء إلى",
-                "message_details" => "نص الرسالة",
-                "reply" => "الرد",
-                "message_date" => "تاريخ الرسالة",
-                "email" => "البريد الإلكتروني",
-                "employee" => " الموظف المسئول",
-                "message_from" => "مصدر الرسالة",
-                "all" => "الجميع",
-                "problem" => "شكاوي",
-                "suggestion" => "إقتراح",
-                "active" => "مفعل",
-                "deactive" => "معطل",
-                "application" => "التطبيق",
-                "website" => "الموقع الإلكتروني",
-                "no_data" => "لا توجد بيانات",
-                "complain" => "شكوي",
-                "without_emplyees" => "لا يوجد موظفين",
-                "status" => "الحالة"
-            ],
-            "tooltip" => [
-                "reply" => "رد",
-                "view_details" => "عرض",
-                "force_delete" => "حذف"
-            ],
-            "chips" => [
-                "active" => "مفعل",
-                "permanent" => "معطل دائم",
-                "temporary" => "معطل لفترة",
-                "deactivated" => "تعطيل",
-                "inactive" => "معطل",
-                "activated" => "تفعيل",
-                "archive" => "أرشيف",
-                "edit" => "تعديل",
-                "add" => "إضافة",
-                "inActive" => "معطل"
-            ],
-            "popup" => [
-                "buttons" => [
-                    "accept" => "موافق",
-                    "refuse" => "غير موافق"
-                ],
-                "body" => [
-                    "archive" => "هل تريد إتمام عملية الأرشفة؟",
-                    "confirmAccount" => "هل تريد إتمام عملية تأكيد الحساب؟",
-                    "hangAccount" => "هل تريد إتمام عملية التعليق؟",
-                    "confirm" => "هل تريد إتمام عملية الحفظ ؟",
-                    "confirmSubmit" => "هل تريد إتمام عملية الحفظ ؟",
-                    "back" => "هل تريد العودة دون الحفظ ؟",
-                    "delete" => "هل تريد إتمام عملية الحذف النهائي؟"
-                ],
-                "reasonLabel" => "الرجاء ذكر السبب",
-                "reasonValidation" => "السبب"
-            ]
-        ],
-        "public" => [
-            "loading" => "جاري التحميل",
-            "without" => "بدون",
-            "no_data" => " لا توجد نتائج متاحة",
-            "close" => "إغلاق",
-            "not_found" => "الصفحة غير موجودة",
-            "go_home" => "اذهب للرئيسية",
-            "pdf" => "pdf",
-            "xlsx" => "xlsx",
-            "map" => [
-                "location" => "الموقع",
-                "lat" => "خط طول",
-                "lng" => "خط عرض",
-                "addLocation" => "أدخل الموقع",
-                "fields" => [
-                    "lat" => "خط طول",
-                    "lng" => "خط عرض"
-                ]
-            ],
-            "validation" => [
-                "imageType" => "يجب أن يكون نوع الصورة jpg , png , jpeg",
-                "imageSize" => "يجب أن يكون حجم الصورة أقل من %{count} kb",
-                "imageDimensions" => "أبعاد الصورة غير صالحة",
-                "image_ratio" => "نسبة الصورة غير صالحة",
-                "isPngType" => "فقط  png"
-            ]
-        ],
-        "appLinks" => [
-            "table" => [
-                "#" => "#",
-                "links" => "الروابط",
-                "staticPages" => "الصفحة الثابتة",
-                "actions" => "العمليات",
-                "no_data" => " لا توجد نتائج متاحة",
-                "activity_details" => "تفاصيل النشاط",
-                "pagination" => [
-                    "show" => "عرض",
-                    "to" => "إلى",
-                    "of" => "من",
-                    "result" => "روابط"
-                ]
-            ],
-            "breadcrumb" => [
-                "settings" => "إعدادات التطبيق",
-                "links" => "الروابط"
-            ],
-            "buttons" => [
-                "save" => "حفظ"
-            ],
-            "placeholder" => [
-                "enter_static_page" => "اختر الصفحة الثابتة"
-            ]
-        ],
-        "appBar" => [
-            "labels" => [
-                "profile" => "الملف الشخصي",
-                "logout" => "تسجيل خروج"
-            ]
-        ],
-        "profile" => [
-            "labels" => [
-                "user_name" => "اسم المستخدم",
-                "department" => "القسم",
-                "job_name" => "اسم الوظيفة",
-                "user_number" => "رقم المستخدم",
-                "email" => "البريد الإلكتروني",
-                "phone" => "رقم الجوال",
-                "check_password" => "تغيير كلمة المرور",
-                "image" => "صورة المستخدم",
-                "drag_image" => "اسحب  واسقط أو قم برفع الصورة",
-                "current_password" => "كلمة المرور الحالية",
-                "new_password" => "كلمة المرور الجديدة",
-                "confirm_password" => "تأكيد كلمة المرور الجديدة"
-            ],
-            "placeholder" => [
-                "enter_current_password" => "أدخل كلمة المرور الحالية",
-                "enter_confirmation_password" => "أدخل تأكيد كلمة المرور الجديدة",
-                "enter_new_password" => "أدخل كلمة المرور الجديدة"
-            ],
-            "breadcrumb" => [
-                "profile" => "الملف الشخصي"
-            ],
-            "buttons" => [
-                "save" => "حفظ",
-                "back" => "عودة"
-            ],
-            "fields" => [
-                "current_password" => "كلمة المرور الحالية",
-                "new_password" => "كلمة المرور الجديدة",
-                "confirm_password" => "تأكيد كلمة المرور"
-            ],
-            "popup" => [
-                "buttons" => [
-                    "accept" => "موافق",
-                    "refuse" => "غير موافق"
-                ],
-                "body" => [
-                    "archive" => "هل تريد إتمام عملية الأرشفة؟",
-                    "confirmAccount" => "هل تريد إتمام عملية تأكيد الحساب؟",
-                    "hangAccount" => "هل تريد إتمام عملية التعليق؟",
-                    "confirm" => "هل تريد إتمام عملية الحفظ ؟",
-                    "confirmSubmit" => "هل تريد إتمام عملية الحفظ ؟",
-                    "back" => "هل تريد العودة دون الحفظ ؟",
-                    "delete" => "هل تريد إتمام عملية الحذف النهائي؟"
-                ],
-                "reasonLabel" => "الرجاء ذكر السبب",
-                "reasonValidation" => "السبب"
-            ]
-        ]
+    "appName" => "Rasid",
+    "validation" => [
+        "validPhoneNumber" => "Phone Number Must Start with 5",
+        "required" => "%{attribute} is required",
+        "maxLength" => "%{attribute} must be at most %{max} characters long",
+        "minLength" => "%{attribute} must be %{min} characters at least",
+        "minValue" => "%{attribute} must at least %{min}",
+        "maxValue" => "%{attribute} must at less than %{min}",
+        "minWords" => "%{attribute} must be at least %{minWords} words",
+        "maxWords" => "%{attribute} must be less than %{maxWords} words",
+        "between" => "value must be between %{min} and %{max}",
+        "description" => "Description",
+        "valid" => "must be valid",
+        "sameAsPassword" => "%{attribute} must have the same value",
+        "number" => " must be numbers",
+        "set_as_default_address" => "Set as default Address",
+        "add_address" => "Add New address",
+        "signout" => "Sign Out",
+        "password_min" => "must be 6 numbers",
+        "numeric" => "%{attribute} must be positive number with no fractions",
+        "email" => "%{attribute} is not valid Email Address",
+        "url" => " not valid Url",
+        "file_type" => "File Type must be only pdf",
+        "file_size" => "File Size",
+        "imageType" => "Image type must be jpg,png",
+        "imageSize" => "image Size must be less than %{count} kb",
+        "imageDimensions" => "invalid Image Dimensions",
+        "image_ratio" => "invalid image ratio",
+        "isPngType" => "only",
+        "sameAs" => "%{attribute} must be sameAS %{eq}",
+        "beforeDate" => "%{attribute} must be before %{before_date}",
+        "allType" => "File type must be pdf , docs",
+        "docsType" => "File type must be doc , DOC , pdf , PDF",
+        "videoType" => "File type must be  avi , flv , mov , 3gp , mkv , rmvb , wepm , wmv , mp4",
+        "voiceType" => "File type must be wav , mp3",
+        "noJobDepartment" => "No jobs in department"
     ],
-    "appName" => "الفنتك"
+    "dropzone" => [
+        "dictDefaultMessage" => "Drop files here to upload",
+        "dictFallbackMessage" => "Your browser does not support drag'n'drop file uploads.",
+        "dictFallbackText" => "Please use the fallback form below to upload your files like in the olden days.",
+        "dictFileTooBig" => "File is too big ({{filesize}}MiB). Max filesize: {{maxFilesize}}MiB.",
+        "dictInvalidFileType" => "You can't upload files of this type.",
+        "dictResponseError" => "Server responded with {{statusCode}} code.",
+        "dictCancelUpload" => "Cancel upload",
+        "dictCancelUploadConfirmation" => "Are you sure you want to cancel this upload?",
+        "dictMaxFilesExceeded" => "You can not upload any more files."
+    ],
+    "heading" => [
+        "dashboard" => "Dashboard",
+        "jobs" => "Jobs",
+        "edit" => "Edit",
+        "create" => "Create",
+        "add_department" => "add department",
+        "add_job" => "add job",
+        "static_pages" => "Static Pages",
+        "permissions" => "Permissions",
+        "users" => "Users",
+        "settings" => "Settings",
+        "applicants" => "applicants",
+        "jobCategories" => "job Categories",
+        "departments" => "Departments",
+        "archive" => "Archive",
+        "main_information" => "main information",
+        "optional_information" => "Optional information",
+        "departments_archives" => "Departments Archives",
+        "editDepartment" => "Edit Department",
+        "createDepartment" => "Create Department",
+        "view_department" => "view department",
+        "view_job" => "view job",
+        "editJob" => "edit job",
+        "createJob" => "create job",
+        "login" => "login",
+        "login_description" => "please enter you user id and password",
+        "reset_password" => "reset password?",
+        "verification" => "verification",
+        "choose_verification_method" => "please choose verification method",
+        "verification_code" => "verification code",
+        "verify_description" => "a verify with a verification code has just sent to",
+        "historical_movment" => "historical movement",
+        "selected_permissions" => "Selected Permissions",
+        "edit_user" => "Edit User",
+        "add_user" => "Add User",
+        "disable_user" => "disable user",
+        "history" => "historical movement",
+        "groupData" => "Group Data",
+        "managers_names" => "Managers names",
+        "createClient" => "Add client",
+        "editClient" => "Edit Client",
+        "reset_your_password" => "Reset Password",
+        "add_phone_or_email" => "Please Add Your Email Or Phone to Send verfication Code"
+    ],
+    "message" => [
+        "edit" => "Edit",
+        "create" => "create",
+        "static_pages" => "Static Pages",
+        "settings" => "Settings",
+        "users" => "Users",
+        "permissions" => "Permissions",
+        "warning" => "Are You Sure?",
+        "not_found" => "Not Found",
+        "no_data" => "No Data"
+    ],
+    "button" => [
+        "language" => "Language",
+        "login" => "Login",
+        "close" => "Close",
+        "logout" => "Logout",
+        "create" => "create",
+        "edit" => "Edit",
+        "delete" => "Delete",
+        "save" => "Save",
+        "confirm" => "confirm",
+        "cancel" => "cancel",
+        "search" => "Search",
+        "got_it" => "ok",
+        "add" => "Add",
+        "reset" => "Reset",
+        "export" => "Export",
+        "back" => "Back",
+        "view_details" => "view details",
+        "restore" => "restore",
+        "alert" => "Alert",
+        "send" => "send",
+        "resendCode" => "resend code again",
+        "go_home" => "Go Home",
+        "addDepartment" => "add Department",
+        "agree" => "Agree",
+        "not_agree" => "Not Agree",
+        "accept" => "ok",
+        "not agree" => "not agree",
+        "add_job" => "Add Job",
+        "addclient" => "register client",
+        "print_report" => "Print Report",
+        "continue" => "Continue",
+        "add-attach" => "Add attachment"
+    ],
+    "labels" => [
+        "search" => "Search",
+        "Description" => "Description",
+        "users" => "Users",
+        "settings" => "Settings",
+        "static_pages" => "Static Pages",
+        "jobs" => "Jobs",
+        "confirm" => "Yes",
+        "cancel" => "Cancel",
+        "go_home" => "Go Home",
+        "tags" => "Tags",
+        "facebook" => "Facebook",
+        "twitter" => "Twitter",
+        "instagram" => "Instagram",
+        "linkedin" => "linkedIn",
+        "whatsapp" => "whatsApp",
+        "footer" => "Footer",
+        "phone" => "Phone",
+        "phone_0" => "second Phone",
+        "jobCategories" => "job Categories",
+        "choose_file" => "choose image",
+        "upload_image" => "upload image",
+        "show_image" => "show image",
+        "email" => "Email",
+        "enter_password" => "Enter your password",
+        "enter_email" => "Enter Your E-mail",
+        "applicants" => "Applicants",
+        "users_view" => "Users View",
+        "users_create" => "Users Create",
+        "users_edit" => "Users Edit",
+        "users_delete" => "Users delete",
+        "users_show" => "Users Show",
+        "jobs_view" => "Job View",
+        "jobs_create" => "Job create",
+        "jobs_edit" => "Job edit",
+        "jobs_delete" => "Job delete",
+        "jobs_show" => "Job show",
+        "job_name" => "Job name",
+        "employee_name" => "employee name",
+        "settings_view" => "Settings View",
+        "settings_create" => "Settings create",
+        "settings_edit" => "Settings edit",
+        "settings_delete" => "Settings delete",
+        "settings_show" => "Settings show",
+        "static_pages_view" => "Static Pages View",
+        "static_pages_create" => "Static Pages create",
+        "static_pages_edit" => "Static Pages edit",
+        "static_pages_delete" => "Static Pages delete",
+        "static_pages_show" => "Static Pages show",
+        "jobs_categories_view" => "job categories view",
+        "jobs_categories_create" => "job categories create",
+        "jobs_categories_edit" => "job categories edit",
+        "jobs_categories_delete" => "job categories delete",
+        "jobs_categories_show" => "job categories show",
+        "applicants_create" => "applicants create",
+        "applicants_view" => "applicants view",
+        "applicants_delete" => "applicants delete",
+        "applicants_edit" => "applicants edit",
+        "applicants_show" => "applicants show",
+        "department_name" => "Department Name",
+        "enter_name" => "Enter Name",
+        "creating_date" => "Creating Date (From)",
+        "end_date" => "Creating Date (To)",
+        "archive_date" => "Archive Date",
+        "archive_date_form" => "Archive Date (From)",
+        "archive_date_to" => "Archive Date (To)",
+        "select_date" => "Day/Month/Year",
+        "select_department" => "select department",
+        "main_department" => "Main Department",
+        "department" => "Department",
+        "all_departemnets" => "All Departments",
+        "status" => "Status",
+        "department_image" => "Department image",
+        "description" => "Description",
+        "image" => "Image",
+        "drag_image" => "Drag Or Upload Image",
+        "type" => "type",
+        "select_type" => "select type",
+        "depatmentimage" => "Department Image",
+        "userID" => "User ID",
+        "enter_userID" => "enter your user id",
+        "password" => "password",
+        "remember" => "remember me",
+        "new_password" => "new password",
+        "confirm_password" => "confirm password",
+        "mobile_number" => "mobile number",
+        "mobile" => "mobile",
+        "permission_name" => "permission name",
+        "permission_user_from" => "Number of users (from)",
+        "permission_user_to" => "Number of users (to)",
+        "user_name" => "User Name",
+        "enter_user_number" => "Enter User Number",
+        "user_number" => "User Number",
+        "user_status" => "Status",
+        "verfication_code" => "verification code",
+        "choose_department" => "Choose Department",
+        "employee" => "Employee",
+        "select_employee" => "Select Employee",
+        "add_user_number" => "Add User Number",
+        "send_activity_code" => "Send Activity Code",
+        "system_permissions" => "System Permissions",
+        "select_permissions" => "Select Permissions",
+        "roles" => "Roles Group",
+        "select_roles" => "Select Roles",
+        "check_password" => "Password",
+        "select_status" => "Select Status",
+        "form" => "From",
+        "to" => "To",
+        "enter_confirmation_password" => "Confirmaiton Password",
+        "enter_phoneNumber" => "enter phone",
+        "temporary" => "temporary",
+        "permanent" => "permanent",
+        "group_name" => "Group Name",
+        "period_from" => "Period (from)",
+        "period_to" => "Period (to)",
+        "permanent_status" => "permanent",
+        "temporary_status" => "temporary",
+        "from" => "From",
+        "of" => "of",
+        "result" => "Result",
+        "reason" => "Reason*",
+        "groupManger" => "group Creator",
+        "bank" => "Bank",
+        "account_status" => "Bank account status",
+        "transactions_form" => "number of transactions from",
+        "transactions_to" => "Number of transactions to",
+        "client_period_from" => "Period From",
+        "client_period_to" => "Period To",
+        "order_number" => "Order Number",
+        "client_name" => "client Name ",
+        "client_type" => "client Type",
+        "record_number" => "Record Number",
+        "tax_number" => "Tax Number",
+        "account_number" => "Bank account number",
+        "activity_type" => "Activity type",
+        "client_address" => "Address",
+        "client_nationality" => "Nationality",
+        "client_gender" => "Gender",
+        "client_social_status" => "Social status",
+        "bank_name" => "Bank Name",
+        "order_data_form" => "Order Data Form",
+        "order_data_to" => "Order Data To",
+        "chooseBank" => "Choose Bank",
+        "chooseClient" => "choose Client Type",
+        "job_description" => "Job Description",
+        "enter_description" => "Enter Job Description",
+        "job_desription" => "Job Description",
+        "client_attatchments" => "Client Attachments",
+        "identity_card" => "Identity card",
+        "register_type" => "Register Type",
+        "daily_transactions" => "total expected daily transactions",
+        "manager_data" => "Manager data",
+        "manager_name" => "Manager name",
+        "select_companies" => "Companies",
+        "select_register" => "Select Register",
+        "select_bank" => "Select Bank",
+        "identity_number" => "Identity number",
+        "select_activity_name" => "Choose Activity Name",
+        "activity_name" => "Activity Name",
+        "choose_employee_name" => "Choose Employee Name",
+        "choose_main_program" => "Choose Main Program",
+        "choose_sub_program" => "Choose Sub Program",
+        "main_program" => "Main Program",
+        "sub_program" => "Sub Program",
+        "birth_date" => "Birth Date",
+        "jawal" => "Phone",
+        "attachments" => "Attachments",
+        "attachment-type" => "Attachment type",
+        "attachement-address" => "Attachement Address",
+        "choose_status" => "Choose Status",
+        "choose_type" => "Choose Type",
+        "choose_job_name" => "Choose Job Name",
+        "enter__job_name" => "Enter Job Name",
+        "select_main_department" => "Select Main Department",
+        "transactions_done" => "Transactions done",
+        "bank_account_status" => "bank account status",
+        "daily-trans" => "daily transaction",
+        "add_description" => "Add Description",
+        "enter__user_name" => "Enter User Name",
+        "not-found" => "Not found",
+        "enter_number" => "Enter Number",
+        "attatchments" => "Attachements",
+        "address" => "Address",
+        "gender" => "Gender",
+        "marital_status" => "Marital status",
+        "nationality" => "nationality",
+        "contract_type" => "contract type",
+        "transaction_done" => "Transactions Done Count",
+        "activated_card" => "activated card",
+        "card_endDate" => "Card Expiry Date",
+        "card_endDate_from" => "Card Expiry Date (from)",
+        "card_endDate_to" => "Card Expiry Date (to)",
+        "register_date_from" => "Register Date (From)",
+        "register_date_to" => "Register Date (To)",
+        "new_phone" => "new phone number",
+        "transaction_number" => "Transaction number",
+        "enter-transaction" => "enter transaction",
+        "enter_identity_number" => "enter_identity_number",
+        "client" => "client",
+        "choose_client" => "choose client",
+        "choose_transaction_type" => "choose transaction type",
+        "enter_transaction_value" => "transaction value",
+        "choose_identity_type" => "choose identity card type",
+        "choose_transaction_status" => "transaction status",
+        "transaction_value" => "transaction value",
+        "transaction_type" => "transaction type",
+        "transaction_status" => "transaction status",
+        "receipt_value" => "receipt value",
+        "earned_rewards" => "earned rewards",
+        "active_identity_card" => "active identity card",
+        "identity_discount_rate" => "identity_discount_rate",
+        "enter_bank_name" => "Add Bank Name",
+        "choose_bank_type" => "Choose Bank Type",
+        "enter_code" => "Enter Code",
+        "enter_branch_name" => "Enter Brach Name",
+        "enter_location" => "Enter Location",
+        "enter_transfer_cost" => "Enter Transfer Cost",
+        "branch_name" => "Branch Name",
+        "location" => "Location",
+        "code" => "Code",
+        "transfer_cost" => "Transfer Cost",
+        "transaction_count" => "Transaction Count",
+        "enter_transaction_count" => "Enter Transaction Count",
+        "select_bank_type" => "Select bank Type",
+        "commercial_record" => "Commercial record",
+        "enter_commercial_record" => " Enter Commercial Record",
+        "enter_tax_number" => "Enter Tax Number",
+        "customer_service_number" => "customer service number",
+        "enter_customer_service_number" => "Enter Customer Service Number",
+        "basic_card" => "Basic Discount",
+        "add_discount_percentage" => "Add Discount Percentage",
+        "add_identity_number" => "Add Identity Number",
+        "all" => "All",
+        "active_card" => "Active Card",
+        "service_customer" => "Service Customer Number",
+        "gold_card" => "Golden Discount",
+        "platinum_card" => "Platinum Discount",
+        "archive_date_from" => "archive date (from)",
+        "enter_phone" => "enter phone",
+        "select_job_name" => "select job ",
+        "job" => "job",
+        "statistics" => "Statistics",
+        "add_number" => "Add Number",
+        "choose_client_name" => "Choose Client Name",
+        "country_code" => "Country Code",
+        "enabled_card" => "Enabled Card",
+        "card_end_at" => "Card End At",
+        "register_date" => "Register Date",
+        "profile" => "Profile",
+        "invoice_amount" => "Invoice Amount",
+        "enabled_package_discount" => "Enabled Package Discount",
+        "amount" => "Amount",
+        "cash_back" => "Cash Back"
+    ],
+    "fields" => [
+        "email" => "Email",
+        "password" => "Password",
+        "jobName" => "job Name",
+        "title_en" => "English Title",
+        "title_ar" => "Arabic Title",
+        "content_en" => "English Content",
+        "content_ar" => "Arabic Content",
+        "status" => "Status",
+        "name" => "Name",
+        "description" => "Description",
+        "title" => "Title",
+        "location" => "Location",
+        "category_job_id" => "Category",
+        "footer" => "Footer",
+        "description_arabic" => "Description Arabic",
+        "footer_arabic" => "Footer Arabic",
+        "reason" => "Reason*",
+        "category_id" => "Category",
+        "userID" => "User ID",
+        "mobile" => "mobile",
+        "employee" => "Employee",
+        "parent" => "select main department",
+        "confirm_password" => "confirm password",
+        "ban_from" => "From Date",
+        "ban_to" => "To Date",
+        "chooseStatus" => "choose Status",
+        "code" => "Code",
+        "department" => "Department",
+        "user" => "User",
+        "permissions_list" => "permission list",
+        "from" => "From",
+        "to" => "To",
+        "department_name" => "Department Name",
+        "permission_list" => " Permissions",
+        "group_name" => "Group Name",
+        "job_description" => "Job Description",
+        "register_type" => "Register Type",
+        "country_code" => "Code",
+        "job_name" => "Job name",
+        "contract_type" => "contract type",
+        "daily_transactions" => "daily transactions",
+        "files" => "Files",
+        "add_identity" => "insert identity",
+        "identity_source" => "identity source",
+        "select_date" => "Day/Month/Year",
+        "ID issuance date" => "ID issuance date",
+        "birth_date" => "Date of Birth",
+        "address" => "Address",
+        "nationality" => "nationality",
+        "add_source_identity" => "Enter the identity source",
+        "add_address" => "Add Address",
+        "add_email" => "Add Email",
+        "saudi" => "Saudi",
+        "martial_status" => "Martial Status",
+        "choose_martial_status" => "Choose marital status",
+        "gender" => "Gender",
+        "male" => "Male",
+        "female" => "Female",
+        "wtire_note" => "write a note",
+        "add_bank" => "Add Bank",
+        "bank" => "Bank",
+        "bank_type" => "Bank Type",
+        "discounts" => "discount ratio"
+    ],
+    "table" => [
+        "#" => "#",
+        "id" => "ID",
+        "jobName" => "job Name",
+        "description" => "Description",
+        "actions" => "Actions",
+        "page_name" => "Page Name",
+        "name" => "Name",
+        "email" => "Email",
+        "status" => "Status",
+        "created_at" => "created at",
+        "createdBy" => "created by",
+        "create_date" => "creating date",
+        "mobile" => "Phone",
+        "icon" => "Icon",
+        "category" => "Category",
+        "location" => "location",
+        "doneBy" => "Done By",
+        "actionDate" => "Action date",
+        "archivedDate" => "Action date",
+        "activity" => "activity",
+        "reason" => "reason",
+        "main_department" => "Main Department",
+        "department_name" => "Department Name",
+        "job_name" => "job Name",
+        "department" => "Department",
+        "employee_name" => "employee name",
+        "type" => "type",
+        "user_name" => "User Name",
+        "user_number" => "User Number",
+        "permission_name" => "permission name",
+        "by_employee" => "By Employee",
+        "activity_date" => "Activity date",
+        "addedBy" => "added By",
+        "activity_name" => "Activity",
+        "activity_reason" => "Reason",
+        "group_name" => "Group Name",
+        "users_number" => "Users Number",
+        "main_prog" => "main program",
+        "sub_prog" => "sub program",
+        "added_by" => "Added By",
+        "bank" => "Bank",
+        "account_status" => "Bank account status",
+        "transactions_form" => "number of transactions from",
+        "transactions_to" => "Number of transactions to",
+        "client_period_from" => "Period From",
+        "client_period_to" => "Period To",
+        "order_number" => "Order Number",
+        "client_name" => "client Name ",
+        "client_type" => "client Type",
+        "record_number" => "Record Number",
+        "tax_number" => "Tax Number",
+        "bank_name" => "Bank Name",
+        "transaction_done" => "Number of transactions done",
+        "client_status" => "Status",
+        "order_data_form" => "Order Data Form",
+        "order_data_to" => "Order Data To",
+        "employee" => "Employee",
+        "main_program" => "Main Program",
+        "sub_program" => "Sub Program",
+        "manager_name" => "Manager name",
+        "identity_number" => "Identity number",
+        "birth_date" => "Birth Date",
+        "date_time" => "Date/Time",
+        "ib" => "IP Address",
+        "ip" => "Ip address",
+        "archive_date" => "Archive Date",
+        "activated_card" => "activated card",
+        "card_endDate" => "Card Expiry Date",
+        "register_date" => "Register Date",
+        "transaction_number" => "Transaction number",
+        "transaction_date" => "transaction date",
+        "name_of_bank" => "Bank Name",
+        "code" => "Code",
+        "branch_name" => "Branch Name",
+        "transfer_cost" => "Transfer Cost",
+        "transaction_count" => "Transaction Count",
+        "basic_discount" => "Basic Discount",
+        "golden_discount" => "Golden Discount",
+        "platinum_discount" => "Platinum Discount",
+        "card_end_at" => "Card End At"
+    ],
+    "icon" => [
+        "delete" => "Delete",
+        "show" => "Show",
+        "edit" => "Edit",
+        "download" => "Download"
+    ],
+    "alertBody" => [
+        "archive" => "Do you want to complete the archiving process?",
+        "confirmAccount" => "Do you want to complete the account confirmation process?",
+        "hangAccount" => "Do you want to complete hanging process?",
+        "confirm" => "Do you want to complete the saving process?",
+        "confirmSubmit" => "Do you want to complete the saving process?",
+        "back" => "Do you want to go back without saving?"
+    ],
+    "edit_static_pages" => "Edit",
+    "label" => [
+        "active" => "Active",
+        "inActive" => "InActive",
+        "deactive" => "unActive",
+        "archive" => "archive",
+        "edit" => "edit",
+        "add" => "add",
+        "reset password" => "reset password",
+        "active_status" => "Active",
+        "deactivated" => "deactivated",
+        "restore" => "Restore",
+        "inactive" => "InActive",
+        "confirmDone" => "Bank account confirmed",
+        "confirmReject" => "Bank account rejected",
+        "confirmReview" => "The bank account has been reviewed",
+        "permanent" => "permanent",
+        "temporary" => "temporary",
+        "success" => "successfull"
+    ],
+    "routes" => [
+        "home" => "Home",
+        "departments_management" => "Departments Management",
+        "control_panel" => "Control Panel",
+        "department_list" => "Department List",
+        "record" => "record",
+        "department_record" => "departments record",
+        "job_record" => "jobs record",
+        "departments" => "Departments",
+        "add" => "Add",
+        "archives" => "archives",
+        "department_archive" => "Departments",
+        "jobs" => "jobs",
+        "users" => "Users",
+        "permissions" => "Permissions",
+        "department_record_details" => "show Department ",
+        "job_record_details" => "Job Details",
+        "user_history" => "User history",
+        "permissionsRecord" => "permission Record",
+        "users_history" => "Users History",
+        "user_view" => "User View",
+        "edit" => "edit",
+        "editGroup" => "edit Group ",
+        "addGroup" => "add Group",
+        "job_view" => "Job View",
+        "users_record" => "Users Record",
+        "jobs_record" => "Jobs Record",
+        "departments_record" => "Departments Record",
+        "permissions_record" => "Permissions Record",
+        "viewGroup" => "Show Group",
+        "permission_record" => "Permission Record",
+        "clients" => "clients",
+        "clients_record" => "clients Record",
+        "clients_record_details" => "Show Client",
+        "register_client" => "Register client",
+        "bank_account" => "Account opening requests",
+        "add_group" => "Add Group",
+        "add_user" => "Add User",
+        "add_department" => "add department",
+        "add_job" => "Add Job",
+        "follow_up" => "Follow Up",
+        "activity_log" => "Activity Log",
+        "departments_archive" => "Departments Archive",
+        "jobs_archives" => "Jobs Archive",
+        "citizens" => "Citizens",
+        "transactions" => "Transactions",
+        "transaction-list" => "transaction list",
+        "transactions_record" => "Transactions Record",
+        "bank_record" => "Bank Records",
+        "banks" => "Banks",
+        "add_bank" => "Add Bank",
+        "edit_bank" => "Edit Bank",
+        "bank_view" => "Bank View",
+        "discount_rates" => "Discount Rates",
+        "card_packages_record" => "Discounts Rates Record",
+        "add_card_packages" => "Add Card Package",
+        "edit_card_packages" => "Edit Card Package",
+        "rasid" => "Rasid",
+        "rasid_pay" => "Rasid Pay",
+        "transaction_view" => "Transaction View",
+        "login" => "login",
+        "reset" => "reset password",
+        "verification-method" => "verification method",
+        "verify-code" => "verify code",
+        "Page401" => "Page 401",
+        "Page404" => "Page404",
+        "view" => "view",
+        "dapertment_archive" => "Department Archive",
+        "job_archive" => "Job Archive"
+    ],
+    "without" => "without",
+    "no_data" => "No Data",
+    "show" => "Show",
+    "Show" => "Show",
+    "active" => "Active",
+    "deactive" => "deactive",
+    "vacant" => "vacant",
+    "occupied" => "occupied",
+    "do_you_want_to_archive" => "Do you want to archive this item?",
+    "do_you_want_to_delete" => "Do you want to delete this item?",
+    "buttons" => [
+        "save" => "Save",
+        "back" => "Back"
+    ],
+    "are_you_sure" => "Are You sure ?",
+    "occupid" => "occupid",
+    "tooltip" => [
+        "archive" => "archive",
+        "edit" => "edit",
+        "view_details" => "view details",
+        "messages" => "messages",
+        "Settings" => "Settings",
+        "logout" => "logout",
+        "confirm_account" => "Confirm Account",
+        "confirmed_account" => "Confirmed Account",
+        "hang_account" => "Hang Account",
+        "restore" => "Restore",
+        "force_delete" => "Delete"
+    ],
+    "main_information" => "main information",
+    "optional_information" => "optional information",
+    "history_information" => "history information",
+    "archive" => "archive",
+    "select" => [
+        "all" => "all",
+        "active" => "active",
+        "deactive" => "deactive",
+        "vacant" => "vacant",
+        "occupied" => "occupied",
+        "deactiveF" => "unActive",
+        "activeF" => "Active"
+    ],
+    "selectAll" => "select All",
+    "is_active" => "Is Active",
+    "in_active" => "InActive",
+    "Temporary Disable" => "Temporary Disable",
+    "permanent disable" => "permanent disable",
+    "un_active" => "UnActive",
+    "required" => "this field is required",
+    "Groups" => "Permission Groups",
+    "pdf" => "PDF",
+    "xlsx" => "EXCEL ",
+    "loading" => "Loading",
+    "chips" => [
+        "edit" => "Edit",
+        "active" => "Active",
+        "deactive" => "Unactive",
+        "add" => "Add",
+        "archive" => "archive",
+        "restored" => "restored"
+    ],
+    "active_f" => "Active",
+    "in_active_f" => "InActive",
+    "vacant_f" => "vacant",
+    "occupied_f" => "occupied",
+    "all" => "all",
+    "occupid_f" => "occupid",
+    "fullname" => "Full Name",
+    "gender" => "Gender",
+    "phone" => "Phone",
+    "whatsapp" => "whatsapp",
+    "login_id" => "Login Id",
+    "department" => "department",
+    "created_at" => "Created At",
+    "user_type" => "User Type",
+    "ban_status" => "Ban Status",
+    "addedBy" => "Added By",
+    "searched" => "searched",
+    "activated" => "activated",
+    "activity_details" => "Activity Details",
+    "created" => "Created",
+    "updated" => "Updated",
+    "destroy" => "Destroy",
+    "restored" => "Restored",
+    "permanent_delete" => "Permanent Delete",
+    "deactivated" => "Deactivated",
+    "unarchive_job" => "You cant's archive vacant Job",
+    "permission_name_error_used_before" => "Permission Group Name is Used Before",
+    "un_archive_has_sub_department" => "You Can't archive this department because it has SubDepartments",
+    "user_name" => "User Name",
+    "department_used_before" => "Department Name used Before",
+    "without_main_department" => "without Main Department",
+    "is_active_new" => "Active",
+    "without_department" => "without Department",
+    "without_description" => "without Description",
+    "select_all" => "Select All",
+    "cant_archive_department_has_job" => "You Can't archive this department because it has related jobs",
+    "company" => "Company",
+    "Institution" => "Institution",
+    "member" => "Member",
+    "freelance_doc" => "freelance",
+    "famous" => "famous",
+    "other" => "other",
+    "delegate" => "Delegate",
+    "direct" => "Direct",
+    "identity" => "Identity",
+    "docs" => "docs",
+    "images" => "images",
+    "videos" => "videos",
+    "voices" => "voices",
+    "you_want_to_restore" => "Do Want To Restore?",
+    "pending" => "Pending",
+    "before_review" => "Before Review",
+    "reviewed" => "Reviewed",
+    "male" => "Male",
+    "female" => "Female",
+    "married" => "married",
+    "single" => "Single",
+    "force_delete" => "Do you Want to  remove?",
+    "duplicateAttachment" => "attachment can`t be repeated",
+    "add_new_branch" => "Add New Branch",
+    "payment" => "payment",
+    "wallet_transfer" => "Wallet Transfer",
+    "bank_transaction" => "Bank Transaction",
+    "receive_credit" => "Receive Credit",
+    "recharge_credit" => "Recharge Credit",
+    "upgrade_card" => "Upgrade Card",
+    "success" => "success",
+    "fail" => "fail",
+    "received" => "received",
+    "cancel" => "cancel",
+    "delivared" => "delivered",
+    "sar" => "SAR",
+    "cards" => [
+        "departments" => "Departments",
+        "vacant_jobs" => "Vacant Jobs",
+        "employees" => "employees",
+        "permanent_banned_users" => "Permanent banned users",
+        "temporary_banned_users" => "Temporary banned users",
+        "active_users" => "active users",
+        "unvacant_jobs" => "Unvacant Jobs",
+        "archived_departments" => "Aarchived Departments",
+        "active_jobs" => "active jobs",
+        "unactive_jobs" => "unactive job"
+    ],
+    "forget_password" => "forget Password",
+    "all_rights_reserved_by_rasid_pay" => " All Rights Reserved By alfintech"
 ];
