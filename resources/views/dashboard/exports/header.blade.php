@@ -1,4 +1,4 @@
-<!-- <div style="text-align: center; margin-bottom: 1em;">
+<div style="text-align: center; margin-bottom: 1em;">
   <img src="{{ public_path('dashboardAssets/images/brand/fintech.png') }}" width="150" style="margin: auto; display: block;" alt="">
   <br>
   <h2>تقرير عن
@@ -11,15 +11,15 @@
   <span style="margin-right: 10px; display: inline-block;"><b>تاريخ الطباعة:</b> {{ format_date(now()) }}</span>
   <br>
 
-</div> -->
+</div>
 
 
-
-<tr>
-  <th colspan="2" style="padding-right: 1em; padding-left: 1em; text-align: center;">
+<!--
+<tr style="border: none;">
+  <th colspan="2" style="padding-right: 1em; padding-left: 1em; text-align: center;border: none;">
     <img src="{{ public_path('dashboardAssets/images/brand/fintech.png') }}" width="150" style="margin: auto" alt="">
   </th>
-  <th colspan="{{ $count ?? 3 }}">
+  <th colspan="{{ $count ?? 3 }}" style="border: none;">
     <h3 class="text-center" style="margin: 0 auto; position: relative; right: 50%; transform: translateX(-50%)">تقرير عن
       {{ $topic }}
     </h3>
@@ -31,4 +31,4 @@
     <p>تاريخ الطباعة: {{ format_date(now()) }}</p>
     <br>
   </th>
-</tr>
+</tr> -->
