@@ -102,10 +102,12 @@ class PackageController extends Controller
     private function promoteWithPromoCode(PromotePackageRequest $request, $package_price, $citizen_wallet, $package_type)
     {
         $citizen_package_promo_code = CitizenPackagePromoCode::where('promo_code', $request->promo_code)->first();
-        $citizenPackageIds = auth()->user()->citizenPackages->pluck('id')->toArray();
-        if (in_array($citizen_package_promo_code->citizen_package_id, $citizenPackageIds)) {
-            return response()->json(['status' => false, 'data' => null, 'message' => trans('mobile.payments.can_not_use_your_code')], 422);
-        }
+
+        // prevent the user to use his own promo codes
+//        $citizenPackageIds = auth()->user()->citizenPackages->pluck('id')->toArray();
+//        if (in_array($citizen_package_promo_code->citizen_package_id, $citizenPackageIds)) {
+//            return response()->json(['status' => false, 'data' => null, 'message' => trans('mobile.payments.can_not_use_your_code')], 422);
+//        }
         // take discount of price from citizen wallet
 //        $new_package_price = $package_price - getPercentOfNumber($package_price, $citizen_package_promo_code->promo_discount);
         $new_package_price = $package_price - getPercentOfNumber($package_price, 50);  // TODO:: for now it's 50% as use case ... maybe changed later
