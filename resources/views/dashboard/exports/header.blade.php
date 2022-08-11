@@ -1,7 +1,6 @@
 <div style="text-align: center; margin-bottom: 1em; display: flex; justify-content: space-between;">
   <img src="{{ public_path('dashboardAssets/images/brand/fintech.png') }}" width="150" style="margin: auto; display: block" alt="" />
   <div>
-    <br />
     <h2>تقرير عن {{ $topic }}</h2>
     <p>
       تاريخ إنشائها من ({{ $date_from ?? '' }}) إلى ({{ $date_to ?? '' }})
