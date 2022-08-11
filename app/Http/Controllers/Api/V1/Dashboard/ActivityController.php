@@ -60,9 +60,11 @@ class ActivityController extends Controller
     public function getEmployees()
     {
         $employees = User::select('id', 'fullname')->whereIn('user_type', ['admin', 'superadmin'])
-            ->when(request('department_id'), function ($employees) {
+            ->when(request('department_list'), function ($employees) {
                 $employees->whereHas('employee', function ($employees) {
-                    $employees->where('department_id', request('department_id'));
+                    if (is_array(request('department_list'))) {
+                        $employees->whereIn('department_id', request('department_list'));
+                    }
                 });
             })->get();
 
@@ -76,6 +78,7 @@ class ActivityController extends Controller
     public function getMainPrograms()
     {
         $mainPrograms = collect(AppServiceProvider::MORPH_MAP)
+            ->put('UserCitizen', 'UserCitizen')
             ->except([
                 'Region',
                 'Chat',
@@ -86,13 +89,20 @@ class ActivityController extends Controller
                 'Currency',
                 'Card',
                 'Admin',
-                'Curreny'
+                'Setting',
+                'Citizen',
+                'Transfer',
+                'BankTransfer',
+                'Slide',
+                'Package',
+                'RecieveOption',
+                'TransferRelation'
             ])->transform(function ($class, $model) {
                 $data['name'] = $model;
                 $data['trans'] = trans("dashboard." . Str::snake($model) . "." . str_plural(Str::snake($model)));
 
                 return $data;
-            })->values();
+            })->unique()->values();
 
         return OnlyResource::collection($mainPrograms);
     }
@@ -102,7 +112,7 @@ class ActivityController extends Controller
         $subPrograms = collect([]);
 
         if ($main_progs) {
-            $subPrograms = collect(trans('dashboard.' . mb_strtolower($main_progs) . '.sub_progs'))->transform(function ($trans, $key) {
+            $subPrograms = collect(trans('dashboard.' . mb_strtolower(Str::snake($main_progs)) . '.sub_progs'))->transform(function ($trans, $key) {
                 $data['name'] = $key;
                 $data['trans'] = $trans;
 
@@ -158,12 +168,12 @@ class ActivityController extends Controller
                     'activity_logs' => $activatyLogsQuery,
                     'date_from'   => format_date($request->created_from) ?? format_date($createdFrom),
                     'date_to'     => format_date($request->created_to) ?? format_date(now()),
-                    'userId'      => auth()->check() ? auth()->user()->login_id :null ,
+                    'userId'      => auth()->check() ? auth()->user()->login_id : null,
 
                 ]
             )
             ->storeOnLocal('activityLogs/pdfs/');
-            dd('taha');
+        dd('taha');
         $file  = url('/storage/' . $mpdfPath);
 
         return response()->json([
