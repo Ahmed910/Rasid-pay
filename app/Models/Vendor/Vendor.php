@@ -87,22 +87,6 @@ class Vendor extends Model implements HasAssetsInterface
                 return $q->has('translations')
                     ->orderBy($request->sort["column"], @$request->sort["dir"]);
             }
-            if ($request->sort["column"] == "is_active") {
-                $q->orderBy($request->sort["column"], @$request->sort["dir"]);
-            }
-            if ($request->sort["column"] == "commercial_record") {
-                $q->orderBy($request->sort["column"], @$request->sort["dir"]);
-            }
-
-            if ($request->sort["column"] == "tax_number") {
-                $q->orderBy($request->sort["column"], @$request->sort["dir"]);
-            }
-            if ($request->sort["column"] == "type") {
-                $q->orderBy($request->sort["column"], @$request->sort["dir"]);
-            }
-            if ($request->sort["column"] == "branches_count") {
-                $q->orderBy($request->sort["column"], @$request->sort["dir"]);
-            }
             $q->orderBy($request->sort["column"], @$request->sort["dir"]);
         });
     }
