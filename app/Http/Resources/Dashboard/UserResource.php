@@ -43,6 +43,7 @@ class UserResource extends JsonResource
             'register_status' => $this->when(request()->is('*/admins/*'), $this->register_status),
             'created_at' => $this->created_at_date,
             'token' => $this->when($this->token, $this->token),
+            'has_message_type' => $this->messageTypes()->exists(),
             'job' => $this->when($this->employee?->job, RasidJobResource::make($this->employee?->job)),
             'actions' => $this->when($request->routeIs('admins.index'), [
                 'update' => auth()->user()->hasPermissions('admins.update'),
