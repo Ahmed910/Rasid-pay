@@ -23,7 +23,7 @@
         <img src="{{ public_path('dashboardAssets/images/brand/fintech.png') }}" width="150" style="margin: auto" alt="">
       </th>
       <th colspan="{{ $count ?? 3 }}" style="border: none; text-align: left;">
-        <h1 class="text-center" style="margin: 0 auto; position: relative; right: 50%; transform: translateX(-50%)">تقرير عن
+        <h1 class="text-center" style="background: #002B55; color: #fff; margin: 0 auto; position: relative; text-align: right !important;">تقرير عن
           {{ $topic }}
         </h1>
         <br>
