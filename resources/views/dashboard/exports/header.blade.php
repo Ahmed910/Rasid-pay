@@ -1,4 +1,4 @@
-<img src="{{ public_path('dashboardAssets/images/brand/fintech.png') }}" width="150" style="margin: auto" alt="">
+<img src="{{ public_path('dashboardAssets/images/brand/fintech.png') }}" width="150" style="margin: auto" alt="" />
 
 <h3 class="text-center" style="margin: 0 auto; position: relative; right: 50%; transform: translateX(-50%)">تقرير عن
   {{ $topic }}
