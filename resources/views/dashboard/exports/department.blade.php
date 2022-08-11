@@ -2,20 +2,20 @@
 
 @section('content')
 
-@include('dashboard.exports.header',['topic'=> trans('dashboard.department.departments'),'count'=>3])
 <table id="departmentTable" class="table">
   <thead>
 
+    @include('dashboard.exports.header',['topic'=> trans('dashboard.department.departments'),'count'=>3])
     <tr>
-      <th class="border-bottom-0">#</th>
-      <th class="border-bottom-0">
-        @lang('dashboard.department.department_name')</th>
-      <th class="border-bottom-0">
-        @lang('dashboard.department.main_department')</th>
-      <th class="border-bottom-0">
-        @lang('dashboard.general.created_at')</th>
-      <th class="border-bottom-0">
-        @lang('dashboard.general.status')</th>
+      <td class="border-bottom-0">#</td>
+      <td class="border-bottom-0">
+        @lang('dashboard.department.department_name')</td>
+      <td class="border-bottom-0">
+        @lang('dashboard.department.main_department')</td>
+      <td class="border-bottom-0">
+        @lang('dashboard.general.created_at')</td>
+      <td class="border-bottom-0">
+        @lang('dashboard.general.status')</td>
     </tr>
   </thead>
   <tbody>
