@@ -19,13 +19,15 @@
   <thead>
 
     <tr style="border: none;">
-      <th  style="padding-right: 1em; padding-left: 1em; text-align: center;border: none;vertical-align: top;">
+      <th style="padding-right: 1em; padding-left: 1em; text-align: center;border: none;vertical-align: top;">
         <img src="{{ public_path('dashboardAssets/images/brand/fintech.png') }}" width="150" style="margin: auto" alt="">
       </th>
-      <th  style="border: none; text-align: left;">
-        <h2 class="text-center" style="background: #002B55; color: #fff; padding: 0.5em 2em; display: block; margin: 0 auto; position: relative; text-align: right !important;">تقرير عن
-          {{ $topic }}
-        </h2>
+      <th style="border: none; text-align: left;">
+        <div style="background: #002B55; color: #fff; padding: 0.5em 2em; display: block; margin: 0 auto; position: relative; text-align: right !important;">
+          <h2>تقرير عن
+            &nbsp;&nbsp;{{ $topic }}&nbsp;&nbsp;
+          </h2>
+        </div>
         <br>
         <p>تاريخ إنشائها من ({{ $date_from ?? '' }}) إلى ({{ $date_to ?? '' }})</p>
         <br>
