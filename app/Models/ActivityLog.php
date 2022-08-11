@@ -67,7 +67,7 @@ class ActivityLog extends Model
     #region scopes
     public function scopeSearch(Builder $query, $request)
     {
-//         $old = $query->toSql();
+        $old = $query->toSql();
 
         if (isset($request->action) && !in_array($request->action, [-1])) {
             $query->where('action_type', $request->action);
@@ -91,8 +91,8 @@ class ActivityLog extends Model
             $query->where('sub_program', $request->sub_program);
         }
 
-//         $new = $query->toSql();
-//         if ($old != $new)  Loggable::addGlobalActivity($this, array_merge($request->query(), ['department_id' => Department::find($request->department_id)?->name]), ActivityLog::SEARCH, 'index');
+        $new = $query->toSql();
+        if ($old != $new)  Loggable::addGlobalActivity($this, array_merge($request->query(), ['department_id' => Department::find($request->department_id)?->name]), ActivityLog::SEARCH, 'index');
     }
 
     public function scopeSortBy(Builder $query, $request)
