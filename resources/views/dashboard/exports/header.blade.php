@@ -1,4 +1,3 @@
-
 <div style="text-align: center;">
   <img src="{{ public_path('dashboardAssets/images/brand/fintech.png') }}" width="150" style="margin: auto; display: block;" alt="">
   <br>
@@ -6,9 +5,9 @@
     {{ $topic }}
   </h2>
   <p>تاريخ إنشائها من ({{ $date_from ?? '' }}) إلى ({{ $date_to ?? '' }})</p>
-  <span style="margin-left: 2em;">رقم المستخدم: {{ $userId ?? auth()->user()->login_id }}</span>
-  <span>تاريخ الطباعة: {{ format_date(now()) }}</span>
-<br>
+  <span style="margin-left: 10px; display: inline-block;"><b>رقم المستخدم:</b> {{ $userId ?? auth()->user()->login_id }}</span>
+  <span style="margin-right: 10px; display: inline-block;"><b>تاريخ الطباعة:</b> {{ format_date(now()) }}</span>
+  <br>
 
 </div>
 <!--
