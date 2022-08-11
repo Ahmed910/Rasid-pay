@@ -11,7 +11,6 @@
         -webkit-print-color-adjust: exact;
         font-family: "cairo", Times, serif;
       }
-
       table {
         font-family: 'cairo', sans-serif;
         width: 100%;
@@ -34,14 +33,13 @@
       .unactive {
         color: #e23e3d
       }
-
-      /*
+/*
       table {
         border-collapse: collapse;
       } */
 
 
-      tbody th {
+      table th {
         border: 1px solid #c9c9c9 !important;
       }
 
