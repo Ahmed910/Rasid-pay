@@ -781,6 +781,7 @@ return [
             'temporary' => 'معطل لفترة',
             'exceeded_attempts' => 'تعدي محاولات الدخول الخاطئة'
         ],
+ 
         'admin' => 'اسم المستخدم',
         'login_id' => 'رقم المستخدم',
         'admins' => 'المستخدمين',
@@ -793,6 +794,9 @@ return [
     ],
     'department' =>  [
         'validation' => [
+
+            'can_not_be_deactivated_has_job' => 'لا يمكن تعطيل قسم به وظائف مشغولة',
+
             'name'  => [
                 'required' => 'اسم القسم مطلوب',
                 'unique' => 'الاسم موجود من قبل',
@@ -1353,7 +1357,7 @@ return [
         'validation' => [
 
             'can_not_be_deleted_has_link' => 'لا يمكن حذف صفحة مرتبطة برابط',
-            'can_not_be_deactivated_has_link' => 'لا يمكن تعطيل صفحة مرتبطة برابط',
+            'can_not_be_deactivated' => 'لا يمكنك تعطيل تلك الصفحة',
 
             'is_active' => [
                 'in' => 'حقل الحالة يجب أن يكون بين هذه القيم :values',

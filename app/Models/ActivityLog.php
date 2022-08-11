@@ -73,15 +73,16 @@ class ActivityLog extends Model
             $query->where('action_type', $request->action);
         }
 
-        if ($request->employee_id) {
-            $query->where('user_id', $request->employee_id);
+        if ($request->employee_list && is_array($request->employee_list) && !in_array(-1, $request->employee_list)) {
+            $query->whereIn('user_id', $request->employee_list);
         }
 
-        if (isset($request->department_id) && $request->department_id != 0) {
+        if ($request->has('department_list') && is_array($request->department_list) && !in_array(-1, $request->department_list)) {
             $query->whereHas('user.employee.department', function ($q) use ($request) {
-                $q->where('id', $request->department_id);
+                $q->whereIn('id', $request->department_list);
             });
         }
+
 
         if (isset($request->main_program) && !in_array($request->main_program, [-1])) {
             $query->where('auditable_type', $request->main_program);

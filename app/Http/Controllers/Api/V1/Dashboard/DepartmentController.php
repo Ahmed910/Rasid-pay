@@ -108,7 +108,7 @@ class DepartmentController extends Controller
                 ->sortBy($request)
                 ->paginate((int)($request->per_page ??  config("globals.per_page")));
         }
-        
+
         return DepartmentCollection::make($activities)
             ->additional([
                 'status' => true,
@@ -118,7 +118,16 @@ class DepartmentController extends Controller
 
     public function update(DepartmentRequest $request,  $department)
     {
+
         $dep = Department::withTrashed()->findOrFail($department);
+
+        if ($dep->rasidJobs()->where('is_vacant',0)->exists() && $request->is_active == 0) {
+            return response()->json([
+                'status' => false,
+                'message' =>  trans("dashboard.department.validation.can_not_be_deactivated_has_job"),
+                'data' => null
+            ], 422);
+        }
         $dep->fill($request->validated() + ['updated_at' => now()])->save();
 
 
