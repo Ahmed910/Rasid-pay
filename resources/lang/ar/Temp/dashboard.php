@@ -378,7 +378,8 @@ return [
             'transfer' => 'التحويلات',
             'setting' => 'الإعدادات',
             'currency' => 'العملات',
-            'banktransfer' => 'تحويل بنكي'
+            'banktransfer' => 'تحويل بنكي',
+            'vendorpackage' => 'نسب خصم العميل'
 
         ],
         'transfer' => [
@@ -781,7 +782,7 @@ return [
             'temporary' => 'معطل لفترة',
             'exceeded_attempts' => 'تعدي محاولات الدخول الخاطئة'
         ],
- 
+
         'admin' => 'اسم المستخدم',
         'login_id' => 'رقم المستخدم',
         'admins' => 'المستخدمين',
