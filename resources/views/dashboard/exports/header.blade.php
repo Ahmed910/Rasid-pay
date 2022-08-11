@@ -22,7 +22,7 @@
       <th colspan="2" style="padding-right: 1em; padding-left: 1em; text-align: center;border: none;vertical-align: top;">
         <img src="{{ public_path('dashboardAssets/images/brand/fintech.png') }}" width="150" style="margin: auto" alt="">
       </th>
-      <th colspan="{{ $count ?? 3 }}" style="border: none;">
+      <th colspan="{{ $count ?? 3 }}" style="border: none; text-align: left;">
         <h3 class="text-center" style="margin: 0 auto; position: relative; right: 50%; transform: translateX(-50%)">تقرير عن
           {{ $topic }}
         </h3>
