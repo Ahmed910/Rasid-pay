@@ -1,4 +1,3 @@
-<div style="text-align: center; margin-bottom: 1em;">
   <img src="{{ public_path('dashboardAssets/images/brand/fintech.png') }}" width="150" alt="" />
   <br />
   <h2>تقرير عن {{ $topic }}</h2>
@@ -9,7 +8,6 @@
   &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
   <span style="margin-right: 10px; display: inline-block"><b>تاريخ الطباعة:</b> {{ format_date(now()) }}</span>
   <br />
-</div>
 
 
 <!--
