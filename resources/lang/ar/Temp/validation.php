@@ -2,7 +2,7 @@
 
 return [
     'attributes' => [
-        'action' => '',
+        'action' => 'النشاط',
         'main_program' => 'حقل البرنامج الرئيسي',
         'sub_program' => 'حقل البرنامج الفرعي',
         'benficiar_type' => 'حقل نوع المستفيد',

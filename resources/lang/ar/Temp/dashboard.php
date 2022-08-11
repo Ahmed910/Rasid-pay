@@ -379,7 +379,8 @@ return [
             'setting' => 'الإعدادات',
             'currency' => 'العملات',
             'banktransfer' => 'تحويل بنكي',
-            'vendorpackage' => 'نسب خصم البطاقات'
+            'vendorpackage' => 'نسب خصم البطاقات',
+            'activitylog' => 'المتابعة'
 
         ],
         'transfer' => [
