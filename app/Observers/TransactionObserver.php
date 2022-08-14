@@ -30,7 +30,7 @@ class TransactionObserver
             'identity_number' => $transaction->transactionable?->wallet_transfer_method == 'identity_number' ? $transaction->toUser->identity_number : "",
             'wallet_number' => $transaction->transactionable?->wallet_transfer_method == 'wallet_number' ? $transaction->toUser->citizenWallet?->wallet_number : "",
         ];
-
+        $transaction->trans_type == 'charge' ? $card_number = substr($transaction->card_number,-4) : "";
         $transaction_notifications =
             [
                 'payment' => $transaction->trans_type == "payment" ? trans("mobile.transaction.transaction_notifications.payment_status", ['amount' => $transaction->amount]) : "",
@@ -65,7 +65,7 @@ class TransactionObserver
                         'amount' => $transaction->amount,
                         'method' => trans(
                             'mobile.transaction.charge_types.' . $transaction->transactionable?->charge_type,
-                            ['card_number' => Str::mask($transaction->card_number, '*', 0, -4)]
+                            ['card_number' => $card_number]
                         )
                     ]
                 ) : "",
@@ -105,12 +105,13 @@ class TransactionObserver
         }
 
         if ($transaction->trans_type == 'wallet_transfer') {
-
+            $wallet_transfer_method = $transaction->transactionable?->wallet_transfer_method;
             $data = [
                 'title' => trans('mobile.notifications.reciever_wallet_transfer.title'),
                 'body'  => trans("mobile.notifications.reciever_wallet_transfer.body",[
                                    'amount' => $transaction->amount,
-                                  'from_user_identity_or_mobile' =>auth()->user()->phone?? auth()->user()->identity_number,
+                                   'reciever_transfer_type' => $wallet_transfer_method == 'identity_number' ? trans('mobile.notifications.reciever_wallet_transfer.reciever_transfer_type.identity_number'):trans('mobile.notifications.reciever_wallet_transfer.reciever_transfer_type.phone'),
+                                   'from_user_identity_or_mobile' =>$wallet_transfer_method == 'identity_number' ? auth()->user()->identity_number :auth()->user()->phone,
              ]),
             ];
 
