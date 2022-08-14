@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
+use Illuminate\Http\Request;
 
 class Permission extends Model
 {
@@ -194,6 +195,27 @@ class Permission extends Model
             'name' => $item->main_program_trans . ' (' . $item->action_trans . ')',
             'action' => $item->action_trans
         ];
+    }
+
+    public static function setPermissions(Request $request)
+    {
+        $permissions = $request->permission_list ?? [];
+        $all_permissions = self::select('id', 'name')->get();
+        $permissions_collect = $all_permissions->whereIn('id', $permissions);
+        foreach ($permissions_collect as $permission) {
+            $action = explode('.', $permission->name);
+            if (in_array(@$action[1], ['update', 'store', 'destroy', 'show', 'reply','assign_contact']) && !$permissions_collect->contains('name', $action[0] . '.index')) {
+                if (in_array(@$action[1],['update','reply'])) {
+                    $permissions[] = $all_permissions->where('name', $action[0] . '.edit')->first()?->id;
+                }elseif ($action[1] == 'assign_contact' && !$permissions_collect->contains('name', $action[0] . '.reply')) {
+                    $permissions[] = $all_permissions->where('name', $action[0] . '.reply')->first()?->id;
+                }
+                $permissions[] = $all_permissions->where('name', $action[0] . '.index')->first()?->id;
+            } elseif (in_array(@$action[1], ['restore', 'force_delete']) && !$permissions_collect->contains('name', $action[0] . '.archive')) {
+                $permissions[] = $all_permissions->where('name', $action[0] . '.archive')->first()?->id;
+            }
+        }
+        return $permissions;
     }
     #endregion custom Methods
 }
