@@ -16,8 +16,8 @@ class CardResource extends JsonResource
             'card_number' => addCharBetweenChunks(Str::mask($this->card_number,'*',-16 ,12),4),
             'card_type' => $this->card_type,
             'created_at' => $this->created_at_date,
-            // 'is_expired' => $this->expire_at->lt(now()),
-            // 'expire_at' => $this->expire_at->format("m/y"),
+            'is_expired' => $this->expire_at->lt(now()),
+            'expire_at' => $this->expire_at->format("m/y"),
         ];
     }
 }
