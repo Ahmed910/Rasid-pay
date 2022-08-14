@@ -200,6 +200,8 @@ return [
         'successfully_charged' => 'تم الشحن بنجاح',
         'charge_amount' => 'مبلغ الشحن',
         'phone' => 'رقم الجوال',
+        'wallet_number' =>'رقم المحفظة',
+        'identity_number' =>'رقم الهوية',
         'transaction_type' => 'نوع المعاملة',
         'transaction_name' => 'اسم المعاملة',
         'transaction_value' => 'قيمة المعاملة',
