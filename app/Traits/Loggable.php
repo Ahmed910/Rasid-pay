@@ -210,7 +210,14 @@ trait Loggable
             && request('image_deleted')
         ) {
             $self->addUserActivity($self, ActivityLog::UPDATE, 'index');
-        } elseif (
+        }elseif (
+            !$hasData
+            && in_array($column, $keys)
+            && (class_basename($self) == 'MessageType' && $this->isDirtyRelationship($self,'admins','admins','admin_id'))
+        ) {
+            $self->addUserActivity($self, ActivityLog::UPDATE, 'index');
+        }
+        elseif (
             !$hasData
             && !request()->has('image')
             && in_array($column, $keys)

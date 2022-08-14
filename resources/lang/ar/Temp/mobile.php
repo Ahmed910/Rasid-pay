@@ -298,7 +298,11 @@ return [
         ],
         'reciever_wallet_transfer'=>[
             'title' =>'تم استلام رصيد بنجاح',
-            'body'  => "تم استلام مبلغ :amount بالمحفظة الخاصة بك من قبل المستخدم برقم جوال/ هوية :from_user_identity_or_mobile"
+            'body' => 'تم استلام مبلغ :amount ر.س  بالمحفظة الخاصة بك من قبل المستخدم ب:reciever_transfer_type :from_user_identity_or_mobile',
+            'reciever_transfer_type'=>[
+                'phone' =>'رقم الجوال',
+                'identity_number'=>'رقم الهوية',
+            ]
         ],
 
         "money_request" => [
