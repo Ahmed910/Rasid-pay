@@ -2,15 +2,16 @@
 
 namespace App\Models;
 
-use App\Models\Department\Department;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\SoftDeletes;
+use Carbon\Carbon;
+use App\Models\User;
 use App\Traits\Uuid;
 use App\Traits\Loggable;
-use Carbon\Carbon;
-use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Str;
+use App\Models\Department\Department;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use GeniusTS\HijriDate\{Date, Hijri, Translations\Arabic, Translations\English};
 
 class ActivityLog extends Model
@@ -97,7 +98,8 @@ class ActivityLog extends Model
         }
 
         $new = $query->toSql();
-        if ($old != $new)  Loggable::addGlobalActivity($this, array_merge($request->query(), ['department_id' => Department::find($request->department_id)?->name]), ActivityLog::SEARCH, 'index');
+            if ($old != $new)  Loggable::addGlobalActivity($this, array_merge($request->query(), ['department_list' => Department::find($request->department_list)?->name,
+            'employee_list' => User::find($request->employee_list)?->fullname]), ActivityLog::SEARCH, 'index');
     }
 
     public function scopeSortBy(Builder $query, $request)
