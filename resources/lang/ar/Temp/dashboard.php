@@ -1294,6 +1294,7 @@ return [
         'can_not_delete_contact' => 'لا يمكن حذف نوع رسالة مرتبط برسائل',
         'replied' => 'تم الرد',
         'validation' => [
+            'u_cant_assign_this_message' => 'لا يمكن تخصيص هذه الرسالة بينما تم تخصيصها اليك مسبقاً',
             'contact_id' => [
                 'required' => 'مطلوب حقل رقم الرسالة',
                 'unique' => 'حقل   رقم الرسالة يجب أن لا يتكرر'
