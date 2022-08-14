@@ -11,6 +11,7 @@ class WalletTransferRequest extends ApiMasterRequest
 {
     public function rules()
     {
+
         $transferPurpose = TransferPurpose::find($this->transfer_purpose_id);
         $notes = 'nullable';
 
@@ -36,6 +37,7 @@ class WalletTransferRequest extends ApiMasterRequest
     public function prepareForValidation()
     {
         $data = $this->all();
+
         $this->message = $this->checkUserFound($this->wallet_transfer_method, $this->transfer_method_value);
 
         return $this->merge([
@@ -66,7 +68,9 @@ class WalletTransferRequest extends ApiMasterRequest
                 if (!preg_match('/^[1-9][0-9]*$/', $value)) {
                     return trans('validation.custom.identity_number.regex');
                 }
+
                 $user = User::where('id', "<>", auth()->id())->where('register_status', 'completed')->firstWhere(['user_type' => 'citizen', 'identity_number' => $value]);
+                // dd($user);
                 if (!$user) {
                     return trans('mobile.validation.identity_number.is_not_found');
                 }

@@ -72,7 +72,12 @@ class DepartmentController extends Controller
                         $q->where('is_active', 0);
                         break;
                 }
-            })->when($request->has_jobs, function ($q) use ($request) {
+                $q->when($request->admin_id,function($q) use($request){
+                    $q->orWhereHas('rasidJobs', function ($q) use ($request) {
+                        $q->whereHas('employee.user', fn ($q) => $q->where('users.id', $request->admin_id));
+                    });
+                });
+            })->when($request->has_jobs || $request->activate_case, function ($q) use ($request) {
                 $q->whereHas('rasidJobs', function ($q) use ($request) {
                     $q->where(['rasid_jobs.is_active' => true, 'is_vacant' => true])
                         ->orWhere(function ($q) use ($request) {
@@ -108,7 +113,7 @@ class DepartmentController extends Controller
                 ->sortBy($request)
                 ->paginate((int)($request->per_page ??  config("globals.per_page")));
         }
-        
+
         return DepartmentCollection::make($activities)
             ->additional([
                 'status' => true,
@@ -118,7 +123,16 @@ class DepartmentController extends Controller
 
     public function update(DepartmentRequest $request,  $department)
     {
+
         $dep = Department::withTrashed()->findOrFail($department);
+
+        if ($dep->rasidJobs()->where('is_vacant',0)->exists() && $request->is_active == 0) {
+            return response()->json([
+                'status' => false,
+                'message' =>  trans("dashboard.department.validation.can_not_be_deactivated_has_job"),
+                'data' => null
+            ], 422);
+        }
         $dep->fill($request->validated() + ['updated_at' => now()])->save();
 
 

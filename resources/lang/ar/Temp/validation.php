@@ -2,7 +2,7 @@
 
 return [
     'attributes' => [
-        'action' => '',
+        'action' => 'النشاط',
         'main_program' => 'حقل البرنامج الرئيسي',
         'sub_program' => 'حقل البرنامج الفرعي',
         'benficiar_type' => 'حقل نوع المستفيد',
@@ -205,6 +205,7 @@ return [
         'unique_phone' => 'رقم الجوال موجود من قبل',
         'required_name' => 'اسم المستخدم مطلوب',
         'required_password' => 'كلمة المرور مطلوبة',
+        'cant_deactive_admin_while_he_has_message_types' => 'لا يمكن تعطيل هذا الموظف بينما تم تخصيصه لنوع من أنواع الرسائل',
     ],
     'password' => 'كلمة المرور غير صحيحة.',
     'gte' => [
