@@ -2,10 +2,10 @@
 
 @section('content')
 
+@include('dashboard.exports.header',['topic'=>trans('dashboard.rasid_job.rasid_jobs'), 'count' => 4])
 <table id="departmentTable" class="table">
     <thead>
 
-        @include('dashboard.exports.header',['topic'=>trans('dashboard.rasid_job.rasid_jobs'), 'count' => 4])
 
 
         <tr>

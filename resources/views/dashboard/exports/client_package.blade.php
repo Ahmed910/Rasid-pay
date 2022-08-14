@@ -14,10 +14,10 @@ foreach ($packages as $key => $clientPackage) {
 @extends('dashboard.exports.layout')
 
 @section('content')
+@include('dashboard.exports.header',['topic'=>trans('dashboard.package.cards_discount'), 'count' => 3])
 
 <table id="departmentTable" class="table">
   <thead>
-    @include('dashboard.exports.header',['topic'=>trans('dashboard.package.cards_discount'), 'count' => 3])
 
     <tr>
       <th class="border-bottom-0">#</th>

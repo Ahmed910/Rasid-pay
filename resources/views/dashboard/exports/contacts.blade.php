@@ -1,10 +1,10 @@
 @extends('dashboard.exports.layout')
 
 @section('content')
+@include('dashboard.exports.header',['topic'=>trans('dashboard.contact.contact_messages'), 'count' => 5])
 
 <table id="departmentTable" class="table">
   <thead>
-    @include('dashboard.exports.header',['topic'=>trans('dashboard.contact.contact_messages'), 'count' => 5])
     <tr>
       <th>#</th>
       <th>@lang('dashboard.contact.user_name')</th>

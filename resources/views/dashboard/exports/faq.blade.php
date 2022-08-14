@@ -1,10 +1,10 @@
 @extends('dashboard.exports.layout')
 
 @section('content')
+@include('dashboard.exports.header',['topic'=>trans('dashboard.faq.faqs'), 'count' => 2])
 
 <table id="departmentTable" class="table">
   <thead>
-    @include('dashboard.exports.header',['topic'=>trans('dashboard.faq.faqs'), 'count' => 2])
     <tr>
       <th>#</th>
       <th>@lang('dashboard.faq.question')</th>

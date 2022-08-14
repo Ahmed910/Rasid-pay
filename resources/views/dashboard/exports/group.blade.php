@@ -2,9 +2,9 @@
 
 @section('content')
 
+@include('dashboard.exports.header',['topic'=>trans('dashboard.group.all_groups'), 'count' => 3])
  <table id="departmentTable" class="table">
           <thead>
-          @include('dashboard.exports.header',['topic'=>trans('dashboard.group.all_groups'), 'count' => 3])
 
     <tr>
       <th>#</th>
