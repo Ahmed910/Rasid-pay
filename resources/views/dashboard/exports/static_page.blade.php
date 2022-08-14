@@ -1,10 +1,10 @@
 @extends('dashboard.exports.layout')
 
 @section('content')
+@include('dashboard.exports.header',['topic'=>trans('dashboard.static_page.static_pages'), 'count' => 4])
 
 <table id="departmentTable" class="table">
   <thead>
-    @include('dashboard.exports.header',['topic'=>trans('dashboard.static_page.static_pages'), 'count' => 4])
     <tr>
       <th>#</th>
       <th>@lang('dashboard.static_page.name')</th>

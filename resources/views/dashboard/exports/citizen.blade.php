@@ -1,9 +1,9 @@
 @extends('dashboard.exports.layout')
 
 @section('content')
+@include('dashboard.exports.header', ['topic' => trans('dashboard.citizen.citizens'), 'count' => 5])
     <table id="departmentTable" class="table">
         <thead>
-            @include('dashboard.exports.header', ['topic' => trans('dashboard.citizen.citizens'), 'count' => 5])
             <tr>
                 <th>#</th>
                 <th>@lang('dashboard.citizen.name')</th>

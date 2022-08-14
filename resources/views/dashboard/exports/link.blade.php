@@ -2,10 +2,10 @@ links
 @extends('dashboard.exports.layout')
 
 @section('content')
+@include('dashboard.exports.header',['topic'=>trans('dashboard.link.links'), 'count' => 1])
 
 <table id="departmentTable" class="table">
   <thead>
-    @include('dashboard.exports.header',['topic'=>trans('dashboard.link.links'), 'count' => 1])
     <tr>
       <th>#</th>
       <th> key </th>
