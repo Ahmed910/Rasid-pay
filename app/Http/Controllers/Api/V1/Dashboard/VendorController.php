@@ -32,12 +32,7 @@ class VendorController extends Controller
             ]);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param \Illuminate\Http\Request $request
-     * @return \Illuminate\Http\Response
-     */
+
     public function store(VendorRequest $request, Vendor $vendor)
     {
         $vendor->fill($request->validated() + ["added_by" => auth()->id()])->save();
@@ -48,12 +43,7 @@ class VendorController extends Controller
         ]);
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param int $id
-     * @return \Illuminate\Http\Response
-     */
+
     public function show(Request $request, $id)
     {
         $vendor = Vendor::findOrFail($id);
@@ -70,13 +60,7 @@ class VendorController extends Controller
             ]);
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param \Illuminate\Http\Request $request
-     * @param int $id
-     * @return \Illuminate\Http\Response
-     */
+
     public function update(VendorRequest $request, $id)
     {
         $vendor = Vendor::with("translations")->findorfail($id);
@@ -88,12 +72,7 @@ class VendorController extends Controller
             ]);
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param int $id
-     * @return \Illuminate\Http\Response
-     */
+
     public function destroy($id)
     {
         $vendor = Vendor::findorfail($id);
