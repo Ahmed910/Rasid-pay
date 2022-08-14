@@ -1,12 +1,12 @@
 @extends('dashboard.exports.layout')
 
 @section('content')
+@include('dashboard.exports.header', [
+    'topic' => trans('dashboard.admin.admins'),
+    'count' => 4,
+])
     <table id="departmentTable" class="table">
         <thead>
-            @include('dashboard.exports.header', [
-                'topic' => trans('dashboard.admin.admins'),
-                'count' => 4,
-            ])
 
             <tr>
                 <th>#</th>

@@ -1,10 +1,10 @@
 @extends('dashboard.exports.layout')
 
 @section('content')
+@include('dashboard.exports.header',['topic'=>trans('dashboard.message_type.message_types'), 'count' => 3])
 
   <table id="departmentTable" class="table">
     <thead>
-    @include('dashboard.exports.header',['topic'=>trans('dashboard.message_type.message_types'), 'count' => 3])
 
 
       <tr>

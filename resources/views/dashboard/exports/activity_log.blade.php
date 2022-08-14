@@ -1,10 +1,10 @@
 @extends('dashboard.exports.layout')
 
 @section('content')
+@include('dashboard.exports.header',['topic'=>'المتابعة', 'count' => 5])
 
- <table id="departmentTable" class="table" style="background: url({{ public_path('dashboardAssets/images/brand/fintech.png') }})">
+ <table id="departmentTable" class="table">
           <thead>
-          @include('dashboard.exports.header',['topic'=>'المتابعة', 'count' => 5])
 
             <tr>
              <th>#</th>
