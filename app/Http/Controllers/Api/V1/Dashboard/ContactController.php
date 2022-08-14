@@ -101,6 +101,9 @@ class ContactController extends Controller
 
     public function assignContact(ContactAdminAssignRequest $request, Contact $contact)
     {
+        if($contact->assigned_to_id  == auth()->id()){
+            return response()->json(['data'   => null, 'message' => trans('dashboard.contact.validation.u_cant_assign_this_message'), 'status' => false],422);
+        }
         $contact->update($request->validated());
         $contact->addUserActivity($contact, ActivityLog::ASSIGNED, 'index');
 
