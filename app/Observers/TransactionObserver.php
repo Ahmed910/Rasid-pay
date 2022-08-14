@@ -105,13 +105,13 @@ class TransactionObserver
         }
 
         if ($transaction->trans_type == 'wallet_transfer') {
-            $wallet_transfer_method = $transaction->transactionable?->wallet_transfer_method;
+            $method =  $transaction->transactionable?->wallet_transfer_method == 'identity_number' ? 'identity_number' :'phone';
             $data = [
                 'title' => trans('mobile.notifications.reciever_wallet_transfer.title'),
                 'body'  => trans("mobile.notifications.reciever_wallet_transfer.body",[
                                    'amount' => $transaction->amount,
-                                   'reciever_transfer_type' => $wallet_transfer_method == 'identity_number' ? trans('mobile.notifications.reciever_wallet_transfer.reciever_transfer_type.identity_number'):trans('mobile.notifications.reciever_wallet_transfer.reciever_transfer_type.phone'),
-                                   'from_user_identity_or_mobile' =>$wallet_transfer_method == 'identity_number' ? auth()->user()->identity_number :auth()->user()->phone,
+                                   'reciever_transfer_type' => trans('mobile.notifications.reciever_wallet_transfer.reciever_transfer_type.'.$method),
+                                   'from_user_identity_or_mobile' =>auth()->user()->$method,
              ]),
             ];
 
