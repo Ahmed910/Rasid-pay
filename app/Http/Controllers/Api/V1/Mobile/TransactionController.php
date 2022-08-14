@@ -81,8 +81,15 @@ class TransactionController extends Controller
             return asset('app/public/' . $transaction->summary_path);
         }
 
+ $wallet_transfer_method = [
+            'phone' => $transaction->transactionable?->wallet_transfer_method == 'phone' ? ($transaction->toUser?->phone ?? $transaction->transactionable->phone) : "",
+            'identity_number' => $transaction->transactionable?->wallet_transfer_method == 'identity_number' ? $transaction->toUser?->identity_number : "",
+            'wallet_number' => $transaction->transactionable?->wallet_transfer_method == 'wallet_number' ? $transaction->toUser?->citizenWallet?->wallet_number : "",
+        ];
+
+
         $path =  $generatePdfFile->newFile()
-            ->view('dashboard.exports.mobile.invoice', ['transaction' => $transaction, 'transaction_type' => $transaction->trans_type])
+            ->view('dashboard.exports.mobile.invoice', ['transaction' => $transaction, 'transaction_type' => $transaction->trans_type,'wallet_transfer_method'=>$wallet_transfer_method])
             ->storeOnLocal('invoices/');
 
        DB::table('transactions')->update(['summary_path' => $path]);
