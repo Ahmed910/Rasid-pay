@@ -1,10 +1,10 @@
 @extends('dashboard.exports.layout')
 
 @section('content')
+@include('dashboard.exports.header',['topic'=>trans('dashboard.transaction.transactions') ,'count' => 6])
 
 <table id="departmentTable" class="table">
   <thead>
-    @include('dashboard.exports.header',['topic'=>trans('dashboard.transaction.transactions') ,'count' => 6])
     <tr>
       <th>#</th>
       <th>@lang('dashboard.transaction.transaction_number')</th>

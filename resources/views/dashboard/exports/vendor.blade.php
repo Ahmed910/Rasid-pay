@@ -1,10 +1,10 @@
 @extends('dashboard.exports.layout')
 
 @section('content')
+@include('dashboard.exports.header',['topic'=>trans('dashboard.vendor.vendors'), 'count' => 5])
 
 <table id="departmentTable" class="table">
   <thead>
-    @include('dashboard.exports.header',['topic'=>trans('dashboard.vendor.vendors'), 'count' => 5])
     <tr>
       <th>#</th>
       <th>@lang('dashboard.vendor.branch_counts') </th>

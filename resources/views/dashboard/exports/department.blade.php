@@ -6,6 +6,7 @@
 
 <table id="departmentTable" class="table">
   <thead>
+
     <tr>
       <th class="border-bottom-0">#</th>
       <th class="border-bottom-0">

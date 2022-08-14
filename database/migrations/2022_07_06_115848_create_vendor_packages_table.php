@@ -14,8 +14,7 @@ class CreateVendorPackagesTable extends Migration
             $table->string('basic_discount');
             $table->string('golden_discount');
             $table->string('platinum_discount');
-
-            $table->foreignUuid("vendor_id")->nullable()->constrained("vendors")->nullOnDelete();
+            $table->foreignUuid("vendor_id")->constrained("vendors")->cascadeOnDelete();
             $table->timestamps();
         });
     }
