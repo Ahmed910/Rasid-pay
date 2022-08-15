@@ -79,7 +79,7 @@ return [
             ],
         ],
         'email' => 'البريد الإلكتروني',
-        'page_number' => 'ص ',
+        'page_number' => ' ص ',
         'description' => 'الوصف',
         'select_user' => 'اختر مستخدم',
         'username' => 'اسم المستخدم',

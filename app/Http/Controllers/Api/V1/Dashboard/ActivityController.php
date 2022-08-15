@@ -11,10 +11,14 @@ use App\Models\Department\Department;
 use App\Http\Resources\Dashboard\ActivityLogResource;
 use App\Http\Resources\Dashboard\SimpleEmployeeResource;
 use App\Http\Resources\Dashboard\OnlyResource;
+use App\Jobs\GeneratePdfFile;
 use App\Providers\AppServiceProvider;
+use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Str;
 use App\Services\GeneratePdf;
 use Maatwebsite\Excel\Facades\Excel;
+use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 
 class ActivityController extends Controller
 {
@@ -123,7 +127,7 @@ class ActivityController extends Controller
             $mainPrograms = array_keys(AppServiceProvider::MORPH_MAP);
 
             foreach ($mainPrograms as $main_progs) {
-                $subPrograms[] =  collect(trans('dashboard.' . mb_strtolower(Str::snake($main_progs)) . '.sub_progs'))->transform(function ($trans, $key) {
+                $subPrograms[] = collect(trans('dashboard.' . mb_strtolower(Str::snake($main_progs)) . '.sub_progs'))->transform(function ($trans, $key) {
                     $data['name'] = $key;
                     $data['trans'] = $trans;
 
@@ -151,40 +155,127 @@ class ActivityController extends Controller
             'message' => "",
         ]);
     }
-    public function exportPDF(Request $request, GeneratePdf $pdfGenerate)
+
+    public function exportPDF(Request $request, GeneratePdf $generatePdf)
     {
-        $activatyLogsQuery = ActivityLog::select('activity_logs.id', 'activity_logs.user_id', 'activity_logs.auditable_type', 'activity_logs.auditable_id', 'activity_logs.sub_program', 'activity_logs.action_type', 'activity_logs.ip_address', 'activity_logs.created_at')->search($request)
+        set_time_limit(-1);
+        $activatyLogsQuery = ActivityLog::select(
+            'activity_logs.id',
+            'activity_logs.user_id',
+            'activity_logs.auditable_type',
+            'activity_logs.auditable_id',
+            'activity_logs.sub_program',
+            'activity_logs.action_type',
+            'activity_logs.ip_address',
+            'activity_logs.created_at'
+        )->search($request)
             ->sortBy($request)
             ->customDateFromTo($request)
-            ->get();
+            ->cursor();
+        $names = [];
+        foreach (($activatyLogsQuery->chunk(200)) as $key => $activity_logs) {
+            $mpdf = new \Mpdf\Mpdf([
+                'fontDir' => [
+                    public_path() . '/dashboardAssets/fonts',
+                ],
+                'fontdata' => [
+                    'cairo' => [
+                        'R' => 'Cairo-Regular.ttf',
+                        'I' => 'Cairo-Regular.ttf',
+                        'useOTL' => 0xFF,
+                        'useKashida' => 75,
+                    ]
+                ],
+                'default_font' => 'cairo',
+                'debug' => true,
+                'allow_output_buffering' => true,
+                'mode' => 'utf-8',
+                'format' => 'A4',
+                'margin_top' => 60,     // 30mm not pixel
+                'margin_footer' => 10,     // 10mm
+                'orientation' => 'L'
+            ]);
 
-        if (!$request->has('created_from')) {
-            $createdFrom = ActivityLog::selectRaw('MIN(created_at) as min_created_at')->value('min_created_at');
+            $mpdf->autoScriptToLang = true;
+            $mpdf->autoLangToFont = true;
+            $mpdf->simpleTables = true;
+            $mpdf->packTableData = true;
+            $mpdf->SetHTMLHeader(view('dashboard.exports.header', ['topic' => 'المتابعة', 'count' => 5]));
+            if (!Route::is('summary_file')) {
+                $mpdf->SetWatermarkImage(public_path('dashboardAssets/images/brand/fintech.png'), -3, 'F');
+                $mpdf->showWatermarkImage = true;
+                $mpdf->SetDirectionality(LaravelLocalization::getCurrentLocaleDirection());
+            }
+            $basePath = base_path('storage/app/public/');
+            $folder = 'activityLogs/pdfs/';
+            $filename = $basePath . $folder . uniqid() . time() . ".pdf";
+            $names[] = $filename;
+            $mpdfPath = view('dashboard.exports.activity_log', compact('activity_logs', 'key'));
+            $mpdf->WriteHTML($mpdfPath);
+            $mpdf->Output($filename, \Mpdf\Output\Destination::FILE);
         }
 
-        $mpdfPath = $pdfGenerate->newFile()
-            ->view(
-                'dashboard.exports.activity_log',
-                [
-                    'activity_logs' => $activatyLogsQuery,
-                    'date_from'   => format_date($request->created_from) ?? format_date($createdFrom),
-                    'date_to'     => format_date($request->created_to) ?? format_date(now()),
-                    'userId'      => auth()->check() ? auth()->user()->login_id : null,
-
-                ]
-            )
-            ->storeOnLocal('activityLogs/pdfs/');
-        dd('taha');
-        $file  = url('/storage/' . $mpdfPath);
-
+        $final_path = base_path('storage/app/public/activityLogs/pdfs/activity_log.pdf');
+        $this->mergePDFFiles($names, $final_path);
+        $file = url($final_path);
         return response()->json([
-            'data'   => [
+            'data' => [
                 'file' => $file
             ],
             'status' => true,
             'message' => ''
         ]);
     }
+
+    function mergePDFFiles(array $filenames, $outFile)
+    {
+        $mpdf = new \Mpdf\Mpdf([
+            'fontDir' => [
+                public_path() . '/dashboardAssets/fonts',
+            ],
+            'fontdata' => [
+                'cairo' => [
+                    'R' => 'Cairo-Regular.ttf',
+                    'I' => 'Cairo-Regular.ttf',
+                    'useOTL' => 0xFF,
+                    'useKashida' => 75,
+                ]
+            ],
+            'default_font' => 'cairo',
+            'pagenumPrefix' => __('dashboard.general.page_number'),
+            'pagenumSuffix' => ' | ',
+            'nbpgPrefix' => ' ',
+            'nbpgSuffix' => ' ',
+            'mode' => 'utf-8',
+            'orientation' => 'L'
+        ]);
+        $mpdf->SetFooter('{PAGENO}{nbpg}');
+        if ($filenames) {
+            $filesTotal = sizeof($filenames);
+            $fileNumber = 1;
+            if (!file_exists($outFile)) {
+                $handle = fopen($outFile, 'w');
+                fclose($handle);
+            }
+
+            foreach ($filenames as $fileName) {
+                if (file_exists($fileName)) {
+                    $pagesInFile = $mpdf->setSourceFile($fileName);
+                    for ($i = 1; $i <= $pagesInFile; $i++) {
+                        $tplId = $mpdf->ImportPage($i); // in mPdf v8 should be 'importPage($i)'
+                        $mpdf->UseTemplate($tplId);
+                        if (($fileNumber < $filesTotal) || ($i != $pagesInFile)) {
+                            $mpdf->WriteHTML('<pagebreak />');
+                        }
+                    }
+                }
+                $fileNumber++;
+            }
+            $mpdf->Output($outFile, \Mpdf\Output\Destination::FILE);
+            File::delete($filenames);
+        }
+    }
+
 
     public function exportExcel(Request $request)
     {
@@ -193,7 +284,7 @@ class ActivityController extends Controller
         $file = url('/storage/' . 'activity_logs/excels/' . $fileName . '.xlsx');
 
         return response()->json([
-            'data'   => [
+            'data' => [
                 'file' => $file
             ],
             'status' => true,
