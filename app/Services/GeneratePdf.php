@@ -2,9 +2,9 @@
 
 namespace App\Services;
 
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Route;
-use Illuminate\Support\Facades\Storage;
 use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 use Illuminate\Support\Str;
 
@@ -54,9 +54,24 @@ class GeneratePdf
 
         return $this;
     }
-    public function setHeader(string $topic, int $count)
+
+    /**
+     * set header for pdf file
+     */
+    public function setHeader(string $topic, int $count, $createdFrom)
     {
-        $this->mpdf->SetHTMLHeader(view('dashboard.exports.header', ['topic' => $topic, 'count' => $count]));
+        $date_from   = format_date(request('created_from')) ?? format_date($createdFrom);
+        $date_to     = format_date(request('created_to')) ?? format_date(now());
+        $userId      = auth()->user()->login_id;
+
+        $this->mpdf->SetHTMLHeader(view('dashboard.exports.header', compact(
+            'date_from',
+            'date_to',
+            'userId',
+            'topic',
+            'count',
+        )));
+
         return $this;
     }
 
@@ -65,9 +80,9 @@ class GeneratePdf
      * @param  Illuminate\Support\Facades\View $view
      * @param array $data
      */
-    public function view(string $view, $rows, int $key)
+    public function view(string $view, $rows, int $key, int $chunk)
     {
-        $this->mpdf->WriteHTML(view($view, compact('rows','key')));
+        $this->mpdf->WriteHTML(view($view, compact('rows', 'key', 'chunk')));
 
         return $this;
     }
@@ -101,7 +116,8 @@ class GeneratePdf
             File::makeDirectory($folder, 0777, true);
         }
     }
-    public static function mergePDFFiles(array $filenames, $outFile)
+
+    public static function mergePdfFiles(array $filenames, $outFile): string
     {
         $mpdf = new \Mpdf\Mpdf([
             'fontDir' => [
@@ -123,6 +139,7 @@ class GeneratePdf
             'mode' => 'utf-8',
             'orientation' => 'L'
         ]);
+        $outFile = base_path('storage/app/public/') . $outFile;
         $mpdf->SetFooter('{PAGENO}{nbpg}');
         if ($filenames) {
             $filesTotal = sizeof($filenames);
@@ -147,6 +164,8 @@ class GeneratePdf
             }
             $mpdf->Output($outFile, \Mpdf\Output\Destination::FILE);
             File::delete($filenames);
+
+            return url(str_replace(base_path('storage/app/public/'), 'storage/', $outFile));
         }
     }
 }
