@@ -21,6 +21,7 @@ class ActivityController extends Controller
     public function index(Request $request)
     {
         $activatyLogs = ActivityLog::search($request)
+            ->where('user_type', 'admin')
             ->customDateFromTo($request)
             ->sortBy($request)
             ->paginate((int)($request->per_page ?? config("globals.per_page")));
