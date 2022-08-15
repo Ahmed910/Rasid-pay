@@ -30,7 +30,7 @@ class ProfileRequest extends ApiMasterRequest
             // 'is_date_hijri' => 'boolean'
             "image" =>  'nullable|image|max:5120',
             'current_password' => [
-                'nullable|required_with:password',
+                'required_with:password',
                 'min:6',
                 'max:20',
                 function ($attribute, $value, $fail) {
@@ -39,7 +39,7 @@ class ProfileRequest extends ApiMasterRequest
                     }
                 }
             ],
-            'password' => 'nullable|required_with:current_password|min:8|max:20|different:current_password|regex:/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{6,}$/'
+            'password' => 'required_with:current_password|min:8|max:20|different:current_password|regex:/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{6,}$/'
         ];
     }
 
