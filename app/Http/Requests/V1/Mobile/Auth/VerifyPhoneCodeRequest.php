@@ -19,7 +19,11 @@ class VerifyPhoneCodeRequest extends ApiMasterRequest
     {
         $data = $this->all();
         $keyName = 'verified_code';
-        $identity_number = @$data['identity_number'] ? convert_arabic_number($data['identity_number']) : @$data['identity_number'];
+        if(auth()->check()){
+            $identity_number = auth()->user()->identity_number;
+        }else{
+            $identity_number = @$data['identity_number'] ? convert_arabic_number($data['identity_number']) : @$data['identity_number'];
+        }
         $user = User::firstWhere(['identity_number' => $identity_number , 'user_type' => 'citizen']);
         if ($user && ($user->phone_verified_at || $user->email_verified_at) && $user->password) {
             $keyName = 'reset_code';
