@@ -171,52 +171,18 @@ class ActivityController extends Controller
         )->search($request)
             ->sortBy($request)
             ->customDateFromTo($request)
+            ->limit(200)
             ->cursor();
         $names = [];
-        foreach (($activatyLogsQuery->chunk(200)) as $key => $activity_logs) {
-            $mpdf = new \Mpdf\Mpdf([
-                'fontDir' => [
-                    public_path() . '/dashboardAssets/fonts',
-                ],
-                'fontdata' => [
-                    'cairo' => [
-                        'R' => 'Cairo-Regular.ttf',
-                        'I' => 'Cairo-Regular.ttf',
-                        'useOTL' => 0xFF,
-                        'useKashida' => 75,
-                    ]
-                ],
-                'default_font' => 'cairo',
-                'debug' => true,
-                'allow_output_buffering' => true,
-                'mode' => 'utf-8',
-                'format' => 'A4',
-                'margin_top' => 60,     // 30mm not pixel
-                'margin_footer' => 10,     // 10mm
-                'orientation' => 'L'
-            ]);
-
-            $mpdf->autoScriptToLang = true;
-            $mpdf->autoLangToFont = true;
-            $mpdf->simpleTables = true;
-            $mpdf->packTableData = true;
-            $mpdf->SetHTMLHeader(view('dashboard.exports.header', ['topic' => 'المتابعة', 'count' => 5]));
-            if (!Route::is('summary_file')) {
-                $mpdf->SetWatermarkImage(public_path('dashboardAssets/images/brand/fintech.png'), -3, 'F');
-                $mpdf->showWatermarkImage = true;
-                $mpdf->SetDirectionality(LaravelLocalization::getCurrentLocaleDirection());
-            }
-            $basePath = base_path('storage/app/public/');
-            $folder = 'activityLogs/pdfs/';
-            $filename = $basePath . $folder . uniqid() . time() . ".pdf";
-            $names[] = $filename;
-            $mpdfPath = view('dashboard.exports.activity_log', compact('activity_logs', 'key'));
-            $mpdf->WriteHTML($mpdfPath);
-            $mpdf->Output($filename, \Mpdf\Output\Destination::FILE);
+        foreach (($activatyLogsQuery->chunk(200)) as $key => $rows) {
+            $names[] = base_path('storage/app/public/' . (new GeneratePdf)->newFile()
+                ->setHeader('المتابعة', 5)
+                ->view('dashboard.exports.activity_log', $rows, $key)
+                ->storeOnLocal('activityLogs/pdfs/'));
         }
 
         $final_path = base_path('storage/app/public/activityLogs/pdfs/activity_log.pdf');
-        $this->mergePDFFiles($names, $final_path);
+        GeneratePdf::mergePDFFiles($names, $final_path);
         $file = url($final_path);
         return response()->json([
             'data' => [
@@ -227,54 +193,7 @@ class ActivityController extends Controller
         ]);
     }
 
-    function mergePDFFiles(array $filenames, $outFile)
-    {
-        $mpdf = new \Mpdf\Mpdf([
-            'fontDir' => [
-                public_path() . '/dashboardAssets/fonts',
-            ],
-            'fontdata' => [
-                'cairo' => [
-                    'R' => 'Cairo-Regular.ttf',
-                    'I' => 'Cairo-Regular.ttf',
-                    'useOTL' => 0xFF,
-                    'useKashida' => 75,
-                ]
-            ],
-            'default_font' => 'cairo',
-            'pagenumPrefix' => __('dashboard.general.page_number'),
-            'pagenumSuffix' => ' | ',
-            'nbpgPrefix' => ' ',
-            'nbpgSuffix' => ' ',
-            'mode' => 'utf-8',
-            'orientation' => 'L'
-        ]);
-        $mpdf->SetFooter('{PAGENO}{nbpg}');
-        if ($filenames) {
-            $filesTotal = sizeof($filenames);
-            $fileNumber = 1;
-            if (!file_exists($outFile)) {
-                $handle = fopen($outFile, 'w');
-                fclose($handle);
-            }
 
-            foreach ($filenames as $fileName) {
-                if (file_exists($fileName)) {
-                    $pagesInFile = $mpdf->setSourceFile($fileName);
-                    for ($i = 1; $i <= $pagesInFile; $i++) {
-                        $tplId = $mpdf->ImportPage($i); // in mPdf v8 should be 'importPage($i)'
-                        $mpdf->UseTemplate($tplId);
-                        if (($fileNumber < $filesTotal) || ($i != $pagesInFile)) {
-                            $mpdf->WriteHTML('<pagebreak />');
-                        }
-                    }
-                }
-                $fileNumber++;
-            }
-            $mpdf->Output($outFile, \Mpdf\Output\Destination::FILE);
-            File::delete($filenames);
-        }
-    }
 
 
     public function exportExcel(Request $request)
