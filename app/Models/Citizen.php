@@ -20,6 +20,7 @@ class Citizen extends Model
 
     protected $dates = ['date_of_birth'];
     const USER_SEARCHABLE_COLUMNS = ["fullname", "phone", "identity_number"];
+    const USER_SORTABLE_COLUMNS = ["fullname", "phone", "identity_number", 'ban_status'];
     const CARDPKG_SORT_COLUMNS = ["enabled_package" => "package_type", 'created_at' => 'start_at', 'card_end_at' => 'end_at'];
     const SELECT_ALL = ["enabled_package" => "id"];
     #endregion properties
@@ -93,7 +94,7 @@ class Citizen extends Model
             return $query->latest('citizens.created_at');
         }
 
-        if (in_array($request->sort["column"], self::USER_SEARCHABLE_COLUMNS)) {
+        if (in_array($request->sort["column"], self::USER_SORTABLE_COLUMNS)) {
             return $query->join('users', 'users.id', '=', 'citizens.user_id')
                 ->orderBy('users.' . $request->sort["column"], @$request->sort["dir"]);
         } else if (key_exists($request->sort["column"], self::CARDPKG_SORT_COLUMNS)) {
