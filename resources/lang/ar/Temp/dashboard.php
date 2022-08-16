@@ -760,7 +760,7 @@ return [
                 'permanent' => 'معطل دائم',
                 'active' => 'مفعل',
                 'temporary' => 'معطل لفترة',
-                'exceeded_attempts' => 'تعدي محاولات الدخول الخاطئة'
+                'exceeded_attempts' => 'معطل لتخطي عدد مرات الدخول الخاطئ'
             ],
 
         'admin' => 'اسم المستخدم',
