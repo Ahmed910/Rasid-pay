@@ -173,7 +173,7 @@ class ActivityController extends Controller
             ->cursor();
 
         if (!$request->has('created_from')) {
-            $createdFrom = User::selectRaw('MIN(created_at) as min_created_at')->value('min_created_at');
+            $createdFrom = ActivityLog::selectRaw('MIN(created_at) as min_created_at')->value('min_created_at');
         }
 
         $chunk = 200;
