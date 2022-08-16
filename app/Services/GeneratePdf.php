@@ -87,6 +87,14 @@ class GeneratePdf
         return $this;
     }
 
+
+    public function mobileView($view,$data)
+    {
+        $this->mpdf->WriteHTML(view($view, $data));
+        return $this;
+    }
+
+
     /**
      * Export PDF File
      */
