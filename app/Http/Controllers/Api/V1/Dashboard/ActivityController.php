@@ -158,7 +158,6 @@ class ActivityController extends Controller
 
     public function exportPDF(Request $request, GeneratePdf $generatePdf)
     {
-        set_time_limit(-1);
         $activatyLogsQuery = ActivityLog::select(
             'activity_logs.id',
             'activity_logs.user_id',
@@ -171,19 +170,23 @@ class ActivityController extends Controller
         )->search($request)
             ->sortBy($request)
             ->customDateFromTo($request)
-            ->limit(200)
             ->cursor();
-        $names = [];
-        foreach (($activatyLogsQuery->chunk(200)) as $key => $rows) {
-            $names[] = base_path('storage/app/public/' . (new GeneratePdf)->newFile()
-                ->setHeader('المتابعة', 5)
-                ->view('dashboard.exports.activity_log', $rows, $key)
-                ->storeOnLocal('activityLogs/pdfs/'));
+
+        if (!$request->has('created_from')) {
+            $createdFrom = User::selectRaw('MIN(created_at) as min_created_at')->value('min_created_at');
         }
 
-        $final_path = base_path('storage/app/public/activityLogs/pdfs/activity_log.pdf');
-        GeneratePdf::mergePDFFiles($names, $final_path);
-        $file = url($final_path);
+        $chunk = 200;
+        $names = [];
+        foreach (($activatyLogsQuery->chunk($chunk)) as $key => $rows) {
+            $names[] = base_path('storage/app/public/') . $generatePdf->newFile()
+                ->setHeader(trans('dashboard.activity_log.activity_logs'), 5, $createdFrom)
+                ->view('dashboard.exports.activity_log', $rows, $key, $chunk)
+                ->storeOnLocal('activityLogs/pdfs/');
+        }
+
+        $file = GeneratePdf::mergePdfFiles($names, 'activityLogs/pdfs/activity_log.pdf');
+
         return response()->json([
             'data' => [
                 'file' => $file

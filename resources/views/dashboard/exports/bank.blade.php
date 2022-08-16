@@ -1,7 +1,6 @@
 @extends('dashboard.exports.layout')
 
 @section('content')
-@include('dashboard.exports.header',['topic'=>trans('dashboard.bank.banks'), 'count' => 1])
 
 <table id="departmentTable" class="table">
   <thead>
@@ -12,9 +11,9 @@
     </tr>
   </thead>
   <tbody>
-    @foreach ($banks as $bank)
+    @foreach ($rows as $bank)
     <tr>
-      <td>{{ $loop->iteration }}</td>
+      <td>{{ $loop->iteration + ($key * $chunk) }}</td>
        <td>{{ $bank->name }}</td>
        <td>
         @if($bank->is_active)
