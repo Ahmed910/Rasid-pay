@@ -38,7 +38,7 @@ class TransferPurposeExport implements FromView, ShouldAutoSize, WithEvents
         }
 
         return view('dashboard.exports.transfer_purpose', [
-            'transfer_purposes' => $transferPursposes,
+            'rows' => $transferPursposes,
             'date_from'   => format_date($this->request->created_from) ?? format_date($createdFrom),
             'date_to'     => format_date($this->request->created_to) ?? format_date(now()),
             'userId'      => auth()->user()->login_id,

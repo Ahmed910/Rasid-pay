@@ -40,7 +40,7 @@ class DepartmentsExport implements FromView, ShouldAutoSize, WithEvents
                 $createdFrom = Department::selectRaw('MIN(created_at) as min_created_at')->value('min_created_at');
             }
         return view('dashboard.exports.department', [
-            'departments' => $departmentsQuery,
+            'rows' => $departmentsQuery,
             'date_from'   => format_date($this->request->created_from) ?? format_date($createdFrom),
             'date_to'     => format_date($this->request->created_to) ?? format_date(now()),
             'userId'      => auth()->user()->login_id,

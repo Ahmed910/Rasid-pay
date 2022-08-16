@@ -45,7 +45,7 @@ class VendorExport implements FromView, ShouldAutoSize, WithEvents
         }
 
         return view('dashboard.exports.vendor', [
-            'vendors' => $vendors,
+            'rows' => $vendors,
             'date_from'   => format_date($this->request->created_from) ?? format_date($createdFrom),
             'date_to'     => format_date($this->request->created_to) ?? format_date(now()),
             'userId'      => auth()->user()->login_id,

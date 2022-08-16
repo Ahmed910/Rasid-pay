@@ -39,7 +39,7 @@ class JobsExport implements FromView, ShouldAutoSize, WithEvents
             }
 
         return view('dashboard.exports.job', [
-            'jobs' => $jobsQuery,
+            'rows' => $jobsQuery,
             'date_from'   => format_date($this->request->created_from) ?? format_date($createdFrom),
             'date_to'     => format_date($this->request->created_to) ?? format_date(now()),
             'userId'      => auth()->user()->login_id,
