@@ -22,7 +22,8 @@ class CitizenController extends Controller
         $citizen = Citizen::with(['user', "enabledPackage"])
             ->whereHas('user', fn ($q) => $q->where('register_status', 'completed'))
             ->customDateFromTo($request)
-            ->search($request)->sortBy($request)
+            ->search($request)
+            ->sortBy($request)
             ->paginate((int)($request->per_page ?? config("globals.per_page")));
 
         return CitizenResource::collection($citizen)->additional([
@@ -70,7 +71,7 @@ class CitizenController extends Controller
     }
 
 
-    public function exportPDF(Request $request, GeneratePdf $pdfGenerate)
+    public function exportPDF(Request $request, GeneratePdf $generatePdf)
     {
         $CitizensQuery =  Citizen::with(['user', "enabledPackage"])
             ->whereHas('user', fn ($q) => $q->where('register_status', 'completed'))
@@ -84,19 +85,16 @@ class CitizenController extends Controller
             $createdFrom = Citizen::selectRaw('MIN(created_at) as min_created_at')->value('min_created_at');
         }
 
-        $mpdfPath = $pdfGenerate->newFile()
-            ->view(
-                'dashboard.exports.citizen',
-                [
-                    'citizens' => $CitizensQuery,
-                    'date_from'   => format_date($request->created_from) ?? format_date($createdFrom),
-                    'date_to'     => format_date($request->created_to) ?? format_date(now()),
-                    'userId'      => auth()->user()->login_id,
+        $chunk = 200;
+        $names = [];
+        foreach (($CitizensQuery->chunk($chunk)) as $key => $rows) {
+            $names[] = base_path('storage/app/public/') . $generatePdf->newFile()
+                ->setHeader(trans('dashboard.citizen.citizens'), 5, $createdFrom)
+                ->view('dashboard.exports.citizen', $rows, $key, $chunk)
+                ->storeOnLocal('citizens/pdfs/');
+        }
 
-                ]
-            )
-            ->storeOnLocal('Citizens/pdfs/');
-        $file  = url('/storage/' . $mpdfPath);
+        $file = GeneratePdf::mergePdfFiles($names, 'citizens/pdfs/citizens.pdf');
 
         return response()->json([
             'data'   => [
