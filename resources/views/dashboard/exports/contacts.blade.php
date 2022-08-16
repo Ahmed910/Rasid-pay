@@ -1,7 +1,6 @@
 @extends('dashboard.exports.layout')
 
 @section('content')
-@include('dashboard.exports.header',['topic'=>trans('dashboard.contact.contact_messages'), 'count' => 5])
 
 <table id="departmentTable" class="table">
   <thead>
@@ -16,9 +15,9 @@
     </tr>
   </thead>
   <tbody>
-    @foreach ($contacts as $contact)
+    @foreach ($rows as $contact)
     <tr>
-      <td>{{ $loop->iteration }}</td>
+      <td>{{ $loop->iteration + ($key * $chunk) }}</td>
       <td>{{ $contact->fullname }}</td>
       <td>{{ $contact->email }}</td>
       <td>{{ $contact->phone }}</td>

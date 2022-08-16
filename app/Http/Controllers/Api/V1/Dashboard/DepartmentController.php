@@ -72,7 +72,7 @@ class DepartmentController extends Controller
                         $q->where('is_active', 0);
                         break;
                 }
-                $q->when($request->admin_id,function($q) use($request){
+                $q->when($request->admin_id, function ($q) use ($request) {
                     $q->orWhereHas('rasidJobs', function ($q) use ($request) {
                         $q->whereHas('employee.user', fn ($q) => $q->where('users.id', $request->admin_id));
                     });
@@ -126,7 +126,7 @@ class DepartmentController extends Controller
 
         $dep = Department::withTrashed()->findOrFail($department);
 
-        if ($dep->rasidJobs()->where('is_vacant',0)->exists() && $request->is_active == 0) {
+        if ($dep->rasidJobs()->where('is_vacant', 0)->exists() && $request->is_active == 0) {
             return response()->json([
                 'status' => false,
                 'message' =>  trans("dashboard.department.validation.can_not_be_deactivated_has_job"),
@@ -234,8 +234,9 @@ class DepartmentController extends Controller
             ]);
     }
 
-    public function exportPDF(Request $request, GeneratePdf $pdfGenerate)
+    public function exportPDF(Request $request, GeneratePdf $generatePdf)
     {
+
         $departmentsQuery = Department::search($request)
             ->customDateFromTo($request)
             ->with('parent.translations')
@@ -248,19 +249,16 @@ class DepartmentController extends Controller
             $createdFrom = Department::selectRaw('MIN(created_at) as min_created_at')->value('min_created_at');
         }
 
-        $mpdfPath = $pdfGenerate->newFile()
-            ->view(
-                'dashboard.exports.department',
-                [
-                    'departments' => $departmentsQuery,
-                    'date_from'   => format_date($request->created_from) ?? format_date($createdFrom),
-                    'date_to'     => format_date($request->created_to) ?? format_date(now()),
-                    'userId'      => auth()->user()->login_id,
+        $chunk = 200;
+        $names = [];
+        foreach (($departmentsQuery->chunk($chunk)) as $key => $rows) {
+            $names[] = base_path('storage/app/public/') . $generatePdf->newFile()
+                ->setHeader(trans('dashboard.department.departments'), 3, $createdFrom)
+                ->view('dashboard.exports.department', $rows, $key, $chunk)
+                ->storeOnLocal('departments/pdfs/');
+        }
 
-                ]
-            )
-            ->storeOnLocal('departments/pdfs/');
-        $file  = url('/storage/' . $mpdfPath);
+        $file = GeneratePdf::mergePdfFiles($names, 'departments/pdfs/departments.pdf');
 
         return response()->json([
             'data'   => [

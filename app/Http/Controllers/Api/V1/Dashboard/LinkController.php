@@ -29,31 +29,26 @@ class LinkController extends Controller
             ]);
     }
 
-    public function exportPDF(Request $request, GeneratePdf $pdfGenerate)
+    public function exportPDF(Request $request, GeneratePdf $generatePdf)
     {
-        $LinksQuery =  Link::latest()->get();
-
+        $LinksQuery = Link::latest()->get();
 
         if (!$request->has('created_from')) {
             $createdFrom = Link::selectRaw('MIN(created_at) as min_created_at')->value('min_created_at');
         }
 
-        $mpdfPath = $pdfGenerate->newFile()
-            ->view(
-                'dashboard.exports.link',
-                [
-                    'Links' => $LinksQuery,
-                    'date_from'   => format_date($request->created_from) ?? format_date($createdFrom),
-                    'date_to'     => format_date($request->created_to) ?? format_date(now()),
-                    'userId'      => auth()->user()->login_id,
-
-                ]
-            )
-            ->storeOnLocal('Links/pdfs/');
-        $file  = url('/storage/' . $mpdfPath);
+        $chunk = 200;
+        $names = [];
+        foreach (($LinksQuery->chunk($chunk)) as $key => $rows) {
+            $names[] = base_path('storage/app/public/') . $generatePdf->newFile()
+                    ->setHeader(trans('dashboard.link.links'), 1, $createdFrom)
+                    ->view('dashboard.exports.link', $rows, $key, $chunk)
+                    ->storeOnLocal('links/pdfs/');
+        }
+        $file = GeneratePdf::mergePdfFiles($names, 'links/pdfs/links.pdf');
 
         return response()->json([
-            'data'   => [
+            'data' => [
                 'file' => $file
             ],
             'status' => true,
@@ -68,7 +63,7 @@ class LinkController extends Controller
         $file = url('/storage/' . 'Links/excels/' . $fileName . '.xlsx');
 
         return response()->json([
-            'data'   => [
+            'data' => [
                 'file' => $file
             ],
             'status' => true,

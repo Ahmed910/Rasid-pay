@@ -1,7 +1,6 @@
 @extends('dashboard.exports.layout')
 
 @section('content')
-@include('dashboard.exports.header',['topic'=>trans('dashboard.transaction.transactions') ,'count' => 6])
 
 <table id="departmentTable" class="table">
   <thead>
@@ -17,9 +16,9 @@
     </tr>
   </thead>
   <tbody>
-    @foreach ($transactions as $transaction)
+    @foreach ($rows as $transaction)
     <tr>
-      <td>{{ $loop->iteration }}</td>
+      <td>{{ $loop->iteration + ($key * $chunk) }}</td>
       <td>{{ $transaction->trans_number }}</td>
       <td>{{ $transaction->created_at_date_time }}</td>
       <td>{{ $transaction->fromUser?->fullname }}</td>

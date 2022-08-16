@@ -1,7 +1,6 @@
 @extends('dashboard.exports.layout')
 
 @section('content')
-@include('dashboard.exports.header',['topic'=>trans('dashboard.vendor_package.vendor_packages'), 'count' => 3])
 
 <table id="departmentTable" class="table">
   <thead>
@@ -14,13 +13,13 @@
     </tr>
   </thead>
   <tbody>
-    @foreach ($vendor_packages as $venorPackage)
+    @foreach ($rows as $vendorPackage)
     <tr>
-      <td>{{ $loop->iteration }}</td>
-      <td>{{ $venorPackage?->vendor?->name }}</td>
-      <td>{{ $venorPackage?->basic_discount }}</td>
-      <td>{{ $venorPackage?->golden_discount }}</td>
-      <td>{{ $venorPackage?->platinum_discount }}</td>
+      <td>{{ $loop->iteration + ($key * $chunk) }}</td>
+      <td>{{ $vendorPackage?->vendor?->name }}</td>
+      <td>{{ $vendorPackage?->basic_discount }}</td>
+      <td>{{ $vendorPackage?->golden_discount }}</td>
+      <td>{{ $vendorPackage?->platinum_discount }}</td>
     </tr>
     @endforeach
   </tbody>

@@ -2,8 +2,6 @@
 
 @section('content')
 
-@include('dashboard.exports.header',['topic'=> trans('dashboard.department.departments'),'count'=>3])
-
 <table id="departmentTable" class="table">
   <thead>
 
@@ -20,9 +18,9 @@
     </tr>
   </thead>
   <tbody>
-    @foreach ($departments as $department)
+    @foreach ($rows as $department)
     <tr>
-      <td>{{ $loop->iteration }}</td>
+      <td>{{ $loop->iteration + ($key * $chunk) }}</td>
       <td>{{ $department->name }}</td>
       <td>{{ @$department->parent->name ?? trans('dashboard.department.without_parent') }}</td>
       <td>{{ $department->created_at_date }}</td>

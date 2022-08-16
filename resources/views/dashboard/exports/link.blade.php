@@ -2,7 +2,7 @@ links
 @extends('dashboard.exports.layout')
 
 @section('content')
-@include('dashboard.exports.header',['topic'=>trans('dashboard.link.links'), 'count' => 1])
+
 
 <table id="departmentTable" class="table">
   <thead>
@@ -13,9 +13,9 @@ links
     </tr>
   </thead>
   <tbody>
-    @foreach ($links as $link)
+    @foreach ($rows as $link)
     <tr>
-      <td>{{ $loop->iteration }}</td>
+      <td>{{ $loop->iteration + ($key * $chunk) }}</td>
       <td>{{ $link->key ?? '' }}</td>
       <td>{{ trans('dashboard.links.'.$link->key) ?? '' }}</td>
     </tr>

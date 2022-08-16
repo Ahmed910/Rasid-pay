@@ -14,11 +14,7 @@ use Maatwebsite\Excel\Facades\Excel;
 
 class GroupController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+
     public function index(Request $request)
     {
         $groups = Group::with('groups', 'permissions')
@@ -30,12 +26,6 @@ class GroupController extends Controller
         return GroupResource::collection($groups)->additional(['status' => true, 'message' => ""]);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(GroupRequest $request, Group $group)
     {
 
@@ -85,13 +75,7 @@ class GroupController extends Controller
                 'message' => ''
             ]);
     }
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+
     public function update(GroupRequest $request, Group $group)
     {
         $old_permissions = $group->permission_list;
@@ -126,12 +110,7 @@ class GroupController extends Controller
         return GroupResource::make($group)->additional(['status' => true, 'message' => trans('dashboard.general.success_update')]);
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+
     public function destroy(Group $group)
     {
         $group->delete();
@@ -164,7 +143,7 @@ class GroupController extends Controller
         return GroupResource::collection($groups)->additional(['status' => true, 'message' => ""]);
     }
 
-    public function exportPDF(Request $request, GeneratePdf $pdfGenerate)
+    public function exportPDF(Request $request, GeneratePdf $generatePdf)
     {
         $groupsQuery = Group::with('groups', 'permissions')
         ->withTranslation()
@@ -178,19 +157,16 @@ class GroupController extends Controller
             $createdFrom = Group::selectRaw('MIN(created_at) as min_created_at')->value('min_created_at');
         }
 
-        $mpdfPath = $pdfGenerate->newFile()
-            ->view(
-                'dashboard.exports.group',
-                [
-                    'groups' => $groupsQuery,
-                    'date_from'   => format_date($request->created_from) ?? format_date($createdFrom),
-                    'date_to'     => format_date($request->created_to) ?? format_date(now()),
-                    'userId'      => auth()->user()->login_id,
+        $chunk = 200;
+        $names = [];
+        foreach (($groupsQuery->chunk($chunk)) as $key => $rows) {
+            $names[] = base_path('storage/app/public/') . $generatePdf->newFile()
+                    ->setHeader(trans('dashboard.group.all_groups'), 3, $createdFrom)
+                    ->view('dashboard.exports.bank', $rows, $key, $chunk)
+                    ->storeOnLocal('groups/pdfs/');
+        }
 
-                ]
-            )
-            ->storeOnLocal('groups/pdfs/');
-        $file  = url('/storage/' . $mpdfPath);
+        $file = GeneratePdf::mergePdfFiles($names, 'groups/pdfs/groups.pdf');
 
         return response()->json([
             'data'   => [

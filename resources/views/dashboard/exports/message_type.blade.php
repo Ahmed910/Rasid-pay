@@ -1,7 +1,6 @@
 @extends('dashboard.exports.layout')
 
 @section('content')
-@include('dashboard.exports.header',['topic'=>trans('dashboard.message_type.message_types'), 'count' => 3])
 
   <table id="departmentTable" class="table">
     <thead>
@@ -20,9 +19,9 @@
     </tr>
     </thead>
     <tbody>
-    @foreach ($messageTypes as $message_type)
+    @foreach ($rows as $message_type)
       <tr>
-        <td>{{ $loop->iteration }}</td>
+        <td>{{ $loop->iteration + ($key * $chunk) }}</td>
         <td>{{ $message_type->name ?? '' }}</td>
         <td>{{ $message_type->admins_count ?? '' }}</td>
 

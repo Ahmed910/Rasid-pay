@@ -102,8 +102,8 @@ class AdminController extends Controller
 
     public function update(AdminRequest $request, User $admin)
     {
-        if($request->ban_status != 'active' && $admin->messageTypes()->exists()) {
-            return response()->json(['data'   => null, 'message' => trans('validation.admin.cant_deactive_admin_while_he_has_message_types'), 'status' => false],422);
+        if ($request->ban_status != 'active' && $admin->messageTypes()->exists()) {
+            return response()->json(['data'   => null, 'message' => trans('validation.admin.cant_deactive_admin_while_he_has_message_types'), 'status' => false], 422);
         }
         if ($request->password_change && $request->password_change == 1) {
             $admin->fill($request->validated() + ['updated_at' => now()])->save();
@@ -120,7 +120,7 @@ class AdminController extends Controller
         if ($request->group_list) {
             $admin->groups()->sync($request->group_list);
             $permissions = array_merge($permissions, Group::find($request->group_list)->pluck('permissions')->flatten()->pluck('id')->toArray());
-        }elseif(!$request->group_list && $admin->groups()->exists()){
+        } elseif (!$request->group_list && $admin->groups()->exists()) {
             $admin->groups()->detach();
         }
 
@@ -193,7 +193,7 @@ class AdminController extends Controller
     }
 
 
-    public function exportPDF(Request $request, GeneratePdf $pdfGenerate)
+    public function exportPDF(Request $request, GeneratePdf $generatePdf)
     {
         $AdminsQuery = User::customDateFromTo($request)
             ->has('employee')
@@ -209,19 +209,16 @@ class AdminController extends Controller
             $createdFrom = User::selectRaw('MIN(created_at) as min_created_at')->value('min_created_at');
         }
 
-        $mpdfPath = $pdfGenerate->newFile()
-            ->view(
-                'dashboard.exports.admin',
-                [
-                    'admins' => $AdminsQuery,
-                    'date_from'   => format_date($request->created_from) ?? format_date($createdFrom),
-                    'date_to'     => format_date($request->created_to) ?? format_date(now()),
-                    'userId'      => auth()->user()->login_id,
+        $chunk = 200;
+        $names = [];
+        foreach (($AdminsQuery->chunk($chunk)) as $key => $rows) {
+            $names[] =  base_path('storage/app/public/') . $generatePdf->newFile()
+                ->setHeader(trans('dashboard.admin.admins'), 4, $createdFrom)
+                ->view('dashboard.exports.admin', $rows, $key, $chunk)
+                ->storeOnLocal('admins/pdfs/');
+        }
 
-                ]
-            )
-            ->storeOnLocal('Admins/pdfs/');
-        $file  = url('/storage/' . $mpdfPath);
+        $file = GeneratePdf::mergePdfFiles($names, 'admins/pdfs/admins.pdf');
 
         return response()->json([
             'data'   => [

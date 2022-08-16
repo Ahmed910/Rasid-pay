@@ -19,7 +19,7 @@ class TransactionController extends Controller
 
     public function index(Request $request)
     {
-     
+
         $transactions = Transaction::search($request)
             ->customDateFromTo($request)
             ->sortBy($request)
@@ -33,12 +33,7 @@ class TransactionController extends Controller
             ]);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param \Illuminate\Http\Request $request
-     * @return \Illuminate\Http\Response
-     */
+
     public function store(TransactionRequest $request, Transaction $transaction)
     {
         $additionadData = [];
@@ -61,12 +56,7 @@ class TransactionController extends Controller
             ]);
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param int $id
-     * @return \Illuminate\Http\Response
-     */
+
     public function show($id, Request $request)
     {
         $transaction = Transaction::findOrFail($id);
@@ -98,12 +88,7 @@ class TransactionController extends Controller
         //
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param int $id
-     * @return \Illuminate\Http\Response
-     */
+
     public function destroy(Transaction $transaction)
     {
         $transaction->delete();
@@ -142,7 +127,7 @@ class TransactionController extends Controller
     }
 
 
-    public function exportPDF(Request $request, GeneratePdf $pdfGenerate)
+    public function exportPDF(Request $request, GeneratePdf $generatePdf)
     {
         $TransactionsQuery = Transaction::search($request)
             ->customDateFromTo($request)
@@ -155,19 +140,16 @@ class TransactionController extends Controller
             $createdFrom = Transaction::selectRaw('MIN(created_at) as min_created_at')->value('min_created_at');
         }
 
-        $mpdfPath = $pdfGenerate->newFile()
-            ->view(
-                'dashboard.exports.transactions',
-                [
-                    'transactions' => $TransactionsQuery,
-                    'date_from'   => format_date($request->created_from) ?? format_date($createdFrom),
-                    'date_to'     => format_date($request->created_to) ?? format_date(now()),
-                    'userId'      => auth()->user()->login_id,
+        $chunk = 200;
+        $names = [];
+        foreach (($TransactionsQuery->chunk($chunk)) as $key => $rows) {
+            $names[] = base_path('storage/app/public/') . $generatePdf->newFile()
+                    ->setHeader(trans('dashboard.transaction.transactions'), 6, $createdFrom)
+                    ->view('dashboard.exports.transactions', $rows, $key, $chunk)
+                    ->storeOnLocal('transactions/pdfs/');
+        }
 
-                ]
-            )
-            ->storeOnLocal('Transactions/pdfs/');
-        $file  = url('/storage/' . $mpdfPath);
+        $file = GeneratePdf::mergePdfFiles($names, 'transactions/pdfs/transactions.pdf');
 
         return response()->json([
             'data'   => [

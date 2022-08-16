@@ -69,7 +69,7 @@ class  FaqController extends Controller
                 'message' =>  __('dashboard.general.success_delete')
             ]);
     }
-    public function exportPDF(Request $request, GeneratePdf $pdfGenerate)
+    public function exportPDF(Request $request, GeneratePdf $generatePdf)
     {
         $faqsQuery = Faq::search($request)
             ->customDateFromTo($request)
@@ -78,24 +78,20 @@ class  FaqController extends Controller
             ->addSelect('faqs.created_at', 'faqs.is_active', 'faqs.order')
             ->get();
 
-
         if (!$request->has('created_from')) {
             $createdFrom = Faq::selectRaw('MIN(created_at) as min_created_at')->value('min_created_at');
         }
 
-        $mpdfPath = $pdfGenerate->newFile()
-            ->view(
-                'dashboard.exports.faq',
-                [
-                    'faqs' => $faqsQuery,
-                    'date_from'   => format_date($request->created_from) ?? format_date($createdFrom),
-                    'date_to'     => format_date($request->created_to) ?? format_date(now()),
-                    'userId'      => auth()->user()->login_id,
+        $chunk = 200;
+        $names = [];
+        foreach (($faqsQuery->chunk($chunk)) as $key => $rows) {
+            $names[] = base_path('storage/app/public/') . $generatePdf->newFile()
+                ->setHeader(trans('dashboard.faq.faqs'), 2, $createdFrom)
+                ->view('dashboard.exports.faq', $rows, $key, $chunk)
+                ->storeOnLocal('faqs/pdfs/');
+        }
 
-                ]
-            )
-            ->storeOnLocal('faqs/pdfs/');
-        $file  = url('/storage/' . $mpdfPath);
+        $file = GeneratePdf::mergePdfFiles($names, 'faqs/pdfs/faqs.pdf');
 
         return response()->json([
             'data'   => [

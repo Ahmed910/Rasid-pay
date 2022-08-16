@@ -11,10 +11,14 @@ use App\Models\Department\Department;
 use App\Http\Resources\Dashboard\ActivityLogResource;
 use App\Http\Resources\Dashboard\SimpleEmployeeResource;
 use App\Http\Resources\Dashboard\OnlyResource;
+use App\Jobs\GeneratePdfFile;
 use App\Providers\AppServiceProvider;
+use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Str;
 use App\Services\GeneratePdf;
 use Maatwebsite\Excel\Facades\Excel;
+use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 
 class ActivityController extends Controller
 {
@@ -123,7 +127,7 @@ class ActivityController extends Controller
             $mainPrograms = array_keys(AppServiceProvider::MORPH_MAP);
 
             foreach ($mainPrograms as $main_progs) {
-                $subPrograms[] =  collect(trans('dashboard.' . mb_strtolower(Str::snake($main_progs)) . '.sub_progs'))->transform(function ($trans, $key) {
+                $subPrograms[] = collect(trans('dashboard.' . mb_strtolower(Str::snake($main_progs)) . '.sub_progs'))->transform(function ($trans, $key) {
                     $data['name'] = $key;
                     $data['trans'] = $trans;
 
@@ -151,40 +155,49 @@ class ActivityController extends Controller
             'message' => "",
         ]);
     }
-    public function exportPDF(Request $request, GeneratePdf $pdfGenerate)
+
+    public function exportPDF(Request $request, GeneratePdf $generatePdf)
     {
-        $activatyLogsQuery = ActivityLog::select('activity_logs.id', 'activity_logs.user_id', 'activity_logs.auditable_type', 'activity_logs.auditable_id', 'activity_logs.sub_program', 'activity_logs.action_type', 'activity_logs.ip_address', 'activity_logs.created_at')->search($request)
+        $activatyLogsQuery = ActivityLog::select(
+            'activity_logs.id',
+            'activity_logs.user_id',
+            'activity_logs.auditable_type',
+            'activity_logs.auditable_id',
+            'activity_logs.sub_program',
+            'activity_logs.action_type',
+            'activity_logs.ip_address',
+            'activity_logs.created_at'
+        )->search($request)
             ->sortBy($request)
             ->customDateFromTo($request)
-            ->get();
+            ->cursor();
 
         if (!$request->has('created_from')) {
-            $createdFrom = ActivityLog::selectRaw('MIN(created_at) as min_created_at')->value('min_created_at');
+            $createdFrom = User::selectRaw('MIN(created_at) as min_created_at')->value('min_created_at');
         }
 
-        $mpdfPath = $pdfGenerate->newFile()
-            ->view(
-                'dashboard.exports.activity_log',
-                [
-                    'activity_logs' => $activatyLogsQuery,
-                    'date_from'   => format_date($request->created_from) ?? format_date($createdFrom),
-                    'date_to'     => format_date($request->created_to) ?? format_date(now()),
-                    'userId'      => auth()->check() ? auth()->user()->login_id : null,
+        $chunk = 200;
+        $names = [];
+        foreach (($activatyLogsQuery->chunk($chunk)) as $key => $rows) {
+            $names[] = base_path('storage/app/public/') . $generatePdf->newFile()
+                ->setHeader(trans('dashboard.activity_log.activity_logs'), 5, $createdFrom)
+                ->view('dashboard.exports.activity_log', $rows, $key, $chunk)
+                ->storeOnLocal('activityLogs/pdfs/');
+        }
 
-                ]
-            )
-            ->storeOnLocal('activityLogs/pdfs/');
-        dd('taha');
-        $file  = url('/storage/' . $mpdfPath);
+        $file = GeneratePdf::mergePdfFiles($names, 'activityLogs/pdfs/activity_log.pdf');
 
         return response()->json([
-            'data'   => [
+            'data' => [
                 'file' => $file
             ],
             'status' => true,
             'message' => ''
         ]);
     }
+
+
+
 
     public function exportExcel(Request $request)
     {
@@ -193,7 +206,7 @@ class ActivityController extends Controller
         $file = url('/storage/' . 'activity_logs/excels/' . $fileName . '.xlsx');
 
         return response()->json([
-            'data'   => [
+            'data' => [
                 'file' => $file
             ],
             'status' => true,

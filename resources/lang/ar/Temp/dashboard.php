@@ -1,4 +1,3 @@
-
 <?php
 
 return [
@@ -7,7 +6,7 @@ return [
         'create' => 'إضافة',
         'archive' => 'الأرشيف',
     ],
-    'permissions' =>  [
+    'permissions' => [
         'index' => 'السجل',
         'show' => 'عرض',
         'store' => 'حفظ',
@@ -34,8 +33,8 @@ return [
             "restored" => "استعادة",
         ],
     ],
-    'currency' =>  [
-        'permissions' =>  [
+    'currency' => [
+        'permissions' => [
             'index' => 'السجل',
             'show' => 'عرض',
             'store' => 'حفظ',
@@ -45,7 +44,7 @@ return [
             'destroy' => 'أرشفة',
             'force_delete' => 'حذف نهائي',
         ],
-        'sub_progs' =>  [
+        'sub_progs' => [
             'index' => 'سجل العملات',
             'create' => 'إضافة عملة',
         ],
@@ -74,12 +73,12 @@ return [
     'general' => [
         'validation' => [
             'reason' => [
-                "max"   => "يجب أن لا يزيد السبب عن :max حرف ",
-                "min"   => "يجب أن لا يقل السبب عن :min حروف",
+                "max" => "يجب أن لا يزيد السبب عن :max حرف ",
+                "min" => "يجب أن لا يقل السبب عن :min حروف",
             ],
         ],
         'email' => 'البريد الإلكتروني',
-        'page_number' => 'ص ',
+        'page_number' => ' ص ',
         'description' => 'الوصف',
         'select_user' => 'اختر مستخدم',
         'username' => 'اسم المستخدم',
@@ -115,7 +114,7 @@ return [
         'want_saving' => 'هل تريد اتمام عملية الحفظ ؟',
         'black_menu' => 'القائمة السوداء',
         'want_back_without_saving' => 'هل تريد العوده دون الحفظ ؟',
-        'active_cases' =>  [
+        'active_cases' => [
             0 => 'معطلة',
             1 => 'مفعلة',
         ],
@@ -126,7 +125,7 @@ return [
         'name' => 'الاسم',
         'add' => 'إضافة',
         'dashboard' => 'لوحة تحكم رصيد باي',
-        'department_active_cases' =>  [
+        'department_active_cases' => [
             1 => 'مفعل',
             0 => 'معطل',
         ],
@@ -155,7 +154,7 @@ return [
         'upload_file_max' => 'حجم الملف كبير',
         'the_archive' => 'الأرشيف',
         'select_type' => 'اختر النوع',
-        'job_type_cases' =>   [
+        'job_type_cases' => [
             1 => 'شاغرة',
             0 => 'مشغولة',
         ],
@@ -200,11 +199,11 @@ return [
         'cannot_update' => 'لا يمكن التعديل',
     ],
     'setting' => [
-        'sub_progs' =>  [
+        'sub_progs' => [
             'create' => 'إضافة إعداد',
             'index' => 'سجل الاعدادات',
         ],
-        'permissions' =>  [
+        'permissions' => [
             'update' => 'تعديل',
             'archive' => 'عرض أرشيف',
             'destroy' => 'أرشفة',
@@ -220,7 +219,7 @@ return [
         'settings' => 'الاعدادات',
         'setting_count' => '',
     ],
-    'transaction' =>  [
+    'transaction' => [
         'status_cases' => [
             'pending' => 'بانتظار الاستلام',
             'fail' => 'فاشلة',
@@ -228,7 +227,7 @@ return [
             'success' => 'ناجحة',
             'received' => 'تم الاستلام',
         ],
-        'type_cases' =>   [
+        'type_cases' => [
             'payment' => 'دفع فاتورة',
             'local_transfer' => 'تحويل محلي',
             'charge' => 'شحن',
@@ -237,7 +236,7 @@ return [
             'money_request' => 'طلب أموال',
             'wallet_transfer' => 'تحويل لمحفظة',
         ],
-        'permissions' =>   [
+        'permissions' => [
             'restore' => 'استعادة',
             'create' => 'انشاء',
             'index' => 'السجل',
@@ -249,7 +248,7 @@ return [
             'destroy' => 'أرشفة',
             'update' => 'تعديل',
         ],
-        'card_cases' =>   [
+        'card_cases' => [
             'platinum' => 'البطاقة البلاتينية',
             'golden' => 'البطاقة الذهبية',
             'basic' => 'البطاقة الاساسية',
@@ -266,7 +265,7 @@ return [
         'to_user_client' => 'اسم العميل',
         'choose_status' => 'اختر الحالة',
         'enter_from_user' => 'أدخل الاسم',
-        'sub_progs' =>   [
+        'sub_progs' => [
             'show' => 'عرض المعاملة',
             'index' => 'سجل المعاملات',
         ],
@@ -292,9 +291,9 @@ return [
     'manager' => [
         'managers' => 'العملاء',
     ],
-    'group' =>  [
+    'group' => [
         'all_groups' => 'الصلاحيات',
-        'permissions' =>  [
+        'permissions' => [
             'index' => 'السجل',
             'destroy' => 'أرشفة',
             'create' => 'انشاء',
@@ -303,10 +302,10 @@ return [
             'show' => 'عرض',
         ],
         'active_cases' =>
-        [
-            0 => 'معطل',
-            1 => 'مفعل',
-        ],
+            [
+                0 => 'معطل',
+                1 => 'مفعل',
+            ],
         'sub_program' => 'البرنامج الفرعي',
         'add_group' => 'إضافة مجموعة',
         'group_name' => 'اسم المجموعة',
@@ -343,8 +342,8 @@ return [
         'bank_transfers' => 'التحويلات البنكية',
 
     ],
-    'activity_log' =>  [
-        'models' =>  [
+    'activity_log' => [
+        'models' => [
             'admin' => 'المستخدم',
             'department' => 'القسم',
             'attachment' => 'المرفق',
@@ -392,7 +391,7 @@ return [
 
         ],
         'activity_log' => 'المتابعة',
-        'actions' =>  [
+        'actions' => [
             'searched' => 'بحث',
             'created' => 'إضافة',
             'temporary' => 'تعطيل لفترة',
@@ -404,25 +403,25 @@ return [
             'permanent_delete' => 'حذف',
             'deactivated' => 'تعطيل',
             'permanent' => 'تعطيل دائم',
-            'shown'     => 'الإطلاع',
+            'shown' => 'الإطلاع',
             'assigned' => 'الإحالة',
             'replied' => 'الرد'
         ],
         'select_activity' => 'اختر النشاط',
         'select_subprogram' => 'اختر برنامج فرعي',
         'activity_log_records' => 'سجل النشاطات',
-        'sub_programs' =>  [
+        'sub_programs' => [
             'index' => 'المتابعة',
             'create' => 'إضافة',
             'show' => 'عرض المتابعة',
             'ban_status' => 'حظر',
             'archive' => 'أرشفة',
         ],
-        'permissions' =>  [
+        'permissions' => [
             'show' => 'عرض',
             'index' => 'السجل',
         ],
-        'sub_progs' =>  [
+        'sub_progs' => [
             'index' => 'سجل المتابعة',
         ],
         'select_employee' => 'اختر موظف',
@@ -437,10 +436,10 @@ return [
         'activity' => ' النشاط',
         'select_mainprogram' => 'اختر برنامج رئيسي',
     ],
-    'package' =>  [
+    'package' => [
         'discount_success_add' => 'تم إضافة نسب خصم البطاقات للعميل ',
         'basic_card_discount' => 'نسبة خصم البطاقة الأساسية',
-        'permissions' =>  [
+        'permissions' => [
             'restore' => 'استعادة',
             'store' => 'حفظ',
             'archive' => 'عرض أرشيف',
@@ -469,8 +468,8 @@ return [
         'packages' => 'نسب خصم البطاقات',
         'enter_discount' => 'أدخل نسبة الخصم',
     ],
-    'client_package' =>  [
-        'permissions' =>   [
+    'client_package' => [
+        'permissions' => [
             'getMainPackages' => 'عرض الباقات الاساسية',
             'archive' => 'عرض أرشيف',
             'update' => 'تعديل',
@@ -498,7 +497,7 @@ return [
             'restore' => 'استعادة',
             'store' => 'حفظ',
         ],
-        'sub_progs' =>  [
+        'sub_progs' => [
             'index' => 'سجل الاسلايدز',
             'create' => 'إضافة اسلايد',
         ],
@@ -524,7 +523,7 @@ return [
             'index' => 'سجل المناطق',
         ],
         'add_region' => 'إضافة منطقة',
-        'permissions' =>  [
+        'permissions' => [
             'update' => 'تعديل',
             'force_delete' => 'حذف نهائي',
             'store' => 'حفظ',
@@ -541,21 +540,21 @@ return [
         'region' => 'المنطقة ',
     ],
 
-    'bank' =>  [
+    'bank' => [
         'Enter_service_Number' => 'ادخل رقم خدمة العملاء',
         'status' => 'الحالة',
         'name' => 'الاسم',
         'banks' => 'البنوك',
-        'sub_progs' =>  [
+        'sub_progs' => [
             'create' => 'إضافة بنك',
             'index' => 'سجل البنوك',
         ],
         'active_cases' =>
-        [
-            0 => 'معطل',
-            1 => 'مفعل',
-        ],
-        'permissions' =>  [
+            [
+                0 => 'معطل',
+                1 => 'مفعل',
+            ],
+        'permissions' => [
             'archive' => 'عرض أرشيف',
             'banks_types' => 'انواع البنوك',
             'store' => 'حفظ',
@@ -567,7 +566,7 @@ return [
             'create' => 'انشاء',
             'destroy' => 'أرشفة',
         ],
-        'types' =>  [
+        'types' => [
             'savings' => 'بنك إدخار',
             'islamic' => 'بنك إسلامي',
             'agricultural' => 'بنك زراعي',
@@ -605,7 +604,7 @@ return [
         'location' => 'الموقع',
         'Enter_transfer_amount' => 'ادخل قيمة التحويل',
     ],
-    'error' =>  [
+    'error' => [
         'something_went_wrong' => 'البيانات المدخلة غير صحيحة',
         'method_not_allow' => 'طريقة الطلب (:method] غير صحيحة',
         'not_found' => 'لم يتم العثور على بيانات',
@@ -638,7 +637,7 @@ return [
     ],
     'country' => [
         'countries' => 'الدول',
-        'permissions' =>   [
+        'permissions' => [
             'index' => 'السجل',
             'create' => 'انشاء',
             'show' => 'عرض',
@@ -649,7 +648,7 @@ return [
             'archive' => 'عرض أرشيف',
             'destroy' => 'أرشفة',
         ],
-        'sub_progs' =>   [
+        'sub_progs' => [
             'create' => 'إضافة دولة',
             'index' => 'سجل الدول',
         ],
@@ -658,9 +657,9 @@ return [
         'country' => 'الدولة',
         'country_count' => 'عدد الدول',
     ],
-    'employee' =>  [
+    'employee' => [
         'employee_count' => 'عدد الموظفين',
-        'permissions' =>   [
+        'permissions' => [
             'store' => 'حفظ',
             'show' => 'عرض',
             'create' => 'انشاء',
@@ -668,7 +667,7 @@ return [
             'destroy' => 'أرشفة',
             'index' => 'السجل',
         ],
-        'sub_progs' =>  [
+        'sub_progs' => [
             'index' => 'سجل الموظفين',
             'create' => 'إضافة موظف',
         ],
@@ -678,14 +677,14 @@ return [
         'employee' => 'الموظف',
     ],
     'client' => [
-        'sub_progs' =>  [
+        'sub_progs' => [
             'show' => ' عرض عميل',
             'edit' => 'تعديل عميل',
             'account_order' => 'طلبات فتح حساب',
             'index' => 'سجل العملاء',
             'create' => 'تسجيل عميل',
         ],
-        'permissions' =>  [
+        'permissions' => [
             'destroy' => 'أرشفة',
             'force_delete' => 'حذف نهائي',
             'archive' => 'عرض أرشيف',
@@ -696,7 +695,7 @@ return [
             'update' => 'تعديل',
             'show' => 'عرض',
         ],
-        'account_statuses' =>  [
+        'account_statuses' => [
             'reviewed' => 'تمت المراجعة',
             'pending' => 'لم يتم تاكيد الحساب البنكى ',
             'accepted' => 'تمت الموافقة',
@@ -707,7 +706,7 @@ return [
         'status' => 'الحالة',
         'name' => 'اسم العميل',
         'clients' => 'العملاء',
-        'client_type' =>   [
+        'client_type' => [
             'institution' => 'مؤسسات',
             'other' => 'أخري',
             'company' => 'شركات',
@@ -732,14 +731,14 @@ return [
         'transactions_done' => 'عدد المعاملات المنجزة',
         'type' => 'نوع العميل',
     ],
-    'admin' =>  [
+    'admin' => [
         'new_password' => 'كلمة المرور الجديدة',
         'u_can_use_this_id' => 'يمكنك استخدام هذا الرقم',
         'u_can_not_use_this_email' => 'لا يمكنك إدخال بريد الكتروني مستخدم',
         'confirmed_password' => 'تاكيد كلمة المرور',
         'admin_name' => 'أدخل الاسم',
         'name' => 'الموظف',
-        'permissions' =>   [
+        'permissions' => [
             'show' => 'عرض',
             'store' => 'حفظ',
             'create' => 'انشاء',
@@ -748,21 +747,21 @@ return [
             'update' => 'تعديل',
         ],
         'sub_progs' =>
-        [
-            'create' => 'إضافة مستخدم',
-            'index' => 'سجل المستخدمين',
-        ],
+            [
+                'create' => 'إضافة مستخدم',
+                'index' => 'سجل المستخدمين',
+            ],
         'edit_admin' => 'تعديل المستخدم',
         'enter_password' => 'أدخل كلمة المرور',
         'admin_count' => 'عدد المستخدمين',
         'enter_number' => 'أدخل الرقم',
         'active_cases' =>
-        [
-            'permanent' => 'معطل دائم',
-            'active' => 'مفعل',
-            'temporary' => 'معطل لفترة',
-            'exceeded_attempts' => 'تعدي محاولات الدخول الخاطئة'
-        ],
+            [
+                'permanent' => 'معطل دائم',
+                'active' => 'مفعل',
+                'temporary' => 'معطل لفترة',
+                'exceeded_attempts' => 'تعدي محاولات الدخول الخاطئة'
+            ],
 
         'admin' => 'اسم المستخدم',
         'login_id' => 'رقم المستخدم',
@@ -774,19 +773,19 @@ return [
         'password' => 'كلمة المرور ',
         'enter_login_id' => 'أدخل الرقم',
     ],
-    'department' =>  [
+    'department' => [
         'validation' => [
 
             'can_not_be_deactivated_has_job' => 'لا يمكن تعطيل قسم به وظائف مشغولة',
 
-            'name'  => [
+            'name' => [
                 'required' => 'اسم القسم مطلوب',
                 'unique' => 'الاسم موجود من قبل',
                 'min' => 'لاسم يجب ان لا يقل عن :min حروف',
                 'max' => 'لاسم يجب ان لا يزيد عن :max حرف',
             ],
             'description' => [
-                'max'   => 'الوصف يجب أن لا يزيد عن :max حرف'
+                'max' => 'الوصف يجب أن لا يزيد عن :max حرف'
             ],
             'image' => [
                 'max' => 'لا يجب أن يزيد الحجم عن 1 ميجا بايت',
@@ -806,32 +805,32 @@ return [
             'store' => 'حفظ',
         ],
         'sub_progs' =>
-        [
-            'archive' => 'أرشيف الأقسام',
-            'create' => ' إضافة قسم ',
-            'index' => 'سجل الأقسام',
-        ],
+            [
+                'archive' => 'أرشيف الأقسام',
+                'create' => ' إضافة قسم ',
+                'index' => 'سجل الأقسام',
+            ],
         'without' => 'بدون قسم',
         'department_name' => 'اسم القسم',
         'permissions' =>
-        [
-            'index' => 'السجل',
-            'archive' => 'عرض أرشيف',
-            'export' => 'تصدير',
-            'force_delete' => 'حذف نهائي',
-            'show' => 'عرض',
-            'store' => 'حفظ',
-            'update' => 'تعديل',
-            'restore' => 'استعادة',
-            'destroy' => 'أرشفة',
-            'create' => 'انشاء',
-            'get_parents' => 'عرض الأقسام الرئيسية',
-        ],
+            [
+                'index' => 'السجل',
+                'archive' => 'عرض أرشيف',
+                'export' => 'تصدير',
+                'force_delete' => 'حذف نهائي',
+                'show' => 'عرض',
+                'store' => 'حفظ',
+                'update' => 'تعديل',
+                'restore' => 'استعادة',
+                'destroy' => 'أرشفة',
+                'create' => 'انشاء',
+                'get_parents' => 'عرض الأقسام الرئيسية',
+            ],
         'active_cases' =>
-        [
-            0 => 'معطل',
-            1 => 'مفعل',
-        ],
+            [
+                0 => 'معطل',
+                1 => 'مفعل',
+            ],
         'add_department' => 'إضافة قسم',
         'has_jobs_cannot_delete' => 'لا يمكن أرشفة قسم مرتبط بوظائف',
         'archive_to_date' => 'تاريخ الأرشفة  (إلى]',
@@ -867,10 +866,10 @@ return [
             'show' => 'عرض'
         ],
         'active_cases' =>
-        [
-            0 => 'معطل',
-            1 => 'مفعل',
-        ],
+            [
+                0 => 'معطل',
+                1 => 'مفعل',
+            ],
         'sub_progs' => [
             'index' => 'سجل الأسئلة الشائعة',
             'create' => 'إضافة سؤال',
@@ -895,11 +894,11 @@ return [
             'store' => 'حفظ',
         ],
         'active_cases' =>
-        [
-            0 => 'معطل',
-            1 => 'مفعل',
-        ],
-        'type' =>   [
+            [
+                0 => 'معطل',
+                1 => 'مفعل',
+            ],
+        'type' => [
             'institution' => 'مؤسسات',
             'other' => 'أخري',
             'company' => 'شركات',
@@ -907,7 +906,7 @@ return [
             'freelance_doc' => 'مستقل',
             'member' => 'عضو',
         ],
-        'u_can_not_use_this_phone' =>  'لا يمكن استخدام هذا الرقم',
+        'u_can_not_use_this_phone' => 'لا يمكن استخدام هذا الرقم',
         'sub_progs' => [
             'index' => 'سجل العملاء',
             'create' => 'إضافة عميل',
@@ -938,10 +937,10 @@ return [
             'create' => 'إضافة فرع عميل',
         ],
         'active_cases' =>
-        [
-            0 => 'معطل',
-            1 => 'مفعل',
-        ],
+            [
+                0 => 'معطل',
+                1 => 'مفعل',
+            ],
 
         'validation' => [
             'vendor_id' => [
@@ -1009,59 +1008,65 @@ return [
             ],
         ],
         'active_cases' =>
-        [
-            0 => 'معطل',
-            1 => 'مفعل',
-        ],
+            [
+                0 => 'معطل',
+                1 => 'مفعل',
+            ],
+
+        'is_default_value_cases' =>
+            [
+                0 => 'معطل',
+                1 => 'مفعل',
+            ],
     ],
     'city' =>
-    [
-        'edit_city' => 'تعديل المدينة',
-        'permissions' =>
         [
-            'create' => 'انشاء',
-            'force_delete' => 'حذف نهائي',
-            'restore' => 'استعادة',
-            'destroy' => 'أرشفة',
-            'archive' => 'عرض أرشيف',
-            'update' => 'تعديل',
-            'show' => 'عرض',
-            'store' => 'حفظ',
-            'index' => 'السجل',
+            'edit_city' => 'تعديل المدينة',
+            'permissions' =>
+                [
+                    'create' => 'انشاء',
+                    'force_delete' => 'حذف نهائي',
+                    'restore' => 'استعادة',
+                    'destroy' => 'أرشفة',
+                    'archive' => 'عرض أرشيف',
+                    'update' => 'تعديل',
+                    'show' => 'عرض',
+                    'store' => 'حفظ',
+                    'index' => 'السجل',
+                ],
+            'add_city' => 'إضافة مدينة',
+            'city_count' => 'عدد المدن',
+            'sub_progs' =>
+                [
+                    'create' => 'إضافة مدينة',
+                    'index' => 'سجل المدن',
+                ],
+            'cities' => 'المدن',
+            'city' => 'المدينة',
         ],
-        'add_city' => 'إضافة مدينة',
-        'city_count' => 'عدد المدن',
-        'sub_progs' =>
-        [
-            'create' => 'إضافة مدينة',
-            'index' => 'سجل المدن',
-        ],
-        'cities' => 'المدن',
-        'city' => 'المدينة',
-    ],
 
-    'rasid_job' =>  [
+    'rasid_job' => [
         'choose_rasid_job' => 'اختر الوظيفة',
         'from_date' => 'تاريخ الإنشاء (من]',
         'permissions' =>
-        [
-            'update' => 'تعديل',
-            'store' => 'حفظ',
-            'destroy' => 'أرشفة',
-            'restore' => 'استعادة',
-            'index' => 'السجل',
-            'show' => 'عرض',
-            'create' => 'انشاء',
-            'force_delete' => 'حذف نهائي',
-            'archive' => 'عرض أرشيف',
-        ],
+            [
+                'update' => 'تعديل',
+                'store' => 'حفظ',
+                'destroy' => 'أرشفة',
+                'restore' => 'استعادة',
+                'index' => 'السجل',
+                'show' => 'عرض',
+                'create' => 'انشاء',
+                'force_delete' => 'حذف نهائي',
+                'archive' => 'عرض أرشيف',
+            ],
         'show' => 'عرض',
         'sub_progs' =>
-        [
-            'archive' => 'أرشيف الوظائف',
-            'index' => 'سجل الوظائف',
-            'create' => 'إضافة وظيفة',
-        ],
+            [
+                'archive' => 'أرشيف الوظائف',
+                'index' => 'سجل الوظائف',
+                'create' => 'إضافة وظيفة',
+            ],
         'rasid_job' => 'الوظيفة',
         'rasid_job_count' => 'عدد الوظائف',
         'rasid_jobs' => 'الوظائف',
@@ -1069,10 +1074,10 @@ return [
         'actions' => 'العمليات',
         'select_department' => 'اختر القسم',
         'is_vacant' =>
-        [
-            'false' => 'مشغولة',
-            'true' => 'شاغرة',
-        ],
+            [
+                'false' => 'مشغولة',
+                'true' => 'شاغرة',
+            ],
         'job_count' => 'عدد الوظائف',
         'edit_job' => 'تعديل وظيفة',
         'add_job' => 'إضافة وظيفة',
@@ -1091,10 +1096,10 @@ return [
         'jobs' => 'الوظائف',
         'job_name' => 'اسم الوظيفة',
         'active_cases' =>
-        [
-            0 => 'معطلة',
-            1 => 'مفعلة',
-        ],
+            [
+                0 => 'معطلة',
+                1 => 'مفعلة',
+            ],
         'rasid_job_department' => 'اسم القسم',
         'department' => 'القسم',
         'to_date' => 'تاريخ الإنشاء (إلى]',
@@ -1104,12 +1109,12 @@ return [
         'rasid_job_description' => 'الوصف الوظيفي',
         'jobs_hired_archived' => ' لا يمكن أرشفة هذه الوظيفة لانها مشغولة ',
         'validation' =>
-        [
-            'name_must_be_unique_on_department' => 'الاسم موجود من قبل لهذا القسم',
-        ],
+            [
+                'name_must_be_unique_on_department' => 'الاسم موجود من قبل لهذا القسم',
+            ],
         'job_description' => 'وصف الوظيفة',
     ],
-    'permissions' =>   [
+    'permissions' => [
         'show' => 'عرض',
         'index' => 'السجل',
         'restore' => 'استعادة',
@@ -1122,34 +1127,34 @@ return [
     ],
     'user' => [
         'sub_progs' =>
-        [
-            'create' => 'إضافة مستخدم',
-            'index' => 'سجل المستخدمين',
-        ],
+            [
+                'create' => 'إضافة مستخدم',
+                'index' => 'سجل المستخدمين',
+            ],
         'users' => 'المستخدمين',
     ],
     'bank_account' => [
         'permissions' =>
-        [
-            'show' => 'عرض',
-            'restore' => 'استعادة',
-            'store' => 'حفظ',
-            'create' => 'انشاء',
-            'index' => 'السجل',
-            'archive' => 'عرض أرشيف',
-            'update' => 'تعديل',
-            'destroy' => 'أرشفة',
-            'force_delete' => 'حذف نهائي',
-        ],
+            [
+                'show' => 'عرض',
+                'restore' => 'استعادة',
+                'store' => 'حفظ',
+                'create' => 'انشاء',
+                'index' => 'السجل',
+                'archive' => 'عرض أرشيف',
+                'update' => 'تعديل',
+                'destroy' => 'أرشفة',
+                'force_delete' => 'حذف نهائي',
+            ],
         'order_number' => 'رقم الطلب',
         'bank_accounts' => 'العملاء',
     ],
     'device' => [
         'devices' => 'الأجهزة',
         'sub_progs' =>
-        [
-            'index' => 'سجل الأجهزة',
-        ],
+            [
+                'index' => 'سجل الأجهزة',
+            ],
     ],
     'locale' => [
         'locales' => 'الترجمات',
@@ -1157,11 +1162,11 @@ return [
         'value' => 'القيمة',
 
         'permissions' =>
-        [
-            'update' => 'تعديل الترجمات',
-            'index' => 'سجل الترجمات',
-            'store' => 'إنشاء الترجمات',
-        ],
+            [
+                'update' => 'تعديل الترجمات',
+                'index' => 'سجل الترجمات',
+                'store' => 'إنشاء الترجمات',
+            ],
         'sub_progs' => [
             'index' => 'سجل الترجمات',
             'create' => 'إضافة ترجمة'
@@ -1173,12 +1178,12 @@ return [
     'link' => [
         'links' => 'الروابط',
         'permissions' =>
-        [
-            'index' => 'السجل',
-            'update' => 'تعديل',
-            'destroy' => 'حذف',
-            'show' => 'عرض',
-        ],
+            [
+                'index' => 'السجل',
+                'update' => 'تعديل',
+                'destroy' => 'حذف',
+                'show' => 'عرض',
+            ],
     ],
     'transfer_purpose' => [
         'transfer_purposes' => 'أغراض التحويل',
@@ -1190,20 +1195,20 @@ return [
             1 => 'مفعلة',
         ],
         'permissions' =>
-        [
-            'destroy' => 'حذف',
-            'index' => 'السجل',
-            'update' => 'تعديل',
-            'show' => 'عرض',
-            'store' => 'حفظ'
+            [
+                'destroy' => 'حذف',
+                'index' => 'السجل',
+                'update' => 'تعديل',
+                'show' => 'عرض',
+                'store' => 'حفظ'
 
-        ],
+            ],
         'sub_progs' => [
             'index' => 'سجل أغراض التحويل',
             'create' => 'إضافة غرض',
         ]
     ],
-    'cardpackage' =>  [
+    'cardpackage' => [
         'golden' => 'ذهبية',
         'cardpackages' => 'باقات البطاقات',
         'basic' => 'اساسية',
@@ -1214,8 +1219,8 @@ return [
         "golden" => "ذهبية",
         "platinum" => "بلاتينية"
     ],
-    'message' =>  [
-        'sub_progs' =>  [
+    'message' => [
+        'sub_progs' => [
             'index' => 'سجل الرسائل',
             'create' => 'إضافة رسالة',
         ],
@@ -1224,7 +1229,7 @@ return [
     'messages' => [
         'login_firstly' => 'يجب تسجيل الدخول اولا'
     ],
-    'message_type' =>  [
+    'message_type' => [
         'message_types' => 'أنواع الرسائل',
         'name' => 'الاسم',
         'employee_count' => 'عدد الموظفين',
@@ -1240,14 +1245,14 @@ return [
             'index' => 'سجل أنواع الرسائل',
         ],
         'active_cases' =>
-        [
-            0 => 'معطل',
-            1 => 'مفعل',
-        ],
+            [
+                0 => 'معطل',
+                1 => 'مفعل',
+            ],
 
     ],
 
-    'citizen' =>  [
+    'citizen' => [
         'add_citizen' => 'إضافة مستخدم',
         'name' => ' الاسم',
         'identity_number' => 'رقم الهوية',
@@ -1262,7 +1267,7 @@ return [
             'index' => 'السجل',
             'update' => 'تعديل'
         ],
-        'sub_progs' =>  [
+        'sub_progs' => [
             'index' => 'سجل مستخدمي التطبيق',
             'create' => 'إضافة مستخدم',
         ],
@@ -1274,13 +1279,13 @@ return [
     'attachment' => [
         'attachments' => 'العملاء',
     ],
-    'profile' =>  [
+    'profile' => [
         'profiles' => 'الملفات الشخصية',
         'edit_profile' => 'تعديل الملف الشخصي',
         'show_profile' => 'عرض الملف الشخصي',
         'profile' => 'الملف الشخصي',
     ],
-    'contact' =>  [
+    'contact' => [
         'contacts' => 'الدعم الفني',
         'contact' => 'الدعم الفني',
         'contact_messages' => 'صندوق الرسائل ',
@@ -1315,48 +1320,48 @@ return [
         ],
 
         'permissions' =>
-        [
-            'delete_reply' => 'حذف الرد علي رسالة دعم فني',
-            'reply' => 'الرد علي رسالة دعم فني',
-            'delete_contact' => 'حذف رسالة دعم فني',
-            'index' => 'رسائل الدعم الفني',
-            'show' => 'عرض رسالة الدعم الفني',
-            'assign_contact' => 'تحويل رسالة',
-            'destroy' => 'حذف',
-            'store' => 'حفظ',
-            'update' => 'تعديل'
-        ],
+            [
+                'delete_reply' => 'حذف الرد علي رسالة دعم فني',
+                'reply' => 'الرد علي رسالة دعم فني',
+                'delete_contact' => 'حذف رسالة دعم فني',
+                'index' => 'رسائل الدعم الفني',
+                'show' => 'عرض رسالة الدعم الفني',
+                'assign_contact' => 'تحويل رسالة',
+                'destroy' => 'حذف',
+                'store' => 'حفظ',
+                'update' => 'تعديل'
+            ],
         'types' =>
-        [
-            'complain' => 'شكوى',
-            'suggestions' => 'اقتراحات',
-            'inquiries' => 'استعلامات',
-        ],
+            [
+                'complain' => 'شكوى',
+                'suggestions' => 'اقتراحات',
+                'inquiries' => 'استعلامات',
+            ],
         'sub_progs' => [
             'index' => 'سجل صندوق الرسائل',
             'create' => 'إضافة رسالة'
         ]
     ],
-    'attributes' =>   [
+    'attributes' => [
         'description' => 'الوصف',
         'name' => 'الاسم',
         'nationality' => 'الجنسية',
     ],
-    'notification' =>   [
+    'notification' => [
         'notification_count' => 'عدد التنبيهات',
         'notification' => 'تنبيه',
         'notifications' => 'التنبيهات',
         'permissions' =>
-        [
-            'store' => 'ارسال تنبيه',
-        ],
+            [
+                'store' => 'ارسال تنبيه',
+            ],
     ],
-    'chat' =>  [
+    'chat' => [
         'sub_progs' =>
-        [
-            'index' => 'سجل الدردشات',
-            'archive' => 'أرشيف الدردشات',
-        ],
+            [
+                'index' => 'سجل الدردشات',
+                'archive' => 'أرشيف الدردشات',
+            ],
         'chats' => 'الدردشات',
     ],
     'static_page' => [
@@ -1398,13 +1403,13 @@ return [
             ],
         ],
         'permissions' =>
-        [
-            'store' => 'حفظ الصفحات الثابتة',
-            'index' => 'سجل الصفحات الثابتة',
-            'destroy' => 'حذف الصفحات الثابتة',
-            'update' => 'تعديل الصفحات الثابتة',
-            'show'   => 'عرض الصفحات الثابتة'
-        ],
+            [
+                'store' => 'حفظ الصفحات الثابتة',
+                'index' => 'سجل الصفحات الثابتة',
+                'destroy' => 'حذف الصفحات الثابتة',
+                'update' => 'تعديل الصفحات الثابتة',
+                'show' => 'عرض الصفحات الثابتة'
+            ],
         'static_pages' => 'الصفحات الثابتة',
         'status' => 'الحالة',
         'name' => 'الاسم',
@@ -1420,38 +1425,38 @@ return [
             1 => 'مفعل',
         ],
         'active_cases' =>
-        [
-            0 => 'معطل',
-            1 => 'مفعل',
-        ],
+            [
+                0 => 'معطل',
+                1 => 'مفعل',
+            ],
         'sub_progs' => [
             'index' => 'سجل الصفحات الثابتة',
             'create' => 'إضافة صفحة',
         ]
     ],
-    'permission' =>  [
+    'permission' => [
         'sub_progs' =>
-        [
-            'index' => 'سجل الصلاحيات',
-            'create' => 'إضافة صلاحية',
-        ],
+            [
+                'index' => 'سجل الصلاحيات',
+                'create' => 'إضافة صلاحية',
+            ],
         'name' => 'اسم الصلاحية',
         'permissions' => 'الصلاحيات',
     ],
     'active_cases' =>
-    [
-        0 => 'معطل',
-        1 => 'مفعل',
-    ],
-    'home' =>  [
-        'permissions' =>
         [
-            'show' => 'عرض',
-            'index' => 'الرئيسية',
+            0 => 'معطل',
+            1 => 'مفعل',
         ],
+    'home' => [
+        'permissions' =>
+            [
+                'show' => 'عرض',
+                'index' => 'الرئيسية',
+            ],
         'home' => 'الرئيسية',
     ],
-    'bank_branch' =>  [
+    'bank_branch' => [
         'bank_branches' => 'فروع البنوك',
         'sub_progs' => [
             'index' => 'سجل فروع البنوك',
@@ -1496,6 +1501,16 @@ return [
 
     ],
 
+    'localization' =>  [
+        'permissions' =>  [
+            'update' => 'تعديل',
+            'index' => 'الرئيسية',
+        ],
+        'localizations' => 'اللغات',
+        'value' => 'القيمة',
+        'key' => 'المفتاح',
+    ],
+
     'our_app' => [
         'our_apps' => 'تطبيقاتنا',
         'name' => 'الاسم',
@@ -1503,20 +1518,20 @@ return [
         'ios_link' => 'رابط ال ios',
         'android_link' => 'رابط الاندرويد',
         'active_cases' =>
-        [
-            0 => 'معطل',
-            1 => 'مفعل',
-        ],
+            [
+                0 => 'معطل',
+                1 => 'مفعل',
+            ],
 
 
         'permissions' =>
-        [
-            'index' => 'السجل',
-            'store' => 'حفظ',
-            'update' => 'تعديل',
-            'destroy' => 'حذف',
-            'show' => 'عرض',
-        ],
+            [
+                'index' => 'السجل',
+                'store' => 'حفظ',
+                'update' => 'تعديل',
+                'destroy' => 'حذف',
+                'show' => 'عرض',
+            ],
 
         'recieve_option' => [
             'recieve_options' => 'خيارات الإستلام'
@@ -1527,10 +1542,10 @@ return [
         ],
         'show' => 'عرض',
         'sub_progs' =>
-        [
-            'index' => 'سجل تطبيقاتنا',
-            'create' => 'إضافة تطبيق',
-        ],
+            [
+                'index' => 'سجل تطبيقاتنا',
+                'create' => 'إضافة تطبيق',
+            ],
         'rasid_job' => 'التطبيق',
         'rasid_job_count' => 'عدد تطبيقاتنا',
         'rasid_jobs' => 'تطبيقاتنا',

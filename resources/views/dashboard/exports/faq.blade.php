@@ -1,7 +1,6 @@
 @extends('dashboard.exports.layout')
 
 @section('content')
-@include('dashboard.exports.header',['topic'=>trans('dashboard.faq.faqs'), 'count' => 2])
 
 <table id="departmentTable" class="table">
   <thead>
@@ -13,9 +12,9 @@
     </tr>
   </thead>
   <tbody>
-    @foreach ($faqs as $faq)
+    @foreach ($rows as $faq)
     <tr>
-      <td>{{ $loop->iteration }}</td>
+      <td>{{ $loop->iteration + ($key * $chunk) }}</td>
       <td>{{ $faq->question }}</td>
       <td>{{ $faq->answer }}</td>
       <td>
