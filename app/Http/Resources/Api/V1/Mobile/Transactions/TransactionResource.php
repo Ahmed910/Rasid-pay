@@ -65,7 +65,7 @@ class TransactionResource extends JsonResource
             'qr_code' => asset($this->qr_path),
             'wallet_transfer_method' => $this->when($this->trans_type == 'wallet_transfer', $this->transactionable?->wallet_transfer_method),
             'wallet_transfer_method_translation' => $this->when($this->trans_type == 'wallet_transfer', trans('mobile.transfers.wallet_transfer_methods.' . $this->transactionable?->wallet_transfer_method)),
-            'wallet_transfer_value' => $this->when($this->trans_type == 'wallet_transfer', $this->toUser?->{$this->transactionable?->wallet_transfer_method} ?? (string)$this->toUser?->citizenWallet?->wallet_number),
+            'wallet_transfer_value' => $this->when($this->trans_type == 'wallet_transfer', $wallet_transfer_method[$this->transactionable?->wallet_transfer_method] ?? (string)$this->toUser?->citizenWallet?->wallet_number),
             'from_user' => UserResource::make($this->fromUser),
             'to_user' => UserResource::make($this->toUser),
             'beneficiary' => BeneficiaryResource::make($this->transactionable?->beneficiary),
