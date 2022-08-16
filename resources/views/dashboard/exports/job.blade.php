@@ -4,48 +4,45 @@
 
 @include('dashboard.exports.header',['topic'=>trans('dashboard.rasid_job.rasid_jobs'), 'count' => 4])
 <table id="departmentTable" class="table">
-    <thead>
+  <thead>
+    <tr>
+      <th>#</th>
+      <th>
+        {{ trans('dashboard.rasid_job.job_name') }}</th>
+      <th>
+        {{ trans('dashboard.department.department') }}</th>
+      <th>
+        {{ trans('dashboard.general.created_at') }}</th>
+      <th>
+        {{ trans('dashboard.general.status') }}</th>
+      <th>
+        {{ trans('dashboard.general.type') }}</th>
+    </tr>
+  </thead>
+  <tbody>
+    @foreach ($rows as $job)
+    <tr>
+      <td>{{ $loop->iteration + ($key * $chunk) }}</td>
+      <td>{{ $job->name }}</td>
+      <td>{{ $job->department?->name }}</td>
+      <td>{{ $job->created_at_date }}</td>
+      <td>
+        @if($job->is_active)
+        <div class="active">
+          <i class="mdi mdi-check-circle-outline"></i>
+          {{ trans('dashboard.general.active_cases.1') }}
+        </div>
+        @else
+        <div class="unactive">
+          <i class="mdi mdi-cancel"></i>
+          {{ trans('dashboard.general.active_cases.0') }}
+        </div>
+        @endif
+      </td>
 
-
-
-        <tr>
-            <th>#</th>
-            <th>
-                {{ trans('dashboard.rasid_job.job_name') }}</th>
-            <th>
-                {{ trans('dashboard.department.department') }}</th>
-            <th>
-                {{ trans('dashboard.general.created_at') }}</th>
-            <th>
-                {{ trans('dashboard.general.status') }}</th>
-            <th>
-                {{ trans('dashboard.general.type') }}</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach ($jobs as $job)
-        <tr>
-            <td>{{ $loop->iteration }}</td>
-            <td>{{ $job->name }}</td>
-            <td>{{ $job->department?->name }}</td>
-            <td>{{ $job->created_at_date }}</td>
-            <td>
-                @if($job->is_active)
-                <div class="active">
-                    <i class="mdi mdi-check-circle-outline"></i>
-                    {{ trans('dashboard.general.active_cases.1') }}
-                </div>
-                @else
-                <div class="unactive">
-                    <i class="mdi mdi-cancel"></i>
-                    {{ trans('dashboard.general.active_cases.0') }}
-                </div>
-                @endif
-            </td>
-
-            <td>{{ trans('dashboard.general.job_type_cases.' . $job->is_vacant) }}</td>
-        </tr>
-        @endforeach
-    </tbody>
+      <td>{{ trans('dashboard.general.job_type_cases.' . $job->is_vacant) }}</td>
+    </tr>
+    @endforeach
+  </tbody>
 </table>
 @endsection

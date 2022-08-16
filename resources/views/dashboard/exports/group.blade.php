@@ -19,9 +19,9 @@
     </tr>
   </thead>
   <tbody>
-    @foreach ($groups as $group)
+    @foreach ($rows as $group)
     <tr>
-      <td>{{ $loop->iteration }}</td>
+      <td>{{ $loop->iteration + ($key * $chunk) }}</td>
       <td>{{ $group->name }}</td>
       <td>{{ $group->user_count }}</td>
       <td>
