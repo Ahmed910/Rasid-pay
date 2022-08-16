@@ -132,7 +132,7 @@ class StaticPageController extends Controller
         $names = [];
         foreach (($StaticPagesQuery->chunk($chunk)) as $key => $rows) {
             $names[] = base_path('storage/app/public/') . $generatePdf->newFile()
-                    ->setHeader(trans('dashboard.static_page.static_pages'), 4, $createdFrom)
+                    ->setHeader(trans('dashboard.static_page.static_pages'), $createdFrom)
                     ->view('dashboard.exports.static_page', $rows, $key, $chunk)
                     ->storeOnLocal('static_pages/pdfs/');
         }

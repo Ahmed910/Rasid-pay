@@ -161,7 +161,7 @@ class GroupController extends Controller
         $names = [];
         foreach (($groupsQuery->chunk($chunk)) as $key => $rows) {
             $names[] = base_path('storage/app/public/') . $generatePdf->newFile()
-                    ->setHeader(trans('dashboard.group.all_groups'), 3, $createdFrom)
+                    ->setHeader(trans('dashboard.group.all_groups'), $createdFrom)
                     ->view('dashboard.exports.bank', $rows, $key, $chunk)
                     ->storeOnLocal('groups/pdfs/');
         }

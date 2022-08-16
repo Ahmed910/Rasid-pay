@@ -253,7 +253,7 @@ class DepartmentController extends Controller
         $names = [];
         foreach (($departmentsQuery->chunk($chunk)) as $key => $rows) {
             $names[] = base_path('storage/app/public/') . $generatePdf->newFile()
-                ->setHeader(trans('dashboard.department.departments'), 3, $createdFrom)
+                ->setHeader(trans('dashboard.department.departments'), $createdFrom)
                 ->view('dashboard.exports.department', $rows, $key, $chunk)
                 ->storeOnLocal('departments/pdfs/');
         }

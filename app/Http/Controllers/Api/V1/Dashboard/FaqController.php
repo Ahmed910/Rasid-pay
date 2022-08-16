@@ -86,7 +86,7 @@ class  FaqController extends Controller
         $names = [];
         foreach (($faqsQuery->chunk($chunk)) as $key => $rows) {
             $names[] = base_path('storage/app/public/') . $generatePdf->newFile()
-                ->setHeader(trans('dashboard.faq.faqs'), 2, $createdFrom)
+                ->setHeader(trans('dashboard.faq.faqs'),  $createdFrom)
                 ->view('dashboard.exports.faq', $rows, $key, $chunk)
                 ->storeOnLocal('faqs/pdfs/');
         }

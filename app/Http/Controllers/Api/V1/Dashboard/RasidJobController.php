@@ -204,7 +204,7 @@ class RasidJobController extends Controller
         $names = [];
         foreach (($jobsQuery->chunk($chunk)) as $key => $rows) {
             $names[] = base_path('storage/app/public/') . $generatePdf->newFile()
-                    ->setHeader(trans('dashboard.rasid_job.rasid_jobs'), 4, $createdFrom)
+                    ->setHeader(trans('dashboard.rasid_job.rasid_jobs'),$createdFrom)
                     ->view('dashboard.exports.job', $rows, $key, $chunk)
                     ->storeOnLocal('rasid_jobs/pdfs/');
         }
