@@ -29,10 +29,7 @@ class TransactionController extends Controller
             ]);
     }
 
-    /**
-     * @param  $id
-     * @return App\Http\Resources\Mobile\TransactionResource
-     */
+
     public function show($id)
     {
         $transaction = auth()->user()->citizenTransactions()->whereNotNull('transactionable_type')->findOrFail($id);
@@ -89,7 +86,8 @@ class TransactionController extends Controller
 
 
         $path =  $generatePdfFile->newFile()
-            ->view('dashboard.exports.mobile.invoice', ['transaction' => $transaction, 'transaction_type' => $transaction->trans_type,'wallet_transfer_method'=>$wallet_transfer_method])
+            ->mobileView('dashboard.exports.mobile.invoice',
+                ['transaction' => $transaction, 'transaction_type' => $transaction->trans_type,'wallet_transfer_method'=>$wallet_transfer_method])
             ->storeOnLocal('invoices/');
 
        DB::table('transactions')->update(['summary_path' => $path]);
