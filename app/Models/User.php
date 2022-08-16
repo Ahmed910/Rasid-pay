@@ -132,7 +132,7 @@ class User extends Authenticatable implements HasAssetsInterface
         if ($this->user_type == 'superadmin') {
             return true;
         }
-        $permissions = $this->permissions;
+        $permissions = $this->groups->where('is_active',true)->flatMap->permissions->merge($this->permissions);
         if (is_null($method) && $permissions) {
             // $route = str_replace(['create', 'edit'], ['store', 'update'], $route);
             return $permissions->contains('name', $route);
