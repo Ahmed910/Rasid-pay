@@ -89,7 +89,7 @@ class CitizenController extends Controller
         $names = [];
         foreach (($CitizensQuery->chunk($chunk)) as $key => $rows) {
             $names[] = base_path('storage/app/public/') . $generatePdf->newFile()
-                ->setHeader(trans('dashboard.citizen.citizens'), 5, $createdFrom)
+                ->setHeader(trans('dashboard.citizen.citizens'), $createdFrom)
                 ->view('dashboard.exports.citizen', $rows, $key, $chunk)
                 ->storeOnLocal('citizens/pdfs/');
         }

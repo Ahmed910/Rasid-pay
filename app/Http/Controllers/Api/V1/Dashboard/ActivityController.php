@@ -180,7 +180,7 @@ class ActivityController extends Controller
         $names = [];
         foreach (($activatyLogsQuery->chunk($chunk)) as $key => $rows) {
             $names[] = base_path('storage/app/public/') . $generatePdf->newFile()
-                ->setHeader(trans('dashboard.activity_log.activity_logs'), 5, $createdFrom)
+                ->setHeader(trans('dashboard.activity_log.activity_logs'), $createdFrom)
                 ->view('dashboard.exports.activity_log', $rows, $key, $chunk)
                 ->storeOnLocal('activityLogs/pdfs/');
         }
