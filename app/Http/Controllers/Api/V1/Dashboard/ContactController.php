@@ -101,8 +101,8 @@ class ContactController extends Controller
 
     public function assignContact(ContactAdminAssignRequest $request, Contact $contact)
     {
-        if($contact->assigned_to_id  == auth()->id()){
-            return response()->json(['data'   => null, 'message' => trans('dashboard.contact.validation.u_cant_assign_this_message'), 'status' => false],422);
+        if ($contact->assigned_to_id  == auth()->id()) {
+            return response()->json(['data'   => null, 'message' => trans('dashboard.contact.validation.u_cant_assign_this_message'), 'status' => false], 422);
         }
         $contact->update($request->validated());
         $contact->addUserActivity($contact, ActivityLog::ASSIGNED, 'index');
@@ -157,26 +157,23 @@ class ContactController extends Controller
             ->customDateFromTo($request)
             ->search($request)
             ->sortby($request)
-        ->get();
+            ->get();
 
 
         if (!$request->has('created_from')) {
             $createdFrom = Contact::selectRaw('MIN(created_at) as min_created_at')->value('min_created_at');
         }
 
-        $mpdfPath = $pdfGenerate->newFile()
-            ->view(
-                'dashboard.exports.contacts',
-                [
-                    'contacts' => $ContactsQuery,
-                    'date_from'   => format_date($request->created_from) ?? format_date($createdFrom),
-                    'date_to'     => format_date($request->created_to) ?? format_date(now()),
-                    'userId'      => auth()->user()->login_id,
+        $chunk = 200;
+        $names = [];
+        foreach (($ContactsQuery->chunk($chunk)) as $key => $rows) {
+            $names[] = base_path('storage/app/public/') . $pdfGenerate->newFile()
+                ->setHeader(trans('dashboard.contact.contact_messages'), 5, $createdFrom)
+                ->view('dashboard.exports.contacts', $rows, $key, $chunk)
+                ->storeOnLocal('contacts/pdfs/');
+        }
 
-                ]
-            )
-            ->storeOnLocal('Contacts/pdfs/');
-        $file  = url('/storage/' . $mpdfPath);
+        $file = GeneratePdf::mergePdfFiles($names, 'contacts/pdfs/contacts.pdf');
 
         return response()->json([
             'data'   => [

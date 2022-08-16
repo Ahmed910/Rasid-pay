@@ -76,7 +76,7 @@ class Group extends Model implements TranslatableContract
                 return $q->join('group_translations','group_translations.group_id','groups.id')
                     ->orderBy($request->sort["column"], @$request->sort["dir"]);
             }
-            if($request->sort["column"]  == "admins_count")
+            if(in_array($request->sort["column"], ["admins_count",'user_count']))
             {
                 return $q->withCount('admins')->orderBy('admins_count', @$request->sort["dir"]);
             }

@@ -127,12 +127,17 @@ class User extends Authenticatable implements HasAssetsInterface
         return $this->belongsToMany(Permission::class)->withTimestamps();
     }
 
+    public function userPermissions()
+    {
+        return $this->groups->where('is_active', true)->flatMap->permissions->merge($this->permissions()->doesntHave('groups')->get());
+    }
+
     public function hasPermissions($route, $method = null)
     {
         if ($this->user_type == 'superadmin') {
             return true;
         }
-        $permissions = $this->permissions;
+        $permissions = $this->userPermissions();
         if (is_null($method) && $permissions) {
             // $route = str_replace(['create', 'edit'], ['store', 'update'], $route);
             return $permissions->contains('name', $route);

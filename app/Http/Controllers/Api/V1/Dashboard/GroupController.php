@@ -25,7 +25,6 @@ class GroupController extends Controller
             ->withTranslation()
             ->search($request)
             ->sortBy($request)
-            ->withCount('admins as user_count')
             ->paginate((int)($request->per_page ??  config("globals.per_page")));
 
         return GroupResource::collection($groups)->additional(['status' => true, 'message' => ""]);
