@@ -101,7 +101,7 @@ class MessageTypeController extends Controller
             'message' => '',
         ]);
     }
-    public function exportPDF(Request $request, GeneratePdf $pdfGenerate)
+    public function exportPDF(Request $request, GeneratePdf $generatePdf)
     {
         $messageTypesQuery = MessageType::ListsTranslations('name')
         ->addSelect('created_at', 'is_active')
@@ -116,19 +116,17 @@ class MessageTypeController extends Controller
             $createdFrom = MessageType::selectRaw('MIN(created_at) as min_created_at')->value('min_created_at');
         }
 
-        $mpdfPath = $pdfGenerate->newFile()
-            ->view(
-                'dashboard.exports.message_type',
-                [
-                    'messageTypes' => $messageTypesQuery,
-                    'date_from'   => format_date($request->created_from) ?? format_date($createdFrom),
-                    'date_to'     => format_date($request->created_to) ?? format_date(now()),
-                    'userId'      => auth()->user()->login_id,
 
-                ]
-            )
-            ->storeOnLocal('MessageTypes/pdfs/');
-        $file  = url('/storage/' . $mpdfPath);
+        $chunk = 200;
+        $names = [];
+        foreach (($messageTypesQuery->chunk($chunk)) as $key => $rows) {
+            $names[] = base_path('storage/app/public/') . $generatePdf->newFile()
+                    ->setHeader(trans('dashboard.message_type.message_types'), 3, $createdFrom)
+                    ->view('dashboard.exports.message_type', $rows, $key, $chunk)
+                    ->storeOnLocal('message_types/pdfs/');
+        }
+
+        $file = GeneratePdf::mergePdfFiles($names, 'message_types/pdfs/message_types.pdf');
 
         return response()->json([
             'data'   => [

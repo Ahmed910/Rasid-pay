@@ -1,7 +1,6 @@
 @extends('dashboard.exports.layout')
 
 @section('content')
-@include('dashboard.exports.header',['topic'=>trans('dashboard.our_app.our_apps'), 'count' => 3])
 
 <table id="departmentTable" class="table">
   <thead>
@@ -14,9 +13,9 @@
     </tr>
   </thead>
   <tbody>
-    @foreach ($ourApps as $our_app)
+    @foreach ($rows as $our_app)
     <tr>
-      <td>{{ $loop->iteration  }}</td>
+      <td>{{ $loop->iteration + ($key * $chunk)  }}</td>
       <td>{{ $our_app->name ?? '' }}</td>
       <td>
                 @if($our_app->is_active)

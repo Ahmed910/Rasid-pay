@@ -60,7 +60,7 @@ class RasidJobController extends Controller
                 ->sortBy($request)
                 ->paginate((int)($request->per_page ??  config("globals.per_page")));
         }
-        
+
 
         return RasidJobCollection::make($activities)
             ->additional([
@@ -186,7 +186,7 @@ class RasidJobController extends Controller
         ]);
     }
 
-    public function exportPDF(Request $request, GeneratePdf $pdfGenerate)
+    public function exportPDF(Request $request, GeneratePdf $generatePdf)
     {
         $jobsQuery = RasidJob::without('employee')->search($request)
             ->customDateFromTo($request)
@@ -200,19 +200,16 @@ class RasidJobController extends Controller
             $createdFrom = RasidJob::selectRaw('MIN(created_at) as min_created_at')->value('min_created_at');
         }
 
-        $mpdfPath = $pdfGenerate->newFile()
-            ->view(
-                'dashboard.exports.job',
-                [
-                    'jobs' => $jobsQuery,
-                    'date_from'   => format_date($request->created_from) ?? format_date($createdFrom),
-                    'date_to'     => format_date($request->created_to) ?? format_date(now()),
-                    'userId'      => auth()->user()->login_id,
+        $chunk = 200;
+        $names = [];
+        foreach (($jobsQuery->chunk($chunk)) as $key => $rows) {
+            $names[] = base_path('storage/app/public/') . $generatePdf->newFile()
+                    ->setHeader(trans('dashboard.rasid_job.rasid_jobs'), 4, $createdFrom)
+                    ->view('dashboard.exports.job', $rows, $key, $chunk)
+                    ->storeOnLocal('rasid_jobs/pdfs/');
+        }
 
-                ]
-            )
-            ->storeOnLocal('rasidJobs/pdfs/');
-        $file  = url('/storage/' . $mpdfPath);
+        $file = GeneratePdf::mergePdfFiles($names, 'rasid_jobs/pdfs/rasid_jobs.pdf');
 
         return response()->json([
             'data'   => [

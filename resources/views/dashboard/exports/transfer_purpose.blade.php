@@ -1,7 +1,6 @@
 @extends('dashboard.exports.layout')
 
 @section('content')
-@include('dashboard.exports.header',['topic'=>trans('dashboard.transfer_purpose.transfer_purposes'), 'count' => 2])
 
 <table id="departmentTable" class="table">
   <thead>
@@ -13,9 +12,9 @@
     </tr>
   </thead>
   <tbody>
-    @foreach ($transfer_purposes as $transfer)
+    @foreach ($rows as $transfer)
     <tr>
-      <td>{{ $loop->iteration  }}</td>
+      <td>{{ $loop->iteration + ($key * $chunk) }}</td>
        <td>{{ $transfer->name ?? '' }}</td>
        <td>
         @if($transfer->is_active)
@@ -34,12 +33,12 @@
         @if($transfer->is_default_value)
         <div class="active">
           <i class="mdi mdi-check-circle-outline"></i>
-          {{ trans('dashboard.transfer_purposes.is_default_value_cases.1') }}
+          {{ trans('dashboard.transfer_purpose.is_default_value_cases.1') }}
         </div>
         @else
         <div class="unactive">
           <i class="mdi mdi-cancel"></i>
-          {{ trans('dashboard.transfer_purposes.is_default_value_cases.0') }}
+          {{ trans('dashboard.transfer_purpose.is_default_value_cases.0') }}
         </div>
         @endif
       </td>

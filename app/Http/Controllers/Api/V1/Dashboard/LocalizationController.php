@@ -88,7 +88,7 @@ class LocalizationController extends Controller
             'message' => __('dashboard.general.success_add')
         ]);
     }
-    public function exportPDF(Request $request, GeneratePdf $pdfGenerate)
+    public function exportPDF(Request $request, GeneratePdf $generatePdf)
     {
         $localsQuery = Locale::query()
         ->ListsTranslations('value')
@@ -103,19 +103,15 @@ class LocalizationController extends Controller
             $createdFrom = Locale::selectRaw('MIN(created_at) as min_created_at')->value('min_created_at');
         }
 
-        $mpdfPath = $pdfGenerate->newFile()
-            ->view(
-                'dashboard.exports.locale',
-                [
-                    'locales' => $localsQuery,
-                    'date_from'   => format_date($request->created_from) ?? format_date($createdFrom),
-                    'date_to'     => format_date($request->created_to) ?? format_date(now()),
-                    'userId'      => auth()->user()->login_id,
-
-                ]
-            )
-            ->storeOnLocal('locals/pdfs/');
-        $file  = url('/storage/' . $mpdfPath);
+        $chunk = 200;
+        $names = [];
+        foreach (($localsQuery->chunk($chunk)) as $key => $rows) {
+            $names[] = base_path('storage/app/public/') . $generatePdf->newFile()
+                    ->setHeader(trans('dashboard.localization.localizations'), 1, $createdFrom)
+                    ->view('dashboard.exports.locale', $rows, $key, $chunk)
+                    ->storeOnLocal('locals/pdfs/');
+        }
+        $file = GeneratePdf::mergePdfFiles($names, 'locals/pdfs/locals.pdf');
 
         return response()->json([
             'data'   => [

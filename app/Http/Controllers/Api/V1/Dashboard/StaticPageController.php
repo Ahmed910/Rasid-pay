@@ -21,14 +21,14 @@ class StaticPageController extends Controller
             ->ListsTranslations('name')
             ->customDateFromTo($request)
             ->with('translations')
-            ->addSelect('static_pages.created_at', 'static_pages.is_active','static_pages.show_in_app','static_pages.show_in_website')
+            ->addSelect('static_pages.created_at', 'static_pages.is_active', 'static_pages.show_in_app', 'static_pages.show_in_website')
             ->sortBy($request)
             ->paginate((int)($request->per_page ?? config("globals.per_page")));
 
 
         return StaticPageResource::collection($staticPages)->additional([
-            'status'=>true,
-            'message'=>''
+            'status' => true,
+            'message' => ''
         ]);
 
     }
@@ -39,19 +39,19 @@ class StaticPageController extends Controller
 
         return StaticPageResource::make($staticPage)
             ->additional([
-                'status'  => true,
+                'status' => true,
                 'message' => trans("dashboard.general.success_add")
             ]);
     }
 
-    public function show(Request $request ,$id)
+    public function show(Request $request, $id)
     {
-        $staticPage  = StaticPage::findOrFail($id);
+        $staticPage = StaticPage::findOrFail($id);
         $activities = [];
         if (!$request->has('with_activity') || $request->with_activity) {
-            $activities  = $staticPage->activity()
+            $activities = $staticPage->activity()
                 ->sortBy($request)
-                ->paginate((int)($request->per_page ??  config("globals.per_page")));
+                ->paginate((int)($request->per_page ?? config("globals.per_page")));
         }
 
         return StaticPageCollection::make($activities)->additional([
@@ -67,7 +67,7 @@ class StaticPageController extends Controller
         if ($staticPage->link()->exists() && $request->is_active == 0) {
             return response()->json([
                 'status' => false,
-                'message' =>  trans("dashboard.static_page.validation.can_not_be_deactivated"),
+                'message' => trans("dashboard.static_page.validation.can_not_be_deactivated"),
                 'data' => null
             ], 422);
         }
@@ -75,7 +75,7 @@ class StaticPageController extends Controller
 
         return StaticPageResource::make($staticPage)
             ->additional([
-                'status'  => true,
+                'status' => true,
                 'message' => trans("dashboard.general.success_update")
             ]);;
     }
@@ -85,7 +85,7 @@ class StaticPageController extends Controller
         if ($staticPage->link()->exists()) {
             return response()->json([
                 'status' => false,
-                'message' =>  trans("dashboard.static_page.validation.can_not_be_deleted_has_link"),
+                'message' => trans("dashboard.static_page.validation.can_not_be_deleted_has_link"),
                 'data' => null
             ], 422);
         }
@@ -97,52 +97,50 @@ class StaticPageController extends Controller
         ]);
     }
 
-    public function getAllStaticPages(Request $request){
+    public function getAllStaticPages(Request $request)
+    {
         $staticPages = StaticPage::where('is_active', true)->search($request)
-        ->ListsTranslations('name')
-        ->customDateFromTo($request)
-        ->with('translations')
-        ->addSelect('static_pages.created_at', 'static_pages.is_active')
-        ->sortBy($request)->get();
+            ->ListsTranslations('name')
+            ->customDateFromTo($request)
+            ->with('translations')
+            ->addSelect('static_pages.created_at', 'static_pages.is_active')
+            ->sortBy($request)->get();
 
-    return StaticPageResource::collection($staticPages)->additional([
-        'status'=>true,
-        'message'=>''
-    ]);
+        return StaticPageResource::collection($staticPages)->additional([
+            'status' => true,
+            'message' => ''
+        ]);
     }
 
-    public function exportPDF(Request $request, GeneratePdf $pdfGenerate)
+    public function exportPDF(Request $request, GeneratePdf $generatePdf)
     {
         $StaticPagesQuery = StaticPage::search($request)
-        ->ListsTranslations('name')
-        ->customDateFromTo($request)
-        ->addSelect(
-            'static_pages.*'
-        )
-        ->sortBy($request)
-        ->get();
+            ->ListsTranslations('name')
+            ->customDateFromTo($request)
+            ->addSelect(
+                'static_pages.*'
+            )
+            ->sortBy($request)
+            ->get();
 
 
         if (!$request->has('created_from')) {
             $createdFrom = StaticPage::selectRaw('MIN(created_at) as min_created_at')->value('min_created_at');
         }
 
-        $mpdfPath = $pdfGenerate->newFile()
-            ->view(
-                'dashboard.exports.static_page',
-                [
-                    'static_pages' => $StaticPagesQuery,
-                    'date_from'   => format_date($request->created_from) ?? format_date($createdFrom),
-                    'date_to'     => format_date($request->created_to) ?? format_date(now()),
-                    'userId'      => auth()->user()->login_id,
+        $chunk = 200;
+        $names = [];
+        foreach (($StaticPagesQuery->chunk($chunk)) as $key => $rows) {
+            $names[] = base_path('storage/app/public/') . $generatePdf->newFile()
+                    ->setHeader(trans('dashboard.static_page.static_pages'), 4, $createdFrom)
+                    ->view('dashboard.exports.static_page', $rows, $key, $chunk)
+                    ->storeOnLocal('static_pages/pdfs/');
+        }
 
-                ]
-            )
-            ->storeOnLocal('StaticPages/pdfs/');
-        $file  = url('/storage/' . $mpdfPath);
+        $file = GeneratePdf::mergePdfFiles($names, 'static_pages/pdfs/static_pages.pdf');
 
         return response()->json([
-            'data'   => [
+            'data' => [
                 'file' => $file
             ],
             'status' => true,
@@ -157,7 +155,7 @@ class StaticPageController extends Controller
         $file = url('/storage/' . 'StaticPages/excels/' . $fileName . '.xlsx');
 
         return response()->json([
-            'data'   => [
+            'data' => [
                 'file' => $file
             ],
             'status' => true,

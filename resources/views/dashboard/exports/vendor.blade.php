@@ -1,7 +1,6 @@
 @extends('dashboard.exports.layout')
 
 @section('content')
-@include('dashboard.exports.header',['topic'=>trans('dashboard.vendor.vendors'), 'count' => 5])
 
 <table id="departmentTable" class="table">
   <thead>
@@ -16,9 +15,9 @@
     </tr>
   </thead>
   <tbody>
-    @foreach ($vendors as $vendor)
+    @foreach ($rows as $vendor)
     <tr>
-      <td>{{ $loop->iteration }}</td>
+      <td>{{ $loop->iteration + ($key * $chunk) }}</td>
       <td>{{ $vendor->branches_count ?? '' }}</td>
       <td>{{ $vendor->name ?? '' }}</td>
       <td>{{ trans('dashboard.vendor.type.'.$vendor->type)}}</td>

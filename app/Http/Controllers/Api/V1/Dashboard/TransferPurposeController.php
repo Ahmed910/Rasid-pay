@@ -29,12 +29,7 @@ class TransferPurposeController extends Controller
         ]);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param \Illuminate\Http\Request $request
-     * @return \Illuminate\Http\Response
-     */
+
     public function store(TransferPurposeRequest $request)
     {
         $transfer_purpose = TransferPurpose::create($request->validated());
@@ -63,13 +58,7 @@ class TransferPurposeController extends Controller
 
 
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param \Illuminate\Http\Request $request
-     * @param int $id
-     * @return \Illuminate\Http\Response
-     */
+
     public function update(TransferPurposeRequest $request, TransferPurpose $transfer_purpose)
     {
         if($transfer_purpose->is_another){
@@ -87,12 +76,7 @@ class TransferPurposeController extends Controller
         ]);
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param int $id
-     * @return \Illuminate\Http\Response
-     */
+
     public function destroy(TransferPurpose $transfer_purpose)
     {
         $transfer_purpose->delete();
@@ -104,7 +88,7 @@ class TransferPurposeController extends Controller
     }
 
 
-    public function exportPDF(Request $request, GeneratePdf $pdfGenerate)
+    public function exportPDF(Request $request, GeneratePdf $generatePdf)
     {
         $TransferPurposesQuery = TransferPurpose::search($request)
         ->sortBy($request)
@@ -115,19 +99,16 @@ class TransferPurposeController extends Controller
             $createdFrom = TransferPurpose::selectRaw('MIN(created_at) as min_created_at')->value('min_created_at');
         }
 
-        $mpdfPath = $pdfGenerate->newFile()
-            ->view(
-                'dashboard.exports.transfer_purpose',
-                [
-                    'transfer_purposes' => $TransferPurposesQuery,
-                    'date_from'   => format_date($request->created_from) ?? format_date($createdFrom),
-                    'date_to'     => format_date($request->created_to) ?? format_date(now()),
-                    'userId'      => auth()->user()->login_id,
+        $chunk = 200;
+        $names = [];
+        foreach (($TransferPurposesQuery->chunk($chunk)) as $key => $rows) {
+            $names[] = base_path('storage/app/public/') . $generatePdf->newFile()
+                    ->setHeader(trans('dashboard.transfer_purpose.transfer_purposes'), 2, $createdFrom)
+                    ->view('dashboard.exports.transfer_purpose', $rows, $key, $chunk)
+                    ->storeOnLocal('transfer_purposes/pdfs/');
+        }
 
-                ]
-            )
-            ->storeOnLocal('TransferPurposes/pdfs/');
-        $file  = url('/storage/' . $mpdfPath);
+        $file = GeneratePdf::mergePdfFiles($names, 'transfer_purposes/pdfs/transfer_purposes.pdf');
 
         return response()->json([
             'data'   => [

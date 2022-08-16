@@ -81,7 +81,7 @@ class VendorPackageController extends Controller
         ]);
     }
 
-    public function exportPDF(Request $request, GeneratePdf $pdfGenerate)
+    public function exportPDF(Request $request, GeneratePdf $generatePdf)
     {
         $vendorPackagesQuery =  VendorPackage::query()
         ->with('vendor')
@@ -94,19 +94,16 @@ class VendorPackageController extends Controller
             $createdFrom = VendorPackage::selectRaw('MIN(created_at) as min_created_at')->value('min_created_at');
         }
 
-        $mpdfPath = $pdfGenerate->newFile()
-            ->view(
-                'dashboard.exports.vendor_package',
-                [
-                    'vendor_packages' => $vendorPackagesQuery,
-                    'date_from'   => format_date($request->created_from) ?? format_date($createdFrom),
-                    'date_to'     => format_date($request->created_to) ?? format_date(now()),
-                    'userId'      => auth()->user()->login_id,
+        $chunk = 200;
+        $names = [];
+        foreach (($vendorPackagesQuery->chunk($chunk)) as $key => $rows) {
+            $names[] = base_path('storage/app/public/') . $generatePdf->newFile()
+                    ->setHeader(trans('dashboard.vendor_package.vendor_packages'), 3, $createdFrom)
+                    ->view('dashboard.exports.vendor_package', $rows, $key, $chunk)
+                    ->storeOnLocal('vendor_packages/pdfs/');
+        }
 
-                ]
-            )
-            ->storeOnLocal('VendorPackage/pdfs/');
-        $file  = url('/storage/' . $mpdfPath);
+        $file = GeneratePdf::mergePdfFiles($names, 'vendor_packages/pdfs/vendor_packages.pdf');
 
         return response()->json([
             'data'   => [
