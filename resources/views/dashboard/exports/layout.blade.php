@@ -73,7 +73,7 @@
 
 <body class="app sidebar-mini {{ LaravelLocalization::getCurrentLocaleDirection() }}">
 
-  @yield('content')
+@yield('content')
 
 </body>
 
