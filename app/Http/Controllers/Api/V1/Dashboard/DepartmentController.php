@@ -85,14 +85,14 @@ class DepartmentController extends Controller
                     if($request->job_is_active && $request->job_is_vacant){
                     $q->where(['rasid_jobs.is_active' => true, 'is_vacant' => true]);
                     // check if job is active and job is busy
-                    }else if($request->job_is_active && !$request->job_is_vacant){
+                    }elseif($request->job_is_active && !$request->job_is_vacant){
                         $q->where(['rasid_jobs.is_active' => true, 'is_vacant' => false])
                         ->when($request->admin_id,function($q)use($request){
                             $q->whereHas('employee.user', fn ($q) => $q->where('users.id', $request->admin_id));
                         });
 
                         // check if job is inactive and job is free
-                    }else if(!$request->job_is_active && $request->job_is_vacant){
+                    }elseif(!$request->job_is_active && $request->job_is_vacant){
                         $q->where(['rasid_jobs.is_active' => false, 'is_vacant' => true]);
                         // check if job is inactive and job is busy
                     }else{
