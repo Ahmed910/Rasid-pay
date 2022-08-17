@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Api\V1\Dashboard;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\V1\Dashboard\NotificationRequest;
-use App\Http\Resources\Dashboard\NotificationResource;
+use App\Http\Resources\Api\V1\Dashboard\NotificationResource;
 use App\Models\User;
 use App\Notifications\generalNotification;
 use Illuminate\Http\Request;

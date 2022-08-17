@@ -4,9 +4,9 @@ namespace App\Http\Controllers\Api\V1\Dashboard;
 
 use App\Exports\TransactionExport;
 use App\Http\Controllers\Controller;
-use App\Http\Resources\Dashboard\Transaction\TransactionResource;
+use App\Http\Resources\Api\V1\Dashboard\Transaction\TransactionResource;
 use App\Http\Requests\V1\Dashboard\TransactionRequest;
-use App\Http\Resources\Dashboard\Transaction\TransactionCollection;
+use App\Http\Resources\Api\V1\Dashboard\Transaction\TransactionCollection;
 use App\Models\ActivityLog;
 use App\Models\Client;
 use Illuminate\Http\Request;

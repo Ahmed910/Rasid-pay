@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Api\V1\Dashboard;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\V1\Dashboard\EmployeeRequest;
 use App\Http\Requests\V1\Dashboard\ReasonRequest;
-use App\Http\Resources\Dashboard\EmployeeResource;
+use App\Http\Resources\Api\V1\Dashboard\EmployeeResource;
 use App\Models\Employee;
 use App\Models\RasidJob\RasidJob;
 use App\Models\User;

@@ -7,7 +7,7 @@ use App\Exports\RasidJobsArchiveExport;
 use Illuminate\Http\Request;
 use App\Models\RasidJob\RasidJob;
 use App\Http\Controllers\Controller;
-use App\Http\Resources\Dashboard\RasidJob\{RasidJobResource, RasidJobCollection};
+use App\Http\Resources\Api\V1\Dashboard\RasidJob\{RasidJobResource, RasidJobCollection};
 use App\Http\Requests\V1\Dashboard\RasidJobRequest;
 use App\Http\Requests\V1\Dashboard\ReasonRequest;
 use App\Models\ActivityLog;
