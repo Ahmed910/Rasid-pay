@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources\Dashboard;
 
+use Carbon\Carbon;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class ContactResource extends JsonResource
@@ -20,7 +21,7 @@ class ContactResource extends JsonResource
             'message_status' => $this->message_status,
             'notes' => $this->notes,
             'read_at' => $this->read_at,
-            'created_at' => $this->created_at_date_time,
+            'created_at' => now()->diffInDays($this->created_at) > 7 ? $this->created_at_date_time : $this->created_at->diffForHumans(),
             'user' =>  SimpleUserResource::make($this->whenLoaded('user')),
             'admin' =>  SimpleUserResource::make($this->whenLoaded('admin')),
             'replies' => ContactReplyResource::collection($this->whenLoaded('replies')),
