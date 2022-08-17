@@ -7,12 +7,13 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\V1\Dashboard\VendorBranchRequest;
 use App\Http\Resources\Dashboard\VendorBranches\VendorBranchCollection;
 use App\Http\Resources\Dashboard\VendorBranches\VendorBranchResource;
+use App\Models\ActivityLog;
 use App\Models\Vendor\Vendor;
 use App\Models\VendorBranches\VendorBranch;
 use Illuminate\Http\Request;
 use App\Services\GeneratePdf;
 use Maatwebsite\Excel\Facades\Excel;
-
+use App\Traits\Loggable;
 class VendorBranchController extends Controller
 {
     public function index(Request $request)
@@ -92,6 +93,7 @@ class VendorBranchController extends Controller
             ->addSelect('vendor_branches.*')
             ->get();
 
+        Loggable::addGlobalActivity(VendorBranch::class, $request->query(), ActivityLog::EXPORT, 'index');
 
         if (!$request->has('created_from')) {
             $createdFrom = VendorBranch::selectRaw('MIN(created_at) as min_created_at')->value('min_created_at');
@@ -122,6 +124,7 @@ class VendorBranchController extends Controller
         $fileName = uniqid() . time();
         Excel::store(new VendorBranchExport($request), 'VendorBranches/excels/' . $fileName . '.xlsx', 'public');
         $file = url('/storage/' . 'VendorBranches/excels/' . $fileName . '.xlsx');
+        Loggable::addGlobalActivity(VendorBranch::class, $request->query(), ActivityLog::EXPORT, 'index');
 
         return response()->json([
             'data'   => [

@@ -39,6 +39,7 @@ class ActivityLog extends Model
     const SHOWN = 'shown';
     const ASSIGNED = 'assigned';
     const REPLIED = 'replied';
+    const EXPORT = 'export';
 
     const EVENTS = [
         self::CREATE,
@@ -54,7 +55,8 @@ class ActivityLog extends Model
         self::SHOWN,
         self::ASSIGNED,
         self::REPLIED,
-        self::DELETE
+        self::DELETE,
+        self::EXPORT
     ];
     #endregion properties
 

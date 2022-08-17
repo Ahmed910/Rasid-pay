@@ -10,11 +10,11 @@ use App\Http\Controllers\Controller;
 use App\Http\Resources\Dashboard\RasidJob\{RasidJobResource, RasidJobCollection};
 use App\Http\Requests\V1\Dashboard\RasidJobRequest;
 use App\Http\Requests\V1\Dashboard\ReasonRequest;
+use App\Models\ActivityLog;
+use App\Models\Department\Department;
 use App\Services\GeneratePdf;
 use Maatwebsite\Excel\Facades\Excel;
-
-
-
+use App\Traits\Loggable;
 class RasidJobController extends Controller
 {
 
@@ -195,6 +195,7 @@ class RasidJobController extends Controller
             ->addSelect('rasid_jobs.created_at', 'rasid_jobs.is_active', 'rasid_jobs.department_id', 'rasid_jobs.is_vacant')
             ->get();
 
+        Loggable::addGlobalActivity(RasidJob::class, array_merge($request->query(),['department_id' => Department::find($request->department_id)?->name]), ActivityLog::EXPORT, 'index');
 
         if (!$request->has('created_from')) {
             $createdFrom = RasidJob::selectRaw('MIN(created_at) as min_created_at')->value('min_created_at');
@@ -225,6 +226,7 @@ class RasidJobController extends Controller
         $fileName = uniqid() . time();
         Excel::store(new JobsExport($request), 'rasidJobs/excels/' . $fileName . '.xlsx', 'public');
         $file = url('/storage/' . 'rasidJobs/excels/' . $fileName . '.xlsx');
+        Loggable::addGlobalActivity(RasidJob::class, array_merge($request->query(),['department_id' => Department::find($request->department_id)?->name]), ActivityLog::EXPORT, 'index');
 
         return response()->json([
             'data'   => [
@@ -250,19 +252,16 @@ class RasidJobController extends Controller
             $createdFrom = RasidJob::selectRaw('MIN(created_at) as min_created_at')->value('min_created_at');
         }
 
-        $mpdfPath = $pdfGenerate->newFile()
-            ->view(
-                'dashboard.exports.archive.rasid_job',
-                [
-                    'jobs_archive' => $rasidJobsQuery,
-                    'date_from'   => format_date($request->created_from) ?? format_date($createdFrom),
-                    'date_to'     => format_date($request->created_to) ?? format_date(now()),
-                    'userId'      => auth()->user()->login_id,
+        $chunk = 200;
+        $names = [];
+        foreach (($rasidJobsQuery->chunk($chunk)) as $key => $rows) {
+            $names[] = base_path('storage/app/public/') . $pdfGenerate->newFile()
+                    ->setHeader(trans('dashboard.rasid_job.rasid_job_archive'),$createdFrom)
+                    ->view('dashboard.exports.archive.rasid_job', $rows, $key, $chunk)
+                    ->storeOnLocal('rasidJobsArchive/pdfs/');
+        }
 
-                ]
-            )
-            ->storeOnLocal('rasidJobsArchive/pdfs/');
-        $file  = url('/storage/' . $mpdfPath);
+        $file = GeneratePdf::mergePdfFiles($names, 'rasidJobsArchive/pdfs/rasid_jobs.pdf');
 
         return response()->json([
             'data'   => [

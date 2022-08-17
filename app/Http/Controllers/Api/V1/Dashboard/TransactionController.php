@@ -7,13 +7,14 @@ use App\Http\Controllers\Controller;
 use App\Http\Resources\Dashboard\Transaction\TransactionResource;
 use App\Http\Requests\V1\Dashboard\TransactionRequest;
 use App\Http\Resources\Dashboard\Transaction\TransactionCollection;
+use App\Models\ActivityLog;
 use App\Models\Client;
 use Illuminate\Http\Request;
 use App\Models\Transaction;
 use App\Models\User;
 use App\Services\GeneratePdf;
 use Maatwebsite\Excel\Facades\Excel;
-
+use App\Traits\Loggable;
 class TransactionController extends Controller
 {
 
@@ -135,6 +136,7 @@ class TransactionController extends Controller
             ->with('citizenPackage', 'toUser', 'fromUser.citizen.enabledPackage', 'transactionable')
             ->get();
 
+        Loggable::addGlobalActivity(Transaction::class, $request->query(), ActivityLog::EXPORT, 'index');
 
         if (!$request->has('created_from')) {
             $createdFrom = Transaction::selectRaw('MIN(created_at) as min_created_at')->value('min_created_at');
@@ -165,6 +167,7 @@ class TransactionController extends Controller
         $fileName = uniqid() . time();
         Excel::store(new TransactionExport($request), 'Transactions/excels/' . $fileName . '.xlsx', 'public');
         $file = url('/storage/' . 'Transactions/excels/' . $fileName . '.xlsx');
+        Loggable::addGlobalActivity(Transaction::class, $request->query(), ActivityLog::EXPORT, 'index');
 
         return response()->json([
             'data'   => [

@@ -7,11 +7,13 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\V1\Dashboard\MessageTypeRequest;
 use App\Http\Resources\Dashboard\MessageTypeResource;
 use App\Http\Resources\Dashboard\MessageTypeCollection;
+use App\Models\ActivityLog;
 use App\Models\MessageType\MessageType;
+use App\Models\User;
 use Illuminate\Http\Request;
 use App\Services\GeneratePdf;
 use Maatwebsite\Excel\Facades\Excel;
-
+use App\Traits\Loggable;
 class MessageTypeController extends Controller
 {
     public function index(Request $request)
@@ -111,6 +113,11 @@ class MessageTypeController extends Controller
         ->sortBy($request)
         ->get();
 
+        Loggable::addGlobalActivity(MessageType::class, array_merge(
+            $request->query(),
+            ['employee_list' => User::find($request->employee_list)?->pluck('fullname')]
+        ), ActivityLog::SEARCH, 'index');
+
 
         if (!$request->has('created_from')) {
             $createdFrom = MessageType::selectRaw('MIN(created_at) as min_created_at')->value('min_created_at');
@@ -142,6 +149,10 @@ class MessageTypeController extends Controller
         $fileName = uniqid() . time();
         Excel::store(new MessageTypeExport($request), 'MessageTypes/excels/' . $fileName . '.xlsx', 'public');
         $file = url('/storage/' . 'MessageTypes/excels/' . $fileName . '.xlsx');
+        Loggable::addGlobalActivity(MessageType::class, array_merge(
+            $request->query(),
+            ['employee_list' => User::find($request->employee_list)?->pluck('fullname')]
+        ), ActivityLog::SEARCH, 'index');
 
         return response()->json([
             'data'   => [
