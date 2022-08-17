@@ -26,7 +26,7 @@ class VendorPackage extends Model
     {
         $old = $query->toSql();
         if ($request->client_id && !in_array($request->client_id, [-1])) {
-            $query->where('vendor_id', "$request->client_id");
+            $query->where('vendor_id', $request->client_id);
         }
         $new = $query->toSql();
         if ($old != $new) Loggable::addGlobalActivity($this, array_merge($request->query(), ['client_id' => Vendor::find($request->client_id)?->name]), ActivityLog::SEARCH, 'index');
@@ -41,11 +41,11 @@ class VendorPackage extends Model
                 ['platinum_discount', 'basic_discount', 'golden_discount', 'fullname']
             )
         ) {
-            if ($request->sort['column'] == 'fullname')
+            if ($request->sort['column'] == 'fullname'){
                 return $query->join('vendor_translations', 'vendor_packages.vendor_id', 'vendor_translations.vendor_id')
-                    ->orderBy('name', @$request->sort['dir']);
-
-            $query->orderBy($request->sort['column'], $request->sort['dir'] ?? 'asc');
+                ->orderBy('name', @$request->sort['dir']);
+            }
+            return $query->orderBy($request->sort['column'], $request->sort['dir'] ?? 'asc');
         }
 
         return $query->latest();
