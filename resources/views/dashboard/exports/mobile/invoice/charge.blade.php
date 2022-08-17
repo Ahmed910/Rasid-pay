@@ -18,7 +18,7 @@
         <th style="color:#3f68ba;">
           @lang('mobile.invoice.transaction_date')
         </th>
-        <th>{{ $transaction->created_at_date ?? '' }}</th>
+        <th>{{ $transaction->created_at_date_time ?? '' }}</th>
       </tr>
 
       <tr>

@@ -138,7 +138,7 @@ class BankController extends Controller
         $names = [];
         foreach (($banksQuery->chunk($chunk)) as $key => $rows) {
             $names[] = base_path('storage/app/public/') . $generatePdf->newFile()
-                ->setHeader(trans('dashboard.bank.banks'), 1, $createdFrom)
+                ->setHeader(trans('dashboard.bank.banks'), $createdFrom)
                 ->view('dashboard.exports.bank', $rows, $key, $chunk)
                 ->storeOnLocal('banks/pdfs/');
         }

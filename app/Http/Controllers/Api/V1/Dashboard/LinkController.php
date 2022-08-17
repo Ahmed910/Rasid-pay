@@ -41,7 +41,7 @@ class LinkController extends Controller
         $names = [];
         foreach (($LinksQuery->chunk($chunk)) as $key => $rows) {
             $names[] = base_path('storage/app/public/') . $generatePdf->newFile()
-                    ->setHeader(trans('dashboard.link.links'), 1, $createdFrom)
+                    ->setHeader(trans('dashboard.link.links'),  $createdFrom)
                     ->view('dashboard.exports.link', $rows, $key, $chunk)
                     ->storeOnLocal('links/pdfs/');
         }

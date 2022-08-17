@@ -58,7 +58,7 @@ class GeneratePdf
     /**
      * set header for pdf file
      */
-    public function setHeader(string $topic, int $count, $createdFrom)
+    public function setHeader(string $topic, $createdFrom)
     {
         $date_from   = format_date(request('created_from')) ?? format_date($createdFrom);
         $date_to     = format_date(request('created_to')) ?? format_date(now());
@@ -69,7 +69,6 @@ class GeneratePdf
             'date_to',
             'userId',
             'topic',
-            'count',
         )));
 
         return $this;
@@ -86,6 +85,14 @@ class GeneratePdf
 
         return $this;
     }
+
+
+    public function mobileView($view,$data)
+    {
+        $this->mpdf->WriteHTML(view($view, $data));
+        return $this;
+    }
+
 
     /**
      * Export PDF File

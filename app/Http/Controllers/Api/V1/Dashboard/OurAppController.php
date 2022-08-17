@@ -104,7 +104,7 @@ class OurAppController extends Controller
         $names = [];
         foreach (($OurAppsQuery->chunk($chunk)) as $key => $rows) {
             $names[] = base_path('storage/app/public/') . $generatePdf->newFile()
-                    ->setHeader(trans('dashboard.our_app.our_apps'), 3, $createdFrom)
+                    ->setHeader(trans('dashboard.our_app.our_apps'),  $createdFrom)
                     ->view('dashboard.exports.our_app', $rows, $key, $chunk)
                     ->storeOnLocal('our_apps/pdfs/');
         }

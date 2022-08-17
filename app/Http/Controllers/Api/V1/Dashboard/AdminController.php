@@ -213,7 +213,7 @@ class AdminController extends Controller
         $names = [];
         foreach (($AdminsQuery->chunk($chunk)) as $key => $rows) {
             $names[] =  base_path('storage/app/public/') . $generatePdf->newFile()
-                ->setHeader(trans('dashboard.admin.admins'), 4, $createdFrom)
+                ->setHeader(trans('dashboard.admin.admins'), $createdFrom)
                 ->view('dashboard.exports.admin', $rows, $key, $chunk)
                 ->storeOnLocal('admins/pdfs/');
         }

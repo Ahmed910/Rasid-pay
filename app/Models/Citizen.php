@@ -19,11 +19,9 @@ class Citizen extends Model
     // protected $with = ['enabledPackage'];
 
     protected $dates = ['date_of_birth'];
-    const USER_SEARCHABLE_COLUMNS = ["fullname", "phone", "identity_number", "created_at"];
-    const CITIZEN_SEARCHABLE_COLUMNS = ["citizen_package_id"];
-    const CARDPKG_SORT_COLUMNS = ["enabled_package" => "package_type"];
-    const CITIZEN_PACKAGES_SORT_COLUMNS = ['card_end_at' => 'end_at'];
-    const ENABLEDPACKAGES_SORTABLE_COLUMNS = ["enabled_package" => "enabledPackage.package", "card_end_at" => "enabledPackage.end_at"];
+    const USER_SEARCHABLE_COLUMNS = ["fullname", "phone", "identity_number"];
+    const USER_SORTABLE_COLUMNS = ["fullname", "phone", "identity_number", 'ban_status'];
+    const CARDPKG_SORT_COLUMNS = ["enabled_package" => "package_type", 'created_at' => 'start_at', 'card_end_at' => 'end_at'];
     const SELECT_ALL = ["enabled_package" => "id"];
     #endregion properties
 
@@ -95,18 +93,13 @@ class Citizen extends Model
         if (!in_array(Str::lower($request->sort["dir"]), ["asc", "desc"])) {
             return $query->latest('citizens.created_at');
         }
-        if (in_array($request->sort["column"], self::CITIZEN_SEARCHABLE_COLUMNS)) {
-            return $query
-                ->orderBy($request->sort["column"], @$request->sort["dir"]);
-        } else if (in_array($request->sort["column"], self::USER_SEARCHABLE_COLUMNS)) {
+
+        if (in_array($request->sort["column"], self::USER_SORTABLE_COLUMNS)) {
             return $query->join('users', 'users.id', '=', 'citizens.user_id')
                 ->orderBy('users.' . $request->sort["column"], @$request->sort["dir"]);
         } else if (key_exists($request->sort["column"], self::CARDPKG_SORT_COLUMNS)) {
             return $query->join('citizen_packages', 'citizen_packages.id', '=', 'citizens.citizen_package_id')
                 ->orderBy('citizen_packages.' . self::CARDPKG_SORT_COLUMNS[$request->sort["column"]], @$request->sort["dir"]);
-        } else if (key_exists($request->sort["column"], self::CITIZEN_PACKAGES_SORT_COLUMNS)) {
-            return $query->join('citizen_packages', 'citizen_packages.id', '=', 'citizens.citizen_package_id')
-                ->orderBy('citizen_packages.' . self::CITIZEN_PACKAGES_SORT_COLUMNS[$request->sort["column"]], @$request->sort["dir"]);
         }
     }
     #endregion scopes

@@ -121,7 +121,7 @@ class MessageTypeController extends Controller
         $names = [];
         foreach (($messageTypesQuery->chunk($chunk)) as $key => $rows) {
             $names[] = base_path('storage/app/public/') . $generatePdf->newFile()
-                    ->setHeader(trans('dashboard.message_type.message_types'), 3, $createdFrom)
+                    ->setHeader(trans('dashboard.message_type.message_types'), $createdFrom)
                     ->view('dashboard.exports.message_type', $rows, $key, $chunk)
                     ->storeOnLocal('message_types/pdfs/');
         }

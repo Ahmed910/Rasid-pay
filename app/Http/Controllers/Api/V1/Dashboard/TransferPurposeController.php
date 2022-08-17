@@ -103,7 +103,7 @@ class TransferPurposeController extends Controller
         $names = [];
         foreach (($TransferPurposesQuery->chunk($chunk)) as $key => $rows) {
             $names[] = base_path('storage/app/public/') . $generatePdf->newFile()
-                    ->setHeader(trans('dashboard.transfer_purpose.transfer_purposes'), 2, $createdFrom)
+                    ->setHeader(trans('dashboard.transfer_purpose.transfer_purposes'),  $createdFrom)
                     ->view('dashboard.exports.transfer_purpose', $rows, $key, $chunk)
                     ->storeOnLocal('transfer_purposes/pdfs/');
         }

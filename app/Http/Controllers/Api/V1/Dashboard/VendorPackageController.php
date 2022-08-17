@@ -98,7 +98,7 @@ class VendorPackageController extends Controller
         $names = [];
         foreach (($vendorPackagesQuery->chunk($chunk)) as $key => $rows) {
             $names[] = base_path('storage/app/public/') . $generatePdf->newFile()
-                    ->setHeader(trans('dashboard.vendor_package.vendor_packages'), 3, $createdFrom)
+                    ->setHeader(trans('dashboard.vendor_package.vendor_packages'), $createdFrom)
                     ->view('dashboard.exports.vendor_package', $rows, $key, $chunk)
                     ->storeOnLocal('vendor_packages/pdfs/');
         }

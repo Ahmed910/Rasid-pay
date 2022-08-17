@@ -107,7 +107,7 @@ class LocalizationController extends Controller
         $names = [];
         foreach (($localsQuery->chunk($chunk)) as $key => $rows) {
             $names[] = base_path('storage/app/public/') . $generatePdf->newFile()
-                    ->setHeader(trans('dashboard.localization.localizations'), 1, $createdFrom)
+                    ->setHeader(trans('dashboard.localization.localizations'), $createdFrom)
                     ->view('dashboard.exports.locale', $rows, $key, $chunk)
                     ->storeOnLocal('locals/pdfs/');
         }

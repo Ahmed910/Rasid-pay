@@ -168,7 +168,7 @@ class ContactController extends Controller
         $names = [];
         foreach (($ContactsQuery->chunk($chunk)) as $key => $rows) {
             $names[] = base_path('storage/app/public/') . $pdfGenerate->newFile()
-                ->setHeader(trans('dashboard.contact.contact_messages'), 5, $createdFrom)
+                ->setHeader(trans('dashboard.contact.contact_messages'),$createdFrom)
                 ->view('dashboard.exports.contacts', $rows, $key, $chunk)
                 ->storeOnLocal('contacts/pdfs/');
         }

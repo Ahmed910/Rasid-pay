@@ -144,7 +144,7 @@ class TransactionController extends Controller
         $names = [];
         foreach (($TransactionsQuery->chunk($chunk)) as $key => $rows) {
             $names[] = base_path('storage/app/public/') . $generatePdf->newFile()
-                    ->setHeader(trans('dashboard.transaction.transactions'), 6, $createdFrom)
+                    ->setHeader(trans('dashboard.transaction.transactions'),  $createdFrom)
                     ->view('dashboard.exports.transactions', $rows, $key, $chunk)
                     ->storeOnLocal('transactions/pdfs/');
         }

@@ -101,7 +101,7 @@ class VendorBranchController extends Controller
         $names = [];
         foreach (($VendorBranchesQuery->chunk($chunk)) as $key => $rows) {
             $names[] = base_path('storage/app/public/') . $generatePdf->newFile()
-                    ->setHeader(trans('dashboard.vendor_branch.vendors_branches'), 7, $createdFrom)
+                    ->setHeader(trans('dashboard.vendor_branch.vendors_branches'), $createdFrom)
                     ->view('dashboard.exports.vendor_branch', $rows, $key, $chunk)
                     ->storeOnLocal('vendor_branches/pdfs/');
         }

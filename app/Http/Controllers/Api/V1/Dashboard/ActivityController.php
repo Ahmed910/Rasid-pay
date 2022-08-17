@@ -173,14 +173,14 @@ class ActivityController extends Controller
             ->cursor();
 
         if (!$request->has('created_from')) {
-            $createdFrom = User::selectRaw('MIN(created_at) as min_created_at')->value('min_created_at');
+            $createdFrom = ActivityLog::selectRaw('MIN(created_at) as min_created_at')->value('min_created_at');
         }
 
         $chunk = 200;
         $names = [];
         foreach (($activatyLogsQuery->chunk($chunk)) as $key => $rows) {
             $names[] = base_path('storage/app/public/') . $generatePdf->newFile()
-                ->setHeader(trans('dashboard.activity_log.activity_logs'), 5, $createdFrom)
+                ->setHeader(trans('dashboard.activity_log.activity_logs'), $createdFrom)
                 ->view('dashboard.exports.activity_log', $rows, $key, $chunk)
                 ->storeOnLocal('activityLogs/pdfs/');
         }
