@@ -37,7 +37,7 @@ class CitizenController extends Controller
     {
         $citizen = Citizen::where('user_id', $id)->with("user", "enabledPackage")->whereHas('user', fn ($q) => $q->where('register_status', 'completed'))->firstOrFail();
         $activities = [];
-        if (!$request->has('with_activity') || $request->with_activity) {
+        if ((!$request->has('with_activity') || $request->with_activity) && $request->routeIs('*.show')) {
             $activities  = $citizen->user->activity()
                 ->where('action_type','<>',ActivityLog::UPDATE)
                 ->sortBy($request)

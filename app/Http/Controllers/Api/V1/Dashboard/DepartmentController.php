@@ -126,7 +126,7 @@ class DepartmentController extends Controller
     {
         $department = Department::withTrashed()->findOrFail($id);
         $activities = [];
-        if (!$request->has('with_activity') || $request->with_activity) {
+        if ((!$request->has('with_activity') || $request->with_activity) && $request->routeIs('*.show')) {
             $activities  = $department->activity()
                 ->sortBy($request)
                 ->paginate((int)($request->per_page ??  config("globals.per_page")));
