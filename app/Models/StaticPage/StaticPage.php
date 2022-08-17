@@ -73,14 +73,14 @@ class StaticPage extends Model implements TranslatableContract, HasAssetsInterfa
         $query->when($request->sort, function ($q) use ($request) {
             if ($request->sort["column"] == "name") {
                 return $q->has('translations')
-                    ->orderBy($request->sort["column"], @$request->sort["dir"]);
+                    ->orderBy($request->sort["column"], @$request->sort["dir"])->latest();
             }
 
             if ($request->sort["column"] == "is_active") {
-                return $q->orderBy('is_active', $request->sort['dir']);
+                return $q->orderBy('is_active', $request->sort['dir'])->latest();
             }
 
-            $q->orderBy($request->sort["column"], @$request->sort["dir"]);
+            $q->orderBy($request->sort["column"], @$request->sort["dir"])->latest();
         });
     }
 

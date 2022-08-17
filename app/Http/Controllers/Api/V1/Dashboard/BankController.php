@@ -13,7 +13,7 @@ use App\Http\Resources\Api\V1\Dashboard\Banks\BankResource;
 use App\Http\Resources\Api\V1\Dashboard\Banks\BankCollection;
 use App\Services\GeneratePdf;
 use Maatwebsite\Excel\Facades\Excel;
-
+use App\Traits\Loggable;
 class BankController extends Controller
 {
     public function index(Request $request)
@@ -129,6 +129,7 @@ class BankController extends Controller
             ->addSelect('banks.created_at', 'banks.is_active')
             ->get();
 
+        Loggable::addGlobalActivity(Bank::class, $request->query(), ActivityLog::EXPORT, 'index');
 
         if (!$request->has('created_from')) {
             $createdFrom = Bank::selectRaw('MIN(created_at) as min_created_at')->value('min_created_at');
@@ -159,6 +160,7 @@ class BankController extends Controller
         $fileName = uniqid() . time();
         Excel::store(new BankExport($request), 'banks/excels/' . $fileName . '.xlsx', 'public');
         $file = url('/storage/' . 'banks/excels/' . $fileName . '.xlsx');
+        Loggable::addGlobalActivity(Bank::class, $request->query(), ActivityLog::EXPORT, 'index');
 
         return response()->json([
             'data'   => [

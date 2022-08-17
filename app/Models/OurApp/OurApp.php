@@ -68,22 +68,22 @@ class OurApp extends Model implements TranslatableContract, HasAssetsInterface
     {
 
         if (!isset($request->sort["column"]) || !isset($request->sort["dir"]))
-            return $query->orderBy('our_apps.order');
+            return $query->orderBy('our_apps.order')->latest();
 
         if (
             !in_array(Str::lower($request->sort["column"]), $this->sortableColumns) ||
             !in_array(Str::lower($request->sort["dir"]), ["asc", "desc"])
         ) {
-            return $query->orderBy('our_apps.created_at');
+            return $query->orderBy('our_apps.created_at')->latest();
         }
 
         $query->when($request->sort, function ($q) use ($request) {
             if ($request->sort["column"] == "name") {
                 return $q->has('translations')
-                    ->orderBy($request->sort["column"], @$request->sort["dir"]);
+                    ->orderBy($request->sort["column"], @$request->sort["dir"])->latest();
             }
 
-            $q->orderBy($request->sort["column"], @$request->sort["dir"]);
+            $q->orderBy($request->sort["column"], @$request->sort["dir"])->latest();
         });
     }
 

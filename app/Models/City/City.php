@@ -47,7 +47,7 @@ class City extends Model implements Contracts\Translatable
         $query->when($request->sort, function ($q) use ($request) {
             if ($request->sort["column"]  == "name") {
                 return $q->has('translations')
-                    ->orderByTranslation($request->sort["column"], @$request->sort["dir"]);
+                    ->orderByTranslation($request->sort["column"], @$request->sort["dir"])->latest();
             }
 
             //TODO: Add Implementation
@@ -59,7 +59,7 @@ class City extends Model implements Contracts\Translatable
                 return ;
             }
 
-            $q->orderBy($request->sort["column"], @$request->sort["dir"]);
+            $q->orderBy($request->sort["column"], @$request->sort["dir"])->latest();
         });
     }
     #endregion scopes

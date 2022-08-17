@@ -8,10 +8,10 @@ use App\Http\Requests\V1\Dashboard\GroupRequest;
 use App\Http\Resources\Api\V1\Dashboard\Group\{GroupResource, GroupCollection, PermissionResource, UriResource};
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
-use App\Models\{Group\Group, Permission};
+use App\Models\{ActivityLog, Group\Group, Permission};
 use App\Services\GeneratePdf;
 use Maatwebsite\Excel\Facades\Excel;
-
+use App\Traits\Loggable;
 class GroupController extends Controller
 {
 
@@ -152,6 +152,7 @@ class GroupController extends Controller
         ->sortBy($request)
         ->get();
 
+        Loggable::addGlobalActivity(Group::class, $request->query(), ActivityLog::EXPORT, 'index');
 
         if (!$request->has('created_from')) {
             $createdFrom = Group::selectRaw('MIN(created_at) as min_created_at')->value('min_created_at');
@@ -182,6 +183,7 @@ class GroupController extends Controller
         $fileName = uniqid() . time();
         Excel::store(new GroupsExport($request), 'groups/excels/' . $fileName . '.xlsx', 'public');
         $file = url('/storage/' . 'groups/excels/' . $fileName . '.xlsx');
+        Loggable::addGlobalActivity(Group::class, $request->query(), ActivityLog::EXPORT, 'index');
 
         return response()->json([
             'data'   => [

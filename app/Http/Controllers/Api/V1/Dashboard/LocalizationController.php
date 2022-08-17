@@ -6,6 +6,7 @@ use App\Exports\LocaleExport;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\V1\Dashboard\LocalizationRequest;
 use App\Http\Resources\Api\V1\Dashboard\TranslationResource;
+use App\Models\ActivityLog;
 use App\Models\Locale\Locale;
 use App\Models\Locale\LocaleTranslation;
 use Illuminate\Http\Request;
@@ -13,7 +14,7 @@ use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Cache;
 use App\Services\GeneratePdf;
 use Maatwebsite\Excel\Facades\Excel;
-
+use App\Traits\Loggable;
 class LocalizationController extends Controller
 {
     public function index(Request $request)
@@ -98,6 +99,7 @@ class LocalizationController extends Controller
         ->sortBy($request)
         ->get();
 
+        Loggable::addGlobalActivity(Locale::class, $request->query(), ActivityLog::EXPORT, 'index');
 
         if (!$request->has('created_from')) {
             $createdFrom = Locale::selectRaw('MIN(created_at) as min_created_at')->value('min_created_at');
@@ -127,6 +129,7 @@ class LocalizationController extends Controller
         $fileName = uniqid() . time();
         Excel::store(new LocaleExport($request), 'locals/excels/' . $fileName . '.xlsx', 'public');
         $file = url('/storage/' . 'locals/excels/' . $fileName . '.xlsx');
+        Loggable::addGlobalActivity(Locale::class, $request->query(), ActivityLog::EXPORT, 'index');
 
         return response()->json([
             'data'   => [

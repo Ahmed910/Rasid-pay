@@ -89,7 +89,7 @@ class VendorBranch extends Model implements HasAssetsInterface
         $query->when($request->sort, function ($q) use ($request) {
             if ($request->sort["column"] == "name") {
                 return $q->has('translations')
-                    ->orderByTranslation($request->sort["column"], @$request->sort["dir"]);
+                    ->orderByTranslation($request->sort["column"], @$request->sort["dir"])->latest();
             }
 
             if ($request->sort["column"] == "vendor_name") {
@@ -97,22 +97,22 @@ class VendorBranch extends Model implements HasAssetsInterface
 
                 return $q->join('vendors','vendors.id','vendor_branches.vendor_id')
                        ->join('vendor_translations','vendor_translations.vendor_id','vendors.id')
-                       ->orderBy("vendor_translations.name", $request->sort['dir']);
+                       ->orderBy("vendor_translations.name", $request->sort['dir'])->latest();
             }
 
             if ($request->sort["column"] == "phone") {
-                return $q->orderBy('phone', $request->sort['dir']);
+                return $q->orderBy('phone', $request->sort['dir'])->latest();
             }
 
             if ($request->sort["column"] == "is_active") {
-                $q->orderBy($request->sort["column"], @$request->sort["dir"]);
+                $q->orderBy($request->sort["column"], @$request->sort["dir"])->latest();
             }
 
             if ($request->sort["column"] == "branches") {
-                $q->orderBy($request->sort["column"], @$request->sort["dir"]);
+                $q->orderBy($request->sort["column"], @$request->sort["dir"])->latest();
             }
 
-            $q->orderBy($request->sort["column"], @$request->sort["dir"]);
+            $q->orderBy($request->sort["column"], @$request->sort["dir"])->latest();
         });
     }
 

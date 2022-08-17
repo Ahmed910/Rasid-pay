@@ -12,10 +12,11 @@ use App\Http\Resources\Api\V1\Dashboard\Contact\ContactResource;
 use App\Models\ActivityLog;
 use App\Models\Contact;
 use App\Models\ContactReply;
+use App\Models\MessageType\MessageType;
 use Illuminate\Http\Request;
 use App\Services\GeneratePdf;
 use Maatwebsite\Excel\Facades\Excel;
-
+use App\Traits\Loggable;
 class ContactController extends Controller
 {
     public function index(Request $request)
@@ -159,6 +160,15 @@ class ContactController extends Controller
             ->sortby($request)
             ->get();
 
+        Loggable::addGlobalActivity(
+            Contact::class,
+            array_merge(
+                $request->query(),
+                ['message_types' => MessageType::find($request->message_types)?->pluck('name')?->join(', ')]
+            ),
+            ActivityLog::EXPORT,
+            'index'
+        );
 
         if (!$request->has('created_from')) {
             $createdFrom = Contact::selectRaw('MIN(created_at) as min_created_at')->value('min_created_at');
@@ -189,6 +199,16 @@ class ContactController extends Controller
         $fileName = uniqid() . time();
         Excel::store(new ContactExport($request), 'Contacts/excels/' . $fileName . '.xlsx', 'public');
         $file = url('/storage/' . 'Contacts/excels/' . $fileName . '.xlsx');
+
+        Loggable::addGlobalActivity(
+            Contact::class,
+            array_merge(
+                $request->query(),
+                ['message_types' => MessageType::find($request->message_types)?->pluck('name')?->join(', ')]
+            ),
+            ActivityLog::EXPORT,
+            'index'
+        );
 
         return response()->json([
             'data'   => [

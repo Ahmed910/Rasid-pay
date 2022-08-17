@@ -11,9 +11,10 @@ use App\Http\Controllers\Controller;
 use App\Http\Resources\Api\V1\Dashboard\Citizen\CitizenResource;
 use App\Http\Resources\Api\V1\Dashboard\Citizen\CitizenCollection;
 use App\Http\Requests\V1\Dashboard\UpdateCitizenStatusRequest;
+use App\Models\ActivityLog;
 use App\Services\GeneratePdf;
 use Maatwebsite\Excel\Facades\Excel;
-
+use App\Traits\Loggable;
 class CitizenController extends Controller
 {
 
@@ -80,6 +81,7 @@ class CitizenController extends Controller
             ->sortBy($request)
             ->get();
 
+        Loggable::addGlobalActivity(Citizen::class, $request->query(), ActivityLog::EXPORT, 'index');
 
         if (!$request->has('created_from')) {
             $createdFrom = Citizen::selectRaw('MIN(created_at) as min_created_at')->value('min_created_at');
@@ -110,6 +112,7 @@ class CitizenController extends Controller
         $fileName = uniqid() . time();
         Excel::store(new CitizenExport($request), 'Citizens/excels/' . $fileName . '.xlsx', 'public');
         $file = url('/storage/' . 'Citizens/excels/' . $fileName . '.xlsx');
+        Loggable::addGlobalActivity(Citizen::class, $request->query(), ActivityLog::EXPORT, 'index');
 
         return response()->json([
             'data'   => [

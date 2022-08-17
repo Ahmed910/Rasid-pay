@@ -13,7 +13,7 @@ use App\Models\Department\Department;
 use Illuminate\Http\Request;
 use App\Services\GeneratePdf;
 use Maatwebsite\Excel\Facades\Excel;
-
+use App\Traits\Loggable;
 class AdminController extends Controller
 {
 
@@ -204,6 +204,9 @@ class AdminController extends Controller
             ->sortBy($request)
             ->get();
 
+        Loggable::addGlobalActivity(User::class, array_merge($request->query(),
+        ['department_id' => Department::find($request->department_id)?->name]),
+         ActivityLog::EXPORT, 'index', request()->user_type);
 
         if (!$request->has('created_from')) {
             $createdFrom = User::selectRaw('MIN(created_at) as min_created_at')->value('min_created_at');
@@ -234,6 +237,10 @@ class AdminController extends Controller
         $fileName = uniqid() . time();
         Excel::store(new AdminsExport($request), 'Admins/excels/' . $fileName . '.xlsx', 'public');
         $file = url('/storage/' . 'Admins/excels/' . $fileName . '.xlsx');
+
+         Loggable::addGlobalActivity(User::class, array_merge($request->query(),
+        ['department_id' => Department::find($request->department_id)?->name]),
+         ActivityLog::EXPORT, 'index', request()->user_type);
 
         return response()->json([
             'data'   => [

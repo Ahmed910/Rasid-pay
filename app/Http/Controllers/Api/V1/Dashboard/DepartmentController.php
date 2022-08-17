@@ -8,11 +8,13 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\V1\Dashboard\DepartmentRequest;
 use App\Http\Requests\V1\Dashboard\ReasonRequest;
 use App\Http\Resources\Api\V1\Dashboard\Department\{DepartmentResource, DepartmentCollection, ParentResource};
+use App\Models\ActivityLog;
 use App\Models\Department\Department;
 use App\Services\GeneratePdf;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Maatwebsite\Excel\Facades\Excel;
+use App\Traits\Loggable;
 
 class DepartmentController extends Controller
 {
@@ -77,13 +79,29 @@ class DepartmentController extends Controller
                         $q->whereHas('employee.user', fn ($q) => $q->where('users.id', $request->admin_id));
                     });
                 });
-            })->when($request->has_jobs || $request->activate_case, function ($q) use ($request) {
+            })->when($request->has_jobs, function ($q) use ($request) {
                 $q->whereHas('rasidJobs', function ($q) use ($request) {
-                    $q->where(['rasid_jobs.is_active' => true, 'is_vacant' => true])
-                        ->orWhere(function ($q) use ($request) {
-                            $q->where(['is_active' => true, 'is_vacant' => false])
-                                ->whereHas('employee.user', fn ($q) => $q->where('users.id', $request->admin_id));
+                    // check if job is active and job is free
+                    if($request->job_is_active && $request->job_is_vacant){
+                    $q->where(['rasid_jobs.is_active' => true, 'is_vacant' => true]);
+                    // check if job is active and job is busy
+                    }else if($request->job_is_active && !$request->job_is_vacant){
+                        $q->where(['rasid_jobs.is_active' => true, 'is_vacant' => false])
+                        ->when($request->admin_id,function($q)use($request){
+                            $q->whereHas('employee.user', fn ($q) => $q->where('users.id', $request->admin_id));
                         });
+
+                        // check if job is inactive and job is free
+                    }else if(!$request->job_is_active && $request->job_is_vacant){
+                        $q->where(['rasid_jobs.is_active' => false, 'is_vacant' => true]);
+                        // check if job is inactive and job is busy
+                    }else{
+                        $q->where(['rasid_jobs.is_active' => false, 'is_vacant' => flase])
+                        ->when($request->admin_id,function($q)use($request){
+                            $q->whereHas('employee.user', fn ($q) => $q->where('users.id', $request->admin_id));
+                        });
+                    }
+
                 });
             })->ListsTranslations('name')
                 ->addSelect('departments.is_active')
@@ -245,6 +263,7 @@ class DepartmentController extends Controller
             ->addSelect('departments.created_at', 'departments.is_active', 'departments.parent_id', 'departments.added_by_id')
             ->get();
 
+        Loggable::addGlobalActivity(Department::class, array_merge($request->query(), ['parent_id' => Department::find($request->parent_id)?->name]), ActivityLog::EXPORT, 'index');
         if (!$request->has('created_from')) {
             $createdFrom = Department::selectRaw('MIN(created_at) as min_created_at')->value('min_created_at');
         }
@@ -274,6 +293,7 @@ class DepartmentController extends Controller
         $fileName = uniqid() . time();
         Excel::store(new DepartmentsExport($request), 'departments/excels/' . $fileName . '.xlsx', 'public');
         $file = url('/storage/' . 'departments/excels/' . $fileName . '.xlsx');
+        Loggable::addGlobalActivity(Department::class, array_merge($request->query(), ['parent_id' => Department::find($request->parent_id)?->name]), ActivityLog::EXPORT, 'index');
 
         return response()->json([
             'data'   => [
@@ -300,19 +320,16 @@ class DepartmentController extends Controller
             $createdFrom = Department::selectRaw('MIN(created_at) as min_created_at')->value('min_created_at');
         }
 
-        $mpdfPath = $pdfGenerate->newFile()
-            ->view(
-                'dashboard.exports.archive.department',
-                [
-                    'departments_archive' => $departmentsQuery,
-                    'date_from'   => format_date($request->created_from) ?? format_date($createdFrom),
-                    'date_to'     => format_date($request->created_to) ?? format_date(now()),
-                    'userId'      => auth()->user()->login_id,
+        $chunk = 200;
+        $names = [];
+        foreach (($departmentsQuery->chunk($chunk)) as $key => $rows) {
+            $names[] = base_path('storage/app/public/') . $pdfGenerate->newFile()
+                ->setHeader(trans('dashboard.department.department_archive'), $createdFrom)
+                ->view('dashboard.exports.archive.department', $rows, $key, $chunk)
+                ->storeOnLocal('departmentsArchive/pdfs/');
+        }
 
-                ]
-            )
-            ->storeOnLocal('departmentsArchive/pdfs/');
-        $file  = url('/storage/' . $mpdfPath);
+        $file = GeneratePdf::mergePdfFiles($names, 'departmentsArchive/pdfs/departments.pdf');
 
         return response()->json([
             'data'   => [
