@@ -9,8 +9,8 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\V1\Dashboard\BankRequest;
 use App\Http\Requests\V1\Dashboard\ReasonRequest;
-use App\Http\Resources\Dashboard\Banks\BankResource;
-use App\Http\Resources\Dashboard\Banks\BankCollection;
+use App\Http\Resources\Api\V1\Dashboard\Banks\BankResource;
+use App\Http\Resources\Api\V1\Dashboard\Banks\BankCollection;
 use App\Services\GeneratePdf;
 use Maatwebsite\Excel\Facades\Excel;
 

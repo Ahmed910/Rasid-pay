@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Api\V1\Dashboard;
 use App\Exports\LocaleExport;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\V1\Dashboard\LocalizationRequest;
-use App\Http\Resources\Dashboard\TranslationResource;
+use App\Http\Resources\Api\V1\Dashboard\TranslationResource;
 use App\Models\Locale\Locale;
 use App\Models\Locale\LocaleTranslation;
 use Illuminate\Http\Request;

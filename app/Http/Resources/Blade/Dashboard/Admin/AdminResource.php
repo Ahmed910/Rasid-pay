@@ -3,9 +3,9 @@
 namespace App\Http\Resources\Blade\Dashboard\Admin;
 
 use App\Http\Resources\Blade\Dashboard\Department\DepartmentResource;
-use App\Http\Resources\Dashboard\Group\GroupResource;
-use App\Http\Resources\Dashboard\Group\PermissionResource;
-use App\Http\Resources\Dashboard\SimpleUserResource;
+use App\Http\Resources\Api\V1\Dashboard\Group\GroupResource;
+use App\Http\Resources\Api\V1\Dashboard\Group\PermissionResource;
+use App\Http\Resources\Api\V1\Dashboard\SimpleUserResource;
 use Illuminate\Http\Resources\Json\JsonResource;
 use Illuminate\Support\Facades\Lang;
 

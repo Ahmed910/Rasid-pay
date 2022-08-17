@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Resources\Dashboard\SimpleUserResource;
+use App\Http\Resources\Api\V1\Dashboard\SimpleUserResource;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;

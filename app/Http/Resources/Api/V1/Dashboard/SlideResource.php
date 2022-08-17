@@ -2,9 +2,9 @@
 
 namespace App\Http\Resources\Api\V1\Dashboard;
 
-use App\Http\Resources\Dashboard\GlobalTransResource;
-use App\Http\Resources\Dashboard\ImagesResource;
-use App\Http\Resources\Dashboard\SimpleUserResource;
+use App\Http\Resources\Api\V1\Dashboard\GlobalTransResource;
+use App\Http\Resources\Api\V1\Dashboard\ImagesResource;
+use App\Http\Resources\Api\V1\Dashboard\SimpleUserResource;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class SlideResource extends JsonResource

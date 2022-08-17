@@ -7,7 +7,7 @@ use App\Exports\DepartmentsExport;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\V1\Dashboard\DepartmentRequest;
 use App\Http\Requests\V1\Dashboard\ReasonRequest;
-use App\Http\Resources\Dashboard\Department\{DepartmentResource, DepartmentCollection, ParentResource};
+use App\Http\Resources\Api\V1\Dashboard\Department\{DepartmentResource, DepartmentCollection, ParentResource};
 use App\Models\Department\Department;
 use App\Services\GeneratePdf;
 use Illuminate\Http\Request;

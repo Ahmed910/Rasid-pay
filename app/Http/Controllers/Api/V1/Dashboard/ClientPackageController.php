@@ -4,9 +4,9 @@ namespace App\Http\Controllers\Api\V1\Dashboard;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\V1\Dashboard\ClientPackageRequest;
-use App\Http\Resources\Dashboard\PackageResource;
-use App\Http\Resources\Dashboard\MainPackageResource;
-use App\Http\Resources\Dashboard\SimpleUserResource;
+use App\Http\Resources\Api\V1\Dashboard\PackageResource;
+use App\Http\Resources\Api\V1\Dashboard\MainPackageResource;
+use App\Http\Resources\Api\V1\Dashboard\SimpleUserResource;
 use App\Models\ClientPackageView;
 use App\Models\Package\Package;
 use App\Models\User;
