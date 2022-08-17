@@ -39,6 +39,7 @@ class CitizenController extends Controller
         $activities = [];
         if (!$request->has('with_activity') || $request->with_activity) {
             $activities  = $citizen->user->activity()
+                ->where('action_type','<>',ActivityLog::UPDATE)
                 ->sortBy($request)
                 ->paginate((int)($request->per_page ??  config("globals.per_page")));
         }
