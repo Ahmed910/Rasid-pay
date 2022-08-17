@@ -110,20 +110,20 @@ class Contact extends Model
 
         if (in_array($request->sort["column"], self::USER_COLUMNS)) {
             return $query
-                ->orderBy('contacts.' . $request->sort["column"], @$request->sort["dir"]);
+                ->orderBy('contacts.' . $request->sort["column"], @$request->sort["dir"])->latest();
         }
         if (key_exists($request->sort["column"], self::ADMINCOLUMNS)) {
             return $query->leftJoin('users', 'users.id', '=', 'contacts.assigned_to_id')
                 ->select("contacts.*", "users.fullname as admin.")
-                ->orderBy('users.' . self::ADMINCOLUMNS[$request->sort["column"]], @$request->sort["dir"]);
+                ->orderBy('users.' . self::ADMINCOLUMNS[$request->sort["column"]], @$request->sort["dir"])->latest();
         }
 
         if (in_array($request->sort["column"], ['contact_type'])) {
-            $query->orderBy('message_type_id', $request->sort["dir"]);
+            $query->orderBy('message_type_id', $request->sort["dir"])->latest();
         }
 
         if (key_exists($request->sort["column"], self::CONTACTS)) {
-            return $query->orderBy($request->sort['column'], $request->sort['dir']);
+            return $query->orderBy($request->sort['column'], $request->sort['dir'])->latest();
         }
     }
     #endregion scopes

@@ -72,14 +72,14 @@ class MessageType extends Model
         $query->when($request->sort, function ($q) use ($request) {
             if ($request->sort["column"] == "name") {
                 return $q->has('translations')
-                    ->orderBy($request->sort["column"], @$request->sort["dir"]);
+                    ->orderBy($request->sort["column"], @$request->sort["dir"])->latest();
             }
 
             if ($request->sort["column"] == "employee_count") {
-                return $q->withCount('admins')->orderBy('admins_count', @$request->sort["dir"]);
+                return $q->withCount('admins')->orderBy('admins_count', @$request->sort["dir"])->latest();
             }
 
-            $q->orderBy($request->sort["column"], @$request->sort["dir"]);
+            $q->orderBy($request->sort["column"], @$request->sort["dir"])->latest();
         });
     }
 

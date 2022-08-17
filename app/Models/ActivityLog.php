@@ -119,14 +119,14 @@ class ActivityLog extends Model
             // TODO:: Refactoring employee and department sorting
             if ($request->sort["column"] == "employee") {
                 return $q->leftjoin('users', 'activity_logs.user_id', 'users.id')
-                    ->orderBy('users.fullname');
+                    ->orderBy('users.fullname')->latest();
             }
 
             if ($request->sort["column"] == "main_program") {
-                return $q->orderBy('auditable_type', @$request->sort["dir"]);
+                return $q->orderBy('auditable_type', @$request->sort["dir"])->latest();
             }
             if ($request->sort["column"] == "subprogram") {
-                return $q->orderBy('sub_program', @$request->sort["dir"]);
+                return $q->orderBy('sub_program', @$request->sort["dir"])->latest();
             }
 
             if ($request->sort["column"] == "department") {
@@ -134,10 +134,10 @@ class ActivityLog extends Model
                     ->leftJoin('employees', 'employees.user_id', 'users.id')
                     ->leftJoin('departments', 'departments.id', 'employees.department_id')
                     ->leftJoin('department_translations', 'department_translations.department_id', 'departments.id')
-                    ->orderBy('department_translations.name');
+                    ->orderBy('department_translations.name')->latest();
             }
 
-            $q->orderBy($request->sort["column"], @$request->sort["dir"]);
+            $q->orderBy($request->sort["column"], @$request->sort["dir"])->latest();
         });
     }
     #endregion scopes
