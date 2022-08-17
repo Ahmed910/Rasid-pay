@@ -25,7 +25,7 @@ class BankBranch extends Model
     private $sortableColumns = ["name", "type", "code", "branch_name", 'site', 'transfer_amount', 'transactions_count', 'is_active'];
     public $translatedAttributes = ['name'];
     public $with = ['translations'];
-    
+
     const CENTERAL = 'centeral';
     const COMMERCIAL = 'commercial';
     const BANK = 'bank';
@@ -94,20 +94,20 @@ class BankBranch extends Model
 
         $query->when($request->sort, function ($q) use ($request) {
             if ($request->sort["column"] == "name") {
-                return $q->has('bank')->orderByTranslation('name', @$request->sort["dir"]);
+                return $q->has('bank')->orderByTranslation('name', @$request->sort["dir"])->latest();
             }
 
             if ($request->sort["column"] == "branch_name") {
                 return $q->join('bank_branch_translations','bank_branches.id','bank_branch_id')
-                    ->orderBy('bank_branch_translations.name', @$request->sort["dir"]);
+                    ->orderBy('bank_branch_translations.name', @$request->sort["dir"])->latest();
             }
 
             if ($request->sort["column"] == "transactions_count") {
                 return $q->withCount('transactions')
-                    ->orderBy('transactions_count', @$request->sort['dir']);
+                    ->orderBy('transactions_count', @$request->sort['dir'])->latest();
             }
 
-            $q->orderBy($request->sort["column"], @$request->sort["dir"]);
+            $q->orderBy($request->sort["column"], @$request->sort["dir"])->latest();
         });
     }
     #endregion scopes

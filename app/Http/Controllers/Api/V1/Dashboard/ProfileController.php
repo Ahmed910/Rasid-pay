@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Api\V1\Dashboard;
 
 use App\Http\Controllers\Controller;
-use App\Http\Resources\Dashboard\ProfileResource;
+use App\Http\Resources\Api\V1\Dashboard\ProfileResource;
 use App\Http\Requests\V1\Dashboard\ProfileRequest;
 
 class ProfileController extends Controller

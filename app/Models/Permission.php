@@ -146,14 +146,14 @@ class Permission extends Model
 
         $query->when($request->sort, function ($q) use ($request) {
             if ($request->sort["column"]  == "main_program") {
-                return $q->orderBy('main_program', @$request->sort["dir"]);
+                return $q->orderBy('main_program', @$request->sort["dir"])->latest();
             }
 
             if ($request->sort["column"]  == "sub_program") {
-                return $q->orderBy('sub_program', @$request->sort["dir"]);
+                return $q->orderBy('sub_program', @$request->sort["dir"])->latest();
             }
 
-            $q->orderBy($request->sort["column"], @$request->sort["dir"]);
+            $q->orderBy($request->sort["column"], @$request->sort["dir"])->latest();
         });
     }
     #endregion scopes

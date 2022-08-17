@@ -5,13 +5,14 @@ namespace App\Http\Controllers\Api\V1\Dashboard;
 use App\Exports\VendorExport;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\V1\Dashboard\VendorRequest;
-use App\Http\Resources\Dashboard\Vendors\VendorCollection;
-use App\Http\Resources\Dashboard\Vendors\VendorResource;
+use App\Http\Resources\Api\V1\Dashboard\Vendors\VendorCollection;
+use App\Http\Resources\Api\V1\Dashboard\Vendors\VendorResource;
+use App\Models\ActivityLog;
 use App\Models\Vendor\Vendor;
 use Illuminate\Http\Request;
 use App\Services\GeneratePdf;
 use Maatwebsite\Excel\Facades\Excel;
-
+use App\Traits\Loggable;
 class VendorController extends Controller
 {
     public function index(Request $request)
@@ -94,7 +95,7 @@ class VendorController extends Controller
         ->customDateFromTo($request)
         ->sortBy($request)
         ->get();
-
+        Loggable::addGlobalActivity(Vendor::class, $request->query(), ActivityLog::EXPORT, 'index');
 
         if (!$request->has('created_from')) {
             $createdFrom = Vendor::selectRaw('MIN(created_at) as min_created_at')->value('min_created_at');
@@ -125,6 +126,7 @@ class VendorController extends Controller
         $fileName = uniqid() . time();
         Excel::store(new VendorExport($request), 'Vendors/excels/' . $fileName . '.xlsx', 'public');
         $file = url('/storage/' . 'Vendors/excels/' . $fileName . '.xlsx');
+        Loggable::addGlobalActivity(Vendor::class, $request->query(), ActivityLog::EXPORT, 'index');
 
         return response()->json([
             'data'   => [

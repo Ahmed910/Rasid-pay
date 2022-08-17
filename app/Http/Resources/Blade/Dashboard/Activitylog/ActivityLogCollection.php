@@ -3,7 +3,7 @@
 namespace App\Http\Resources\Blade\Dashboard\Activitylog;
 
 use Illuminate\Http\Resources\Json\ResourceCollection;
-use  App\Http\Resources\Dashboard\ActivityLogResource;
+use  App\Http\Resources\Api\V1\Dashboard\ActivityLogResource;
 
 class ActivityLogCollection extends ResourceCollection
 {

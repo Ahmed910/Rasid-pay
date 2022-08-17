@@ -96,10 +96,10 @@ class Citizen extends Model
 
         if (in_array($request->sort["column"], self::USER_SORTABLE_COLUMNS)) {
             return $query->join('users', 'users.id', '=', 'citizens.user_id')
-                ->orderBy('users.' . $request->sort["column"], @$request->sort["dir"]);
+                ->orderBy('users.' . $request->sort["column"], @$request->sort["dir"])->latest();
         } else if (key_exists($request->sort["column"], self::CARDPKG_SORT_COLUMNS)) {
             return $query->join('citizen_packages', 'citizen_packages.id', '=', 'citizens.citizen_package_id')
-                ->orderBy('citizen_packages.' . self::CARDPKG_SORT_COLUMNS[$request->sort["column"]], @$request->sort["dir"]);
+                ->orderBy('citizen_packages.' . self::CARDPKG_SORT_COLUMNS[$request->sort["column"]], @$request->sort["dir"])->latest();
         }
     }
     #endregion scopes

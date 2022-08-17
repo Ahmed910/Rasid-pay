@@ -2,7 +2,7 @@
 
 namespace App\Http\Resources\Blade\Dashboard\Group;
 
-use App\Http\Resources\Dashboard\GlobalTransResource;
+use App\Http\Resources\Api\V1\Dashboard\GlobalTransResource;
 use App\Models\User;
 use Illuminate\Http\Resources\Json\JsonResource;
 
