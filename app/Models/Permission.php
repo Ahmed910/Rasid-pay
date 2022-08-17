@@ -41,7 +41,7 @@ class Permission extends Model
         "validate",
         'group_permissions',
         'backButton',
-        'home',
+        'home.index',
         'vendor_branches.get_vendors',
         'vendor_packages.get_vendors',
         'activity_logs.export_pdf',
