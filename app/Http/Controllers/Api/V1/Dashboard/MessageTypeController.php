@@ -50,9 +50,11 @@ class MessageTypeController extends Controller
     {
         $messageType = MessageType::withCount('admins')->with('admins', 'activity')->findOrFail($id);
         $activities = [];
-        $activities = $messageType->activity()
-            ->sortBy($request)
-            ->paginate((int)($request->per_page ?? config("globals.per_page")));
+        if((!$request->has('with_activity') || $request->with_activity) && $request->routeIs('*.show')) {
+            $activities = $messageType->activity()
+                ->sortBy($request)
+                ->paginate((int)($request->per_page ?? config("globals.per_page")));
+        }
 
         return MessageTypeCollection::make($activities)
             ->additional([

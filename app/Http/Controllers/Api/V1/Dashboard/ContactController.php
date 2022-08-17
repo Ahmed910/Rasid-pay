@@ -87,7 +87,7 @@ class ContactController extends Controller
         }
 
         $activities = [];
-        if (!$request->has('with_activity') || $request->with_activity) {
+        if ((!$request->has('with_activity') || $request->with_activity) && $request->routeIs('*.show')) {
             $activities  = $contact->activity()
                 ->sortBy($request)
                 ->paginate((int)($request->per_page ??  config("globals.per_page")));

@@ -44,7 +44,7 @@ class TransferPurposeController extends Controller
     {
         $transferPurpose  = TransferPurpose::findOrFail($id);
         $activities = [];
-        if (!$request->has('with_activity') || $request->with_activity) {
+        if ((!$request->has('with_activity') || $request->with_activity) && $request->routeIs('*.show')) {
             $activities  = $transferPurpose->activity()
                 ->sortBy($request)
                 ->paginate((int)($request->per_page ??  config("globals.per_page")));

@@ -205,7 +205,7 @@ class Permission extends Model
         foreach ($permissions_collect as $permission) {
             $action = explode('.', $permission->name);
             if (in_array(@$action[1], ['update', 'store', 'destroy', 'show', 'reply','assign_contact']) && !$permissions_collect->contains('name', $action[0] . '.index')) {
-                if (in_array(@$action[1],['update','reply'])) {
+                if (in_array(@$action[1],['update','reply','assign_contact'])) {
                     $permissions[] = $all_permissions->where('name', $action[0] . '.edit')->first()?->id;
                 }elseif ($action[1] == 'assign_contact' && !$permissions_collect->contains('name', $action[0] . '.reply')) {
                     $permissions[] = $all_permissions->where('name', $action[0] . '.reply')->first()?->id;
