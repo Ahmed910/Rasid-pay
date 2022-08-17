@@ -9,8 +9,10 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\V1\Dashboard\OurAppRequest;
 use App\Http\Resources\Dashboard\OurApp\OurAppCollection;
 use App\Http\Resources\Dashboard\OurApp\OurAppResource;
+use App\Models\ActivityLog;
 use App\Services\GeneratePdf;
 use Maatwebsite\Excel\Facades\Excel;
+use App\Traits\Loggable;
 class OurAppController extends Controller
 {
     public function index(Request $request)
@@ -95,7 +97,7 @@ class OurAppController extends Controller
         ->sortBy($request)
         ->get();
 
-
+        Loggable::addGlobalActivity(OurApp::class, $request->query(), ActivityLog::EXPORT, 'index');
         if (!$request->has('created_from')) {
             $createdFrom = OurApp::selectRaw('MIN(created_at) as min_created_at')->value('min_created_at');
         }
@@ -124,6 +126,7 @@ class OurAppController extends Controller
         $fileName = uniqid() . time();
         Excel::store(new OurAppExport($request), 'ourApps/excels/' . $fileName . '.xlsx', 'public');
         $file = url('/storage/' . 'ourApps/excels/' . $fileName . '.xlsx');
+        Loggable::addGlobalActivity(OurApp::class, $request->query(), ActivityLog::EXPORT, 'index');
 
         return response()->json([
             'data'   => [

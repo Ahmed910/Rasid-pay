@@ -8,11 +8,12 @@ use App\Http\Requests\V1\Dashboard\ReasonRequest;
 use App\Http\Requests\V1\Dashboard\StaticPageRequest;
 use App\Http\Resources\Dashboard\StaticPages\StaticPageCollection;
 use App\Http\Resources\Dashboard\StaticPages\StaticPageResource;
+use App\Models\ActivityLog;
 use App\Models\StaticPage\StaticPage;
 use App\Services\GeneratePdf;
 use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
-
+use App\Traits\Loggable;
 class StaticPageController extends Controller
 {
     public function index(Request $request)
@@ -123,6 +124,7 @@ class StaticPageController extends Controller
             ->sortBy($request)
             ->get();
 
+        Loggable::addGlobalActivity(StaticPage::class, $request->query(), ActivityLog::EXPORT, 'index');
 
         if (!$request->has('created_from')) {
             $createdFrom = StaticPage::selectRaw('MIN(created_at) as min_created_at')->value('min_created_at');
@@ -153,6 +155,7 @@ class StaticPageController extends Controller
         $fileName = uniqid() . time();
         Excel::store(new StaticPageExport($request), 'StaticPages/excels/' . $fileName . '.xlsx', 'public');
         $file = url('/storage/' . 'StaticPages/excels/' . $fileName . '.xlsx');
+        Loggable::addGlobalActivity(StaticPage::class, $request->query(), ActivityLog::EXPORT, 'index');
 
         return response()->json([
             'data' => [
