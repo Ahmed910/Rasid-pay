@@ -23,7 +23,7 @@ class ContactResource extends JsonResource
             'message_status' => $this->message_status,
             'notes' => $this->notes,
             'read_at' => $this->read_at,
-            'created_at' => $this->created_at_date_time,
+            'created_at' => $this->created_at->diffInDays(now()) > 7 ? $this->created_at_date_time : $this->created_at->diffForHumans(),
             'user' => SimpleUserResource::make($this->whenLoaded('user')),
             'admin' => SimpleUserResource::make($this->whenLoaded('admin')),
             'assigned_to' => SimpleUserResource::make($this->whenLoaded('assignedTo')),
