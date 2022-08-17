@@ -43,9 +43,9 @@ class VendorPackage extends Model
         ) {
             if ($request->sort['column'] == 'fullname'){
                 return $query->join('vendor_translations', 'vendor_packages.vendor_id', 'vendor_translations.vendor_id')
-                ->orderBy('name', @$request->sort['dir']);
+                ->orderBy('name', @$request->sort['dir'])->latest();
             }
-            return $query->orderBy($request->sort['column'], $request->sort['dir'] ?? 'asc');
+            return $query->orderBy($request->sort['column'], $request->sort['dir'] ?? 'asc')->latest();
         }
 
         return $query->latest();

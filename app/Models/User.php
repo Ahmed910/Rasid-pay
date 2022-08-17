@@ -385,13 +385,13 @@ class User extends Authenticatable implements HasAssetsInterface
                 return $q->select(['users.*', "trans.name"])
                     ->Join('employees', 'users.id', 'employees.user_id')
                     ->leftJoin('department_translations as trans', 'trans.department_id', 'employees.department_id')
-                    ->orderBy('trans.name', @$request->sort['dir']);
+                    ->orderBy('trans.name', @$request->sort['dir'])->latest();
             } else   if (in_array($request['sort']['column'], self::CARDSORTABLECOLUMNS)) {
                 return $q->Join('packages', 'users.id', 'packages.client_id')
                     ->select("users.*", "packages.basic_discount", "packages.golden_discount", "packages.platinum_discount")
                     ->distinct()
-                    ->orderBy('packages.' . $request->sort['column'], @$request->sort['dir']);
-            } else $q->orderBy($request->sort["column"], @$request->sort["dir"]);
+                    ->orderBy('packages.' . $request->sort['column'], @$request->sort['dir'])->latest();
+            } else $q->orderBy($request->sort["column"], @$request->sort["dir"])->latest();
         });
     }
 
