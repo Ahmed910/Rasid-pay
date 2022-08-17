@@ -8,11 +8,13 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\V1\Dashboard\DepartmentRequest;
 use App\Http\Requests\V1\Dashboard\ReasonRequest;
 use App\Http\Resources\Dashboard\Department\{DepartmentResource, DepartmentCollection, ParentResource};
+use App\Models\ActivityLog;
 use App\Models\Department\Department;
 use App\Services\GeneratePdf;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Maatwebsite\Excel\Facades\Excel;
+use App\Traits\Loggable;
 
 class DepartmentController extends Controller
 {
@@ -245,6 +247,7 @@ class DepartmentController extends Controller
             ->addSelect('departments.created_at', 'departments.is_active', 'departments.parent_id', 'departments.added_by_id')
             ->get();
 
+        Loggable::addGlobalActivity(Department::class, array_merge($request->query(), ['parent_id' => Department::find($request->parent_id)?->name]), ActivityLog::EXPORT, 'index');
         if (!$request->has('created_from')) {
             $createdFrom = Department::selectRaw('MIN(created_at) as min_created_at')->value('min_created_at');
         }
@@ -274,6 +277,7 @@ class DepartmentController extends Controller
         $fileName = uniqid() . time();
         Excel::store(new DepartmentsExport($request), 'departments/excels/' . $fileName . '.xlsx', 'public');
         $file = url('/storage/' . 'departments/excels/' . $fileName . '.xlsx');
+        Loggable::addGlobalActivity(Department::class, array_merge($request->query(), ['parent_id' => Department::find($request->parent_id)?->name]), ActivityLog::EXPORT, 'index');
 
         return response()->json([
             'data'   => [

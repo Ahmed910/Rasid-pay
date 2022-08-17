@@ -8,9 +8,11 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\V1\Dashboard\FaqRequest;
 use App\Http\Resources\Dashboard\Faq\FaqResource;
 use App\Http\Resources\Dashboard\Faq\FaqCollection;
+use App\Models\ActivityLog;
 use Illuminate\Http\Request;
 use App\Services\GeneratePdf;
 use Maatwebsite\Excel\Facades\Excel;
+use App\Traits\Loggable;
 
 class  FaqController extends Controller
 {
@@ -81,6 +83,7 @@ class  FaqController extends Controller
         if (!$request->has('created_from')) {
             $createdFrom = Faq::selectRaw('MIN(created_at) as min_created_at')->value('min_created_at');
         }
+        Loggable::addGlobalActivity(Faq::class, $request->query(), ActivityLog::EXPORT, 'index');
 
         $chunk = 200;
         $names = [];
@@ -107,6 +110,7 @@ class  FaqController extends Controller
         $fileName = uniqid() . time();
         Excel::store(new FaqExport($request), 'faqs/excels/' . $fileName . '.xlsx', 'public');
         $file = url('/storage/' . 'faqs/excels/' . $fileName . '.xlsx');
+        Loggable::addGlobalActivity(Faq::class, $request->query(), ActivityLog::EXPORT, 'index');
 
         return response()->json([
             'data'   => [

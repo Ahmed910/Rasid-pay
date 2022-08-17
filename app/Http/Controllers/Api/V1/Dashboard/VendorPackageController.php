@@ -9,6 +9,7 @@ use App\Http\Resources\Dashboard\PackageResource;
 use App\Http\Resources\Dashboard\MainPackageResource;
 use App\Http\Resources\Dashboard\SimpleUserResource;
 use App\Http\Resources\Dashboard\Vendors\VendorResource;
+use App\Models\ActivityLog;
 use App\Models\ClientPackageView;
 use App\Models\Package\Package;
 use App\Models\User;
@@ -17,7 +18,7 @@ use App\Models\VendorPackage;
 use Illuminate\Http\Request;
 use App\Services\GeneratePdf;
 use Maatwebsite\Excel\Facades\Excel;
-
+use App\Traits\Loggable;
 class VendorPackageController extends Controller
 {
     public function index(Request $request)
@@ -89,6 +90,7 @@ class VendorPackageController extends Controller
         ->sortBy($request)
         ->get();
 
+        Loggable::addGlobalActivity(VendorPackage::class, array_merge($request->query(), ['client_id' => Vendor::find($request->client_id)?->name]), ActivityLog::EXPORT, 'index');
 
         if (!$request->has('created_from')) {
             $createdFrom = VendorPackage::selectRaw('MIN(created_at) as min_created_at')->value('min_created_at');
@@ -119,6 +121,7 @@ class VendorPackageController extends Controller
         $fileName = uniqid() . time();
         Excel::store(new VendorPackageExport($request), 'VendorPackage/excels/' . $fileName . '.xlsx', 'public');
         $file = url('/storage/' . 'VendorPackage/excels/' . $fileName . '.xlsx');
+        Loggable::addGlobalActivity(VendorPackage::class, array_merge($request->query(), ['client_id' => Vendor::find($request->client_id)?->name]), ActivityLog::EXPORT, 'index');
 
         return response()->json([
             'data'   => [
