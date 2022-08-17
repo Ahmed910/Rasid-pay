@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Api\V1\Dashboard;
 use App\Exports\LinkExport;
 use App\Models\Link;
 use App\Http\Controllers\Controller;
-use App\Http\Resources\Dashboard\LinkResource;
+use App\Http\Resources\Api\V1\Dashboard\LinkResource;
 use App\Http\Requests\V1\Dashboard\LinkRequest;
 use App\Models\ActivityLog;
 use Illuminate\Http\Request;

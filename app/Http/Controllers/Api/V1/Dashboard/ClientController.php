@@ -8,7 +8,7 @@ use App\Http\Requests\V1\Dashboard\BankAccountRequest;
 use App\Http\Requests\V1\Dashboard\ClientRequest;
 use App\Http\Requests\V1\Dashboard\ManagerRequest;
 use App\Http\Requests\V1\Dashboard\ReasonRequest;
-use App\Http\Resources\Dashboard\ClientResource;
+use App\Http\Resources\Api\V1\Dashboard\ClientResource;
 use App\Models\Attachment;
 use App\Models\BankAccount;
 use App\Models\Client;

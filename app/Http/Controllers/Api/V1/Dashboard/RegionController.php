@@ -5,8 +5,8 @@ namespace App\Http\Controllers\Api\V1\Dashboard;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\V1\Dashboard\ReasonRequest;
 use App\Http\Requests\V1\Dashboard\RegionRequest;
-use App\Http\Resources\Dashboard\Regions\RegionResource;
-use App\Http\Resources\Dashboard\Regions\RegionCollection;
+use App\Http\Resources\Api\V1\Dashboard\Regions\RegionResource;
+use App\Http\Resources\Api\V1\Dashboard\Regions\RegionCollection;
 use App\Models\Region\Region;
 use Illuminate\Http\Request;
 

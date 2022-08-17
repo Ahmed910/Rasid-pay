@@ -7,7 +7,7 @@ use App\Models\Country\Country;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\V1\Dashboard\ReasonRequest;
 use App\Http\Requests\V1\Dashboard\CountryRequest;
-use App\Http\Resources\Dashboard\Country\{CountryCodeCollection, CountryResource, CountryCollection};
+use App\Http\Resources\Api\V1\Dashboard\Country\{CountryCodeCollection, CountryResource, CountryCollection};
 
 
 class CountryController extends Controller

@@ -8,7 +8,7 @@ use App\Http\Requests\V1\Dashboard\Auth\{LoginRequest,
     OTPLoginRequest,
     ResendCodeRequest,
     SendCodeRequest};
-use App\Http\Resources\Dashboard\UserResource;
+use App\Http\Resources\Api\V1\Dashboard\UserResource;
 use App\Models\{Device, User};
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;

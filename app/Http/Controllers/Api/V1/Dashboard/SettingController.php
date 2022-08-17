@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\V1\Dashboard\Settings\CreateSetting;
 use App\Http\Requests\V1\Dashboard\Settings\SettingRequest;
-use App\Http\Resources\Dashboard\SettingResource;
+use App\Http\Resources\Api\V1\Dashboard\SettingResource;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Cache;
 
