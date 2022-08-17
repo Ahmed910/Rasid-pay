@@ -304,19 +304,16 @@ class DepartmentController extends Controller
             $createdFrom = Department::selectRaw('MIN(created_at) as min_created_at')->value('min_created_at');
         }
 
-        $mpdfPath = $pdfGenerate->newFile()
-            ->view(
-                'dashboard.exports.archive.department',
-                [
-                    'departments_archive' => $departmentsQuery,
-                    'date_from'   => format_date($request->created_from) ?? format_date($createdFrom),
-                    'date_to'     => format_date($request->created_to) ?? format_date(now()),
-                    'userId'      => auth()->user()->login_id,
+        $chunk = 200;
+        $names = [];
+        foreach (($departmentsQuery->chunk($chunk)) as $key => $rows) {
+            $names[] = base_path('storage/app/public/') . $pdfGenerate->newFile()
+                ->setHeader(trans('dashboard.department.department_archive'), $createdFrom)
+                ->view('dashboard.exports.archive.department', $rows, $key, $chunk)
+                ->storeOnLocal('departmentsArchive/pdfs/');
+        }
 
-                ]
-            )
-            ->storeOnLocal('departmentsArchive/pdfs/');
-        $file  = url('/storage/' . $mpdfPath);
+        $file = GeneratePdf::mergePdfFiles($names, 'departmentsArchive/pdfs/departments.pdf');
 
         return response()->json([
             'data'   => [
