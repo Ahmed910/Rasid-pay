@@ -72,15 +72,15 @@ class Department extends Model implements TranslatableContract, HasAssetsInterfa
         if (isset($request->is_active) && in_array($request->is_active, [1, 0])) {
             $query->where('is_active', $request->is_active);
         }
+
         $new = $query->toSql();
-        if ($old != $new)  Loggable::addGlobalActivity($this, array_merge($request->query(), ['parent_id' => Department::find($request->parent_id)?->name]), ActivityLog::SEARCH, 'index');
+        if ($old != $new || $request->is_active == -1 || $request->parent_id == -1)  Loggable::addGlobalActivity($this, array_merge($request->query(), $this->searchParams($request)), ActivityLog::SEARCH, 'index');
     }
 
     public function scopeSortBy(Builder $query, $request)
     {
 
         if (!isset($request->sort["column"]) || !isset($request->sort["dir"])) return $query->latest('departments.created_at');
-
         if (
             !in_array(Str::lower($request->sort["column"]), $this->sortableColumns) ||
             !in_array(Str::lower($request->sort["dir"]), ["asc", "desc"])
@@ -137,8 +137,25 @@ class Department extends Model implements TranslatableContract, HasAssetsInterfa
         return self::$result;
     }
 
+ 
     #endregion relationships
 
     #region custom Methods
+    private function searchParams($request)
+    {
+        $searchParams = [];
+        if ($request->has('is_active')) {
+            $searchParams['is_active'] = __('dashboard.department.active_cases.' . $request->is_active);
+        }
+
+        if ($request->has('parent_id') && $request->parent_id == null) {
+            $searchParams['parent_id'] = __('dashboard.department.parent_cases.without');
+        } elseif ($request->has('parent_id') && $request->parent_id == -1) {
+            $searchParams['parent_id'] = __('dashboard.department.parent_cases.all');
+        } elseif ($request->has('parent_id')) {
+            $searchParams['parent_id'] = Department::find($request->parent_id)?->name;
+        }
+        return $searchParams;
+    }
     #endregion custom Methods
 }

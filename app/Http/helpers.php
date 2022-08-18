@@ -338,3 +338,12 @@ if (!function_exists('addCharBetweenChunks')) {
         return chunk_split($str, $step, $char);
     }
 }
+
+if (!function_exists('trans_log_search')) {
+    function trans_log_search($request_key, $tran_key)
+    {
+       return collect($request_key)->map(function($item) use ($tran_key){
+            return  __($tran_key . $item);
+         })->join(', ');
+    }
+}

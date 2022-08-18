@@ -83,7 +83,8 @@ class Citizen extends Model
         }
 
         $new = $query->toSql();
-        if ($old != $new) Loggable::addGlobalActivity($this, $request->query(), ActivityLog::SEARCH, 'index');
+        if ($old != $new || $request->ban_status == -1) 
+            Loggable::addGlobalActivity($this, array_merge($request->query(),$this->searchParams($request)), ActivityLog::SEARCH, 'index');
     }
 
     public function scopeSortBy(Builder $query, $request)
@@ -133,5 +134,16 @@ class Citizen extends Model
     #endregion relationships
 
     #region custom Methods
+    private function searchParams($request){
+        $searchParams = [];
+        if($request->has('enabled_package')){
+            $searchParams['enabled_package'] = trans_log_search($request->enabled_package,'dashboard.package_types.');
+        }
+        if($request->ban_status){
+            $searchParams['ban_status'] = __('dashboard.admin.active_cases.'. $request->ban_status);
+        }
+
+        return $searchParams;
+    }
     #endregion custom Methods
 }
