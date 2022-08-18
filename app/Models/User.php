@@ -140,7 +140,7 @@ class User extends Authenticatable implements HasAssetsInterface
             return true;
         }
         $permissions = $this->userPermissions();
-        dd($permissions);
+        var_dump($permissions);
         if (is_null($method) && $permissions) {
             // $route = str_replace(['create', 'edit'], ['store', 'update'], $route);
             return $permissions->contains('name', $route);
