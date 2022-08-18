@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Api\Mobile\Transfers;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\MobileTransfers\TransferTypeRequest;
+use App\Http\Requests\Mobile\Transfers\TransferTypeRequest;
 use App\Http\Resources\Api\Mobile\TransferResource;
 use App\Models\CitizenWallet;
 use App\Models\Transaction;

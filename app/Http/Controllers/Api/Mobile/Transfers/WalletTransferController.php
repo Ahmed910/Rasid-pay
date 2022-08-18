@@ -6,7 +6,7 @@ use App\Models\User;
 use App\Services\WalletBalance;
 use App\Http\Controllers\Controller;
 use App\Models\{CitizenWallet, Transaction, Transfer};
-use App\Http\Requests\MobileTransfers\WalletTransferRequest;
+use App\Http\Requests\Mobile\Transfers\WalletTransferRequest;
 use App\Http\Resources\Api\Mobile\{Transactions\TransactionResource};
 
 class WalletTransferController extends Controller

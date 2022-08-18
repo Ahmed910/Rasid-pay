@@ -4,7 +4,8 @@ namespace App\Http\Controllers\Api\Mobile;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\MobileBalanceTypeRequest;
-use App\Http\Requests\MobileLocalTransferRequest;
+use App\Http\Requests\Mobile\Transfers\LocalTransferRequest;
+
 use App\Http\Resources\Mobile\LocalTransferResource;
 use App\Models\{CitizenWallet, Device, Transaction, Transfer};
 
