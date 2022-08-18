@@ -169,7 +169,7 @@ class Permission extends Model
     public static function getPermissions()
     {
         $permissions = Permission::latest()->get();
-        dd($permissions);
+      
         foreach (app()->routes->getRoutes() as $value) {
             $route_name = $value->getName();
             $name = str_replace(['create'], ['store'], $route_name);
