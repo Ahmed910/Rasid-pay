@@ -188,11 +188,6 @@ class User extends Authenticatable implements HasAssetsInterface
         return $this->hasOneThrough(RasidJob::class, Employee::class, 'user_id', 'id', 'id', 'rasid_job_id');
     }
 
-    public function client()
-    {
-        return $this->hasOne(Client::class);
-    }
-
     public function citizen()
     {
         return $this->hasOne(Citizen::class);
