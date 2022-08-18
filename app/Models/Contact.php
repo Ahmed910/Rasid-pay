@@ -89,15 +89,9 @@ class Contact extends Model
                 });
         }
         $new = $query->toSql();
-        if ($old != $new) Loggable::addGlobalActivity(
-            $this,
-            array_merge(
-                $request->query(),
-                ['message_types' => MessageType::find($request->message_types)?->pluck('name')?->join(', ')]
-            ),
-            ActivityLog::SEARCH,
-            'index'
-        );
+        if ($old != $new || $request->message_source == -1 || $request->message_status == -1) {
+            Loggable::addGlobalActivity($this, array_merge($request->query(), $this->searchParams($request)), ActivityLog::SEARCH, 'index');
+        }
     }
 
     public function scopeSortBy(Builder $query, $request)
@@ -156,5 +150,21 @@ class Contact extends Model
     #endregion relationships
 
     #region custom Methods
+    private function searchParams($request)
+    {
+        $searchParams = [];
+        if ($request->has('message_status')) {
+            $searchParams['message_status'] = __('dashboard.contact.message_status.' . $request->message_status);
+        }
+
+        if ($request->has('message_source')) {
+            $searchParams['message_source'] = __('dashboard.contact.message_sources.' . $request->message_source);
+        }
+        if ($request->has('message_types')) {
+            $searchParams['message_types'] = MessageType::find($request->message_types)?->pluck('name')?->join(', ');
+        }
+
+        return $searchParams;
+    }
     #endregion custom Methods
 }

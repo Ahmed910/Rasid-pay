@@ -43,14 +43,13 @@ class Group extends Model implements TranslatableContract
             $query->having('user_count',"<=" , (int)$request->admins_to);
         }
 
-        if (isset($request->is_active)) {
-            if (!in_array($request->is_active, [1, 0])) return;
+        if (isset($request->is_active) && in_array($request->is_active, [1, 0])) {
 
             $query->where('is_active', $request->is_active);
         }
 
         $new = $query->toSql() ;
-        if ($old!=$new)  Loggable::addGlobalActivity($this, $request->query(), ActivityLog::SEARCH, 'index');
+        if ($old!=$new || $request->is_active == -1 ) Loggable::addGlobalActivity($this,  array_merge($request->query(), $this->searchParams($request)), ActivityLog::SEARCH, 'index');
     }
 
     public function scopeActive($query)
@@ -137,6 +136,15 @@ class Group extends Model implements TranslatableContract
             ];
         }
         return $group_data;
+    }
+
+    private function searchParams($request){
+        $searchParams = [];
+        if($request->has('is_active')){
+            $searchParams['is_active'] = __('dashboard.group.active_cases.'. $request->is_active);
+        }
+
+        return $searchParams;
     }
     #endregion custom Methods
 }

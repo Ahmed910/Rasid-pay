@@ -45,7 +45,7 @@ class Faq extends Model implements TranslatableContract
             $query->where('is_active', $request->is_active);
         }
         $new = $query->toSql() ;
-        if ($old!=$new)  Loggable::addGlobalActivity($this, $request->query(), ActivityLog::SEARCH, 'index');
+        if ($old!=$new || $request->is_active == -1 )  Loggable::addGlobalActivity($this, array_merge($request->query(), $this->searchParams($request)), ActivityLog::SEARCH, 'index');
 
     }
 
@@ -84,5 +84,13 @@ class Faq extends Model implements TranslatableContract
     #endregion relationships
 
     #region custom Methods
+    private function searchParams($request){
+        $searchParams = [];
+        if($request->has('is_active')){
+            $searchParams['is_active'] = __('dashboard.faq.active_cases.'. $request->is_active);
+        }
+        
+        return $searchParams;
+    }
     #endregion custom Methods
 }
