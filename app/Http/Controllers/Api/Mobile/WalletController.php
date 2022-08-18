@@ -14,10 +14,9 @@ class WalletController extends Controller
 
     public function index()
     {
-        // $wallet = auth()->user()->citizenWallet;
-        // $wallet->update([
-        //     'last_updated_at' => now()
-        // ]);
+         auth()->user()?->citizenWallet->update([
+             'last_updated_at' => now()
+         ]);
         return WalletResource::make(auth()->user()->citizenWallet)->additional(['status' => true, 'message' => '']);
     }
 
