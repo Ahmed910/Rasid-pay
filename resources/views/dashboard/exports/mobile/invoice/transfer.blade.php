@@ -107,7 +107,7 @@
       <th style="color:#3f68ba;">
         @lang('mobile.invoice.transfer_purpose')
       </th>
-      <th> {{ $transaction?->transactionable?->transferPurpose?->name ?? '' }}</th>
+      <th> {{ $transaction?->transactionable?->transferPurpose?->is_another == 1  ? $transaction?->transactionable?->notes : $transaction?->transactionable?->transferPurpose?->name  }}</th>
     </tr>
     </thead>
     <tbody></tbody>
