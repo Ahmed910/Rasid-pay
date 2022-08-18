@@ -169,6 +169,7 @@ class Permission extends Model
     public static function getPermissions()
     {
         $permissions = Permission::latest()->get();
+        ddd($permissions);
         foreach (app()->routes->getRoutes() as $value) {
             $route_name = $value->getName();
             $name = str_replace(['create'], ['store'], $route_name);
@@ -201,7 +202,7 @@ class Permission extends Model
     {
         $permissions = $request->permission_list ?? [];
         $all_permissions = self::select('id', 'name')->get();
-        ddd($all_permissions);
+
         $permissions_collect = $all_permissions->whereIn('id', $permissions);
         foreach ($permissions_collect as $permission) {
             $action = explode('.', $permission->name);
