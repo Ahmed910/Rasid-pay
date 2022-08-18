@@ -23,6 +23,7 @@ class SettingSeeder extends Seeder
             ["key" => "rasidpay_verificatoin_code", "value" => ["en" => 60], "input_type" => "number"],
             ["key" => "rasid_verify_code_timer", "value" => ["en" => 60], "input_type" => "number"],
             ["key" => "rasidpay_setting_termsconds", "value" => ["en" => "rasid pay setting terms and conditions", "ar" => "الشروط والاحكام"], "input_type" => "editor", 'is_single' => false],
+            ["key" => "rasid_verify_code_timer", "value" => ["en" => 60], "input_type" => "number", 'is_single' => false],  // by seconds
 
             // statics
             ["key" => "rasidpay_setting_aboutapp", "value" => ["en" => "rasid pay setting about app", "ar" => "اعدادات عن التطبيق"], "input_type" => "editor", 'is_single' => false],
@@ -79,6 +80,7 @@ class SettingSeeder extends Seeder
             ["key" => "rasid_mail", "value" => ["en" => "info@fintech-sa.com"], "input_type" => "text"],
             ["key" => "rasid_fax_no", "value" => ["en" => "123456"], "input_type" => "text"],
             ["key" => "rasid_hotline_no", "value" => ["en" => "19999"], "input_type" => "text"],
+            ["key" => "rasid_support_msgsinbox_reply", "value" => ["en" => "0"], "input_type" => "select"],
 
             // packages
             ["key" => "rasidpay_cards_basic_desc", "value" => ["en" => "rasid pay cards basic description", "ar" => "وصف مختصر لبطاقة الدفع الاساسية"], "input_type" => "textarea", 'is_single' => false],

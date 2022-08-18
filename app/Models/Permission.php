@@ -41,7 +41,7 @@ class Permission extends Model
         "validate",
         'group_permissions',
         'backButton',
-        'home',
+        'home.index',
         'vendor_branches.get_vendors',
         'vendor_packages.get_vendors',
         'activity_logs.export_pdf',
@@ -169,6 +169,7 @@ class Permission extends Model
     public static function getPermissions()
     {
         $permissions = Permission::latest()->get();
+        dd($permissions);
         foreach (app()->routes->getRoutes() as $value) {
             $route_name = $value->getName();
             $name = str_replace(['create'], ['store'], $route_name);
@@ -201,11 +202,12 @@ class Permission extends Model
     {
         $permissions = $request->permission_list ?? [];
         $all_permissions = self::select('id', 'name')->get();
+
         $permissions_collect = $all_permissions->whereIn('id', $permissions);
         foreach ($permissions_collect as $permission) {
             $action = explode('.', $permission->name);
             if (in_array(@$action[1], ['update', 'store', 'destroy', 'show', 'reply','assign_contact']) && !$permissions_collect->contains('name', $action[0] . '.index')) {
-                if (in_array(@$action[1],['update','reply'])) {
+                if (in_array(@$action[1],['update','reply','assign_contact'])) {
                     $permissions[] = $all_permissions->where('name', $action[0] . '.edit')->first()?->id;
                 }elseif ($action[1] == 'assign_contact' && !$permissions_collect->contains('name', $action[0] . '.reply')) {
                     $permissions[] = $all_permissions->where('name', $action[0] . '.reply')->first()?->id;

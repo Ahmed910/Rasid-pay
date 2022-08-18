@@ -44,7 +44,8 @@ class Transaction extends Model
     const CLIENT_SORTABLE_COLUMNS = ["user_to" => "fullname", "client_type" => "client_type", "commercial_number" => "commercial_number", "nationality" => "nationality", "tax_number" => "tax_number", "transactions_done" => "transactions_done"];
     const ENABLED_CARD_sortable_COLUMNS = ["enabled_package" => "package_type"];
     const TRANSFERS = ['wallet_transfer', 'local_transfer', 'global_transfer'];
-    const PAYMENTS = ['payment', 'promote_package'];
+    const PROMOTE_PACKAGE = ['promote_package'];
+    const PAYMENTS = ['payment'];
     const CHARGE = ['charge', 'money_request'];
     const TRANACTION_TYPES = ['wallet_transfer', 'local_transfer', 'global_transfer', 'payment', 'promote_package', 'charge', 'money_request'];
 
