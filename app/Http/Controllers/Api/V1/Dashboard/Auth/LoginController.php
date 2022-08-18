@@ -8,7 +8,7 @@ use App\Http\Requests\V1\Dashboard\Auth\{LoginRequest,
     OTPLoginRequest,
     ResendCodeRequest,
     SendCodeRequest};
-use App\Http\Resources\Dashboard\UserResource;
+use App\Http\Resources\Api\V1\Dashboard\UserResource;
 use App\Models\{Device, User};
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -32,7 +32,7 @@ class LoginController extends Controller
             $reset_token = generate_unique_code(User::class, 'reset_token', 100);
             $user->update(['login_code' => $code, 'reset_token' => $reset_token]);
             // Send SMS CODE
-            return response()->json(['status' => true, 'data' => ['_token' => $user->reset_token], 'message' => trans('auth.success_send_login_code'), 'dev_message' => $code, 'login_code_required' => true]);
+            return response()->json(['status' => true, 'data' => ['_token' => $user->reset_token], 'message' => trans('auth.success_send_login_code'), 'dev_message' => $code, 'login_code_required' => true,'phone' =>$user->phone]);
         }
 
         if ($user && $user->ban_status == 'permanent') {

@@ -6,11 +6,13 @@ use App\Exports\FaqExport;
 use App\Models\Faq\Faq;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\V1\Dashboard\FaqRequest;
-use App\Http\Resources\Dashboard\Faq\FaqResource;
-use App\Http\Resources\Dashboard\Faq\FaqCollection;
+use App\Http\Resources\Api\V1\Dashboard\Faq\FaqResource;
+use App\Http\Resources\Api\V1\Dashboard\Faq\FaqCollection;
+use App\Models\ActivityLog;
 use Illuminate\Http\Request;
 use App\Services\GeneratePdf;
 use Maatwebsite\Excel\Facades\Excel;
+use App\Traits\Loggable;
 
 class  FaqController extends Controller
 {
@@ -48,7 +50,7 @@ class  FaqController extends Controller
     {
         $faq  = Faq::findOrFail($id);
         $activities = [];
-        if (!$request->has('with_activity') || $request->with_activity) {
+        if ((!$request->has('with_activity') || $request->with_activity) && $request->routeIs('*.show')) {
             $activities  = $faq->activity()
                 ->sortBy($request)
                 ->paginate((int)($request->per_page ??  config("globals.per_page")));
@@ -81,12 +83,13 @@ class  FaqController extends Controller
         if (!$request->has('created_from')) {
             $createdFrom = Faq::selectRaw('MIN(created_at) as min_created_at')->value('min_created_at');
         }
+        Loggable::addGlobalActivity(Faq::class, $request->query(), ActivityLog::EXPORT, 'index');
 
         $chunk = 200;
         $names = [];
         foreach (($faqsQuery->chunk($chunk)) as $key => $rows) {
             $names[] = base_path('storage/app/public/') . $generatePdf->newFile()
-                ->setHeader(trans('dashboard.faq.faqs'), 2, $createdFrom)
+                ->setHeader(trans('dashboard.faq.faqs'),  $createdFrom)
                 ->view('dashboard.exports.faq', $rows, $key, $chunk)
                 ->storeOnLocal('faqs/pdfs/');
         }
@@ -107,6 +110,7 @@ class  FaqController extends Controller
         $fileName = uniqid() . time();
         Excel::store(new FaqExport($request), 'faqs/excels/' . $fileName . '.xlsx', 'public');
         $file = url('/storage/' . 'faqs/excels/' . $fileName . '.xlsx');
+        Loggable::addGlobalActivity(Faq::class, $request->query(), ActivityLog::EXPORT, 'index');
 
         return response()->json([
             'data'   => [

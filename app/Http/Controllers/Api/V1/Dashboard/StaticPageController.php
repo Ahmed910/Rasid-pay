@@ -6,13 +6,14 @@ use App\Exports\StaticPageExport;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\V1\Dashboard\ReasonRequest;
 use App\Http\Requests\V1\Dashboard\StaticPageRequest;
-use App\Http\Resources\Dashboard\StaticPages\StaticPageCollection;
-use App\Http\Resources\Dashboard\StaticPages\StaticPageResource;
+use App\Http\Resources\Api\V1\Dashboard\StaticPages\StaticPageCollection;
+use App\Http\Resources\Api\V1\Dashboard\StaticPages\StaticPageResource;
+use App\Models\ActivityLog;
 use App\Models\StaticPage\StaticPage;
 use App\Services\GeneratePdf;
 use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
-
+use App\Traits\Loggable;
 class StaticPageController extends Controller
 {
     public function index(Request $request)
@@ -48,7 +49,7 @@ class StaticPageController extends Controller
     {
         $staticPage = StaticPage::findOrFail($id);
         $activities = [];
-        if (!$request->has('with_activity') || $request->with_activity) {
+        if ((!$request->has('with_activity') || $request->with_activity) && $request->routeIs('*.show')) {
             $activities = $staticPage->activity()
                 ->sortBy($request)
                 ->paginate((int)($request->per_page ?? config("globals.per_page")));
@@ -123,6 +124,7 @@ class StaticPageController extends Controller
             ->sortBy($request)
             ->get();
 
+        Loggable::addGlobalActivity(StaticPage::class, $request->query(), ActivityLog::EXPORT, 'index');
 
         if (!$request->has('created_from')) {
             $createdFrom = StaticPage::selectRaw('MIN(created_at) as min_created_at')->value('min_created_at');
@@ -132,7 +134,7 @@ class StaticPageController extends Controller
         $names = [];
         foreach (($StaticPagesQuery->chunk($chunk)) as $key => $rows) {
             $names[] = base_path('storage/app/public/') . $generatePdf->newFile()
-                    ->setHeader(trans('dashboard.static_page.static_pages'), 4, $createdFrom)
+                    ->setHeader(trans('dashboard.static_page.static_pages'), $createdFrom)
                     ->view('dashboard.exports.static_page', $rows, $key, $chunk)
                     ->storeOnLocal('static_pages/pdfs/');
         }
@@ -153,6 +155,7 @@ class StaticPageController extends Controller
         $fileName = uniqid() . time();
         Excel::store(new StaticPageExport($request), 'StaticPages/excels/' . $fileName . '.xlsx', 'public');
         $file = url('/storage/' . 'StaticPages/excels/' . $fileName . '.xlsx');
+        Loggable::addGlobalActivity(StaticPage::class, $request->query(), ActivityLog::EXPORT, 'index');
 
         return response()->json([
             'data' => [

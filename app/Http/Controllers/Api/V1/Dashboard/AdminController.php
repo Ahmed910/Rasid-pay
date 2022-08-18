@@ -6,14 +6,14 @@ use App\Exports\AdminsExport;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\V1\Dashboard\AdminRequest;
 use App\Http\Requests\V1\Dashboard\ReasonRequest;
-use App\Http\Resources\Dashboard\{UserResource, Admin\AdminCollection};
-use App\Http\Resources\Dashboard\Admin\AllAdminResource;
+use App\Http\Resources\Api\V1\Dashboard\{UserResource, Admin\AdminCollection};
+use App\Http\Resources\Api\V1\Dashboard\Admin\AllAdminResource;
 use App\Models\{Admin, User, Permission, Group\Group, Employee};
 use App\Models\Department\Department;
 use Illuminate\Http\Request;
 use App\Services\GeneratePdf;
 use Maatwebsite\Excel\Facades\Excel;
-
+use App\Traits\Loggable;
 class AdminController extends Controller
 {
 
@@ -87,7 +87,7 @@ class AdminController extends Controller
     {
         $admin = User::withTrashed()->where('user_type', 'admin')->with('admin')->findOrFail($id);
         $activities = [];
-        if (!$request->has('with_activity') || $request->with_activity) {
+        if ((!$request->has('with_activity') || $request->with_activity) && $request->routeIs('*.show')) {
             $activities = $admin->activity()
                 ->sortBy($request)
                 ->paginate((int)($request->per_page ??  config("globals.per_page")));
@@ -204,6 +204,9 @@ class AdminController extends Controller
             ->sortBy($request)
             ->get();
 
+        Loggable::addGlobalActivity(User::class, array_merge($request->query(),
+        ['department_id' => Department::find($request->department_id)?->name]),
+         ActivityLog::EXPORT, 'index', request()->user_type);
 
         if (!$request->has('created_from')) {
             $createdFrom = User::selectRaw('MIN(created_at) as min_created_at')->value('min_created_at');
@@ -213,7 +216,7 @@ class AdminController extends Controller
         $names = [];
         foreach (($AdminsQuery->chunk($chunk)) as $key => $rows) {
             $names[] =  base_path('storage/app/public/') . $generatePdf->newFile()
-                ->setHeader(trans('dashboard.admin.admins'), 4, $createdFrom)
+                ->setHeader(trans('dashboard.admin.admins'), $createdFrom)
                 ->view('dashboard.exports.admin', $rows, $key, $chunk)
                 ->storeOnLocal('admins/pdfs/');
         }
@@ -234,6 +237,10 @@ class AdminController extends Controller
         $fileName = uniqid() . time();
         Excel::store(new AdminsExport($request), 'Admins/excels/' . $fileName . '.xlsx', 'public');
         $file = url('/storage/' . 'Admins/excels/' . $fileName . '.xlsx');
+
+         Loggable::addGlobalActivity(User::class, array_merge($request->query(),
+        ['department_id' => Department::find($request->department_id)?->name]),
+         ActivityLog::EXPORT, 'index', request()->user_type);
 
         return response()->json([
             'data'   => [

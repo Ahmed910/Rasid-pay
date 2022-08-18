@@ -4,8 +4,8 @@ namespace App\Http\Controllers\Api\V1\Dashboard;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\V1\Dashboard\GroupRequest;
-use App\Http\Resources\Dashboard\MenuResource;
-use App\Http\Resources\Dashboard\Group\{GroupResource , UriResource};
+use App\Http\Resources\Api\V1\Dashboard\MenuResource;
+use App\Http\Resources\Api\V1\Dashboard\Group\{GroupResource , UriResource};
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use App\Models\{Group\Group , Permission};

@@ -5,13 +5,13 @@ namespace App\Http\Controllers\Api\V1\Dashboard;
 use App\Exports\GroupsExport;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\V1\Dashboard\GroupRequest;
-use App\Http\Resources\Dashboard\Group\{GroupResource, GroupCollection, PermissionResource, UriResource};
+use App\Http\Resources\Api\V1\Dashboard\Group\{GroupResource, GroupCollection, PermissionResource, UriResource};
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
-use App\Models\{Group\Group, Permission};
+use App\Models\{ActivityLog, Group\Group, Permission};
 use App\Services\GeneratePdf;
 use Maatwebsite\Excel\Facades\Excel;
-
+use App\Traits\Loggable;
 class GroupController extends Controller
 {
 
@@ -43,7 +43,7 @@ class GroupController extends Controller
     {
         $group = Group::findOrFail($id);
         $activities = [];
-        if (!$request->has('with_activity') || $request->with_activity) {
+        if ((!$request->has('with_activity') || $request->with_activity) && $request->routeIs('*.show')) {
             $activities  = $group->activity()
                 ->sortBy($request)
                 ->paginate((int)($request->per_page ??  config("globals.per_page")));
@@ -152,6 +152,7 @@ class GroupController extends Controller
         ->sortBy($request)
         ->get();
 
+        Loggable::addGlobalActivity(Group::class, $request->query(), ActivityLog::EXPORT, 'index');
 
         if (!$request->has('created_from')) {
             $createdFrom = Group::selectRaw('MIN(created_at) as min_created_at')->value('min_created_at');
@@ -161,7 +162,7 @@ class GroupController extends Controller
         $names = [];
         foreach (($groupsQuery->chunk($chunk)) as $key => $rows) {
             $names[] = base_path('storage/app/public/') . $generatePdf->newFile()
-                    ->setHeader(trans('dashboard.group.all_groups'), 3, $createdFrom)
+                    ->setHeader(trans('dashboard.group.all_groups'), $createdFrom)
                     ->view('dashboard.exports.bank', $rows, $key, $chunk)
                     ->storeOnLocal('groups/pdfs/');
         }
@@ -182,6 +183,7 @@ class GroupController extends Controller
         $fileName = uniqid() . time();
         Excel::store(new GroupsExport($request), 'groups/excels/' . $fileName . '.xlsx', 'public');
         $file = url('/storage/' . 'groups/excels/' . $fileName . '.xlsx');
+        Loggable::addGlobalActivity(Group::class, $request->query(), ActivityLog::EXPORT, 'index');
 
         return response()->json([
             'data'   => [

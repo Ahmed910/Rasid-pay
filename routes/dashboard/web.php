@@ -7,7 +7,7 @@ Route::group(
     [
         'prefix' => LaravelLocalization::setLocale(),
         'as' => 'dashboard.',
-        'middleware' => ['localeSessionRedirect', 'localizationRedirect', 'localeViewPath','maintenance_mode']
+        'middleware' => ['localeSessionRedirect', 'localizationRedirect', 'localeViewPath','maintenance_mode','adminPermission']
     ],
     function () {
         // Dashboard Login

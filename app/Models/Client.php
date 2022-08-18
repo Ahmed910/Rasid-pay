@@ -82,19 +82,19 @@ class Client extends Model
         if (in_array($request->sort["column"], self::client_searchable_Columns)) {
 
             return $query
-                ->orderBy($request->sort["column"], @$request->sort["dir"]);
+                ->orderBy($request->sort["column"], @$request->sort["dir"])->latest();
         } else {
             if (in_array($request->sort["column"], self::user_searchable_Columns)) {
                 return $query->join('users', 'users.id', '=', 'clients.user_id')
-                    ->orderBy('users.' . $request->sort["column"], @$request->sort["dir"]);
+                    ->orderBy('users.' . $request->sort["column"], @$request->sort["dir"])->latest();
             } else if (key_exists($request->sort["column"], self::bank_acc_sort_Columns)) {
                 return $query->join('bank_accounts', 'bank_accounts.user_id', '=', 'clients.user_id')
-                    ->orderBy('bank_accounts.' . $request->sort["column"], @$request->sort["dir"]);
+                    ->orderBy('bank_accounts.' . $request->sort["column"], @$request->sort["dir"])->latest();
             } else if (key_exists($request->sort["column"], self::bank_sort_Columns)) {
                 return $query->join('bank_accounts', 'bank_accounts.user_id', '=', 'clients.user_id')
                     ->leftjoin('banks', 'banks.id', '=', 'bank_accounts.bank_id')
                     ->leftjoin('bank_translations', 'banks.id', '=', 'bank_translations.bank_id')
-                    ->orderBy('bank_translations.' . self::bank_sort_Columns[$request->sort["column"]], @$request->sort["dir"]);
+                    ->orderBy('bank_translations.' . self::bank_sort_Columns[$request->sort["column"]], @$request->sort["dir"])->latest();
             }
         }
     }

@@ -33,7 +33,7 @@ class Locale extends Model
 
         if ($request->key)  $query->where('key', 'like', "%$request->key%");
         if ($request->value) $query->whereHas('translations', fn ($q) => $q->where('value', 'like', "%$request->value%"));
-        
+
         $new = $query->toSql();
         if ($old != $new) Loggable::addGlobalActivity($this, $request->query(), ActivityLog::SEARCH, 'index');
     }
@@ -52,10 +52,10 @@ class Locale extends Model
         $query->when($request->sort, function ($q) use ($request) {
             if ($request->sort["column"] == "value") {
                 return $q->has('translations')
-                    ->orderBy($request->sort["column"], @$request->sort["dir"]);
+                    ->orderBy($request->sort["column"], @$request->sort["dir"])->latest();
             }
 
-            $q->orderBy($request->sort["column"], @$request->sort["dir"]);
+            $q->orderBy($request->sort["column"], @$request->sort["dir"])->latest();
         });
     }
     #endregion scopes

@@ -41,7 +41,7 @@ class Permission extends Model
         "validate",
         'group_permissions',
         'backButton',
-        'home',
+        'home.index',
         'vendor_branches.get_vendors',
         'vendor_packages.get_vendors',
         'activity_logs.export_pdf',
@@ -146,14 +146,14 @@ class Permission extends Model
 
         $query->when($request->sort, function ($q) use ($request) {
             if ($request->sort["column"]  == "main_program") {
-                return $q->orderBy('main_program', @$request->sort["dir"]);
+                return $q->orderBy('main_program', @$request->sort["dir"])->latest();
             }
 
             if ($request->sort["column"]  == "sub_program") {
-                return $q->orderBy('sub_program', @$request->sort["dir"]);
+                return $q->orderBy('sub_program', @$request->sort["dir"])->latest();
             }
 
-            $q->orderBy($request->sort["column"], @$request->sort["dir"]);
+            $q->orderBy($request->sort["column"], @$request->sort["dir"])->latest();
         });
     }
     #endregion scopes
@@ -205,7 +205,7 @@ class Permission extends Model
         foreach ($permissions_collect as $permission) {
             $action = explode('.', $permission->name);
             if (in_array(@$action[1], ['update', 'store', 'destroy', 'show', 'reply','assign_contact']) && !$permissions_collect->contains('name', $action[0] . '.index')) {
-                if (in_array(@$action[1],['update','reply'])) {
+                if (in_array(@$action[1],['update','reply','assign_contact'])) {
                     $permissions[] = $all_permissions->where('name', $action[0] . '.edit')->first()?->id;
                 }elseif ($action[1] == 'assign_contact' && !$permissions_collect->contains('name', $action[0] . '.reply')) {
                     $permissions[] = $all_permissions->where('name', $action[0] . '.reply')->first()?->id;

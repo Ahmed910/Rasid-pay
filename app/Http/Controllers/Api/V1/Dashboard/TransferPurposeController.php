@@ -5,13 +5,14 @@ namespace App\Http\Controllers\Api\V1\Dashboard;
 use App\Exports\TransferPurposeExport;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\V1\Dashboard\TransferPurposeRequest;
-use App\Http\Resources\Dashboard\TransferPurpose\TransferPurposeCollection;
-use App\Http\Resources\Dashboard\TransferPurpose\TransferPurposeResource;
+use App\Http\Resources\Api\V1\Dashboard\TransferPurpose\TransferPurposeCollection;
+use App\Http\Resources\Api\V1\Dashboard\TransferPurpose\TransferPurposeResource;
+use App\Models\ActivityLog;
 use App\Models\TransferPurpose\TransferPurpose;
 use Illuminate\Http\Request;
 use App\Services\GeneratePdf;
 use Maatwebsite\Excel\Facades\Excel;
-
+use App\Traits\Loggable;
 class TransferPurposeController extends Controller
 {
     /**
@@ -43,7 +44,7 @@ class TransferPurposeController extends Controller
     {
         $transferPurpose  = TransferPurpose::findOrFail($id);
         $activities = [];
-        if (!$request->has('with_activity') || $request->with_activity) {
+        if ((!$request->has('with_activity') || $request->with_activity) && $request->routeIs('*.show')) {
             $activities  = $transferPurpose->activity()
                 ->sortBy($request)
                 ->paginate((int)($request->per_page ??  config("globals.per_page")));
@@ -93,7 +94,7 @@ class TransferPurposeController extends Controller
         $TransferPurposesQuery = TransferPurpose::search($request)
         ->sortBy($request)
         ->get();
-
+        Loggable::addGlobalActivity(TransferPurpose::class, $request->query(), ActivityLog::EXPORT, 'index');
 
         if (!$request->has('created_from')) {
             $createdFrom = TransferPurpose::selectRaw('MIN(created_at) as min_created_at')->value('min_created_at');
@@ -103,7 +104,7 @@ class TransferPurposeController extends Controller
         $names = [];
         foreach (($TransferPurposesQuery->chunk($chunk)) as $key => $rows) {
             $names[] = base_path('storage/app/public/') . $generatePdf->newFile()
-                    ->setHeader(trans('dashboard.transfer_purpose.transfer_purposes'), 2, $createdFrom)
+                    ->setHeader(trans('dashboard.transfer_purpose.transfer_purposes'),  $createdFrom)
                     ->view('dashboard.exports.transfer_purpose', $rows, $key, $chunk)
                     ->storeOnLocal('transfer_purposes/pdfs/');
         }
@@ -124,6 +125,7 @@ class TransferPurposeController extends Controller
         $fileName = uniqid() . time();
         Excel::store(new TransferPurposeExport($request), 'TransferPurposes/excels/' . $fileName . '.xlsx', 'public');
         $file = url('/storage/' . 'TransferPurposes/excels/' . $fileName . '.xlsx');
+        Loggable::addGlobalActivity(TransferPurpose::class, $request->query(), ActivityLog::EXPORT, 'index');
 
         return response()->json([
             'data'   => [

@@ -5,14 +5,15 @@ namespace App\Http\Controllers\Api\V1\Dashboard;
 use App\Exports\VendorBranchExport;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\V1\Dashboard\VendorBranchRequest;
-use App\Http\Resources\Dashboard\VendorBranches\VendorBranchCollection;
-use App\Http\Resources\Dashboard\VendorBranches\VendorBranchResource;
+use App\Http\Resources\Api\V1\Dashboard\VendorBranches\VendorBranchCollection;
+use App\Http\Resources\Api\V1\Dashboard\VendorBranches\VendorBranchResource;
+use App\Models\ActivityLog;
 use App\Models\Vendor\Vendor;
 use App\Models\VendorBranches\VendorBranch;
 use Illuminate\Http\Request;
 use App\Services\GeneratePdf;
 use Maatwebsite\Excel\Facades\Excel;
-
+use App\Traits\Loggable;
 class VendorBranchController extends Controller
 {
     public function index(Request $request)
@@ -51,7 +52,7 @@ class VendorBranchController extends Controller
     {
         $vendorBranch = VendorBranch::findOrFail($id);
         $activities = [];
-        if (!$request->has('with_activity') || $request->with_activity) {
+        if ((!$request->has('with_activity') || $request->with_activity) && $request->routeIs('*.show')) {
             $activities = $vendorBranch->activity()
                 ->sortBy($request)
                 ->paginate((int)($request->per_page ?? config("globals.per_page")));
@@ -92,6 +93,7 @@ class VendorBranchController extends Controller
             ->addSelect('vendor_branches.*')
             ->get();
 
+        Loggable::addGlobalActivity(VendorBranch::class, $request->query(), ActivityLog::EXPORT, 'index');
 
         if (!$request->has('created_from')) {
             $createdFrom = VendorBranch::selectRaw('MIN(created_at) as min_created_at')->value('min_created_at');
@@ -101,7 +103,7 @@ class VendorBranchController extends Controller
         $names = [];
         foreach (($VendorBranchesQuery->chunk($chunk)) as $key => $rows) {
             $names[] = base_path('storage/app/public/') . $generatePdf->newFile()
-                    ->setHeader(trans('dashboard.vendor_branch.vendors_branches'), 7, $createdFrom)
+                    ->setHeader(trans('dashboard.vendor_branch.vendors_branches'), $createdFrom)
                     ->view('dashboard.exports.vendor_branch', $rows, $key, $chunk)
                     ->storeOnLocal('vendor_branches/pdfs/');
         }
@@ -122,6 +124,7 @@ class VendorBranchController extends Controller
         $fileName = uniqid() . time();
         Excel::store(new VendorBranchExport($request), 'VendorBranches/excels/' . $fileName . '.xlsx', 'public');
         $file = url('/storage/' . 'VendorBranches/excels/' . $fileName . '.xlsx');
+        Loggable::addGlobalActivity(VendorBranch::class, $request->query(), ActivityLog::EXPORT, 'index');
 
         return response()->json([
             'data'   => [

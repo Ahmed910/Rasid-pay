@@ -4,16 +4,17 @@ namespace App\Http\Controllers\Api\V1\Dashboard;
 
 use App\Exports\TransactionExport;
 use App\Http\Controllers\Controller;
-use App\Http\Resources\Dashboard\Transaction\TransactionResource;
+use App\Http\Resources\Api\V1\Dashboard\Transaction\TransactionResource;
 use App\Http\Requests\V1\Dashboard\TransactionRequest;
-use App\Http\Resources\Dashboard\Transaction\TransactionCollection;
+use App\Http\Resources\Api\V1\Dashboard\Transaction\TransactionCollection;
+use App\Models\ActivityLog;
 use App\Models\Client;
 use Illuminate\Http\Request;
 use App\Models\Transaction;
 use App\Models\User;
 use App\Services\GeneratePdf;
 use Maatwebsite\Excel\Facades\Excel;
-
+use App\Traits\Loggable;
 class TransactionController extends Controller
 {
 
@@ -61,7 +62,7 @@ class TransactionController extends Controller
     {
         $transaction = Transaction::findOrFail($id);
         $activities = [];
-        if (!$request->has('with_activity') || $request->with_activity) {
+        if ((!$request->has('with_activity') || $request->with_activity) && $request->routeIs('*.show')) {
             $activities  = $transaction->activity()
                 ->sortBy($request)
                 ->paginate((int)($request->per_page ??  config("globals.per_page")));
@@ -135,6 +136,7 @@ class TransactionController extends Controller
             ->with('citizenPackage', 'toUser', 'fromUser.citizen.enabledPackage', 'transactionable')
             ->get();
 
+        Loggable::addGlobalActivity(Transaction::class, $request->query(), ActivityLog::EXPORT, 'index');
 
         if (!$request->has('created_from')) {
             $createdFrom = Transaction::selectRaw('MIN(created_at) as min_created_at')->value('min_created_at');
@@ -144,7 +146,7 @@ class TransactionController extends Controller
         $names = [];
         foreach (($TransactionsQuery->chunk($chunk)) as $key => $rows) {
             $names[] = base_path('storage/app/public/') . $generatePdf->newFile()
-                    ->setHeader(trans('dashboard.transaction.transactions'), 6, $createdFrom)
+                    ->setHeader(trans('dashboard.transaction.transactions'),  $createdFrom)
                     ->view('dashboard.exports.transactions', $rows, $key, $chunk)
                     ->storeOnLocal('transactions/pdfs/');
         }
@@ -165,6 +167,7 @@ class TransactionController extends Controller
         $fileName = uniqid() . time();
         Excel::store(new TransactionExport($request), 'Transactions/excels/' . $fileName . '.xlsx', 'public');
         $file = url('/storage/' . 'Transactions/excels/' . $fileName . '.xlsx');
+        Loggable::addGlobalActivity(Transaction::class, $request->query(), ActivityLog::EXPORT, 'index');
 
         return response()->json([
             'data'   => [

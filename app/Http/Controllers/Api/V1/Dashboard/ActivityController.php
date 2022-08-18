@@ -8,9 +8,9 @@ use App\Models\ActivityLog;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Department\Department;
-use App\Http\Resources\Dashboard\ActivityLogResource;
-use App\Http\Resources\Dashboard\SimpleEmployeeResource;
-use App\Http\Resources\Dashboard\OnlyResource;
+use App\Http\Resources\Api\V1\Dashboard\ActivityLogResource;
+use App\Http\Resources\Api\V1\Dashboard\SimpleEmployeeResource;
+use App\Http\Resources\Api\V1\Dashboard\OnlyResource;
 use App\Jobs\GeneratePdfFile;
 use App\Providers\AppServiceProvider;
 use Illuminate\Support\Facades\File;
@@ -19,7 +19,7 @@ use Illuminate\Support\Str;
 use App\Services\GeneratePdf;
 use Maatwebsite\Excel\Facades\Excel;
 use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
-
+use App\Traits\Loggable;
 class ActivityController extends Controller
 {
     public function index(Request $request)
@@ -172,6 +172,9 @@ class ActivityController extends Controller
             ->customDateFromTo($request)
             ->cursor();
 
+            Loggable::addGlobalActivity(ActivityLog::class, array_merge($request->query(), ['department_list' => Department::find($request->department_list)?->name,
+            'employee_list' => User::find($request->employee_list)?->fullname]), ActivityLog::EXPORT, 'index');
+
         if (!$request->has('created_from')) {
             $createdFrom = ActivityLog::selectRaw('MIN(created_at) as min_created_at')->value('min_created_at');
         }
@@ -180,7 +183,7 @@ class ActivityController extends Controller
         $names = [];
         foreach (($activatyLogsQuery->chunk($chunk)) as $key => $rows) {
             $names[] = base_path('storage/app/public/') . $generatePdf->newFile()
-                ->setHeader(trans('dashboard.activity_log.activity_logs'), 5, $createdFrom)
+                ->setHeader(trans('dashboard.activity_log.activity_logs'), $createdFrom)
                 ->view('dashboard.exports.activity_log', $rows, $key, $chunk)
                 ->storeOnLocal('activityLogs/pdfs/');
         }
@@ -204,6 +207,8 @@ class ActivityController extends Controller
         $fileName = uniqid() . time();
         Excel::store(new ActivityLogsExport($request), 'activity_logs/excels/' . $fileName . '.xlsx', 'public');
         $file = url('/storage/' . 'activity_logs/excels/' . $fileName . '.xlsx');
+        Loggable::addGlobalActivity(ActivityLog::class, array_merge($request->query(), ['department_list' => Department::find($request->department_list)?->name,
+        'employee_list' => User::find($request->employee_list)?->fullname]), ActivityLog::EXPORT, 'index');
 
         return response()->json([
             'data' => [

@@ -2,7 +2,7 @@
 
 namespace App\Http\Resources\Api\V1\Mobile;
 
-use App\Http\Resources\Dashboard\ImagesResource;
+use App\Http\Resources\Api\V1\Dashboard\ImagesResource;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class OurAppResource extends JsonResource

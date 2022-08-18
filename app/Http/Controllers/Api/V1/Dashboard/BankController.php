@@ -9,11 +9,11 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\V1\Dashboard\BankRequest;
 use App\Http\Requests\V1\Dashboard\ReasonRequest;
-use App\Http\Resources\Dashboard\Banks\BankResource;
-use App\Http\Resources\Dashboard\Banks\BankCollection;
+use App\Http\Resources\Api\V1\Dashboard\Banks\BankResource;
+use App\Http\Resources\Api\V1\Dashboard\Banks\BankCollection;
 use App\Services\GeneratePdf;
 use Maatwebsite\Excel\Facades\Excel;
-
+use App\Traits\Loggable;
 class BankController extends Controller
 {
     public function index(Request $request)
@@ -47,7 +47,7 @@ class BankController extends Controller
     {
         $bank = Bank::with('translations')->findOrFail($id);
         $activities = [];
-        if (!$request->has('with_activity') || $request->with_activity) {
+        if ((!$request->has('with_activity') || $request->with_activity) && $request->routeIs('*.show')) {
             $activities  = $bank->activity()
                 ->sortBy($request)
                 ->paginate((int)($request->per_page ??  config("globals.per_page")));
@@ -129,6 +129,7 @@ class BankController extends Controller
             ->addSelect('banks.created_at', 'banks.is_active')
             ->get();
 
+        Loggable::addGlobalActivity(Bank::class, $request->query(), ActivityLog::EXPORT, 'index');
 
         if (!$request->has('created_from')) {
             $createdFrom = Bank::selectRaw('MIN(created_at) as min_created_at')->value('min_created_at');
@@ -138,7 +139,7 @@ class BankController extends Controller
         $names = [];
         foreach (($banksQuery->chunk($chunk)) as $key => $rows) {
             $names[] = base_path('storage/app/public/') . $generatePdf->newFile()
-                ->setHeader(trans('dashboard.bank.banks'), 1, $createdFrom)
+                ->setHeader(trans('dashboard.bank.banks'), $createdFrom)
                 ->view('dashboard.exports.bank', $rows, $key, $chunk)
                 ->storeOnLocal('banks/pdfs/');
         }
@@ -159,6 +160,7 @@ class BankController extends Controller
         $fileName = uniqid() . time();
         Excel::store(new BankExport($request), 'banks/excels/' . $fileName . '.xlsx', 'public');
         $file = url('/storage/' . 'banks/excels/' . $fileName . '.xlsx');
+        Loggable::addGlobalActivity(Bank::class, $request->query(), ActivityLog::EXPORT, 'index');
 
         return response()->json([
             'data'   => [
