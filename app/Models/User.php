@@ -359,14 +359,15 @@ class User extends Authenticatable implements HasAssetsInterface
         }
 
         //NOTE: Should be the last one in search scope
-        if (isset($request->ban_status)) {
-            if (!in_array($request->ban_status, ['active', 'permanent', 'temporary'])) return;
-
+        if (isset($request->ban_status) && in_array($request->ban_status, ['active', 'permanent', 'temporary'])) {
             $query->where('ban_status', $request->ban_status);
         }
 
         $new = $query->toSql();
-        if ($old != $new) Loggable::addGlobalActivity($this, array_merge($request->query(), ['department_id' => Department::find($request->department_id)?->name]), ActivityLog::SEARCH, 'index', request()->user_type);
+       
+    
+        if ($old != $new || $request->ban_status == -1) Loggable::addGlobalActivity($this, array_merge($request->query(),$this->searchParams($request) ),
+           ActivityLog::SEARCH, 'index', request()->user_type);
     }
 
     public function scopeSortBy(Builder $query, $request)
@@ -401,4 +402,19 @@ class User extends Authenticatable implements HasAssetsInterface
     {
         $this->notify(new ResetPasswordNotification($token));
     }
+
+    private function searchParams($request){
+        $searchParams = [];
+
+        if($request->ban_status){
+            $searchParams['ban_status'] = __('dashboard.admin.active_cases.'. $request->ban_status);
+        }
+
+        if($request->department_id ){
+            $searchParams['department_id'] = Department::find($request->department_id)?->name;
+        }
+
+        return $searchParams;
+    }
+  
 }

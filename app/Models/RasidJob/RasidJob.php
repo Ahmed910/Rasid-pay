@@ -54,10 +54,9 @@ class RasidJob extends Model implements TranslatableContract
             });
         }
 
-        if (isset($request->department_id) && $request->department_id != 0) {
+        if (isset($request->department_id) && !in_array($request->department_id, [-1])) {
             $query->where("department_id", $request->department_id);
         }
-
 
         if (isset($request->is_active) && in_array($request->is_active, [1, 0])) {
             $query->where('is_active', $request->is_active);
@@ -66,9 +65,10 @@ class RasidJob extends Model implements TranslatableContract
         if (isset($request->is_vacant) && in_array($request->is_vacant, [1, 0])) {
             $query->where('is_vacant', $request->is_vacant);
         }
-        $new = $query->toSql() ;
-        if ($old!=$new)  Loggable::addGlobalActivity($this, array_merge($request->query(),['department_id' => Department::find($request->department_id)?->name]), ActivityLog::SEARCH, 'index');
-
+        $new = $query->toSql();
+       
+        if ($old!=$new | $request->is_active == -1 || $request->is_vacant == -1)  Loggable::addGlobalActivity($this, array_merge($request->query(), $this->searchParams($request) ), ActivityLog::SEARCH, 'index');
+    
     }
 
     public function scopeSortBy(Builder $query, $request,$type=null)
@@ -126,5 +126,22 @@ class RasidJob extends Model implements TranslatableContract
     #endregion relationships
 
     #region custom Methods
+    private function searchParams($request){
+        $searchParams = [];
+        if($request->has('is_active')){
+            $searchParams['is_active'] = __('dashboard.rasid_job.active_cases.'. $request->is_active);
+        }
+        if($request->has('is_vacant')){
+            $searchParams['is_vacant'] = __('dashboard.rasid_job.job_type.'. $request->is_vacant);
+        }
+        if($request->department_id){
+        }
+        if($request->has('department_id') && $request->department_id == null){
+            $searchParams['department_id'] = __('dashboard.rasid_job.department.all');
+        }elseif($request->has('department_id')){
+            $searchParams['department_id'] = Department::find($request->department_id)?->name;
+        }
+        return $searchParams;
+    }
     #endregion custom Methods
 }

@@ -148,7 +148,7 @@ return [
         'ban_reason' => 'حقل سبب الحظر',
         'owner_name' => 'الاسم',
         'full_phone' => 'حقل الهاتف',
-        'is_active' => ' الحالة مطلوبة ',
+        'is_active' => 'الحالة',
         'is_card_saved' => 'الاحتفاظ ببيانات البطاقة',
         'employee_id' => 'حقل اسم الموظف',
         'department_id' => 'القسم ',

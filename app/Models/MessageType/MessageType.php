@@ -52,9 +52,8 @@ class MessageType extends Model
 
 
         $new = $query->toSql();
-        if ($old != $new) Loggable::addGlobalActivity($this, array_merge(
-            $request->query(),
-            ['employee_list' => User::find($request->employee_list)?->pluck('fullname')]
+        if ($old != $new || $request->is_active == -1) Loggable::addGlobalActivity($this, array_merge(
+            $request->query(),$this->searchParams($request)
         ), ActivityLog::SEARCH, 'index');
     }
 
@@ -98,5 +97,18 @@ class MessageType extends Model
     #endregion relationships
 
     #region custom Methods
+
+    private function searchParams($request){
+        $searchParams = [];
+        if($request->has('is_active')){
+            $searchParams['is_active'] = __('dashboard.message_type.active_cases.'. $request->is_active);
+        }
+        if($request->has('employee_list')){
+            $searchParams['employee_list'] = User::find($request->employee_list)?->pluck('fullname')->join(',');
+        }
+ 
+        return $searchParams;
+    }
+
     #endregion custom Methods
 }

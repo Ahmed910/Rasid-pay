@@ -76,13 +76,13 @@ class Transaction extends Model
                 });
             }
         }
-        //
+        
         if ($request->has('citizen')) {
             $query->whereHas('fromUser', fn($q) => $q->where('fullname', 'like', "%$request->citizen%"));
         }
 
         $new = $query->toSql();
-        if ($old != $new) Loggable::addGlobalActivity($this, $request->query(), ActivityLog::SEARCH, 'index');
+        if ($old != $new) Loggable::addGlobalActivity($this, array_merge($request->query(), $this->searchParams($request)), ActivityLog::SEARCH, 'index');
     }
 
     public function scopeMobileSearch(Builder $query, $request)
@@ -183,5 +183,21 @@ class Transaction extends Model
             return Hijri::convertToHijri($this->attributes['created_at'])->format('d F o h:i A');
         }
         return Carbon::parse($this->attributes['created_at'])->locale($locale)->translatedFormat('Y/m/d - h:i A');
+    }
+
+    private function searchParams($request) 
+    {
+        $searchParams = [];
+        if($request->has('trans_type')){
+            $searchParams['trans_type'] = trans_log_search($request->trans_type,'dashboard.transaction.type_cases.');
+        }
+        if($request->has('enabled_package')){
+            $searchParams['enabled_package'] =  trans_log_search($request->enabled_package,'dashboard.package_types.');
+        }
+        if($request->has('trans_status')){
+            $searchParams['trans_status'] = trans_log_search($request->trans_status,'dashboard.transaction.status_cases.');
+        }
+
+        return $searchParams;
     }
 }

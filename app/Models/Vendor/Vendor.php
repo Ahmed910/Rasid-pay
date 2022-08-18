@@ -67,7 +67,7 @@ class Vendor extends Model implements HasAssetsInterface
             $query->where('is_active', $request->is_active);
 
         $new = $query->toSql();
-        if ($old != $new) Loggable::addGlobalActivity($this, $request->query(), ActivityLog::SEARCH, 'index');
+        if ($old != $new || $request->is_active == -1 ) Loggable::addGlobalActivity($this,array_merge($request->query(), $this->searchParams($request)) , ActivityLog::SEARCH, 'index');
     }
 
     public function scopeSortBy(Builder $query, $request)
@@ -110,5 +110,16 @@ class Vendor extends Model implements HasAssetsInterface
     #endregion relationships
 
     #region custom Methods
+    private function searchParams($request){
+        $searchParams = [];
+        if($request->has('is_active')){
+            $searchParams['is_active'] = __('dashboard.vendor.active_cases.'. $request->is_active);
+        }
+
+        if($request->has('type')){
+            $searchParams['type'] = __('dashboard.vendor.type.'. $request->type);
+        }
+        return $searchParams;
+    }
     #endregion custom Methods
 }

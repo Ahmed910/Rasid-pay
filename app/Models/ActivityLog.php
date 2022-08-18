@@ -100,8 +100,7 @@ class ActivityLog extends Model
         }
 
         $new = $query->toSql();
-            if ($old != $new)  Loggable::addGlobalActivity($this, array_merge($request->query(), ['department_list' => Department::find($request->department_list)?->name,
-            'employee_list' => User::find($request->employee_list)?->fullname]), ActivityLog::SEARCH, 'index');
+        if ($old != $new || $request->action == -1)  Loggable::addGlobalActivity($this, array_merge($request->query(), $this->searchParams($request)), ActivityLog::SEARCH, 'index');
     }
 
     public function scopeSortBy(Builder $query, $request)
@@ -158,5 +157,31 @@ class ActivityLog extends Model
 
 
     #region custom Methods
+    public function searchParams($request)
+    {
+        $searchParams = [];
+
+        if ($request->has('action')) {
+            $searchParams['action'] = trans('dashboard.activity_log.actions.' . $request->action);
+        }
+
+        if ($request->has('department_list')) {
+            $searchParams['department_list'] =  Department::find($request->department_list)?->pluck('name')->join(',');
+        }
+
+        if ($request->has('employee_list')) {
+            $searchParams['employee_list'] =  User::find($request->employee_list)?->pluck('fullname')->join(',');
+        }
+
+        if ($request->has('main_program')) {
+            $searchParams['main_program'] =  trans("dashboard." . Str::snake($request->main_program) . "." . str_plural(Str::snake($request->main_program)));
+        }
+
+        if ($request->has('sub_program')) {
+            $searchParams['sub_program'] =  trans('dashboard.sub_progs.' . $request->sub_program);
+        }
+
+        return $searchParams;
+    }
     #endregion custom Methods
 }
