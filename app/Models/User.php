@@ -129,7 +129,9 @@ class User extends Authenticatable implements HasAssetsInterface
 
     public function userPermissions()
     {
-        return $this->groups->where('is_active', true)->flatMap->permissions->merge($this->permissions()->doesntHave('groups')->get());
+        return $this->permissions()->doesntHave('groups')->orWhereHas('groups',function ($q) {
+            $q->where('is_active', true);
+        })->get();
     }
 
     public function hasPermissions($route, $method = null)
