@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Api\Mobile;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\MobileCurrencyRequest;
+use App\Http\Requests\Mobile\CurrencyRequest;
 use App\Http\Resources\Api\Mobile\CurrencyResource;
 use App\Models\Currency;
 use Illuminate\Http\Request;
