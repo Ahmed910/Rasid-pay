@@ -28,10 +28,6 @@ class Manager extends Model
     #endregion scopes
 
     #region relationships
-    public function client()
-    {
-        return $this->belongsTo(Client::class);
-    }
     #endregion relationships
 
     #region custom Methods
