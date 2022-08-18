@@ -2,20 +2,10 @@
 
 namespace App\Http\Requests\Dashboard;
 
-use Illuminate\Foundation\Http\FormRequest;
+use App\Http\Requests\ApiMasterRequest;
 
-class ReasonRequest extends FormRequest
+class ReasonRequest extends ApiMasterRequest
 {
-    /**
-     * Determine if the user is authorized to make this request.
-     *
-     * @return bool
-     */
-    public function authorize()
-    {
-        return true;
-    }
-
     /**
      * Get the validation rules that apply to the request.
      *
@@ -24,7 +14,16 @@ class ReasonRequest extends FormRequest
     public function rules()
     {
         return [
-            "reasonAction" => ["required", "string", "max:1000", "min:10"]
+            "reasonAction" => ["required", "string", "max:300", "min:10"]
         ];
     }
+
+    public function messages()
+    {
+        return [
+            'reasonAction.max' => __('dashboard.general.validation.reason.max'),
+            'reasonAction.min' => __('dashboard.general.validation.reason.min')
+        ];
+    }
+
 }

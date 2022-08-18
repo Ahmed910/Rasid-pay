@@ -8,7 +8,7 @@ use App\Models\{ActivityLog, User};
 use App\Models\{Employee};
 use App\Models\Department\Department;
 use App\Http\Resources\Blade\Dashboard\Activitylog\ActivityLogCollection;
-use App\Http\Resources\Api\V1\Dashboard\SimpleEmployeeResource;
+use App\Http\Resources\Api\Dashboard\SimpleEmployeeResource;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use App\Providers\AppServiceProvider;
