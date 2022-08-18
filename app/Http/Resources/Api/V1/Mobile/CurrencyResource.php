@@ -18,7 +18,7 @@ class CurrencyResource extends JsonResource
             'id' => $this->country?->id,
             'currency_name' => $this->country?->currency,
             'currency_code' => $this->currency_code,
-            'currency_value' => $this->currency_value,
+            'currency_value' => number_format($this->currency_value, 2),
         ] ;
     }
 }
