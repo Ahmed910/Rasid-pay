@@ -7,7 +7,7 @@ use App\Models\Transaction;
 use Illuminate\Http\Request;
 use App\Models\MoneyRequest;
 use App\Models\User;
-use App\Http\Requests\MobileMoneyReqRequest;
+use App\Http\Requests\Mobile\MoneyReqRequest;
 use App\Http\Resources\Api\Mobile\MoneyRequestResource;
 
 class MoneyRequestController extends Controller

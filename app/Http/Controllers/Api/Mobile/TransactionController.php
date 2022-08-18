@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Api\Mobile;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\MobileTransactionRequest;
+use App\Http\Requests\Mobile\TransactionRequest;
 use App\Http\Resources\Api\Mobile\Transactions\TransactionResource;
 use App\Models\Transaction;
 use App\Services\GeneratePdf;

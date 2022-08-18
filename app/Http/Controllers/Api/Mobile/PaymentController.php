@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Resources\Api\Mobile\{PaymentResource, Transactions\TransactionResource};
 use App\Models\{CitizenWallet, Payment, Transaction};
 use App\Services\WalletBalance;
+use App\Http\Requests\Mobile\PaymentRequest;
 
 class PaymentController extends Controller
 {
