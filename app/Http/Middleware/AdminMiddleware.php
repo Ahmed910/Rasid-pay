@@ -22,7 +22,7 @@ class AdminMiddleware
             if (auth()->user()->hasPermissions($request->route()->getName()) || in_array($request->route()->getName(),Permission::PUBLIC_ROUTES)){
                 return $next($request);
             }else{
-               return response()->json(['status' => false , 'message' => trans('dashboard.error.403_msg'), 'data' => null],403);
+               return response()->json(['status' => false , 'message' => '', 'data' => null],403);
             }
         }
         return response()->json(['status' => false , 'message' => trans('dashboard.messages.login_firstly'), 'data' => null],401);
