@@ -38,7 +38,8 @@ class CurrencyController extends Controller
         $to = $request->to;
         $currencies = (array)calcCurrency($base)->rates;
         $keys = array_keys($currencies);
-        $data['conversion_value'] = binarySearchForAssocArray($to,$currencies,$keys);
+        $data['conversion_value'] = (double)number_format(binarySearchForAssocArray($to,$currencies,$keys),2,'.','');
+
         return response()->json([
             'data' => $data,
             'status' => true,
