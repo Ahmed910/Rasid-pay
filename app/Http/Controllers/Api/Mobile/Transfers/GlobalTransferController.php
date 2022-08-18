@@ -3,32 +3,14 @@
 namespace App\Http\Controllers\Api\Mobile\Transfers;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\MobileTransfers\GlobalTransferRequest;
+use App\Http\Requests\Mobile\Transfers\GlobalTransferRequest;
 use App\Http\Resources\Api\Mobile\Transactions\TransactionResource;
 use App\Models\{BankTransfer, CitizenWallet, Country\Country, Currency, Transaction, Transfer, TransferFee};
 
 class GlobalTransferController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware('check_max_transactions')->only('store');
-    }
 
-    public function store(GlobalTransferRequest $request, Transfer $transfer)
-    {
-        // check main_balance is sufficient or not (This will change after this phase (clean code))
-        $wallet = CitizenWallet::with('citizen')->where('citizen_id', auth()->id())->firstOrFail();
-<?php
 
-namespace App\Http\Controllers\Api\Mobile\Transfers;
-
-use App\Http\Controllers\Controller;
-use App\Http\Requests\MobileTransfers\GlobalTransferRequest;
-use App\Http\Resources\Api\Mobile\Transactions\TransactionResource;
-use App\Models\{BankTransfer, CitizenWallet, Country\Country, Currency, Transaction, Transfer, TransferFee};
-
-class GlobalTransferController extends Controller
-{
     public function __construct()
     {
         $this->middleware('check_max_transactions')->only('store');
@@ -73,3 +55,5 @@ class GlobalTransferController extends Controller
         $wallet->decrement('main_balance', $amount);
         // create global transfer
         $global_transfer = Transfer::create($transfer_data + ['main_amount' => $request->amount]);
+        }
+    }
