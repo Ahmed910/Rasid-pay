@@ -9,7 +9,6 @@ class TransactionMiddleware
     public function handle($request, Closure $next)
     {
         $maxTransactionPerDay = (float)setting('rasidpay_usertransaction_maxvalue_perday');
-
         $maxTransactionPerMonth = (float)setting('rasidpay_usertransaction_maxvalue_permonth');
         $dailyTransactions = auth()->user()->citizenTransactions()
             ->where('trans_type', '!=', 'charge')
