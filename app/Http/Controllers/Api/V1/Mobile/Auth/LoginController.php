@@ -169,7 +169,8 @@ class LoginController extends Controller
                             'is_active' => null,
                             'ban_status' => null,
                             'ban_date' => null,
-                            'phone' => '***********' . substr($user->phone, -3)
+                            'phone' => '***********' . substr($user->phone, -3),
+                            'verify_time' => setting('rasid_verify_code_timer')
                         ], 'message' => trans('auth.verify_phone')
                     ],
                     'status_code' => 403

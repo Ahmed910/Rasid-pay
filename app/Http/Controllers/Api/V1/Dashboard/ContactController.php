@@ -54,7 +54,7 @@ class ContactController extends Controller
 
         $contactReply->fill($request->validated() + ['added_by_id' => auth()->id()])->save();
         $contactReply->contact->update(["message_status" => Contact::REPLIED]);
-        // TODO: Send to user email
+        // TODO: check the specified way to send your reply['phone','email','both'] // rasid_support_msgsinbox_reply key
         return ContactReplyResource::make($contactReply->load('contact', 'admin'))
             ->additional([
                 'status' => true,

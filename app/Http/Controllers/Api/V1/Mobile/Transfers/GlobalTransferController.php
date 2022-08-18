@@ -23,7 +23,7 @@ class GlobalTransferController extends Controller
         $wallet_amount = $request->amount;
         $amount_per_dollar = $amount * $sar_per_dollar;
         $transfer_fees = TransferFee::whereRaw('CAST(amount_from AS DECIMAL) <= ? AND CAST(amount_to AS DECIMAL) >= ?', [$amount_per_dollar, $amount_per_dollar])->first();
-        $fees_per_dollar = $transfer_fees->amount_fee;
+        $fees_per_dollar = $transfer_fees?->amount_fee;
 
         $fees = $fees_per_dollar / $sar_per_dollar;
         $fee_upon = $request->fee_upon;
