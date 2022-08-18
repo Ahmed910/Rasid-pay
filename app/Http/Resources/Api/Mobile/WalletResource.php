@@ -24,7 +24,7 @@ class WalletResource extends JsonResource
             'cash_back'      => number_format($this->cash_back, 2,'.',''),
             'total_balance'  => number_format(($this->main_balance + $this->cash_back), 2,'.',''),
             'wallet_qr'      => $this->qr_code,
-            'last_updated'   => $this->last_updated_at?->diffForHumans(),
+            'last_updated'   => $this->last_updated_at?->format('g:i A'),
             'avatar'         => $this->citizen->image
         ];
     }
