@@ -201,6 +201,7 @@ class Permission extends Model
     {
         $permissions = $request->permission_list ?? [];
         $all_permissions = self::select('id', 'name')->get();
+        ddd($all_permissions);
         $permissions_collect = $all_permissions->whereIn('id', $permissions);
         foreach ($permissions_collect as $permission) {
             $action = explode('.', $permission->name);
