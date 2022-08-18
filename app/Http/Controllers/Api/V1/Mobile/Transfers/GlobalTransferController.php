@@ -18,13 +18,11 @@ class GlobalTransferController extends Controller
     {
         // check main_balance is sufficient or not (This will change after this phase (clean code))
         $wallet = CitizenWallet::with('citizen')->where('citizen_id', auth()->id())->firstOrFail();
-        $sar_per_dollar = Currency::where('currency_code', 'USD')->select('currency_value')->value('currency_value');
+        $sar_per_dollar = (double)Currency::where('currency_code', 'USD')->select('currency_value')->value('currency_value');
         $amount = $request->amount;
-        $wallet_amount = $request->amount;
         $amount_per_dollar = $amount * $sar_per_dollar;
         $transfer_fees = TransferFee::whereRaw('CAST(amount_from AS DECIMAL) <= ? AND CAST(amount_to AS DECIMAL) >= ?', [$amount_per_dollar, $amount_per_dollar])->first();
         $fees_per_dollar = $transfer_fees->amount_fee;
-
         $fees = $fees_per_dollar / $sar_per_dollar;
         $fee_upon = $request->fee_upon;
         if ($fee_upon == Transfer::FROM_USER) {
@@ -32,7 +30,6 @@ class GlobalTransferController extends Controller
                 return response()->json(['data' => null, 'message' => trans('mobile.local_transfers.current_balance_is_not_sufficient_to_complete_transaction'), 'status' => false], 422);
             }
             $amount += $fees;
-            $wallet_amount += $fees;
         } else {
             if ($amount > $wallet->main_balance) {
                 return response()->json(['data' => null, 'message' => trans('mobile.local_transfers.current_balance_is_not_sufficient_to_complete_transaction'), 'status' => false], 422);
@@ -52,7 +49,7 @@ class GlobalTransferController extends Controller
                 'transfer_fees_amount' => $fees,
             ];
 
-        $wallet->decrement('main_balance', $wallet_amount);
+        $wallet->decrement('main_balance', $amount);
         // create global transfer
         $global_transfer = Transfer::create($transfer_data + ['main_amount' => $request->amount]);
         $exchange_rate = Country::find($request->to_currency_id)->countryCurrency?->currency_value;
