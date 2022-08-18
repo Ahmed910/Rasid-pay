@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Blade\Dashboard;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\V1\Dashboard\EmployeeRequest;
+use App\Http\Requests\Dashboard\EmployeeRequest;
 use App\Models\{User, Employee};
 use Illuminate\Http\Request;
 

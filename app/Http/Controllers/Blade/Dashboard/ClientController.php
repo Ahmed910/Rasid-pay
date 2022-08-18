@@ -6,7 +6,7 @@ use App\Exports\ClientsExport;
 use Illuminate\Http\Request;
 use App\Models\{Bank\Bank, User, Client};
 use App\Http\Controllers\Controller;
-use App\Http\Requests\V1\Dashboard\ClientRequest;
+use App\Http\Requests\Dashboard\ClientRequest;
 use App\Http\Resources\Blade\Dashboard\Client\ClientCollection;
 use App\Http\Resources\Blade\Dashboard\Activitylog\ActivityLogCollection;
 use Maatwebsite\Excel\Facades\Excel;
@@ -157,7 +157,7 @@ class ClientController extends Controller
         return Excel::download(new ClientsExport($request), 'clients.xlsx');
     }
 
-   
+
 
     public function exportPDF(Request $request)
     {

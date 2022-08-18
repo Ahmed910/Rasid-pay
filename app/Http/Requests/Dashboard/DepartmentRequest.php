@@ -2,65 +2,56 @@
 
 namespace App\Http\Requests\Dashboard;
 
-use Illuminate\Foundation\Http\FormRequest;
+use App\Http\Requests\ApiMasterRequest;
 use App\Models\Department\Department;
 
-class DepartmentRequest extends FormRequest
+class DepartmentRequest extends ApiMasterRequest
 {
-    /**
-     * Determine if the user is authorized to make this request.
-     *
-     * @return bool
-     */
-    public function authorize()
-    {
-        return true;
-    }
-
     /**
      * Get the validation rules that apply to the request.
      *
      * @return array
      */
-
-    protected function prepareForValidation()
-    {
-        $data = $this->all();
-        if (@$data['parent_id'] == 'without')
-            $data['parent_id'] = null;
-
-        $this->merge([
-            'parent_id' =>  @$data['parent_id'] ?? null,
-        ]);
-    }
-
     public function rules()
     {
         $igonredDepartment = $this->department ?  implode(',', Department::flattenChildren(
             Department::withTrashed()->findOrFail($this->department)
         )) : "";
         $rules = [
-            "image"         => "nullable|max:5120|mimes:jpg,png,jpeg",
-            "parent_id"     =>  "nullable|exists:departments,id,deleted_at,NULL|not_in:$igonredDepartment",
+            "image"         => "nullable|max:1024|mimes:jpg,png,jpeg",
+            "parent_id"     => "nullable|exists:departments,id,deleted_at,NULL|not_in:$igonredDepartment",
             "is_active"     => "in:0,1",
             'delete_image'  => "in:0,1"
         ];
         foreach (config('translatable.locales') as $locale) {
             $rules["$locale"]               = "array";
-            $rules["$locale.name"]          = "required|between:2,100|regex:/^[\pL\pN\s\-\_]+$/u|unique:department_translations,name," . @$this->department  . ",department_id";
+            $rules["$locale.name"]          = "required|min:2|max:100|regex:/^[\pL\pN\s\-\_]+$/u|unique:department_translations,name," . @$this->department  . ",department_id";
             $rules["$locale.description"]   = "nullable|string|max:300";
         }
 
         return $rules;
     }
 
+    protected function prepareForValidation()
+    {
+        $data = $this->all();
+
+        $this->merge([
+            'parent_id' =>  @$data['parent_id'] ?? null,
+        ]);
+    }
 
     public function messages()
     {
         return [
 
-            app()->getLocale() . ".name.required" => __('validation.department.required'),
-            app()->getLocale() . ".name.unique" => __('validation.custom.unique'),
+            app()->getLocale() . ".name.required"   => __('dashboard.department.validation.name.required'),
+            app()->getLocale() . ".name.unique"     => __('dashboard.department.validation.name.unique'),
+            app()->getLocale() . ".name.min"        => __('dashboard.department.validation.name.min'),
+            app()->getLocale() . ".name.max"        => __('dashboard.department.validation.name.max'),
+            app()->getLocale() . ".description.max" => __('dashboard.department.validation.description.max'),
+            "image.max"                             => __('dashboard.department.validation.image.max'),
+            "image.mimes"                           => __('dashboard.department.validation.image.mimes'),
 
         ];
     }

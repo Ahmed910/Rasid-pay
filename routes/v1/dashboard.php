@@ -37,7 +37,7 @@ Route::middleware('maintenance_mode')->group(function () {
     Route::get('get_all_trans', 'LocalizationController@getAllTranslations');
 
     Route::get('countries', 'CountryController@index');
-    Route::get("/files/client/{file}", [\App\Http\Controllers\Api\V1\Dashboard\PrivateController::class, "downloadfile"]);
+    Route::get("/files/client/{file}", [\App\Http\Controllers\Api\Dashboard\PrivateController::class, "downloadfile"]);
     Route::delete('deletefile/{id}', "PrivateController@deletefile");
     Route::delete('deleteattachments/{id}', "PrivateController@deleteattachments");
     Route::middleware('auth:sanctum')->group(function () {

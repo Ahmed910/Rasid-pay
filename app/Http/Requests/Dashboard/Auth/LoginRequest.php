@@ -2,21 +2,10 @@
 
 namespace App\Http\Requests\Dashboard\Auth;
 
-use Illuminate\Foundation\Http\FormRequest;
-use App\Models\User;
+use App\Http\Requests\ApiMasterRequest;
 
-class LoginRequest extends FormRequest
+class LoginRequest extends ApiMasterRequest
 {
-    /**
-     * Determine if the user is authorized to make this request.
-     *
-     * @return bool
-     */
-    public function authorize()
-    {
-        return true;
-    }
-
     /**
      * Get the validation rules that apply to the request.
      *
@@ -25,14 +14,20 @@ class LoginRequest extends FormRequest
     public function rules()
     {
         return [
-            'password' => 'required|string',
-            'username' => ['required','numeric',function ($attribute, $value, $fail){
-                $user = User::firstWhere('login_id', $value);
-                if ($user && $user->ban_status != 'active') {
-                    $fail(trans('auth.user_banned'));
-                }
-            }],
+          'username' => 'required',
+          'password' => 'required',
+          'device_token' => 'nullable|string|between:2,10000',
+          'device_type' => 'nullable|in:ios,android',
         ];
+    }
+
+    protected function prepareForValidation()
+    {
+        $data = $this->all();
+
+        $this->merge([
+            'username' => @$data['username'] ? convert_arabic_number($data['username']) : null
+        ]);
     }
 
 }
