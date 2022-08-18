@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Api\Mobile;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\MobileBeneficiaryRequest;
+use App\Http\Requests\Mobile\BeneficiaryRequest;
 use App\Http\Resources\Api\Mobile\Beneficiary\{BeneficiaryResource, BeneficiaryCollection};
 use App\Http\Resources\Api\Mobile\ReceiveOptionResource;
 use App\Http\Resources\Api\Dashboard\OnlyResource;
