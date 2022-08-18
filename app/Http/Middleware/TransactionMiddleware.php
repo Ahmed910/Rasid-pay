@@ -14,17 +14,17 @@ class TransactionMiddleware
             ->where('trans_type', '!=', 'charge')
             ->whereDate('created_at', date('Y-m-d'))
             ->sum('amount');
-        if ($dailyTransactions >= $maxTransactionPerDay) {
-            return response()->json(['status' => false, 'message' => trans('mobile.transaction.transaction_details.reach_max_transaction_day',['max_day_amount' => $maxTransactionPerDay]), 'data' => null], 422);
+        if (($dailyTransactions + $request->amount) >= $maxTransactionPerDay) {
+            return response()->json(['status' => false, 'message' => trans('mobile.transaction.transaction_details.reach_max_transaction_day', ['max_day_amount' => $maxTransactionPerDay]), 'data' => null], 422);
         }
         $monthlyTransactions = auth()->user()->citizenTransactions()
             ->where('trans_type', '!=', 'charge')
             ->whereDate('created_at', date('Y-m'))
             ->sum('amount');
 
-        if ($monthlyTransactions >= $maxTransactionPerMonth) {
+        if (($monthlyTransactions + $request->amount) >= $maxTransactionPerMonth) {
 
-            return response()->json(['status' => false, 'message' => trans('mobile.transaction.transaction_details.reach_max_transaction_month',['max_month_amount' => $maxTransactionPerMonth]), 'data' => null], 422);
+            return response()->json(['status' => false, 'message' => trans('mobile.transaction.transaction_details.reach_max_transaction_month', ['max_month_amount' => $maxTransactionPerMonth]), 'data' => null], 422);
         }
         return $next($request);
     }
