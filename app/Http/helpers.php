@@ -302,19 +302,13 @@ if (!function_exists('binarySearchForAssocArray')) {
     {
         $low = 0;
         $high = count($hystack) - 1;
-
         while ($low <= $high) {
-
             // compute middle index
             $mid = (int)floor(($low + $high) / 2);
-
             // element found at mid
-
             if ($keys[$mid] == $needle) {
-
                 return $hystack[$needle];
             }
-
             if ($needle < $keys[$mid]) {
                 // search the left side of the array
                 $high = $mid - 1;
