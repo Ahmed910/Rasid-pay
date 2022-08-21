@@ -40,6 +40,10 @@ class LoginController extends Controller
             return response()->json(['status' => false, 'data' => null, 'message' => trans('auth.account_not_exists')], 422);
         }
 
+        if(in_array($user->ban_status, ['permanent', 'temporary'])){
+            $this->clearAttempts($request);
+        }
+
         if ($this->hasTooManyAttempts($request) && $user->ban_status == 'active' ) {
             $user->update(['ban_status' => 'exceeded_attempts']);
             return $this->sendLockoutResponse($request);
