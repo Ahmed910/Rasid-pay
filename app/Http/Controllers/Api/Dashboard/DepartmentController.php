@@ -322,6 +322,7 @@ class DepartmentController extends Controller
 
         $chunk = 200;
         $names = [];
+        
         foreach (($departmentsQuery->chunk($chunk)) as $key => $rows) {
             $names[] = base_path('storage/app/public/') . $pdfGenerate->newFile()
                 ->setHeader(trans('dashboard.department.department_archive'), $createdFrom)
