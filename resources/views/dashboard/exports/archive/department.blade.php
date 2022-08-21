@@ -2,6 +2,9 @@
 
 @section('content')
 
+<?php
+  $count = str_contains(url()->current(), 'export_pdf') ? ($key * $chunk) : 0;
+ ?>
 <table id="departmentTable" class="table">
   <thead>
     <tr>
@@ -17,9 +20,10 @@
     </tr>
   </thead>
   <tbody>
-    @foreach ($departments_archive as $department)
+    @foreach ($rows as $department)
+
     <tr>
-      <td>{{ $loop->iteration }}</td>
+      <td>{{ $loop->iteration + $count }}</td>
       <td>{{ $department->name }}</td>
       <td>{{ @$department->parent->name ?? trans('dashboard.department.without_parent') }}</td>
       <td>{{ $department->deleted_at }}</td>
