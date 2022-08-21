@@ -14,7 +14,7 @@
   <tbody>
     @foreach ($rows as $locale)
     <tr>
-      <td>{{ $loop->iteration + ($key * $chunk) }}</td>
+      <td>{{ isset($key) ? $loop->iteration + ($key * $chunk) : $loop->iteration }}</td>
       <td>{{ $locale->value ?? '' }}</td>
       <td>{{ $locale->key ?? '' }}</td>
     </tr>

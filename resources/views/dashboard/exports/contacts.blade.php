@@ -17,7 +17,7 @@
   <tbody>
     @foreach ($rows as $contact)
     <tr>
-      <td>{{ $loop->iteration + ($key * $chunk) }}</td>
+      <td>{{ isset($key) ? $loop->iteration + ($key * $chunk) : $loop->iteration }}</td>
       <td>{{ $contact->fullname }}</td>
       <td>{{ $contact->email }}</td>
       <td>{{ $contact->phone }}</td>

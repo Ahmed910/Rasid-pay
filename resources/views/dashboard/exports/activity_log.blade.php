@@ -23,7 +23,7 @@
   <tbody>
     @foreach ($rows as $activity_log)
     <tr>
-      <td>{{ $loop->iteration + ($key * $chunk) }}</td>
+      <td>{{ isset($key) ? $loop->iteration + ($key * $chunk) : $loop->iteration }}</td>
       <td>{{ $activity_log->user?->fullname ?? trans("dashboard.error.not_found") }}</td>
       <td>{{ $activity_log->user?->department !== null ? $activity_log->user?->department?->name :
         trans('dashboard.department.without_parent') }}</td>

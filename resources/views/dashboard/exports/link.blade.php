@@ -15,7 +15,7 @@ links
   <tbody>
     @foreach ($rows as $link)
     <tr>
-      <td>{{ $loop->iteration + ($key * $chunk) }}</td>
+      <td>{{ isset($key) ? $loop->iteration + ($key * $chunk) : $loop->iteration }}</td>
       <td>{{ $link->key ?? '' }}</td>
       <td>{{ trans('dashboard.links.'.$link->key) ?? '' }}</td>
     </tr>

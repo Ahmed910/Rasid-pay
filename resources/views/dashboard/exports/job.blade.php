@@ -21,7 +21,7 @@
   <tbody>
     @foreach ($rows as $job)
     <tr>
-      <td>{{ $loop->iteration + ($key * $chunk) }}</td>
+      <td>{{ isset($key) ? $loop->iteration + ($key * $chunk) : $loop->iteration }}</td>
       <td>{{ $job->name }}</td>
       <td>{{ $job->department?->name }}</td>
       <td>{{ $job->created_at_date }}</td>

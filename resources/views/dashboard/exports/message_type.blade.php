@@ -21,7 +21,7 @@
     <tbody>
     @foreach ($rows as $message_type)
       <tr>
-        <td>{{ $loop->iteration + ($key * $chunk) }}</td>
+        <td>{{ isset($key) ? $loop->iteration + ($key * $chunk) : $loop->iteration }}</td>
         <td>{{ $message_type->name ?? '' }}</td>
         <td>{{ $message_type->admins_count ?? '' }}</td>
 

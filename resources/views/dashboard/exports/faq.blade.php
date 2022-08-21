@@ -14,7 +14,7 @@
   <tbody>
     @foreach ($rows as $faq)
     <tr>
-      <td>{{ $loop->iteration + ($key * $chunk) }}</td>
+      <td>{{ isset($key) ? $loop->iteration + ($key * $chunk) : $loop->iteration }}</td>
       <td>{{ $faq->question }}</td>
       <td>{{ $faq->answer }}</td>
       <td>

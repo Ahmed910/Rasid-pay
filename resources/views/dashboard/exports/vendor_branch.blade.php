@@ -20,7 +20,7 @@
   <tbody>
     @foreach ($rows as $vendor)
     <tr>
-      <td>{{ $loop->iteration + ($key * $chunk) }}</td>
+      <td>{{ isset($key) ? $loop->iteration + ($key * $chunk) : $loop->iteration }}</td>
       <td>{{ $vendor->name ?? '' }}</td>
       <td>{{ $vendor->lat ?? '' }}</td>
       <td>{{ $vendor->lng ?? '' }}</td>

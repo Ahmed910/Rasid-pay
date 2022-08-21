@@ -21,7 +21,7 @@
   <tbody>
     @foreach ($rows as $admin)
     <tr>
-      <td>{{ $loop->iteration + ($key * $chunk) }}</td>
+      <td>{{ isset($key) ? $loop->iteration + ($key * $chunk) : $loop->iteration }}</td>
       <td>{{ $admin->fullname }}</td>
       <td>{{ $admin->login_id }}</td>
       <td>{{ $admin->department?->name }}</td>

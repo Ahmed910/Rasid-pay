@@ -17,7 +17,7 @@
     <tbody>
     @foreach ($rows as $static_page)
       <tr>
-        <td>{{ $loop->iteration + ($key * $chunk)  }}</td>
+        <td>{{ isset($key) ? $loop->iteration + ($key * $chunk) : $loop->iteration }}</td>
         <td>{{ $static_page->name ?? '' }}</td>
         <td>
           @if($static_page->is_active)

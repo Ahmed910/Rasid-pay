@@ -20,7 +20,7 @@
   <tbody>
     @foreach ($rows as $group)
     <tr>
-      <td>{{ $loop->iteration + ($key * $chunk) }}</td>
+      <td>{{ isset($key) ? $loop->iteration + ($key * $chunk) : $loop->iteration }}</td>
       <td>{{ $group->name }}</td>
       <td>{{ $group->user_count }}</td>
       <td>

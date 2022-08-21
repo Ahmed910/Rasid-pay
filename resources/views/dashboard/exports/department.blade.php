@@ -20,7 +20,7 @@
   <tbody>
     @foreach ($rows as $department)
     <tr>
-      <td>{{ $loop->iteration + ($key * $chunk) }}</td>
+      <td>{{ isset($key) ? $loop->iteration + ($key * $chunk) : $loop->iteration }}</td>
       <td>{{ $department->name }}</td>
       <td>{{ @$department->parent->name ?? trans('dashboard.department.without_parent') }}</td>
       <td>{{ $department->created_at_date }}</td>
