@@ -747,7 +747,7 @@ return [
             'show' => 'عرض',
             'store' => 'حفظ',
             'create' => 'انشاء',
-            'destroy' => 'أرشفة',
+            // 'destroy' => 'أرشفة',
             'index' => 'السجل',
             'update' => 'تعديل',
         ],
