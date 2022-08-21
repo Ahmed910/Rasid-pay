@@ -181,6 +181,7 @@ return [
             'mastercard' => 'ماستر كارد',
             'american_express' => 'امريكان اكسبريس',
             'visa' => 'فيزا',
+            'diners_club' => 'دينرز كلوب'
         ],
         'code_type' => [
             'reset_code' => 'كود استعادة',
