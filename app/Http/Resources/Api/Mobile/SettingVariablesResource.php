@@ -8,7 +8,7 @@ use Illuminate\Http\Resources\Json\JsonResource;
 class SettingVariablesResource extends JsonResource
 {
 
-       // local transfers
+    // local transfers
 
     public function toArray($request)
     {
@@ -16,15 +16,22 @@ class SettingVariablesResource extends JsonResource
         return [
             'local_transfer_fees' => number_format($this->resource, 2, '.', ''),
             'ranges' => FeeSettingResource::collection($global_fees),
-            'min_wallet_transfer_value'=> number_format(setting('rasidpay_wallettransfer_minvalue'), 2, '.', ''),
-            'max_wallet_transfer_value'=> number_format(setting('rasidpay_wallettransfer_maxvalue'), 2, '.', ''),
-            'min_wallet_charge_value'  => number_format(setting('rasidpay_walletcharge_minvalue'), 2, '.', ''),
-            'max_wallet_charge_value'  => number_format(setting('rasidpay_walletcharge_maxvalue'), 2, '.', ''),
-            'min_local_transfer_value' => number_format(setting('rasidpay_localtransfer_minvalue'), 2, '.', ''),
-            'max_local_transfer_value' => number_format(setting('rasidpay_localtransfer_maxvalue'), 2, '.', ''),
-            'min_global_transfer_value'=> number_format(setting('rasidpay_inttransfer_minvalue'), 2, '.', ''),
-            'max_global_transfer_value'=> number_format(setting('rasidpay_inttransfer_maxvalue'), 2, '.', ''),
-
+            'wallet_transfer' => [
+                'min' =>(string) number_format(setting('rasidpay_wallettransfer_minvalue'), 2, '.', ''),
+                'max' =>(string) number_format(setting('rasidpay_wallettransfer_maxvalue'), 2, '.', '')
+            ],
+            'wallet_charge' => [
+                'min' =>(string) number_format(setting('rasidpay_walletcharge_minvalue'), 2, '.', ''),
+                'max' => (string)number_format(setting('rasidpay_walletcharge_maxvalue'), 2, '.', ''),
+            ],
+            'local_transfer' => [
+                'min' => (string)number_format(setting('rasidpay_localtransfer_minvalue'), 2, '.', ''),
+                'max' => (string)number_format(setting('rasidpay_localtransfer_maxvalue'), 2, '.', ''),
+            ],
+            'global_transfer' => [
+                'min' => (string)number_format(setting('rasidpay_inttransfer_minvalue'), 2, '.', ''),
+                'max' => (string)number_format(setting('rasidpay_inttransfer_maxvalue'), 2, '.', '')
+            ],
         ];
     }
 }
