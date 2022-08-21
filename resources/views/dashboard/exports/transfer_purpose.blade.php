@@ -14,7 +14,7 @@
   <tbody>
     @foreach ($rows as $transfer)
     <tr>
-      <td>{{ $loop->iteration + ($key * $chunk) }}</td>
+      <td>{{ isset($key) ? $loop->iteration + ($key * $chunk) : $loop->iteration }}</td>
        <td>{{ $transfer->name ?? '' }}</td>
        <td>
         @if($transfer->is_active)

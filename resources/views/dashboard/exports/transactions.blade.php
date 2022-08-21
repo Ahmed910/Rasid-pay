@@ -18,7 +18,7 @@
   <tbody>
     @foreach ($rows as $transaction)
     <tr>
-      <td>{{ $loop->iteration + ($key * $chunk) }}</td>
+      <td>{{ isset($key) ? $loop->iteration + ($key * $chunk) : $loop->iteration }}</td>
       <td>{{ $transaction->trans_number }}</td>
       <td>{{ $transaction->created_at_date_time }}</td>
       <td>{{ $transaction->fromUser?->fullname }}</td>

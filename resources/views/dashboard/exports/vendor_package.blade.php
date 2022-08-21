@@ -15,7 +15,7 @@
   <tbody>
     @foreach ($rows as $vendorPackage)
     <tr>
-      <td>{{ $loop->iteration + ($key * $chunk) }}</td>
+      <td>{{ isset($key) ? $loop->iteration + ($key * $chunk) : $loop->iteration }}</td>
       <td>{{ $vendorPackage?->vendor?->name }}</td>
       <td>{{ $vendorPackage?->basic_discount }}</td>
       <td>{{ $vendorPackage?->golden_discount }}</td>

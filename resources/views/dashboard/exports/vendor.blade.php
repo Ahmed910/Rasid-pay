@@ -17,7 +17,7 @@
   <tbody>
     @foreach ($rows as $vendor)
     <tr>
-      <td>{{ $loop->iteration + ($key * $chunk) }}</td>
+      <td>{{ isset($key) ? $loop->iteration + ($key * $chunk) : $loop->iteration }}</td>
       <td>{{ $vendor->branches_count ?? '' }}</td>
       <td>{{ $vendor->name ?? '' }}</td>
       <td>{{ trans('dashboard.vendor.type.'.$vendor->type)}}</td>

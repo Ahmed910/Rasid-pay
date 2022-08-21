@@ -13,7 +13,7 @@
   <tbody>
     @foreach ($rows as $bank)
     <tr>
-      <td>{{ $loop->iteration + ($key * $chunk) }}</td>
+      <td>{{ isset($key) ? $loop->iteration + ($key * $chunk) : $loop->iteration }}</td>
        <td>{{ $bank->name }}</td>
        <td>
         @if($bank->is_active)

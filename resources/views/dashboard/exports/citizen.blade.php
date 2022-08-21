@@ -17,7 +17,7 @@
   <tbody>
     @foreach ($rows as $citizen)
     <tr>
-      <td>{{ $loop->iteration + ($key * $chunk) }}</td>
+      <td>{{ isset($key) ? $loop->iteration + ($key * $chunk) : $loop->iteration }}</td>
       <td>{{ $citizen?->user?->fullname }}</td>
       <td>{{ $citizen?->user?->identity_number }}</td>
       <td>{{ $citizen?->user?->phone }}</td>
