@@ -57,13 +57,10 @@ return [
             'invaild' => 'رمز التحقق غير صالح',
             'vaild' => 'رمز التحقق صالح'
         ],
-        'card_name' => 'اسم البطاقة مطلوب',
         'owner_name' => 'الاسم مطلوب',
-        'invalid_iban' => 'رقم الأيبان غير صحيح',
         'unique_phone' => 'رقم الجوال مسجل لدينا من قبل',
         'phone_digits' => 'رقم الجوال يجب أن يكون :digits أرقام',
         'identity_number_digits' => 'رقم الهوية يجب أن يكون :digits أرقام',
-        'before' => 'لا يمكن ان يكون تاريخ الميلاد تاريخ مستقبلي',
         'card_number_digits' => 'الرقم علي البطاقة يجب ان يكون مكون من :card_digits رقم',
         'required_card_number' => 'رقم البطاقة مطلوب',
         'transaction' => [
