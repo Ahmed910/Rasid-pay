@@ -16,7 +16,7 @@ class HomeController extends Controller
         if ($request->status_code == 500) {
             return response()->json(['data' => null, 'message' => '', 'status' => 'fail'], 500);
         }
-        auth()->user()->citizenWallet->update([
+        auth()->user()?->citizenWallet->update([
             'last_updated_at' => now()
         ]);
         return HomeResource::make(auth()->user()->citizenWallet)->additional(['status' => true, 'message' => '']);

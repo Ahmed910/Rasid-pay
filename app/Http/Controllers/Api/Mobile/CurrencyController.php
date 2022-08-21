@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Api\Mobile;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\MobileCurrencyRequest;
+use App\Http\Requests\Mobile\CurrencyRequest;
 use App\Http\Resources\Api\Mobile\CurrencyResource;
 use App\Models\Currency;
 use Illuminate\Http\Request;
@@ -38,7 +38,8 @@ class CurrencyController extends Controller
         $to = $request->to;
         $currencies = (array)calcCurrency($base)->rates;
         $keys = array_keys($currencies);
-        $data['conversion_value'] = binarySearchForAssocArray($to,$currencies,$keys);
+        $data['conversion_value'] = (double)number_format(binarySearchForAssocArray($to,$currencies,$keys),2,'.','');
+
         return response()->json([
             'data' => $data,
             'status' => true,

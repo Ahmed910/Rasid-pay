@@ -55,5 +55,34 @@ class GlobalTransferController extends Controller
         $wallet->decrement('main_balance', $amount);
         // create global transfer
         $global_transfer = Transfer::create($transfer_data + ['main_amount' => $request->amount]);
-        }
+        $exchange_rate = Country::find($request->to_currency_id)->countryCurrency?->currency_value;
+        $global_transfer->bankTransfer()->create($request->only(
+                [
+                    'currency_id', 'to_currency_id', 'beneficiary_id', 'balance_type'
+                ]
+            ) + [
+                'exchange_rate' => $exchange_rate,
+                // TODO: generate mtcn number from westren union api
+                'mtcn_number' => generate_unique_code(BankTransfer::class, 'mtcn_number', 8, 'numbers'),
+            ]);
+        $global_transfer->bankTransfer()->update(['recieve_option_id' => $global_transfer->beneficiary?->recieve_option_id]);
+
+        //add transfer in  transaction
+        $transaction = $global_transfer->transaction()->create([
+            'amount' => $amount,
+            'trans_type' => 'global_transfer',
+            "fee_upon" => $request->fee_upon,
+            'from_user_id' => auth()->id(),
+            'fee_amount' => $fees ?? 0,
+            'cashback_amount' => $global_transfer->cashback_amount,
+            'main_amount' => $global_transfer->main_amount,
+            'trans_number' => generate_unique_code(Transaction::class, 'trans_number', 10, 'numbers'),
+            'trans_status' => Transaction::SUCCESS
+        ]);
+
+        return TransactionResource::make($transaction->refresh())->additional([
+            'message' => trans('mobile.local_transfers.transfer_has_been_done_successfully'),
+            'status' => true
+        ]);
     }
+}
