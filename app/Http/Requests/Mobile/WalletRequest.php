@@ -26,7 +26,7 @@ class WalletRequest extends ApiMasterRequest
             }
             $rules += [
                 'owner_name' => 'required|string|max:50|regex:/^[a-zA-ZÑñ\s]+$/',
-                'card_type' => 'required|in:visa,mastercard,american_express',
+                'card_type' => 'required|in:visa,mastercard,american_express,diners_club',
                 'card_number' => 'required|numeric|digits:' . $card_digits,
                 'expire_at' => 'required|date_format:m/y|after:today',
                 'charge_type' => 'required|in:nfc,manual,scan',
