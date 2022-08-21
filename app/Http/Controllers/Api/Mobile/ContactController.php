@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Api\Mobile;
 
 use App\Http\Controllers\Controller;
 use App\Models\{Contact, Setting, User};
-use App\Http\Requests\MobileContactRequest;
+use App\Http\Requests\Mobile\ContactRequest;
 use App\Http\Resources\Api\Mobile\SettingResource;
 use Illuminate\Http\Request;
 
