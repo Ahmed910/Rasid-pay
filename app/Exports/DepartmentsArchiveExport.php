@@ -34,7 +34,7 @@ class DepartmentsArchiveExport implements FromView, ShouldAutoSize, WithEvents
             ->customDateFromTo($this->request, 'deleted_at', 'deleted_from', 'deleted_to')
             ->with('parent.translations')
             ->ListsTranslations('name')
-            ->addSelect('departments.deleted_at', 'departments.parent_id')
+            ->addSelect('departments.created_at', 'departments.deleted_at', 'departments.is_active', 'departments.parent_id', 'departments.added_by_id')
             ->sortBy($this->request)
             ->get();
 
