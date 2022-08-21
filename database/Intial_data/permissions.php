@@ -19,7 +19,7 @@ INSERT INTO `permissions` (`id`, `name`, `created_at`, `updated_at`, `permission
 ('0dab1a29-ebca-4815-afb4-f789633ded38', 'group.update', '2022-03-28 16:27:30', '2022-03-28 16:27:30', 'dashboard_api'),
 ('0db59a43-15ec-4158-8d3f-e3da209f1082', 'activity_log.show', '2022-04-11 12:32:55', '2022-04-11 12:32:55', 'dashboard_blade'),
 ('121622ef-4be6-48cb-b4f9-76eef2d10f37', 'group.index', '2022-03-28 16:27:30', '2022-03-28 16:27:30', 'dashboard_api'),
-('14929ee0-251e-4812-8155-9de86442ab84', 'admins.destroy', '2022-03-28 16:24:03', '2022-03-28 16:24:03', 'dashboard_api'),
+-- ('14929ee0-251e-4812-8155-9de86442ab84', 'admins.destroy', '2022-03-28 16:24:03', '2022-03-28 16:24:03', 'dashboard_api'),
 ('171c30f0-1645-4488-b3d4-58efd4b518f3', 'home.index', '2022-03-28 16:27:29', '2022-03-28 16:27:29', 'dashboard_api'),
 ('1a014e93-a4b7-4904-b491-fb822e387f73', 'activity_log.store', '2022-04-03 11:19:50', '2022-04-03 11:19:50', 'dashboard_api'),
 ('1a1c8ed7-2db8-464e-bc59-4b9e535892a5', 'slides.destroy', '2022-04-19 13:56:18', '2022-04-19 13:56:18', 'dashboard_api'),
