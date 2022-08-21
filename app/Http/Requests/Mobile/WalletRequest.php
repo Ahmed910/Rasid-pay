@@ -52,6 +52,9 @@ class WalletRequest extends ApiMasterRequest
                 case substr($data['card_number'], 0, 1) == 5:
                     $card_type = 'mastercard';
                     break;
+                case substr($data['card_number'], 0, 1) == 3 && in_array(substr($data['card_number'], 1, 1), [0, 6, 8]):
+                    $card_type = 'diners_club';
+                    break;
                 case substr($data['card_number'], 0, 1) == 3 && in_array(substr($data['card_number'], 1, 1), [4, 7]):
                     $card_type = 'american_express';
                     break;
