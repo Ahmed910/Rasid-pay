@@ -14,6 +14,7 @@ use App\Services\GeneratePdf;
 use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Traits\Loggable;
+
 class StaticPageController extends Controller
 {
     public function index(Request $request)
@@ -31,7 +32,6 @@ class StaticPageController extends Controller
             'status' => true,
             'message' => ''
         ]);
-
     }
 
     public function store(StaticPageRequest $request, StaticPage $staticPage)
@@ -119,7 +119,8 @@ class StaticPageController extends Controller
             ->ListsTranslations('name')
             ->customDateFromTo($request)
             ->addSelect(
-                'static_pages.*'
+                'static_pages.is_active',
+
             )
             ->sortBy($request)
             ->get();
@@ -134,9 +135,9 @@ class StaticPageController extends Controller
         $names = [];
         foreach (($StaticPagesQuery->chunk($chunk)) as $key => $rows) {
             $names[] = base_path('storage/app/public/') . $generatePdf->newFile()
-                    ->setHeader(trans('dashboard.static_page.static_pages'), $createdFrom)
-                    ->view('dashboard.exports.static_page', $rows, $key, $chunk)
-                    ->storeOnLocal('static_pages/pdfs/');
+                ->setHeader(trans('dashboard.static_page.static_pages'), $createdFrom)
+                ->view('dashboard.exports.static_page', $rows, $key, $chunk)
+                ->storeOnLocal('static_pages/pdfs/');
         }
 
         $file = GeneratePdf::mergePdfFiles($names, 'static_pages/pdfs/static_pages.pdf');
@@ -165,5 +166,4 @@ class StaticPageController extends Controller
             'message' => ''
         ]);
     }
-
 }
