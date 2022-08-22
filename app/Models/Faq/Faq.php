@@ -52,24 +52,24 @@ class Faq extends Model implements TranslatableContract
     public function scopeSortBy(Builder $query, $request)
     {
 
-        if (!isset($request->sort["column"]) || !isset($request->sort["dir"])) return $query->orderBy('faqs.order')->latest();
+        if (!isset($request->sort["column"]) || !isset($request->sort["dir"])) return $query->orderBy('faqs.order')->oldest();
 
         if (
             !in_array(Str::lower($request->sort["column"]), $this->sortableColumns) ||
             !in_array(Str::lower($request->sort["dir"]), ["asc", "answer"])
         ) {
-            return $query->orderBy('faqs.order')->latest();
+            return $query->orderBy('faqs.order')->oldest();
         }
 
         $query->when($request->sort, function ($q) use ($request) {
             if ($request->sort["column"] == "question") {
-                return $q->orderByTranslation($request->sort["column"], @$request->sort["dir"])->latest();
+                return $q->orderByTranslation($request->sort["column"], @$request->sort["dir"])->oldest();
             }
             if ($request->sort["column"] == "is_active") {
-                return $q->orderBy('is_active', $request->sort['dir'])->latest();
+                return $q->orderBy('is_active', $request->sort['dir'])->oldest();
             }
 
-            $q->orderBy($request->sort["column"], @$request->sort["dir"])->latest();
+            $q->orderBy($request->sort["column"], @$request->sort["dir"])->oldest();
         });
 
     }
@@ -89,7 +89,7 @@ class Faq extends Model implements TranslatableContract
         if($request->has('is_active')){
             $searchParams['is_active'] = __('dashboard.faq.active_cases.'. $request->is_active);
         }
-        
+
         return $searchParams;
     }
     #endregion custom Methods

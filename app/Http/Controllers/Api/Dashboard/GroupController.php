@@ -67,7 +67,8 @@ class GroupController extends Controller
 
     public function getPermissionsOfGroup(Group $group, Request $request)
     {
-        $permissions = $group->permissions()->sortBy($request)->paginate((int)($request->per_page ??  config("globals.per_page")));
+        $permissions = $group->permissions()->where('is_active',true)
+            ->sortBy($request)->paginate((int)($request->per_page ??  config("globals.per_page")));
 
         return PermissionResource::collection($permissions)
             ->additional([

@@ -14,7 +14,7 @@ class FaqController extends Controller
         $faqs = Faq::withTranslation()
             ->where('is_active', true)
             ->orderBy('order', 'asc')
-            ->latest()
+            ->oldest()
             ->paginate((int)($request->per_page ?? config("globals.per_page")));
 
         return FaqResource::collection($faqs)->additional([
