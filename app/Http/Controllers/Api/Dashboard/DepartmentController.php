@@ -194,7 +194,6 @@ class DepartmentController extends Controller
         $departments = Department::onlyTrashed()
             ->search($request)
             ->ListsTranslations('name')
-            ->customDateFromTo($request, 'deleted_at', 'deleted_from', 'deleted_to')
             ->with('parent.translations')
             ->addSelect('departments.created_at', 'departments.deleted_at', 'departments.is_active', 'departments.parent_id', 'departments.added_by_id')
             ->latest("deleted_at")
@@ -322,7 +321,7 @@ class DepartmentController extends Controller
 
         $chunk = 200;
         $names = [];
-        
+
         foreach (($departmentsQuery->chunk($chunk)) as $key => $rows) {
             $names[] = base_path('storage/app/public/') . $pdfGenerate->newFile()
                 ->setHeader(trans('dashboard.department.department_archive'), $createdFrom)

@@ -73,6 +73,10 @@ class Department extends Model implements TranslatableContract, HasAssetsInterfa
             $query->where('is_active', $request->is_active);
         }
 
+        if ($request->has('deleted_from') || $request->has('deleted_to')) {
+            $query->customDateFromTo($request, 'deleted_at', 'deleted_from', 'deleted_to');
+        }
+
         $new = $query->toSql();
         if ($old != $new || $request->is_active == -1 || $request->parent_id == -1)  Loggable::addGlobalActivity($this, array_merge($request->query(), $this->searchParams($request)), ActivityLog::SEARCH, 'index');
     }
@@ -137,7 +141,7 @@ class Department extends Model implements TranslatableContract, HasAssetsInterfa
         return self::$result;
     }
 
- 
+
     #endregion relationships
 
     #region custom Methods
