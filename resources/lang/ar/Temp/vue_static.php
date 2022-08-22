@@ -1,7 +1,6 @@
-<?php 
+<?php
 
-return [
-    
+return[
 	"dashboard" => [
 		"login" => [
 			"button" => [
@@ -43,11 +42,15 @@ return [
 				"startWithSA" => "%{attribute} يجب ان يبدأ ب SA ",
 				"validLength" => "%{attribute} يجب ان يكون  %{length} حرف ورقم ",
 				"sameAsPassword" => "كلمة المرور غير متطابقة",
-				"hasNumbers" => "يجب ان تحتوي علي أرقام",
-				"hasCapitalLetters" => "يجب ان تحتوي علي حروف كبيرة",
-				"hasLowerLetters" => "يجب ان تحتوي علي حروف صغيرة",
-				"hasSpecialCharacters" => "يجب ان تحتوي علي علامات خاصة",
-				"validLocationInSaudia" => "يجب ان يكون الموقع بداخل السعودية"
+				"hasNumbers" => "يجب ان تحتوي على حروف كبيرة وصغيرة وارقام وعلامات خاصة",
+				"hasCapitalLetters" => "يجب ان تحتوي على حروف كبيرة وصغيرة وارقام وعلامات خاصة",
+				"hasLowerLetters" => "يجب ان تحتوي على حروف كبيرة وصغيرة وارقام وعلامات خاصة",
+				"hasSpecialCharacters" => "يجب ان تحتوي على حروف كبيرة وصغيرة وارقام وعلامات خاصة",
+				"validLocationInSaudia" => "يجب ان يكون الموقع بداخل السعودية",
+				"imageType" => "يجب أن يكون نوع الصورة jpg , png , jpeg",
+				"imageSize" => "يجب أن يكون حجم الصورة أقل من %{count} kb",
+				"beforeDate" => "عفوا تاريخ من يجب ان يكون قبل تاريخ الى",
+				"afterDate" => "عفوا تاريخ إلي يجب ان يكون بعد تاريخ من"
 			]
 		],
 		"verification" => [
@@ -134,10 +137,10 @@ return [
 			"validation" => [
 				"required" => "%{attribute} مطلوب",
 				"sameAsPassword" => "كلمة المرور غير متطابقة",
-				"hasNumbers" => "يجب ان تحتوي علي أرقام",
-				"hasCapitalLetters" => "يجب ان تحتوي علي حروف كبيرة",
-				"hasLowerLetters" => "يجب ان تحتوي علي حروف صغيرة",
-				"hasSpecialCharacters" => "يجب ان تحتوي علي علامات خاصة"
+				"hasNumbers" => "يجب ان تحتوي على حروف كبيرة وصغيرة وارقام وعلامات خاصة",
+				"hasCapitalLetters" => "يجب ان تحتوي على حروف كبيرة وصغيرة وارقام وعلامات خاصة",
+				"hasLowerLetters" => "يجب ان تحتوي على حروف كبيرة وصغيرة وارقام وعلامات خاصة",
+				"hasSpecialCharacters" => "يجب ان تحتوي على حروف كبيرة وصغيرة وارقام وعلامات خاصة"
 			],
 			"popup" => [
 				"buttons" => [
@@ -325,6 +328,7 @@ return [
 			"fields" => [
 				"name" => "الاسم",
 				"department_name" => "اسم القسم",
+				"department" => "القسم",
 				"job_name" => "اسم الوظيفة",
 				"user_number" => "رقم المستخدم",
 				"email" => "البريد الإلكتروني",
@@ -388,14 +392,16 @@ return [
 			"popup" => [
 				"buttons" => [
 					"accept" => "موافق",
-					"refuse" => "غير موافق"
+					"refuse" => "غير موافق",
+					"close" => "إغلاق"
 				],
 				"body" => [
 					"confirmAccount" => "هل تريد إتمام عملية تأكيد الحساب؟",
 					"confirm" => "هل تريد إتمام عملية الحفظ ؟",
 					"confirmSubmit" => "هل تريد إتمام عملية الحفظ ؟",
 					"back" => "هل تريد العودة دون الحفظ ؟",
-					"delete" => "هل تريد إتمام عملية الحذف النهائي؟"
+					"delete" => "هل تريد إتمام عملية الحذف النهائي؟",
+					"un_archive_has_message" => "لا يمكن تعطيل مستخدم مرتبط برسالة"
 				],
 				"reasonLabel" => "الرجاء ذكر السبب",
 				"reasonValidation" => "السبب"
@@ -416,7 +422,9 @@ return [
 				"inActive" => "معطل",
 				"actived" => "تفعيل",
 				"deactive" => "تعطيل",
-				"restored" => "استعادة"
+				"restored" => "استعادة",
+				"permanent_deactivate" => "تعطيل دائم",
+				"temporary_deactivate" => "تعطيل لفترة"
 			],
 			"breadcrumb" => [
 				"users" => "المستخدمين",
@@ -589,12 +597,14 @@ return [
 			"table" => [
 				"#" => "#",
 				"employee" => "الموظف",
+				"user_name" => "المستخدم",
 				"department" => "القسم",
 				"main_program" => "البرنامج الرئيسي",
 				"sub_program" => "البرنامج الفرعي",
 				"date_time" => "تاريخ/وقت",
 				"ip" => "رقم معرف الجهاز",
 				"status" => "الحالة",
+				"activity_name" => "اسم النشاط",
 				"actions" => "العمليات",
 				"no_data" => " لا توجد نتائج متاحة",
 				"activity_details" => "تفاصيل النشاط",
@@ -611,18 +621,19 @@ return [
 				"search" => "بحث"
 			],
 			"placeholder" => [
-				"select_activity_name" => "أدخل الاسم",
+				"select_activity_name" => "اختر النشاط",
 				"choose_department" => "اختر القسم",
-				"choose_employee_name" => "اختر اسم الموظف",
+				"choose_employee_name" => "اختر اسم المستخدم",
 				"choose_main_program" => "اختر البرنامج الرئيسي",
 				"choose_sub_program" => "اختر البرنامج الفرعي",
 				"select_date" => "يوم/شهر/سنة",
-				"select_status" => "أختر الحالة"
+				"select_status" => "اختر الحالة"
 			],
 			"labels" => [
 				"activity_name" => "اسم النشاط",
 				"department" => "القسم",
-				"employee" => "الموظف",
+				"employee" => "اسم الموظف",
+				"user_name" => "اسم المستخدم",
 				"main_program" => "البرنامج الرئيسي",
 				"sub_program" => "البرنامج الفرعي",
 				"creating_date" => "تاريخ الإنشاء (من)",
@@ -631,7 +642,7 @@ return [
 				"activity_details" => "سجل النشاطات"
 			],
 			"tooltip" => [
-				"view_details" => "عرض"
+				"view_details" => "تفاصيل النشاط"
 			],
 			"chips" => [
 				"created" => "إضافة",
@@ -673,6 +684,7 @@ return [
 				"all" => "الجميع",
 				"assigned" => "تم الإحالة",
 				"replied" => "تم الرد ",
+				"shown" => "تم الإطلاع",
 				"delete" => "حذف"
 			]
 		],
@@ -1026,7 +1038,8 @@ return [
 				"inactive" => "معطل",
 				"order" => "الترتيب",
 				"android_link" => "رابط تحميل الأندرويد",
-				"ios_link" => "رابط تحميل آبل"
+				"ios_link" => "رابط تحميل آبل",
+				"required_app_img" => "صورة التطبيق مطلوبة"
 			],
 			"tooltip" => [
 				"archive" => "أرشفة",
@@ -1088,6 +1101,7 @@ return [
 					"activity_reason" => "السبب",
 					"no_data" => " لا توجد نتائج متاحة",
 					"activity_details" => "تفاصيل النشاط",
+					"without_department" => "بدون قسم",
 					"pagination" => [
 						"show" => "عرض",
 						"to" => "إلى",
@@ -1688,7 +1702,8 @@ return [
 					"back" => "هل تريد العودة دون الحفظ ؟",
 					"delete" => "هل تريد إتمام عملية الحذف النهائي؟",
 					"force_delete" => "هل تريد اتمام عملية الحذف النهائي؟",
-					"page_has_link" => "لا يمكن حذف صفحة مرتبطة برابط"
+					"page_has_link" => "لا يمكن حذف صفحة مرتبطة برابط",
+					"edit_page_with_link" => "لا يمكن تعطيل صفحة مرتبطة برابط"
 				],
 				"reasonLabel" => "الرجاء ذكر السبب",
 				"reasonValidation" => "السبب"
@@ -2029,6 +2044,7 @@ return [
 				"activity" => "النشاط",
 				"activity_details" => "تفاصيل النشاط",
 				"no_data" => " لا توجد نتائج متاحة",
+				"without_department" => "بدون قسم",
 				"pagination" => [
 					"show" => "عرض",
 					"to" => "إلى",
@@ -2045,7 +2061,10 @@ return [
 				"edit" => "تعديل"
 			],
 			"fields" => [
-				"phone" => "رقم الجوال"
+				"phone" => "رقم الجوال",
+				"status" => "الحالة",
+				"ban_from" => "تاريخ من",
+				"ban_to" => "تاريخ إلي"
 			],
 			"validation" => [
 				"required" => "%{attribute} مطلوب",
@@ -2066,7 +2085,8 @@ return [
 				"card_end_at" => "تاريخ إنتهاء البطاقة",
 				"register_date" => "تاريخ التسجيل",
 				"phone_x" => "xxxxxxxx",
-				"enter_phone" => "أدخل رقم الجوال"
+				"enter_phone" => "أدخل رقم الجوال",
+				"select_status" => "اختر الحالة"
 			],
 			"labels" => [
 				"user_name" => "اسم المستخدم",
@@ -2083,7 +2103,9 @@ return [
 				"all" => "الجميع",
 				"from" => "من",
 				"to" => "إلى",
-				"status" => "الحالة"
+				"status" => "الحالة",
+				"period_from" => "من",
+				"period_to" => "إلي"
 			],
 			"heading" => [
 				"historical_movment" => "الحركة التاريخية"
@@ -2096,9 +2118,19 @@ return [
 			],
 			"chips" => [
 				"active" => "مفعل",
-				"permanent" => "معطل",
-				"temporary" => "معطل مؤقت",
-				"inActive" => "معطل"
+				"permanent" => "معطل دائم",
+				"temporary" => "معطل لفترة",
+				"deactivated" => "تعطيل",
+				"activated" => "تفعيل",
+				"archive" => "أرشيف",
+				"edit" => "تعديل",
+				"add" => "إضافة",
+				"inActive" => "معطل",
+				"actived" => "تفعيل",
+				"deactive" => "تعطيل",
+				"restored" => "استعادة",
+				"permanent_deactivate" => "تعطيل دائم",
+				"temporary_deactivate" => "تعطيل لفترة"
 			],
 			"popup" => [
 				"buttons" => [
@@ -2372,7 +2404,7 @@ return [
 				"select_message_from" => "اختر المصدر",
 				"employee" => "اسم الموظف المسئول",
 				"enter_reply" => "أدخل الرد",
-				"enter_note" => "أدخل ملوحظة",
+				"enter_note" => "أدخل ملحوظة",
 				"phone_x" => "xxxxxxxx",
 				"enter_phone" => "أدخل رقم الجوال"
 			],
@@ -2590,10 +2622,10 @@ return [
 				"lat" => "خط طول",
 				"lng" => "خط عرض",
 				"addLocation" => "أدخل الموقع",
-				"location_detect" => "الموقع",
 				"fields" => [
 					"lat" => "خط طول",
-					"lng" => "خط عرض"
+					"lng" => "خط عرض",
+					"location_detect" => "الموقع"
 				]
 			],
 			"validation" => [
@@ -2659,6 +2691,9 @@ return [
 			"breadcrumb" => [
 				"profile" => "الملف الشخصي"
 			],
+			"statusOptions" => [
+				"without" => "بدون "
+			],
 			"buttons" => [
 				"save" => "حفظ",
 				"back" => "عودة"
@@ -2688,4 +2723,4 @@ return [
 		]
 	],
 	"appName" => "الفنتك"
-    ];
+];
