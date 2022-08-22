@@ -82,26 +82,25 @@ class DepartmentController extends Controller
             })->when($request->has_jobs, function ($q) use ($request) {
                 $q->whereHas('rasidJobs', function ($q) use ($request) {
                     // check if job is active and job is free
-                    if($request->job_is_active && $request->job_is_vacant){
-                    $q->where(['rasid_jobs.is_active' => true, 'is_vacant' => true]);
-                    // check if job is active and job is busy
-                    }elseif($request->job_is_active && !$request->job_is_vacant){
+                    if ($request->job_is_active && $request->job_is_vacant) {
+                        $q->where(['rasid_jobs.is_active' => true, 'is_vacant' => true]);
+                        // check if job is active and job is busy
+                    } elseif ($request->job_is_active && !$request->job_is_vacant) {
                         $q->where(['rasid_jobs.is_active' => true, 'is_vacant' => false])
-                        ->when($request->admin_id,function($q)use($request){
-                            $q->whereHas('employee.user', fn ($q) => $q->where('users.id', $request->admin_id));
-                        });
+                            ->when($request->admin_id, function ($q) use ($request) {
+                                $q->whereHas('employee.user', fn ($q) => $q->where('users.id', $request->admin_id));
+                            });
 
                         // check if job is inactive and job is free
-                    }elseif(!$request->job_is_active && $request->job_is_vacant){
+                    } elseif (!$request->job_is_active && $request->job_is_vacant) {
                         $q->where(['rasid_jobs.is_active' => false, 'is_vacant' => true]);
                         // check if job is inactive and job is busy
-                    }else{
+                    } else {
                         $q->where(['rasid_jobs.is_active' => false, 'is_vacant' => false])
-                        ->when($request->admin_id,function($q)use($request){
-                            $q->whereHas('employee.user', fn ($q) => $q->where('users.id', $request->admin_id));
-                        });
+                            ->when($request->admin_id, function ($q) use ($request) {
+                                $q->whereHas('employee.user', fn ($q) => $q->where('users.id', $request->admin_id));
+                            });
                     }
-
                 });
             })->ListsTranslations('name')
                 ->addSelect('departments.is_active')

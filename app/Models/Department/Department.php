@@ -100,7 +100,9 @@ class Department extends Model implements TranslatableContract, HasAssetsInterfa
             }
 
             if ($request->sort["column"] == "parent") {
-                return $q->orderBy('parent_id', $request->sort['dir'])->latest();
+                return $q->leftJoin('departments as parents', 'parents.id', 'departments.parent_id')
+                    ->leftJoin('department_translations as trans', 'trans.department_id', 'parents.id')
+                    ->orderBy('trans.name', @$request->sort["dir"]);
             }
 
             $q->orderBy($request->sort["column"], @$request->sort["dir"])->latest();
@@ -111,7 +113,7 @@ class Department extends Model implements TranslatableContract, HasAssetsInterfa
     #region relationships
     public function parent(): BelongsTo
     {
-        return $this->belongsTo(Department::class, 'parent_id');
+        return $this->belongsTo(Department::class, 'parent_id')->withTrashed();
     }
 
     public function children(): HasMany
