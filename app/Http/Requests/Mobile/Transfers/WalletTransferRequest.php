@@ -52,7 +52,6 @@ class WalletTransferRequest extends ApiMasterRequest
         $sameUser = User::where(['id' => auth()->id(), 'user_type' => 'citizen'])->where(function ($q) use ($value) {
             $q->where('identity_number', $value)->orWhereRelation('citizenWallet', 'wallet_number', $value);
         })->first();
-
         if ($sameUser) {
             return trans('mobile.validation.not_same_wallet');
         }
@@ -62,6 +61,8 @@ class WalletTransferRequest extends ApiMasterRequest
                 $user = User::where('id', "<>", auth()->id())->where('register_status', 'completed')->whereRelation('citizenWallet', 'wallet_number', $value)->first();
                 if (!$user) {
                     return trans('mobile.validation.wallet_number_is_not_found');
+                }elseif($user->is_active == 0){
+                    return trans('mobile.validation.reciever_not_active');
                 }
                 break;
             case Transfer::IDENTITY_NUMBER:
@@ -69,10 +70,13 @@ class WalletTransferRequest extends ApiMasterRequest
                     return trans('validation.custom.identity_number.regex');
                 }
 
-                $user = User::where('id', "<>", auth()->id())->where('register_status', 'completed')->firstWhere(['user_type' => 'citizen', 'identity_number' => $value]);
-                // dd($user);
+                $user = User::where('id', "<>", auth()->id())
+                ->where('register_status', 'completed')
+                ->firstWhere(['user_type' => 'citizen', 'identity_number' => $value]);
                 if (!$user) {
                     return trans('mobile.validation.identity_number.is_not_found');
+                }elseif($user->is_active == 0){
+                    return trans('mobile.validation.reciever_not_active');
                 }
                 break;
 
