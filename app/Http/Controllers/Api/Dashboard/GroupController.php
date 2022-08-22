@@ -107,6 +107,10 @@ class GroupController extends Controller
             $group->groups()->detach();
         }
 
+        if($request->is_active == 0 && $group->groups()->exists()){
+            $group->groups()->getQuery()->update(['is_active' => 0]);
+        }
+
         $group->permissions()->sync(array_filter($permissions));
         return GroupResource::make($group)->additional(['status' => true, 'message' => trans('dashboard.general.success_update')]);
     }
