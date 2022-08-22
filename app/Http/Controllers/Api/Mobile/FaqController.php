@@ -11,8 +11,12 @@ class FaqController extends Controller
 {
     public function index(Request $request)
     {
-        $faqs = Faq::withTranslation()->where('is_active',true)
-        ->orderBy('order','asc')->paginate((int)($request->per_page ?? config("globals.per_page")));
+        $faqs = Faq::withTranslation()
+            ->where('is_active', true)
+            ->orderBy('order', 'asc')
+            ->latest()
+            ->paginate((int)($request->per_page ?? config("globals.per_page")));
+
         return FaqResource::collection($faqs)->additional([
             'status' => true,
             'message' => ''
