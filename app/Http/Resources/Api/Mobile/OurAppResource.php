@@ -12,7 +12,7 @@ class OurAppResource extends JsonResource
         return [
             'id' => $this->id,
             'name' => $this->name,
-            'description' => $this->description,
+            'description' => $this->description??"",
             "image" => $this->photo,
             'android_link' => $this->android_link,
             'ios_link' => $this->ios_link,
