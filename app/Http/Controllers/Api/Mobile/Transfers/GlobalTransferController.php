@@ -47,7 +47,7 @@ class GlobalTransferController extends Controller
                 'transfer_type' => 'global',
                 'from_user_id' => auth()->id(),
                 'transfer_status' => 'pending',
-                'amount' => $amount - $fees,
+                'amount' => number_format($request->amount,2,'.',''),
                 'transfer_fees' => $fees,
                 'transfer_fees_amount' => $fees,
             ];

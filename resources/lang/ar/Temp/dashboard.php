@@ -1314,7 +1314,9 @@ return [
         'phone' => 'رقم الهااتف',
         'email' => 'البريد الالكتروني',
         'name' => 'رسالة',
-        'user_name' => 'الاسم',
+        'user_name' => 'اسم المرسل',
+        'employee_names' => 'الموظف المسئول',
+        'message_type' => 'نوع الرسالة',
         'can_not_delete_contact' => 'لا يمكن حذف نوع رسالة مرتبط برسائل',
         'replied' => 'تم الرد',
         'validation' => [
