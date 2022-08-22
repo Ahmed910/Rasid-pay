@@ -33,15 +33,14 @@ class TransactionResource extends JsonResource
                     'to_user_identity_or_mobile_or_wallet_number' => @$wallet_transfer_method[$this->transactionable?->wallet_transfer_method]]) : "",
             'local_transfer' => $this->trans_type == "local_transfer" ? trans("mobile.transaction.transaction_details.local_transfer_status", ['amount' => number_format($this->amount, 2, '.', ''), 'beneficiary' => $this->transactionable?->beneficiary?->name, 'iban' => $this->transactionable?->beneficiary?->iban_number]) : "",
             'global_transfer' => $this->trans_type == "global_transfer" ? trans("mobile.transaction.transaction_details.global_transfer_status", ['amount' => $to_amount, 'currency' => $this->transactionable?->bankTransfer?->toCurrency?->currency_code, 'beneficiary' => $this->transactionable?->beneficiary?->name, 'country' => $this->transactionable?->beneficiary?->country?->name, 'recieve_option' => $this->transactionable?->bankTransfer?->recieveOption?->name, 'mtcn' => $this->transactionable?->bankTransfer?->mtcn_number]) : "",
-            'charge' => $this->trans_type == "charge" ? trans("mobile.transaction.transaction_details.charge_status", ['amount' => number_format($this->amount, 2, '.', ''), 'method' => __('mobile.transaction.charge_types.' . $this->transactionable?->charge_type, ['card_number' => $last_card_number ])]) : "",
+            'charge' => $this->trans_type == "charge" ? trans("mobile.transaction.transaction_details.charge_status", ['amount' => number_format($this->amount, 2, '.', ''), 'method' => __('mobile.transaction.charge_types.' . $this->transactionable?->charge_type, ['card_number' => $last_card_number])]) : "",
             'money_request' => $this->trans_type == "money_request" ? trans("mobile.transaction.transaction_details.money_request_status", ['amount' => number_format($this->amount, 2, '.', ''), 'to_user_identity_or_mobile_or_wallet_number' => $wallet_transfer_method[$this->transactionable?->wallet_transfer_method]]) : "",
             'promote_package' => $this->trans_type == "promote_package" ? trans("mobile.transaction.transaction_details.promote_package_status", ['amount' => number_format($this->amount, 2, '.', ''), 'package_name' => $this->fromUser->citizen->enabledPackage->package_type, 'expired_date' => $this->fromUser->citizen->enabledPackage->end_at]) : "",
 
         ];
         $transfer_fee_upon = $this->when(in_array($this->trans_type, ['global_transfer', 'local_transfer']), (string)$this->transactionable?->fee_upon);
-        $_amount = ($transfer_fee_upon == Transfer::FROM_USER) ? ($this->amount - $this->fee_amount) : ($this->amount + $this->fee_amount);
         $fee_amount = ($transfer_fee_upon == Transfer::FROM_USER) ? $this->fee_amount : 0;
-        $total_amount = ($transfer_fee_upon == Transfer::FROM_USER) ? $this->amount : ($this->amount + $this->fee_amount);
+        $total_amount = $this->amount + $fee_amount;
         return [
             'id' => $this->id,
             'trans_number' => (string)$this->trans_number,
@@ -49,7 +48,7 @@ class TransactionResource extends JsonResource
             'trans_type' => $this->trans_type,
             'trans_type_translate' => trans("mobile.transaction.transaction_types.{$this->trans_type}"),
             'trans_status' => $this->trans_status,
-            'amount' => number_format($_amount, 2, '.', ''),
+            'amount' => number_format($this->amount, 2, '.', ''),
             'fee_amount' => number_format($fee_amount, 2, '.', ''),
             'total_amount' => number_format($total_amount, 2, '.', ''), // new amount after add or sub fees
             'created_at' => $this->created_at_date_time,

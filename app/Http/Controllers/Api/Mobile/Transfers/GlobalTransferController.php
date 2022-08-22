@@ -69,11 +69,11 @@ class GlobalTransferController extends Controller
 
         //add transfer in  transaction
         $transaction = $global_transfer->transaction()->create([
-            'amount' => $amount,
+            'amount' => number_format($request->amount, 2, '.', ''),
+            'fee_amount' => number_format($fees, 2, '.', '') ?? 0,
             'trans_type' => 'global_transfer',
             "fee_upon" => $request->fee_upon,
             'from_user_id' => auth()->id(),
-            'fee_amount' => $fees ?? 0,
             'cashback_amount' => $global_transfer->cashback_amount,
             'main_amount' => $global_transfer->main_amount,
             'trans_number' => generate_unique_code(Transaction::class, 'trans_number', 10, 'numbers'),
