@@ -62,8 +62,6 @@ return [
             'update' => 'تعديل',
             'store' => 'حفظ',
             'index' => 'السجل',
-            'destroy' => 'حذف',
-            'show' => 'عرض'
         ],
         'sub_progs' => [
             'index' => 'سجل نسب خصم البطاقات',
@@ -205,17 +203,10 @@ return [
             'create' => 'إضافة إعداد',
             'index' => 'سجل الاعدادات',
         ],
-        'permissions' => [
-            'update' => 'تعديل',
-            'archive' => 'عرض أرشيف',
-            'destroy' => 'أرشفة',
-            'index' => 'السجل',
-            'create' => 'انشاء',
-            'force_delete' => 'حذف نهائي',
-            'show' => 'عرض',
-            'restore' => 'استعادة',
-            'store' => 'حفظ',
-        ],
+        // 'permissions' => [
+        //     'update' => 'تعديل',
+        //     'index' => 'السجل',
+        // ],
         'add_setting' => '',
         'setting' => 'الاعدادات',
         'settings' => 'الاعدادات',
@@ -319,7 +310,7 @@ return [
             'index' => 'سجل الصلاحيات',
             'create' => 'إضافة مجموعة',
         ],
-        'groups' => 'المجموعات',
+        'groups' => 'الصلاحيات',
         'group' => 'المجموعة الادارية',
         'chosen_groups' => 'الصلاحيات المختارة',
         'sorry_group_name_is_repeated' => 'الاسم موجود من قبل',
@@ -1531,12 +1522,13 @@ return [
 
     ],
 
-    'localization' =>  [
+    'localizations' =>  [
         'permissions' =>  [
             'update' => 'تعديل',
-            'index' => 'الرئيسية',
+            'store' => 'تعديل',
+            'index' => 'السجل',
         ],
-        'localizations' => 'اللغات',
+        'localizations' => 'الترجمات',
         'value' => 'القيمة',
         'key' => 'المفتاح',
     ],

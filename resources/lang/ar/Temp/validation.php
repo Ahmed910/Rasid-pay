@@ -2,6 +2,7 @@
 
 return [
     'attributes' => [
+        'message_types' => 'نوع الرسالة',
         'action' => 'النشاط',
         'main_program' => 'حقل البرنامج الرئيسي',
         'sub_program' => 'حقل البرنامج الفرعي',
