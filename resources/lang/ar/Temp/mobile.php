@@ -40,6 +40,7 @@ return [
             'exists' => 'رمز التحقق غير صحيح',
         ],
         'wallet_number_is_not_found' => 'رقم المحفظة غير صحيح',
+        'reciever_not_active' => 'عفوا رقم الهوية محظور',
         'not_same_wallet' => 'عفوا لا يمكن التحويل لمحفظتك الشخصية',
         'reset_code' => [
             'required' => 'رمز التحقق مطلوب',
