@@ -73,6 +73,10 @@ class Department extends Model implements TranslatableContract, HasAssetsInterfa
             $query->where('is_active', $request->is_active);
         }
 
+        if ($request->has('deleted_from') || $request->has('deleted_to')) {
+            $query->customDateFromTo($request, 'deleted_at', 'deleted_from', 'deleted_to');
+        }
+
         $new = $query->toSql();
         if ($old != $new || $request->is_active == -1 || $request->parent_id == -1)  Loggable::addGlobalActivity($this, array_merge($request->query(), $this->searchParams($request)), ActivityLog::SEARCH, 'index');
     }
@@ -96,7 +100,9 @@ class Department extends Model implements TranslatableContract, HasAssetsInterfa
             }
 
             if ($request->sort["column"] == "parent") {
-                return $q->orderBy('parent_id', $request->sort['dir'])->latest();
+                return $q->leftJoin('departments as parents', 'parents.id', 'departments.parent_id')
+                    ->leftJoin('department_translations as trans', 'trans.department_id', 'parents.id')
+                    ->orderBy('trans.name', @$request->sort["dir"]);
             }
 
             $q->orderBy($request->sort["column"], @$request->sort["dir"])->latest();
@@ -107,7 +113,7 @@ class Department extends Model implements TranslatableContract, HasAssetsInterfa
     #region relationships
     public function parent(): BelongsTo
     {
-        return $this->belongsTo(Department::class, 'parent_id');
+        return $this->belongsTo(Department::class, 'parent_id')->withTrashed();
     }
 
     public function children(): HasMany
@@ -137,7 +143,7 @@ class Department extends Model implements TranslatableContract, HasAssetsInterfa
         return self::$result;
     }
 
- 
+
     #endregion relationships
 
     #region custom Methods

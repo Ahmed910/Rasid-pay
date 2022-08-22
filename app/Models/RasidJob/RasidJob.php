@@ -46,7 +46,7 @@ class RasidJob extends Model implements TranslatableContract
     #region scopes
     public function scopeSearch(Builder $query, $request)
     {
-        $old = $query->toSql() ;
+        $old = $query->toSql();
 
         if (isset($request->name)) {
             $query->where(function ($q) use ($request) {
@@ -62,16 +62,19 @@ class RasidJob extends Model implements TranslatableContract
             $query->where('is_active', $request->is_active);
         }
 
+        if ($request->has('deleted_from') || $request->has('deleted_to')) {
+            $query->customDateFromTo($request, 'deleted_at', 'deleted_from', 'deleted_to');
+        }
+
         if (isset($request->is_vacant) && in_array($request->is_vacant, [1, 0])) {
             $query->where('is_vacant', $request->is_vacant);
         }
         $new = $query->toSql();
-       
-        if ($old!=$new | $request->is_active == -1 || $request->is_vacant == -1)  Loggable::addGlobalActivity($this, array_merge($request->query(), $this->searchParams($request) ), ActivityLog::SEARCH, 'index');
-    
+
+        if ($old != $new | $request->is_active == -1 || $request->is_vacant == -1)  Loggable::addGlobalActivity($this, array_merge($request->query(), $this->searchParams($request)), ActivityLog::SEARCH, 'index');
     }
 
-    public function scopeSortBy(Builder $query, $request,$type=null)
+    public function scopeSortBy(Builder $query, $request, $type = null)
     {
 
         if (!isset($request->sort["column"]) || !isset($request->sort["dir"])) return $query->latest('rasid_jobs.created_at');
@@ -80,10 +83,9 @@ class RasidJob extends Model implements TranslatableContract
             !in_array(Str::lower($request->sort["column"]), $this->sortableColumns) ||
             !in_array(Str::lower($request->sort["dir"]), ["asc", "desc"])
         ) {
-        if($type == 'archive')
-        {
-            return $query->latest('rasid_jobs.deleted_at');
-        }
+            if ($type == 'archive') {
+                return $query->latest('rasid_jobs.deleted_at');
+            }
             return $query->latest('rasid_jobs.created_at');
         }
 
@@ -97,8 +99,7 @@ class RasidJob extends Model implements TranslatableContract
                 return $q->join('departments as department', 'rasid_jobs.department_id', '=', 'department.id')
                     ->leftJoin('department_translations as department_trans', 'department.id', '=', 'department_trans.department_id')
                     ->orderBy('department_trans.name', @$request->sort["dir"])->latest();
-
-                }
+            }
 
             $q->orderBy($request->sort["column"], @$request->sort["dir"])->latest();
         });
@@ -126,19 +127,20 @@ class RasidJob extends Model implements TranslatableContract
     #endregion relationships
 
     #region custom Methods
-    private function searchParams($request){
+    private function searchParams($request)
+    {
         $searchParams = [];
-        if($request->has('is_active')){
-            $searchParams['is_active'] = __('dashboard.rasid_job.active_cases.'. $request->is_active);
+        if ($request->has('is_active')) {
+            $searchParams['is_active'] = __('dashboard.rasid_job.active_cases.' . $request->is_active);
         }
-        if($request->has('is_vacant')){
-            $searchParams['is_vacant'] = __('dashboard.rasid_job.job_type.'. $request->is_vacant);
+        if ($request->has('is_vacant')) {
+            $searchParams['is_vacant'] = __('dashboard.rasid_job.job_type.' . $request->is_vacant);
         }
-        if($request->department_id){
+        if ($request->department_id) {
         }
-        if($request->has('department_id') && $request->department_id == null){
+        if ($request->has('department_id') && $request->department_id == null) {
             $searchParams['department_id'] = __('dashboard.rasid_job.department.all');
-        }elseif($request->has('department_id')){
+        } elseif ($request->has('department_id')) {
             $searchParams['department_id'] = Department::find($request->department_id)?->name;
         }
         return $searchParams;
