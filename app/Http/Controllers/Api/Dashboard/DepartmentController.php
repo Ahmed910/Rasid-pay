@@ -20,7 +20,7 @@ class DepartmentController extends Controller
 {
     public function index(Request $request)
     {
-        $departments = Department::search($request)
+        $departments = Department::search($request, 'index')
             ->ListsTranslations('name')
             ->customDateFromTo($request)
             ->with('parent.translations')
@@ -191,7 +191,7 @@ class DepartmentController extends Controller
     public function archive(Request $request)
     {
         $departments = Department::onlyTrashed()
-            ->search($request)
+            ->search($request, 'archive')
             ->ListsTranslations('name')
             ->with('parent.translations')
             ->addSelect('departments.created_at', 'departments.deleted_at', 'departments.is_active', 'departments.parent_id', 'departments.added_by_id')
@@ -253,7 +253,7 @@ class DepartmentController extends Controller
     public function exportPDF(Request $request, GeneratePdf $generatePdf)
     {
 
-        $departmentsQuery = Department::search($request)
+        $departmentsQuery = Department::search($request, 'index')
             ->customDateFromTo($request)
             ->with('parent.translations')
             ->ListsTranslations('name')
@@ -305,7 +305,7 @@ class DepartmentController extends Controller
     public function exportPDFArchive(Request $request, GeneratePdf $pdfGenerate)
     {
         $departmentsQuery =  Department::onlyTrashed()
-            ->search($request)
+            ->search($request, 'archive')
             ->ListsTranslations('name')
             ->customDateFromTo($request, 'deleted_at', 'deleted_from', 'deleted_to')
             ->with('parent.translations')

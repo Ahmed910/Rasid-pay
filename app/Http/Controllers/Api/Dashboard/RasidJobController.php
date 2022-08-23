@@ -15,12 +15,13 @@ use App\Models\Department\Department;
 use App\Services\GeneratePdf;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Traits\Loggable;
+
 class RasidJobController extends Controller
 {
 
     public function index(Request $request)
     {
-        $rasidJobs = RasidJob::search($request)
+        $rasidJobs = RasidJob::search($request, 'index')
             ->has("department")
             ->ListsTranslations('name')
             ->select('rasid_jobs.*')
@@ -88,7 +89,7 @@ class RasidJobController extends Controller
     public function archive(Request $request)
     {
         $rasidJobs = RasidJob::onlyTrashed()
-            ->search($request)
+            ->search($request, 'archive')
             ->ListsTranslations('name')
             ->with('department')
             ->select('rasid_jobs.*')
@@ -178,7 +179,7 @@ class RasidJobController extends Controller
                 ->select('id')
                 ->ListsTranslations('name')
                 ->when($request->has('is_vacant'), fn ($q) => $q->where('is_vacant', true)
-                ->orWhereRelation('employee','user_id',$request->admin_id))
+                    ->orWhereRelation('employee', 'user_id', $request->admin_id))
                 ->without(['images', 'addedBy', 'translations', 'department', 'employee'])->get(),
             'status' => true,
             'message' =>  '',
@@ -187,14 +188,14 @@ class RasidJobController extends Controller
 
     public function exportPDF(Request $request, GeneratePdf $generatePdf)
     {
-        $jobsQuery = RasidJob::without('employee')->search($request)
+        $jobsQuery = RasidJob::without('employee')->search($request, 'index')
             ->customDateFromTo($request)
             ->ListsTranslations('name')
             ->sortBy($request)
             ->addSelect('rasid_jobs.created_at', 'rasid_jobs.is_active', 'rasid_jobs.department_id', 'rasid_jobs.is_vacant')
             ->get();
 
-        Loggable::addGlobalActivity(RasidJob::class, array_merge($request->query(),['department_id' => Department::find($request->department_id)?->name]), ActivityLog::EXPORT, 'index');
+        Loggable::addGlobalActivity(RasidJob::class, array_merge($request->query(), ['department_id' => Department::find($request->department_id)?->name]), ActivityLog::EXPORT, 'index');
 
         if (!$request->has('created_from')) {
             $createdFrom = RasidJob::selectRaw('MIN(created_at) as min_created_at')->value('min_created_at');
@@ -204,9 +205,9 @@ class RasidJobController extends Controller
         $names = [];
         foreach (($jobsQuery->chunk($chunk)) as $key => $rows) {
             $names[] = base_path('storage/app/public/') . $generatePdf->newFile()
-                    ->setHeader(trans('dashboard.rasid_job.rasid_jobs'),$createdFrom)
-                    ->view('dashboard.exports.job', $rows, $key, $chunk)
-                    ->storeOnLocal('rasid_jobs/pdfs/');
+                ->setHeader(trans('dashboard.rasid_job.rasid_jobs'), $createdFrom)
+                ->view('dashboard.exports.job', $rows, $key, $chunk)
+                ->storeOnLocal('rasid_jobs/pdfs/');
         }
 
         $file = GeneratePdf::mergePdfFiles($names, 'rasid_jobs/pdfs/rasid_jobs.pdf');
@@ -225,7 +226,7 @@ class RasidJobController extends Controller
         $fileName = uniqid() . time();
         Excel::store(new JobsExport($request), 'rasidJobs/excels/' . $fileName . '.xlsx', 'public');
         $file = url('/storage/' . 'rasidJobs/excels/' . $fileName . '.xlsx');
-        Loggable::addGlobalActivity(RasidJob::class, array_merge($request->query(),['department_id' => Department::find($request->department_id)?->name]), ActivityLog::EXPORT, 'index');
+        Loggable::addGlobalActivity(RasidJob::class, array_merge($request->query(), ['department_id' => Department::find($request->department_id)?->name]), ActivityLog::EXPORT, 'index');
 
         return response()->json([
             'data'   => [
@@ -239,13 +240,15 @@ class RasidJobController extends Controller
     public function exportPDFArchive(Request $request, GeneratePdf $pdfGenerate)
     {
         $rasidJobsQuery = RasidJob::onlyTrashed()
-            ->search($request)
+            ->search($request, 'archive')
             ->ListsTranslations('name')
             ->customDateFromTo($request, 'deleted_at', 'deleted_from', 'deleted_to')
             ->with('department')
             ->select('rasid_jobs.*')
             ->sortBy($request, 'archive')
             ->get();
+
+        Loggable::addGlobalActivity(RasidJob::class, array_merge($request->query(), ['department_id' => Department::find($request->department_id)?->name]), ActivityLog::EXPORT, 'archive');
 
         if (!$request->has('created_from')) {
             $createdFrom = RasidJob::selectRaw('MIN(created_at) as min_created_at')->value('min_created_at');
@@ -255,9 +258,9 @@ class RasidJobController extends Controller
         $names = [];
         foreach (($rasidJobsQuery->chunk($chunk)) as $key => $rows) {
             $names[] = base_path('storage/app/public/') . $pdfGenerate->newFile()
-                    ->setHeader(trans('dashboard.rasid_job.rasid_job_archive'),$createdFrom)
-                    ->view('dashboard.exports.archive.rasid_job', $rows, $key, $chunk)
-                    ->storeOnLocal('rasidJobsArchive/pdfs/');
+                ->setHeader(trans('dashboard.rasid_job.rasid_job_archive'), $createdFrom)
+                ->view('dashboard.exports.archive.rasid_job', $rows, $key, $chunk)
+                ->storeOnLocal('rasidJobsArchive/pdfs/');
         }
 
         $file = GeneratePdf::mergePdfFiles($names, 'rasidJobsArchive/pdfs/rasid_jobs.pdf');
@@ -276,6 +279,7 @@ class RasidJobController extends Controller
         $fileName = uniqid() . time();
         Excel::store(new RasidJobsArchiveExport($request), 'rasidJobsArchive/excels/' . $fileName . '.xlsx', 'public');
         $file = url('/storage/' . 'rasidJobsArchive/excels/' . $fileName . '.xlsx');
+        Loggable::addGlobalActivity(RasidJob::class, array_merge($request->query(), ['department_id' => Department::find($request->department_id)?->name]), ActivityLog::EXPORT, 'archive');
 
         return response()->json([
             'data'   => [
