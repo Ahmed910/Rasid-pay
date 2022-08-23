@@ -1273,7 +1273,7 @@ return [
 
     'citizen' => [
         'add_citizen' => 'إضافة مستخدم',
-        'name' => ' الاسم',
+        'name' => 'اسم المستخدم',
         'identity_number' => 'رقم الهوية',
         'status' => 'الحالة',
         'enabled_package' => 'البطاقة المفعلة',
@@ -1294,6 +1294,15 @@ return [
         'citizens' => 'مستخدمي التطبيق',
         'citizen' => 'المستخدم ',
         'edit_citizen' => 'تعديل مستخدم',
+
+        'active_cases' =>
+            [
+                'permanent' => 'معطل',
+                'active' => 'مفعل',
+                'temporary' => 'معطل لفترة',
+                'exceeded_attempts' => 'معطل لتخطي عدد مرات الدخول الخاطئ',
+                '-1' => 'الجميع (مفعل و معطل دائم و معطل لفترة معطل لتخطي عدد مرات الدخول الخاطئ)',
+            ],
     ],
     'attachment' => [
         'attachments' => 'العملاء',
