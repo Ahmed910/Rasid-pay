@@ -31,13 +31,13 @@ class ActivityLogResource extends JsonResource
         };
 
         if ($this->auditable?->name) {
-            $name = $this->auditable?->name;
+            $name =  $this->old_data['translations'][0]['name']?? $this->new_data['translations'][0]['name']??'';
         } elseif ($model == 'Contact') {
             $name = trans('dashboard.contact.name');
         } elseif ($model == class_basename(Transaction::class)) {
             $name = $this->auditable?->trans_status;
         } elseif ($model == class_basename(Faq::class)) {
-            $name = $this->auditable?->question;
+            $name = $this->old_data['translations'][0]['question'] ?? $this->new_data['translations'][0]['question'] ??'';
         } elseif ($model == class_basename(Currency::class)) {
             $name = $this->auditable?->countries?->name;
         } else {
