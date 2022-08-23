@@ -49,12 +49,12 @@ class ValidateController extends Controller
 
         if ($request->type == 'admin_email') {
             $rules += $this->validateAdminEmail($request);
-            $message = trans('dashboard.admin.u_can_not_use_this_email');
+            $message['admin_email.unique'] = trans('validation.admin.unique_email');
         }
 
         if ($request->type == 'admin_phone') {
             $rules += $this->validateAdminPhone($request);
-            $message = trans('dashboard.admin.u_can_not_use_this_phone');
+            $message['admin_phone.unique'] = trans('validation.admin.unique_phone');
         }
 
         if ($request->type == 'permission') {
@@ -63,7 +63,8 @@ class ValidateController extends Controller
 
         $validator = Validator::make(
             $request->all(),
-            $rules
+            $rules,
+            $message
         );
 
         if ($validator->fails()) {
