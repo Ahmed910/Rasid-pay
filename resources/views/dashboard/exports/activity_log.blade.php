@@ -9,8 +9,14 @@
       <th>
         @lang('dashboard.employee.employee')</th>
       <th>
+
         @lang('dashboard.department.department')</th>
+        <th>
+
+          @lang('dashboard.activity_log.action_type')</th>
+
       <th>
+
         @lang('dashboard.activity_log.main_program')</th>
       <th>
         @lang('dashboard.activity_log.sub_program')</th>
@@ -27,6 +33,7 @@
       <td>{{ $activity_log->user?->fullname ?? trans("dashboard.error.not_found") }}</td>
       <td>{{ $activity_log->user?->department !== null ? $activity_log->user?->department?->name :
         trans('dashboard.department.without_parent') }}</td>
+        <td>{{trans("dashboard.activity_log.actions.{$activity_log->action_type}")}}</td>
       <td>{{ trans("dashboard." . Str::snake(class_basename($activity_log->auditable_type)) . "." .
         str_plural(Str::snake(class_basename($activity_log->auditable_type)))) }}</td>
       <td>{{ trans("dashboard.sub_progs." . strtolower($activity_log->sub_program))}}</td>
