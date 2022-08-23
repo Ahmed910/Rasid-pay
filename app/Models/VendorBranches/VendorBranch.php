@@ -148,7 +148,9 @@ class VendorBranch extends Model implements HasAssetsInterface
         if($request->has('is_active')){
             $searchParams['is_active'] = __('dashboard.vendor_branch.active_cases.'. $request->is_active);
         }
-        
+        if($request->has('vendor_id')){
+            $searchParams['vendor_id'] = Vendor::find($request->vendor_id)?->name;
+        }
         return $searchParams;
     }
     #endregion custom Methods

@@ -1535,13 +1535,14 @@ return [
 
     ],
 
-    'localizations' =>  [
+    'localization' =>  [
         'permissions' =>  [
             'update' => 'تعديل',
             'store' => 'تعديل',
             'index' => 'السجل',
         ],
         'localizations' => 'الترجمات',
+        'localization' => 'الترجمات',
         'value' => 'القيمة',
         'key' => 'المفتاح',
     ],

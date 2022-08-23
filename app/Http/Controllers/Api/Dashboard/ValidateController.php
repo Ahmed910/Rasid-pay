@@ -71,7 +71,7 @@ class ValidateController extends Controller
             return response()->json([
                 'status' => false,
                 'message' => trans('dashboard.error.something_went_wrong'),
-                'errors' => $messages ?? $validator->errors()->toArray(),
+                'errors' => count($messages) > 0  ? $messages : $validator->errors()->toArray(),
                 'data' => null,
             ], 422);
         }

@@ -24,9 +24,11 @@ class ActivityController extends Controller
 {
     public function index(Request $request)
     {
+
         $activatyLogs = ActivityLog::search($request)
-            ->whereIn('user_type', ['admin'])
-            ->orWhereNull('user_type')
+            ->where(function ($query) {
+                $query->whereIn('user_type', ['admin'])->orWhereNull('user_type');
+            })
             ->customDateFromTo($request)
             ->sortBy($request)
             ->paginate((int)($request->per_page ?? config("globals.per_page")));
@@ -185,13 +187,13 @@ class ActivityController extends Controller
         $chunk = 200;
         $names = [];
         foreach (($activatyLogsQuery->chunk($chunk)) as $key => $rows) {
-            $names[] = base_path('storage/app/public/') . $generatePdf->newFile()
+            $names[] = base_path('storage/app/public/') . $generatePdf->newFile('L')
                 ->setHeader(trans('dashboard.activity_log.activity_logs'), $createdFrom)
                 ->view('dashboard.exports.activity_log', $rows, $key, $chunk)
                 ->storeOnLocal('activityLogs/pdfs/');
         }
 
-        $file = GeneratePdf::mergePdfFiles($names, 'activityLogs/pdfs/activity_log.pdf');
+        $file = GeneratePdf::mergePdfFiles($names, 'activityLogs/pdfs/activity_log.pdf', 'L');
 
         return response()->json([
             'data' => [
