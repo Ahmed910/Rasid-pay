@@ -83,7 +83,7 @@ class Citizen extends Model
         }
 
         $new = $query->toSql();
-        if ($old != $new || $request->ban_status == -1) 
+        if ($old != $new || $request->ban_status == -1)
             Loggable::addGlobalActivity($this, array_merge($request->query(),$this->searchParams($request)), ActivityLog::SEARCH, 'index');
     }
 
@@ -97,10 +97,10 @@ class Citizen extends Model
 
         if (in_array($request->sort["column"], self::USER_SORTABLE_COLUMNS)) {
             return $query->join('users', 'users.id', '=', 'citizens.user_id')
-                ->orderBy('users.' . $request->sort["column"], @$request->sort["dir"])->latest();
+                ->orderBy('users.' . $request->sort["column"], @$request->sort["dir"])->latest('citizens.created_at');
         } else if (key_exists($request->sort["column"], self::CARDPKG_SORT_COLUMNS)) {
             return $query->join('citizen_packages', 'citizen_packages.id', '=', 'citizens.citizen_package_id')
-                ->orderBy('citizen_packages.' . self::CARDPKG_SORT_COLUMNS[$request->sort["column"]], @$request->sort["dir"])->latest();
+                ->orderBy('citizen_packages.' . self::CARDPKG_SORT_COLUMNS[$request->sort["column"]], @$request->sort["dir"])->latest('citizens.created_at');
         }
     }
     #endregion scopes
