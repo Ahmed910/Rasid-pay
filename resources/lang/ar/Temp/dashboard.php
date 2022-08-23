@@ -338,6 +338,7 @@ return [
 
     ],
     'activity_log' => [
+        'action_type' => 'نوع النشاط',
         'models' => [
             'admin' => 'المستخدم',
             'department' => 'القسم',
@@ -390,6 +391,7 @@ return [
             'searched' => 'بحث',
             'created' => 'إضافة',
             'temporary' => 'تعطيل لفترة',
+            'export' => 'تصدير',
             'updated' => 'تعديل',
             'delete' => 'حذف',
             'activated' => 'تفعيل',
