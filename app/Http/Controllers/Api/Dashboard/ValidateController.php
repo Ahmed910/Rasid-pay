@@ -12,6 +12,7 @@ class ValidateController extends Controller
     public function __invoke(Request $request)
     {
         $rules = [];
+        $messages = [];
         $message = trans('dashboard.general.u_can_use_this_name');
         if (in_array($request->type, ['department', 'job', 'permission', 'static_page', 'transfer_purpose', 'bank'])) {
             foreach (config('translatable.locales') as $locale) {
@@ -49,12 +50,12 @@ class ValidateController extends Controller
 
         if ($request->type == 'admin_email') {
             $rules += $this->validateAdminEmail($request);
-            $message['admin_email.unique'] = trans('validation.admin.unique_email');
+            $messages['email'][] = trans('validation.admin.unique_email');
         }
 
         if ($request->type == 'admin_phone') {
             $rules += $this->validateAdminPhone($request);
-            $message['admin_phone.unique'] = trans('validation.admin.unique_phone');
+            $messages['phone'][] = trans('validation.admin.unique_phone');
         }
 
         if ($request->type == 'permission') {
@@ -63,15 +64,14 @@ class ValidateController extends Controller
 
         $validator = Validator::make(
             $request->all(),
-            $rules,
-            $message
+            $rules
         );
 
         if ($validator->fails()) {
             return response()->json([
                 'status' => false,
                 'message' => trans('dashboard.error.something_went_wrong'),
-                'errors' => $validator->errors()->toArray(),
+                'errors' => $messages ?? $validator->errors()->toArray(),
                 'data' => null,
             ], 422);
         }
@@ -85,7 +85,7 @@ class ValidateController extends Controller
 
     public function validateDepartment($request, $locale)
     {
-        $rules["$locale.name"]  = "unique:department_translations,name," . ($request->department_id ?? 0)  . ",department_id";
+        $rules["$locale.name"] = "unique:department_translations,name," . ($request->department_id ?? 0) . ",department_id";
         return $rules;
     }
 
@@ -117,6 +117,7 @@ class ValidateController extends Controller
         $rules['login_id'] = 'required|digits:6|numeric|unique:users,login_id,' . $request->admin_id;
         return $rules;
     }
+
     public function validateAdminEmail($request)
     {
         $rules['email'] = 'unique:users,email,' . $request->admin_id;
@@ -135,6 +136,7 @@ class ValidateController extends Controller
         $rules["$locale.name"] = "unique:static_page_translations,name," . ($request->static_page_id ?? 0) . ',static_page_id';
         return $rules;
     }
+
     public function validateTransferPurpose($request, $locale)
     {
         $rules["$locale.name"] = "unique:transfer_purpose_translations,name," . ($request->transfer_purpose_id ?? 0) . ',transfer_purpose_id';
