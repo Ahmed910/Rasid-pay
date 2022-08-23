@@ -2,6 +2,8 @@
 
 return [
     'attributes' => [
+        'deleted_from' => 'تاريخ الأرشفة من',
+        'deleted_to' => 'تاريخ الأرشفة إلي',
         'message_types' => 'نوع الرسالة',
         'action' => 'النشاط',
         'main_program' => 'حقل البرنامج الرئيسي',

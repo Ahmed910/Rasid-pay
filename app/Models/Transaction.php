@@ -56,7 +56,7 @@ class Transaction extends Model
         if ($request->enabled_package && !in_array(-1, $request->enabled_package)) {
             $query->whereHas(
                 'fromUser.citizen.enabledPackage',
-                fn($q) => $q->whereIn('package_type', $request->enabled_package)
+                fn ($q) => $q->whereIn('package_type', $request->enabled_package)
             );
         }
         if ($request->has('trans_number')) {
@@ -77,9 +77,9 @@ class Transaction extends Model
                 });
             }
         }
-        
+
         if ($request->has('citizen')) {
-            $query->whereHas('fromUser', fn($q) => $q->where('fullname', 'like', "%$request->citizen%"));
+            $query->whereHas('fromUser', fn ($q) => $q->where('fullname', 'like', "%$request->citizen%"));
         }
 
         $new = $query->toSql();
@@ -93,40 +93,39 @@ class Transaction extends Model
 
     public function scopeSortBy(Builder $query, $request)
     {
-
         if (!isset($request->sort["column"]) || !isset($request->sort["dir"])) return $query->latest('transactions.created_at');
 
         if (
             //  !in_array(Str::lower($request->sort["column"]), $this->sortableColumns) ||
-        !in_array(Str::lower($request->sort["dir"]), ["asc", "desc"])
+            !in_array(Str::lower($request->sort["dir"]), ["asc", "desc"])
         ) {
 
             return $query->latest('transactions.created_at');
         } else if (in_array($request->sort["column"], self::TRANSACTION_SEARCHABLE_COLUMNS)) {
 
             return $query
-                ->orderBy($request->sort["column"], @$request->sort["dir"])->latest();
+                ->orderBy($request->sort["column"], @$request->sort["dir"])->latest('transactions.created_at');
         } else if (in_array($request->sort["column"], self::USER_SEARCHABLE_COLUMNS)) {
 
             return $query->join('users', 'users.id', '=', 'transactions.from_user_id')
-                ->orderBy('users.' . $request->sort["column"], @$request->sort["dir"])->latest();
+                ->orderBy('users.' . $request->sort["column"], @$request->sort["dir"])->latest('transactions.created_at');
         } else if (key_exists($request->sort["column"], self::CLIENT_SORTABLE_COLUMNS)) {
             return $query->join('users', 'users.id', '=', 'transactions.to_user_id')
-                ->orderBy('users.' . self::CLIENT_SORTABLE_COLUMNS[$request->sort["column"]], @$request->sort["dir"])->latest();
+                ->orderBy('users.' . self::CLIENT_SORTABLE_COLUMNS[$request->sort["column"]], @$request->sort["dir"])->latest('transactions.created_at');
         } else
             if (key_exists($request->sort["column"], self::ENABLED_CARD_sortable_COLUMNS)) {
 
-                return
-                    $query
-                        ->leftjoin("citizen_packages", 'citizen_packages.citizen_id', '=', 'transactions.from_user_id')
-                        ->orderBy('citizen_packages.' . self::ENABLED_CARD_sortable_COLUMNS[$request->sort["column"]], @$request->sort["dir"])
-                        ->select('transactions.*', 'citizen_packages.package_type')
-                        ->latest();
-            }
+            return
+                $query
+                ->leftjoin("citizen_packages", 'citizen_packages.citizen_id', '=', 'transactions.from_user_id')
+                ->orderBy('citizen_packages.' . self::ENABLED_CARD_sortable_COLUMNS[$request->sort["column"]], @$request->sort["dir"])
+                ->select('transactions.*', 'citizen_packages.package_type')
+                ->latest('transactions.created_at');
+        }
 
 
         $query->when($request->sort, function ($q) use ($request) {
-            $q->orderBy($request->sort["column"], @$request->sort["dir"])->latest();
+            $q->orderBy($request->sort["column"], @$request->sort["dir"])->latest('transactions.created_at');
         });
     }
 
@@ -186,17 +185,17 @@ class Transaction extends Model
         return Carbon::parse($this->attributes['created_at'])->locale($locale)->translatedFormat('Y/m/d - h:i A');
     }
 
-    private function searchParams($request) 
+    private function searchParams($request)
     {
         $searchParams = [];
-        if($request->has('trans_type')){
-            $searchParams['trans_type'] = trans_log_search($request->trans_type,'dashboard.transaction.type_cases.');
+        if ($request->has('trans_type')) {
+            $searchParams['trans_type'] = trans_log_search($request->trans_type, 'dashboard.transaction.type_cases.');
         }
-        if($request->has('enabled_package')){
-            $searchParams['enabled_package'] =  trans_log_search($request->enabled_package,'dashboard.package_types.');
+        if ($request->has('enabled_package')) {
+            $searchParams['enabled_package'] =  trans_log_search($request->enabled_package, 'dashboard.package_types.');
         }
-        if($request->has('trans_status')){
-            $searchParams['trans_status'] = trans_log_search($request->trans_status,'dashboard.transaction.status_cases.');
+        if ($request->has('trans_status')) {
+            $searchParams['trans_status'] = trans_log_search($request->trans_status, 'dashboard.transaction.status_cases.');
         }
 
         return $searchParams;
