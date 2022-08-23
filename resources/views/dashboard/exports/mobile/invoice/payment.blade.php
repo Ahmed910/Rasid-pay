@@ -30,7 +30,7 @@
 
       <tr>
         <th style="color:#3f68ba;">
-          @lang('mobile.invoice.transaction_name')
+          @lang('mobile.invoice.transaction_type')
         </th>
         <th>{{ trans("dashboard.transaction.type_cases.{$transaction->trans_type}") ?? '' }}</th>
       </tr>
