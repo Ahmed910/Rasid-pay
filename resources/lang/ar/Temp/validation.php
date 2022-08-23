@@ -38,6 +38,8 @@ return [
         'trans_number'  => 'رقم المعاملة',
         'type' => 'حقل النوع',
         'vendor_id' => 'العميل',
+        'deleted_from' => 'تاريخ الأرشفة (من)',
+        'deleted_to' => 'تاريخ الأرشفة (إلي)',
         'address_details' => 'بيانات العنوان',
 
         'banks' =>  [
