@@ -75,7 +75,7 @@ class AdminRequest extends ApiMasterRequest
             'password.confirmed' => __('validation.admin.confirmed_password'),
             'login_id.unique' => __('validation.admin.unique_login_id'),
             'phone.unique' => __('validation.admin.unique_phone'),
-            'email.unique_email' => __('validation.admin.unique_email'),
+            'email.unique' => __('validation.admin.unique_email'),
         ];
     }
 }

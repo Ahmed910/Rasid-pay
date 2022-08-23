@@ -2,6 +2,8 @@
 
 return [
     'attributes' => [
+        'deleted_from' => 'تاريخ الأرشفة من',
+        'deleted_to' => 'تاريخ الأرشفة إلي',
         'message_types' => 'نوع الرسالة',
         'action' => 'النشاط',
         'main_program' => 'حقل البرنامج الرئيسي',
@@ -206,7 +208,7 @@ return [
         'required_job' => 'الوظيفة مطلوبة',
         'unique_email' => 'البريد الإلكتروني موجود من قبل',
         'confirmed_password' => 'كلمة المرور غير متطابقة',
-        'unique_phone' => 'رقم الجوال موجود من قبل',
+        'unique_phone' => 'هذا الرقم مستخدم من قبل',
         'required_name' => 'اسم المستخدم مطلوب',
         'required_password' => 'كلمة المرور مطلوبة',
         'cant_deactive_admin_while_he_has_message_types' => 'لا يمكن تعطيل هذا الموظف بينما تم تخصيصه لنوع من أنواع الرسائل',
