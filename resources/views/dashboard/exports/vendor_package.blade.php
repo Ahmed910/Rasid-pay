@@ -17,9 +17,9 @@
     <tr>
       <td>{{ isset($key) ? $loop->iteration + ($key * $chunk) : $loop->iteration }}</td>
       <td>{{ $vendorPackage?->vendor?->name }}</td>
-      <td>{{ $vendorPackage?->basic_discount }}</td>
-      <td>{{ $vendorPackage?->golden_discount }}</td>
-      <td>{{ $vendorPackage?->platinum_discount }}</td>
+      <td>{{ $vendorPackage?->basic_discount }} %</td>
+      <td>{{ $vendorPackage?->golden_discount }} %</td>
+      <td>{{ $vendorPackage?->platinum_discount }} %</td>
     </tr>
     @endforeach
   </tbody>
