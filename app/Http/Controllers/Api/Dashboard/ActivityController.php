@@ -19,12 +19,14 @@ use App\Services\GeneratePdf;
 use Maatwebsite\Excel\Facades\Excel;
 use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 use App\Traits\Loggable;
+
 class ActivityController extends Controller
 {
     public function index(Request $request)
     {
         $activatyLogs = ActivityLog::search($request)
-            ->where('user_type', 'admin')
+            ->whereIn('user_type', ['admin'])
+            ->orWhereNull('user_type')
             ->customDateFromTo($request)
             ->sortBy($request)
             ->paginate((int)($request->per_page ?? config("globals.per_page")));
@@ -171,8 +173,10 @@ class ActivityController extends Controller
             ->customDateFromTo($request)
             ->cursor();
 
-            Loggable::addGlobalActivity(ActivityLog::class, array_merge($request->query(), ['department_list' => Department::find($request->department_list)?->name,
-            'employee_list' => User::find($request->employee_list)?->fullname]), ActivityLog::EXPORT, 'index');
+        Loggable::addGlobalActivity(ActivityLog::class, array_merge($request->query(), [
+            'department_list' => Department::find($request->department_list)?->name,
+            'employee_list' => User::find($request->employee_list)?->fullname
+        ]), ActivityLog::EXPORT, 'index');
 
         if (!$request->has('created_from')) {
             $createdFrom = ActivityLog::selectRaw('MIN(created_at) as min_created_at')->value('min_created_at');
@@ -206,8 +210,10 @@ class ActivityController extends Controller
         $fileName = uniqid() . time();
         Excel::store(new ActivityLogsExport($request), 'activity_logs/excels/' . $fileName . '.xlsx', 'public');
         $file = url('/storage/' . 'activity_logs/excels/' . $fileName . '.xlsx');
-        Loggable::addGlobalActivity(ActivityLog::class, array_merge($request->query(), ['department_list' => Department::find($request->department_list)?->name,
-        'employee_list' => User::find($request->employee_list)?->fullname]), ActivityLog::EXPORT, 'index');
+        Loggable::addGlobalActivity(ActivityLog::class, array_merge($request->query(), [
+            'department_list' => Department::find($request->department_list)?->name,
+            'employee_list' => User::find($request->employee_list)?->fullname
+        ]), ActivityLog::EXPORT, 'index');
 
         return response()->json([
             'data' => [
