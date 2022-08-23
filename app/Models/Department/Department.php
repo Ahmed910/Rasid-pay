@@ -54,7 +54,7 @@ class Department extends Model implements TranslatableContract, HasAssetsInterfa
     #endregion accessor
 
     #region scopes
-    public function scopeSearch(Builder $query, $request)
+    public function scopeSearch(Builder $query, $request, $subProgram = 'index')
     {
         $old = $query->toSql();
 
@@ -78,7 +78,8 @@ class Department extends Model implements TranslatableContract, HasAssetsInterfa
         }
 
         $new = $query->toSql();
-        if ($old != $new || $request->is_active == -1 || $request->parent_id == -1)  Loggable::addGlobalActivity($this, array_merge($request->query(), $this->searchParams($request)), ActivityLog::SEARCH, 'index');
+        if ($old != $new || $request->is_active == -1 || $request->parent_id == -1)
+            Loggable::addGlobalActivity($this, array_merge($request->query(), $this->searchParams($request)), ActivityLog::SEARCH, $subProgram);
     }
 
     public function scopeSortBy(Builder $query, $request)
