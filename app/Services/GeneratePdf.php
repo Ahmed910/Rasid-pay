@@ -16,7 +16,7 @@ class GeneratePdf
      * generate new \Mpdf\Mpdf with our configurations
      *
      */
-    public function newFile()
+    public function newFile($orientation = 'P')
     {
         set_time_limit(-1);
         $this->mpdf = new \Mpdf\Mpdf([
@@ -38,7 +38,7 @@ class GeneratePdf
             'format' => 'A4',
             'margin_top' => 60,     // 30mm not pixel
             'margin_footer' => 10,     // 10mm
-            'orientation' => 'L'
+            'orientation' => $orientation
         ]);
 
         $this->mpdf->autoScriptToLang = true;
@@ -124,7 +124,7 @@ class GeneratePdf
         }
     }
 
-    public static function mergePdfFiles(array $filenames, $outFile): string
+    public static function mergePdfFiles(array $filenames, $outFile,$orientation = 'P')
     {
         $mpdf = new \Mpdf\Mpdf([
             'fontDir' => [
@@ -144,7 +144,7 @@ class GeneratePdf
             'nbpgPrefix' => ' ',
             'nbpgSuffix' => ' ',
             'mode' => 'utf-8',
-            'orientation' => 'L'
+            'orientation' => $orientation
         ]);
         $outFile = base_path('storage/app/public/') . $outFile;
         $mpdf->SetFooter('{PAGENO}{nbpg}');
