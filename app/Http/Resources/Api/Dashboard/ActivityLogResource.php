@@ -34,6 +34,8 @@ class ActivityLogResource extends JsonResource
             $name =  $this->old_data['translations'][0]['name'] ?? $this->new_data['translations'][0]['name'] ?? '';
         } elseif ($model == 'Contact') {
             $name = trans('dashboard.contact.name');
+        } elseif ($model == 'Link') {
+            $name = trans('dashboard.link.name');
         } elseif ($model == class_basename(Transaction::class)) {
             $name = $this->auditable?->trans_status;
         } elseif ($model == class_basename(Faq::class)) {

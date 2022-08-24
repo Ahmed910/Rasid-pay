@@ -86,7 +86,8 @@ class Permission extends Model
         'transactions.export_excel',
         'vendor_branches.export_pdf',
         'vendor_branches.export_excel',
-        'transactions.'
+        'transactions.',
+        'settings.'
     ];
 
     private $sortableColumns = ['main_program', 'sub_program', 'name'];
