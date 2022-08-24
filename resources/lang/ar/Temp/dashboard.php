@@ -914,7 +914,8 @@ return [
             'freelance_doc' => 'مستقل',
             'member' => 'عضو',
         ],
-        'u_can_not_use_this_phone' => 'لا يمكن استخدام هذا الرقم',
+        'u_can_not_use_this_phone' => 'لا يمكن تكرار رقم الجوال لعملاء مختلفين',
+        'u_can_not_use_this_email' => 'لا يمكن تكرار البريد الالكتروني لعملاء مختلفين',
         'sub_progs' => [
             'index' => 'سجل العملاء',
             'create' => 'إضافة عميل',
@@ -923,7 +924,7 @@ return [
 
     'vendor_branch' => [
         'vendor_branches' => 'أفرع العميل',
-        'vendors_branches' => 'فروع العملا',
+        'vendors_branches' => 'فروع العملاء',
         'name' => 'اسم الفرع',
         'address' => 'العنوان',
         'status' => 'الحالة',
