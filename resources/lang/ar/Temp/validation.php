@@ -159,7 +159,7 @@ return [
         'client_id' => 'اسم العميل',
         'time' => 'حقل الوقت',
         'recieve_option_id' => 'حقل  خيارات الاستلام',
-        'phone' => 'حقل الهاتف',
+        'phone' => 'حقل الجوال',
         'wallet_transfer_method' => 'حقل طريقة التحويل',
         'card_name' => 'اسم البطاقة',
         'desc' => 'حقل الوصف',

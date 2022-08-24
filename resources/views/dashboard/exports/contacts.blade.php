@@ -23,7 +23,7 @@
       <td>{{ $contact->phone }}</td>
       <td>{{ $contact->messageType?->name }}</td>
       <td>{{ $contact->email }}</td>
-      <td>{{ $contact->admin->fullname }}</td>
+      <td>{{ $contact->assignedTo?->fullname?? $contact->admin?->fullname?? ''}}</td>
       <td>{{ trans('dashboard.contact.message_sources.'.$contact->message_source) }}</td>
       <td>{{ trans('dashboard.contact.message_status.'.$contact->message_status) }}</td>
     </tr>
