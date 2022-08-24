@@ -56,12 +56,12 @@ class ValidateController extends Controller
 
         if ($request->type == 'vendor_branch_phone') {
             $rules += $this->validateVendorBranchPhone($request);
-            $messages['phone'][] = trans('dashboard.vendor_branch.phone.unique');
+            $messages['phone'][] = trans('dashboard.vendor_branch.validation.phone.unique');
         }
 
         if ($request->type == 'vendor_branch_email') {
             $rules += $this->validateVendorBranchEmail($request);
-            $messages['email'][] = trans('dashboard.vendor_branch.email.unique');
+            $messages['email'][] = trans('dashboard.vendor_branch.validation.email.unique');
         }
 
 
