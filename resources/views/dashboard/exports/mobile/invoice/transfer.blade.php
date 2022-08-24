@@ -42,19 +42,20 @@
           USD
         </th>
       @else
-        <th>{{ $transaction->fee_upon == \App\Models\Transfer::FROM_USER?number_format($transaction->fee_amount,2,'.',''):0 }}
+
+        <th>{{ number_format(($transaction->fee_upon == \App\Models\Transfer::FROM_USER?$transaction->fee_amount:0),2,'.','') }}
           ر.س
         </th>
       @endif
     </tr>
-    @if ($transaction->trans_type == 'global_transfer' ||$transaction->trans_type == 'local_transfer')
-      <tr>
-        <th style="color:#3f68ba;">
-          @lang('mobile.invoice.fee_amount')
-        </th>
-        <th>{{ number_format($transaction->fee_amount,2,'.','') ?? 0 }} ر.س</th>
-      </tr>
-    @endif
+
+    <tr>
+      <th style="color:#3f68ba;">
+        @lang('mobile.invoice.fee_amount')
+      </th>
+      <th>{{ number_format($transaction->fee_amount,2,'.','') ?? 0 }} ر.س</th>
+    </tr>
+
 
     @if ($transaction->trans_type == 'global_transfer')
       <tr>
@@ -95,16 +96,6 @@
           @lang('mobile.invoice.benefeciary_address')
         </th>
         <th> {{ $transaction?->transactionable?->beneficiary?->country?->name ?? '' }}</th>
-      </tr>
-    @endif
-
-    @if ($transaction->trans_type == 'wallet_transfer')
-
-      <tr>
-        <th style="color:#3f68ba;">
-          @lang('mobile.invoice.'.$transaction->transactionable?->wallet_transfer_method)
-        </th>
-        <th> {{ $wallet_transfer_method[$transaction->transactionable?->wallet_transfer_method] }}</th>
       </tr>
     @endif
     <tr>
