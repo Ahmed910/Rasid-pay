@@ -76,16 +76,7 @@ class TransferController extends Controller
                 'amount.lte' => trans('validation.wallet_transfer.amount.lte', ['max_amount' => (setting('rasidpay_wallettransfer_maxvalue'))]),
             ];
         }
-        // wallet charge
-        if ($request->transfer_type == 'wallet_charge') {
-            $rules = [
-                "amount" => 'gte:' . setting('rasidpay_walletcharge_minvalue') . '|lte:' . setting('rasidpay_walletcharge_maxvalue')
-            ];
-            $messages = [
-                'amount.gte' => trans('validation.wallet_charge.amount.gte', ['min_amount' => (setting('rasidpay_walletcharge_minvalue'))]),
-                'amount.lte' => trans('validation.wallet_charge.amount.lte', ['max_amount' => (setting('rasidpay_walletcharge_maxvalue'))]),
-            ];
-        }
+
         // local transfer
         if ($request->transfer_type == 'local_transfer') {
             $rules = [
