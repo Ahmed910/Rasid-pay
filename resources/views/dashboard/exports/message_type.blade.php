@@ -13,9 +13,9 @@
       <th class="border-bottom-0">
         @lang('dashboard.message_type.employee_count')</th>
       <th class="border-bottom-0">
+        @lang('dashboard.general.created_at')</th>
+        <th class="border-bottom-0">
         @lang('dashboard.general.status')</th>
-      <th class="border-bottom-0">
-       @lang('dashboard.general.created_at')</th>
     </tr>
     </thead>
     <tbody>
@@ -25,6 +25,7 @@
         <td>{{ $message_type->name ?? '' }}</td>
         <td>{{ $message_type->admins_count ?? '' }}</td>
 
+        <td>{{ $message_type->created_at_date ?? '' }}</td>
          <td>
         @if($message_type->is_active)
         <div class="active">
@@ -38,7 +39,6 @@
         </div>
         @endif
       </td>
-      <td>{{ $message_type->created_at_date ?? '' }}</td>
       </tr>
     @endforeach
     </tbody>

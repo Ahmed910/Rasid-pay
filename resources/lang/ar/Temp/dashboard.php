@@ -1249,7 +1249,7 @@ return [
     ],
     'message_type' => [
         'message_types' => 'أنواع الرسائل',
-        'name' => 'الاسم',
+        'name' => 'نوع الرسالة',
         'employee_count' => 'عدد الموظفين',
         'permissions' => [
             'store' => 'حفظ',
