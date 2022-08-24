@@ -863,6 +863,7 @@ return [
         'status' => ' الحالة',
         'question' => 'السؤال',
         'answer' => 'الاجابة',
+        'order' => 'الترتيب',
         'permissions' => [
             'index' => 'السجل',
             'store' => 'حفظ',
