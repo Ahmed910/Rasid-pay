@@ -7,6 +7,7 @@
     <tr>
       <th>#</th>
       <th>@lang('dashboard.faq.question')</th>
+      <th>@lang('dashboard.faq.order')</th>
       <th>@lang('dashboard.faq.status')</th>
     </tr>
     </thead>
@@ -15,6 +16,7 @@
       <tr>
         <td>{{ isset($key) ? $loop->iteration + ($key * $chunk) : $loop->iteration }}</td>
         <td>{{ $faq->question }}</td>
+        <td>{{ $faq->order }}</td>
         <td>
           @if($faq->is_active)
             <div class="active">
