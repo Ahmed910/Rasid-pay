@@ -45,7 +45,12 @@ class ValidateController extends Controller
 
         if ($request->type == 'vendor_phone') {
             $rules += $this->validateVendorPhone($request);
-            $message = trans('dashboard.vendor.u_can_not_use_this_phone');
+            $messages['phone'][] = trans('dashboard.vendor.u_can_not_use_this_phone');
+        }
+
+        if ($request->type == 'vendor_email') {
+            $rules += $this->validateVendorEmail($request);
+            $messages['email'][] = trans('dashboard.vendor.u_can_not_use_this_email');
         }
 
         if ($request->type == 'admin_email') {
@@ -153,6 +158,12 @@ class ValidateController extends Controller
     {
         $request->merge(['phone' => filter_mobile_number($request->phone)]);
         $rules['phone'] = 'unique:vendors,phone,' . $request->vendor_id;
+        return $rules;
+    }
+
+    public function validateVendorEmail($request)
+    {
+        $rules['email'] = 'unique:vendors,email,' . $request->vendor_id;
         return $rules;
     }
 }
