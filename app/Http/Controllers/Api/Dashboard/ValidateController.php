@@ -53,6 +53,18 @@ class ValidateController extends Controller
             $messages['email'][] = trans('dashboard.vendor.u_can_not_use_this_email');
         }
 
+
+        if ($request->type == 'vendor_branch_phone') {
+            $rules += $this->validateVendorBranchPhone($request);
+            $messages['phone'][] = trans('dashboard.vendor_branch.phone.unique');
+        }
+
+        if ($request->type == 'vendor_branch_email') {
+            $rules += $this->validateVendorBranchEmail($request);
+            $messages['email'][] = trans('dashboard.vendor_branch.email.unique');
+        }
+
+
         if ($request->type == 'admin_email') {
             $rules += $this->validateAdminEmail($request);
             $messages['email'][] = trans('validation.admin.unique_email');
@@ -76,7 +88,7 @@ class ValidateController extends Controller
             return response()->json([
                 'status' => false,
                 'message' => trans('dashboard.error.something_went_wrong'),
-                'errors' => count($messages) > 0  ? $messages : $validator->errors()->toArray(),
+                'errors' => count($messages) > 0 ? $messages : $validator->errors()->toArray(),
                 'data' => null,
             ], 422);
         }
@@ -164,6 +176,20 @@ class ValidateController extends Controller
     public function validateVendorEmail($request)
     {
         $rules['email'] = 'unique:vendors,email,' . $request->vendor_id;
+        return $rules;
+    }
+
+
+    public function validateVendorBranchPhone($request)
+    {
+        $request->merge(['phone' => filter_mobile_number($request->phone)]);
+        $rules['phone'] = 'unique:vendor_branches,phone,' . $request->vendor_id . ',vendor_id';
+        return $rules;
+    }
+
+    public function validateVendorBranchEmail($request)
+    {
+        $rules['email'] = 'unique:vendor_branches,email,' . $request->vendor_id . ',vendor_id';
         return $rules;
     }
 }
