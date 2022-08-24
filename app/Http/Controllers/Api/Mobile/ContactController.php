@@ -7,6 +7,7 @@ use App\Models\{Contact, Setting, User};
 use App\Http\Requests\Mobile\ContactRequest;
 use App\Http\Resources\Api\Mobile\SettingResource;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class ContactController extends Controller
 {
@@ -31,6 +32,8 @@ class ContactController extends Controller
                                             ->value('users.id');
         // dump($adminThatHaveMinMessages);
         $contact->fill($request->validated()+['admin_id' => $adminThatHaveMinMessages])->save();
+
+        User::find($adminThatHaveMinMessages)?->admin()->increment('messages_count', 1);
 
         return response()->json([
             'status' => true,

@@ -2,7 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 
-Route::post('send_data', 'TestController@sendData');
+// Route::post('send_data', 'TestController@sendData');
 
 Route::controller('Auth\LoginController')->group(function () {
     Route::post('login', 'login')->name('login');

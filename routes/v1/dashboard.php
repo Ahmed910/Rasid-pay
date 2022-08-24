@@ -235,13 +235,15 @@ Route::middleware('maintenance_mode')->group(function () {
                 Route::get('export_excel', 'exportExcel')->name('export_excel');
             });
 
+
+
             Route::apiResources([
                 //            'countries' => 'CountryController',
                 // 'currencies' => 'CurrencyController',
                 // "cities" => "CityController",
                 // "regions" => "RegionController",
                 "departments" => "DepartmentController",
-                'admins' => 'AdminController',
+                // 'admins' => 'AdminController',
                 // 'employees' => 'EmployeeController',
                 // 'clients' => 'ClientController',
                 'vendors' => 'VendorController',
@@ -256,9 +258,10 @@ Route::middleware('maintenance_mode')->group(function () {
                 'message_types' => 'MessageTypeController'
             ]);
 
+            Route::apiResource('admins', 'AdminController')->except('destroy');
             Route::apiResource('vendor_branches', 'VendorBranchController')->except('get_vendors');
             Route::apiResource('contacts', 'ContactController')->only('index', 'show');
-            Route::apiResource('vendor_packages', 'VendorPackageController')->except('destroy');
+            Route::apiResource('vendor_packages', 'VendorPackageController')->except('destroy','show');
             Route::apiResource('citizens', 'CitizenController')->only('index', 'show', 'update');
             Route::apiResource('settings', 'SettingController')->only(['index', 'store']);
             Route::apiResource('links', 'LinkController')->only(['index', 'update']);

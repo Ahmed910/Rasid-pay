@@ -372,7 +372,8 @@ return [
             'banktransfer' => 'تحويل بنكي',
             'vendorpackage' => 'نسب خصم البطاقات',
             'activitylog' => 'المتابعة',
-            'locale' => 'الترجمات'
+            'locale' => 'الترجمات',
+            'link' => 'الروابط'
 
         ],
         'transfer' => [
@@ -1194,6 +1195,7 @@ return [
         'user_citizens' => 'مستخدمي التطبيق',
     ],
     'link' => [
+        'name' => 'رابط',
         'links' => 'الروابط',
         'permissions' =>
             [
@@ -1249,7 +1251,7 @@ return [
     ],
     'message_type' => [
         'message_types' => 'أنواع الرسائل',
-        'name' => 'الاسم',
+        'name' => 'نوع الرسالة',
         'employee_count' => 'عدد الموظفين',
         'permissions' => [
             'store' => 'حفظ',

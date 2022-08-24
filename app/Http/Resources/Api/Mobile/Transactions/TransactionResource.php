@@ -59,7 +59,7 @@ class TransactionResource extends JsonResource
             'exchange_rate' => (string)$this->transactionable?->bankTransfer?->exchange_rate,
             'to_amount' => $to_amount,
             'transfer_fees' => number_format($this->transactionable?->transfer_fees, 2) ?? '0',
-            'transfer_purpose' => $this->transactionable?->transferPurpose?->name,
+            'transfer_purpose' => $this->transactionable?->transferPurpose->is_another == 1 ? $this->transactionable?->notes : $this->transactionable?->transferPurpose?->name,
             'recieve_option' => $this->transactionable?->bankTransfer?->recieveOption?->name,
             'qr_code' => asset($this->qr_path),
             'wallet_transfer_method' => $this->when($this->trans_type == 'wallet_transfer', $this->transactionable?->wallet_transfer_method),
