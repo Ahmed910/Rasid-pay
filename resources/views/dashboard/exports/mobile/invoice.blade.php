@@ -1,7 +1,7 @@
 <html>
 
 <head>
-  <meta charset="utf-8" />
+  <meta charset="utf-8"/>
   <title>@lang('mobile.invoice.invoice')</title>
   <link rel="stylesheet" href="{{ asset('dashboardAssets/css/invoice.css') }}">
   <style>
@@ -25,14 +25,15 @@
 </head>
 
 <body dir="rtl">
-
-  @if($transaction_type=='payment')
+@if($transaction_type=='payment')
   @include('dashboard.exports.mobile.invoice.payment')
-  @elseif($transaction_type=='charge')
+@elseif($transaction_type=='charge')
   @include('dashboard.exports.mobile.invoice.charge')
-  @else
+@elseif($transaction_type=='wallet_transfer')
+  @include('dashboard.exports.mobile.invoice.wallet_transfer')
+@else
   @include('dashboard.exports.mobile.invoice.transfer')
-  @endif
+@endif
 
 </body>
 
