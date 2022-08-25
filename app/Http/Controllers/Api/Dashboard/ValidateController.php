@@ -53,6 +53,11 @@ class ValidateController extends Controller
             $messages['email'][] = trans('dashboard.vendor.u_can_not_use_this_email');
         }
 
+        if ($request->type == 'vendor_iban') {
+            $rules += $this->validateVendorIban($request);
+            $messages['iban'][] = trans('dashboard.vendor.u_can_not_use_this_iban');
+        }
+
 
         if ($request->type == 'vendor_branch_phone') {
             $rules += $this->validateVendorBranchPhone($request);
@@ -176,6 +181,12 @@ class ValidateController extends Controller
     public function validateVendorEmail($request)
     {
         $rules['email'] = 'unique:vendors,email,' . $request->vendor_id;
+        return $rules;
+    }
+
+    public function validateVendorIban($request)
+    {
+        $rules['iban'] = 'unique:vendors,iban,' . $request->vendor_id;
         return $rules;
     }
 
