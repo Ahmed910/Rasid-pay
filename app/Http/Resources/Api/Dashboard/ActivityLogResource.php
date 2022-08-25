@@ -42,7 +42,10 @@ class ActivityLogResource extends JsonResource
             $name = $this->old_data['translations'][0]['question'] ?? $this->new_data['translations'][0]['question'] ?? '';
         } elseif ($model == class_basename(Currency::class)) {
             $name = $this->auditable?->countries?->name;
-        } else {
+        }elseif ($model == class_basename(Link::class)) {
+            $name =  trans('dashboard.links.'.$this->auditable?->key);
+        }
+        else {
             $name = $this->auditable?->fullname;
         }
 
