@@ -893,6 +893,7 @@ return [
         'vendor_type'=>'نوع العميل',
         'status' => 'الحالة ',
         'tax_number' => 'الرقم الضريبي',
+        'discount' => 'نسبة الخصم',
         'commerical_number' => 'السجل التجاري',
 
         'permissions' => [
@@ -1524,7 +1525,9 @@ return [
             "required" => "السجل التجارى مطلوب",
             "unique" => "لا يمكن تكرار السجل التجارى لعملاء مختلفين",
         ],
-
+        "discount" => [
+            "required" => "نسبة الخصم مطلوبة",
+        ],
     ],
 
     'links' => [

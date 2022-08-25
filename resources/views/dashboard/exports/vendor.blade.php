@@ -11,6 +11,7 @@
       <th>@lang('dashboard.vendor.commerical_number') </th>
       <th>@lang('dashboard.vendor.tax_number') </th>
       <th>@lang('dashboard.vendor.branch_counts') </th>
+      <th>@lang('dashboard.vendor.discount') </th>
       <th>@lang('dashboard.vendor.status') </th>
     </tr>
   </thead>
@@ -23,6 +24,7 @@
       <td>{{ $vendor->commercial_record ?? '' }}</td>
       <td>{{ $vendor->tax_number ?? '' }}</td>
       <td>{{ $vendor->branches_count ?? '' }}</td>
+      <td>{{ $vendor->discount ?? 0 }}</td>
        <td>
         @if($vendor->is_active)
         <div class="active">
