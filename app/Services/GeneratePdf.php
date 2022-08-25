@@ -62,7 +62,7 @@ class GeneratePdf
     {
         $date_from   = format_date(request('created_from')) ?? format_date($createdFrom);
         $date_to     = format_date(request('created_to')) ?? format_date(now());
-        $userId      = auth()->user()->login_id;
+        $userId      = auth()->user()->login_id??'';
 
         $this->mpdf->SetHTMLHeader(view('dashboard.exports.header', compact(
             'date_from',
