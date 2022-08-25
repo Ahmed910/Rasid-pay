@@ -52,10 +52,10 @@ class Locale extends Model
         $query->when($request->sort, function ($q) use ($request) {
             if ($request->sort["column"] == "value") {
                 return $q->has('translations')
-                    ->orderBy($request->sort["column"], @$request->sort["dir"])->latest();
+                    ->orderBy($request->sort["column"], @$request->sort["dir"])->latest('locales.created_at');
             }
 
-            $q->orderBy($request->sort["column"], @$request->sort["dir"])->latest();
+            $q->orderBy($request->sort["column"], @$request->sort["dir"])->latest('locales.created_at');
         });
     }
     #endregion scopes
