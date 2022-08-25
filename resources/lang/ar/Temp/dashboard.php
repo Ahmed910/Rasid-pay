@@ -889,8 +889,11 @@ return [
         'branch_counts' => 'عدد الفروع',
         'branch_name' => 'اسم الفرع',
         'branch_type' => 'نوع الفرع',
+        'vendor_name'=>'اسم العميل',
+        'vendor_type'=>'نوع العميل',
         'status' => 'الحالة ',
         'tax_number' => 'الرقم الضريبي',
+        'discount' => 'نسبة الخصم',
         'commerical_number' => 'السجل التجاري',
 
         'permissions' => [
@@ -1406,6 +1409,7 @@ return [
 
             'can_not_be_deleted_has_link' => 'لا يمكن حذف صفحة مرتبطة برابط',
             'can_not_be_deactivated' => 'لا يمكنك تعطيل تلك الصفحة',
+            'u_can_not_use_this_static_page_name' => 'اسم الصفحة موجود من قبل',
 
             'is_active' => [
                 'in' => 'حقل الحالة يجب أن يكون بين هذه القيم :values',
@@ -1521,7 +1525,9 @@ return [
             "required" => "السجل التجارى مطلوب",
             "unique" => "لا يمكن تكرار السجل التجارى لعملاء مختلفين",
         ],
-
+        "discount" => [
+            "required" => "نسبة الخصم مطلوبة",
+        ],
     ],
 
     'links' => [

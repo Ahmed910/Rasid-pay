@@ -25,6 +25,7 @@ class VendorResource extends JsonResource
                 'type' => $this->type,
                 'commercial_record' => $this->commercial_record,
                 'tax_number' => $this->tax_number,
+                'discount' => $this->discount,
                 'iban' => $this->iban,
                 'is_active' => (bool)$this->is_active,
                 'is_support_maak' => (bool)$this->is_support_maak,

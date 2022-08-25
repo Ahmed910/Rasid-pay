@@ -25,7 +25,7 @@ class Vendor extends Model implements HasAssetsInterface
     public $assets = ['logo', 'commercial_record_image', 'tax_number_image'];
     protected $guarded = ['created_at'];
     public $translatedAttributes = ['name'];
-    private $sortableColumns = ["commercial_record", "is_active", "tax_number", "name", "type", "branches_count"];
+    private $sortableColumns = ["commercial_record", "is_active", "tax_number", "name", "type", "branches_count",'discount'];
     public $with = ['translations'];
     #endregion properties
     public static function boot()
@@ -61,6 +61,8 @@ class Vendor extends Model implements HasAssetsInterface
             $query->where('commercial_record', 'like', "%$request->commercial_record%");
         if (isset($request->tax_number))
             $query->where('tax_number', 'like', "%$request->tax_number%");
+        if (isset($request->discount))
+            $query->where('discount', 'like', "%$request->discount%");
         if (isset($request->type) && in_array($request->type, self::TYPES))
             $query->where('type', $request->type);
         if (isset($request->is_active) && in_array($request->is_active, [0, 1]))
@@ -72,22 +74,22 @@ class Vendor extends Model implements HasAssetsInterface
 
     public function scopeSortBy(Builder $query, $request)
     {
-        if (!isset($request->sort["column"]) || !isset($request->sort["dir"])) return $query->latest('created_at');
+        if (!isset($request->sort["column"]) || !isset($request->sort["dir"])) return $query->latest('vendors.created_at');
 
         if (
             !in_array(Str::lower($request->sort["column"]), $this->sortableColumns) ||
             !in_array(Str::lower($request->sort["dir"]), ["asc", "desc"])
         ) {
-            return $query->latest('created_at');
+            return $query->latest('vendors.created_at');
         }
 
 
         $query->when($request->sort, function ($q) use ($request) {
             if ($request->sort["column"] == "name") {
                 return $q->has('translations')
-                    ->orderBy($request->sort["column"], @$request->sort["dir"])->latest();
+                    ->orderBy($request->sort["column"], @$request->sort["dir"])->latest('vendors.created_at');
             }
-            $q->orderBy($request->sort["column"], @$request->sort["dir"])->latest();
+            $q->orderBy($request->sort["column"], @$request->sort["dir"])->latest('vendors.created_at');
         });
     }
 

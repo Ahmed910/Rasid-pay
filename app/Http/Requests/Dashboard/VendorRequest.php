@@ -38,6 +38,7 @@ class VendorRequest extends ApiMasterRequest
             'logo' => (!$this->isMethod('put')) ? "required|" : "nullable|" . 'mimes:jpeg,jpg,png,suv,heic',
             'commercial_record_image' => (!$this->isMethod('put')) ? "required|" : "nullable|" . 'mimes:jpeg,jpg,png,suv,heic',
             'tax_number_image' => 'nullable|mimes:jpeg,jpg,png,suv,heic',
+            'discount' => 'required'
         ];
         foreach (config('translatable.locales') as $locale) {
             $rules["$locale"] = "array";
@@ -68,6 +69,7 @@ class VendorRequest extends ApiMasterRequest
             'commercial_record.required' => __('dashboard.vendors.commercial_record.required'),
             'tax_number.unique' => __('dashboard.vendors.tax_number.unique'),
             'tax_number.required' => __('dashboard.vendors.tax_number.required'),
+            'discount.required' => __('dashboard.vendors.discount.required'),
         ];
     }
 }

@@ -69,22 +69,22 @@ class OurApp extends Model implements TranslatableContract, HasAssetsInterface
     {
 
         if (!isset($request->sort["column"]) || !isset($request->sort["dir"]))
-            return $query->orderBy('our_apps.order')->latest();
+            return $query->orderBy('our_apps.order')->latest('our_apps.created_at');
 
         if (
             !in_array(Str::lower($request->sort["column"]), $this->sortableColumns) ||
             !in_array(Str::lower($request->sort["dir"]), ["asc", "desc"])
         ) {
-            return $query->orderBy('our_apps.created_at')->latest();
+            return $query->orderBy('our_apps.created_at')->latest('our_apps.created_at');
         }
 
         $query->when($request->sort, function ($q) use ($request) {
             if ($request->sort["column"] == "name") {
                 return $q->has('translations')
-                    ->orderBy($request->sort["column"], @$request->sort["dir"])->latest();
+                    ->orderBy($request->sort["column"], @$request->sort["dir"])->latest('our_apps.created_at');
             }
 
-            $q->orderBy($request->sort["column"], @$request->sort["dir"])->latest();
+            $q->orderBy($request->sort["column"], @$request->sort["dir"])->latest('our_apps.created_at');
         });
     }
 
@@ -99,7 +99,7 @@ class OurApp extends Model implements TranslatableContract, HasAssetsInterface
         if($request->has('is_active')){
             $searchParams['is_active'] = __('dashboard.our_app.active_cases.'. $request->is_active);
         }
-        
+
         return $searchParams;
     }
     #endregion custom Methods

@@ -19,6 +19,7 @@ class CreateVendorsTable extends Migration
             $table->string('iban');
             $table->boolean('is_support_maak');
             $table->boolean('is_active')->default(true);
+            $table->string('discount')->nullable();
             $table->foreignUuid("added_by_id")->nullable()->constrained('users')->nullOnDelete();
 
             $table->timestamps();

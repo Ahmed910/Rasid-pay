@@ -69,6 +69,10 @@ class ValidateController extends Controller
             $messages['email'][] = trans('dashboard.vendor_branch.validation.email.unique');
         }
 
+        if ($request->type == 'static_page') {
+            $rules["$locale.name"] = 'unique:static_page_translations,name,' . @$request->static_page_id . ',static_page_id';
+            $messages["$locale.name"][] = trans('dashboard.static_page.validation.u_can_not_use_this_static_page_name');
+        }
 
         if ($request->type == 'admin_email') {
             $rules += $this->validateAdminEmail($request);

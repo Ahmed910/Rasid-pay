@@ -53,13 +53,13 @@ class TransferPurpose extends Model
 
     public function scopeSortBy(Builder $query, $request)
     {
-        if (!isset($request->sort["column"]) || !isset($request->sort["dir"])) return $query->latest('created_at');
+        if (!isset($request->sort["column"]) || !isset($request->sort["dir"])) return $query->latest('transfer_purposes.created_at');
 
         if (
             !in_array(\Str::lower($request->sort["column"]), $this->sortableColumns) ||
             !in_array(\Str::lower($request->sort["dir"]), ["asc", "desc"])
         ) {
-            return $query->latest('created_at');
+            return $query->latest('transfer_purposes.created_at');
         }
         $query->when($request->sort, function ($q) use ($request) {
             if ($request->sort["column"]  == "name") {
@@ -93,7 +93,7 @@ class TransferPurpose extends Model
         if($request->has('is_active')){
             $searchParams['is_active'] = __('dashboard.transfer_purposes.active_cases.'. $request->is_active);
         }
-        
+
         return $searchParams;
     }
     #endregion custom Methods

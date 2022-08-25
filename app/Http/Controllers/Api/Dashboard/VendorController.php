@@ -13,6 +13,8 @@ use Illuminate\Http\Request;
 use App\Services\GeneratePdf;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Traits\Loggable;
+use App\Http\Requests\Dashboard\ReasonRequest;
+
 class VendorController extends Controller
 {
     public function index(Request $request)
@@ -20,12 +22,12 @@ class VendorController extends Controller
         $vendors = Vendor::search($request)
             ->ListsTranslations('name')
             ->with('branches')
-            ->addSelect('vendors.type', 'vendors.is_active', 'vendors.commercial_record', 'vendors.tax_number', 'vendors.iban')
+            ->addSelect('vendors.type', 'vendors.is_active', 'vendors.commercial_record', 'vendors.tax_number', 'vendors.iban', 'vendor_discount')
             ->withCount('branches')
             ->customDateFromTo($request)
             ->sortBy($request)
             ->paginate((int)($request->per_page ?? config("globals.per_page")));
-            // dd($vendors);
+        // dd($vendors);
         return VendorResource::collection($vendors)
             ->additional([
                 'status' => true,
@@ -74,7 +76,7 @@ class VendorController extends Controller
     }
 
 
-    public function destroy($id)
+    public function destroy(ReasonRequest $request, $id)
     {
         $vendor = Vendor::findorfail($id);
         $vendor->delete();
@@ -88,13 +90,13 @@ class VendorController extends Controller
     public function exportPDF(Request $request, GeneratePdf $generatePdf)
     {
         $VendorsQuery = Vendor::search($request)
-        ->ListsTranslations('name')
-        ->with('branches')
-        ->addSelect('vendors.type', 'vendors.is_active', 'vendors.commercial_record', 'vendors.tax_number', 'vendors.iban')
-        ->withCount('branches')
-        ->customDateFromTo($request)
-        ->sortBy($request)
-        ->get();
+            ->ListsTranslations('name')
+            ->with('branches')
+            ->addSelect('vendors.type', 'vendors.is_active', 'vendors.commercial_record', 'vendors.tax_number', 'vendors.iban','vendor.discount')
+            ->withCount('branches')
+            ->customDateFromTo($request)
+            ->sortBy($request)
+            ->get();
         Loggable::addGlobalActivity(Vendor::class, $request->query(), ActivityLog::EXPORT, 'index');
 
         if (!$request->has('created_from')) {
@@ -105,7 +107,7 @@ class VendorController extends Controller
         $names = [];
         foreach (($VendorsQuery->chunk($chunk)) as $key => $rows) {
             $names[] = base_path('storage/app/public/') . $generatePdf->newFile()
-                    ->setHeader(trans('dashboard.vendor.vendors'),  $createdFrom)
+                    ->setHeader(trans('dashboard.vendor.vendors'), $createdFrom)
                     ->view('dashboard.exports.vendor', $rows, $key, $chunk)
                     ->storeOnLocal('vendors/pdfs/');
         }
@@ -113,7 +115,7 @@ class VendorController extends Controller
         $file = GeneratePdf::mergePdfFiles($names, 'vendors/pdfs/vendors.pdf');
 
         return response()->json([
-            'data'   => [
+            'data' => [
                 'file' => $file
             ],
             'status' => true,
@@ -129,7 +131,7 @@ class VendorController extends Controller
         Loggable::addGlobalActivity(Vendor::class, $request->query(), ActivityLog::EXPORT, 'index');
 
         return response()->json([
-            'data'   => [
+            'data' => [
                 'file' => $file
             ],
             'status' => true,

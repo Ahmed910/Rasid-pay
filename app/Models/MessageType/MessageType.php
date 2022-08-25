@@ -71,14 +71,14 @@ class MessageType extends Model
         $query->when($request->sort, function ($q) use ($request) {
             if ($request->sort["column"] == "name") {
                 return $q->has('translations')
-                    ->orderBy($request->sort["column"], @$request->sort["dir"])->latest();
+                    ->orderBy($request->sort["column"], @$request->sort["dir"])->latest('message_types.created_at');
             }
 
             if ($request->sort["column"] == "employee_count") {
-                return $q->withCount('admins')->orderBy('admins_count', @$request->sort["dir"])->latest();
+                return $q->withCount('admins')->orderBy('admins_count', @$request->sort["dir"])->latest('message_types.created_at');
             }
 
-            $q->orderBy($request->sort["column"], @$request->sort["dir"])->latest();
+            $q->orderBy($request->sort["column"], @$request->sort["dir"])->latest('message_types.created_at');
         });
     }
 
@@ -106,7 +106,7 @@ class MessageType extends Model
         if($request->has('employee_list')){
             $searchParams['employee_list'] = User::find($request->employee_list)?->pluck('fullname')->join(',');
         }
- 
+
         return $searchParams;
     }
 
