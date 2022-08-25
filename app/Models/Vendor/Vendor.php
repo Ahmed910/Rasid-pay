@@ -25,7 +25,7 @@ class Vendor extends Model implements HasAssetsInterface
     public $assets = ['logo', 'commercial_record_image', 'tax_number_image'];
     protected $guarded = ['created_at'];
     public $translatedAttributes = ['name'];
-    private $sortableColumns = ["commercial_record", "is_active", "tax_number", "name", "type", "branches_count"];
+    private $sortableColumns = ["commercial_record", "is_active", "tax_number", "name", "type", "branches_count",'discount'];
     public $with = ['translations'];
     #endregion properties
     public static function boot()
@@ -61,6 +61,8 @@ class Vendor extends Model implements HasAssetsInterface
             $query->where('commercial_record', 'like', "%$request->commercial_record%");
         if (isset($request->tax_number))
             $query->where('tax_number', 'like', "%$request->tax_number%");
+        if (isset($request->discount))
+            $query->where('discount', 'like', "%$request->discount%");
         if (isset($request->type) && in_array($request->type, self::TYPES))
             $query->where('type', $request->type);
         if (isset($request->is_active) && in_array($request->is_active, [0, 1]))
