@@ -29,20 +29,7 @@ class ActivityLogResource extends JsonResource
             $class = explode('\\', $this->auditable_type);
             $model = $class[COUNT($class) - 1];
         };
-
-        if (isset($this->old_data['translations'][0]['name']) || isset($this->new_data['translations'][0]['name'])) {
-            $name =  $this->old_data['translations'][0]['name'] ?? $this->new_data['translations'][0]['name'] ?? '';
-        } elseif ($model == 'Contact') {
-            $name = trans('dashboard.contact.name');
-        } elseif ($model == class_basename(Transaction::class)) {
-            $name = $this->auditable?->trans_status;
-        } elseif ($model == class_basename(Faq::class)) {
-            $name = $this->old_data['translations'][0]['question'] ?? $this->new_data['translations'][0]['question'] ?? '';
-        } elseif ($model == class_basename(Currency::class)) {
-            $name = $this->auditable?->countries?->name;
-        } else {
-            $name = $this->auditable?->fullname;
-        }
+        $name = $this->getName($model);
 
         return [
             'id' => $this->id,
@@ -90,6 +77,29 @@ class ActivityLogResource extends JsonResource
     }
 
 
+    public function getName($model)
+    {
+        if (isset($this->old_data['translations'][0]['name']) || isset($this->new_data['translations'][0]['name'])) {
+            $name =  $this->old_data['translations'][0]['name'] ?? $this->new_data['translations'][0]['name'] ?? '';
+        } elseif ($model == 'Contact') {
+            $name = trans('dashboard.contact.name');
+        } elseif ($model == 'Link') {
+            $name = trans('dashboard.link.name');
+        } elseif ($model == class_basename(Transaction::class)) {
+            $name = $this->auditable?->trans_status;
+        } elseif ($model == class_basename(Faq::class)) {
+            $name = $this->old_data['translations'][0]['question'] ?? $this->new_data['translations'][0]['question'] ?? '';
+        } elseif ($model == class_basename(Currency::class)) {
+            $name = $this->auditable?->countries?->name;
+        }elseif ($model == class_basename(Link::class)) {
+            $name =  trans('dashboard.links.'.$this->auditable?->key);
+        }
+        else {
+            $name = $this->auditable?->fullname;
+        }
+        return $name;
+    }
+    
     public function checkActionType($action_type, $name)
     {
         if ($action_type == ActivityLog::SEARCH) {

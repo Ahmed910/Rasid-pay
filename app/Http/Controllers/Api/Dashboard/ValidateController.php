@@ -45,8 +45,30 @@ class ValidateController extends Controller
 
         if ($request->type == 'vendor_phone') {
             $rules += $this->validateVendorPhone($request);
-            $message = trans('dashboard.vendor.u_can_not_use_this_phone');
+            $messages['phone'][] = trans('dashboard.vendor.u_can_not_use_this_phone');
         }
+
+        if ($request->type == 'vendor_email') {
+            $rules += $this->validateVendorEmail($request);
+            $messages['email'][] = trans('dashboard.vendor.u_can_not_use_this_email');
+        }
+
+        if ($request->type == 'vendor_iban') {
+            $rules += $this->validateVendorIban($request);
+            $messages['iban'][] = trans('dashboard.vendor.u_can_not_use_this_iban');
+        }
+
+
+        if ($request->type == 'vendor_branch_phone') {
+            $rules += $this->validateVendorBranchPhone($request);
+            $messages['phone'][] = trans('dashboard.vendor_branch.validation.phone.unique');
+        }
+
+        if ($request->type == 'vendor_branch_email') {
+            $rules += $this->validateVendorBranchEmail($request);
+            $messages['email'][] = trans('dashboard.vendor_branch.validation.email.unique');
+        }
+
 
         if ($request->type == 'admin_email') {
             $rules += $this->validateAdminEmail($request);
@@ -71,7 +93,7 @@ class ValidateController extends Controller
             return response()->json([
                 'status' => false,
                 'message' => trans('dashboard.error.something_went_wrong'),
-                'errors' => count($messages) > 0  ? $messages : $validator->errors()->toArray(),
+                'errors' => count($messages) > 0 ? $messages : $validator->errors()->toArray(),
                 'data' => null,
             ], 422);
         }
@@ -153,6 +175,32 @@ class ValidateController extends Controller
     {
         $request->merge(['phone' => filter_mobile_number($request->phone)]);
         $rules['phone'] = 'unique:vendors,phone,' . $request->vendor_id;
+        return $rules;
+    }
+
+    public function validateVendorEmail($request)
+    {
+        $rules['email'] = 'unique:vendors,email,' . $request->vendor_id;
+        return $rules;
+    }
+
+    public function validateVendorIban($request)
+    {
+        $rules['iban'] = 'unique:vendors,iban,' . $request->vendor_id;
+        return $rules;
+    }
+
+
+    public function validateVendorBranchPhone($request)
+    {
+        $request->merge(['phone' => filter_mobile_number($request->phone)]);
+        $rules['phone'] = 'unique:vendor_branches,phone,' . $request->vendor_id . ',vendor_id';
+        return $rules;
+    }
+
+    public function validateVendorBranchEmail($request)
+    {
+        $rules['email'] = 'unique:vendor_branches,email,' . $request->vendor_id . ',vendor_id';
         return $rules;
     }
 }

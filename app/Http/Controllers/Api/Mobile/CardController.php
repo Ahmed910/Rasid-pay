@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Api\Mobile;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\MobileCardRequest;
+use App\Http\Requests\Mobile\CardRequest;
 use App\Models\Card;
 use App\Http\Resources\Api\Mobile\CardResource;
 use Illuminate\Http\Request;

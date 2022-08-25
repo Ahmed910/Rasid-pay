@@ -26,8 +26,8 @@ class ActivityController extends Controller
     {
 
         $activatyLogs = ActivityLog::search($request)
-            ->where(function ($query) {
-                $query->whereIn('user_type', ['admin'])->orWhereNull('user_type');
+            ->whereHas('user', function ($query) {
+                $query->whereIn('user_type', ['admin','superadmin']);
             })
             ->customDateFromTo($request)
             ->sortBy($request)
@@ -104,7 +104,8 @@ class ActivityController extends Controller
                 'Slide',
                 'Package',
                 'RecieveOption',
-                'TransferRelation'
+                'TransferRelation',
+                'Permission'
             ])->transform(function ($class, $model) {
                 $data['name'] = $model;
                 $data['trans'] = trans("dashboard." . Str::snake($model) . "." . str_plural(Str::snake($model)));

@@ -56,7 +56,7 @@ return [
     ],
     'vendor_package' => [
         'vendor_package' => 'نسب خصم البطاقات',
-        'vendor_packages' => 'نسب الخصم',
+        'vendor_packages' => 'نسب خصم البطاقات',
         'vendor_name' => 'اسم العميل',
         'permissions' => [
             'update' => 'تعديل',
@@ -91,7 +91,7 @@ return [
         'login_code' => 'رمز التحقق',
         'show_all' => 'عرض الكل',
         'success_add' => 'تمت الإضافة بنجاح',
-        'un_active_account' => 'هذا المستخدم معطل . برجاء التواصل مع الدعم الفني',
+        'un_active_account' => 'هذا المستخدم معطل . برجاء التواصل مع الدعم والمساعدة',
         'delete' => 'حذف',
         'created_at' => 'تاريخ الإنشاء',
         'done_by' => 'تم بواسطة',
@@ -367,12 +367,13 @@ return [
             'vendorbranch' => 'أفرع العميل',
             'transaction' => 'المعاملات',
             'transfer' => 'التحويلات',
-            'setting' => 'الإعدادات',
+            'setting' => ' الإعدادات ',
             'currency' => 'العملات',
             'banktransfer' => 'تحويل بنكي',
             'vendorpackage' => 'نسب خصم البطاقات',
             'activitylog' => 'المتابعة',
-            'locale' => 'الترجمات'
+            'locale' => 'الترجمات',
+            'link' => 'الروابط'
 
         ],
         'transfer' => [
@@ -862,6 +863,7 @@ return [
         'status' => ' الحالة',
         'question' => 'السؤال',
         'answer' => 'الاجابة',
+        'order' => 'الترتيب',
         'permissions' => [
             'index' => 'السجل',
             'store' => 'حفظ',
@@ -912,7 +914,9 @@ return [
             'freelance_doc' => 'مستقل',
             'member' => 'عضو',
         ],
-        'u_can_not_use_this_phone' => 'لا يمكن استخدام هذا الرقم',
+        'u_can_not_use_this_phone' => 'لا يمكن تكرار رقم الجوال لعملاء مختلفين',
+        'u_can_not_use_this_email' => 'لا يمكن تكرار البريد الالكتروني لعملاء مختلفين',
+        'u_can_not_use_this_iban' => 'لا يمكن تكرار الايبان لعملاء مختلفين',
         'sub_progs' => [
             'index' => 'سجل العملاء',
             'create' => 'إضافة عميل',
@@ -921,7 +925,7 @@ return [
 
     'vendor_branch' => [
         'vendor_branches' => 'أفرع العميل',
-        'vendors_branches' => 'فروع العملا',
+        'vendors_branches' => 'فروع العملاء',
         'name' => 'اسم الفرع',
         'address' => 'العنوان',
         'status' => 'الحالة',
@@ -975,7 +979,7 @@ return [
             'email' => [
                 'required' => 'حقل البريد الالكتروني مطلوب',
                 'email' => 'حقل البريد الالكتروني يجب أن يكون بصيغة صحيحة',
-                'unique' => 'لا يمكن تكرار بريد الكتروني لعملاء مختلفين',
+                'unique' => 'لا يمكن تكرار البريد الالكتروني لفروع عملاء مختلفين',
             ],
             'is_active' => [
                 'required' => 'حقل الحالة مطلوب',
@@ -987,7 +991,7 @@ return [
                 'numeric' => 'حقل رقم الهاتف ينبغي أن يكون رقماً',
                 'digits_between' => 'حقل رقم الهاتف ينبغي أن يكون أرقاماً بين :min و :max',
                 'starts_with' => 'حقل رقم الهاتف ينبغي أن يبدأ بأرقام :values ',
-                'unique' => 'لا يمكن تكرار رقم الجوال لعملاء مختلفين',
+                'unique' => 'لا يمكن تكرار رقم الجوال لفروع عملاء مختلفين',
             ],
             'logo' => [
                 'required' => 'حقل صورة الفرع مطلوب',
@@ -1194,6 +1198,7 @@ return [
         'user_citizens' => 'مستخدمي التطبيق',
     ],
     'link' => [
+        'name' => 'رابط',
         'links' => 'الروابط',
         'permissions' =>
             [
@@ -1314,8 +1319,8 @@ return [
         'profile' => 'الملف الشخصي',
     ],
     'contact' => [
-        'contacts' => 'الدعم الفني',
-        'contact' => 'الدعم الفني',
+        'contacts' => 'الدعم والمساعدة',
+        'contact' => 'الدعم والمساعدة',
         'contact_messages' => 'صندوق الرسائل ',
         'status' => 'حالة الرسالة',
         'from_app_or_web' => 'مصدر الرسالة',
@@ -1355,8 +1360,8 @@ return [
                 'delete_reply' => 'حذف الرد علي رسالة دعم فني',
                 'reply' => 'الرد علي رسالة دعم فني',
                 'delete_contact' => 'حذف رسالة دعم فني',
-                'index' => 'رسائل الدعم الفني',
-                'show' => 'عرض رسالة الدعم الفني',
+                'index' => 'رسائل الدعم والمساعدة',
+                'show' => 'عرض رسالة الدعم والمساعدة',
                 'assign_contact' => 'تحويل رسالة',
                 'destroy' => 'حذف',
                 'store' => 'حفظ',
