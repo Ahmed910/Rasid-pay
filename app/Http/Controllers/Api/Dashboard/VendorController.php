@@ -22,7 +22,7 @@ class VendorController extends Controller
         $vendors = Vendor::search($request)
             ->ListsTranslations('name')
             ->with('branches')
-            ->addSelect('vendors.type', 'vendors.is_active', 'vendors.commercial_record', 'vendors.tax_number', 'vendors.iban')
+            ->addSelect('vendors.type', 'vendors.is_active', 'vendors.commercial_record', 'vendors.tax_number', 'vendors.iban','vendors.discount')
             ->withCount('branches')
             ->customDateFromTo($request)
             ->sortBy($request)
