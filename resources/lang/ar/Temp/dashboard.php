@@ -889,6 +889,8 @@ return [
         'branch_counts' => 'عدد الفروع',
         'branch_name' => 'اسم الفرع',
         'branch_type' => 'نوع الفرع',
+        'vendor_name'=>'اسم العميل',
+        'vendor_type'=>'نوع العميل',
         'status' => 'الحالة ',
         'tax_number' => 'الرقم الضريبي',
         'commerical_number' => 'السجل التجاري',

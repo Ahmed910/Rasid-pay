@@ -14,6 +14,8 @@ use Illuminate\Http\Request;
 use App\Services\GeneratePdf;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Traits\Loggable;
+use App\Http\Requests\Dashboard\ReasonRequest;
+
 class VendorBranchController extends Controller
 {
     public function index(Request $request)
@@ -74,7 +76,7 @@ class VendorBranchController extends Controller
         ]);
     }
 
-    public function destroy(VendorBranch $vendorBranch)
+    public function destroy(ReasonRequest $request,VendorBranch $vendorBranch)
     {
         $vendorBranch->delete();
         return VendorBranchResource::make($vendorBranch)

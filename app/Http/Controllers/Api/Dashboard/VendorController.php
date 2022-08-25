@@ -13,6 +13,8 @@ use Illuminate\Http\Request;
 use App\Services\GeneratePdf;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Traits\Loggable;
+use App\Http\Requests\Dashboard\ReasonRequest;
+
 class VendorController extends Controller
 {
     public function index(Request $request)
@@ -74,7 +76,7 @@ class VendorController extends Controller
     }
 
 
-    public function destroy($id)
+    public function destroy(ReasonRequest $request,$id)
     {
         $vendor = Vendor::findorfail($id);
         $vendor->delete();

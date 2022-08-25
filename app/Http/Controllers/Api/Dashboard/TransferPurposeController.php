@@ -13,6 +13,8 @@ use Illuminate\Http\Request;
 use App\Services\GeneratePdf;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Traits\Loggable;
+use App\Http\Requests\Dashboard\ReasonRequest;
+
 class TransferPurposeController extends Controller
 {
     /**
@@ -78,7 +80,7 @@ class TransferPurposeController extends Controller
     }
 
 
-    public function destroy(TransferPurpose $transfer_purpose)
+    public function destroy(ReasonRequest $request,TransferPurpose $transfer_purpose)
     {
         $transfer_purpose->delete();
         return TransferPurposeResource::make($transfer_purpose)
