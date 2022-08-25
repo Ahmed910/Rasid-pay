@@ -1408,6 +1408,7 @@ return [
 
             'can_not_be_deleted_has_link' => 'لا يمكن حذف صفحة مرتبطة برابط',
             'can_not_be_deactivated' => 'لا يمكنك تعطيل تلك الصفحة',
+            'u_can_not_use_this_static_page_name' => 'اسم الصفحة موجود من قبل',
 
             'is_active' => [
                 'in' => 'حقل الحالة يجب أن يكون بين هذه القيم :values',

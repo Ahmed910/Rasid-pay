@@ -8,7 +8,7 @@ use App\Http\Requests\Dashboard\AdminRequest;
 use App\Http\Requests\Dashboard\ReasonRequest;
 use App\Http\Resources\Api\Dashboard\{UserResource, Admin\AdminCollection};
 use App\Http\Resources\Api\Dashboard\Admin\AllAdminResource;
-use App\Models\{Admin, User, Permission, Group\Group, Employee};
+use App\Models\{ActivityLog, Admin, User, Permission, Group\Group, Employee};
 use App\Models\Department\Department;
 use Illuminate\Http\Request;
 use App\Services\GeneratePdf;
