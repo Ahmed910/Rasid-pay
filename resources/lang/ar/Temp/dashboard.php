@@ -563,7 +563,7 @@ return [
             'index' => 'السجل',
             'restore' => 'استعادة',
             'create' => 'انشاء',
-            'destroy' => 'أرشفة',
+            // 'destroy' => 'أرشفة',
         ],
         'types' => [
             'savings' => 'بنك إدخار',
