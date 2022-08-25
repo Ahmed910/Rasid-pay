@@ -26,7 +26,7 @@ class ActivityController extends Controller
     {
 
         $activatyLogs = ActivityLog::search($request)
-            ->where(function ($query) {
+            ->whereHas('user', function ($query) {
                 $query->whereIn('user_type', ['admin'])->orWhereNull('user_type');
             })
             ->customDateFromTo($request)
