@@ -8,13 +8,9 @@
     <tr>
       <th>#</th>
       <th>@lang('dashboard.vendor_branch.name')</th>
-      <th>lat</th>
-      <th>lng</th>
-      <th>@lang('dashboard.vendor_branch.address')</th>
-      <th>@lang('dashboard.vendor_branch.address_details')</th>
+      <th>@lang('dashboard.vendor.vendor_name')</th>
+      <th>@lang('dashboard.general.phone')</th>
       <th>@lang('dashboard.vendor_branch.status')</th>
-      <th>@lang('dashboard.vendor_branch.email') </th>
-      <th>@lang('dashboard.vendor_branch.phone')</th>
     </tr>
   </thead>
   <tbody>
@@ -22,10 +18,8 @@
     <tr>
       <td>{{ isset($key) ? $loop->iteration + ($key * $chunk) : $loop->iteration }}</td>
       <td>{{ $vendor->name ?? '' }}</td>
-      <td>{{ $vendor->lat ?? '' }}</td>
-      <td>{{ $vendor->lng ?? '' }}</td>
-      <td>{{ $vendor->location ?? '' }}</td>
-      <td>{{ $vendor->address_details ?? '' }}</td>
+      <td>{{ $vendor->phone ?? '' }}</td>
+      <td>{{ $vendor->vendor?->name ?? '' }}</td>
       <td>
         @if($vendor->is_active)
         <div class="active">
@@ -39,8 +33,6 @@
         </div>
         @endif
       </td>
-      <td>{{ $vendor->email ?? '' }}</td>
-      <td>{{ $vendor->phone ?? '' }}</td>
     </tr>
     @endforeach
   </tbody>
