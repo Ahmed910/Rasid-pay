@@ -2,18 +2,19 @@
 
 namespace App\Http\Controllers\Api\Dashboard;
 
-use App\Exports\BankExoprt;
-use App\Exports\BankExport;
+use App\Traits\Loggable;
 use App\Models\Bank\Bank;
+use App\Exports\BankExport;
+use App\Models\ActivityLog;
 use Illuminate\Http\Request;
+use App\Services\GeneratePdf;
 use App\Http\Controllers\Controller;
+use Maatwebsite\Excel\Facades\Excel;
 use App\Http\Requests\Dashboard\BankRequest;
 use App\Http\Requests\Dashboard\ReasonRequest;
 use App\Http\Resources\Api\Dashboard\Banks\BankResource;
 use App\Http\Resources\Api\Dashboard\Banks\BankCollection;
-use App\Services\GeneratePdf;
-use Maatwebsite\Excel\Facades\Excel;
-use App\Traits\Loggable;
+
 class BankController extends Controller
 {
     public function index(Request $request)
