@@ -120,14 +120,14 @@ class ActivityLog extends Model
             // TODO:: Refactoring employee and department sorting
             if ($request->sort["column"] == "employee") {
                 return $q->leftjoin('users', 'activity_logs.user_id', 'users.id')
-                    ->orderBy('users.fullname')->latest();
+                    ->orderBy('users.fullname')->latest('activity_logs.created_at');
             }
 
             if ($request->sort["column"] == "main_program") {
-                return $q->orderBy('auditable_type', @$request->sort["dir"])->latest();
+                return $q->orderBy('auditable_type', @$request->sort["dir"])->latest('activity_logs.created_at');
             }
             if ($request->sort["column"] == "subprogram") {
-                return $q->orderBy('sub_program', @$request->sort["dir"])->latest();
+                return $q->orderBy('sub_program', @$request->sort["dir"])->latest('activity_logs.created_at');
             }
 
             if ($request->sort["column"] == "department") {
@@ -135,10 +135,10 @@ class ActivityLog extends Model
                     ->leftJoin('employees', 'employees.user_id', 'users.id')
                     ->leftJoin('departments', 'departments.id', 'employees.department_id')
                     ->leftJoin('department_translations', 'department_translations.department_id', 'departments.id')
-                    ->orderBy('department_translations.name')->latest();
+                    ->orderBy('department_translations.name')->latest('activity_logs.created_at');
             }
 
-            $q->orderBy($request->sort["column"], @$request->sort["dir"])->latest();
+            $q->orderBy($request->sort["column"], @$request->sort["dir"])->latest('activity_logs.created_at');
         });
     }
     #endregion scopes
