@@ -27,7 +27,7 @@ class FaqRequest extends ApiMasterRequest
         $this->rules = [
             'question' => 'required|string|between:5,1000',
             'order' => 'nullable|numeric',
-            'answer' => 'required|string|between:5,500'
+            'answer' => 'required|string|between:5,5000'
         ];
         return $this->rules;
     }
