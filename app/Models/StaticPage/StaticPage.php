@@ -73,14 +73,14 @@ class StaticPage extends Model implements TranslatableContract, HasAssetsInterfa
         $query->when($request->sort, function ($q) use ($request) {
             if ($request->sort["column"] == "name") {
                 return $q->has('translations')
-                    ->orderBy($request->sort["column"], @$request->sort["dir"])->latest();
+                    ->orderBy($request->sort["column"], @$request->sort["dir"])->latest('static_pages.created_at');
             }
 
             if ($request->sort["column"] == "is_active") {
-                return $q->orderBy('is_active', $request->sort['dir'])->latest();
+                return $q->orderBy('is_active', $request->sort['dir'])->latest('static_pages.created_at');
             }
 
-            $q->orderBy($request->sort["column"], @$request->sort["dir"])->latest();
+            $q->orderBy($request->sort["column"], @$request->sort["dir"])->latest('static_pages.created_at');
         });
     }
 
@@ -104,7 +104,7 @@ class StaticPage extends Model implements TranslatableContract, HasAssetsInterfa
         if($request->has('is_active')){
             $searchParams['is_active'] = __('dashboard.static_page.active_cases.'. $request->is_active);
         }
-        
+
         return $searchParams;
     }
     #endregion custom Methods
