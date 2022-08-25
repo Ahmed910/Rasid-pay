@@ -2,18 +2,20 @@
 
 namespace App\Http\Controllers\Api\Dashboard;
 
+use App\Traits\Loggable;
+use App\Models\ActivityLog;
+use Illuminate\Http\Request;
 use App\Exports\AdminsExport;
+use App\Services\GeneratePdf;
 use App\Http\Controllers\Controller;
+use Maatwebsite\Excel\Facades\Excel;
+use App\Models\Department\Department;
 use App\Http\Requests\Dashboard\AdminRequest;
 use App\Http\Requests\Dashboard\ReasonRequest;
-use App\Http\Resources\Api\Dashboard\{UserResource, Admin\AdminCollection};
 use App\Http\Resources\Api\Dashboard\Admin\AllAdminResource;
 use App\Models\{Admin, User, Permission, Group\Group, Employee};
-use App\Models\Department\Department;
-use Illuminate\Http\Request;
-use App\Services\GeneratePdf;
-use Maatwebsite\Excel\Facades\Excel;
-use App\Traits\Loggable;
+use App\Http\Resources\Api\Dashboard\{UserResource, Admin\AdminCollection};
+
 class AdminController extends Controller
 {
 
@@ -214,11 +216,27 @@ class AdminController extends Controller
 
         $chunk = 200;
         $names = [];
+        if (!$AdminsQuery->count()) {
+            $file = GeneratePdf::createNewFile(
+                trans('dashboard.admin.admins'),
+                $createdFrom,'dashboard.exports.admin',
+                $AdminsQuery,0,$chunk,'admins/pdfs/'
+            );
+            $file =  url(str_replace(base_path('storage/app/public/'), 'storage/', $file));
+            return response()->json([
+                'data'   => [
+                    'file' => $file
+                ],
+                'status' => true,
+                'message' => ''
+            ]);
+        }
         foreach (($AdminsQuery->chunk($chunk)) as $key => $rows) {
-            $names[] =  base_path('storage/app/public/') . $generatePdf->newFile()
-                ->setHeader(trans('dashboard.admin.admins'), $createdFrom)
-                ->view('dashboard.exports.admin', $rows, $key, $chunk)
-                ->storeOnLocal('admins/pdfs/');
+            $names[] = GeneratePdf::createNewFile(
+                trans('dashboard.admin.admins'),$createdFrom,
+                'dashboard.exports.admin',
+                $rows,$key,$chunk,'admins/pdfs/'
+            );
         }
 
         $file = GeneratePdf::mergePdfFiles($names, 'admins/pdfs/admins.pdf');

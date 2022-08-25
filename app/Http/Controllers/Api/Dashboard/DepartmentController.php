@@ -268,13 +268,30 @@ class DepartmentController extends Controller
 
         $chunk = 200;
         $names = [];
-        foreach (($departmentsQuery->chunk($chunk)) as $key => $rows) {
-            $names[] = base_path('storage/app/public/') . $generatePdf->newFile()
-                ->setHeader(trans('dashboard.department.departments'), $createdFrom)
-                ->view('dashboard.exports.department', $rows, $key, $chunk)
-                ->storeOnLocal('departments/pdfs/');
+        if (!$departmentsQuery->count()) {
+            $file = GeneratePdf::createNewFile(
+                trans('dashboard.department.departments'),
+                $createdFrom,'dashboard.exports.department',
+                $departmentsQuery,0,$chunk,'departments/pdfs/'
+            );
+            $file =  url(str_replace(base_path('storage/app/public/'), 'storage/', $file));
+            return response()->json([
+                'data'   => [
+                    'file' => $file
+                ],
+                'status' => true,
+                'message' => ''
+            ]);
         }
 
+        foreach (($departmentsQuery->chunk($chunk)) as $key => $rows) {
+
+            $names[] = GeneratePdf::createNewFile(
+                trans('dashboard.department.departments'),$createdFrom,
+                'dashboard.exports.department',
+                $rows,$key,$chunk,'departments/pdfs/'
+            );
+        }
         $file = GeneratePdf::mergePdfFiles($names, 'departments/pdfs/departments.pdf');
 
         return response()->json([
@@ -320,12 +337,27 @@ class DepartmentController extends Controller
 
         $chunk = 200;
         $names = [];
-
+        if (!$departmentsQuery->count()) {
+            $file = GeneratePdf::createNewFile(
+                trans('dashboard.department.department_archive'),
+                $createdFrom,'dashboard.exports.archive.department',
+                $departmentsQuery,0,$chunk,'departmentsArchive/pdfs/'
+            );
+            $file =  url(str_replace(base_path('storage/app/public/'), 'storage/', $file));
+            return response()->json([
+                'data'   => [
+                    'file' => $file
+                ],
+                'status' => true,
+                'message' => ''
+            ]);
+        }
         foreach (($departmentsQuery->chunk($chunk)) as $key => $rows) {
-            $names[] = base_path('storage/app/public/') . $pdfGenerate->newFile()
-                ->setHeader(trans('dashboard.department.department_archive'), $createdFrom)
-                ->view('dashboard.exports.archive.department', $rows, $key, $chunk)
-                ->storeOnLocal('departmentsArchive/pdfs/');
+                $names[] = GeneratePdf::createNewFile(
+                    trans('dashboard.department.department_archive'),$createdFrom,
+                    'dashboard.exports.archive.department',
+                    $rows,$key,$chunk,'departmentsArchive/pdfs/'
+                );
         }
 
         $file = GeneratePdf::mergePdfFiles($names, 'departmentsArchive/pdfs/departments.pdf');
