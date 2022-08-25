@@ -97,7 +97,7 @@ class Department extends Model implements TranslatableContract, HasAssetsInterfa
         $query->when($request->sort, function ($q) use ($request) {
             if ($request->sort["column"] == "name") {
                 return $q->has('translations')
-                    ->orderBy($request->sort["column"], @$request->sort["dir"])->latest();
+                    ->orderBy($request->sort["column"], @$request->sort["dir"])->latest('departments.created_at');
             }
 
             if ($request->sort["column"] == "parent") {
@@ -106,7 +106,7 @@ class Department extends Model implements TranslatableContract, HasAssetsInterfa
                     ->orderBy('trans.name', @$request->sort["dir"]);
             }
 
-            $q->orderBy($request->sort["column"], @$request->sort["dir"])->latest();
+            $q->orderBy($request->sort["column"], @$request->sort["dir"])->latest('departments.created_at');
         });
     }
     #endregion scopes

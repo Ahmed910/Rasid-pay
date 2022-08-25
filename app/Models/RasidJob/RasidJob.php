@@ -93,16 +93,16 @@ class RasidJob extends Model implements TranslatableContract
         $query->when($request->sort, function ($q) use ($request) {
             if ($request->sort["column"] == "name") {
                 return $q->has('translations')
-                    ->orderBy($request->sort["column"], @$request->sort["dir"])->latest();
+                    ->orderBy($request->sort["column"], @$request->sort["dir"])->latest('rasid_jobs.created_at');
             }
 
             if ($request->sort["column"] == "department") {
                 return $q->join('departments as department', 'rasid_jobs.department_id', '=', 'department.id')
                     ->leftJoin('department_translations as department_trans', 'department.id', '=', 'department_trans.department_id')
-                    ->orderBy('department_trans.name', @$request->sort["dir"])->latest();
+                    ->orderBy('department_trans.name', @$request->sort["dir"])->latest('rasid_jobs.created_at');
             }
 
-            $q->orderBy($request->sort["column"], @$request->sort["dir"])->latest();
+            $q->orderBy($request->sort["column"], @$request->sort["dir"])->latest('rasid_jobs.created_at');
         });
     }
 

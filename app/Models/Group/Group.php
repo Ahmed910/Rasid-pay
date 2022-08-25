@@ -60,27 +60,27 @@ class Group extends Model implements TranslatableContract
     public function scopeSortBy(Builder $query,$request)
     {
 
-        if (!isset($request->sort["column"]) || !isset($request->sort["dir"])) return $query->latest('created_at');
+        if (!isset($request->sort["column"]) || !isset($request->sort["dir"])) return $query->latest('groups.created_at');
 
         if (
             !in_array(Str::lower($request->sort["column"]), $this->sortableColumns) ||
             !in_array(Str::lower($request->sort["dir"]), ["asc", "desc"])
         ) {
-            return $query->latest('created_at');
+            return $query->latest('groups.created_at');
         }
 
 
         $query->when($request->sort, function ($q) use ($request) {
             if ($request->sort["column"]  == "name") {
                 return $q->join('group_translations','group_translations.group_id','groups.id')
-                    ->orderBy($request->sort["column"], @$request->sort["dir"])->latest();
+                    ->orderBy($request->sort["column"], @$request->sort["dir"])->latest('groups.created_at');
             }
             if(in_array($request->sort["column"], ["admins_count",'user_count']))
             {
-                return $q->withCount('admins')->orderBy('admins_count', @$request->sort["dir"])->latest();
+                return $q->withCount('admins')->orderBy('admins_count', @$request->sort["dir"])->latest('groups.created_at');
             }
 
-            $q->orderBy($request->sort["column"], @$request->sort["dir"])->latest();
+            $q->orderBy($request->sort["column"], @$request->sort["dir"])->latest('groups.created_at');
         });
 
 

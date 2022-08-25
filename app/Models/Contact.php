@@ -23,7 +23,7 @@ class Contact extends Model
     const ADMINCOLUMNS = ["admin_fullname" => "fullname"];
     const USER_COLUMNS = ["message_source", "message_status"];
     const SELECT_ALL = ["contact_type", "message_source", "message_status"];
-    const CONTACTS = ['fullname', 'email',  'phone','created_at'];
+    const CONTACTS = ['fullname', 'email',  'phone', 'created_at'];
     const PENDING = 'pending';
     const REPLIED = 'replied';
     const WAITING = 'waiting';
@@ -103,20 +103,20 @@ class Contact extends Model
 
 
         if (in_array($request->sort["column"], self::USER_COLUMNS)) {
-            return $query->orderBy($request->sort["column"], $request->sort["dir"])->latest();
+            return $query->orderBy($request->sort["column"], $request->sort["dir"])->latest('contacts.created_at');
         }
         if (key_exists($request->sort["column"], self::ADMINCOLUMNS)) {
             return $query->leftJoin('users', 'users.id', '=', 'contacts.assigned_to_id')
                 ->select("contacts.*", "users.fullname as admin.")
-                ->orderBy('users.' . self::ADMINCOLUMNS[$request->sort["column"]], @$request->sort["dir"])->latest();
+                ->orderBy('users.' . self::ADMINCOLUMNS[$request->sort["column"]], @$request->sort["dir"])->latest('contacts.created_at');
         }
 
         if (in_array($request->sort["column"], ['contact_type'])) {
-            $query->orderBy('message_type_id', $request->sort["dir"])->latest();
+            $query->orderBy('message_type_id', $request->sort["dir"])->latest('contacts.created_at');
         }
 
         if (in_array($request->sort["column"], self::CONTACTS)) {
-            return $query->orderBy($request->sort['column'], $request->sort['dir'])->latest();
+            return $query->orderBy($request->sort['column'], $request->sort['dir'])->latest('contacts.created_at');
         }
     }
     #endregion scopes

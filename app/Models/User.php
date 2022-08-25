@@ -140,7 +140,7 @@ class User extends Authenticatable implements HasAssetsInterface
             return true;
         }
         $permissions = $this->userPermissions();
-       
+
         if (is_null($method) && $permissions) {
             // $route = str_replace(['create', 'edit'], ['store', 'update'], $route);
             return $permissions->contains('name', $route);
@@ -362,21 +362,21 @@ class User extends Authenticatable implements HasAssetsInterface
         }
 
         $new = $query->toSql();
-       
-    
+
+
         if ($old != $new || $request->ban_status == -1) Loggable::addGlobalActivity($this, array_merge($request->query(),$this->searchParams($request) ),
            ActivityLog::SEARCH, 'index', request()->user_type);
     }
 
     public function scopeSortBy(Builder $query, $request)
     {
-        if (!isset($request->sort["column"]) || !isset($request->sort["dir"])) return $query->latest('created_at');
+        if (!isset($request->sort["column"]) || !isset($request->sort["dir"])) return $query->latest('users.created_at');
 
         if (
             !in_array(Str::lower($request->sort["column"]), $this->sortableColumns) ||
             !in_array(Str::lower($request->sort["dir"]), ["asc", "desc"])
         ) {
-            return $query->latest('created_at');
+            return $query->latest('users.created_at');
         }
 
         $query->when($request->sort, function ($q) use ($request) {
@@ -384,13 +384,13 @@ class User extends Authenticatable implements HasAssetsInterface
                 return $q->select(['users.*', "trans.name"])
                     ->Join('employees', 'users.id', 'employees.user_id')
                     ->leftJoin('department_translations as trans', 'trans.department_id', 'employees.department_id')
-                    ->orderBy('trans.name', @$request->sort['dir'])->latest();
+                    ->orderBy('trans.name', @$request->sort['dir'])->latest('users.created_at');
             } else   if (in_array($request['sort']['column'], self::CARDSORTABLECOLUMNS)) {
                 return $q->Join('packages', 'users.id', 'packages.client_id')
                     ->select("users.*", "packages.basic_discount", "packages.golden_discount", "packages.platinum_discount")
                     ->distinct()
-                    ->orderBy('packages.' . $request->sort['column'], @$request->sort['dir'])->latest();
-            } else $q->orderBy($request->sort["column"], @$request->sort["dir"])->latest();
+                    ->orderBy('packages.' . $request->sort['column'], @$request->sort['dir'])->latest('users.created_at');
+            } else $q->orderBy($request->sort["column"], @$request->sort["dir"])->latest('users.created_at');
         });
     }
 
@@ -414,5 +414,5 @@ class User extends Authenticatable implements HasAssetsInterface
 
         return $searchParams;
     }
-  
+
 }

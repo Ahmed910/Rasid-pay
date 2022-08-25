@@ -135,26 +135,26 @@ class Permission extends Model
 
     public function scopeSortBy(Builder $query, $request)
     {
-        if (!isset($request->sort["column"]) || !isset($request->sort["dir"])) return $query->latest('created_at');
+        if (!isset($request->sort["column"]) || !isset($request->sort["dir"])) return $query->latest('permissions.created_at');
 
         if (
             !in_array(Str::lower($request->sort["column"]), $this->sortableColumns) ||
             !in_array(Str::lower($request->sort["dir"]), ["asc", "desc"])
         ) {
-            return $query->latest('created_at');
+            return $query->latest('permissions.created_at');
         }
 
 
         $query->when($request->sort, function ($q) use ($request) {
             if ($request->sort["column"]  == "main_program") {
-                return $q->orderBy('main_program', @$request->sort["dir"])->latest();
+                return $q->orderBy('main_program', @$request->sort["dir"])->latest('permissions.created_at');
             }
 
             if ($request->sort["column"]  == "sub_program") {
-                return $q->orderBy('sub_program', @$request->sort["dir"])->latest();
+                return $q->orderBy('sub_program', @$request->sort["dir"])->latest('permissions.created_at');
             }
 
-            $q->orderBy($request->sort["column"], @$request->sort["dir"])->latest();
+            $q->orderBy($request->sort["column"], @$request->sort["dir"])->latest('permissions.created_at');
         });
     }
     #endregion scopes
