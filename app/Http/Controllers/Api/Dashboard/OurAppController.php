@@ -13,6 +13,8 @@ use App\Models\ActivityLog;
 use App\Services\GeneratePdf;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Traits\Loggable;
+use App\Http\Requests\Dashboard\ReasonRequest;
+
 class OurAppController extends Controller
 {
     public function index(Request $request)
@@ -74,7 +76,7 @@ class OurAppController extends Controller
         ]);
     }
 
-    public function destroy($id)
+    public function destroy(ReasonRequest $request,$id)
     {
         $ourApp = OurApp::findOrFail($id);
         $ourApp->delete();

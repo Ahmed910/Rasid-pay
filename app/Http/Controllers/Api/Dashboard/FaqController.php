@@ -13,6 +13,8 @@ use Illuminate\Http\Request;
 use App\Services\GeneratePdf;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Traits\Loggable;
+use App\Http\Requests\Dashboard\ReasonRequest;
+
 
 class  FaqController extends Controller
 {
@@ -62,7 +64,7 @@ class  FaqController extends Controller
         ]);
     }
 
-    public function destroy(Faq $faq)
+    public function destroy(ReasonRequest $request,Faq $faq)
     {
         $faq->delete();
         return FaqResource::make($faq)
