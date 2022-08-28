@@ -3,15 +3,16 @@
 namespace App\Http\Requests\Dashboard;
 
 use App\Http\Requests\ApiMasterRequest;
+use App\Models\Vendor\Vendor;
 
 class ClientPackageRequest extends ApiMasterRequest
 {
     public function rules()
     {
-        $rules =  [
+        $rules = [
             'basic_discount' => 'required|numeric|gte:0|lte:100|regex:/^\d{1,3}+(\.\d{0,2})?$/',
             'golden_discount' => 'required|gt:basic_discount|lte:100|regex:/^\d{1,3}+(\.\d{0,2})?$/',
-            'platinum_discount' => 'required|gt:golden_discount|lte:vendors,discount|regex:/^\d{1,3}+(\.\d{0,2})?$/',
+            'platinum_discount' => 'required|gt:golden_discount|lte:' . Vendor::find(request()->vendor_id)->discount . '|regex:/^\d{1,3}+(\.\d{0,2})?$/',
         ];
 
         if (request()->isMethod('POST')) {
