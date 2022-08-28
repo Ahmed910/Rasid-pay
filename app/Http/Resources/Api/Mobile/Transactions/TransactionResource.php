@@ -84,5 +84,6 @@ class TransactionResource extends JsonResource
         } elseif (in_array($this->trans_type, Transaction::CHARGE)) {
             return trans('mobile.transaction.transaction_types.charge');
         }
+        return true;
     }
 }

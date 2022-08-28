@@ -105,6 +105,9 @@ class TransferController extends Controller
                 'status' => false
             ], 422);
         }
+        if ($request->amount > auth()->user()->citizenWallet->main_balance) {
+            return response()->json(['data' => null, 'message' => trans('mobile.local_transfers.current_balance_is_not_sufficient_to_complete_transaction'), 'status' => false], 422);
+        }
         return response()->json([
             'data' => null,
             'message' => "",
