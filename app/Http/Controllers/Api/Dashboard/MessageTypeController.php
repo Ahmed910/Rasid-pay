@@ -128,11 +128,27 @@ class MessageTypeController extends Controller
 
         $chunk = 200;
         $names = [];
+        if (!$messageTypesQuery->count()) {
+            $file = GeneratePdf::createNewFile(
+                trans('dashboard.message_type.message_types'),
+                $createdFrom,'dashboard.exports.message_type',
+                $messageTypesQuery,0,$chunk,'message_types/pdfs/'
+            );
+            $file =  url(str_replace(base_path('storage/app/public/'), 'storage/', $file));
+            return response()->json([
+                'data'   => [
+                    'file' => $file
+                ],
+                'status' => true,
+                'message' => ''
+            ]);
+        }
         foreach (($messageTypesQuery->chunk($chunk)) as $key => $rows) {
-            $names[] = base_path('storage/app/public/') . $generatePdf->newFile()
-                    ->setHeader(trans('dashboard.message_type.message_types'), $createdFrom)
-                    ->view('dashboard.exports.message_type', $rows, $key, $chunk)
-                    ->storeOnLocal('message_types/pdfs/');
+            $names[] = GeneratePdf::createNewFile(
+                trans('dashboard.message_type.message_types'),$createdFrom,
+                'dashboard.exports.message_type',
+                $rows,$key,$chunk,'message_types/pdfs/'
+            );
         }
 
         $file = GeneratePdf::mergePdfFiles($names, 'message_types/pdfs/message_types.pdf');

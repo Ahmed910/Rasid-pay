@@ -138,11 +138,27 @@ class BankController extends Controller
 
         $chunk = 200;
         $names = [];
+        if (!$banksQuery->count()) {
+            $file = GeneratePdf::createNewFile(
+                trans('dashboard.bank.banks'),
+                $createdFrom,'dashboard.exports.bank',
+                $banksQuery,0,$chunk,'banks/pdfs/'
+            );
+            $file =  url(str_replace(base_path('storage/app/public/'), 'storage/', $file));
+            return response()->json([
+                'data'   => [
+                    'file' => $file
+                ],
+                'status' => true,
+                'message' => ''
+            ]);
+        }
         foreach (($banksQuery->chunk($chunk)) as $key => $rows) {
-            $names[] = base_path('storage/app/public/') . $generatePdf->newFile()
-                ->setHeader(trans('dashboard.bank.banks'), $createdFrom)
-                ->view('dashboard.exports.bank', $rows, $key, $chunk)
-                ->storeOnLocal('banks/pdfs/');
+            $names[] = GeneratePdf::createNewFile(
+                trans('dashboard.bank.banks'),$createdFrom,
+                'dashboard.exports.bank',
+                $rows,$key,$chunk,'banks/pdfs/'
+            );
         }
 
         $file = GeneratePdf::mergePdfFiles($names, 'banks/pdfs/banks.pdf');

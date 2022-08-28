@@ -187,11 +187,27 @@ class ActivityController extends Controller
 
         $chunk = 200;
         $names = [];
+        if (!$activatyLogsQuery->count()) {
+            $file = GeneratePdf::createNewFile(
+                trans('dashboard.activity_log.activity_logs'),
+                $createdFrom,'dashboard.exports.activity_log',
+                $activatyLogsQuery,0,$chunk,'activity_logs/pdfs/'
+            );
+            $file =  url(str_replace(base_path('storage/app/public/'), 'storage/', $file));
+            return response()->json([
+                'data'   => [
+                    'file' => $file
+                ],
+                'status' => true,
+                'message' => ''
+            ]);
+        }
         foreach (($activatyLogsQuery->chunk($chunk)) as $key => $rows) {
-            $names[] = base_path('storage/app/public/') . $generatePdf->newFile('L')
-                ->setHeader(trans('dashboard.activity_log.activity_logs'), $createdFrom)
-                ->view('dashboard.exports.activity_log', $rows, $key, $chunk)
-                ->storeOnLocal('activityLogs/pdfs/');
+                $names[] = GeneratePdf::createNewFile(
+                    trans('dashboard.activity_log.activity_logs'),$createdFrom,
+                    'dashboard.exports.activity_log',
+                    $rows,$key,$chunk,'activityLogs/pdfs/','L'
+                );
         }
 
         $file = GeneratePdf::mergePdfFiles($names, 'activityLogs/pdfs/activity_log.pdf', 'L');

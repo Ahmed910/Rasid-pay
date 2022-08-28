@@ -133,11 +133,27 @@ class StaticPageController extends Controller
 
         $chunk = 200;
         $names = [];
+        if (!$StaticPagesQuery->count()) {
+            $file = GeneratePdf::createNewFile(
+                trans('dashboard.static_page.static_pages'),
+                $createdFrom,'dashboard.exports.static_page',
+                $StaticPagesQuery,0,$chunk,'static_pages/pdfs/'
+            );
+            $file =  url(str_replace(base_path('storage/app/public/'), 'storage/', $file));
+            return response()->json([
+                'data'   => [
+                    'file' => $file
+                ],
+                'status' => true,
+                'message' => ''
+            ]);
+        }
         foreach (($StaticPagesQuery->chunk($chunk)) as $key => $rows) {
-            $names[] = base_path('storage/app/public/') . $generatePdf->newFile()
-                ->setHeader(trans('dashboard.static_page.static_pages'), $createdFrom)
-                ->view('dashboard.exports.static_page', $rows, $key, $chunk)
-                ->storeOnLocal('static_pages/pdfs/');
+                $names[] = GeneratePdf::createNewFile(
+                    trans('dashboard.static_page.static_pages'),$createdFrom,
+                    'dashboard.exports.static_page',
+                    $rows,$key,$chunk,'static_pages/pdfs/'
+                );
         }
 
         $file = GeneratePdf::mergePdfFiles($names, 'static_pages/pdfs/static_pages.pdf');

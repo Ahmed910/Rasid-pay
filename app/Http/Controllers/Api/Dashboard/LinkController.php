@@ -42,11 +42,27 @@ class LinkController extends Controller
 
         $chunk = 200;
         $names = [];
+        if (!$LinksQuery->count()) {
+            $file = GeneratePdf::createNewFile(
+                trans('dashboard.link.links'),
+                $createdFrom,'dashboard.exports.link',
+                $LinksQuery,0,$chunk,'links/pdfs/'
+            );
+            $file =  url(str_replace(base_path('storage/app/public/'), 'storage/', $file));
+            return response()->json([
+                'data'   => [
+                    'file' => $file
+                ],
+                'status' => true,
+                'message' => ''
+            ]);
+        }
         foreach (($LinksQuery->chunk($chunk)) as $key => $rows) {
-            $names[] = base_path('storage/app/public/') . $generatePdf->newFile()
-                    ->setHeader(trans('dashboard.link.links'),  $createdFrom)
-                    ->view('dashboard.exports.link', $rows, $key, $chunk)
-                    ->storeOnLocal('links/pdfs/');
+            $names[] = GeneratePdf::createNewFile(
+                trans('dashboard.link.links'),$createdFrom,
+                'dashboard.exports.link',
+                $rows,$key,$chunk,'links/pdfs/'
+            );
         }
         $file = GeneratePdf::mergePdfFiles($names, 'links/pdfs/links.pdf');
 

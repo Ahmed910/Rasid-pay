@@ -144,11 +144,27 @@ class TransactionController extends Controller
 
         $chunk = 200;
         $names = [];
+        if (!$TransactionsQuery->count()) {
+            $file = GeneratePdf::createNewFile(
+                trans('dashboard.transaction.transactions'),
+                $createdFrom,'dashboard.exports.transactions',
+                $TransactionsQuery,0,$chunk,'transactions/pdfs/'
+            );
+            $file =  url(str_replace(base_path('storage/app/public/'), 'storage/', $file));
+            return response()->json([
+                'data'   => [
+                    'file' => $file
+                ],
+                'status' => true,
+                'message' => ''
+            ]);
+        }
         foreach (($TransactionsQuery->chunk($chunk)) as $key => $rows) {
-            $names[] = base_path('storage/app/public/') . $generatePdf->newFile()
-                    ->setHeader(trans('dashboard.transaction.transactions'),  $createdFrom)
-                    ->view('dashboard.exports.transactions', $rows, $key, $chunk)
-                    ->storeOnLocal('transactions/pdfs/');
+            $names[] = GeneratePdf::createNewFile(
+                trans('dashboard.transaction.transactions'),$createdFrom,
+                'dashboard.exports.transactions',
+                $rows,$key,$chunk,'transactions/pdfs/'
+            );
         }
 
         $file = GeneratePdf::mergePdfFiles($names, 'transactions/pdfs/transactions.pdf');

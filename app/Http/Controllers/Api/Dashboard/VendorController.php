@@ -105,11 +105,27 @@ class VendorController extends Controller
 
         $chunk = 200;
         $names = [];
+        if (!$VendorsQuery->count()) {
+            $file = GeneratePdf::createNewFile(
+                trans('dashboard.vendor.vendors'),
+                $createdFrom,'dashboard.exports.vendor',
+                $VendorsQuery,0,$chunk,'vendors/pdfs/'
+            );
+            $file =  url(str_replace(base_path('storage/app/public/'), 'storage/', $file));
+            return response()->json([
+                'data'   => [
+                    'file' => $file
+                ],
+                'status' => true,
+                'message' => ''
+            ]);
+        }
         foreach (($VendorsQuery->chunk($chunk)) as $key => $rows) {
-            $names[] = base_path('storage/app/public/') . $generatePdf->newFile()
-                    ->setHeader(trans('dashboard.vendor.vendors'), $createdFrom)
-                    ->view('dashboard.exports.vendor', $rows, $key, $chunk)
-                    ->storeOnLocal('vendors/pdfs/');
+            $names[] = GeneratePdf::createNewFile(
+                trans('dashboard.vendor.vendors'),$createdFrom,
+                'dashboard.exports.vendor',
+                $rows,$key,$chunk,'vendors/pdfs/'
+            );
         }
 
         $file = GeneratePdf::mergePdfFiles($names, 'vendors/pdfs/vendors.pdf');

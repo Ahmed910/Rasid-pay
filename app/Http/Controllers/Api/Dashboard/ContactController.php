@@ -176,11 +176,27 @@ class ContactController extends Controller
 
         $chunk = 200;
         $names = [];
+        if (!$ContactsQuery->count()) {
+            $file = GeneratePdf::createNewFile(
+                trans('dashboard.contact.contact_messages'),
+                $createdFrom,'dashboard.exports.contacts',
+                $ContactsQuery,0,$chunk,'contacts/pdfs/'
+            );
+            $file =  url(str_replace(base_path('storage/app/public/'), 'storage/', $file));
+            return response()->json([
+                'data'   => [
+                    'file' => $file
+                ],
+                'status' => true,
+                'message' => ''
+            ]);
+        }
         foreach (($ContactsQuery->chunk($chunk)) as $key => $rows) {
-            $names[] = base_path('storage/app/public/') . $pdfGenerate->newFile()
-                ->setHeader(trans('dashboard.contact.contact_messages'),$createdFrom)
-                ->view('dashboard.exports.contacts', $rows, $key, $chunk)
-                ->storeOnLocal('contacts/pdfs/');
+            $names[] = GeneratePdf::createNewFile(
+                trans('dashboard.contact.contact_messages'),$createdFrom,
+                'dashboard.exports.contacts',
+                $rows,$key,$chunk,'contacts/pdfs/'
+            );
         }
 
         $file = GeneratePdf::mergePdfFiles($names, 'contacts/pdfs/contacts.pdf');

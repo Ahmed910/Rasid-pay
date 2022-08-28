@@ -62,7 +62,7 @@ class GeneratePdf
     {
         $date_from   = format_date(request('created_from')) ?? format_date($createdFrom);
         $date_to     = format_date(request('created_to')) ?? format_date(now());
-        $userId      = auth()->user()->login_id??'';
+        $userId      = auth()->user()->login_id ?? '';
 
         $this->mpdf->SetHTMLHeader(view('dashboard.exports.header', compact(
             'date_from',
@@ -87,7 +87,7 @@ class GeneratePdf
     }
 
 
-    public function mobileView($view,$data)
+    public function mobileView($view, $data)
     {
         $this->mpdf->WriteHTML(view($view, $data));
         return $this;
@@ -124,7 +124,7 @@ class GeneratePdf
         }
     }
 
-    public static function mergePdfFiles(array $filenames, $outFile,$orientation = 'P')
+    public static function mergePdfFiles(array $filenames, $outFile, $orientation = 'P')
     {
         $mpdf = new \Mpdf\Mpdf([
             'fontDir' => [
@@ -174,5 +174,21 @@ class GeneratePdf
 
             return url(str_replace(base_path('storage/app/public/'), 'storage/', $outFile));
         }
+    }
+
+    public static function createNewFile(
+        string $topic,
+        string|null $createdFrom,
+        string $view,
+        $rows,
+        int $key,
+        int $chunk,
+        string $storagePath,
+        $orientation = 'P'
+    ): string {
+        return base_path('storage/app/public/') . (new static)->newFile($orientation)
+            ->setHeader($topic, $createdFrom)
+            ->view($view, $rows, $key, $chunk)
+            ->storeOnLocal($storagePath);
     }
 }
