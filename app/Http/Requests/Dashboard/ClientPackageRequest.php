@@ -11,8 +11,7 @@ class ClientPackageRequest extends ApiMasterRequest
         $rules =  [
             'basic_discount' => 'required|numeric|gte:0|lte:100|regex:/^\d{1,3}+(\.\d{0,2})?$/',
             'golden_discount' => 'required|gt:basic_discount|lte:100|regex:/^\d{1,3}+(\.\d{0,2})?$/',
-            'platinum_discount' => 'required|gt:golden_discount|lte:100|regex:/^\d{1,3}+(\.\d{0,2})?$/',
-
+            'platinum_discount' => 'required|gt:golden_discount|lte:vendors,discount|regex:/^\d{1,3}+(\.\d{0,2})?$/',
         ];
 
         if (request()->isMethod('POST')) {
@@ -26,7 +25,8 @@ class ClientPackageRequest extends ApiMasterRequest
     {
         return [
             'golden_discount.gt' => __('validation.client_package.gold_gt_basic'),
-            'platinum_discount.gt' => __('validation.client_package.platinum_gt_golden')
+            'platinum_discount.gt' => __('validation.client_package.platinum_gt_golden'),
+            'platinum_discount.lte' => __('validation.client_package.platinum_lte_discount')
         ];
     }
 }
