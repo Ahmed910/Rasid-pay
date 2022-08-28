@@ -18,8 +18,8 @@
     <tr>
       <td>{{ isset($key) ? $loop->iteration + ($key * $chunk) : $loop->iteration }}</td>
       <td>{{ $vendor->name ?? '' }}</td>
-      <td>{{ $vendor->phone ?? '' }}</td>
       <td>{{ $vendor->vendor?->name ?? '' }}</td>
+      <td>{{ $vendor->phone ?? '' }}</td>
       <td>
         @if($vendor->is_active)
         <div class="active">
