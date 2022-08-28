@@ -268,7 +268,7 @@ Route::middleware('maintenance_mode')->group(function () {
             Route::apiResource('transactions', 'TransactionController')->only(['index', 'show']);
             Route::apiResource('activity_logs', 'ActivityController')->only(['index', 'show']);
             Route::post('localizations_update', 'LocalizationController@updateTranslation')->name('localizations.update');
-            Route::apiResource('localizations', 'LocalizationController')->only(['store', 'index']);
+            Route::apiResource('localizations', 'LocalizationController')->only(['index']);
 
 
             Route::resource('groups', 'GroupController')->except('create', 'edit', 'destroy');

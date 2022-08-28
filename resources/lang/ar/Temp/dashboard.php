@@ -1549,7 +1549,7 @@ return [
     'localization' =>  [
         'permissions' =>  [
             'update' => 'تعديل',
-            'store' => 'تعديل',
+//            'store' => 'تعديل',
             'index' => 'السجل',
         ],
         'localizations' => 'الترجمات',

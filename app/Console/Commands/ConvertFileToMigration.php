@@ -53,7 +53,7 @@ class ConvertFileToMigration extends Command
 
             foreach (Arr::dot($content) as $key => $value) {
                 $id = (string) Str::uuid();
-                $allLocales[] = ['id' => $id, 'key' => $key, 'file' => $fileName];
+                $allLocales[] = ['id' => $id, 'key' => $key, 'file' => $fileName,'created_at' => now()];
                 $transLocales[] = ['id' => (string) Str::uuid(), 'locale_id' => $id, 'locale' => $locale, 'value' => $value];
             }
         }

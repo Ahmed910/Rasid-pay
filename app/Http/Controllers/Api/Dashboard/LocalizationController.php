@@ -102,7 +102,7 @@ class LocalizationController extends Controller
         Loggable::addGlobalActivity(Locale::class, $request->query(), ActivityLog::EXPORT, 'index');
 
         if (!$request->has('created_from')) {
-            $createdFrom = Locale::selectRaw('MIN(created_at) as min_created_at')->value('min_created_at');
+            $createdFrom = Locale::selectRaw('MIN(created_at) as min_created_at')->whereNotNull('created_at')->value('min_created_at');
         }
 
         $chunk = 200;
