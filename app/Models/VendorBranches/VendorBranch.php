@@ -26,7 +26,6 @@ class VendorBranch extends Model implements HasAssetsInterface
         'vendor_name',
         'phone',
         'is_active',
-        'vendor_id'
     ];
 
     #endregion properties
@@ -89,7 +88,8 @@ class VendorBranch extends Model implements HasAssetsInterface
         $query->when($request->sort, function ($q) use ($request) {
             if ($request->sort["column"] == "name") {
                 return $q->has('translations')
-                    ->orderByTranslation($request->sort["column"], @$request->sort["dir"])->latest('vendor_branches.created_at');
+                    ->orderBy($request->sort["column"], @$request->sort["dir"])
+                    ->latest('vendor_branches.created_at');
             }
 
             if ($request->sort["column"] == "vendor_name") {
@@ -105,10 +105,6 @@ class VendorBranch extends Model implements HasAssetsInterface
             }
 
             if ($request->sort["column"] == "is_active") {
-                $q->orderBy($request->sort["column"], @$request->sort["dir"])->latest('vendor_branches.created_at');
-            }
-
-            if ($request->sort["column"] == "branches") {
                 $q->orderBy($request->sort["column"], @$request->sort["dir"])->latest('vendor_branches.created_at');
             }
 
