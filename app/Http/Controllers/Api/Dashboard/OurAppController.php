@@ -106,11 +106,27 @@ class OurAppController extends Controller
 
         $chunk = 200;
         $names = [];
+        if (!$OurAppsQuery->count()) {
+            $file = GeneratePdf::createNewFile(
+                trans('dashboard.our_app.our_apps'),
+                $createdFrom,'dashboard.exports.our_app',
+                $OurAppsQuery,0,$chunk,'our_apps/pdfs/'
+            );
+            $file =  url(str_replace(base_path('storage/app/public/'), 'storage/', $file));
+            return response()->json([
+                'data'   => [
+                    'file' => $file
+                ],
+                'status' => true,
+                'message' => ''
+            ]);
+        }
         foreach (($OurAppsQuery->chunk($chunk)) as $key => $rows) {
-            $names[] = base_path('storage/app/public/') . $generatePdf->newFile()
-                    ->setHeader(trans('dashboard.our_app.our_apps'),  $createdFrom)
-                    ->view('dashboard.exports.our_app', $rows, $key, $chunk)
-                    ->storeOnLocal('our_apps/pdfs/');
+                $names[] = GeneratePdf::createNewFile(
+                    trans('dashboard.our_app.our_apps'),$createdFrom,
+                    'dashboard.exports.our_app',
+                    $rows,$key,$chunk,'our_apps/pdfs/'
+                );
         }
         $file = GeneratePdf::mergePdfFiles($names, 'our_apps/pdfs/our_apps.pdf');
 

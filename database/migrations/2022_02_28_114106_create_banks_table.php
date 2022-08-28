@@ -17,7 +17,6 @@ class CreateBanksTable extends Migration
             $table->uuid("id")->primary();
             $table->boolean('is_active')->default(true);
             $table->foreignUuid("added_by_id")->nullable()->constrained('users')->onDelete('set null');
-            $table->softDeletes();
             $table->timestamps();
         });
         Schema::create('bank_translations', function (Blueprint $table) {

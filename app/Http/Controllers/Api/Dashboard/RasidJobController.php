@@ -203,11 +203,28 @@ class RasidJobController extends Controller
 
         $chunk = 200;
         $names = [];
+        if (!$jobsQuery->count()) {
+            $file = GeneratePdf::createNewFile(
+                trans('dashboard.rasid_job.rasid_jobs'),
+                $createdFrom,'dashboard.exports.job',
+                $jobsQuery,0,$chunk,'rasid_jobs/pdfs/'
+            );
+            $file =  url(str_replace(base_path('storage/app/public/'), 'storage/', $file));
+            return response()->json([
+                'data'   => [
+                    'file' => $file
+                ],
+                'status' => true,
+                'message' => ''
+            ]);
+        }
+
         foreach (($jobsQuery->chunk($chunk)) as $key => $rows) {
-            $names[] = base_path('storage/app/public/') . $generatePdf->newFile()
-                ->setHeader(trans('dashboard.rasid_job.rasid_jobs'), $createdFrom)
-                ->view('dashboard.exports.job', $rows, $key, $chunk)
-                ->storeOnLocal('rasid_jobs/pdfs/');
+            $names[] = GeneratePdf::createNewFile(
+                trans('dashboard.rasid_job.rasid_jobs'),$createdFrom,
+                'dashboard.exports.job',
+                $rows,$key,$chunk,'rasid_jobs/pdfs/'
+            );
         }
 
         $file = GeneratePdf::mergePdfFiles($names, 'rasid_jobs/pdfs/rasid_jobs.pdf');
@@ -256,11 +273,27 @@ class RasidJobController extends Controller
 
         $chunk = 200;
         $names = [];
+        if (!$rasidJobsQuery->count()) {
+            $file = GeneratePdf::createNewFile(
+                trans('dashboard.rasid_job.rasid_job_archive'),
+                $createdFrom,'dashboard.exports.archive.rasid_job',
+                $rasidJobsQuery,0,$chunk,'rasidJobsArchive/pdfs/'
+            );
+            $file =  url(str_replace(base_path('storage/app/public/'), 'storage/', $file));
+            return response()->json([
+                'data'   => [
+                    'file' => $file
+                ],
+                'status' => true,
+                'message' => ''
+            ]);
+        }
         foreach (($rasidJobsQuery->chunk($chunk)) as $key => $rows) {
-            $names[] = base_path('storage/app/public/') . $pdfGenerate->newFile()
-                ->setHeader(trans('dashboard.rasid_job.rasid_job_archive'), $createdFrom)
-                ->view('dashboard.exports.archive.rasid_job', $rows, $key, $chunk)
-                ->storeOnLocal('rasidJobsArchive/pdfs/');
+            $names[] = GeneratePdf::createNewFile(
+                trans('dashboard.rasid_job.rasid_job_archive'),$createdFrom,
+                'dashboard.exports.archive.rasid_job',
+                $rows,$key,$chunk,'rasidJobsArchive/pdfs/'
+            );
         }
 
         $file = GeneratePdf::mergePdfFiles($names, 'rasidJobsArchive/pdfs/rasid_jobs.pdf');

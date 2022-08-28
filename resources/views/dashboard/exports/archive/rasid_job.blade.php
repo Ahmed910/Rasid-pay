@@ -17,7 +17,7 @@
     </tr>
   </thead>
   <tbody>
-    @foreach ($jobs_archive as $job_archive)
+    @foreach ($rows as $job_archive)
     <tr>
       <td>{{ $loop->iteration }}</td>
       <td>{{ $job_archive->name }}</td>

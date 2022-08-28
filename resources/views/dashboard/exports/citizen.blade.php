@@ -27,10 +27,10 @@
 
         @php
           $ban_status = match ($citizen?->user?->ban_status) {
-            'active' => trans('dashboard.citizen.active_cases.active'),
-            'permanent' => trans('dashboard.citizen.active_cases.permanent'),
-            'temporary' => trans('dashboard.citizen.active_cases.temporary'),
-            'exceeded_attempts' => trans('dashboard.citizen.active_cases.exceeded_attempts')
+            'active' => trans('dashboard.admin.active_cases.active'),
+            'permanent' => trans('dashboard.admin.active_cases.permanent'),
+            'temporary' => trans('dashboard.admin.active_cases.temporary'),
+            'exceeded_attempts' => trans('dashboard.admin.active_cases.exceeded_attempts')
             };
         @endphp
 

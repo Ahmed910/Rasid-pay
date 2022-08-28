@@ -165,11 +165,27 @@ class GroupController extends Controller
 
         $chunk = 200;
         $names = [];
+        if (!$groupsQuery->count()) {
+            $file = GeneratePdf::createNewFile(
+                trans('dashboard.group.all_groups'),
+                $createdFrom,'dashboard.exports.group',
+                $groupsQuery,0,$chunk,'groups/pdfs/'
+            );
+            $file =  url(str_replace(base_path('storage/app/public/'), 'storage/', $file));
+            return response()->json([
+                'data'   => [
+                    'file' => $file
+                ],
+                'status' => true,
+                'message' => ''
+            ]);
+        }
         foreach (($groupsQuery->chunk($chunk)) as $key => $rows) {
-            $names[] = base_path('storage/app/public/') . $generatePdf->newFile()
-                    ->setHeader(trans('dashboard.group.all_groups'), $createdFrom)
-                    ->view('dashboard.exports.bank', $rows, $key, $chunk)
-                    ->storeOnLocal('groups/pdfs/');
+            $names[] = GeneratePdf::createNewFile(
+                trans('dashboard.group.all_groups'),$createdFrom,
+                'dashboard.exports.group',
+                $rows,$key,$chunk,'groups/pdfs/'
+            );
         }
 
         $file = GeneratePdf::mergePdfFiles($names, 'groups/pdfs/groups.pdf');

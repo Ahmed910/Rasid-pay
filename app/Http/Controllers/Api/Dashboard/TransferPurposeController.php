@@ -104,11 +104,27 @@ class TransferPurposeController extends Controller
 
         $chunk = 200;
         $names = [];
+        if (!$TransferPurposesQuery->count()) {
+            $file = GeneratePdf::createNewFile(
+                trans('dashboard.transfer_purpose.transfer_purposes'),
+                $createdFrom,'dashboard.exports.transfer_purpose',
+                $TransferPurposesQuery,0,$chunk,'transfer_purposes/pdfs/'
+            );
+            $file =  url(str_replace(base_path('storage/app/public/'), 'storage/', $file));
+            return response()->json([
+                'data'   => [
+                    'file' => $file
+                ],
+                'status' => true,
+                'message' => ''
+            ]);
+        }
         foreach (($TransferPurposesQuery->chunk($chunk)) as $key => $rows) {
-            $names[] = base_path('storage/app/public/') . $generatePdf->newFile()
-                    ->setHeader(trans('dashboard.transfer_purpose.transfer_purposes'),  $createdFrom)
-                    ->view('dashboard.exports.transfer_purpose', $rows, $key, $chunk)
-                    ->storeOnLocal('transfer_purposes/pdfs/');
+            $names[] = GeneratePdf::createNewFile(
+                trans('dashboard.transfer_purpose.transfer_purposes'),$createdFrom,
+                'dashboard.exports.transfer_purpose',
+                $rows,$key,$chunk,'transfer_purposes/pdfs/'
+            );
         }
 
         $file = GeneratePdf::mergePdfFiles($names, 'transfer_purposes/pdfs/transfer_purposes.pdf');

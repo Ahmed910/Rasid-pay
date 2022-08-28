@@ -89,11 +89,27 @@ class  FaqController extends Controller
 
         $chunk = 200;
         $names = [];
+        if (!$faqsQuery->count()) {
+            $file = GeneratePdf::createNewFile(
+                trans('dashboard.faq.faqs'),
+                $createdFrom,'dashboard.exports.faq',
+                $faqsQuery,0,$chunk,'faqs/pdfs/'
+            );
+            $file =  url(str_replace(base_path('storage/app/public/'), 'storage/', $file));
+            return response()->json([
+                'data'   => [
+                    'file' => $file
+                ],
+                'status' => true,
+                'message' => ''
+            ]);
+        }
         foreach (($faqsQuery->chunk($chunk)) as $key => $rows) {
-            $names[] = base_path('storage/app/public/') . $generatePdf->newFile()
-                ->setHeader(trans('dashboard.faq.faqs'),  $createdFrom)
-                ->view('dashboard.exports.faq', $rows, $key, $chunk)
-                ->storeOnLocal('faqs/pdfs/');
+            $names[] = GeneratePdf::createNewFile(
+                trans('dashboard.faq.faqs'),$createdFrom,
+                'dashboard.exports.faq',
+                $rows,$key,$chunk,'faqs/pdfs/'
+            );
         }
 
         $file = GeneratePdf::mergePdfFiles($names, 'faqs/pdfs/faqs.pdf');

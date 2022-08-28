@@ -103,11 +103,27 @@ class VendorBranchController extends Controller
 
         $chunk = 200;
         $names = [];
+        if (!$VendorBranchesQuery->count()) {
+            $file = GeneratePdf::createNewFile(
+                trans('dashboard.vendor_branch.vendor_branches'),
+                $createdFrom,'dashboard.exports.vendor_branch',
+                $VendorBranchesQuery,0,$chunk,'vendor_branches/pdfs/'
+            );
+            $file =  url(str_replace(base_path('storage/app/public/'), 'storage/', $file));
+            return response()->json([
+                'data'   => [
+                    'file' => $file
+                ],
+                'status' => true,
+                'message' => ''
+            ]);
+        }
         foreach (($VendorBranchesQuery->chunk($chunk)) as $key => $rows) {
-            $names[] = base_path('storage/app/public/') . $generatePdf->newFile()
-                    ->setHeader(trans('dashboard.vendor_branch.vendors_branches'), $createdFrom)
-                    ->view('dashboard.exports.vendor_branch', $rows, $key, $chunk)
-                    ->storeOnLocal('vendor_branches/pdfs/');
+            $names[] = GeneratePdf::createNewFile(
+                trans('dashboard.vendor_branch.vendor_branches'),$createdFrom,
+                'dashboard.exports.vendor_branch',
+                $rows,$key,$chunk,'vendor_branches/pdfs/'
+            );
         }
 
         $file = GeneratePdf::mergePdfFiles($names, 'vendor_branches/pdfs/vendors_branches.pdf');
