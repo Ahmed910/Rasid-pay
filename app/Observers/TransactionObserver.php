@@ -80,7 +80,7 @@ class TransactionObserver
                     "mobile.transaction.transaction_notifications.promote_package_status",
                     [
                         'amount' => number_format($transaction->amount, 2, '.', ''),
-                        'package_name' => $transaction->fromUser->citizen->enabledPackage->package_type,
+                        'package_name' => trans('mobile.package_types.'.$transaction->fromUser->citizen->enabledPackage->package_type),
                         'expired_date' => $transaction->fromUser->citizen->enabledPackage->end_at
                     ]
                 ) : "",
