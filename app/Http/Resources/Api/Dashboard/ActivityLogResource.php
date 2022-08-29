@@ -42,7 +42,7 @@ class ActivityLogResource extends JsonResource
                 'type' => ($this->auditable) ? get_class($this->auditable) : null
             ] : null,
             'created_at' => $this->created_at_date_time,
-            'type' => strtolower($this->action_type),
+            'type' => (app()->getLocale() == 'ar') ? $this->action_type_ar : $this->action_type,
             'reason' => $this->reason ?? trans('dashboard.general.no_reasons'),
             "usertype" => $this->user_type,
             'url' => $this->url,
@@ -91,15 +91,14 @@ class ActivityLogResource extends JsonResource
             $name = $this->old_data['translations'][0]['question'] ?? $this->new_data['translations'][0]['question'] ?? '';
         } elseif ($model == class_basename(Currency::class)) {
             $name = $this->auditable?->countries?->name;
-        }elseif ($model == class_basename(Link::class)) {
-            $name =  trans('dashboard.links.'.$this->auditable?->key);
-        }
-        else {
+        } elseif ($model == class_basename(Link::class)) {
+            $name =  trans('dashboard.links.' . $this->auditable?->key);
+        } else {
             $name = $this->auditable?->fullname;
         }
         return $name;
     }
-    
+
     public function checkActionType($action_type, $name)
     {
         if ($action_type == ActivityLog::SEARCH) {

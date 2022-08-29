@@ -138,6 +138,12 @@ class ActivityLog extends Model
                     ->orderBy('department_translations.name')->latest('activity_logs.created_at');
             }
 
+            if ($request->sort['column'] == 'action_type') {
+                (app()->getLocale() == 'ar') ?
+                    $q->orderBy('action_type_ar', @$request->sort["dir"])->latest('activity_logs.created_at') :
+                    $q->orderBy('action_type', @$request->sort["dir"])->latest('activity_logs.created_at');
+            }
+
             $q->orderBy($request->sort["column"], @$request->sort["dir"])->latest('activity_logs.created_at');
         });
     }
