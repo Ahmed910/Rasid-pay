@@ -898,6 +898,12 @@ return [
         'sub_progs' => [
             'index' => 'سجل الأسئلة الشائعة',
             'create' => 'إضافة سؤال',
+        ],
+        'activity' => [
+            'create_new_faq' => 'تم إضافة غرض بمسمي (:model)',
+            'update_faq'     => 'تم تعديل الغرض من (:old) إلي (:new)',
+            'update_faq_join'     => ' و من (:old) إلي (:new)',
+            'update_faq_status' => ' تعديل حالته من (:old) إلي (:new)',
         ]
     ],
 

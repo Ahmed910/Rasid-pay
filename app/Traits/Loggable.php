@@ -109,6 +109,8 @@ trait Loggable
 
     /**
      * get new Data
+     *
+     * when Update Item should save this data as new data
      */
     private function newData($item)
     {
@@ -132,6 +134,8 @@ trait Loggable
 
     /**
      * get old Data
+     *
+     * When create new item should save this data
      */
     private function oldData($item)
     {
