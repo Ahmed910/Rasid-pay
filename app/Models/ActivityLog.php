@@ -61,6 +61,11 @@ class ActivityLog extends Model
     #endregion properties
 
     #region mutators
+    public function setActionTypeAttribute($value)
+    {
+        $this->attributes['action_type'] = $value;
+        $this->attributes['action_type_ar'] = trans('dashboard.activity_log.action_types.' . $model->action_type);
+    }
     #endregion mutators
 
     #region accessor
