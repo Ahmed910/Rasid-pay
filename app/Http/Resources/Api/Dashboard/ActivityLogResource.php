@@ -43,6 +43,7 @@ class ActivityLogResource extends JsonResource
             ] : null,
             'created_at' => $this->created_at_date_time,
             'type' => (app()->getLocale() == 'ar') ? $this->action_type_ar : $this->action_type,
+            'pure_type' =>  $this->action_type,
             'reason' => $this->reason ?? trans('dashboard.general.no_reasons'),
             "usertype" => $this->user_type,
             'url' => $this->url,
