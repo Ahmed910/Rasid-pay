@@ -55,7 +55,7 @@ class ActivityLogResource extends JsonResource
             'trans_sub_progrm' => trans("dashboard.sub_progs." . $this->sub_program),
             'show_route' => route('dashboard.activity_log.show', $this->id),
             'start_from' => $request->start,
-            "discription" => trans(
+            "discription" => ($this->auditable_type == class_basename(Faq::class)) ? $this->getFaqDescription($this, $name, $model) : trans(
                 'dashboard.activity_log.reason',
                 [
                     "model" => trans("dashboard.activity_log.models." . strtolower($this->user_type ? $this->user_type : $model)),
@@ -123,5 +123,53 @@ class ActivityLogResource extends JsonResource
             $newData[] = trans('validation.attributes.' . $key) . '=' . $value;
         }
         return (implode(',',  $newData));
+    }
+
+    public function getFaqDescription($model, $name, $modelName): string
+    {
+        $message = '';
+
+        if ($model->action_type == ActivityLog::CREATE) {
+            $message =  trans('dashboard.faq.activity.create_new_faq', ['model' => @$model->old_data['translations'][0]['question']]);
+        } elseif ($model->action_type == ActivityLog::UPDATE) {
+            if (isset($model->new_data['translations'][0]['answer'])) {
+                $message =  trans('dashboard.faq.activity.update_faq', [
+                    'old' => @$model->old_data['translations'][0]['answer'],
+                    'new' => @$model->new_data['translations'][0]['answer']
+                ]);
+            }
+
+            if (isset($model->new_data['translations'][0]['question'])) {
+                if ($message) {
+                    $message .=  trans('dashboard.faq.activity.update_faq_join', [
+                        'old' => @$model->old_data['translations'][0]['question'],
+                        'new' => @$model->new_data['translations'][0]['question']
+                    ]);
+                } else {
+                    $message .=  trans('dashboard.faq.activity.update_faq', [
+                        'old' => @$model->old_data['translations'][0]['question'],
+                        'new' => @$model->new_data['translations'][0]['question']
+                    ]);
+                }
+            }
+
+            if (isset($model->new_data['translations'][0]['is_active'])) {
+                $message .=  trans('dashboard.faq.activity.update_faq_status', [
+                    'old' => trans('dashboard.faq.active_cases.' . @$model->old_data['translations'][0]['is_active']),
+                    'new' => trans('dashboard.faq.active_cases.' . @$model->new_data['translations'][0]['is_active'])
+                ]);
+            }
+        } else {
+            $message = trans(
+                'dashboard.activity_log.reason',
+                [
+                    "model" => trans("dashboard.activity_log.models." . strtolower($model->user_type ? $model->user_type : $modelName)),
+                    'name' => $this->checkActionType($model->action_type, $name),
+                    "action" => trans("dashboard.activity_log.actions." . $model->action_type),
+                ],
+            );
+        }
+
+        return $message;
     }
 }
