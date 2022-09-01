@@ -15,6 +15,7 @@
     @foreach ($rows as $our_app)
     <tr>
       <td>{{ isset($key) ? $loop->iteration + ($key * $chunk) : $loop->iteration }}</td>
+      <td>{{ $our_app->name ?? '' }}</td>
       <td>{{ $our_app->created_at_date ?? '' }}</td>
       <td>
         @if($our_app->is_active)
