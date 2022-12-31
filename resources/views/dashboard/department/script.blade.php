@@ -211,7 +211,7 @@
           }
           table.column('').order('asc' ).search('').draw();
       });
-    
+
 
       table.on('draw', function () {
         var tooltipTriggerList = [].slice.call(
